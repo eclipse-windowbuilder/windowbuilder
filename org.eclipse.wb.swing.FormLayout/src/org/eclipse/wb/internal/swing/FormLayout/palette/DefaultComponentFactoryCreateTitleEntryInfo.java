@@ -65,6 +65,7 @@ public final class DefaultComponentFactoryCreateTitleEntryInfo
     ICreationFactory factory = new ICreationFactory() {
       private JavaInfo m_javaInfo;
 
+      @Override
       public void activate() throws Exception {
         String source = "createTitle(\"New JGoodies title\")";
         m_javaInfo =
@@ -75,6 +76,7 @@ public final class DefaultComponentFactoryCreateTitleEntryInfo
         m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
       }
 
+      @Override
       public Object getNewObject() {
         return m_javaInfo;
       }

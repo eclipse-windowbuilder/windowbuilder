@@ -132,6 +132,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
     }
     // events
     addBroadcastListener(new ObjectInfoTreeComplete() {
+      @Override
       public void invoke() throws Exception {
         FormLayout layout = (FormLayout) getObject();
         fillDimensionGroups(layout.getColumnGroups(), m_columns, m_columnGroups);
@@ -147,6 +148,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       }
     });
     addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
         if (isManagedObject(javaInfo)) {
           ComponentInfo component = (ComponentInfo) javaInfo;
@@ -309,8 +311,10 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
   public Dimension getMinimumSize() {
     final Dimension size = new Dimension(0, 0);
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         visitComponents(new FormComponentVisitor() {
+          @Override
           public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
             size.width = Math.max(size.width, cell.x + cell.width - 1);
             size.height = Math.max(size.height, cell.y + cell.height - 1);
@@ -327,8 +331,10 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
   public int[] getColumnComponentsCounts() throws Exception {
     final int[] counts = new int[m_columns.size()];
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         visitComponents(new FormComponentVisitor() {
+          @Override
           public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
             counts[cell.x - 1]++;
           }
@@ -344,8 +350,10 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
   public int[] getRowComponentsCounts() throws Exception {
     final int[] counts = new int[m_rows.size()];
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         visitComponents(new FormComponentVisitor() {
+          @Override
           public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
             counts[cell.y - 1]++;
           }
@@ -367,6 +375,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       final boolean[] filledColumns = new boolean[m_columns.size()];
       final boolean[] filledRows = new boolean[m_rows.size()];
       visitComponents(new FormComponentVisitor() {
+        @Override
         public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
           filledColumns[constraints.x - 1] = true;
           filledRows[constraints.y - 1] = true;
@@ -717,6 +726,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
    */
   private void deleteSingleColumn(final int index) throws Exception {
     visitComponents(new FormComponentVisitor() {
+      @Override
       public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
         if (cell.x == 1 + index) {
           component.delete();
@@ -736,6 +746,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
    */
   public void deleteColumnContents(final int index) throws Exception {
     visitComponents(new FormComponentVisitor() {
+      @Override
       public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
         if (cell.x == 1 + index) {
           component.delete();
@@ -755,6 +766,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
     writeDimensions();
     // update constraints
     visitComponents(new FormComponentVisitor() {
+      @Override
       public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
         if (cell.x > 1 + index) {
           cell.x += 2;
@@ -828,6 +840,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       m_columns.add(targetIndex - 1, column);
       // change constraints
       visitComponents(new FormComponentVisitor() {
+        @Override
         public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
           int x = constraints.x;
           int w = constraints.width;
@@ -855,6 +868,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       m_columns.add(targetIndex, column);
       // change constraints
       visitComponents(new FormComponentVisitor() {
+        @Override
         public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
           int x = constraints.x;
           int w = constraints.width;
@@ -938,6 +952,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
    */
   private void deleteSingleRow(final int index) throws Exception {
     visitComponents(new FormComponentVisitor() {
+      @Override
       public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
         if (cell.y == 1 + index) {
           component.delete();
@@ -957,6 +972,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
    */
   public void deleteRowContents(final int index) throws Exception {
     visitComponents(new FormComponentVisitor() {
+      @Override
       public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
         if (cell.y == 1 + index) {
           component.delete();
@@ -976,6 +992,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
     writeDimensions();
     // update constraints
     visitComponents(new FormComponentVisitor() {
+      @Override
       public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
         if (cell.y > 1 + index) {
           cell.y += 2;
@@ -1049,6 +1066,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       m_rows.add(targetIndex - 1, row);
       // change constraints
       visitComponents(new FormComponentVisitor() {
+        @Override
         public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
           int y = constraints.y;
           int h = constraints.height;
@@ -1076,6 +1094,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       m_rows.add(targetIndex, row);
       // change constraints
       visitComponents(new FormComponentVisitor() {
+        @Override
         public void visit(ComponentInfo bean, CellConstraintsSupport constraints) throws Exception {
           int y = constraints.y;
           int h = constraints.height;
@@ -1271,6 +1290,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       final int row,
       final boolean insertRow) throws Exception {
     visitComponents(new FormComponentVisitor() {
+      @Override
       public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
         if (insertColumn) {
           if (cell.x >= column) {
@@ -1325,14 +1345,17 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
   private void doAutomaticAlignment(ComponentInfo component) throws Exception {
     final IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
     GridAlignmentHelper.doAutomaticAlignment(component, new IAlignmentProcessor<ComponentInfo>() {
+      @Override
       public boolean grabEnabled() {
         return preferences.getBoolean(P_ENABLE_GRAB);
       }
 
+      @Override
       public boolean rightEnabled() {
         return preferences.getBoolean(P_ENABLE_RIGHT_ALIGNMENT);
       }
 
+      @Override
       public ComponentInfo getComponentAtLeft(ComponentInfo component) {
         CellConstraintsSupport constraints = getConstraints(component);
         int x = constraints.x - 1;
@@ -1342,6 +1365,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
         return getComponentAt(x, constraints.y);
       }
 
+      @Override
       public ComponentInfo getComponentAtRight(ComponentInfo component) {
         CellConstraintsSupport constraints = getConstraints(component);
         int x = constraints.x + 1;
@@ -1351,6 +1375,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
         return getComponentAt(x, constraints.y);
       }
 
+      @Override
       public void setGrabFill(ComponentInfo component, boolean horizontal) throws Exception {
         boolean canChangeDimensions = canChangeDimensions();
         CellConstraintsSupport constraints = getConstraints(component);
@@ -1371,6 +1396,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
         constraints.write();
       }
 
+      @Override
       public void setRightAlignment(ComponentInfo component) throws Exception {
         CellConstraintsSupport constraints = getConstraints(component);
         constraints.setAlignH(CellConstraints.RIGHT);
@@ -1472,6 +1498,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
   public IGridInfo getGridInfo() {
     if (m_gridInfo == null) {
       ExecutionUtils.runRethrow(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           createGridInfo();
         }
@@ -1508,6 +1535,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
     final Map<ComponentInfo, Rectangle> componentToCells = Maps.newHashMap();
     final Map<Point, ComponentInfo> occupiedCells = Maps.newHashMap();
     visitComponents(new FormComponentVisitor() {
+      @Override
       public void visit(ComponentInfo component, CellConstraintsSupport support) throws Exception {
         Rectangle cells =
             new Rectangle(support.x - 1, support.y - 1, support.width, support.height);
@@ -1528,10 +1556,12 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       // Dimensions
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public int getColumnCount() {
         return columnIntervals.length;
       }
 
+      @Override
       public int getRowCount() {
         return rowIntervals.length;
       }
@@ -1541,10 +1571,12 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       // Intervals
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public Interval[] getColumnIntervals() {
         return columnIntervals;
       }
 
+      @Override
       public Interval[] getRowIntervals() {
         return rowIntervals;
       }
@@ -1554,11 +1586,13 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       // Cells
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public Rectangle getComponentCells(IAbstractComponentInfo component) {
         Assert.instanceOf(ComponentInfo.class, component);
         return componentToCells.get(component);
       }
 
+      @Override
       public Rectangle getCellsRectangle(Rectangle cells) {
         int x = columnIntervals[cells.x].begin;
         int y = rowIntervals[cells.y].begin;
@@ -1572,10 +1606,12 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       // Feedback
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public boolean isRTL() {
         return false;
       }
 
+      @Override
       public Insets getInsets() {
         return getContainer().getInsets();
       }
@@ -1585,14 +1621,17 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       // Virtual columns
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public boolean hasVirtualColumns() {
         return true;
       }
 
+      @Override
       public int getVirtualColumnSize() {
         return m_defaultColumnSize;
       }
 
+      @Override
       public int getVirtualColumnGap() {
         return m_gapColumnSize;
       }
@@ -1602,14 +1641,17 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       // Virtual rows
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public boolean hasVirtualRows() {
         return true;
       }
 
+      @Override
       public int getVirtualRowSize() {
         return m_defaultRowSize;
       }
 
+      @Override
       public int getVirtualRowGap() {
         return m_gapRowSize;
       }
@@ -1619,6 +1661,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       // Checks
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public ComponentInfo getOccupied(int column, int row) {
         return occupiedCells.get(new Point(column, row));
       }

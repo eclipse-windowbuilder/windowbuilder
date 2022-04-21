@@ -161,6 +161,7 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
           request,
           ComponentInfo.class,
           new IPasteProcessor<ComponentInfo>() {
+            @Override
             public void process(ComponentInfo component) throws Exception {
               m_layout.command_CREATE(
                   component,
@@ -382,6 +383,7 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
   // IHeadersProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public LayoutEditPolicy getContainerLayoutPolicy(boolean horizontal) {
     if (horizontal) {
       return new ColumnsLayoutEditPolicy(this, m_layout);
@@ -390,10 +392,12 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
     }
   }
 
+  @Override
   public List<?> getHeaders(boolean horizontal) {
     return horizontal ? m_layout.getColumns() : m_layout.getRows();
   }
 
+  @Override
   public EditPart createHeaderEditPart(boolean horizontal, Object model) {
     if (horizontal) {
       return new ColumnHeaderEditPart(m_layout, (FormColumnInfo) model, getHostFigure());
@@ -402,6 +406,7 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
     }
   }
 
+  @Override
   public void buildContextMenu(IMenuManager manager, boolean horizontal) {
     if (horizontal) {
       manager.add(new ObjectInfoAction(m_layout,
@@ -421,6 +426,7 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
     }
   }
 
+  @Override
   public void handleDoubleClick(boolean horizontal) {
     if (horizontal) {
       new ColumnsDialog(DesignerPlugin.getShell(), m_layout).open();

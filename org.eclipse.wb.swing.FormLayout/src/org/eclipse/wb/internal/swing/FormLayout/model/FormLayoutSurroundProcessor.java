@@ -48,6 +48,7 @@ public final class FormLayoutSurroundProcessor
   // ISurroundProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean filter(ContainerInfo sourceContainer, ContainerInfo targetContainer)
       throws Exception {
     String targetClassName = targetContainer.getDescription().getComponentClass().getName();
@@ -57,6 +58,7 @@ public final class FormLayoutSurroundProcessor
         && isJPanel;
   }
 
+  @Override
   public void move(ContainerInfo sourceContainer,
       ContainerInfo targetContainer,
       List<ComponentInfo> components) throws Exception {

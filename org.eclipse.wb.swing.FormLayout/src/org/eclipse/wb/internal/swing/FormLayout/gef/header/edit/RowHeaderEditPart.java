@@ -152,6 +152,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<FormRowInfo> {
   // IHeaderMenuProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void buildContextMenu(IMenuManager manager) {
     if (!m_layout.canChangeDimensions()) {
       return;
