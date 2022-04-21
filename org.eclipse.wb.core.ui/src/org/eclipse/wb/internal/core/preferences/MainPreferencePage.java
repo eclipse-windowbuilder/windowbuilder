@@ -158,6 +158,7 @@ public final class MainPreferencePage extends FieldEditorPreferencePage
   // PreferencePage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbench workbench) {
   }
 

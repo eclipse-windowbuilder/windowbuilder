@@ -43,6 +43,7 @@ public final class PreferencePageFactory
   // IExecutableExtension
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setInitializationData(IConfigurationElement config, String propertyName, Object data)
       throws CoreException {
     try {
@@ -59,6 +60,7 @@ public final class PreferencePageFactory
   // IExecutableExtensionFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object create() throws CoreException {
     try {
       Class<?> pageClass = Class.forName(m_pageClassName);

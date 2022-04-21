@@ -82,6 +82,7 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
         // prepare layouts
         final List<LayoutDescription> layouts = LayoutDescriptionHelper.get(m_toolkit);
         Collections.sort(layouts, new Comparator<LayoutDescription>() {
+          @Override
           public int compare(LayoutDescription layout_1, LayoutDescription layout_2) {
             return layout_1.getName().compareTo(layout_2.getName());
           }
@@ -95,6 +96,7 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
         }
         // bind
         m_bindManager.bind(new IDataEditor() {
+          @Override
           public void setValue(Object value) {
             String id = (String) value;
             // implicit layout
@@ -111,6 +113,7 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
             }
           }
 
+          @Override
           public Object getValue() {
             int index = layoutCombo.getSelectionIndex();
             if (index <= 0) {

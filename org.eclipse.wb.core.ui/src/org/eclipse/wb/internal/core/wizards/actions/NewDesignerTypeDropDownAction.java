@@ -64,6 +64,7 @@ public class NewDesignerTypeDropDownAction extends Action
   // IMenuCreator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
     if (m_menu != null) {
       m_menu.dispose();
@@ -71,6 +72,7 @@ public class NewDesignerTypeDropDownAction extends Action
     }
   }
 
+  @Override
   public Menu getMenu(Control parent) {
     m_menu = null;
     if (m_menu == null) {
@@ -197,6 +199,7 @@ public class NewDesignerTypeDropDownAction extends Action
     List<IConfigurationElement> allCategories =
         ExternalFactoriesHelper.getElements("org.eclipse.ui.newWizards", elementName);
     return Iterables.filter(allCategories, new Predicate<IConfigurationElement>() {
+      @Override
       public boolean apply(IConfigurationElement t) {
         return parentCategoryId.equals(t.getAttribute(attributeName));
       }
@@ -208,9 +211,11 @@ public class NewDesignerTypeDropDownAction extends Action
   // IActionDelegate2
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IAction action) {
   }
 
+  @Override
   public void runWithEvent(IAction action, Event event) {
     // this action is represented as ToolItem
     Widget widget = event.widget;
@@ -237,13 +242,16 @@ public class NewDesignerTypeDropDownAction extends Action
   // IWorkbenchWindowActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbenchWindow window) {
   }
 
+  @Override
   public void run(IAction action) {
     run();
   }
 
+  @Override
   public void selectionChanged(IAction action, ISelection selection) {
   }
 }

@@ -125,6 +125,7 @@ public final class NewProjectPalettePage extends WizardPage {
   private ComboDialogField m_toolkitField;
   private final List<ToolkitDescription> m_toolkits = Lists.newArrayList();
 
+  @Override
   public void createControl(Composite parent) {
     Composite container = new Composite(parent, SWT.NONE);
     setControl(container);
@@ -141,10 +142,12 @@ public final class NewProjectPalettePage extends WizardPage {
       m_toolkitField = new ComboDialogField(SWT.READ_ONLY);
       m_toolkitField.setVisibleItemCount(10);
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           Collections.addAll(m_toolkits, DescriptionHelper.getToolkits());
           // sort by name
           Collections.sort(m_toolkits, new Comparator<ToolkitDescription>() {
+            @Override
             public int compare(ToolkitDescription o1, ToolkitDescription o2) {
               return o1.getName().compareTo(o2.getName());
             }
@@ -174,6 +177,7 @@ public final class NewProjectPalettePage extends WizardPage {
    * Implementation of {@link IDialogFieldListener} for {@link DialogField}'s validation.
    */
   protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
+    @Override
     public void dialogFieldChanged(DialogField field) {
       validateAll();
     }
