@@ -204,6 +204,7 @@ public abstract class AbstractOpenWizardAction extends Action
   /*
    * @see IActionDelegate#run(IAction)
    */
+  @Override
   public void run(IAction action) {
     run();
   }
@@ -211,18 +212,21 @@ public abstract class AbstractOpenWizardAction extends Action
   /*
    * @see IWorkbenchWindowActionDelegate#dispose()
    */
+  @Override
   public void dispose() {
   }
 
   /*
    * @see IWorkbenchWindowActionDelegate#init(IWorkbenchWindow)
    */
+  @Override
   public void init(IWorkbenchWindow window) {
   }
 
   /*
    * @see IActionDelegate#selectionChanged(IAction, ISelection)
    */
+  @Override
   public void selectionChanged(IAction action, ISelection selection) {
     // selection taken from selectionprovider
   }

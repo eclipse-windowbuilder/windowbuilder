@@ -88,6 +88,7 @@ public final class ParsingPreferencePage extends FieldEditorPreferencePage
   // PreferencePage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbench workbench) {
   }
 }

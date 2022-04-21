@@ -108,6 +108,7 @@ public final class NewProjectPaletteWizard extends Wizard implements INewWizard 
   // IWorkbenchWizard
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbench workbench, IStructuredSelection selection) {
     m_selection = selection;
   }
