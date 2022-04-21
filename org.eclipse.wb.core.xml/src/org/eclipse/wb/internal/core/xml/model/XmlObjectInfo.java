@@ -169,6 +169,7 @@ public class XmlObjectInfo extends ObjectInfo implements HasSourcePosition {
   // HasSourcePosition
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getSourcePosition() {
     return getCreationSupport().getElement().getOffset();
   }
@@ -429,6 +430,7 @@ public class XmlObjectInfo extends ObjectInfo implements HasSourcePosition {
     final ObjectInfo parent = getParent();
     ObjectInfo hierarchyObject = parent != null ? parent : this;
     ExecutionUtils.run(hierarchyObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         putArbitraryValue(FLAG_DELETING, Boolean.TRUE);
         try {

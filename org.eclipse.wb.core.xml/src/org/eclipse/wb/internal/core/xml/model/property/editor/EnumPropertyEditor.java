@@ -123,6 +123,7 @@ public final class EnumPropertyEditor extends AbstractComboPropertyEditor
   // IExpressionPropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getValueExpression(GenericProperty property, Object value) throws Exception {
     if (value instanceof Enum<?>) {
       Enum<?> element = (Enum<?>) value;
@@ -137,6 +138,7 @@ public final class EnumPropertyEditor extends AbstractComboPropertyEditor
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     Object value = property.getValue();
     return getValueExpression(property, value);

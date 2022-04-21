@@ -179,6 +179,7 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
   // IDesignCompositeProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public DesignComposite getDesignComposite() {
     return m_designPage.getDesignComposite();
   }
@@ -258,18 +259,22 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
   private Composite m_splitSourceContainer;
   private SashForm m_splitSashForm;
   private final IRefreshStrategy m_splitRefreshStrategy = new IRefreshStrategy() {
+    @Override
     public boolean shouldImmediately() {
       return false;
     }
 
+    @Override
     public boolean shouldWithDelay() {
       return getPreferenceDelay() > 0;
     }
 
+    @Override
     public boolean shouldOnSave() {
       return getPreferenceDelay() <= 0;
     }
 
+    @Override
     public int getDelay() {
       int delay = getPreferenceDelay();
       return Math.max(delay, 250);
@@ -389,6 +394,7 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
   private void trackSourceActivation() {
     final Display display = Display.getDefault();
     display.addFilter(SWT.MouseDown, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         // editor was disposed
         if (m_sourcePage == null) {
@@ -482,6 +488,7 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
    */
   private void createPageXml() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_xmlEditor = createEditorXml();
         int pageIndex = addPage(m_xmlEditor, getEditorInput());
@@ -572,10 +579,12 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
   private void trackDirty() {
     rememberSourceContent();
     getDocument().addDocumentListener(new IDocumentListener() {
+      @Override
       public void documentChanged(DocumentEvent event) {
         firePropertyChange(PROP_DIRTY);
       }
 
+      @Override
       public void documentAboutToBeChanged(DocumentEvent event) {
       }
     });
@@ -698,6 +707,7 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
    */
   public void showSourcePosition(final int position) {
     ExecutionUtils.runLogLater(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_xmlEditor.selectAndReveal(position, 0);
       }

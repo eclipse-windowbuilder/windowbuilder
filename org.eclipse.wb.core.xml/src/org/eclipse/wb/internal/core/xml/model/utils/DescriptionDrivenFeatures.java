@@ -29,6 +29,7 @@ public final class DescriptionDrivenFeatures implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(XmlObjectInfo object) throws Exception {
     new CopyPropertyTopSupport(object);
     //CopyPropertyTop_ChildSupport.install(javaInfo);

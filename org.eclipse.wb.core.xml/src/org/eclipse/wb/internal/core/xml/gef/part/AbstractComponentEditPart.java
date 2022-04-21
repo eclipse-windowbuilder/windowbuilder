@@ -139,6 +139,7 @@ public class AbstractComponentEditPart extends GraphicalEditPart {
 
   private boolean shouldDrawDotsBorder() {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         return m_component.shouldDrawDotsBorder();
       }
@@ -223,6 +224,7 @@ public class AbstractComponentEditPart extends GraphicalEditPart {
   @Override
   protected List<?> getModelChildren() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
+      @Override
       public List<?> runObject() throws Exception {
         return m_component.getPresentation().getChildrenGraphical();
       }

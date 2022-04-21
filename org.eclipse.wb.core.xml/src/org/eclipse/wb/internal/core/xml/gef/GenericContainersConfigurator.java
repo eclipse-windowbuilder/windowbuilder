@@ -35,6 +35,7 @@ public final class GenericContainersConfigurator implements IEditPartConfigurato
   // IEditPartConfigurator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditPart context, EditPart editPart) {
     if (editPart.getModel() instanceof XmlObjectInfo) {
       XmlObjectInfo component = (XmlObjectInfo) editPart.getModel();

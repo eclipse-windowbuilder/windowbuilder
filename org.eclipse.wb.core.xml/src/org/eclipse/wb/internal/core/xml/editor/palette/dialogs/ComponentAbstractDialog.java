@@ -86,6 +86,7 @@ public abstract class ComponentAbstractDialog extends AbstractPaletteElementDial
     // class
     {
       m_classField = new StringButtonDialogField(new IStringButtonAdapter() {
+        @Override
         public void changeControlPressed(DialogField field) {
           try {
             String componentClassName =

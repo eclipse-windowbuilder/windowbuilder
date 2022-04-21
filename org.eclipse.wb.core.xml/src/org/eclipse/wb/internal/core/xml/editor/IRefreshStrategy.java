@@ -40,18 +40,22 @@ public interface IRefreshStrategy {
   int getDelay();
 
   IRefreshStrategy IMMEDIATELY = new IRefreshStrategy() {
+    @Override
     public boolean shouldImmediately() {
       return true;
     }
 
+    @Override
     public boolean shouldWithDelay() {
       return false;
     }
 
+    @Override
     public boolean shouldOnSave() {
       return false;
     }
 
+    @Override
     public int getDelay() {
       return 0;
     }

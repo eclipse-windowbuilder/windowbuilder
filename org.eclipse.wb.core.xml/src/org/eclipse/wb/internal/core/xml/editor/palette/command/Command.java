@@ -55,6 +55,7 @@ public abstract class Command {
     m_stringBuffer.append("\t<");
     // use ID as tag
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         String id = (String) Command.this.getClass().getField("ID").get(null);
         m_stringBuffer.append(id);

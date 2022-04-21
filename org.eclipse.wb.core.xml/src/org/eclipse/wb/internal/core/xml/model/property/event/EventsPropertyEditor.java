@@ -42,6 +42,7 @@ final class EventsPropertyEditor extends AbstractComplexEventPropertyEditor {
   // IComplexPropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public AbstractListenerProperty[] getProperties(Property property) throws Exception {
     EventsProperty eventsProperty = (EventsProperty) property;
     XmlObjectInfo javaInfo = eventsProperty.getObject();

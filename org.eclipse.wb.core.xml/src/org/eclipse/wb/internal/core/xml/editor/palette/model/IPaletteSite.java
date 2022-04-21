@@ -77,16 +77,20 @@ public interface IPaletteSite {
   //
   ////////////////////////////////////////////////////////////////////////////
   public static class Empty implements IPaletteSite {
+    @Override
     public void addCommand(Command command) {
     }
 
+    @Override
     public void editPalette() {
     }
 
+    @Override
     public PaletteInfo getPalette() {
       return null;
     }
 
+    @Override
     public Shell getShell() {
       return null;
     }

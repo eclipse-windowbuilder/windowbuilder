@@ -112,8 +112,10 @@ public final class UndoManager {
       m_objectPathHelper = new ObjectPathHelper(m_componentsProvider);
       // listen for tree expansion state
       m_componentsTree.setExpandListener(new Runnable() {
+        @Override
         public void run() {
           Display.getCurrent().asyncExec(new Runnable() {
+            @Override
             public void run() {
               rememberState();
             }
@@ -131,18 +133,21 @@ public final class UndoManager {
   private int m_bufferChangeCount = 0;
   private IRefreshStrategy m_refreshStrategy = IRefreshStrategy.IMMEDIATELY;
   private final IDocumentListener m_documentListener = new IDocumentListener() {
+    @Override
     public void documentChanged(DocumentEvent event) {
       if (event.getText() != null || event.getLength() != 0) {
         scheduleRefresh_onBufferChange();
       }
     }
 
+    @Override
     public void documentAboutToBeChanged(DocumentEvent event) {
     }
 
     private void scheduleRefresh_onBufferChange() {
       final int bufferChangeCount = ++m_bufferChangeCount;
       Runnable runnable = new Runnable() {
+        @Override
         public void run() {
           if (bufferChangeCount == m_bufferChangeCount) {
             refreshDesignerEditor();
@@ -185,10 +190,12 @@ public final class UndoManager {
    * Remove IDocument listeners during commit.
    */
   private final EditorContextCommitListener m_commitListener = new EditorContextCommitListener() {
+    @Override
     public void aboutToCommit() {
       removeDocumentListener();
     }
 
+    @Override
     public void doneCommit() {
       addDocumentListener();
     }
@@ -216,6 +223,7 @@ public final class UndoManager {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final ISelectionChangedListener m_selectionListener = new ISelectionChangedListener() {
+    @Override
     public void selectionChanged(SelectionChangedEvent event) {
       rememberState();
     }

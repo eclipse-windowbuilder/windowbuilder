@@ -44,6 +44,7 @@ public final class XmlObjectRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(final XmlObjectInfo root) throws Exception {
     root.addBroadcastListener(new ObjectEventListener() {
       @Override
@@ -53,6 +54,7 @@ public final class XmlObjectRootProcessor implements IRootProcessor {
     });
     // visibility in tree/GEF
     root.addBroadcastListener(new ObjectInfoChildTree() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (object instanceof XmlObjectInfo) {
           XmlObjectInfo xObject = (XmlObjectInfo) object;
@@ -69,6 +71,7 @@ public final class XmlObjectRootProcessor implements IRootProcessor {
       }
     });
     root.addBroadcastListener(new ObjectInfoChildGraphical() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (object instanceof XmlObjectInfo) {
           XmlObjectInfo xObject = (XmlObjectInfo) object;
@@ -87,6 +90,7 @@ public final class XmlObjectRootProcessor implements IRootProcessor {
     });
     // text decoration
     root.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
+      @Override
       public void invoke(ObjectInfo object, String[] text) throws Exception {
         if (object instanceof XmlObjectInfo) {
           XmlObjectInfo xObject = (XmlObjectInfo) object;

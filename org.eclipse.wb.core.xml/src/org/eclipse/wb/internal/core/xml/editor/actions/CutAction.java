@@ -43,6 +43,7 @@ public class CutAction extends Action {
   public CutAction(IEditPartViewer viewer) {
     m_viewer = viewer;
     m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
       }
@@ -61,6 +62,7 @@ public class CutAction extends Action {
   @Override
   public void run() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // copy
         {

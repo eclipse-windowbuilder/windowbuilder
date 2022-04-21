@@ -43,6 +43,7 @@ public class XmlObjectPresentation extends DefaultObjectPresentation {
     return m_object.getDescription().getIcon();
   }
 
+  @Override
   public String getText() throws Exception {
     return m_object.getCreationSupport().getTitle();
   }

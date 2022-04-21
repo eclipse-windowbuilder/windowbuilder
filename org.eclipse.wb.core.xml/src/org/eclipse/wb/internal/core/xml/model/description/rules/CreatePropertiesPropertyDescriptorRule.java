@@ -95,6 +95,7 @@ public final class CreatePropertiesPropertyDescriptorRule extends Rule {
       final Class<?> declaringClass = setMethod.getDeclaringClass();
       final Class<?> actualClass = componentDescription.getComponentClass();
       return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Class<?>>() {
+        @Override
         public Class<?> runObject() throws Exception {
           String typeName =
               GenericsUtils.getTypeName(GenericTypeResolver.superClass(

@@ -75,6 +75,7 @@ public final class GenericPropertyImpl extends GenericProperty {
     return m_description;
   }
 
+  @Override
   public Class<?> getType() {
     return m_description.getType();
   }

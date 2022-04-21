@@ -131,6 +131,7 @@ public final class GlobalStateXml {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final IParametersProvider m_parametersProvider = new IParametersProvider() {
+    @Override
     public Map<String, String> getParameters(Object object) {
       if (object instanceof XmlObjectInfo) {
         return XmlObjectUtils.getParameters((XmlObjectInfo) object);
@@ -141,6 +142,7 @@ public final class GlobalStateXml {
       return ImmutableMap.of();
     }
 
+    @Override
     public String getParameter(Object object, String name) {
       if (object instanceof XmlObjectInfo) {
         return XmlObjectUtils.getParameter((XmlObjectInfo) object, name);
@@ -151,6 +153,7 @@ public final class GlobalStateXml {
       return null;
     }
 
+    @Override
     public boolean hasTrueParameter(Object object, String name) {
       if (object instanceof XmlObjectInfo) {
         return XmlObjectUtils.hasTrueParameter((XmlObjectInfo) object, name);
@@ -159,10 +162,12 @@ public final class GlobalStateXml {
     }
   };
   private static final IDescriptionHelper m_descriptionHelper = new IDescriptionHelper() {
+    @Override
     public PropertyEditor getEditorForType(Class<?> type) throws Exception {
       return DescriptionPropertiesHelper.getEditorForType(type);
     }
 
+    @Override
     public IComponentDescription getDescription(Object object) {
       if (object instanceof XmlObjectInfo) {
         return ((XmlObjectInfo) object).getDescription();
@@ -172,10 +177,12 @@ public final class GlobalStateXml {
   };
   private static final ILayoutRequestValidatorHelper m_validatorHelper =
       new ILayoutRequestValidatorHelper() {
+        @Override
         public boolean isComponent(Object object) {
           return object instanceof XmlObjectInfo;
         }
 
+        @Override
         public IComponentDescription getPasteComponentDescription(Object _memento) throws Exception {
           XmlObjectMemento memento = (XmlObjectMemento) _memento;
           XmlObjectInfo activeObject = (XmlObjectInfo) GlobalState.getActiveObject();
@@ -184,16 +191,19 @@ public final class GlobalStateXml {
               memento.getComponentClassName());
         }
 
+        @Override
         public Object getPasteComponent(Object _memento) throws Exception {
           XmlObjectMemento memento = (XmlObjectMemento) _memento;
           XmlObjectInfo activeObject = (XmlObjectInfo) GlobalState.getActiveObject();
           return memento.create(activeObject);
         }
 
+        @Override
         public boolean canUseParentForChild(Object parent, Object child) throws Exception {
           return true;
         }
 
+        @Override
         public boolean canReference(Object object) {
           if (object instanceof XmlObjectInfo) {
             XmlObjectInfo xmlObject = (XmlObjectInfo) object;
@@ -202,16 +212,19 @@ public final class GlobalStateXml {
           return false;
         }
 
+        @Override
         public boolean canReorder(ObjectInfo component) {
           return true;
         }
 
+        @Override
         public boolean canReparent(ObjectInfo component) {
           return true;
         }
       };
   private static final IPasteRequestProcessor m_pasteRequestProcessor =
       new IPasteRequestProcessor() {
+        @Override
         public Command getPasteCommand(PasteRequest request,
             final IPasteComponentProcessor componentProcessor) {
           final List<IObjectInfo> components = getPastingComponents(request);
@@ -231,12 +244,14 @@ public final class GlobalStateXml {
           };
         }
 
+        @Override
         public List<IObjectInfo> getPastingComponents(PasteRequest request) {
           @SuppressWarnings("unchecked")
           final List<XmlObjectMemento> mementos = (List<XmlObjectMemento>) request.getMemento();
           final List<IObjectInfo> components = Lists.newArrayList();
           // prepare models
           ExecutionUtils.runLog(new RunnableEx() {
+            @Override
             public void run() throws Exception {
               XmlObjectInfo hierarchyModel = (XmlObjectInfo) GlobalState.getActiveObject();
               for (XmlObjectMemento memento : mementos) {
@@ -251,6 +266,7 @@ public final class GlobalStateXml {
         }
       };
   private static final IOrderProcessor m_orderProcessor = new IOrderProcessor() {
+    @Override
     public void move(Object _component, Object _nextComponent) throws Exception {
       XmlObjectInfo component = (XmlObjectInfo) _component;
       XmlObjectInfo nextComponent = (XmlObjectInfo) _nextComponent;
@@ -259,11 +275,13 @@ public final class GlobalStateXml {
     }
   };
   private static final IOtherHelper m_otherHelper = new IOtherHelper() {
+    @Override
     public IJavaProject getJavaProject() {
       XmlObjectInfo object = (XmlObjectInfo) GlobalState.getActiveObject();
       return object.getContext().getJavaProject();
     }
 
+    @Override
     public Object getObject(ObjectInfo model) {
       if (model instanceof XmlObjectInfo) {
         return ((XmlObjectInfo) model).getObject();
@@ -271,10 +289,12 @@ public final class GlobalStateXml {
       return null;
     }
 
+    @Override
     public List<EditorWarning> getWarnings() {
       return getContext().getWarnings();
     }
 
+    @Override
     public void addWarning(EditorWarning warning) {
       getContext().addWarning(warning);
     }

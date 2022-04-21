@@ -41,6 +41,7 @@ public class SwitchPairEditorAction extends Action implements IEditorActionDeleg
   // IEditorActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final void setActiveEditor(IAction action, IEditorPart editor) {
     m_editor = editor;
     m_pairFile = null;
@@ -80,9 +81,11 @@ public class SwitchPairEditorAction extends Action implements IEditorActionDeleg
   // IActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void selectionChanged(IAction action, ISelection selection) {
   }
 
+  @Override
   public void run(IAction action) {
     run();
   }
@@ -90,6 +93,7 @@ public class SwitchPairEditorAction extends Action implements IEditorActionDeleg
   @Override
   public void run() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         preparePairFile();
         if (m_pairFile != null) {

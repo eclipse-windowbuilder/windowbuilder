@@ -65,6 +65,7 @@ public class XmlDesignComposite extends DesignComposite {
     m_viewer.setContextMenu(new DesignContextMenuProvider(m_viewer, m_pageActions));
     // install dispose listener
     addDisposeListener(new DisposeListener() {
+      @Override
       public void widgetDisposed(DisposeEvent e) {
         m_pageActions.dispose();
       }

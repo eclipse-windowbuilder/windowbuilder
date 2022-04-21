@@ -25,13 +25,16 @@ public abstract class XmlEditorPage implements IXmlEditorPage {
   // Life cycle
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void initialize(AbstractXmlEditor editor) {
     m_editor = editor;
   }
 
+  @Override
   public void dispose() {
   }
 
+  @Override
   public void setActive(boolean active) {
     m_active = active;
   }
@@ -43,10 +46,12 @@ public abstract class XmlEditorPage implements IXmlEditorPage {
   ////////////////////////////////////////////////////////////////////////////
   private int m_pageIndex;
 
+  @Override
   public int getPageIndex() {
     return m_pageIndex;
   }
 
+  @Override
   public void setPageIndex(int index) {
     m_pageIndex = index;
   }
