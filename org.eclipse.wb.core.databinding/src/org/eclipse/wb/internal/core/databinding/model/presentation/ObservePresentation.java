@@ -32,6 +32,7 @@ public abstract class ObservePresentation
   // IObservePresentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final Image getImage() throws Exception {
     return m_decorateImage == null ? getInternalImage() : m_decorateImage;
   }
@@ -46,6 +47,7 @@ public abstract class ObservePresentation
   // IObservePresentationDecorator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final void setBindingDecorator(int corner) throws Exception {
     if (corner != 0) {
       Image image = getInternalImage();

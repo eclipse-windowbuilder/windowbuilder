@@ -79,10 +79,12 @@ public final class BindingContentProvider implements IUiContentProvider {
   // Complete
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCompleteListener(ICompleteListener listener) {
     m_listener = listener;
   }
 
+  @Override
   public String getErrorMessage() {
     return m_errorMessage;
   }
@@ -92,10 +94,12 @@ public final class BindingContentProvider implements IUiContentProvider {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getNumberOfControls() {
     return 1;
   }
 
+  @Override
   public void createContent(final Composite parent, int columns) {
     // expand composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
@@ -103,6 +107,7 @@ public final class BindingContentProvider implements IUiContentProvider {
     m_expandableComposite.setExpanded(true);
     GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
     m_expandableComposite.addExpansionListener(new IExpansionListener() {
+      @Override
       public void expansionStateChanging(ExpansionEvent e) {
         if (m_expandableComposite.isExpanded()) {
           m_expandableComposite.setText(Messages.BindingContentProvider_bindingDots);
@@ -111,6 +116,7 @@ public final class BindingContentProvider implements IUiContentProvider {
         }
       }
 
+      @Override
       public void expansionStateChanged(ExpansionEvent e) {
         parent.layout();
       }
@@ -128,6 +134,7 @@ public final class BindingContentProvider implements IUiContentProvider {
     m_fieldNameText.setEnabled(false);
     //
     m_fieldNameText.addModifyListener(new ModifyListener() {
+      @Override
       public void modifyText(ModifyEvent e) {
         calculateAssignComplete();
       }
@@ -177,6 +184,7 @@ public final class BindingContentProvider implements IUiContentProvider {
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     m_fieldName = m_binding.getVariableIdentifier();
     if (m_binding.isField()) {
@@ -189,6 +197,7 @@ public final class BindingContentProvider implements IUiContentProvider {
     calculateAssignComplete();
   }
 
+  @Override
   public void saveToObject() throws Exception {
     boolean field = m_assignButton.getSelection();
     m_binding.setVariableIdentifier(m_javaInfoRoot, field ? m_fieldNameText.getText() : null, field);

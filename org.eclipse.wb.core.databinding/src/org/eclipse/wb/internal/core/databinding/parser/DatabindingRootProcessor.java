@@ -41,6 +41,7 @@ public class DatabindingRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
     if (EditorState.get(root.getEditor()).isLiveComponent()) {
       return;

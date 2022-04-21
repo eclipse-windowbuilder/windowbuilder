@@ -29,8 +29,10 @@ public final class ObserveComparator implements Comparator<IObserveInfo> {
   // Comparator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int compare(final IObserveInfo observe1, final IObserveInfo observe2) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Integer>() {
+      @Override
       public Integer runObject() throws Exception {
         String text1 = observe1.getPresentation().getText();
         String text2 = observe2.getPresentation().getText();

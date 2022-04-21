@@ -34,6 +34,7 @@ public final class StringReferenceProvider implements IReferenceProvider {
   // IReferenceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getReference() throws Exception {
     return m_reference;
   }

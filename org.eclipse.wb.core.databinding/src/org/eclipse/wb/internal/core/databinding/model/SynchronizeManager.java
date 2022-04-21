@@ -80,6 +80,7 @@ public final class SynchronizeManager {
       private void handleCreate(final JavaInfo javaInfo) {
         // all JavaInfo children (include exposed) done after sets Object to JavaInfo
         javaInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+          @Override
           public void invoke(JavaInfo target, Object o) throws Exception {
             if (javaInfo == target) {
               target.removeBroadcastListener(this);
@@ -90,6 +91,7 @@ public final class SynchronizeManager {
       }
     });
     javaInfoRoot.addBroadcastListener(new JavaInfoSetVariable() {
+      @Override
       public void invoke(JavaInfo javaInfo, VariableSupport oldVariable, VariableSupport newVariable)
           throws Exception {
         if (oldVariable != null) {

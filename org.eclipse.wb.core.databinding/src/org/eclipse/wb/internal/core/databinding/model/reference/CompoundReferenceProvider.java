@@ -36,6 +36,7 @@ public final class CompoundReferenceProvider implements IReferenceProvider {
   // IReferenceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getReference() throws Exception {
     return m_leftReferenceProvider.getReference() + m_rightReference;
   }

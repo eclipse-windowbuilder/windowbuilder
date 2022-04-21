@@ -37,22 +37,27 @@ public final class CheckboxTableViewerWrapper implements ICheckboxViewerWrapper 
   // ICheckboxViewerWrapper
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public StructuredViewer getViewer() {
     return m_viewer;
   }
 
+  @Override
   public ICheckable getCheckable() {
     return m_viewer;
   }
 
+  @Override
   public Object[] getCheckedElements() {
     return m_viewer.getCheckedElements();
   }
 
+  @Override
   public void setCheckedElements(Object[] elements) {
     m_viewer.setCheckedElements(elements);
   }
 
+  @Override
   public void setAllChecked(boolean state) {
     m_viewer.setAllChecked(state);
   }

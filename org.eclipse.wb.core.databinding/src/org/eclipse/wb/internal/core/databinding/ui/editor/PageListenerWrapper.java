@@ -39,22 +39,27 @@ public final class PageListenerWrapper implements IPageListener {
   // IPageListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setTitle(String title) {
     m_pageListener.setTitle(title);
   }
 
+  @Override
   public void setTitleImage(Image image) {
     m_pageListener.setTitleImage(image);
   }
 
+  @Override
   public void setMessage(String newMessage) {
     m_message = newMessage;
   }
 
+  @Override
   public void setErrorMessage(String newMessage) {
     m_errorMessage = newMessage;
   }
 
+  @Override
   public void setPageComplete(boolean complete) {
     m_completeListener.calculateFinish();
   }

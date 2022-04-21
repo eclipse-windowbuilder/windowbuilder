@@ -58,12 +58,14 @@ public abstract class UIContentContainer<T> implements IUiContentProvider {
   // Complete
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCompleteListener(ICompleteListener listener) {
     for (IUiContentProvider provider : m_providers) {
       provider.setCompleteListener(listener);
     }
   }
 
+  @Override
   public String getErrorMessage() {
     for (IUiContentProvider provider : m_providers) {
       String errorMessage = provider.getErrorMessage();
@@ -79,6 +81,7 @@ public abstract class UIContentContainer<T> implements IUiContentProvider {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getNumberOfControls() {
     int columns = 0;
     for (IUiContentProvider provider : m_providers) {
@@ -87,6 +90,7 @@ public abstract class UIContentContainer<T> implements IUiContentProvider {
     return columns;
   }
 
+  @Override
   public void createContent(Composite parent, int columns) {
     for (IUiContentProvider provider : m_providers) {
       provider.createContent(parent, columns);
@@ -98,12 +102,14 @@ public abstract class UIContentContainer<T> implements IUiContentProvider {
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     for (IUiContentProvider provider : m_providers) {
       provider.updateFromObject();
     }
   }
 
+  @Override
   public void saveToObject() throws Exception {
     for (IUiContentProvider provider : m_providers) {
       provider.saveToObject();

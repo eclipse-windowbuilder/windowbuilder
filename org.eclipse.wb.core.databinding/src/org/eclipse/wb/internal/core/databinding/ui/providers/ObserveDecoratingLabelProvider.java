@@ -71,10 +71,12 @@ public final class ObserveDecoratingLabelProvider extends ObserveLabelProvider
   // IColorDecorator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Color getBackground(Object element) {
     return getDecorator(element).getBackground();
   }
 
+  @Override
   public Color getForeground(Object element) {
     return getDecorator(element).getForeground();
   }
@@ -84,6 +86,7 @@ public final class ObserveDecoratingLabelProvider extends ObserveLabelProvider
   // IFontDecorator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Font getFont(Object element) {
     return getDecorator(element).getFont(m_italicFont, m_boldFont, m_boldItalicFont);
   }

@@ -127,6 +127,7 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
    * Change selection item on combo.
    */
   private final IDialogFieldListener m_fieldChangeListener = new IDialogFieldListener() {
+    @Override
     public void dialogFieldChanged(DialogField field) {
       calculateFinish();
     }
@@ -135,6 +136,7 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
    * Press "browse" button.
    */
   private final IStringButtonAdapter m_browseAdapter = new IStringButtonAdapter() {
+    @Override
     public void changeControlPressed(DialogField field) {
       handleChooseBrowse();
     }
@@ -143,6 +145,7 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
    * Press "clear" button.
    */
   private final IStringButtonAdapter m_clearAdapter = new IStringButtonAdapter() {
+    @Override
     public void changeControlPressed(DialogField field) {
       m_dialogField.selectItem(m_configuration.getClearValue());
     }

@@ -86,6 +86,7 @@ public final class SimpleBindDialog extends ResizableTitleAreaDialog implements 
     super.createButtonsForButtonBar(parent);
     // initial state
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_providerComposite.performInitialize();
       }
@@ -103,6 +104,7 @@ public final class SimpleBindDialog extends ResizableTitleAreaDialog implements 
   protected void okPressed() {
     // handle finish
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_providerComposite.performFinish();
       }
@@ -115,6 +117,7 @@ public final class SimpleBindDialog extends ResizableTitleAreaDialog implements 
   // IPageListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setPageComplete(boolean complete) {
     getButton(IDialogConstants.OK_ID).setEnabled(complete);
   }

@@ -160,15 +160,18 @@ public abstract class AbstractParser implements IModelResolver {
   // IModelResolver
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void addModel(AstObjectInfo model, Expression creation) throws Exception {
     addModelSupport(new AstModelSupport(model, creation));
   }
 
+  @Override
   public AstObjectInfo getModel(Expression expression) throws Exception {
     IModelSupport modelSupport = getModelSupport(expression);
     return modelSupport == null ? null : modelSupport.getModel();
   }
 
+  @Override
   public AstObjectInfo getModel(Expression expression, IModelResolverFilter filter)
       throws Exception {
     for (IModelSupport modelSupport : m_modelSupports) {
@@ -179,10 +182,12 @@ public abstract class AbstractParser implements IModelResolver {
     return null;
   }
 
+  @Override
   public void addModelSupport(IModelSupport modelSupport) {
     m_modelSupports.add(modelSupport);
   }
 
+  @Override
   public IModelSupport getModelSupport(Expression expression) throws Exception {
     Expression actualExpression = AstNodeUtils.getActualVariableExpression(expression);
     IModelSupport modelSupport = getModelSupport0(actualExpression);

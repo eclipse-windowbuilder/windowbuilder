@@ -76,6 +76,7 @@ public final class Activator extends AbstractUIPlugin {
    */
   public static InputStream getFile(final String path) {
     return ExecutionUtils.runObject(new RunnableObjectEx<InputStream>() {
+      @Override
       public InputStream runObject() throws Exception {
         return m_plugin.getBundle().getEntry(path).openStream();
       }

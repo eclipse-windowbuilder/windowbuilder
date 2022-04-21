@@ -128,6 +128,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
     // create properties viewer
     Control viewers = createViewers(parent);
     m_propertiesViewer.getCheckable().addCheckStateListener(new ICheckStateListener() {
+      @Override
       public void checkStateChanged(CheckStateChangedEvent event) {
         if (!m_configuration.isPropertiesMultiChecked() && event.getChecked()) {
           m_propertiesViewer.setCheckedElements(new Object[]{event.getElement()});
@@ -142,6 +143,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
       configureDND();
       m_propertiesViewer.getViewer().addPostSelectionChangedListener(
           new ISelectionChangedListener() {
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
               calculateUpDowButtons();
             }
@@ -234,14 +236,17 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
     Transfer[] transfers = new Transfer[]{TreeTransfer.INSTANCE};
     // prepare drag
     viewer.addDragSupport(DND.DROP_MOVE, transfers, new DragSourceListener() {
+      @Override
       public void dragStart(DragSourceEvent event) {
         event.doit = properties.size() > 1;
         m_dragObject = (PropertyAdapter) UiUtils.getSelection(viewer).getFirstElement();
       }
 
+      @Override
       public void dragSetData(DragSourceEvent event) {
       }
 
+      @Override
       public void dragFinished(DragSourceEvent event) {
       }
     });
@@ -472,6 +477,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final void saveToObject() throws Exception {
     saveToObject(m_choosenClass, getChoosenProperties());
   }

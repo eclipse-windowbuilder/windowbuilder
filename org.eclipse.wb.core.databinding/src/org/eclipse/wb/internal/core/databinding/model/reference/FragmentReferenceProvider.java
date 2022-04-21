@@ -58,6 +58,7 @@ public final class FragmentReferenceProvider implements IReferenceProvider {
   // IReferenceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getReference() throws Exception {
     return m_provider == null ? m_fragment.getName().getIdentifier() : m_provider.getReference();
   }

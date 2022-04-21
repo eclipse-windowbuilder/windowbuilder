@@ -25,14 +25,17 @@ public class ObserveDecorator implements IObserveDecorator {
   // IObserveDecorator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Color getForeground() {
     return null;
   }
 
+  @Override
   public Color getBackground() {
     return null;
   }
 
+  @Override
   public Font getFont(Font baseItalicFont, Font baseBoldFont, Font baseBoldItalicFont) {
     return null;
   }

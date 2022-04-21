@@ -244,6 +244,7 @@ public final class CoreUtils {
     }
     // sort fragments by position
     Collections.sort(fragments, new Comparator<VariableDeclarationFragment>() {
+      @Override
       public int compare(VariableDeclarationFragment fragment1,
           VariableDeclarationFragment fragment2) {
         return fragment1.getStartPosition() - fragment2.getStartPosition();

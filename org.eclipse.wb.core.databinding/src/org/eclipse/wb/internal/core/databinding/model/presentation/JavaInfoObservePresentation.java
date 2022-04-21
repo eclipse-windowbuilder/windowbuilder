@@ -49,14 +49,17 @@ public class JavaInfoObservePresentation implements IObservePresentation {
   // IObservePresentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getText() throws Exception {
     return ObjectsLabelProvider.INSTANCE.getText(m_javaInfo);
   }
 
+  @Override
   public String getTextForBinding() throws Exception {
     return m_javaInfo.getPresentation().getText();
   }
 
+  @Override
   public Image getImage() throws Exception {
     return ObjectsLabelProvider.INSTANCE.getImage(m_javaInfo);
   }

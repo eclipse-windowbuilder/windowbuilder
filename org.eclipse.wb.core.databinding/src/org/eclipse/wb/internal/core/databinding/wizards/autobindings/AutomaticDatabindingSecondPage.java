@@ -70,6 +70,7 @@ public final class AutomaticDatabindingSecondPage extends WizardPage implements 
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void createControl(Composite parent) {
     // prepare page
     int columns = 4;
@@ -103,6 +104,7 @@ public final class AutomaticDatabindingSecondPage extends WizardPage implements 
             return m_databindingProvider.getProperties(choosenClass);
           }
 
+          @Override
           public void updateFromObject() throws Exception {
             // handle initial wizard selection
             if (m_initialBeanClassName != null && m_firstPage.getJavaProject() != null) {
@@ -131,6 +133,7 @@ public final class AutomaticDatabindingSecondPage extends WizardPage implements 
     m_chooseClassAndPropertiesProvider.createContent(pageComposite, columns);
     m_chooseClassAndPropertiesProvider.setCompleteListener(this);
     getPropertiesViewer().getCheckable().addCheckStateListener(new ICheckStateListener() {
+      @Override
       public void checkStateChanged(CheckStateChangedEvent event) {
         m_databindingProvider.handlePropertyChecked(
             (PropertyAdapter) event.getElement(),
@@ -139,6 +142,7 @@ public final class AutomaticDatabindingSecondPage extends WizardPage implements 
       }
     });
     m_chooseClassAndPropertiesProvider.setSupportListener(new ChooseClassAndPropertiesSupportListener() {
+      @Override
       public void loadProperties(boolean successful) {
         m_propertiesFilterButton.setEnabled(successful);
         if (successful) {
@@ -155,6 +159,7 @@ public final class AutomaticDatabindingSecondPage extends WizardPage implements 
     m_databindingProvider.fillWidgetComposite(widgetComposite);
     // sets initial values
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_chooseClassAndPropertiesProvider.updateFromObject();
       }
@@ -213,6 +218,7 @@ public final class AutomaticDatabindingSecondPage extends WizardPage implements 
   // ICompleteListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void calculateFinish() {
     // calculate state
     String errorMessage = m_chooseClassAndPropertiesProvider.getErrorMessage();

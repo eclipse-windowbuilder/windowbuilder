@@ -52,10 +52,12 @@ public class SimpleObservePresentation extends ObservePresentation {
   // IObservePresentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getText() throws Exception {
     return m_text;
   }
 
+  @Override
   public String getTextForBinding() throws Exception {
     return m_textForBinding;
   }

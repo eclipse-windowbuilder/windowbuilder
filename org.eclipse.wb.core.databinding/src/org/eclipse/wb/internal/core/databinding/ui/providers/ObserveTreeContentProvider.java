@@ -43,6 +43,7 @@ public class ObserveTreeContentProvider implements ITreeContentProvider {
   // Input
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object[] getElements(Object input) {
     // case array
     if (input instanceof Object[]) {
@@ -66,16 +67,19 @@ public class ObserveTreeContentProvider implements ITreeContentProvider {
   // Parent/Children
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean hasChildren(Object element) {
     IObserveInfo observe = (IObserveInfo) element;
     return !observe.getChildren(m_context).isEmpty();
   }
 
+  @Override
   public Object[] getChildren(Object element) {
     IObserveInfo observe = (IObserveInfo) element;
     return observe.getChildren(m_context).toArray();
   }
 
+  @Override
   public Object getParent(Object element) {
     IObserveInfo observe = (IObserveInfo) element;
     return observe.getParent();
@@ -86,9 +90,11 @@ public class ObserveTreeContentProvider implements ITreeContentProvider {
   // ITreeContentProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
   }
 
+  @Override
   public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
   }
 }

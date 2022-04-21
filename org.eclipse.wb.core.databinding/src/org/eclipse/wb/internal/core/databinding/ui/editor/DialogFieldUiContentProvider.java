@@ -37,10 +37,12 @@ public abstract class DialogFieldUiContentProvider implements IUiContentProvider
   // Complete
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final void setCompleteListener(ICompleteListener listener) {
     m_listener = listener;
   }
 
+  @Override
   public final String getErrorMessage() {
     return m_errorMessage;
   }
@@ -64,10 +66,12 @@ public abstract class DialogFieldUiContentProvider implements IUiContentProvider
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final int getNumberOfControls() {
     return getDialogField().getNumberOfControls();
   }
 
+  @Override
   public void createContent(Composite parent, int columns) {
     getDialogField().doFillIntoGrid(parent, columns);
     m_shell = parent.getShell();

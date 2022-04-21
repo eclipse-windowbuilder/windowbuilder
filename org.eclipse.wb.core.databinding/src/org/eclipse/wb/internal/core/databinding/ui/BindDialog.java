@@ -83,6 +83,7 @@ public final class BindDialog extends ResizableTitleAreaDialog implements IPageL
     //
     List<IUiContentProvider> providers =
         ExecutionUtils.runObjectLog(new RunnableObjectEx<List<IUiContentProvider>>() {
+          @Override
           public List<IUiContentProvider> runObject() throws Exception {
             return m_databindingsProvider.getContentProviders(m_binding, BindDialog.this);
           }
@@ -107,6 +108,7 @@ public final class BindDialog extends ResizableTitleAreaDialog implements IPageL
     super.createButtonsForButtonBar(parent);
     // initial state
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_providerComposite.performInitialize();
       }
@@ -128,6 +130,7 @@ public final class BindDialog extends ResizableTitleAreaDialog implements IPageL
   protected void okPressed() {
     // handle finish
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_providerComposite.performFinish();
       }
@@ -171,6 +174,7 @@ public final class BindDialog extends ResizableTitleAreaDialog implements IPageL
   // IPageListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setPageComplete(boolean complete) {
     getButton(IDialogConstants.OK_ID).setEnabled(complete);
   }

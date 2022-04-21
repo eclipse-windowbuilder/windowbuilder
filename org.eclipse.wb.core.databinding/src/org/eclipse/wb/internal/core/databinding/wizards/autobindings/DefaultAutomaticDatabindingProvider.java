@@ -79,6 +79,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
   // WizardPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCurrentWizardData(AutomaticDatabindingFirstPage firstPage,
       ICompleteListener pageListener) {
     m_javaProject = firstPage.getJavaProject();
@@ -96,6 +97,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     }
   }
 
+  @Override
   public Class<?> loadClass(String className) throws ClassNotFoundException {
     return CoreUtils.load(m_classLoader, className);
   }
@@ -105,6 +107,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
   // Properties
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception {
     m_beanClass = choosenClass;
     m_propertyToEditor.clear();
@@ -127,23 +130,28 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
   protected CheckboxTableViewer m_editorsViewer;
   protected CheckboxTableViewer m_strategiesViewer;
 
+  @Override
   public void configurePropertiesViewer(CheckboxTableViewer viewer) {
     m_propertiesViewer = viewer;
     m_propertiesViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         handlePropertySelection();
       }
     });
   }
 
+  @Override
   public ViewerFilter getPropertiesViewerFilter() {
     return m_propertiesFilter;
   }
 
+  @Override
   public boolean getPropertiesViewerFilterInitState() {
     return true;
   }
 
+  @Override
   public void fillWidgetComposite(Composite widgetComposite) {
     // configure widget composite
     m_widgetComposite = widgetComposite;
@@ -208,6 +216,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     m_widgetComposite.setEnabled(enabled);
   }
 
+  @Override
   public void handlePropertyChecked(PropertyAdapter property, boolean checked) {
     if (checked) {
       AbstractDescriptor[] editorData = m_propertyToEditor.get(property);
@@ -250,6 +259,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     m_pageListener.calculateFinish();
   }
 
+  @Override
   public String calculateFinish() {
     Object[] elements = m_propertiesViewer.getCheckedElements();
     //
@@ -296,6 +306,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     // ICheckStateListener
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void checkStateChanged(CheckStateChangedEvent event) {
       if (event.getChecked()) {
         Object selection = event.getElement();
@@ -334,11 +345,13 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
   private static class DescriptorTableLabelProvider extends LabelProvider
       implements
         ITableLabelProvider {
+    @Override
     public String getColumnText(Object element, int columnIndex) {
       AbstractDescriptor descriptor = (AbstractDescriptor) element;
       return descriptor.getName(columnIndex);
     }
 
+    @Override
     public Image getColumnImage(Object element, int columnIndex) {
       AbstractDescriptor descriptor = (AbstractDescriptor) element;
       return descriptor.getImage(columnIndex);

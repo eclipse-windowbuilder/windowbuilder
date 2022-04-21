@@ -123,11 +123,13 @@ final class ObserveElementsComposite extends SashForm {
     GridDataFactory.create(m_filterText).fillH().grabH();
     m_filterText.setText(Messages.ObserveElementsComposite_filterText);
     m_filterText.addListener(SWT.FocusIn, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         m_filterText.selectAll();
       }
     });
     m_filterText.addModifyListener(new ModifyListener() {
+      @Override
       public void modifyText(ModifyEvent e) {
         String filterText = m_filterText.getText();
         if (m_enabledFilter) {
@@ -180,6 +182,7 @@ final class ObserveElementsComposite extends SashForm {
     m_masterViewer.setContentProvider(new ObserveTreeContentProvider(IObserveInfo.ChildrenContext.ChildrenForMasterTable));
     m_masterViewer.setLabelProvider(new ObserveLabelProvider());
     m_masterViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         updatePageTitle();
         IStructuredSelection selection = (IStructuredSelection) event.getSelection();
@@ -243,6 +246,7 @@ final class ObserveElementsComposite extends SashForm {
         : propertiesLabelProvider);
     //
     m_propertiesViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         updatePageTitle();
       }
@@ -328,6 +332,7 @@ final class ObserveElementsComposite extends SashForm {
       final IObserveInfo[] observe = {(IObserveInfo) selection.getFirstElement()};
       while (true) {
         buffer.insert(0, ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+          @Override
           public String runObject() throws Exception {
             return observe[0].getPresentation().getTextForBinding();
           }
@@ -485,6 +490,7 @@ final class ObserveElementsComposite extends SashForm {
         }
       }
       return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+        @Override
         public Boolean runObject() throws Exception {
           return m_matcher.matches(observe.getPresentation().getText());
         }

@@ -23,9 +23,11 @@ public abstract class UiContentProviderAdapter implements IUiContentProvider {
   // Complete
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCompleteListener(ICompleteListener listener) {
   }
 
+  @Override
   public String getErrorMessage() {
     return null;
   }
@@ -35,9 +37,11 @@ public abstract class UiContentProviderAdapter implements IUiContentProvider {
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
   }
 
+  @Override
   public void saveToObject() throws Exception {
   }
 }

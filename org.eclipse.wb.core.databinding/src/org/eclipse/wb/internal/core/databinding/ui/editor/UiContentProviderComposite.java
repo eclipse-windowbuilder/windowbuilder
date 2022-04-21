@@ -56,6 +56,7 @@ public class UiContentProviderComposite extends Composite implements ICompleteLi
   // ICompleteListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void calculateFinish() {
     for (IUiContentProvider provider : m_providers) {
       String errorMessage = provider.getErrorMessage();

@@ -60,6 +60,7 @@ public class BindWizard extends Wizard {
   @Override
   public boolean performFinish() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         m_context.provider.addBinding(m_secondPage.performFinish());
         return true;
