@@ -44,6 +44,7 @@ public final class SynchronizeManager {
       @Override
       public void after(ObjectInfo parent, final XmlObjectInfo child) throws Exception {
         child.addBroadcastListener(new XmlObjectSetObjectAfter() {
+          @Override
           public void invoke(XmlObjectInfo target, Object o) throws Exception {
             if (child == target) {
               target.removeBroadcastListener(this);

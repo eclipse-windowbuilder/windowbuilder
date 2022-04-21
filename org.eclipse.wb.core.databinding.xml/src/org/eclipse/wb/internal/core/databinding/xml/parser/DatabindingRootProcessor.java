@@ -41,6 +41,7 @@ public final class DatabindingRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(final XmlObjectInfo root) throws Exception {
     // prepare factories
     if (m_factories == null) {
