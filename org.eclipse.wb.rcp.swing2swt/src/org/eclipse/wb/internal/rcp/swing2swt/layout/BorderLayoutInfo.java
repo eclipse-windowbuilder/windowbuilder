@@ -180,6 +180,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
     @Override
     public void setValue(final Object value) throws Exception {
       ExecutionUtils.run(m_control, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           for (int i = 0; i < REGION_TITLES.length; i++) {
             String title = REGION_TITLES[i];
@@ -194,6 +195,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
 
   private void contributeProperty() {
     addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
         if (javaInfo instanceof ControlInfo && isActiveOnComposite(javaInfo.getParent())) {
           ControlInfo control = (ControlInfo) javaInfo;
