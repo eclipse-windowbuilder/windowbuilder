@@ -289,6 +289,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
     }
     // sort row by X
     Collections.sort(rowChildren, new Comparator<EditPart>() {
+      @Override
       public int compare(EditPart part_1, EditPart part_2) {
         int x1 = getAbsoluteBounds(horizontal, part_1).x;
         int x2 = getAbsoluteBounds(horizontal, part_2).x;

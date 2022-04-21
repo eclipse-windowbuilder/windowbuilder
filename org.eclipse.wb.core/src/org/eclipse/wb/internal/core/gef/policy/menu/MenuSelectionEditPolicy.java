@@ -56,6 +56,7 @@ public final class MenuSelectionEditPolicy extends SelectionEditPolicy {
     m_selectionFigure.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected));
     updateFeedbackBounds();
     m_ancestorListener = new IAncestorListener() {
+      @Override
       public void ancestorMoved(Figure ancestor) {
         updateFeedbackBounds();
       }

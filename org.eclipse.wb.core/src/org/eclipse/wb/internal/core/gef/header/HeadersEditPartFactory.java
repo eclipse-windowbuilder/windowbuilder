@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
  * @coverage core.gef.header
  */
 public final class HeadersEditPartFactory implements IEditPartFactory {
+  @Override
   public EditPart createEditPart(EditPart context, Object model) {
     return (EditPart) model;
   }

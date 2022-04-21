@@ -64,6 +64,7 @@ public class DesignToolbarHelper {
   public DesignToolbarHelper(ToolBar toolBar) {
     m_toolBarManager = new ToolBarManager(toolBar);
     toolBar.addDisposeListener(new DisposeListener() {
+      @Override
       public void widgetDisposed(DisposeEvent e) {
         m_toolBarManager.dispose();
       }
@@ -107,6 +108,7 @@ public class DesignToolbarHelper {
     createSelectionGroups();
     // track dynamic actions
     m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         refreshDynamicActions(false, true);
       }
@@ -140,6 +142,7 @@ public class DesignToolbarHelper {
     public void refreshed() throws Exception {
       // execute in async to let GEF refresh to update selection
       DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
+        @Override
         public void run() {
           refreshDynamicActions(true, true);
         }
@@ -197,6 +200,7 @@ public class DesignToolbarHelper {
     final List<IContributionItem> toRemove = Lists.newArrayList(m_hierarchyItems);
     // add items for hierarchy
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // prepare items
         List<Object> items;
@@ -265,6 +269,7 @@ public class DesignToolbarHelper {
     }
     // add items for selected objects
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // prepare items
         List<Object> items;

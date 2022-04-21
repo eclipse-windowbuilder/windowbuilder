@@ -59,6 +59,7 @@ public final class CFlatButton extends Canvas {
   public CFlatButton(Composite parent, int style) {
     super(parent, style);
     addPaintListener(new PaintListener() {
+      @Override
       public void paintControl(PaintEvent e) {
         boolean isSelected = m_down | m_selected;
         Color faceColor = isSelected ? COLOR_FACE_SELECTED : COLOR_FACE;
@@ -105,12 +106,14 @@ public final class CFlatButton extends Canvas {
       }
     });
     addListener(SWT.MouseDown, new Listener() {
+      @Override
       public void handleEvent(Event e) {
         m_down = true;
         redraw();
       }
     });
     addListener(SWT.MouseUp, new Listener() {
+      @Override
       public void handleEvent(Event e) {
         m_down = false;
         redraw();

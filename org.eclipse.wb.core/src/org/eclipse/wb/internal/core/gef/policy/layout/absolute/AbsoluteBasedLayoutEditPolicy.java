@@ -149,6 +149,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return a X grid step value for this layout.
    */
+  @Override
   public int getGridStepX() {
     return getPreferenceStore().getInt(P_GRID_STEP_X);
   }
@@ -156,6 +157,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return a Y grid step value for this layout.
    */
+  @Override
   public int getGridStepY() {
     return getPreferenceStore().getInt(P_GRID_STEP_Y);
   }
@@ -163,6 +165,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return <code>true</code> if "free mode" snapping enabled for the layout.
    */
+  @Override
   public boolean useFreeSnapping() {
     return getPreferenceStore().getBoolean(P_USE_FREE_MODE);
   }
@@ -170,6 +173,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return <code>true</code> if grid snapping enabled for the layout.
    */
+  @Override
   public boolean useGridSnapping() {
     return getPreferenceStore().getBoolean(P_USE_GRID);
   }
@@ -191,6 +195,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return <code>true</code> when snapping should be disabled.
    */
+  @Override
   public boolean isSuppressingSnapping() {
     return DesignerPlugin.isShiftPressed();
   }
@@ -797,6 +802,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
         GlobalState.getPasteRequestProcessor().getPasteCommand(
             request,
             new IPasteComponentProcessor() {
+              @Override
               public void process(Object component) throws Exception {
                 doPasteComponent(m_pasteLocation, m_pastedComponents.get(component));
               }
@@ -885,6 +891,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   // IVisualDataProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getComponentGapValue(IAbstractComponentInfo component1,
       IAbstractComponentInfo component2,
       int direction) {
@@ -901,6 +908,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     return 6;
   }
 
+  @Override
   public int getContainerGapValue(IAbstractComponentInfo component, int direction) {
     switch (direction) {
       case IPositionConstants.LEFT :
@@ -915,6 +923,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     return 10;
   }
 
+  @Override
   public Point getClientAreaOffset() {
     return new Point();
   }
@@ -924,12 +933,14 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   // IFeedbackProxy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Figure addHorizontalFeedbackLine(int y, int x, int width) {
     Polyline line = createLineFeedback(x, y, x + width, y);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
     return line;
   }
 
+  @Override
   public Figure addHorizontalMiddleLineFeedback(int y, int x, int width) {
     Polyline line = createLineFeedback(x, y, x + width, y);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
@@ -937,6 +948,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     return line;
   }
 
+  @Override
   public Figure addOutlineFeedback(Rectangle bounds) {
     // prepare bounds
     Rectangle feedbackBounds = bounds.getCopy();
@@ -949,12 +961,14 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     return outline;
   }
 
+  @Override
   public Figure addVerticalFeedbackLine(int x, int y, int height) {
     Polyline line = createLineFeedback(x, y, x, y + height);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
     return line;
   }
 
+  @Override
   public Figure addVerticalMiddleLineFeedback(int x, int y, int height) {
     Polyline line = createLineFeedback(x, y, x, y + height);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);

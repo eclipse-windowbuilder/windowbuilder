@@ -56,6 +56,7 @@ public class GridConvertionHelper {
   private static List<ComponentGroup> buildGroups(List<ComponentInGroup> components) {
     // sort by begins
     Collections.sort(components, new Comparator<ComponentInGroup>() {
+      @Override
       public int compare(ComponentInGroup o1, ComponentInGroup o2) {
         return o1.getMin() - o2.getMin();
       }
@@ -104,6 +105,7 @@ public class GridConvertionHelper {
    */
   public static void sortGroups(final List<ComponentGroup> groups) {
     Collections.sort(groups, new Comparator<ComponentGroup>() {
+      @Override
       public int compare(ComponentGroup group_1, ComponentGroup group_2) {
         int value_1 = group_1.getMinOfBegins(groups);
         int value_2 = group_2.getMinOfBegins(groups);
@@ -128,6 +130,7 @@ public class GridConvertionHelper {
   private static void sortGroupByTranspose(final ComponentGroup group,
       final List<ComponentGroup> t_groups) {
     Collections.sort(group.getComponents(), new Comparator<ComponentInGroup>() {
+      @Override
       public int compare(ComponentInGroup component_1, ComponentInGroup component_2) {
         return findTComponent(component_1).getMin() - findTComponent(component_2).getMin();
       }

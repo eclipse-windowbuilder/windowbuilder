@@ -52,6 +52,7 @@ public abstract class TreeEditPart extends EditPart {
     } else {
       m_widget.setData(this);
       m_widget.addDisposeListener(new DisposeListener() {
+        @Override
         public void widgetDisposed(DisposeEvent e) {
           m_expandedShouldRestore = true;
           m_expanded = m_widget.getExpanded();

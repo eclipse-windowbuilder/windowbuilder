@@ -52,6 +52,7 @@ public final class BorderTransparentLayoutRequestValidator implements ILayoutReq
   // ILayoutRequestValidator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validateCreateRequest(EditPart host, CreateRequest request) {
     if (request.isEraseFeedback()) {
       return true;
@@ -59,6 +60,7 @@ public final class BorderTransparentLayoutRequestValidator implements ILayoutReq
     return isInnerPartOfHost(host, request);
   }
 
+  @Override
   public boolean validatePasteRequest(EditPart host, PasteRequest request) {
     if (request.isEraseFeedback()) {
       return true;
@@ -66,10 +68,12 @@ public final class BorderTransparentLayoutRequestValidator implements ILayoutReq
     return isInnerPartOfHost(host, request);
   }
 
+  @Override
   public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
     return true;
   }
 
+  @Override
   public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
     if (request.isEraseFeedback()) {
       return true;

@@ -59,6 +59,7 @@ public abstract class GhostWindow extends Window {
     m_listener = new GhostListener(getShell());
     DesignerPlugin.getStandardDisplay().addFilter(SWT.MouseMove, m_listener);
     getShell().addDisposeListener(new DisposeListener() {
+      @Override
       public void widgetDisposed(DisposeEvent e) {
         DesignerPlugin.getStandardDisplay().removeFilter(SWT.MouseMove, m_listener);
       }
@@ -116,6 +117,7 @@ public abstract class GhostWindow extends Window {
     // Listener
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void handleEvent(Event event) {
       if (!m_enabled) {
         return;

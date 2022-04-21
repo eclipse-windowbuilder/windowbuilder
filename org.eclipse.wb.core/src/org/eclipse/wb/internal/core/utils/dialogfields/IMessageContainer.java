@@ -33,6 +33,7 @@ public interface IMessageContainer {
      */
     public static IMessageContainer forWizardPage(final WizardPage wizardPage) {
       return new IMessageContainer() {
+        @Override
         public void setErrorMessage(String message) {
           wizardPage.setErrorMessage(message);
         }
@@ -44,6 +45,7 @@ public interface IMessageContainer {
      */
     public static IMessageContainer forTitleAreaDialog(final TitleAreaDialog titleAreaDialog) {
       return new IMessageContainer() {
+        @Override
         public void setErrorMessage(String message) {
           titleAreaDialog.setErrorMessage(message);
         }

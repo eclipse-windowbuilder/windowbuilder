@@ -949,6 +949,7 @@ public final class PlacementsSupport {
     }
     // sort objects by their left positions
     Collections.sort(widgets, new Comparator<IAbstractComponentInfo>() {
+      @Override
       public int compare(IAbstractComponentInfo widget1, IAbstractComponentInfo widget2) {
         return t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget1)).x
             - t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget2)).x;

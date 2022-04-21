@@ -56,6 +56,7 @@ public abstract class PolicyUtils {
    */
   public static void showBorderTargetFeedback(final GraphicalEditPolicy policy) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         Layer layer = (Layer) ReflectionUtils.invokeMethod2(policy, "getFeedbackLayer");
         showBorderTargetFeedback(layer, policy.getHost());
@@ -330,6 +331,7 @@ public abstract class PolicyUtils {
    */
   public static void scheduleSelection(final IEditPartViewer viewer, final Object model) {
     ExecutionUtils.runLogLater(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         EditPart editPart = viewer.getEditPartByModel(model);
         if (editPart != null) {

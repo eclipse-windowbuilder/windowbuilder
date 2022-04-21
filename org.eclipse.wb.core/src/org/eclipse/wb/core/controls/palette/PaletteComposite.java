@@ -130,6 +130,7 @@ public final class PaletteComposite extends Composite {
     {
       m_paletteGC = new GC(m_figureCanvas);
       addListener(SWT.Dispose, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           m_paletteGC.dispose();
         }
@@ -144,6 +145,7 @@ public final class PaletteComposite extends Composite {
       m_menuManager.setRemoveAllWhenShown(true);
       m_figureCanvas.setMenu(m_menuManager.createContextMenu(m_figureCanvas));
       m_menuManager.addMenuListener(new IMenuListener() {
+        @Override
         public void menuAboutToShow(IMenuManager manager) {
           addPopupActions(manager);
         }
@@ -410,9 +412,11 @@ public final class PaletteComposite extends Composite {
      */
     private void hookEvents() {
       addMouseListener(new IMouseListener() {
+        @Override
         public void mouseDoubleClick(MouseEvent event) {
         }
 
+        @Override
         public void mouseDown(MouseEvent event) {
           if (event.button == 1) {
             if (m_mouseOnTitle) {
@@ -423,6 +427,7 @@ public final class PaletteComposite extends Composite {
           }
         }
 
+        @Override
         public void mouseUp(MouseEvent event) {
           if (event.button == 1) {
             m_mouseDown = false;
@@ -446,6 +451,7 @@ public final class PaletteComposite extends Composite {
         }
       });
       addMouseMoveListener(new IMouseMoveListener() {
+        @Override
         public void mouseMove(MouseEvent event) {
           if (m_mouseDown) {
             Point p = new Point(event.x, event.y);
@@ -464,14 +470,17 @@ public final class PaletteComposite extends Composite {
         }
       });
       addMouseTrackListener(new IMouseTrackListener() {
+        @Override
         public void mouseEnter(MouseEvent e) {
         }
 
+        @Override
         public void mouseExit(MouseEvent e) {
           m_mouseOnTitle = false;
           repaint();
         }
 
+        @Override
         public void mouseHover(MouseEvent e) {
         }
       });
@@ -739,9 +748,11 @@ public final class PaletteComposite extends Composite {
      */
     private void hookEvents() {
       addMouseListener(new IMouseListener() {
+        @Override
         public void mouseDoubleClick(MouseEvent event) {
         }
 
+        @Override
         public void mouseDown(MouseEvent event) {
           if (event.button == 1) {
             m_mouseDown = true;
@@ -755,6 +766,7 @@ public final class PaletteComposite extends Composite {
           }
         }
 
+        @Override
         public void mouseUp(MouseEvent event) {
           if (event.button == 1 && m_mouseDown) {
             m_mouseDown = false;
@@ -777,6 +789,7 @@ public final class PaletteComposite extends Composite {
         }
       });
       addMouseMoveListener(new IMouseMoveListener() {
+        @Override
         public void mouseMove(MouseEvent event) {
           // update mouse location
           boolean oldMouseInside = m_mouseInside;
@@ -798,16 +811,19 @@ public final class PaletteComposite extends Composite {
         }
       });
       addMouseTrackListener(new IMouseTrackListener() {
+        @Override
         public void mouseEnter(MouseEvent e) {
           m_mouseInside = true;
           repaint();
         }
 
+        @Override
         public void mouseExit(MouseEvent e) {
           m_mouseInside = false;
           repaint();
         }
 
+        @Override
         public void mouseHover(MouseEvent e) {
         }
       });

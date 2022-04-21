@@ -59,6 +59,7 @@ public final class ComponentsTreePage implements IPage {
   // IPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
     Control control = getControl();
     if (control != null && !control.isDisposed()) {
@@ -66,19 +67,23 @@ public final class ComponentsTreePage implements IPage {
     }
   }
 
+  @Override
   public void createControl(Composite parent) {
     m_viewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI);
     m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
   }
 
+  @Override
   public Control getControl() {
     return m_viewer.getControl();
   }
 
+  @Override
   public void setFocus() {
     getControl().setFocus();
   }
 
+  @Override
   public void setToolBar(IToolBarManager toolBarManager) {
     {
       IAction action = new Action() {
@@ -115,6 +120,7 @@ public final class ComponentsTreePage implements IPage {
    */
   private final ISelectionChangedListener m_selectionListener_Tree =
       new ISelectionChangedListener() {
+        @Override
         public void selectionChanged(SelectionChangedEvent event) {
           selectGraphicalViewer();
         }
@@ -124,6 +130,7 @@ public final class ComponentsTreePage implements IPage {
    */
   private final ISelectionChangedListener m_selectionListener_Graphical =
       new ISelectionChangedListener() {
+        @Override
         public void selectionChanged(SelectionChangedEvent event) {
           selectTreeViewer();
         }
@@ -146,6 +153,7 @@ public final class ComponentsTreePage implements IPage {
     final List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
     // refresh if necessary
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         boolean[] refreshFlag = new boolean[1];
         if (!selectedEditParts.isEmpty()) {

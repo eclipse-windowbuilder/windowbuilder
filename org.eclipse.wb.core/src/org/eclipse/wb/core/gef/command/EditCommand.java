@@ -48,6 +48,7 @@ public abstract class EditCommand extends Command {
   @Override
   public final void execute() throws Exception {
     ExecutionUtils.run(m_object, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         executeEdit();
       }

@@ -80,6 +80,7 @@ public final class ComponentsPropertiesPage implements IPage {
   // IPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
     Control control = getControl();
     if (control != null && !control.isDisposed()) {
@@ -87,6 +88,7 @@ public final class ComponentsPropertiesPage implements IPage {
     }
   }
 
+  @Override
   public void createControl(Composite parent) {
     {
       m_container = new Composite(parent, SWT.NONE);
@@ -95,6 +97,7 @@ public final class ComponentsPropertiesPage implements IPage {
     }
     {
       IPropertyExceptionHandler exceptionHandler = new IPropertyExceptionHandler() {
+        @Override
         public void handle(Throwable e) {
           IDesignPageSite site = IDesignPageSite.Helper.getSite(m_rootObject);
           site.handleException(e);
@@ -121,10 +124,12 @@ public final class ComponentsPropertiesPage implements IPage {
     }
   }
 
+  @Override
   public Control getControl() {
     return m_container;
   }
 
+  @Override
   public void setFocus() {
     getControl().setFocus();
   }
@@ -137,6 +142,7 @@ public final class ComponentsPropertiesPage implements IPage {
   private Property m_activeProperty;
   private IToolBarManager m_toolBarManager;
 
+  @Override
   public void setToolBar(IToolBarManager toolBarManager) {
     m_toolBarManager = toolBarManager;
     updateActions();
@@ -158,6 +164,7 @@ public final class ComponentsPropertiesPage implements IPage {
    */
   private void updateActions() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // update standard items
         update_showEventsAction();
@@ -182,6 +189,7 @@ public final class ComponentsPropertiesPage implements IPage {
                   "toolbar");
           for (final IPropertiesToolBarContributor contributor : contributors) {
             ExecutionUtils.runLog(new RunnableEx() {
+              @Override
               public void run() throws Exception {
                 contributor.contributeToolBar(m_toolBarManager, m_objects);
               }
@@ -203,6 +211,7 @@ public final class ComponentsPropertiesPage implements IPage {
     final MenuManager manager = new MenuManager();
     manager.setRemoveAllWhenShown(true);
     manager.addMenuListener(new IMenuListener() {
+      @Override
       public void menuAboutToShow(IMenuManager _manager) {
         // dispose items to avoid their caching
         for (MenuItem item : manager.getMenu().getItems()) {
@@ -233,6 +242,7 @@ public final class ComponentsPropertiesPage implements IPage {
                 "menu");
         for (final IPropertiesMenuContributor contributor : contributors) {
           ExecutionUtils.runLog(new RunnableEx() {
+            @Override
             public void run() throws Exception {
               contributor.contributeMenu(manager, m_activeProperty);
             }
@@ -248,10 +258,12 @@ public final class ComponentsPropertiesPage implements IPage {
    */
   private void trackPropertySelection() {
     ISelectionChangedListener listener = new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         StructuredSelection selection = (StructuredSelection) event.getSelection();
         m_activeProperty = (Property) selection.getFirstElement();
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             update_defaultValueAction();
             update_categoryAction();
@@ -356,6 +368,7 @@ public final class ComponentsPropertiesPage implements IPage {
    */
   private void deactivatePropertyEditor_whenExplicitlyRequested() {
     m_rootObject.addBroadcastListener(new ObjectInfoDeactivePropertyEditor() {
+      @Override
       public void invoke() throws Exception {
         m_propertyTable.deactivateEditor(false);
       }
@@ -458,6 +471,7 @@ public final class ComponentsPropertiesPage implements IPage {
       @Override
       public void run() {
         ExecutionUtils.run(m_rootObject, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             m_activeProperty.setValue(Property.UNKNOWN_VALUE);
           }
@@ -528,6 +542,7 @@ public final class ComponentsPropertiesPage implements IPage {
    */
   private void refreshProperties() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         if (m_showEvents) {
           showEvents();
@@ -582,6 +597,7 @@ public final class ComponentsPropertiesPage implements IPage {
     m_propertyTable.setPropertyCategoryProvider(provider);
     // move system properties on top
     Collections.sort(properties, new Comparator<Property>() {
+      @Override
       public int compare(Property property_1, Property property_2) {
         PropertyCategory category_1 = provider.getCategory(property_1);
         PropertyCategory category_2 = provider.getCategory(property_2);

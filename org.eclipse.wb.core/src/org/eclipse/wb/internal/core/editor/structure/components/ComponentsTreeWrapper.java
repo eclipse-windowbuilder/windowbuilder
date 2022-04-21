@@ -43,12 +43,14 @@ final class ComponentsTreeWrapper implements IComponentsTree {
     m_contentProvider = new EditPartsContentProvider(m_viewer);
     m_selectionProvider = new EditPartsSelectionProvider(m_viewer);
     m_viewer.getTree().addTreeListener(new TreeListener() {
+      @Override
       public void treeCollapsed(TreeEvent e) {
         if (m_expandListener != null) {
           m_expandListener.run();
         }
       }
 
+      @Override
       public void treeExpanded(TreeEvent e) {
         if (m_expandListener != null) {
           m_expandListener.run();
@@ -62,10 +64,12 @@ final class ComponentsTreeWrapper implements IComponentsTree {
   // Providers
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ITreeContentProvider getContentProvider() {
     return m_contentProvider;
   }
 
+  @Override
   public ISelectionProvider getSelectionProvider() {
     return m_selectionProvider;
   }
@@ -77,6 +81,7 @@ final class ComponentsTreeWrapper implements IComponentsTree {
   ////////////////////////////////////////////////////////////////////////////
   private Runnable m_expandListener;
 
+  @Override
   public Object[] getExpandedElements() {
     TreeItem[] expandedItems = UiUtils.getExpanded(m_viewer.getTree());
     // prepare models
@@ -90,6 +95,7 @@ final class ComponentsTreeWrapper implements IComponentsTree {
     return models;
   }
 
+  @Override
   public void setExpandedElements(Object[] elements) {
     // prepare EditPart's by model elements
     EditPart[] editParts = new EditPart[elements.length];
@@ -101,6 +107,7 @@ final class ComponentsTreeWrapper implements IComponentsTree {
     UiUtils.setExpandedByData(m_viewer.getTree(), editParts);
   }
 
+  @Override
   public void setExpandListener(Runnable listener) {
     m_expandListener = listener;
   }

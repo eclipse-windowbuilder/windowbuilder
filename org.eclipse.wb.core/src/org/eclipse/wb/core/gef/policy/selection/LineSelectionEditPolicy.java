@@ -73,6 +73,7 @@ public class LineSelectionEditPolicy extends SelectionEditPolicy {
     m_selectionFigure.setBorder(new LineBorder(m_lineColor));
     updateFeedbackBounds();
     m_ancestorListener = new IAncestorListener() {
+      @Override
       public void ancestorMoved(Figure ancestor) {
         updateFeedbackBounds();
       }

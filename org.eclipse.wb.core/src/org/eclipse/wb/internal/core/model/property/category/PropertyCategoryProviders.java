@@ -26,6 +26,7 @@ public final class PropertyCategoryProviders {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final PropertyCategoryProvider FROM_PROPERTY = new PropertyCategoryProvider() {
+    @Override
     public PropertyCategory getCategory(Property property) {
       return property.getCategory();
     }
@@ -39,6 +40,7 @@ public final class PropertyCategoryProviders {
   }
 
   private static final PropertyCategoryProvider FORCED_BY_USER = new PropertyCategoryProvider() {
+    @Override
     public PropertyCategory getCategory(Property property) {
       return PropertyManager.getCategoryForced(property);
     }
@@ -61,6 +63,7 @@ public final class PropertyCategoryProviders {
    */
   public static PropertyCategoryProvider combine(final PropertyCategoryProvider... providers) {
     return new PropertyCategoryProvider() {
+      @Override
       public PropertyCategory getCategory(Property property) {
         for (PropertyCategoryProvider provider : providers) {
           PropertyCategory category = provider.getCategory(property);

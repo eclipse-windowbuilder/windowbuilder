@@ -47,6 +47,7 @@ public abstract class FileListReportEntry implements IReportEntry {
   // IReportEntry
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void write(ZipOutputStream zipStream) throws Exception {
     List<File> files = getFiles();
     for (File file : files) {

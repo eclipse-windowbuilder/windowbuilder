@@ -60,6 +60,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   /**
    * Returns the {@link IRootContainer}.
    */
+  @Override
   public IRootContainer getRootContainer() {
     return m_rootEditPart;
   }
@@ -72,6 +73,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   /**
    * Get factory for creating new EditParts.
    */
+  @Override
   public IEditPartFactory getEditPartFactory() {
     return m_factory;
   }
@@ -86,6 +88,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   /**
    * Register given {@link EditPart} into this viewer.
    */
+  @Override
   public void registerEditPart(EditPart editPart) {
     m_modelToEditPart.put(editPart.getModel(), editPart);
   }
@@ -93,6 +96,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   /**
    * Unregister given {@link EditPart} into this viewer.
    */
+  @Override
   public void unregisterEditPart(EditPart editPart) {
     Object model = editPart.getModel();
     Object registerPart = m_modelToEditPart.get(model);
@@ -108,6 +112,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   /**
    * Returns {@link EditPart} register into this viewer associate given model.
    */
+  @Override
   public EditPart getEditPartByModel(Object model) {
     return m_modelToEditPart.get(model);
   }
@@ -115,6 +120,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   /**
    * Returns the {@link EditDomain EditDomain} to which this viewer belongs.
    */
+  @Override
   public EditDomain getEditDomain() {
     return m_domain;
   }
@@ -140,10 +146,12 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   // Context menu
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public MenuManager getContextMenu() {
     return m_contextMenu;
   }
 
+  @Override
   public void setContextMenu(MenuManager menu) {
     // dispose old menu
     if (m_contextMenu != null && m_contextMenu != menu) {
@@ -164,10 +172,12 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   // Selection
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void addSelectionChangedListener(ISelectionChangedListener listener) {
     getEnsureEventTable().addListener(ISelectionChangedListener.class, listener);
   }
 
+  @Override
   public void removeSelectionChangedListener(ISelectionChangedListener listener) {
     getEnsureEventTable().removeListener(ISelectionChangedListener.class, listener);
   }
@@ -177,6 +187,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
    * {@link #getSelectedEditParts()} returns an empty list, the <i>contents</i> editpart is returned
    * as the current selection.
    */
+  @Override
   public ISelection getSelection() {
     if (m_selectionList.isEmpty()) {
       EditPart content = m_rootEditPart.getContent();
@@ -187,6 +198,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
     return new StructuredSelection(m_selectionList);
   }
 
+  @Override
   @SuppressWarnings("unchecked")
   public void setSelection(ISelection selection) {
     if (selection instanceof IStructuredSelection) {
@@ -209,6 +221,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
    * Appends the specified <code>{@link EditPart}</code> to the viewer's <i>selection</i>. The
    * {@link EditPart} becomes the new primary selection.
    */
+  @Override
   public void appendSelection(EditPart part) {
     Assert.isNotNull(part);
     if (!m_selectionList.isEmpty()) {
@@ -238,6 +251,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   /**
    * Replaces the current selection with the specified <code>{@link EditPart EditParts}</code>.
    */
+  @Override
   public void setSelection(List<EditPart> editParts) {
     try {
       if (!editParts.isEmpty()) {
@@ -268,6 +282,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
    * Replaces the current selection with the specified <code>{@link EditPart}</code>. That part
    * becomes the primary selection.
    */
+  @Override
   public void select(EditPart part) {
     Assert.isNotNull(part);
     if (m_selectionList.size() != 1 || m_selectionList.get(0) != part) {
@@ -286,6 +301,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
    * Removes the specified <code>{@link EditPart}</code> from the current selection. The last
    * EditPart in the new selection is made {@link EditPart#SELECTED_PRIMARY primary}.
    */
+  @Override
   public void deselect(EditPart part) {
     Assert.isNotNull(part);
     m_selectionList.remove(part);
@@ -304,6 +320,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
    * current selection. The last EditPart in the new selection is made
    * {@link EditPart#SELECTED_PRIMARY primary}.
    */
+  @Override
   public void deselect(List<EditPart> editParts) {
     for (EditPart part : editParts) {
       Assert.isNotNull(part);
@@ -322,6 +339,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   /**
    * Deselects all EditParts.
    */
+  @Override
   public void deselectAll() {
     internalDeselectAll();
     fireSelectionChanged();
@@ -340,6 +358,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
    * This list may be empty. This list can be modified indirectly by calling other methods on the
    * viewer.
    */
+  @Override
   public List<EditPart> getSelectedEditParts() {
     return m_selectionList;
   }
@@ -347,6 +366,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   /**
    * @return The EditPart which is being selected in selection process.
    */
+  @Override
   public EditPart getSelectingEditPart() {
     return m_selecting;
   }
@@ -356,14 +376,17 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   // Click
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void addEditPartClickListener(IEditPartClickListener listener) {
     getEnsureEventTable().addListener(IEditPartClickListener.class, listener);
   }
 
+  @Override
   public void removeEditPartClickListener(IEditPartClickListener listener) {
     getEnsureEventTable().removeListener(IEditPartClickListener.class, listener);
   }
 
+  @Override
   public void fireEditPartClick(EditPart editPart) {
     List<IEditPartClickListener> listeners = getListeners(IEditPartClickListener.class);
     if (listeners != null && !listeners.isEmpty()) {

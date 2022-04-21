@@ -85,6 +85,7 @@ public final class SelectSupport {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final Listener m_keyListener = new Listener() {
+    @Override
     public void handleEvent(Event event) {
       int cmdModifierValue = getCommandModifierValue();
       if (event.keyCode == 'a' && event.stateMask == cmdModifierValue) {

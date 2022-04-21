@@ -77,6 +77,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
   /**
    * Returns the SWT <code>Control</code> for this viewer.
    */
+  @Override
   public FigureCanvas getControl() {
     return m_canvas;
   }
@@ -84,6 +85,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
   /**
    * @return viewer horizontal scroll offset.
    */
+  @Override
   public int getHOffset() {
     return m_canvas.getHorizontalScrollModel().getSelection();
   }
@@ -91,6 +93,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
   /**
    * @return viewer vertical scroll offset.
    */
+  @Override
   public int getVOffset() {
     return m_canvas.getVerticalScrollModel().getSelection();
   }
@@ -98,6 +101,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
   /**
    * Returns root {@link EditPart}.
    */
+  @Override
   public EditPart getRootEditPart() {
     return m_rootEditPart;
   }
@@ -105,6 +109,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
   /**
    * Returns root {@link Figure} use for access to {@link Layer}'s.
    */
+  @Override
   public final IRootFigure getRootFigure() {
     return getRootFigureInternal();
   }
@@ -119,6 +124,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
   /**
    * Returns the layer identified by the <code>name</code> given in the input.
    */
+  @Override
   public Layer getLayer(String name) {
     return getRootFigure().getLayer(name);
   }
@@ -137,6 +143,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
   /**
    * Set the Cursor.
    */
+  @Override
   public void setCursor(Cursor cursor) {
     m_eventManager.setOverrideCursor(cursor);
   }
@@ -150,6 +157,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
    * Returns <code>null</code> or the <code>{@link EditPart}</code> at the specified location on
    * primary layers, using the given exclusion set and conditional.
    */
+  @Override
   public EditPart findTargetEditPart(int x,
       int y,
       final Collection<EditPart> exclude,
@@ -165,6 +173,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
    * Returns <code>null</code> or the <code>{@link EditPart}</code> at the specified location on
    * specified given layer, using the given exclusion set and conditional.
    */
+  @Override
   public EditPart findTargetEditPart(int x,
       int y,
       final Collection<EditPart> exclude,
@@ -195,6 +204,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
   /**
    * @return the <code>{@link Handle}</code> at the specified location.
    */
+  @Override
   public Handle findTargetHandle(Point location) {
     return findTargetHandle(location.x, location.y);
   }
@@ -203,6 +213,7 @@ public class GraphicalViewer extends AbstractEditPartViewer {
    * Returns the <code>{@link Handle}</code> at the specified location <code>(x, y)</code>. Returns
    * <code>null</code> if no handle exists at the given location <code>(x, y)</code>.
    */
+  @Override
   public Handle findTargetHandle(int x, int y) {
     Handle target;
     if ((target = findTargetHandle(MENU_HANDLE_LAYER_STATIC, x, y)) != null) {

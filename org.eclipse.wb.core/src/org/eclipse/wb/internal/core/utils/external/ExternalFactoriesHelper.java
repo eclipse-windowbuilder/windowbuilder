@@ -112,6 +112,7 @@ public class ExternalFactoriesHelper {
    */
   private static final IRegistryChangeListener m_descriptionProcessorsListener =
       new IRegistryChangeListener() {
+        @Override
         public void registryChanged(IRegistryChangeEvent event) {
           for (IExtensionDelta extensionDelta : event.getExtensionDeltas()) {
             String pointId = extensionDelta.getExtensionPoint().getUniqueIdentifier();
@@ -179,6 +180,7 @@ public class ExternalFactoriesHelper {
   public static synchronized <T> T createExecutableExtension(final IConfigurationElement element,
       final String classAttributeName) {
     return ExecutionUtils.runObject(new RunnableObjectEx<T>() {
+      @Override
       public T runObject() throws Exception {
         Bundle extensionBundle = getExtensionBundle(element);
         String className = getRequiredAttribute(element, classAttributeName);
@@ -264,6 +266,7 @@ public class ExternalFactoriesHelper {
 
   private static void sortByPriority(List<IConfigurationElement> elements) {
     Collections.sort(elements, new Comparator<IConfigurationElement>() {
+      @Override
       public int compare(IConfigurationElement o1, IConfigurationElement o2) {
         return getPriority(o2) - getPriority(o1);
       }

@@ -37,6 +37,7 @@ public class SelectionButtonGroupEditor implements IDataEditor {
   // IDataEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue() {
     boolean[] values = new boolean[m_buttonCount];
     for (int i = 0; i < m_buttonCount; i++) {
@@ -45,6 +46,7 @@ public class SelectionButtonGroupEditor implements IDataEditor {
     return values;
   }
 
+  @Override
   public void setValue(Object value) {
     // prepare boolean array
     boolean[] values = ValueUtils.objectToBooleanArray(value);

@@ -74,6 +74,7 @@ public final class BundleResourceProvider {
    */
   public static void configureCleanUp(BundleContext context) {
     context.addBundleListener(new BundleListener() {
+      @Override
       public void bundleChanged(BundleEvent event) {
         if (event.getType() == BundleEvent.UNINSTALLED) {
           // prepare provider
@@ -85,6 +86,7 @@ public final class BundleResourceProvider {
           // clean up
           if (provider != null) {
             Display.getDefault().asyncExec(new Runnable() {
+              @Override
               public void run() {
                 provider.disposeImages();
               }
@@ -124,6 +126,7 @@ public final class BundleResourceProvider {
    */
   public String getFileString(final String path) {
     return ExecutionUtils.runObject(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         InputStream inputStream = getFile(path);
         return IOUtils2.readString(inputStream);
@@ -141,6 +144,7 @@ public final class BundleResourceProvider {
 
   private InputStream getFile0(final String path) {
     return ExecutionUtils.runObject(new RunnableObjectEx<InputStream>() {
+      @Override
       public InputStream runObject() throws Exception {
         return m_bundle.getEntry(path).openStream();
       }

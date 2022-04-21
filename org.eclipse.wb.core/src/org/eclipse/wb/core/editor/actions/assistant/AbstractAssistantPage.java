@@ -80,6 +80,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
   // ILayoutAssistantPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final boolean isPageValid() {
     // validate of all objects
     for (ObjectInfo object : m_selection) {
@@ -91,6 +92,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
     return true;
   }
 
+  @Override
   public final void updatePage() {
     if (!m_saving) {
       // update all properties GUI bindings
@@ -180,6 +182,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
     protected final Object getValue() {
       prepareProperties();
       m_currentValue = ExecutionUtils.runObjectLog(new RunnableObjectEx<Object>() {
+        @Override
         public Object runObject() throws Exception {
           Object commonValue = NO_VALUE;
           for (Property property : m_propertyList) {
@@ -207,6 +210,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
       m_currentValue = value;
       ObjectInfo firstObject = getEditObject();
       ExecutionUtils.run(firstObject, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           for (Property property : m_propertyList) {
             property.setValue(value);
@@ -222,6 +226,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
       if (m_propertyList == null) {
         m_propertyList = Lists.newArrayList();
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             // prepare properties
             for (ObjectInfo object : m_selection) {
@@ -433,6 +438,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
       m_text = text;
       m_enableListener = true;
       m_text.addModifyListener(new ModifyListener() {
+        @Override
         public void modifyText(ModifyEvent e) {
           if (m_enableListener) {
             saveValue();
@@ -599,6 +605,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
   private final class ChoicePropertyInfo extends PropertyInfo {
     private final List<Button> m_buttons = Lists.newArrayList();
     private final Listener m_listener = new Listener() {
+      @Override
       public void handleEvent(Event event) {
         saveValue();
       }
@@ -741,6 +748,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
   private final class IntegerPropertyInfo extends PropertyInfo {
     private final CSpinner m_spinner;
     private final Listener m_listener = new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (event.doit) {
           saveValue();
@@ -880,6 +888,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
     private final CSpinner m_spinner;
     private final double m_multiplier;
     private final Listener m_listener = new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (event.doit) {
           saveValue();

@@ -81,10 +81,12 @@ public class ComboButtonDialogField extends ComboDialogField {
       m_browseButton.setEnabled(isEnabled() && m_browseButtonEnabled);
       //
       m_browseButton.addSelectionListener(new SelectionListener() {
+        @Override
         public void widgetDefaultSelected(SelectionEvent e) {
           changeControlPressed();
         }
 
+        @Override
         public void widgetSelected(SelectionEvent e) {
           changeControlPressed();
         }

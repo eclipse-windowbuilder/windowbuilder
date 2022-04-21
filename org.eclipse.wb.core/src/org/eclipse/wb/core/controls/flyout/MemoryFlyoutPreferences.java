@@ -37,26 +37,32 @@ public final class MemoryFlyoutPreferences implements IFlyoutPreferences {
   // IFlyoutPreferences
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getDockLocation() {
     return m_dockLocation;
   }
 
+  @Override
   public int getState() {
     return m_state;
   }
 
+  @Override
   public int getWidth() {
     return m_width;
   }
 
+  @Override
   public void setDockLocation(int location) {
     m_dockLocation = location;
   }
 
+  @Override
   public void setState(int state) {
     m_state = state;
   }
 
+  @Override
   public void setWidth(int width) {
     m_width = width;
   }

@@ -72,6 +72,7 @@ public final class HtmlTooltipHelper {
     // set listeners
     {
       Listener listener = new Listener() {
+        @Override
         public void handleEvent(Event event) {
           Control tooltipControl = (Control) event.widget;
           hideTooltip(tooltipControl);
@@ -291,6 +292,7 @@ public final class HtmlTooltipHelper {
     label.setBackground(parent.getBackground());
     // done
     parent.getDisplay().asyncExec(new Runnable() {
+      @Override
       public void run() {
         Shell shell = label.getShell();
         shell.setVisible(true);

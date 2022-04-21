@@ -64,6 +64,7 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
     // simulate activation for all opened editors,
     // because it is possible that more than one of them are visible
     parent.getDisplay().asyncExec(new Runnable() {
+      @Override
       public void run() {
         IWorkbenchPage activePage = getSite().getWorkbenchWindow().getActivePage();
         IWorkbenchPart activePart = activePage.getActivePart();
@@ -92,6 +93,7 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
     final IWorkbenchPage page = getSite().getPage();
     // track this view visible/hide events
     final IPartListener2 partListener = new IPartListener2() {
+      @Override
       public void partVisible(IWorkbenchPartReference partRef) {
         // some "part" become visible, if this means that "editor" restored, do extract
         if (!isEditorMaximized()) {
@@ -99,10 +101,12 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
         }
       }
 
+      @Override
       public void partHidden(IWorkbenchPartReference partRef) {
         // some "part" become hidden, if this means that "editor" maximized, do restore;
         // do in async, because editor state updated after "partHidden" event
         Display.getCurrent().asyncExec(new Runnable() {
+          @Override
           public void run() {
             if (isEditorMaximized()) {
               doRestore();
@@ -111,6 +115,7 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
         });
       }
 
+      @Override
       public void partClosed(IWorkbenchPartReference partRef) {
         // if this "part" closed, do restore
         if (partRef.getPart(false) == AbstractExtractableDesignView.this) {
@@ -138,24 +143,30 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
       // Unused
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public void partOpened(IWorkbenchPartReference partRef) {
       }
 
+      @Override
       public void partActivated(IWorkbenchPartReference partRef) {
       }
 
+      @Override
       public void partDeactivated(IWorkbenchPartReference partRef) {
       }
 
+      @Override
       public void partBroughtToTop(IWorkbenchPartReference partRef) {
       }
 
+      @Override
       public void partInputChanged(IWorkbenchPartReference partRef) {
       }
     };
     page.addPartListener(partListener);
     // remove perspective listener on dispose
     getPageBook().addDisposeListener(new DisposeListener() {
+      @Override
       public void widgetDisposed(DisposeEvent e) {
         page.removePartListener(partListener);
       }

@@ -70,6 +70,7 @@ public class CTableCombo extends Composite {
     m_table = new Table(m_popup, SWT.FULL_SELECTION);
     new TableColumn(m_table, SWT.NONE);
     Listener listener = new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (m_popup == event.widget) {
           handlePopupEvent(event);
@@ -94,6 +95,7 @@ public class CTableCombo extends Composite {
       }
     };
     final Listener shellListener = new Listener() {
+      @Override
       public void handleEvent(Event event) {
         switch (event.type) {
           case SWT.Dispose :
@@ -113,6 +115,7 @@ public class CTableCombo extends Composite {
       shell.addListener(comboEvents[i], shellListener);
     }
     addDisposeListener(new DisposeListener() {
+      @Override
       public void widgetDisposed(DisposeEvent e) {
         for (int i = 0; i < comboEvents.length; i++) {
           shell.removeListener(comboEvents[i], shellListener);
@@ -170,6 +173,7 @@ public class CTableCombo extends Composite {
       case SWT.FocusOut : {
         final int time = event.time;
         event.display.asyncExec(new Runnable() {
+          @Override
           public void run() {
             if (CTableCombo.this.isDisposed()) {
               return;
@@ -346,6 +350,7 @@ public class CTableCombo extends Composite {
       case SWT.FocusOut : {
         final int time = event.time;
         event.display.asyncExec(new Runnable() {
+          @Override
           public void run() {
             if (CTableCombo.this.isDisposed()) {
               return;

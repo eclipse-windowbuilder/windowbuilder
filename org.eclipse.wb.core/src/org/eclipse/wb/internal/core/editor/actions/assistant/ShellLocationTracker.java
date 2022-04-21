@@ -48,6 +48,7 @@ public final class ShellLocationTracker {
   public void setShell(Shell shell) {
     m_shell = shell;
     m_shell.addListener(SWT.Dispose, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (!m_shell.isDisposed() && !m_shell.getMaximized()) {
           Point location = m_shell.getLocation();

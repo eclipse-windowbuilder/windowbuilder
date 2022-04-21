@@ -84,6 +84,7 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
       @Override
       public void execute() throws Exception {
         m_menu.executeEdit(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             m_policy.commandCreate(newObject, referenceObject);
           }
@@ -103,6 +104,7 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
       @Override
       public void execute() throws Exception {
         m_menu.executeEdit(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             List<?> pastedObject = m_policy.commandPaste(request.getMemento(), referenceObject);
             request.setObjects(pastedObject);
@@ -123,6 +125,7 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
       @Override
       public void execute() throws Exception {
         m_menu.executeEdit(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             m_policy.commandMove(moveObject, referenceObject);
           }
@@ -142,14 +145,17 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
   }
 
   private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
+    @Override
     public boolean validateCreateRequest(EditPart host, CreateRequest request) {
       return m_policy.validateCreate(request.getNewObject());
     }
 
+    @Override
     public boolean validatePasteRequest(EditPart host, PasteRequest request) {
       return m_policy.validatePaste(request.getMemento());
     }
 
+    @Override
     public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
       for (EditPart editPart : request.getEditParts()) {
         if (!m_policy.validateMove(editPart.getModel())) {
@@ -159,6 +165,7 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
       return true;
     }
 
+    @Override
     public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
       return validateMoveRequest(host, request);
     }

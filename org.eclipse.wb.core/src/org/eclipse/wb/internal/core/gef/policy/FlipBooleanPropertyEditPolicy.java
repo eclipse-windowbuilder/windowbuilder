@@ -50,6 +50,7 @@ public final class FlipBooleanPropertyEditPolicy extends EditPolicy {
     super.performRequest(request);
     if (Request.REQ_OPEN.equals(request.getType())) {
       ExecutionUtils.run(m_component, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           Property property = PropertyUtils.getByPath(m_component, m_propertyPath);
           if (property != null) {

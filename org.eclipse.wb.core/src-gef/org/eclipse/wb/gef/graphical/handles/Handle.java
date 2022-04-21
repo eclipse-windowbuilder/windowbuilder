@@ -64,6 +64,7 @@ public abstract class Handle extends Figure implements IAncestorListener {
   // IAncestorListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void ancestorMoved(Figure ancestor) {
     revalidate();
   }

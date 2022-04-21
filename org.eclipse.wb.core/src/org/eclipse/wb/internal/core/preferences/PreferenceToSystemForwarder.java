@@ -29,6 +29,7 @@ public final class PreferenceToSystemForwarder {
       final String preference,
       final String property) {
     preferenceStore.addPropertyChangeListener(new IPropertyChangeListener() {
+      @Override
       public void propertyChange(PropertyChangeEvent event) {
         if (event.getProperty().equals(preference)) {
           updateProperty(property, event.getNewValue());

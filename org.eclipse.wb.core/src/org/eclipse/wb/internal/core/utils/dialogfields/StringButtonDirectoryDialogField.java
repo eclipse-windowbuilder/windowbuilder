@@ -55,6 +55,7 @@ public class StringButtonDirectoryDialogField extends StringButtonDialogField {
     // IStringButtonAdapter
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void changeControlPressed(DialogField field) {
       StringButtonDirectoryDialogField directoryField = (StringButtonDirectoryDialogField) field;
       DirectoryDialog directoryDialog =

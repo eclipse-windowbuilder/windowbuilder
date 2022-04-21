@@ -32,11 +32,13 @@ public final class IntegerPreferenceProvider extends AbstractPreferenceProvider 
   // IDataProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue(boolean def) {
     int value = def ? m_store.getDefaultInt(m_key) : m_store.getInt(m_key);
     return new Integer(value);
   }
 
+  @Override
   public void setValue(Object value) {
     int intValue;
     if (value instanceof Integer) {

@@ -63,6 +63,7 @@ public abstract class BoundsProperty<C extends IAbstractComponentInfo> extends P
   public final void setValue(final Object value) throws Exception {
     if (value != UNKNOWN_VALUE) {
       ExecutionUtils.run(m_component.getUnderlyingModel(), new RunnableEx() {
+        @Override
         public void run() throws Exception {
           setValue2((Integer) value, m_component.getModelBounds());
         }

@@ -133,6 +133,7 @@ public abstract class ScrollModel implements Listener {
   // Handle scrolling
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void handleEvent(Event event) {
     if (m_scrollBar.getEnabled()) {
       int selection = Math.max(0, Math.min(m_extent, m_scrollBar.getSelection()));

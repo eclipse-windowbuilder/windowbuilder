@@ -163,6 +163,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
         public void run() {
           Display display = getViewer().getControl().getDisplay();
           display.syncExec(new Runnable() {
+            @Override
             public void run() {
               synchronized (m_changeBoundsRequest) {
                 try {

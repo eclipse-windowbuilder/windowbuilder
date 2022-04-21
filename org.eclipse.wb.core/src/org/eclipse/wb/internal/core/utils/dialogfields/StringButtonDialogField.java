@@ -96,10 +96,12 @@ public class StringButtonDialogField extends StringDialogField {
       fBrowseButton.setText(fBrowseButtonLabel);
       fBrowseButton.setEnabled(isEnabled() && fButtonEnabled);
       fBrowseButton.addSelectionListener(new SelectionListener() {
+        @Override
         public void widgetDefaultSelected(SelectionEvent e) {
           changeControlPressed();
         }
 
+        @Override
         public void widgetSelected(SelectionEvent e) {
           changeControlPressed();
         }

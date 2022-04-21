@@ -62,6 +62,7 @@ public abstract class ObjectFlowLayoutEditPolicy<C> extends AbstractFlowLayoutEd
     return GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
         new IPasteComponentProcessor() {
+          @Override
           public void process(Object component) throws Exception {
             command_CREATE(getObjectModel(component), referenceModel);
           }

@@ -43,6 +43,7 @@ public class StringListEditor implements IDataEditor {
   // IDataEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue() {
     StringBuffer buffer = new StringBuffer();
     int count = m_field.getSize();
@@ -56,6 +57,7 @@ public class StringListEditor implements IDataEditor {
     return buffer.toString();
   }
 
+  @Override
   public void setValue(Object value) {
     String stringValue = ObjectUtils.toString(value);
     String[] values = StringUtils.split(stringValue, m_separator);

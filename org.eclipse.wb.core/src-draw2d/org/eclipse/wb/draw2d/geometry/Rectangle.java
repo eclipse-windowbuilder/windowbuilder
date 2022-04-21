@@ -545,6 +545,7 @@ public final class Rectangle implements Translatable, Serializable {
    * Moves this Rectangle horizontally by the x value of the given Point and vertically by the y
    * value of the given Point.
    */
+  @Override
   public void translate(Point point) {
     x += point.x;
     y += point.y;
@@ -555,6 +556,7 @@ public final class Rectangle implements Translatable, Serializable {
    * {@link Dimension} and vertically by the <code>.height</code> value of the given
    * {@link Dimension}.
    */
+  @Override
   public void translate(Dimension dimension) {
     x += dimension.width;
     y += dimension.height;
@@ -564,6 +566,7 @@ public final class Rectangle implements Translatable, Serializable {
    * Moves this {@link Rectangle} horizontally by the <code>.left</code> value of the given
    * {@link Insets} and vertically by the <code>.top</code> value of the given {@link Insets}.
    */
+  @Override
   public void translate(Insets insets) {
     x += insets.left;
     y += insets.top;
@@ -572,6 +575,7 @@ public final class Rectangle implements Translatable, Serializable {
   /**
    * Moves this Rectangle horizontally by dx and vertically by dy.
    */
+  @Override
   public void translate(int dx, int dy) {
     x += dx;
     y += dy;

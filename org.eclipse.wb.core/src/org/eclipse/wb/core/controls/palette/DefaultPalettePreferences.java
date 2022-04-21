@@ -19,18 +19,22 @@ import org.eclipse.swt.graphics.Font;
  * @coverage core.control.palette
  */
 public final class DefaultPalettePreferences implements IPalettePreferences {
+  @Override
   public Font getCategoryFont() {
     return null;
   }
 
+  @Override
   public Font getEntryFont() {
     return null;
   }
 
+  @Override
   public boolean isOnlyIcons() {
     return false;
   }
 
+  @Override
   public int getMinColumns() {
     return 1;
   }

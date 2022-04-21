@@ -45,6 +45,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
   // IStructuredContentProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object[] getElements(Object inputElement) {
     Object input = m_viewer.getRootContainer().getContent().getModel();
     return new Object[]{input};
@@ -55,10 +56,12 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
   // ITreeContentProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean hasChildren(Object parentElement) {
     return getChildren(parentElement).length != 0;
   }
 
+  @Override
   public Object[] getChildren(Object parentElement) {
     EditPart parentEditPart = m_viewer.getEditPartByModel(parentElement);
     if (parentEditPart != null) {
@@ -71,6 +74,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
     return ArrayUtils.EMPTY_OBJECT_ARRAY;
   }
 
+  @Override
   public Object getParent(Object element) {
     EditPart editPart = m_viewer.getEditPartByModel(element);
     if (editPart != null) {
@@ -84,9 +88,11 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
   // IContentProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
   }
 
+  @Override
   public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
   }
 }

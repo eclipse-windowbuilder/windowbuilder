@@ -47,6 +47,7 @@ public final class DblClickRunScriptEditPolicy extends EditPolicy {
     super.performRequest(request);
     if (Request.REQ_OPEN.equals(request.getType())) {
       ExecutionUtils.run(m_component, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           ScriptUtils.evaluate(m_script, m_component);
         }

@@ -45,6 +45,7 @@ public abstract class DefaultObjectPresentation implements IObjectPresentation {
   // IObjectPresentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<ObjectInfo> getChildrenTree() throws Exception {
     List<ObjectInfo> children = Lists.newArrayList();
     for (ObjectInfo child : m_object.getChildren()) {
@@ -61,6 +62,7 @@ public abstract class DefaultObjectPresentation implements IObjectPresentation {
     return children;
   }
 
+  @Override
   public List<ObjectInfo> getChildrenGraphical() throws Exception {
     List<ObjectInfo> children = Lists.newArrayList();
     for (ObjectInfo child : m_object.getChildren()) {
@@ -77,10 +79,12 @@ public abstract class DefaultObjectPresentation implements IObjectPresentation {
     return children;
   }
 
+  @Override
   public Image getIcon() throws Exception {
     return null;
   }
 
+  @Override
   public boolean isVisible() throws Exception {
     return true;
   }

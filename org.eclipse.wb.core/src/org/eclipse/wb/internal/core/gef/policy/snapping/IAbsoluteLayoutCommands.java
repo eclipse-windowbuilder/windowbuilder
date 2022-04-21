@@ -158,42 +158,51 @@ public interface IAbsoluteLayoutCommands {
   IAbsoluteLayoutCommands EMPTY = new AbsoluteLayoutCommandsStub();
 
   public class AbsoluteLayoutCommandsStub implements IAbsoluteLayoutCommands {
+    @Override
     public IAbstractComponentInfo getAttachedToWidget(IAbstractComponentInfo widget, int side)
         throws Exception {
       return null;
     }
 
+    @Override
     public void adjustAttachmentOffset(IAbstractComponentInfo widget, int side, int moveDelta)
         throws Exception {
     }
 
+    @Override
     public void attachAbsolute(IAbstractComponentInfo widget, int side, int distance)
         throws Exception {
     }
 
+    @Override
     public void attachWidgetParallelly(IAbstractComponentInfo widget,
         IAbstractComponentInfo attachToComponent,
         int side,
         int distance) throws Exception {
     }
 
+    @Override
     public void attachWidgetSequientially(IAbstractComponentInfo widget,
         IAbstractComponentInfo attachToComponent,
         int side,
         int distance) throws Exception {
     }
 
+    @Override
     public void attachWidgetBaseline(IAbstractComponentInfo widget,
         IAbstractComponentInfo attachedToWidget) {
     }
 
+    @Override
     public void detach(IAbstractComponentInfo widget, int side) throws Exception {
     }
 
+    @Override
     public boolean isAttached(IAbstractComponentInfo widget, int side) throws Exception {
       return false;
     }
 
+    @Override
     public void setExplicitSize(IAbstractComponentInfo widget,
         int side,
         int draggingSide,
@@ -203,6 +212,7 @@ public interface IAbsoluteLayoutCommands {
     public void lockSide(IAbstractComponentInfo widget, int side) throws Exception {
     }
 
+    @Override
     public void performAction(int actionId) {
     }
   }

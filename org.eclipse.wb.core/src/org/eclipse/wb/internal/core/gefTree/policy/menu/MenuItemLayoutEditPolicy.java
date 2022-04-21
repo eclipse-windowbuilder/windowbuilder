@@ -110,14 +110,17 @@ public class MenuItemLayoutEditPolicy extends LayoutEditPolicy {
   }
 
   private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
+    @Override
     public boolean validateCreateRequest(EditPart host, CreateRequest request) {
       return m_menuPolicy.validateCreate(request.getNewObject());
     }
 
+    @Override
     public boolean validatePasteRequest(EditPart host, PasteRequest request) {
       return m_menuPolicy.validatePaste(request.getMemento());
     }
 
+    @Override
     public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
       for (EditPart editPart : request.getEditParts()) {
         if (!m_menuPolicy.validateMove(editPart.getModel())) {
@@ -127,6 +130,7 @@ public class MenuItemLayoutEditPolicy extends LayoutEditPolicy {
       return true;
     }
 
+    @Override
     public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
       return validateMoveRequest(host, request);
     }

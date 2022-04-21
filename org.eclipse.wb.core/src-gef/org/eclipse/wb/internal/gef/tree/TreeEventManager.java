@@ -82,12 +82,14 @@ final class TreeEventManager
   // KeyListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void keyPressed(KeyEvent event) {
     if (m_domain != null) {
       m_domain.keyPressed(event, m_viewer);
     }
   }
 
+  @Override
   public void keyReleased(KeyEvent event) {
     if (m_domain != null) {
       m_domain.keyReleased(event, m_viewer);
@@ -99,12 +101,14 @@ final class TreeEventManager
   // MouseListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void mouseDoubleClick(MouseEvent event) {
     if (m_domain != null) {
       m_domain.mouseDoubleClick(event, m_viewer);
     }
   }
 
+  @Override
   public void mouseDown(MouseEvent event) {
     if (isPlusMinusClick(m_tree, event.x, event.y)) {
       return;
@@ -115,6 +119,7 @@ final class TreeEventManager
     }
   }
 
+  @Override
   public void mouseUp(MouseEvent event) {
     if (m_domain != null) {
       m_domain.mouseUp(event, m_viewer);
@@ -126,6 +131,7 @@ final class TreeEventManager
   // MouseMoveListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void mouseMove(MouseEvent event) {
     if (m_domain != null) {
       if ((event.stateMask & EventManager.ANY_BUTTON) != 0) {
@@ -141,18 +147,21 @@ final class TreeEventManager
   // MouseTrackListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void mouseEnter(MouseEvent event) {
     if (m_domain != null) {
       m_domain.viewerEntered(event, m_viewer);
     }
   }
 
+  @Override
   public void mouseExit(MouseEvent event) {
     if (m_domain != null) {
       m_domain.viewerExited(event, m_viewer);
     }
   }
 
+  @Override
   public void mouseHover(MouseEvent event) {
   }
 

@@ -270,6 +270,7 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
     @Override
     public void run() {
       ExecutionUtils.run(m_components.get(0).getUnderlyingModel(), new RunnableEx() {
+        @Override
         public void run() throws Exception {
           switch (m_command) {
             case ALIGN_H_CENTER :

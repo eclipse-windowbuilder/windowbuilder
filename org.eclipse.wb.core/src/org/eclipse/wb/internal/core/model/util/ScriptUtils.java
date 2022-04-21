@@ -164,6 +164,7 @@ public final class ScriptUtils {
    */
   public static void clearMemoryLeaks() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         clearCaches(org.mvel2.util.ParseTools.class);
         clearCaches(org.mvel2.PropertyAccessor.class);

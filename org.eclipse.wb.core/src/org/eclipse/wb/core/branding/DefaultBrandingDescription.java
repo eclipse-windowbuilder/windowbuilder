@@ -25,10 +25,12 @@ final class DefaultBrandingDescription extends AbstractBrandingDescription {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final IBrandingSupportInfo SUPPORT_INFO = new IBrandingSupportInfo() {
+    @Override
     public String getBugtrackingUrl() {
       return "https://bugs.eclipse.org/bugs/enter_bug.cgi?product=WindowBuilder";
     }
 
+    @Override
     public String getForumUrl() {
       return "http://eclipse.org/forums/index.php?t=thread&frm_id=214";
     }

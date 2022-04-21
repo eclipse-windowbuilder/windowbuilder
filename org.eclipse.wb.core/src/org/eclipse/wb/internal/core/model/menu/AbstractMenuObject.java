@@ -39,6 +39,7 @@ public abstract class AbstractMenuObject implements IMenuObjectInfo {
   // Model
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getToolkitModel() {
     return m_component;
   }
@@ -49,10 +50,12 @@ public abstract class AbstractMenuObject implements IMenuObjectInfo {
   ////////////////////////////////////////////////////////////////////////////
   private final EventTable m_eventTable = new EventTable();
 
+  @Override
   public final void addListener(IMenuObjectListener listener) {
     m_eventTable.addListener(IMenuObjectListener.class, listener);
   }
 
+  @Override
   public final void removeListener(IMenuObjectListener listener) {
     m_eventTable.removeListener(IMenuObjectListener.class, listener);
   }
@@ -80,6 +83,7 @@ public abstract class AbstractMenuObject implements IMenuObjectInfo {
   // Policy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final void executeEdit(RunnableEx runnable) {
     ExecutionUtils.run(m_component, runnable);
   }
@@ -89,10 +93,12 @@ public abstract class AbstractMenuObject implements IMenuObjectInfo {
   // Validation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final boolean canMove() {
     return GlobalState.getValidatorHelper().canReorder(m_component);
   }
 
+  @Override
   public final boolean canReparent() {
     return GlobalState.getValidatorHelper().canReparent(m_component);
   }

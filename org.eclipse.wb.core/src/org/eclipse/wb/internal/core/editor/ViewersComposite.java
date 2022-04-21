@@ -54,11 +54,13 @@ public final class ViewersComposite extends Composite {
     // add listeners
     {
       addListener(SWT.Resize, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           layout();
         }
       });
       addListener(SWT.Paint, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           GC gc = event.gc;
           gc.setForeground(IColorConstants.buttonDarker);

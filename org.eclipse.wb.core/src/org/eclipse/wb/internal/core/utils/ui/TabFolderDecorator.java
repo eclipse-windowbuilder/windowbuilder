@@ -55,24 +55,29 @@ public final class TabFolderDecorator {
   private final CTabFolder m_tabFolder;
   private boolean m_shellActive = true;
   private final IPartListener m_partListener = new IPartListener() {
+    @Override
     public void partActivated(IWorkbenchPart part) {
       if (part == m_hostPart) {
         updateColors();
       }
     }
 
+    @Override
     public void partDeactivated(IWorkbenchPart part) {
       if (part == m_hostPart) {
         updateColors();
       }
     }
 
+    @Override
     public void partBroughtToTop(IWorkbenchPart part) {
     }
 
+    @Override
     public void partClosed(IWorkbenchPart part) {
     }
 
+    @Override
     public void partOpened(IWorkbenchPart part) {
     }
   };
@@ -106,6 +111,7 @@ public final class TabFolderDecorator {
     shell.addShellListener(m_shellListener);
     // add dispose listener to remove part/Shell listeners
     m_tabFolder.addListener(SWT.Dispose, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         activePage.removePartListener(m_partListener);
         shell.removeShellListener(m_shellListener);

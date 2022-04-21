@@ -53,11 +53,13 @@ public final class CSpinnerDeferredNotifier {
    */
   private void addListener() {
     m_spinner.addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(final Event event) {
         m_eventId[0]++;
         m_display.timerExec(m_timeout, new Runnable() {
           int m_id = m_eventId[0];
 
+          @Override
           public void run() {
             if (m_id == m_eventId[0]) {
               m_listener.handleEvent(event);

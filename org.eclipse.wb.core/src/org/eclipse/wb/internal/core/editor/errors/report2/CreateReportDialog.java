@@ -143,6 +143,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
               m_screenshotsField.setSelection(true);
             }
             m_screenshotsField.setDialogFieldListener(new IDialogFieldListener() {
+              @Override
               public void dialogFieldChanged(DialogField field) {
                 boolean fieldSelected = m_screenshotsField.getSelection();
                 GridDataFactory.modify(m_screenshotsComposite).exclude(!fieldSelected);
@@ -191,6 +192,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
               Messages.CreateReportDialog_additionalSourceFile,
               3);
           m_cuField.setDialogFieldListener(new IDialogFieldListener() {
+            @Override
             public void dialogFieldChanged(DialogField field) {
               m_errorReport.setIncludeSourceFile(m_cuField.getSelection());
             }
@@ -210,6 +212,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
               Messages.CreateReportDialog_additionalProject,
               3);
           m_projectField.setDialogFieldListener(new IDialogFieldListener() {
+            @Override
             public void dialogFieldChanged(DialogField field) {
               boolean selected = m_projectField.getSelection();
               if (selected) {
@@ -282,6 +285,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
                 Messages.CreateReportDialog_fileAttachments,
                 2);
             m_filesField.setDialogFieldListener(new IDialogFieldListener() {
+              @Override
               public void dialogFieldChanged(DialogField field) {
                 boolean fieldSelected = m_filesField.getSelection();
                 GridDataFactory.modify(m_filesComposite).exclude(!fieldSelected);
@@ -415,6 +419,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
   private BooleanDialogField addScreenshotControl(final String filePath) {
     final BooleanDialogField dialogField = addControl(m_screenshotsComposite, filePath);
     dialogField.setDialogFieldListener(new IDialogFieldListener() {
+      @Override
       public void dialogFieldChanged(DialogField field) {
         m_errorReport.includeScreenshot(filePath, dialogField.getSelection());
       }
@@ -432,6 +437,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
   private BooleanDialogField addFileControl(final String filePath) {
     final BooleanDialogField dialogField = addControl(m_filesComposite, filePath);
     dialogField.setDialogFieldListener(new IDialogFieldListener() {
+      @Override
       public void dialogFieldChanged(DialogField field) {
         m_errorReport.includeFile(filePath, dialogField.getSelection());
       }
@@ -594,10 +600,12 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
             MenuItem copyItem = new MenuItem(copyMenu, SWT.NONE);
             copyItem.setText(Messages.CreateReportDialog_copyAction);
             copyItem.addSelectionListener(new SelectionListener() {
+              @Override
               public void widgetSelected(@SuppressWarnings("hiding") SelectionEvent e) {
                 copyList(list);
               }
 
+              @Override
               public void widgetDefaultSelected(@SuppressWarnings("hiding") SelectionEvent e) {
                 copyList(list);
               }

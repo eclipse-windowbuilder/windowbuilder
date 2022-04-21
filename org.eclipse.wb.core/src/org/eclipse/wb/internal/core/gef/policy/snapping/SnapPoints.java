@@ -305,6 +305,7 @@ public class SnapPoints {
     // ISnapPointsProvider
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public List<SnapPoint> forContainer(boolean isHorizontal) {
       List<SnapPoint> pts = Lists.newArrayList();
       int leadingSide = PlacementUtils.getSide(isHorizontal, true);
@@ -323,6 +324,7 @@ public class SnapPoints {
       return pts;
     }
 
+    @Override
     public List<SnapPoint> forComponent(IAbstractComponentInfo target, boolean isHorizontal) {
       List<SnapPoint> pts = Lists.newArrayList();
       int leadingSide = PlacementUtils.getSide(isHorizontal, true);

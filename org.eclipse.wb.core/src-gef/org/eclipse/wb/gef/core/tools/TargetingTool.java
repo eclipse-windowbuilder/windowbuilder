@@ -152,6 +152,7 @@ public abstract class TargetingTool extends Tool {
    */
   protected IConditional getTargetingConditional() {
     return new IConditional() {
+      @Override
       public boolean evaluate(EditPart target) {
         updateTargetRequest(target);
         return target.getTargetEditPart(getTargetRequest()) != null;

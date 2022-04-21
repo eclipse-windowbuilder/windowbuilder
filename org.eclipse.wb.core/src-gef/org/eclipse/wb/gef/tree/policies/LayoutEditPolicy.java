@@ -307,6 +307,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
       if ((Request.REQ_CREATE.equals(type) || Request.REQ_PASTE.equals(type))
           && !hostItem.getExpanded()) {
         tree.getShell().getDisplay().asyncExec(new Runnable() {
+          @Override
           public void run() {
             TreeItem hostWidget = getHostWidget();
             if (hostWidget != null) {

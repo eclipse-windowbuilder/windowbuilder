@@ -44,6 +44,7 @@ public class DeleteAction extends Action {
   public DeleteAction(IEditPartViewer viewer) {
     m_viewer = viewer;
     m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
       }

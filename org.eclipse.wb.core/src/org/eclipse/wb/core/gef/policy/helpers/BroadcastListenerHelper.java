@@ -44,10 +44,12 @@ public final class BroadcastListenerHelper implements IEditPolicyListener {
   // IEditPolicyListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void activatePolicy(EditPolicy policy) {
     m_object.addBroadcastListener(m_listener);
   }
 
+  @Override
   public void deactivatePolicy(EditPolicy policy) {
     m_object.removeBroadcastListener(m_listener);
     m_editPolicy.removeEditPolicyListener(this);

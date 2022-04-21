@@ -53,6 +53,7 @@ public class ChangeBoundsRequest extends GroupRequest implements IDropRequest {
   /**
    * Returns the location of the mouse pointer.
    */
+  @Override
   public Point getLocation() {
     return m_mouseLocation;
   }

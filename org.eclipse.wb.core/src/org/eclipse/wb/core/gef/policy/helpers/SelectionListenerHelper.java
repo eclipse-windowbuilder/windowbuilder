@@ -42,10 +42,12 @@ public final class SelectionListenerHelper implements IEditPolicyListener {
   // IEditPolicyListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void activatePolicy(EditPolicy policy) {
     m_editPolicy.getHost().addSelectionListener(m_listener);
   }
 
+  @Override
   public void deactivatePolicy(EditPolicy policy) {
     m_editPolicy.getHost().removeSelectionListener(m_listener);
     m_editPolicy.removeEditPolicyListener(this);

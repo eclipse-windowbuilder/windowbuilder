@@ -171,6 +171,7 @@ public class ComplexProperty extends Property {
     // IComplexPropertyEditor
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Property[] getProperties(Property property) throws Exception {
       return ((ComplexProperty) property).getProperties();
     }

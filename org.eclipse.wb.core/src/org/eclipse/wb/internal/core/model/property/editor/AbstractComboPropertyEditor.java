@@ -68,6 +68,7 @@ public abstract class AbstractComboPropertyEditor extends TextDisplayPropertyEdi
       }
     });
     m_combo.addListener(SWT.KeyDown, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         switch (event.keyCode) {
           case SWT.ESC :

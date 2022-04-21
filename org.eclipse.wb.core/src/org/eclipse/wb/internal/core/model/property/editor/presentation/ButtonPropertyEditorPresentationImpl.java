@@ -100,12 +100,14 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
     m_propertyToControl.put(propertyTable, property, control);
     // when Control disposed, remove Control/Property from map to avoid memory leak
     control.addListener(SWT.Dispose, new Listener() {
+      @Override
       public void handleEvent(Event e) {
         m_propertyToControl.remove(propertyTable, property);
       }
     });
     // activate property on mouse down
     control.addListener(SWT.MouseDown, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         propertyTable.deactivateEditor(true);
         propertyTable.setActiveProperty(property);
@@ -113,12 +115,14 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
     });
     // return focus on propertyTable after click
     control.addListener(SWT.MouseUp, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         propertyTable.forceFocus();
       }
     });
     // handle selection
     control.addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         try {
           getPresentation().onClick(propertyTable, property);

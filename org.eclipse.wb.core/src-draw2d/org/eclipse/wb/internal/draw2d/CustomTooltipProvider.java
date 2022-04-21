@@ -30,6 +30,7 @@ public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
   // ICustomTooltipProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure) {
     FigureCanvas canvas = new FigureCanvas(parent, SWT.NONE);
     GridDataFactory.create(canvas).fill().grab();
@@ -47,6 +48,7 @@ public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
     return canvas;
   }
 
+  @Override
   public void show(Shell shell) {
     shell.setVisible(true);
   }

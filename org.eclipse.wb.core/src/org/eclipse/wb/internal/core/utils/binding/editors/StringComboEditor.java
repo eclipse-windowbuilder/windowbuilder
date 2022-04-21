@@ -36,10 +36,12 @@ public class StringComboEditor implements IDataEditor {
   // IDataEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue() {
     return m_field.getText();
   }
 
+  @Override
   public void setValue(Object value) {
     m_field.setText(ObjectUtils.toString(value));
   }

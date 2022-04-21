@@ -82,6 +82,7 @@ public class TreeViewer extends AbstractEditPartViewer {
   /**
    * Returns the SWT <code>Control</code> for this viewer.
    */
+  @Override
   public Control getControl() {
     return m_tree;
   }
@@ -89,6 +90,7 @@ public class TreeViewer extends AbstractEditPartViewer {
   /**
    * @return viewer horizontal scroll offset.
    */
+  @Override
   public int getHOffset() {
     return 0;
   }
@@ -96,6 +98,7 @@ public class TreeViewer extends AbstractEditPartViewer {
   /**
    * @return viewer vertical scroll offset.
    */
+  @Override
   public int getVOffset() {
     return 0;
   }
@@ -103,14 +106,17 @@ public class TreeViewer extends AbstractEditPartViewer {
   /**
    * Returns root {@link EditPart}.
    */
+  @Override
   public EditPart getRootEditPart() {
     return m_rootEditPart;
   }
 
+  @Override
   public IRootFigure getRootFigure() {
     return null;
   }
 
+  @Override
   public Layer getLayer(String name) {
     return null;
   }
@@ -128,6 +134,7 @@ public class TreeViewer extends AbstractEditPartViewer {
   /**
    * Set the Cursor.
    */
+  @Override
   public void setCursor(Cursor cursor) {
     m_tree.setCursor(cursor);
   }
@@ -164,6 +171,7 @@ public class TreeViewer extends AbstractEditPartViewer {
     final boolean[] inTreeSelectionListener = new boolean[1];
     // listener for Tree widget selection
     m_tree.addSelectionListener(new SelectionListener() {
+      @Override
       public void widgetSelected(SelectionEvent e) {
         // prepare selected EditPart's
         EditPart[] selection;
@@ -183,12 +191,14 @@ public class TreeViewer extends AbstractEditPartViewer {
         }
       }
 
+      @Override
       public void widgetDefaultSelected(SelectionEvent e) {
         widgetSelected(e);
       }
     });
     // listener for this viewer selection
     addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         if (!inTreeSelectionListener[0]) {
           setSelectionToTreeWidget();
@@ -220,6 +230,7 @@ public class TreeViewer extends AbstractEditPartViewer {
    * Returns <code>null</code> or the <code>{@link EditPart}</code> at the specified location, using
    * the given exclusion set and conditional.
    */
+  @Override
   public EditPart findTargetEditPart(int x,
       int y,
       Collection<EditPart> exclude,
@@ -247,6 +258,7 @@ public class TreeViewer extends AbstractEditPartViewer {
     return null;
   }
 
+  @Override
   public EditPart findTargetEditPart(int x,
       int y,
       Collection<EditPart> exclude,
@@ -255,10 +267,12 @@ public class TreeViewer extends AbstractEditPartViewer {
     return null;
   }
 
+  @Override
   public Handle findTargetHandle(Point location) {
     return null;
   }
 
+  @Override
   public Handle findTargetHandle(int x, int y) {
     return null;
   }

@@ -47,6 +47,7 @@ public final class ExpressionPredicate<T> implements Predicate<T> {
   // Predicate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean apply(T t) {
     return MVEL.evalToBoolean(m_expression, t);
   }

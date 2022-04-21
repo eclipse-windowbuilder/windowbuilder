@@ -37,6 +37,7 @@ public abstract class StackContainerSupport<T extends ObjectInfo> {
   public StackContainerSupport(ObjectInfo container) throws Exception {
     m_container = container;
     container.addBroadcastListener(new ObjectInfoChildAddAfter() {
+      @Override
       public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
         if (!GlobalState.isParsing() && isActive() && isChild(child)) {
           m_active = getCasted(child);

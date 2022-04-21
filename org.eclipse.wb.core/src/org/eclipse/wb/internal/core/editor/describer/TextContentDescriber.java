@@ -33,11 +33,13 @@ import java.io.Reader;
 public class TextContentDescriber implements ITextContentDescriber {
   private final static QualifiedName[] SUPPORTED_OPTIONS = {IContentDescription.BYTE_ORDER_MARK};
 
+  @Override
   public int describe(Reader contents, IContentDescription description) throws IOException {
     // we want to be pretty loose on detecting the text content type
     return INDETERMINATE;
   }
 
+  @Override
   public int describe(InputStream contents, IContentDescription description) throws IOException {
     if (description == null || !description.isRequested(IContentDescription.BYTE_ORDER_MARK)) {
       return INDETERMINATE;
@@ -50,6 +52,7 @@ public class TextContentDescriber implements ITextContentDescriber {
     return INDETERMINATE;
   }
 
+  @Override
   public QualifiedName[] getSupportedOptions() {
     return SUPPORTED_OPTIONS;
   }

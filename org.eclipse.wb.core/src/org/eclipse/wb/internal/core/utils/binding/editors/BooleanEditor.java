@@ -36,10 +36,12 @@ public class BooleanEditor implements IDataEditor {
   // IDataEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue() {
     return ValueUtils.booleanToObject(m_field.getSelection());
   }
 
+  @Override
   public void setValue(Object value) {
     m_field.setSelection(ValueUtils.objectToBoolean(value));
   }

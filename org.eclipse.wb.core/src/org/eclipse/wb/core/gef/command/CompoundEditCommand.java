@@ -43,6 +43,7 @@ public final class CompoundEditCommand extends CompoundCommand {
   @Override
   public final void execute() throws Exception {
     ExecutionUtils.run(m_object, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         CompoundEditCommand.super.execute();
       }

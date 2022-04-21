@@ -79,6 +79,7 @@ public class RefreshManager implements Runnable {
   // Runnable
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void run() {
     refresh();
   }

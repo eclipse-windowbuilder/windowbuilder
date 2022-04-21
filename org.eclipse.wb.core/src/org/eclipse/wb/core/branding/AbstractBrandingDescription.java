@@ -44,10 +44,12 @@ public abstract class AbstractBrandingDescription implements IBrandingDescriptio
   // IBrandingDescription
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getProductName() {
     return m_productName;
   }
 
+  @Override
   public IBrandingSupportInfo getSupportInfo() {
     return m_supportInfo;
   }
@@ -60,6 +62,7 @@ public abstract class AbstractBrandingDescription implements IBrandingDescriptio
   /**
    * If not overridden, then this is the default behavior.
    */
+  @Override
   public void paintBrandingOnCanvas(Rectangle clientArea, Graphics graphics) {
     //String text = getProductName();
     String version = PluginUtilities.getVersionString("org.eclipse.wb.core");

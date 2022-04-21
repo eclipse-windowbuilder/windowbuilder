@@ -118,6 +118,7 @@ public final class PropertyManager {
   }
   private static Map<String, PropertyCategory> loadCategories(final ToolkitDescription toolkit) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Map<String, PropertyCategory>>() {
+      @Override
       public Map<String, PropertyCategory> runObject() throws Exception {
         return loadCategories0(toolkit);
       }
@@ -126,6 +127,7 @@ public final class PropertyManager {
   private static void saveCategories(final ToolkitDescription toolkit,
       final Map<String, PropertyCategory> categories) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         saveCategories0(toolkit, categories);
       }

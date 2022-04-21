@@ -38,6 +38,7 @@ public class AbstractValidationComposite extends Composite {
   //
   ////////////////////////////////////////////////////////////////////////////
   protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
+    @Override
     public void dialogFieldChanged(DialogField field) {
       validateAll();
     }

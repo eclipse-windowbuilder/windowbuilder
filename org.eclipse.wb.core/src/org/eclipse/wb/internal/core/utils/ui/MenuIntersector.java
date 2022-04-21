@@ -117,6 +117,7 @@ public class MenuIntersector {
     // IMenuElement
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public final boolean incorporate(IMenuManager menu) {
       IContributionItem[] items = menu.getItems();
       for (int i = 0; i < items.length; ++i) {
@@ -190,6 +191,7 @@ public class MenuIntersector {
     // IMenuElement
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void addToMenu(IMenuManager menu) {
       // create sub menu
       MenuManager subMenu = new MenuManager(m_menuTitle);
@@ -267,6 +269,7 @@ public class MenuIntersector {
     // IMenuElement
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void addToMenu(IMenuManager menu) {
       IAction original = getAction();
       // create "call wrapper" action
@@ -328,10 +331,12 @@ public class MenuIntersector {
     // IMenuElement
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean incorporate(IMenuManager menu) {
       return true;
     }
 
+    @Override
     public void addToMenu(IMenuManager menu) {
       menu.add(m_item);
     }

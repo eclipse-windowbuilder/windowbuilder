@@ -46,13 +46,16 @@ public final class AbstractContainerRequestValidator implements ILayoutRequestVa
   // Validation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validateCreateRequest(EditPart host, CreateRequest request) {
     Object newObject = request.getNewObject();
     return m_container.validateComponent(newObject);
   }
 
+  @Override
   public boolean validatePasteRequest(EditPart host, final PasteRequest request) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         List<?> mementos = (List<?>) request.getMemento();
         for (Object memento : mementos) {
@@ -66,10 +69,12 @@ public final class AbstractContainerRequestValidator implements ILayoutRequestVa
     }, false);
   }
 
+  @Override
   public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
     return validateComponents(request);
   }
 
+  @Override
   public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
     return validateComponents(request);
   }

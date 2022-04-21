@@ -128,6 +128,7 @@ public abstract class AbstractDocumentEditContext {
    */
   public final String getText(final int offset, final int length) {
     return ExecutionUtils.runObject(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         return m_document.get(offset, length);
       }
@@ -152,8 +153,10 @@ public abstract class AbstractDocumentEditContext {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final IModelChangedListener m_modelChangedListener = new IModelChangedListener() {
+    @Override
     public void modelChanged(final ModelChangedEvent event) {
       ExecutionUtils.runRethrow(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           handleModelChange(event);
         }

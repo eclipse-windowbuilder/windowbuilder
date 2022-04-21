@@ -78,18 +78,22 @@ public interface ILayoutRequestValidator {
    * Implementation of {@link ILayoutRequestValidator} that allows all requests.
    */
   public abstract class LayoutRequestValidatorStubTrue implements ILayoutRequestValidator {
+    @Override
     public boolean validateCreateRequest(EditPart host, CreateRequest request) {
       return true;
     }
 
+    @Override
     public boolean validatePasteRequest(EditPart host, PasteRequest request) {
       return true;
     }
 
+    @Override
     public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
       return true;
     }
 
+    @Override
     public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
       return true;
     }
@@ -98,18 +102,22 @@ public interface ILayoutRequestValidator {
    * Implementation of {@link ILayoutRequestValidator} which denies all requests.
    */
   public abstract class LayoutRequestValidatorStubFalse implements ILayoutRequestValidator {
+    @Override
     public boolean validateCreateRequest(EditPart host, CreateRequest request) {
       return false;
     }
 
+    @Override
     public boolean validatePasteRequest(EditPart host, PasteRequest request) {
       return false;
     }
 
+    @Override
     public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
       return false;
     }
 
+    @Override
     public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
       return false;
     }

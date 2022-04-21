@@ -36,10 +36,12 @@ public final class TextSingleEditor implements IDataEditor {
   // IDataEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue() {
     return m_text.getText();
   }
 
+  @Override
   public void setValue(Object value) {
     String text;
     if (value instanceof String) {

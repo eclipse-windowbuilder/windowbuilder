@@ -43,11 +43,13 @@ public final class SingletonExtensionFactory
   // IExecutableExtension
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   @SuppressWarnings("unchecked")
   public void setInitializationData(final IConfigurationElement config,
       final String propertyName,
       final Object data) throws CoreException {
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         Bundle extensionBundle = ExternalFactoriesHelper.getExtensionBundle(config);
         String objectClassName = ((Map<String, String>) data).get("class");
@@ -61,8 +63,10 @@ public final class SingletonExtensionFactory
   // IExecutableExtensionFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object create() throws CoreException {
     return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+      @Override
       public Object runObject() throws Exception {
         return ReflectionUtils.getFieldObject(m_objectClass, "INSTANCE");
       }

@@ -90,6 +90,7 @@ public abstract class PropertyTooltipProvider {
     // Listener
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void handleEvent(Event event) {
       Control tooltipControl = (Control) event.widget;
       switch (event.type) {

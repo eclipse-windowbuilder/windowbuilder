@@ -149,21 +149,25 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
    */
   private void hookControlEvents() {
     addListener(SWT.Dispose, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         disposeBufferedImage();
       }
     });
     addListener(SWT.Resize, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         handleResize();
       }
     });
     addListener(SWT.Paint, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         handlePaint(event.gc, event.x, event.y, event.width, event.height);
       }
     });
     getVerticalBar().addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         handleVerticalScrolling();
       }
@@ -186,6 +190,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
       }
     });
     addMouseMoveListener(new MouseMoveListener() {
+      @Override
       public void mouseMove(MouseEvent event) {
         handleMouseMove(event);
       }
@@ -937,16 +942,19 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
   ////////////////////////////////////////////////////////////////////////////
   private final List<ISelectionChangedListener> m_selectionListeners = Lists.newArrayList();
 
+  @Override
   public void addSelectionChangedListener(ISelectionChangedListener listener) {
     if (!m_selectionListeners.contains(listener)) {
       m_selectionListeners.add(listener);
     }
   }
 
+  @Override
   public void removeSelectionChangedListener(ISelectionChangedListener listener) {
     m_selectionListeners.add(listener);
   }
 
+  @Override
   public ISelection getSelection() {
     if (m_activePropertyInfo != null) {
       return new StructuredSelection(m_activePropertyInfo.getProperty());
@@ -955,6 +963,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
     }
   }
 
+  @Override
   public void setSelection(ISelection selection) {
     throw new NotImplementedException(PropertyTable.class);
   }

@@ -85,6 +85,7 @@ public final class LayoutRequestValidators {
    */
   public static ILayoutRequestValidator and(final ILayoutRequestValidator... validators) {
     return new ILayoutRequestValidator() {
+      @Override
       public boolean validateCreateRequest(EditPart host, CreateRequest request) {
         for (ILayoutRequestValidator validator : validators) {
           if (!validator.validateCreateRequest(host, request)) {
@@ -94,6 +95,7 @@ public final class LayoutRequestValidators {
         return true;
       }
 
+      @Override
       public boolean validatePasteRequest(EditPart host, PasteRequest request) {
         for (ILayoutRequestValidator validator : validators) {
           if (!validator.validatePasteRequest(host, request)) {
@@ -103,6 +105,7 @@ public final class LayoutRequestValidators {
         return true;
       }
 
+      @Override
       public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
         for (ILayoutRequestValidator validator : validators) {
           if (!validator.validateMoveRequest(host, request)) {
@@ -112,6 +115,7 @@ public final class LayoutRequestValidators {
         return true;
       }
 
+      @Override
       public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
         for (ILayoutRequestValidator validator : validators) {
           if (!validator.validateAddRequest(host, request)) {
@@ -129,6 +133,7 @@ public final class LayoutRequestValidators {
    */
   public static ILayoutRequestValidator or(final ILayoutRequestValidator... validators) {
     return new ILayoutRequestValidator() {
+      @Override
       public boolean validateCreateRequest(EditPart host, CreateRequest request) {
         for (ILayoutRequestValidator validator : validators) {
           if (validator.validateCreateRequest(host, request)) {
@@ -138,6 +143,7 @@ public final class LayoutRequestValidators {
         return false;
       }
 
+      @Override
       public boolean validatePasteRequest(EditPart host, PasteRequest request) {
         for (ILayoutRequestValidator validator : validators) {
           if (validator.validatePasteRequest(host, request)) {
@@ -147,6 +153,7 @@ public final class LayoutRequestValidators {
         return false;
       }
 
+      @Override
       public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
         for (ILayoutRequestValidator validator : validators) {
           if (validator.validateMoveRequest(host, request)) {
@@ -156,6 +163,7 @@ public final class LayoutRequestValidators {
         return false;
       }
 
+      @Override
       public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
         for (ILayoutRequestValidator validator : validators) {
           if (validator.validateAddRequest(host, request)) {

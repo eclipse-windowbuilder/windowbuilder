@@ -43,6 +43,7 @@ public class ColorInfoComparator implements Comparator<ColorInfo> {
   // Comparator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int compare(ColorInfo color_1, ColorInfo color_2) {
     if (this == TONE) {
       return getTone(color_1) - getTone(color_2);
