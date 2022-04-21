@@ -27,6 +27,7 @@ public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
   // ILayoutEditPolicyFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
     if (model instanceof BorderLayoutInfo) {
       return new BorderLayoutEditPolicy((BorderLayoutInfo) model);
