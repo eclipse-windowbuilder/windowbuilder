@@ -30,10 +30,12 @@ public class WbNature implements IProjectNature {
   ////////////////////////////////////////////////////////////////////////////
   private IProject m_project;
 
+  @Override
   public IProject getProject() {
     return m_project;
   }
 
+  @Override
   public void setProject(IProject project) {
     m_project = project;
   }
@@ -43,6 +45,7 @@ public class WbNature implements IProjectNature {
   // Configure
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure() throws CoreException {
     IProjectDescription desc = m_project.getDescription();
     ICommand[] commands = desc.getBuildSpec();
@@ -60,6 +63,7 @@ public class WbNature implements IProjectNature {
     m_project.setDescription(desc, null);
   }
 
+  @Override
   public void deconfigure() throws CoreException {
     IProjectDescription description = getProject().getDescription();
     ICommand[] commands = description.getBuildSpec();
