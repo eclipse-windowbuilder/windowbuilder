@@ -45,11 +45,7 @@ public class ModelMessages extends NLS {
   public static String CardLayoutAssistantPage_verticalGap;
   public static String ColorField_reset;
   public static String ColorField_select;
-  public static String ColorPropertyEditor_pageAwtColors;
-  public static String ColorPropertyEditor_pageNamedColors;
-  public static String ColorPropertyEditor_pageSwingColors;
-  public static String ColorPropertyEditor_pageSystemColors;
-  public static String ColorPropertyEditor_pageWebColors;
+  public static String ColorPreferenceChooser_Include;
   public static String ColumnEditDialog_aCenter;
   public static String ColumnEditDialog_aFill;
   public static String ColumnEditDialog_aLeft;
@@ -244,6 +240,7 @@ public class ModelMessages extends NLS {
   public static String SpinnerModelDialog_title;
   public static String SwingInvocationEvaluatorInterceptor_placeholderMessage;
   public static String SwingTopBoundsSupport_wrapperTitle;
+  public static String SystemColorWarning;
   public static String TableModelDialog_columnDeleteButton;
   public static String TableModelDialog_columnInsertButton;
   public static String TableModelDialog_columnMoveLeftButton;

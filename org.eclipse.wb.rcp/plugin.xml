@@ -457,6 +457,12 @@
 			class="org.eclipse.wb.internal.rcp.preferences.rcp.PreferencePagePreferencePage"
 			id="org.eclipse.wb.rcp.preferences.rcp.PreferencePagePreferencePage"
 			name="PreferencePage"/>
+  <page
+        category="org.eclipse.wb.rcp.preferences.MainPreferencePage"
+        class="org.eclipse.wb.internal.swt.model.property.editor.color.SwtColorChooserPreferences"
+        id="org.eclipse.wb.rcp.swtpreferences"
+        name="SWT Color Chooser">
+  </page>
 	</extension>
 
 	<extension point="org.eclipse.ui.keywords">

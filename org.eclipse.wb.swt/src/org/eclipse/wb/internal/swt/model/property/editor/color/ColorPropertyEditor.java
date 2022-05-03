@@ -12,6 +12,8 @@ package org.eclipse.wb.internal.swt.model.property.editor.color;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.core.editor.color.CustomColorPickerComposite;
+import org.eclipse.wb.core.editor.constants.IColorChooserPreferenceConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -34,7 +36,6 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorsGridComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.NamedColorsComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.WebSafeColorsComposite;
-import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.jface.resource.ColorRegistryInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.KeyFieldInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.RegistryContainerInfo;
@@ -44,6 +45,7 @@ import org.eclipse.wb.internal.swt.support.ColorSupport;
 import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.QualifiedName;
@@ -56,6 +58,8 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
+import org.osgi.service.prefs.Preferences;
+
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
 import java.util.List;
@@ -67,12 +71,14 @@ import java.util.List;
  * @coverage swt.property.editor
  */
 public final class ColorPropertyEditor extends PropertyEditor implements IClipboardSourceProvider {
+	private static final String preferencePrefix = "SWT";
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance
   //
   ////////////////////////////////////////////////////////////////////////////
   public static final PropertyEditor INSTANCE = new ColorPropertyEditor();
+	static Preferences preferences = InstanceScope.INSTANCE.getNode(IColorChooserPreferenceConstants.PREFERENCE_NODE);
 
   private ColorPropertyEditor() {
   }
@@ -218,7 +224,8 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
     }
     // no field, unexpected
     throw new IllegalArgumentException(
-        MessageFormat.format(ModelMessages.ColorPropertyEditor_wrongSwtColor, idExpression, id));
+			MessageFormat.format(org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_wrongSwtColor,
+					idExpression, id));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -268,6 +275,11 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
   // Editing
   //
   ////////////////////////////////////////////////////////////////////////////
+	private static ColorDialog m_colorDialog = new ColorDialog();
+
+	public static void reloadColorDialog() {
+		m_colorDialog = new ColorDialog();
+	}
   @Override
   public boolean activate(PropertyTable propertyTable, Property property, Point location)
       throws Exception {
@@ -314,6 +326,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
     }
     IPreferenceStore preferences =
         property.getJavaInfo().getDescription().getToolkit().getPreferences();
+
     if (preferences.getBoolean(IPreferenceConstants.P_USE_RESOURCE_MANAGER)) {
       ManagerUtils.ensure_SWTResourceManager(property.getJavaInfo());
       if (colorInfo.getData() != null) {
@@ -345,6 +358,12 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
     // Constructor
     //
     ////////////////////////////////////////////////////////////////////////////
+	public ColorDialog() {
+		super(DesignerPlugin.getShell());
+		m_javaInfo = null;
+
+	}
+
     public ColorDialog(JavaInfo javaInfo) {
       super(DesignerPlugin.getShell());
       m_javaInfo = javaInfo;
@@ -357,15 +376,27 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected void addPages(Composite parent) {
+    	Preferences prefs = preferences.node(IColorChooserPreferenceConstants.PREFERENCE_NODE_1);
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_CUSTOM_COLORS, true)) {
+			addPage(
+    		org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_pageCustomColors,
+            new CustomColorPickerComposite(parent, SWT.NONE, this));
+    	}
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_SYSTEM_COLORS, true)) {
       addPage(
-          ModelMessages.ColorPropertyEditor_systemColorsPage,
+    		  org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_systemColorsPage,
           new SystemColorsPage(parent, SWT.NONE, this, m_javaInfo));
+    	}
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_NAMED_COLORS, true)) {
       addPage(
-          ModelMessages.ColorPropertyEditor_namedColorsPage,
+    		  org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_namedColorsPage,
           new NamedColorsComposite(parent, SWT.NONE, this));
+    	}
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_WEB_SAFE_COLORS, true)) {
       addPage(
-          ModelMessages.ColorPropertyEditor_webSafePage,
+    		  org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_webSafePage,
           new WebSafeColorsComposite(parent, SWT.NONE, this));
+    	}
       try {
         List<ColorRegistryInfo> registries =
             RegistryContainerInfo.getRegistries(m_javaInfo.getRootJava(), ColorRegistryInfo.class);

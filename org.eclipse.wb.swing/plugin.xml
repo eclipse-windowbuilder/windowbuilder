@@ -251,6 +251,12 @@
 		<page category="org.eclipse.wb.swing.preferences.SwingPreferencePage"
 			class="org.eclipse.wb.internal.swing.preferences.laf.LafPreferencePage"
 			id="org.eclipse.wb.swing.preferences.LAF" name="LookAndFeel"/>
+  <page
+        category="org.eclipse.wb.swing.preferences.SwingPreferencePage"
+        class="org.eclipse.wb.internal.swing.model.property.editor.color.SwingColorChooserPreferences"
+        id="org.eclipse.wb.internal.swing.model.property.editor.color"
+        name="Swing Color Chooser">
+  </page>
 	</extension>
 
 	<extension point="org.eclipse.ui.keywords">

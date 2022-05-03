@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2021 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,9 +7,12 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Color preferences integration and System color warning
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.color;
 
+import org.eclipse.wb.core.editor.color.CustomColorPickerComposite;
+import org.eclipse.wb.core.editor.constants.IColorChooserPreferenceConstants;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -29,17 +32,23 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.NamedColorsComp
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.WebSafeColorsComposite;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+
+import org.osgi.service.prefs.Preferences;
 
 import javax.swing.UIManager;
 
@@ -56,6 +65,10 @@ public final class ColorPropertyEditor extends PropertyEditor {
   //
   ////////////////////////////////////////////////////////////////////////////
   public static final PropertyEditor INSTANCE = new ColorPropertyEditor();
+	private static String preferencePrefix = "SWING";
+  //Preferences for the color property editor
+  static Preferences preferences =
+      InstanceScope.INSTANCE.getNode(IColorChooserPreferenceConstants.PREFERENCE_NODE);
 
   private ColorPropertyEditor() {
   }
@@ -80,7 +93,8 @@ public final class ColorPropertyEditor extends PropertyEditor {
   }
 
   @Override
-  public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
+  public void paint(Property property, GC gc, int x, int y, int width, int height)
+      throws Exception {
     Object value = property.getValue();
     if (value instanceof java.awt.Color) {
       // draw color sample
@@ -181,7 +195,11 @@ public final class ColorPropertyEditor extends PropertyEditor {
   // Editing
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final ColorDialog m_colorDialog = new ColorDialog();
+  private static ColorDialog m_colorDialog = new ColorDialog();
+
+  public static void reloadColorDialog() {
+    m_colorDialog = new ColorDialog();
+  }
 
   @Override
   public boolean activate(PropertyTable propertyTable, Property property, Point location)
@@ -203,9 +221,8 @@ public final class ColorPropertyEditor extends PropertyEditor {
       Object value = property.getValue();
       if (value instanceof java.awt.Color) {
         java.awt.Color awtColor = (java.awt.Color) value;
-        m_colorDialog.setColorInfo(new ColorInfo(awtColor.getRed(),
-            awtColor.getGreen(),
-            awtColor.getBlue()));
+        m_colorDialog.setColorInfo(
+            new ColorInfo(awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue()));
       }
     }
     // open dialog
@@ -274,21 +291,37 @@ public final class ColorPropertyEditor extends PropertyEditor {
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected void addPages(Composite parent) {
-      addPage(ModelMessages.ColorPropertyEditor_pageAwtColors, new AwtColorsPage(parent,
-          SWT.NONE,
-          this));
-      addPage(ModelMessages.ColorPropertyEditor_pageSystemColors, new SystemColorsPage(parent,
-          SWT.NONE,
-          this));
-      addPage(ModelMessages.ColorPropertyEditor_pageSwingColors, new SwingColorsPage(parent,
-          SWT.NONE,
-          this));
-      addPage(ModelMessages.ColorPropertyEditor_pageNamedColors, new NamedColorsComposite(parent,
-          SWT.NONE,
-          this));
-      addPage(ModelMessages.ColorPropertyEditor_pageWebColors, new WebSafeColorsComposite(parent,
-          SWT.NONE,
-          this));
+      Preferences prefs = preferences.node(IColorChooserPreferenceConstants.PREFERENCE_NODE_1);
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_CUSTOM_COLORS, true)) {
+        addPage(
+				org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_pageCustomColors,
+            new CustomColorPickerComposite(parent, SWT.NONE, this));
+      }
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_AWT_COLORS, true)) {
+        addPage(
+				org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_pageAwtColors,
+            new AwtColorsPage(parent, SWT.NONE, this));
+      }
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_SYSTEM_COLORS, true)) {
+        addPage(
+				org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_pageSystemColors,
+            new SystemColorsPage(parent, SWT.NONE, this));
+      }
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_SWING_COLORS, true)) {
+        addPage(
+				org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_pageSwingColors,
+            new SwingColorsPage(parent, SWT.NONE, this));
+      }
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_NAMED_COLORS, true)) {
+        addPage(
+				org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_pageNamedColors,
+            new NamedColorsComposite(parent, SWT.NONE, this));
+      }
+		if (prefs.getBoolean(preferencePrefix + IColorChooserPreferenceConstants.P_WEB_SAFE_COLORS, true)) {
+        addPage(
+				org.eclipse.wb.internal.core.model.ModelMessages.ColorPropertyEditor_pageWebColors,
+            new WebSafeColorsComposite(parent, SWT.NONE, this));
+      }
     }
   }
   ////////////////////////////////////////////////////////////////////////////
@@ -321,6 +354,10 @@ public final class ColorPropertyEditor extends PropertyEditor {
         colorsGrid.showNames(50);
         colorsGrid.setCellHeight(25);
         colorsGrid.setColumns(2);
+        Image warningIcon = Display.getCurrent().getSystemImage(SWT.ICON_WARNING);
+        CLabel label = new CLabel(this, SWT.NONE);
+        label.setImage(warningIcon);
+        label.setText(ModelMessages.SystemColorWarning);
       }
     }
   }
