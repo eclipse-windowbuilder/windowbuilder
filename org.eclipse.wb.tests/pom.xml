@@ -64,6 +64,7 @@
 						<include>**/org.eclipse.wb.tests.designer.editor.EditorTests.java</include>
           			</includes>
 					<dependencies>
+					   <!-- required for PlatformAdmin to work-->
 						<dependency>
 							<type>eclipse-plugin</type>
 							<artifactId>org.eclipse.osgi.compatibility.state</artifactId>
