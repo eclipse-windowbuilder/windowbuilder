@@ -87,5 +87,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core.ui;visibility:=reexport,
  org.eclipse.wb.core.java;visibility:=reexport
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.wb.swing
