@@ -62,3 +62,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.wb.swt
+Import-Package: net.sf.cglib.core,
+ net.sf.cglib.proxy

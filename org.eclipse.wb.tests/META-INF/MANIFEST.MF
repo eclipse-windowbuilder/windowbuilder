@@ -173,4 +173,8 @@ Export-Package: org.easymock,
  org.eclipse.wb.tests.gef,
  org.eclipse.wb.tests.utils
 Automatic-Module-Name: org.eclipse.wb.tests
+Import-Package: net.sf.cglib.asm,
+ net.sf.cglib.core,
+ net.sf.cglib.proxy,
+ net.sf.cglib.transform
 

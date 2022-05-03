@@ -104,3 +104,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.eclipse.wb.rcp
+Import-Package: net.sf.cglib.core,
+ net.sf.cglib.proxy
