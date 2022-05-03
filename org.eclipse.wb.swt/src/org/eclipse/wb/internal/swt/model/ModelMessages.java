@@ -31,10 +31,6 @@ public class ModelMessages extends NLS {
   public static String AnchorActionsClassic_attachToTopAsPercent;
   public static String AnchorActionsClassic_attachToTopOfControl;
   public static String AnchorActionsClassic_deleteAttachment;
-  public static String ColorPropertyEditor_namedColorsPage;
-  public static String ColorPropertyEditor_systemColorsPage;
-  public static String ColorPropertyEditor_webSafePage;
-  public static String ColorPropertyEditor_wrongSwtColor;
   public static String CompositeInfo_setLayoutAbsolute;
   public static String CompositeInfo_setLayoutManager;
   public static String CompositeInfo_setMinimalSize;
