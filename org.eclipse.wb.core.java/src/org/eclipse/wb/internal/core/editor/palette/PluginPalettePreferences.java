@@ -51,6 +51,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
   private String m_entryFontKey;
   private String m_onlyIconsKey;
   private String m_minColumnsKey;
+  private String m_layoutsKey;
 
   /**
    * Sets the prefix for preference keys.
@@ -61,6 +62,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
     m_entryFontKey = prefix + ".entry.font";
     m_onlyIconsKey = prefix + ".onlyIcons";
     m_minColumnsKey = prefix + ".columns.min";
+    m_layoutsKey = prefix + ".layouts.type";
     // set default values
     {
       {
@@ -76,6 +78,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
     }
     m_store.setDefault(m_onlyIconsKey, false);
     m_store.setDefault(m_minColumnsKey, 2);
+    m_store.setDefault(m_layoutsKey, DesignerPalette.LIST_ICONS_TYPE);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -111,6 +114,10 @@ public final class PluginPalettePreferences implements IPalettePreferences {
     return m_store.getInt(m_minColumnsKey);
   }
 
+  public int getLayoutType() {
+    return m_store.getInt(m_layoutsKey);
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Access
@@ -142,5 +149,12 @@ public final class PluginPalettePreferences implements IPalettePreferences {
    */
   public void setMinColumns(int minColumns) {
     m_store.setValue(m_minColumnsKey, minColumns);
+  }
+
+  /**
+   * Sets the minimal number of columns for {@link ICategory}.
+   */
+  public void setLayoutType(int layoutTypes) {
+    m_store.setValue(m_layoutsKey, layoutTypes);
   }
 }

@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    DSA - Added getLayoutType method
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
@@ -38,4 +39,6 @@ public interface IPalettePreferences {
    * @return the minimal number of columns for {@link ICategory}.
    */
   int getMinColumns();
+
+  int getLayoutType();
 }

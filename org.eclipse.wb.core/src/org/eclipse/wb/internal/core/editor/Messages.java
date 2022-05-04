@@ -208,6 +208,10 @@ public class Messages extends NLS {
   public static String PalettePreferencesDialog_columns_3;
   public static String PalettePreferencesDialog_columns_4;
   public static String PalettePreferencesDialog_columns_5;
+  public static String PalettePreferencesDialog_layouts_1;
+  public static String PalettePreferencesDialog_layouts_2;
+  public static String PalettePreferencesDialog_layouts_3;
+  public static String PalettePreferencesDialog_layouts_4;
   public static String PalettePreferencesDialog_entryFontChoose;
   public static String PalettePreferencesDialog_entryFontLabel;
   public static String PalettePreferencesDialog_entryFontSystem;

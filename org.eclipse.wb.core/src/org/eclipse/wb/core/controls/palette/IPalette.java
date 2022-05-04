@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    DSA - Altered add popup actions to include IconType
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
@@ -41,7 +42,7 @@ public interface IPalette {
    * @param target
    *          the object under cursor
    */
-  void addPopupActions(IMenuManager menuManager, Object target);
+  void addPopupActions(IMenuManager menuManager, Object target, int iconsType);
 
   ////////////////////////////////////////////////////////////////////////////
   //

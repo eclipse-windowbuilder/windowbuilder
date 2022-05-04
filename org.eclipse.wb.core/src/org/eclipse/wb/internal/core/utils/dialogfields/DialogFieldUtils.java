@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc. and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Daten- und Systemtechnik Aachen - Addition of LayoutDialogFieldGroup
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.dialogfields;
 
@@ -48,6 +49,8 @@ public class DialogFieldUtils {
       control = ((CheckedListDialogField) field).getListControl(parent);
     } else if (field instanceof FontDialogField) {
       control = ((FontDialogField) field).getGroupControl(parent);
+    } else if (field instanceof LayoutDialogFieldGroup) {
+      control = ((LayoutDialogFieldGroup) field).getSelectionButtonsGroup(parent);
     } else {
       throw new IllegalArgumentException("Not supported dialog field: " + field);
     }
