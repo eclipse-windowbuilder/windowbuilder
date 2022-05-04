@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011 Google, Inc and Others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Daten- und Systemtechnik Aachen - Addition of icons type styling
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
@@ -80,6 +81,10 @@ import java.util.Set;
  */
 public class DesignerPalette {
   public static final String FLAG_NO_PALETTE = "FLAG_NO_PALETTE"; // Don't load palette during testing
+  public static final int COLUMN_ICONS_TYPE = 0;
+  public static final int LIST_ICONS_TYPE = 1;
+  public static final int ONLY_ICONS_TYPE = 2;
+  public static final int DETAIL_ICONS_TYPE = 3;
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance fields
@@ -118,7 +123,9 @@ public class DesignerPalette {
   /**
    * Sets information about editor.
    */
-  public void setInput(IEditPartViewer editPartViewer, final JavaInfo rootJavaInfo, String toolkitId) {
+  public void setInput(IEditPartViewer editPartViewer,
+      final JavaInfo rootJavaInfo,
+      String toolkitId) {
     m_editPartViewer = editPartViewer;
     m_rootJavaInfo = rootJavaInfo;
     //
@@ -410,8 +417,11 @@ public class DesignerPalette {
       }
 
       @Override
-      public void addPopupActions(IMenuManager menuManager, Object target) {
-        new DesignerPalettePopupActions(getOperations()).addPopupActions(menuManager, target);
+      public void addPopupActions(IMenuManager menuManager, Object target, int iconsType) {
+        new DesignerPalettePopupActions(getOperations()).addPopupActions(
+            menuManager,
+            target,
+            iconsType);
       }
 
       @Override
@@ -498,10 +508,9 @@ public class DesignerPalette {
      * Edits palette using {@link PaletteManagerDialog}.
      */
     public void editPalette() {
-      PaletteManagerDialog dialog =
-          new PaletteManagerDialog(m_rootJavaInfo.getEditor(),
-              m_manager.getPalette(),
-              m_goodEntryInfos);
+      PaletteManagerDialog dialog = new PaletteManagerDialog(m_rootJavaInfo.getEditor(),
+          m_manager.getPalette(),
+          m_goodEntryInfos);
       // reload in any case
       reloadPalette();
       // add commands used to update palette in dialog
@@ -528,6 +537,13 @@ public class DesignerPalette {
       }
     }
 
+    public void setIconsType(int iconsType) {
+      m_paletteComposite.setLayoutType(iconsType);
+      m_preferences.setLayoutType(iconsType);
+      m_paletteComposite.setPreferences(m_preferences);
+      m_paletteComposite.refreshComposite();
+    }
+
     public EntryInfo getEntry(Object target) {
       return m_visualToEntryInfo.get(target);
     }
@@ -537,23 +553,21 @@ public class DesignerPalette {
     }
 
     public void addComponent(CategoryInfo category) {
-      ComponentAddDialog dialog =
-          new ComponentAddDialog(getShell(),
-              m_rootJavaInfo.getEditor(),
-              m_manager.getPalette(),
-              category);
+      ComponentAddDialog dialog = new ComponentAddDialog(getShell(),
+          m_rootJavaInfo.getEditor(),
+          m_manager.getPalette(),
+          category);
       if (dialog.open() == Window.OK) {
         commands_addWrite(dialog.getCommand());
       }
     }
 
     public void addFactory(CategoryInfo category, boolean forStatic) {
-      FactoryAddDialog dialog =
-          new FactoryAddDialog(getShell(),
-              m_rootJavaInfo.getEditor(),
-              forStatic,
-              m_manager.getPalette(),
-              category);
+      FactoryAddDialog dialog = new FactoryAddDialog(getShell(),
+          m_rootJavaInfo.getEditor(),
+          forStatic,
+          m_manager.getPalette(),
+          category);
       if (dialog.open() == Window.OK) {
         commands_addWrite(dialog.getCommand());
       }
@@ -561,12 +575,11 @@ public class DesignerPalette {
 
     public void addFactories(CategoryInfo category, boolean forStatic) {
       // prepare dialog
-      FactoriesAddDialog dialog =
-          new FactoriesAddDialog(getShell(),
-              m_rootJavaInfo.getEditor(),
-              m_manager.getPalette(),
-              category,
-              forStatic);
+      FactoriesAddDialog dialog = new FactoriesAddDialog(getShell(),
+          m_rootJavaInfo.getEditor(),
+          m_manager.getPalette(),
+          category,
+          forStatic);
       // open dialog
       if (dialog.open() == Window.OK) {
         commands_addWrite(dialog.getCommands());

@@ -404,7 +404,7 @@ public class DesignerPalette {
       }
 
       @Override
-      public void addPopupActions(IMenuManager menuManager, Object target) {
+		public void addPopupActions(IMenuManager menuManager, Object target, int iconsType) {
         new DesignerPalettePopupActions(getOperations()).addPopupActions(menuManager, target);
       }
 

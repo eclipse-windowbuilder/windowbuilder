@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011 Google, Inc and Others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Daten- und Systemtechnik Aachen - Addition of Icons display types
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
@@ -51,8 +52,11 @@ final class DesignerPalettePopupActions {
   private static final ImageDescriptor ID_SETTINGS = getImageDescription("settings.png");
   private static final ImageDescriptor ID_IMPORT = getImageDescription("import.png");
   private static final ImageDescriptor ID_EXPORT = getImageDescription("export.png");
+  private static final ImageDescriptor ID_SELECTED = getImageDescription("selected.gif");
   // field
   private final DesignerPaletteOperations m_operations;
+  private final PluginPalettePreferences m_preferences =
+      new PluginPalettePreferences(DesignerPlugin.getPreferences());
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -78,9 +82,9 @@ final class DesignerPalettePopupActions {
   /**
    * @see IPalette#addPopupActions(IMenuManager, Object)
    */
-  void addPopupActions(IMenuManager menuManager, Object target) {
+  void addPopupActions(IMenuManager menuManager, Object target, int iconsType) {
     if (m_operations.canEditPalette()) {
-      addPopupActions_edit(menuManager, target);
+      addPopupActions_edit(menuManager, target, iconsType);
     }
     //
     menuManager.add(new Separator());
@@ -97,7 +101,70 @@ final class DesignerPalettePopupActions {
     }
   }
 
-  private void addPopupActions_edit(IMenuManager menuManager, Object target) {
+  private void addPopupActions_edit(IMenuManager menuManager, Object target, int type) {
+    // add layout action
+    {
+      IMenuManager layoutMenuManager = new MenuManager("Layout");
+      menuManager.add(layoutMenuManager);
+      // single
+      {
+        ImageDescriptor image = null;
+        if (type == DesignerPalette.COLUMN_ICONS_TYPE) {
+          image = ID_SELECTED;
+        }
+        Action columnAction = new Action("Columns", image) {
+          @Override
+          public void run() {
+            m_operations.setIconsType(DesignerPalette.COLUMN_ICONS_TYPE);
+          }
+        };
+        layoutMenuManager.add(columnAction);
+        image = null;
+        if (type == DesignerPalette.LIST_ICONS_TYPE) {
+          image = ID_SELECTED;
+        }
+        Action listAction = new Action("List", image) {
+          @Override
+          public void run() {
+            m_operations.setIconsType(DesignerPalette.LIST_ICONS_TYPE);
+          }
+        };
+        layoutMenuManager.add(listAction);
+        image = null;
+        if (type == DesignerPalette.ONLY_ICONS_TYPE) {
+          image = ID_SELECTED;
+        }
+        Action onlyIconAction = new Action("Icons Only", image) {
+          @Override
+          public void run() {
+            m_operations.setIconsType(DesignerPalette.ONLY_ICONS_TYPE);
+          }
+        };
+        layoutMenuManager.add(onlyIconAction);
+        image = null;
+        if (type == DesignerPalette.DETAIL_ICONS_TYPE) {
+          image = ID_SELECTED;
+        }
+        Action detailAction = new Action("Detail", image) {
+          @Override
+          public void run() {
+            m_operations.setIconsType(DesignerPalette.DETAIL_ICONS_TYPE);
+          }
+        };
+        layoutMenuManager.add(detailAction);
+      }
+    }
+    // separator
+    menuManager.add(new Separator());
+  }
+
+  /**
+   * now we unused it for 2003
+   *
+   * @param menuManager
+   * @param target
+   */
+  private void addPopupActions_edit_unUsed(IMenuManager menuManager, Object target) {
     final EntryInfo targetEntry = getEntry(target);
     final CategoryInfo targetCategory = getCategory(target);
     // add category

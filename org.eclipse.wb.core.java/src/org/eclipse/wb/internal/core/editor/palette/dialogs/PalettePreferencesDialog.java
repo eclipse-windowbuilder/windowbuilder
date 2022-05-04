@@ -12,10 +12,10 @@ package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.PluginPalettePreferences;
-import org.eclipse.wb.internal.core.utils.dialogfields.BooleanDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogFieldUtils;
 import org.eclipse.wb.internal.core.utils.dialogfields.FontDialogField;
+import org.eclipse.wb.internal.core.utils.dialogfields.LayoutDialogFieldGroup;
 import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFieldGroup;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -56,10 +56,10 @@ public final class PalettePreferencesDialog extends AbstractPaletteDialog {
    * Commits settings from dialog to the preferences.
    */
   public void commit() {
-    m_preferences.setOnlyIcons(m_onlyIconsField.getSelection());
     m_preferences.setMinColumns(1 + m_minColumnsField.getSelection()[0]);
     m_preferences.setCategoryFont(m_categoryFontField.getFontDataArray());
     m_preferences.setEntryFont(m_entryFontField.getFontDataArray());
+    m_preferences.setLayoutType(m_layoutDialogField.getSelection()[0]);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ public final class PalettePreferencesDialog extends AbstractPaletteDialog {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
-  private BooleanDialogField m_onlyIconsField;
+  private LayoutDialogFieldGroup m_layoutDialogField;
   private SelectionButtonDialogFieldGroup m_minColumnsField;
   private FontDialogField m_categoryFontField;
   private FontDialogField m_entryFontField;
@@ -76,10 +76,17 @@ public final class PalettePreferencesDialog extends AbstractPaletteDialog {
   protected void createControls(Composite container) {
     m_fieldsContainer = container;
     GridLayoutFactory.create(container).columns(2);
-    // only icons
+    // layout
     {
-      m_onlyIconsField = new BooleanDialogField();
-      doCreateField(m_onlyIconsField, Messages.PalettePreferencesDialog_onlyIcons);
+      m_layoutDialogField = new LayoutDialogFieldGroup(SWT.RADIO,
+          new String[]{
+              Messages.PalettePreferencesDialog_layouts_1,
+              Messages.PalettePreferencesDialog_layouts_2,
+              Messages.PalettePreferencesDialog_layouts_3,
+              Messages.PalettePreferencesDialog_layouts_4},
+          4,
+          SWT.SHADOW_ETCHED_IN);
+      doCreateField(m_layoutDialogField, "layout");
     }
     // min columns
     {
@@ -107,10 +114,10 @@ public final class PalettePreferencesDialog extends AbstractPaletteDialog {
       m_entryFontField.setDefaultButtonText(Messages.PalettePreferencesDialog_entryFontSystem);
     }
     // initialize fields
-    m_onlyIconsField.setSelection(m_preferences.isOnlyIcons());
     m_minColumnsField.setSelection(new int[]{m_preferences.getMinColumns() - 1});
     m_categoryFontField.setFontDataArray(m_preferences.getCategoryFont().getFontData());
     m_entryFontField.setFontDataArray(m_preferences.getEntryFont().getFontData());
+    m_layoutDialogField.setSelection(new int[]{m_preferences.getLayoutType()});
   }
 
   ////////////////////////////////////////////////////////////////////////////

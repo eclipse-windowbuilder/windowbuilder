@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    DSA - Add icons type to parameter to addPopupActions
  *******************************************************************************/
 package org.eclipse.wb.core.controls.test;
 
@@ -167,8 +168,9 @@ public class PaletteTest implements IColorConstants {
       return m_categories;
     }
 
+    /** {@inheritDoc} */
     @Override
-    public void addPopupActions(IMenuManager menuManager, Object target) {
+    public void addPopupActions(IMenuManager menuManager, Object target, int iconType) {
     }
 
     ////////////////////////////////////////////////////////////////////////////

@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.xml.editor.palette;
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
 import org.eclipse.wb.core.controls.palette.IPalettePreferences;
+import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
 import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -51,7 +52,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
   private String m_entryFontKey;
   private String m_onlyIconsKey;
   private String m_minColumnsKey;
-
+	private String m_layoutsKey;
   /**
    * Sets the prefix for preference keys.
    */
@@ -61,6 +62,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
     m_entryFontKey = prefix + ".entry.font";
     m_onlyIconsKey = prefix + ".onlyIcons";
     m_minColumnsKey = prefix + ".columns.min";
+	m_layoutsKey = prefix + ".layouts.type";
     // set default values
     {
       {
@@ -76,6 +78,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
     }
     m_store.setDefault(m_onlyIconsKey, false);
     m_store.setDefault(m_minColumnsKey, 2);
+	m_store.setDefault(m_layoutsKey, DesignerPalette.LIST_ICONS_TYPE);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -143,4 +146,9 @@ public final class PluginPalettePreferences implements IPalettePreferences {
   public void setMinColumns(int minColumns) {
     m_store.setValue(m_minColumnsKey, minColumns);
   }
+
+	@Override
+	public int getLayoutType() {
+		return m_store.getInt(m_layoutsKey);
+	}
 }

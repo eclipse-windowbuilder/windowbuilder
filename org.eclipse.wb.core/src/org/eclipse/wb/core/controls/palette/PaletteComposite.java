@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    DSA - Adding code to allow the icons to have different layouts set
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
@@ -55,6 +56,10 @@ import java.util.Map;
  * @coverage core.control.palette
  */
 public final class PaletteComposite extends Composite {
+  public static int COLUMN_ICONS_TYPE = 0;
+  public static int LIST_ICONS_TYPE = 1;
+  public static int ONLY_ICONS_TYPE = 2;
+  public static int DETAIL_ICONS_TYPE = 3;
   ////////////////////////////////////////////////////////////////////////////
   //
   // Colors
@@ -109,6 +114,7 @@ public final class PaletteComposite extends Composite {
   private IPalette m_palette;
   private IEntry m_selectedEntry;
   private Object m_forcedTargetObject;
+  private int m_layoutType;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -156,6 +162,7 @@ public final class PaletteComposite extends Composite {
       m_feedbackLayer = new Layer("feedback");
       m_figureCanvas.getRootFigure().add(m_feedbackLayer);
     }
+    m_layoutType = m_preferences.getLayoutType();
   }
 
   /**
@@ -184,7 +191,7 @@ public final class PaletteComposite extends Composite {
       targetObject = m_forcedTargetObject;
     }
     // add actions
-    m_palette.addPopupActions(menuManager, targetObject);
+    m_palette.addPopupActions(menuManager, targetObject, m_layoutType);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -212,6 +219,7 @@ public final class PaletteComposite extends Composite {
    */
   public void setPreferences(IPalettePreferences preferences) {
     m_preferences = preferences;
+    m_layoutType = m_preferences.getLayoutType();
     m_paletteFigure.onPreferencesUpdate();
   }
 
@@ -576,7 +584,7 @@ public final class PaletteComposite extends Composite {
         // prepare max size of entry
         int maxWidth = 0;
         int maxHeight = 0;
-        boolean onlyIcons = m_preferences.isOnlyIcons();
+        boolean onlyIcons = m_preferences.getLayoutType() == ONLY_ICONS_TYPE;
         for (Figure child : getChildren()) {
           EntryFigure entryFigure = (EntryFigure) child;
           // update size
@@ -593,6 +601,9 @@ public final class PaletteComposite extends Composite {
           }
           m_columns = Math.min(m_columns, getChildren().size());
           m_columns = Math.max(m_columns, 1);
+          if (m_layoutType == LIST_ICONS_TYPE || m_layoutType == DETAIL_ICONS_TYPE) {
+            m_columns = 1;
+          }
         }
         // layout children
         {
@@ -1037,7 +1048,17 @@ public final class PaletteComposite extends Composite {
       // draw text
       if (!m_preferences.isOnlyIcons()) {
         graphics.setForegroundColor(COLOR_TEXT_ENABLED);
-        drawStringCV(graphics, m_entry.getText(), x, r.y, r.width - x, r.height);
+        if (m_layoutType == DETAIL_ICONS_TYPE) {
+          drawStringCV(
+              graphics,
+              m_entry.getText() + " -" + m_entry.getToolTipText(),
+              x,
+              r.y,
+              r.width - x,
+              r.height);
+        } else {
+          drawStringCV(graphics, m_entry.getText(), x, r.y, r.width - x, r.height);
+        }
       }
     }
 
@@ -1261,5 +1282,13 @@ public final class PaletteComposite extends Composite {
     }
     gc.drawLine(right, y, right, bottom);
     gc.drawLine(x, bottom, right, bottom);
+  }
+
+  public void setLayoutType(int type) {
+    m_layoutType = type;
+  }
+
+  public void refreshComposite() {
+    m_paletteFigure.onPreferencesUpdate();
   }
 }
