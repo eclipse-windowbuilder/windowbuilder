@@ -46,6 +46,6 @@ public final class LongObjectConverter extends AbstractNumberConverter {
       return text;
     }
     // use explicit boxing
-    return "new Long(" + text + ")";
+    return "Long.valueOf(" + text + ")";
   }
 }

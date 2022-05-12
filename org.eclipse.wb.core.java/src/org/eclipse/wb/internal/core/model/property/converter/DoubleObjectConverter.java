@@ -46,6 +46,6 @@ public final class DoubleObjectConverter extends AbstractNumberConverter {
       return text;
     }
     // use explicit boxing
-    return "new Double(" + text + ")";
+    return "Double.valueOf(" + text + ")";
   }
 }
