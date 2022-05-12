@@ -46,6 +46,6 @@ public final class ByteObjectConverter extends AbstractNumberConverter {
       return text;
     }
     // use explicit boxing
-    return "new Byte(" + text + ")";
+    return "Byte.valueOf(" + text + ")";
   }
 }
