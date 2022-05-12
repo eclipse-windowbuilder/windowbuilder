@@ -46,6 +46,6 @@ public final class IntegerObjectConverter extends AbstractNumberConverter {
       return text;
     }
     // use explicit boxing
-    return "new Integer(" + text + ")";
+    return "Integer.valueOf(" + text + ")";
   }
 }
