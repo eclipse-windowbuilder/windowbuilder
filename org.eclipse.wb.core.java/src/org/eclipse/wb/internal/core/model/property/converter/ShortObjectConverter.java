@@ -46,6 +46,6 @@ public final class ShortObjectConverter extends AbstractNumberConverter {
       return text;
     }
     // use explicit boxing
-    return "new Short(" + text + ")";
+    return "Short.valueOf(" + text + ")";
   }
 }
