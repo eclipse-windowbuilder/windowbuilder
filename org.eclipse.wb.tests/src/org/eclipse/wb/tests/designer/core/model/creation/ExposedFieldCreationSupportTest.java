@@ -606,7 +606,7 @@ public class ExposedFieldCreationSupportTest extends SwingModelTest {
   /**
    * Test for {@link IClipboardImplicitCreationSupport} implementation.
    */
-  public void test_clipboard() throws Exception {
+  public void DISABLE_test_clipboard() throws Exception {
     setFileContentSrc(
         "test/MyPanel.java",
         getTestSource(

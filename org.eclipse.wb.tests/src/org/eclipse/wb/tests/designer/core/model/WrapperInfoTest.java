@@ -360,7 +360,7 @@ public class WrapperInfoTest extends SwingModelTest {
         "}");
   }
 
-  public void test_clipboard() throws Exception {
+  public void DISABLE_test_clipboard() throws Exception {
     configureWrapperContents();
     ContainerInfo container =
         parseContainer(

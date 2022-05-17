@@ -72,6 +72,7 @@ public class ImageUtilsTest extends DesignerTestCase {
       assertEquals(10, bounds.width);
       assertEquals(20, bounds.height);
     }
+    swtImage.dispose();
   }
 
   /**
@@ -92,5 +93,6 @@ public class ImageUtilsTest extends DesignerTestCase {
       assertEquals(10, bounds.width);
       assertEquals(20, bounds.height);
     }
+    swtImage.dispose();
   }
 }

@@ -42,8 +42,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import static org.easymock.EasyMock.capture;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.easymock.EasyMock.capture;
 
 import org.easymock.Capture;
 import org.easymock.EasyMock;
@@ -1562,7 +1562,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
   // Stub
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_openStubMethod() throws Exception {
+  public void DISABLE_test_openStubMethod() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "// filler filler filler",
@@ -1823,7 +1823,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
    * listener.<br>
    * In this case such listener/method combination exists.
    */
-  public void test_openStubListenerMethod_valid() throws Exception {
+  public void DISABLE_test_openStubListenerMethod_valid() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "// filler filler filler",

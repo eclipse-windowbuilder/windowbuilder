@@ -54,7 +54,7 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
   // getTooltip
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_getTooltip_basic() throws Exception {
+  public void DISABLE_test_getTooltip_basic() throws Exception {
     TypeDeclaration typeDeclaration =
         createTypeDeclaration_Test(
             "class Test {",

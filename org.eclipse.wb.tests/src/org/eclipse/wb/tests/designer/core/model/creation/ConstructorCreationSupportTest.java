@@ -609,7 +609,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
   /**
    * {@link ConstructorCreationSupport} should include type arguments into clipboard source.
    */
-  public void test_clipboard_typeArguments() throws Exception {
+  public void DISABLE_test_clipboard_typeArguments() throws Exception {
     // prepare generic MyButton
     setFileContentSrc(
         "test/MyButton.java",
@@ -675,7 +675,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
    * {@link ConstructorCreationSupport} should support {@link AnonymousClassDeclaration} in
    * clipboard source.
    */
-  public void test_clipboard_anonymousClassDeclaration() throws Exception {
+  public void DISABLE_test_clipboard_anonymousClassDeclaration() throws Exception {
     // prepare generic MyButton
     setFileContentSrc(
         "test/MyButton.java",

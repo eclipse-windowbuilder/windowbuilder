@@ -178,7 +178,7 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
         "}");
   }
 
-  public void test_canvas_PASTE() throws Exception {
+  public void DISABLE_test_canvas_PASTE() throws Exception {
     prepareFlowPanel();
     ContainerInfo mainPanel =
         openContainer(
@@ -414,7 +414,7 @@ public abstract class FlowContainerAbstractGefTest extends SwingGefTest {
         "}");
   }
 
-  public void test_tree_PASTE() throws Exception {
+  public void DISABLE_test_tree_PASTE() throws Exception {
     prepareFlowPanel();
     ContainerInfo mainPanel =
         openContainer(

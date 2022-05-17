@@ -25,6 +25,7 @@ import junit.framework.TestSuite;
 /**
  * @author scheglov_ke
  */
+
 public class CoreTests extends TestCase {
   public static Test suite() {
     TestSuite suite = new TestSuite("org.eclipse.wb.core");
