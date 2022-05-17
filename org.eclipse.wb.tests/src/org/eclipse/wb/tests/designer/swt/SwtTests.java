@@ -10,24 +10,25 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.swt.model.ModelTests;
 import org.eclipse.wb.tests.designer.swt.support.SupportTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * All SWT tests.
  *
  * @author sablin_aa
  */
-public class SwtTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swt");
-    suite.addTest(createSingleSuite(ManagerUtilsTest.class));
-    suite.addTest(ModelTests.suite());
-    suite.addTest(SupportTests.suite());
-    return suite;
-  }
+
+@RunWith(Suite.class)
+@SuiteClasses({
+    ManagerUtilsTest.class,
+    ModelTests.class,
+    SupportTests.class,
+
+})
+public class SwtTests {
 }
