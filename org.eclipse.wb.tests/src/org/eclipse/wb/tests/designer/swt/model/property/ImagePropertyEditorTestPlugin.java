@@ -112,9 +112,9 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
         "org.eclipse.wb.swt.ResourceManager");
     // now we have ResourceManager, so use it for image
     assert_getText_getClipboardSource_forSource(
-        "org.eclipse.wb.swt.ResourceManager.getPluginImage(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.gif\")",
-        "Plugin: org.eclipse.jdt.ui /icons/full/elcl16/ch_cancel.gif",
-        "org.eclipse.wb.swt.ResourceManager.getPluginImage(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.gif\")");
+        "org.eclipse.wb.swt.ResourceManager.getPluginImage(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")",
+        "Plugin: org.eclipse.jdt.ui /icons/full/elcl16/ch_cancel.png",
+        "org.eclipse.wb.swt.ResourceManager.getPluginImage(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
   }
 
   public void test_ThisPlugin_Value() throws Exception {
@@ -148,7 +148,8 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
         Activator.getDefault().getBundle(),
         "org.eclipse.wb.swt.ResourceManager");
     Property property =
-        createImagePropertyForSource("org.eclipse.wb.swt.ResourceManager.getPluginImage(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.gif\")");
+        createImagePropertyForSource(
+            "org.eclipse.wb.swt.ResourceManager.getPluginImage(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
     assertNotNull(property);
     assertNotNull(property.getValue());
     //
@@ -156,6 +157,6 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
     assertNotNull(values);
     assertEquals(2, values.length);
     assertEquals("org.eclipse.jdt.ui", values[0]);
-    assertEquals("/icons/full/elcl16/ch_cancel.gif", values[1]);
+    assertEquals("/icons/full/elcl16/ch_cancel.png", values[1]);
   }
 }

@@ -977,7 +977,7 @@ public class GridLayoutGefTest extends RcpGefTest {
   // PASTE
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_PASTE_virtual_1x0() throws Exception {
+  public void DISABLE_test_PASTE_virtual_1x0() throws Exception {
     openPanel(
         "public class Test extends Composite {",
         "  public Test(Composite parent, int style) {",

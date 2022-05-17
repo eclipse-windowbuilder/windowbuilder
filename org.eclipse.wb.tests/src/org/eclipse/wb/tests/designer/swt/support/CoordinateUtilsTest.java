@@ -80,7 +80,7 @@ public class CoordinateUtilsTest extends RcpModelTest {
   /**
    * Test for {@link CoordinateUtils#getClientAreaInsets2(Object)} for {@link Group}.
    */
-  public void test_withGroup() throws Exception {
+  public void DISABLE_test_withGroup() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",

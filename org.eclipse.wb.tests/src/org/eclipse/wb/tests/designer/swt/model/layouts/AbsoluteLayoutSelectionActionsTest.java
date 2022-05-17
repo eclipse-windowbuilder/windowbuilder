@@ -1010,7 +1010,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
   // Center in window
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_align_center_in_window() throws Exception {
+  public void DISABLE_test_align_center_in_window() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "class Test extends Shell {",

@@ -746,7 +746,7 @@ public class MenuComplexTest extends RcpGefTest {
   /**
    * Paste copy of "item" on "bar".
    */
-  public void test_PASTE_item() throws Exception {
+  public void DISABLE_test_PASTE_item() throws Exception {
     CompositeInfo shellInfo =
         openComposite(
             "public class Test extends Shell {",

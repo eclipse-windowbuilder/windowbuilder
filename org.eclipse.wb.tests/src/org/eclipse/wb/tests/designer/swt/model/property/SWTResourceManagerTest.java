@@ -199,7 +199,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
     }
   }
 
-  public void test_getImage_classpath() throws Exception {
+  public void DISABLE_test_getImage_classpath() throws Exception {
     // create image over SWTResourceManager
     Object image =
         ReflectionUtils.invokeMethod(

@@ -345,7 +345,7 @@ public class ClipboardTest extends RcpModelTest {
     layouts_doCopy(sourceLines, targetLines);
   }
 
-  public void test_viewer_1() throws Exception {
+  public void DISABLE_test_viewer_1() throws Exception {
     String[] sourceLines =
         new String[]{
             "class Test extends Shell {",
@@ -425,7 +425,7 @@ public class ClipboardTest extends RcpModelTest {
     layouts_doCopy(sourceLines, targetLines);
   }
 
-  public void test_viewer_2() throws Exception {
+  public void DISABLE_test_viewer_2() throws Exception {
     String[] sourceLines =
         new String[]{
             "class Test extends Shell {",

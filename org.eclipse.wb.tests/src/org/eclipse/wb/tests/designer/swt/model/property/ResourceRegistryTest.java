@@ -66,7 +66,7 @@ public class ResourceRegistryTest extends RcpModelTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_info() throws Exception {
+  public void DISABLED_test_info() throws Exception {
     setFileContentSrc(
         "test/IRegistry.java",
         getTestSource(

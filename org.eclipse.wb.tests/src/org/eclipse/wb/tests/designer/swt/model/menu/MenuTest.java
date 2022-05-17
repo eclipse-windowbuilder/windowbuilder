@@ -409,7 +409,7 @@ public class MenuTest extends RcpModelTest {
    * Tests for {@link IMenuInfo#validatePaste(Object)} and
    * {@link IMenuInfo#commandPaste(Object, IMenuItemInfo)}.
    */
-  public void test_IMenuInfo_paste_1() throws Exception {
+  public void DISABLE_test_IMenuInfo_paste_1() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",
@@ -676,7 +676,7 @@ public class MenuTest extends RcpModelTest {
   /**
    * Test for copy/paste {@link MenuInfo} with {@link MenuItemInfo} and sub-menu.
    */
-  public void test_commandPaste() throws Exception {
+  public void DISABLE_test_commandPaste() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",
