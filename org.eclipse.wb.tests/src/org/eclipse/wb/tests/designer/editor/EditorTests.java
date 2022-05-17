@@ -10,31 +10,25 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.editor;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-import org.eclipse.wb.tests.designer.editor.action.ActionTests;
-import org.eclipse.wb.tests.designer.editor.validator.LayoutRequestValidatorTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class EditorTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.editor");
-    // basic policy
-    suite.addTest(createSingleSuite(TopSelectionEditPolicyTest.class));
+@RunWith(Suite.class)
+@SuiteClasses({
+    //basic policy
+    TopSelectionEditPolicyTest.class,
     // basic features
-    suite.addTest(createSingleSuite(UndoManagerTest.class));
-    suite.addTest(createSingleSuite(ContentDescriberTest.class));
-    suite.addTest(createSingleSuite(ReparseOnModificationTest.class));
-    suite.addTest(createSingleSuite(SelectSupportTest.class));
-    suite.addTest(createSingleSuite(ComponentsPropertiesPageTest.class));
-    suite.addTest(createSingleSuite(JavaPropertiesToolBarContributorTest.class));
-    // suites
-    suite.addTest(ActionTests.suite());
-    suite.addTest(LayoutRequestValidatorTests.suite());
-    return suite;
-  }
+    UndoManagerTest.class,
+    ContentDescriberTest.class,
+    ReparseOnModificationTest.class,
+    SelectSupportTest.class,
+    ComponentsPropertiesPageTest.class,
+    JavaPropertiesToolBarContributorTest.class
+})
+
+public class EditorTests {
 }

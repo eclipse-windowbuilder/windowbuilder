@@ -10,21 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.utils;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Test for "org.eclipse.wb.core.temp" project.
  *
  * @author scheglov_ke
  */
-public class CommonTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.TEMP");
-    suite.addTestSuite(StringUtilitiesTest.class);
-    suite.addTest(createSingleSuite(ProjectClassLoaderTest.class));
-    return suite;
-  }
+@RunWith(Suite.class)
+@SuiteClasses({
+    StringUtilitiesTest.class,
+    ProjectClassLoaderTest.class})
+
+public class CommonTests {
 }
