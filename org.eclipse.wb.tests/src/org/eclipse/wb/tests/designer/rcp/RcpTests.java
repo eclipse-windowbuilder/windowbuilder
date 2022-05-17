@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.rcp.description.DescriptionTests;
 import org.eclipse.wb.tests.designer.rcp.gef.GefTests;
 import org.eclipse.wb.tests.designer.rcp.model.ModelTests;
@@ -18,24 +17,22 @@ import org.eclipse.wb.tests.designer.rcp.nebula.NebulaTests;
 import org.eclipse.wb.tests.designer.rcp.resource.ResourceTests;
 import org.eclipse.wb.tests.designer.rcp.swing2swt.Swing2SwtTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * All RCP tests.
  *
  * @author scheglov_ke
  */
-public class RcpTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp");
-    suite.addTest(ModelTests.suite());
-    suite.addTest(DescriptionTests.suite());
-    suite.addTest(ResourceTests.suite());
-    suite.addTest(NebulaTests.suite());
-    suite.addTest(Swing2SwtTests.suite());
-    suite.addTest(GefTests.suite());
-    //suite.addTest(createSingleSuite(WaitForMemoryProfilerTest.class));
-    return suite;
-  }
+@RunWith(Suite.class)
+@SuiteClasses({
+    ModelTests.class,
+    DescriptionTests.class,
+    ResourceTests.class,
+    NebulaTests.class,
+    Swing2SwtTests.class,
+    GefTests.class,})
+public class RcpTests {
 }
