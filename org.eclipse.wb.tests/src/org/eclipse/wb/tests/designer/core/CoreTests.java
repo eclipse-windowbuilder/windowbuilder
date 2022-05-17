@@ -18,27 +18,27 @@ import org.eclipse.wb.tests.designer.core.palette.PaletteTests;
 import org.eclipse.wb.tests.designer.core.util.UtilTests;
 import org.eclipse.wb.tests.designer.core.util.VersionTest;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
 
-public class CoreTests extends TestCase {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core");
-    suite.addTestSuite(BundleResourceProviderTest.class);
-    suite.addTestSuite(DesignerPluginTest.class);
-    suite.addTestSuite(EnvironmentUtilsTest.class);
-    suite.addTestSuite(VersionTest.class);
-    suite.addTest(UtilTests.suite());
-    suite.addTest(AstEvaluationEngineTests.suite());
-    suite.addTest(ModelTests.suite());
-    suite.addTest(NlsTests.suite());
-    suite.addTest(PaletteTests.suite());
-    suite.addTest(CoreDbTests.suite());
-    return suite;
-  }
+@RunWith(Suite.class)
+@SuiteClasses({
+    BundleResourceProviderTest.class,
+    DesignerPluginTest.class,
+    EnvironmentUtilsTest.class,
+    VersionTest.class,
+    UtilTests.class,
+    AstEvaluationEngineTests.class,
+    ModelTests.class,
+    NlsTests.class,
+    PaletteTests.class,
+    CoreDbTests.class
+
+    })
+public class CoreTests {
 }
