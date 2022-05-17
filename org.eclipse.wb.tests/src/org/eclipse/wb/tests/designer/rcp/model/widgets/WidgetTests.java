@@ -29,7 +29,6 @@ public class WidgetTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(LabelTest.class));
     suite.addTest(createSingleSuite(TableTest.class));
     suite.addTest(createSingleSuite(TableGefTest.class));
-    suite.addTest(createSingleSuite(TableTreeTest.class));
     suite.addTest(createSingleSuite(TreeTest.class));
     suite.addTest(createSingleSuite(TreeGefTest.class));
     suite.addTest(createSingleSuite(ToolBarTest.class));
