@@ -86,6 +86,7 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
     assertEquals(1.7, EnvironmentUtils.getJavaVersion(), 0.001);
   }
 
+
   /**
    * Test for {@link EnvironmentUtils#isTestingTime()}.
    */
