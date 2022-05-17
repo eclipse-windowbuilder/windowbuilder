@@ -19,7 +19,7 @@
 
 	
 	<properties>
-		<tycho.version>2.7.2</tycho.version>
+		<tycho.version>2.7.3</tycho.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
 		<eclipse-jarsigner-version>1.3.2</eclipse-jarsigner-version>
 	  </properties>
