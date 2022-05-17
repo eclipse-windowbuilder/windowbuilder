@@ -469,7 +469,7 @@ public class MenuItemTest extends RcpModelTest {
   /**
    * Test adding a selection listener to menu item.
    */
-  public void test_addSelectionListener() throws Exception {
+  public void DISABLE_test_addSelectionListener() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",

@@ -35,7 +35,7 @@ public class ImageSupportTest extends AbstractSupportTest {
   public void test_createImage() throws Exception {
     Object image =
         ImageSupport.createImage(getClass().getResourceAsStream(
-            "/javax/swing/plaf/basic/icons/JavaCup16.png"));
+            "/icons/true.gif"));
     assertNotNull(image);
     assertSame(m_lastLoader.loadClass("org.eclipse.swt.graphics.Image"), image.getClass());
     ImageSupport.dispose(image);

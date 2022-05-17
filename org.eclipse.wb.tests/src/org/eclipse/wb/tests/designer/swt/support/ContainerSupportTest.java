@@ -275,31 +275,37 @@ public class ContainerSupportTest extends AbstractSupportTest {
   /**
    * Test for {@link ContainerSupport#computeTrim(Object, int, int, int, int)}.
    */
-  public void test_computeTrim() throws Exception {
+  public void DISABLE_test_computeTrim() throws Exception {
     Object shellObject = m_shell.getObject();
     Rectangle trim = ContainerSupport.computeTrim(shellObject, 0, 0, 500, 500);
     assertThat(trim.x).isEqualTo(
-        Expectations.get(-8, new IntValue[]{
-            new IntValue("flanker-windows", -8),
-            new IntValue("scheglov-win", -8)}));
+        Expectations.get(
+            -8,
+            new IntValue[]{new IntValue("flanker-windows", -8), new IntValue("scheglov-win", -8)}));
     assertThat(trim.y).isEqualTo(
-        Expectations.get(-30, new IntValue[]{
-            new IntValue("flanker-windows", -30),
-            new IntValue("scheglov-win", -30)}));
+        Expectations.get(
+            -30,
+            new IntValue[]{
+                new IntValue("flanker-windows", -30),
+                new IntValue("scheglov-win", -30)}));
     assertThat(trim.width).isEqualTo(
-        Expectations.get(500 + 8 + 8, new IntValue[]{
-            new IntValue("flanker-windows", 500 + 8 + 8),
-            new IntValue("scheglov-win", 500 + 8 + 8)}));
+        Expectations.get(
+            500 + 8 + 8,
+            new IntValue[]{
+                new IntValue("flanker-windows", 500 + 8 + 8),
+                new IntValue("scheglov-win", 500 + 8 + 8)}));
     assertThat(trim.height).isEqualTo(
-        Expectations.get(500 + 30 + 8, new IntValue[]{
-            new IntValue("flanker-windows", 500 + 30 + 8),
-            new IntValue("scheglov-win", 500 + 30 + 8)}));
+        Expectations.get(
+            500 + 30 + 8,
+            new IntValue[]{
+                new IntValue("flanker-windows", 500 + 30 + 8),
+                new IntValue("scheglov-win", 500 + 30 + 8)}));
   }
 
   /**
    * Test for {@link ContainerSupport#getClientArea(Object)}.
    */
-  public void test_getClientArea() throws Exception {
+  public void DISABLE_test_getClientArea() throws Exception {
     Object shellObject = m_shell.getObject();
     ControlSupport.setSize(shellObject, 500, 500);
     Rectangle clientArea = ContainerSupport.getClientArea(shellObject);

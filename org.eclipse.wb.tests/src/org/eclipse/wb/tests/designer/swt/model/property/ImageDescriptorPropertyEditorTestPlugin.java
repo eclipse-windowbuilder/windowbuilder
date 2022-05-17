@@ -91,9 +91,9 @@ public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorProp
     ensureManagers();
     // now we have ResourceManager, so use it for image
     assert_getText_getClipboardSource_forSource(
-        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.gif\")",
-        "Plugin: org.eclipse.jdt.ui /icons/full/elcl16/ch_cancel.gif",
-        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.gif\")");
+        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")",
+        "Plugin: org.eclipse.jdt.ui /icons/full/elcl16/ch_cancel.png",
+        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
   }
 
   public void test_ThisPlugin_Value() throws Exception {
@@ -113,7 +113,8 @@ public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorProp
   public void test_Plugin_Value() throws Exception {
     ensureManagers();
     GenericProperty property =
-        createImageDescriptorPropertyForSource("org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.gif\")");
+        createImageDescriptorPropertyForSource(
+            "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
     assertNotNull(property);
     assertNotNull(property.getValue());
     //
@@ -121,7 +122,7 @@ public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorProp
     assertNotNull(values);
     assertEquals(2, values.length);
     assertEquals("org.eclipse.jdt.ui", values[0]);
-    assertEquals("/icons/full/elcl16/ch_cancel.gif", values[1]);
+    assertEquals("/icons/full/elcl16/ch_cancel.png", values[1]);
   }
 
   private void ensureManagers() throws Exception {

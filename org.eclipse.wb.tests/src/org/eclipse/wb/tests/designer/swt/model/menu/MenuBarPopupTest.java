@@ -192,7 +192,7 @@ public class MenuBarPopupTest extends RcpGefTest {
   /**
    * Test for copy/paste "popup".
    */
-  public void test_popupPaste() throws Exception {
+  public void DISABLE_test_popupPaste() throws Exception {
     CompositeInfo shellInfo =
         openComposite(
             "public class Test extends Shell {",
