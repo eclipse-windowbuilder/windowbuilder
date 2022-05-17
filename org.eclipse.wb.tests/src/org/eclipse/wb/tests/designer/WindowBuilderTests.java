@@ -19,27 +19,28 @@ import org.eclipse.wb.tests.designer.swing.SwingTests;
 import org.eclipse.wb.tests.designer.swt.SwtTests;
 import org.eclipse.wb.tests.utils.CommonTests;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * All WindowBuilder tests.
  *
  * @author scheglov_ke
  */
-public class WindowBuilderTests extends TestCase {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb");
-    suite.addTest(CommonTests.suite());
-    suite.addTest(CoreTests.suite());
-    suite.addTest(SwingTests.suite());
-    suite.addTest(SwtTests.suite());
-    suite.addTest(RcpTests.suite());
-    suite.addTest(XmlTests.suite());
-    suite.addTest(XwtTests.suite());
-    suite.addTest(EditorTests.suite());
-    //suite.addTestSuite(WaitForMemoryProfilerTest.class);
-    return suite;
-  }
+
+@RunWith(Suite.class)
+@SuiteClasses({
+    CommonTests.class,
+    CoreTests.class,
+    SwingTests.class,
+    SwtTests.class,
+    RcpTests.class,
+    XmlTests.class,
+    XwtTests.class,
+    EditorTests.class,
+
+})
+
+public class WindowBuilderTests {
 }
