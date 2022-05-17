@@ -2,7 +2,7 @@ name: Publish Unit Test Results
 
 on:
   workflow_run:
-    workflows: ["SWT Matrix Build"]
+    workflows: ["WindowBuilder verification build"]
     types:
       - completed
 
