@@ -111,7 +111,7 @@ public class SubtypesScopeTest extends AbstractJavaTest {
     assertTrue(scope.includesClasspaths());
   }
 
-  public void test_otherScope() throws Exception {
+  public void DISABLE_test_otherScope() throws Exception {
     SubtypesScope scope2 = new SubtypesScope(javaProject.findType("java.util.List"));
     assertTrue(scope2.encloses(javaProject.findType("java.util.ArrayList")));
     assertTrue(scope2.encloses("C:/some/path/rt.jar|java/util/ArrayList.class"));

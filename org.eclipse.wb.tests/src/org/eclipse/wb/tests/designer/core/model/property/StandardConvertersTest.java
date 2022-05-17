@@ -72,7 +72,7 @@ public class StandardConvertersTest extends SwingModelTest {
   }
 
   public void test_property_int() throws Exception {
-    check_converter("int", new Integer(123), "123");
+    check_converter("int", Integer.valueOf(123), "123");
   }
 
   public void test_property_float() throws Exception {
@@ -80,7 +80,7 @@ public class StandardConvertersTest extends SwingModelTest {
   }
 
   public void test_property_double() throws Exception {
-    check_converter("double", new Double(123.4), "123.4");
+    check_converter("double", Double.valueOf(123.4), "123.4");
   }
 
   public void test_property_String() throws Exception {
@@ -142,8 +142,8 @@ public class StandardConvertersTest extends SwingModelTest {
   public void test_ByteConverter() throws Exception {
     assertConverterEditor(byte.class);
     ExpressionConverter converter = ByteConverter.INSTANCE;
-    assertEquals("(byte) 1", converter.toJavaSource(null, new Byte((byte) 1)));
-    assertEquals("(byte) -1", converter.toJavaSource(null, new Byte((byte) -1)));
+    assertEquals("(byte) 1", converter.toJavaSource(null, Byte.valueOf((byte) 1)));
+    assertEquals("(byte) -1", converter.toJavaSource(null, Byte.valueOf((byte) -1)));
   }
 
   public void test_ShortConverter() throws Exception {
@@ -180,10 +180,10 @@ public class StandardConvertersTest extends SwingModelTest {
     assertConverterEditor(double.class);
     ExpressionConverter converter = DoubleConverter.INSTANCE;
     // Double value
-    assertEquals("0.0", converter.toJavaSource(null, new Double(0.0)));
-    assertEquals("1.0", converter.toJavaSource(null, new Double(1.0)));
-    assertEquals("1.2", converter.toJavaSource(null, new Double(1.2)));
-    assertEquals("-1.2", converter.toJavaSource(null, new Double(-1.2)));
+    assertEquals("0.0", converter.toJavaSource(null, Double.valueOf(0.0)));
+    assertEquals("1.0", converter.toJavaSource(null, Double.valueOf(1.0)));
+    assertEquals("1.2", converter.toJavaSource(null, Double.valueOf(1.2)));
+    assertEquals("-1.2", converter.toJavaSource(null, Double.valueOf(-1.2)));
     // other Number values
     assertEquals("1.0", converter.toJavaSource(null, 1));
     assertEquals("1.0", converter.toJavaSource(null, (byte) 1));
@@ -296,8 +296,8 @@ public class StandardConvertersTest extends SwingModelTest {
   public void test_ByteObjectConverter_noJava() throws Exception {
     assertConverterEditor(Byte.class);
     ExpressionConverter converter = ByteObjectConverter.INSTANCE;
-    assertEquals("new Byte((byte) 1)", converter.toJavaSource(null, Byte.valueOf((byte) 1)));
-    assertEquals("new Byte((byte) -1)", converter.toJavaSource(null, Byte.valueOf((byte) -1)));
+    assertEquals("Byte.valueOf((byte) 1)", converter.toJavaSource(null, Byte.valueOf((byte) 1)));
+    assertEquals("Byte.valueOf((byte) -1)", converter.toJavaSource(null, Byte.valueOf((byte) -1)));
   }
 
   public void test_ByteObjectConverter_null() throws Exception {
@@ -329,8 +329,8 @@ public class StandardConvertersTest extends SwingModelTest {
             "  }",
             "}");
     ExpressionConverter converter = ByteObjectConverter.INSTANCE;
-    assertEquals("new Byte((byte) 1)", converter.toJavaSource(panel, Byte.valueOf((byte) 1)));
-    assertEquals("new Byte((byte) -1)", converter.toJavaSource(panel, Byte.valueOf((byte) -1)));
+    assertEquals("Byte.valueOf((byte) 1)", converter.toJavaSource(panel, Byte.valueOf((byte) 1)));
+    assertEquals("Byte.valueOf((byte) -1)", converter.toJavaSource(panel, Byte.valueOf((byte) -1)));
   }
 
   @DisposeProjectAfter
@@ -344,8 +344,8 @@ public class StandardConvertersTest extends SwingModelTest {
             "  }",
             "}");
     ExpressionConverter converter = ByteObjectConverter.INSTANCE;
-    assertEquals("new Byte((byte) 1)", converter.toJavaSource(panel, Byte.valueOf((byte) 1)));
-    assertEquals("new Byte((byte) -1)", converter.toJavaSource(panel, Byte.valueOf((byte) -1)));
+    assertEquals("Byte.valueOf((byte) 1)", converter.toJavaSource(panel, Byte.valueOf((byte) 1)));
+    assertEquals("Byte.valueOf((byte) -1)", converter.toJavaSource(panel, Byte.valueOf((byte) -1)));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -353,13 +353,6 @@ public class StandardConvertersTest extends SwingModelTest {
   // Short as object
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_ShortObjectConverter_noJava() throws Exception {
-    assertConverterEditor(Short.class);
-    ExpressionConverter converter = ShortObjectConverter.INSTANCE;
-    assertEquals("new Short((short) 1)", converter.toJavaSource(null, Short.valueOf((short) 1)));
-    assertEquals("new Short((short) -1)", converter.toJavaSource(null, Short.valueOf((short) -1)));
-  }
-
   public void test_ShortObjectConverter_null() throws Exception {
     ExpressionConverter converter = ShortObjectConverter.INSTANCE;
     assertEquals("(Short) null", converter.toJavaSource(null, null));
@@ -378,35 +371,6 @@ public class StandardConvertersTest extends SwingModelTest {
     assertEquals("(short) -1", converter.toJavaSource(panel, Short.valueOf((short) -1)));
   }
 
-  @DisposeProjectAfter
-  public void test_ShortObjectConverter_forJava5_disableBoxing() throws Exception {
-    m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    ExpressionConverter converter = ShortObjectConverter.INSTANCE;
-    assertEquals("new Short((short) 1)", converter.toJavaSource(panel, Short.valueOf((short) 1)));
-    assertEquals("new Short((short) -1)", converter.toJavaSource(panel, Short.valueOf((short) -1)));
-  }
-
-  @DisposeProjectAfter
-  public void test_ShortObjectConverter_forJava4() throws Exception {
-    m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    ExpressionConverter converter = ShortObjectConverter.INSTANCE;
-    assertEquals("new Short((short) 1)", converter.toJavaSource(panel, Short.valueOf((short) 1)));
-    assertEquals("new Short((short) -1)", converter.toJavaSource(panel, Short.valueOf((short) -1)));
-  }
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -416,8 +380,8 @@ public class StandardConvertersTest extends SwingModelTest {
   public void test_IntegerObjectConverter_noJava() throws Exception {
     assertConverterEditor(Integer.class);
     ExpressionConverter converter = IntegerObjectConverter.INSTANCE;
-    assertEquals("new Integer(1)", converter.toJavaSource(null, Integer.valueOf(1)));
-    assertEquals("new Integer(-1)", converter.toJavaSource(null, Integer.valueOf(-1)));
+    assertEquals("Integer.valueOf(1)", converter.toJavaSource(null, Integer.valueOf(1)));
+    assertEquals("Integer.valueOf(-1)", converter.toJavaSource(null, Integer.valueOf(-1)));
   }
 
   public void test_IntegerObjectConverter_null() throws Exception {
@@ -438,36 +402,6 @@ public class StandardConvertersTest extends SwingModelTest {
     assertEquals("-1", converter.toJavaSource(panel, Integer.valueOf(-1)));
   }
 
-  @DisposeProjectAfter
-  public void test_IntegerObjectConverter_forJava5_disableBoxing() throws Exception {
-    m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    ExpressionConverter converter = IntegerObjectConverter.INSTANCE;
-    assertEquals("new Integer(1)", converter.toJavaSource(panel, Integer.valueOf(1)));
-    assertEquals("new Integer(-1)", converter.toJavaSource(panel, Integer.valueOf(-1)));
-  }
-
-  @DisposeProjectAfter
-  public void test_IntegerObjectConverter_forJava4() throws Exception {
-    m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.4");
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    ExpressionConverter converter = IntegerObjectConverter.INSTANCE;
-    assertEquals("new Integer(1)", converter.toJavaSource(panel, Integer.valueOf(1)));
-    assertEquals("new Integer(-1)", converter.toJavaSource(panel, Integer.valueOf(-1)));
-  }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Long as object
@@ -476,8 +410,8 @@ public class StandardConvertersTest extends SwingModelTest {
   public void test_LongObjectConverter_noJava() throws Exception {
     assertConverterEditor(Long.class);
     ExpressionConverter converter = LongObjectConverter.INSTANCE;
-    assertEquals("new Long(1L)", converter.toJavaSource(null, Long.valueOf(1)));
-    assertEquals("new Long(-1L)", converter.toJavaSource(null, Long.valueOf(-1)));
+    assertEquals("Long.valueOf(1L)", converter.toJavaSource(null, Long.valueOf(1)));
+    assertEquals("Long.valueOf(-1L)", converter.toJavaSource(null, Long.valueOf(-1)));
   }
 
   public void test_LongObjectConverter_null() throws Exception {
@@ -485,18 +419,6 @@ public class StandardConvertersTest extends SwingModelTest {
     assertEquals("(Long) null", converter.toJavaSource(null, null));
   }
 
-  public void test_LongObjectConverter_forJava5() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    ExpressionConverter converter = LongObjectConverter.INSTANCE;
-    assertEquals("1L", converter.toJavaSource(panel, Long.valueOf(1)));
-    assertEquals("-1L", converter.toJavaSource(panel, Long.valueOf(-1)));
-  }
 
   @DisposeProjectAfter
   public void test_LongObjectConverter_forJava5_disableBoxing() throws Exception {
@@ -509,8 +431,8 @@ public class StandardConvertersTest extends SwingModelTest {
             "  }",
             "}");
     ExpressionConverter converter = LongObjectConverter.INSTANCE;
-    assertEquals("new Long(1L)", converter.toJavaSource(panel, Long.valueOf(1)));
-    assertEquals("new Long(-1L)", converter.toJavaSource(panel, Long.valueOf(-1)));
+    assertEquals("Long.valueOf(1L)", converter.toJavaSource(panel, Long.valueOf(1)));
+    assertEquals("Long.valueOf(-1L)", converter.toJavaSource(panel, Long.valueOf(-1)));
   }
 
   @DisposeProjectAfter
@@ -524,8 +446,8 @@ public class StandardConvertersTest extends SwingModelTest {
             "  }",
             "}");
     ExpressionConverter converter = LongObjectConverter.INSTANCE;
-    assertEquals("new Long(1L)", converter.toJavaSource(panel, Long.valueOf(1)));
-    assertEquals("new Long(-1L)", converter.toJavaSource(panel, Long.valueOf(-1)));
+    assertEquals("Long.valueOf(1L)", converter.toJavaSource(panel, Long.valueOf(1)));
+    assertEquals("Long.valueOf(-1L)", converter.toJavaSource(panel, Long.valueOf(-1)));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -536,10 +458,10 @@ public class StandardConvertersTest extends SwingModelTest {
   public void test_DoubleObjectConverter_noJava() throws Exception {
     assertConverterEditor(Double.class);
     ExpressionConverter converter = DoubleObjectConverter.INSTANCE;
-    assertEquals("new Double(1.0)", converter.toJavaSource(null, Double.valueOf(1)));
-    assertEquals("new Double(-1.0)", converter.toJavaSource(null, Double.valueOf(-1)));
-    assertEquals("new Double(1.2)", converter.toJavaSource(null, Double.valueOf(1.2)));
-    assertEquals("new Double(-2.3)", converter.toJavaSource(null, Double.valueOf(-2.3)));
+    assertEquals("Double.valueOf(1.0)", converter.toJavaSource(null, Double.valueOf(1)));
+    assertEquals("Double.valueOf(-1.0)", converter.toJavaSource(null, Double.valueOf(-1)));
+    assertEquals("Double.valueOf(1.2)", converter.toJavaSource(null, Double.valueOf(1.2)));
+    assertEquals("Double.valueOf(-2.3)", converter.toJavaSource(null, Double.valueOf(-2.3)));
   }
 
   public void test_DoubleObjectConverter_null() throws Exception {
@@ -571,8 +493,8 @@ public class StandardConvertersTest extends SwingModelTest {
             "  }",
             "}");
     ExpressionConverter converter = DoubleObjectConverter.INSTANCE;
-    assertEquals("new Double(1.2)", converter.toJavaSource(panel, Double.valueOf(1.2)));
-    assertEquals("new Double(-1.2)", converter.toJavaSource(panel, Double.valueOf(-1.2)));
+    assertEquals("Double.valueOf(1.2)", converter.toJavaSource(panel, Double.valueOf(1.2)));
+    assertEquals("Double.valueOf(-1.2)", converter.toJavaSource(panel, Double.valueOf(-1.2)));
   }
 
   @DisposeProjectAfter
@@ -586,8 +508,8 @@ public class StandardConvertersTest extends SwingModelTest {
             "  }",
             "}");
     ExpressionConverter converter = DoubleObjectConverter.INSTANCE;
-    assertEquals("new Double(1.2)", converter.toJavaSource(panel, Double.valueOf(1.2)));
-    assertEquals("new Double(-1.2)", converter.toJavaSource(panel, Double.valueOf(-1.2)));
+    assertEquals("Double.valueOf(1.2)", converter.toJavaSource(panel, Double.valueOf(1.2)));
+    assertEquals("Double.valueOf(-1.2)", converter.toJavaSource(panel, Double.valueOf(-1.2)));
   }
 
   ////////////////////////////////////////////////////////////////////////////

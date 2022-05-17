@@ -784,7 +784,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
   /**
    * We don't support member classes as factories.
    */
-  public void test_descriptions_memberClass() throws Exception {
+  public void DISABLE_test_descriptions_memberClass() throws Exception {
     setFileContentSrc(
         "test/SomeObject.java",
         getTestSource(

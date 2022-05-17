@@ -79,7 +79,7 @@ public class BindingsTest extends AbstractJavaTest {
   /**
    * Object type.
    */
-  public void test_DesignerTypeBinding_1() throws Exception {
+  public void DISABLE_test_DesignerTypeBinding_1() throws Exception {
     String code = "private java.util.List foo() {return null;}";
     check_DesignerTypeBinding(code);
   }
@@ -87,7 +87,7 @@ public class BindingsTest extends AbstractJavaTest {
   /**
    * Primitive type.
    */
-  public void test_DesignerTypeBinding_2() throws Exception {
+  public void DISABLE_test_DesignerTypeBinding_2() throws Exception {
     String code = "private int foo() {return 0;}";
     check_DesignerTypeBinding(code);
   }
@@ -95,7 +95,7 @@ public class BindingsTest extends AbstractJavaTest {
   /**
    * Array type.
    */
-  public void test_DesignerTypeBinding_3() throws Exception {
+  public void DISABLE_test_DesignerTypeBinding_3() throws Exception {
     String code = "private int[] foo() {return null;}";
     check_DesignerTypeBinding(code);
   }
@@ -103,7 +103,7 @@ public class BindingsTest extends AbstractJavaTest {
   /**
    * Inner type.
    */
-  public void test_DesignerTypeBinding_4() throws Exception {
+  public void DISABLE_test_DesignerTypeBinding_4() throws Exception {
     String code = "class Foo {} private Foo foo() {return null;}";
     check_DesignerTypeBinding(code);
   }
@@ -289,7 +289,7 @@ public class BindingsTest extends AbstractJavaTest {
   // DesignerPackageBinding
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_DesignerPackageBinding() throws Exception {
+  public void DISABLE_test_DesignerPackageBinding() throws Exception {
     TypeDeclaration typeDeclaration = createTypeDeclaration_TestC("");
     IPackageBinding originalBinding = typeDeclaration.resolveBinding().getPackage();
     IPackageBinding ourBinding = m_lastEditor.getBindingContext().get(originalBinding);
@@ -307,7 +307,7 @@ public class BindingsTest extends AbstractJavaTest {
   /**
    * Basic test for {@link DesignerMethodBinding}.
    */
-  public void test_DesignerMethodBinding_1() throws Exception {
+  public void DISABLE_test_DesignerMethodBinding_1() throws Exception {
     TypeDeclaration typeDeclaration =
         createTypeDeclaration_TestC(getSourceDQ("  private int foo() {", "    return 0;", "  }"));
     MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
@@ -421,7 +421,7 @@ public class BindingsTest extends AbstractJavaTest {
   /**
    * Basic test for {@link DesignerVariableBinding}.
    */
-  public void test_DesignerVariableBinding_1() throws Exception {
+  public void DISABLE_test_DesignerVariableBinding_1() throws Exception {
     TypeDeclaration typeDeclaration = createTypeDeclaration_TestC("private int m_value;");
     FieldDeclaration fieldDeclaration = typeDeclaration.getFields()[0];
     IVariableBinding originalBinding =
@@ -471,7 +471,7 @@ public class BindingsTest extends AbstractJavaTest {
   /**
    * Test for {@link BindingContext#getCopy(ITypeBinding)}.
    */
-  public void test_getCopy() throws Exception {
+  public void DISABLE_test_getCopy() throws Exception {
     TypeDeclaration typeDeclaration =
         createTypeDeclaration_Test(
             "public class Test extends javax.swing.JFrame {",

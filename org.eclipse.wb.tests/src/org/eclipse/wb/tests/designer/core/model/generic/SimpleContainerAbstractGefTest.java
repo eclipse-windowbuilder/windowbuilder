@@ -104,7 +104,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
     canvas.assertPrimarySelected(newButton);
   }
 
-  public void test_canvas_PASTE() throws Exception {
+  public void DISABLE_test_canvas_PASTE() throws Exception {
     prepareSimplePanel();
     ContainerInfo mainPanel =
         openContainer(
@@ -342,7 +342,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
     tree.assertPrimarySelected(newButton);
   }
 
-  public void test_tree_PASTE() throws Exception {
+  public void DISABLE_test_tree_PASTE() throws Exception {
     prepareSimplePanel();
     ContainerInfo mainPanel =
         openContainer(

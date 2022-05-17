@@ -297,7 +297,7 @@ public class EditableSupportTest extends AbstractNlsTest {
     }
   }
 
-  public void test_existingSource() throws Exception {
+  public void DISABLE_test_existingSource() throws Exception {
     NlsTestUtils.create_EclipseOld_Accessor(this, false);
     setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
     waitForAutoBuild();
@@ -358,7 +358,7 @@ public class EditableSupportTest extends AbstractNlsTest {
     }
   }
 
-  public void test_addSource() throws Exception {
+  public void DISABLE_test_addSource() throws Exception {
     waitForAutoBuild();
     ContainerInfo frame =
         parseContainer(

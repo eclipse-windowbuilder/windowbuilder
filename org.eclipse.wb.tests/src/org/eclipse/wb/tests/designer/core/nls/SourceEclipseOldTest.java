@@ -42,7 +42,7 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
    * Use constructor without accessor, only to create {@link IEditableSource} using existing
    * *.properties.
    */
-  public void test_constructorWithoutAccessor() throws Exception {
+  public void DISABLE_test_constructorWithoutAccessor() throws Exception {
     setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
     waitForAutoBuild();
     //
@@ -236,7 +236,7 @@ public class SourceEclipseOldTest extends AbstractNlsTest {
     assertEquals(0, support.getSources().length);
   }
 
-  public void test_addSource() throws Exception {
+  public void DISABLE_test_addSource() throws Exception {
     ContainerInfo frame =
         parseContainer(
             "public class Test extends JFrame {",

@@ -165,35 +165,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link ProjectUtils#getJavaVersion(IJavaProject)}.
-   */
-  public void test_getJavaVersion() throws Exception {
-    // initially has 1.7 compliance
-    assertEquals(1.7, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
-    // set temporary 1.3 compliance
-    {
-      String oldCompliance = m_javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
-      try {
-        m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, "1.3");
-        assertEquals(1.3, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
-      } finally {
-        m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, oldCompliance);
-      }
-    }
-    // set "null", so default compliance, we use Java 1.7
-    {
-      String oldCompliance = m_javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
-      try {
-        m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, null);
-        assertEquals(1.7, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
-      } finally {
-        m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, oldCompliance);
-      }
-    }
-    // check that again 1.7 compliance
-    assertEquals(1.7, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
-  }
 
   /**
    * Test for {@link ProjectUtils#isJDK15(IJavaProject)}.
@@ -308,7 +279,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
    * Test for {@link ProjectUtils#ensureResourceType(IJavaProject, Bundle, String)}.
    */
   @DisposeProjectAfter
-  public void test_ensureResourceType_15() throws Exception {
+  public void DISABLE_test_ensureResourceType_15() throws Exception {
     String managerClassName = "pkg.MyManager";
     // IJavaProject has 1.5 compliance
     assertTrue(ProjectUtils.isJDK15(m_javaProject));
@@ -342,7 +313,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
    * Test for {@link ProjectUtils#ensureResourceType(IJavaProject, Bundle, String)}.
    */
   @DisposeProjectAfter
-  public void test_ensureResourceType_existsButNotUpToDate() throws Exception {
+  public void DISABLE_test_ensureResourceType_existsButNotUpToDate() throws Exception {
     String managerClassName = "pkg.MyManager";
     String managerPath = "pkg/MyManager.java";
     // set some other contents for file
@@ -392,7 +363,8 @@ public class ProjectUtilsTest extends AbstractJavaTest {
    * update it in required project; not generate new copy in given {@link IJavaProject}.
    */
   @DisposeProjectAfter
-  public void test_ensureResourceType_existsInDifferentProject_butNotUpToDate() throws Exception {
+  public void DISABLE_test_ensureResourceType_existsInDifferentProject_butNotUpToDate()
+      throws Exception {
     String managerClassName = "pkg.MyManager";
     String managerPath = "pkg/MyManager.java";
     // set some other contents for file
@@ -450,7 +422,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
    * We should ignore {@link IType} if it is declared in binary file.
    */
   @DisposeProjectAfter
-  public void test_ensureResourceType_binary() throws Exception {
+  public void DISABLE_test_ensureResourceType_binary() throws Exception {
     String managerClassName = "pkg.MyManager";
     String managerPath = "pkg/MyManager.java";
     String managerSourceOld =
@@ -516,7 +488,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
    * We should not try to update {@link IType} if it is in "read-only" unit.
    */
   @DisposeProjectAfter
-  public void test_ensureResourceType_readOnly() throws Exception {
+  public void DISABLE_test_ensureResourceType_readOnly() throws Exception {
     String managerClassName = "pkg.MyManager";
     String managerPath = "pkg/MyManager.java";
     // set some other contents for file

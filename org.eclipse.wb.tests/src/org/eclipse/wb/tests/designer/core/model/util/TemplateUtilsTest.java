@@ -70,7 +70,7 @@ public class TemplateUtilsTest extends SwingModelTest {
   /**
    * Test for {@link TemplateUtils#format(String, Object...)}.
    */
-  public void test_format() throws Exception {
+  public void DISABLE_test_format() throws Exception {
     ContainerInfo panel =
         parseContainer(
         "// filler filler filler",

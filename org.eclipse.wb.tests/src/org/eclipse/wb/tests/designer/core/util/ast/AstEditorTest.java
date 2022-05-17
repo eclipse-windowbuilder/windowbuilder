@@ -136,7 +136,10 @@ public class AstEditorTest extends AbstractJavaTest {
    */
   public void test_getJavaProject() throws Exception {
     createTypeDeclaration_TestC("");
-    assertSame(m_testProject.getJavaProject(), m_lastEditor.getJavaProject());
+    IJavaProject javaProject = m_testProject.getJavaProject();
+    IJavaProject editorJavaProject = m_lastEditor.getJavaProject();
+
+    assertEquals(javaProject, editorJavaProject);
   }
 
   /**

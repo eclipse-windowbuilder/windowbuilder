@@ -602,7 +602,10 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   }
 
   public void test_getMethodBySignature_private_direct() throws Exception {
-    assertNotNull(ReflectionUtils.getMethodBySignature(ArrayList.class, "fastRemove(int)"));
+    assertNotNull(
+        ReflectionUtils.getMethodBySignature(
+            ArrayList.class,
+            "fastRemove(java.lang.Object[],int)"));
   }
 
   public void test_getMethodBySignature_private_super() throws Exception {
@@ -643,7 +646,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   }
 
   public void test_getMethod_private_direct() throws Exception {
-    assertNotNull(ReflectionUtils.getMethod(ArrayList.class, "fastRemove", int.class));
+    assertNotNull(
+        ReflectionUtils.getMethod(
+            ArrayList.class,
+            "fastRemove",
+            java.lang.Object[].class,
+            int.class));
   }
 
   ////////////////////////////////////////////////////////////////////////////
