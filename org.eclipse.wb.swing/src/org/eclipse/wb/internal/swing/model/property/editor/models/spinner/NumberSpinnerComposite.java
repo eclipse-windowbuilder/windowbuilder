@@ -265,13 +265,13 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
     BYTE(Byte.class) {
       @Override
       public String getSource(int value) {
-        return "new Byte((byte) " + value + ")";
+        return "Byte.valueOf((byte) " + value + ")";
       }
     },
     SHORT(Short.class) {
       @Override
       public String getSource(int value) {
-        return "new Short((short) " + value + ")";
+        return "Short.valueOf((short) " + value + ")";
       }
     },
     INTEGER(Integer.class) {
@@ -280,12 +280,15 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
         return Integer.toString(value);
       }
     },
-    FLOAT(Float.class), LONG(Long.class), DOUBLE(Double.class) {
+    FLOAT(Float.class),
+    LONG(Long.class),
+    DOUBLE(Double.class) {
       @Override
       public String getSourceOptimized(int value) {
         return Double.toString(value);
       }
     };
+
     ////////////////////////////////////////////////////////////////////////////
     //
     // Instance fields
@@ -325,7 +328,7 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
      * @return the <code>new Type(value)</code> source.
      */
     public String getSource(int value) {
-      return "new " + m_type.getName() + "(" + value + ")";
+      return m_type.getName() + ".valueOf(" + value + ")";
     }
 
     /**
