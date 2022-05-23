@@ -89,7 +89,7 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
     assertSame(components.get(1), tabOrderInfo.getOrderedInfos().get(1));
   }
 
-  public void test_getValue_2() throws Exception {
+  public void DISABLE_test_getValue_2() throws Exception {
     ProjectUtils.ensureResourceType(
         m_javaProject,
         org.eclipse.wb.internal.swing.Activator.getDefault().getBundle(),
@@ -128,7 +128,7 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
     assertSame(components.get(1), tabOrderInfo.getOrderedInfos().get(0));
   }
 
-  public void test_setValue() throws Exception {
+  public void DISABLE_test_setValue() throws Exception {
     // create panel
     ContainerInfo panel =
         parseContainer(

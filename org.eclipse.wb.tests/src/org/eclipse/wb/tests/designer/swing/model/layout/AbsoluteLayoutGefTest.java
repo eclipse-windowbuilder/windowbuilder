@@ -65,7 +65,7 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
         "}");
   }
 
-  public void test_canvas_PASTE() throws Exception {
+  public void DISABLE_test_canvas_PASTE() throws Exception {
     prepareBox();
     ContainerInfo panel =
         openContainer(
@@ -228,7 +228,7 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
     tree.assertPrimarySelected(newBox);
   }
 
-  public void test_tree_PASTE() throws Exception {
+  public void DISABLE_test_tree_PASTE() throws Exception {
     prepareBox();
     ContainerInfo panel =
         openContainer(

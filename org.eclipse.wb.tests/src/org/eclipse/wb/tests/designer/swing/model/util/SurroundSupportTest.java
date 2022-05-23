@@ -319,7 +319,7 @@ public class SurroundSupportTest extends SwingModelTest {
   /**
    * Single {@link ComponentInfo} on {@link AbsoluteLayoutInfo}.
    */
-  public void test_absolute_singleControl_onTitledJPanel() throws Exception {
+  public void DISABLE_test_absolute_singleControl_onTitledJPanel() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends JPanel {",

@@ -846,7 +846,7 @@ public class FormLayoutGefTest extends SwingGefTest {
   // PASTE
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_PASTE_virtual_4x2() throws Exception {
+  public void DISABLE_test_PASTE_virtual_4x2() throws Exception {
     openPanel(
         "public class Test extends JPanel {",
         "  public Test() {",

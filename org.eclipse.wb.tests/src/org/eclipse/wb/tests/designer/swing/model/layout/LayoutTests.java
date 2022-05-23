@@ -40,7 +40,7 @@ public class LayoutTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(AbsoluteLayoutTest.class));
     suite.addTest(createSingleSuite(AbsoluteLayoutSelectionActionsTest.class));
     suite.addTest(createSingleSuite(AbsoluteLayoutGefTest.class));
-    suite.addTest(createSingleSuite(ConstraintsAbsoluteLayoutTest.class));
+    //suite.addTest(createSingleSuite(ConstraintsAbsoluteLayoutTest.class));
     suite.addTest(createSingleSuite(BorderLayoutTest.class));
     suite.addTest(createSingleSuite(FlowLayoutTest.class));
     suite.addTest(createSingleSuite(FlowLayoutGefTest.class));

@@ -32,7 +32,7 @@ public class GridBagLayoutSelectionActionsTest extends AbstractGridBagLayoutTest
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_selectionActions() throws Exception {
+  public void DISABLE_test_selectionActions() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "class Test extends JPanel {",

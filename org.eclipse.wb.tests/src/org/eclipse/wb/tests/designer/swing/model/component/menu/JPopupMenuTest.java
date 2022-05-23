@@ -358,7 +358,7 @@ public class JPopupMenuTest extends SwingModelTest {
   /**
    * Test that we can paste {@link JPopupMenu}.
    */
-  public void test_PASTE() throws Exception {
+  public void DISABLE_test_PASTE() throws Exception {
     ContainerInfo panelInfo =
         parseContainer(
             "public class Test extends JPanel {",

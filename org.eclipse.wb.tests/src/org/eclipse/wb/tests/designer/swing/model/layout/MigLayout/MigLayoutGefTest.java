@@ -597,7 +597,7 @@ public class MigLayoutGefTest extends SwingGefTest {
   // PASTE
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_PASTE_virtual_1x0() throws Exception {
+  public void DISABLE_test_PASTE_virtual_1x0() throws Exception {
     openPanel(
         "// filler filler filler filler filler",
         "public class Test extends JPanel {",

@@ -56,7 +56,7 @@ public class FrameViewTest extends SwingModelTest {
   /**
    * Tests that <code>FrameView</code> can be parsed and children are bound.
    */
-  public void test_parse() throws Exception {
+  public void DISABLE_test_parse() throws Exception {
     FrameViewInfo view =
         parseJavaInfo(
             "import org.jdesktop.application.*;",
@@ -97,7 +97,7 @@ public class FrameViewTest extends SwingModelTest {
    * Test that {@link FrameViewInfo} handles correctly not only <code>Application</code> parameter,
    * but also other parameters.
    */
-  public void test_constructorWithOtherArgument() throws Exception {
+  public void DISABLE_test_constructorWithOtherArgument() throws Exception {
     useStrictEvaluationMode(false);
     parseJavaInfo(
         "import org.jdesktop.application.*;",
@@ -118,7 +118,7 @@ public class FrameViewTest extends SwingModelTest {
   /**
    * Test for <code>FrameView</code> bounds.
    */
-  public void test_bounds() throws Exception {
+  public void DISABLE_test_bounds() throws Exception {
     FrameViewInfo view =
         parseJavaInfo(
             "import org.jdesktop.application.*;",
@@ -154,7 +154,7 @@ public class FrameViewTest extends SwingModelTest {
   /**
    * Test for {@link FrameViewTopBoundsSupport#setSize(int, int)}.
    */
-  public void test_TopBoundsSupport_setSize() throws Exception {
+  public void DISABLE_test_TopBoundsSupport_setSize() throws Exception {
     FrameViewInfo view =
         parseJavaInfo(
             "import org.jdesktop.application.*;",
@@ -179,7 +179,7 @@ public class FrameViewTest extends SwingModelTest {
   /**
    * Test for {@link FrameViewTopBoundsSupport#show()}.
    */
-  public void test_TopBoundsSupport_show() throws Exception {
+  public void DISABLE_test_TopBoundsSupport_show() throws Exception {
     final FrameViewInfo view =
         parseJavaInfo(
             "import org.jdesktop.application.*;",

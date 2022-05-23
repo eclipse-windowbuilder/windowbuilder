@@ -40,7 +40,7 @@ public class PropertyTweaksTest extends SwingGefTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_Groups_fromBundle() throws Exception {
+  public void DISABLE_test_Groups_fromBundle() throws Exception {
     prepareParse_MyButton();
     assertEquals(2, m_propertyTable.forTests_getPropertiesCount());
     // check "AMS" group
@@ -60,7 +60,7 @@ public class PropertyTweaksTest extends SwingGefTest {
   }
 
   @DisposeProjectAfter
-  public void test_Groups_fromJar() throws Exception {
+  public void DISABLE_test_Groups_fromJar() throws Exception {
     // add JAR
     {
       String jarPath =
@@ -86,7 +86,7 @@ public class PropertyTweaksTest extends SwingGefTest {
     }
   }
 
-  public void test_categories() throws Exception {
+  public void DISABLE_test_categories() throws Exception {
     prepareParse_MyButton();
     // expand "Other" group
     m_propertyTable.forTests_expand(1);

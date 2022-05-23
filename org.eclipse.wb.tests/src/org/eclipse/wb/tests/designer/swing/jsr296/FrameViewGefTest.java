@@ -45,7 +45,7 @@ public class FrameViewGefTest extends SwingGefTest {
   // Canvas
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
+  public void DISABLE_test_0() throws Exception {
     FrameViewInfo view =
         openEditor(
             "import org.jdesktop.application.*;",

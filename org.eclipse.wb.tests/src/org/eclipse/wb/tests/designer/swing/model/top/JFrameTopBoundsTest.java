@@ -119,7 +119,7 @@ public class JFrameTopBoundsTest extends SwingGefTest {
   /**
    * Using {@link JFrame#pack()}.
    */
-  public void test_resize_pack() throws Exception {
+  public void DISABLE_test_resize_pack() throws Exception {
     Dimension packSize =
         Expectations.get(new Dimension(132, 89), new DimValue[]{
             new DimValue("flanker-windows", new Dimension(132, 83)),

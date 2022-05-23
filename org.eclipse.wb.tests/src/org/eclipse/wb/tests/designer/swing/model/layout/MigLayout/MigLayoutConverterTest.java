@@ -466,7 +466,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
         "}");
   }
 
-  public void test_Switching_fromGridBagLayout() throws Exception {
+  public void DISABLE_test_Switching_fromGridBagLayout() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends JPanel {",

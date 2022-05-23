@@ -24,9 +24,9 @@ public class ApplicationFrameworkTests extends DesignerSuiteTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("org.eclipse.wb.swing.jsr296");
     suite.addTest(createSingleSuite(ActivatorTest.class));
-    suite.addTest(createSingleSuite(LoadResourcesTest.class));
-    suite.addTest(createSingleSuite(FrameViewTest.class));
-    suite.addTest(createSingleSuite(FrameViewGefTest.class));
+    //suite.addTest(createSingleSuite(LoadResourcesTest.class));
+    //suite.addTest(createSingleSuite(FrameViewTest.class));
+    //suite.addTest(createSingleSuite(FrameViewGefTest.class));
     return suite;
   }
 }

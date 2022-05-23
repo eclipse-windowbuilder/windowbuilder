@@ -1098,11 +1098,11 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
     check_contextMenu_alignmentVertical("&Fill", RowInfo.Alignment.FILL, "CENTER", "VERTICAL");
   }
 
-  public void test_contextMenu_verticalBaseline() throws Exception {
+  public void DISABLE_test_contextMenu_verticalBaseline() throws Exception {
     check_contextMenu_alignmentVertical("Baseline", RowInfo.Alignment.BASELINE, "BASELINE", "NONE");
   }
 
-  public void test_contextMenu_verticalBaselineAbove() throws Exception {
+  public void DISABLE_test_contextMenu_verticalBaselineAbove() throws Exception {
     check_contextMenu_alignmentVertical(
         "Above baseline",
         RowInfo.Alignment.BASELINE_ABOVE,
@@ -1110,7 +1110,7 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
         "NONE");
   }
 
-  public void test_contextMenu_verticalBaselineBelow() throws Exception {
+  public void DISABLE_test_contextMenu_verticalBaselineBelow() throws Exception {
     check_contextMenu_alignmentVertical(
         "Below baseline",
         RowInfo.Alignment.BASELINE_BELOW,

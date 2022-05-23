@@ -1560,7 +1560,7 @@ public class ActionTest extends SwingModelTest {
   /**
    * Test for {@link ActionInfo#getPresentation()}.
    */
-  public void test_presentation() throws Exception {
+  public void DISABLE_test_presentation() throws Exception {
     m_waitForAutoBuild = true;
     ContainerInfo panel =
         parseContainer(

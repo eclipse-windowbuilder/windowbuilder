@@ -83,7 +83,7 @@ public class ComponentTest extends SwingModelTest {
   /**
    * We can not create {@link java.awt.Image} with zero size, so we should check this.
    */
-  public void test_zeroSize() throws Exception {
+  public void DISABLE_test_zeroSize() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends Frame {",

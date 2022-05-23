@@ -228,7 +228,7 @@ public class ActionGefTest extends SwingGefTest {
   /**
    * Test for {@link ActionExternalEntryInfo}.
    */
-  public void test_JToolBar_ActionExternalEntryInfo() throws Exception {
+  public void DISABLE_test_JToolBar_ActionExternalEntryInfo() throws Exception {
     createExternalAction();
     final ContainerInfo panel =
         openContainer(

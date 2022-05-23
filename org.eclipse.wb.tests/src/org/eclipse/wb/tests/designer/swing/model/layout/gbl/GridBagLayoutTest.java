@@ -2362,7 +2362,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
   /**
    * Test for copy/paste {@link JPanel} with {@link GridBagLayout} and children.
    */
-  public void test_clipboard() throws Exception {
+  public void DISABLE_test_clipboard() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "class Test extends JPanel {",
@@ -2441,7 +2441,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
   /**
    * We should not change alignments when paste existing panel.
    */
-  public void test_clipboard_disableAutoAlignment() throws Exception {
+  public void DISABLE_test_clipboard_disableAutoAlignment() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "class Test extends JPanel {",

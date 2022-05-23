@@ -129,7 +129,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
   /**
    * Test for {@link FormSizeConstantInfo#convertFromPixels(int, Unit)}
    */
-  public void test_FormSizeConstantInfo_convertFromPixels() throws Exception {
+  public void DISABLE_test_FormSizeConstantInfo_convertFromPixels() throws Exception {
     {
       double expected = 50.0;
       check_convertFromPixels(50, ConstantSize.PIXEL, expected);

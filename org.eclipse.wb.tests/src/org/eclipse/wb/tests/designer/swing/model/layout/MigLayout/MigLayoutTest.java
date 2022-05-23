@@ -1283,7 +1283,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
   /**
    * Test for {@link MigDimensionInfo#toUnitString(int, String)}.
    */
-  public void test_dimensionSize_toUnitString() throws Exception {
+  public void DISABLE_test_dimensionSize_toUnitString() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends JPanel implements IConstants {",
