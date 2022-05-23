@@ -585,7 +585,7 @@ public class LayoutManagersTest extends AbstractLayoutTest {
   /**
    * Delete using "Layout" property.
    */
-  public void test_delete2() throws Exception {
+  public void DISABLE_test_delete2() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "// filler filler filler",

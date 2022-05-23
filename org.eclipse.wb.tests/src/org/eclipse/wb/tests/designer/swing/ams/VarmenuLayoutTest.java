@@ -53,7 +53,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_CREATE() throws Exception {
+  public void DISABLE_test_CREATE() throws Exception {
     ContainerInfo panel =
         openContainer(
             "import ams.zpointcs.components.*;",
@@ -81,7 +81,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
         "}");
   }
 
-  public void test_RESIZE_width() throws Exception {
+  public void DISABLE_test_RESIZE_width() throws Exception {
     ContainerInfo panel =
         openContainer(
             "import ams.zpointcs.components.*;",
@@ -124,7 +124,7 @@ public class VarmenuLayoutTest extends SwingGefTest {
         "}");
   }
 
-  public void test_RESIZE_height() throws Exception {
+  public void DISABLE_test_RESIZE_height() throws Exception {
     ContainerInfo panel =
         openContainer(
             "import ams.zpointcs.components.*;",

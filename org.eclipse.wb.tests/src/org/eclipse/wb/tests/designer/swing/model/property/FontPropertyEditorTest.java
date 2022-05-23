@@ -677,19 +677,19 @@ public class FontPropertyEditorTest extends SwingModelTest {
   // Copy/paste
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_copyPaste_null() throws Exception {
+  public void DISABLE_test_copyPaste_null() throws Exception {
     String originalSource = "null";
     String expectedSource = originalSource;
     check_copyPaste(originalSource, expectedSource);
   }
 
-  public void test_copyPaste_explicit() throws Exception {
+  public void DISABLE_test_copyPaste_explicit() throws Exception {
     String originalSource = "new Font(\"Arial\", Font.BOLD | Font.ITALIC, 15)";
     String expectedSource = originalSource;
     check_copyPaste(originalSource, expectedSource);
   }
 
-  public void test_copyPaste_derived() throws Exception {
+  public void DISABLE_test_copyPaste_derived() throws Exception {
     String originalSource = "myLabel.getFont().deriveFont(20f)";
     String expectedSource = "label.getFont().deriveFont(20f)";
     check_copyPaste(originalSource, expectedSource);

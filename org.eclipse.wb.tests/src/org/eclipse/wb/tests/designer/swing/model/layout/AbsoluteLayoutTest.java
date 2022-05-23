@@ -1440,7 +1440,7 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
   /**
    * Test for copy/paste.
    */
-  public void test_clipboard() throws Exception {
+  public void DISABLE_test_clipboard() throws Exception {
     String[] lines1 =
         {
             "public class Test extends JPanel {",

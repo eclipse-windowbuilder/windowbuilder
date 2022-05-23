@@ -28,7 +28,7 @@ public class PropertiesTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(IconPropertyEditorTest.class));
     suite.addTest(createSingleSuite(ImagePropertyEditorTest.class));
     suite.addTest(createSingleSuite(BorderPropertyEditorTest.class));
-    suite.addTest(createSingleSuite(TabOrderPropertyTest.class));
+    //suite.addTest(createSingleSuite(TabOrderPropertyTest.class));
     suite.addTest(createSingleSuite(TabOrderPropertyValueTest.class));
     suite.addTest(createSingleSuite(BeanPropertyEditorTest.class));
     return suite;

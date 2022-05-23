@@ -39,7 +39,7 @@ public class LoadResourcesTest extends SwingModelTest {
   // Exit zone :-) XXX
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
+  public void DISABLE_test_exit() throws Exception {
     System.exit(0);
   }
 
@@ -51,7 +51,7 @@ public class LoadResourcesTest extends SwingModelTest {
   /**
    * Tests that <code>ResourceMap.injectComponents(Component)</code> is invoked.
    */
-  public void test_parse() throws Exception {
+  public void DISABLE_test_parse() throws Exception {
     setFileContentSrc("test/resources/Test.properties", "label.text = TestLabel");
     m_waitForAutoBuild = true;
     JPanelInfo panel =
@@ -83,7 +83,7 @@ public class LoadResourcesTest extends SwingModelTest {
    * Tests that <code>ResourceMap.injectComponents(Component)</code> is terminate statement for
    * children.
    */
-  public void test_CREATE() throws Exception {
+  public void DISABLE_test_CREATE() throws Exception {
     m_waitForAutoBuild = true;
     JPanelInfo panel =
         parseJavaInfo(

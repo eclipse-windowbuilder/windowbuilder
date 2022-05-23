@@ -23,7 +23,7 @@ import junit.framework.TestSuite;
 public class SwingXTests extends DesignerSuiteTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("org.eclipse.wb.swing.swingx");
-    suite.addTest(createSingleSuite(JXTaskPaneTest.class));
+    //suite.addTest(createSingleSuite(JXTaskPaneTest.class));
     return suite;
   }
 }

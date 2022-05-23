@@ -368,7 +368,7 @@ public class JSplitPaneTest extends SwingModelTest {
   // Clipboard
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_clipboard() throws Exception {
+  public void DISABLE_test_clipboard() throws Exception {
     final ContainerInfo panel =
         parseContainer(
             "class Test extends JPanel {",
