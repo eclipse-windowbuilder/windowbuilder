@@ -42,7 +42,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wb.xwt,
  org.eclipse.wb.rcp.databinding.xwt,
  org.junit;bundle-version="4.12.0",
- org.junit.jupiter.api;bundle-version="5.8.1"
+ org.junit.jupiter.api;bundle-version="5.8.1",
+ com.google.guava;bundle-version="31.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: 
  lib/org.assertj_1.7.1.v20170413-2026.jar,

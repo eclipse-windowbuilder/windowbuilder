@@ -16,7 +16,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.databinding.observable;resolution:=optional,
  org.eclipse.core.databinding,
  org.eclipse.core.databinding.beans,
- org.eclipse.jface.databinding
+ org.eclipse.jface.databinding,
+ com.google.guava;bundle-version="31.1.0"
 Export-Package: org.eclipse.wb.internal.rcp.databinding,
  org.eclipse.wb.internal.rcp.databinding.model,
  org.eclipse.wb.internal.rcp.databinding.model.beans,

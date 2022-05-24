@@ -14,7 +14,8 @@ Require-Bundle: org.eclipse.wb.core,
  org.eclipse.osgi,
  org.eclipse.ui.workbench,
  org.eclipse.core.runtime,
- org.eclipse.jface
+ org.eclipse.jface,
+ com.google.guava;bundle-version="31.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Activator: org.eclipse.wb.internal.swing.java6.Activator
 Bundle-ActivationPolicy: lazy

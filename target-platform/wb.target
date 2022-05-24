@@ -9,5 +9,25 @@
 			<unit id="org.eclipse.wst.sse.ui" version="0.0.0"/>
 			<unit id="org.eclipse.wst.xml.ui" version="0.0.0"/>
 		</location>
+		<location includeDependencyDepth="none" includeDependencyScopes="provided,runtime,test,system,import" includeSource="true" missingManifest="generate" type="Maven">
+			<dependencies>
+				<dependency>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+					<version>31.1-jre</version>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</location>
+		<location includeDependencyDepth="none" includeSource="true" missingManifest="generate" type="Maven">
+			<dependencies>
+				<dependency>
+					<groupId>com.google.guava</groupId>
+					<artifactId>failureaccess</artifactId>
+					<version>1.0.1</version>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</location>
 	</locations>
 </target>

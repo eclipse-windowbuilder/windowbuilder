@@ -58,7 +58,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.wb.core,
  org.eclipse.wb.core.java,
- org.eclipse.pde.core
+ org.eclipse.pde.core,
+ com.google.guava;bundle-version="31.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.wb.swt

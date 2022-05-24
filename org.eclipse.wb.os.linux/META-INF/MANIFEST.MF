@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.swt,
  org.eclipse.core.runtime,
  org.eclipse.jface,
  org.eclipse.ui,
- org.eclipse.wb.core
+ org.eclipse.wb.core,
+ com.google.guava;bundle-version="31.1.0"
 Bundle-Activator: org.eclipse.wb.internal.os.linux.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin

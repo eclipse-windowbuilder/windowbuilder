@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.jface,
  org.eclipse.wb.core,
- org.eclipse.wb.core.java
+ org.eclipse.wb.core.java,
+ com.google.guava;bundle-version="31.1.0"
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.layout.group
