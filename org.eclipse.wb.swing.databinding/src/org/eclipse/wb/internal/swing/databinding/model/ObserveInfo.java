@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.BindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.databinding.model.properties.PropertyInfo;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;

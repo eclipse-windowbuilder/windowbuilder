@@ -52,7 +52,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.Collections;
@@ -282,7 +282,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
   ////////////////////////////////////////////////////////////////////////////
   private List<PropertyAdapter> getChoosenProperties() {
     List<PropertyAdapter> properties = Lists.newArrayList();
-    CollectionUtils.addAll(properties, treeViewer.getCheckedElements());
+    CollectionUtils.addAll(properties, (PropertyAdapter[]) treeViewer.getCheckedElements());
     return properties;
   }
 
@@ -410,8 +410,6 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
             && adapter.m_parent == null
             || m_parent == null
             && adapter.m_parent != null) {
-          return false;
-        } else if (m_parent != null && adapter.m_parent != null) {
           if (!m_parent.equals(adapter.m_parent)) {
             return false;
           }

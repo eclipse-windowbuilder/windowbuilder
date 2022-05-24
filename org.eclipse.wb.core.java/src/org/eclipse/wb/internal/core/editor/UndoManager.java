@@ -32,7 +32,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
 
-import org.apache.commons.collections.map.LRUMap;
+import org.apache.commons.collections4.map.*;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;

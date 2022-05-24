@@ -42,7 +42,7 @@ import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.ViewerColumns
 import org.eclipse.wb.internal.rcp.model.jface.viewers.ViewerColumnInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -28,7 +28,7 @@ import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.Pair;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
 import java.util.HashMap;

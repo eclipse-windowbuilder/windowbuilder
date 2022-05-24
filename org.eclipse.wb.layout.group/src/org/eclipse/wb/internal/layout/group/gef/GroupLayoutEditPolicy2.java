@@ -41,8 +41,8 @@ import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
 import org.eclipse.swt.graphics.Image;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
 import org.netbeans.modules.form.layoutdesign.LayoutComponent;
 import org.netbeans.modules.form.layoutdesign.LayoutDesigner;
 

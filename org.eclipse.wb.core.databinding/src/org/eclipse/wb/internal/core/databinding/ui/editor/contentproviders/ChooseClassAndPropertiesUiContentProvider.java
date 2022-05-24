@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.Collections;
@@ -445,7 +445,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider extends ChooseCl
 
 	List<PropertyAdapter> getChoosenProperties0() {
 		List<PropertyAdapter> properties = Lists.newArrayList();
-		CollectionUtils.addAll(properties, m_propertiesViewer.getCheckedElements());
+		CollectionUtils.addAll(properties, (PropertyAdapter[]) m_propertiesViewer.getCheckedElements());
 		return properties;
 	}
 

@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.databinding.model.presentation.IObservePrese
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;

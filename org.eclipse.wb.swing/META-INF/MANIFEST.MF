@@ -86,7 +86,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core;visibility:=reexport,
  org.eclipse.wb.core.ui;visibility:=reexport,
  org.eclipse.wb.core.java;visibility:=reexport,
- com.google.guava;bundle-version="31.1.0"
+ com.google.guava;bundle-version="31.1.0",
+ org.apache.commons.commons-collections4;bundle-version="4.4.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.wb.swing

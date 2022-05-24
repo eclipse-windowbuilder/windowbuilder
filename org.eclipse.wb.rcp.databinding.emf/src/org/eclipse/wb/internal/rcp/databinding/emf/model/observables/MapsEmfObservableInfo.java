@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.MapsBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.KnownElementsObservableInfo;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Iterator;
 import java.util.List;

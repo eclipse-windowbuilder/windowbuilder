@@ -14,9 +14,11 @@ import org.eclipse.wb.core.model.ObjectInfo;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
-import org.apache.commons.collections.primitives.ArrayIntList;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Helper for remembering path and dump for objects.
@@ -57,7 +59,7 @@ public final class ObjectPathHelper {
 	 * @return the path for given object in components tree.
 	 */
 	private int[] getObjectPath(Object object) {
-		ArrayIntList path = new ArrayIntList();
+		List<Integer> path = new ArrayList<>();
 		while (true) {
 			Object parent = m_componentsProvider.getParent(object);
 			if (parent == null) {
@@ -70,7 +72,7 @@ public final class ObjectPathHelper {
 			object = parent;
 		}
 		// convert to array
-		int[] finalPath = path.toArray();
+		int[] finalPath = path.stream().mapToInt(Integer::intValue).toArray();
 		ArrayUtils.reverse(finalPath);
 		return finalPath;
 	}

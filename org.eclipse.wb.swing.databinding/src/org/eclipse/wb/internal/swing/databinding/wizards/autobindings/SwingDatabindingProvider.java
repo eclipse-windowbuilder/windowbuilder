@@ -41,7 +41,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
@@ -195,7 +195,9 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
     final List<PropertyAdapter> properties = Lists.newArrayList();
     Display.getDefault().syncExec(new Runnable() {
       public void run() {
-        CollectionUtils.addAll(properties, m_propertiesViewer.getCheckedElements());
+        CollectionUtils.addAll(
+            properties,
+            (PropertyAdapter[]) m_propertiesViewer.getCheckedElements());
       }
     });
     // prepare code

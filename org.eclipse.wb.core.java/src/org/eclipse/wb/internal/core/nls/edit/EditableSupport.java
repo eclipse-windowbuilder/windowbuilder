@@ -31,8 +31,8 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
-import org.apache.commons.collections.MapIterator;
-import org.apache.commons.collections.map.MultiKeyMap;
+import org.apache.commons.collections4.MapIterator;
+import org.apache.commons.collections4.map.MultiKeyMap;
 
 import java.util.ArrayList;
 import java.util.List;

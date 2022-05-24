@@ -51,7 +51,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 
@@ -185,7 +185,7 @@ public abstract class ChooseClassAndTreePropertiesUiContentProvider
     setCheckedAndExpand(adapters);
     //
     if (m_orderPropertiesViewer != null) {
-      CollectionUtils.addAll(m_orderProperties, adapters);
+      CollectionUtils.addAll(m_orderProperties, (PropertyAdapter[]) adapters);
       m_orderPropertiesViewer.refresh();
     }
     //
