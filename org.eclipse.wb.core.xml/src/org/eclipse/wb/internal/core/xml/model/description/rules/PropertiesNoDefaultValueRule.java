@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.xml.model.description.rules;
 import org.eclipse.wb.internal.core.xml.model.description.GenericPropertyDescription;
 import org.eclipse.wb.internal.core.xml.model.property.accessor.ExpressionAccessor;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**

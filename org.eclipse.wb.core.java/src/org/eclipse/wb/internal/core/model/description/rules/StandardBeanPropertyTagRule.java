@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -33,7 +33,7 @@ public final class StandardBeanPropertyTagRule extends AbstractDesignerRule {
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
     String propertyName = getRequiredAttribute(name, attributes, "name");
     // check all properties
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
       String id = propertyDescription.getId();
       if (StandardBeanPropertiesFlaggedRule.matchPropertyId(id, propertyName)) {

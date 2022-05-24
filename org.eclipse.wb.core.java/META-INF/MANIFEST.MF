@@ -20,7 +20,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.ui;visibility:=reexport,
  org.eclipse.jdt.launching,
  org.eclipse.ltk.core.refactoring,
- com.google.guava;bundle-version="31.1.0"
+ com.google.guava;bundle-version="31.1.0",
+ org.apache.commons.commons-beanutils;bundle-version="1.9.4",
+ org.apache.commons.digester;bundle-version="3.2.0",
+ org.apache.commons.logging;bundle-version="1.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.wb.core.editor,

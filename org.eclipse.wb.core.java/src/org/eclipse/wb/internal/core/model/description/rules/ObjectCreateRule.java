@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -38,11 +38,11 @@ public final class ObjectCreateRule extends Rule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    digester.push(m_class.newInstance());
+    getDigester().push(m_class.newInstance());
   }
 
   @Override
   public void end(String namespace, String name) throws Exception {
-    digester.pop();
+    getDigester().pop();
   }
 }

@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.xml.model.description.rules;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.description.GenericPropertyDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -31,13 +31,13 @@ public final class PropertyAccessRule extends Rule {
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
     String id = attributes.getValue("id");
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     GenericPropertyDescription propertyDescription = componentDescription.getProperty(id);
-    digester.push(propertyDescription);
+    getDigester().push(propertyDescription);
   }
 
   @Override
   public void end(String namespace, String name) throws Exception {
-    digester.pop();
+    getDigester().pop();
   }
 }

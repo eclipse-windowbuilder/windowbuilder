@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.xml.model.description.rules;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.xml.model.description.GenericPropertyDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -37,7 +37,7 @@ public final class PropertyCategoryRule extends Rule {
       category = PropertyCategory.get(categoryText, null);
     }
     // set category
-    GenericPropertyDescription property = (GenericPropertyDescription) digester.peek();
+    GenericPropertyDescription property = (GenericPropertyDescription) getDigester().peek();
     property.setCategory(category);
   }
 }

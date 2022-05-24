@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -47,12 +47,12 @@ public final class SetListedPropertiesRule extends Rule {
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  public void begin(Attributes attributes) throws Exception {
+  public void begin(String namespace, String name, Attributes attributes) throws Exception {
     for (int i = 0; i < m_attributeNames.length; i++) {
       String attributeName = m_attributeNames[i];
       String value = attributes.getValue(attributeName);
       if (value != null) {
-        BeanUtils.setProperty(digester.peek(), m_propertyNames[i], value);
+        BeanUtils.setProperty(getDigester().peek(), m_propertyNames[i], value);
       }
     }
   }

@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -34,7 +34,7 @@ public final class ModelClassRule extends Rule {
     String className = attributes.getValue("class");
     Class<?> modelClass = DescriptionHelper.loadModelClass(className);
     // set model Class
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     componentDescription.setModelClass(modelClass);
   }
 }

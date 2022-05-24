@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.xml.model.property.accessor.ExpressionAccess
 import org.eclipse.wb.internal.core.xml.model.property.accessor.FieldExpressionAccessor;
 import org.eclipse.wb.internal.core.xml.model.property.converter.ExpressionConverter;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 import java.lang.reflect.Field;
@@ -38,7 +38,7 @@ public final class CreatePropertiesFieldRule extends Rule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     Class<?> componentClass = componentDescription.getComponentClass();
     for (Field field : componentClass.getFields()) {
       int modifiers = field.getModifiers();

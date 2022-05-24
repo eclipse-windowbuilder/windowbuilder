@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.Attributes;
 
@@ -30,8 +30,9 @@ public abstract class StandardBeanPropertiesFlaggedRule extends AbstractDesigner
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  public final void begin(String namespace, String tagName, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+  public final void begin(String namespace, String tagName, Attributes attributes)
+      throws Exception {
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     // prepare names
     String[] names;
     {

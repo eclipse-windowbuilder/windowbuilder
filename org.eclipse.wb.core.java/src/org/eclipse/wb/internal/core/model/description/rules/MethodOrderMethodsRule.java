@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.order.MethodOrder;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 import java.util.List;
@@ -47,14 +47,14 @@ public final class MethodOrderMethodsRule extends AbstractDesignerRule {
     // push List for signatures
     {
       m_signatures = Lists.newArrayList();
-      digester.push(m_signatures);
+      getDigester().push(m_signatures);
     }
   }
 
   @Override
   public void end(String namespace, String name) throws Exception {
-    digester.pop();
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    getDigester().pop();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     for (String signature : m_signatures) {
       // prepare method
       MethodDescription methodDescription;

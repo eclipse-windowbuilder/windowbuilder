@@ -27,7 +27,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.IJavaProject;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 import java.lang.reflect.Method;
@@ -64,7 +64,7 @@ public final class MethodPropertyRule extends AbstractDesignerRule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     Class<?> componentClass = componentDescription.getComponentClass();
     // prepare method attributes
     String propertyTitle = getRequiredAttribute(name, attributes, "title");

@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.internal.core.model.description.internal.AbstractConfigurableDescription;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -45,7 +45,7 @@ public final class ConfigurableObjectParameterRule extends AbstractDesignerRule 
 
 	@Override
 	public void end(String namespace, String name) throws Exception {
-		AbstractConfigurableDescription description = (AbstractConfigurableDescription) digester.peek();
+		AbstractConfigurableDescription description = (AbstractConfigurableDescription) getDigester().peek();
 		description.addParameter(m_name, m_value);
 	}
 }

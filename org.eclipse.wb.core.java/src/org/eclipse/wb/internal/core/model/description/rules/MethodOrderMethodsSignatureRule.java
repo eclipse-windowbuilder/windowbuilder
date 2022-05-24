@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.rules;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public final class MethodOrderMethodsSignatureRule extends AbstractDesignerRule 
   @Override
   @SuppressWarnings("unchecked")
   public void body(String namespace, String name, String text) throws Exception {
-    List<String> signatures = (List<String>) digester.peek();
+    List<String> signatures = (List<String>) getDigester().peek();
     String signature = text.trim();
     signatures.add(signature);
   }

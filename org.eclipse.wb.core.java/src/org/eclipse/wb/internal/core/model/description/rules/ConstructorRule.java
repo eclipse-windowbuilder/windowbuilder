@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ConstructorDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -33,9 +33,9 @@ public final class ConstructorRule extends Rule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    componentDescription = (ComponentDescription) digester.peek();
+    componentDescription = (ComponentDescription) getDigester().peek();
     createConstructorDescription();
-    digester.push(constructorDescription);
+    getDigester().push(constructorDescription);
   }
 
   private void createConstructorDescription() {
@@ -45,7 +45,7 @@ public final class ConstructorRule extends Rule {
 
   @Override
   public void end(String namespace, String name) throws Exception {
-    digester.pop();
+    getDigester().pop();
     constructorDescription.postProcess();
     // add constructor only if we are parsing final component class
     if (componentDescription.getCurrentClass() == componentDescription.getComponentClass()) {

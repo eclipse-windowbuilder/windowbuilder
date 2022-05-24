@@ -47,8 +47,8 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.graphics.Image;
 
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Digester;
+import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.impl.NoOpLog;
@@ -455,7 +455,7 @@ public class FactoryDescriptionHelper {
 			@Override
 			public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
 				// description with HTML support
-				if (DESCRIPTION_PATTERN.equals(match)) {
+				if (DESCRIPTION_PATTERN.equals(getMatch())) {
 					FactoryMethodDescription methodDescription = (FactoryMethodDescription) peek();
 					textualDescriptions.put(m_descriptionIndex, methodDescription);
 					m_descriptionIndex++;

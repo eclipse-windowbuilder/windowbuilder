@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -59,7 +59,7 @@ public final class SetClassPropertyRule extends Rule {
     }
     // set property
     BeanUtilsBean.getInstance().getPropertyUtils().setProperty(
-        digester.peek(),
+        getDigester().peek(),
         m_propertyName,
         clazz);
   }

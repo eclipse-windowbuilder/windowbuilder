@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.order.MethodOrder;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -42,7 +42,7 @@ public final class MethodOrderMethodRule extends AbstractDesignerRule {
     MethodDescription methodDescription;
     {
       String signature = getRequiredAttribute(name, attributes, "signature");
-      ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+      ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
       methodDescription = componentDescription.getMethod(signature);
       Assert.isNotNull(
           methodDescription,
