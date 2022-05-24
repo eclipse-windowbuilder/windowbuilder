@@ -8,7 +8,8 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.wb.core,
- org.eclipse.wb.core.java
+ org.eclipse.wb.core.java,
+ com.google.guava;bundle-version="31.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wb.internal.core.preferences,
