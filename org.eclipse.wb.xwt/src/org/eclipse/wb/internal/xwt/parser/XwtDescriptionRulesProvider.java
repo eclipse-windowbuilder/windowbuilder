@@ -22,8 +22,8 @@ import org.eclipse.wb.internal.xwt.model.property.editor.style.StylePropertyEdit
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Digester;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -64,7 +64,7 @@ public class XwtDescriptionRulesProvider implements IDescriptionRulesProvider {
    * Parses {@link StylePropertyEditor} specification for constructor parameter and remember it as
    * arbitrary value in {@link ComponentDescription}.
    */
-  private void addRule_forStylePropertyEditor(Digester digester, final EditorContext context) {
+  private void addRule_forStylePropertyEditor(final Digester digester, final EditorContext context) {
     String pattern = "component/constructors/constructor/parameter/editor";
     digester.addRule(pattern, new Rule() {
       @Override

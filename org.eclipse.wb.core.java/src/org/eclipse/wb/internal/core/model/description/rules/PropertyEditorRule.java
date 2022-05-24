@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.description.internal.PropertyEditorDes
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -47,7 +47,7 @@ public final class PropertyEditorRule extends Rule {
 	public void begin(String namespace, String name, Attributes attributes) throws Exception {
 		String id = attributes.getValue("id");
 		PropertyEditor editor = DescriptionPropertiesHelper.getConfigurableEditor(id);
-		digester.push(new PropertyEditorDescription(m_state, editor));
+		getDigester().push(new PropertyEditorDescription(m_state, editor));
 	}
 
 	@Override
@@ -55,11 +55,11 @@ public final class PropertyEditorRule extends Rule {
 		// prepare editor
 		PropertyEditor editor;
 		{
-			PropertyEditorDescription editorDescription = (PropertyEditorDescription) digester.pop();
+			PropertyEditorDescription editorDescription = (PropertyEditorDescription) getDigester().pop();
 			editor = editorDescription.getConfiguredEditor();
 		}
 		// set editor for current property
-		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
+		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) getDigester().peek();
 		propertyDescription.setEditor(editor);
 	}
 }

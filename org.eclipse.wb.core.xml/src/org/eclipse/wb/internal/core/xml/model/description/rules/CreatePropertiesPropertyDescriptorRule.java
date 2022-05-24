@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.core.xml.model.property.accessor.ExpressionAccess
 import org.eclipse.wb.internal.core.xml.model.property.accessor.MethodExpressionAccessor;
 import org.eclipse.wb.internal.core.xml.model.property.converter.ExpressionConverter;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.Attributes;
 
@@ -48,7 +48,7 @@ public final class CreatePropertiesPropertyDescriptorRule extends Rule {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
 		List<PropertyDescriptor> descriptors = ReflectionUtils.getPropertyDescriptors(null,
 				componentDescription.getComponentClass());
 		for (PropertyDescriptor propertyDescriptor : descriptors) {

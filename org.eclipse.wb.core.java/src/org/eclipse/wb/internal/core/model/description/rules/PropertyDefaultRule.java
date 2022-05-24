@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -43,7 +43,7 @@ public final class PropertyDefaultRule extends Rule {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
+		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) getDigester().peek();
 		String text = attributes.getValue("value");
 		propertyDescription.setDefaultValue(getValue(text));
 	}

@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.internal.core.model.description.CreationDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -31,7 +31,7 @@ public final class CreationTagRule extends AbstractDesignerRule {
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
     String tag = getRequiredAttribute(name, attributes, "name");
     String value = getRequiredAttribute(name, attributes, "value");
-    CreationDescription creationDescription = (CreationDescription) digester.peek();
+    CreationDescription creationDescription = (CreationDescription) getDigester().peek();
     creationDescription.putTag(tag, value);
   }
 }

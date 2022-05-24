@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.Attributes;
 
@@ -52,7 +52,7 @@ public final class MethodsOperationRule extends AbstractDesignerRule {
 
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    componentDescription = (ComponentDescription) digester.peek();
+    componentDescription = (ComponentDescription) getDigester().peek();
     String signature = getRequiredAttribute(name, attributes, "signature");
     if (isRegexpSignature(signature)) {
       processRegexp(signature);

@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -61,7 +61,7 @@ public final class MorphingTargetRule extends Rule {
       clazz = m_classLoader.loadClass(className);
     }
     // add morphing target
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     componentDescription.addMorphingTarget(new MorphingTargetDescription(clazz, creationId));
   }
 }

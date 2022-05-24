@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.internal.core.model.description.CreationDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -32,7 +32,7 @@ public final class CreationTypeParametersRule extends AbstractDesignerRule {
     String name = getRequiredAttribute(elementName, attributes, "name");
     String type = getRequiredAttribute(elementName, attributes, "type");
     String description = getRequiredAttribute(elementName, attributes, "title");
-    CreationDescription creationDescription = (CreationDescription) digester.peek();
+    CreationDescription creationDescription = (CreationDescription) getDigester().peek();
     creationDescription.setTypeParameter(name, type, description);
   }
 }

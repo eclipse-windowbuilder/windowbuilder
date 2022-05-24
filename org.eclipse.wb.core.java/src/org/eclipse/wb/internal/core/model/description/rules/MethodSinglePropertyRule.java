@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 import java.lang.reflect.Method;
@@ -35,7 +35,7 @@ public final class MethodSinglePropertyRule extends AbstractDesignerRule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     Class<?> componentClass = componentDescription.getComponentClass();
     // prepare method attributes
     String propertyTitle = getRequiredAttribute(name, attributes, "title");
@@ -47,17 +47,16 @@ public final class MethodSinglePropertyRule extends AbstractDesignerRule {
         "Method with single parameter expected: %s",
         method);
     // add property
-    GenericPropertyDescription property =
-        StandardBeanPropertiesRule.addSingleProperty(
-            componentDescription,
-            propertyTitle,
-            method,
-            null);
-    digester.push(property);
+    GenericPropertyDescription property = StandardBeanPropertiesRule.addSingleProperty(
+        componentDescription,
+        propertyTitle,
+        method,
+        null);
+    getDigester().push(property);
   }
 
   @Override
   public void end(String namespace, String name) throws Exception {
-    digester.pop();
+    getDigester().pop();
   }
 }

@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.order.MethodOrder;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -30,7 +30,7 @@ public final class MethodOrderDefaultRule extends AbstractDesignerRule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     String specification = getRequiredAttribute(name, attributes, "order");
     componentDescription.setDefaultMethodOrder(MethodOrder.parse(specification));
   }

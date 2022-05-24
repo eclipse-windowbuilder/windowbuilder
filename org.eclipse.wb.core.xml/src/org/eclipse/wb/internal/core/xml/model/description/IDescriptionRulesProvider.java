@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.core.xml.model.description;
 
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Digester;
+import org.apache.commons.digester3.Rule;
 
 /**
  * Provider for contributing {@link Rule}s for loading {@link ComponentDescription}.

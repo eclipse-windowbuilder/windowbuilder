@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.description.ExposingMethodRule;
 import org.eclipse.wb.internal.core.model.description.ExposingPackageRule;
 import org.eclipse.wb.internal.core.model.description.ExposingRule;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -32,7 +32,7 @@ public final class ExposingRulesRule extends AbstractDesignerRule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     // prepare attributes
     boolean include = "include".equals(name);
     String packageName = attributes.getValue("package");

@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.description.rules.AbstractDesignerRule
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.description.GenericPropertyDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -32,14 +32,14 @@ public final class PropertyTagRule extends AbstractDesignerRule {
 	@Override
 	public void begin(String namespace, String name, Attributes attributes) throws Exception {
 		if (name.equals("tag")) {
-			GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
+			GenericPropertyDescription propertyDescription = (GenericPropertyDescription) getDigester().peek();
 			String tagName = getRequiredAttribute(name, attributes, "name");
 			String tagValue = getRequiredAttribute(name, attributes, "value");
 			propertyDescription.putTag(tagName, tagValue);
 			propertyDescription.getAccessor().putTag(tagName, tagValue);
 		} else {
 			String propertyName = getRequiredAttribute(name, attributes, "name");
-			ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+			ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
 			// check all properties
 			for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
 				String id = propertyDescription.getId();

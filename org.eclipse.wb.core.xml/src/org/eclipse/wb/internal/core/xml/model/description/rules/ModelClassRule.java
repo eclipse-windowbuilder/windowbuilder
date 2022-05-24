@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
 import org.eclipse.wb.internal.core.xml.model.UseModelIfNotAlready;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -36,7 +36,7 @@ public final class ModelClassRule extends Rule {
     Class<?> modelClass = DescriptionHelper.loadModelClass(className);
     // set model Class
     {
-      ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+      ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
       // check, may be this is "secondary" model
       {
         UseModelIfNotAlready annotation = modelClass.getAnnotation(UseModelIfNotAlready.class);

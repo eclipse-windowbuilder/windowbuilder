@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 import java.lang.reflect.Method;
@@ -37,7 +37,7 @@ public final class MethodRule extends AbstractDesignerRule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    componentDescription = (ComponentDescription) digester.peek();
+    componentDescription = (ComponentDescription) getDigester().peek();
     pushNewMethodDescription();
     configureBegin(attributes);
   }
@@ -45,7 +45,7 @@ public final class MethodRule extends AbstractDesignerRule {
   private void pushNewMethodDescription() {
     Class<?> componentClass = componentDescription.getComponentClass();
     methodDescription = new MethodDescription(componentClass);
-    digester.push(methodDescription);
+    getDigester().push(methodDescription);
   }
 
   private void configureBegin(Attributes attributes) {
@@ -82,7 +82,7 @@ public final class MethodRule extends AbstractDesignerRule {
   }
 
   private void popMethodDescription() {
-    digester.pop();
+    getDigester().pop();
   }
 
   private void configureEnd() {

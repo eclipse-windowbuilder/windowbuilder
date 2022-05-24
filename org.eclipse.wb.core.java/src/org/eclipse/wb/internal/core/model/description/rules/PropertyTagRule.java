@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -30,7 +30,7 @@ public final class PropertyTagRule extends AbstractDesignerRule {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void begin(String namespace, String name, Attributes attributes) throws Exception {
-		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
+		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) getDigester().peek();
 		String tagName = getRequiredAttribute(name, attributes, "name");
 		String tagValue = getRequiredAttribute(name, attributes, "value");
 		propertyDescription.putTag(tagName, tagValue);

@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.description.rules;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ConfigurablePropertyDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.xml.sax.Attributes;
 
 /**
@@ -38,15 +38,15 @@ public final class ConfigurablePropertyRule extends AbstractDesignerRule {
     propertyDescription.setTitle(title);
     // add property
     {
-      ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+      ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
       componentDescription.addConfigurableProperty(propertyDescription);
     }
     // push property
-    digester.push(propertyDescription);
+    getDigester().push(propertyDescription);
   }
 
   @Override
   public void end(String namespace, String name) throws Exception {
-    digester.pop();
+    getDigester().pop();
   }
 }

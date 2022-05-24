@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.description.rules.AbstractDesignerRule
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.description.GenericPropertyDescription;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.Attributes;
 
@@ -32,7 +32,7 @@ public abstract class PropertiesFlagRule extends AbstractDesignerRule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public final void begin(String namespace, String tagName, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
     // prepare names
     String[] names;
     {
