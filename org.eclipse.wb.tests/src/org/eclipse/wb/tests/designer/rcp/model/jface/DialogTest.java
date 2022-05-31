@@ -77,7 +77,7 @@ public class DialogTest extends RcpModelTest {
    * {@link Dialog} with {@link Dialog#createDialogArea(Composite)} method.<br>
    * Parameter "parent" in <code>createDialogArea()</code> should not have layout.
    */
-  public void test_0() throws Exception {
+  public void DISABLE_test_0() throws Exception {
     DialogInfo dialog =
         parseJavaInfo(
             "import org.eclipse.jface.dialogs.*;",

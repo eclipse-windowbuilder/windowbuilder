@@ -269,7 +269,7 @@ public class SurroundSupportTest extends RcpModelTest {
   /**
    * Single {@link ControlInfo} on {@link Group} with {@link AbsoluteLayoutInfo}.
    */
-  public void test_absolute_singleControl_onGroup() throws Exception {
+  public void DISABLE_test_absolute_singleControl_onGroup() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",

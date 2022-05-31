@@ -324,7 +324,7 @@ public class ControlTest extends RcpModelTest {
   /**
    * Test for {@link CompositeInfo#getClientAreaInsets2()}.
    */
-  public void test_insetsWithGroup() throws Exception {
+  public void DISABLE_test_insetsWithGroup() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "class Test extends Shell {",
@@ -663,7 +663,7 @@ public class ControlTest extends RcpModelTest {
    * We should correctly handle bounds for {@link Control}s on {@link Composite} with
    * {@link SWT#RIGHT_TO_LEFT} style.
    */
-  public void test_RTL() throws Exception {
+  public void DISABLE_test_RTL() throws Exception {
     CompositeInfo composite =
         parseComposite(
             "public class Test extends Composite {",
@@ -709,7 +709,7 @@ public class ControlTest extends RcpModelTest {
   /**
    * Two levels of {@link Composite} with {@link SWT#RIGHT_TO_LEFT} style.
    */
-  public void test_RTL_withInnerComposite() throws Exception {
+  public void DISABLE_test_RTL_withInnerComposite() throws Exception {
     CompositeInfo composite =
         parseComposite(
             "public class Test extends Composite {",

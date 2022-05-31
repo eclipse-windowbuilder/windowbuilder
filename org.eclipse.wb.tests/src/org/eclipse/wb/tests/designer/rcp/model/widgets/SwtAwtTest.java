@@ -58,7 +58,7 @@ public class SwtAwtTest extends RcpModelTest {
   // Parse
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_parse() throws Exception {
+  public void DISABLE_test_parse() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "import java.awt.Frame;",
@@ -98,7 +98,7 @@ public class SwtAwtTest extends RcpModelTest {
     }
   }
 
-  public void test_parseWithBorder() throws Exception {
+  public void DISABLE_test_parseWithBorder() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "import java.awt.Frame;",

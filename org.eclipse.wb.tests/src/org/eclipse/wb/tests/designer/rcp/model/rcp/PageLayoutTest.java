@@ -714,7 +714,7 @@ public class PageLayoutTest extends RcpModelTest {
   // Shortcuts
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_shortcuts_0() throws Exception {
+  public void DISABLE_test_shortcuts_0() throws Exception {
     PageLayoutInfo page =
         parsePerspective(
             "public class Test implements IPerspectiveFactory {",

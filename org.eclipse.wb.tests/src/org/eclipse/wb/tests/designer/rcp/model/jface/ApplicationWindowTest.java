@@ -121,7 +121,7 @@ public class ApplicationWindowTest extends RcpModelTest {
   /**
    * Test for {@link IToolBarManager}.
    */
-  public void test_managers_ToolBarManager() throws Exception {
+  public void DISABLE_test_managers_ToolBarManager() throws Exception {
     ApplicationWindowInfo window =
         parseJavaInfo(
             "import org.eclipse.jface.action.*;",

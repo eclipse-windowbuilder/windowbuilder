@@ -155,7 +155,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
   // PluginImagesRoot
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_PluginImagesRoot() throws Exception {
+  public void DISABLE_test_PluginImagesRoot() throws Exception {
     FilterConfigurer filterConfigurer = new FilterConfigurer(false, false, false, false);
     PluginImagesRoot pluginImagesRoot =
         new PluginImagesRoot(m_testProject.getProject(), filterConfigurer);

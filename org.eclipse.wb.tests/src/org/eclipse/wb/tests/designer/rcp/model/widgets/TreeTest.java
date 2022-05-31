@@ -51,7 +51,7 @@ public class TreeTest extends RcpModelTest {
   /**
    * Test for parsing {@link TreeColumn} and bounds of {@link TreeColumnInfo}.
    */
-  public void test_TreeColumn() throws Exception {
+  public void DISABLE_test_TreeColumn() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "class Test extends Shell {",
@@ -104,7 +104,7 @@ public class TreeTest extends RcpModelTest {
   /**
    * Test for copy/paste {@link TreeColumn}.
    */
-  public void test_TreeColumn_copyPaste() throws Exception {
+  public void DISABLE_test_TreeColumn_copyPaste() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "class Test extends Shell {",

@@ -565,7 +565,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
   // PASTE
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_PASTE_virtual_1x0() throws Exception {
+  public void DISABLE_test_PASTE_virtual_1x0() throws Exception {
     openComposite(
         "public class Test extends Composite {",
         "  public Test(Composite parent, int style) {",

@@ -73,7 +73,7 @@ public class ControlDecorationTest extends RcpModelTest {
   /**
    * Set real image for {@link ControlDecoration}, so it is used in UI and in presentation.
    */
-  public void test_existingImage() throws Exception {
+  public void DISABLE_test_existingImage() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "import org.eclipse.jface.fieldassist.ControlDecoration;",

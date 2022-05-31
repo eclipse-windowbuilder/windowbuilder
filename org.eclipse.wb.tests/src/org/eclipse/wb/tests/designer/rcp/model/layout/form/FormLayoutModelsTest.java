@@ -628,7 +628,7 @@ public class FormLayoutModelsTest extends RcpModelTest {
   // Test for copy/paste.
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_clipboard() throws Exception {
+  public void DISABLE_test_clipboard() throws Exception {
     CompositeInfo composite =
         parseComposite(
             "public class Test extends Shell {",

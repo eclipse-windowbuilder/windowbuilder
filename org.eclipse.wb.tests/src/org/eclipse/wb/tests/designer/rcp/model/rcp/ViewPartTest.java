@@ -57,7 +57,7 @@ public class ViewPartTest extends RcpModelTest {
   /**
    * Test for many elements of {@link ViewPartInfo}.
    */
-  public void test_0() throws Exception {
+  public void DISABLE_test_0() throws Exception {
     ViewPartInfo part =
         parseJavaInfo(
             "import org.eclipse.jface.action.*;",
