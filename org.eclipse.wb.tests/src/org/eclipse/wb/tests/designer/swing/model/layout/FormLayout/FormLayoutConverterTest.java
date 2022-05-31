@@ -54,7 +54,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
         "}");
   }
 
-  public void test_oneRow() throws Exception {
+  public void DISABLE_test_oneRow() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends JPanel {",
@@ -110,7 +110,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
     }
   }
 
-  public void test_twoRows_spanColumns() throws Exception {
+  public void DISABLE_test_twoRows_spanColumns() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends JPanel {",

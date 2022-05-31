@@ -228,7 +228,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
   /**
    * Test for {@link IGridInfo}.
    */
-  public void test_IGridInfo() throws Exception {
+  public void DISABLE_test_IGridInfo() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends JPanel implements IConstants {",

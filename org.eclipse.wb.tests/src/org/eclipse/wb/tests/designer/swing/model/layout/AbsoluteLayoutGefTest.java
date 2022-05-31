@@ -37,7 +37,7 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
   // Canvas
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_canvas_CREATE() throws Exception {
+  public void DISABLE_test_canvas_CREATE() throws Exception {
     prepareBox();
     ContainerInfo panel =
         openContainer(
@@ -149,7 +149,7 @@ public class AbsoluteLayoutGefTest extends SwingGefTest {
         "}");
   }
 
-  public void test_canvas_ADD() throws Exception {
+  public void DISABLE_test_canvas_ADD() throws Exception {
     prepareBox();
     ContainerInfo panel =
         openContainer(

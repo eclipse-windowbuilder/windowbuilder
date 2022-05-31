@@ -660,7 +660,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
    * <p>
    * Row "0" has component, but it is spanned two rows, so "0" has zero size.
    */
-  public void test_grid_emptyRow_spanned() throws Exception {
+  public void DISABLE_test_grid_emptyRow_spanned() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "class Test extends JPanel {",

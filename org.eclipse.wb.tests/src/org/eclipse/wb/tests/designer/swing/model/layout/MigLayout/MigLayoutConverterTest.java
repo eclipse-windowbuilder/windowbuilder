@@ -374,7 +374,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
         "}");
   }
 
-  public void test_oneRow_fill() throws Exception {
+  public void DISABLE_test_oneRow_fill() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends JPanel implements IConstants {",
