@@ -113,6 +113,7 @@ public final class TestUtils {
     imageLoader.data = new ImageData[]{image.getImageData()};
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     imageLoader.save(baos, SWT.IMAGE_PNG);
+	image.dispose();
     return baos.toByteArray();
   }
 

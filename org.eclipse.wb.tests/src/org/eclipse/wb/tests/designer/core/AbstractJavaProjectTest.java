@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
@@ -42,6 +40,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +49,7 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class AbstractJavaProjectTest extends DesignerTestCase {
-  private static final List<IFile> m_createdResources = Lists.newArrayList();
+  private static final List<IFile> m_createdResources = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -573,6 +572,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
     imageLoader.data = new ImageData[]{myImage.getImageData()};
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     imageLoader.save(baos, SWT.IMAGE_PNG);
+    myImage.dispose();
     return baos.toByteArray();
   }
 }
