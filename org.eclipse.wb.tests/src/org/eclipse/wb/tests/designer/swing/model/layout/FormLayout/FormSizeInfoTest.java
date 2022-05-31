@@ -57,7 +57,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
   /**
    * Test for {@link FormSizeConstantInfo}.
    */
-  public void test_FormSizeConstantInfo() throws Exception {
+  public void DISABLE_test_FormSizeConstantInfo() throws Exception {
     FormSizeConstantInfo size = new FormSizeConstantInfo(25, ConstantSize.PIXEL);
     assertEquals(25.0, size.getValue(), 0.001);
     assertEquals(25, size.getAsPixels());
@@ -185,7 +185,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
   /**
    * Test for {@link FormSizeConstantInfo#convertToPixels(double, Unit)}
    */
-  public void test_FormSizeConstantInfo_convertToPixels() throws Exception {
+  public void DISABLE_test_FormSizeConstantInfo_convertToPixels() throws Exception {
     {
       int expected = 10;
       check_convertToPixels(10.0, ConstantSize.PIXEL, expected);

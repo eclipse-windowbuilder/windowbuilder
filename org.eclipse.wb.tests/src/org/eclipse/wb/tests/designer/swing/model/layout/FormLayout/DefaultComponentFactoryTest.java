@@ -105,7 +105,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
    * Test for {@link DefaultComponentFactoryCreateLabelEntryInfo}.
    */
   @DisposeProjectAfter
-  public void test_createLabel_tool() throws Exception {
+  public void DISABLE_test_createLabel_tool() throws Exception {
     do_projectDispose();
     do_projectCreate();
     m_useFormsImports = false;

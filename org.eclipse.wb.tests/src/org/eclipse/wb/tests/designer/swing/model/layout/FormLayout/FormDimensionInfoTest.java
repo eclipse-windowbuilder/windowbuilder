@@ -245,7 +245,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   // Convert to GAP template
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_convertToNearestGap_columns() throws Exception {
+  public void DISABLE_test_convertToNearestGap_columns() throws Exception {
     check_convertToNearestGap_column("4px", 5, "LABEL_COMPONENT_GAP_COLSPEC");
     check_convertToNearestGap_column("3px", 0, null);
     check_convertToNearestGap_column("5px", 1, "LABEL_COMPONENT_GAP_COLSPEC");
@@ -261,7 +261,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
     check_convertToNearestGap_column("20px", 5, null);
   }
 
-  public void test_convertToNearestGap_rows() throws Exception {
+  public void DISABLE_test_convertToNearestGap_rows() throws Exception {
     check_convertToNearestGap_row("4px", 5, "LABEL_COMPONENT_GAP_ROWSPEC");
     check_convertToNearestGap_row("5px", 5, "LINE_GAP_ROWSPEC");
     check_convertToNearestGap_row("6px", 5, "RELATED_GAP_ROWSPEC");
