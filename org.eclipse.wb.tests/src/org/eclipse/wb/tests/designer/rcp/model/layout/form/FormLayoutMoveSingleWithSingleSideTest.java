@@ -383,7 +383,7 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
   /**
    * Freely moving single component in trailing with changing alignment.
    */
-  public void test_move_to_trailing_change_alignment() throws Exception {
+  public void DISABLE_test_move_to_trailing_change_alignment() throws Exception {
     prepareComponent();
     CompositeInfo shell =
         parseComposite(
@@ -465,7 +465,7 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
   /**
    * Freely moving single component in trailing without changing alignment.
    */
-  public void test_move_to_trailing_keep_alignment() throws Exception {
+  public void DISABLE_test_move_to_trailing_keep_alignment() throws Exception {
     prepareComponent();
     CompositeInfo shell =
         parseComposite(

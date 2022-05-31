@@ -292,7 +292,7 @@ public class StackLayoutTest extends RcpModelTest {
   // Clipboard
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_clipboard() throws Exception {
+  public void DISABLE_test_clipboard() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",

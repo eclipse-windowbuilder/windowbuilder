@@ -384,7 +384,7 @@ public class SashFormTest extends RcpModelTest {
   /**
    * Test for {@link SashFormInfo#command_RESIZE(ControlInfo, int)}.
    */
-  public void test_RESIZE() throws Exception {
+  public void DISABLE_test_RESIZE() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",

@@ -65,7 +65,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
         "}");
   }
 
-  public void test_canvas_PASTE() throws Exception {
+  public void DISABLE_test_canvas_PASTE() throws Exception {
     prepareComponent();
     CompositeInfo composite =
         openComposite(
@@ -248,7 +248,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
     tree.assertPrimarySelected(newButton);
   }
 
-  public void test_tree_PASTE() throws Exception {
+  public void DISABLE_test_tree_PASTE() throws Exception {
     prepareComponent();
     CompositeInfo composite =
         openComposite(

@@ -201,7 +201,7 @@ public class CoolBarManagerTest extends RcpModelTest {
   /**
    * Test for using {@link ToolBarContributionItem}.
    */
-  public void test_addToolBarManager_usingToolBarContributionItem() throws Exception {
+  public void DISABLE_test_addToolBarManager_usingToolBarContributionItem() throws Exception {
     ApplicationWindowInfo window =
         parseJavaInfo(
             "import org.eclipse.jface.action.*;",

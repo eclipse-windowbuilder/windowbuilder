@@ -65,7 +65,7 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
     assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).isEmpty();
   }
 
-  public void test_37() throws Exception {
+  public void DISABLE_test_37() throws Exception {
     parseComposite(
         "// filler filler filler",
         "public class Test extends Shell {",

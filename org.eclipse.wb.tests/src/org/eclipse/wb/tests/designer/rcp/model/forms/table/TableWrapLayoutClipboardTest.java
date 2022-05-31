@@ -36,7 +36,7 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_simpleSingleControl() throws Exception {
+  public void DISABLE_test_simpleSingleControl() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "class Test extends Shell {",
@@ -97,7 +97,7 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
         "}");
   }
 
-  public void test_grid2x2() throws Exception {
+  public void DISABLE_test_grid2x2() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "class Test extends Shell {",

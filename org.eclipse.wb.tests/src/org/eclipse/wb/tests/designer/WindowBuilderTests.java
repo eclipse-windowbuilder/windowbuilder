@@ -12,7 +12,9 @@ package org.eclipse.wb.tests.designer;
 
 import org.eclipse.wb.tests.designer.core.CoreTests;
 import org.eclipse.wb.tests.designer.editor.EditorTests;
+import org.eclipse.wb.tests.designer.rcp.RcpTests;
 import org.eclipse.wb.tests.designer.swing.SwingTests;
+import org.eclipse.wb.tests.designer.swt.SwtTests;
 import org.eclipse.wb.tests.utils.CommonTests;
 
 import org.junit.runner.RunWith;
@@ -30,12 +32,10 @@ import org.junit.runners.Suite.SuiteClasses;
     CommonTests.class,
     CoreTests.class,
     EditorTests.class,
-    SwingTests.class
+    SwingTests.class,
+    SwtTests.class,
+    RcpTests.class
 // not yet ready to run, need work to run successfully
-// SwtTests.class,
-
-// SwtTests.class,
-// RcpTests.class,
 // XmlTests.class,
 // XwtTests.class
 

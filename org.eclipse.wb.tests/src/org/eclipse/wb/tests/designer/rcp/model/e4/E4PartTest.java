@@ -35,7 +35,7 @@ public class E4PartTest extends RcpModelTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
+  public void DISABLE_test_0() throws Exception {
     E4PartInfo part =
         parseJavaInfo(
             "import javax.annotation.PostConstruct;",

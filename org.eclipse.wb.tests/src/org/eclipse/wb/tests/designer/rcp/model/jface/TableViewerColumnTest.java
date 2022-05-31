@@ -412,7 +412,7 @@ public class TableViewerColumnTest extends RcpModelTest {
   // Clipboard
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_copyPaste() throws Exception {
+  public void DISABLE_test_copyPaste() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",
@@ -555,7 +555,7 @@ public class TableViewerColumnTest extends RcpModelTest {
   // "sorter" property
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_sorterProperty() throws Exception {
+  public void DISABLE_test_sorterProperty() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",

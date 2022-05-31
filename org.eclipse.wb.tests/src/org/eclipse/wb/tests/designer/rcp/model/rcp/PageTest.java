@@ -42,7 +42,7 @@ public class PageTest extends RcpModelTest {
   /**
    * Test for many elements of {@link PageInfo}.
    */
-  public void test_Page() throws Exception {
+  public void DISABLE_test_Page() throws Exception {
     PageInfo page =
         parseJavaInfo(
             "import org.eclipse.jface.action.*;",
