@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.description;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
@@ -318,7 +317,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
     @Override
     public Map<String, Object> getVersions(IJavaProject javaProject, ClassLoader classLoader)
         throws Exception {
-      return ImmutableMap.<String, Object>of("test.version", "2.0");
+      return Map.of("test.version", "2.0");
     }
 
     @Override
@@ -331,7 +330,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
       extends
         FromListDescriptionVersionsProvider {
     public DescriptionVersionsProvider_2() {
-      super(ImmutableList.of("1.0", "2.0", "3.0"), "2.0");
+      super(List.of("1.0", "2.0", "3.0"), "2.0");
     }
 
     @Override
@@ -348,7 +347,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
     @Override
     public Map<String, Object> getVersions(IJavaProject javaProject, ClassLoader classLoader)
         throws Exception {
-      return ImmutableMap.<String, Object>of("test.version", "3.0");
+      return Map.of("test.version", "3.0");
     }
 
     @Override
