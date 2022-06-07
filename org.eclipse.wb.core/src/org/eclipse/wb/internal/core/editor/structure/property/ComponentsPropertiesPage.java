@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.structure.property;
 
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.editor.structure.property.PropertyCategoryProviderProvider;
@@ -53,6 +52,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.MenuItem;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -71,7 +71,7 @@ public final class ComponentsPropertiesPage implements IPage {
 	private PropertyTable m_propertyTable;
 	private PropertyTable m_eventsTable;
 	private ObjectInfo m_rootObject;
-	private final List<ObjectInfo> m_objects = Lists.newArrayList();
+	private final List<ObjectInfo> m_objects = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -533,7 +533,7 @@ public final class ComponentsPropertiesPage implements IPage {
 	 * Shows "usual" {@link Property}'s in {@link #m_propertyTable}.
 	 */
 	private void showProperties() throws Exception {
-		List<Property> propertyList = Lists.newArrayList();
+		List<Property> propertyList = new ArrayList<>();
 		Collections.addAll(propertyList, getAllProperties());
 		preparePropertiesForDisplaying(propertyList);
 		// set properties
