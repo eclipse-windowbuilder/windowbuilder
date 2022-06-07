@@ -18,34 +18,35 @@ import org.apache.commons.digester.Rule;
 import org.xml.sax.Attributes;
 
 /**
- * The {@link Rule} that sets value of {@link AbstractConfigurableDescription} parameter.
+ * The {@link Rule} that sets value of {@link AbstractConfigurableDescription}
+ * parameter.
  *
  * @author scheglov_ke
  * @coverage XML.model.description
  */
 public final class ConfigurableObjectParameterRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_name;
-  private String m_value;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_name;
+	private String m_value;
 
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    m_name = getRequiredAttribute(name, attributes, "name");
-  }
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		m_name = getRequiredAttribute(name, attributes, "name");
+	}
 
-  @Override
-  public void body(String namespace, String name, String text) throws Exception {
-    m_value = text;
-    Assert.isNotNull(m_value, "Body text for <" + name + "> required.");
-  }
+	@Override
+	public void body(String namespace, String name, String text) throws Exception {
+		m_value = text;
+		Assert.isNotNull(m_value, "Body text for <" + name + "> required.");
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    AbstractConfigurableDescription description = (AbstractConfigurableDescription) digester.peek();
-    description.addParameter(m_name, m_value);
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		AbstractConfigurableDescription description = (AbstractConfigurableDescription) digester.peek();
+		description.addParameter(m_name, m_value);
+	}
 }

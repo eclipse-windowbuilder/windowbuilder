@@ -20,45 +20,46 @@ import org.apache.commons.digester.Rule;
 import org.xml.sax.Attributes;
 
 /**
- * The {@link Rule} that sets {@link PropertyEditor} of current {@link GenericPropertyDescription}.
+ * The {@link Rule} that sets {@link PropertyEditor} of current
+ * {@link GenericPropertyDescription}.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
 public final class PropertyEditorRule extends Rule {
-  private final EditorState m_state;
+	private final EditorState m_state;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyEditorRule(EditorState state) {
-    m_state = state;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyEditorRule(EditorState state) {
+		m_state = state;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    String id = attributes.getValue("id");
-    PropertyEditor editor = DescriptionPropertiesHelper.getConfigurableEditor(id);
-    digester.push(new PropertyEditorDescription(m_state, editor));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		String id = attributes.getValue("id");
+		PropertyEditor editor = DescriptionPropertiesHelper.getConfigurableEditor(id);
+		digester.push(new PropertyEditorDescription(m_state, editor));
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    // prepare editor
-    PropertyEditor editor;
-    {
-      PropertyEditorDescription editorDescription = (PropertyEditorDescription) digester.pop();
-      editor = editorDescription.getConfiguredEditor();
-    }
-    // set editor for current property
-    GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
-    propertyDescription.setEditor(editor);
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		// prepare editor
+		PropertyEditor editor;
+		{
+			PropertyEditorDescription editorDescription = (PropertyEditorDescription) digester.pop();
+			editor = editorDescription.getConfiguredEditor();
+		}
+		// set editor for current property
+		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
+		propertyDescription.setEditor(editor);
+	}
 }

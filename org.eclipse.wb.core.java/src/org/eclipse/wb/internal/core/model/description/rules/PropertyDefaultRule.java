@@ -17,45 +17,46 @@ import org.apache.commons.digester.Rule;
 import org.xml.sax.Attributes;
 
 /**
- * The {@link Rule} that sets the default value of current {@link GenericPropertyDescription}. Right
- * now it supports fairly limited set of expressions: boolean literals.
+ * The {@link Rule} that sets the default value of current
+ * {@link GenericPropertyDescription}. Right now it supports fairly limited set
+ * of expressions: boolean literals.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
 public final class PropertyDefaultRule extends Rule {
-  private final ClassLoader m_classLoader;
+	private final ClassLoader m_classLoader;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyDefaultRule(ClassLoader classLoader) {
-    m_classLoader = classLoader;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyDefaultRule(ClassLoader classLoader) {
+		m_classLoader = classLoader;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
-    String text = attributes.getValue("value");
-    propertyDescription.setDefaultValue(getValue(text));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
+		String text = attributes.getValue("value");
+		propertyDescription.setDefaultValue(getValue(text));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Object} value for given text.
-   */
-  private Object getValue(String text) throws Exception {
-    return ScriptUtils.evaluate(m_classLoader, text);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Object} value for given text.
+	 */
+	private Object getValue(String text) throws Exception {
+		return ScriptUtils.evaluate(m_classLoader, text);
+	}
 }
