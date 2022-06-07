@@ -34,79 +34,71 @@ import java.lang.reflect.TypeVariable;
 import java.util.List;
 
 /**
- * The {@link Rule} that adds {@link GenericPropertyDescription}s for {@link PropertyDescriptor}s.
+ * The {@link Rule} that adds {@link GenericPropertyDescription}s for
+ * {@link PropertyDescriptor}s.
  *
  * @author scheglov_ke
  * @coverage XML.model.description
  */
 public final class CreatePropertiesPropertyDescriptorRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
-    List<PropertyDescriptor> descriptors =
-        ReflectionUtils.getPropertyDescriptors(null, componentDescription.getComponentClass());
-    for (PropertyDescriptor propertyDescriptor : descriptors) {
-      addSingleProperty(componentDescription, propertyDescriptor);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+		List<PropertyDescriptor> descriptors = ReflectionUtils.getPropertyDescriptors(null,
+				componentDescription.getComponentClass());
+		for (PropertyDescriptor propertyDescriptor : descriptors) {
+			addSingleProperty(componentDescription, propertyDescriptor);
+		}
+	}
 
-  private void addSingleProperty(ComponentDescription componentDescription,
-      PropertyDescriptor propertyDescriptor) throws Exception {
-    Method setMethod = ReflectionUtils.getWriteMethod(propertyDescriptor);
-    if (setMethod == null) {
-      return;
-    }
-    if (!ReflectionUtils.isPublic(setMethod)) {
-      return;
-    }
-    // prepare description parts
-    String title = propertyDescriptor.getName();
-    String attribute = StringUtils.substringBeforeLast(StringUtils.uncapitalize(title), "(");
-    Method getMethod = ReflectionUtils.getReadMethod(propertyDescriptor);
-    Class<?> propertyType = resolvePropertyType(componentDescription, setMethod);
-    // prepare property parts
-    String id =
-        setMethod.getName()
-            + "("
-            + ReflectionUtils.getFullyQualifiedName(propertyType, false)
-            + ")";
-    ExpressionAccessor accessor = new MethodExpressionAccessor(attribute, setMethod, getMethod);
-    ExpressionConverter converter = DescriptionPropertiesHelper.getConverterForType(propertyType);
-    PropertyEditor editor = DescriptionPropertiesHelper.getEditorForType(propertyType);
-    // create property
-    GenericPropertyDescription property =
-        new GenericPropertyDescription(id, title, propertyType, accessor);
-    property.setConverter(converter);
-    property.setEditor(editor);
-    // add property
-    componentDescription.addProperty(property);
-  }
+	private void addSingleProperty(ComponentDescription componentDescription, PropertyDescriptor propertyDescriptor)
+			throws Exception {
+		Method setMethod = ReflectionUtils.getWriteMethod(propertyDescriptor);
+		if (setMethod == null) {
+			return;
+		}
+		if (!ReflectionUtils.isPublic(setMethod)) {
+			return;
+		}
+		// prepare description parts
+		String title = propertyDescriptor.getName();
+		String attribute = StringUtils.substringBeforeLast(StringUtils.uncapitalize(title), "(");
+		Method getMethod = ReflectionUtils.getReadMethod(propertyDescriptor);
+		Class<?> propertyType = resolvePropertyType(componentDescription, setMethod);
+		// prepare property parts
+		String id = setMethod.getName() + "(" + ReflectionUtils.getFullyQualifiedName(propertyType, false) + ")";
+		ExpressionAccessor accessor = new MethodExpressionAccessor(attribute, setMethod, getMethod);
+		ExpressionConverter converter = DescriptionPropertiesHelper.getConverterForType(propertyType);
+		PropertyEditor editor = DescriptionPropertiesHelper.getEditorForType(propertyType);
+		// create property
+		GenericPropertyDescription property = new GenericPropertyDescription(id, title, propertyType, accessor);
+		property.setConverter(converter);
+		property.setEditor(editor);
+		// add property
+		componentDescription.addProperty(property);
+	}
 
-  private static Class<?> resolvePropertyType(ComponentDescription componentDescription,
-      Method setMethod) {
-    Class<?> propertyType = setMethod.getParameterTypes()[0];
-    final Type genericPropertyType = setMethod.getGenericParameterTypes()[0];
-    if (genericPropertyType instanceof TypeVariable<?>) {
-      final Class<?> declaringClass = setMethod.getDeclaringClass();
-      final Class<?> actualClass = componentDescription.getComponentClass();
-      return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Class<?>>() {
-        @Override
-        public Class<?> runObject() throws Exception {
-          String typeName =
-              GenericsUtils.getTypeName(GenericTypeResolver.superClass(
-                  GenericTypeResolver.EMPTY,
-                  actualClass,
-                  declaringClass), genericPropertyType);
-          return actualClass.getClassLoader().loadClass(typeName);
-        }
-      },
-          propertyType);
-    }
-    return propertyType;
-  }
+	private static Class<?> resolvePropertyType(ComponentDescription componentDescription, Method setMethod) {
+		Class<?> propertyType = setMethod.getParameterTypes()[0];
+		final Type genericPropertyType = setMethod.getGenericParameterTypes()[0];
+		if (genericPropertyType instanceof TypeVariable<?>) {
+			final Class<?> declaringClass = setMethod.getDeclaringClass();
+			final Class<?> actualClass = componentDescription.getComponentClass();
+			return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Class<?>>() {
+				@Override
+				public Class<?> runObject() throws Exception {
+					String typeName = GenericsUtils.getTypeName(
+							GenericTypeResolver.superClass(GenericTypeResolver.EMPTY, actualClass, declaringClass),
+							genericPropertyType);
+					return actualClass.getClassLoader().loadClass(typeName);
+				}
+			}, propertyType);
+		}
+		return propertyType;
+	}
 }

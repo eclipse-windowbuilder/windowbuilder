@@ -24,31 +24,31 @@ import org.xml.sax.Attributes;
  * @coverage XML.model.description
  */
 public final class PropertyTagRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    if (name.equals("tag")) {
-      GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
-      String tagName = getRequiredAttribute(name, attributes, "name");
-      String tagValue = getRequiredAttribute(name, attributes, "value");
-      propertyDescription.putTag(tagName, tagValue);
-      propertyDescription.getAccessor().putTag(tagName, tagValue);
-    } else {
-      String propertyName = getRequiredAttribute(name, attributes, "name");
-      ComponentDescription componentDescription = (ComponentDescription) digester.peek();
-      // check all properties
-      for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
-        String id = propertyDescription.getId();
-        if (PropertiesFlagRule.matchPropertyId(id, propertyName)) {
-          String tag = getRequiredAttribute(name, attributes, "tag");
-          String value = getRequiredAttribute(name, attributes, "value");
-          propertyDescription.putTag(tag, value);
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		if (name.equals("tag")) {
+			GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
+			String tagName = getRequiredAttribute(name, attributes, "name");
+			String tagValue = getRequiredAttribute(name, attributes, "value");
+			propertyDescription.putTag(tagName, tagValue);
+			propertyDescription.getAccessor().putTag(tagName, tagValue);
+		} else {
+			String propertyName = getRequiredAttribute(name, attributes, "name");
+			ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+			// check all properties
+			for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
+				String id = propertyDescription.getId();
+				if (PropertiesFlagRule.matchPropertyId(id, propertyName)) {
+					String tag = getRequiredAttribute(name, attributes, "tag");
+					String value = getRequiredAttribute(name, attributes, "value");
+					propertyDescription.putTag(tag, value);
+				}
+			}
+		}
+	}
 }

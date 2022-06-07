@@ -16,22 +16,23 @@ import org.apache.commons.digester.Rule;
 import org.xml.sax.Attributes;
 
 /**
- * The {@link Rule} that sets a tag for current {@link GenericPropertyDescription}.
+ * The {@link Rule} that sets a tag for current
+ * {@link GenericPropertyDescription}.
  *
  * @author scheglov_ke
  * @coverage core.model.description
  */
 public final class PropertyTagRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
-    String tagName = getRequiredAttribute(name, attributes, "name");
-    String tagValue = getRequiredAttribute(name, attributes, "value");
-    propertyDescription.putTag(tagName, tagValue);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
+		String tagName = getRequiredAttribute(name, attributes, "name");
+		String tagValue = getRequiredAttribute(name, attributes, "value");
+		propertyDescription.putTag(tagName, tagValue);
+	}
 }
