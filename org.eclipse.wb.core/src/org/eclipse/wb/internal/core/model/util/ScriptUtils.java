@@ -24,6 +24,7 @@ import org.mvel2.ParserConfiguration;
 import org.mvel2.ParserContext;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -53,7 +54,7 @@ public final class ScriptUtils {
       String script,
       String name_1,
       Object value_1) {
-    Map<String, Object> variables = Maps.newHashMap();
+    Map<String, Object> variables = new HashMap<>();
     variables.put(name_1, value_1);
     return evaluate(contextClassLoader, script, variables);
   }
@@ -67,7 +68,7 @@ public final class ScriptUtils {
       Object value_1,
       String name_2,
       Object value_2) {
-    Map<String, Object> variables = Maps.newHashMap();
+    Map<String, Object> variables = new HashMap<>();
     variables.put(name_1, value_1);
     variables.put(name_2, value_2);
     return evaluate(contextClassLoader, script, variables);
@@ -113,7 +114,7 @@ public final class ScriptUtils {
    */
   public static Object evaluate(String script, String name_1, Object value_1) {
     Object expression = compile(script);
-    Map<String, Object> variables = Maps.newHashMap();
+    Map<String, Object> variables = new HashMap<>();
     variables.put(name_1, value_1);
     return evaluate(expression, variables);
   }
@@ -127,7 +128,7 @@ public final class ScriptUtils {
       String name_2,
       Object value_2) {
     Object expression = compile(script);
-    Map<String, Object> variables = Maps.newHashMap();
+    Map<String, Object> variables = new HashMap<>();
     variables.put(name_1, value_1);
     variables.put(name_2, value_2);
     return evaluate(expression, variables);
@@ -203,7 +204,7 @@ public final class ScriptUtils {
     Class<ScriptUtils> key = ScriptUtils.class;
     Map<String, Object> cache = (Map<String, Object>) ClassLoaderLocalMap.get(context, key);
     if (cache == null) {
-      cache = Maps.newHashMap();
+      cache = new HashMap<>();
       ClassLoaderLocalMap.put(context, key, cache);
     }
     return cache;

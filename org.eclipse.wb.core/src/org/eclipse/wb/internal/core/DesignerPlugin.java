@@ -34,7 +34,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import static org.burningwave.core.assembler.StaticComponentContainer.Modules;
 
-import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.BundleContext;
 
 import java.io.InputStream;

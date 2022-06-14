@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
@@ -54,7 +53,6 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.layout.absolute.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
-import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 import org.eclipse.wb.internal.gef.core.CompoundCommand;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -62,6 +60,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -375,7 +374,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     Figure hostFigure = getHostFigure();
     if (m_dotsFeedback == null) {
       if ((useGridSnapping() || isKeyboardMoving()) && isShowGridFeedback()) {
-        m_dotsFeedback = new DotsFeedback<C>(this, hostFigure);
+        m_dotsFeedback = new DotsFeedback<>(this, hostFigure);
         addFeedback(m_dotsFeedback);
       }
     }
@@ -548,7 +547,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     // create dots feedback
     if (m_dotsFeedback == null) {
       if (useGridSnapping() || isKeyboardMoving) {
-        m_dotsFeedback = new DotsFeedback<C>(this, getHost().getFigure());
+        m_dotsFeedback = new DotsFeedback<>(this, getHost().getFigure());
         addFeedback(m_dotsFeedback);
       }
     }
@@ -668,7 +667,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     // create dots feedback
     if (m_dotsFeedback == null) {
       if (useGridSnapping() || isKeyboardMoving()) {
-        m_dotsFeedback = new DotsFeedback<C>(this, hostFigure);
+        m_dotsFeedback = new DotsFeedback<>(this, hostFigure);
         addFeedback(m_dotsFeedback);
       }
     }
@@ -712,9 +711,9 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   private void showPasteFeedback(final PasteRequest request) {
     List<IObjectInfo> pastingComponents =
         GlobalState.getPasteRequestProcessor().getPastingComponents(request);
-    m_pastedComponents = Maps.newHashMap();
+    m_pastedComponents = new HashMap<>();
     List<IAbstractComponentInfo> pastedModels =
-        new ArrayList<IAbstractComponentInfo>(pastingComponents.size());
+        new ArrayList<>(pastingComponents.size());
     try {
       // remove create feedback
       if (m_createFeedback != null) {
@@ -777,7 +776,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
       // create dots feedback
       if (m_dotsFeedback == null) {
         if (useGridSnapping() || isKeyboardMoving()) {
-          m_dotsFeedback = new DotsFeedback<C>(this, getHostFigure());
+          m_dotsFeedback = new DotsFeedback<>(this, getHostFigure());
           addFeedback(m_dotsFeedback);
         }
       }
@@ -801,12 +800,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     Command pasteCommand =
         GlobalState.getPasteRequestProcessor().getPasteCommand(
             request,
-            new IPasteComponentProcessor() {
-              @Override
-              public void process(Object component) throws Exception {
-                doPasteComponent(m_pasteLocation, m_pastedComponents.get(component));
-              }
-            });
+            component -> doPasteComponent(m_pasteLocation, m_pastedComponents.get(component)));
     EditCommand cleanupCommand = new EditCommand(m_layout) {
       @Override
       protected void executeEdit() throws Exception {

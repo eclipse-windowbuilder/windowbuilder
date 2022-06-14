@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.utils.IAdaptable;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -155,7 +154,7 @@ public abstract class Property implements IAdaptable {
    */
   public final void putArbitraryValue(Object key, Object value) {
     if (m_arbitraryMap == null) {
-      m_arbitraryMap = Maps.newHashMap();
+      m_arbitraryMap = new HashMap<>();
     }
     m_arbitraryMap.put(key, value);
   }

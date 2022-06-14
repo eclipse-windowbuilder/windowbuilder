@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.validator;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -19,6 +17,7 @@ import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -100,7 +99,7 @@ public final class CachingLayoutRequestValidator implements ILayoutRequestValida
   private Map<EditPart, Boolean> getCache(Request request) {
     Map<EditPart, Boolean> cache = (Map<EditPart, Boolean>) request.getArbitraryValue(this);
     if (cache == null) {
-      cache = Maps.newHashMap();
+      cache = new HashMap<>();
       request.putArbitraryValue(this, cache);
     }
     return cache;

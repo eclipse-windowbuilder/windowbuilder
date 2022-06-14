@@ -10,13 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.views;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.editor.DesignComposite;
 import org.eclipse.wb.internal.core.editor.DesignComposite.IExtractableControl;
 
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -37,6 +33,7 @@ import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.PageBookView;
 import org.eclipse.ui.part.ViewPart;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -63,9 +60,7 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
     hookIntoWorkbench();
     // simulate activation for all opened editors,
     // because it is possible that more than one of them are visible
-    parent.getDisplay().asyncExec(new Runnable() {
-      @Override
-      public void run() {
+    parent.getDisplay().asyncExec(() -> {
         IWorkbenchPage activePage = getSite().getWorkbenchWindow().getActivePage();
         IWorkbenchPart activePart = activePage.getActivePart();
         // show pages for all editors
@@ -78,8 +73,7 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
         }
         // show page for original active part
         partActivated(activePart);
-      }
-    });
+      });
   }
 
   /**
@@ -105,14 +99,11 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
       public void partHidden(IWorkbenchPartReference partRef) {
         // some "part" become hidden, if this means that "editor" maximized, do restore;
         // do in async, because editor state updated after "partHidden" event
-        Display.getCurrent().asyncExec(new Runnable() {
-          @Override
-          public void run() {
+        Display.getCurrent().asyncExec(() -> {
             if (isEditorMaximized()) {
               doRestore();
             }
-          }
-        });
+          });
       }
 
       @Override
@@ -165,12 +156,7 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
     };
     page.addPartListener(partListener);
     // remove perspective listener on dispose
-    getPageBook().addDisposeListener(new DisposeListener() {
-      @Override
-      public void widgetDisposed(DisposeEvent e) {
-        page.removePartListener(partListener);
-      }
-    });
+    getPageBook().addDisposeListener(e -> page.removePartListener(partListener));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -201,7 +187,7 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
   // PageBookView
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<IWorkbenchPart, IExtractableControl> m_extractableControls = Maps.newHashMap();
+  private final Map<IWorkbenchPart, IExtractableControl> m_extractableControls = new HashMap<>();
 
   @Override
   protected IPage createDefaultPage(PageBook book) {

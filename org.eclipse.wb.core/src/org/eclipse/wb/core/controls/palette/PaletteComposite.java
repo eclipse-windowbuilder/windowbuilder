@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Graphics;
@@ -19,7 +17,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.events.IMouseListener;
-import org.eclipse.wb.draw2d.events.IMouseMoveListener;
 import org.eclipse.wb.draw2d.events.IMouseTrackListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.draw2d.geometry.Dimension;
@@ -32,7 +29,6 @@ import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
@@ -41,9 +37,8 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -104,7 +99,7 @@ public final class PaletteComposite extends Composite {
   private final GC m_paletteGC;
   private final PaletteFigure m_paletteFigure;
   private final Layer m_feedbackLayer;
-  private final Map<ICategory, CategoryFigure> m_categoryFigures = Maps.newHashMap();
+  private final Map<ICategory, CategoryFigure> m_categoryFigures = new HashMap<>();
   private MenuManager m_menuManager;
   private IPalette m_palette;
   private IEntry m_selectedEntry;
@@ -129,12 +124,7 @@ public final class PaletteComposite extends Composite {
     // prepare GC (for layout)
     {
       m_paletteGC = new GC(m_figureCanvas);
-      addListener(SWT.Dispose, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          m_paletteGC.dispose();
-        }
-      });
+      addListener(SWT.Dispose, event -> m_paletteGC.dispose());
     }
     // add palette figure (layer)
     m_paletteFigure = new PaletteFigure();
@@ -144,12 +134,7 @@ public final class PaletteComposite extends Composite {
       m_menuManager = new MenuManager();
       m_menuManager.setRemoveAllWhenShown(true);
       m_figureCanvas.setMenu(m_menuManager.createContextMenu(m_figureCanvas));
-      m_menuManager.addMenuListener(new IMenuListener() {
-        @Override
-        public void menuAboutToShow(IMenuManager manager) {
-          addPopupActions(manager);
-        }
-      });
+      m_menuManager.addMenuListener(manager -> addPopupActions(manager));
     }
     // add feedback layer
     {
@@ -357,7 +342,7 @@ public final class PaletteComposite extends Composite {
     //
     ////////////////////////////////////////////////////////////////////////////
     private final ICategory m_category;
-    private final Map<IEntry, EntryFigure> m_entryFigures = Maps.newHashMap();
+    private final Map<IEntry, EntryFigure> m_entryFigures = new HashMap<>();
     private int m_columns;
     private int m_titleHeight;
 
@@ -450,25 +435,22 @@ public final class PaletteComposite extends Composite {
           repaint();
         }
       });
-      addMouseMoveListener(new IMouseMoveListener() {
-        @Override
-        public void mouseMove(MouseEvent event) {
-          if (m_mouseDown) {
-            Point p = new Point(event.x, event.y);
-            // update moving
-            if (!m_moving && m_downPoint.getDistance(p) > 4) {
-              m_moving = true;
-            }
-            // show feedback
-            if (m_moving) {
-              move_showFeedback(p);
-            }
-          } else {
-            m_mouseOnTitle = getTitleRectangle().contains(event.x, event.y);
-            repaint();
-          }
-        }
-      });
+      addMouseMoveListener(event -> {
+	  if (m_mouseDown) {
+	    Point p = new Point(event.x, event.y);
+	    // update moving
+	    if (!m_moving && m_downPoint.getDistance(p) > 4) {
+	      m_moving = true;
+	    }
+	    // show feedback
+	    if (m_moving) {
+	      move_showFeedback(p);
+	    }
+	  } else {
+	    m_mouseOnTitle = getTitleRectangle().contains(event.x, event.y);
+	    repaint();
+	  }
+	});
       addMouseTrackListener(new IMouseTrackListener() {
         @Override
         public void mouseEnter(MouseEvent e) {
@@ -788,28 +770,25 @@ public final class PaletteComposite extends Composite {
           repaint();
         }
       });
-      addMouseMoveListener(new IMouseMoveListener() {
-        @Override
-        public void mouseMove(MouseEvent event) {
-          // update mouse location
-          boolean oldMouseInside = m_mouseInside;
-          m_mouseInside = getClientArea().contains(event.x, event.y);
-          //
-          if (m_mouseDown) {
-            Point p = new Point(event.x, event.y);
-            // update moving
-            if (!m_moving && m_downPoint.getDistance(p) > 4) {
-              m_moving = true;
-            }
-            // show feedback
-            if (m_moving) {
-              move_showFeedback(p);
-            }
-          } else if (m_mouseInside != oldMouseInside) {
-            repaint();
-          }
-        }
-      });
+      addMouseMoveListener(event -> {
+	  // update mouse location
+	  boolean oldMouseInside = m_mouseInside;
+	  m_mouseInside = getClientArea().contains(event.x, event.y);
+	  //
+	  if (m_mouseDown) {
+	    Point p = new Point(event.x, event.y);
+	    // update moving
+	    if (!m_moving && m_downPoint.getDistance(p) > 4) {
+	      m_moving = true;
+	    }
+	    // show feedback
+	    if (m_moving) {
+	      move_showFeedback(p);
+	    }
+	  } else if (m_mouseInside != oldMouseInside) {
+	    repaint();
+	  }
+	});
       addMouseTrackListener(new IMouseTrackListener() {
         @Override
         public void mouseEnter(MouseEvent e) {

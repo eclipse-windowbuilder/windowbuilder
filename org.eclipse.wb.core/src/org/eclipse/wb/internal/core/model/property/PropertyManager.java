@@ -16,14 +16,13 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.utils.base64.Base64Utils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -104,7 +103,7 @@ public final class PropertyManager {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final Map<ToolkitDescription, Map<String, PropertyCategory>> m_toolkitCategories =
-      Maps.newHashMap();
+      new HashMap<>();
   public static void flushCache() {
     m_toolkitCategories.clear();
   }
@@ -117,21 +116,11 @@ public final class PropertyManager {
     return categories;
   }
   private static Map<String, PropertyCategory> loadCategories(final ToolkitDescription toolkit) {
-    return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Map<String, PropertyCategory>>() {
-      @Override
-      public Map<String, PropertyCategory> runObject() throws Exception {
-        return loadCategories0(toolkit);
-      }
-    }, Maps.<String, PropertyCategory>newTreeMap());
+    return ExecutionUtils.runObjectIgnore(() -> loadCategories0(toolkit), Maps.<String, PropertyCategory>newTreeMap());
   }
   private static void saveCategories(final ToolkitDescription toolkit,
       final Map<String, PropertyCategory> categories) {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        saveCategories0(toolkit, categories);
-      }
-    });
+    ExecutionUtils.runLog(() -> saveCategories0(toolkit, categories));
   }
   @SuppressWarnings("unchecked")
   private static Map<String, PropertyCategory> loadCategories0(ToolkitDescription toolkit)
