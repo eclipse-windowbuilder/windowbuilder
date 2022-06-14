@@ -239,12 +239,7 @@ public class TreeDropListener implements DropTargetListener {
    * conditional fails, and the search continues.
    */
   private IConditional getTargetingConditional() {
-    return new IEditPartViewer.IConditional() {
-      @Override
-      public boolean evaluate(EditPart editPart) {
-        return editPart.getTargetEditPart(getTargetRequest()) != null;
-      }
-    };
+    return editPart -> editPart.getTargetEditPart(getTargetRequest()) != null;
   }
 
   private static List<EditPart> includeChildren(List<EditPart> parts) {

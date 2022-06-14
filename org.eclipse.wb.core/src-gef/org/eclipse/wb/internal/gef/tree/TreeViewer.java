@@ -22,8 +22,6 @@ import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -197,14 +195,11 @@ public class TreeViewer extends AbstractEditPartViewer {
       }
     });
     // listener for this viewer selection
-    addSelectionChangedListener(new ISelectionChangedListener() {
-      @Override
-      public void selectionChanged(SelectionChangedEvent event) {
+    addSelectionChangedListener(event -> {
         if (!inTreeSelectionListener[0]) {
           setSelectionToTreeWidget();
         }
-      }
-    });
+      });
   }
 
   /**

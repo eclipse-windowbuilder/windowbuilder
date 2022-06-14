@@ -23,8 +23,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
 /**
  * The {@link PropertyEditor} for selecting single value using {@link CCombo3}.
@@ -67,9 +65,7 @@ public abstract class AbstractComboPropertyEditor extends TextDisplayPropertyEdi
         toProperty(propertyTable, property, index);
       }
     });
-    m_combo.addListener(SWT.KeyDown, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    m_combo.addListener(SWT.KeyDown, event -> {
         switch (event.keyCode) {
           case SWT.ESC :
             propertyTable.deactivateEditor(false);
@@ -86,8 +82,7 @@ public abstract class AbstractComboPropertyEditor extends TextDisplayPropertyEdi
             m_combo.doDropDown(false);
             break;
         }
-      }
-    });
+      });
     m_combo.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseDoubleClick(MouseEvent e) {

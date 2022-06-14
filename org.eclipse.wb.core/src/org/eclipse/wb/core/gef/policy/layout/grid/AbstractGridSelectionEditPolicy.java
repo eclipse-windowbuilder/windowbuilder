@@ -129,17 +129,14 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
    * @return the {@link MoveHandle} for host component.
    */
   protected final MoveHandle createMoveHandle() {
-    MoveHandle moveHandle = new MoveHandle(getHost(), new ILocator() {
-      @Override
-      public void relocate(Figure target) {
+    MoveHandle moveHandle = new MoveHandle(getHost(), target -> {
         try {
           Rectangle bounds = getComponentCellBounds_atFeedback();
           target.setBounds(bounds);
         } catch (Throwable e) {
           DesignerPlugin.log(e);
         }
-      }
-    });
+      });
     moveHandle.setForeground(IColorConstants.red);
     return moveHandle;
   }

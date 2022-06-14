@@ -14,8 +14,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -23,7 +21,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
 /**
  * Class representing flat push button as it looks in Mac OSX.
@@ -58,9 +55,7 @@ public final class CFlatButton extends Canvas {
   ////////////////////////////////////////////////////////////////////////////
   public CFlatButton(Composite parent, int style) {
     super(parent, style);
-    addPaintListener(new PaintListener() {
-      @Override
-      public void paintControl(PaintEvent e) {
+    addPaintListener(e -> {
         boolean isSelected = m_down | m_selected;
         Color faceColor = isSelected ? COLOR_FACE_SELECTED : COLOR_FACE;
         Color borderGradientColor1 =
@@ -103,26 +98,19 @@ public final class CFlatButton extends Canvas {
           int y = ca.y + (ca.height - imageBounds.height) / 2;
           gc.drawImage(image, x, y);
         }
-      }
-    });
-    addListener(SWT.MouseDown, new Listener() {
-      @Override
-      public void handleEvent(Event e) {
+      });
+    addListener(SWT.MouseDown, e -> {
         m_down = true;
         redraw();
-      }
-    });
-    addListener(SWT.MouseUp, new Listener() {
-      @Override
-      public void handleEvent(Event e) {
+      });
+    addListener(SWT.MouseUp, e -> {
         m_down = false;
         redraw();
         update();
         if (getClientArea().contains(e.x, e.y)) {
           fireSelectionEvent(e.time, e.stateMask);
         }
-      }
-    });
+      });
   }
 
   ////////////////////////////////////////////////////////////////////////////

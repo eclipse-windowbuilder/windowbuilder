@@ -17,8 +17,6 @@ import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
@@ -110,13 +108,10 @@ public final class TabFolderDecorator {
     final Shell shell = m_tabFolder.getShell();
     shell.addShellListener(m_shellListener);
     // add dispose listener to remove part/Shell listeners
-    m_tabFolder.addListener(SWT.Dispose, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    m_tabFolder.addListener(SWT.Dispose, event -> {
         activePage.removePartListener(m_partListener);
         shell.removeShellListener(m_shellListener);
-      }
-    });
+      });
     // set initial colors
     updateColors();
   }

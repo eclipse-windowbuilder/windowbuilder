@@ -12,8 +12,6 @@ package org.eclipse.wb.internal.gef.core;
 
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.MenuItem;
 
@@ -34,17 +32,14 @@ public abstract class ContextMenuProvider extends MenuManager {
   public ContextMenuProvider(IEditPartViewer viewer) {
     m_viewer = viewer;
     setRemoveAllWhenShown(true);
-    addMenuListener(new IMenuListener() {
-      @Override
-      public void menuAboutToShow(IMenuManager manager) {
+    addMenuListener(manager -> {
         // dispose items to avoid their caching
         for (MenuItem item : getMenu().getItems()) {
           item.dispose();
         }
         // apply new items
         buildContextMenu();
-      }
-    });
+      });
   }
 
   ////////////////////////////////////////////////////////////////////////////

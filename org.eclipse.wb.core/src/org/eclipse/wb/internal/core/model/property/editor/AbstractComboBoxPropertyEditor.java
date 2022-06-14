@@ -15,7 +15,6 @@ import org.eclipse.wb.core.controls.CComboBox;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
@@ -74,17 +73,14 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
     });
     m_combo.setFocus();
     // schedule showing drop-down, because we don't have bounds yet
-    ExecutionUtils.runAsync(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runAsync(() -> {
         m_combo.comboDropDown(true);
         if (m_dropDelayedText != null) {
           m_combo.setEditText(m_dropDelayedText);
           m_combo.setEditSelection(m_dropDelayedText.length(), m_dropDelayedText.length());
           m_dropDelayedText = null;
         }
-      }
-    });
+      });
     // keep editor active
     return true;
   }

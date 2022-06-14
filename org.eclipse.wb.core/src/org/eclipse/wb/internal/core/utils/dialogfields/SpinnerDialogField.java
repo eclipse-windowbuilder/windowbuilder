@@ -105,12 +105,7 @@ public class SpinnerDialogField extends DialogField {
   public Control getSpinnerControl(Composite parent) {
     if (m_spinner == null) {
       assertCompositeNotNull(parent);
-      m_modifyListener = new ModifyListener() {
-        @Override
-        public void modifyText(ModifyEvent e) {
-          doModifyText(e);
-        }
-      };
+      m_modifyListener = e -> doModifyText(e);
       //
       m_spinner = new Spinner(parent, SWT.SINGLE | SWT.BORDER);
       m_spinner.setMinimum(m_minimum);

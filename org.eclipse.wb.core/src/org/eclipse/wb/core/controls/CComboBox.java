@@ -27,14 +27,8 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -83,9 +77,7 @@ public class CComboBox extends Composite {
     createContents(this);
     m_wasFocused = isComboFocused();
     // add display hook
-    final Listener displayFocusInHook = new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    final Listener displayFocusInHook = event -> {
         boolean focused = isComboFocused();
         if (m_wasFocused && !focused) {
           // close DropDown on focus out ComboBox
@@ -103,14 +95,8 @@ public class CComboBox extends Composite {
           }
         }
         m_wasFocused = focused;
-      }
-    };
-    final Listener displayFocusOutHook = new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        m_wasFocused = isComboFocused();
-      }
-    };
+      };
+    final Listener displayFocusOutHook = event -> m_wasFocused = isComboFocused();
     {
       Display display = getDisplay();
       display.addFilter(SWT.FocusIn, displayFocusInHook);
@@ -123,9 +109,7 @@ public class CComboBox extends Composite {
         resizeInner();
       }
     });
-    addDisposeListener(new DisposeListener() {
-      @Override
-      public void widgetDisposed(DisposeEvent e) {
+    addDisposeListener(e -> {
         {
           // remove Display hooks
           Display display = getDisplay();
@@ -133,8 +117,7 @@ public class CComboBox extends Composite {
           display.removeFilter(SWT.FocusOut, displayFocusOutHook);
         }
         disposeInner();
-      }
-    });
+      });
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -216,9 +199,7 @@ public class CComboBox extends Composite {
       }
     });
     // modifications processing
-    m_text.addModifyListener(new ModifyListener() {
-      @Override
-      public void modifyText(ModifyEvent e) {
+    m_text.addModifyListener(e -> {
         if (isDroppedDown()) {
           m_table.refresh();
         } else {
@@ -229,8 +210,7 @@ public class CComboBox extends Composite {
             setFocus2Text(false);
           }
         }
-      }
-    });
+      });
   }
 
   /**
@@ -253,17 +233,14 @@ public class CComboBox extends Composite {
    */
   protected void createImage(Composite parent) {
     m_canvas = new Canvas(parent, SWT.BORDER);
-    m_canvas.addPaintListener(new PaintListener() {
-      @Override
-      public void paintControl(PaintEvent e) {
+    m_canvas.addPaintListener(e -> {
         Image selectionImage = getSelectionImage();
         if (selectionImage != null) {
           e.gc.drawImage(selectionImage, 0, 0);
         } else {
           e.gc.fillRectangle(m_canvas.getClientArea());
         }
-      }
-    });
+      });
   }
 
   /**

@@ -19,7 +19,6 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
-import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 
 import java.util.List;
 
@@ -61,12 +60,7 @@ public abstract class ObjectLayoutEditPolicy<C> extends LayoutEditPolicy {
     final C reference = getReferenceModel(referenceObject);
     return GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
-        new IPasteComponentProcessor() {
-          @Override
-          public void process(Object component) throws Exception {
-            command_CREATE(getObjectModel(component), reference);
-          }
-        });
+        component -> command_CREATE(getObjectModel(component), reference));
   }
 
   @Override

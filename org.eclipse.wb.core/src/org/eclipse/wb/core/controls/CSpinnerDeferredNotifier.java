@@ -12,7 +12,6 @@ package org.eclipse.wb.core.controls;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 /**
@@ -52,9 +51,7 @@ public final class CSpinnerDeferredNotifier {
    * Handler for single {@link SWT#Selection} event.
    */
   private void addListener() {
-    m_spinner.addListener(SWT.Selection, new Listener() {
-      @Override
-      public void handleEvent(final Event event) {
+    m_spinner.addListener(SWT.Selection, event -> {
         m_eventId[0]++;
         m_display.timerExec(m_timeout, new Runnable() {
           int m_id = m_eventId[0];
@@ -66,7 +63,6 @@ public final class CSpinnerDeferredNotifier {
             }
           }
         });
-      }
-    });
+      });
   }
 }

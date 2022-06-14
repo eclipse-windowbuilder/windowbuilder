@@ -21,11 +21,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
@@ -92,15 +89,12 @@ public final class FlyoutControlComposite extends Composite {
     super(parent, style);
     m_preferences = preferences;
     // add listeners
-    addListener(SWT.Resize, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    addListener(SWT.Resize, event -> {
         if (getShell().getMinimized()) {
           return;
         }
         layout();
-      }
-    });
+      });
     // create container for flyout control
     m_flyoutContainer = new FlyoutContainer(this, SWT.NO_BACKGROUND);
   }
@@ -290,37 +284,24 @@ public final class FlyoutControlComposite extends Composite {
       configureMenu();
       updateTitleImage(Messages.FlyoutControlComposite_title);
       // add listeners
-      addListener(SWT.Dispose, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          if (m_titleImage != null) {
-            m_titleImage.dispose();
-            m_titleImageRotated.dispose();
-            m_titleImage = null;
-            m_titleImageRotated = null;
-          }
-          if (m_backImage != null) {
-            m_backImage.dispose();
-            m_backImage = null;
-          }
-        }
-      });
+      addListener(SWT.Dispose, event -> {
+	  if (m_titleImage != null) {
+	    m_titleImage.dispose();
+	    m_titleImageRotated.dispose();
+	    m_titleImage = null;
+	    m_titleImageRotated = null;
+	  }
+	  if (m_backImage != null) {
+	    m_backImage.dispose();
+	    m_backImage = null;
+	  }
+	});
       {
-        Listener listener = new Listener() {
-          @Override
-          public void handleEvent(Event event) {
-            layout();
-          }
-        };
+        Listener listener = event -> layout();
         addListener(SWT.Move, listener);
         addListener(SWT.Resize, listener);
       }
-      addListener(SWT.Paint, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          handlePaint(event.gc);
-        }
-      });
+      addListener(SWT.Paint, event -> handlePaint(event.gc));
       // mouse listeners
       addMouseListener(new MouseAdapter() {
         @Override
@@ -350,12 +331,7 @@ public final class FlyoutControlComposite extends Composite {
           handle_mouseHover();
         }
       });
-      addMouseMoveListener(new MouseMoveListener() {
-        @Override
-        public void mouseMove(MouseEvent event) {
-          handle_mouseMove(event);
-        }
-      });
+      addMouseMoveListener(event -> handle_mouseMove(event));
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -527,44 +503,41 @@ public final class FlyoutControlComposite extends Composite {
       final Tracker dockingTracker = new Tracker(container, SWT.NONE);
       dockingTracker.setRectangles(new Rectangle[]{getBounds()});
       dockingTracker.setStippled(true);
-      dockingTracker.addListener(SWT.Move, new Listener() {
-        @Override
-        public void handleEvent(Event event2) {
-          Rectangle clientArea = container.getClientArea();
-          Point location = container.toControl(event2.x, event2.y);
-          int h3 = clientArea.height / 3;
-          // check locations
-          if (location.y < h3 && isValidDockLocation(IFlyoutPreferences.DOCK_NORTH)) {
-            dockingTracker.setRectangles(new Rectangle[]{new Rectangle(0,
-                0,
-                clientArea.width,
-                width)});
-            newDockLocation[0] = IFlyoutPreferences.DOCK_NORTH;
-          } else if (location.y > 2 * h3 && isValidDockLocation(IFlyoutPreferences.DOCK_SOUTH)) {
-            dockingTracker.setRectangles(new Rectangle[]{new Rectangle(0,
-                clientArea.height - width,
-                clientArea.width,
-                width)});
-            newDockLocation[0] = IFlyoutPreferences.DOCK_SOUTH;
-          } else if (location.x < clientArea.width / 2
-              && isValidDockLocation(IFlyoutPreferences.DOCK_WEST)) {
-            dockingTracker.setRectangles(new Rectangle[]{new Rectangle(0,
-                0,
-                width,
-                clientArea.height)});
-            newDockLocation[0] = IFlyoutPreferences.DOCK_WEST;
-          } else if (isValidDockLocation(IFlyoutPreferences.DOCK_EAST)) {
-            dockingTracker.setRectangles(new Rectangle[]{new Rectangle(clientArea.width - width,
-                0,
-                width,
-                clientArea.height)});
-            newDockLocation[0] = IFlyoutPreferences.DOCK_EAST;
-          } else {
-            dockingTracker.setRectangles(new Rectangle[]{getBounds()});
-            newDockLocation[0] = oldDockLocation;
-          }
-        }
-      });
+      dockingTracker.addListener(SWT.Move, event2 -> {
+	  Rectangle clientArea = container.getClientArea();
+	  Point location = container.toControl(event2.x, event2.y);
+	  int h3 = clientArea.height / 3;
+	  // check locations
+	  if (location.y < h3 && isValidDockLocation(IFlyoutPreferences.DOCK_NORTH)) {
+	    dockingTracker.setRectangles(new Rectangle[]{new Rectangle(0,
+	        0,
+	        clientArea.width,
+	        width)});
+	    newDockLocation[0] = IFlyoutPreferences.DOCK_NORTH;
+	  } else if (location.y > 2 * h3 && isValidDockLocation(IFlyoutPreferences.DOCK_SOUTH)) {
+	    dockingTracker.setRectangles(new Rectangle[]{new Rectangle(0,
+	        clientArea.height - width,
+	        clientArea.width,
+	        width)});
+	    newDockLocation[0] = IFlyoutPreferences.DOCK_SOUTH;
+	  } else if (location.x < clientArea.width / 2
+	      && isValidDockLocation(IFlyoutPreferences.DOCK_WEST)) {
+	    dockingTracker.setRectangles(new Rectangle[]{new Rectangle(0,
+	        0,
+	        width,
+	        clientArea.height)});
+	    newDockLocation[0] = IFlyoutPreferences.DOCK_WEST;
+	  } else if (isValidDockLocation(IFlyoutPreferences.DOCK_EAST)) {
+	    dockingTracker.setRectangles(new Rectangle[]{new Rectangle(clientArea.width - width,
+	        0,
+	        width,
+	        clientArea.height)});
+	    newDockLocation[0] = IFlyoutPreferences.DOCK_EAST;
+	  } else {
+	    dockingTracker.setRectangles(new Rectangle[]{getBounds()});
+	    newDockLocation[0] = oldDockLocation;
+	  }
+	});
       // start tracking
       if (dockingTracker.open()) {
         setDockLocation(newDockLocation[0]);
@@ -912,12 +885,7 @@ public final class FlyoutControlComposite extends Composite {
       // set menu
       setMenu(manager.createContextMenu(this));
       // dispose it later
-      addDisposeListener(new DisposeListener() {
-        @Override
-        public void widgetDisposed(DisposeEvent e) {
-          manager.dispose();
-        }
-      });
+      addDisposeListener(e -> manager.dispose());
     }
   }
   ////////////////////////////////////////////////////////////////////////////

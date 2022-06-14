@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.utils.ui.dialogs;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -61,9 +60,7 @@ public class StringsDialog extends TextDialog {
    * @return the edited items.
    */
   public String[] getItems() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
-      @Override
-      public String[] runObject() throws Exception {
+    return ExecutionUtils.runObjectLog(() -> {
         List<String> strings = Lists.newArrayList();
         BufferedReader br = new BufferedReader(new StringReader(getText()));
         while (true) {
@@ -74,7 +71,6 @@ public class StringsDialog extends TextDialog {
           strings.add(s);
         }
         return strings.toArray(new String[strings.size()]);
-      }
-    }, ArrayUtils.EMPTY_STRING_ARRAY);
+      }, ArrayUtils.EMPTY_STRING_ARRAY);
   }
 }

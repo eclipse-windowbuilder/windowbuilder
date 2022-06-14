@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
@@ -73,22 +72,12 @@ public class CSpinnerTest {
       // listener
       {
         final Label valueLabel = new Label(shell, SWT.NONE);
-        spinner.addListener(SWT.Selection, new Listener() {
-          @Override
-          public void handleEvent(Event event) {
-            updateValueLabel(event, valueLabel);
-          }
-        });
+        spinner.addListener(SWT.Selection, event -> updateValueLabel(event, valueLabel));
       }
       // deferred listener
       {
         final Label valueLabel = new Label(shell, SWT.NONE);
-        new CSpinnerDeferredNotifier(spinner, 500, new Listener() {
-          @Override
-          public void handleEvent(Event event) {
-            updateValueLabel(event, valueLabel);
-          }
-        });
+        new CSpinnerDeferredNotifier(spinner, 500, event -> updateValueLabel(event, valueLabel));
       }
     }
     {

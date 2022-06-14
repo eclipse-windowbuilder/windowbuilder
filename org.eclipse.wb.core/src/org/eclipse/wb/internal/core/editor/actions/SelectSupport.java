@@ -30,7 +30,6 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import java.text.MessageFormat;
@@ -84,21 +83,18 @@ public final class SelectSupport {
   // Keyboard
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Listener m_keyListener = new Listener() {
-    @Override
-    public void handleEvent(Event event) {
-      int cmdModifierValue = getCommandModifierValue();
-      if (event.keyCode == 'a' && event.stateMask == cmdModifierValue) {
-        selectAll();
-      }
-      if (event.keyCode == 'a' && event.stateMask == (cmdModifierValue | SWT.SHIFT)) {
-        selectSameType();
-      }
-      if (event.keyCode == 'a' && event.stateMask == (cmdModifierValue | SWT.ALT)) {
-        selectSameParent();
-      }
-    }
-  };
+  private final Listener m_keyListener = event -> {
+  int cmdModifierValue = getCommandModifierValue();
+  if (event.keyCode == 'a' && event.stateMask == cmdModifierValue) {
+    selectAll();
+  }
+  if (event.keyCode == 'a' && event.stateMask == (cmdModifierValue | SWT.SHIFT)) {
+    selectSameType();
+  }
+  if (event.keyCode == 'a' && event.stateMask == (cmdModifierValue | SWT.ALT)) {
+    selectSameParent();
+  }
+};
 
   /**
    * Adds {@link SWT#KeyDown} listener for {@link Control} of viewer.

@@ -15,7 +15,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 /**
  * Implementation of {@link Command} for editing {@link ObjectInfo}.
@@ -47,12 +46,7 @@ public abstract class EditCommand extends Command {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public final void execute() throws Exception {
-    ExecutionUtils.run(m_object, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        executeEdit();
-      }
-    });
+    ExecutionUtils.run(m_object, () -> executeEdit());
   }
 
   ////////////////////////////////////////////////////////////////////////////

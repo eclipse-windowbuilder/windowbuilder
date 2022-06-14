@@ -11,8 +11,6 @@
 package org.eclipse.wb.internal.gef.graphical;
 
 import org.eclipse.wb.draw2d.geometry.Dimension;
-import org.eclipse.wb.internal.draw2d.IPreferredSizeProvider;
-import org.eclipse.wb.internal.draw2d.scroll.ScrollModel;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -71,42 +69,26 @@ public class HeaderGraphicalViewer extends GraphicalViewer {
 
   private void setHorizontallHook() {
     // configure root preferred size
-    getRootFigureInternal().setPreferredSizeProvider(new IPreferredSizeProvider() {
-      @Override
-      public Dimension getPreferredSize(Dimension originalPreferredSize) {
-        return new Dimension(m_mainViewer.getRootFigureInternal().getPreferredSize().width
-            + m_mainViewer.m_canvas.getVerticalBar().getSize().x, originalPreferredSize.height);
-      }
-    });
+    getRootFigureInternal().setPreferredSizeProvider(originalPreferredSize -> new Dimension(m_mainViewer.getRootFigureInternal().getPreferredSize().width
+	    + m_mainViewer.m_canvas.getVerticalBar().getSize().x, originalPreferredSize.height));
     // configure scrolling
     m_mainViewer.m_canvas.getHorizontalScrollModel().addSelectionListener(
-        new ScrollModel.ISelectionListener() {
-          @Override
-          public void setSelection(int newSelection) {
+        newSelection -> {
             m_canvas.getHorizontalScrollModel().setSelection(newSelection);
             getRootFigureInternal().repaint();
-          }
-        });
+          });
   }
 
   private void setVerticalHook() {
     // configure root preferred size
-    getRootFigureInternal().setPreferredSizeProvider(new IPreferredSizeProvider() {
-      @Override
-      public Dimension getPreferredSize(Dimension originalPreferredSize) {
-        return new Dimension(originalPreferredSize.width,
-            m_mainViewer.getRootFigureInternal().getPreferredSize().height
-                + m_mainViewer.m_canvas.getHorizontalBar().getSize().y);
-      }
-    });
+    getRootFigureInternal().setPreferredSizeProvider(originalPreferredSize -> new Dimension(originalPreferredSize.width,
+	    m_mainViewer.getRootFigureInternal().getPreferredSize().height
+	        + m_mainViewer.m_canvas.getHorizontalBar().getSize().y));
     // configure scrolling
     m_mainViewer.m_canvas.getVerticalScrollModel().addSelectionListener(
-        new ScrollModel.ISelectionListener() {
-          @Override
-          public void setSelection(int newSelection) {
+        newSelection -> {
             m_canvas.getVerticalScrollModel().setSelection(newSelection);
             getRootFigureInternal().repaint();
-          }
-        });
+          });
   }
 }

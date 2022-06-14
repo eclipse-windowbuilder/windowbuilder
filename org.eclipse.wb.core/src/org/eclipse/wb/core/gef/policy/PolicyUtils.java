@@ -30,7 +30,6 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.lang.ObjectUtils;
@@ -55,13 +54,10 @@ public abstract class PolicyUtils {
    * Shows border around given {@link EditPolicy} host figure.
    */
   public static void showBorderTargetFeedback(final GraphicalEditPolicy policy) {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runLog(() -> {
         Layer layer = (Layer) ReflectionUtils.invokeMethod2(policy, "getFeedbackLayer");
         showBorderTargetFeedback(layer, policy.getHost());
-      }
-    });
+      });
   }
 
   /**
@@ -330,15 +326,12 @@ public abstract class PolicyUtils {
    * Schedules selection of {@link EditPart} with given model.
    */
   public static void scheduleSelection(final IEditPartViewer viewer, final Object model) {
-    ExecutionUtils.runLogLater(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runLogLater(() -> {
         EditPart editPart = viewer.getEditPartByModel(model);
         if (editPart != null) {
           viewer.select(editPart);
         }
-      }
-    });
+      });
   }
 
   ////////////////////////////////////////////////////////////////////////////

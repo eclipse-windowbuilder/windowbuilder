@@ -16,8 +16,6 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.gef.tree.tools.DoubleClickEditPartTracker;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.TreeItem;
 
 import java.util.List;
@@ -51,13 +49,10 @@ public abstract class TreeEditPart extends EditPart {
       }
     } else {
       m_widget.setData(this);
-      m_widget.addDisposeListener(new DisposeListener() {
-        @Override
-        public void widgetDisposed(DisposeEvent e) {
-          m_expandedShouldRestore = true;
-          m_expanded = m_widget.getExpanded();
-        }
-      });
+      m_widget.addDisposeListener(e -> {
+	  m_expandedShouldRestore = true;
+	  m_expanded = m_widget.getExpanded();
+	});
     }
   }
 

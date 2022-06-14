@@ -15,8 +15,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceVisitor;
-import org.eclipse.core.runtime.CoreException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -58,9 +56,7 @@ public final class ProjectReportEntry implements IReportEntry {
     // prepare project
     m_project.refreshLocal(IResource.DEPTH_INFINITE, null);
     // traverse project files
-    m_project.accept(new IResourceVisitor() {
-      @Override
-      public boolean visit(IResource resource) throws CoreException {
+    m_project.accept(resource -> {
         try {
           // skip non-local, unresolved files and files with size more than MAX_FILE_SIZE
           long fileSize = getResourceSize(resource);
@@ -90,8 +86,7 @@ public final class ProjectReportEntry implements IReportEntry {
           DesignerPlugin.log(e);
         }
         return true;
-      }
-    });
+      });
   }
 
   /**

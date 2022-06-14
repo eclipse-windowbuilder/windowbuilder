@@ -17,8 +17,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
 /**
  * Simple control for displaying image and text.
@@ -41,21 +39,13 @@ public class CImageLabel extends Canvas {
   ////////////////////////////////////////////////////////////////////////////
   public CImageLabel(Composite parent, int style) {
     super(parent, style | SWT.NO_BACKGROUND);
-    addListener(SWT.Dispose, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    addListener(SWT.Dispose, event -> {
         if (m_backImage != null) {
           m_backImage.dispose();
           m_backImage = null;
         }
-      }
-    });
-    addListener(SWT.Paint, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        doPaint(event.gc);
-      }
-    });
+      });
+    addListener(SWT.Paint, event -> doPaint(event.gc));
   }
 
   ////////////////////////////////////////////////////////////////////////////

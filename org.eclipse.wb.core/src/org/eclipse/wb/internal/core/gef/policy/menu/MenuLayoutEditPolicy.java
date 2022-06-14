@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuPolicy;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import java.util.List;
 
@@ -83,12 +82,7 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
     return new Command() {
       @Override
       public void execute() throws Exception {
-        m_menu.executeEdit(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            m_policy.commandCreate(newObject, referenceObject);
-          }
-        });
+        m_menu.executeEdit(() -> m_policy.commandCreate(newObject, referenceObject));
       }
     };
   }
@@ -103,13 +97,10 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
     return new Command() {
       @Override
       public void execute() throws Exception {
-        m_menu.executeEdit(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
+        m_menu.executeEdit(() -> {
             List<?> pastedObject = m_policy.commandPaste(request.getMemento(), referenceObject);
             request.setObjects(pastedObject);
-          }
-        });
+          });
       }
     };
   }
@@ -124,12 +115,7 @@ public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
     return new Command() {
       @Override
       public void execute() throws Exception {
-        m_menu.executeEdit(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            m_policy.commandMove(moveObject, referenceObject);
-          }
-        });
+        m_menu.executeEdit(() -> m_policy.commandMove(moveObject, referenceObject));
       }
     };
   }

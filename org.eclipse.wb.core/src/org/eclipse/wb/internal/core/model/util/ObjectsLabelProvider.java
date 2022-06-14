@@ -14,7 +14,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateIcon;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateText;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
@@ -43,9 +42,7 @@ public final class ObjectsLabelProvider extends LabelProvider {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public Image getImage(final Object element) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-      @Override
-      public Image runObject() throws Exception {
+    return ExecutionUtils.runObjectLog(() -> {
         ObjectInfo objectInfo = (ObjectInfo) element;
         Image icon = objectInfo.getPresentation().getIcon();
         // decorate
@@ -58,16 +55,13 @@ public final class ObjectsLabelProvider extends LabelProvider {
         }
         // final icon
         return icon;
-      }
-    },
+      },
         null);
   }
 
   @Override
   public String getText(final Object element) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-      @Override
-      public String runObject() throws Exception {
+    return ExecutionUtils.runObjectLog(() -> {
         ObjectInfo objectInfo = (ObjectInfo) element;
         String text = objectInfo.getPresentation().getText();
         // decorate
@@ -80,8 +74,7 @@ public final class ObjectsLabelProvider extends LabelProvider {
         }
         // final text
         return text;
-      }
-    },
+      },
         "<exception, see log>");
   }
 }

@@ -47,12 +47,7 @@ public class ExecutionUtils {
     do {
       final long leftMillis = end - System.currentTimeMillis();
       if (leftMillis >= 0) {
-        runIgnore(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            Thread.sleep(leftMillis);
-          }
-        });
+        runIgnore(() -> Thread.sleep(leftMillis));
       }
     } while (System.currentTimeMillis() < end);
   }
@@ -175,12 +170,7 @@ public class ExecutionUtils {
    */
   public static boolean runLogUI(final RunnableEx runnable) {
     final boolean[] success = new boolean[1];
-    Display.getDefault().syncExec(new Runnable() {
-      @Override
-      public void run() {
-        success[0] = ExecutionUtils.runLog(runnable);
-      }
-    });
+    Display.getDefault().syncExec(() -> success[0] = ExecutionUtils.runLog(runnable));
     return success[0];
   }
 
@@ -188,12 +178,7 @@ public class ExecutionUtils {
    * Runs given {@link RunnableEx} inside of UI thread, using {@link Display#syncExec(Runnable)}.
    */
   public static void runRethrowUI(final RunnableEx runnable) {
-    Display.getDefault().syncExec(new Runnable() {
-      @Override
-      public void run() {
-        ExecutionUtils.runRethrow(runnable);
-      }
-    });
+    Display.getDefault().syncExec(() -> ExecutionUtils.runRethrow(runnable));
   }
 
   /**
@@ -201,12 +186,7 @@ public class ExecutionUtils {
    * a {@link Throwable} which may occur.
    */
   public static void runAsync(final RunnableEx runnable) {
-    Display.getDefault().asyncExec(new Runnable() {
-      @Override
-      public void run() {
-        ExecutionUtils.runLog(runnable);
-      }
-    });
+    Display.getDefault().asyncExec(() -> ExecutionUtils.runLog(runnable));
   }
 
   /**
@@ -215,12 +195,7 @@ public class ExecutionUtils {
   @SuppressWarnings("unchecked")
   public static <T> T runObjectUI(final RunnableObjectEx<T> runnable) {
     final Object[] result = new Object[1];
-    runRethrowUI(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        result[0] = runObject(runnable);
-      }
-    });
+    runRethrowUI(() -> result[0] = runObject(runnable));
     return (T) result[0];
   }
 
@@ -229,12 +204,7 @@ public class ExecutionUtils {
    * {@link Display#asyncExec(Runnable)}.
    */
   public static void runLogLater(final RunnableEx runnable) {
-    Display.getDefault().asyncExec(new Runnable() {
-      @Override
-      public void run() {
-        ExecutionUtils.runLog(runnable);
-      }
-    });
+    Display.getDefault().asyncExec(() -> ExecutionUtils.runLog(runnable));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -263,12 +233,7 @@ public class ExecutionUtils {
   @SuppressWarnings("unchecked")
   public static <T> T runObject(ObjectInfo object, final RunnableObjectEx<T> runnable) {
     final Object[] result = {null};
-    run(object, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        result[0] = runnable.runObject();
-      }
-    });
+    run(object, () -> result[0] = runnable.runObject());
     return (T) result[0];
   }
 
@@ -347,12 +312,9 @@ public class ExecutionUtils {
    * edit operation.
    */
   public static void refresh(ObjectInfo objectInfo) {
-    run(objectInfo, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    run(objectInfo, () -> {
         // do nothing, we need just refresh
-      }
-    });
+      });
   }
 
   /**
@@ -360,11 +322,6 @@ public class ExecutionUtils {
    * {@link Display#asyncExec(Runnable)}.
    */
   public static void runLater(final ObjectInfo objectInfo, final RunnableEx runnable) {
-    Display.getDefault().asyncExec(new Runnable() {
-      @Override
-      public void run() {
-        ExecutionUtils.run(objectInfo, runnable);
-      }
-    });
+    Display.getDefault().asyncExec(() -> ExecutionUtils.run(objectInfo, runnable));
   }
 }

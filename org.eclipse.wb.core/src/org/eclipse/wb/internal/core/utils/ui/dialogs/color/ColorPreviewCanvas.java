@@ -13,8 +13,6 @@ package org.eclipse.wb.internal.core.utils.ui.dialogs.color;
 import org.eclipse.wb.internal.core.utils.Messages;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
@@ -41,12 +39,7 @@ public final class ColorPreviewCanvas extends Canvas {
   public ColorPreviewCanvas(Composite parent, int style, boolean showShortText) {
     super(parent, style);
     m_showShortText = showShortText;
-    addPaintListener(new PaintListener() {
-      @Override
-      public void paintControl(PaintEvent e) {
-        onPaint(e.gc);
-      }
-    });
+    addPaintListener(e -> onPaint(e.gc));
   }
 
   public ColorPreviewCanvas(Composite parent, int style) {

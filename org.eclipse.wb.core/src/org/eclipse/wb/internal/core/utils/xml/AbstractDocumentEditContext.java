@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.utils.xml;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.xml.parser.QParser;
@@ -127,12 +126,7 @@ public abstract class AbstractDocumentEditContext {
    * @return the sub-string of document's text.
    */
   public final String getText(final int offset, final int length) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<String>() {
-      @Override
-      public String runObject() throws Exception {
-        return m_document.get(offset, length);
-      }
-    }, "Can not get offset:%d length:%d", offset, length);
+    return ExecutionUtils.runObject((RunnableObjectEx<String>) () -> m_document.get(offset, length), "Can not get offset:%d length:%d", offset, length);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -152,17 +146,7 @@ public abstract class AbstractDocumentEditContext {
   // Document modification on model modifications
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final IModelChangedListener m_modelChangedListener = new IModelChangedListener() {
-    @Override
-    public void modelChanged(final ModelChangedEvent event) {
-      ExecutionUtils.runRethrow(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          handleModelChange(event);
-        }
-      });
-    }
-  };
+  private final IModelChangedListener m_modelChangedListener = event -> ExecutionUtils.runRethrow(() -> handleModelChange(event));
 
   /**
    * Performs document/model updates using given model modification event.

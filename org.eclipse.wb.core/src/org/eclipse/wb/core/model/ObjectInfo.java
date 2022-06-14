@@ -27,10 +27,8 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -268,12 +266,7 @@ public abstract class ObjectInfo implements IObjectInfo {
    * Visits this {@link ObjectInfo} and its children using given {@link ObjectInfoVisitor}.
    */
   public final void accept(final ObjectInfoVisitor visitor) {
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        accept0(visitor);
-      }
-    });
+    ExecutionUtils.runRethrow(() -> accept0(visitor));
   }
 
   /**
@@ -349,12 +342,7 @@ public abstract class ObjectInfo implements IObjectInfo {
    * @return the {@link ObjectEventListener} for hierarchy.
    */
   public final ObjectEventListener getBroadcastObject() {
-    return ExecutionUtils.runObject(new RunnableObjectEx<ObjectEventListener>() {
-      @Override
-      public ObjectEventListener runObject() throws Exception {
-        return getBroadcastSupport().getListener(ObjectEventListener.class);
-      }
-    });
+    return ExecutionUtils.runObject(() -> getBroadcastSupport().getListener(ObjectEventListener.class));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -376,12 +364,7 @@ public abstract class ObjectInfo implements IObjectInfo {
    * Do properties sorting. Default implementation sorts properties by title alphabetically.
    */
   protected void sortPropertyList(List<Property> properties) {
-    Collections.sort(properties, new Comparator<Property>() {
-      @Override
-      public int compare(Property o1, Property o2) {
-        return o1.getTitle().compareTo(o2.getTitle());
-      }
-    });
+    Collections.sort(properties, (o1, o2) -> o1.getTitle().compareTo(o2.getTitle()));
   }
 
   /**
@@ -490,30 +473,12 @@ public abstract class ObjectInfo implements IObjectInfo {
     // clean up broadcast
     getBroadcastSupport().cleanUpTargets(ObjectInfo.this);
     // do refresh
-    execRefreshOperation(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        ExecutionUtils.runDesignTime(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            refreshCreate0();
-          }
-        });
-      }
-    });
+    execRefreshOperation(() -> ExecutionUtils.runDesignTime(() -> refreshCreate0()));
     // split fetch operations into separate parts
-    execRefreshOperation(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        ExecutionUtils.runDesignTime(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            refresh_fetch();
-            refresh_finish();
-          }
-        });
-      }
-    });
+    execRefreshOperation(() -> ExecutionUtils.runDesignTime(() -> {
+	    refresh_fetch();
+	    refresh_finish();
+	  }));
     // send notifications
     if (getArbitraryValue(KEY_NO_REFRESHED_BROADCAST) != Boolean.FALSE) {
       getBroadcastObject().refreshed();
@@ -535,28 +500,8 @@ public abstract class ObjectInfo implements IObjectInfo {
   public final void refreshLight() throws Exception {
     Assert.isLegal(isRoot());
     // do refresh
-    execRefreshOperation(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        ExecutionUtils.runDesignTime(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            refreshCreate0();
-          }
-        });
-      }
-    });
-    execRefreshOperation(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        ExecutionUtils.runDesignTime(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            refresh_finish();
-          }
-        });
-      }
-    });
+    execRefreshOperation(() -> ExecutionUtils.runDesignTime(() -> refreshCreate0()));
+    execRefreshOperation(() -> ExecutionUtils.runDesignTime(() -> refresh_finish()));
   }
 
   /**

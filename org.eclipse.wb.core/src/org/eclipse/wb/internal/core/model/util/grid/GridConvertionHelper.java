@@ -55,12 +55,7 @@ public class GridConvertionHelper {
 
   private static List<ComponentGroup> buildGroups(List<ComponentInGroup> components) {
     // sort by begins
-    Collections.sort(components, new Comparator<ComponentInGroup>() {
-      @Override
-      public int compare(ComponentInGroup o1, ComponentInGroup o2) {
-        return o1.getMin() - o2.getMin();
-      }
-    });
+    Collections.sort(components, (o1, o2) -> o1.getMin() - o2.getMin());
     // create groups
     List<ComponentGroup> groups = Lists.newArrayList();
     for (ComponentInGroup component : components) {
@@ -104,14 +99,11 @@ public class GridConvertionHelper {
    * Sorts given {@link List} of {@link ComponentGroup}'s by beginnings.
    */
   public static void sortGroups(final List<ComponentGroup> groups) {
-    Collections.sort(groups, new Comparator<ComponentGroup>() {
-      @Override
-      public int compare(ComponentGroup group_1, ComponentGroup group_2) {
+    Collections.sort(groups, (group_1, group_2) -> {
         int value_1 = group_1.getMinOfBegins(groups);
         int value_2 = group_2.getMinOfBegins(groups);
         return value_1 - value_2;
-      }
-    });
+      });
   }
 
   /**

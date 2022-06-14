@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 /**
  * Property representing item of complex "Bounds" property.
@@ -62,12 +61,7 @@ public abstract class BoundsProperty<C extends IAbstractComponentInfo> extends P
   @Override
   public final void setValue(final Object value) throws Exception {
     if (value != UNKNOWN_VALUE) {
-      ExecutionUtils.run(m_component.getUnderlyingModel(), new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          setValue2((Integer) value, m_component.getModelBounds());
-        }
-      });
+      ExecutionUtils.run(m_component.getUnderlyingModel(), () -> setValue2((Integer) value, m_component.getModelBounds()));
     }
   }
 

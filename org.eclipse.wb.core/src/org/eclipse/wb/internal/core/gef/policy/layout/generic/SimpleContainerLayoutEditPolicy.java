@@ -24,7 +24,6 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
-import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 
 import java.util.List;
 
@@ -107,12 +106,7 @@ public final class SimpleContainerLayoutEditPolicy extends LayoutEditPolicy {
   protected Command getPasteCommand(PasteRequest request) {
     return GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
-        new IPasteComponentProcessor() {
-          @Override
-          public void process(Object component) throws Exception {
-            m_container.command_CREATE(component);
-          }
-        });
+        component -> m_container.command_CREATE(component));
   }
 
   @Override

@@ -11,8 +11,6 @@
 package org.eclipse.wb.internal.core.preferences;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
 
 /**
  * Maps given Eclipse boolean preference to System.property value.
@@ -28,14 +26,11 @@ public final class PreferenceToSystemForwarder {
   public PreferenceToSystemForwarder(IPreferenceStore preferenceStore,
       final String preference,
       final String property) {
-    preferenceStore.addPropertyChangeListener(new IPropertyChangeListener() {
-      @Override
-      public void propertyChange(PropertyChangeEvent event) {
+    preferenceStore.addPropertyChangeListener(event -> {
         if (event.getProperty().equals(preference)) {
           updateProperty(property, event.getNewValue());
         }
-      }
-    });
+      });
     updateProperty(property, preferenceStore.getBoolean(preference));
   }
 

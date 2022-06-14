@@ -16,8 +16,6 @@ import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -58,12 +56,7 @@ public abstract class GhostWindow extends Window {
     super.create();
     m_listener = new GhostListener(getShell());
     DesignerPlugin.getStandardDisplay().addFilter(SWT.MouseMove, m_listener);
-    getShell().addDisposeListener(new DisposeListener() {
-      @Override
-      public void widgetDisposed(DisposeEvent e) {
-        DesignerPlugin.getStandardDisplay().removeFilter(SWT.MouseMove, m_listener);
-      }
-    });
+    getShell().addDisposeListener(e -> DesignerPlugin.getStandardDisplay().removeFilter(SWT.MouseMove, m_listener));
   }
 
   @Override

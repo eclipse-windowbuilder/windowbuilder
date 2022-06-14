@@ -162,41 +162,38 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
         @Override
         public void run() {
           Display display = getViewer().getControl().getDisplay();
-          display.syncExec(new Runnable() {
-            @Override
-            public void run() {
-              synchronized (m_changeBoundsRequest) {
-                try {
-                  List<EditPart> editParts = m_changeBoundsRequest.getEditParts();
-                  //
-                  if (editParts != null && !editParts.isEmpty()) {
-                    // Create command
-                    CompoundEditCommand command =
-                        new CompoundEditCommand((ObjectInfo) getHost().getModel());
-                    //
-                    if (Request.REQ_MOVE.equals(m_changeBoundsRequest.getType())) {
-                      eraseLayoutTargetFeedback(m_changeBoundsRequest);
-                      command.add(getCommand(m_changeBoundsRequest));
-                    } else {
-                      for (EditPart part : editParts) {
-                        part.eraseSourceFeedback(m_changeBoundsRequest);
-                        command.add(part.getCommand(m_changeBoundsRequest));
-                      }
-                    }
-                    // run command
-                    getViewer().getEditDomain().executeCommand(command);
-                  }
-                } finally {
-                  m_isKeyboardMoving = false;
-                  m_keyDragTimer = null;
-                  // clear request
-                  m_changeBoundsRequest.setMoveDelta(new Point());
-                  m_changeBoundsRequest.setSizeDelta(new Dimension());
-                  m_changeBoundsRequest.setResizeDirection(IPositionConstants.NONE);
-                }
-              }
-            }
-          });
+          display.syncExec(() -> {
+		  synchronized (m_changeBoundsRequest) {
+		    try {
+		      List<EditPart> editParts = m_changeBoundsRequest.getEditParts();
+		      //
+		      if (editParts != null && !editParts.isEmpty()) {
+		        // Create command
+		        CompoundEditCommand command =
+		            new CompoundEditCommand((ObjectInfo) getHost().getModel());
+		        //
+		        if (Request.REQ_MOVE.equals(m_changeBoundsRequest.getType())) {
+		          eraseLayoutTargetFeedback(m_changeBoundsRequest);
+		          command.add(getCommand(m_changeBoundsRequest));
+		        } else {
+		          for (EditPart part : editParts) {
+		            part.eraseSourceFeedback(m_changeBoundsRequest);
+		            command.add(part.getCommand(m_changeBoundsRequest));
+		          }
+		        }
+		        // run command
+		        getViewer().getEditDomain().executeCommand(command);
+		      }
+		    } finally {
+		      m_isKeyboardMoving = false;
+		      m_keyDragTimer = null;
+		      // clear request
+		      m_changeBoundsRequest.setMoveDelta(new Point());
+		      m_changeBoundsRequest.setSizeDelta(new Dimension());
+		      m_changeBoundsRequest.setResizeDirection(IPositionConstants.NONE);
+		    }
+		  }
+		});
         }
       },
           300);

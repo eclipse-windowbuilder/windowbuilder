@@ -32,24 +32,14 @@ public interface IMessageContainer {
      * Creates {@link IMessageContainer} for {@link WizardPage}.
      */
     public static IMessageContainer forWizardPage(final WizardPage wizardPage) {
-      return new IMessageContainer() {
-        @Override
-        public void setErrorMessage(String message) {
-          wizardPage.setErrorMessage(message);
-        }
-      };
+      return message -> wizardPage.setErrorMessage(message);
     }
 
     /**
      * Creates {@link IMessageContainer} for {@link TitleAreaDialog}.
      */
     public static IMessageContainer forTitleAreaDialog(final TitleAreaDialog titleAreaDialog) {
-      return new IMessageContainer() {
-        @Override
-        public void setErrorMessage(String message) {
-          titleAreaDialog.setErrorMessage(message);
-        }
-      };
+      return message -> titleAreaDialog.setErrorMessage(message);
     }
   }
 }

@@ -25,7 +25,6 @@ import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.events.IEditPartSelectionListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.Request;
@@ -62,12 +61,7 @@ public abstract class AbstractGridLayoutEditPolicy extends LayoutEditPolicy
         refreshSelectionGrid();
       }
     });
-    new SelectionListenerHelper(this, new IEditPartSelectionListener() {
-      @Override
-      public void selectionChanged(EditPart editPart) {
-        refreshSelectionGrid();
-      }
-    });
+    new SelectionListenerHelper(this, editPart -> refreshSelectionGrid());
   }
 
   ////////////////////////////////////////////////////////////////////////////

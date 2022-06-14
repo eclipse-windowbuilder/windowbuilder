@@ -20,11 +20,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 
 /**
  * Implementation of {@link DialogField} for {@link Font} selecting.
@@ -82,27 +80,19 @@ public class FontDialogField extends DialogField {
           m_chooseButton = new Button(m_group, SWT.NONE);
           GridDataFactory.create(m_chooseButton);
           m_chooseButton.setText(m_chooseButtonText);
-          m_chooseButton.addListener(SWT.Selection, new Listener() {
-            @Override
-            public void handleEvent(Event event) {
-              FontDialog fontDialog = new FontDialog(m_group.getShell());
-              fontDialog.setFontList(m_fontDataArray);
-              if (fontDialog.open() != null) {
-                setFontDataArray(fontDialog.getFontList());
-              }
-            }
-          });
+          m_chooseButton.addListener(SWT.Selection, event -> {
+		  FontDialog fontDialog = new FontDialog(m_group.getShell());
+		  fontDialog.setFontList(m_fontDataArray);
+		  if (fontDialog.open() != null) {
+		    setFontDataArray(fontDialog.getFontList());
+		  }
+		});
         }
         {
           m_defaultButton = new Button(m_group, SWT.NONE);
           GridDataFactory.create(m_defaultButton);
           m_defaultButton.setText(m_defaultButtonText);
-          m_defaultButton.addListener(SWT.Selection, new Listener() {
-            @Override
-            public void handleEvent(Event event) {
-              setFontDataArray(Display.getDefault().getSystemFont().getFontData());
-            }
-          });
+          m_defaultButton.addListener(SWT.Selection, event -> setFontDataArray(Display.getDefault().getSystemFont().getFontData()));
         }
       }
     }

@@ -21,8 +21,6 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
@@ -30,7 +28,6 @@ import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 
@@ -71,15 +68,12 @@ public class ObjectEditPart extends TreeEditPart {
       final Tree tree = viewer.getTree();
       // update presentation only when EditPart become visible
       {
-        m_updatePresentationListener = new Listener() {
-          @Override
-          public void handleEvent(Event event) {
+        m_updatePresentationListener = event -> {
             if (event.item.getData() instanceof ObjectEditPart) {
               ObjectEditPart editPart = (ObjectEditPart) event.item.getData();
               editPart.update();
             }
-          }
-        };
+          };
         tree.addListener(SWT.PaintItem, m_updatePresentationListener);
       }
       // refresh hierarchy
@@ -167,12 +161,7 @@ public class ObjectEditPart extends TreeEditPart {
   private void update() {
     if (m_updateRequired) {
       m_updateRequired = false;
-      ExecutionUtils.runLogUI(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          update0();
-        }
-      });
+      ExecutionUtils.runLogUI(() -> update0());
     }
   }
 
@@ -224,12 +213,7 @@ public class ObjectEditPart extends TreeEditPart {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<?> getModelChildren() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
-      @Override
-      public List<?> runObject() throws Exception {
-        return m_object.getPresentation().getChildrenTree();
-      }
-    }, Collections.emptyList());
+    return ExecutionUtils.runObjectLog(() -> m_object.getPresentation().getChildrenTree(), Collections.emptyList());
   }
 
   ////////////////////////////////////////////////////////////////////////////

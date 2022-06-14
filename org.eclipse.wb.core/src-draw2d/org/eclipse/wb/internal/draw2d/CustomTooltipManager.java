@@ -15,8 +15,6 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.Point;
@@ -72,19 +70,9 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
     });
     ScrollBar verticalBar = m_canvas.getVerticalBar();
     if (verticalBar != null) {
-      verticalBar.addListener(SWT.Selection, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          hideTooltip();
-        }
-      });
+      verticalBar.addListener(SWT.Selection, event -> hideTooltip());
     }
-    m_canvas.addDisposeListener(new DisposeListener() {
-      @Override
-      public void widgetDisposed(DisposeEvent e) {
-        hideTooltip();
-      }
-    });
+    m_canvas.addDisposeListener(e -> hideTooltip());
   }
 
   ////////////////////////////////////////////////////////////////////////////

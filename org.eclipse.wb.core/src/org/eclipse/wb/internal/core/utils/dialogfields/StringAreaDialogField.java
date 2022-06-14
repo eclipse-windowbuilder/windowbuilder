@@ -100,12 +100,7 @@ public class StringAreaDialogField extends DialogField {
   public Text getTextControl(Composite parent) {
     if (fTextControl == null) {
       assertCompositeNotNull(parent);
-      fModifyListener = new ModifyListener() {
-        @Override
-        public void modifyText(ModifyEvent e) {
-          doModifyText(e);
-        }
-      };
+      fModifyListener = e -> doModifyText(e);
       //
       fTextControl = new Text(parent, SWT.MULTI | SWT.WRAP | SWT.BORDER);
       fTextControl.setText(fText);

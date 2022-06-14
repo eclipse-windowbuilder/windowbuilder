@@ -108,12 +108,7 @@ public abstract class AbstractValidationTitleAreaDialog extends ResizableTitleAr
   /**
    * Implementation of {@link IDialogFieldListener} for {@link DialogField}'s validation.
    */
-  protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
-    @Override
-    public void dialogFieldChanged(DialogField field) {
-      validateAll();
-    }
-  };
+  protected final IDialogFieldListener m_validateListener = field -> validateAll();
 
   /**
    * Validate all and disable/enable "OK" button.

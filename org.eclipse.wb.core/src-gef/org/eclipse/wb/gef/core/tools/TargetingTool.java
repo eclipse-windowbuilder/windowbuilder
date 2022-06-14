@@ -151,13 +151,10 @@ public abstract class TargetingTool extends Tool {
    * conditional fails, and the search continues.
    */
   protected IConditional getTargetingConditional() {
-    return new IConditional() {
-      @Override
-      public boolean evaluate(EditPart target) {
+    return target -> {
         updateTargetRequest(target);
         return target.getTargetEditPart(getTargetRequest()) != null;
-      }
-    };
+      };
   }
 
   /**

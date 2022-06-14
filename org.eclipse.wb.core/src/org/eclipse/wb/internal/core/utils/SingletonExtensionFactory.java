@@ -11,8 +11,6 @@
 package org.eclipse.wb.internal.core.utils;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -48,14 +46,11 @@ public final class SingletonExtensionFactory
   public void setInitializationData(final IConfigurationElement config,
       final String propertyName,
       final Object data) throws CoreException {
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runRethrow(() -> {
         Bundle extensionBundle = ExternalFactoriesHelper.getExtensionBundle(config);
         String objectClassName = ((Map<String, String>) data).get("class");
         m_objectClass = extensionBundle.loadClass(objectClassName);
-      }
-    });
+      });
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -65,11 +60,6 @@ public final class SingletonExtensionFactory
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public Object create() throws CoreException {
-    return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-      @Override
-      public Object runObject() throws Exception {
-        return ReflectionUtils.getFieldObject(m_objectClass, "INSTANCE");
-      }
-    });
+    return ExecutionUtils.runObject(() -> ReflectionUtils.getFieldObject(m_objectClass, "INSTANCE"));
   }
 }

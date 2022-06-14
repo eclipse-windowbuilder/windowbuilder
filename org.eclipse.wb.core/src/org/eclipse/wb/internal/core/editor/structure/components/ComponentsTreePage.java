@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.gefTree.EditPartFactory;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.gef.EditPartsSelectionProvider;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -36,7 +35,6 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -119,22 +117,12 @@ public final class ComponentsTreePage implements IPage {
    * Listener for selection in {@link #m_viewer}.
    */
   private final ISelectionChangedListener m_selectionListener_Tree =
-      new ISelectionChangedListener() {
-        @Override
-        public void selectionChanged(SelectionChangedEvent event) {
-          selectGraphicalViewer();
-        }
-      };
+      event -> selectGraphicalViewer();
   /**
    * Listener for selection in {@link #m_graphicalViewer}.
    */
   private final ISelectionChangedListener m_selectionListener_Graphical =
-      new ISelectionChangedListener() {
-        @Override
-        public void selectionChanged(SelectionChangedEvent event) {
-          selectTreeViewer();
-        }
-      };
+      event -> selectTreeViewer();
 
   /**
    * Selects {@link ObjectInfo}'s in {@link #m_viewer} using selection in {@link #m_graphicalViewer}
@@ -152,9 +140,7 @@ public final class ComponentsTreePage implements IPage {
   private void selectGraphicalViewer() {
     final List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
     // refresh if necessary
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runLog(() -> {
         boolean[] refreshFlag = new boolean[1];
         if (!selectedEditParts.isEmpty()) {
           for (EditPart editPart : selectedEditParts) {
@@ -176,8 +162,7 @@ public final class ComponentsTreePage implements IPage {
             m_graphicalViewer.addSelectionChangedListener(m_selectionListener_Graphical);
           }
         }
-      }
-    });
+      });
     // set selection
     setSelection(m_graphicalViewer, m_selectionListener_Graphical, selectedEditParts);
     showComponentDefinition(selectedEditParts);

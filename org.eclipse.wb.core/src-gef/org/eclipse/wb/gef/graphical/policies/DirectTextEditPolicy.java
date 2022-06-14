@@ -19,7 +19,6 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
@@ -66,14 +65,11 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
   ////////////////////////////////////////////////////////////////////////////
   private Text m_textWidget;
   private org.eclipse.swt.graphics.Point m_initialSize;
-  private final Listener m_mouseDownFilter = new Listener() {
-    @Override
-    public void handleEvent(Event event) {
-      if (event.widget != m_textWidget) {
-        commitEdit();
-      }
-    }
-  };
+  private final Listener m_mouseDownFilter = event -> {
+  if (event.widget != m_textWidget) {
+    commitEdit();
+  }
+};
 
   /**
    * Commits currently done text modifications.
@@ -100,28 +96,15 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
     // set initial location
     relocateTextWidget();
     // listeners
-    m_textWidget.addListener(SWT.KeyDown, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    m_textWidget.addListener(SWT.KeyDown, event -> {
         if (event.keyCode == SWT.ESC) {
           endEdit();
         } else if (event.keyCode == SWT.CR) {
           commitEdit();
         }
-      }
-    });
-    m_textWidget.addListener(SWT.Modify, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        relocateTextWidget();
-      }
-    });
-    m_textWidget.addListener(SWT.FocusOut, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        commitEdit();
-      }
-    });
+      });
+    m_textWidget.addListener(SWT.Modify, event -> relocateTextWidget());
+    m_textWidget.addListener(SWT.FocusOut, event -> commitEdit());
     m_textWidget.getDisplay().addFilter(SWT.MouseDown, m_mouseDownFilter);
   }
 
@@ -135,14 +118,11 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
       m_textWidget = null;
       m_initialSize = null;
       // restore focus
-      Display.getCurrent().asyncExec(new Runnable() {
-        @Override
-        public void run() {
-          if (getHost().isActive()) {
-            getHost().getViewer().getControl().setFocus();
-          }
-        }
-      });
+      Display.getCurrent().asyncExec(() -> {
+	  if (getHost().isActive()) {
+	    getHost().getViewer().getControl().setFocus();
+	  }
+	});
     }
   }
 

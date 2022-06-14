@@ -14,8 +14,6 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
@@ -47,15 +45,12 @@ public final class ShellLocationTracker {
   ////////////////////////////////////////////////////////////////////////////
   public void setShell(Shell shell) {
     m_shell = shell;
-    m_shell.addListener(SWT.Dispose, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    m_shell.addListener(SWT.Dispose, event -> {
         if (!m_shell.isDisposed() && !m_shell.getMaximized()) {
           Point location = m_shell.getLocation();
           saveLocation(location);
         }
-      }
-    });
+      });
   }
 
   public Point getInitialLocation(Point initialSize) {

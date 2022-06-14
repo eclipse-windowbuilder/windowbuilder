@@ -14,7 +14,6 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -42,13 +41,10 @@ public final class ImageDisposer {
   static {
     // create Timer (its TimerThread) with empty set of ProtectionDomain's,
     // so prevent holding reference on stack ProtectionDomain's, which include ClassLoader's
-    AccessController.doPrivileged(new PrivilegedAction<Object>() {
-      @Override
-      public Object run() {
+    AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
         m_timer = new Timer(true);
         return null;
-      }
-    }, new AccessControlContext(new ProtectionDomain[]{}));
+      }, new AccessControlContext(new ProtectionDomain[]{}));
     // schedule time
     m_timer.schedule(new TimerTask() {
       @Override
@@ -116,14 +112,11 @@ public final class ImageDisposer {
       }
       // dispose Image
       final Image image = reference.m_image;
-      ExecutionUtils.runAsync(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          if (image != null && !image.isDisposed()) {
-            image.dispose();
-          }
-        }
-      });
+      ExecutionUtils.runAsync(() -> {
+	  if (image != null && !image.isDisposed()) {
+	    image.dispose();
+	  }
+	});
     }
     if (DEBUG && removed != 0) {
       printReferences();

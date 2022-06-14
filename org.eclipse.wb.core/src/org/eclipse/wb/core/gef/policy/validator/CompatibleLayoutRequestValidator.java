@@ -17,7 +17,6 @@ import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import org.apache.commons.lang.StringUtils;
@@ -68,14 +67,11 @@ public final class CompatibleLayoutRequestValidator extends AbstractLayoutReques
    * @return <code>true</code> if given parent and child objects are compatible.
    */
   private static boolean areCompatible(final EditPart host, final Object child) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
+    return ExecutionUtils.runObjectLog(() -> {
         Object parent = host.getModel();
         return parentAgreeToAcceptChild(parent, child)
             && childAgreeToBeDroppedOnParent(parent, child);
-      }
-    },
+      },
         false);
   }
 

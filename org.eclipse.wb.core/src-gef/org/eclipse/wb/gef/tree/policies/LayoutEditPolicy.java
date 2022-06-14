@@ -306,15 +306,12 @@ public abstract class LayoutEditPolicy extends EditPolicy {
       Object type = request.getType();
       if ((Request.REQ_CREATE.equals(type) || Request.REQ_PASTE.equals(type))
           && !hostItem.getExpanded()) {
-        tree.getShell().getDisplay().asyncExec(new Runnable() {
-          @Override
-          public void run() {
+        tree.getShell().getDisplay().asyncExec(() -> {
             TreeItem hostWidget = getHostWidget();
             if (hostWidget != null) {
               hostWidget.setExpanded(true);
             }
-          }
-        });
+          });
       }
     } else if (targetItem != null && hostItem.indexOf(targetItem) != -1) {
       // drop to children

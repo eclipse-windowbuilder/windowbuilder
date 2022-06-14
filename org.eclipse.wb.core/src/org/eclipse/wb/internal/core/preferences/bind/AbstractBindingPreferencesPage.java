@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.preferences.bind;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.utils.binding.DataBindManager;
 import org.eclipse.wb.internal.core.utils.ui.AbstractBindingComposite;
-import org.eclipse.wb.internal.core.utils.ui.AbstractBindingComposite.IValidationListener;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
@@ -65,13 +64,10 @@ public abstract class AbstractBindingPreferencesPage extends PreferencePage
     contents.setLayout(new FillLayout());
     //
     m_composite = createBindingComposite(contents);
-    m_composite.setValidationListener(new IValidationListener() {
-      @Override
-      public void update(String message) {
+    m_composite.setValidationListener(message -> {
         setErrorMessage(message);
         setValid(message == null);
-      }
-    });
+      });
     m_composite.updateValidate();
     //
     return contents;

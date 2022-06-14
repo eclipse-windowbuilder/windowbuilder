@@ -37,12 +37,7 @@ public class AbstractValidationComposite extends Composite {
   // Validation
   //
   ////////////////////////////////////////////////////////////////////////////
-  protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
-    @Override
-    public void dialogFieldChanged(DialogField field) {
-      validateAll();
-    }
-  };
+  protected final IDialogFieldListener m_validateListener = field -> validateAll();
 
   /**
    * Validate all and update {@link IMessageContainer}.

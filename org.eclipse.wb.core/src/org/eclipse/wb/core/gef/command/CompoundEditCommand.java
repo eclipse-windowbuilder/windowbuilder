@@ -13,7 +13,6 @@ package org.eclipse.wb.core.gef.command;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.core.CompoundCommand;
 
 /**
@@ -42,11 +41,6 @@ public final class CompoundEditCommand extends CompoundCommand {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public final void execute() throws Exception {
-    ExecutionUtils.run(m_object, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        CompoundEditCommand.super.execute();
-      }
-    });
+    ExecutionUtils.run(m_object, () -> CompoundEditCommand.super.execute());
   }
 }

@@ -136,12 +136,7 @@ public interface IColorConstants {
     private static Color getSystemColor(final int id) {
       final Color[] color = new Color[1];
       final Display display = Display.getDefault();
-      display.syncExec(new Runnable() {
-        @Override
-        public void run() {
-          color[0] = display.getSystemColor(id);
-        }
-      });
+      display.syncExec(() -> color[0] = display.getSystemColor(id));
       return color[0];
     }
   }

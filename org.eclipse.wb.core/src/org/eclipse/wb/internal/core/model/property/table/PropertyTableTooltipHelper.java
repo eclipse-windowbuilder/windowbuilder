@@ -19,8 +19,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 /**
@@ -40,17 +38,12 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
   ////////////////////////////////////////////////////////////////////////////
   public PropertyTableTooltipHelper(PropertyTable table) {
     m_table = table;
-    m_table.addListener(SWT.MouseHover, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    m_table.addListener(SWT.MouseHover, event -> {
         if (event.stateMask == 0) {
           showTooltip();
         }
-      }
-    });
-    m_table.addListener(SWT.MouseExit, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+      });
+    m_table.addListener(SWT.MouseExit, event -> {
         // check, may be cursor is now on tooltip, so ignore this MouseExit
         {
           Control control = Display.getCurrent().getCursorControl();
@@ -63,8 +56,7 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
         }
         // no, we should hide tooltip
         hideTooltip();
-      }
-    });
+      });
   }
 
   ////////////////////////////////////////////////////////////////////////////

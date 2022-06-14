@@ -25,12 +25,7 @@ public final class PropertyCategoryProviders {
   // Simple providers
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final PropertyCategoryProvider FROM_PROPERTY = new PropertyCategoryProvider() {
-    @Override
-    public PropertyCategory getCategory(Property property) {
-      return property.getCategory();
-    }
-  };
+  private static final PropertyCategoryProvider FROM_PROPERTY = property -> property.getCategory();
 
   /**
    * Returns result of {@link Property#getCategory()}, never <code>null</code>.
@@ -39,12 +34,7 @@ public final class PropertyCategoryProviders {
     return FROM_PROPERTY;
   }
 
-  private static final PropertyCategoryProvider FORCED_BY_USER = new PropertyCategoryProvider() {
-    @Override
-    public PropertyCategory getCategory(Property property) {
-      return PropertyManager.getCategoryForced(property);
-    }
-  };
+  private static final PropertyCategoryProvider FORCED_BY_USER = property -> PropertyManager.getCategoryForced(property);
 
   /**
    * Returns category forced by user, may be <code>null</code>.
@@ -62,9 +52,7 @@ public final class PropertyCategoryProviders {
    * Returns first not <code>null</code> category returned by provider.
    */
   public static PropertyCategoryProvider combine(final PropertyCategoryProvider... providers) {
-    return new PropertyCategoryProvider() {
-      @Override
-      public PropertyCategory getCategory(Property property) {
+    return property -> {
         for (PropertyCategoryProvider provider : providers) {
           PropertyCategory category = provider.getCategory(property);
           if (category != null) {
@@ -72,8 +60,7 @@ public final class PropertyCategoryProviders {
           }
         }
         throw new IllegalStateException("Can not provide category for " + property.getTitle());
-      }
-    };
+      };
   }
 
   private static final PropertyCategoryProvider DEF = combine(forcedByUser(), fromProperty());

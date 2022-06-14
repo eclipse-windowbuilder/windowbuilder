@@ -24,8 +24,6 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Control;
 
 import java.util.Collections;
@@ -54,12 +52,7 @@ public final class HeadersContainerEditPart extends GraphicalEditPart
     m_viewer = viewer;
     m_horizontal = horizontal;
     //
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      @Override
-      public void selectionChanged(SelectionChangedEvent event) {
-        refreshHeaders();
-      }
-    });
+    m_viewer.addSelectionChangedListener(event -> refreshHeaders());
   }
 
   ////////////////////////////////////////////////////////////////////////////

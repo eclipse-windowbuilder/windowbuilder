@@ -15,7 +15,6 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 /**
  * {@link EditPolicy} that runs given MVEL script on double click.
@@ -46,12 +45,7 @@ public final class DblClickRunScriptEditPolicy extends EditPolicy {
   public void performRequest(Request request) {
     super.performRequest(request);
     if (Request.REQ_OPEN.equals(request.getType())) {
-      ExecutionUtils.run(m_component, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          ScriptUtils.evaluate(m_script, m_component);
-        }
-      });
+      ExecutionUtils.run(m_component, () -> ScriptUtils.evaluate(m_script, m_component));
     }
   }
 }

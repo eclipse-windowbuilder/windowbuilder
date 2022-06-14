@@ -17,7 +17,6 @@ import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
-import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 
 /**
  * Abstract {@link LayoutEditPolicy} for typical {@link ObjectInfo} flow container.
@@ -61,12 +60,7 @@ public abstract class ObjectFlowLayoutEditPolicy<C> extends AbstractFlowLayoutEd
     final C referenceModel = getReferenceObjectModel(referenceObject);
     return GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
-        new IPasteComponentProcessor() {
-          @Override
-          public void process(Object component) throws Exception {
-            command_CREATE(getObjectModel(component), referenceModel);
-          }
-        });
+        component -> command_CREATE(getObjectModel(component), referenceModel));
   }
 
   @Override

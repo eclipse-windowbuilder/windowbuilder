@@ -109,12 +109,7 @@ public class StringDialogField extends DialogField {
   public Text getTextControl(Composite parent) {
     if (fTextControl == null) {
       assertCompositeNotNull(parent);
-      fModifyListener = new ModifyListener() {
-        @Override
-        public void modifyText(ModifyEvent e) {
-          doModifyText(e);
-        }
-      };
+      fModifyListener = e -> doModifyText(e);
       fTextControl = new Text(parent, SWT.SINGLE | SWT.BORDER);
       // moved up due to 1GEUNW2
       fTextControl.setText(fText);

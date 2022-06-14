@@ -12,8 +12,6 @@ package org.eclipse.wb.core.controls;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
@@ -69,9 +67,7 @@ public class CTableCombo extends Composite {
     m_popup = new Shell(shell, SWT.NONE);
     m_table = new Table(m_popup, SWT.FULL_SELECTION);
     new TableColumn(m_table, SWT.NONE);
-    Listener listener = new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    Listener listener = event -> {
         if (m_popup == event.widget) {
           handlePopupEvent(event);
           return;
@@ -92,11 +88,8 @@ public class CTableCombo extends Composite {
           handleComboEvent(event);
           return;
         }
-      }
-    };
-    final Listener shellListener = new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+      };
+    final Listener shellListener = event -> {
         switch (event.type) {
           case SWT.Dispose :
           case SWT.Move :
@@ -106,22 +99,18 @@ public class CTableCombo extends Composite {
             }
             break;
         }
-      }
-    };
+      };
     final int[] comboEvents = {SWT.Dispose, SWT.Move, SWT.Resize};
     for (int i = 0; i < comboEvents.length; i++) {
       addListener(comboEvents[i], listener);
       // HACK: hide popup when parent changed
       shell.addListener(comboEvents[i], shellListener);
     }
-    addDisposeListener(new DisposeListener() {
-      @Override
-      public void widgetDisposed(DisposeEvent e) {
+    addDisposeListener(e -> {
         for (int i = 0; i < comboEvents.length; i++) {
           shell.removeListener(comboEvents[i], shellListener);
         }
-      }
-    });
+      });
     int[] popupEvents = {SWT.Close, SWT.Paint, SWT.Deactivate};
     for (int i = 0; i < popupEvents.length; i++) {
       m_popup.addListener(popupEvents[i], listener);
@@ -172,9 +161,7 @@ public class CTableCombo extends Composite {
       }
       case SWT.FocusOut : {
         final int time = event.time;
-        event.display.asyncExec(new Runnable() {
-          @Override
-          public void run() {
+        event.display.asyncExec(() -> {
             if (CTableCombo.this.isDisposed()) {
               return;
             }
@@ -186,8 +173,7 @@ public class CTableCombo extends Composite {
             Event e = new Event();
             e.time = time;
             notifyListeners(SWT.FocusOut, e);
-          }
-        });
+          });
         break;
       }
       case SWT.MouseUp : {
@@ -349,9 +335,7 @@ public class CTableCombo extends Composite {
       }
       case SWT.FocusOut : {
         final int time = event.time;
-        event.display.asyncExec(new Runnable() {
-          @Override
-          public void run() {
+        event.display.asyncExec(() -> {
             if (CTableCombo.this.isDisposed()) {
               return;
             }
@@ -366,8 +350,7 @@ public class CTableCombo extends Composite {
             Event e = new Event();
             e.time = time;
             notifyListeners(SWT.FocusOut, e);
-          }
-        });
+          });
         break;
       }
       case SWT.KeyDown : {

@@ -19,21 +19,16 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -181,21 +176,18 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
      */
     protected final Object getValue() {
       prepareProperties();
-      m_currentValue = ExecutionUtils.runObjectLog(new RunnableObjectEx<Object>() {
-        @Override
-        public Object runObject() throws Exception {
-          Object commonValue = NO_VALUE;
-          for (Property property : m_propertyList) {
-            Object value = property.getValue();
-            if (commonValue == NO_VALUE) {
-              commonValue = value;
-            } else if (!ObjectUtils.equals(commonValue, value)) {
-              return Property.UNKNOWN_VALUE;
-            }
-          }
-          return commonValue;
-        }
-      }, null);
+      m_currentValue = ExecutionUtils.runObjectLog(() -> {
+	  Object commonValue = NO_VALUE;
+	  for (Property property : m_propertyList) {
+	    Object value = property.getValue();
+	    if (commonValue == NO_VALUE) {
+	      commonValue = value;
+	    } else if (!ObjectUtils.equals(commonValue, value)) {
+	      return Property.UNKNOWN_VALUE;
+	    }
+	  }
+	  return commonValue;
+	}, null);
       return m_currentValue;
     }
 
@@ -209,14 +201,11 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
       }
       m_currentValue = value;
       ObjectInfo firstObject = getEditObject();
-      ExecutionUtils.run(firstObject, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          for (Property property : m_propertyList) {
-            property.setValue(value);
-          }
-        }
-      });
+      ExecutionUtils.run(firstObject, () -> {
+	  for (Property property : m_propertyList) {
+	    property.setValue(value);
+	  }
+	});
     }
 
     /**
@@ -225,9 +214,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
     private void prepareProperties() {
       if (m_propertyList == null) {
         m_propertyList = Lists.newArrayList();
-        ExecutionUtils.runLog(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
+        ExecutionUtils.runLog(() -> {
             // prepare properties
             for (ObjectInfo object : m_selection) {
               Property property = object.getPropertyByTitle(m_property);
@@ -262,8 +249,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
                 m_propertyList.set(i, new SubFieldProperty(m_subProperty, property));
               }
             }
-          }
-        });
+          });
       }
     }
   }
@@ -437,14 +423,11 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
       super(property);
       m_text = text;
       m_enableListener = true;
-      m_text.addModifyListener(new ModifyListener() {
-        @Override
-        public void modifyText(ModifyEvent e) {
-          if (m_enableListener) {
-            saveValue();
-          }
-        }
-      });
+      m_text.addModifyListener(e -> {
+	  if (m_enableListener) {
+	    saveValue();
+	  }
+	});
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -604,12 +587,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
    */
   private final class ChoicePropertyInfo extends PropertyInfo {
     private final List<Button> m_buttons = Lists.newArrayList();
-    private final Listener m_listener = new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        saveValue();
-      }
-    };
+    private final Listener m_listener = event -> saveValue();
 
     ////////////////////////////////////////////////////////////////////////////
     //
@@ -747,14 +725,11 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
    */
   private final class IntegerPropertyInfo extends PropertyInfo {
     private final CSpinner m_spinner;
-    private final Listener m_listener = new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    private final Listener m_listener = event -> {
         if (event.doit) {
           saveValue();
         }
-      }
-    };
+      };
 
     ////////////////////////////////////////////////////////////////////////////
     //
@@ -887,14 +862,11 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
   private final class DoublePropertyInfo extends PropertyInfo {
     private final CSpinner m_spinner;
     private final double m_multiplier;
-    private final Listener m_listener = new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    private final Listener m_listener = event -> {
         if (event.doit) {
           saveValue();
         }
-      }
-    };
+      };
 
     ////////////////////////////////////////////////////////////////////////////
     //

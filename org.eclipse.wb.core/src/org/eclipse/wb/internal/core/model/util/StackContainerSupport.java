@@ -36,14 +36,11 @@ public abstract class StackContainerSupport<T extends ObjectInfo> {
   ////////////////////////////////////////////////////////////////////////////
   public StackContainerSupport(ObjectInfo container) throws Exception {
     m_container = container;
-    container.addBroadcastListener(new ObjectInfoChildAddAfter() {
-      @Override
-      public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
+    container.addBroadcastListener((ObjectInfoChildAddAfter) (parent, child) -> {
         if (!GlobalState.isParsing() && isActive() && isChild(child)) {
           m_active = getCasted(child);
         }
-      }
-    });
+      });
     container.addBroadcastListener(new ObjectEventListener() {
       @Override
       public void childRemoveBefore(ObjectInfo parent, ObjectInfo child) throws Exception {

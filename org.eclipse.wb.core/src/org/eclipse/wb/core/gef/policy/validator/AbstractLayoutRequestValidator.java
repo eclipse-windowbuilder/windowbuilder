@@ -17,7 +17,6 @@ import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.ILayoutRequestValidatorHelper;
 
@@ -43,9 +42,7 @@ public abstract class AbstractLayoutRequestValidator implements ILayoutRequestVa
 
   @Override
   public boolean validatePasteRequest(final EditPart host, final PasteRequest request) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
+    return ExecutionUtils.runObjectLog(() -> {
         ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
         List<?> mementos = (List<?>) request.getMemento();
         for (Object memento : mementos) {
@@ -56,8 +53,7 @@ public abstract class AbstractLayoutRequestValidator implements ILayoutRequestVa
         }
         // OK, all pasted components are valid
         return true;
-      }
-    },
+      },
         false);
   }
 

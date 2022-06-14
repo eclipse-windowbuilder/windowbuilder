@@ -34,8 +34,6 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.IAbsoluteLayoutCommands;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
@@ -80,16 +78,13 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
   @Override
   protected void showSelection() {
     super.showSelection();
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runRethrow(() -> {
         IAbstractComponentInfo widget = (IAbstractComponentInfo) getHostModel();
         drawFeedbacks(widget, IPositionConstants.LEFT);
         drawFeedbacks(widget, IPositionConstants.RIGHT);
         drawFeedbacks(widget, IPositionConstants.TOP);
         drawFeedbacks(widget, IPositionConstants.BOTTOM);
-      }
-    });
+      });
     if (getHost().getSelected() == EditPart.SELECTED_PRIMARY) {
       showAlignmentFigures();
     }
@@ -341,12 +336,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
   //
   ////////////////////////////////////////////////////////////////////////////
   protected boolean isAttached(final IAbstractComponentInfo widget, final int side) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
-        return m_layout.isAttached(widget, side);
-      }
-    });
+    return ExecutionUtils.runObject(() -> m_layout.isAttached(widget, side));
   }
 
   ////////////////////////////////////////////////////////////////////////////

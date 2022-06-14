@@ -13,10 +13,8 @@ package org.eclipse.wb.internal.core.utils.ui.dialogs.color;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -53,12 +51,7 @@ public class ColorsGridComposite extends Canvas {
   public ColorsGridComposite(Composite parent, int style) {
     super(parent, SWT.NO_MERGE_PAINTS | SWT.NO_BACKGROUND);
     setBackground(getDisplay().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
-    addPaintListener(new PaintListener() {
-      @Override
-      public void paintControl(PaintEvent e) {
-        onPaint(e);
-      }
-    });
+    addPaintListener(e -> onPaint(e));
     addMouseListeners();
   }
 
@@ -71,15 +64,12 @@ public class ColorsGridComposite extends Canvas {
   private ColorInfo m_currentColorUnderMouse;
 
   private void addMouseListeners() {
-    addMouseMoveListener(new MouseMoveListener() {
-      @Override
-      public void mouseMove(MouseEvent e) {
+    addMouseMoveListener(e -> {
         if (!m_captured) {
           ColorInfo colorUnderMouse = getColorUnderMouse(e);
           setNewColorUnderMouse(colorUnderMouse);
         }
-      }
-    });
+      });
     addMouseTrackListener(new MouseTrackAdapter() {
       @Override
       public void mouseExit(MouseEvent e) {

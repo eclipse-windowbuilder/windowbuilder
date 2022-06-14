@@ -18,7 +18,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
@@ -72,16 +71,11 @@ public final class PropertyUtils {
    * @return the text presentation of {@link Property} value, may be <code>null</code>.
    */
   public static String getText(final Property property) {
-    return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
-      @Override
-      public String runObject() throws Exception {
-        return (String) ReflectionUtils.invokeMethod2(
-            property.getEditor(),
-            "getText",
-            Property.class,
-            property);
-      }
-    }, null);
+    return ExecutionUtils.runObjectIgnore(() -> (String) ReflectionUtils.invokeMethod2(
+	    property.getEditor(),
+	    "getText",
+	    Property.class,
+	    property), null);
   }
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -211,22 +205,12 @@ public final class PropertyUtils {
    *         titles.
    */
   public static Predicate<Property> getExcludeByTitlePredicate(final String... excludeTitles) {
-    return new Predicate<Property>() {
-      @Override
-      public boolean apply(Property t) {
-        return !ArrayUtils.contains(excludeTitles, t.getTitle());
-      }
-    };
+    return t -> !ArrayUtils.contains(excludeTitles, t.getTitle());
   }
   /**
    * @return the {@link Predicate} for {@link Property} that does accept properties given titles.
    */
   public static Predicate<Property> getIncludeByTitlePredicate(final String... includeTitles) {
-    return new Predicate<Property>() {
-      @Override
-      public boolean apply(Property t) {
-        return ArrayUtils.contains(includeTitles, t.getTitle());
-      }
-    };
+    return t -> ArrayUtils.contains(includeTitles, t.getTitle());
   }
 }

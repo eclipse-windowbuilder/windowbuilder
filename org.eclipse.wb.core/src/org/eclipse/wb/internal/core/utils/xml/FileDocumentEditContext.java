@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.xml;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.filebuffers.ITextFileBuffer;
@@ -61,13 +60,10 @@ public class FileDocumentEditContext extends AbstractDocumentEditContext {
    */
   @Override
   public final void commit() {
-    ExecutionUtils.runRethrowUI(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runRethrowUI(() -> {
         commit_super();
         m_buffer.commit(null, false);
-      }
-    });
+      });
   }
 
   /**

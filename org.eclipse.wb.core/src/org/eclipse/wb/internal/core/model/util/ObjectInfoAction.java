@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.model.util;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.action.Action;
@@ -78,19 +77,11 @@ public abstract class ObjectInfoAction extends Action {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public final void run() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runLog(() -> {
         if (shouldRun()) {
-          ExecutionUtils.run(m_object, new RunnableEx() {
-            @Override
-            public void run() throws Exception {
-              runEx();
-            }
-          });
+          ExecutionUtils.run(m_object, () -> runEx());
         }
-      }
-    });
+      });
   }
 
   /**

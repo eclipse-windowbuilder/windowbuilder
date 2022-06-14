@@ -24,8 +24,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
 /**
  * A Canvas that contains {@link Figure Figures}.
@@ -135,24 +133,9 @@ public class FigureCanvas extends Canvas {
   //
   ////////////////////////////////////////////////////////////////////////////
   private void hookControlEvents() {
-    addListener(SWT.Dispose, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        disposeBufferedImage();
-      }
-    });
-    addListener(SWT.Resize, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        handleResize();
-      }
-    });
-    addListener(SWT.Paint, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        handlePaint(event.gc, event.x, event.y, event.width, event.height);
-      }
-    });
+    addListener(SWT.Dispose, event -> disposeBufferedImage());
+    addListener(SWT.Resize, event -> handleResize());
+    addListener(SWT.Paint, event -> handlePaint(event.gc, event.x, event.y, event.width, event.height));
   }
 
   private void handleResize() {

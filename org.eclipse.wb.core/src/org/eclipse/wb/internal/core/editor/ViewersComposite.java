@@ -23,8 +23,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
 /**
  * The {@link Composite} with horizontal/vertical {@link HeaderGraphicalViewer}'s and main
@@ -53,23 +51,15 @@ public final class ViewersComposite extends Composite {
     m_viewer = new GraphicalViewer(this);
     // add listeners
     {
-      addListener(SWT.Resize, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          layout();
-        }
-      });
-      addListener(SWT.Paint, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          GC gc = event.gc;
-          gc.setForeground(IColorConstants.buttonDarker);
-          //
-          Rectangle clientArea = getClientArea();
-          gc.drawLine(HEADER_SIZE, HEADER_SIZE, clientArea.width, HEADER_SIZE);
-          gc.drawLine(HEADER_SIZE, HEADER_SIZE, HEADER_SIZE, clientArea.height);
-        }
-      });
+      addListener(SWT.Resize, event -> layout());
+      addListener(SWT.Paint, event -> {
+	  GC gc = event.gc;
+	  gc.setForeground(IColorConstants.buttonDarker);
+	  //
+	  Rectangle clientArea = getClientArea();
+	  gc.drawLine(HEADER_SIZE, HEADER_SIZE, clientArea.width, HEADER_SIZE);
+	  gc.drawLine(HEADER_SIZE, HEADER_SIZE, HEADER_SIZE, clientArea.height);
+	});
     }
     // set context menu for headers
     {

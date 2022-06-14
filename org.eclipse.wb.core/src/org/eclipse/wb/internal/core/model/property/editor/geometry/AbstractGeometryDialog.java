@@ -22,9 +22,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import java.lang.reflect.Field;
@@ -124,15 +122,12 @@ public abstract class AbstractGeometryDialog extends Dialog {
           spinner.setSelection(value);
         }
         // add listeners
-        spinner.addListener(SWT.Selection, new Listener() {
-          @Override
-          public void handleEvent(Event event) {
+        spinner.addListener(SWT.Selection, event -> {
             try {
               field.setInt(m_object, spinner.getSelection());
             } catch (Throwable e) {
             }
-          }
-        });
+          });
       } catch (Throwable e) {
       }
     }

@@ -17,7 +17,6 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Helper for adding selection actions for absolute layouts.
@@ -134,12 +133,7 @@ public abstract class SimpleAlignmentActionsSupport<C extends IAbstractComponent
       objectsHeight += getModelBounds(component).height;
     }
     // sort objects by their top positions
-    Collections.sort(m_components, new Comparator<C>() {
-      @Override
-      public int compare(C component1, C component2) {
-        return getModelBounds(component1).y - getModelBounds(component2).y;
-      }
-    });
+    Collections.sort(m_components, (component1, component2) -> getModelBounds(component1).y - getModelBounds(component2).y);
     // distribute objects between:
     // 1. top and bottom objects (if Ctrl pressed),
     // 2. or in parents client area
@@ -177,12 +171,7 @@ public abstract class SimpleAlignmentActionsSupport<C extends IAbstractComponent
       objectsWidth += getModelBounds(component).width;
     }
     // sort objects by their left positions
-    Collections.sort(m_components, new Comparator<C>() {
-      @Override
-      public int compare(C component1, C component2) {
-        return getModelBounds(component1).x - getModelBounds(component2).x;
-      }
-    });
+    Collections.sort(m_components, (component1, component2) -> getModelBounds(component1).x - getModelBounds(component2).x);
     // distribute objects between:
     // 1. left-most and right-most objects (if Ctrl pressed);
     // 2. or in parents client area

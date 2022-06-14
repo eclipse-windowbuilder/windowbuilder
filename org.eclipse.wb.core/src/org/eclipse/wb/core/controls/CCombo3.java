@@ -117,12 +117,7 @@ public class CCombo3 extends Composite {
         }
       };
       getDisplay().addFilter(SWT.FocusIn, filter);
-      addListener(SWT.Dispose, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          getDisplay().removeFilter(SWT.FocusIn, filter);
-        }
-      });
+      addListener(SWT.Dispose, event -> getDisplay().removeFilter(SWT.FocusIn, filter));
     }
   }
 
@@ -226,21 +221,18 @@ public class CCombo3 extends Composite {
       return m_table.getItem(tableLocation);
     }
   };
-  private final Listener m_arrowListener = new Listener() {
-    @Override
-    public void handleEvent(Event event) {
-      switch (event.type) {
-      /*case SWT.FocusIn : {
-       resendFocusEvent(event);
-       break;
-       }*/
-        case SWT.Selection : {
-          doDropDown(!isDropped());
-          break;
-        }
-      }
+  private final Listener m_arrowListener = event -> {
+  switch (event.type) {
+  /*case SWT.FocusIn : {
+   resendFocusEvent(event);
+   break;
+   }*/
+    case SWT.Selection : {
+      doDropDown(!isDropped());
+      break;
     }
-  };
+  }
+};
   private final Listener m_tableListener = new Listener() {
     @Override
     public void handleEvent(Event event) {

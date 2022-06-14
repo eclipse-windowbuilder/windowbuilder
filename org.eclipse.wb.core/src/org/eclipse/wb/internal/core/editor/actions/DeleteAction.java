@@ -20,8 +20,6 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.ui.actions.ActionFactory;
 
 import java.util.Iterator;
@@ -43,12 +41,7 @@ public class DeleteAction extends Action {
   ////////////////////////////////////////////////////////////////////////////
   public DeleteAction(IEditPartViewer viewer) {
     m_viewer = viewer;
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      @Override
-      public void selectionChanged(SelectionChangedEvent event) {
-        firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
-      }
-    });
+    m_viewer.addSelectionChangedListener(event -> firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE));
     // copy presentation
     ActionUtils.copyPresentation(this, ActionFactory.DELETE);
   }

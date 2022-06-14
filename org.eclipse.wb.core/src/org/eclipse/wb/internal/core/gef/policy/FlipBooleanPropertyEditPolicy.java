@@ -16,7 +16,6 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 /**
  * {@link EditPolicy} that flips some boolean property between <code>true/false</code> states, for
@@ -49,19 +48,16 @@ public final class FlipBooleanPropertyEditPolicy extends EditPolicy {
   public void performRequest(Request request) {
     super.performRequest(request);
     if (Request.REQ_OPEN.equals(request.getType())) {
-      ExecutionUtils.run(m_component, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          Property property = PropertyUtils.getByPath(m_component, m_propertyPath);
-          if (property != null) {
-            Object value = property.getValue();
-            if (value instanceof Boolean) {
-              boolean booleanValue = (Boolean) value;
-              property.setValue(!booleanValue);
-            }
-          }
-        }
-      });
+      ExecutionUtils.run(m_component, () -> {
+	  Property property = PropertyUtils.getByPath(m_component, m_propertyPath);
+	  if (property != null) {
+	    Object value = property.getValue();
+	    if (value instanceof Boolean) {
+	      boolean booleanValue = (Boolean) value;
+	      property.setValue(!booleanValue);
+	    }
+	  }
+	});
     }
   }
 }

@@ -28,7 +28,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
@@ -71,13 +70,10 @@ public final class HtmlTooltipHelper {
     }
     // set listeners
     {
-      Listener listener = new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          Control tooltipControl = (Control) event.widget;
-          hideTooltip(tooltipControl);
-        }
-      };
+      Listener listener = event -> {
+	  Control tooltipControl = (Control) event.widget;
+	  hideTooltip(tooltipControl);
+	};
       control.addListener(SWT.MouseExit, listener);
     }
     // done
@@ -291,13 +287,10 @@ public final class HtmlTooltipHelper {
     label.setForeground(parent.getForeground());
     label.setBackground(parent.getBackground());
     // done
-    parent.getDisplay().asyncExec(new Runnable() {
-      @Override
-      public void run() {
+    parent.getDisplay().asyncExec(() -> {
         Shell shell = label.getShell();
         shell.setVisible(true);
-      }
-    });
+      });
     return label;
   }
   private static void hideTooltip(Control tooltip) {

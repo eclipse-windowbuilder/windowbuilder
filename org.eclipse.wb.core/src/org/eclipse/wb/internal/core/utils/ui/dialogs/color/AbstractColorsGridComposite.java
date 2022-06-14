@@ -22,9 +22,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Listener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -110,26 +108,15 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
     colorsGrid.setColors(colors);
     m_colorsGrids.add(colorsGrid);
     // add listeners
-    colorsGrid.addListener(SWT.DefaultSelection, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    colorsGrid.addListener(SWT.DefaultSelection, event -> {
         ColorInfo colorInfo = (ColorInfo) event.data;
         m_colorHintCanvas.setColor(colorInfo);
-      }
-    });
-    colorsGrid.addListener(SWT.Selection, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+      });
+    colorsGrid.addListener(SWT.Selection, event -> {
         ColorInfo colorInfo = (ColorInfo) event.data;
         m_colorDialog.setResultColor(colorInfo);
-      }
-    });
-    colorsGrid.addListener(SWT.MouseDoubleClick, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        m_colorDialog.closeOk();
-      }
-    });
+      });
+    colorsGrid.addListener(SWT.MouseDoubleClick, event -> m_colorDialog.closeOk());
     //
     return colorsGrid;
   }

@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.utils.dialogfields.AbstractValidationTitleAr
 import org.eclipse.wb.internal.core.utils.dialogfields.BooleanDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogFieldUtils;
-import org.eclipse.wb.internal.core.utils.dialogfields.IDialogFieldListener;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -142,9 +141,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
             if (addDefaultScreenshot) {
               m_screenshotsField.setSelection(true);
             }
-            m_screenshotsField.setDialogFieldListener(new IDialogFieldListener() {
-              @Override
-              public void dialogFieldChanged(DialogField field) {
+            m_screenshotsField.setDialogFieldListener(field -> {
                 boolean fieldSelected = m_screenshotsField.getSelection();
                 GridDataFactory.modify(m_screenshotsComposite).exclude(!fieldSelected);
                 if (fieldSelected) {
@@ -154,8 +151,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
                 } else {
                   removeAllScreenshots();
                 }
-              }
-            });
+              });
           }
           {
             Link link = new Link(groupComposite1, SWT.NONE);
@@ -191,12 +187,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
               m_cuField,
               Messages.CreateReportDialog_additionalSourceFile,
               3);
-          m_cuField.setDialogFieldListener(new IDialogFieldListener() {
-            @Override
-            public void dialogFieldChanged(DialogField field) {
-              m_errorReport.setIncludeSourceFile(m_cuField.getSelection());
-            }
-          });
+          m_cuField.setDialogFieldListener(field -> m_errorReport.setIncludeSourceFile(m_cuField.getSelection()));
           if (!m_errorReport.hasSourceFile()) {
             m_cuField.setSelection(false);
             m_cuField.setEnabled(false);
@@ -211,29 +202,26 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
               m_projectField,
               Messages.CreateReportDialog_additionalProject,
               3);
-          m_projectField.setDialogFieldListener(new IDialogFieldListener() {
-            @Override
-            public void dialogFieldChanged(DialogField field) {
-              boolean selected = m_projectField.getSelection();
-              if (selected) {
-                // warn the user for huge size of report
-                boolean dialogResult =
-                    MessageDialog.openConfirm(
-                        getShell(),
-                        Messages.CreateReportDialog_additionalProjectTitle,
-                        Messages.CreateReportDialog_additionalProjectMessage);
-                if (dialogResult) {
-                  m_errorReport.setIncludeProject(selected);
-                  // we should set both "CU" and "project" mode
-                  m_cuField.setSelection(true);
-                  m_errorReport.setIncludeSourceFile(true);
-                } else {
-                  m_errorReport.setIncludeProject(false);
-                  m_projectField.setSelection(false);
-                }
-              }
-            }
-          });
+          m_projectField.setDialogFieldListener(field -> {
+		  boolean selected = m_projectField.getSelection();
+		  if (selected) {
+		    // warn the user for huge size of report
+		    boolean dialogResult =
+		        MessageDialog.openConfirm(
+		            getShell(),
+		            Messages.CreateReportDialog_additionalProjectTitle,
+		            Messages.CreateReportDialog_additionalProjectMessage);
+		    if (dialogResult) {
+		      m_errorReport.setIncludeProject(selected);
+		      // we should set both "CU" and "project" mode
+		      m_cuField.setSelection(true);
+		      m_errorReport.setIncludeSourceFile(true);
+		    } else {
+		      m_errorReport.setIncludeProject(false);
+		      m_projectField.setSelection(false);
+		    }
+		  }
+		});
         }
       }
       // create column composite
@@ -284,9 +272,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
                 m_filesField,
                 Messages.CreateReportDialog_fileAttachments,
                 2);
-            m_filesField.setDialogFieldListener(new IDialogFieldListener() {
-              @Override
-              public void dialogFieldChanged(DialogField field) {
+            m_filesField.setDialogFieldListener(field -> {
                 boolean fieldSelected = m_filesField.getSelection();
                 GridDataFactory.modify(m_filesComposite).exclude(!fieldSelected);
                 if (fieldSelected) {
@@ -296,8 +282,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
                 } else {
                   removeAllFiles();
                 }
-              }
-            });
+              });
           }
           {
             Link link = new Link(groupComposite2, SWT.NONE);
@@ -418,12 +403,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
    */
   private BooleanDialogField addScreenshotControl(final String filePath) {
     final BooleanDialogField dialogField = addControl(m_screenshotsComposite, filePath);
-    dialogField.setDialogFieldListener(new IDialogFieldListener() {
-      @Override
-      public void dialogFieldChanged(DialogField field) {
-        m_errorReport.includeScreenshot(filePath, dialogField.getSelection());
-      }
-    });
+    dialogField.setDialogFieldListener(field -> m_errorReport.includeScreenshot(filePath, dialogField.getSelection()));
     return dialogField;
   }
 
@@ -436,12 +416,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
    */
   private BooleanDialogField addFileControl(final String filePath) {
     final BooleanDialogField dialogField = addControl(m_filesComposite, filePath);
-    dialogField.setDialogFieldListener(new IDialogFieldListener() {
-      @Override
-      public void dialogFieldChanged(DialogField field) {
-        m_errorReport.includeFile(filePath, dialogField.getSelection());
-      }
-    });
+    dialogField.setDialogFieldListener(field -> m_errorReport.includeFile(filePath, dialogField.getSelection()));
     return dialogField;
   }
 

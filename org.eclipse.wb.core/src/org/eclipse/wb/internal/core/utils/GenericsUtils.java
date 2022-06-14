@@ -60,30 +60,25 @@ public final class GenericsUtils {
    */
   public static <T> Iterable<T> iterable(ISelection selection) {
     final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-    return new Iterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return new Iterator<T>() {
-          Iterator<?> iterator = structuredSelection.iterator();
+    return () -> new Iterator<T>() {
+	  Iterator<?> iterator = structuredSelection.iterator();
 
-          @Override
-          public boolean hasNext() {
-            return iterator.hasNext();
-          }
+	  @Override
+	  public boolean hasNext() {
+	    return iterator.hasNext();
+	  }
 
-          @Override
-          @SuppressWarnings("unchecked")
-          public T next() {
-            return (T) iterator.next();
-          }
+	  @Override
+	  @SuppressWarnings("unchecked")
+	  public T next() {
+	    return (T) iterator.next();
+	  }
 
-          @Override
-          public void remove() {
-            throw new UnsupportedOperationException();
-          }
-        };
-      }
-    };
+	  @Override
+	  public void remove() {
+	    throw new UnsupportedOperationException();
+	  }
+	};
   }
 
   /**

@@ -31,7 +31,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
@@ -174,12 +173,7 @@ public abstract class AbstractBindingComposite extends Composite {
   /**
    * Shared {@link Listener} used for listening various events in bounds {@link Control}'s.
    */
-  private final Listener m_controlModifyListener = new Listener() {
-    @Override
-    public void handleEvent(Event event) {
-      notifyUpdateListeners();
-    }
-  };
+  private final Listener m_controlModifyListener = event -> notifyUpdateListeners();
   /**
    * Binds <code>boolean</code> value using given check {@link Button}.
    *

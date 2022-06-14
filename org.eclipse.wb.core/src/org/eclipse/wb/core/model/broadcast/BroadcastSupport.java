@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -197,23 +196,17 @@ public final class BroadcastSupport {
     if (listenerMulticast == null) {
       Enhancer enhancer = new Enhancer();
       enhancer.setSuperclass(listenerClass);
-      enhancer.setCallback(new MethodInterceptor() {
-        @Override
-        public Object intercept(Object obj,
-            java.lang.reflect.Method method,
-            Object[] args,
-            MethodProxy proxy) throws Throwable {
-          List<Object> listeners = getClassListeners(listenerClass);
-          for (Object listener : listeners.toArray()) {
-            try {
-              method.invoke(listener, args);
-            } catch (InvocationTargetException e) {
-              throw e.getCause();
-            }
-          }
-          // no result
-          return null;
+      enhancer.setCallback((MethodInterceptor) (obj, method, args, proxy) -> {
+        List<Object> listeners = getClassListeners(listenerClass);
+        for (Object listener : listeners.toArray()) {
+	try {
+	  method.invoke(listener, args);
+	} catch (InvocationTargetException e) {
+	  throw e.getCause();
+	}
         }
+        // no result
+        return null;
       });
       // remember multi-cast
       listenerMulticast = enhancer.create();

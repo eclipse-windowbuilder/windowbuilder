@@ -72,12 +72,7 @@ public class LineSelectionEditPolicy extends SelectionEditPolicy {
     m_selectionFigure = new Figure();
     m_selectionFigure.setBorder(new LineBorder(m_lineColor));
     updateFeedbackBounds();
-    m_ancestorListener = new IAncestorListener() {
-      @Override
-      public void ancestorMoved(Figure ancestor) {
-        updateFeedbackBounds();
-      }
-    };
+    m_ancestorListener = ancestor -> updateFeedbackBounds();
     getHostFigure().addAncestorListener(m_ancestorListener);
     addFeedback(m_selectionFigure);
   }

@@ -21,10 +21,6 @@ import org.eclipse.wb.internal.core.editor.Messages;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
@@ -59,12 +55,7 @@ public final class LayoutAssistantAction extends Action {
     m_workbenchWindow = m_editor.getEditorSite().getWorkbenchWindow();
     // initialize viewer
     m_viewer = viewer;
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      @Override
-      public void selectionChanged(SelectionChangedEvent event) {
-        updateWindow();
-      }
-    });
+    m_viewer.addSelectionChangedListener(event -> updateWindow());
   }
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -139,13 +130,10 @@ public final class LayoutAssistantAction extends Action {
     if (m_assistantWindow != null) {
       m_workbenchWindow.getPartService().addPartListener(m_windowPartListener);
       m_assistantWindow.open();
-      m_assistantWindow.getShell().addDisposeListener(new DisposeListener() {
-        @Override
-        public void widgetDisposed(DisposeEvent e) {
-          setChecked(false);
-          m_assistantWindow = null;
-        }
-      });
+      m_assistantWindow.getShell().addDisposeListener(e -> {
+	  setChecked(false);
+	  m_assistantWindow = null;
+	});
     }
   }
   public void hideWindow() {

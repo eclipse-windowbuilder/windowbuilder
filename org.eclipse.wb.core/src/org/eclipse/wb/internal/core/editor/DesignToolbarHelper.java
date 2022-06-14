@@ -18,17 +18,12 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -63,12 +58,7 @@ public class DesignToolbarHelper {
    */
   public DesignToolbarHelper(ToolBar toolBar) {
     m_toolBarManager = new ToolBarManager(toolBar);
-    toolBar.addDisposeListener(new DisposeListener() {
-      @Override
-      public void widgetDisposed(DisposeEvent e) {
-        m_toolBarManager.dispose();
-      }
-    });
+    toolBar.addDisposeListener(e -> m_toolBarManager.dispose());
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -107,12 +97,7 @@ public class DesignToolbarHelper {
     createHierarchyGroups();
     createSelectionGroups();
     // track dynamic actions
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      @Override
-      public void selectionChanged(SelectionChangedEvent event) {
-        refreshDynamicActions(false, true);
-      }
-    });
+    m_viewer.addSelectionChangedListener(event -> refreshDynamicActions(false, true));
     refreshDynamicActions(false, false);
   }
 
@@ -141,12 +126,7 @@ public class DesignToolbarHelper {
     @Override
     public void refreshed() throws Exception {
       // execute in async to let GEF refresh to update selection
-      DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
-        @Override
-        public void run() {
-          refreshDynamicActions(true, true);
-        }
-      });
+      DesignerPlugin.getStandardDisplay().asyncExec(() -> refreshDynamicActions(true, true));
     }
   };
 
@@ -199,9 +179,7 @@ public class DesignToolbarHelper {
   private void refreshHierarchyActions() {
     final List<IContributionItem> toRemove = Lists.newArrayList(m_hierarchyItems);
     // add items for hierarchy
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runLog(() -> {
         // prepare items
         List<Object> items;
         {
@@ -225,8 +203,7 @@ public class DesignToolbarHelper {
           m_toolBarManager.remove(item);
           m_toolBarManager.appendToGroup(HIERARCHY_ACTIONS_GROUP, item);
         }
-      }
-    });
+      });
     // remove old items
     for (IContributionItem item : toRemove) {
       m_toolBarManager.remove(item);
@@ -268,9 +245,7 @@ public class DesignToolbarHelper {
       }
     }
     // add items for selected objects
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
+    ExecutionUtils.runLog(() -> {
         // prepare items
         List<Object> items;
         {
@@ -295,8 +270,7 @@ public class DesignToolbarHelper {
           m_toolBarManager.remove(item);
           m_toolBarManager.appendToGroup(SELECTION_ACTIONS_GROUP, item);
         }
-      }
-    });
+      });
     // remove old items
     for (IContributionItem item : toRemove) {
       m_toolBarManager.remove(item);
