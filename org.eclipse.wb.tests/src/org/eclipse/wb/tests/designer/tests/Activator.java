@@ -16,7 +16,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import org.osgi.framework.BundleContext;
@@ -75,16 +75,13 @@ public class Activator extends AbstractUIPlugin {
   // Window/page/shell operations
   //
   ////////////////////////////////////////////////////////////////////////////
-  public static IWorkbenchWindow getActiveWindow() {
-    return getDefault().getWorkbench().getActiveWorkbenchWindow();
-  }
 
   public static IWorkbenchPage getActivePage() {
-    return getActiveWindow().getActivePage();
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
   }
 
   public static Shell getShell() {
-    return getActiveWindow().getShell();
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
   }
 
   ////////////////////////////////////////////////////////////////////////////

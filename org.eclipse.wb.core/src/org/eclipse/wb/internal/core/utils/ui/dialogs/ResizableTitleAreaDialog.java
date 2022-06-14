@@ -19,6 +19,7 @@ import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -99,7 +100,7 @@ public abstract class ResizableTitleAreaDialog extends TitleAreaDialog {
   protected final Point getInitialLocation(Point initialSize) {
     Rectangle windowBounds;
     {
-      Shell windowShell = m_plugin.getWorkbench().getActiveWorkbenchWindow().getShell();
+		Shell windowShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
       windowBounds = windowShell.getBounds();
     }
     // answer the location from the previous incarnation

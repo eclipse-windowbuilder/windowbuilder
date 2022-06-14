@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import static org.burningwave.core.assembler.StaticComponentContainer.Modules;
@@ -139,7 +140,7 @@ public class DesignerPlugin extends AbstractUIPlugin {
    * @return the active {@link IWorkbenchWindow}.
    */
   public static IWorkbenchWindow getActiveWorkbenchWindow() {
-    return getDefault().getWorkbench().getActiveWorkbenchWindow();
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow();
   }
 
   /**
