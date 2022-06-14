@@ -21,7 +21,7 @@ Export-Package: org.eclipse.wb.internal.swing.FormLayout,
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.wb.core,
+ org.eclipse.wb.core;bundle-version="1.11.0",
  org.eclipse.wb.swing,
  org.eclipse.wb.swing.FormLayout.lib,
  com.google.guava;bundle-version="31.1.0"

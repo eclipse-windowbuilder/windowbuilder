@@ -7,7 +7,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.wb.core,
+ org.eclipse.wb.core;bundle-version="1.1.0",
  org.eclipse.wb.core.java,
  com.google.guava;bundle-version="31.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
