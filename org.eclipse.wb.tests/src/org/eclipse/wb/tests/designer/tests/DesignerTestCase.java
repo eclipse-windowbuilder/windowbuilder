@@ -51,7 +51,6 @@ import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.texteditor.spelling.SpellingService;
 
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -72,19 +71,8 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class DesignerTestCase extends TestCase {
-  private static boolean m_firstDesignerTest = true;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // XXX TestSuite creation, used only with patched
-  // org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static TestSuite suite(Class<?> clazz) {
-    TestSuite suite = new TestSuite(clazz);
-    TestUtils.sortTestSuiteMethods(clazz, suite);
-    return suite;
-  }
+	private static boolean m_firstDesignerTest = true;
 
   ////////////////////////////////////////////////////////////////////////////
   //
