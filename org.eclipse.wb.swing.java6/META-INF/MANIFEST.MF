@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.swing.java6.laf
-Require-Bundle: org.eclipse.wb.core,
+Require-Bundle: org.eclipse.wb.core;bundle-version="1.11.0",
  org.eclipse.wb.swing,
  org.eclipse.wb.layout.group,
  org.eclipse.swt,
