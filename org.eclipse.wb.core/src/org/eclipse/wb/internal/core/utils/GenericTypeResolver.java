@@ -21,6 +21,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -103,7 +104,7 @@ public class GenericTypeResolver {
       Class<?> currentClass,
       Type[] arguments) {
     // Prepare map of current Class type parameters to arguments.
-    Map<String, Type> currentArguments = Maps.newHashMap();
+    Map<String, Type> currentArguments = new HashMap<>();
     TypeVariable<?>[] typeParameters = currentClass.getTypeParameters();
     for (int i = 0; i < typeParameters.length; i++) {
       TypeVariable<?> typeParameter = typeParameters[i];

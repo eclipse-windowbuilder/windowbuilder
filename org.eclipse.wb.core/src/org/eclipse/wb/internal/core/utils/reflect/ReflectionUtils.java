@@ -19,7 +19,6 @@ import com.google.common.collect.Sets;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -42,6 +41,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -204,7 +204,7 @@ public class ReflectionUtils {
       return Sets.newHashSet();
     }
     if (isSuccessorOf(clazz, "java.util.Map")) {
-      return Maps.newHashMap();
+      return new HashMap<>();
     }
     // Object
     return null;
@@ -262,14 +262,14 @@ public class ReflectionUtils {
   }
 
   private static final Map<String, WeakHashMap<Class<?>, IsSuccessorResult>> m_isSuccessorOfCache =
-      Maps.newHashMap();
+      new HashMap<>();
 
   private static void isSuccessorOf_addCache(Class<?> clazz,
       String requiredClass,
       IsSuccessorResult result) {
     WeakHashMap<Class<?>, IsSuccessorResult> classes = m_isSuccessorOfCache.get(requiredClass);
     if (classes == null) {
-      classes = new WeakHashMap<Class<?>, IsSuccessorResult>();
+      classes = new WeakHashMap<>();
       m_isSuccessorOfCache.put(requiredClass, classes);
     }
     classes.put(clazz, result);
@@ -345,12 +345,7 @@ public class ReflectionUtils {
    */
   public static boolean isMemberClass(final Class<?> clazz) {
     Assert.isNotNull(clazz);
-    return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
-        return clazz.isMemberClass();
-      }
-    }, false);
+    return ExecutionUtils.runObjectIgnore(() -> clazz.isMemberClass(), false);
   }
 
   /**
@@ -688,7 +683,7 @@ public class ReflectionUtils {
    * @return all declared {@link Method}'s, including protected and private.
    */
   public static Map<String, Method> getMethods(Class<?> clazz) {
-    Map<String, Method> methods = Maps.newHashMap();
+    Map<String, Method> methods = new HashMap<>();
     // process classes
     for (Class<?> c = clazz; c != null; c = c.getSuperclass()) {
       for (Method method : c.getDeclaredMethods()) {
@@ -1232,9 +1227,7 @@ public class ReflectionUtils {
   public static Object getFieldObject(final Object object, final String name) {
     Assert.isNotNull(object);
     Assert.isNotNull(name);
-    return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-      @Override
-      public Object runObject() throws Exception {
+    return ExecutionUtils.runObject(() -> {
         Class<?> refClass = getRefClass(object);
         Object refObject = getRefObject(object);
         Field field = getFieldByName(refClass, name);
@@ -1242,8 +1235,7 @@ public class ReflectionUtils {
           throw new IllegalArgumentException("Unable to find '" + name + "' in " + refClass);
         }
         return field.get(refObject);
-      }
-    });
+      });
   }
 
   /**

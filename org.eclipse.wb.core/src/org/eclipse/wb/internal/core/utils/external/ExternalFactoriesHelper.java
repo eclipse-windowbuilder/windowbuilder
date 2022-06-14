@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.external;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.BundleResourceProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -33,6 +32,7 @@ import org.osgi.framework.Bundle;
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -89,9 +89,9 @@ public class ExternalFactoriesHelper {
 	// Caching and reloading
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static Map<String, List<IExtension>> m_extensions = Maps.newHashMap();
-	private static Map<String, Map<String, List<IConfigurationElement>>> m_configurationElements = Maps.newHashMap();
-	private static Map<String, Map<String, List<?>>> m_configurationObjects = Maps.newHashMap();
+	private static Map<String, List<IExtension>> m_extensions = new HashMap<>();
+	private static Map<String, Map<String, List<IConfigurationElement>>> m_configurationElements = new HashMap<>();
+	private static Map<String, Map<String, List<?>>> m_configurationObjects = new HashMap<>();
 
 	/**
 	 * Clears caches in this helper.
@@ -143,7 +143,7 @@ public class ExternalFactoriesHelper {
 		// prepare: elementName -> List<?>
 		Map<String, List<?>> elementName_to_objects = m_configurationObjects.get(pointId);
 		if (elementName_to_objects == null) {
-			elementName_to_objects = Maps.newHashMap();
+			elementName_to_objects = new HashMap<>();
 			m_configurationObjects.put(pointId, elementName_to_objects);
 		}
 		// check for cached: List<?>
@@ -200,7 +200,7 @@ public class ExternalFactoriesHelper {
 		// prepare: elementName -> List<IConfigurationElement>
 		Map<String, List<IConfigurationElement>> elementName_to_elements = m_configurationElements.get(pointId);
 		if (elementName_to_elements == null) {
-			elementName_to_elements = Maps.newHashMap();
+			elementName_to_elements = new HashMap<>();
 			m_configurationElements.put(pointId, elementName_to_elements);
 		}
 		// check for cached: List<IConfigurationElement>

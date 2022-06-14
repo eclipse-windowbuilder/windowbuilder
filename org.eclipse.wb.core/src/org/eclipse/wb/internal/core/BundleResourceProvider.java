@@ -28,9 +28,9 @@ import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
-import org.osgi.framework.BundleListener;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -45,7 +45,7 @@ public final class BundleResourceProvider {
   // Instance access
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final Map<String, BundleResourceProvider> m_providers = Maps.newHashMap();
+  private static final Map<String, BundleResourceProvider> m_providers = new HashMap<>();
 
   /**
    * @return the {@link BundleResourceProvider} for {@link Bundle} with given id.
@@ -73,9 +73,7 @@ public final class BundleResourceProvider {
    * Configures automatic resources clean up on {@link Bundle} uninstalling.
    */
   public static void configureCleanUp(BundleContext context) {
-    context.addBundleListener(new BundleListener() {
-      @Override
-      public void bundleChanged(BundleEvent event) {
+    context.addBundleListener(event -> {
         if (event.getType() == BundleEvent.UNINSTALLED) {
           // prepare provider
           final BundleResourceProvider provider;
@@ -85,16 +83,10 @@ public final class BundleResourceProvider {
           }
           // clean up
           if (provider != null) {
-            Display.getDefault().asyncExec(new Runnable() {
-              @Override
-              public void run() {
-                provider.disposeImages();
-              }
-            });
+            Display.getDefault().asyncExec(() -> provider.disposeImages());
           }
         }
-      }
-    });
+      });
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -125,13 +117,10 @@ public final class BundleResourceProvider {
    * @return the {@link String} content of file from bundle directory.
    */
   public String getFileString(final String path) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<String>() {
-      @Override
-      public String runObject() throws Exception {
+    return ExecutionUtils.runObject(() -> {
         InputStream inputStream = getFile(path);
         return IOUtils2.readString(inputStream);
-      }
-    });
+      });
   }
 
   /**
@@ -143,12 +132,7 @@ public final class BundleResourceProvider {
   }
 
   private InputStream getFile0(final String path) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<InputStream>() {
-      @Override
-      public InputStream runObject() throws Exception {
-        return m_bundle.getEntry(path).openStream();
-      }
-    }, "Unable to open file %s from %s", path, m_id);
+    return ExecutionUtils.runObject((RunnableObjectEx<InputStream>) () -> m_bundle.getEntry(path).openStream(), "Unable to open file %s from %s", path, m_id);
   }
 
   private static String normalizePath(String path) {

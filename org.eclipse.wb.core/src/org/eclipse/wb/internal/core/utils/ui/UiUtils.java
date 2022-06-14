@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.ui;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -44,6 +43,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -115,12 +115,7 @@ public class UiUtils {
     menu.addMenuListener(new MenuAdapter() {
       @Override
       public void menuHidden(MenuEvent e) {
-        e.display.asyncExec(new Runnable() {
-          @Override
-          public void run() {
-            menu.dispose();
-          }
-        });
+        e.display.asyncExec(() -> menu.dispose());
       }
     });
     menu.setVisible(true);
@@ -245,9 +240,7 @@ public class UiUtils {
     final String TAB_ITEM_KEY = "_TABLEITEM";
     final Shell tableShell = table.getShell();
     //
-    final Listener tipControlListener = new Listener() {
-      @Override
-      public void handleEvent(Event event) {
+    final Listener tipControlListener = event -> {
         Control tipControl = (Control) event.widget;
         Shell tipShell = tipControl.getShell();
         switch (event.type) {
@@ -265,8 +258,7 @@ public class UiUtils {
             tipShell.dispose();
             break;
         }
-      }
-    };
+      };
     //
     Listener tableListener = new Listener() {
       private Shell m_tipShell = null;
@@ -572,7 +564,7 @@ public class UiUtils {
   // File icons
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static Map<String, Image> m_extensionToIcon = Maps.newHashMap();
+  private static Map<String, Image> m_extensionToIcon = new HashMap<>();
 
   /**
    * @return icon that is associated with given file extension in the operating system
