@@ -60,8 +60,7 @@
 					<useUIThread>true</useUIThread>
 					<application>org.eclipse.ui.ide.workbench</application>
           			<includes>
-            			<include>**/*CommonTests.java</include>
-						<include>**/org.eclipse.wb.tests.designer.editor.EditorTests.java</include>
+            			<include>**/*WindowBuilderTests.java</include>
           			</includes>
 					<dependencies>
 					   <!-- required for PlatformAdmin to work-->
