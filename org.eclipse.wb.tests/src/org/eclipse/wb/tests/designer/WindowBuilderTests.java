@@ -29,11 +29,11 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
+	SwtTests.class,
     CommonTests.class,
     CoreTests.class,
     EditorTests.class,
     SwingTests.class,
-    SwtTests.class,
     RcpTests.class
 // not yet ready to run, need work to run successfully
 // XmlTests.class,
