@@ -287,7 +287,7 @@ public class FormTest extends AbstractFormsTest {
     {
       assertNotNull(form.getToolBarManager());
       Rectangle bounds = form.getToolBarManager().getBounds();
-      assertThat(bounds.width).isLessThan(75);
+		assertThat(bounds.width).isLessThan(100);
     }
   }
 

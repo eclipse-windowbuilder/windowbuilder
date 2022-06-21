@@ -81,7 +81,7 @@ public class AbstractSplashHandlerTest extends RcpModelTest {
     assertThat(splash.getBounds().width).isEqualTo(450);
     assertThat(splash.getBounds().height).isEqualTo(300);
     assertThat(container.getBounds().width).isGreaterThan(400);
-    assertThat(container.getBounds().height).isGreaterThan(250);
+	assertThat(container.getBounds().height).isGreaterThan(230);
     // set bounds
     splash.getTopBoundsSupport().setSize(600, 500);
     splash.refresh();
