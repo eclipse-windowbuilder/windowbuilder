@@ -10,21 +10,20 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.gef;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for RCP GEF.
  *
  * @author scheglov_ke
  */
-public class GefTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.gef");
-    suite.addTest(createSingleSuite(ChangeLayoutTest.class));
-    suite.addTest(createSingleSuite(ViewerColumnGefTest.class));
-    return suite;
-  }
+
+@RunWith(Suite.class)
+@SuiteClasses({
+	ChangeLayoutTest.class,
+	ViewerColumnGefTest.class
+})
+public class GefTests {
 }
