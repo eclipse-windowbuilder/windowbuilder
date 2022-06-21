@@ -132,6 +132,7 @@
               url="https://download.eclipse.org/cbi/updates/license"/>
         </repositoryList>
       </targlet>
+      <composedTarget>wb-mvn</composedTarget>
     </setupTask>
     <setupTask
         xsi:type="setup.workingsets:WorkingSetTask"
