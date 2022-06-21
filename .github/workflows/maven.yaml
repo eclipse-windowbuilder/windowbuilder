@@ -27,7 +27,7 @@ jobs:
       uses: GabrielBB/xvfb-action@v1
       with:
        run: >- 
-        mvn clean verify
+        mvn -V -B clean verify
     - name: Upload Test Results for Java-${{ matrix.java }}
       uses: actions/upload-artifact@v3
       with:
