@@ -60,3 +60,5 @@ target/
 .polyglot.feature.xml
 .polyglot.META-INF
 .tycho-consumer-pom.xml
+.polyglot*target
+
