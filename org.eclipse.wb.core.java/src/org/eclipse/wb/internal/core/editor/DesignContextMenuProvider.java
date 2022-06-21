@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,12 +7,14 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - adjusted buildContextMenu method to include version of context menu for Basic UI
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -22,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.core.ContextMenuProvider;
 import org.eclipse.wb.internal.gef.core.MultiSelectionContextMenuProvider;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 
@@ -95,6 +98,10 @@ public final class DesignContextMenuProvider extends MultiSelectionContextMenuPr
   @Override
   protected void buildContextMenu(final EditPart editPart, final IMenuManager manager) {
     addGroups(manager);
+    boolean wbBasic = InstanceScope.INSTANCE.getNode(
+        IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).getBoolean(
+            IEditorPreferenceConstants.WB_BASIC_UI,
+            false);
     // edit
     {
       manager.appendToGroup(IContextMenuConstants.GROUP_EDIT, m_pageActions.getCutAction());
@@ -104,18 +111,21 @@ public final class DesignContextMenuProvider extends MultiSelectionContextMenuPr
     }
     // edit2
     {
-      manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getTestAction());
-      manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getRefreshAction());
+      if (!wbBasic) {
+        manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getTestAction());
+        manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getRefreshAction());
+      }
     }
     // send notification
-    if (editPart.getModel() instanceof ObjectInfo) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          ObjectInfo object = (ObjectInfo) editPart.getModel();
-          object.getBroadcastObject().addContextMenu(m_selectedObjects, object, manager);
-        }
-      });
+    if (!wbBasic) {
+      if (editPart.getModel() instanceof ObjectInfo) {
+        ExecutionUtils.runLog(new RunnableEx() {
+          public void run() throws Exception {
+            ObjectInfo object = (ObjectInfo) editPart.getModel();
+            object.getBroadcastObject().addContextMenu(m_selectedObjects, object, manager);
+          }
+        });
+      }
     }
   }
 }
