@@ -10,20 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.resource;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for RCP resource managers.
  *
  * @author scheglov_ke
  */
-public class ResourceTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.resource");
-    suite.addTest(createSingleSuite(ResourceManagerTest.class));
-    return suite;
-  }
+@RunWith(Suite.class)
+@SuiteClasses({ ResourceManagerTest.class })
+public class ResourceTests {
 }
