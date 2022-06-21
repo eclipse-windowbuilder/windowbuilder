@@ -15,6 +15,7 @@ import org.eclipse.wb.tests.designer.rcp.gef.GefTests;
 import org.eclipse.wb.tests.designer.rcp.model.ModelTests;
 import org.eclipse.wb.tests.designer.rcp.resource.ResourceTests;
 import org.eclipse.wb.tests.designer.rcp.swing2swt.Swing2SwtTests;
+import org.eclipse.wb.tests.draw2d.Draw2dTests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -33,6 +34,9 @@ import org.junit.runners.Suite.SuiteClasses;
     // see https://github.com/eclipse/windowbuilder/issues/247
     // NebulaTests.class,
     Swing2SwtTests.class,
-    GefTests.class,})
+    GefTests.class,
+    Draw2dTests.class,
+    
+})
 public class RcpTests {
 }
