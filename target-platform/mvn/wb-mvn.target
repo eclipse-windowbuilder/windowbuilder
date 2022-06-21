@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="wb-mvn">
+	<locations>
+		<location includeDependencyDepth="none" includeDependencyScopes="provided,runtime,test,system,import" includeSource="true" missingManifest="generate" type="Maven">
+			<dependencies>
+				<dependency>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+					<version>31.1-jre</version>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</location>
+		<location includeDependencyDepth="none" includeSource="true" missingManifest="generate" type="Maven">
+			<dependencies>
+				<dependency>
+					<groupId>com.google.guava</groupId>
+					<artifactId>failureaccess</artifactId>
+					<version>1.0.1</version>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</location>
+			<location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="generate" type="Maven">
+			<dependencies>
+				<dependency>
+					<groupId>commons-beanutils</groupId>
+					<artifactId>commons-beanutils</artifactId>
+					<version>1.9.4</version>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</location>
+		<location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="generate" type="Maven">
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-digester3</artifactId>
+					<version>3.2</version>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</location>
+		<location includeDependencyDepth="none" includeSource="true" missingManifest="generate" type="Maven">
+			<dependencies>
+				<dependency>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+					<version>1.2</version>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</location>
+	</locations>
+</target>
