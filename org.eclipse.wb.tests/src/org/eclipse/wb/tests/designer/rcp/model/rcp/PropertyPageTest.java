@@ -56,6 +56,6 @@ public class PropertyPageTest extends RcpModelTest {
     assertThat(parentComposite.getBounds().width).isGreaterThan(300);
     assertThat(parentComposite.getBounds().height).isGreaterThan(30);
     assertThat(container.getBounds().width).isGreaterThan(300);
-    assertThat(container.getBounds().height).isGreaterThan(300);
+	assertThat(container.getBounds().height).isGreaterThan(230);
   }
 }
