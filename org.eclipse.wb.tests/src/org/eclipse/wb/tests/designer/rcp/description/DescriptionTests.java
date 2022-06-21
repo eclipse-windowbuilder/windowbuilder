@@ -10,20 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.description;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for component descriptions.
  *
  * @author scheglov_ke
  */
-public class DescriptionTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.description");
-    suite.addTest(createSingleSuite(RcpDescriptionVersionsProviderFactoryTest.class));
-    return suite;
-  }
+
+@RunWith(Suite.class)
+@SuiteClasses({
+	RcpDescriptionVersionsProviderFactoryTest.class
+})
+public class DescriptionTests {
 }
