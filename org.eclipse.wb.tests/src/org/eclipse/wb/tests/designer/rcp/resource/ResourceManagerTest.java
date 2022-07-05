@@ -10,8 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.resource;
 
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.utils.ManagerUtils;
@@ -52,15 +54,10 @@ public class ResourceManagerTest extends RcpModelTest {
     ((List<?>) ReflectionUtils.getFieldObject(this, "m_createdResources")).clear();
     waitForAutoBuild();
     PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-  }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
+	// ensure org.eclipse.wb.swt.ResourceManager is available in the created project
+	ToolkitDescriptionJava toolKit = RcpToolkitDescription.INSTANCE;
+	ManagerUtils.ensure_ResourceManager(m_javaProject, toolKit);
   }
 
   ////////////////////////////////////////////////////////////////////////////
