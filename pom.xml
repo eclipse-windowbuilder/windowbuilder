@@ -86,6 +86,15 @@
 				<artifactId>eclipse-jarsigner-plugin</artifactId>
 				<version>${eclipse-jarsigner-version}</version>
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-gpg-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<keyname>7ec448d874ff46f4</keyname>
+					<skipIfJarsigned>true</skipIfJarsigned>
+				</configuration>
+			</plugin>
 		  </plugins>
 		</pluginManagement>
 		<plugins>
