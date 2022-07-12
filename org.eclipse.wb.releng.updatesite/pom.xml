@@ -11,7 +11,7 @@
 
     <profiles>
         <profile>
-            <id>sign</id>
+            <id>gpg-sign</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
