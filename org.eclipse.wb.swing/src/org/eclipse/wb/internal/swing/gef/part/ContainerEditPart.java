@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.part;
 
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
@@ -18,11 +19,13 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
+import org.eclipse.wb.gef.core.policies.IRefreshableEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.layout.DropLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
 
 /**
@@ -95,8 +98,26 @@ public final class ContainerEditPart extends ComponentEditPart {
       LayoutInfo layout = m_container.getLayout();
       if (m_currentLayout != layout) {
         m_currentLayout = layout;
-        LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
+
+		if (layout.getDescription().getComponentClass() != null) {
+			if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+					.getBoolean(layout.getDescription().getComponentClass().getName(), true)) {
+				try {
+					m_currentLayout = m_container.getDefaultContainerInfo();
+					m_container.setLayout(m_currentLayout);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
+
+	} else {
+		EditPolicy policy = getEditPolicy(EditPolicy.LAYOUT_ROLE);
+		if (policy instanceof IRefreshableEditPolicy) {
+			((IRefreshableEditPolicy) policy).refreshEditPolicy();
+		}
       }
     }
   }

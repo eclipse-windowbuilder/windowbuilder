@@ -97,39 +97,32 @@ public class CompositeEditPart extends ControlEditPart {
   protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
 		// support for dropping components
+
 		if (m_composite.hasLayout()) {
 			LayoutInfo layout = m_composite.getLayout();
 			if (layout != m_currentLayout) {
+				try {
 				m_currentLayout = layout;
-				LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
-				if (policy == null) {
-					policy = new DefaultLayoutEditPolicy();
-				}
-				installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
-
 				if (layout.getDescription().getComponentClass() != null) {
 					if (!InstanceScope.INSTANCE.getNode(
 				              IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
 				                  layout.getDescription().getComponentClass().getName(),
 				                  true)) {
-						try {
+						// Gets the default layout if the layout was originally set with a layout
+						// that is no longer available due to preference settings
 							m_currentLayout = m_composite.getDefaultCompositeInfo();
-
-							policy = LayoutPolicyUtils.createLayoutEditPolicy(this, m_currentLayout);
-			              if (policy == null) {
-			                policy = new DefaultLayoutEditPolicy();
-			              }
-			              installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
-			              //Sets the default layout if the layout was originally set with a layout
-			              //that is no longer available due to preference settings
-							m_composite.setLayout(m_currentLayout);
-						} catch (Exception e) {
-
-							e.printStackTrace();
-						}
 					}
 					}
+					LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, m_currentLayout);
+					if (policy == null) {
+						policy = new DefaultLayoutEditPolicy();
+					}
+					installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
+					m_composite.setLayout(m_currentLayout);
+				} catch (Exception e) {
 
+          e.printStackTrace();
+        }
 
 			} else {
 				EditPolicy policy = getEditPolicy(EditPolicy.LAYOUT_ROLE);
