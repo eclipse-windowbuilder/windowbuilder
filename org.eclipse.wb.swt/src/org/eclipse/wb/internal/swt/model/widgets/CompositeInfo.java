@@ -738,7 +738,6 @@ public class CompositeInfo extends ScrollableInfo
     CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
 	if (layoutId != "") {
 		// handle the case that "Implicit" is specified in the preferences
-
       //handle the case that another layout has been specified as default
       LayoutDescription ldescription =
           LayoutDescriptionHelper.get(getDescription().getToolkit(), layoutId);
@@ -759,7 +758,8 @@ public class CompositeInfo extends ScrollableInfo
     }
 	if (layoutId == "") {
       //Last resort is to load the Absolute layout
-		layoutInfo = new AbsoluteLayoutInfo(getEditor(), getDescription().getToolkit(), creationSupport);
+		layoutInfo = AbsoluteLayoutInfo.createExplicit(this);
+
     }
 
     return layoutInfo;
