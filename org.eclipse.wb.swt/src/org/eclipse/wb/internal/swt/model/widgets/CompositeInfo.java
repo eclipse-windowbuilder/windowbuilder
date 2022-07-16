@@ -769,6 +769,7 @@ public class CompositeInfo extends ScrollableInfo
 			CreationSupport creationSupport) {
 
 		if (layoutInf != null) {
+			if (isLayout(layoutInf)) {
 			if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
 					.getBoolean(layoutInf.getCanonicalName(), true)) {
 				try {
@@ -779,6 +780,7 @@ public class CompositeInfo extends ScrollableInfo
 				}
 			}
 		}
+		}
 		try {
 			return (LayoutInfo) JavaInfoUtils.createJavaInfo(editor, layoutInf, creationSupport);
 		} catch (Exception e) {
@@ -786,6 +788,17 @@ public class CompositeInfo extends ScrollableInfo
 			e.printStackTrace();
 			}
 			return null;
+		}
+
+		private boolean isLayout(Class<?> layoutClass) {
+			List<LayoutDescription> descriptions = LayoutDescriptionHelper.get(getDescription().getToolkit());
+			for (LayoutDescription description : descriptions) {
+				if (description.getLayoutClassName().equals(layoutClass.getCanonicalName())) {
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 }
