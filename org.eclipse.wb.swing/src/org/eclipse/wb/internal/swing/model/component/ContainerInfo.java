@@ -68,8 +68,6 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.LayoutManager;
@@ -292,16 +290,17 @@ public class ContainerInfo extends ComponentInfo {
         implicitLayout = new AbsoluteLayoutInfo(editor, creationSupport);
       } else {
         Class<?> layoutClass = layout.getClass();
-		// Initialize implicit layout to the specified layout
-		implicitLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(editor, layoutClass, creationSupport);
 		// The root pane should not have it's layout changed. During creation of the
 		// implicit layouts the JRootPane
 		// is also processed. In this case the checkLayoutPreferences should not be
 		// performed
-		if (StringUtils.contains(layout.getClass().toString(), "JRootPane")) {
-		implicitLayout = checkLayoutPreferences(implicitLayout.getDescription().getComponentClass(), editor,
+		if (!isLayout(layoutClass)) {
+			implicitLayout = checkLayoutPreferences(layoutClass, editor,
 				creationSupport);
-	}
+	} else {
+		// Initialize implicit layout to the specified layout
+		implicitLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(editor, layoutClass, creationSupport);
+		}
       }
       // initialize layout model
       {
@@ -635,11 +634,6 @@ public class ContainerInfo extends ComponentInfo {
 				String layoutClassName = ldescription.getLayoutClassName();
 				ClassLoader editorLoader = EditorState.get(getEditor()).getEditorLoader();
 				preferenceDefaultLayoutClass = editorLoader.loadClass(layoutClassName);
-				if (layoutClassName != null
-						&& !InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
-								.getBoolean(layoutClassName, true)) {
-					return layoutInf = AbsoluteLayoutInfo.createExplicit(getEditor());
-				}
 				layoutInf = (LayoutInfo) JavaInfoUtils.createJavaInfo(getEditor(), preferenceDefaultLayoutClass,
 						creationSupport);
 			}
@@ -659,23 +653,40 @@ public class ContainerInfo extends ComponentInfo {
 	 */
 	public LayoutInfo checkLayoutPreferences(Class<?> layoutInf, AstEditor editor, CreationSupport creationSupport) {
 		if (layoutInf != null) {
-			if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
-					.getBoolean(layoutInf.getCanonicalName(), true)) {
-				try {
-					return AbsoluteLayoutInfo.createExplicit(editor);
-				} catch (Exception e) {
-					e.printStackTrace();
+			if (isLayout(layoutInf)) {
+				if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+						.getBoolean(layoutInf.getCanonicalName(), true)) {
+					try {
+						return AbsoluteLayoutInfo.createExplicit(editor);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
 		try {
 			return (LayoutInfo) JavaInfoUtils.createJavaInfo(editor, layoutInf,
-					new ImplicitLayoutCreationSupport(this));
+					creationSupport);
 		} catch (Exception e) {
 
 			e.printStackTrace();
 			}
 		return null;
 	}
+
+	private boolean isLayout(Class<?> layoutInf) {
+		List<LayoutDescription> descriptions =
+		        LayoutDescriptionHelper.get(getDescription().getToolkit());
+		for(LayoutDescription description : descriptions) {
+			if (description.getLayoutClassName().equals(layoutInf.getCanonicalName())) {
+				return true;
+			}
+		}
+
+
+
+		return false;
+	}
+
 
 }

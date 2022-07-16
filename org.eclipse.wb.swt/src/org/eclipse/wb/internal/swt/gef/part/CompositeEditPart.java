@@ -111,6 +111,7 @@ public class CompositeEditPart extends ControlEditPart {
 						// Gets the default layout if the layout was originally set with a layout
 						// that is no longer available due to preference settings
 							m_currentLayout = m_composite.getDefaultCompositeInfo();
+							m_composite.setLayout(m_currentLayout);
 					}
 					}
 					LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, m_currentLayout);
@@ -118,7 +119,7 @@ public class CompositeEditPart extends ControlEditPart {
 						policy = new DefaultLayoutEditPolicy();
 					}
 					installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
-					m_composite.setLayout(m_currentLayout);
+
 				} catch (Exception e) {
 
           e.printStackTrace();
