@@ -94,11 +94,6 @@
       <description>Install the tools needed in the IDE to work with the source code for Window Builder</description>
     </setupTask>
     <setupTask
-        xsi:type="projects:ProjectsImportTask">
-      <sourceLocator
-          rootFolder="${git.clone.windowbuilder.location/target-platform}"/>
-    </setupTask>
-    <setupTask
         xsi:type="git:GitCloneTask"
         id="git.clone.windowbuilder"
         remoteURI="eclipse/windowbuilder">
@@ -118,6 +113,11 @@
         </detail>
       </annotation>
       <description>The Git clone for the Window Builder Projects</description>
+    </setupTask>
+    <setupTask
+        xsi:type="projects:ProjectsImportTask">
+      <sourceLocator
+          rootFolder="${git.clone.windowbuilder.location/target-platform}"/>
     </setupTask>
     <setupTask
         xsi:type="setup.targlets:TargletTask">
