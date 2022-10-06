@@ -37,6 +37,7 @@ public final class DesignerMethodBinding implements IMethodBinding {
   private final ITypeBinding m_declaringClass;
   private final ITypeBinding m_returnType;
   private ITypeBinding[] m_parameterTypes;
+  private String[] m_parameterNames;
   private ITypeBinding[] m_exceptionTypes;
   private DesignerMethodBinding m_methodDeclaration;
 
@@ -52,6 +53,7 @@ public final class DesignerMethodBinding implements IMethodBinding {
     m_varargs = binding.isVarargs();
     m_declaringClass = context.get(binding.getDeclaringClass());
     m_returnType = context.get(binding.getReturnType());
+    m_parameterNames = binding.getParameterNames();
     {
       ITypeBinding[] parameterTypes = binding.getParameterTypes();
       m_parameterTypes = new ITypeBinding[parameterTypes.length];
@@ -88,6 +90,7 @@ public final class DesignerMethodBinding implements IMethodBinding {
    */
   public void removeParameterType(int index) {
     m_parameterTypes = (ITypeBinding[]) ArrayUtils.remove(m_parameterTypes, index);
+    m_parameterNames = (String[]) ArrayUtils.remove(m_parameterNames, index);
     if (m_methodDeclaration != this) {
       m_methodDeclaration.removeParameterType(index);
     }
@@ -148,6 +151,11 @@ public final class DesignerMethodBinding implements IMethodBinding {
   @Override
   public ITypeBinding[] getParameterTypes() {
     return m_parameterTypes;
+  }
+
+  @Override
+  public String[] getParameterNames() {
+    return m_parameterNames;
   }
 
   @Override
