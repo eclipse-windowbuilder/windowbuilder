@@ -80,8 +80,8 @@ public class ValuePropertyCodeSupport extends BeanPropertiesCodeSupport {
       if (generationSupport.addModel(this)) {
         String sourceCode =
             m_parserIsPojo
-                ? "org.eclipse.core.databinding.beans.PojoProperties"
-                : "org.eclipse.core.databinding.beans.BeanProperties";
+                ? "org.eclipse.core.databinding.beans.typed.PojoProperties"
+                : "org.eclipse.core.databinding.beans.typed.BeanProperties";
         lines.add("org.eclipse.core.databinding.beans.IBeanValueProperty "
             + getVariableIdentifier()
             + " = "
@@ -102,8 +102,8 @@ public class ValuePropertyCodeSupport extends BeanPropertiesCodeSupport {
     //
     String sourceCode =
         observable.isPojoBindable()
-            ? "org.eclipse.core.databinding.beans.PojoProperties"
-            : "org.eclipse.core.databinding.beans.BeanProperties";
+            ? "org.eclipse.core.databinding.beans.typed.PojoProperties"
+            : "org.eclipse.core.databinding.beans.typed.BeanProperties";
     sourceCode += ".value(" + observable.getBindableProperty().getReference() + ")";
     if (getVariableIdentifier() != null) {
       if (generationSupport.addModel(this)) {
@@ -133,8 +133,8 @@ public class ValuePropertyCodeSupport extends BeanPropertiesCodeSupport {
       CodeGenerationSupport generationSupport) throws Exception {
     String sourceCode =
         m_parserIsPojo
-            ? "org.eclipse.core.databinding.beans.PojoProperties"
-            : "org.eclipse.core.databinding.beans.BeanProperties";
+            ? "org.eclipse.core.databinding.beans.typed.PojoProperties"
+            : "org.eclipse.core.databinding.beans.typed.BeanProperties";
     sourceCode +=
         ".value("
             + detailObservable.getDetailPropertyReference()

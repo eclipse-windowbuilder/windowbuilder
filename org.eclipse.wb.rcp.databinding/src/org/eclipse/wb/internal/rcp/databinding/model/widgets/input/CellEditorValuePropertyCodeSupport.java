@@ -106,7 +106,7 @@ public final class CellEditorValuePropertyCodeSupport extends ObservableCodeSupp
       // simple property
       lines.add("org.eclipse.core.databinding.property.value.IValueProperty "
           + getVariableIdentifier()
-          + " = org.eclipse.core.databinding.beans.BeanProperties.value("
+          + " = org.eclipse.core.databinding.beans.typed.BeanProperties.value("
           + getParsePropertyReference()
           + ");");
     } else {

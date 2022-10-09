@@ -65,7 +65,7 @@ public class WidgetPropertyItemsCodeSupport extends AbstractWidgetPropertiesCode
           "ObserveWidget"));
     }
     // add code
-    String code = " = org.eclipse.jface.databinding.swt.WidgetProperties.items()";
+    String code = " = org.eclipse.jface.databinding.swt.typed.WidgetProperties.items()";
     if (getVariableIdentifier() != null) {
       if (generationSupport.addModel(this)) {
         lines.add("org.eclipse.jface.databinding.viewers.IViewerValueProperty "

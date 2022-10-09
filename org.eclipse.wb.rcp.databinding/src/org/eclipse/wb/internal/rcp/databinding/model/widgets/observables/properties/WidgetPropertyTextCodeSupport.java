@@ -71,7 +71,7 @@ public class WidgetPropertyTextCodeSupport extends WidgetPropertiesCodeSupport {
     if (updateEvents.size() == 0) {
       return super.getSourceCode(observable);
     }
-    return "org.eclipse.jface.databinding.swt.WidgetProperties.text("
+    return "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text("
         + getEventsSourceCode(updateEvents)
         + ")";
   }
@@ -82,7 +82,7 @@ public class WidgetPropertyTextCodeSupport extends WidgetPropertiesCodeSupport {
       return super.getSourceCode();
     }
     List<String> updateEvents = TextSwtObservableInfo.getEventsSources(m_parseEvents);
-    return "org.eclipse.jface.databinding.swt.WidgetProperties.text("
+    return "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text("
         + getEventsSourceCode(updateEvents)
         + ")";
   }

@@ -107,7 +107,7 @@ public class WidgetPropertiesCodeSupport extends AbstractWidgetPropertiesCodeSup
    * @return the source code for create this observable.
    */
   protected String getSourceCode(ObservableInfo observable) throws Exception {
-    return "org.eclipse.jface.databinding.swt.WidgetProperties."
+    return "org.eclipse.jface.databinding.swt.typed.WidgetProperties."
         + SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(observable.getBindableProperty().getReference())
         + "()";
   }
@@ -116,7 +116,7 @@ public class WidgetPropertiesCodeSupport extends AbstractWidgetPropertiesCodeSup
    * @return the source code.
    */
   public String getSourceCode() throws Exception {
-    return "org.eclipse.jface.databinding.swt.WidgetProperties."
+    return "org.eclipse.jface.databinding.swt.typed.WidgetProperties."
         + SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(getPropertyReference())
         + "()";
   }

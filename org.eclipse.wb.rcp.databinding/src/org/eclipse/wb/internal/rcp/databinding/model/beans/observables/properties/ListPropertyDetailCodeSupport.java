@@ -38,8 +38,8 @@ public class ListPropertyDetailCodeSupport extends BeanObservableDetailCodeSuppo
     //
     String sourceCode =
         observable.isPojoBindable0()
-            ? "org.eclipse.core.databinding.beans.PojoProperties"
-            : "org.eclipse.core.databinding.beans.BeanProperties";
+            ? "org.eclipse.core.databinding.beans.typed.PojoProperties"
+            : "org.eclipse.core.databinding.beans.typed.BeanProperties";
     String beanClassCode =
         observable.getDetailBeanClass() == null
             ? ""
