@@ -153,13 +153,13 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text(int)",
       "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text(int[])"};
   private static final String SINGLE_SELECTION_VIEWER_PROPERTY =
-      "org.eclipse.jface.databinding.viewers.ViewerProperties.singleSelection()";
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.singleSelection()";
   private static final String MULTI_SELECTION_VIEWER_PROPERTY =
-      "org.eclipse.jface.databinding.viewers.ViewerProperties.multipleSelection()";
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.multipleSelection()";
   private static final String CHECKED_ELEMENTS_VIEWER_PROPERTY =
-      "org.eclipse.jface.databinding.viewers.ViewerProperties.checkedElements(java.lang.Object)";
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.checkedElements(java.lang.Object)";
   private static final String FILTERS_ELEMENTS_VIEWER_PROPERTY =
-      "org.eclipse.jface.databinding.viewers.ViewerProperties.filters()";
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.filters()";
   private List<WidgetBindableInfo> m_observables = Collections.emptyList();
   private DatabindingsProvider m_provider;
 

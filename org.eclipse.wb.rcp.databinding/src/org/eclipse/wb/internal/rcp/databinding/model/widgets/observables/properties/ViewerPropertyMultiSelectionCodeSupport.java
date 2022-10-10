@@ -59,7 +59,7 @@ public class ViewerPropertyMultiSelectionCodeSupport extends ViewerObservableCod
       CodeGenerationSupport generationSupport) throws Exception {
     super.addSourceCode(observable, lines, generationSupport);
     String sourceCode =
-        "org.eclipse.jface.databinding.viewers.ViewerProperties.multipleSelection()";
+        "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.multipleSelection()";
     if (getVariableIdentifier() != null) {
       if (generationSupport.addModel(this)) {
         lines.add("org.eclipse.jface.databinding.viewers.IViewerListProperty "

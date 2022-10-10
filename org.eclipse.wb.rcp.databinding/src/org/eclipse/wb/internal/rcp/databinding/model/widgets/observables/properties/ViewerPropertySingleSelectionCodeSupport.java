@@ -118,7 +118,7 @@ public class ViewerPropertySingleSelectionCodeSupport extends ViewerObservableCo
       List<String> lines,
       CodeGenerationSupport generationSupport) throws Exception {
     super.addSourceCode(observable, lines, generationSupport);
-    String sourceCode = "org.eclipse.jface.databinding.viewers.ViewerProperties.singleSelection()";
+    String sourceCode = "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.singleSelection()";
     if (getVariableIdentifier() != null) {
       if (generationSupport.addModel(this)) {
         lines.add("org.eclipse.jface.databinding.viewers.IViewerValueProperty "
@@ -155,7 +155,7 @@ public class ViewerPropertySingleSelectionCodeSupport extends ViewerObservableCo
 
   public String getMasterSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
       throws Exception {
-    String sourceCode = "org.eclipse.jface.databinding.viewers.ViewerProperties.singleSelection()";
+    String sourceCode = "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.singleSelection()";
     if (getVariableIdentifier() == null) {
       return sourceCode;
     }
