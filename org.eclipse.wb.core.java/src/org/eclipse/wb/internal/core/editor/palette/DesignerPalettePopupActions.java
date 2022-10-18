@@ -12,6 +12,7 @@
 package org.eclipse.wb.internal.core.editor.palette;
 
 import org.eclipse.wb.core.controls.palette.IPalette;
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
@@ -23,6 +24,7 @@ import org.eclipse.wb.internal.core.editor.palette.model.entry.FactoryEntryInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -33,6 +35,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
+
+import org.osgi.service.prefs.Preferences;
 
 import java.text.MessageFormat;
 
@@ -102,6 +106,15 @@ final class DesignerPalettePopupActions {
   }
 
   private void addPopupActions_edit(IMenuManager menuManager, Object target, int type) {
+
+		Preferences preferences = InstanceScope.INSTANCE
+				.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE);
+		boolean windowbuilderBasic = preferences.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
+
+		if (!windowbuilderBasic) {
+			addPopupActions_edit_unUsed(menuManager, target);
+			menuManager.add(new Separator());
+		}
     // add layout action
     {
       IMenuManager layoutMenuManager = new MenuManager("Layout");
