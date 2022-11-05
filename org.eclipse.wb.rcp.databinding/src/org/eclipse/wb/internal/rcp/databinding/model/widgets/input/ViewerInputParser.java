@@ -62,9 +62,9 @@ public final class ViewerInputParser implements ISubParser {
   private static final String VIEWER_SUPPORT_SET_SIGNATURE =
       "org.eclipse.jface.databinding.viewers.ViewerSupport.bind(org.eclipse.jface.viewers.StructuredViewer,org.eclipse.core.databinding.observable.set.IObservableSet,org.eclipse.core.databinding.property.value.IValueProperty[])";
   private static final String BEAN_PROPERTIES_VALUES =
-      "org.eclipse.core.databinding.beans.BeanProperties.values(java.lang.Class,java.lang.String[])";
+      "org.eclipse.core.databinding.beans.typed.BeanProperties.values(java.lang.Class,java.lang.String[])";
   private static final String POJO_PROPERTIES_VALUES =
-      "org.eclipse.core.databinding.beans.PojoProperties.values(java.lang.Class,java.lang.String[])";
+      "org.eclipse.core.databinding.beans.typed.PojoProperties.values(java.lang.Class,java.lang.String[])";
   private static final String OBSERVABLE_VALUE_EDITING_SUPPORT =
       "org.eclipse.jface.databinding.viewers.ObservableValueEditingSupport.create(org.eclipse.jface.viewers.ColumnViewer,org.eclipse.core.databinding.DataBindingContext,org.eclipse.jface.viewers.CellEditor,org.eclipse.core.databinding.property.value.IValueProperty,org.eclipse.core.databinding.property.value.IValueProperty)";
   private static final String VIEWER_COLUMN_SET_EDITING_SUPPORT =

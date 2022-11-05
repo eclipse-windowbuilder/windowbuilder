@@ -299,28 +299,28 @@ final class CreatorManager {
         "org.eclipse.core.databinding.beans.BeansObservables.observeValue(org.eclipse.core.databinding.observable.Realm,java.lang.Object,java.lang.String)",
         "org.eclipse.core.databinding.beans.PojoObservables.observeValue(org.eclipse.core.databinding.observable.Realm,java.lang.Object,java.lang.String)");
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.value(java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.value(java.lang.String)",
         new LocalModelCreator(0, VALUE_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.value(java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.value(java.lang.String,java.lang.Class)",
         new LocalModelCreator(0, 1, VALUE_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.value(java.lang.Class,java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.value(java.lang.Class,java.lang.String)",
         new LocalModelCreator(1, -1, 0, VALUE_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.value(java.lang.Class,java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.value(java.lang.Class,java.lang.String,java.lang.Class)",
         new LocalModelCreator(1, 2, 0, VALUE_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.value(java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.value(java.lang.String)",
         new LocalModelCreator(0, true, VALUE_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.value(java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.value(java.lang.String,java.lang.Class)",
         new LocalModelCreator(0, 1, true, VALUE_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.value(java.lang.Class,java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.value(java.lang.Class,java.lang.String)",
         new LocalModelCreator(1, -1, 0, true, VALUE_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.value(java.lang.Class,java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.value(java.lang.Class,java.lang.String,java.lang.Class)",
         new LocalModelCreator(1, 2, 0, true, VALUE_PROPERTY_CREATOR));
     //
     methodCreator(
@@ -340,28 +340,28 @@ final class CreatorManager {
         "org.eclipse.core.databinding.beans.BeansObservables.observeList(org.eclipse.core.databinding.observable.Realm,java.lang.Object,java.lang.String,java.lang.Class)",
         "org.eclipse.core.databinding.beans.PojoObservables.observeList(org.eclipse.core.databinding.observable.Realm,java.lang.Object,java.lang.String,java.lang.Class)");
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.list(java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.list(java.lang.String)",
         new LocalModelCreator(0, LIST_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.list(java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.list(java.lang.String,java.lang.Class)",
         new LocalModelCreator(0, 1, LIST_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.list(java.lang.Class,java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.list(java.lang.Class,java.lang.String)",
         new LocalModelCreator(1, -1, 0, LIST_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.list(java.lang.Class,java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.list(java.lang.Class,java.lang.String,java.lang.Class)",
         new LocalModelCreator(1, 2, 0, LIST_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.list(java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.list(java.lang.String)",
         new LocalModelCreator(0, true, LIST_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.list(java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.list(java.lang.String,java.lang.Class)",
         new LocalModelCreator(0, 1, true, LIST_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.list(java.lang.Class,java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.list(java.lang.Class,java.lang.String)",
         new LocalModelCreator(1, -1, 0, true, LIST_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.list(java.lang.Class,java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.list(java.lang.Class,java.lang.String,java.lang.Class)",
         new LocalModelCreator(1, 2, 0, true, LIST_PROPERTY_CREATOR));
     //
     methodCreator(
@@ -381,28 +381,28 @@ final class CreatorManager {
         "org.eclipse.core.databinding.beans.BeansObservables.observeSet(org.eclipse.core.databinding.observable.Realm,java.lang.Object,java.lang.String,java.lang.Class)",
         "org.eclipse.core.databinding.beans.PojoObservables.observeSet(org.eclipse.core.databinding.observable.Realm,java.lang.Object,java.lang.String,java.lang.Class)");
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.set(java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.set(java.lang.String)",
         new LocalModelCreator(0, SET_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.set(java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.set(java.lang.String,java.lang.Class)",
         new LocalModelCreator(0, 1, SET_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.set(java.lang.Class,java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.set(java.lang.Class,java.lang.String)",
         new LocalModelCreator(1, -1, 0, SET_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.BeanProperties.set(java.lang.Class,java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.BeanProperties.set(java.lang.Class,java.lang.String,java.lang.Class)",
         new LocalModelCreator(1, 2, 0, SET_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.set(java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.set(java.lang.String)",
         new LocalModelCreator(0, true, SET_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.set(java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.set(java.lang.String,java.lang.Class)",
         new LocalModelCreator(0, 1, true, SET_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.set(java.lang.Class,java.lang.String)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.set(java.lang.Class,java.lang.String)",
         new LocalModelCreator(1, -1, 0, true, SET_PROPERTY_CREATOR));
     METHOD_CREATORS.put(
-        "org.eclipse.core.databinding.beans.PojoProperties.set(java.lang.Class,java.lang.String,java.lang.Class)",
+        "org.eclipse.core.databinding.beans.typed.PojoProperties.set(java.lang.Class,java.lang.String,java.lang.Class)",
         new LocalModelCreator(1, 2, 0, true, SET_PROPERTY_CREATOR));
     //
     METHOD_CREATORS.put(

@@ -58,7 +58,7 @@ public class ViewerPropertyFiltersCodeSupport extends ViewerObservableCodeSuppor
       List<String> lines,
       CodeGenerationSupport generationSupport) throws Exception {
     super.addSourceCode(observable, lines, generationSupport);
-    String sourceCode = "org.eclipse.jface.databinding.viewers.ViewerProperties.filters()";
+    String sourceCode = "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.filters()";
     if (getVariableIdentifier() != null) {
       if (generationSupport.addModel(this)) {
         lines.add("org.eclipse.jface.databinding.viewers.IViewerSetProperty "

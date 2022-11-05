@@ -70,7 +70,7 @@ public class ViewerPropertyCheckedElementsCodeSupport extends ViewerObservableCo
     super.addSourceCode(observable, lines, generationSupport);
     CheckedElementsObservableInfo checkedObservable = (CheckedElementsObservableInfo) observable;
     String sourceCode =
-        "org.eclipse.jface.databinding.viewers.ViewerProperties.checkedElements("
+        "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.checkedElements("
             + CoreUtils.getClassName(checkedObservable.getElementType())
             + ".class)";
     if (getVariableIdentifier() != null) {

@@ -129,37 +129,37 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
   private static final String OBSERVABLE_VIEWER_FILTERS_METHOD =
       "org.eclipse.jface.databinding.viewers.ViewersObservables.observeFilters(org.eclipse.jface.viewers.StructuredViewer)";
   private static final String[] WIDGET_PROPERTIES_METHODS = {
-      "org.eclipse.jface.databinding.swt.WidgetProperties.background()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.bounds()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.editable()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.enabled()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.focused()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.font()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.foreground()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.image()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.location()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.maximum()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.message()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.minimum()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.selection()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.singleSelectionIndex()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.size()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.tooltipText()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.visible()"};
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.background()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.bounds()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.editable()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.enabled()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.focused()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.font()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.foreground()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.image()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.location()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.maximum()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.message()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.minimum()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.selection()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.singleSelectionIndex()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.size()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.tooltipText()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.visible()"};
   private static final String ITEMS_WIDGET_PROPERTY =
-      "org.eclipse.jface.databinding.swt.WidgetProperties.items()";
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.items()";
   private static final String[] TEXT_WIDGET_PROPERTIES = {
-      "org.eclipse.jface.databinding.swt.WidgetProperties.text()",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.text(int)",
-      "org.eclipse.jface.databinding.swt.WidgetProperties.text(int[])"};
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text()",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text(int)",
+      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text(int[])"};
   private static final String SINGLE_SELECTION_VIEWER_PROPERTY =
-      "org.eclipse.jface.databinding.viewers.ViewerProperties.singleSelection()";
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.singleSelection()";
   private static final String MULTI_SELECTION_VIEWER_PROPERTY =
-      "org.eclipse.jface.databinding.viewers.ViewerProperties.multipleSelection()";
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.multipleSelection()";
   private static final String CHECKED_ELEMENTS_VIEWER_PROPERTY =
-      "org.eclipse.jface.databinding.viewers.ViewerProperties.checkedElements(java.lang.Object)";
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.checkedElements(java.lang.Object)";
   private static final String FILTERS_ELEMENTS_VIEWER_PROPERTY =
-      "org.eclipse.jface.databinding.viewers.ViewerProperties.filters()";
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.filters()";
   private List<WidgetBindableInfo> m_observables = Collections.emptyList();
   private DatabindingsProvider m_provider;
 

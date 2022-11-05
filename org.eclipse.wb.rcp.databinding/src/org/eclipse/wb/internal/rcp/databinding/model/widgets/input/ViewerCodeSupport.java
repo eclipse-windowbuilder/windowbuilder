@@ -50,8 +50,8 @@ public class ViewerCodeSupport extends CodeSupport {
     String[] properties = m_binding.getLabelProvider().getMapsObservable().getProperties();
     String propertiesSourceCode =
         ObservableInfo.isPojoBean(elementType)
-            ? "org.eclipse.core.databinding.beans.PojoProperties"
-            : "org.eclipse.core.databinding.beans.BeanProperties";
+            ? "org.eclipse.core.databinding.beans.typed.PojoProperties"
+            : "org.eclipse.core.databinding.beans.typed.BeanProperties";
     //
     lines.add("org.eclipse.jface.databinding.viewers.ViewerSupport.bind("
         + m_binding.getViewer().getReference()
