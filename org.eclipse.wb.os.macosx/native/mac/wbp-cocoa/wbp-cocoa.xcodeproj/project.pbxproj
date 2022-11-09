@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AB9C02A30FC49A2F00566E32 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9C02A20FC49A2F00566E32 /* Carbon.framework */; };
 		AB9CFAE20FC1DBF800566E32 /* MenuHookView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9CFAE10FC1DBF800566E32 /* MenuHookView.m */; };
-		ABAF541D0F824F6300C4FB90 /* JavaVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAF541C0F824F6300C4FB90 /* JavaVM.framework */; };
 		ABAF54590F82685F00C4FB90 /* wbp.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAF54580F82685F00C4FB90 /* wbp.m */; };
 		ABD677D6128327BF0004ED11 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = ABD677D4128327BF0004ED11 /* utils.c */; };
 		D2AAC0CC05546C4400DB518D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
@@ -20,12 +19,10 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF5E0370ADEE00C91783 /* wbp-cocoa_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "wbp-cocoa_Prefix.pch"; sourceTree = "<group>"; };
-		AB9AECA60F83EDC1007503E3 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		AB9C02A20FC49A2F00566E32 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		AB9CFAE00FC1DBF800566E32 /* MenuHookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuHookView.h; sourceTree = "<group>"; };
 		AB9CFAE10FC1DBF800566E32 /* MenuHookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuHookView.m; sourceTree = "<group>"; };
 		ABAF54110F824C6B00C4FB90 /* wbp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wbp.h; sourceTree = "<group>"; };
-		ABAF541C0F824F6300C4FB90 /* JavaVM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaVM.framework; path = System/Library/Frameworks/JavaVM.framework; sourceTree = SDKROOT; };
 		ABAF54570F82685F00C4FB90 /* wbp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wbp.h; sourceTree = "<group>"; };
 		ABAF54580F82685F00C4FB90 /* wbp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wbp.m; sourceTree = "<group>"; };
 		ABD677D4128327BF0004ED11 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
@@ -40,7 +37,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0CC05546C4400DB518D /* Cocoa.framework in Frameworks */,
-				ABAF541D0F824F6300C4FB90 /* JavaVM.framework in Frameworks */,
 				AB9C02A30FC49A2F00566E32 /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,12 +60,10 @@
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
-				ABAF541C0F824F6300C4FB90 /* JavaVM.framework */,
 				ABAF54570F82685F00C4FB90 /* wbp.h */,
 				ABAF54580F82685F00C4FB90 /* wbp.m */,
 				ABD677D4128327BF0004ED11 /* utils.c */,
 				ABD677D5128327BF0004ED11 /* utils.h */,
-				AB9AECA60F83EDC1007503E3 /* Quartz.framework */,
 			);
 			name = "wbp-cocoa";
 			sourceTree = "<group>";
@@ -143,6 +137,8 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = 1DEB918108733D990010E9CD /* Build configuration list for PBXProject "wbp-cocoa" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -181,7 +177,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -195,12 +191,13 @@
 				GCC_PREFIX_HEADER = "wbp-cocoa_Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"${OBJROOT}/Headers\"",
+					"\"/Library/Java/JavaVirtualMachines/jdk-17.0.5.jdk/Contents/Home/include\"/**",
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/JavaVM.framework/Headers\"",
 				);
 				INSTALL_PATH = /usr/local/lib;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "wbp-cocoa";
-				VALID_ARCHS = "i386 x86_64";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -208,7 +205,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -219,12 +216,13 @@
 				GCC_PREFIX_HEADER = "wbp-cocoa_Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"${OBJROOT}/Headers\"",
+					"\"/Library/Java/JavaVirtualMachines/jdk-17.0.5.jdk/Contents/Home/include\"/**",
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/JavaVM.framework/Headers\"",
 				);
 				INSTALL_PATH = /usr/local/lib;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "wbp-cocoa";
-				VALID_ARCHS = "i386 x86_64";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
