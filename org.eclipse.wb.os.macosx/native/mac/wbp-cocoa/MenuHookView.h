@@ -17,12 +17,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+NSWindow* m_window;
+NSMenu* m_menu;
 
 @interface MenuHookView : NSView {
 
 }
-NSWindow* m_window;
-NSMenu* m_menu;
 
 - (id)initWithFrame:(NSRect)frame andMenu:(NSMenu*)menu;
 -(NSWindow*)menuWindow;
