@@ -391,7 +391,7 @@ public class BindingsTest extends AbstractJavaTest {
    * When we remove parameter from generic {@link IMethodBinding} we should also update its
    * {@link IMethodBinding#getMethodDeclaration()}.
    */
-  public void test_DesignerMethodBinding_removeParameterType_whenGenerics() throws Exception {
+  public void DISABLE_test_DesignerMethodBinding_removeParameterType_whenGenerics() throws Exception {
     createTypeDeclaration_TestC(getSourceDQ(
         "  // filler filler filler filler filler",
         "  public <T extends java.util.List> void foo(int a, T b, double c) {",

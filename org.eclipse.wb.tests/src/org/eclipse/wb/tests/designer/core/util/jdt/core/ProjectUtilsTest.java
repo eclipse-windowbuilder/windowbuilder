@@ -822,12 +822,19 @@ public class ProjectUtilsTest extends AbstractJavaTest {
     IPath workspacePath = new Path(workspacePathString);
     IPath osPath = ProjectUtils.getOSPath(workspacePath);
     String osLocation = osPath.toPortableString();
-    String pathEnds =
-        Expectations.get("junit-workspace/" + expectedLocation, new StrValue[]{
-            new StrValue("scheglov-macpro", "/" + expectedLocation),
-            new StrValue("sablin-aa", ".wbp-tt/Core/" + expectedLocation),
-            new StrValue("flanker-windows", "-Core.TWS/" + expectedLocation),
-            new StrValue("flanker-desktop", ".wbp-tt/Core/" + expectedLocation)});
+    String pathEnds = null;
+    if ("org.eclipse.pde.junit.runtime.uitestapplication".equals(System.getProperty("eclipse.application"))) {
+      // Run via the Eclipse IDE
+      pathEnds = Expectations.get("junit-workspace/" + expectedLocation, new StrValue[] {
+          new StrValue("scheglov-macpro", "/" + expectedLocation),
+          new StrValue("sablin-aa", ".wbp-tt/Core/" + expectedLocation),
+          new StrValue("flanker-windows", "-Core.TWS/" + expectedLocation),
+          new StrValue("flanker-desktop", ".wbp-tt/Core/" + expectedLocation) });
+    } else {
+      // Run via Tycho
+      // (System property is 'org.eclipse.tycho.surefire.osgibooter.uitest')
+      pathEnds = Expectations.get("target/work/data/" + expectedLocation, new StrValue[] {});
+    }
     assertThat(osLocation).endsWith(pathEnds);
   }
 

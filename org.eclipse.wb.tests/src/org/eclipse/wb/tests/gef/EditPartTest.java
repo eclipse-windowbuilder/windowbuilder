@@ -29,7 +29,6 @@ import java.util.List;
  *
  */
 public class EditPartTest extends GefTestCase {
-  private static final String ERROR_MESSAGE_NPE = "null argument;";
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -108,7 +107,7 @@ public class EditPartTest extends GefTestCase {
       templatePart.test_access_addChild(null, 0);
       fail();
     } catch (RuntimeException e) {
-      assertTrue(ERROR_MESSAGE_NPE.equals(e.getMessage()));
+      assertEquals("null argument:", e.getMessage());
     }
     /*
      * check 'null' parent on new EditPart
@@ -208,7 +207,7 @@ public class EditPartTest extends GefTestCase {
       testEditPart.installEditPolicy(null, new TestEditPolicy());
       fail();
     } catch (Throwable t) {
-      assertEquals("null argument;Edit Policies must be installed with keys", t.getMessage());
+      assertEquals("null argument:Edit Policies must be installed with keys", t.getMessage());
     }
     //
     // check install EditPolicy

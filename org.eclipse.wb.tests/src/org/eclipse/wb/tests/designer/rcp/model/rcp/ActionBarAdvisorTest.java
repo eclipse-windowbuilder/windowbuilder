@@ -25,6 +25,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.ui.application.ActionBarAdvisor;
+import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -91,24 +92,22 @@ public class ActionBarAdvisorTest extends RcpModelTest {
     }
     // check Proxy implementations for IActionBarConfigurer
     {
-      Object o_IActionBarConfigurer =
-          ReflectionUtils.invokeMethod2(advisor.getObject(), "getActionBarConfigurer");
+      IActionBarConfigurer o_IActionBarConfigurer =
+          (IActionBarConfigurer) ReflectionUtils.invokeMethod2(advisor.getObject(), "getActionBarConfigurer");
       try {
-        ReflectionUtils.invokeMethod(o_IActionBarConfigurer, "toString()");
+        o_IActionBarConfigurer.toString();
         fail();
       } catch (NotImplementedException e) {
       }
       // IWorkbenchWindowConfigurer
-      Object o_IWorkbenchWindowConfigurer =
-          ReflectionUtils.invokeMethod(o_IActionBarConfigurer, "getWindowConfigurer()");
+      IWorkbenchWindowConfigurer o_IWorkbenchWindowConfigurer = o_IActionBarConfigurer.getWindowConfigurer();
       try {
-        ReflectionUtils.invokeMethod(o_IWorkbenchWindowConfigurer, "toString()");
+        o_IActionBarConfigurer.toString();
         fail();
       } catch (NotImplementedException e) {
       }
       // IWorkbenchWindow
-      Object o_IWorkbenchWindow =
-          ReflectionUtils.invokeMethod(o_IWorkbenchWindowConfigurer, "getWindow()");
+      Object o_IWorkbenchWindow = o_IWorkbenchWindowConfigurer.getWindow();
       assertSame(DesignerPlugin.getActiveWorkbenchWindow(), o_IWorkbenchWindow);
     }
   }

@@ -15,6 +15,8 @@ import org.eclipse.wb.tests.designer.editor.EditorTests;
 import org.eclipse.wb.tests.designer.rcp.RcpTests;
 import org.eclipse.wb.tests.designer.swing.SwingTests;
 import org.eclipse.wb.tests.designer.swt.SwtTests;
+import org.eclipse.wb.tests.draw2d.Draw2dTests;
+import org.eclipse.wb.tests.gef.GefTests;
 import org.eclipse.wb.tests.utils.CommonTests;
 
 import org.junit.runner.RunWith;
@@ -29,6 +31,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
+	Draw2dTests.class, //
+	GefTests.class, //
 	SwtTests.class,
     CommonTests.class,
     CoreTests.class,

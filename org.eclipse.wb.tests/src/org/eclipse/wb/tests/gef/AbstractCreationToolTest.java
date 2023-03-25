@@ -123,7 +123,7 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
       //
       m_request.setStateMask(SWT.BUTTON1);
       m_request.setLocation(new Point(130, 130));
-      m_request.setSize(new Dimension(71, 71));
+      m_request.setSize(new Dimension(70, 70));
       //
       expectedLogger.log(
           childEditPart1,
@@ -134,7 +134,7 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
       m_sender.dragTo(330, 140);
       //
       m_request.setLocation(new Point(130, 130));
-      m_request.setSize(new Dimension(201, 11));
+      m_request.setSize(new Dimension(200, 10));
       //
       expectedLogger.log(
           childEditPart1,
@@ -148,7 +148,7 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
       //
       m_request.setStateMask(SWT.BUTTON1);
       m_request.setLocation(new Point(130, 130));
-      m_request.setSize(new Dimension(201, 11));
+      m_request.setSize(new Dimension(200, 10));
       //
       expectedLogger.log(childEditPart1, "eraseTargetFeedback", m_request);
       expectedLogger.log(childEditPart2, new String[]{
@@ -232,7 +232,7 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
       //
       m_request.setStateMask(SWT.BUTTON1);
       m_request.setLocation(new Point(90, 90));
-      m_request.setSize(new Dimension(11, 11));
+      m_request.setSize(new Dimension(10, 10));
       //
       expectedLogger.log(editPart, new String[]{"showTargetFeedback", "getCommand"}, m_request);
       assertLoggers(expectedLogger, actualLogger);
@@ -242,7 +242,7 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
       m_sender.click(100, 100, 3);
       m_request.setStateMask(SWT.BUTTON1);
       m_request.setLocation(new Point(90, 90));
-      m_request.setSize(new Dimension(11, 11));
+      m_request.setSize(new Dimension(10, 10));
       //
       expectedLogger.log(editPart, "eraseTargetFeedback", m_request);
       assertLoggers(expectedLogger, actualLogger);

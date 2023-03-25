@@ -224,7 +224,7 @@ public class SelectionToolTest extends RequestTestCase {
       //
       assertSame(tracker, getDragTracker(m_tool));
       //
-      ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_ADD);
+      ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
       //
       request.addEditPart(childEditPart);
       //
@@ -308,7 +308,7 @@ public class SelectionToolTest extends RequestTestCase {
       //
       assertSame(handle.getDragTrackerTool(), getDragTracker(m_tool));
       //
-      ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_ADD);
+      ChangeBoundsRequest request = new ChangeBoundsRequest(Request.REQ_MOVE);
       //
       request.addEditPart(childEditPart);
       //
