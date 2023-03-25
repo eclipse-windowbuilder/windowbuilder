@@ -26,6 +26,10 @@ public class AbstractNebulaTest extends RcpModelTest {
   @Override
   protected void configureNewProject() throws Exception {
     super.configureNewProject();
-    m_testProject.addBundleJars("org.eclipse.wb.tests.support", "/resources/RCP/nebula/");
+    m_testProject.addPlugin("org.eclipse.nebula.widgets.collapsiblebuttons");
+    m_testProject.addPlugin("org.eclipse.nebula.widgets.gallery");
+    m_testProject.addPlugin("org.eclipse.nebula.widgets.ganttchart");
+    m_testProject.addPlugin("org.eclipse.nebula.widgets.grid");
+    m_testProject.addPlugin("org.eclipse.nebula.widgets.pshelf");
   }
 }
