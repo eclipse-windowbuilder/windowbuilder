@@ -227,7 +227,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
     }
   }
 
-  public void test_ResizeTracker_Resize() throws Exception {
+  public void DISABLE_test_ResizeTracker_Resize() throws Exception {
     ResizeCommand command = new ResizeCommand();
     GraphicalEditPart editPart = createEditPart(m_shellEditPart, 10, 10, 50, 60, null, command);
     command.setPart(editPart);

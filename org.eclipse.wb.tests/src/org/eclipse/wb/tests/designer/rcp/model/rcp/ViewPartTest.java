@@ -160,18 +160,18 @@ public class ViewPartTest extends RcpModelTest {
         "    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/}",
         "      {implicit-layout: absolute} {implicit-layout} {}");
     //
-    Object viewSite = ReflectionUtils.invokeMethod(part.getObject(), "getViewSite()");
+    IViewSite viewSite = (IViewSite) ReflectionUtils.invokeMethod(part.getObject(), "getViewSite()");
     try {
-      ReflectionUtils.invokeMethod(viewSite, "getShell()");
+      viewSite.getShell();
       fail();
     } catch (NotImplementedException e) {
     }
     assertEquals("IViewSite_stub", viewSite.toString());
     assertEquals(0, viewSite.hashCode());
-    assertEquals("some.view.Identifier", ReflectionUtils.invokeMethod(viewSite, "getId()"));
-    assertEquals(null, ReflectionUtils.invokeMethod(viewSite, "getSecondaryId()"));
+    assertEquals("some.view.Identifier", viewSite.getId());
+    assertEquals(null, viewSite.getSecondaryId());
     {
-      Object window = ReflectionUtils.invokeMethod(viewSite, "getWorkbenchWindow()");
+      Object window = viewSite.getWorkbenchWindow();
       assertSame(DesignerPlugin.getActiveWorkbenchWindow(), window);
     }
   }

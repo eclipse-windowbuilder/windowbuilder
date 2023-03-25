@@ -172,7 +172,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
             "public final class Test extends JPanel {",
             "  public Test() {",
             "    JButton button = new JButton();",
-            "    button.setText(\"\\u0410\\u0411\");",
+            "    button.setText(\"\u0410\u0411\");",
             "    add(button);",
             "  }",
             "}"};

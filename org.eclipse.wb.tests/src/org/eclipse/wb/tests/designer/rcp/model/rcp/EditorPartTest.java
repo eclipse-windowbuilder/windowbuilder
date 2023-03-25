@@ -141,22 +141,22 @@ public class EditorPartTest extends RcpModelTest {
             "}");
     part.refresh();
     //
-    Object editorSite = ReflectionUtils.invokeMethod(part.getObject(), "getEditorSite()");
+    IEditorSite editorSite = (IEditorSite) ReflectionUtils.invokeMethod(part.getObject(), "getEditorSite()");
     try {
-      ReflectionUtils.invokeMethod(editorSite, "getShell()");
+      editorSite.getShell();
       fail();
     } catch (NotImplementedException e) {
     }
     assertEquals("IEditorSite_stub", editorSite.toString());
     assertEquals(0, editorSite.hashCode());
-    assertEquals("some.editor.Identifier", ReflectionUtils.invokeMethod(editorSite, "getId()"));
+    assertEquals("some.editor.Identifier", editorSite.getId());
     {
-      Object window = ReflectionUtils.invokeMethod(editorSite, "getWorkbenchWindow()");
+      Object window = editorSite.getWorkbenchWindow();
       assertSame(DesignerPlugin.getActiveWorkbenchWindow(), window);
     }
     // IServiceLocator
     {
-      IServiceLocator serviceLocator = (IServiceLocator) editorSite;
+      IServiceLocator serviceLocator = editorSite;
       assertTrue(serviceLocator.hasService(IMenuService.class));
       assertNotNull(serviceLocator.getService(IMenuService.class));
     }

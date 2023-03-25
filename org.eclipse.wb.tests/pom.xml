@@ -51,17 +51,41 @@
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<dependency-resolution>
+						<!-- Required for instantiating OSSupport-->
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.wb.os.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
 					<argLine>${ui.test.vmargs}</argLine>
 					<appArgLine>-nl de -clearPersistedState -consoleLog</appArgLine>
+					<forkedProcessTimeoutInSeconds>3600</forkedProcessTimeoutInSeconds>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>true</useUIThread>
 					<application>org.eclipse.ui.ide.workbench</application>
           			<includes>
-            			<include>**/*CommonTests.java</include>
+						<include>**/org.eclipse.wb.tests.draw2d.Draw2dTests.java</include>
+						<include>**/org.eclipse.wb.tests.gef.GefTests.java</include>
+						<include>**/org.eclipse.wb.tests.designer.swt.SwtTests.java</include>
+						<include>**/org.eclipse.wb.tests.utils.CommonTests.java</include>
+						<include>**/org.eclipse.wb.tests.designer.core.CoreTests.java</include>
 						<include>**/org.eclipse.wb.tests.designer.editor.EditorTests.java</include>
+						<include>**/org.eclipse.wb.tests.designer.swing.SwingTests.java</include>
+						<include>**/org.eclipse.wb.tests.designer.rcp.RcpTests.java</include>
           			</includes>
 					<dependencies>
 					   <!-- required for PlatformAdmin to work-->

@@ -207,6 +207,7 @@
 	<module>org.eclipse.wb.core.xml.feature_feature</module>
 	<module>org.eclipse.wb.doc.user.feature_feature</module>
 	<module>org.eclipse.wb.layout.group.feature_feature</module>
+	<module>org.eclipse.wb.os.feature_feature</module>
 	<module>org.eclipse.wb.rcp.doc.user.feature_feature</module>
 	<module>org.eclipse.wb.rcp.SWT_AWT_support_feature</module>
 	<module>org.eclipse.wb.rcp.feature_feature</module>

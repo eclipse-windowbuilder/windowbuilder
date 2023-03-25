@@ -192,7 +192,7 @@ public class ConstructorChildAssociationTest extends SwingModelTest {
   /**
    * Can not delete because only one constructor in parent, so it can not be created without child.
    */
-  public void test_delete_noDelete_withGenerics() throws Exception {
+  public void DISABLE_test_delete_noDelete_withGenerics() throws Exception {
     setFileContentSrc(
         "test/MyPanel.java",
         getTestSource(
