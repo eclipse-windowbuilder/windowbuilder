@@ -35,7 +35,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: test-results-${{ matrix.config.native }}-java${{ matrix.java }}
+        name: test-results-${{ matrix.os }}-java${{ matrix.java }}
         if-no-files-found: error
         path: |
           ${{ github.workspace }}/**/target/surefire-reports/*.xml
