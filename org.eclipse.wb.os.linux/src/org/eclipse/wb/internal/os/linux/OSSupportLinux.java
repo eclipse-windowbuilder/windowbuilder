@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
+import org.eclipse.wb.internal.swt.VisualDataMockupProvider;
 import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
@@ -603,6 +604,8 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final class Impl64 extends OSSupportLinux<Long> {
+    private final VisualDataMockupProvider mockupProvider = new VisualDataMockupProvider();
+
     @Override
     protected Long getHandleValue(Object widget, String fieldName) {
       long value = ReflectionUtils.getFieldLong(widget, fieldName);
@@ -610,6 +613,11 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
         return value;
       }
       return null;
+    }
+
+    @Override
+    public Image getMenuPopupVisualData(Menu menu, int[] bounds) throws Exception {
+      return mockupProvider.mockMenuPopupVisualData(menu, bounds);
     }
 
     @Override

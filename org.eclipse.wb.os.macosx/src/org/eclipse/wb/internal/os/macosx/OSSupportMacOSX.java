@@ -15,6 +15,7 @@ package org.eclipse.wb.internal.os.macosx;
 
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.swt.VisualDataMockupProvider;
 import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
@@ -45,7 +46,6 @@ public abstract class OSSupportMacOSX extends OSSupport {
   private static final String FLIP_FLAG = "windowbuilder.osx.flip";//$NON-NLS-1$
   protected static final int DEFAULT_MENU_ITEM_OFFSET_X = 6;
   protected static final int DEFAULT_MENU_ITEM_OFFSET_Y = 5;
-  protected static final int MENU_ITEM_SEPARATOR_HEIGHT = 11;
   private static final int TAB_ITEM_OFFSET_Y = 8;
   private static final int TAB_ITEM_EXTRA_WIDTH = 25;
   protected static final OSSupport INSTANCE = new OSSupportMacOSXCocoa.Cocoa64();
@@ -265,7 +265,7 @@ public abstract class OSSupportMacOSX extends OSSupport {
           itemsBounds[i * 4 + 1] = itemOffsetY * 2;
         }
         itemsBounds[i * 4 + 2] = menuSize[2];
-        itemsBounds[i * 4 + 3] = MENU_ITEM_SEPARATOR_HEIGHT;
+        itemsBounds[i * 4 + 3] = VisualDataMockupProvider.MENU_ITEM_SEPARATOR_HEIGHT;
       }
       //
       bounds[i * 4 + 0] = itemsBounds[i * 4 + 0] - itemOffsetX;

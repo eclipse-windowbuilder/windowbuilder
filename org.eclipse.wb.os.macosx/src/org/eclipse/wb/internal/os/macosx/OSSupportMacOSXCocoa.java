@@ -10,27 +10,20 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.os.macosx;
 
-import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.swt.VisualDataMockupProvider;
 import org.eclipse.wb.os.OSSupport;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-
-import org.apache.commons.io.IOUtils;
-
-import java.io.InputStream;
 
 /**
  * Support for MacOSX for SWT based on Cocoa framework.
@@ -303,6 +296,8 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
   //
   ////////////////////////////////////////////////////////////////////////////
   public static final class Cocoa64 extends OSSupportMacOSXCocoa<Long> {
+    private final VisualDataMockupProvider mockupProvider = new VisualDataMockupProvider();
+
     @Override
     protected Long getID(Object control, String string) {
       Object fieldObject = ReflectionUtils.getFieldObject(control, string);
@@ -314,108 +309,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
      */
     @Override
     public Image getMenuPopupVisualData(Menu menu, int[] bounds) throws Exception {
-      int menuHeight = 4; // 4px menu border
-      int menuWidth = 5;
-      // calc bounds first
-      GC gc = new GC(menu.getDisplay());
-      for (int i = 0; i < menu.getItemCount(); ++i) {
-        int itemWidth = 24; // initial width as indent + place for check box
-        int itemHeight;
-        MenuItem item = menu.getItem(i);
-        if ((item.getStyle() & SWT.SEPARATOR) != 0) {
-          itemHeight = MENU_ITEM_SEPARATOR_HEIGHT;
-        } else {
-          Image itemImage = item.getImage();
-          int imageHeight = 0;
-          int textHeight = 0;
-          if (itemImage != null) {
-            Rectangle itemImageBounds = itemImage.getBounds();
-            itemWidth += itemImageBounds.width + 5; // 5px is gap between image and text
-            imageHeight = itemImageBounds.height;
-          }
-          String text = item.getText();
-          if (text != null) {
-            Point textDimensions = gc.stringExtent(text);
-            itemWidth += textDimensions.x;
-            textHeight = textDimensions.y;
-          }
-          itemHeight = 3 + Math.max(imageHeight, textHeight) + 3; // 3px border
-        }
-        bounds[i * 4 + 0] = 0; // x is always zero
-        bounds[i * 4 + 1] = menuHeight; // current menu height
-        bounds[i * 4 + 3] = itemHeight;
-        menuHeight += itemHeight;
-        menuWidth = Math.max(itemWidth, menuWidth);
-      }
-      menuHeight += 4; // 4px menu border
-      menuWidth += 20; // space for 'cascade' image, always present
-      // update items' width
-      for (int i = 0; i < menu.getItemCount(); ++i) {
-        bounds[i * 4 + 2] = menuWidth;
-      }
-      gc.dispose();
-      // draw
-      Image image = new Image(menu.getDisplay(), menuWidth, menuHeight);
-      gc = new GC(image);
-      gc.setBackground(IColorConstants.buttonLightest);
-      gc.fillRectangle(image.getBounds());
-      for (int i = 0; i < menu.getItemCount(); ++i) {
-        MenuItem item = menu.getItem(i);
-        int x = bounds[i * 4 + 0];
-        int y = bounds[i * 4 + 1] + bounds[i * 4 + 3] / 2; // y-center of the item
-        if ((item.getStyle() & SWT.SEPARATOR) != 0) {
-          gc.setForeground(IColorConstants.lightGray);
-          gc.drawLine(x, y, x + menuWidth, y);
-        } else {
-          if (item.getEnabled()) {
-            gc.setForeground(IColorConstants.menuForeground);
-          } else {
-            gc.setForeground(IColorConstants.gray);
-          }
-          if (item.getSelection()) {
-            Image checkImage = loadImage("check.png");
-            int checkHalfHeight = checkImage.getBounds().height / 2;
-            gc.drawImage(checkImage, x + 3, y - checkHalfHeight);
-            checkImage.dispose();
-          }
-          x += 20; // space for the check image should be always added
-          Image itemImage = item.getImage();
-          if (itemImage != null) {
-            Rectangle itemImageBounds = itemImage.getBounds();
-            int imageHalfHeight = itemImageBounds.height / 2;
-            gc.drawImage(itemImage, x, y - imageHalfHeight);
-            x += itemImageBounds.width + 5;
-          }
-          String text = item.getText();
-          if (text != null) {
-            Point textDimensions = gc.stringExtent(text);
-            gc.drawString(text, x, y - textDimensions.y / 2 - 1, true);
-          }
-          // draw cascade image if any
-          if ((item.getStyle() & SWT.CASCADE) != 0) {
-            Image cascadeImage = loadImage("cascade.png");
-            Rectangle imageBounds = cascadeImage.getBounds();
-            int itemWidth = bounds[i * 4 + 2];
-            gc.drawImage(cascadeImage, itemWidth - imageBounds.width, y - imageBounds.height / 2);
-            cascadeImage.dispose();
-          }
-        }
-      }
-      gc.dispose();
-      return image;
-    }
-
-    private Image loadImage(String image) {
-      InputStream imageStream = null;
-      try {
-        imageStream = getClass().getResourceAsStream(image);
-        return new Image(null, imageStream);
-      } catch (Throwable e) {
-        // ignore
-        return new Image(null, 1, 1);
-      } finally {
-        IOUtils.closeQuietly(imageStream);
-      }
+      return mockupProvider.mockMenuPopupVisualData(menu, bounds);
     }
   }
 }
