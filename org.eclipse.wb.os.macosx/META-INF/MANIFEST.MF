@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.swt,
  org.eclipse.core.runtime,
  org.eclipse.jface,
  org.eclipse.ui,
- org.eclipse.wb.core
+ org.eclipse.wb.core,
+ org.eclipse.wb.swt
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Import-Package: org.eclipse.wb.os
