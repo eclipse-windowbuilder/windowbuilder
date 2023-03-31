@@ -54,34 +54,8 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class OSSupportLinux<H extends Number> extends OSSupport {
-  private static Boolean fIsGTK3;
   static {
-    String libName = isGtk3() ? "wbp3" : "wbp";
-    System.loadLibrary(libName);
-  }
-
-  /**
-   * @return true if GTK3 or higher
-   */
-  private static boolean isGtk3() {
-    if (fIsGTK3 != null) {
-      return fIsGTK3;
-    }
-    try {
-      Class<?> GTKClass = Class.forName("org.eclipse.swt.internal.gtk.GTK");
-      ReflectionUtils.getFieldBoolean(GTKClass, "GTK4");
-      fIsGTK3 = true;
-    } catch (Throwable e) {
-      try {
-        Activator.logError("Error trying to find GTK version, Trying GTK3", e);
-        Class<?> GTKClass = Class.forName("org.eclipse.swt.internal.gtk.GTK");
-        fIsGTK3 = ReflectionUtils.getFieldBoolean(GTKClass, "GTK3");
-      } catch (Throwable e2) {
-        Activator.logError("Error trying to find GTK version, GTK3+ will be assumed", e2);
-        fIsGTK3 = true;
-      }
-    }
-    return fIsGTK3;
+    System.loadLibrary("wbp3");
   }
 
   // constants
@@ -315,73 +289,68 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
     Rectangle shellBounds = shell.getBounds();
     Image shellImage = (Image) shell.getData(WBP_IMAGE);
     if (shellImage != null) {
-      // 27.02.2008: while using some window managers, such as compiz, the returned Shell
-      // bounds are not include the window decorations geometry.
-      // 17.11.2008: compiz works fine with GTK 2.14 and later
       Rectangle imageBounds = shellImage.getBounds();
-      if (imageBounds.width != shellBounds.width || imageBounds.height != shellBounds.height) {
-        Point offset = shell.toControl(shell.getLocation());
-        offset.x = -offset.x;
-        offset.y = -offset.y;
-        // adjust by menu bar size
-        if (shell.getMenuBar() != null) {
-          offset.y -= getWidgetBounds(shell.getMenuBar()).height;
+      Point offset = shell.toControl(shell.getLocation());
+      offset.x = -offset.x;
+      offset.y = -offset.y;
+      // adjust by menu bar size
+      if (shell.getMenuBar() != null) {
+        offset.y -= getWidgetBounds(shell.getMenuBar()).height;
+      }
+      // draw
+      Image decoratedShellImage = new Image(display, shellBounds);
+      GC gc = new GC(decoratedShellImage);
+      // draw background
+      gc.setBackground(IColorConstants.titleBackground);
+      gc.fillRectangle(0, 0, shellBounds.width, shellBounds.height);
+      // draw title if any
+      if ((shell.getStyle() & SWT.TITLE) != 0) {
+        // title area gradient
+        gc.setForeground(IColorConstants.titleGradient);
+        gc.fillGradientRectangle(0, 0, shellBounds.width, offset.y, true);
+        int buttonGapX = offset.x - 1;
+        int nextPositionX;
+        // buttons and title
+        {
+          // menu button
+          Image buttonImage = Activator.getImage("decorations/button-menu-icon.png");
+          Rectangle buttonImageBounds = buttonImage.getBounds();
+          int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
+          gc.drawImage(buttonImage, buttonGapX, buttonOffsetY);
+          nextPositionX = buttonGapX + buttonImageBounds.width + buttonGapX;
         }
-        // draw
-        Image decoratedShellImage = new Image(display, shellBounds);
-        GC gc = new GC(decoratedShellImage);
-        // draw background
-        gc.setBackground(IColorConstants.titleBackground);
-        gc.fillRectangle(0, 0, shellBounds.width, shellBounds.height);
-        // draw title if any
-        if ((shell.getStyle() & SWT.TITLE) != 0) {
-          // title area gradient
-          gc.setForeground(IColorConstants.titleGradient);
-          gc.fillGradientRectangle(0, 0, shellBounds.width, offset.y, true);
-          int buttonGapX = offset.x - 1;
-          int nextPositionX;
-          // buttons and title
-          {
-            // menu button
-            Image buttonImage = Activator.getImage("decorations/button-menu-icon.png");
-            Rectangle buttonImageBounds = buttonImage.getBounds();
-            int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
-            gc.drawImage(buttonImage, buttonGapX, buttonOffsetY);
-            nextPositionX = buttonGapX + buttonImageBounds.width + buttonGapX;
+        {
+          // Shell title
+          String shellTitle = m_oldShellText;
+          if (!StringUtils.isEmpty(shellTitle)) {
+            gc.setForeground(IColorConstants.titleForeground);
+            Point titleExtent = gc.stringExtent(shellTitle);
+            gc.drawString(shellTitle, nextPositionX, offset.y / 2 - titleExtent.y / 2, true);
           }
-          {
-            // Shell title
-            String shellTitle = m_oldShellText;
-            if (!StringUtils.isEmpty(shellTitle)) {
-              gc.setForeground(IColorConstants.titleForeground);
-              Point titleExtent = gc.stringExtent(shellTitle);
-              gc.drawString(shellTitle, nextPositionX, offset.y / 2 - titleExtent.y / 2, true);
-            }
-          }
-          {
-            // close button
-            Image buttonImage = Activator.getImage("decorations/button-close-icon.png");
-            Rectangle buttonImageBounds = buttonImage.getBounds();
-            nextPositionX = shellBounds.width - buttonImageBounds.width - buttonGapX;
-            int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
-            gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
-            nextPositionX -= buttonGapX + buttonImageBounds.width;
-          }
-          {
-            // maximize button
-            Image buttonImage = Activator.getImage("decorations/button-max-icon.png");
-            Rectangle buttonImageBounds = buttonImage.getBounds();
-            int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
-            gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
-            nextPositionX -= buttonGapX + buttonImageBounds.width;
-          }
-          {
-            // minimize button
-            Image buttonImage = Activator.getImage("decorations/button-min-icon.png");
-            Rectangle buttonImageBounds = buttonImage.getBounds();
-            int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
-            gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
-          }
+        }
+        {
+          // close button
+          Image buttonImage = Activator.getImage("decorations/button-close-icon.png");
+          Rectangle buttonImageBounds = buttonImage.getBounds();
+          nextPositionX = shellBounds.width - buttonImageBounds.width - buttonGapX;
+          int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
+          gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
+          nextPositionX -= buttonGapX + buttonImageBounds.width;
+        }
+        {
+          // maximize button
+          Image buttonImage = Activator.getImage("decorations/button-max-icon.png");
+          Rectangle buttonImageBounds = buttonImage.getBounds();
+          int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
+          gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
+          nextPositionX -= buttonGapX + buttonImageBounds.width;
+        }
+        {
+          // minimize button
+          Image buttonImage = Activator.getImage("decorations/button-min-icon.png");
+          Rectangle buttonImageBounds = buttonImage.getBounds();
+          int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
+          gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
         }
         // outline
         gc.setForeground(TITLE_BORDER_COLOR_DARKEST);
@@ -442,12 +411,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   private Image createImage(H imageHandle) throws Exception {
     Image image = createImage0(imageHandle);
-    if (!isGtk3()) {
-      // for gtk2 it's required to return an image as is, because there is another bug in SWT:
-      // new Image(null, image.getImageData()) produces a garbage image if a source
-      // image is created using gtk_new().
-      return image;
-    }
     // BUG in SWT: Image instance is not fully initialized
     // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=382175
     Image newImage = new Image(null, image.getImageData());
