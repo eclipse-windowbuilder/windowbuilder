@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.swt.widgets.baseline;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontMetrics;
@@ -147,6 +148,7 @@ public class Baseline {
       }
       return getInstance().fetchBaseline(control, width, height);
     } catch (Throwable e) {
+      Platform.getLog(Baseline.class).error(e.getMessage(), e);
       return NO_BASELINE;
     }
   }

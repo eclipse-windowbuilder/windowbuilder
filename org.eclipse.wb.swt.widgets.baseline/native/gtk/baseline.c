@@ -44,7 +44,7 @@ static void checkWidget(GtkWidget *widget, GtkWidget *topWidget){
 	gint baseline = -1;
 	if (GTK_IS_LABEL(widget)) {
 		GtkLabel *label = (GtkLabel*)widget;
-		layout = label->layout;
+		layout = gtk_label_get_layout(label);
 		baseline = getBaselineFromLayout(layout);
 		gtk_label_get_layout_offsets(label, &x, &y);
 	} else if (GTK_IS_ENTRY(widget)) {
