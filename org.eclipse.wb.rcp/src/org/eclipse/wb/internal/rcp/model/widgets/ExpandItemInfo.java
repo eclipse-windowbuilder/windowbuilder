@@ -142,8 +142,6 @@ public final class ExpandItemInfo extends ItemInfo {
     {
       Object object = getObject();
       int headerHeight = (Integer) ReflectionUtils.invokeMethod2(object, "getHeaderHeight");
-      int x = ReflectionUtils.getFieldInt(object, "x");
-      int y = ReflectionUtils.getFieldInt(object, "y");
       int width = ReflectionUtils.getFieldInt(object, "width");
       int height = ReflectionUtils.getFieldInt(object, "height");
       if (isExpanded()) {
@@ -151,7 +149,9 @@ public final class ExpandItemInfo extends ItemInfo {
       } else {
         height = headerHeight;
       }
-      setModelBounds(new Rectangle(x, y, width, height));
+      // x & y fields may not exist on every platform
+      // but as far as I can tell, they are always initialized with 0
+      setModelBounds(new Rectangle(0, 0, width, height));
     }
     super.refresh_fetch();
   }
