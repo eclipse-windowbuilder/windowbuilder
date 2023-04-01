@@ -1,1 +1,1 @@
-gcc -Wl,--as-needed -I/usr/lib/jvm/java-6-sun/include/linux -I/usr/lib/jvm/java-6-sun/include -Wall -g baseline.c -shared -o libbaseline.so `pkg-config --cflags gtk+-2.0` `pkg-config --libs gtk+-2.0` -O2 -fPIC
+gcc -Wl,--as-needed -I/usr/lib/jvm/java-11-openjdk-amd64/include/linux -I/usr/lib/jvm/java-11-openjdk-amd64/include -Wall -g baseline.c -shared -o libbaseline.so `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0` -O2 -fPIC
