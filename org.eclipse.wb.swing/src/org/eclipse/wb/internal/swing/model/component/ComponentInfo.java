@@ -159,18 +159,6 @@ public class ComponentInfo extends AbstractComponentInfo {
         java.awt.Rectangle bounds = component.getBounds();
         // store model bounds
         model.setModelBounds(CoordinateUtils.get(bounds));
-        // convert location in parent "bounds" coordinates
-        if (model.getParent() instanceof AbstractComponentInfo) {
-          AbstractComponentInfo parentModel = (AbstractComponentInfo) model.getParent();
-          Object parentObject = parentModel.getComponentObject();
-          if (parentObject instanceof Component) {
-            Component parentComponent = (Component) parentObject;
-            java.awt.Point p_component = SwingUtils.getScreenLocation(component);
-            java.awt.Point p_parent = SwingUtils.getScreenLocation(parentComponent);
-            bounds.x = p_component.x - p_parent.x;
-            bounds.y = p_component.y - p_parent.y;
-          }
-        }
         // remember bounds
         model.setBounds(CoordinateUtils.get(bounds));
       }
