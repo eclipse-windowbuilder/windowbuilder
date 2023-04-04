@@ -29,9 +29,10 @@ jobs:
       uses: GabrielBB/xvfb-action@v1
       with:
        run: >- 
-        mvn -V -B -D maven.test.failure.ignore=true clean verify
+        mvn -V -B -fae clean verify
     - name: Upload Test Results for Java-${{ matrix.java }}
       uses: actions/upload-artifact@v3
+      if: always()
       with:
         name: test-results-${{ matrix.config.native }}-java${{ matrix.java }}
         if-no-files-found: error
