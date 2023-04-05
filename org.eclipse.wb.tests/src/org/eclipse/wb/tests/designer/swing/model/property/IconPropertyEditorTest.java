@@ -64,7 +64,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
           "  }",
           "}"});
     } finally {
-      imageFile.delete(true, null);
+      forceDeleteFile(imageFile);
     }
   }
 
@@ -85,7 +85,7 @@ public class IconPropertyEditorTest extends SwingModelTest {
               "  }",
               "}"});
     } finally {
-      imageFile.delete(true, null);
+      forceDeleteFile(imageFile);
     }
   }
 
