@@ -100,6 +100,8 @@ public class GridBagLayoutGefTest extends SwingGefTest {
             FigureCanvas control = viewer.getControl();
             Image image = OSSupport.get().makeShot(control);
             image.dispose();
+            // Shell is set to invisible on Linux, causing successive tests to fail...
+            control.getShell().setVisible(true);
           }
         });
       }
