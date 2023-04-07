@@ -146,7 +146,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   @Override
   public void beginShot(Object controlObject) {
-    Shell shell = getShell(controlObject);
+    Shell shell = layoutShell(controlObject);
     // setup key title to be used by compiz WM (if enabled)
     changeTitle(shell);
     if (!isWorkaroundsDisabled()) {
