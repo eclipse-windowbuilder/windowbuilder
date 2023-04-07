@@ -134,7 +134,7 @@ public class ComponentTest extends SwingModelTest {
     {
       Image rootImage = panel.getImage();
       ImageData imageData = rootImage.getImageData();
-      int pixel = imageData.getPixel(bounds.width - 1, bounds.height - 1);
+      int pixel = imageData.getPixel(bounds.width - 2, bounds.height - 2);
       RGB rgb = imageData.palette.getRGB(pixel);
       assertEquals(new RGB(0, 255, 0), rgb);
     }

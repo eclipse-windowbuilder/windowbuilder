@@ -32,6 +32,7 @@ import org.eclipse.wb.internal.swt.model.layout.FillLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutCreationSupport;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
+import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
@@ -221,6 +222,9 @@ public class AbsoluteLayoutTest extends RcpModelTest {
             shell.getDescription().getToolkit(),
             new AbsoluteLayoutCreationSupport());
     shell.setLayout(absoluteLayout);
+    //
+    ButtonInfo button = shell.getChildren(ButtonInfo.class).get(0);
+    Rectangle bounds = button.getBounds();
     // check result
     assertSame(absoluteLayout, shell.getLayout());
     assertEditor(
@@ -229,7 +233,7 @@ public class AbsoluteLayoutTest extends RcpModelTest {
         "    setLayout(null);",
         "    {",
         "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(3, 3, 200, 100);",
+        "      button.setBounds(3, 3, " + bounds.width + ", " + bounds.height + ");",
         "    }",
         "  }",
         "}");

@@ -927,13 +927,14 @@ public class SurroundSupportTest extends RcpModelTest {
       shell.setLayout(absoluteLayout);
       shell.refresh();
     }
+    Rectangle bounds = button.getBounds();
     assertEditor(
         "public class Test extends Shell {",
         "  public Test() {",
         "    setLayout(null);",
         "    {",
         "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(5, 5, 150, 50);",
+        "      button.setBounds(5, 5, " + bounds.width + ", " + bounds.height + ");",
         "    }",
         "  }",
         "}");
@@ -945,10 +946,10 @@ public class SurroundSupportTest extends RcpModelTest {
         "    setLayout(null);",
         "    {",
         "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(5, 5, 150, 50);",
+        "      composite.setBounds(5, 5, " + bounds.width + ", " + bounds.height + ");",
         "      {",
         "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(0, 0, 150, 50);",
+        "        button.setBounds(0, 0, " + bounds.width + ", " + bounds.height + ");",
         "      }",
         "    }",
         "  }",

@@ -80,7 +80,8 @@ public class TreeTest extends RcpModelTest {
       {
         assertNotNull(modelBounds);
         assertTrue(modelBounds.x > 10); // some space for tree line
-        assertEquals(0, modelBounds.y);
+        assertThat(modelBounds.y).isGreaterThanOrEqualTo(0); // platform-specific tolerance
+        assertThat(modelBounds.y).isLessThanOrEqualTo(5);
         assertTrue(modelBounds.width > 50);
       }
       // "shot" bounds
@@ -93,7 +94,8 @@ public class TreeTest extends RcpModelTest {
     {
       Rectangle modelBounds = item_2.getModelBounds();
       assertEquals(item_1.getModelBounds().x, modelBounds.x);
-      assertEquals(item_1.getModelBounds().bottom(), modelBounds.y);
+      assertThat(item_1.getModelBounds().bottom()).isGreaterThanOrEqualTo(modelBounds.y - 5); // platform-specific tolerance
+      assertThat(item_1.getModelBounds().bottom()).isLessThanOrEqualTo(modelBounds.y);
     }
   }
 

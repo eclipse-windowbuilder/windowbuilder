@@ -16,7 +16,6 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
@@ -58,7 +57,7 @@ public class TreeDragToolTest extends TreeToolTest {
     TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
     //
     refreshTreeParst(parent);
-    UiUtils.expandAll(m_viewer.getTree());
+    m_viewer.expandAll();
     //
     Point location = getOnLocation(parent);
     m_sender.doubleClick(location.x, location.y, 3);
@@ -105,7 +104,7 @@ public class TreeDragToolTest extends TreeToolTest {
     TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
     //
     refreshTreeParst(parent);
-    UiUtils.expandAll(m_viewer.getTree());
+    m_viewer.expandAll();
     //
     m_viewer.select(child3);
     //
@@ -211,7 +210,7 @@ public class TreeDragToolTest extends TreeToolTest {
     TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
     //
     refreshTreeParst(parent);
-    UiUtils.expandAll(m_viewer.getTree());
+    m_viewer.expandAll();
     //
     m_viewer.select(child3);
     //
@@ -269,7 +268,7 @@ public class TreeDragToolTest extends TreeToolTest {
     TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
     //
     refreshTreeParst(parent);
-    UiUtils.expandAll(m_viewer.getTree());
+    m_viewer.expandAll();
     //
     m_viewer.select(child3);
     //

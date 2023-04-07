@@ -184,7 +184,8 @@ public class ExpandBarTest extends RcpModelTest {
     // check that "button" is wide
     {
       assertThat(item.getBounds().height).isGreaterThan(200);
-      assertEquals(200, button.getBounds().height);
+      assertThat(button.getBounds().height).isGreaterThanOrEqualTo(195); // platform-specific tolerance
+      assertThat(button.getBounds().height).isLessThanOrEqualTo(205);
     }
     // check hierarchy: "button" should be in "item", but not in "expandBar"
     {

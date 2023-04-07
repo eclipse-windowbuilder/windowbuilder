@@ -783,7 +783,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     // "button" should be fully visible
     Rectangle frameBounds = frame.getAbsoluteBounds();
     Rectangle buttonBounds = button.getAbsoluteBounds();
-    assertTrue(frameBounds.contains(buttonBounds.getBottomRight()));
+    assertThat(frameBounds.getTopLeft().x).isLessThanOrEqualTo(buttonBounds.getTopLeft().x);
+    assertThat(frameBounds.getTopLeft().y).isLessThanOrEqualTo(buttonBounds.getTopLeft().y);
+    assertThat(frameBounds.getBottomRight().x).isGreaterThanOrEqualTo(buttonBounds.getBottomRight().x);
+    assertThat(frameBounds.getBottomRight().y).isGreaterThanOrEqualTo(buttonBounds.getBottomRight().y);
   }
 
   ////////////////////////////////////////////////////////////////////////////

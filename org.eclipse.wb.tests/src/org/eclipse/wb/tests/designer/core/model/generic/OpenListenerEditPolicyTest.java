@@ -64,7 +64,9 @@ public class OpenListenerEditPolicyTest extends SwingGefTest {
     {
       MultiMode multiMode = (MultiMode) m_designerEditor.getMultiMode();
       waitEventLoop(10);
-      assertTrue(multiMode.getSourcePage().isActive());
+      // isActive() fails on Linux because the widget isn't updated in time...
+      // assertTrue(multiMode.getSourcePage().isActive());
+      assertTrue(multiMode.isSourceActive());
     }
     // source changes
     assertEditor(

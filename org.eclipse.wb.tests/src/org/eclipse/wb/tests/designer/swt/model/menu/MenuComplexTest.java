@@ -1151,8 +1151,8 @@ public class MenuComplexTest extends RcpGefTest {
       {
         // and move on "menu"
         canvas.target(shellInfo).outY(-5).drag();
-        canvas.target(menuInfo).inX(5).drag();
-        canvas.target(menuInfo).in(5, 5).drag();
+        canvas.target(menuInfo).inX(20).drag();
+        canvas.target(menuInfo).in(20, 5).drag();
         menuTester.assertFeedback_selection_emptyFlow(itemPart_2, menuPart, false);
       }
       // end drag, "item_2" moved on "menu"

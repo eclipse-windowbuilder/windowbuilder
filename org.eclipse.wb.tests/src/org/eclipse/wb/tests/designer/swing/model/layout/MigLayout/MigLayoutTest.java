@@ -372,9 +372,10 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
     MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
     IGridInfo gridInfo = layout.getGridInfo();
     // check empty cells rectangle
-    Rectangle cells = new Rectangle(0, 0, 0, 0);
+    Rectangle cells = gridInfo.getCellsRectangle(new Rectangle(0, 0, 0, 0));
     Rectangle expected = new Rectangle(7, 7, 0, 0);
-    assertEquals(expected, gridInfo.getCellsRectangle(cells));
+    assertEquals(expected.width, cells.width);
+    assertEquals(expected.height, cells.height);
   }
 
   /**

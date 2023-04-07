@@ -217,7 +217,7 @@ public class MenuProblemsTest extends RcpGefTest {
     ControlInfo table = shell.getChildrenControls().get(0);
     MenuInfo popup = table.getChildren(MenuInfo.class).get(0);
     // click on "popup"
-    canvas.target(popup).in(5, 5).move().click();
+    canvas.target(popup).in(10, 10).move().click();
     canvas.assertPrimarySelected(popup);
   }
 }

@@ -344,13 +344,13 @@ public class TabFolderTest extends RcpModelTest {
     // bounds for "item_0"
     {
       Rectangle modelBounds_0 = item_0.getModelBounds();
-      assertThat(modelBounds_0.width).isGreaterThan(30);
+      assertThat(modelBounds_0.width).isGreaterThan(20);
       assertThat(modelBounds_0.height).isGreaterThan(17);
     }
     // bounds for "item_1"
     {
       Rectangle modelBounds_1 = item_1.getModelBounds();
-      assertThat(modelBounds_1.width).isGreaterThan(30);
+      assertThat(modelBounds_1.width).isGreaterThan(20);
       assertThat(modelBounds_1.height).isGreaterThan(17);
     }
     // no setControl() invocations

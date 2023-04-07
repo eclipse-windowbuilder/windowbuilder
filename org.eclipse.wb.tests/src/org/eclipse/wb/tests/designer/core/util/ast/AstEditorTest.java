@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.ast.AnonymousTypeDeclaration;
 import org.eclipse.wb.internal.core.utils.ast.AstCodeGeneration;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -31,8 +32,6 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.core.AbstractJavaTest;
 
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -5761,14 +5760,13 @@ public class AstEditorTest extends AbstractJavaTest {
     javaProject.setOption(
         DefaultCodeFormatterConstants.FORMATTER_BRACE_POSITION_FOR_METHOD_DECLARATION,
         DefaultCodeFormatterConstants.NEXT_LINE);
-    assertEquals(Expectations.get(
-        "\r\n\t",
-        new StrValue("flanker-desktop", "\n\t"),
-        new StrValue("scheglov-macpro", "\n\t")), generation.getMethodBraceSeparator("\t"));
-    assertEquals(Expectations.get(
-        "\r\n\t\t",
-        new StrValue("flanker-desktop", "\n\t\t"),
-        new StrValue("scheglov-macpro", "\n\t\t")), generation.getMethodBraceSeparator("\t\t"));
+    if (EnvironmentUtils.IS_WINDOWS) {
+      assertEquals("\r\n\t", generation.getMethodBraceSeparator("\t"));
+      assertEquals("\r\n\t\t", generation.getMethodBraceSeparator("\t\t"));
+    } else {
+      assertEquals("\n\t", generation.getMethodBraceSeparator("\t"));
+      assertEquals("\n\t\t", generation.getMethodBraceSeparator("\t\t"));
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////

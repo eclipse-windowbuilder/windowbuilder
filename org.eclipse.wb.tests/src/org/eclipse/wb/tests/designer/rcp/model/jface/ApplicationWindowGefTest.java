@@ -154,7 +154,7 @@ public class ApplicationWindowGefTest extends RcpGefTest {
         "    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NONE)/ /container/}",
         "      {implicit-layout: absolute} {implicit-layout} {}");
     // click on "window", ensure that it is really selected
-    canvas.target(window).in(100, 10).move().click();
+    canvas.target(window).in(100, 1).move().click();
     canvas.assertPrimarySelected(window);
   }
 

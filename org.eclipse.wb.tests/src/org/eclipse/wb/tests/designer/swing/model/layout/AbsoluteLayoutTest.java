@@ -405,7 +405,10 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
     panel.refresh();
     try {
       assertEquals(new Rectangle(10, 20, 100, 50), buttonInfo.getBounds());
-      assertEquals(new Dimension(33, 9), buttonInfo.getPreferredSize());
+      assertThat(buttonInfo.getPreferredSize().width).isGreaterThanOrEqualTo(33); // button is bigger on Linux
+      assertThat(buttonInfo.getPreferredSize().width).isLessThanOrEqualTo(38);
+      assertThat(buttonInfo.getPreferredSize().height).isGreaterThanOrEqualTo(9);
+      assertThat(buttonInfo.getPreferredSize().height).isLessThanOrEqualTo(14);
       //
       JButton button = (JButton) buttonInfo.getComponent();
       assertEquals(10, button.getBounds().x);
@@ -542,6 +545,8 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
       AbsoluteLayoutInfo absoluteLayoutInfo = AbsoluteLayoutInfo.createExplicit(m_lastEditor);
       panel.setLayout(absoluteLayoutInfo);
     }
+    //
+    Dimension preferredSize = button.getPreferredSize();
     // check source
     assertEditor(
         "public class Test extends JPanel {",
@@ -550,7 +555,7 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
         "    setLayout(null);",
         "    {",
         "      JButton button = new JButton();",
-        "      button.setBounds(208, 5, 33, 9);",
+        "      button.setBounds(208, 5, " + preferredSize.width + ", " + preferredSize.height + ");",
         "      add(button);",
         "    }",
         "  }",
@@ -602,6 +607,9 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
     } finally {
       panel.refresh_dispose();
     }
+    //
+    ComponentInfo button = panel.getChildrenComponents().get(0);
+    Dimension preferredSize = button.getPreferredSize();
     // check source
     assertEditor(
         "public class Test extends AbsolutePanel {",
@@ -609,7 +617,7 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
         "    setSize(450, 300);",
         "    {",
         "      JButton button = new JButton();",
-        "      button.setBounds(208, 5, 33, 9);",
+        "      button.setBounds(208, 5, " + preferredSize.width + ", " + preferredSize.height + ");",
         "      add(button);",
         "    }",
         "  }",
