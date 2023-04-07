@@ -11,6 +11,7 @@
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -128,7 +129,11 @@ public class ControlDecorationTest extends RcpModelTest {
     ControlInfo text = shell.getChildrenControls().get(0);
     ControlDecorationInfo decoration = text.getChildren(ControlDecorationInfo.class).get(0);
     // check bounds
-    assertEquals(new Rectangle(-9, -2, 7, 8), decoration.getModelBounds());
+    if (EnvironmentUtils.IS_WINDOWS) {
+      assertEquals(new Rectangle(-9, -2, 7, 8), decoration.getModelBounds());
+    } else {
+      assertEquals(new Rectangle(-16, -1, 7, 8), decoration.getModelBounds());
+    }
     // check presentation
     {
       IObjectPresentation presentation = decoration.getPresentation();

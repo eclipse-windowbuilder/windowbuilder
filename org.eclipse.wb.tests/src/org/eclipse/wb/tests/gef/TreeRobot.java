@@ -77,6 +77,7 @@ public final class TreeRobot {
    */
   public TreeRobot collapseAll() {
     m_viewer.collapseAll();
+    waitEventLoop();
     return this;
   }
 
@@ -85,6 +86,7 @@ public final class TreeRobot {
    */
   public TreeRobot expandAll() {
     m_viewer.expandAll();
+    waitEventLoop();
     return this;
   }
 
@@ -116,7 +118,7 @@ public final class TreeRobot {
   private boolean m_dragInProgress;
 
   public TreeRobot startDrag(Object... models) {
-    m_viewer.expandAll();
+    expandAll();
     // select EditPart's to drag
     assertThat(models).isNotEmpty();
     select(models);
@@ -319,6 +321,7 @@ public final class TreeRobot {
         setExpanded(parentEditPart, expanded);
       }
     }
+    waitEventLoop();
   }
 
   public void setExpanded(Object model, boolean expanded) {
@@ -343,6 +346,12 @@ public final class TreeRobot {
     }
     // OK, get Command from active tool
     return (Command) ReflectionUtils.getFieldObject(tool, "m_command");
+  }
+
+  private void waitEventLoop() {
+    while (Display.getCurrent().readAndDispatch()) {
+      // do nothing
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////

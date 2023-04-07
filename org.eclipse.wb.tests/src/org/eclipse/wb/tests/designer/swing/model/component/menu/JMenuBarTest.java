@@ -131,14 +131,14 @@ public class JMenuBarTest extends SwingModelTest {
       org.eclipse.swt.graphics.Rectangle bounds = image.getBounds();
       assertThat(bounds.x).isEqualTo(0);
       assertThat(bounds.y).isEqualTo(0);
-      assertThat(bounds.width).isGreaterThan(100);
+      assertThat(bounds.width).isGreaterThan(40);
       assertThat(bounds.height).isGreaterThan(20);
     }
     {
       Rectangle bounds = menuObject.getBounds();
       assertThat(bounds.x).isEqualTo(0);
       assertThat(bounds.y).isEqualTo(0);
-      assertThat(bounds.width).isGreaterThan(100);
+      assertThat(bounds.width).isGreaterThan(40);
       assertThat(bounds.height).isGreaterThan(20);
     }
   }

@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import java.util.List;
@@ -67,7 +68,15 @@ public abstract class TreeToolTest extends GefTestCase {
       }
     };
     // create viewer
-    m_viewer = new TreeViewer(m_shell, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI);
+    m_viewer = new TreeViewer(m_shell, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI) {
+      @Override
+      public void expandAll() {
+        super.expandAll();
+        while (Display.getCurrent().readAndDispatch()) {
+          // draw expanded viewer
+        }
+      }
+    };
     m_viewer.getControl().setSize(500, 400);
     m_viewer.setEditDomain(m_domain);
     // create sender

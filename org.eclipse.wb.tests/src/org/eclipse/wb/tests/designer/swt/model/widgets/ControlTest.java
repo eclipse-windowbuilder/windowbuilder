@@ -816,7 +816,8 @@ public class ControlTest extends RcpModelTest {
     // has "parent" and "style"
     Composite compositeObject = (Composite) composite.getObject();
     assertNotNull(compositeObject.getParent());
-    assertEquals(SWT.LEFT_TO_RIGHT, compositeObject.getStyle());
+    // On Linux, the DOUBLE_BUFFERED flag is also set
+    assertThat(SWT.LEFT_TO_RIGHT & compositeObject.getStyle()).isGreaterThan(0);
   }
 
   ////////////////////////////////////////////////////////////////////////////

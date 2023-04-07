@@ -140,7 +140,7 @@ public class AppletTest extends SwingModelTest {
             "}");
     applet.refresh();
     //
-    assertHasRedPixel00(applet);
+    assertHasRedPixel(applet);
   }
 
   /**
@@ -157,12 +157,12 @@ public class AppletTest extends SwingModelTest {
             "  }",
             "}");
     applet.refresh();
-    assertHasRedPixel00(applet);
+    assertHasRedPixel(applet);
   }
 
-  private static void assertHasRedPixel00(ContainerInfo applet) {
+  private static void assertHasRedPixel(ContainerInfo applet) {
     ImageData imageData = applet.getImage().getImageData();
-    int pixel = imageData.getPixel(0, 0);
+    int pixel = imageData.getPixel(imageData.width / 2, imageData.height / 2);
     RGB rgb = imageData.palette.getRGB(pixel);
     assertEquals(new RGB(255, 0, 0), rgb);
   }

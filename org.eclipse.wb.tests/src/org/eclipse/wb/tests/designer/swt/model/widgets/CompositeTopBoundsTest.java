@@ -12,6 +12,7 @@ package org.eclipse.wb.tests.designer.swt.model.widgets;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.geometry.Dimension;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeTopBoundsSupport;
 import org.eclipse.wb.tests.designer.TestUtils;
@@ -54,13 +55,22 @@ public class CompositeTopBoundsTest extends RcpGefTest {
   public void test_resize_pack() throws Exception {
     Dimension packSize = new Dimension(150, 50);
     Dimension newSize = new Dimension(400, 350);
-    String sizeCode =
-        "button.setLayoutData(new RowData("
+    String sizeCode;
+    if (EnvironmentUtils.IS_WINDOWS) {
+      sizeCode = "button.setLayoutData(new RowData("
             + (packSize.width - 3 - 3)
             + ", "
             + (packSize.height - 3 - 3)
             + "));\n"
             + "\t\tpack();";
+    } else {
+      sizeCode = "button.setLayoutData(new RowData("
+          + (packSize.width - 4 - 4)
+          + ", "
+          + (packSize.height - 4 - 4)
+          + "));\n"
+          + "\t\tpack();";
+    }
     ICompilationUnit unit = check_resize_Composite(sizeCode, packSize, newSize, packSize, sizeCode);
     // close editor, reopen and check for size - it should be same as we set
     {

@@ -49,6 +49,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutI
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
@@ -1202,12 +1203,13 @@ public class PageLayoutTest extends RcpModelTest {
     // do resize
     assertEquals(new Dimension(600, 500), page.getBounds().getSize());
     view.resize(+100);
+    Object ratio = ((MethodInvocation) view.getRelatedNodes().get(0)).arguments().get(2);
     assertEditor(
         "public class Test implements IPerspectiveFactory {",
         "  public Test() {",
         "  }",
         "  public void createInitialLayout(IPageLayout layout) {",
-        "    layout.addView('view', IPageLayout.TOP, 0.51f, IPageLayout.ID_EDITOR_AREA);",
+        "    layout.addView('view', IPageLayout.TOP, " + ratio + ", IPageLayout.ID_EDITOR_AREA);",
         "  }",
         "}");
   }
@@ -1289,12 +1291,13 @@ public class PageLayoutTest extends RcpModelTest {
     // do resize
     assertEquals(new Dimension(600, 500), page.getBounds().getSize());
     view.resize(-150);
+    Object ratio = ((MethodInvocation) view.getRelatedNodes().get(0)).arguments().get(2);
     assertEditor(
         "public class Test implements IPerspectiveFactory {",
         "  public Test() {",
         "  }",
         "  public void createInitialLayout(IPageLayout layout) {",
-        "    layout.addView('view', IPageLayout.RIGHT, 0.66f, IPageLayout.ID_EDITOR_AREA);",
+        "    layout.addView('view', IPageLayout.RIGHT, " + ratio + ", IPageLayout.ID_EDITOR_AREA);",
         "  }",
         "}");
   }

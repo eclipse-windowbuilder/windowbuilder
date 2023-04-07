@@ -12,6 +12,7 @@ package org.eclipse.wb.tests.designer.swt.model.widgets;
 
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.creation.ExposedPropertyCreationSupport;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -22,6 +23,7 @@ import org.eclipse.wb.internal.swt.model.widgets.TableColumnInfo;
 import org.eclipse.wb.internal.swt.model.widgets.TableInfo;
 import org.eclipse.wb.internal.swt.model.widgets.TableItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
+import org.eclipse.wb.internal.swt.support.TableSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.TabItem;
@@ -174,6 +176,8 @@ public class TableTest extends RcpModelTest {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Test for parsing {@link TableColumn} and bounds of {@link TableColumnInfo}.
+   * In SWT Cocoa and Linux GTK, the column headers are excluded from the client
+   * area, hence why we have to adjust them for the tests.
    */
   public void test_TableColumn() throws Exception {
     CompositeInfo shell =
@@ -205,6 +209,9 @@ public class TableTest extends RcpModelTest {
     {
       // "model" bounds
       Rectangle modelBounds = column_1.getModelBounds();
+      if (!EnvironmentUtils.IS_WINDOWS) {
+        modelBounds.y += TableSupport.getHeaderHeight(table.getObject());
+      }
       assertNotNull(modelBounds);
       assertEquals(0, modelBounds.x);
       assertEquals(0, modelBounds.y);
@@ -212,6 +219,9 @@ public class TableTest extends RcpModelTest {
       assertTrue(modelBounds.height > 15 && modelBounds.height < 50);
       // "shot" bounds
       Rectangle bounds = column_1.getBounds();
+      if (!EnvironmentUtils.IS_WINDOWS) {
+        bounds.y += TableSupport.getHeaderHeight(table.getObject());
+      }
       assertEquals(tableInsets.left, bounds.x);
       assertEquals(tableInsets.top, bounds.y);
       assertEquals(modelBounds.width, bounds.width);
@@ -220,6 +230,9 @@ public class TableTest extends RcpModelTest {
     {
       // "model" bounds
       Rectangle modelBounds = column_2.getModelBounds();
+      if (!EnvironmentUtils.IS_WINDOWS) {
+        modelBounds.y += TableSupport.getHeaderHeight(table.getObject());
+      }
       assertNotNull(modelBounds);
       assertEquals(50, modelBounds.x);
       assertEquals(0, modelBounds.y);

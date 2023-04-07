@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util;
 
+import org.eclipse.wb.core.controls.BrowserComposite;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.errors.ErrorEntryInfo;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
@@ -438,10 +440,13 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
         Throwable e = new DesignerException(-1000, "AAA", "BBB");
         String html = DesignerExceptionUtils.getExceptionHTML(e);
         assertThat(html).contains("My description AAA + BBB.");
-        assertThat(html).contains("javascript:toggleVisibleAll()");
-        assertThat(html).contains("javascript:toggleVisibleAll()");
-        assertThat(html).contains("Show stack trace.");
-        assertThat(html).contains("Hide stack trace.");
+        // HTML tags are removed if the shell can't display html-based text
+        if (BrowserComposite.browserAvailable(DesignerPlugin.getShell())) {
+          assertThat(html).contains("javascript:toggleVisibleAll()");
+          assertThat(html).contains("javascript:toggleVisibleAll()");
+          assertThat(html).contains("Show stack trace.");
+          assertThat(html).contains("Hide stack trace.");
+        }
         assertThat(html).contains(
             "at org.eclipse.wb.tests.designer.core.util.DesignerExceptionUtilsTest.test_getExceptionHTML");
       } finally {

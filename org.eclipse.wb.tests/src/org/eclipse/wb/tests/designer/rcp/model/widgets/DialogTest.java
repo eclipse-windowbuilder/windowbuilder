@@ -87,7 +87,10 @@ public class DialogTest extends RcpModelTest {
     // bounds
     {
       Rectangle bounds = dialog.getBounds();
-      assertEquals(new Rectangle(-10000, -10000, 450, 300), bounds);
+      // x & y coordinates are platform-specific
+      // assertEquals(new Rectangle(-10000, -10000, 450, 300), bounds);
+      assertEquals(bounds.width, 450);
+      assertEquals(bounds.height, 300);
     }
     {
       ShellInfo shell = getJavaInfoByName("shell");
@@ -122,7 +125,10 @@ public class DialogTest extends RcpModelTest {
     // bounds
     {
       Rectangle bounds = dialog.getBounds();
-      assertEquals(new Rectangle(-10000, -10000, 450, 300), bounds);
+      // x & y coordinates are platform-specific
+      // assertEquals(new Rectangle(-10000, -10000, 450, 300), bounds);
+      assertEquals(bounds.width, 450);
+      assertEquals(bounds.height, 300);
     }
     {
       ShellInfo shell = getJavaInfoByName("shell");
