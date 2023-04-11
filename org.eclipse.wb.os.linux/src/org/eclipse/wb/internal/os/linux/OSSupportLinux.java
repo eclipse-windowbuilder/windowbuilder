@@ -174,8 +174,8 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   @Override
   public void endShot(Object controlObject) {
     // hide shell. The shell should be visible during all the period of fetching visual data.
+    super.endShot(controlObject);
     Shell shell = getShell(controlObject);
-    shell.setVisible(false);
     // restore title
     restoreTitle(shell);
     if (!isWorkaroundsDisabled()) {
