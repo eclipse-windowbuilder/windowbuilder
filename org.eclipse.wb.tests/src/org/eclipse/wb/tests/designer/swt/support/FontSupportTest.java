@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.support;
 
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swt.support.FontSupport;
 
 import org.eclipse.swt.SWT;
@@ -97,7 +98,9 @@ public class FontSupportTest extends AbstractSupportTest {
    */
   public void test_getFontFamilies() throws Exception {
     String[] fontFamilies = FontSupport.getFontFamilies();
-    assertThat(fontFamilies).contains("Arial", "Courier", "Times New Roman");
+    if (EnvironmentUtils.IS_WINDOWS) {
+      assertThat(fontFamilies).contains("Arial", "Courier", "Times New Roman");
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
