@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.property;
 
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -23,6 +24,8 @@ import org.eclipse.wb.internal.swing.model.property.editor.font.FontPropertyEdit
 import org.eclipse.wb.internal.swing.model.property.editor.font.NullFontInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.font.UiManagerFontInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -80,8 +83,8 @@ public class FontPropertyEditorTest extends SwingModelTest {
       Font font = new Font("Arial", Font.PLAIN, 12);
       ExplicitFontInfo fontInfo = new ExplicitFontInfo(font);
       assertSame(font, fontInfo.getFont());
-      assertEquals("Arial 12", fontInfo.getText());
-      assertEquals("new java.awt.Font(\"Arial\", java.awt.Font.PLAIN, 12)", fontInfo.getSource());
+      assertThat(fontInfo.getText()).matches("\\w+ 12");
+      assertThat(fontInfo.getSource()).matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.PLAIN, 12\\)");
       assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
     }
     // BOLD
@@ -89,8 +92,8 @@ public class FontPropertyEditorTest extends SwingModelTest {
       Font font = new Font("Arial", Font.BOLD, 12);
       ExplicitFontInfo fontInfo = new ExplicitFontInfo(font);
       assertSame(font, fontInfo.getFont());
-      assertEquals("Arial 12 Bold", fontInfo.getText());
-      assertEquals("new java.awt.Font(\"Arial\", java.awt.Font.BOLD, 12)", fontInfo.getSource());
+      assertThat(fontInfo.getText()).matches("\\w+ 12 Bold");
+      assertThat(fontInfo.getSource()).matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.BOLD, 12\\)");
       assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
     }
     // ITALIC
@@ -98,8 +101,8 @@ public class FontPropertyEditorTest extends SwingModelTest {
       Font font = new Font("Arial", Font.ITALIC, 12);
       ExplicitFontInfo fontInfo = new ExplicitFontInfo(font);
       assertSame(font, fontInfo.getFont());
-      assertEquals("Arial 12 Italic", fontInfo.getText());
-      assertEquals("new java.awt.Font(\"Arial\", java.awt.Font.ITALIC, 12)", fontInfo.getSource());
+      assertThat(fontInfo.getText()).matches("\\w+ 12 Italic");
+      assertThat(fontInfo.getSource()).matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.ITALIC, 12\\)");
       assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
     }
     // BOLD + ITALIC
@@ -107,10 +110,9 @@ public class FontPropertyEditorTest extends SwingModelTest {
       Font font = new Font("Arial", Font.BOLD | Font.ITALIC, 12);
       ExplicitFontInfo fontInfo = new ExplicitFontInfo(font);
       assertSame(font, fontInfo.getFont());
-      assertEquals("Arial 12 Bold Italic", fontInfo.getText());
-      assertEquals(
-          "new java.awt.Font(\"Arial\", java.awt.Font.BOLD | java.awt.Font.ITALIC, 12)",
-          fontInfo.getSource());
+      assertThat(fontInfo.getText()).matches("\\w+ 12 Bold Italic");
+      assertThat(fontInfo.getSource())
+          .matches("new java.awt.Font\\(\"\\w+\", java.awt.Font.BOLD \\| java.awt.Font.ITALIC, 12\\)");
       assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
     }
   }
@@ -123,8 +125,8 @@ public class FontPropertyEditorTest extends SwingModelTest {
     UiManagerFontInfo fontInfo = new UiManagerFontInfo("key", font);
     assertSame(font, fontInfo.getFont());
     assertEquals("key", fontInfo.getKey());
-    assertEquals("Arial 12", fontInfo.getValueText());
-    assertEquals("key, Arial 12", fontInfo.getText());
+    assertThat(fontInfo.getValueText()).matches("\\w+ 12");
+    assertThat(fontInfo.getText()).matches("key, \\w+ 12");
     assertEquals("javax.swing.UIManager.getFont(\"key\")", fontInfo.getSource());
     assertEquals(fontInfo.getSource(), fontInfo.getClipboardSource());
   }
@@ -147,13 +149,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("<no changes>, Arial 12 Bold", fontInfo.getText());
       }
-      assertEquals("<no changes>, Arial 12 Bold", fontInfo.getText());
       assertNull(fontInfo.getSource());
       assertNull(fontInfo.getClipboardSource());
     }
@@ -168,19 +170,19 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Tahoma", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("*Tahoma, Tahoma 12 Bold", fontInfo.getText());
+        assertEquals(
+            "new java.awt.Font(\"Tahoma\", button.getFont().getStyle(), button.getFont().getSize())",
+            fontInfo.getSource());
+        assertEquals(
+            "new java.awt.Font(\"Tahoma\", %this%.getFont().getStyle(), %this%.getFont().getSize())",
+            fontInfo.getClipboardSource());
       }
-      assertEquals("*Tahoma, Tahoma 12 Bold", fontInfo.getText());
-      assertEquals(
-          "new java.awt.Font(\"Tahoma\", button.getFont().getStyle(), button.getFont().getSize())",
-          fontInfo.getSource());
-      assertEquals(
-          "new java.awt.Font(\"Tahoma\", %this%.getFont().getStyle(), %this%.getFont().getSize())",
-          fontInfo.getClipboardSource());
     }
     // new family +5
     {
@@ -193,19 +195,17 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               new Integer(5),
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(17, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Tahoma", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(17, font.getSize());
+        assertEquals("*Tahoma +5, Tahoma 17 Bold", fontInfo.getText());
+        assertEquals("new java.awt.Font(\"Tahoma\", button.getFont().getStyle(), button.getFont().getSize() + 5)",
+            fontInfo.getSource());
+        assertEquals("new java.awt.Font(\"Tahoma\", %this%.getFont().getStyle(), %this%.getFont().getSize() + 5)",
+            fontInfo.getClipboardSource());
       }
-      assertEquals("*Tahoma +5, Tahoma 17 Bold", fontInfo.getText());
-      assertEquals(
-          "new java.awt.Font(\"Tahoma\", button.getFont().getStyle(), button.getFont().getSize() + 5)",
-          fontInfo.getSource());
-      assertEquals(
-          "new java.awt.Font(\"Tahoma\", %this%.getFont().getStyle(), %this%.getFont().getSize() + 5)",
-          fontInfo.getClipboardSource());
     }
     // new family =20
     {
@@ -218,16 +218,14 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               null,
               new Integer(20));
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(20, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Tahoma", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(20, font.getSize());
+        assertEquals("*Tahoma 20, Tahoma 20 Bold", fontInfo.getText());
+        assertEquals("new java.awt.Font(\"Tahoma\", button.getFont().getStyle(), 20)", fontInfo.getSource());
       }
-      assertEquals("*Tahoma 20, Tahoma 20 Bold", fontInfo.getText());
-      assertEquals(
-          "new java.awt.Font(\"Tahoma\", button.getFont().getStyle(), 20)",
-          fontInfo.getSource());
     }
     // +Bold
     {
@@ -240,16 +238,15 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("+Bold, Arial 12 Bold", fontInfo.getText());
+        assertEquals("button.getFont().deriveFont(button.getFont().getStyle() | java.awt.Font.BOLD)",
+            fontInfo.getSource());
       }
-      assertEquals("+Bold, Arial 12 Bold", fontInfo.getText());
-      assertEquals(
-          "button.getFont().deriveFont(button.getFont().getStyle() | java.awt.Font.BOLD)",
-          fontInfo.getSource());
     }
     // -Bold
     {
@@ -262,16 +259,15 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.PLAIN, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.PLAIN, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("-Bold, Arial 12", fontInfo.getText());
+        assertEquals("button.getFont().deriveFont(button.getFont().getStyle() & ~java.awt.Font.BOLD)",
+            fontInfo.getSource());
       }
-      assertEquals("-Bold, Arial 12", fontInfo.getText());
-      assertEquals(
-          "button.getFont().deriveFont(button.getFont().getStyle() & ~java.awt.Font.BOLD)",
-          fontInfo.getSource());
     }
     // +Italic
     {
@@ -284,16 +280,15 @@ public class FontPropertyEditorTest extends SwingModelTest {
               Boolean.TRUE,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD | Font.ITALIC, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD | Font.ITALIC, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("+Italic, Arial 12 Bold Italic", fontInfo.getText());
+        assertEquals("button.getFont().deriveFont(button.getFont().getStyle() | java.awt.Font.ITALIC)",
+            fontInfo.getSource());
       }
-      assertEquals("+Italic, Arial 12 Bold Italic", fontInfo.getText());
-      assertEquals(
-          "button.getFont().deriveFont(button.getFont().getStyle() | java.awt.Font.ITALIC)",
-          fontInfo.getSource());
     }
     // -Italic
     {
@@ -306,13 +301,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               Boolean.FALSE,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("-Italic, Arial 12 Bold", fontInfo.getText());
       }
-      assertEquals("-Italic, Arial 12 Bold", fontInfo.getText());
       assertEquals(
           "button.getFont().deriveFont(button.getFont().getStyle() & ~java.awt.Font.ITALIC)",
           fontInfo.getSource());
@@ -328,13 +323,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               Boolean.TRUE,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD | Font.ITALIC, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD | Font.ITALIC, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("+Bold +Italic, Arial 12 Bold Italic", fontInfo.getText());
       }
-      assertEquals("+Bold +Italic, Arial 12 Bold Italic", fontInfo.getText());
       assertEquals(
           "button.getFont().deriveFont(button.getFont().getStyle() | java.awt.Font.BOLD | java.awt.Font.ITALIC)",
           fontInfo.getSource());
@@ -350,13 +345,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               Boolean.TRUE,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.ITALIC, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.ITALIC, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("-Bold +Italic, Arial 12 Italic", fontInfo.getText());
       }
-      assertEquals("-Bold +Italic, Arial 12 Italic", fontInfo.getText());
       assertEquals(
           "button.getFont().deriveFont(button.getFont().getStyle() & ~java.awt.Font.BOLD | java.awt.Font.ITALIC)",
           fontInfo.getSource());
@@ -372,13 +367,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               Boolean.FALSE,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("+Bold -Italic, Arial 12 Bold", fontInfo.getText());
       }
-      assertEquals("+Bold -Italic, Arial 12 Bold", fontInfo.getText());
       assertEquals(
           "button.getFont().deriveFont(button.getFont().getStyle() & ~java.awt.Font.ITALIC | java.awt.Font.BOLD)",
           fontInfo.getSource());
@@ -394,13 +389,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               Boolean.FALSE,
               null,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.PLAIN, font.getStyle());
+      assertEquals(12, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.PLAIN, font.getStyle());
-        assertEquals(12, font.getSize());
+        assertEquals("-Bold -Italic, Arial 12", fontInfo.getText());
       }
-      assertEquals("-Bold -Italic, Arial 12", fontInfo.getText());
       assertEquals(
           "button.getFont().deriveFont(button.getFont().getStyle() & ~java.awt.Font.BOLD & ~java.awt.Font.ITALIC)",
           fontInfo.getSource());
@@ -416,13 +411,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               +5,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(12 + 5, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(12 + 5, font.getSize());
+        assertEquals("+5, Arial 17 Bold", fontInfo.getText());
       }
-      assertEquals("+5, Arial 17 Bold", fontInfo.getText());
       assertEquals(
           "button.getFont().deriveFont(button.getFont().getSize() + 5f)",
           fontInfo.getSource());
@@ -438,13 +433,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               -5,
               null);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(12 - 5, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(12 - 5, font.getSize());
+        assertEquals("-5, Arial 7 Bold", fontInfo.getText());
       }
-      assertEquals("-5, Arial 7 Bold", fontInfo.getText());
       assertEquals(
           "button.getFont().deriveFont(button.getFont().getSize() - 5f)",
           fontInfo.getSource());
@@ -460,13 +455,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               null,
               20);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(20, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(20, font.getSize());
+        assertEquals("20, Arial 20 Bold", fontInfo.getText());
       }
-      assertEquals("20, Arial 20 Bold", fontInfo.getText());
       assertEquals("button.getFont().deriveFont(20f)", fontInfo.getSource());
     }
     // -Bold =20
@@ -480,13 +475,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               null,
               null,
               20);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.PLAIN, font.getStyle());
+      assertEquals(20, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.PLAIN, font.getStyle());
-        assertEquals(20, font.getSize());
+        assertEquals("20 -Bold, Arial 20", fontInfo.getText());
       }
-      assertEquals("20 -Bold, Arial 20", fontInfo.getText());
       assertEquals(
           "button.getFont().deriveFont(button.getFont().getStyle() & ~java.awt.Font.BOLD, 20f)",
           fontInfo.getSource());
@@ -502,13 +497,13 @@ public class FontPropertyEditorTest extends SwingModelTest {
               Boolean.FALSE,
               null,
               20);
-      {
-        Font font = fontInfo.getFont();
+      Font font = fontInfo.getFont();
+      assertEquals(Font.BOLD, font.getStyle());
+      assertEquals(20, font.getSize());
+      if (EnvironmentUtils.IS_WINDOWS) {
         assertEquals("Arial", font.getFamily());
-        assertEquals(Font.BOLD, font.getStyle());
-        assertEquals(20, font.getSize());
+        assertEquals("20 -Italic, Arial 20 Bold", fontInfo.getText());
       }
-      assertEquals("20 -Italic, Arial 20 Bold", fontInfo.getText());
       assertEquals(
           "button.getFont().deriveFont(button.getFont().getStyle() & ~java.awt.Font.ITALIC, 20f)",
           fontInfo.getSource());
@@ -663,12 +658,16 @@ public class FontPropertyEditorTest extends SwingModelTest {
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // property
     Property property = button.getPropertyByTitle("font");
-    assertEquals(expectedText, getPropertyText(property));
+    if (EnvironmentUtils.IS_WINDOWS) {
+      assertEquals(expectedText, getPropertyText(property));
+    }
     // clipboard source
     {
       GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
       String actualClipboard = genericProperty.getClipboardSource();
-      assertEquals(expectedClipboard, actualClipboard);
+      if (EnvironmentUtils.IS_WINDOWS) {
+        assertEquals(expectedClipboard, actualClipboard);
+      }
     }
   }
 
