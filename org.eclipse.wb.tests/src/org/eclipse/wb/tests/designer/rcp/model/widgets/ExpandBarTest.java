@@ -51,7 +51,8 @@ public class ExpandBarTest extends RcpModelTest {
   /**
    * {@link ExpandBar} with {@link ExpandItem}'s.
    */
-  public void test_parseItems() throws Exception {
+  // Disabled because of https://github.com/eclipse/windowbuilder/issues/389
+  public void DISABLE_test_parseItems() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",

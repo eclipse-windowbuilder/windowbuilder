@@ -35,7 +35,8 @@ public class TableGefTest extends RcpGefTest {
   // Canvas
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_canvas_CREATE_column() throws Exception {
+  // Disabled because of https://github.com/eclipse/windowbuilder/issues/389
+  public void DISABLED_test_canvas_CREATE_column() throws Exception {
     openJavaInfo(
         "public class Test extends Table {",
         "  public Test(Composite parent, int style) {",
@@ -116,7 +117,8 @@ public class TableGefTest extends RcpGefTest {
         "}");
   }
 
-  public void test_canvas_RESIZE_column() throws Exception {
+  // Disabled because of https://github.com/eclipse/windowbuilder/issues/389
+  public void DISABLE_test_canvas_RESIZE_column() throws Exception {
     openJavaInfo(
         "public class Test extends Table {",
         "  public Test(Composite parent, int style) {",
