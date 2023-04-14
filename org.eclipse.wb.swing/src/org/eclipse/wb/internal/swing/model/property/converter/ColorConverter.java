@@ -46,9 +46,14 @@ public class ColorConverter extends ExpressionConverter {
       return "(java.awt.Color) null";
     }
     // find constant value
+    for (ColorInfo colorInfo : AwtColors.getColors_System()) {
+      if (value == colorInfo.getToolkitColor()) {
+        return (String) colorInfo.getData();
+      }
+    }
+
     for (ColorInfo[] colorInfos : new ColorInfo[][]{
         AwtColors.getColors_AWT(),
-        AwtColors.getColors_System(),
         AwtColors.getColors_Swing(),}) {
       for (ColorInfo colorInfo : colorInfos) {
         if (value.equals(colorInfo.getToolkitColor())) {
