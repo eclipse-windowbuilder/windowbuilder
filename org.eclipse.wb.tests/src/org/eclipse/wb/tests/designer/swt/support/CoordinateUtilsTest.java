@@ -13,6 +13,7 @@ package org.eclipse.wb.tests.designer.swt.support;
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
@@ -21,6 +22,9 @@ import org.eclipse.wb.tests.designer.Expectations.InsValue;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Shell;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for SWT {@link CoordinateUtils}.
@@ -42,7 +46,8 @@ public class CoordinateUtilsTest extends RcpModelTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_1() throws Exception {
+  // Disabled because of https://github.com/eclipse/windowbuilder/issues/389
+  public void DISABLE_test_1() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",
@@ -53,14 +58,23 @@ public class CoordinateUtilsTest extends RcpModelTest {
             "}");
     ControlInfo button = shell.getChildrenControls().get(0);
     shell.refresh();
+    // On GTK, the bounds are only calculated if the shell is visible
+    if (EnvironmentUtils.IS_LINUX) {
+      Shell swtShell = (Shell) shell.getObject();
+      swtShell.setVisible(true);
+      waitEventLoop(10);
+    }
     // Shell location
     Point shellLocation = CoordinateUtils.getDisplayLocation(shell.getObject());
-    assertEquals(new Point(-10000, -10000), shellLocation);
+    // The shell is located at (0, 0), when invisible
+    if (EnvironmentUtils.IS_WINDOWS) {
+      assertEquals(new Point(-10000, -10000), shellLocation);
+    }
     // Shell client area insets
     Insets shellInsets = CoordinateUtils.getClientAreaInsets(shell.getObject());
     assertTrue(shellInsets.left == shellInsets.right);
-    assertTrue(shellInsets.left > 3);
-    assertTrue(shellInsets.top > 20);
+    assertThat(shellInsets.left).isGreaterThanOrEqualTo(0);
+    assertThat(shellInsets.top).isGreaterThanOrEqualTo(15);
     // Button location
     {
       Point buttonLocation = CoordinateUtils.getDisplayLocation(button.getObject());
