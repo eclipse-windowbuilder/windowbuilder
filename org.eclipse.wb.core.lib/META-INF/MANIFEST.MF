@@ -6,8 +6,7 @@ Bundle-Version: 1.9.1.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Bundle-ClassPath: lib/MVEL-fork.jar,
- lib/org.apache.commons.lang_2.6.0.v201404270220.jar,
+Bundle-ClassPath: lib/org.apache.commons.lang_2.6.0.v201404270220.jar,
  lib/commons-primitives-1.0.jar,
  lib/commons-collections-3.2.1.jar,
  lib/commons-io-2.0.1.jar,
@@ -67,10 +66,6 @@ Export-Package: io.github.toolfactory.jvm,
  org.burningwave.jvm.util,
  org.eclipse.nebula.cwt.base,
  org.eclipse.nebula.widgets.cdatetime,
- org.mvel2,
- org.mvel2.compiler,
- org.mvel2.optimizers,
- org.mvel2.util,
  org.objectweb.asm,
  org.objectweb.asm.commons,
  org.objectweb.asm.signature,
