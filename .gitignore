@@ -56,6 +56,9 @@ target/
 [#]*[#]
 .\#*
 
+Java
+*.class
+
 # Tycho pomless
 .polyglot.feature.xml
 .polyglot.META-INF
