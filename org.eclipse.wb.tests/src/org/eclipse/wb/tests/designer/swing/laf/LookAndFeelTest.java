@@ -119,12 +119,12 @@ public class LookAndFeelTest extends SwingModelTest {
   /**
    * Test for finding UIManager.setLookAndFeel() when it has {@link LookAndFeel} argument.
    */
-  public void DISABLE_test_getSetLookAndFeel_LookAndFeel() throws Exception {
+  public void test_getSetLookAndFeel_LookAndFeel() throws Exception {
     parseContainer(
         "class Test {",
         "  public static void main(String[] args) {",
         "    try {",
-        "      UIManager.setLookAndFeel(new com.sun.java.swing.plaf.motif.MotifLookAndFeel());",
+        "      UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.motif.MotifLookAndFeel\");",
         "      JPanel panel = new JPanel();",
         "    } catch (Throwable e) {",
         "    }",
@@ -199,12 +199,12 @@ public class LookAndFeelTest extends SwingModelTest {
    * Test for modifying UIManager.setLookAndFeel() when this method with {@link LookAndFeel}
    * argument found.
    */
-  public void DISABLE_test_modifySetLookAndFeel_LookAndFeel() throws Exception {
+  public void test_modifySetLookAndFeel_LookAndFeel() throws Exception {
     parseContainer(
         "class Test {",
         "  public static void main(String[] args) {",
         "    try {",
-        "      UIManager.setLookAndFeel(new com.sun.java.swing.plaf.motif.MotifLookAndFeel());",
+        "      UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.motif.MotifLookAndFeel\");",
         "      JPanel panel = new JPanel();",
         "    } catch (Throwable e) {",
         "    }",
@@ -213,11 +213,10 @@ public class LookAndFeelTest extends SwingModelTest {
     LafInfo lafInfo = new LafInfo("Metal", "Metal", MetalLookAndFeel.class.getName());
     lafInfo.applyInMain(m_lastEditor);
     assertEditor(
-        "import javax.swing.plaf.metal.MetalLookAndFeel;",
         "class Test {",
         "  public static void main(String[] args) {",
         "    try {",
-        "      UIManager.setLookAndFeel(new MetalLookAndFeel());",
+        "      UIManager.setLookAndFeel(\"javax.swing.plaf.metal.MetalLookAndFeel\");",
         "      JPanel panel = new JPanel();",
         "    } catch (Throwable e) {",
         "    }",
@@ -229,7 +228,7 @@ public class LookAndFeelTest extends SwingModelTest {
    * Test for adding UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()) when no
    * setLookAndFeel method invocation found and "&lt;system&gt;" look-and-feel selected.
    */
-  public void DISABLE_test_addSetSystemLookAndFeel() throws Exception {
+  public void test_addSetSystemLookAndFeel() throws Exception {
     parseContainer(
         "class Test {",
         "  public static void main(String[] args) {",
@@ -292,12 +291,12 @@ public class LookAndFeelTest extends SwingModelTest {
    * UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()) when "&lt;system&gt;"
    * look-and-feel selected.
    */
-  public void DISABLE_test_modifySetSystemLookAndFeel_LookAndFeel() throws Exception {
+  public void test_modifySetSystemLookAndFeel_LookAndFeel() throws Exception {
     parseContainer(
         "class Test {",
         "  public static void main(String[] args) {",
         "    try {",
-        "      UIManager.setLookAndFeel(new com.sun.java.swing.plaf.motif.MotifLookAndFeel());",
+        "      UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.motif.MotifLookAndFeel\");",
         "      JPanel panel = new JPanel();",
         "    } catch (Throwable e) {",
         "    }",
@@ -321,12 +320,12 @@ public class LookAndFeelTest extends SwingModelTest {
    * Test for removing UIManager.setLookAndFeel() method invocation when "&lt;undefined&gt;"
    * look-and-feel selected and try statement body is not empty.
    */
-  public void DISABLE_test_removeSetSystemLookAndFeel_without_try() throws Exception {
+  public void test_removeSetSystemLookAndFeel_without_try() throws Exception {
     parseContainer(
         "class Test {",
         "  public static void main(String[] args) {",
         "    try {",
-        "      UIManager.setLookAndFeel(new com.sun.java.swing.plaf.motif.MotifLookAndFeel());",
+        "      UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.motif.MotifLookAndFeel\");",
         "      JPanel panel = new JPanel();",
         "    } catch (Throwable e) {",
         "    }",
