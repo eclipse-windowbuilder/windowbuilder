@@ -20,6 +20,9 @@ import org.eclipse.wb.internal.rcp.nebula.grid.GridInfo;
 import org.eclipse.wb.internal.rcp.nebula.grid.GridItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
+import org.eclipse.nebula.widgets.grid.GridColumn;
+import org.eclipse.nebula.widgets.grid.GridItem;
+
 import net.miginfocom.layout.Grid;
 
 import static org.assertj.core.api.Assertions.assertThat;

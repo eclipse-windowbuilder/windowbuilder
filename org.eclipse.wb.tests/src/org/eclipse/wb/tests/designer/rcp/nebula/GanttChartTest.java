@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.rcp.nebula.ganttchart.GanttGroupEditPart;
 import org.eclipse.wb.internal.rcp.nebula.ganttchart.GanttGroupInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
+import org.eclipse.nebula.widgets.ganttchart.GanttChart;
+
 /**
  * Test for {@link GanttChart} items models.
  *
