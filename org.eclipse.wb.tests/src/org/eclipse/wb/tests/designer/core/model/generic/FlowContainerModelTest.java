@@ -31,9 +31,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.tests.mock.EasyMockTemplate;
 import org.eclipse.wb.tests.designer.tests.mock.MockRunnable;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.easymock.EasyMock.createStrictControl;
 import static org.easymock.EasyMock.expect;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.StringUtils;
 import org.easymock.IMocksControl;

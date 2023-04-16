@@ -22,6 +22,8 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.jdt.internal.core.util.ComponentInfo;
+
 import java.util.List;
 
 /**

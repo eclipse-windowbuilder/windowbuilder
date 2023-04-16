@@ -72,12 +72,12 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import static org.easymock.EasyMock.capture;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.easymock.EasyMock.capture;
 
+import org.assertj.core.api.Assertions;
 import org.easymock.Capture;
 import org.easymock.EasyMock;
-import org.assertj.core.api.Assertions;
 
 import java.awt.FlowLayout;
 import java.lang.reflect.Method;

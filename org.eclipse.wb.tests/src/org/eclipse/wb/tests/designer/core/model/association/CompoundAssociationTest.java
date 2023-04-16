@@ -27,8 +27,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.tests.mock.EasyMockTemplate;
 import org.eclipse.wb.tests.designer.tests.mock.MockRunnable2;
 
-import static org.easymock.EasyMock.expect;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.easymock.EasyMock.expect;
 
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;
