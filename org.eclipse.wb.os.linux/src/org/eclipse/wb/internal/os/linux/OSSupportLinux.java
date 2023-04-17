@@ -38,6 +38,8 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.internal.gtk.GDK;
+import org.eclipse.swt.internal.gtk.GTK;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -54,6 +56,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@SuppressWarnings("restriction")
 public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   static {
     System.loadLibrary("wbp3");
@@ -506,6 +509,53 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   @Override
   public boolean isPlusMinusTreeClick(Tree tree, int x, int y) {
     return _isPlusMinusTreeClick(getHandleValue(tree, "handle"), x, y);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // AWT/Swing
+  //
+  ////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * <p>
+   * Executes the given runnable synchronously within the AWT event queue. If the
+   * current thread is already the AWT thread, the job is executed directly.
+   * </p>
+   * <p>
+   * Linux synchronizes GTK calls. Meaning if this method is called from within
+   * the SWT UI thread, then we may have already acquired the lock. If we then
+   * execute the job in the AWT UI thread and wait for its completion, we risk a
+   * deadlock, as the AWT thread may also try to acquire the same lock.
+   * </p>
+   * <p>
+   * In order to avoid this problem, the SWT thread has to explicitly leave the
+   * critical region before and re-enter it, immediately after the AWT job has
+   * been executed. This operation is safe, as the current thread blocks any
+   * further SWT updates, meaning the AWT thread is the only one who can interact
+   * with GDK for this brief duration.
+   * </p>
+   * <p>
+   * Note that this behavior is only relevant for GTK3. Those methods have been
+   * marked as deprecated in GTK 3.6 and removed in GTK4. Threads are assumed to
+   * always be executed in the main thread, rendering this problem obsolete.
+   * </p>
+   *
+   * @param job The runnable to be executed in the AWT UI thread
+   */
+  @Override
+  public void runAwt(Runnable job) {
+    Display display = Display.getCurrent();
+    try {
+      if (display != null && !GTK.GTK4) {
+        GDK.gdk_threads_leave();
+      }
+      super.runAwt(job);
+    } finally {
+      if (display != null && !GTK.GTK4) {
+        GDK.gdk_threads_enter();
+      }
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
