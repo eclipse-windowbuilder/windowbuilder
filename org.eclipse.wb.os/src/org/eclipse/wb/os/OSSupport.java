@@ -27,7 +27,9 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import org.osgi.framework.Bundle;
 
+import java.awt.EventQueue;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -323,5 +325,23 @@ public abstract class OSSupport {
   public Image makeShotAwt(Object component, int width, int height) {
     // do nothing by default
     return null;
+  }
+
+  /**
+   * Executes the given runnable synchronously within the AWT event queue. If the
+   * current thread is already the AWT thread, the job is executed directly.
+   *
+   * @param job The runnable to be executed in the AWT UI thread
+   */
+  public void runAwt(Runnable job) {
+    if (EventQueue.isDispatchThread()) {
+      job.run();
+    } else {
+      try {
+        EventQueue.invokeAndWait(job);
+      } catch (InvocationTargetException | InterruptedException e) {
+        Platform.getLog(OSSupport.class).error(e.getMessage(), e);
+      }
+    }
   }
 }

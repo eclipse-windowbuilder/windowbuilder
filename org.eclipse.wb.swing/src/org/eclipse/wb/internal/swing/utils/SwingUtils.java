@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
+import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Device;
@@ -177,7 +178,7 @@ public final class SwingUtils {
       }
     } else {
       // just run if in dispatch thread
-      job.run();
+      OSSupport.get().runAwt(job);
     }
   }
 
