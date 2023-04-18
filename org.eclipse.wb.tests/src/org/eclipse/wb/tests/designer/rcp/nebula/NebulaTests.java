@@ -22,9 +22,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
     CollapsibleButtonsTest.class,
-    // CTableTree/CTree has been archived
-    // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=162138
-    // CTableTreeTest.class,
     GalleryTest.class,
     GanttChartTest.class,
     GridTest.class,
