@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/toolfactory-jvm-driver-9.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/burningwave-core-12.53.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/burningwave-jvm-driver-8.6.0.jar"/>
