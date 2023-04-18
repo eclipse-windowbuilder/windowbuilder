@@ -16,7 +16,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.wb.internal.rcp.nebula.collapsiblebuttons,
- org.eclipse.wb.internal.rcp.nebula.ctabletree,
  org.eclipse.wb.internal.rcp.nebula.gallery,
  org.eclipse.wb.internal.rcp.nebula.ganttchart,
  org.eclipse.wb.internal.rcp.nebula.grid,
