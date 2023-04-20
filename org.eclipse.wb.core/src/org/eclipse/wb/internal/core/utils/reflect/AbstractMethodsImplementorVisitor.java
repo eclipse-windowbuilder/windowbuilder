@@ -12,13 +12,13 @@ package org.eclipse.wb.internal.core.utils.reflect;
 
 import org.eclipse.wb.internal.core.utils.asm.ToBytesClassAdapter;
 
-import org.objectweb.asm.ClassAdapter;
+import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
 /**
- * {@link ClassAdapter} that "implements" abstract methods by replacing them with methods that throw
+ * {@link ClassVisitor} that "implements" abstract methods by replacing them with methods that throw
  * {@link Error}.
  *
  * @author scheglov_ke
@@ -34,7 +34,7 @@ public final class AbstractMethodsImplementorVisitor extends ToBytesClassAdapter
   //
   ////////////////////////////////////////////////////////////////////////////
   public AbstractMethodsImplementorVisitor(String className) {
-    super(ClassWriter.COMPUTE_MAXS);
+    super(ClassWriter.COMPUTE_FRAMES);
     m_className = className;
   }
 

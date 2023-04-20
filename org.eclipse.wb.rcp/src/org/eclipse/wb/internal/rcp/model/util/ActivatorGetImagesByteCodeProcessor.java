@@ -23,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.commons.EmptyVisitor;
+import org.objectweb.asm.Opcodes;
 
 import java.io.InputStream;
 
@@ -91,7 +91,7 @@ public final class ActivatorGetImagesByteCodeProcessor implements IByteCodeProce
   private byte[] transformActivatorClass(byte[] bytes) {
     final boolean[] apply = {false};
     ClassReader classReader = new ClassReader(bytes);
-    ToBytesClassAdapter codeRewriter = new ToBytesClassAdapter(ClassWriter.COMPUTE_MAXS) {
+    ToBytesClassAdapter codeRewriter = new ToBytesClassAdapter(ClassWriter.COMPUTE_FRAMES) {
       @Override
       public MethodVisitor visitMethod(int access,
           String name,
@@ -104,7 +104,7 @@ public final class ActivatorGetImagesByteCodeProcessor implements IByteCodeProce
         if (name.equals("getImageDescriptor")
             && desc.equals("(Ljava/lang/String;)Lorg/eclipse/jface/resource/ImageDescriptor;")) {
           apply[0] = true;
-          return new EmptyVisitor() {
+          return new MethodVisitor(Opcodes.ASM9, mv) {
             @Override
             public void visitCode() {
               mv.visitLdcInsn(m_activatorProjectPath);
@@ -127,7 +127,7 @@ public final class ActivatorGetImagesByteCodeProcessor implements IByteCodeProce
         if (name.equals("getImage")
             && desc.equals("(Ljava/lang/String;)Lorg/eclipse/swt/graphics/Image;")) {
           apply[0] = true;
-          return new EmptyVisitor() {
+          return new MethodVisitor(Opcodes.ASM9, mv) {
             @Override
             public void visitCode() {
               mv.visitLdcInsn(m_activatorProjectPath);
