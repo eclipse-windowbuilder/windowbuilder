@@ -11,7 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.swing,
  com.google.guava;bundle-version="31.1.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.swing.jsr296;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.internal.swing.jsr296.model;x-friends:="org.eclipse.wb.tests"

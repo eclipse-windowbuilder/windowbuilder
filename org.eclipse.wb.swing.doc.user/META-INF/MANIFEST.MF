@@ -5,5 +5,5 @@ Bundle-SymbolicName: org.eclipse.wb.swing.doc.user;singleton:=true
 Bundle-Version: 1.9.1.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy

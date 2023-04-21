@@ -26,5 +26,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.swing.FormLayout.lib,
  com.google.guava;bundle-version="31.1.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.swing.FormLayout

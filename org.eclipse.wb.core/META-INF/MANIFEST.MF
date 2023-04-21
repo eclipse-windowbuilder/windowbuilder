@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.core;singleton:=true
 Bundle-Version: 1.12.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.wb.internal.core.DesignerPlugin
 Bundle-Vendor: %providerName

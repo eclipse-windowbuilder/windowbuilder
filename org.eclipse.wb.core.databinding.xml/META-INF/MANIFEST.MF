@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core.databinding,
  com.google.guava;bundle-version="31.1.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.core.databinding.xml.model,
  org.eclipse.wb.internal.core.databinding.xml.ui

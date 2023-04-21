@@ -26,7 +26,7 @@ Require-Bundle: org.eclipse.ui,
  org.apache.commons.logging;bundle-version="1.2.0",
  org.mvel2;bundle-version="2.4.15"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.wb.core.editor,
  org.eclipse.wb.core.editor.palette,
  org.eclipse.wb.core.editor.palette.model,

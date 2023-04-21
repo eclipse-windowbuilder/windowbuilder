@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.rcp,
  com.google.guava;bundle-version="31.1.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.wb.internal.rcp.nebula.collapsiblebuttons,
  org.eclipse.wb.internal.rcp.nebula.ctabletree,
  org.eclipse.wb.internal.rcp.nebula.gallery,

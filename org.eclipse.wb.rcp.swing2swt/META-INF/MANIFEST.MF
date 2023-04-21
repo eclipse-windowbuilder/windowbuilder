@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.swt,
  org.eclipse.wb.rcp
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.wb.internal.rcp.swing2swt;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.internal.rcp.swing2swt.layout;x-friends:="org.eclipse.wb.tests"
 Bundle-Localization: plugin
