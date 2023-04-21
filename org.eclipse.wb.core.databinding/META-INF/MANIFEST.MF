@@ -28,6 +28,6 @@ Export-Package: org.eclipse.wb.internal.core.databinding,
  org.eclipse.wb.internal.core.databinding.utils,
  org.eclipse.wb.internal.core.databinding.wizards.autobindings
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.core.databinding

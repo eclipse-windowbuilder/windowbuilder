@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.wb.swing.MigLayout;singleton:=true
 Bundle-Version: 1.9.1.qualifier
 Bundle-Activator: org.eclipse.wb.internal.swing.MigLayout.Activator
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

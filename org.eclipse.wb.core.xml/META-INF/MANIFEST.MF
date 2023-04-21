@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.ui,
  org.apache.commons.digester;bundle-version="3.2.0",
  org.apache.commons.logging;bundle-version="1.2.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.wb.internal.core.xml,
  org.eclipse.wb.internal.core.xml.editor,
  org.eclipse.wb.internal.core.xml.editor.actions,

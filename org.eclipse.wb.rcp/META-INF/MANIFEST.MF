@@ -105,5 +105,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.commons.commons-beanutils;bundle-version="1.9.4",
  org.objectweb.asm;bundle-version="9.5.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.rcp

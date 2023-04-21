@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.wb.core.lib;singleton:=true
 Bundle-Version: 1.9.1.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ClassPath: lib/org.apache.commons.lang_2.6.0.v201404270220.jar,
  lib/commons-primitives-1.0.jar,
  lib/commons-collections-3.2.1.jar,

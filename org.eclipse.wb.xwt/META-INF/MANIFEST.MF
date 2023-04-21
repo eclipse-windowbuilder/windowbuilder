@@ -30,7 +30,7 @@ Require-Bundle: org.eclipse.core.runtime,
  com.google.guava;bundle-version="31.1.0",
  org.apache.commons.digester;bundle-version="3.2.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.wb.internal.xwt,
  org.eclipse.wb.internal.xwt.editor;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.internal.xwt.model.forms,

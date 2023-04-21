@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.os.macosx;singleton:=true
 Bundle-Version: 1.9.1.qualifier
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Eclipse-PlatformFilter: (osgi.os=macosx)
 Require-Bundle: org.eclipse.swt,
  org.eclipse.core.runtime,

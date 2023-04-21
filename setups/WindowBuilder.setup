@@ -79,9 +79,9 @@
       label="Core">
     <setupTask
         xsi:type="jdt:JRETask"
-        version="JavaSE-11"
-        location="${jre.location-11}"
-        name="JRE for JavaSE-11">
+        version="JavaSE-17"
+        location="${jre.location-17}"
+        name="JRE for JavaSE-17">
       <description>Define the JRE needed to compile and run the Window Builder Java projects</description>
     </setupTask>
     <setupTask

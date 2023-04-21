@@ -24,6 +24,6 @@ Export-Package: org.eclipse.wb.internal.swing.databinding,
  org.eclipse.wb.internal.swing.databinding.parser
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.swing.databinding
