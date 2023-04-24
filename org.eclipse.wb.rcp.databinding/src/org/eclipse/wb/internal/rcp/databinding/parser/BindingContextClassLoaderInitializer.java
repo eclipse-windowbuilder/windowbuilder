@@ -28,8 +28,8 @@ import org.apache.commons.lang.StringUtils;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodAdapter;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 import java.io.InputStream;
 import java.util.List;
@@ -185,7 +185,7 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
    */
   private static byte[] transformBindings(byte[] bytes) {
     ClassReader classReader = new ClassReader(bytes);
-    ToBytesClassAdapter codeRewriter = new ToBytesClassAdapter(ClassWriter.COMPUTE_MAXS) {
+    ToBytesClassAdapter codeRewriter = new ToBytesClassAdapter(ClassWriter.COMPUTE_FRAMES) {
       @Override
       public MethodVisitor visitMethod(int access,
           String name,
@@ -216,7 +216,7 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
             } else if (name.endsWith("Set")) {
               property[0] = "fooSet";
             }
-            return new MethodAdapter(mv) {
+            return new MethodVisitor(Opcodes.ASM9, mv) {
               @Override
               public void visitCode() {
                 visitVarInsn(ALOAD, indexes[0]);
@@ -260,7 +260,7 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
       final String field,
       final String fieldType) {
     ClassReader classReader = new ClassReader(bytes);
-    ToBytesClassAdapter codeRewriter = new ToBytesClassAdapter(ClassWriter.COMPUTE_MAXS) {
+    ToBytesClassAdapter codeRewriter = new ToBytesClassAdapter(ClassWriter.COMPUTE_FRAMES) {
       @Override
       public MethodVisitor visitMethod(int access,
           String name,
@@ -269,7 +269,7 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
           String[] exceptions) {
         MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
         if (name.equals("<init>") && desc.equals(methodDescriptor)) {
-          return new MethodAdapter(mv) {
+          return new MethodVisitor(Opcodes.ASM9, mv) {
             @Override
             public void visitCode() {
               visitVarInsn(ALOAD, 2);

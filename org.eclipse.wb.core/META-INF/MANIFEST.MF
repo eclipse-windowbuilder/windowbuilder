@@ -148,6 +148,7 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.wb.runtime;visibility:=reexport,
  org.eclipse.wb.core.lib;visibility:=reexport,
  com.google.guava;bundle-version="31.1.0",
+ org.objectweb.asm;bundle-version="9.5.0",
  org.mvel2;bundle-version="2.4.15"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.wb.core

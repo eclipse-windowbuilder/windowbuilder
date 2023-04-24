@@ -18,5 +18,9 @@
 			<unit id="org.eclipse.nebula.incubation.feature.feature.group" version="0.0.0"/>
 		</location>
 		<location type="Target" uri="file:${project_loc:/target-platform}/mvn/wb-mvn.target"/>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="https://download.eclipse.org/oomph/simrel-maven/milestone/latest/"/>
+			<unit id="org.eclipse.oomph.maven.all.feature.group" version="4.28.0.qualifier"/>
+		</location>
 	</locations>
 </target>

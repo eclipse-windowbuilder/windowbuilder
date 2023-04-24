@@ -49,7 +49,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wb.rcp.databinding.xwt,
  org.junit;bundle-version="4.12.0",
  com.google.guava;bundle-version="31.1.0",
- org.apache.commons.digester;bundle-version="3.2.0"
+ org.apache.commons.digester;bundle-version="3.2.0",
+ org.objectweb.asm;bundle-version="9.5.0"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: 
  lib/org.assertj_1.7.1.v20170413-2026.jar,

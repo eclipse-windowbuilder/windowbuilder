@@ -47,8 +47,9 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.lang.StringUtils;
 import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.commons.EmptyVisitor;
+import org.objectweb.asm.Opcodes;
 import org.osgi.framework.Bundle;
 
 import java.io.ByteArrayInputStream;
@@ -422,7 +423,7 @@ public final class TestUtils {
     String classPath = testClass.getName().replace('.', '/') + ".class";
     InputStream classStream = testClass.getClassLoader().getResourceAsStream(classPath);
     ClassReader classReader = new ClassReader(classStream);
-    classReader.accept(new EmptyVisitor() {
+    classReader.accept(new ClassVisitor(Opcodes.ASM9) {
       @Override
       public MethodVisitor visitMethod(int access,
           String name,
@@ -430,7 +431,7 @@ public final class TestUtils {
           String signature,
           String[] exceptions) {
         sourceMethodNames.add(name);
-        return new EmptyVisitor();
+        return new MethodVisitor(Opcodes.ASM9) {};
       }
     }, 0);
     return sourceMethodNames;
