@@ -71,7 +71,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
               resource.setResourceAttributes(attributes);
             }
             // do deleting
-            resource.delete(true, null);
+            forceDeleteFile(resource);
             break;
           } catch (Exception e) {
             if (i == maxCount - 1) {
@@ -206,6 +206,9 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
    * problems.
    */
   public static void waitForAutoBuild() throws Exception {
+    // Wait for workspace jobs such as file creation
+    waitEventLoop(25);
+    // Wait for auto-builder to handle all newly created files
     TestProject.waitForAutoBuild();
     // check for compilation problems
     String problemsText = "";
