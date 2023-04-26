@@ -715,7 +715,7 @@ public class PageLayoutTest extends RcpModelTest {
   // Shortcuts
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void DISABLE_test_shortcuts_0() throws Exception {
+  public void test_shortcuts_0() throws Exception {
     PageLayoutInfo page =
         parsePerspective(
             "public class Test implements IPerspectiveFactory {",
@@ -725,15 +725,15 @@ public class PageLayoutTest extends RcpModelTest {
             "    addFastViews(layout);",
             "  }",
             "  private void addFastViews(IPageLayout layout) {",
-            "    layout.addFastView(IPageLayout.ID_RES_NAV);",
+            "    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
             "  }",
             "}");
     // check hierarchy
     assertHierarchy(
-        "{parameter: layout} {layout} {/layout.addFastView(IPageLayout.ID_RES_NAV)/ /addFastViews(layout)/}",
+        "{parameter: layout} {layout} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/ /addFastViews(layout)/}",
         "  (editor area)",
         "  (fast views)",
-        "    {void} {empty} {/layout.addFastView(IPageLayout.ID_RES_NAV)/}",
+        "    {void} {empty} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/}",
         "  (view shortcuts)",
         "  (perspective shortcuts)");
     FastViewContainerInfo container = page.getFastViewContainer();
@@ -765,13 +765,13 @@ public class PageLayoutTest extends RcpModelTest {
         view = (FastViewInfo) shortcuts.get(0);
       }
       // access
-      assertEquals(IPageLayout.ID_RES_NAV, view.getId());
+      assertEquals(IPageLayout.ID_PROJECT_EXPLORER, view.getId());
       // presentation
       {
         IObjectPresentation presentation = view.getPresentation();
         assertNotNull(presentation.getIcon());
         assertEquals(
-            "\"Navigator\" - org.eclipse.ui.views.ResourceNavigator",
+            "\"Project Explorer\" - org.eclipse.ui.navigator.ProjectExplorer",
             presentation.getText());
       }
       // bounds
@@ -804,7 +804,7 @@ public class PageLayoutTest extends RcpModelTest {
             "    addFastViews(layout);",
             "  }",
             "  private void addFastViews(IPageLayout layout) {",
-            "    layout.addFastView(IPageLayout.ID_RES_NAV);",
+            "    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
             "  }",
             "}");
     page.refresh();
@@ -824,7 +824,7 @@ public class PageLayoutTest extends RcpModelTest {
         "  }",
         "  private void addFastViews(IPageLayout layout) {",
         "    layout.addFastView('org.eclipse.jdt.ui.PackageExplorer');",
-        "    layout.addFastView(IPageLayout.ID_RES_NAV);",
+        "    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
         "  }",
         "}");
     // check shortcut
@@ -836,11 +836,11 @@ public class PageLayoutTest extends RcpModelTest {
     }
     // check hierarchy
     assertHierarchy(
-        "{parameter: layout} {layout} {/layout.addFastView(IPageLayout.ID_RES_NAV)/ /addFastViews(layout)/ /layout.addFastView('org.eclipse.jdt.ui.PackageExplorer')/}",
+        "{parameter: layout} {layout} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/ /addFastViews(layout)/ /layout.addFastView('org.eclipse.jdt.ui.PackageExplorer')/}",
         "  (editor area)",
         "  (fast views)",
         "    {void} {empty} {/layout.addFastView('org.eclipse.jdt.ui.PackageExplorer')/}",
-        "    {void} {empty} {/layout.addFastView(IPageLayout.ID_RES_NAV)/}",
+        "    {void} {empty} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/}",
         "  (view shortcuts)",
         "  (perspective shortcuts)");
   }
@@ -905,7 +905,7 @@ public class PageLayoutTest extends RcpModelTest {
             "    addFastViews(layout);",
             "  }",
             "  private void addFastViews(IPageLayout layout) {",
-            "    layout.addFastView(IPageLayout.ID_RES_NAV);",
+            "    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
             "    layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);",
             "  }",
             "}");
@@ -926,7 +926,7 @@ public class PageLayoutTest extends RcpModelTest {
         "  }",
         "  private void addFastViews(IPageLayout layout) {",
         "    layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);",
-        "    layout.addFastView(IPageLayout.ID_RES_NAV);",
+        "    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
         "  }",
         "}");
     // check shortcut
@@ -951,7 +951,7 @@ public class PageLayoutTest extends RcpModelTest {
             "    addFastViews(layout);",
             "  }",
             "  private void addFastViews(IPageLayout layout) {",
-            "    layout.addFastView(IPageLayout.ID_RES_NAV);",
+            "    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
             "    layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);",
             "  }",
             "}");
@@ -972,7 +972,7 @@ public class PageLayoutTest extends RcpModelTest {
         "  }",
         "  private void addFastViews(IPageLayout layout) {",
         "    layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);",
-        "    layout.addFastView(IPageLayout.ID_RES_NAV);",
+        "    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
         "  }",
         "}");
     // check shortcut
@@ -1001,7 +1001,7 @@ public class PageLayoutTest extends RcpModelTest {
             "    addViewShortcuts(layout);",
             "  }",
             "  private void addViewShortcuts(IPageLayout layout) {",
-            "    layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);",
+            "    layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);",
             "  }",
             "}");
     page.refresh();
@@ -1021,7 +1021,7 @@ public class PageLayoutTest extends RcpModelTest {
         "  }",
         "  private void addViewShortcuts(IPageLayout layout) {",
         "    layout.addShowViewShortcut('org.eclipse.jdt.ui.PackageExplorer');",
-        "    layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);",
+        "    layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);",
         "  }",
         "}");
   }
@@ -1040,7 +1040,7 @@ public class PageLayoutTest extends RcpModelTest {
             "    addViewShortcuts(layout);",
             "  }",
             "  private void addViewShortcuts(IPageLayout layout) {",
-            "    layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);",
+            "    layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);",
             "    layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);",
             "  }",
             "}");
@@ -1060,7 +1060,7 @@ public class PageLayoutTest extends RcpModelTest {
         "  }",
         "  private void addViewShortcuts(IPageLayout layout) {",
         "    layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);",
-        "    layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);",
+        "    layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);",
         "  }",
         "}");
   }
@@ -1347,7 +1347,7 @@ public class PageLayoutTest extends RcpModelTest {
             "  }",
             "  public void createInitialLayout(IPageLayout layout) {",
             "    String editorArea = layout.getEditorArea();",
-            "    layout.addView(IPageLayout.ID_RES_NAV, IPageLayout.LEFT, 0.3f, editorArea);",
+            "    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
             "  }",
             "}");
     PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
@@ -1364,7 +1364,7 @@ public class PageLayoutTest extends RcpModelTest {
           "  }",
           "  public void createInitialLayout(IPageLayout layout) {",
           "    String editorArea = layout.getEditorArea();",
-          "    layout.addStandaloneView(IPageLayout.ID_RES_NAV, true, IPageLayout.LEFT, 0.3f, editorArea);",
+          "    layout.addStandaloneView(IPageLayout.ID_PROJECT_EXPLORER, true, IPageLayout.LEFT, 0.3f, editorArea);",
           "  }",
           "}");
       assertMorphView(view, true, false);
@@ -1378,7 +1378,7 @@ public class PageLayoutTest extends RcpModelTest {
           "  }",
           "  public void createInitialLayout(IPageLayout layout) {",
           "    String editorArea = layout.getEditorArea();",
-          "    layout.addStandaloneViewPlaceholder(IPageLayout.ID_RES_NAV, IPageLayout.LEFT, 0.3f, editorArea, true);",
+          "    layout.addStandaloneViewPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea, true);",
           "  }",
           "}");
       assertMorphView(view, true, true);
@@ -1392,7 +1392,7 @@ public class PageLayoutTest extends RcpModelTest {
           "  }",
           "  public void createInitialLayout(IPageLayout layout) {",
           "    String editorArea = layout.getEditorArea();",
-          "    layout.addStandaloneView(IPageLayout.ID_RES_NAV, true, IPageLayout.LEFT, 0.3f, editorArea);",
+          "    layout.addStandaloneView(IPageLayout.ID_PROJECT_EXPLORER, true, IPageLayout.LEFT, 0.3f, editorArea);",
           "  }",
           "}");
       assertMorphView(view, true, false);
@@ -1406,7 +1406,7 @@ public class PageLayoutTest extends RcpModelTest {
           "  }",
           "  public void createInitialLayout(IPageLayout layout) {",
           "    String editorArea = layout.getEditorArea();",
-          "    layout.addView(IPageLayout.ID_RES_NAV, IPageLayout.LEFT, 0.3f, editorArea);",
+          "    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
           "  }",
           "}");
       assertMorphView(view, false, false);
@@ -1420,7 +1420,7 @@ public class PageLayoutTest extends RcpModelTest {
           "  }",
           "  public void createInitialLayout(IPageLayout layout) {",
           "    String editorArea = layout.getEditorArea();",
-          "    layout.addPlaceholder(IPageLayout.ID_RES_NAV, IPageLayout.LEFT, 0.3f, editorArea);",
+          "    layout.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
           "  }",
           "}");
       assertMorphView(view, false, true);
@@ -1434,7 +1434,7 @@ public class PageLayoutTest extends RcpModelTest {
           "  }",
           "  public void createInitialLayout(IPageLayout layout) {",
           "    String editorArea = layout.getEditorArea();",
-          "    layout.addStandaloneViewPlaceholder(IPageLayout.ID_RES_NAV, IPageLayout.LEFT, 0.3f, editorArea, true);",
+          "    layout.addStandaloneViewPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea, true);",
           "  }",
           "}");
       assertMorphView(view, true, true);
@@ -1448,7 +1448,7 @@ public class PageLayoutTest extends RcpModelTest {
           "  }",
           "  public void createInitialLayout(IPageLayout layout) {",
           "    String editorArea = layout.getEditorArea();",
-          "    layout.addPlaceholder(IPageLayout.ID_RES_NAV, IPageLayout.LEFT, 0.3f, editorArea);",
+          "    layout.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
           "  }",
           "}");
       assertMorphView(view, false, true);
@@ -1462,7 +1462,7 @@ public class PageLayoutTest extends RcpModelTest {
           "  }",
           "  public void createInitialLayout(IPageLayout layout) {",
           "    String editorArea = layout.getEditorArea();",
-          "    layout.addView(IPageLayout.ID_RES_NAV, IPageLayout.LEFT, 0.3f, editorArea);",
+          "    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
           "  }",
           "}");
       assertMorphView(view, false, false);
@@ -1477,7 +1477,7 @@ public class PageLayoutTest extends RcpModelTest {
           "  }",
           "  public void createInitialLayout(IPageLayout layout) {",
           "    String editorArea = layout.getEditorArea();",
-          "    layout.addStandaloneViewPlaceholder(IPageLayout.ID_RES_NAV, IPageLayout.LEFT, 0.3f, editorArea, true);",
+          "    layout.addStandaloneViewPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea, true);",
           "  }",
           "}");
       assertMorphView(view, true, true);
@@ -1521,7 +1521,7 @@ public class PageLayoutTest extends RcpModelTest {
       assertEquals(placeholder, ((Boolean) property.getValue()).booleanValue());
     }
     // arguments
-    assertEquals(IPageLayout.ID_RES_NAV, view.getId());
+    assertEquals(IPageLayout.ID_PROJECT_EXPLORER, view.getId());
     assertEquals(IPageLayout.LEFT, view.getRelationship());
     assertEquals(0.3f, view.getRatio(), 0.001);
     assertEquals(IPageLayout.ID_EDITOR_AREA, view.getRefId());
@@ -1543,7 +1543,7 @@ public class PageLayoutTest extends RcpModelTest {
             "  public Test() {",
             "  }",
             "  public void createInitialLayout(IPageLayout layout) {",
-            "    layout.addView(IPageLayout.ID_RES_NAV, IPageLayout.TOP, 0.3f, layout.getEditorArea());",
+            "    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea());",
             "  }",
             "}");
     page.refresh();
@@ -1559,14 +1559,14 @@ public class PageLayoutTest extends RcpModelTest {
         "  public Test() {",
         "  }",
         "  public void createInitialLayout(IPageLayout layout) {",
-        "    layout.addView(IPageLayout.ID_RES_NAV, IPageLayout.TOP, 0.3f, layout.getEditorArea());",
+        "    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea());",
         "    layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA);",
         "  }",
         "}");
     assertHierarchy(
-        "{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView(IPageLayout.ID_RES_NAV, IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}",
+        "{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}",
         "  (editor area)",
-        "  {void} {void} {/layout.addView(IPageLayout.ID_RES_NAV, IPageLayout.TOP, 0.3f, layout.getEditorArea())/}",
+        "  {void} {void} {/layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/}",
         "  {void} {void} {/layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}",
         "  (fast views)",
         "  (view shortcuts)",

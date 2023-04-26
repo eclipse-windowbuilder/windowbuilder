@@ -797,7 +797,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
     // check for some known views
     Set<String> idSet = idToView.keySet();
     assertThat(idSet).contains("org.eclipse.jdt.ui.PackageExplorer");
-    assertThat(idSet).contains(IPageLayout.ID_RES_NAV);
+    assertThat(idSet).contains(IPageLayout.ID_PROJECT_EXPLORER);
     assertThat(idSet).contains(IPageLayout.ID_OUTLINE);
     assertThat(idSet).contains(IPageLayout.ID_BOOKMARKS);
   }
@@ -844,7 +844,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
       assertThat(views.size()).isGreaterThan(5);
       // check for some known views
       assertNotNull(idToView.get("org.eclipse.jdt.ui.PackageExplorer"));
-      assertNull(idToView.get(IPageLayout.ID_RES_NAV));
+      assertNull(idToView.get(IPageLayout.ID_PROJECT_EXPLORER));
     }
   }
 
