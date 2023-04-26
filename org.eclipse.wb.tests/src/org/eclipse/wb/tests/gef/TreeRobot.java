@@ -225,7 +225,6 @@ public final class TreeRobot {
     TreeEditPart[] editParts = getEditParts(models);
     m_justSelectedEditParts = editParts;
     m_viewer.setSelection(ImmutableList.<EditPart>copyOf(editParts));
-    waitEventLoop();
     return this;
   }
 
