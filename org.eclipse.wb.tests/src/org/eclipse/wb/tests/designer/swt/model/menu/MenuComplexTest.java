@@ -400,8 +400,7 @@ public class MenuComplexTest extends RcpGefTest {
   /**
    * Test for deleting "item" with "subMenu"
    */
-  // Disabled due to Jenkins failure
-  public void DISABLED_test_deleteItemWithSubmenu() throws Exception {
+  public void test_deleteItemWithSubmenu() throws Exception {
     CompositeInfo shellInfo =
         openComposite(
             "public class Test extends Shell {",
@@ -422,6 +421,12 @@ public class MenuComplexTest extends RcpGefTest {
             "    }",
             "  }",
             "}");
+
+    assertJavaInfo("bar");
+    assertJavaInfo("item_1");
+    assertJavaInfo("item_2");
+    assertJavaInfo("menu_2");
+
     MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
     MenuItemInfo item_1 = barInfo.getChildrenItems().get(0);
     MenuItemInfo item_2 = barInfo.getChildrenItems().get(1);

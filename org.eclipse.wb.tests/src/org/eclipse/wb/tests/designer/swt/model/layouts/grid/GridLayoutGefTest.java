@@ -89,6 +89,11 @@ public class GridLayoutGefTest extends RcpGefTest {
         "    }",
         "  }",
         "}");
+
+    assertJavaInfo("composite");
+    assertJavaInfo("label");
+    assertJavaInfo("button");
+
     ControlInfo button = getJavaInfoByName("button");
     // select "button"
     canvas.select(button);

@@ -18,6 +18,9 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.databinding.parser.DatabindingRootProcessor;
+import org.eclipse.wb.internal.core.databinding.parser.ParseState;
+import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
 import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
@@ -33,6 +36,8 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
+import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.model.widgets.WidgetsObserveTypeContainer;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoRelatedTest;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
@@ -310,6 +315,28 @@ public class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest {
   // Utils
   //
   ////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Returns the data bindings provider of the current compilation unit.
+   */
+  protected final DatabindingsProvider getDatabindingsProvider() throws Exception {
+    ParseState parseState = DatabindingRootProcessor.STATES.get(m_lastEditor.getModelUnit());
+    assertNotNull(parseState);
+    assertNotNull(parseState.databindingsProvider);
+    assertInstanceOf(DatabindingsProvider.class, parseState.databindingsProvider);
+    return (DatabindingsProvider) parseState.databindingsProvider;
+  }
+
+  /**
+   * Asserts existence of an SWT widget with the given name.
+   */
+  protected final void assertJavaInfo(String infoName) throws Exception {
+    DatabindingsProvider provider = getDatabindingsProvider();
+    WidgetsObserveTypeContainer container = (WidgetsObserveTypeContainer) provider.getContainer(ObserveType.WIDGETS);
+    assertNotNull(container);
+    assertNotNull(container.resolve(getJavaInfoByName(infoName)));
+  }
+
   /**
    * Asserts selection range in "Java" editor.
    */
