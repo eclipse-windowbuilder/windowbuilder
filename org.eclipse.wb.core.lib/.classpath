@@ -13,7 +13,5 @@
 	<classpathentry exported="true" kind="lib" path="lib/commons-primitives-1.0.jar" sourcepath="lib/commons-primitives-1.0-sources.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.2.1.jar" sourcepath="lib/commons-collections-3.2.1-sources.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-io-2.0.1.jar" sourcepath="lib/commons-io-2.0.1-sources.zip"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.nebula.cwt_1.1.0.202003151134.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.nebula.widgets.cdatetime_1.4.0.202003151134.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

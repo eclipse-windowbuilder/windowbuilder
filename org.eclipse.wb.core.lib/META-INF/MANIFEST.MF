@@ -62,9 +62,7 @@ Export-Package: io.github.toolfactory.jvm,
  org.burningwave.core.jvm,
  org.burningwave.jvm,
  org.burningwave.jvm.function.catalog,
- org.burningwave.jvm.util,
- org.eclipse.nebula.cwt.base,
- org.eclipse.nebula.widgets.cdatetime
+ org.burningwave.jvm.util
 Require-Bundle: org.eclipse.ui
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.wb.core.lib
