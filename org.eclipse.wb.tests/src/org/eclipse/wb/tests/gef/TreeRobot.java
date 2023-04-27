@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
+import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
@@ -225,6 +226,7 @@ public final class TreeRobot {
     TreeEditPart[] editParts = getEditParts(models);
     m_justSelectedEditParts = editParts;
     m_viewer.setSelection(ImmutableList.<EditPart>copyOf(editParts));
+    DesignerTestCase.waitEventLoop(100, 0);
     return this;
   }
 
