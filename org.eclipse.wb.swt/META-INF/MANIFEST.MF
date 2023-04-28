@@ -60,7 +60,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core.java,
  org.eclipse.pde.core,
  org.eclipse.draw2d;bundle-version="3.13.0",
- com.google.guava;bundle-version="31.1.0"
+ com.google.guava;bundle-version="31.1.0",
+ org.apache.commons.collections;bundle-version="3.2.2"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.swt
