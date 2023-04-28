@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.figure.GhostPositionFeedback;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
@@ -29,6 +28,8 @@ import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 import java.util.List;
 

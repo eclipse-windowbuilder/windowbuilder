@@ -11,7 +11,8 @@
 package org.eclipse.wb.draw2d.border;
 
 import org.eclipse.wb.draw2d.Graphics;
-import org.eclipse.wb.draw2d.geometry.Insets;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * {@link CompoundBorder} allows for the nesting of two borders. The nested borders are referred to

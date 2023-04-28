@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.component;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.ComponentPositionLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.JScrollPaneInfo;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link JScrollPaneInfo}.

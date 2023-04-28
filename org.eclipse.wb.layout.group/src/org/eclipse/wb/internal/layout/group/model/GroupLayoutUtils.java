@@ -15,8 +15,9 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 import org.netbeans.modules.form.layoutdesign.LayoutComponent;
 

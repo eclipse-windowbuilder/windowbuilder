@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.support;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
@@ -20,6 +19,7 @@ import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.InsValue;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.widgets.Group;
 
 /**

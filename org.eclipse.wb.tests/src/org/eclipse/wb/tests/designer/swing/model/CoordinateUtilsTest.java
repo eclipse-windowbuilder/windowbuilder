@@ -56,7 +56,7 @@ public class CoordinateUtilsTest extends DesignerTestCase {
    */
   public void test_toDraw2d_Insets() throws Exception {
     assertEquals(
-        new org.eclipse.wb.draw2d.geometry.Insets(1, 2, 3, 4),
+        new org.eclipse.draw2d.geometry.Insets(1, 2, 3, 4),
         CoordinateUtils.get(new java.awt.Insets(1, 2, 3, 4)));
   }
 
@@ -66,11 +66,11 @@ public class CoordinateUtilsTest extends DesignerTestCase {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * Test for {@link CoordinateUtils#get(org.eclipse.wb.draw2d.geometry.Insets)}.
+   * Test for {@link CoordinateUtils#get(org.eclipse.draw2d.geometry.Insets)}.
    */
   public void test_toAWT_Insets() throws Exception {
     assertEquals(
         new java.awt.Insets(1, 2, 3, 4),
-        CoordinateUtils.get(new org.eclipse.wb.draw2d.geometry.Insets(1, 2, 3, 4)));
+        CoordinateUtils.get(new org.eclipse.draw2d.geometry.Insets(1, 2, 3, 4)));
   }
 }

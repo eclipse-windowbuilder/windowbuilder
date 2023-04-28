@@ -13,7 +13,8 @@ package org.eclipse.wb.tests.draw2d;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.draw2d.geometry.Insets;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * @author lobas_av

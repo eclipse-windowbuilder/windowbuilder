@@ -23,7 +23,6 @@ import org.eclipse.wb.core.model.association.AssociationObject;
 import org.eclipse.wb.core.model.association.AssociationObjects;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildGraphical;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildTree;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -58,6 +57,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.support.LabelSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.laf.BaselineSupportHelper;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
@@ -18,7 +17,9 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.NotImplementedException;
@@ -140,7 +141,7 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
   // Insets
   //
   ////////////////////////////////////////////////////////////////////////////
-  private Insets m_clientAreaInsets = Insets.ZERO_INSETS;
+  private Insets m_clientAreaInsets = IFigure.NO_INSETS;
 
   @Override
   public final Insets getClientAreaInsets() {

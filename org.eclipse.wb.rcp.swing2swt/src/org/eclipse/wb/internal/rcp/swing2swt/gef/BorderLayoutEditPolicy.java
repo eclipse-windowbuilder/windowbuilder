@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.swing2swt.gef;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.policy.ControlPositionLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.swing2swt.Messages;
 import org.eclipse.wb.internal.rcp.swing2swt.layout.BorderLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link BorderLayoutInfo}.

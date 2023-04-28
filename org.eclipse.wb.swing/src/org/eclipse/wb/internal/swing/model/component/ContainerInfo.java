@@ -21,7 +21,6 @@ import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.clipboard.ComponentClipboardCommand;
@@ -60,6 +59,7 @@ import org.eclipse.wb.internal.swing.model.property.TabOrderProperty;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.NullLiteral;
 import org.eclipse.jdt.core.dom.Statement;

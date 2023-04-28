@@ -11,9 +11,10 @@
 package org.eclipse.wb.core.gef.policy.layout.grid;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * This interface provides information about grid.

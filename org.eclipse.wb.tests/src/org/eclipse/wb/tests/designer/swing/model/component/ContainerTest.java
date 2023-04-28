@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.swing.model.component;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.association.ImplicitObjectAssociation;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.order.ComponentOrderBeforeSibling;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
@@ -31,6 +30,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;

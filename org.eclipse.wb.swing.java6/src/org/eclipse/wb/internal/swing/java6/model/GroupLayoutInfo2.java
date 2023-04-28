@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -34,6 +33,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutClipboardCommand;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.graphics.Image;
 
 import org.netbeans.modules.form.layoutdesign.VisualMapper;

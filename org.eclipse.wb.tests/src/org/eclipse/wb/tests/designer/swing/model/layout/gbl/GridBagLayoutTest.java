@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
@@ -34,6 +33,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.IPreferenceConstants;
 import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import static org.assertj.core.api.Assertions.assertThat;

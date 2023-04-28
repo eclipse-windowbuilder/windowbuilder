@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.GenericPropertySetValue;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
@@ -37,6 +36,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetAlignmentHorizo
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetAlignmentVerticalAction;
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetGrowAction;
 
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;

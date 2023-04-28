@@ -27,7 +27,6 @@ import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -53,6 +52,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutAssistantSupport;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;

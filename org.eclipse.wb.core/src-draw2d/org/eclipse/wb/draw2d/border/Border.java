@@ -12,8 +12,9 @@ package org.eclipse.wb.draw2d.border;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * A {@link Border} is a graphical decoration that is painted just inside the outer edge of a

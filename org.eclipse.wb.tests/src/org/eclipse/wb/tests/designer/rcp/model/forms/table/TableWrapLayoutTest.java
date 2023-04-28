@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.rcp.model.forms.table;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -34,6 +33,7 @@ import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.model.forms.AbstractFormsTest;
 import org.eclipse.wb.tests.designer.swt.model.jface.ViewerTest;
 
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.TableWrapData;

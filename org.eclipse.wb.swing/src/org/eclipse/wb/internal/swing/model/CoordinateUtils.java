@@ -56,11 +56,11 @@ public final class CoordinateUtils {
   }
 
   /**
-   * @return the draw2d {@link org.eclipse.wb.draw2d.geometry.Insets} for given AWT
+   * @return the draw2d {@link org.eclipse.draw2d.geometry.Insets} for given AWT
    *         {@link java.awt.Insets}.
    */
-  public static org.eclipse.wb.draw2d.geometry.Insets get(java.awt.Insets o) {
-    return new org.eclipse.wb.draw2d.geometry.Insets(o.top, o.left, o.bottom, o.right);
+  public static org.eclipse.draw2d.geometry.Insets get(java.awt.Insets o) {
+    return new org.eclipse.draw2d.geometry.Insets(o.top, o.left, o.bottom, o.right);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -70,9 +70,9 @@ public final class CoordinateUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the AWT {@link java.awt.Insets} for given draw2d
-   *         {@link org.eclipse.wb.draw2d.geometry.Insets}.
+   *         {@link org.eclipse.draw2d.geometry.Insets}.
    */
-  public static java.awt.Insets get(org.eclipse.wb.draw2d.geometry.Insets o) {
+  public static java.awt.Insets get(org.eclipse.draw2d.geometry.Insets o) {
     return new java.awt.Insets(o.top, o.left, o.bottom, o.right);
   }
 
