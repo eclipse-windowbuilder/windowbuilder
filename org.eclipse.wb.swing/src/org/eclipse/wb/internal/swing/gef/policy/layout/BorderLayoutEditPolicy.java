@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.ComponentsLayoutRequestValidator;
 import org.eclipse.wb.internal.swing.gef.policy.ComponentPositionLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.BorderLayoutInfo;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 import java.awt.BorderLayout;
 

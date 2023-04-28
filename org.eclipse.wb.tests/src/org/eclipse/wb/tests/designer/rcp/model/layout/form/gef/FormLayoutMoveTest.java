@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.layout.form.gef;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -20,6 +19,8 @@ import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormLayoutEditPolicy;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

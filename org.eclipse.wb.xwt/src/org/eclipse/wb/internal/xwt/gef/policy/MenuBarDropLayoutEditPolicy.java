@@ -16,7 +16,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -34,6 +33,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ShellInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * {@link LayoutEditPolicy} allowing drop "bar" {@link MenuInfo} on {@link ShellInfo}.

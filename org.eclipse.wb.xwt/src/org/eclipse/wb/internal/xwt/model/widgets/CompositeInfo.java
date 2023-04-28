@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.xwt.model.widgets;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.internal.core.model.description.LayoutDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.LayoutDescriptionHelper;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -44,6 +43,7 @@ import org.eclipse.wb.internal.xwt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.xwt.support.ControlSupport;
 import org.eclipse.wb.internal.xwt.support.CoordinateUtils;
 
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;

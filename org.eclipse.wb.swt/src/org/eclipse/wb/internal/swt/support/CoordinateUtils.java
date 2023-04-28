@@ -10,10 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -101,7 +102,7 @@ public final class CoordinateUtils {
     }
     // if client area (0,0) is not shifted from top-left corner of bounds, then no insets at all
     if (top == 0 && left == 0) {
-      return Insets.ZERO_INSETS;
+      return IFigure.NO_INSETS;
     }
     // prepare bottom/right
     Rectangle bounds = ControlSupport.getBounds(composite);
@@ -131,7 +132,7 @@ public final class CoordinateUtils {
     {
       Insets trimInsets = getClientAreaInsets(composite);
       if (trimInsets.top != 0 || trimInsets.left != 0) {
-        return Insets.ZERO_INSETS;
+        return IFigure.NO_INSETS;
       }
     }
     // prepare bounds/clientArea

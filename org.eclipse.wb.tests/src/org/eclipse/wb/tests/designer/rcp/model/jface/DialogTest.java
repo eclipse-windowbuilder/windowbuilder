@@ -17,7 +17,6 @@ import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.model.association.FactoryParentAssociation;
 import org.eclipse.wb.core.model.association.UnknownAssociation;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.creation.factory.ImplicitFactoryCreationSupport;
@@ -40,6 +39,7 @@ import org.eclipse.wb.tests.designer.Expectations.RectValue;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;

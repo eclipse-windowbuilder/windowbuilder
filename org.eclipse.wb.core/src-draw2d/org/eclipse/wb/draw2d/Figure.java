@@ -18,7 +18,6 @@ import org.eclipse.wb.draw2d.events.IFigureListener;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.IMouseMoveListener;
 import org.eclipse.wb.draw2d.events.IMouseTrackListener;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
@@ -27,7 +26,9 @@ import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.events.AncestorEventTable;
 import org.eclipse.wb.internal.draw2d.events.EventTable;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
@@ -649,12 +650,12 @@ public class Figure {
   }
 
   /**
-   * Returns the border's Insets if the border is set. Otherwise returns ZERO_INSETS, an instance of
+   * Returns the border's Insets if the border is set. Otherwise returns NO_INSETS, an instance of
    * Insets with all 0s. Returns Insets by reference. DO NOT Modify returned value.
    */
   public Insets getInsets() {
     if (m_border == null) {
-      return Insets.ZERO_INSETS;
+      return IFigure.NO_INSETS;
     }
     return m_border.getInsets();
   }

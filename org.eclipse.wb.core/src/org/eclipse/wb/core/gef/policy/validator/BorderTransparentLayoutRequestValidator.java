@@ -12,7 +12,6 @@ package org.eclipse.wb.core.gef.policy.validator;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
@@ -23,6 +22,8 @@ import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * Sometimes we want to make {@link EditPolicy} work only inside of inner part of

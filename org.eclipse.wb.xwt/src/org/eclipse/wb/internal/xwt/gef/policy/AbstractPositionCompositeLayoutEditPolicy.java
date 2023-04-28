@@ -10,10 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.gef.policy;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.xwt.model.widgets.AbstractPositionCompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * {@link LayoutEditPolicy} for {@link AbstractPositionCompositeInfo}.

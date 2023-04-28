@@ -24,7 +24,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	 // geometry
     IntervalTest.class,
     PointTest.class,
-    InsetsTest.class,
     RectangleTest.class,
     PointListTest.class,
     TransposerTest.class,

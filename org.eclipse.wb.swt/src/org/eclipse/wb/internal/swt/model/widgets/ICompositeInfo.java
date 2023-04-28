@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
-
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;

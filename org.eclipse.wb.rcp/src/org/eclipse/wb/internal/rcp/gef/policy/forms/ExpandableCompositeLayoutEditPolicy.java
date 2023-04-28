@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.forms;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.gef.policy.AbstractPositionCompositeLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.forms.ExpandableCompositeInfo;
+
+import org.eclipse.draw2d.geometry.Insets;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link ExpandableCompositeInfo}.

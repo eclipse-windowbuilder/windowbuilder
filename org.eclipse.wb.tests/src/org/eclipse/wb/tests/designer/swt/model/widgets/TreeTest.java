@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.TreeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.TreeItemInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.widgets.TreeItem;
 
 import static org.assertj.core.api.Assertions.assertThat;
