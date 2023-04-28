@@ -19,9 +19,9 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 
-import org.apache.commons.collections.primitives.ArrayIntList;
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -115,7 +115,7 @@ public final class EditSelection {
 		if (object == null) {
 			return ArrayUtils.EMPTY_INT_ARRAY;
 		}
-		ArrayIntList pathList = new ArrayIntList();
+		List<Integer> pathList = new ArrayList<>();
 		while (true) {
 			Object parent = provider.getParent(object);
 			if (parent == null) {
@@ -125,7 +125,7 @@ public final class EditSelection {
 			pathList.add(ArrayUtils.indexOf(provider.getChildren(parent), object));
 			object = parent;
 		}
-		int[] path = pathList.toArray();
+		int[] path = ArrayUtils.toPrimitive(pathList.toArray(Integer[]::new));
 		ArrayUtils.reverse(path);
 		return path;
 	}
