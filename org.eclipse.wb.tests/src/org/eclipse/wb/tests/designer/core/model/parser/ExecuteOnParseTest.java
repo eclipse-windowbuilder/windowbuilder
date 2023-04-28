@@ -2717,7 +2717,7 @@ public class ExecuteOnParseTest extends SwingModelTest {
       return defaultValue;
     } finally {
       if (m_lastModelUnit != null) {
-        m_lastModelUnit.delete(true, null);
+        forceDeleteCompilationUnit(m_lastModelUnit);
       }
     }
   }

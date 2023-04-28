@@ -551,6 +551,23 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
     }
   }
 
+  /**
+   * Force deletes {@link ICompilationUnit}.
+   */
+  public static void forceDeleteCompilationUnit(ICompilationUnit cu) {
+    while (cu.exists()) {
+      try {
+        cu.getResource().refreshLocal(IResource.DEPTH_INFINITE, null);
+      } catch (Throwable e) {
+      }
+      try {
+        cu.delete(true, null);
+      } catch (Throwable e) {
+        waitEventLoop(100);
+      }
+    }
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // PNG image creation
