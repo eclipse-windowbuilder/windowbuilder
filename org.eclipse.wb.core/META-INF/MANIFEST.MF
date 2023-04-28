@@ -149,6 +149,7 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.wb.core.lib;visibility:=reexport,
  org.eclipse.draw2d;bundle-version="3.13.0",
  com.google.guava;bundle-version="31.1.0",
+ org.apache.commons.collections;bundle-version="3.2.2",
  org.objectweb.asm;bundle-version="9.5.0",
  org.mvel2;bundle-version="2.4.15"
 Bundle-ActivationPolicy: lazy
