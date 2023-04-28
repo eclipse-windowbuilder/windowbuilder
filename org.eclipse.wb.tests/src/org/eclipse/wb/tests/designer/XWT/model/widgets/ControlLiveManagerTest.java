@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.laf.IBaselineSupport;
@@ -26,6 +25,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 

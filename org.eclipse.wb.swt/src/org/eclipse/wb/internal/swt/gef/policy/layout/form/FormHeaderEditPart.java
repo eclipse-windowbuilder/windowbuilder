@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.PointList;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -26,6 +25,8 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutPreferences;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * Header edit part for FormLayout support.

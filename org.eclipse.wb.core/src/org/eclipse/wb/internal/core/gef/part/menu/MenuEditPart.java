@@ -14,7 +14,6 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
@@ -28,6 +27,8 @@ import org.eclipse.wb.internal.core.gef.policy.menu.MenuLayoutEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 import java.util.List;
 

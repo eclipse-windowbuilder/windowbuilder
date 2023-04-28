@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.gef.core.Command;
@@ -37,6 +36,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.LayoutAssistantPage;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.TabFolder;
 

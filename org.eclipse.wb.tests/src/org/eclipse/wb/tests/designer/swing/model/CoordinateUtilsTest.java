@@ -47,7 +47,7 @@ public class CoordinateUtilsTest extends DesignerTestCase {
    */
   public void test_toDraw2d_Dimension() throws Exception {
     assertEquals(
-        new org.eclipse.wb.draw2d.geometry.Dimension(1, 2),
+        new org.eclipse.draw2d.geometry.Dimension(1, 2),
         CoordinateUtils.get(new java.awt.Dimension(1, 2)));
   }
 

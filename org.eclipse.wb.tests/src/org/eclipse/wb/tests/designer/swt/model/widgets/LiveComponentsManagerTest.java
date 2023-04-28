@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swt.model.widgets;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.laf.IBaselineSupport;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -31,6 +30,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;

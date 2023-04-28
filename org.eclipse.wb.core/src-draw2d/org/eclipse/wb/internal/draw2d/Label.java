@@ -13,8 +13,9 @@ package org.eclipse.wb.internal.draw2d;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Graphics;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * A figure that can display text.

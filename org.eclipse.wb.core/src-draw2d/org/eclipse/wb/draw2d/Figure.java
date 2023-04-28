@@ -18,7 +18,6 @@ import org.eclipse.wb.draw2d.events.IFigureListener;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.IMouseMoveListener;
 import org.eclipse.wb.draw2d.events.IMouseTrackListener;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.events.AncestorEventTable;
 import org.eclipse.wb.internal.draw2d.events.EventTable;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;

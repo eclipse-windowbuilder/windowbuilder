@@ -13,11 +13,11 @@ package org.eclipse.wb.tests.draw2d;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.internal.draw2d.Label;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;

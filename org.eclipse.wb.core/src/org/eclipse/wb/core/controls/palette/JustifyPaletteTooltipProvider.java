@@ -12,13 +12,14 @@ package org.eclipse.wb.core.controls.palette;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.draw2d.CustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.JustifyLabel;
 import org.eclipse.wb.internal.draw2d.Label;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * Standard palette tooltip: bold header and multi line details.

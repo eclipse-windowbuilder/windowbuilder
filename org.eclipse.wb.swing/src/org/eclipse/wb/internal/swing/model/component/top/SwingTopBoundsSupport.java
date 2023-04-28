@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component.top;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.graphics.Rectangle;
@@ -68,7 +68,7 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
     // set size from resource properties (or default)
     {
       Component component = (Component) m_component.getObject();
-      org.eclipse.wb.draw2d.geometry.Dimension size = getResourceSize();
+      org.eclipse.draw2d.geometry.Dimension size = getResourceSize();
       component.setSize(size.width, size.height);
     }
   }

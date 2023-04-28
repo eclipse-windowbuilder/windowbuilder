@@ -27,7 +27,6 @@ import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddBefore;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
@@ -74,6 +73,7 @@ import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.NullLiteral;

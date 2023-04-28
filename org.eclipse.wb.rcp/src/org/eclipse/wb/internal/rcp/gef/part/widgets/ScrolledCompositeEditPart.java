@@ -13,13 +13,14 @@ package org.eclipse.wb.internal.rcp.gef.part.widgets;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.TerminatorLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.gef.policy.widgets.ScrolledCompositeLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.widgets.ScrolledCompositeInfo;
 import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * {@link EditPart} for {@link ScrolledCompositeInfo}.

@@ -12,10 +12,11 @@ package org.eclipse.wb.internal.swt.model.layout.absolute;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * Helper for adding selection actions for {@link IAbsoluteLayoutInfo}.

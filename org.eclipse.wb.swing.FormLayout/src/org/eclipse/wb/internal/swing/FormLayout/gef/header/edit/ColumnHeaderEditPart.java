@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.FormLayout.gef.header.edit;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormColumnInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.ui.ColumnEditDialog;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;

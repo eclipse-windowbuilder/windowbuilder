@@ -11,12 +11,12 @@
 package org.eclipse.wb.internal.core.xml.model;
 
 import org.eclipse.wb.core.model.ITopBoundsSupport;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.apache.commons.lang.StringUtils;

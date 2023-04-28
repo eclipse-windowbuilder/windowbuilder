@@ -48,11 +48,11 @@ public final class CoordinateUtils {
   }
 
   /**
-   * @return the draw2d {@link org.eclipse.wb.draw2d.geometry.Dimension} for given AWT
+   * @return the draw2d {@link org.eclipse.draw2d.geometry.Dimension} for given AWT
    *         {@link java.awt.Dimension}.
    */
-  public static org.eclipse.wb.draw2d.geometry.Dimension get(java.awt.Dimension o) {
-    return new org.eclipse.wb.draw2d.geometry.Dimension(o.width, o.height);
+  public static org.eclipse.draw2d.geometry.Dimension get(java.awt.Dimension o) {
+    return new org.eclipse.draw2d.geometry.Dimension(o.width, o.height);
   }
 
   /**

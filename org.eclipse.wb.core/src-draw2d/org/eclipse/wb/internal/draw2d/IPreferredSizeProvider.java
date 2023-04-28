@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * An interface to size providers for preferred-size-oriented figures.

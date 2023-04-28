@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Display;

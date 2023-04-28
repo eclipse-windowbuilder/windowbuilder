@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.java6.gef;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -26,6 +25,8 @@ import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.ComplexAl
 import org.eclipse.wb.internal.swing.gef.policy.layout.AbsoluteBasedLayoutEditPolicySwing;
 import org.eclipse.wb.internal.swing.java6.model.GroupLayoutInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 import java.util.List;
 

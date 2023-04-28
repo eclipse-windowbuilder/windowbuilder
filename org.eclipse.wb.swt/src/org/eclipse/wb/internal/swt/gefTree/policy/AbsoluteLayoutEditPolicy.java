@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swt.gefTree.policy;
 
 import org.eclipse.wb.core.gefTree.policy.ObjectLayoutEditPolicy;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
@@ -20,6 +19,8 @@ import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swt.gef.ControlsLayoutRequestValidator;
 import org.eclipse.wb.internal.swt.model.layout.absolute.IAbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link IAbsoluteLayoutInfo}.

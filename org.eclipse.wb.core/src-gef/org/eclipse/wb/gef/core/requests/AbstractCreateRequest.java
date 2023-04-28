@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.requests;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * @author lobas_av

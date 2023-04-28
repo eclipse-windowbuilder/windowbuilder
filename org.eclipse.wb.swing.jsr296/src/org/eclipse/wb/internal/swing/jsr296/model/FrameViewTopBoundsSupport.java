@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.jsr296.model;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.swing.model.component.top.SwingTopBoundsSupport;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 import javax.swing.JFrame;
 

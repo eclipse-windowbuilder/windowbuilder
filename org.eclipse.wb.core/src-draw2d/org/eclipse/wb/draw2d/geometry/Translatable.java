@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d.geometry;
 
+import org.eclipse.draw2d.geometry.Dimension;
+
 /**
  * A translatable object can be translated (or moved) vertically and/or horizontally.
  *
