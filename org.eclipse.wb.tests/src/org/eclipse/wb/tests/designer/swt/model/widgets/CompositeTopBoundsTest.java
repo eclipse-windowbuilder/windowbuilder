@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swt.model.widgets;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeTopBoundsSupport;
@@ -19,6 +18,7 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
 /**

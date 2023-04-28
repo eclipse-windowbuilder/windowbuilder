@@ -11,13 +11,13 @@
 package org.eclipse.wb.tests.designer.swing.model.top;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.top.JPanelTopBoundsSupport;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
 import javax.swing.JPanel;

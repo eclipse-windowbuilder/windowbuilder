@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.top;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.top.WindowTopBoundsSupport;
 import org.eclipse.wb.tests.designer.Expectations;
@@ -20,6 +19,7 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;

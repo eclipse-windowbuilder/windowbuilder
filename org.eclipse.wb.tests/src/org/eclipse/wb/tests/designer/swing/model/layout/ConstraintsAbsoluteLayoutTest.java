@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
@@ -19,6 +18,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.absolute.ConstraintsAbsoluteLayoutDataInfo;
 import org.eclipse.wb.internal.swing.model.layout.absolute.ConstraintsAbsoluteLayoutInfo;
 import org.eclipse.wb.tests.designer.ResourceUtils;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * Tests for {@link ConstraintsAbsoluteLayoutInfo}.

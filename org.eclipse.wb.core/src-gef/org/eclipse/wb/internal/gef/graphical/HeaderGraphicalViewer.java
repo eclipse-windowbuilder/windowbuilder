@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.graphical;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.draw2d.IPreferredSizeProvider;
 import org.eclipse.wb.internal.draw2d.scroll.ScrollModel;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 

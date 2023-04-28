@@ -12,11 +12,11 @@ package org.eclipse.wb.draw2d;
 
 import com.google.common.collect.Lists;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.PointList;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontMetrics;

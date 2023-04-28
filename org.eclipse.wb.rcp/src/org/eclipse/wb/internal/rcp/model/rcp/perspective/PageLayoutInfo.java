@@ -23,7 +23,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObjects;
 import org.eclipse.wb.core.model.broadcast.JavaInfoTreeAlmostComplete;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils.IMoveTargetProvider;
@@ -60,6 +59,7 @@ import org.eclipse.wb.internal.rcp.palette.PerspectivePerspectiveDropEntryInfo;
 import org.eclipse.wb.internal.rcp.palette.PerspectiveViewDropEntryInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;

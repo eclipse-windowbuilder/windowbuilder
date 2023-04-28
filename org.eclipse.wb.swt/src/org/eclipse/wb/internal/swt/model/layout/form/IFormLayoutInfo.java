@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.swt.model.layout.ILayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * Interface for FormLayout model.

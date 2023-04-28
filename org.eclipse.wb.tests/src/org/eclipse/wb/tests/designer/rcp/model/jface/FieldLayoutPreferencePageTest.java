@@ -16,7 +16,6 @@ import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildGraphical;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -26,6 +25,8 @@ import org.eclipse.wb.internal.rcp.model.jface.FieldLayoutPreferencePageInfo;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

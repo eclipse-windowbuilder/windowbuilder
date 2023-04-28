@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.editor;
 import org.eclipse.wb.core.editor.IDesignPage;
 import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
@@ -45,6 +44,7 @@ import org.eclipse.wb.tests.gef.TreeRobot;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.ITextSelection;

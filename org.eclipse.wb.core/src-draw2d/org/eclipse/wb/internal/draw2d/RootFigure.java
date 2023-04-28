@@ -14,8 +14,9 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 import java.util.HashMap;
 import java.util.List;

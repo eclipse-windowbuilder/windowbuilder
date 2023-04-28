@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.internal.rcp.model.jface.WindowInfo;
 import org.eclipse.wb.internal.rcp.model.jface.WindowTopBoundsSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jface.window.Window;
 
 /**

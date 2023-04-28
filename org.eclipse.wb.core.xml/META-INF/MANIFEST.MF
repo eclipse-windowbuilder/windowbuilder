@@ -17,6 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.sse.core;visibility:=reexport,
  org.eclipse.wst.sse.ui;visibility:=reexport,
  org.eclipse.wst.xml.ui;visibility:=reexport,
+ org.eclipse.draw2d;bundle-version="3.13.0",
  com.google.guava;bundle-version="31.1.0",
  org.apache.commons.digester;bundle-version="3.2.0",
  org.apache.commons.logging;bundle-version="1.2.0"

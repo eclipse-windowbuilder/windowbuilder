@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.swing.model.layout.spring;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -22,6 +21,8 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

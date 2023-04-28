@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d.geometry;
 
+import org.eclipse.draw2d.geometry.Dimension;
+
 import java.io.Serializable;
 
 /**

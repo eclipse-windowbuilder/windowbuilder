@@ -12,9 +12,10 @@ package org.eclipse.wb.core.branding;
 
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.platform.PluginUtilities;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * A generic {@link IBrandingDescription} that stores the product name on its creation, and returns

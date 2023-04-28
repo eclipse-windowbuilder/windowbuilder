@@ -10,8 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * Implementation of {@link ILocator} that relocates target {@link Figure} relative to the some

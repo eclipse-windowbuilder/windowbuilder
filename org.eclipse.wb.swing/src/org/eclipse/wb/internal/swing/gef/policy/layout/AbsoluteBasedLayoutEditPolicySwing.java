@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.gef.policy.layout;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
@@ -25,6 +24,8 @@ import org.eclipse.wb.internal.swing.ToolkitProvider;
 import org.eclipse.wb.internal.swing.gef.ComponentsLayoutRequestValidator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
+
+import org.eclipse.draw2d.geometry.Dimension;
 
 import java.util.List;
 
