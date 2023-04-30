@@ -38,8 +38,6 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.internal.gtk.GDK;
-import org.eclipse.swt.internal.gtk.GTK;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -56,7 +54,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@SuppressWarnings("restriction")
 public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   static {
     System.loadLibrary("wbp3");
@@ -402,6 +399,84 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   }
 
   /**
+   * <p>
+   * If we are still using GTK3, we have to manually handle the GTK locks, in case we plan to run
+   * AWT operations within the SWT event queue. Otherwise there is the risk of a deadlock, in case
+   * SWT already holds a lock on the GDK threads and AWT attempts to acquire it as well.
+   * </p>
+   * <p>
+   * Access has to be done via reflection, in order to avoid compilation errors when checking out
+   * the workspace on Windows or MacOS, as the GTK classes are only available on a Linux system.
+   * </p>
+   *
+   * @return {@code true}, if WindowBuilder is already using GTK4. Otherwise {@code false}.
+   * @see #gdkThreadsEnter()
+   * @see #gdkThreadsLeave()
+   */
+  private static boolean isGtk4() {
+    try {
+      return ReflectionUtils.getFieldBoolean(
+          OSSupportLinux.class.getClassLoader().loadClass("org.eclipse.swt.internal.gtk.GTK"),
+          "GTK4");
+    } catch (ReflectiveOperationException e) {
+      DesignerPlugin.log(e.getMessage(), e);
+      return false;
+    }
+  }
+
+  /**
+   * <p>
+   * Calls the native {@code gdk_threads_enter} method. Has to be done <b>after</b> performing an
+   * AWT operation to re-acquire the lock for the SWT event queue.
+   * </p>
+   * <p>
+   * Access has to be done via reflection, in order to avoid compilation errors when checking out
+   * the workspace on Windows or MacOS, as the GTK classes are only available on a Linux system.
+   * </p>
+   * <p>
+   * This method may <b>only</b> be called when using GTK3!
+   * </p>
+   *
+   * @see #isGtk4()
+   * @see <a href="https://docs.gtk.org/gdk3/func.threads_enter.html">GTK3</a>
+   */
+  private static void gdkThreadsEnter() {
+    try {
+      ReflectionUtils.invokeMethod(
+          OSSupportLinux.class.getClassLoader().loadClass("org.eclipse.swt.internal.gtk.GDK"),
+          "gdk_threads_enter()");
+    } catch (Exception e) {
+      DesignerPlugin.log(e.getMessage(), e);
+    }
+  }
+
+  /**
+   * <p>
+   * Calls the native {@code gdk_threads_leave} method. Has to be done <b>before</b> performing an
+   * AWT operation, to release the lock currently held by the SWT event queue.
+   * </p>
+   * <p>
+   * Access has to be done via reflection, in order to avoid compilation errors when checking out
+   * the workspace on Windows or MacOS, as the GTK classes are only available on a Linux system.
+   * </p>
+   * <p>
+   * This method may <b>only</b> be called when using GTK3!
+   * </p>
+   *
+   * @see #isGtk4()
+   * @see <a href="https://docs.gtk.org/gdk3/func.threads_leave.html">GTK3</a>
+   */
+  private static void gdkThreadsLeave() {
+    try {
+      ReflectionUtils.invokeMethod(
+          OSSupportLinux.class.getClassLoader().loadClass("org.eclipse.swt.internal.gtk.GDK"),
+          "gdk_threads_leave()");
+    } catch (Exception e) {
+      DesignerPlugin.log(e.getMessage(), e);
+    }
+  }
+
+  /**
    * @return the H extends Number value as native pointer for native handles. Note: returns
    *         <code>null</code> if handle is 0 or cannot be obtained.
    */
@@ -547,13 +622,13 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   public void runAwt(Runnable job) {
     Display display = Display.getCurrent();
     try {
-      if (display != null && !GTK.GTK4) {
-        GDK.gdk_threads_leave();
+      if (display != null && !isGtk4()) {
+        gdkThreadsLeave();
       }
       super.runAwt(job);
     } finally {
-      if (display != null && !GTK.GTK4) {
-        GDK.gdk_threads_enter();
+      if (display != null && !isGtk4()) {
+        gdkThreadsEnter();
       }
     }
   }
