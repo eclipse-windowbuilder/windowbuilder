@@ -63,7 +63,7 @@ public final class GalleryItemInfo extends ItemInfo {
       if (getParent() instanceof GalleryItemInfo) {
         GalleryItemInfo parent = (GalleryItemInfo) getParent();
         Rectangle parentBounds = parent.getComponentBounds();
-        bounds.translate(-parentBounds.x, -parentBounds.y);
+        bounds.performTranslate(-parentBounds.x, -parentBounds.y);
       }
       setModelBounds(bounds);
     }

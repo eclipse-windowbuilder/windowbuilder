@@ -11,11 +11,11 @@
 package org.eclipse.wb.draw2d;
 
 import org.eclipse.wb.draw2d.geometry.Rectangle;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Display;
@@ -75,8 +75,8 @@ public class FigureUtils {
    */
   public static final void translateFigureToAbsolute(Figure figure, Translatable translatable) {
     for (Figure parent = figure.getParent(); parent != null; parent = parent.getParent()) {
-      translatable.translate(parent.getInsets());
-      translatable.translate(parent.getLocation());
+      translatable.performTranslate(parent.getInsets());
+      translatable.performTranslate(parent.getLocation());
     }
   }
 
@@ -86,8 +86,8 @@ public class FigureUtils {
    */
   public static final void translateFigureToAbsolute2(Figure figure, Translatable translatable) {
     for (; figure != null; figure = figure.getParent()) {
-      translatable.translate(figure.getInsets());
-      translatable.translate(figure.getLocation());
+      translatable.performTranslate(figure.getInsets());
+      translatable.performTranslate(figure.getLocation());
     }
   }
 
@@ -98,7 +98,7 @@ public class FigureUtils {
   public static final void translateFigureToCanvas(Figure figure, Translatable translatable) {
     translateFigureToAbsolute2(figure, translatable);
     FigureCanvas figureCanvas = figure.getFigureCanvas();
-    translatable.translate(
+    translatable.performTranslate(
         -figureCanvas.getHorizontalScrollModel().getSelection(),
         -figureCanvas.getVerticalScrollModel().getSelection());
   }
@@ -109,8 +109,8 @@ public class FigureUtils {
    */
   public static final void translateAbsoluteToFigure(Figure figure, Translatable translatable) {
     for (Figure parent = figure.getParent(); parent != null; parent = parent.getParent()) {
-      translatable.translate(parent.getLocation().negate());
-      translatable.translate(parent.getInsets().getNegated());
+      translatable.performTranslate(parent.getLocation().negate());
+      translatable.performTranslate(parent.getInsets().getNegated());
     }
   }
 
@@ -120,8 +120,8 @@ public class FigureUtils {
    */
   public static final void translateAbsoluteToFigure2(Figure figure, Translatable translatable) {
     for (; figure != null; figure = figure.getParent()) {
-      translatable.translate(figure.getLocation().negate());
-      translatable.translate(figure.getInsets().getNegated());
+      translatable.performTranslate(figure.getLocation().negate());
+      translatable.performTranslate(figure.getInsets().getNegated());
     }
   }
 

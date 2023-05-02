@@ -72,7 +72,7 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
     m_bounds = m_modelBounds.getCopy();
     if (getParent() instanceof AbstractComponentInfo) {
       AbstractComponentInfo parentComponent = (AbstractComponentInfo) getParent();
-      m_bounds.translate(parentComponent.getClientAreaInsets());
+      m_bounds.performTranslate(parentComponent.getClientAreaInsets());
     }
   }
 
@@ -85,14 +85,14 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
     {
       AbstractComponentInfo parent = (AbstractComponentInfo) getParent();
       while (parent != null) {
-        bounds.translate(parent.getBounds().getLocation());
+        bounds.performTranslate(parent.getBounds().getLocation());
         parent = (AbstractComponentInfo) parent.getParent();
       }
     }
     // make relative to root component
     {
       AbstractComponentInfo rootComponent = (AbstractComponentInfo) getRoot();
-      bounds.translate(rootComponent.getBounds().getLocation().getNegated());
+      bounds.performTranslate(rootComponent.getBounds().getLocation().getNegated());
     }
     // OK, final result
     return bounds;

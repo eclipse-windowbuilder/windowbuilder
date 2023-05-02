@@ -20,7 +20,6 @@ import org.eclipse.wb.draw2d.border.CompoundBorder;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -32,6 +31,8 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+
+import org.eclipse.draw2d.geometry.Translatable;
 
 import org.apache.commons.lang.ObjectUtils;
 
@@ -208,7 +209,7 @@ public abstract class PolicyUtils {
       {
         IAbstractComponentInfo container = (IAbstractComponentInfo) toContainer.getModel();
         absoluteToModel_rightToLeft(t, container);
-        t.translate(container.getClientAreaInsets().getNegated());
+        t.performTranslate(container.getClientAreaInsets().getNegated());
       }
     } catch (Throwable e) {
       DesignerPlugin.log(e);
@@ -234,7 +235,7 @@ public abstract class PolicyUtils {
       // translate: client area -> container figure
       {
         IAbstractComponentInfo container = (IAbstractComponentInfo) containerEditPart.getModel();
-        t.translate(container.getClientAreaInsets());
+        t.performTranslate(container.getClientAreaInsets());
         modelToFeedback_rightToLeft(t, container);
       }
       // translate to layer
@@ -254,7 +255,7 @@ public abstract class PolicyUtils {
       // translate: client area -> container figure
       {
         IAbstractComponentInfo container = (IAbstractComponentInfo) containerEditPart.getModel();
-        t.translate(container.getClientAreaInsets());
+        t.performTranslate(container.getClientAreaInsets());
         modelToFeedback_rightToLeft(t, container);
       }
       // translate to layer

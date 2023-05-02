@@ -370,7 +370,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
   private void showSizeFeedback(ChangeBoundsRequest request) throws Exception {
     // prepare new bounds
     Rectangle bounds = m_component.getModelBounds().getCopy();
-    bounds.translate(request.getMoveDelta());
+    bounds.performTranslate(request.getMoveDelta());
     bounds.resize(request.getSizeDelta());
     // create command
     boolean isHorizontal =
@@ -455,7 +455,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
     {
       // prepare cells rectangle
       Rectangle bounds = getGridInfo().getCellsRectangle(cells).getCopy();
-      bounds.translate(request.getMoveDelta());
+      bounds.performTranslate(request.getMoveDelta());
       bounds.resize(request.getSizeDelta());
       // prepare direction
       int direction = request.getResizeDirection();

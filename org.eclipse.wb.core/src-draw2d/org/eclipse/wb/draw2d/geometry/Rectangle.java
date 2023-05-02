@@ -13,6 +13,7 @@ package org.eclipse.wb.draw2d.geometry;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Translatable;
 
 import java.io.Serializable;
 
@@ -544,44 +545,19 @@ public final class Rectangle implements Translatable, Serializable {
   // ITranslatable
   //
   ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Moves this Rectangle horizontally by the x value of the given Point and vertically by the y
-   * value of the given Point.
-   */
-  @Override
-  public void translate(Point point) {
-    x += point.x;
-    y += point.y;
-  }
-
-  /**
-   * Moves this {@link Rectangle} horizontally by the <code>.width</code> value of the given
-   * {@link Dimension} and vertically by the <code>.height</code> value of the given
-   * {@link Dimension}.
-   */
-  @Override
-  public void translate(Dimension dimension) {
-    x += dimension.width;
-    y += dimension.height;
-  }
-
-  /**
-   * Moves this {@link Rectangle} horizontally by the <code>.left</code> value of the given
-   * {@link Insets} and vertically by the <code>.top</code> value of the given {@link Insets}.
-   */
-  @Override
-  public void translate(Insets insets) {
-    x += insets.left;
-    y += insets.top;
-  }
 
   /**
    * Moves this Rectangle horizontally by dx and vertically by dy.
    */
   @Override
-  public void translate(int dx, int dy) {
+  public void performTranslate(int dx, int dy) {
     x += dx;
     y += dy;
+  }
+
+  @Override
+  public void performScale(double factor) {
+    scale(factor);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -714,7 +690,7 @@ public final class Rectangle implements Translatable, Serializable {
    */
   public Rectangle getTranslated(int dx, int dy) {
     Rectangle rectangle = new Rectangle(this);
-    rectangle.translate(dx, dy);
+    rectangle.performTranslate(dx, dy);
     return rectangle;
   }
 
@@ -723,7 +699,7 @@ public final class Rectangle implements Translatable, Serializable {
    */
   public Rectangle getTranslated(Point point) {
     Rectangle rectangle = new Rectangle(this);
-    rectangle.translate(point);
+    rectangle.performTranslate(point);
     return rectangle;
   }
 

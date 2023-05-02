@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.geometry.Point;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -37,6 +36,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.LayoutAssistantPage;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.TabFolder;
 
@@ -115,13 +115,13 @@ public final class FormLayoutEditPolicy<C extends IControlInfo>
   @Override
   protected void translateAbsoluteToModel(Translatable t) {
     super.translateAbsoluteToModel(t);
-    t.translate(getClientAreaOffset().getNegated());
+    t.performTranslate(getClientAreaOffset().getNegated());
   }
 
   @Override
   protected void translateModelToFeedback(Translatable t) {
     super.translateModelToFeedback(t);
-    t.translate(getClientAreaOffset());
+    t.performTranslate(getClientAreaOffset());
   }
 
   ////////////////////////////////////////////////////////////////////////////

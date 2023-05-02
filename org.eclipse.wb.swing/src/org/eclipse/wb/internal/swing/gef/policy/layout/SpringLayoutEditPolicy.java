@@ -15,7 +15,6 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -30,6 +29,7 @@ import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Translatable;
 
 import java.util.List;
 
@@ -95,13 +95,13 @@ public final class SpringLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicyS
   @Override
   protected void translateAbsoluteToModel(Translatable t) {
     super.translateAbsoluteToModel(t);
-    t.translate(getClientAreaOffset().getNegated());
+    t.performTranslate(getClientAreaOffset().getNegated());
   }
 
   @Override
   protected void translateModelToFeedback(Translatable t) {
     super.translateModelToFeedback(t);
-    t.translate(getClientAreaOffset());
+    t.performTranslate(getClientAreaOffset());
   }
 
   ////////////////////////////////////////////////////////////////////////////

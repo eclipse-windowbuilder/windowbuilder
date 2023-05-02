@@ -524,7 +524,7 @@ public class FormLayoutMoveTest extends RcpGefTest {
   ////////////////////////////////////////////////////////////////////////////
   private void dragNorm(Object object, int deltaX, int deltaY) {
     Point location = canvas.getLocation(object);
-    location.translate(deltaX, deltaY);
+    location.performTranslate(deltaX, deltaY);
     canvas.dragTo(location.x, location.y);
   }
 }

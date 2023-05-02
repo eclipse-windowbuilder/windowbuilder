@@ -82,7 +82,7 @@ public final class SwtAwtJavaInfoParticipator implements IJavaInfoInitialization
           Rectangle bounds = newFrame.getBounds();
           AbstractComponentInfo parent = (AbstractComponentInfo) newFrame.getParent();
           Insets clientAreaInsets = parent.getClientAreaInsets();
-          bounds.translate(clientAreaInsets.left, clientAreaInsets.top);
+          bounds.performTranslate(clientAreaInsets.left, clientAreaInsets.top);
         }
       }
 
@@ -108,7 +108,7 @@ public final class SwtAwtJavaInfoParticipator implements IJavaInfoInitialization
                 gc.dispose();
               }
             }
-            location.translate(parentComponent.getBounds().getLocation());
+            location.performTranslate(parentComponent.getBounds().getLocation());
           }
         }
       }

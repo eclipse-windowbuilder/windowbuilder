@@ -64,7 +64,7 @@ public class ViewerEditPart extends GraphicalEditPart {
           @Override
           protected Rectangle getHostBounds() {
             Rectangle bounds = getIconBounds();
-            bounds.translate(getHostFigure().getLocation());
+            bounds.performTranslate(getHostFigure().getLocation());
             return bounds;
           }
         });
@@ -103,7 +103,7 @@ public class ViewerEditPart extends GraphicalEditPart {
     int height = imageBounds.height;
     //
     Point location = getFigure().getBounds().getBottomRight().getTranslated(-width, -height);;
-    location.translate(-3, -3);
+    location.performTranslate(-3, -3);
     return new Rectangle(location.x, location.y, width, height);
   }
 

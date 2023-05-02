@@ -59,8 +59,8 @@ public final class PShelfItemInfo extends ItemInfo {
   private void fixBodyBounds() {
     int itemHeight = getItemHeight();
     ControlInfo body = getChildren(ControlInfo.class).get(0);
-    body.getBounds().translate(0, itemHeight);
-    body.getModelBounds().translate(0, itemHeight);
+    body.getBounds().performTranslate(0, itemHeight);
+    body.getModelBounds().performTranslate(0, itemHeight);
   }
 
   private int getItemHeight() {

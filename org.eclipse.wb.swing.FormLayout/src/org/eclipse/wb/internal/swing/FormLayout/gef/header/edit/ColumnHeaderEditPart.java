@@ -138,7 +138,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
             0,
             interval.length + 1,
             ((GraphicalEditPart) getParent()).getFigure().getSize().height);
-    bounds.translate(getOffset().x, 0);
+    bounds.performTranslate(getOffset().x, 0);
     getFigure().setBounds(bounds);
   }
 

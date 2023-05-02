@@ -358,7 +358,7 @@ public class PointListTest extends Draw2dTestCase {
     /*
      * ====== int, int ======
      */
-    list.translate(0, 0);
+    list.performTranslate(0, 0);
     assertEquals(0, -4, 5, 5, list.getBounds());
     //
     for (int i = 0; i < list.size(); i++) {
@@ -367,7 +367,7 @@ public class PointListTest extends Draw2dTestCase {
     /*
      * ====== int, int ======
      */
-    list.translate(10, -10);
+    list.performTranslate(10, -10);
     assertEquals(10, -14, 5, 5, list.getBounds());
     //
     for (int i = 0; i < list.size(); i++) {
@@ -377,7 +377,7 @@ public class PointListTest extends Draw2dTestCase {
      * ====== Point ======
      */
     Point point = new Point(-5, 5);
-    list.translate(point);
+    list.performTranslate(point);
     assertEquals(-5, 5, point);
     assertEquals(5, -9, 5, 5, list.getBounds());
     //
@@ -388,7 +388,7 @@ public class PointListTest extends Draw2dTestCase {
      * ====== Dimension ======
      */
     Dimension dimension = new Dimension(1, 2);
-    list.translate(dimension);
+    list.performTranslate(dimension);
     assertEquals(1, 2, dimension);
     assertEquals(6, -7, 5, 5, list.getBounds());
     //
@@ -399,7 +399,7 @@ public class PointListTest extends Draw2dTestCase {
      * ====== Insets ======
      */
     Insets insets = new Insets(1, -2, 3, 4);
-    list.translate(insets);
+    list.performTranslate(insets);
     assertEquals(1, -2, 3, 4, insets);
     assertEquals(4, -6, 5, 5, list.getBounds());
     //

@@ -223,7 +223,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
     for (int i = 0; i < m_moveFeedbackFigures.length; i++) {
       NonVisualBeanEditPart part = (NonVisualBeanEditPart) editParts.get(i);
       Point location = part.getNonVisualInfo().getLocation().getCopy();
-      location.translate(snapMoveDelta);
+      location.performTranslate(snapMoveDelta);
       m_moveFeedbackFigures[i].setLocation(location);
     }
   }

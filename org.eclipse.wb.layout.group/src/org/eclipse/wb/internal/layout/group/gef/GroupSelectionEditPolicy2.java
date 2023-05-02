@@ -24,7 +24,6 @@ import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -44,6 +43,7 @@ import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Image;
 
@@ -165,7 +165,7 @@ public class GroupSelectionEditPolicy2 extends SelectionEditPolicy
   @Override
   public void translateModelToFeedback(Translatable t) {
     PolicyUtils.translateModelToFeedback(this, t);
-    t.translate(getClientAreaOffset());
+    t.performTranslate(getClientAreaOffset());
   }
 
   private Point getClientAreaOffset() {

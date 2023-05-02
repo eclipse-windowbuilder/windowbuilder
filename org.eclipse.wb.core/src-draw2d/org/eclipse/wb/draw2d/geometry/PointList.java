@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d.geometry;
 
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Translatable;
 
 import java.io.Serializable;
 
@@ -305,32 +304,6 @@ public final class PointList implements Translatable, Serializable {
   // ITranslatable
   //
   ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Moves the origin (0,0) of the coordinate system of all the points to the Point <i>pt</i>. This
-   * updates the position of all the points in this PointList.
-   */
-  @Override
-  public final void translate(Point pt) {
-    translate(pt.x, pt.y);
-  }
-
-  /**
-   * Moves the origin (0,0) of the coordinate system of all the points to the Dimension
-   * <i>dimension</i>. This updates the position of all the points in this PointList.
-   */
-  @Override
-  public final void translate(Dimension dimension) {
-    translate(dimension.width, dimension.height);
-  }
-
-  /**
-   * Moves the origin (0,0) of the coordinate system of all the points to the Insets <i>insets</i>.
-   * This updates the position of all the points in this PointList.
-   */
-  @Override
-  public final void translate(Insets insets) {
-    translate(insets.left, insets.top);
-  }
 
   /**
    * Moves the origin (0,0) of the coordinate system of all the points to the Point (x,y). This
@@ -340,19 +313,27 @@ public final class PointList implements Translatable, Serializable {
    *          Amount by which all the points will be shifted on the X axis.
    * @param y
    *          Amount by which all the points will be shifted on the Y axis.
-   * @see #translate(Point)
+   * @see #performTranslate(Point)
    */
   @Override
-  public void translate(int x, int y) {
+  public void performTranslate(int x, int y) {
     if (x == 0 && y == 0) {
       return;
     }
     if (m_bounds != null) {
-      m_bounds.translate(x, y);
+      m_bounds.performTranslate(x, y);
     }
     for (int i = 0; i < m_size * 2; i += 2) {
       m_points[i] += x;
       m_points[i + 1] += y;
     }
+  }
+
+  @Override
+  public void performScale(double factor) {
+    for (int i = 0; i < m_points.length; i++) {
+      m_points[i] = (int) Math.floor(m_points[i] * factor);
+    }
+    m_bounds = null;
   }
 }

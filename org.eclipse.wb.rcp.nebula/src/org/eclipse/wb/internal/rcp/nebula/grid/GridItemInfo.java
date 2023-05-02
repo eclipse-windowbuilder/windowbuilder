@@ -51,7 +51,7 @@ public final class GridItemInfo extends ItemInfo {
         GridItemInfo parent = (GridItemInfo) getParent();
         Rectangle parentBounds = parent.getComponentBounds();
         if (parent.getComponentExpanded()) {
-          bounds.translate(-parentBounds.x, -parentBounds.y);
+          bounds.performTranslate(-parentBounds.x, -parentBounds.y);
         } else {
           bounds = new Rectangle(parentBounds.x, parentBounds.height, parentBounds.width, 0);
         }

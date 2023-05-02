@@ -26,7 +26,6 @@ import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -49,6 +48,7 @@ import org.eclipse.wb.internal.swt.gef.ControlsLayoutRequestValidator;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutPreferences;
 
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 
@@ -276,7 +276,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
       List<Figure> moveFeedbackFigures = m_moveFeedback.getChildren();
       for (int i = 0; i < moveFeedbackFigures.size(); ++i) {
         Figure figure = moveFeedbackFigures.get(i);
-        figure.getBounds().translate(-widgetBounds.x, -widgetBounds.y);
+        figure.getBounds().performTranslate(-widgetBounds.x, -widgetBounds.y);
         relativeBounds[i] = figure.getBounds().getCopy();
       }
     } else {
@@ -428,12 +428,12 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
 
   private void translateModelToFeedback(Translatable t) {
     PolicyUtils.translateModelToFeedback(this, t);
-    t.translate(m_visualDataProvider.getClientAreaOffset());
+    t.performTranslate(m_visualDataProvider.getClientAreaOffset());
   }
 
   private void translateAbsoluteToModel(Translatable t) {
     PolicyUtils.translateAbsoluteToModel(this, t);
-    t.translate(m_visualDataProvider.getClientAreaOffset().getNegated());
+    t.performTranslate(m_visualDataProvider.getClientAreaOffset().getNegated());
   }
 
   ////////////////////////////////////////////////////////////////////////////

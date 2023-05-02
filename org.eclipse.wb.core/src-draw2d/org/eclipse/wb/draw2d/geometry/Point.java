@@ -11,7 +11,7 @@
 package org.eclipse.wb.draw2d.geometry;
 
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Translatable;
 
 import java.io.Serializable;
 
@@ -22,16 +22,8 @@ import java.io.Serializable;
  * @author lobas_av
  * @coverage gef.draw2d
  */
-public final class Point implements Translatable, Serializable {
+public final class Point extends org.eclipse.draw2d.geometry.Point implements Translatable, Serializable {
   private static final long serialVersionUID = 0L;
-  /**
-   * x value
-   */
-  public int x;
-  /**
-   * y value
-   */
-  public int y;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -219,37 +211,19 @@ public final class Point implements Translatable, Serializable {
   // ITranslatable
   //
   ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Shifts the location of this Point by the location of the input Point along each of the axes.
-   */
-  @Override
-  public void translate(Point point) {
-    translate(point.x, point.y);
-  }
-
-  /**
-   * Shifts this {@link Point} by the values of the {@link Dimension} along each axis.
-   */
-  @Override
-  public void translate(Dimension dimension) {
-    translate(dimension.width, dimension.height);
-  }
-
-  /**
-   * Shifts this {@link Point} by the values of the {@link Insets} along each axis.
-   */
-  @Override
-  public void translate(Insets insets) {
-    translate(insets.left, insets.top);
-  }
 
   /**
    * Shifts this Point by the values supplied along each axes.
    */
   @Override
-  public void translate(int dx, int dy) {
+  public void performTranslate(int dx, int dy) {
     x += dx;
     y += dy;
+  }
+
+  @Override
+  public void performScale(double factor) {
+    scale(factor);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -276,7 +250,7 @@ public final class Point implements Translatable, Serializable {
    */
   public Point getTranslated(Dimension delta) {
     Point copy = getCopy();
-    copy.translate(delta);
+    copy.performTranslate(delta);
     return copy;
   }
 
@@ -285,7 +259,7 @@ public final class Point implements Translatable, Serializable {
    */
   public Point getTranslated(int _x, int _y) {
     Point copy = getCopy();
-    copy.translate(_x, _y);
+    copy.performTranslate(_x, _y);
     return copy;
   }
 
@@ -294,7 +268,7 @@ public final class Point implements Translatable, Serializable {
    */
   public Point getTranslated(Point point) {
     Point copy = getCopy();
-    copy.translate(point);
+    copy.performTranslate(point);
     return copy;
   }
 
@@ -316,7 +290,7 @@ public final class Point implements Translatable, Serializable {
    */
   public static Point max(Point point1, Point point2) {
     Point point = new Rectangle(point1, point2).getBottomRight();
-    point.translate(-1, -1);
+    point.performTranslate(-1, -1);
     return point;
   }
 
