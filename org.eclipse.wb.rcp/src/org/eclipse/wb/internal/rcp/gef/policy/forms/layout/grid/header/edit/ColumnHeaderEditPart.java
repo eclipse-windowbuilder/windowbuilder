@@ -150,7 +150,7 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
               0,
               interval.length + 1,
               ((GraphicalEditPart) getParent()).getFigure().getSize().height);
-      bounds.translate(getOffset().x, 0);
+      bounds.performTranslate(getOffset().x, 0);
     }
     // set bounds
     getFigure().setBounds(bounds);

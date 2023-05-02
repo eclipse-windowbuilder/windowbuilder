@@ -274,15 +274,15 @@ public final class GraphicalRobot {
     if (location == null) {
       location = findSideHandle(predicate, bounds, bounds.width - 1, 0, 0, 1);
       if (location != null) {
-        location.translate(1, 0);
-        location.translate(0, 1);
+        location.performTranslate(1, 0);
+        location.performTranslate(0, 1);
       }
     }
     if (location == null) {
       location = findSideHandle(predicate, bounds, 0, bounds.height - 1, 1, 0);
       if (location != null) {
-        location.translate(1, 0);
-        location.translate(0, 1);
+        location.performTranslate(1, 0);
+        location.performTranslate(0, 1);
       }
     }
     return location;

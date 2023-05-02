@@ -126,7 +126,7 @@ public class ChangeBoundsRequest extends GroupRequest implements IDropRequest {
    */
   public Rectangle getTransformedRectangle(Rectangle rectangle) {
     Rectangle result = rectangle.getCopy();
-    result.translate(m_moveDelta);
+    result.performTranslate(m_moveDelta);
     result.resize(m_resizeDelta);
     return result;
   }

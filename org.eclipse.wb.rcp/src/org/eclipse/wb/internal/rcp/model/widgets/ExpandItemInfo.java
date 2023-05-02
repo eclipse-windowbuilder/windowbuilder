@@ -165,11 +165,11 @@ public final class ExpandItemInfo extends ItemInfo {
     if (control != null) {
       {
         Point offset = getModelBounds().getLocation().getNegated();
-        control.getModelBounds().translate(offset);
+        control.getModelBounds().performTranslate(offset);
       }
       {
         Point offset = getBounds().getLocation().getNegated();
-        control.getBounds().translate(offset);
+        control.getBounds().performTranslate(offset);
       }
     }
   }

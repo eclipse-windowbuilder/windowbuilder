@@ -122,7 +122,7 @@ public final class CoolBarManagerInfo extends ContributionManagerInfo {
             public void endVisit(ObjectInfo objectInfo) throws Exception {
               if (objectInfo instanceof AbstractComponentInfo) {
                 AbstractComponentInfo component = (AbstractComponentInfo) objectInfo;
-                component.getBounds().translate(deltaX, deltaY);
+                component.getBounds().performTranslate(deltaX, deltaY);
               }
             }
           });

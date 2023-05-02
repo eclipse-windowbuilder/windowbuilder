@@ -366,9 +366,9 @@ public class Graphics {
    */
   public void drawPolygon(PointList points) {
     checkPaint();
-    points.translate(m_translateX, m_translateY);
+    points.performTranslate(m_translateX, m_translateY);
     gc.drawPolygon(points.toIntArray());
-    points.translate(-m_translateX, -m_translateY);
+    points.performTranslate(-m_translateX, -m_translateY);
   }
 
   /**
@@ -380,9 +380,9 @@ public class Graphics {
    */
   public void fillPolygon(PointList points) {
     checkFill();
-    points.translate(m_translateX, m_translateY);
+    points.performTranslate(m_translateX, m_translateY);
     gc.fillPolygon(points.toIntArray());
-    points.translate(-m_translateX, -m_translateY);
+    points.performTranslate(-m_translateX, -m_translateY);
   }
 
   /**
@@ -394,7 +394,7 @@ public class Graphics {
    */
   public void drawPolyline(PointList points) {
     checkPaint();
-    points.translate(m_translateX, m_translateY);
+    points.performTranslate(m_translateX, m_translateY);
     int array[] = points.toIntArray();
     gc.drawPolyline(array);
     if (getLineWidth() == 1 && array.length >= 2) {
@@ -402,7 +402,7 @@ public class Graphics {
       int y = array[array.length - 1];
       gc.drawLine(x, y, x, y);
     }
-    points.translate(-m_translateX, -m_translateY);
+    points.performTranslate(-m_translateX, -m_translateY);
   }
 
   /**

@@ -62,7 +62,7 @@ public final class ControlDecorationEditPart extends AbstractComponentEditPart {
     {
       Point controlLocation = controlFigure.getLocation();
       Rectangle boundsInParent = m_decoration.getModelBounds().getTranslated(controlLocation);
-      boundsInParent.translate(1, 1); // not sure why, but required to center selection visually
+      boundsInParent.performTranslate(1, 1); // not sure why, but required to center selection visually
       figure.setBounds(boundsInParent);
     }
   }

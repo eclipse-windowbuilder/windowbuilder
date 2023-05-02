@@ -152,7 +152,7 @@ public abstract class AbstractShortcutInfo extends AbstractComponentInfo impleme
       Composite composite = m_container.getComposite();
       Rectangle toolBarBounds = CoordinateUtils.getBounds(composite, m_container.getToolBar());
       Rectangle itemBounds = RectangleSupport.getRectangle(m_item.getBounds());
-      itemBounds.translate(toolBarBounds.x, toolBarBounds.y);
+      itemBounds.performTranslate(toolBarBounds.x, toolBarBounds.y);
       setModelBounds(itemBounds);
     }
     super.refresh_fetch();

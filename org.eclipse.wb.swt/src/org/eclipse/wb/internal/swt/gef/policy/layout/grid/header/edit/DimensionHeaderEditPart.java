@@ -89,7 +89,7 @@ public abstract class DimensionHeaderEditPart<C extends IControlInfo> extends Gr
   public final Point getOffset() {
     Point offset = new Point(0, 0);
     FigureUtils.translateFigureToAbsolute2(m_containerFigure, offset);
-    offset.translate(m_layout.getComposite().getClientAreaInsets());
+    offset.performTranslate(m_layout.getComposite().getClientAreaInsets());
     return offset;
   }
 

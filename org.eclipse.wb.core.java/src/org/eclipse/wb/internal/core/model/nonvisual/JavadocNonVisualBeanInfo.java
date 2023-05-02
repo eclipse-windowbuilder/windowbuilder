@@ -117,7 +117,7 @@ final class JavadocNonVisualBeanInfo extends NonVisualBeanInfo {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void moveLocation(Point moveDelta) throws Exception {
-    m_location.translate(moveDelta);
+    m_location.performTranslate(moveDelta);
     m_javaInfo.getEditor().setJavadocTagText(
         m_bodyDeclaration,
         NON_VISUAL_TAG,

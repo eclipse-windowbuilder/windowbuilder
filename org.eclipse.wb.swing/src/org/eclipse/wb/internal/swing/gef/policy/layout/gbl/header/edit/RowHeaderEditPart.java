@@ -147,7 +147,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
             interval.begin,
             ((GraphicalEditPart) getParent()).getFigure().getSize().width,
             interval.length + 1);
-    bounds.translate(0, getOffset().y);
+    bounds.performTranslate(0, getOffset().y);
     getFigure().setBounds(bounds);
   }
 

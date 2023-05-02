@@ -32,7 +32,6 @@ import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.PointList;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -60,6 +59,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
@@ -214,7 +214,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     @SuppressWarnings("unchecked")
     C control = (C) getHost().getModel();
     Rectangle bounds = getControlModelBounds(control);
-    bounds.translate(request.getMoveDelta());
+    bounds.performTranslate(request.getMoveDelta());
     bounds.resize(request.getSizeDelta());
     Point requestLocation = request.getLocation();
     Point location =
@@ -623,7 +623,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     C control = (C) getHost().getModel();
     CompoundEditCommand compoundCommand = new CompoundEditCommand(layoutModel);
     Rectangle bounds = getControlModelBounds(control);
-    bounds.translate(request.getMoveDelta());
+    bounds.performTranslate(request.getMoveDelta());
     bounds.resize(request.getSizeDelta());
     Point requestLocation = request.getLocation();
     Point location =

@@ -48,8 +48,8 @@ public class TargetFigureFindVisitor extends FigureVisitor {
             && acceptVisit(figure);
     if (canAccept) {
       // found result, but we need to check child figure's
-      m_location.translate(figure.getLocation().getNegated());
-      m_location.translate(figure.getInsets().getNegated());
+      m_location.performTranslate(figure.getLocation().getNegated());
+      m_location.performTranslate(figure.getInsets().getNegated());
       return true;
     }
     return false;
@@ -63,8 +63,8 @@ public class TargetFigureFindVisitor extends FigureVisitor {
         m_result = figure;
       } else {
         // if figure was visited, but NOT accepted, we should restore location
-        m_location.translate(figure.getLocation());
-        m_location.translate(figure.getInsets());
+        m_location.performTranslate(figure.getLocation());
+        m_location.performTranslate(figure.getInsets());
       }
     }
   }

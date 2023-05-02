@@ -87,7 +87,7 @@ public class TableViewerInfo extends ViewerInfo {
           y -= headerHeight;
         }
         column.setModelBounds(new Rectangle(x, y, columnWidth, headerHeight));
-        column.getBounds().translate(getControl().getClientAreaInsets());
+        column.getBounds().performTranslate(getControl().getClientAreaInsets());
         x += columnWidth;
       }
     }

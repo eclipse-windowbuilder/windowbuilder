@@ -11,7 +11,8 @@
 package org.eclipse.wb.internal.layout.group.gef;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.geometry.Translatable;
+
+import org.eclipse.draw2d.geometry.Translatable;
 
 /**
  * Helper for drawing feedbacks by {@link FeedbacksDrawer}.

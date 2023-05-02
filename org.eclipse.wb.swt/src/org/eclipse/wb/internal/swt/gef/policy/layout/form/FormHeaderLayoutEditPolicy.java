@@ -16,7 +16,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.geometry.Point;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.draw2d.geometry.Transposer;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -36,6 +35,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -209,7 +209,7 @@ final class FormHeaderLayoutEditPolicy<C extends IControlInfo>
   }
 
   private void translateToModel(Translatable t) {
-    t.translate(getOffset(mainPolicy.getHost().getFigure(), layout.getComposite()).getNegated());
+    t.performTranslate(getOffset(mainPolicy.getHost().getFigure(), layout.getComposite()).getNegated());
   }
 
   /**
@@ -218,7 +218,7 @@ final class FormHeaderLayoutEditPolicy<C extends IControlInfo>
   public static Point getOffset(Figure containerFigure, ICompositeInfo composite) {
     Point offset = new Point(0, 0);
     FigureUtils.translateFigureToAbsolute2(containerFigure, offset);
-    offset.translate(composite.getClientAreaInsets());
+    offset.performTranslate(composite.getClientAreaInsets());
     return offset;
   }
 

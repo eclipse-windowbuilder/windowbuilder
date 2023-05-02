@@ -50,7 +50,7 @@ public final class GridColumnInfo extends ItemInfo {
         GridColumnGroupInfo parent = (GridColumnGroupInfo) getParent();
         Object swtParentBounds = ReflectionUtils.invokeMethod(parent.getObject(), "getBounds()");
         Rectangle parentBounds = RectangleSupport.getRectangle(swtParentBounds);
-        bounds.translate(-parentBounds.x, -parentBounds.y);
+        bounds.performTranslate(-parentBounds.x, -parentBounds.y);
       }
       setModelBounds(bounds);
     }

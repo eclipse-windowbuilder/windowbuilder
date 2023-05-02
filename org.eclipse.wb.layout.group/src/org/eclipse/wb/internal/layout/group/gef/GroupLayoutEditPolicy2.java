@@ -21,7 +21,6 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -39,6 +38,7 @@ import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -246,8 +246,8 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 		// the position of the mouse inside the dragging rectangle
 		Point hotSpot = request.getLocation().getCopy();
 		PolicyUtils.translateAbsoluteToModel((GraphicalEditPart) firstEditPart.getParent(), hotSpot);
-		hotSpot.translate(request.getMoveDelta().getNegated());
-		hotSpot.translate(-offsetX, -offsetY);
+		hotSpot.performTranslate(request.getMoveDelta().getNegated());
+		hotSpot.performTranslate(-offsetX, -offsetY);
 		// current mouse position in model coordinates
 		Point topLeft = request.getLocation().getCopy();
 		translateAbsoluteToModel(topLeft);
@@ -267,7 +267,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 				List<Figure> moveFeedbackFigures = m_dragFeedback.getChildren();
 				for (j = 0; j < moveFeedbackFigures.size(); ++j) {
 					Figure figure = moveFeedbackFigures.get(j);
-					figure.getBounds().translate(-firstPartBounds.x, -firstPartBounds.y);
+					figure.getBounds().performTranslate(-firstPartBounds.x, -firstPartBounds.y);
 				}
 			} else {
 				m_dragFeedback = new OutlineImageFigure(firstEditPartModel.getImage(),
@@ -336,7 +336,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 				List<Figure> moveFeedbackFigures = m_dragFeedback.getChildren();
 				for (int j = 0; j < moveFeedbackFigures.size(); ++j) {
 					Figure figure = moveFeedbackFigures.get(j);
-					figure.getBounds().translate(-firstPartBounds.x, -firstPartBounds.y);
+					figure.getBounds().performTranslate(-firstPartBounds.x, -firstPartBounds.y);
 				}
 			} else {
 				EditPart editPart = editParts.get(0);
@@ -506,13 +506,13 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 	////////////////////////////////////////////////////////////////////////////
 	public void translateAbsoluteToModel(Translatable t) {
 		PolicyUtils.translateAbsoluteToModel(this, t);
-		t.translate(getClientAreaOffset().getNegated());
+		t.performTranslate(getClientAreaOffset().getNegated());
 	}
 
 	@Override
 	public void translateModelToFeedback(Translatable t) {
 		PolicyUtils.translateModelToFeedback(this, t);
-		t.translate(getClientAreaOffset());
+		t.performTranslate(getClientAreaOffset());
 	}
 
 	protected Point getClientAreaOffset() {

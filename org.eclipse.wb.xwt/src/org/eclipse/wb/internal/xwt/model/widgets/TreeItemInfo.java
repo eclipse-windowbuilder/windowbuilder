@@ -75,7 +75,7 @@ public final class TreeItemInfo extends ItemInfo {
       // apply Tree client area insets
       if (getParent() instanceof TreeItemInfo) {
         Insets insets = getTree().getClientAreaInsets();
-        bounds.translate(insets);
+        bounds.performTranslate(insets);
         setBounds(bounds);
       }
     }

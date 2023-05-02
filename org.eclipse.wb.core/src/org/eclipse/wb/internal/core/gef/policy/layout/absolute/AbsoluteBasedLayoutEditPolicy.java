@@ -32,7 +32,6 @@ import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
-import org.eclipse.wb.draw2d.geometry.Translatable;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -55,6 +54,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.gef.core.CompoundCommand;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -403,7 +403,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
       List<Figure> moveFeedbackFigures = m_moveFeedback.getChildren();
       for (int i = 0; i < moveFeedbackFigures.size(); ++i) {
         Figure figure = moveFeedbackFigures.get(i);
-        figure.getBounds().translate(-widgetBounds.x, -widgetBounds.y);
+        figure.getBounds().performTranslate(-widgetBounds.x, -widgetBounds.y);
         relativeBounds[i] = figure.getBounds().getCopy();
       }
     } else {
@@ -508,7 +508,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
       List<Figure> moveFeedbackFigures = m_resizeFeedback.getChildren();
       for (int i = 0; i < moveFeedbackFigures.size(); ++i) {
         Figure figure = moveFeedbackFigures.get(i);
-        figure.getBounds().translate(-widgetBounds.x, -widgetBounds.y);
+        figure.getBounds().performTranslate(-widgetBounds.x, -widgetBounds.y);
         relativeBounds[i] = figure.getBounds().getCopy();
       }
     } else {

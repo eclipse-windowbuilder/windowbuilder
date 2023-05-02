@@ -81,7 +81,7 @@ public final class GroupLayoutUtils {
       IAbstractComponentInfo model) {
     Rectangle modelBounds = model.getModelBounds().getCopy();
     Insets insets = layout.getContainerInsets();
-    modelBounds.translate(-insets.left, -insets.top);
+    modelBounds.performTranslate(-insets.left, -insets.top);
     return get(modelBounds);
   }
 

@@ -190,24 +190,24 @@ public class PointTest extends Draw2dTestCase {
     Point testPoint = new Point(3, 5);
     //
     // check work translate(int, int)
-    testPoint.translate(1, -1);
+    testPoint.performTranslate(1, -1);
     assertEquals(4, 4, testPoint);
     //
     // check work translate(Dimension)
     Dimension dimension = new Dimension(-5, -5);
-    testPoint.translate(dimension);
+    testPoint.performTranslate(dimension);
     assertEquals(-1, -1, testPoint);
     assertEquals(-5, -5, dimension);
     //
     // check work translate(Point)
     Point point = new Point(1, 1);
-    testPoint.translate(point);
+    testPoint.performTranslate(point);
     assertEquals(0, 0, testPoint);
     assertEquals(1, 1, point);
     //
     // check work translate(Insets)
     Insets insets = new Insets(7, 5, 0, -1);
-    testPoint.translate(insets);
+    testPoint.performTranslate(insets);
     assertEquals(5, 7, testPoint);
     assertEquals(7, 5, 0, -1, insets);
   }

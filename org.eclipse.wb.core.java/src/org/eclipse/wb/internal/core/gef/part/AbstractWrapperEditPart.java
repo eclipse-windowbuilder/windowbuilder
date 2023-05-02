@@ -90,7 +90,7 @@ public class AbstractWrapperEditPart extends GraphicalEditPart {
     int height = imageBounds.height;
     Rectangle parentClientArea = ((GraphicalEditPart) getParent()).getFigure().getClientArea();
     Point location = parentClientArea.getBottomRight().getTranslated(-width, -height);
-    location.translate(-3, -3);
+    location.performTranslate(-3, -3);
     Rectangle bounds = new Rectangle(location.x, location.y, width, height);
     // no animation
     getFigure().setBounds(bounds);

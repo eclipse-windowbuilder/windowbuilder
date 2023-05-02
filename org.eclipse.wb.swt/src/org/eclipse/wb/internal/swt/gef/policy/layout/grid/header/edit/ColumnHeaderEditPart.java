@@ -162,7 +162,7 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
    */
   public void translateModelToFeedback(Rectangle r) {
     PolicyUtils.modelToFeedback_rightToLeft(r, m_layout.getComposite());
-    r.translate(getOffset().x, 0);
+    r.performTranslate(getOffset().x, 0);
   }
 
   ////////////////////////////////////////////////////////////////////////////

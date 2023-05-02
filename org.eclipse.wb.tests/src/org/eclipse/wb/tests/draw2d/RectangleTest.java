@@ -357,27 +357,27 @@ public class RectangleTest extends Draw2dTestCase {
   public void test_translate() throws Exception {
     // check work translate(int, int)
     Rectangle template = new Rectangle(1, 2, 3, 4);
-    template.translate(15, 17);
+    template.performTranslate(15, 17);
     assertEquals(16, 19, 3, 4, template);
     //
     // check work translate(Point)
     template = new Rectangle(1, 2, 3, 4);
     Point point = new Point(-3, -4);
-    template.translate(point);
+    template.performTranslate(point);
     assertEquals(-2, -2, 3, 4, template);
     assertEquals(-3, -4, point);
     //
     // check work translate(Dimension)
     template = new Rectangle(1, 2, 3, 4);
     Dimension dimension = new Dimension(100, 200);
-    template.translate(dimension);
+    template.performTranslate(dimension);
     assertEquals(101, 202, 3, 4, template);
     assertEquals(100, 200, dimension);
     //
     // check work translate(Insets)
     template = new Rectangle(1, 2, 3, 4);
     Insets insets = new Insets(-7);
-    template.translate(insets);
+    template.performTranslate(insets);
     assertEquals(-6, -5, 3, 4, template);
     assertEquals(-7, -7, -7, -7, insets);
   }
