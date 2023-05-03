@@ -13,14 +13,20 @@ package org.eclipse.wb.core.model.broadcast;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.model.MethodInterceptor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.implementation.bind.annotation.AllArguments;
+import net.bytebuddy.implementation.bind.annotation.Origin;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -195,29 +201,36 @@ public final class BroadcastSupport {
   public <T> T getListener(final Class<T> listenerClass) {
     Object listenerMulticast = m_listenerToMulticast.get(listenerClass);
     if (listenerMulticast == null) {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setSuperclass(listenerClass);
-      enhancer.setCallback(new MethodInterceptor() {
-        @Override
-        public Object intercept(Object obj,
-            java.lang.reflect.Method method,
-            Object[] args,
-            MethodProxy proxy) throws Throwable {
-          List<Object> listeners = getClassListeners(listenerClass);
-          for (Object listener : listeners.toArray()) {
-            try {
-              method.invoke(listener, args);
-            } catch (InvocationTargetException e) {
-              throw e.getCause();
-            }
-          }
-          // no result
-          return null;
-        }
-      });
-      // remember multi-cast
-      listenerMulticast = enhancer.create();
-      m_listenerToMulticast.put(listenerClass, listenerMulticast);
+      try {
+        // remember multi-cast
+        listenerMulticast = new ByteBuddy()
+            .subclass(listenerClass)
+            .method(ElementMatchers.any())
+            .intercept(MethodDelegation.to(new MethodInterceptor() {
+              @Override
+              @RuntimeType
+              public Object intercept(@Origin Method method, @AllArguments Object[] args) throws Throwable {
+                // Iterate over a local copy due to a potential ConcurrentModificationException
+                for (Object listener : getClassListeners(listenerClass).toArray()) {
+                  try {
+                    method.invoke(listener, args);
+                  } catch (InvocationTargetException e) {
+                    throw e.getCause();
+                  }
+                }
+                // no result
+                return null;
+              }
+            }, MethodInterceptor.class))
+            .make()
+            .load(listenerClass.getClassLoader())
+            .getLoaded()
+            .getConstructor()
+            .newInstance();
+        m_listenerToMulticast.put(listenerClass, listenerMulticast);
+      } catch(ReflectiveOperationException  e) {
+        DesignerPlugin.log(e.getMessage(), e);
+      }
     }
     //
     @SuppressWarnings("unchecked")
