@@ -47,13 +47,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.wb.swing.MigLayout.lib"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.wb.swing.MigLayout"
          download-size="0"
          install-size="0"
@@ -75,7 +68,21 @@
          unpack="false"/>
 	
    <plugin
-         id="org.eclipse.wb.swing.java6"
+         id="com.miglayout.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.miglayout.ideutil"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.miglayout.swing"
          download-size="0"
          install-size="0"
          version="0.0.0"

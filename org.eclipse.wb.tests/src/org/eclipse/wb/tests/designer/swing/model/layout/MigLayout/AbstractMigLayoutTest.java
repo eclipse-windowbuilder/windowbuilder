@@ -40,9 +40,9 @@ public class AbstractMigLayoutTest extends AbstractLayoutTest {
   }
 
   static void do_configureNewProject() throws Exception {
-    Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.MigLayout.lib");
-    String path = FileLocator.toFileURL(libBundle.getEntry("/miglayout15-swing.jar")).getPath();
-    m_testProject.addExternalJar(path);
+    m_testProject.addPlugin("com.miglayout.core");
+    m_testProject.addPlugin("com.miglayout.swing");
+    m_testProject.addPlugin("com.miglayout.ideutil");
   }
 
   @Override
