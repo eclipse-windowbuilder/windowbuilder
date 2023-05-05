@@ -15,14 +15,10 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
-import org.eclipse.wb.internal.core.model.MethodInterceptor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.implementation.MethodDelegation;
-import net.bytebuddy.implementation.bind.annotation.AllArguments;
-import net.bytebuddy.implementation.bind.annotation.Origin;
-import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.InvocationHandlerAdapter;
 import net.bytebuddy.matcher.ElementMatchers;
 
 import java.lang.reflect.InvocationTargetException;
@@ -206,22 +202,18 @@ public final class BroadcastSupport {
         listenerMulticast = new ByteBuddy()
             .subclass(listenerClass)
             .method(ElementMatchers.any())
-            .intercept(MethodDelegation.to(new MethodInterceptor() {
-              @Override
-              @RuntimeType
-              public Object intercept(@Origin Method method, @AllArguments Object[] args) throws Throwable {
-                // Iterate over a local copy due to a potential ConcurrentModificationException
-                for (Object listener : getClassListeners(listenerClass).toArray()) {
-                  try {
-                    method.invoke(listener, args);
-                  } catch (InvocationTargetException e) {
-                    throw e.getCause();
-                  }
+            .intercept(InvocationHandlerAdapter.of((Object obj, Method method, Object[] args) -> {
+              // Iterate over a local copy due to a potential ConcurrentModificationException
+              for (Object listener : getClassListeners(listenerClass).toArray()) {
+                try {
+                  method.invoke(listener, args);
+                } catch (InvocationTargetException e) {
+                  throw e.getCause();
                 }
-                // no result
-                return null;
               }
-            }, MethodInterceptor.class))
+              // no result
+              return null;
+            }))
             .make()
             .load(listenerClass.getClassLoader())
             .getLoaded()
