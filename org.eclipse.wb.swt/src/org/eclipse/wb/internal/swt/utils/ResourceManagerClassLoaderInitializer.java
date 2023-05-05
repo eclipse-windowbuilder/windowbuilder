@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.utils;
 
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
+import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.IClassLoaderInitializer;
@@ -22,14 +24,15 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.PluginRegistry;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.InvocationHandlerAdapter;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
 
+import java.lang.reflect.Method;
 import java.net.URL;
 
 /**
@@ -92,24 +95,23 @@ public final class ResourceManagerClassLoaderInitializer implements IClassLoader
    * @return the implementation of <code>PluginResourceProvider</code>.
    */
   private Object createProvider(ClassLoader classLoader, Class<?> providerClass) {
-    Enhancer enhancer = new Enhancer();
-    enhancer.setClassLoader(classLoader);
-    enhancer.setSuperclass(providerClass);
-    enhancer.setCallback(new MethodInterceptor() {
-      @Override
-      public Object intercept(Object obj,
-          java.lang.reflect.Method method,
-          Object[] args,
-          MethodProxy proxy) throws Throwable {
-        if (method.getName().equals("getEntry")) {
-          String symbolicName = (String) args[0];
-          String fullPath = (String) args[1];
-          return getEntry(symbolicName, fullPath);
-        }
-        return proxy.invokeSuper(obj, args);
-      }
-    });
-    return enhancer.create();
+    try {
+      return new ByteBuddy() //
+          .subclass(providerClass) //
+          .method(ElementMatchers.named("getEntry")) //
+          .intercept(InvocationHandlerAdapter.of((Object proxy, Method method, Object[] args) -> {
+            String symbolicName = (String) args[0];
+            String fullPath = (String) args[1];
+            return getEntry(symbolicName, fullPath);
+          })) //
+          .make() //
+          .load(classLoader) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
+    } catch (ReflectiveOperationException e) {
+      throw new DesignerException(ICoreExceptionConstants.EVAL_CGLIB, e);
+    }
   }
 
   /**
