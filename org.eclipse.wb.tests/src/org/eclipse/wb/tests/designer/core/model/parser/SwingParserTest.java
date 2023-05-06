@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1199,6 +1199,22 @@ public class SwingParserTest extends SwingModelTest {
             "public class Test extends JPanel {",
             "  public Test() {",
             "    JComboBox combo = new JComboBox((Object[]) null);",
+            "    add(combo);",
+            "  }",
+            "}");
+    panel.refresh();
+    assertNoErrors(panel);
+  }
+
+  /**
+   * {@link JComboBox#JComboBox(T[])} should not be used with <code>null</code> argument.
+   */
+  public void test_JComboBox_constructor_Generic() throws Exception {
+    ContainerInfo panel =
+        parseContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    JComboBox<String> combo = new JComboBox<>((String[]) null);",
             "    add(combo);",
             "  }",
             "}");

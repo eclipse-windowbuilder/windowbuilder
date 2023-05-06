@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -3087,6 +3087,42 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
       assertEquals("foo(int,javax.swing.JButton)", getMethodSignature(binding));
       assertEquals("foo(int,T)", getMethodGenericSignature(binding));
       assertEquals("foo(int,java.lang.Object)", getMethodDeclarationSignature(binding));
+    }
+  }
+
+  /**
+   * Test for {@link AstNodeUtils#getMethodGenericSignature(IMethodBinding)} and
+   * {@link AstNodeUtils#getMethodDeclarationSignature(IMethodBinding)}
+   */
+  public void test_getMethodGenericSignature_array() throws Exception {
+    setFileContentSrc(
+        "test/MyPanel.java",
+        getSourceDQ(
+            "package test;",
+            "import javax.swing.*;",
+            "public class MyPanel extends JPanel {",
+            "  public <T> void foo(int v, T[] value) {",
+            "  }",
+            "}"));
+    waitForAutoBuild();
+    //
+    createTypeDeclaration_Test(
+        "import javax.swing.*;",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    foo(0, new String[0]);",
+        "  }",
+        "}");
+    MethodInvocation invocation = getNode("foo(", MethodInvocation.class);
+    IMethodBinding binding = AstNodeUtils.getMethodBinding(invocation);
+    // check signatures
+    for (int i = 0; i < 2; i++) {
+      if (i != 0) {
+        binding = new BindingContext().get(binding);
+      }
+      assertEquals("foo(int,java.lang.String[])", getMethodSignature(binding));
+      assertEquals("foo(int,T[])", getMethodGenericSignature(binding));
+      assertEquals("foo(int,java.lang.Object[])", getMethodDeclarationSignature(binding));
     }
   }
 
