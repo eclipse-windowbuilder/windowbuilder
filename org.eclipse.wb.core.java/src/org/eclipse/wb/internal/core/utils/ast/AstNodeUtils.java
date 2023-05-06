@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -960,12 +960,20 @@ public class AstNodeUtils {
         if (i != 0) {
           buffer.append(',');
         }
-        if (declaration && parameterType.isTypeVariable()) {
-          ITypeBinding variableBinding = getTypeVariableBound(parameterType);
+
+        // We have to unwrap the element type of arrays. Otherwise isTypeVariable()
+        // always returns false.
+        ITypeBinding elementType = parameterType.isArray() ? parameterType.getElementType() : parameterType;
+
+        if (declaration && elementType.isTypeVariable()) {
+          ITypeBinding variableBinding = getTypeVariableBound(elementType);
           if (variableBinding == null) {
             buffer.append("java.lang.Object");
           } else {
             buffer.append(getFullyQualifiedName(variableBinding, false));
+          }
+          if (parameterType.isArray()) {
+            buffer.append("[]");
           }
         } else {
           buffer.append(getFullyQualifiedName(parameterType, false));
