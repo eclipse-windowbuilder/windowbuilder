@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.support;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.support.PointSupport;
+
+import org.eclipse.draw2d.geometry.Point;
 
 import java.lang.reflect.InvocationTargetException;
 

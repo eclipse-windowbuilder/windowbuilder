@@ -29,7 +29,7 @@ public class CoordinateUtilsTest extends DesignerTestCase {
    */
   public void test_toDraw2d_Point() throws Exception {
     assertEquals(
-        new org.eclipse.wb.draw2d.geometry.Point(1, 2),
+        new org.eclipse.draw2d.geometry.Point(1, 2),
         CoordinateUtils.get(new java.awt.Point(1, 2)));
   }
 

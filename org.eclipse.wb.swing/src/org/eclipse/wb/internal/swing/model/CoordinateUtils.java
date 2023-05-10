@@ -35,8 +35,8 @@ public final class CoordinateUtils {
    * @return the draw2d {@link org.eclipse.wb.draw2d.geometry.Point} for given AWT
    *         {@link java.awt.Point}.
    */
-  public static org.eclipse.wb.draw2d.geometry.Point get(java.awt.Point o) {
-    return new org.eclipse.wb.draw2d.geometry.Point(o.x, o.y);
+  public static org.eclipse.draw2d.geometry.Point get(java.awt.Point o) {
+    return new org.eclipse.draw2d.geometry.Point(o.x, o.y);
   }
 
   /**

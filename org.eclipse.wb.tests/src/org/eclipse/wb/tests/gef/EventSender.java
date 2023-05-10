@@ -148,7 +148,7 @@ public class EventSender {
   /**
    * Emulate mouse drag to given location.
    */
-  public void dragTo(org.eclipse.wb.draw2d.geometry.Point location) {
+  public void dragTo(org.eclipse.draw2d.geometry.Point location) {
     dragTo(location.x, location.y);
   }
 

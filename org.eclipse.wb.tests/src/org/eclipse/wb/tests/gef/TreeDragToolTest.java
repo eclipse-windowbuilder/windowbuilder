@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.widgets.Display;
@@ -67,18 +67,18 @@ public class TreeDragToolTest extends TreeToolTest {
     //
     m_sender.doubleClick(location.x, location.y, 1);
     expectedLogger.log(parent, "performRequest[ SelectionRequest(type=open, location=Point("
-        + location.x
+        + (double) location.x
         + ", "
-        + location.y
+        + (double) location.y
         + "), stateMask=0, button=0) ]");
     assertLoggers(expectedLogger, actualLogger);
     //
     location = getOnLocation(child1);
     m_sender.doubleClick(location.x, location.y, 1);
     expectedLogger.log(child1, "performRequest[ SelectionRequest(type=open, location=Point("
-        + +location.x
+        + (double) location.x
         + ", "
-        + location.y
+        + (double) location.y
         + "), stateMask=0, button=0) ]");
     assertLoggers(expectedLogger, actualLogger);
   }
@@ -317,7 +317,7 @@ public class TreeDragToolTest extends TreeToolTest {
     event.widget = m_viewer.getControl();
     event.item = dragPart.getWidget();
     org.eclipse.swt.graphics.Point p =
-        Display.getCurrent().map(m_viewer.getControl(), null, dropLocation.getSwtPoint());
+        Display.getCurrent().map(m_viewer.getControl(), null, dropLocation.getSWTPoint());
     event.x = p.x;
     event.y = p.y;
     return event;

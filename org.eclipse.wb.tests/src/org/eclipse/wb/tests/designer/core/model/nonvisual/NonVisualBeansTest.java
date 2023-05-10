@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.core.model.nonvisual;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.core.model.generation.statement.lazy.LazyStatementGeneratorDescription;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualAssociation;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanContainerInfo;
@@ -23,6 +22,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
+
+import org.eclipse.draw2d.geometry.Point;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

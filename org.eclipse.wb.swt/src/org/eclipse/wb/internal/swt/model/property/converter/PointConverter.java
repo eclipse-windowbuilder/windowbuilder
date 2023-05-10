@@ -11,9 +11,10 @@
 package org.eclipse.wb.internal.swt.model.property.converter;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter;
 import org.eclipse.wb.internal.swt.support.PointSupport;
+
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * The {@link ExpressionConverter} for {@link org.eclipse.swt.graphics.Point}.

@@ -12,8 +12,9 @@ package org.eclipse.wb.core.gef.figure;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * Abstract class for displaying feedback figures on given layer.

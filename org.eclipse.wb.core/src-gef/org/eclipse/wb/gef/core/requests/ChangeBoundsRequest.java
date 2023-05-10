@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.requests;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * A {@link Request} to change the bounds of the {@link EditPart}(s).

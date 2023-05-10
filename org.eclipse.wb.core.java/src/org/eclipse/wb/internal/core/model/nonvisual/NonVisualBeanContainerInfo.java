@@ -14,7 +14,6 @@ import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObjects;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.generation.GenerationUtils;
@@ -30,6 +29,7 @@ import org.eclipse.wb.internal.core.model.variable.description.LazyVariableDescr
 import org.eclipse.wb.internal.core.model.variable.description.VariableSupportDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.swt.graphics.Image;

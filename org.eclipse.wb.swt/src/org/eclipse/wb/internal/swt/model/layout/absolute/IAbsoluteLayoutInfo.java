@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.absolute;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.swt.model.layout.ILayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * Interface for absolute (null) layout model.

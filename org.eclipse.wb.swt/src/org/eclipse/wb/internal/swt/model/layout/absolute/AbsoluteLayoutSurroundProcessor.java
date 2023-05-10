@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.absolute;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.util.surround.ISurroundProcessor;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
+import org.eclipse.draw2d.geometry.Point;
 
 import java.util.List;
 

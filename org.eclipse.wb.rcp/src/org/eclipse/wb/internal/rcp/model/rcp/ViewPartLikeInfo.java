@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 import org.eclipse.wb.internal.swt.support.PointSupport;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;

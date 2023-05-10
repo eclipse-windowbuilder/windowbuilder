@@ -23,7 +23,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	 // geometry
     IntervalTest.class,
-    PointTest.class,
     RectangleTest.class,
     PointListTest.class,
     TransposerTest.class,

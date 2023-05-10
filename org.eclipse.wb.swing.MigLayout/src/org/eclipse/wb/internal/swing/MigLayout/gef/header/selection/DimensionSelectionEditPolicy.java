@@ -20,7 +20,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -40,6 +39,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 
 import net.miginfocom.layout.UnitValue;
 

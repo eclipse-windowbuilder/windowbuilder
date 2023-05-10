@@ -20,7 +20,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildGraphical;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildTree;
 import org.eclipse.wb.draw2d.geometry.Interval;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.util.grid.GridAlignmentHelper;
 import org.eclipse.wb.internal.core.model.util.grid.GridAlignmentHelper.IAlignmentProcessor;
@@ -55,6 +54,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;

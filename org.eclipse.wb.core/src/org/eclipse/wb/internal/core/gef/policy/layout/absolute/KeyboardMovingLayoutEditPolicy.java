@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -23,6 +22,7 @@ import org.eclipse.wb.gef.core.tools.ToolUtilities;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 

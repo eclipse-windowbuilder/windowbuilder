@@ -14,7 +14,6 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -39,6 +38,7 @@ import org.eclipse.wb.internal.swing.model.layout.absolute.IPreferenceConstants;
 import org.eclipse.wb.internal.swing.model.layout.absolute.SelectionActionsSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.requests;
 
-import org.eclipse.wb.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * A {@link Request} that requires a location in order to drop an item.

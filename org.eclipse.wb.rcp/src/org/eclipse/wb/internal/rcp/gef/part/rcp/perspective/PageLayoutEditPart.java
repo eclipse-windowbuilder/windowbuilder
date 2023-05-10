@@ -11,9 +11,10 @@
 package org.eclipse.wb.internal.rcp.gef.part.rcp.perspective;
 
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
+
+import org.eclipse.draw2d.geometry.Point;
 
 import java.util.List;
 

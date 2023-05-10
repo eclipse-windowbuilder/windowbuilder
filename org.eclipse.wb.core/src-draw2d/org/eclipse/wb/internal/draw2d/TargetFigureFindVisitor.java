@@ -11,7 +11,8 @@
 package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.geometry.Point;
+
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * This class use to find {@link Figure} under mouse.

@@ -19,7 +19,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -34,6 +33,7 @@ import org.eclipse.wb.internal.swing.FormLayout.gef.header.edit.DimensionHeaderE
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 
 import java.util.List;

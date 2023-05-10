@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.support.AbstractSupport;
 import org.eclipse.wb.internal.swt.support.PointSupport;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
