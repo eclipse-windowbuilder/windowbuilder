@@ -11,7 +11,8 @@
 package org.eclipse.wb.internal.core.model.nonvisual;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.geometry.Point;
+
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * Abstract <i>non-visual bean</i> support model.

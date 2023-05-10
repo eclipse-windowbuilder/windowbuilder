@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.geometry.Interval;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -41,6 +40,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.ui.RowsDialog;
 import org.eclipse.wb.internal.swing.gef.ComponentsLayoutRequestValidator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.IMenuManager;
 
 import java.util.List;

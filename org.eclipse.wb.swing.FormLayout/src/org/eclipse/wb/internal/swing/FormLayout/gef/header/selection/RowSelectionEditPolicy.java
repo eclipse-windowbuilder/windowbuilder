@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.FormLayout.gef.header.selection;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
@@ -25,6 +24,8 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeConstantInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeInfo;
+
+import org.eclipse.draw2d.geometry.Point;
 
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.ConstantSize.Unit;

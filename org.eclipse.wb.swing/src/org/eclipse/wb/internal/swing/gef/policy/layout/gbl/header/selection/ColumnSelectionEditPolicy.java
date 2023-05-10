@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
@@ -22,6 +21,8 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.ColumnHeaderEditPart;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
+
+import org.eclipse.draw2d.geometry.Point;
 
 import java.text.MessageFormat;
 

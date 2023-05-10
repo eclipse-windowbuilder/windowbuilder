@@ -12,7 +12,6 @@ package org.eclipse.wb.gef.tree.policies;
 
 import com.google.common.collect.Lists;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -27,6 +26,7 @@ import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -130,7 +130,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
       {
         IDropRequest dropRequest = (IDropRequest) request;
         Point location = dropRequest.getLocation();
-        TreeItem targetItem = getTree().getItem(location.getSwtPoint());
+        TreeItem targetItem = getTree().getItem(location.getSWTPoint());
         if (targetItem == getHostWidget()
             && (isBeforeLocation(targetItem, location) || isAfterLocation(targetItem, location))) {
           return null;
@@ -151,7 +151,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
     IDropRequest dropRequest = (IDropRequest) request;
     Point location = dropRequest.getLocation();
     // prepare target item
-    TreeItem targetItem = getTree().getItem(location.getSwtPoint());
+    TreeItem targetItem = getTree().getItem(location.getSWTPoint());
     if (targetItem == null || targetItem.getData() == null) {
       return null;
     }
@@ -296,7 +296,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
     // prepare tree widget's
     Tree tree = getTree();
     TreeItem hostItem = getHostWidget();
-    TreeItem targetItem = tree.getItem(location.getSwtPoint());
+    TreeItem targetItem = tree.getItem(location.getSWTPoint());
     //
     if (targetItem == hostItem) {
       // drop to this

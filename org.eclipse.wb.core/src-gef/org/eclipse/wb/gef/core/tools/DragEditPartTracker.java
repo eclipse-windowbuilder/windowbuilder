@@ -12,7 +12,6 @@ package org.eclipse.wb.gef.core.tools;
 
 import com.google.common.collect.Lists;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -23,6 +22,8 @@ import org.eclipse.wb.gef.core.requests.GroupRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.gef.core.CompoundCommand;
 import org.eclipse.wb.internal.gef.core.ISharedCursors;
+
+import org.eclipse.draw2d.geometry.Point;
 
 import java.util.ArrayList;
 import java.util.Collection;

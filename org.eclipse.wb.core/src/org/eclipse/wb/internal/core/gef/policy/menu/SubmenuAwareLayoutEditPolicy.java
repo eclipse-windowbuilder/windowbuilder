@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
@@ -30,6 +29,8 @@ import org.eclipse.wb.internal.core.gef.part.menu.SubmenuAwareEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
+
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * {@link LayoutEditPolicy} for {@link SubmenuAwareEditPart} that shows sub-menu when user targets

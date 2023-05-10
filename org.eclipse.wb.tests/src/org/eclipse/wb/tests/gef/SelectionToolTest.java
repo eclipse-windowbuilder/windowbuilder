@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.events.IEditPartClickListener;
@@ -22,6 +21,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 
 import java.lang.reflect.Field;

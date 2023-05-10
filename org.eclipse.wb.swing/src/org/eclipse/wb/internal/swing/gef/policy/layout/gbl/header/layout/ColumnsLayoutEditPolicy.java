@@ -19,7 +19,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.geometry.Interval;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -35,6 +34,8 @@ import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.ColumnHea
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection.ColumnSelectionEditPolicy;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
+
+import org.eclipse.draw2d.geometry.Point;
 
 import java.text.MessageFormat;
 import java.util.List;

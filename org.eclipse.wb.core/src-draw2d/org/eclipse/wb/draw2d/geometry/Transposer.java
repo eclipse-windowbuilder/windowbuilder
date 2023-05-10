@@ -12,6 +12,7 @@ package org.eclipse.wb.draw2d.geometry;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * Conditionally transposes geometrical objects based on an "enabled" flag. When enabled, the method

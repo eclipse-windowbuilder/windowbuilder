@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.MigLayout.gef;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -24,6 +23,8 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.gef.policy.ComponentFlowLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
+
+import org.eclipse.draw2d.geometry.Point;
 
 import java.util.List;
 

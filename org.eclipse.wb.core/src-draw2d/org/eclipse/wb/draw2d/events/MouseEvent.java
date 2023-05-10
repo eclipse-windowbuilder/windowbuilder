@@ -12,9 +12,10 @@ package org.eclipse.wb.draw2d.events;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
+
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * Instances of this class are sent whenever mouse related actions occur. This includes mouse

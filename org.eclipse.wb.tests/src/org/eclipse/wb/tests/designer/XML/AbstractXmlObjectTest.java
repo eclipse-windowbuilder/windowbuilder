@@ -15,7 +15,6 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.AbstractTextPropertyEditor;
@@ -41,6 +40,7 @@ import org.eclipse.wb.internal.core.xml.model.property.accessor.ExpressionAccess
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
@@ -499,7 +499,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
    * Calls {@link PropertyEditor#doubleClick(Property, org.eclipse.swt.graphics.Point)}.
    */
   protected static void doPropertyDoubleClick(Property property, Point location) throws Exception {
-    property.getEditor().doubleClick(property, location != null ? location.getSwtPoint() : null);
+    property.getEditor().doubleClick(property, location != null ? location.getSWTPoint() : null);
   }
 
   /**

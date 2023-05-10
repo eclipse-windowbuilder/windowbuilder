@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.editor.validator;
 
 import org.eclipse.wb.core.gef.policy.validator.BorderTransparentLayoutRequestValidator;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -23,6 +22,8 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
+
+import org.eclipse.draw2d.geometry.Point;
 
 /**
  * Test {@link BorderTransparentLayoutRequestValidator}.

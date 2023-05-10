@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.palette.ui;
 
-import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.gef.TreeRobot;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSource;
 import org.eclipse.swt.dnd.DropTarget;
@@ -90,7 +90,7 @@ public class TreeDragHelper {
     event.item = item;
     {
       org.eclipse.swt.graphics.Point absoluteLocation =
-          Display.getCurrent().map(tree, null, locationInTree.getSwtPoint());
+          Display.getCurrent().map(tree, null, locationInTree.getSWTPoint());
       event.x = absoluteLocation.x;
       event.y = absoluteLocation.y;
     }
