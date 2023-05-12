@@ -16,7 +16,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.Request;
@@ -27,6 +26,8 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

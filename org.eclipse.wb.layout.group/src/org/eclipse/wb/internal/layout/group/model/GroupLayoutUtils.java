@@ -15,9 +15,9 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.netbeans.modules.form.layoutdesign.LayoutComponent;
 
@@ -66,8 +66,8 @@ public final class GroupLayoutUtils {
   /**
    * @return the draw2d rectangle by doing a union of AWT rectangles.
    */
-  public static org.eclipse.wb.draw2d.geometry.Rectangle getRectangleUnion(final java.awt.Rectangle[] boundsArray) {
-    org.eclipse.wb.draw2d.geometry.Rectangle unionBounds = get(boundsArray[0]);
+  public static org.eclipse.draw2d.geometry.Rectangle getRectangleUnion(final java.awt.Rectangle[] boundsArray) {
+    org.eclipse.draw2d.geometry.Rectangle unionBounds = get(boundsArray[0]);
     for (int i = 1; i < boundsArray.length; i++) {
       unionBounds.union(get(boundsArray[i]));
     }
@@ -91,14 +91,14 @@ public final class GroupLayoutUtils {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * @return the draw2d {@link org.eclipse.wb.draw2d.geometry.Rectangle} for given AWT
+   * @return the draw2d {@link org.eclipse.draw2d.geometry.Rectangle} for given AWT
    *         {@link java.awt.Rectangle}.
    */
-  public static org.eclipse.wb.draw2d.geometry.Rectangle get(java.awt.Rectangle o) {
-    return new org.eclipse.wb.draw2d.geometry.Rectangle(o.x, o.y, o.width, o.height);
+  public static org.eclipse.draw2d.geometry.Rectangle get(java.awt.Rectangle o) {
+    return new org.eclipse.draw2d.geometry.Rectangle(o.x, o.y, o.width, o.height);
   }
 
-  public static java.awt.Rectangle get(org.eclipse.wb.draw2d.geometry.Rectangle o) {
+  public static java.awt.Rectangle get(org.eclipse.draw2d.geometry.Rectangle o) {
     return new java.awt.Rectangle(o.x, o.y, o.width, o.height);
   }
 }

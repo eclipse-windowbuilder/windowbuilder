@@ -40,11 +40,11 @@ public final class CoordinateUtils {
   }
 
   /**
-   * @return the draw2d {@link org.eclipse.wb.draw2d.geometry.Rectangle} for given AWT
+   * @return the draw2d {@link org.eclipse.draw2d.geometry.Rectangle} for given AWT
    *         {@link java.awt.Rectangle}.
    */
-  public static org.eclipse.wb.draw2d.geometry.Rectangle get(java.awt.Rectangle o) {
-    return new org.eclipse.wb.draw2d.geometry.Rectangle(o.x, o.y, o.width, o.height);
+  public static org.eclipse.draw2d.geometry.Rectangle get(java.awt.Rectangle o) {
+    return new org.eclipse.draw2d.geometry.Rectangle(o.x, o.y, o.width, o.height);
   }
 
   /**
@@ -76,7 +76,7 @@ public final class CoordinateUtils {
     return new java.awt.Insets(o.top, o.left, o.bottom, o.right);
   }
 
-  public static java.awt.Rectangle get(org.eclipse.wb.draw2d.geometry.Rectangle o) {
+  public static java.awt.Rectangle get(org.eclipse.draw2d.geometry.Rectangle o) {
     return new java.awt.Rectangle(o.x, o.y, o.width, o.height);
   }
 }

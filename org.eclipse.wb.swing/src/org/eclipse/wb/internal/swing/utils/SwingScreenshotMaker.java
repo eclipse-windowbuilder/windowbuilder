@@ -14,11 +14,11 @@ import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.StringUtils;

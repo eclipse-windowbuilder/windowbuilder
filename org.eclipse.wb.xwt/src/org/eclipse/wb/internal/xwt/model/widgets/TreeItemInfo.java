@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.swt.support.TreeSupport;
 
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.TreeItem;
 
 import java.util.List;

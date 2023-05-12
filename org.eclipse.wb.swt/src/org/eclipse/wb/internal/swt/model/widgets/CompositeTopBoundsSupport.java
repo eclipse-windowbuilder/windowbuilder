@@ -160,8 +160,8 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
     if (control != shell) {
       ContainerSupport.setShellText(shell, ModelMessages.CompositeTopBoundsSupport_wrapperShellText);
       ContainerSupport.setFillLayout(shell);
-      org.eclipse.wb.draw2d.geometry.Rectangle controlBounds = ControlSupport.getBounds(control);
-      org.eclipse.wb.draw2d.geometry.Rectangle shellBounds =
+      org.eclipse.draw2d.geometry.Rectangle controlBounds = ControlSupport.getBounds(control);
+      org.eclipse.draw2d.geometry.Rectangle shellBounds =
           ContainerSupport.computeTrim(shell, 0, 0, controlBounds.width, controlBounds.height);
       ControlSupport.setSize(shell, shellBounds.width, shellBounds.height);
       ContainerSupport.layout(shell);
@@ -175,7 +175,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
       int x;
       int y;
       {
-        org.eclipse.wb.draw2d.geometry.Rectangle shellBounds = ControlSupport.getBounds(shell);
+        org.eclipse.draw2d.geometry.Rectangle shellBounds = ControlSupport.getBounds(shell);
         x = monitorClientArea.x + (monitorClientArea.width - shellBounds.width) / 2;
         y = monitorClientArea.y + (monitorClientArea.height - shellBounds.height) / 2;
       }

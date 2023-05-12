@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.component;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.generation.statement.lazy.LazyStatementGeneratorDescription;
 import org.eclipse.wb.internal.core.model.variable.description.LazyVariableDescription;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
@@ -24,6 +23,7 @@ import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;

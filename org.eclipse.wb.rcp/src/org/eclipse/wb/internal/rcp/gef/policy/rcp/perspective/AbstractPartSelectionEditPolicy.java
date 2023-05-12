@@ -20,7 +20,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.RectangleFigure;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -31,6 +30,8 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.AbstractPartInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.SashLineInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

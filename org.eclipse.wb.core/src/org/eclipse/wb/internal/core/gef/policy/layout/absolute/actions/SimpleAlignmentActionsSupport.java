@@ -11,11 +11,11 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.Collections;
 import java.util.Comparator;

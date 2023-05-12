@@ -12,10 +12,10 @@ package org.eclipse.wb.internal.core.model.menu;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 /**

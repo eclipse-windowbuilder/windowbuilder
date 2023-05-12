@@ -14,8 +14,8 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;

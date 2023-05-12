@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.widgets.AbstractTabItemInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.TabFolderInfo;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 

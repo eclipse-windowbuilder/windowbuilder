@@ -11,9 +11,10 @@
 package org.eclipse.wb.internal.rcp.gef.part.widgets;
 
 import org.eclipse.wb.core.gef.part.ComponentIconEditPart;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.rcp.model.widgets.IDropTargetInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * {@link EditPart} for {@link IDropTargetInfo}.

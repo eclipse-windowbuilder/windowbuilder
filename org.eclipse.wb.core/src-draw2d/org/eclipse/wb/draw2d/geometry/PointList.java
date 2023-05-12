@@ -11,6 +11,7 @@
 package org.eclipse.wb.draw2d.geometry;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 
 import java.io.Serializable;

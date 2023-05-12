@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.forms;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.xwt.model.forms.FormInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 

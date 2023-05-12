@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.xwt.model.widgets;
 import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;

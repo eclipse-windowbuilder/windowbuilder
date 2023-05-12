@@ -13,9 +13,10 @@ package org.eclipse.wb.internal.core.model.util.grid;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.Collections;
 import java.util.Comparator;

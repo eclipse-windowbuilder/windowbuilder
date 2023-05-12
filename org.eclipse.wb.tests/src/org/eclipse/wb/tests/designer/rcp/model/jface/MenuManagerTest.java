@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.rcp.model.jface;
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.association.InvocationVoidAssociation;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.ContributionItem;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Menu;

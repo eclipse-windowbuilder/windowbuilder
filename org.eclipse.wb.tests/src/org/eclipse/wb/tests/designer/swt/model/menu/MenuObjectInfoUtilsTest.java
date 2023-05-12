@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.utils.IAdaptableFactory;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;

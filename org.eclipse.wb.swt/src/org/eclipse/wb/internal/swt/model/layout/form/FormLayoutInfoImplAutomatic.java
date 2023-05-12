@@ -14,7 +14,6 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.draw2d.geometry.Transposer;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.core.gef.policy.snapping.IAbsoluteLayoutCommands;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 

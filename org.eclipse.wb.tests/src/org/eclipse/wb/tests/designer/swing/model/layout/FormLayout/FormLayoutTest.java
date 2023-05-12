@@ -15,7 +15,6 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
@@ -35,6 +34,7 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Interval;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.MenuManager;
 
 import com.jgoodies.forms.layout.CellConstraints;

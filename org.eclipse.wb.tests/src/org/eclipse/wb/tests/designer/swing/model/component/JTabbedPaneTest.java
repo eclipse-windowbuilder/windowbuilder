@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.swing.model.component;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 import org.eclipse.wb.internal.core.model.generic.FlowContainerFactory;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
@@ -30,6 +29,8 @@ import org.eclipse.wb.internal.swing.model.component.JTabbedPaneInfo;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

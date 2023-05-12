@@ -11,12 +11,13 @@
 package org.eclipse.wb.internal.rcp.nebula.ganttchart;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Model {@link GanttEvent}.

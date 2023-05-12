@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.xwt.model.widgets.menu;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
@@ -41,6 +40,7 @@ import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 import org.eclipse.wb.internal.xwt.model.widgets.WidgetInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.XwtLiveManager;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Menu;

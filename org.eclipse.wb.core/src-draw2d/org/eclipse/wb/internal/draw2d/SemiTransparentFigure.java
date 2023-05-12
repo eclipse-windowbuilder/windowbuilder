@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.PaletteData;

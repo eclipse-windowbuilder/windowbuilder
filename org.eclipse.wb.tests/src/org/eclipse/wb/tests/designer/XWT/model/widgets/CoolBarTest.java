@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 import org.eclipse.wb.internal.core.xml.model.generic.FlowContainerFactory;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CoolBarInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.CoolItemInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.CoolItem;
 

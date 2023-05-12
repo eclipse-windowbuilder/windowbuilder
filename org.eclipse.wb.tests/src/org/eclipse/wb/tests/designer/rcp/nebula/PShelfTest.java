@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.nebula;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.nebula.pshelf.PShelfInfo;
 import org.eclipse.wb.internal.rcp.nebula.pshelf.PShelfItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

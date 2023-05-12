@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.XWT.model.widgets;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
@@ -19,6 +18,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ExpandBarInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ExpandItemInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;

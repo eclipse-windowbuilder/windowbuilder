@@ -12,12 +12,12 @@ package org.eclipse.wb.tests.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.draw2d.RefreshManager;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * @author lobas_av

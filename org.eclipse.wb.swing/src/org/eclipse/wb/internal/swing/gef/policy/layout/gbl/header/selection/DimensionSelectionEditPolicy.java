@@ -21,7 +21,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -36,6 +35,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

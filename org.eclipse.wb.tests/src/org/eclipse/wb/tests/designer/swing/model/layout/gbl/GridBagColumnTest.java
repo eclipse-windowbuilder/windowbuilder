@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -19,6 +18,8 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionOperations;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.awt.GridBagConstraints;
 import java.util.List;

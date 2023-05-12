@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.jface;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.swt.support.TableSupport;
 import org.eclipse.wb.internal.xwt.model.widgets.TableInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.widgets.Table;

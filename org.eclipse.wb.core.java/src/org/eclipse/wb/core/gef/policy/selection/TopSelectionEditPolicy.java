@@ -19,7 +19,6 @@ import org.eclipse.wb.core.model.ITopBoundsSupport;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.Request;
@@ -28,6 +27,8 @@ import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

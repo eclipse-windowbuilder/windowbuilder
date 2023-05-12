@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swt.model.widgets;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
@@ -21,6 +20,8 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swt.support.TableSupport;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

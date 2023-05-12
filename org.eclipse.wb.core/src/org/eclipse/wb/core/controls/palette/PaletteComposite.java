@@ -20,7 +20,6 @@ import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.IMouseTrackListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -653,11 +653,11 @@ public final class PaletteComposite extends Composite {
             stateImage = FOLDER_CLOSED;
           }
           // draw state image
-          r.moveX(IMAGE_SPACE_LEFT);
+          r.shrinkLeft(IMAGE_SPACE_LEFT);
           drawImageCV(graphics, stateImage, r.x, r.y, r.height);
           // modify title rectangle
           int imageWidth = stateImage.getBounds().width;
-          r.moveX(imageWidth + IMAGE_SPACE_RIGHT);
+          r.shrinkLeft(imageWidth + IMAGE_SPACE_RIGHT);
         }
         // draw title text
         drawStringCV(graphics, m_category.getText(), r);
@@ -1000,8 +1000,8 @@ public final class PaletteComposite extends Composite {
         }
         drawRectangle3D(graphics, r, false);
         // shift right and bottom
-        r.moveX(1);
-        r.moveY(1);
+        r.shrinkLeft(1);
+        r.shrinkTop(1);
       } else if (m_mouseInside) {
         drawRectangle3D(graphics, r, true);
       }

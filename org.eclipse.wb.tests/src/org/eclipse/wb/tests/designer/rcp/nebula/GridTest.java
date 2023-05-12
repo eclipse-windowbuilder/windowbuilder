@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.nebula;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.rcp.nebula.grid.GridInfo;
 import org.eclipse.wb.internal.rcp.nebula.grid.GridItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.nebula.widgets.grid.GridColumn;
 import org.eclipse.nebula.widgets.grid.GridItem;
 

@@ -19,7 +19,6 @@ import org.eclipse.wb.core.model.association.AssociationObjects;
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildrenGraphical;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
@@ -52,6 +51,7 @@ import org.eclipse.wb.internal.swt.support.MenuSupport;
 import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.swt.graphics.Image;

@@ -12,7 +12,6 @@ package org.eclipse.wb.core.gef.policy.validator;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IParametersProvider;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

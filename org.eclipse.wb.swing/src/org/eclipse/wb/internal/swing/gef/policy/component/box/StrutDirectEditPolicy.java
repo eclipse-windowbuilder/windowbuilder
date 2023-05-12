@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.component.box;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.DirectTextEditPolicy;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.swing.model.layout.BoxSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Implementation of {@link DirectTextEditPolicy} for {@link BoxStrutHorizontalEditPart} that allows

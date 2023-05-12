@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.clipboard.ComponentInfoMemento;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Test for {@link JavaInfoMemento} and other clipboard related operations.

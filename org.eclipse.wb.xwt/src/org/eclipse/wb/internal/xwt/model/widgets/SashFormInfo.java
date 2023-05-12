@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.xwt.model.widgets;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.association.Associations;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.internal.rcp.model.widgets.ISashFormInfo;
 import org.eclipse.wb.internal.xwt.support.ControlSupport;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 

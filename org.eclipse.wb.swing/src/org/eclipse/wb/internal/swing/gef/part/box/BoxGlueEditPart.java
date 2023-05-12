@@ -12,11 +12,12 @@ package org.eclipse.wb.internal.swing.gef.part.box;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.component.box.GlueSelectionEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import javax.swing.Box;
 

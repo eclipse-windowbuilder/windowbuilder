@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.os.OSSupport;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.TabItem;
 
 /**

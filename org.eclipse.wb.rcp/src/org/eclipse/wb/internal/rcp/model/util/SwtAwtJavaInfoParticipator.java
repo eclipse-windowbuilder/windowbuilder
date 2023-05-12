@@ -15,12 +15,12 @@ import org.eclipse.wb.core.model.IJavaInfoInitializationParticipator;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.creation.factory.StaticFactoryCreationSupport;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
 
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;

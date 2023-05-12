@@ -17,7 +17,6 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
@@ -36,6 +35,7 @@ import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.gef.core.CompoundCommand;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 

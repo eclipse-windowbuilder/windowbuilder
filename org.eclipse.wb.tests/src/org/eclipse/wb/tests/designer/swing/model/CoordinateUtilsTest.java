@@ -38,7 +38,7 @@ public class CoordinateUtilsTest extends DesignerTestCase {
    */
   public void test_toDraw2d_Rectangle() throws Exception {
     assertEquals(
-        new org.eclipse.wb.draw2d.geometry.Rectangle(1, 2, 3, 4),
+        new org.eclipse.draw2d.geometry.Rectangle(1, 2, 3, 4),
         CoordinateUtils.get(new java.awt.Rectangle(1, 2, 3, 4)));
   }
 

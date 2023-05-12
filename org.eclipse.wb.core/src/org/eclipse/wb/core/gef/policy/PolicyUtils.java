@@ -18,7 +18,6 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -32,6 +31,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 
 import org.apache.commons.lang.ObjectUtils;

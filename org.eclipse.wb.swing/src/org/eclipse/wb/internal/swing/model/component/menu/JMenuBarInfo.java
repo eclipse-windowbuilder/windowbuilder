@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.model.component.menu;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
 import org.eclipse.wb.core.model.association.AssociationObjects;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import java.awt.Component;

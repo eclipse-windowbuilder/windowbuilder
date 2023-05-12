@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.rcp.model.widgets.TreeColumnInfo;
@@ -19,6 +18,7 @@ import org.eclipse.wb.internal.swt.model.layout.FillLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 

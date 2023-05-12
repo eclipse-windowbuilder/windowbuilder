@@ -13,10 +13,10 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.laf.IBaselineSupport;
 
 import org.eclipse.draw2d.geometry.Interval;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

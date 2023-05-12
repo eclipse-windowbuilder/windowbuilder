@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.widgets.ExpandBarInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.ExpandItemInfo;
@@ -19,6 +18,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 

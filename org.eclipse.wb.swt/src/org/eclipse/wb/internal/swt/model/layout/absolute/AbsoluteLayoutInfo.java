@@ -17,7 +17,6 @@ import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
@@ -49,6 +48,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.Action;

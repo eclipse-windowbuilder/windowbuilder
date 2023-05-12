@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.XWT.model.widgets;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
@@ -22,6 +21,8 @@ import org.eclipse.wb.internal.xwt.model.widgets.CTabFolderInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.CTabItemInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

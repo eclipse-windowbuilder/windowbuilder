@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Shell;
 
 /**

@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.draw2d.geometry.Transposer;
 import org.eclipse.wb.internal.core.gef.policy.snapping.IFeedbackProxy;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementInfo;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.SnapPoint;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

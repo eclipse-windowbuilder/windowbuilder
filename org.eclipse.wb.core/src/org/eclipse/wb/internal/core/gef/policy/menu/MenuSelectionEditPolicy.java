@@ -16,10 +16,11 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.events.IAncestorListener;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.Collections;
 import java.util.List;

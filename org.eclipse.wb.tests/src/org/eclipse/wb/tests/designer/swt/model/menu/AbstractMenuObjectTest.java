@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.menu.AbstractMenuObject;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectListener;
@@ -18,6 +17,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPolicy;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import static org.mockito.Mockito.mock;

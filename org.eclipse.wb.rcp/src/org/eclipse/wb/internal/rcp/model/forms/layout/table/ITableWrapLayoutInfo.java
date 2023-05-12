@@ -11,10 +11,10 @@
 package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.swt.model.layout.ILayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import java.util.List;

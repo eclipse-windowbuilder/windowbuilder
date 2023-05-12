@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
-
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 /**

@@ -16,7 +16,6 @@ import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.layout.absolute.IImageProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.layout.group.Messages;
 import org.eclipse.wb.internal.layout.group.model.AnchorsSupport;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;

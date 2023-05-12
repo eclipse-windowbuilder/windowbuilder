@@ -12,7 +12,6 @@ package org.eclipse.wb.gef.tree.policies;
 
 import com.google.common.collect.Lists;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;

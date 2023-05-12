@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.grid;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.swt.model.util.surround.LayoutSurroundSupport;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 import java.util.List;

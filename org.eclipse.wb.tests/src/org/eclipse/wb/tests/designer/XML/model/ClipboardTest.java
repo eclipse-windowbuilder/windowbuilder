@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.model;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.BooleanPropertyEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;

@@ -14,7 +14,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaInfoSetObjectAfter;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -40,6 +39,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;

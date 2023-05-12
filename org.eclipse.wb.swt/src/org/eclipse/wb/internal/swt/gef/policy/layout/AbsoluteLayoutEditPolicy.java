@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swt.gef.policy.layout;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -30,6 +29,7 @@ import org.eclipse.wb.internal.swt.model.layout.absolute.SelectionActionsSupport
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

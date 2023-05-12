@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.xml.model.TopBoundsSupport;
 import org.eclipse.wb.internal.xwt.support.CoordinateUtils;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Control;

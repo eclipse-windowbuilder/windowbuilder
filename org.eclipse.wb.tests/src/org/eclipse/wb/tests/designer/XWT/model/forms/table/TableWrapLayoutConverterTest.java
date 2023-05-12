@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.forms.table;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutConverter;
 import org.eclipse.wb.internal.xwt.model.forms.layout.table.TableWrapDataInfo;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 

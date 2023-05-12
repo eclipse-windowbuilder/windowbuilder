@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.model.util.grid;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData.HorizontalAlignment;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData.VerticalAlignment;
@@ -21,6 +20,8 @@ import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.Compone
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.ComponentInGroup;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

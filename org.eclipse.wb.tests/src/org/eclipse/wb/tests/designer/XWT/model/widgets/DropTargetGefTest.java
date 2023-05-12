@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.DropTargetInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Test for {@link DropTargetInfo} in GEF.

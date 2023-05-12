@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.model.jface;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;

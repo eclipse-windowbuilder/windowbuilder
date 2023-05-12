@@ -13,13 +13,13 @@ package org.eclipse.wb.internal.rcp.support;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.swt.support.IToolkitSupport;
 import org.eclipse.wb.os.OSSupport;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
@@ -228,7 +228,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Converts the {@link List} of {@link org.eclipse.swt.graphics.Rectangle} into {@link List} of
-   * {@link org.eclipse.wb.draw2d.geometry.Rectangle}.
+   * {@link org.eclipse.draw2d.geometry.Rectangle}.
    */
   private List<Rectangle> convertRectangles(List<org.eclipse.swt.graphics.Rectangle> rectangles) {
     List<Rectangle> result = Lists.newArrayListWithCapacity(rectangles.size());

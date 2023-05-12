@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -22,6 +21,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Implementation of {@link AbstractRelativeLocator} that uses some {@link Figure} as reference.

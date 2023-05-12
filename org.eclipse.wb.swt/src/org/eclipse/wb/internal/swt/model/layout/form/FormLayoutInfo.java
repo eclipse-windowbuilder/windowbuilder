@@ -15,7 +15,6 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.draw2d.geometry.Transposer;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -41,6 +40,7 @@ import org.eclipse.wb.internal.swt.support.FormLayoutSupport;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -372,7 +372,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
     Transposer t = new Transposer(!isHorizontal);
     int margin =
         isHorizontal ? FormUtils.getLayoutMarginLeft(this) : FormUtils.getLayoutMarginTop(this);
-    org.eclipse.wb.draw2d.geometry.Rectangle controlBounds = t.t(control.getModelBounds());
+    org.eclipse.draw2d.geometry.Rectangle controlBounds = t.t(control.getModelBounds());
     Dimension containerSize = t.t(getContainerSize());
     int offset = 0;
     if (!PlacementUtils.isTrailingSide(controlSide)) {
@@ -406,7 +406,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
     Transposer t = new Transposer(!isHorizontal);
     int margin =
         isHorizontal ? FormUtils.getLayoutMarginLeft(this) : FormUtils.getLayoutMarginTop(this);
-    org.eclipse.wb.draw2d.geometry.Rectangle controlBounds = t.t(control.getModelBounds());
+    org.eclipse.draw2d.geometry.Rectangle controlBounds = t.t(control.getModelBounds());
     Dimension containerSize = t.t(getContainerSize());
     if (!PlacementUtils.isTrailingSide(controlSide)) {
       attachment.setNumerator((int) (100.0 * (controlBounds.x - margin) / containerSize.width));

@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.swing.model.component.menu;
 
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.core.model.association.InvocationVoidAssociation;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
@@ -32,6 +31,8 @@ import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuSeparatorInf
 import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

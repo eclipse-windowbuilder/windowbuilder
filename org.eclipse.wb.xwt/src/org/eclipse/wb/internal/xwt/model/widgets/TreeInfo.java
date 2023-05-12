@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Tree;
 
 import java.util.List;

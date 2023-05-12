@@ -13,10 +13,10 @@ package org.eclipse.wb.internal.layout.group.model;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AbstractAlignmentActionsSupport;
 import org.eclipse.wb.internal.layout.group.Messages;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Separator;
 
 import org.netbeans.modules.form.layoutdesign.LayoutComponent;
@@ -161,7 +161,7 @@ public final class AlignmentsSupport<C extends IAbstractComponentInfo>
     for (IAbstractComponentInfo component : components) {
       movingBounds[i++] = GroupLayoutUtils.getBoundsInLayout(m_layout, component);
     }
-    org.eclipse.wb.draw2d.geometry.Rectangle unionBounds =
+    org.eclipse.draw2d.geometry.Rectangle unionBounds =
         GroupLayoutUtils.getRectangleUnion(movingBounds);
     int middlePointInArea =
         isHorizontal ? unionBounds.x + unionBounds.width / 2 : unionBounds.y

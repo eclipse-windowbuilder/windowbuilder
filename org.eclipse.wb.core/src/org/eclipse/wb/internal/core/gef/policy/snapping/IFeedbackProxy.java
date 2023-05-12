@@ -11,7 +11,8 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Feedback drawing proxy for snapping engine.
