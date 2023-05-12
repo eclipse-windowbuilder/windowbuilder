@@ -15,7 +15,6 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -35,6 +34,7 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.jface.action.MenuManager;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -123,10 +123,10 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
       assertEquals(1, rowIntervals.length);
       // check that even when column/row is empty, it still has some size
       {
-        assertThat(columnIntervals[2].length).isGreaterThan(18);
+        assertThat(columnIntervals[2].length()).isGreaterThan(18);
         assertFalse(columnIntervals[0].isEmpty());
         //
-        assertThat(rowIntervals[0].length).isGreaterThan(18);
+        assertThat(rowIntervals[0].length()).isGreaterThan(18);
         assertFalse(rowIntervals[0].isEmpty());
       }
     }

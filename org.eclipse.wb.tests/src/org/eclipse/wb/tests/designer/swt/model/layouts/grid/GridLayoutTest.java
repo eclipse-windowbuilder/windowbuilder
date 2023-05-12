@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.swt.model.layouts.grid;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
@@ -35,6 +34,7 @@ import org.eclipse.wb.tests.designer.swt.model.jface.ViewerTest;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -343,7 +343,7 @@ public class GridLayoutTest extends RcpModelTest {
       for (int i = 0; i < columnOrigins.length; i++) {
         int origin = columnOrigins[i];
         Interval interval = columnIntervals[i];
-        assertEquals(origin, interval.begin);
+        assertEquals(origin, interval.begin());
       }
     }
     // check row intervals

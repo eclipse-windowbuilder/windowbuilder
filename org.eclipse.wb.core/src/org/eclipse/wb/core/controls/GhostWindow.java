@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls;
 
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.os.OSSupport;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;

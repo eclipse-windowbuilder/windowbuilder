@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -32,6 +31,7 @@ import org.eclipse.wb.tests.designer.Expectations.RectValue;
 import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -341,7 +341,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
         Interval[] columnIntervals = gridInfo.getColumnIntervals();
         assertThat(columnIntervals).hasSize(1);
         // interval[0]
-        assertThat(columnIntervals[0].length).isGreaterThan(18);
+        assertThat(columnIntervals[0].length()).isGreaterThan(18);
         assertFalse(columnIntervals[0].isEmpty());
       }
       // rows
@@ -351,7 +351,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
         Interval[] rowIntervals = gridInfo.getRowIntervals();
         assertThat(rowIntervals).hasSize(1);
         // interval[0]
-        assertThat(rowIntervals[0].length).isGreaterThan(18);
+        assertThat(rowIntervals[0].length()).isGreaterThan(18);
         assertFalse(rowIntervals[0].isEmpty());
       }
     }

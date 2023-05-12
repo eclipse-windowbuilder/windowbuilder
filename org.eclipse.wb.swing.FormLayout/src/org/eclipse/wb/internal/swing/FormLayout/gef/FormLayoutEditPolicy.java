@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2.IPasteProcessor;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -40,6 +39,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.ui.RowsDialog;
 import org.eclipse.wb.internal.swing.gef.ComponentsLayoutRequestValidator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.IMenuManager;
 
@@ -245,11 +245,11 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
     int insertDelta = 3;
     // prepare insert bounds
     if (rowIntervals.length != 0) {
-      m_target.m_columnInsertBounds.y = rowIntervals[0].begin - INSERT_MARGINS;
+      m_target.m_columnInsertBounds.y = rowIntervals[0].begin() - INSERT_MARGINS;
       m_target.m_columnInsertBounds.setBottom(lastY + INSERT_MARGINS);
     }
     if (columnIntervals.length != 0) {
-      m_target.m_rowInsertBounds.x = columnIntervals[0].begin - INSERT_MARGINS;
+      m_target.m_rowInsertBounds.x = columnIntervals[0].begin() - INSERT_MARGINS;
       m_target.m_rowInsertBounds.setRight(lastX + INSERT_MARGINS);
     }
     // find existing column
@@ -277,18 +277,18 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
         if (column.isGap()) {
           m_target.m_columnInsert = true;
           //
-          m_target.m_feedbackBounds.width = 3 * interval.length;
+          m_target.m_feedbackBounds.width = 3 * interval.length();
           m_target.m_feedbackBounds.x = interval.center() - m_target.m_feedbackBounds.width / 2;
           //
-          m_target.m_columnInsertBounds.x = interval.begin;
-          m_target.m_columnInsertBounds.width = interval.length + 1;
-        } else if (mouseLocation.x - interval.begin <= insertDelta && !prevGap) {
+          m_target.m_columnInsertBounds.x = interval.begin();
+          m_target.m_columnInsertBounds.width = interval.length()+ 1;
+        } else if (mouseLocation.x - interval.begin() <= insertDelta && !prevGap) {
           m_target.m_columnInsert = true;
           //
           m_target.m_feedbackBounds.width = 3 * INSERT_COLUMN_SIZE;
-          m_target.m_feedbackBounds.x = interval.begin - m_target.m_feedbackBounds.width / 2;
+          m_target.m_feedbackBounds.x = interval.begin() - m_target.m_feedbackBounds.width / 2;
           //
-          m_target.m_columnInsertBounds.x = interval.begin - INSERT_COLUMN_SIZE / 2;
+          m_target.m_columnInsertBounds.x = interval.begin() - INSERT_COLUMN_SIZE / 2;
           m_target.m_columnInsertBounds.width = INSERT_COLUMN_SIZE;
         } else if (!isLast && interval.end() - mouseLocation.x <= insertDelta && !nextGap) {
           m_target.m_column++;
@@ -300,8 +300,8 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
           m_target.m_columnInsertBounds.x = interval.end() - INSERT_COLUMN_SIZE / 2;
           m_target.m_columnInsertBounds.width = INSERT_COLUMN_SIZE;
         } else {
-          m_target.m_feedbackBounds.x = interval.begin;
-          m_target.m_feedbackBounds.width = interval.length + 1;
+          m_target.m_feedbackBounds.x = interval.begin();
+          m_target.m_feedbackBounds.width = interval.length()+ 1;
         }
       }
     }
@@ -338,18 +338,18 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
         if (row.isGap()) {
           m_target.m_rowInsert = true;
           //
-          m_target.m_feedbackBounds.height = 3 * interval.length;
+          m_target.m_feedbackBounds.height = 3 * interval.length();
           m_target.m_feedbackBounds.y = interval.center() - m_target.m_feedbackBounds.height / 2;
           //
-          m_target.m_rowInsertBounds.y = interval.begin;
-          m_target.m_rowInsertBounds.height = interval.length + 1;
-        } else if (mouseLocation.y - interval.begin <= insertDelta && !prevGap) {
+          m_target.m_rowInsertBounds.y = interval.begin();
+          m_target.m_rowInsertBounds.height = interval.length()+ 1;
+        } else if (mouseLocation.y - interval.begin() <= insertDelta && !prevGap) {
           m_target.m_rowInsert = true;
           //
           m_target.m_feedbackBounds.height = 3 * INSERT_ROW_SIZE;
-          m_target.m_feedbackBounds.y = interval.begin - m_target.m_feedbackBounds.height / 2;
+          m_target.m_feedbackBounds.y = interval.begin() - m_target.m_feedbackBounds.height / 2;
           //
-          m_target.m_rowInsertBounds.y = interval.begin - INSERT_ROW_SIZE / 2;
+          m_target.m_rowInsertBounds.y = interval.begin() - INSERT_ROW_SIZE / 2;
           m_target.m_rowInsertBounds.height = INSERT_ROW_SIZE;
         } else if (!isLast && interval.end() - mouseLocation.y <= insertDelta && !nextGap) {
           m_target.m_row++;
@@ -361,8 +361,8 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
           m_target.m_rowInsertBounds.y = interval.end() - INSERT_ROW_SIZE / 2;
           m_target.m_rowInsertBounds.height = INSERT_ROW_SIZE;
         } else {
-          m_target.m_feedbackBounds.y = interval.begin;
-          m_target.m_feedbackBounds.height = interval.length + 1;
+          m_target.m_feedbackBounds.y = interval.begin();
+          m_target.m_feedbackBounds.height = interval.length()+ 1;
         }
       }
     }

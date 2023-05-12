@@ -14,7 +14,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapRowInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.graphics.Image;
@@ -147,9 +147,9 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
     {
       bounds =
           new Rectangle(0,
-              interval.begin,
+              interval.begin(),
               ((GraphicalEditPart) getParent()).getFigure().getSize().width,
-              interval.length + 1);
+              interval.length()+ 1);
       bounds.performTranslate(0, getOffset().y);
     }
     // set bounds

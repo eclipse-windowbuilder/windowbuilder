@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 
 import junit.framework.TestCase;
@@ -74,8 +74,8 @@ public abstract class Draw2dTestCase extends TestCase {
    * <code>{@link Interval}</code>. If they are not an AssertionFailedError is thrown.
    */
   public static final void assertEquals(int begin, int length, Interval interval) throws Exception {
-    assertEquals(begin, interval.begin);
-    assertEquals(length, interval.length);
+    assertEquals(begin, interval.begin());
+    assertEquals(length, interval.length());
   }
 
   /**

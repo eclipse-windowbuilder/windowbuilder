@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2.IPasteProcessor;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -38,6 +37,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.IMenuManager;
 
@@ -197,14 +197,14 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
     // prepare insert bounds
     {
       if (columnIntervals.length != 0) {
-        m_target.m_rowInsertBounds.x = columnIntervals[0].begin - INSERT_MARGINS;
+        m_target.m_rowInsertBounds.x = columnIntervals[0].begin() - INSERT_MARGINS;
         m_target.m_rowInsertBounds.setRight(lastX + INSERT_MARGINS);
       } else {
         m_target.m_rowInsertBounds.x = 0;
         m_target.m_rowInsertBounds.setRight(getHostFigure().getSize().width);
       }
       if (rowIntervals.length != 0) {
-        m_target.m_columnInsertBounds.y = rowIntervals[0].begin - INSERT_MARGINS;
+        m_target.m_columnInsertBounds.y = rowIntervals[0].begin() - INSERT_MARGINS;
         m_target.m_columnInsertBounds.setBottom(lastY + INSERT_MARGINS);
       } else {
         m_target.m_columnInsertBounds.y = 0;
@@ -217,7 +217,7 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
       Interval interval = columnIntervals[columnIndex];
       Interval nextInterval = !isLast ? columnIntervals[columnIndex + 1] : null;
       // before first
-      if (location.x < Math.max(interval.begin, INSERT_COLUMN_SIZE)) {
+      if (location.x < Math.max(interval.begin(), INSERT_COLUMN_SIZE)) {
         m_target.m_column = 0;
         m_target.m_columnInsert = true;
         // prepare parameters
@@ -234,11 +234,11 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
       }
       // gap or near to end of interval
       if (nextInterval != null) {
-        int gap = nextInterval.begin - interval.end();
-        boolean directGap = interval.end() <= location.x && location.x < nextInterval.begin;
+        int gap = nextInterval.begin() - interval.end();
+        boolean directGap = interval.end() <= location.x && location.x < nextInterval.begin();
         boolean narrowGap = gap < 2 * INSERT_COLUMN_SIZE;
         boolean nearEnd = Math.abs(location.x - interval.end()) < INSERT_COLUMN_SIZE;
-        boolean nearBegin = Math.abs(location.x - nextInterval.begin) < INSERT_COLUMN_SIZE;
+        boolean nearBegin = Math.abs(location.x - nextInterval.begin()) < INSERT_COLUMN_SIZE;
         if (directGap || narrowGap && (nearEnd || nearBegin)) {
           m_target.m_column = columnIndex + 1;
           m_target.m_columnInsert = true;
@@ -259,8 +259,8 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
       if (interval.contains(location.x)) {
         m_target.m_column = columnIndex;
         // feedback
-        m_target.m_feedbackBounds.x = interval.begin;
-        m_target.m_feedbackBounds.width = interval.length + 1;
+        m_target.m_feedbackBounds.x = interval.begin();
+        m_target.m_feedbackBounds.width = interval.length()+ 1;
         // stop
         break;
       }
@@ -283,7 +283,7 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
       Interval interval = rowIntervals[rowIndex];
       Interval nextInterval = !isLast ? rowIntervals[rowIndex + 1] : null;
       // before first
-      if (location.y < Math.max(interval.begin, INSERT_ROW_SIZE)) {
+      if (location.y < Math.max(interval.begin(), INSERT_ROW_SIZE)) {
         m_target.m_row = 0;
         m_target.m_rowInsert = true;
         // prepare parameters
@@ -300,11 +300,11 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
       }
       // gap or near to end of interval
       if (nextInterval != null) {
-        int gap = nextInterval.begin - interval.end();
-        boolean directGap = interval.end() <= location.y && location.y < nextInterval.begin;
+        int gap = nextInterval.begin() - interval.end();
+        boolean directGap = interval.end() <= location.y && location.y < nextInterval.begin();
         boolean narrowGap = gap < 2 * INSERT_ROW_SIZE;
         boolean nearEnd = Math.abs(location.y - interval.end()) < INSERT_ROW_SIZE;
-        boolean nearBegin = Math.abs(location.y - nextInterval.begin) < INSERT_ROW_SIZE;
+        boolean nearBegin = Math.abs(location.y - nextInterval.begin()) < INSERT_ROW_SIZE;
         if (directGap || narrowGap && (nearEnd || nearBegin)) {
           m_target.m_row = rowIndex + 1;
           m_target.m_rowInsert = true;
@@ -324,8 +324,8 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
       if (interval.contains(location.y)) {
         m_target.m_row = rowIndex;
         // feedback
-        m_target.m_feedbackBounds.y = interval.begin;
-        m_target.m_feedbackBounds.height = interval.length + 1;
+        m_target.m_feedbackBounds.y = interval.begin();
+        m_target.m_feedbackBounds.height = interval.length()+ 1;
         // stop
         break;
       }
@@ -352,13 +352,13 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
   public static int[] getInsertFeedbackParameters(Interval interval,
       Interval nextInterval,
       int minGap) {
-    int gap = nextInterval.begin - interval.end();
+    int gap = nextInterval.begin() - interval.end();
     int visualGap = Math.max(gap, minGap);
     // determine x1/x2
     int x1, x2;
     {
       int a = interval.end();
-      int b = nextInterval.begin;
+      int b = nextInterval.begin();
       int x1_2 = a + b - visualGap;
       x1 = x1_2 % 2 == 0 ? x1_2 / 2 : x1_2 / 2 - 1;
       x2 = a + b - x1;

@@ -18,7 +18,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -35,6 +34,7 @@ import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection.Colu
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 
 import java.text.MessageFormat;
@@ -117,7 +117,7 @@ public final class ColumnsLayoutEditPolicy extends AbstractHeaderLayoutEditPolic
     IGridInfo gridInfo = m_layout.getGridInfo();
     Interval[] columnIntervals = gridInfo.getColumnIntervals();
     Interval[] rowIntervals = gridInfo.getRowIntervals();
-    int y1 = rowIntervals[0].begin - 5;
+    int y1 = rowIntervals[0].begin() - 5;
     int y2 = rowIntervals[rowIntervals.length - 1].end() + 5;
     // prepare index of target column and position for insert feedbacks
     final int index;

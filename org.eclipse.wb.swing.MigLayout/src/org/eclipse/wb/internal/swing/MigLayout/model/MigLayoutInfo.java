@@ -27,7 +27,6 @@ import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -52,6 +51,7 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutAssistantSupport;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jface.action.Action;
@@ -1369,8 +1369,8 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
         if (cells == null) {
           return new Rectangle(0, 0, 0, 0);
         }
-        int x = columnIntervals[cells.x].begin;
-        int y = rowIntervals[cells.y].begin;
+        int x = columnIntervals[cells.x].begin();
+        int y = rowIntervals[cells.y].begin();
         if (cells.isEmpty()) {
           return new Rectangle(x, y, 0, 0);
         } else {

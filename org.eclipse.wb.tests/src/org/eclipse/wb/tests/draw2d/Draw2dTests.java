@@ -22,7 +22,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 	 // geometry
-    IntervalTest.class,
     RectangleTest.class,
     PointListTest.class,
     TransposerTest.class,

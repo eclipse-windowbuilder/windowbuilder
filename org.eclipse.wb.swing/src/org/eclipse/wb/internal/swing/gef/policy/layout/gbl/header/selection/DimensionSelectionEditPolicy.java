@@ -21,7 +21,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -35,6 +34,7 @@ import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.Dimension
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 
 import java.util.List;
@@ -192,9 +192,9 @@ abstract class DimensionSelectionEditPolicy<T extends DimensionInfo>
   protected final int getDimensionSize(Interval[] intervals) {
     int index = getDimension().getIndex();
     if (index < intervals.length - 1) {
-      return intervals[index + 1].begin - intervals[index].begin;
+      return intervals[index + 1].begin() - intervals[index].begin();
     } else {
-      return intervals[index].length;
+      return intervals[index].length();
     }
   }
 

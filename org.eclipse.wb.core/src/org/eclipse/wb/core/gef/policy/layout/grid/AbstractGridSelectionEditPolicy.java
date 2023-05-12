@@ -26,7 +26,6 @@ import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.draw2d.RelativeLocator;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -41,6 +40,7 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.graphics.Color;
 
@@ -467,14 +467,14 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
       if (isWest || isEast) {
         Interval[] columnIntervals = gridInfo.getColumnIntervals();
         if (isWest) {
-          int begin = 1 + Interval.getRightmostIntervalIndex(columnIntervals, bounds.x);
+          int begin = 1 + Interval.getRightMostIntervalIndex(columnIntervals, bounds.x);
           begin = Math.max(begin, 0);
           begin = Math.min(begin, cells.right() - 1);
           begin = fixSpanLocation(true, begin, -1, cells, gridInfo);
           //
           cells.setX(begin);
         } else if (isEast) {
-          int end = Interval.getRightmostIntervalIndex(columnIntervals, bounds.right());
+          int end = Interval.getRightMostIntervalIndex(columnIntervals, bounds.right());
           end = Math.min(end, columnIntervals.length - 1);
           end = Math.max(end, cells.x);
           end = fixSpanLocation(true, end, +1, cells, gridInfo);
@@ -486,14 +486,14 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
       } else if (isNorth || isSouth) {
         Interval[] rowIntervals = gridInfo.getRowIntervals();
         if (isNorth) {
-          int begin = 1 + Interval.getRightmostIntervalIndex(rowIntervals, bounds.y);
+          int begin = 1 + Interval.getRightMostIntervalIndex(rowIntervals, bounds.y);
           begin = Math.max(begin, 0);
           begin = Math.min(begin, cells.bottom() - 1);
           begin = fixSpanLocation(false, begin, -1, cells, gridInfo);
           //
           cells.setY(begin);
         } else if (isSouth) {
-          int end = Interval.getRightmostIntervalIndex(rowIntervals, bounds.bottom());
+          int end = Interval.getRightMostIntervalIndex(rowIntervals, bounds.bottom());
           end = Math.min(end, rowIntervals.length - 1);
           end = Math.max(end, cells.y);
           end = fixSpanLocation(false, end, +1, cells, gridInfo);

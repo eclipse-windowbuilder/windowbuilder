@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.layout;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -103,13 +103,13 @@ public class GridLayoutTest extends RcpModelTest {
     IGridInfo gridInfo = gridLayout.getGridInfo();
     {
       Interval columnInterval = gridInfo.getColumnIntervals()[0];
-      assertEquals(buttonBounds.x, columnInterval.begin);
-      assertEquals(buttonBounds.width, columnInterval.length);
+      assertEquals(buttonBounds.x, columnInterval.begin());
+      assertEquals(buttonBounds.width, columnInterval.length());
     }
     {
       Interval rowInterval = gridInfo.getRowIntervals()[0];
-      assertEquals(buttonBounds.y, rowInterval.begin);
-      assertEquals(buttonBounds.height, rowInterval.length);
+      assertEquals(buttonBounds.y, rowInterval.begin());
+      assertEquals(buttonBounds.height, rowInterval.length());
     }
   }
 

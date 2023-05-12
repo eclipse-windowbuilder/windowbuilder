@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.FormLayout.gef.header.edit;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.ui.ColumnEditDialog;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
@@ -134,9 +134,9 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
     int index = getIndex();
     Interval interval = m_layout.getGridInfo().getColumnIntervals()[index];
     Rectangle bounds =
-        new Rectangle(interval.begin,
+        new Rectangle(interval.begin(),
             0,
-            interval.length + 1,
+            interval.length() + 1,
             ((GraphicalEditPart) getParent()).getFigure().getSize().height);
     bounds.performTranslate(getOffset().x, 0);
     getFigure().setBounds(bounds);

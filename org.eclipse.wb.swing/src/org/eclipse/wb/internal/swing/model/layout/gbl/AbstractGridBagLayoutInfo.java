@@ -25,7 +25,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.clipboard.PropertiesClipboardCommand;
@@ -48,6 +47,7 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SelectionActionsSupport;
 
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -819,8 +819,8 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
       }
 
       public Rectangle getCellsRectangle(Rectangle cells) {
-        int x = m_columnIntervals[cells.x].begin;
-        int y = m_rowIntervals[cells.y].begin;
+        int x = m_columnIntervals[cells.x].begin();
+        int y = m_rowIntervals[cells.y].begin();
         int w = m_columnIntervals[cells.right() - 1].end() - x;
         int h = m_rowIntervals[cells.bottom() - 1].end() - y;
         return new Rectangle(x, y, w + 1, h + 1);
@@ -968,8 +968,9 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
   private static void updateIntervals(Interval[] intervals, int[] beginGaps, int[] endGaps) {
     for (int i = 0; i < intervals.length; i++) {
       Interval interval = intervals[i];
-      interval.growLeading(beginGaps[i]);
-      interval.growTrailing(-endGaps[i]);
+      interval = interval.growLeading(beginGaps[i]);
+      interval = interval.growTrailing(-endGaps[i]);
+      intervals[i] = interval;
     }
   }
 }
