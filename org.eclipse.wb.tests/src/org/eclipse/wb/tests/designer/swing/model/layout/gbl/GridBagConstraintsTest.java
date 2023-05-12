@@ -276,16 +276,16 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
       // no gaps, columns/rows are directly on component bounds
       {
         // columns: begin
-        assertEquals(button_1.getComponent().getX(), gridInfo.getColumnIntervals()[0].begin);
-        assertEquals(button_2.getComponent().getX(), gridInfo.getColumnIntervals()[1].begin);
+        assertEquals(button_1.getComponent().getX(), gridInfo.getColumnIntervals()[0].begin());
+        assertEquals(button_2.getComponent().getX(), gridInfo.getColumnIntervals()[1].begin());
         // rows: begin
-        assertEquals(button_2.getComponent().getY(), gridInfo.getRowIntervals()[0].begin);
+        assertEquals(button_2.getComponent().getY(), gridInfo.getRowIntervals()[0].begin());
         // columns: length
-        assertEquals(button_1.getComponent().getWidth(), gridInfo.getColumnIntervals()[0].length);
-        assertEquals(button_2.getComponent().getWidth(), gridInfo.getColumnIntervals()[1].length);
+        assertEquals(button_1.getComponent().getWidth(), gridInfo.getColumnIntervals()[0].length());
+        assertEquals(button_2.getComponent().getWidth(), gridInfo.getColumnIntervals()[1].length());
         // rows: length
-        assertEquals(button_1.getComponent().getHeight(), gridInfo.getRowIntervals()[0].length);
-        assertEquals(button_2.getComponent().getHeight(), gridInfo.getRowIntervals()[0].length);
+        assertEquals(button_1.getComponent().getHeight(), gridInfo.getRowIntervals()[0].length());
+        assertEquals(button_2.getComponent().getHeight(), gridInfo.getRowIntervals()[0].length());
       }
     }
   }

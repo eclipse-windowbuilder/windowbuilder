@@ -18,7 +18,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -35,6 +34,7 @@ import org.eclipse.wb.internal.swing.FormLayout.gef.header.selection.RowSelectio
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 
 import java.text.MessageFormat;
@@ -117,7 +117,7 @@ public final class RowsLayoutEditPolicy extends AbstractHeaderLayoutEditPolicy {
     IGridInfo gridInfo = m_layout.getGridInfo();
     Interval[] columnIntervals = gridInfo.getColumnIntervals();
     Interval[] rowIntervals = gridInfo.getRowIntervals();
-    int x1 = columnIntervals[0].begin - 5;
+    int x1 = columnIntervals[0].begin() - 5;
     int x2 = columnIntervals[columnIntervals.length - 1].end() + 5;
     // prepare index of target column and position for insert feedbacks
     int index;
@@ -126,17 +126,17 @@ public final class RowsLayoutEditPolicy extends AbstractHeaderLayoutEditPolicy {
     if (target != null) {
       index = target.getIndex();
       // set default
-      y = rowIntervals[index].begin - size / 2;
+      y = rowIntervals[index].begin() - size / 2;
       // check for gap
       FormRowInfo row = m_layout.getRows().get(index);
       if (row.isGap()) {
-        y = rowIntervals[index].begin;
-        size = rowIntervals[index].length + 1;
+        y = rowIntervals[index].begin();
+        size = rowIntervals[index].length() + 1;
       } else if (index != 0) {
         FormRowInfo prevRow = m_layout.getRows().get(index - 1);
         if (prevRow.isGap()) {
-          y = rowIntervals[index - 1].begin;
-          size = rowIntervals[index - 1].length + 1;
+          y = rowIntervals[index - 1].begin();
+          size = rowIntervals[index - 1].length() + 1;
           index--;
         }
       }

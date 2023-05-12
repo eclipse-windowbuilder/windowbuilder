@@ -18,7 +18,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -34,6 +33,7 @@ import org.eclipse.wb.internal.swing.MigLayout.gef.header.edit.RowHeaderEditPart
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.selection.RowSelectionEditPolicy;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 
 /**
@@ -114,7 +114,7 @@ public final class RowsLayoutEditPolicy extends AbstractHeaderLayoutEditPolicy {
     IGridInfo gridInfo = m_layout.getGridInfo();
     Interval[] columnIntervals = gridInfo.getColumnIntervals();
     Interval[] rowIntervals = gridInfo.getRowIntervals();
-    int x1 = columnIntervals[0].begin - 5;
+    int x1 = columnIntervals[0].begin() - 5;
     int x2 = columnIntervals[columnIntervals.length - 1].end() + 5;
     // prepare index of target column and position for insert feedbacks
     final int targetIndex;
@@ -122,9 +122,9 @@ public final class RowsLayoutEditPolicy extends AbstractHeaderLayoutEditPolicy {
     int size = AbstractGridLayoutEditPolicy.INSERT_ROW_SIZE;
     if (target != null) {
       targetIndex = target.getIndex();
-      y = rowIntervals[targetIndex].begin - size / 2;
+      y = rowIntervals[targetIndex].begin() - size / 2;
       if (targetIndex != 0) {
-        y -= (rowIntervals[targetIndex].begin - rowIntervals[targetIndex - 1].end()) / 2;
+        y -= (rowIntervals[targetIndex].begin() - rowIntervals[targetIndex - 1].end()) / 2;
       }
     } else {
       targetIndex = m_layout.getRows().size();

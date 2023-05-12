@@ -18,7 +18,6 @@ import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -37,6 +36,7 @@ import org.eclipse.wb.internal.swt.model.layout.grid.GridColumnInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 
 import java.util.List;
@@ -112,7 +112,7 @@ public final class ColumnsLayoutEditPolicy<C extends IControlInfo>
     IGridInfo gridInfo = m_layout.getGridInfo();
     Interval[] columnIntervals = gridInfo.getColumnIntervals();
     Interval[] rowIntervals = gridInfo.getRowIntervals();
-    int y1 = rowIntervals[0].begin - 5;
+    int y1 = rowIntervals[0].begin() - 5;
     int y2 = rowIntervals[rowIntervals.length - 1].end() + 5;
     // prepare target header
     DimensionHeaderEditPart<C> target = null;

@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
@@ -34,6 +33,7 @@ import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -317,17 +317,17 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
       {
         Interval[] intervals = gridInfo.getColumnIntervals();
         assertEquals(3, intervals.length);
-        assertTrue(intervals[0].length > 20);
-        assertTrue(intervals[1].length > 20);
-        assertTrue(intervals[2].length > 20);
+        assertTrue(intervals[0].length() > 20);
+        assertTrue(intervals[1].length() > 20);
+        assertTrue(intervals[2].length() > 20);
       }
       // rows
       {
         Interval[] intervals = gridInfo.getRowIntervals();
         assertEquals(3, intervals.length);
-        assertTrue(intervals[0].length > 20);
-        assertTrue(intervals[1].length > 20);
-        assertTrue(intervals[2].length > 20);
+        assertTrue(intervals[0].length() > 20);
+        assertTrue(intervals[1].length() > 20);
+        assertTrue(intervals[2].length() > 20);
       }
     }
     // cells
@@ -592,11 +592,11 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
       Interval[] intervals = gridInfo.getColumnIntervals();
       assertEquals(2, intervals.length);
       // interval with component is fairly wide
-      assertTrue(intervals[1].length > 50);
+      assertTrue(intervals[1].length() > 50);
       // interval without components is as wide, as "virtual"
-      assertEquals(gridInfo.getVirtualColumnSize(), intervals[0].length);
+      assertEquals(gridInfo.getVirtualColumnSize(), intervals[0].length());
       // there is "virtual" gap between two intervals, even if one is "virtual"
-      assertEquals(gridInfo.getVirtualColumnGap(), intervals[1].begin - intervals[0].end());
+      assertEquals(gridInfo.getVirtualColumnGap(), intervals[1].begin() - intervals[0].end());
     }
   }
 
@@ -623,7 +623,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     IGridInfo gridInfo = layout.getGridInfo();
     Interval[] intervals = gridInfo.getColumnIntervals();
     assertEquals(1, intervals.length);
-    assertEquals(150 - 5, intervals[0].length);
+    assertEquals(150 - 5, intervals[0].length());
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -690,11 +690,11 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
       Interval[] intervals = gridInfo.getRowIntervals();
       assertEquals(2, intervals.length);
       // interval with component is fairly tall
-      assertTrue(intervals[1].length > 20);
+      assertTrue(intervals[1].length() > 20);
       // interval without components is as tall, as "virtual"
-      assertEquals(gridInfo.getVirtualRowSize(), intervals[0].length);
+      assertEquals(gridInfo.getVirtualRowSize(), intervals[0].length());
       // there is "virtual" gap between two intervals, even if one is "virtual"
-      assertEquals(gridInfo.getVirtualRowGap(), intervals[1].begin - intervals[0].end());
+      assertEquals(gridInfo.getVirtualRowGap(), intervals[1].begin() - intervals[0].end());
     }
   }
 

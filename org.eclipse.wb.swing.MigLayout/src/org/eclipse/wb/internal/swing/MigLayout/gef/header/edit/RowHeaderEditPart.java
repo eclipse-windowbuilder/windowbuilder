@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.MigLayout.gef.header.edit;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.ui.RowEditDialog;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
@@ -130,9 +130,9 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
       Interval interval = m_layout.getGridInfo().getRowIntervals()[index];
       Rectangle bounds =
           new Rectangle(0,
-              interval.begin,
+              interval.begin(),
               ((GraphicalEditPart) getParent()).getFigure().getSize().width,
-              interval.length + 1);
+              interval.length()+ 1);
       bounds.performTranslate(0, getOffset().y);
       figure.setBounds(bounds);
     }

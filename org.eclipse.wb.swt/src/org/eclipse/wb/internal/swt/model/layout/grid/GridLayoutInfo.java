@@ -21,7 +21,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildGraphical;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildTree;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
@@ -51,6 +50,7 @@ import org.eclipse.wb.internal.swt.support.LabelSupport;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
@@ -1176,8 +1176,8 @@ public class GridLayoutInfo extends LayoutInfo
 
       @Override
       public Rectangle getCellsRectangle(Rectangle cells) {
-        int x = columnIntervals[cells.x].begin;
-        int y = rowIntervals[cells.y].begin;
+        int x = columnIntervals[cells.x].begin();
+        int y = rowIntervals[cells.y].begin();
         int w = columnIntervals[cells.right() - 1].end() - x;
         int h = rowIntervals[cells.bottom() - 1].end() - y;
         return new Rectangle(x, y, w, h);

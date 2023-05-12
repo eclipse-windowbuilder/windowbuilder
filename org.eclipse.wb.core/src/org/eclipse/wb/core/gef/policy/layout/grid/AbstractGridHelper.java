@@ -19,7 +19,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.draw2d.events.IFigureListener;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -31,6 +30,7 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.graphics.Color;
@@ -171,7 +171,7 @@ public abstract class AbstractGridHelper {
         int x2 = columnIntervals[columnIntervals.length - 1].end();
         for (Interval interval : rowIntervals) {
           {
-            y = interval.begin;
+            y = interval.begin();
             addGridLine(x1, y, x2, y, m_existingLineColor);
             addGridLine(x2, y, hostClientArea.right(), y, m_virtualLineColor);
           }
@@ -208,7 +208,7 @@ public abstract class AbstractGridHelper {
         int y2 = rowIntervals[rowIntervals.length - 1].end();
         for (Interval interval : columnIntervals) {
           {
-            x = interval.begin;
+            x = interval.begin();
             addGridLine(x, y1, x, y2, m_existingLineColor);
             addGridLine(x, y2, x, hostClientArea.bottom(), m_virtualLineColor);
           }

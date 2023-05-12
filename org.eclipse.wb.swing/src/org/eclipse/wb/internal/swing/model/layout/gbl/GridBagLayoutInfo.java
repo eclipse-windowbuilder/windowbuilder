@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
 import org.eclipse.wb.core.model.association.EmptyAssociation;
-import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -22,6 +21,8 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.IExceptionConstants;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
+
+import org.eclipse.draw2d.geometry.Interval;
 
 import org.apache.commons.lang.ArrayUtils;
 

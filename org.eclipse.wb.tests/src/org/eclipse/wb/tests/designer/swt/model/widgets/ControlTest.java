@@ -293,7 +293,7 @@ public class ControlTest extends RcpModelTest {
     // check column width
     CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(0);
     GridLayoutInfo gridLayout = (GridLayoutInfo) composite.getLayout();
-    int columnWidth = gridLayout.getGridInfo().getColumnIntervals()[0].length;
+    int columnWidth = gridLayout.getGridInfo().getColumnIntervals()[0].length();
     assertTrue("More than 400 expected, but " + columnWidth + " found", columnWidth > 400);
   }
 
