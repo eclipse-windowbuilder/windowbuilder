@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.component.box;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.graphical.policies.DirectTextEditPolicy;
 import org.eclipse.wb.internal.swing.gef.part.box.BoxRigidAreaEditPart;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.property.converter.DimensionConverter;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.apache.commons.lang.StringUtils;
 

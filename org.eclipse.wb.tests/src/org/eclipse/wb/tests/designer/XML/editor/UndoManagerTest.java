@@ -11,13 +11,13 @@
 package org.eclipse.wb.tests.designer.XML.editor;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.xml.editor.UndoManager;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;

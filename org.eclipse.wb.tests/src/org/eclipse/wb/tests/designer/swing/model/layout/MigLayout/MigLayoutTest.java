@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.swing.MigLayout.Activator;
@@ -32,6 +31,7 @@ import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 
 import org.eclipse.draw2d.geometry.Interval;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;

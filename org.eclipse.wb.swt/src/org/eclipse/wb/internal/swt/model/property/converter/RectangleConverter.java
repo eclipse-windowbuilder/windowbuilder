@@ -11,9 +11,10 @@
 package org.eclipse.wb.internal.swt.model.property.converter;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * The {@link ExpressionConverter} for {@link org.eclipse.swt.graphics.Rectangle}.

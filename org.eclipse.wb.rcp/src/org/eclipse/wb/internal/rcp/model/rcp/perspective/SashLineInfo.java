@@ -11,7 +11,8 @@
 package org.eclipse.wb.internal.rcp.model.rcp.perspective;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Model for "sash" between {@link AbstractPartInfo}'s in {@link PageLayoutInfo}.

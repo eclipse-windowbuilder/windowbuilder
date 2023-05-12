@@ -10,8 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * A transparent figure simple figure's container using into {@link IRootFigure}.

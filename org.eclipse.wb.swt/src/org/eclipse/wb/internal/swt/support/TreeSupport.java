@@ -10,8 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Stub class for using SWT {@link org.eclipse.swt.widget.Tree}'s in another {@link ClassLoader}.

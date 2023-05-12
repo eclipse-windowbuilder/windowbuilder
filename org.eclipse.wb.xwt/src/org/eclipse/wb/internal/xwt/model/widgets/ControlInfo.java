@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.xwt.model.widgets;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.xml.model.AbstractComponentInfo;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.xwt.support.ToolkitSupport;
 import org.eclipse.wb.os.OSSupportError;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;

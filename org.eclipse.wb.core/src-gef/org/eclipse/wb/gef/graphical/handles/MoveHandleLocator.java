@@ -13,9 +13,9 @@ package org.eclipse.wb.gef.graphical.handles;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.ILocator;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * A Locator used to place {@link MoveHandle}s. By default, a MoveHandle's bounds are equal to its

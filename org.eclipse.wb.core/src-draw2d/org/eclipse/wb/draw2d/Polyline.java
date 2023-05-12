@@ -11,9 +11,9 @@
 package org.eclipse.wb.draw2d;
 
 import org.eclipse.wb.draw2d.geometry.PointList;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 /**

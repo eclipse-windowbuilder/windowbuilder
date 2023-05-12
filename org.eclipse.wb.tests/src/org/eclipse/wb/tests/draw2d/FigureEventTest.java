@@ -15,11 +15,11 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.IMouseMoveListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.tests.gef.EventSender;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;

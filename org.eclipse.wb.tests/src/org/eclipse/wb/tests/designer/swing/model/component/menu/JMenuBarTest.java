@@ -14,7 +14,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.RootAssociation;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.swing.model.component.menu.JMenuInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuItemInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import static org.assertj.core.api.Assertions.assertThat;

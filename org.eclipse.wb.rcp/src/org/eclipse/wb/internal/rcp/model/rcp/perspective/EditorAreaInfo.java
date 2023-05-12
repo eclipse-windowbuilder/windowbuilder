@@ -11,12 +11,12 @@
 package org.eclipse.wb.internal.rcp.model.rcp.perspective;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;

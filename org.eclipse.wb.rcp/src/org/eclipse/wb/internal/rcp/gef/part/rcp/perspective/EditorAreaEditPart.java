@@ -12,12 +12,13 @@ package org.eclipse.wb.internal.rcp.gef.part.rcp.perspective;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective.PageLayoutSidesLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.EditorAreaInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * {@link EditPart} for {@link EditorAreaInfo}.

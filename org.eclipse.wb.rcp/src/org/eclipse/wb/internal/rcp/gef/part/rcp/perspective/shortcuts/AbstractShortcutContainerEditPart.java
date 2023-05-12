@@ -12,13 +12,14 @@ package org.eclipse.wb.internal.rcp.gef.part.rcp.perspective.shortcuts;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.AbstractShortcutContainerInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.Collections;
 import java.util.List;

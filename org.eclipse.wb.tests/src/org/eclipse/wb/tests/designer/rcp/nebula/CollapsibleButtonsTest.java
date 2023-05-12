@@ -11,11 +11,12 @@
 package org.eclipse.wb.tests.designer.rcp.nebula;
 
 import org.eclipse.wb.core.model.association.InvocationVoidAssociation;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.creation.factory.ImplicitFactoryCreationSupport;
 import org.eclipse.wb.internal.rcp.nebula.collapsiblebuttons.CollapsibleButtonsInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

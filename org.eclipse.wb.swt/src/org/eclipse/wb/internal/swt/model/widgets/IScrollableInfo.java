@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
-
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Scrollable;
 
 /**

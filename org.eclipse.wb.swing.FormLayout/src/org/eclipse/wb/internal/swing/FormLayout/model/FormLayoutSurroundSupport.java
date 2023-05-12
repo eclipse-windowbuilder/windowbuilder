@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.util.grid.GridAlignmentHelper;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.util.surround.LayoutSurroundSupport;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.jgoodies.forms.layout.CellConstraints;
 

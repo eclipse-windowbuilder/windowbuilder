@@ -14,11 +14,12 @@ import com.google.common.base.Predicate;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Tester for feedbacks on {@link IEditPartViewer#MENU_FEEDBACK_LAYER}.

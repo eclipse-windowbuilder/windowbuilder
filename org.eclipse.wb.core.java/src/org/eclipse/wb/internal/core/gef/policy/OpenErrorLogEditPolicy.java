@@ -18,7 +18,6 @@ import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.core.editor.actions.errors.ErrorsAction;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 /**

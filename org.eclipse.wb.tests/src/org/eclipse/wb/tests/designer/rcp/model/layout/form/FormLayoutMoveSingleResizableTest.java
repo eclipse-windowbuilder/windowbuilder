@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.rcp.model.layout.form;
 
 import com.google.common.collect.ImmutableList;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic;
@@ -21,6 +20,8 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Tests for {@link FormLayoutInfoImplAutomatic}.

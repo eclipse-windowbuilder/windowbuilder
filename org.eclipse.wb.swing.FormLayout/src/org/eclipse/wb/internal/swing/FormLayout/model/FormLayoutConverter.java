@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.FormLayout.model;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.ComponentGroup;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;

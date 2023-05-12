@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.menu;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
-
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import java.util.List;

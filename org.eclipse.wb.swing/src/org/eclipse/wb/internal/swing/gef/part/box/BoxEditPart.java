@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.part.box;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.swing.gef.part.ComponentEditPart;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
 import javax.swing.Box;

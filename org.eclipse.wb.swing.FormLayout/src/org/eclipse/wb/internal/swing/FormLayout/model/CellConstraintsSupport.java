@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.FormLayout.model;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.Action;

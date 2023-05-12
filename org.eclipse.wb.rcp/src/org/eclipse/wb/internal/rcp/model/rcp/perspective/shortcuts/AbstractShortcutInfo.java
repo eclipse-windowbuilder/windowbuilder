@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.association.InvocationVoidAssociation;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentation;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.SWT;

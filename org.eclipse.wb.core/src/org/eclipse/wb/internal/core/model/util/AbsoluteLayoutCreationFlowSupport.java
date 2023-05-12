@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.util;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.ComponentGroup;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.ComponentInGroup;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

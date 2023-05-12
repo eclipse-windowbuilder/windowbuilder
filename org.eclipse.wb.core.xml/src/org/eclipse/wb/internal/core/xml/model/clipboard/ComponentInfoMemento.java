@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.clipboard;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 import org.eclipse.wb.internal.core.xml.model.AbstractComponentInfo;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import java.io.ByteArrayInputStream;

@@ -12,12 +12,12 @@ package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Graphics;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.draw2d.scroll.HorizontalScrollModel;
 import org.eclipse.wb.internal.draw2d.scroll.ScrollModel;
 import org.eclipse.wb.internal.draw2d.scroll.VerticalScrollModel;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;

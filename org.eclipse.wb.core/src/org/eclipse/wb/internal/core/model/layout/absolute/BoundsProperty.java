@@ -11,12 +11,13 @@
 package org.eclipse.wb.internal.core.model.layout.absolute;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Property representing item of complex "Bounds" property.

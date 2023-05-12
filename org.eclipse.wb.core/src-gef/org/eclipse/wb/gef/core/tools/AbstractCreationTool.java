@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.internal.gef.core.ISharedCursors;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 

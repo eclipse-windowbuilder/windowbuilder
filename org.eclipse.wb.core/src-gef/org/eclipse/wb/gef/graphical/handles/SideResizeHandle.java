@@ -15,8 +15,9 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Resize {@link Handle} located on left/top/right/bottom sides of owner {@link GraphicalEditPart}.

@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.awt.Component;
 import java.util.List;

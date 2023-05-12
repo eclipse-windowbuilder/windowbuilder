@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.nebula.grid;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

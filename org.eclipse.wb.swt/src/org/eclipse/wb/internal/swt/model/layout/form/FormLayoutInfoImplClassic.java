@@ -19,7 +19,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.draw2d.geometry.Transposer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AbstractAlignmentActionsSupport;
@@ -32,6 +31,7 @@ import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.form.actions.AnchorActionsClassic;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.TabFolder;
@@ -210,7 +210,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
     if (!opposite.isVirtual()) {
       opposite.setControl(target);
       opposite.setAlignment(FormLayoutUtils.convertGefSide(alignment));
-      org.eclipse.wb.draw2d.geometry.Rectangle controlBounds = child.getModelBounds();
+      org.eclipse.draw2d.geometry.Rectangle controlBounds = child.getModelBounds();
       int oppositeOffset = attachment.getOffset();
       if (controlBounds != null) {
         int k = PlacementUtils.isTrailingSide(thisSide) ? -1 : 1;
@@ -253,7 +253,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
     IFormAttachmentInfo<C> opposite = getOpposite(attachment);
     if (!opposite.isVirtual()) {
       opposite.setControl(null);
-      org.eclipse.wb.draw2d.geometry.Rectangle controlBounds =
+      org.eclipse.draw2d.geometry.Rectangle controlBounds =
           getThisControl(attachment).getModelBounds();
       opposite.setNumerator(attachment.getNumerator());
       opposite.setDenominator(attachment.getDenominator());
@@ -478,8 +478,8 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
     }
     C targetControl = dialog.getSelectedWidget();
     Transposer t = new Transposer(!PlacementUtils.isHorizontalSide(controlSide));
-    org.eclipse.wb.draw2d.geometry.Rectangle controlBounds = t.t(control.getModelBounds());
-    org.eclipse.wb.draw2d.geometry.Rectangle targetBounds = t.t(targetControl.getModelBounds());
+    org.eclipse.draw2d.geometry.Rectangle controlBounds = t.t(control.getModelBounds());
+    org.eclipse.draw2d.geometry.Rectangle targetBounds = t.t(targetControl.getModelBounds());
     int offset = 0;
     if (!PlacementUtils.isTrailingSide(controlSide)) {
       if (PlacementUtils.isTrailingSide(targetSide)) {

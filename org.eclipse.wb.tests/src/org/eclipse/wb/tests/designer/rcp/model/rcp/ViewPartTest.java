@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.part.ViewPart;
 

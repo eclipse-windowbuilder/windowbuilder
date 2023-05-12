@@ -14,7 +14,6 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.gef.policy.snapping.BaselineComponentSnapPoint;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentSnapPoint;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ContainerSnapPoint;
@@ -29,6 +28,8 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.SnapPoints;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

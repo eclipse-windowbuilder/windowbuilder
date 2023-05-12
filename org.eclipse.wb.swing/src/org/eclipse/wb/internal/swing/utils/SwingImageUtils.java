@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.utils;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.os.OSSupport;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;

@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.swt.model.menu;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.tools.CreationTool;
@@ -26,6 +25,8 @@ import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.List;
 

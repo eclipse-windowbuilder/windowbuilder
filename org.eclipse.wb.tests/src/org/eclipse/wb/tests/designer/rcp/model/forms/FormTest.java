@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.rcp.model.forms;
 
 import com.google.common.collect.ImmutableList;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 import org.eclipse.wb.internal.rcp.model.forms.FormInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.forms.widgets.Form;

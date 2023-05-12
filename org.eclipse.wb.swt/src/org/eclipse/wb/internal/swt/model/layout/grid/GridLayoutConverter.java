@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swt.model.layout.grid;
 
 import com.google.common.collect.Lists;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper;
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.ComponentGroup;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.internal.core.util.ComponentInfo;
 
 import java.util.List;

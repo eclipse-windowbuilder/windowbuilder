@@ -270,7 +270,7 @@ public class DrawUtils {
    * Returns a new Image part of original Image location to given bounds and with given alpha.
    */
   public static Image createTransparentPart(Image original,
-      org.eclipse.wb.draw2d.geometry.Rectangle bounds,
+      org.eclipse.draw2d.geometry.Rectangle bounds,
       int alpha) {
     // prepare image
     Image image = new Image(null, bounds.width, bounds.height);

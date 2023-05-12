@@ -13,10 +13,11 @@ package org.eclipse.wb.internal.core.gef.part.menu;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * {@link MenuEditPart} for MacOSX which does special handling for OSX menu bar.

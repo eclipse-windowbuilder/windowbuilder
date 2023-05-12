@@ -12,11 +12,11 @@ package org.eclipse.wb.core.controls.palette;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.draw2d.CustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.Label;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Simple Draw2d tooltip represented single line of text.

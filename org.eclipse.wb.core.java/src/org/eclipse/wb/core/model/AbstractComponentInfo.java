@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.laf.BaselineSupportHelper;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.NotImplementedException;

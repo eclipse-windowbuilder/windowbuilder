@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.jface;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.xwt.model.jface.TableViewerColumnInfo;
 import org.eclipse.wb.internal.xwt.model.jface.TableViewerInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.TableInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

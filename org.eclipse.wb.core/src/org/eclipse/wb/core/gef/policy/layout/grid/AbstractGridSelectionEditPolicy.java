@@ -26,7 +26,6 @@ import org.eclipse.wb.draw2d.ILocator;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.draw2d.RelativeLocator;
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -42,6 +41,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
 import java.util.Collection;
@@ -471,8 +471,9 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
           begin = Math.max(begin, 0);
           begin = Math.min(begin, cells.right() - 1);
           begin = fixSpanLocation(true, begin, -1, cells, gridInfo);
-          //
-          cells.setX(begin);
+          // update x but keep right()
+          cells.width += cells.x - begin;
+          cells.x = begin;
         } else if (isEast) {
           int end = Interval.getRightMostIntervalIndex(columnIntervals, bounds.right());
           end = Math.min(end, columnIntervals.length - 1);
@@ -490,8 +491,9 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
           begin = Math.max(begin, 0);
           begin = Math.min(begin, cells.bottom() - 1);
           begin = fixSpanLocation(false, begin, -1, cells, gridInfo);
-          //
-          cells.setY(begin);
+          // update y but keep bottom()
+          cells.height += cells.y - begin;
+          cells.y = begin;
         } else if (isSouth) {
           int end = Interval.getRightMostIntervalIndex(rowIntervals, bounds.bottom());
           end = Math.min(end, rowIntervals.length - 1);

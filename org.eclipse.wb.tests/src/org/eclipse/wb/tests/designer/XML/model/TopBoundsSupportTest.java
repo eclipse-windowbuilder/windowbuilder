@@ -10,10 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.model;
 
-import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.xml.model.AbstractComponentInfo;
 import org.eclipse.wb.internal.core.xml.model.TopBoundsSupport;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Test for {@link TopBoundsSupport}.
