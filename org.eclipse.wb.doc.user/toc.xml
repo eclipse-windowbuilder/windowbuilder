@@ -31,11 +31,11 @@
 	<topic label="Support" href="html/support/product_support.html">
 		<topic label="Error Reporting" href="html/error_reporting.html" />
 		<topic label="Reproducible Test Cases" href="html/support/test_cases.html" />
-		<topic label="User Support Forum" href="http://www.eclipse.org/forums/index.php?t=thread&amp;frm_id=214" />
+		<topic label="User Support Forum" href="https://github.com/eclipse/windowbuilder/discussions" />
 	</topic>
 	<topic label="Accessibility" href="html/accessibility.html"/>
 	<topic label="Tips &amp; Tricks" href="html/tipsandtricks.html" />
 	<topic label="FAQ" href="html/faq.html" />
-	<topic label="License" href="http://www.eclipse.org/legal/epl-v10.html" />
+	<topic label="License" href="http://www.eclipse.org/legal/epl-v20.html" />
 	<anchor id="terms-of-service" />
 </toc>
