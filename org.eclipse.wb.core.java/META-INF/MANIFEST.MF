@@ -28,7 +28,7 @@ Require-Bundle: org.eclipse.ui,
  org.apache.commons.digester;bundle-version="3.2.0",
  org.apache.commons.logging;bundle-version="1.2.0",
  org.mvel2;bundle-version="2.4.15",
- org.objectweb.asm;bundle-version="9.5.0"
+ org.objectweb.asm;bundle-version="9.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.wb.core.editor,
