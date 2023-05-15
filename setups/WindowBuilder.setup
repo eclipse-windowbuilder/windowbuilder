@@ -105,14 +105,14 @@
         </detail>
         <detail
             key="label">
-          <value>The Window Builder Git repository</value>
+          <value>The Window Builder GitHub repository</value>
         </detail>
         <detail
             key="target">
           <value>remoteURI</value>
         </detail>
       </annotation>
-      <description>The Git clone for the Window Builder Projects</description>
+      <description>The GitHub repository for the Window Builder Projects</description>
     </setupTask>
     <setupTask
         xsi:type="projects:ProjectsImportTask">
@@ -217,25 +217,25 @@
       label="Website">
     <setupTask
         xsi:type="git:GitCloneTask"
-        id="git.clone.www.eclipse.org.wb"
+        id="github.clone.www.eclipse.org.wb"
         locationQualifier="www.eclipse.org."
-        remoteURI="www.eclipse.org/windowbuilder">
+        remoteURI="eclipse/windowbuilder-website">
       <annotation
           source="http://www.eclipse.org/oomph/setup/InducedChoices">
         <detail
             key="inherit">
-          <value>eclipse.git.gerrit.remoteURIs</value>
+          <value>github.remoteURIs</value>
         </detail>
         <detail
             key="label">
-          <value>Window Builder Website Git or Gerrit repository</value>
+          <value>The Window Builder Website GitHub repository</value>
         </detail>
         <detail
             key="target">
           <value>remoteURI</value>
         </detail>
       </annotation>
-      <description>The Git repository of the Window Builder website</description>
+      <description>The GitHub repository of the Window Builder website</description>
     </setupTask>
     <setupTask
         xsi:type="setup.targlets:TargletTask">
@@ -244,7 +244,7 @@
         <requirement
             name="*"/>
         <sourceLocator
-            rootFolder="${git.clone.www.eclipse.org.wb.location}"
+            rootFolder="${github.clone.www.eclipse.org.wb.location}"
             locateNestedProjects="true"/>
       </targlet>
     </setupTask>
