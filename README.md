@@ -19,11 +19,11 @@ https://download.eclipse.org/windowbuilder/latest/
 * 👔 Eclipse project entry: 
      * https://projects.eclipse.org/projects/tools.windowbuilder
 * 🪲 Bug Tracker
-     * https://github.com/eclipse/windowbuilder/issues
+     * https://github.com/eclipse-windowbuilder/windowbuilder/issues
 * ⌨️ How to Contribute and get the latest snapshots: 
      * [CONTRIBUTING.md](./CONTRIBUTING.md)
 * 💬 Discussion channels
-     * https://github.com/eclipse/windowbuilder/discussions
+     * https://github.com/eclipse-windowbuilder/windowbuilder/discussions
 
 
 

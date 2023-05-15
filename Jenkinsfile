@@ -15,7 +15,7 @@ pipeline {
   }
 
   environment {
-    CLONE_URL = 'https://github.com/eclipse/windowbuilder.git'
+    CLONE_URL = 'https://github.com/eclipse-windowbuilder/windowbuilder.git'
     CHECKOUT = 'false'
   }
 
@@ -140,7 +140,6 @@ def void mvn() {
       -Dorg.eclipse.justj.p2.manager.build.url=$JOB_URL \
       -Dbuild.type=$BUILD_TYPE \
       -Dgit.commit=$GIT_COMMIT \
-      -Dgit.commit.url=${CLONE_URL}/commit/ \
       clean \
       verify
     '''

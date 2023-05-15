@@ -17,7 +17,7 @@
 ## 3. Pick an issue, fix it and create a pull request.
 
 ## Building
-* git clone https://github.com/eclipse/windowbuilder.git
+* git clone https://github.com/eclipse-windowbuilder/windowbuilder.git
 * cd windowbuilder
 * mvn clean verify -DskipTests
 
