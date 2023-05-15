@@ -31,7 +31,7 @@
 	<topic label="Support" href="html/support/product_support.html">
 		<topic label="Error Reporting" href="html/error_reporting.html" />
 		<topic label="Reproducible Test Cases" href="html/support/test_cases.html" />
-		<topic label="User Support Forum" href="https://github.com/eclipse/windowbuilder/discussions" />
+		<topic label="User Support Forum" href="https://github.com/eclipse-windowbuilder/windowbuilder/discussions" />
 	</topic>
 	<topic label="Accessibility" href="html/accessibility.html"/>
 	<topic label="Tips &amp; Tricks" href="html/tipsandtricks.html" />

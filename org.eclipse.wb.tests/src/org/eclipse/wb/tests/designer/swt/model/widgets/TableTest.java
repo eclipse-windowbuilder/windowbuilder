@@ -179,7 +179,7 @@ public class TableTest extends RcpModelTest {
    * In SWT Cocoa and Linux GTK, the column headers are excluded from the client
    * area, hence why we have to adjust them for the tests.
    */
-  // Disabled because of https://github.com/eclipse/windowbuilder/issues/389
+  // Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
   public void DISABLE_test_TableColumn() throws Exception {
     CompositeInfo shell =
         parseComposite(

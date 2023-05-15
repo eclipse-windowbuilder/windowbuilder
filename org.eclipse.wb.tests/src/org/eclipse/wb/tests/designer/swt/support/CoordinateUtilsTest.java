@@ -46,7 +46,7 @@ public class CoordinateUtilsTest extends RcpModelTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  // Disabled because of https://github.com/eclipse/windowbuilder/issues/389
+  // Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
   public void DISABLE_test_1() throws Exception {
     CompositeInfo shell =
         parseComposite(

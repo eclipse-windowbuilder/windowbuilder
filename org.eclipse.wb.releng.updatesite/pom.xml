@@ -23,7 +23,7 @@
 
         <build.type>nightly</build.type>
         <git.commit>unknown</git.commit>
-        <git.commit.url>https://github.com/eclipse/windowbuilder/commit/</git.commit.url>
+        <git.commit.url>https://github.com/eclipse-windowbuilder/windowbuilder/commit/</git.commit.url>
     </properties>
 
     <profiles>

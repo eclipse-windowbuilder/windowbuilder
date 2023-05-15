@@ -96,7 +96,7 @@
     <setupTask
         xsi:type="git:GitCloneTask"
         id="git.clone.windowbuilder"
-        remoteURI="eclipse/windowbuilder">
+        remoteURI="eclipse-windowbuilder/windowbuilder">
       <annotation
           source="http://www.eclipse.org/oomph/setup/InducedChoices">
         <detail
@@ -218,7 +218,7 @@
     <setupTask
         xsi:type="git:GitCloneTask"
         id="github.clone.www.eclipse.org.wb"
-        remoteURI="eclipse/windowbuilder-website">
+        remoteURI="eclipse-windowbuilder/windowbuilder-website">
       <annotation
           source="http://www.eclipse.org/oomph/setup/InducedChoices">
         <detail
