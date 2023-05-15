@@ -7,11 +7,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ClassPath: lib/org.apache.commons.lang_2.6.0.v201404270220.jar,
- lib/commons-primitives-1.0.jar,
- lib/commons-collections-3.2.1.jar,
  lib/commons-io-2.0.1.jar,
- lib/org.eclipse.nebula.cwt_1.1.0.202003151134.jar,
- lib/org.eclipse.nebula.widgets.cdatetime_1.4.0.202003151134.jar,
  lib/burningwave-core-12.53.0.jar,
  lib/burningwave-jvm-driver-8.6.0.jar,
  lib/toolfactory-jvm-driver-9.1.1.jar,
