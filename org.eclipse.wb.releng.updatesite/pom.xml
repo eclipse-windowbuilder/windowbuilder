@@ -9,6 +9,23 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>eclipse-repository</packaging>
 
+    <properties>
+        <eclipse.repo>https://download.eclipse.org/releases/2023-03</eclipse.repo>
+        <justj.tools.repo>https://download.eclipse.org/justj/tools/updates/nightly/latest</justj.tools.repo>
+
+        <org.eclipse.storage.user>genie.windowbuilder</org.eclipse.storage.user>
+        <org.eclipse.justj.p2.manager.target>windowbuilder</org.eclipse.justj.p2.manager.target>
+
+        <org.eclipse.justj.p2.manager.args>-remote ${org.eclipse.storage.user}@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/${org.eclipse.justj.p2.manager.target}</org.eclipse.justj.p2.manager.args>
+        <org.eclipse.justj.p2.manager.extra.args></org.eclipse.justj.p2.manager.extra.args>
+        <org.eclipse.justj.p2.manager.relative>updates</org.eclipse.justj.p2.manager.relative>
+        <org.eclipse.justj.p2.manager.build.url>https://www.example.com/</org.eclipse.justj.p2.manager.build.url>
+
+        <build.type>nightly</build.type>
+        <git.commit>unknown</git.commit>
+        <git.commit.url>https://github.com/eclipse/windowbuilder/commit/</git.commit.url>
+    </properties>
+
     <profiles>
         <profile>
             <id>sign</id>
@@ -31,5 +48,96 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>promote</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.eclipse.tycho.extras</groupId>
+                        <artifactId>tycho-eclipserun-plugin</artifactId>
+                        <version>${tycho.version}</version>
+                        <configuration>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>promote</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>eclipse-run</goal>
+                                </goals>
+                                <configuration>
+                                    <executionEnvironment>JavaSE-17</executionEnvironment>
+                                    <dependencies>
+                                        <dependency>
+                                            <artifactId>org.eclipse.justj.p2</artifactId>
+                                            <type>eclipse-plugin</type>
+                                        </dependency>
+                                        <dependency>
+                                            <artifactId>org.apache.felix.scr</artifactId>
+                                            <type>eclipse-plugin</type>
+                                        </dependency>
+                                    </dependencies>
+                                    <repositories>
+                                        <repository>
+                                            <id>eclipse.repo</id>
+                                            <layout>p2</layout>
+                                            <url>${eclipse.repo}</url>
+                                        </repository>
+                                        <repository>
+                                            <id>justj.tools.repo</id>
+                                            <layout>p2</layout>
+                                            <url>${justj.tools.repo}</url>
+                                        </repository>
+                                    </repositories>
+                                    <work>${project.build.directory}/eclipserun-work-promote</work>
+                                    <argLine></argLine>
+                                    <appArgLine>
+                                        -consoleLog
+                                        -application
+                                        org.eclipse.justj.p2.manager
+                                        -data @None
+                                        -nosplash
+                                        ${org.eclipse.justj.p2.manager.args}
+                                        -retain 5
+                                        -label "WindowBuilder"
+                                        -build-url
+                                        ${org.eclipse.justj.p2.manager.build.url}
+                                        -root
+                                        ${project.build.directory}/update-sync
+                                        -relative
+                                        ${org.eclipse.justj.p2.manager.relative}
+                                        -iu-filter-pattern
+                                        org.eclipse.wb.*
+                                        -version-iu
+                                        org.eclipse.wb.core.feature.
+                                        -commit
+                                        ${git.commit.url}${git.commit}
+                                        -target-url
+                                        https://download.eclipse.org/${org.eclipse.justj.p2.manager.target}
+                                        -promote
+                                        ${project.build.directory}/repository
+                                        -timestamp ${build.timestamp}
+                                        -type ${build.type}
+                                        -breadcrumb "Window&#x2009;Builder
+                                        https://www.eclipse.org/windowbuilder"
+                                        -favicon
+                                        https://www.eclipse.org/windowbuilder/images/wb.png
+                                        -title-image
+                                        https://www.eclipse.org/windowbuilder/images/wb_eclipse_logo.svg
+                                        -body-image
+                                        https://www.eclipse.org/windowbuilder/images/wb.svg
+                                        -mapping
+                                        windowbuilder->Window&#x2009;Builder
+                                        ${org.eclipse.justj.p2.manager.extra.args}
+                                    </appArgLine>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 </project>
