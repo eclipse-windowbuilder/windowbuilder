@@ -55,7 +55,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.objenesis
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: 
- lib/org.assertj_1.7.1.v20170413-2026.jar,
  lib/EasyMock-3.0.jar,
  .
 Export-Package: org.easymock,
@@ -184,6 +183,9 @@ Export-Package: org.easymock,
  org.eclipse.wb.tests.utils
 Import-Package: org.apache.commons.io,
  org.apache.commons.lang,
- org.apache.commons.lang.exception
+ org.apache.commons.lang.exception,
+ org.assertj.core.api,
+ org.assertj.core.data;version="3.24.2",
+ org.assertj.core.description;version="3.24.2"
 Automatic-Module-Name: org.eclipse.wb.tests
 

@@ -11,7 +11,6 @@
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="lib/org.assertj_1.7.1.v20170413-2026.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/EasyMock-3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
