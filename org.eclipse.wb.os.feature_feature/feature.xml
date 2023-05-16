@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.wb.os.feature"
-      label="OS Feature"
-      version="1.12.0.qualifier">
+      label="%featureName"
+      version="1.12.0.qualifier"
+      provider-name="%providerName">
 
    <description>
       %description

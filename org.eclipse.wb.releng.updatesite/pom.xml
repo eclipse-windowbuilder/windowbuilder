@@ -111,6 +111,8 @@
                                         org.eclipse.wb.*
                                         -version-iu
                                         org.eclipse.wb.core.feature.
+                                        -excluded-categories-pattern
+                                        .*\.Default
                                         -commit
                                         ${git.commit.url}${git.commit}
                                         -target-url
