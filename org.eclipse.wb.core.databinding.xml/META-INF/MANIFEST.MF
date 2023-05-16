@@ -17,3 +17,4 @@ Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.core.databinding.xml.model,
  org.eclipse.wb.internal.core.databinding.xml.ui
 Automatic-Module-Name: org.eclipse.wb.core.databinding.xml
+Import-Package: org.apache.commons.io

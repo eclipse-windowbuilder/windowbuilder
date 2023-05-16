@@ -80,6 +80,10 @@ Export-Package: org.eclipse.wb.internal.swing,
  org.eclipse.wb.internal.swing.wizards.frame,
  org.eclipse.wb.internal.swing.wizards.panel,
  swingintegration.example
+Import-Package: org.apache.commons.io,
+ org.apache.commons.lang,
+ org.apache.commons.lang.exception,
+ org.apache.commons.lang.time
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,

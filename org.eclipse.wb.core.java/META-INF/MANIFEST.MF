@@ -148,4 +148,8 @@ Export-Package: org.eclipse.wb.core.editor,
  org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model,
  org.eclipse.wb.internal.core.wizards
 Automatic-Module-Name: org.eclipse.wb.core.java
+Import-Package: org.apache.commons.io,
+ org.apache.commons.lang,
+ org.apache.commons.lang.exception,
+ org.apache.commons.lang.text
 

@@ -135,6 +135,12 @@ Export-Package: org.eclipse.wb.core.branding,
  org.eclipse.wb.internal.gef.tree.dnd,
  org.eclipse.wb.internal.gef.tree.policies,
  org.eclipse.wb.internal.gef.tree.tools
+Import-Package: org.apache.commons.io,
+ org.apache.commons.io.output,
+ org.apache.commons.lang,
+ org.apache.commons.lang.builder,
+ org.apache.commons.lang.exception,
+ org.apache.commons.lang.time
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.ui.editors,
  org.eclipse.ui.ide;visibility:=reexport,

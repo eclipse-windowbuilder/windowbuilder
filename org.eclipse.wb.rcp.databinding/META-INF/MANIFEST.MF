@@ -49,3 +49,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ClassPath: .
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.rcp.databinding
+Import-Package: org.apache.commons.io,
+ org.apache.commons.lang

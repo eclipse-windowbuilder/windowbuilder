@@ -22,3 +22,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.rcp.databinding.xwt.ui.property
 Automatic-Module-Name: org.eclipse.wb.rcp.databinding.xwt
+Import-Package: org.apache.commons.lang

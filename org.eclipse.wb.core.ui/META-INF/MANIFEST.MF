@@ -16,3 +16,4 @@ Export-Package: org.eclipse.wb.internal.core.preferences,
  org.eclipse.wb.internal.core.wizards.actions,
  org.eclipse.wb.internal.core.wizards.palette
 Automatic-Module-Name: org.eclipse.wb.core.ui
+Import-Package: org.apache.commons.lang

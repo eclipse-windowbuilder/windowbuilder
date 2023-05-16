@@ -54,3 +54,5 @@ Export-Package: org.eclipse.wb.internal.xwt,
  org.eclipse.wb.internal.xwt.support,
  org.eclipse.wb.internal.xwt.wizards;x-friends:="org.eclipse.wb.tests"
 Automatic-Module-Name: org.eclipse.wb.xwt
+Import-Package: org.apache.commons.io,
+ org.apache.commons.lang
