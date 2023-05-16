@@ -82,5 +82,15 @@
 				</dependency>
 			</dependencies>
 		</location>
+		<location includeDependencyDepth="none" includeSource="true" missingManifest="error" type="Maven">
+			<dependencies>
+				<dependency>
+					<groupId>org.objenesis</groupId>
+					<artifactId>objenesis</artifactId>
+					<version>3.3</version>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</location>
 	</locations>
 </target>

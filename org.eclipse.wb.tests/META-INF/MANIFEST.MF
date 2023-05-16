@@ -51,11 +51,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.junit;bundle-version="4.12.0",
  com.google.guava;bundle-version="31.1.0",
  org.apache.commons.digester;bundle-version="3.2.0",
- org.objectweb.asm;bundle-version="9.0.0"
+ org.objectweb.asm;bundle-version="9.0.0",
+ org.objenesis
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: 
  lib/org.assertj_1.7.1.v20170413-2026.jar,
- lib/objenesis-1.2.jar,
  lib/EasyMock-3.0.jar,
  .
 Export-Package: org.easymock,
