@@ -16,6 +16,6 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
-Bundle-ClassPath: lib/commons-io-2.0.1.jar,
- .
+Import-Package: org.apache.commons.io
+Bundle-ClassPath: .
 Automatic-Module-Name: org.eclipse.wb.dev

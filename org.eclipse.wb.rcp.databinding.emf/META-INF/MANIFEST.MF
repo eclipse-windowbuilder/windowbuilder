@@ -19,3 +19,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.rcp.databinding.emf
+Import-Package: org.apache.commons.lang

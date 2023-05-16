@@ -182,5 +182,8 @@ Export-Package: org.easymock,
  org.eclipse.wb.tests.draw2d,
  org.eclipse.wb.tests.gef,
  org.eclipse.wb.tests.utils
+Import-Package: org.apache.commons.io,
+ org.apache.commons.lang,
+ org.apache.commons.lang.exception
 Automatic-Module-Name: org.eclipse.wb.tests
 

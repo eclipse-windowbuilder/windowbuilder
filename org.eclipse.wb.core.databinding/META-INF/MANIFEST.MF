@@ -32,3 +32,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.wb.core.databinding
+Import-Package: org.apache.commons.io,
+ org.apache.commons.lang
