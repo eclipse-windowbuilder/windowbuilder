@@ -4,8 +4,7 @@
       label="%featureName"
       version="1.12.0.qualifier"
       provider-name="%providerName"
-      plugin="org.eclipse.wb.rcp.doc.user"
-      image="eclipse_update_120.jpg">
+      plugin="org.eclipse.wb.rcp.doc.user">
 
    <description>
       %description

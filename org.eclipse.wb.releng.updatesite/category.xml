@@ -33,6 +33,7 @@
    <feature id="org.eclipse.wb.swt.feature" version="0.0.0">
       <category name="org.eclipse.wb"/>
    </feature>
+   <feature id="org.eclipse.wb.dependencies.feature"/>
    <category-def name="org.eclipse.wb" label="WindowBuilder">
       <description>
          This is all of WindowBuilder. You can safely install all features of this section.

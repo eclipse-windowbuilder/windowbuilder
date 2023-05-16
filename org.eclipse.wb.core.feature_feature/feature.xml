@@ -4,8 +4,7 @@
       label="%featureName"
       version="1.12.0.qualifier"
       provider-name="%providerName"
-      plugin="org.eclipse.wb.core"
-      image="eclipse_update_120.jpg">
+      plugin="org.eclipse.wb.core">
 
    <description>
       %description
@@ -53,18 +52,6 @@
          version="0.0.0"/>
 
    <plugin
-         id="com.google.guava"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="com.google.guava.failureaccess"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.eclipse.wb.os.linux"
          os="linux"
          ws="gtk"
@@ -85,34 +72,6 @@
          id="org.eclipse.wb.os.win32"
          os="win32"
          ws="win32"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="net.bytebuddy.byte-buddy"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.draw2d"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.mvel2"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.nebula.widgets.cdatetime"
          download-size="0"
          install-size="0"
          version="0.0.0"

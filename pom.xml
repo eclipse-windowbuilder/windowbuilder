@@ -200,6 +200,7 @@
 
 
         <!-- Features-->
+	<module>org.eclipse.wb.dependencies.feature_feature</module>
 	<module>org.eclipse.wb.core.feature_feature</module>
 	<module>org.eclipse.wb.core.java.feature_feature</module>
 	<module>org.eclipse.wb.core.ui.feature_feature</module>
