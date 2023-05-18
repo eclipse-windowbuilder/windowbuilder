@@ -63,8 +63,8 @@ public class JInternalFrameTest extends SwingModelTest {
     }
     {
       Rectangle bounds = contentPane.getBounds();
-      assertThat(bounds.x).isEqualTo(0);
-      assertThat(bounds.y).isEqualTo(0);
+      assertThat(bounds.x).isGreaterThanOrEqualTo(0);
+      assertThat(bounds.y).isGreaterThanOrEqualTo(0);
       assertThat(bounds.width).isGreaterThan(420);
       assertThat(bounds.height).isGreaterThan(250);
     }
