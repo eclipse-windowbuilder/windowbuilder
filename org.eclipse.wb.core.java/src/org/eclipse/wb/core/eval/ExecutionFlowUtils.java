@@ -12,7 +12,6 @@ package org.eclipse.wb.core.eval;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -36,6 +35,8 @@ import org.eclipse.wb.internal.core.model.variable.LazyVariableSupportUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
+import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.exception.MultipleConstructorsError;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
@@ -74,12 +75,16 @@ import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.TypeCache;
+import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.implementation.InvocationHandlerAdapter;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -354,106 +359,38 @@ public final class ExecutionFlowUtils {
       statement.accept(complexVisitor);
     }
   }
-  private static final Map<ExecutionFlowFrameVisitor, ASTVisitor> m_interceptingVisitors =
-      new MapMaker().weakKeys().weakValues().makeMap();
+
+  /**
+   * Local storage for the enhanced {@link ASTVisitor} class. Classes are loaded
+   * with the {@link ExecutionFlowUtils} class-loader, meaning there should only
+   * exists a single instance of this class at a time. All instances are should be
+   * created from this class. We have to avoid creating a separate class for each
+   * enhanced visitor, as the {@link ClassLoader} is never discarded and thus, the
+   * classes stay in memory indefinitely. If left unchecked, this may lead to an
+   * {@link OutOfMemoryError}.
+   */
+  private static final TypeCache<TypeCache.SimpleKey> PROXY_CACHE = new TypeCache.WithInlineExpunction<>(
+      TypeCache.Sort.WEAK);
 
   private static ASTVisitor getInterceptingVisitor(final VisitingContext context,
-      final ExecutionFlowDescription flowDescription,
-      final ExecutionFlowFrameVisitor visitor) {
-    // check cache
-    {
-      ASTVisitor interceptingVisitor = m_interceptingVisitors.get(visitor);
-      if (interceptingVisitor != null) {
-        return interceptingVisitor;
-      }
+      final ExecutionFlowDescription flowDescription, final ExecutionFlowFrameVisitor visitor) {
+
+    DynamicType.Builder<VisitorStub> builder = new ByteBuddy() //
+        .subclass(VisitorStub.class) //
+        .method(ElementMatchers.any()) //
+        .intercept(InvocationHandlerAdapter.of(new ExecutionFlowHandler()));
+
+    ClassLoader proxyClassLoader = ExecutionFlowUtils.class.getClassLoader();
+    TypeCache.SimpleKey proxyKey = new TypeCache.SimpleKey(VisitorStub.class);
+
+    try {
+      return (ASTVisitor) PROXY_CACHE
+          .findOrInsert(proxyClassLoader, proxyKey, () -> builder.make().load(proxyClassLoader).getLoaded())
+          .getConstructor(VisitingContext.class, ExecutionFlowDescription.class, ExecutionFlowFrameVisitor.class)
+          .newInstance(context, flowDescription, visitor);
+    } catch (ReflectiveOperationException e) {
+      throw new DesignerException(ICoreExceptionConstants.EVAL_CGLIB, e);
     }
-    // create new
-    Enhancer enhancer = new Enhancer();
-    enhancer.setClassLoader(ExecutionFlowUtils.class.getClassLoader());
-    enhancer.setSuperclass(ASTVisitor.class);
-    enhancer.setCallback(new MethodInterceptor() {
-      @Override
-      public Object intercept(Object obj,
-          java.lang.reflect.Method method,
-          Object[] args,
-          MethodProxy proxy) throws Throwable {
-        // routing
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        if (parameterTypes.length == 1) {
-          Class<?> parameterType = parameterTypes[0];
-          if (method.getName().equals("visit")) {
-            if (parameterType == AnonymousClassDeclaration.class) {
-              visit((AnonymousClassDeclaration) args[0]);
-            }
-          } else if (method.getName().equals("endVisit")) {
-            if (parameterType == ClassInstanceCreation.class) {
-              endVisit((ClassInstanceCreation) args[0]);
-            } else if (parameterType == MethodInvocation.class) {
-              endVisit((MethodInvocation) args[0]);
-            } else if (parameterType == ConstructorInvocation.class) {
-              endVisit((ConstructorInvocation) args[0]);
-            }
-          }
-        }
-        // use main visitor
-        try {
-          return method.invoke(visitor, args);
-        } catch (InvocationTargetException e) {
-          throw e.getCause();
-        }
-      }
-
-      private boolean visit(AnonymousClassDeclaration node) {
-        return shouldVisitAnonymousClassDeclaration(node);
-      }
-
-      private void endVisit(ClassInstanceCreation node) {
-        // quick check
-        {
-          String identifier = flowDescription.geTypeDeclaration().getName().getIdentifier();
-          if (!node.toString().contains(identifier)) {
-            return;
-          }
-        }
-        // check for local constructor
-        MethodDeclaration methodDeclaration = getLocalConstructorDeclaration(node);
-        if (methodDeclaration != null) {
-          // redirect execution flow to constructor
-          ExecutionFlowUtils.visit(
-              context,
-              flowDescription,
-              visitor,
-              ImmutableList.of(methodDeclaration));
-        }
-      }
-
-      private void endVisit(MethodInvocation node) {
-        // check for local method invocation
-        MethodDeclaration methodDeclaration = getLocalMethodDeclaration(node);
-        if (methodDeclaration != null) {
-          methodDeclaration.setProperty(KEY_FRAME_INVOCATION, node);
-          // check for qualified local invocation, for example "appl.open()", so visit it as type
-          if (node.getExpression() != null && !(node.getExpression() instanceof ThisExpression)) {
-            ExecutionFlowUtils.visit(
-                context,
-                flowDescription,
-                visitor,
-                ImmutableList.of(methodDeclaration));
-          } else {
-            ExecutionFlowUtils.visit(context, flowDescription, visitor, methodDeclaration);
-          }
-        }
-      }
-
-      private void endVisit(ConstructorInvocation node) {
-        MethodDeclaration constructor = getConstructor(node);
-        constructor.setProperty(KEY_FRAME_INVOCATION, node);
-        ExecutionFlowUtils.visit(context, flowDescription, visitor, ImmutableList.of(constructor));
-      }
-    });
-    ASTVisitor interceptingVisitor = (ASTVisitor) enhancer.create();
-    m_interceptingVisitors.put(visitor, interceptingVisitor);
-    return interceptingVisitor;
   }
 
   /**
@@ -1293,5 +1230,121 @@ public final class ExecutionFlowUtils {
         });
     //
     return invocations;
+  }
+
+  /**
+   * <p>
+   * Custom subclass of {@link ASTVisitor}, enhanced by {@link ByteBuddy}.
+   * </p>
+   * <p>
+   * This class only exists for convenience, in order to access the fields within
+   * an {@link ExecutionFlowHandler}. In principle, it is also possible to define
+   * those fields directly in {@link ByteBuddy}. However, then those fields have
+   * to both be set and read via reflection.
+   * </p>
+   *
+   * @see ExecutionFlowHandler
+   */
+  public static class VisitorStub extends ASTVisitor {
+    private final VisitingContext context;
+    private final ExecutionFlowDescription flowDescription;
+    private final ExecutionFlowFrameVisitor visitor;
+
+    public VisitorStub(VisitingContext context, ExecutionFlowDescription flowDescription,
+        ExecutionFlowFrameVisitor visitor) {
+      this.context = context;
+      this.flowDescription = flowDescription;
+      this.visitor = visitor;
+    }
+  }
+
+  /**
+   * <p>
+   * Custom invocation handler used by {@link ByteBuddy} on an enhanced
+   * {@link ASTVisitor}.
+   * </p>
+   * <p>
+   * All method invocations of the enhanced base class are delegated to the main
+   * visitor. This visitor is stored in an internal field of the enhanced object.
+   * Special code is executed for AST nodes of type
+   * {@link AnonymousClassDeclaration}, {@link ClassInstanceCreation},
+   * {@link MethodInvocation} and {@link ConstructorInvocation}.
+   * </p>
+   * <p>
+   * This handler may <b>only</b> be used for objects of type {@link VisitorStub}.
+   * </p>
+   *
+   * @see VisitorStub
+   */
+  private static class ExecutionFlowHandler implements InvocationHandler {
+    @Override
+    public Object invoke(Object obj, Method method, Object[] args) throws Throwable {
+      VisitorStub stub = (VisitorStub) obj;
+      // routing
+      Class<?>[] parameterTypes = method.getParameterTypes();
+      if (parameterTypes.length == 1) {
+        Class<?> parameterType = parameterTypes[0];
+        if (method.getName().equals("visit")) {
+          if (parameterType == AnonymousClassDeclaration.class) {
+            visit(stub, (AnonymousClassDeclaration) args[0]);
+          }
+        } else if (method.getName().equals("endVisit")) {
+          if (parameterType == ClassInstanceCreation.class) {
+            endVisit(stub, (ClassInstanceCreation) args[0]);
+          } else if (parameterType == MethodInvocation.class) {
+            endVisit(stub, (MethodInvocation) args[0]);
+          } else if (parameterType == ConstructorInvocation.class) {
+            endVisit(stub, (ConstructorInvocation) args[0]);
+          }
+        }
+      }
+      // use main visitor
+      try {
+        return method.invoke(stub.visitor, args);
+      } catch (InvocationTargetException e) {
+        throw e.getCause();
+      }
+    }
+
+    private boolean visit(VisitorStub stub, AnonymousClassDeclaration node) {
+      return shouldVisitAnonymousClassDeclaration(node);
+    }
+
+    private void endVisit(VisitorStub stub, ClassInstanceCreation node) {
+      // quick check
+      {
+        String identifier = stub.flowDescription.geTypeDeclaration().getName().getIdentifier();
+        if (!node.toString().contains(identifier)) {
+          return;
+        }
+      }
+      // check for local constructor
+      MethodDeclaration methodDeclaration = getLocalConstructorDeclaration(node);
+      if (methodDeclaration != null) {
+        // redirect execution flow to constructor
+        ExecutionFlowUtils.visit(stub.context, stub.flowDescription, stub.visitor, List.of(methodDeclaration));
+      }
+    }
+
+    private void endVisit(VisitorStub stub, MethodInvocation node) {
+      // check for local method invocation
+      MethodDeclaration methodDeclaration = getLocalMethodDeclaration(node);
+      if (methodDeclaration != null) {
+        methodDeclaration.setProperty(KEY_FRAME_INVOCATION, node);
+        // check for qualified local invocation, for example "appl.open()", so visit it
+        // as type
+        if (node.getExpression() != null && !(node.getExpression() instanceof ThisExpression)) {
+          ExecutionFlowUtils.visit(stub.context, stub.flowDescription, stub.visitor, List.of(methodDeclaration));
+        } else {
+          ExecutionFlowUtils.visit(stub.context, stub.flowDescription, stub.visitor, methodDeclaration);
+        }
+      }
+    }
+
+    private void endVisit(VisitorStub stub, ConstructorInvocation node) {
+      MethodDeclaration constructor = getConstructor(node);
+      constructor.setProperty(KEY_FRAME_INVOCATION, node);
+      ExecutionFlowUtils.visit(stub.context, stub.flowDescription, stub.visitor, List.of(constructor));
+    }
   }
 }

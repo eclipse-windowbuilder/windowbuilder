@@ -766,6 +766,10 @@ public abstract class AbstractParseFactory implements IParseFactory {
     parentClassLoader.add(
         new BundleClassLoader("org.eclipse.wb.runtime"),
         ImmutableList.of("net.sf.cglib."));
+    // add class loader for ByteBuddy enhancement
+    parentClassLoader.add(
+        new BundleClassLoader("org.eclipse.wb.core.java"),
+        List.of("net.bytebuddy.", "org.eclipse.wb.internal.core.model.creation"));;
     // add class loaders for "classLoader-bundle" contributions
     List<IConfigurationElement> toolkitElements =
         DescriptionHelper.getToolkitElements(getToolkitId());

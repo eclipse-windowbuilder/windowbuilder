@@ -26,8 +26,6 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.NullLiteral;
 import org.eclipse.jdt.core.dom.ParenthesizedExpression;
 
-import net.sf.cglib.proxy.Callback;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
@@ -85,35 +83,20 @@ public final class AstEvaluationEngine {
   }
 
   /**
-   * @return the instance of anonymous {@link ClassInstanceCreation}, where abstract methods are
-   *         implemented to return default value.
-   */
-  public static Object createAnonymousInstance(EvaluationContext context,
-      IMethodBinding methodBinding,
-      Object[] argumentValues) throws Exception {
-    return createAnonymousInstance(
-        context,
-        methodBinding,
-        argumentValues,
-        DefaultMethodInterceptor.INSTANCE);
-  }
-
-  /**
    * @param methodBinding
    *          the {@link IMethodBinding} of constructor.
    *
    * @return the instance of anonymous {@link ClassInstanceCreation}, intercepting methods using
-   *         given {@link Callback}.
+   *         a default implementation.
+   * @see DefaultMethodInterceptor
    */
   public static Object createAnonymousInstance(EvaluationContext context,
       IMethodBinding methodBinding,
-      Object[] argumentValues,
-      Callback callback) throws Exception {
+      Object[] argumentValues) throws Exception {
     return InvocationEvaluator.createAnonymousInstance(
         context,
         methodBinding,
-        argumentValues,
-        callback);
+        argumentValues);
   }
 
   /**
