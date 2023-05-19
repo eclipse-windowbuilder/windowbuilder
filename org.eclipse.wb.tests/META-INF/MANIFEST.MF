@@ -49,7 +49,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wb.rcp.databinding.xwt,
  org.eclipse.draw2d;bundle-version="3.13.0",
  org.junit;bundle-version="4.12.0",
- com.google.guava;bundle-version="31.1.0",
+ com.google.guava;bundle-version="30.1.0",
  org.apache.commons.digester;bundle-version="3.2.0",
  org.objectweb.asm;bundle-version="9.0.0",
  org.objenesis
