@@ -2,27 +2,7 @@
 <?pde version="3.8"?>
 <target name="wb-mvn">
 	<locations>
-		<location includeDependencyDepth="none" includeDependencyScopes="provided,runtime,test,system,import" includeSource="true" missingManifest="error" type="Maven">
-			<dependencies>
-				<dependency>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava</artifactId>
-					<version>31.1-jre</version>
-					<type>jar</type>
-				</dependency>
-			</dependencies>
-		</location>
 		<location includeDependencyDepth="none" includeSource="true" missingManifest="error" type="Maven">
-			<dependencies>
-				<dependency>
-					<groupId>com.google.guava</groupId>
-					<artifactId>failureaccess</artifactId>
-					<version>1.0.1</version>
-					<type>jar</type>
-				</dependency>
-			</dependencies>
-		</location>
-			<location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="error" type="Maven">
 			<dependencies>
 				<dependency>
 					<groupId>commons-beanutils</groupId>

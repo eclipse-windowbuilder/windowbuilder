@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.rcp,
  org.eclipse.wb.core.databinding,
  org.eclipse.wb.rcp.databinding,
- com.google.guava;bundle-version="31.1.0",
+ com.google.guava;bundle-version="30.1.0",
  org.apache.commons.collections;bundle-version="3.2.2"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
