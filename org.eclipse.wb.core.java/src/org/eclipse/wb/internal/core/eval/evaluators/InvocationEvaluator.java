@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.eval.evaluators;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
+import org.eclipse.wb.core.eval.DefaultMethodInterceptor;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.IExpressionEvaluator;
 import org.eclipse.wb.core.eval.InvocationEvaluatorInterceptor;
@@ -41,8 +42,12 @@ import org.eclipse.jdt.core.dom.TagElement;
 import org.eclipse.jdt.core.dom.TextElement;
 import org.eclipse.jdt.core.dom.ThisExpression;
 
-import net.sf.cglib.proxy.Callback;
-import net.sf.cglib.proxy.Enhancer;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.TypeCache;
+import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.implementation.Implementation;
+import net.bytebuddy.implementation.SuperMethodCall;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -327,28 +332,45 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
   }
 
   /**
+   * Stores the enhanced classes for each given {@link EvaluationContext}. All
+   * classes are uniquely identified by their base class and all implementing
+   * interfaces. The enhanced classes call return a default value for abstract
+   * methods. For all other methods, the parent method is invoked. Each class is
+   * unmodifiable and may be reused.
+   */
+  private static TypeCache<TypeCache.SimpleKey> PROXY_CACHE = new TypeCache.WithInlineExpunction<>(TypeCache.Sort.WEAK);
+
+  /**
    * @param methodBinding
    *          the {@link IMethodBinding} of constructor.
    *
    * @return the instance of anonymous {@link ClassInstanceCreation}, intercepting methods using
-   *         given {@link Callback}.
+   *         given {@link Implementation}.
    */
   public static Object createAnonymousInstance(EvaluationContext context,
       IMethodBinding methodBinding,
-      Object[] argumentValues,
-      Callback callback) throws Exception {
-    Assert.isNotNull(callback);
+      Object[] argumentValues) throws Exception {
     ITypeBinding typeBinding = methodBinding.getDeclaringClass();
     Class<?> creationClass = getTypeBindingClass(context, typeBinding.getSuperclass());
     Class<?>[] creationInterfaces = getClasses(context, typeBinding.getInterfaces());
     Class<?>[] argumentTypes = getClasses(context, methodBinding.getParameterTypes());
-    // create object using Enhancer
-    Enhancer enhancer = new Enhancer();
-    enhancer.setClassLoader(context.getClassLoader());
-    enhancer.setSuperclass(creationClass);
-    enhancer.setInterfaces(creationInterfaces);
-    enhancer.setCallback(callback);
-    return enhancer.create(argumentTypes, argumentValues);
+
+    ClassLoader proxyClassLoader = context.getClassLoader();
+    TypeCache.SimpleKey proxyKey = new TypeCache.SimpleKey(creationClass, creationInterfaces);
+
+    // create object using ByteBuddy
+    DynamicType.Builder<?> builder = new ByteBuddy() //
+        .subclass(creationClass) //
+        .implement(creationInterfaces) //
+        .method(ElementMatchers.any()) //
+        .intercept(SuperMethodCall.INSTANCE) //
+        .method(ElementMatchers.isAbstract()) //
+        .intercept(DefaultMethodInterceptor.INSTANCE);
+
+    return PROXY_CACHE //
+        .findOrInsert(proxyClassLoader, proxyKey, () -> builder.make().load(proxyClassLoader).getLoaded()) //
+        .getConstructor(argumentTypes) //
+        .newInstance(argumentValues);
   }
 
   /**

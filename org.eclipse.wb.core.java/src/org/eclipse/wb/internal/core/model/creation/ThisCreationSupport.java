@@ -71,21 +71,28 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.ThisExpression;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import net.sf.cglib.proxy.Callback;
-import net.sf.cglib.proxy.CallbackFilter;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
-import net.sf.cglib.proxy.NoOp;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.TypeCache;
+import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.implementation.bind.annotation.AllArguments;
+import net.bytebuddy.implementation.bind.annotation.Origin;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import net.bytebuddy.implementation.bind.annotation.SuperCall;
+import net.bytebuddy.implementation.bind.annotation.This;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 /**
  * Implementation of {@link CreationSupport} for subclasses.
@@ -232,7 +239,37 @@ public final class ThisCreationSupport extends CreationSupport {
    * This key is used to remember {@link JavaInfo} created for {@link SingleVariableDeclaration}.
    */
   private static final String KEY_PARAMETER_BASED_COMPONENT = "KEY_PARAMETER_BASED_COMPONENT";
-  private Enhancer m_enhancer;
+  /**
+   * <p>
+   * This field is used to create an enhanced instance of the component class. The
+   * thread-local datatype is used to support concurrent construction of such
+   * instances where each instance uses its own visitor.
+   * </p>
+   * <p>
+   * The field is set before and cleared after the instance has been created.
+   * </p>
+   * <p>
+   * The field has to be static in order to be accessible by
+   * {@link StubMethodInterceptor}.
+   * </p>
+   */
+  private static final ThreadLocal<MethodInterceptor> PROXY_INTERCEPTOR = new ThreadLocal<>();
+  /**
+   * <p>
+   * This field is used to create an enhanced class for a given component class.
+   * Given the expensive overhead that comes with the classloader, each class
+   * should only be created once and then reused as much as possible.
+   * </p>
+   * <p>
+   * The primary difference between two enhanced objects (of the same type) is the
+   * {@link ExecutionFlowFrameVisitor} that is used to calculate a custom return
+   * type. This visitor is reference via a local variable, which needs to be set
+   * when an instance is created. The corresponding visitor object is stored in
+   * {@link #PROXY_INTERCEPTOR}.
+   * </p>
+   */
+  private static final TypeCache<TypeCache.SimpleKey> PROXY_CACHE = new TypeCache.WithInlineExpunction<>(
+      TypeCache.Sort.WEAK);
 
   @Override
   public Object create(EvaluationContext context, ExecutionFlowFrameVisitor visitor)
@@ -285,14 +322,14 @@ public final class ThisCreationSupport extends CreationSupport {
       Class<?> componentClass,
       Object[] argumentValues) throws Exception {
     // use Enhancer
-    if (needEnhancer() && hasCGLib()) {
-      return create_usingCGLib(visitor, constructor, componentClass, argumentValues);
+    if (needEnhancer() && hasEnhancer()) {
+      return create_usingEnhancer(visitor, constructor, componentClass, argumentValues);
     }
     // create object using Constructor
     return constructor.newInstance(argumentValues);
   }
 
-  private Object create_usingCGLib(ExecutionFlowFrameVisitor visitor,
+  private Object create_usingEnhancer(ExecutionFlowFrameVisitor visitor,
       Constructor<?> constructor,
       Class<?> componentClass,
       Object[] argumentValues) {
@@ -305,23 +342,31 @@ public final class ThisCreationSupport extends CreationSupport {
     }
     // create object
     try {
+      PROXY_INTERCEPTOR.set(new ExecutionMethodInterceptor(visitor));
+      Class<?> m_enhancer = PROXY_CACHE.find(getClassLoader(), new TypeCache.SimpleKey(componentClass));
+      Object instance;
       if (constructor != null) {
         Assert.isTrueException(
             !ReflectionUtils.isPackagePrivate(constructor),
             ICoreExceptionConstants.EVAL_NON_PUBLIC_CONSTRUCTOR,
             constructor);
-        return m_enhancer.create(constructor.getParameterTypes(), argumentValues);
+        instance = m_enhancer.getConstructor(constructor.getParameterTypes()).newInstance(argumentValues);
       } else {
-        return m_enhancer.create();
+        instance = m_enhancer.getConstructor().newInstance();
       }
+      ReflectionUtils.setField(instance, MethodInterceptor.FIELD_INTERCEPTOR, PROXY_INTERCEPTOR.get());
+      return instance;
+    } catch (ReflectiveOperationException e) {
+      throw new DesignerException(ICoreExceptionConstants.EVAL_CGLIB, e);
     } finally {
+      PROXY_INTERCEPTOR.set(null);
       flowDescription.leaveStatement(m_constructor.getBody());
     }
   }
 
   /**
-   * @return <code>true</code> if we need to use {@link Enhancer} for this component, and
-   *         <code>false</code> if this component can be created more lightly, without CGLib.
+   * @return <code>true</code> if we need to use {@link ByteBuddy} for this component, and
+   *         <code>false</code> if this component can be created more lightly, without ByteBuddy.
    */
   private boolean needEnhancer() {
     ComponentDescription description = m_javaInfo.getDescription();
@@ -330,16 +375,17 @@ public final class ThisCreationSupport extends CreationSupport {
     }
     Class<?> componentClass = description.getComponentClass();
     boolean isSystemClass = componentClass.getClassLoader() == null;
-    return !isSystemClass && !Enhancer.isEnhanced(componentClass);
+    boolean isEnhanced = ReflectionUtils.getFieldByName(componentClass, MethodInterceptor.FIELD_INTERCEPTOR) != null;
+    return !isSystemClass && !isEnhanced;
   }
 
   /**
-   * @return <code>true</code> if given {@link Class} can access CGLib.
+   * @return <code>true</code> if given {@link Class} can access ByteBuddy.
    */
-  private boolean hasCGLib() {
+  private boolean hasEnhancer() {
     try {
       ClassLoader classLoader = getClassLoader();
-      return classLoader != null && classLoader.loadClass("net.sf.cglib.proxy.Factory") != null;
+      return classLoader != null && classLoader.loadClass("net.bytebuddy.ByteBuddy") != null;
     } catch (ClassNotFoundException e) {
       return false;
     }
@@ -356,88 +402,41 @@ public final class ThisCreationSupport extends CreationSupport {
    * Initializes {@link #m_enhancer} field.
    */
   private void createEnhancer(Class<?> componentClass, final ExecutionFlowFrameVisitor visitor) {
-    m_enhancer = new Enhancer();
-    m_enhancer.setClassLoader(getClassLoader());
-    m_enhancer.setSuperclass(componentClass);
-    Callback interceptor = new MethodInterceptor() {
-      @Override
-      public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy)
-          throws Throwable {
-        // if not in AST execution, then ignore
-        if (m_interceptOnlyDuringExecution && !m_editorState.isExecuting()) {
-          if (ReflectionUtils.isAbstract(method)) {
-            return returnDefaultValue(method);
-          }
-          return proxy.invokeSuper(obj, args);
-        }
-        // try to find implementation of this method in AST
-        if (!method.isBridge() && !isSuperMethodInvocation()) {
-          String methodSignature = ReflectionUtils.getMethodSignature(method);
-          // handle special SWT methods
-          if (methodSignature.equals("isValidSubclass()")) {
-            return Boolean.TRUE;
-          }
-          if (methodSignature.equals("checkSubclass()")) {
-            return null;
-          }
-          // may be model wants to handle method and provide result
-          {
-            Object result = tryModelMethodInterceptor(method, methodSignature, args);
-            if (result != AstEvaluationEngine.UNKNOWN) {
-              return result;
-            }
-          }
-          // check if we are allowed to intercept method
-          if (!canInterceptMethod(method, methodSignature)) {
-            return proxy.invokeSuper(obj, args);
-          }
-          // try to find MethodDeclaration
-          MethodDeclaration methodDeclaration;
-          {
-            TypeDeclaration typeDeclaration = (TypeDeclaration) m_constructor.getParent();
-            methodDeclaration = AstNodeUtils.getMethodBySignature(typeDeclaration, methodSignature);
-          }
-          // OK, we have MethodDeclaration, redirect to it
-          if (methodDeclaration != null && !AstNodeUtils.isAbstract(methodDeclaration)) {
-            JavaInfoEvaluationHelper.shouldEvaluateReturnValue(methodDeclaration, true);
-            return visitMethod(obj, method, args, proxy, methodDeclaration, visitor);
-          }
-        }
-        // handle abstract
-        if (ReflectionUtils.isAbstract(method)) {
-          return returnDefaultValue(method);
-        }
-        // invoke super
-        return proxy.invokeSuper(obj, args);
-      }
+    final TypeCache.SimpleKey proxyKey = new TypeCache.SimpleKey(componentClass);
 
-      private Object returnDefaultValue(Method method) {
-        Class<?> returnType = method.getReturnType();
-        return ReflectionUtils.getDefaultValue(returnType);
-      }
-    };
-    m_enhancer.setCallbacks(new Callback[]{interceptor, NoOp.INSTANCE});
-    m_enhancer.setCallbackFilter(ENHANCER_FILTER);
+    DynamicType.Builder<?> builder = new ByteBuddy()
+        .subclass(componentClass) //
+        .defineField(MethodInterceptor.FIELD_INTERCEPTOR, MethodInterceptor.class, Modifier.PRIVATE)
+        .method(ElementMatchers.noneOf(getIgnoredMethods(componentClass))) //
+        .intercept(MethodDelegation.to(new StubMethodInterceptor(), MethodInterceptor.class));
+
+    PROXY_CACHE.findOrInsert(getClassLoader(), proxyKey, () -> builder.make().load(getClassLoader()).getLoaded());
   }
 
   /**
-   * Filter for intercepting {@link Method}'s. One instance of filter should be used.
+   * Filter for intercepting {@link Method}'s.
    */
-  private static final CallbackFilter ENHANCER_FILTER = new CallbackFilter() {
-    @Override
-    public int accept(Method method) {
-      // ignore inaccessible methods
-      if (ReflectionUtils.isPrivate(method) || ReflectionUtils.isPackagePrivate(method)) {
-        return 1;
-      }
+  private static Method[] getIgnoredMethods(Class<?> clazz) {
+    List<Method> ignored = new ArrayList<>();
+
+    // Iterate over all public methods, including inherited
+    for (Method method : clazz.getMethods()) {
       // ignore standard Swing methods
       if (method.getDeclaringClass().getClassLoader() == null) {
-        return 1;
+        ignored.add(method);
       }
-      // intercept
-      return 0;
     }
-  };
+
+    // Iterate over all methods, excluding inherited
+    for (Method method : clazz.getDeclaredMethods()) {
+      // ignore inaccessible methods
+      if (ReflectionUtils.isPrivate(method) || ReflectionUtils.isPackagePrivate(method)) {
+        ignored.add(method);
+      }
+    }
+
+    return ignored.toArray(Method[]::new);
+  }
 
   /**
    * Allows disable interception of all methods in some package (for example all standard methods of
@@ -535,10 +534,9 @@ public final class ThisCreationSupport extends CreationSupport {
   private Object visitMethod(Object obj,
       java.lang.reflect.Method method,
       Object[] args,
-      MethodProxy proxy,
       MethodDeclaration methodDeclaration,
       ExecutionFlowFrameVisitor visitor) throws Exception {
-    Object result = visitMethod0(obj, method, args, proxy, methodDeclaration, visitor);
+    Object result = visitMethod0(obj, method, args, methodDeclaration, visitor);
     result = visitMethod_validator(method, args, result);
     return result;
   }
@@ -566,7 +564,6 @@ public final class ThisCreationSupport extends CreationSupport {
   private Object visitMethod0(Object obj,
       java.lang.reflect.Method method,
       Object[] args,
-      MethodProxy proxy,
       MethodDeclaration methodDeclaration,
       ExecutionFlowFrameVisitor visitor) throws Exception {
     m_javaInfo.setObject(obj);
@@ -777,6 +774,113 @@ public final class ThisCreationSupport extends CreationSupport {
               parameter.getDefaultSource()));
         }
       }
+    }
+  }
+
+  /**
+   * The base interface to which all method invocations are delegated to. In case
+   * the intercepted method is abstract, a dummy value should be returned. In case
+   * no custom behavior is specified, its super method should be invoked.
+   */
+  public static interface MethodInterceptor {
+    String FIELD_INTERCEPTOR = "WINDOWBUILDER$INTERCEPTOR";
+
+    @RuntimeType
+    Object intercept(@This Object obj, @Origin Method method, @AllArguments Object[] args,
+        @SuperCall(nullIfImpossible = true) Callable<?> superCall) throws Throwable;
+
+    default Object returnDefaultValue(Method method) {
+      Class<?> returnType = method.getReturnType();
+      return ReflectionUtils.getDefaultValue(returnType);
+    }
+  }
+
+  /**
+   * This class contains the primary interceptor logic. For each instance of an
+   * enhanced class, we attempt to calculate a custom return type using the given
+   * {@link ExecutionFlowFrameVisitor} instance. This interceptor is stored as a
+   * local variable in the enhanced object.
+   */
+  private class ExecutionMethodInterceptor implements MethodInterceptor {
+    private final ExecutionFlowFrameVisitor visitor;
+
+    public ExecutionMethodInterceptor(ExecutionFlowFrameVisitor visitor) {
+      this.visitor = visitor;
+    }
+
+    @Override
+    public Object intercept(Object obj, Method method, Object[] args, Callable<?> superCall) throws Throwable {
+      // if not in AST execution, then ignore
+      if (m_interceptOnlyDuringExecution && !m_editorState.isExecuting()) {
+        if (ReflectionUtils.isAbstract(method)) {
+          return returnDefaultValue(method);
+        }
+        return superCall.call();
+      }
+      // try to find implementation of this method in AST
+      if (!method.isBridge() && !isSuperMethodInvocation()) {
+        String methodSignature = ReflectionUtils.getMethodSignature(method);
+        // handle special SWT methods
+        if (methodSignature.equals("isValidSubclass()")) {
+          return Boolean.TRUE;
+        }
+        if (methodSignature.equals("checkSubclass()")) {
+          return null;
+        }
+        // may be model wants to handle method and provide result
+        {
+          Object result = tryModelMethodInterceptor(method, methodSignature, args);
+          if (result != AstEvaluationEngine.UNKNOWN) {
+            return result;
+          }
+        }
+        // check if we are allowed to intercept method
+        if (!canInterceptMethod(method, methodSignature)) {
+          return superCall.call();
+        }
+        // try to find MethodDeclaration
+        MethodDeclaration methodDeclaration;
+        {
+          TypeDeclaration typeDeclaration = (TypeDeclaration) m_constructor.getParent();
+          methodDeclaration = AstNodeUtils.getMethodBySignature(typeDeclaration, methodSignature);
+        }
+        // OK, we have MethodDeclaration, redirect to it
+        if (methodDeclaration != null && !AstNodeUtils.isAbstract(methodDeclaration)) {
+          JavaInfoEvaluationHelper.shouldEvaluateReturnValue(methodDeclaration, true);
+          return visitMethod(obj, method, args, methodDeclaration, visitor);
+        }
+      }
+      // handle abstract
+      if (ReflectionUtils.isAbstract(method)) {
+        return returnDefaultValue(method);
+      }
+      // invoke super
+      return superCall.call();
+    }
+  }
+
+  /**
+   * This class is used as a default interceptor inside the enhanced class, shared
+   * between all instances. The method invocation is delegated to the
+   * instance-scoped interceptor, which is stored as a local variable. In case
+   * this field hasn't been initialized yet (meaning we're calling an enhanced
+   * method from within the constructor), the referee is fetched from the
+   * thread-local store. This store is set before, and cleared after an object is
+   * constructed, so its value is the same as the one, the field is going to be
+   * initialized with.
+   */
+  private static class StubMethodInterceptor implements MethodInterceptor {
+    @Override
+    public Object intercept(Object obj, Method method, Object[] args, Callable<?> superCall) throws Throwable {
+      MethodInterceptor referee = (MethodInterceptor) ReflectionUtils.getFieldObject(obj, FIELD_INTERCEPTOR);
+
+      // We may call non-private methods inside the constructor. The field hasn't been
+      // initialized at that point in time...
+      if (referee == null) {
+        referee = PROXY_INTERCEPTOR.get();
+      }
+
+      return referee.intercept(obj, method, args, superCall);
     }
   }
 }
