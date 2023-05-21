@@ -36,10 +36,12 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.graphics.Image;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import static net.bytebuddy.matcher.ElementMatchers.named;
 
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.InvocationHandlerAdapter;
+
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
@@ -192,34 +194,28 @@ public final class ActionContainerInfo extends ObjectInfo {
       //  - add_setSourceExpression(Expression)
       if (action.getArbitraryValue(KEY_NEW_ACTION) == Boolean.TRUE) {
         action.removeArbitraryValue(KEY_NEW_ACTION);
-        Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(CreationSupport.class);
-        enhancer.setCallback(new MethodInterceptor() {
-          @Override
-          public Object intercept(Object obj,
-              java.lang.reflect.Method method,
-              Object[] args,
-              MethodProxy proxy) throws Throwable {
-            // use anonymous creation
-            if (method.getName().equals("add_getSource")) {
+        CreationSupport creationSupport = new ByteBuddy() //
+            .subclass(CreationSupport.class) //
+            .method(named("add_getSource")) //
+            .intercept(InvocationHandlerAdapter.of((Object obj, Method method, Object[] args) -> {
               String eol = editor.getGeneration().getEndOfLine();
               String source = "";
               source += "new org.eclipse.jface.action.Action(\"New Action\") {" + eol;
               source += "}";
               return source;
-            }
-            // replace this CreationSupport with ConstructorCreationSupport
-            if (method.getName().equals("add_setSourceExpression")) {
+            })) //
+            .method(named("add_setSourceExpression"))
+            .intercept(InvocationHandlerAdapter.of((Object obj, Method method, Object[] args) -> {
               ClassInstanceCreation creation = (ClassInstanceCreation) args[0];
               action.setCreationSupport(new ConstructorCreationSupport(creation));
               action.bindToExpression(creation);
               return null;
-            }
-            // handle in CreationSupport
-            return proxy.invokeSuper(obj, args);
-          }
-        });
-        CreationSupport creationSupport = (CreationSupport) enhancer.create();
+            })) //
+            .make() //
+            .load(CreationSupport.class.getClassLoader()) //
+            .getLoaded() //
+            .getConstructor() //
+            .newInstance();
         action.setCreationSupport(creationSupport);
       }
       // do add new Action
