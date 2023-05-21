@@ -13,11 +13,10 @@ package org.eclipse.wb.internal.rcp.model.util;
 import org.eclipse.wb.internal.core.utils.asm.ToBytesClassAdapter;
 import org.eclipse.wb.internal.core.utils.reflect.IByteCodeProcessor;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.property.editor.image.plugin.WorkspacePluginInfo;
 
 import org.eclipse.core.resources.IProject;
-
-import net.sf.cglib.core.ReflectUtils;
 
 import org.apache.commons.io.IOUtils;
 import org.objectweb.asm.ClassReader;
@@ -72,10 +71,13 @@ public final class ActivatorGetImagesByteCodeProcessor implements IByteCodeProce
       byte[] bytes = IOUtils.toByteArray(stream);
       stream.close();
       // inject InternalImageManager to project class loader
-      ReflectUtils.defineClass(
+      ReflectionUtils.invokeMethod(
+          classLoader,
+          "defineClass(java.lang.String,byte[],int,int)",
           "org.eclipse.wb.internal.rcp.model.util.InternalImageManager",
           bytes,
-          classLoader);
+          0,
+          bytes.length);
     } catch (Throwable e) {
     }
   }

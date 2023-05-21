@@ -14,16 +14,19 @@ import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import static net.bytebuddy.matcher.ElementMatchers.named;
+import static net.bytebuddy.matcher.ElementMatchers.takesNoArguments;
+
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.FixedValue;
+import net.bytebuddy.implementation.StubMethod;
+import net.bytebuddy.matcher.ElementMatchers;
 
 /**
  * Implementation of {@link CreationSupport} for {@link IPageLayout} parameter of
@@ -94,28 +97,20 @@ public final class PageLayoutCreationSupport extends CreationSupport {
       throws Exception {
     ((PageLayoutInfo) m_javaInfo).render();
     //
-    Enhancer enhancer = new Enhancer();
-    enhancer.setClassLoader(JavaInfoUtils.getClassLoader(m_javaInfo));
-    enhancer.setSuperclass(m_javaInfo.getDescription().getComponentClass());
-    enhancer.setCallback(new MethodInterceptor() {
-      @Override
-      public Object intercept(Object obj,
-          java.lang.reflect.Method method,
-          Object[] args,
-          MethodProxy proxy) throws Throwable {
-        String signature = ReflectionUtils.getMethodSignature(method);
-        if (signature.equals("getEditorArea()")) {
-          return IPageLayout.ID_EDITOR_AREA;
-        }
-        if (signature.equals("isEditorAreaVisible()")) {
-          return true;
-        }
-        if (signature.equals("isFixed()")) {
-          return false;
-        }
-        return null;
-      }
-    });
-    return enhancer.create();
+    return new ByteBuddy() //
+        .subclass(m_javaInfo.getDescription().getComponentClass()) //
+        .method(ElementMatchers.any()) //
+        .intercept(StubMethod.INSTANCE) //
+        .method(named("getEditorArea").and(takesNoArguments())) //
+        .intercept(FixedValue.value(IPageLayout.ID_EDITOR_AREA)) //
+        .method(named("isEditorAreaVisible").and(takesNoArguments())) //
+        .intercept(FixedValue.value(true)) //
+        .method(named("isFixed").and(takesNoArguments())) //
+        .intercept(FixedValue.value(false)) //
+        .make() //
+        .load(JavaInfoUtils.getClassLoader(m_javaInfo)) //
+        .getLoaded() //
+        .getConstructor() //
+        .newInstance();
   }
 }

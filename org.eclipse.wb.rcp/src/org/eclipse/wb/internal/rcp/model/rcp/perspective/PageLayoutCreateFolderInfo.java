@@ -44,9 +44,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.StubMethod;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import java.util.List;
 import java.util.Map;
@@ -270,20 +270,15 @@ public final class PageLayoutCreateFolderInfo extends AbstractPartInfo {
     }
     // return mock as object
     {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setClassLoader(JavaInfoUtils.getClassLoader(this));
-      enhancer.setSuperclass(getDescription().getComponentClass());
-      enhancer.setCallback(new MethodInterceptor() {
-        @Override
-        public Object intercept(Object obj,
-            java.lang.reflect.Method method,
-            Object[] args,
-            MethodProxy proxy) throws Throwable {
-          // return "null", CreationSupport will use render()
-          return null;
-        }
-      });
-      return enhancer.create();
+      return new ByteBuddy() //
+          .subclass(getDescription().getComponentClass()) //
+          .method(ElementMatchers.any()) //
+          .intercept(StubMethod.INSTANCE) //
+          .make() //
+          .load(JavaInfoUtils.getClassLoader(this)) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
     }
   }
 

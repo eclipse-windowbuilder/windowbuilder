@@ -34,9 +34,11 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import static net.bytebuddy.matcher.ElementMatchers.named;
+import static net.bytebuddy.matcher.ElementMatchers.takesNoArguments;
+
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.FixedValue;
 
 import org.apache.commons.beanutils.PropertyUtilsBean;
 
@@ -170,19 +172,13 @@ public final class ActionFactoryCreationSupport extends CreationSupport
     {
       ClassLoader editorLoader = context.getClassLoader();
       Class<?> class_Action = editorLoader.loadClass("org.eclipse.jface.action.Action");
-      Enhancer enhancer = new Enhancer();
-      enhancer.setClassLoader(editorLoader);
-      enhancer.setSuperclass(class_Action);
-      enhancer.setCallback(new MethodInterceptor() {
-        @Override
-        public Object intercept(Object obj,
-            java.lang.reflect.Method method,
-            Object[] args,
-            MethodProxy proxy) throws Throwable {
-          return proxy.invokeSuper(obj, args);
-        }
-      });
-      action = enhancer.create();
+      action = new ByteBuddy() //
+          .subclass(class_Action) //
+          .make() //
+          .load(editorLoader) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
     }
     // create IWorkbenchAction from "this" Eclipse
     IWorkbenchAction thisAction;
@@ -234,24 +230,17 @@ public final class ActionFactoryCreationSupport extends CreationSupport
     // prepare ImageData
     final ImageData imageData = sourceID.getImageData();
     // prepare ImageDescriptor
-    Enhancer enhancer = new Enhancer();
     Class<?> imageDescriptorClass =
         classLoader.loadClass("org.eclipse.jface.resource.ImageDescriptor");
-    enhancer.setClassLoader(classLoader);
-    enhancer.setSuperclass(imageDescriptorClass);
-    enhancer.setCallback(new MethodInterceptor() {
-      @Override
-      public Object intercept(Object obj,
-          java.lang.reflect.Method method,
-          Object[] args,
-          MethodProxy proxy) throws Throwable {
-        if (method.getName().equals("getImageData") && args.length == 0) {
-          return imageData;
-        }
-        return proxy.invokeSuper(obj, args);
-      }
-    });
-    return enhancer.create();
+    return new ByteBuddy() //
+        .subclass(imageDescriptorClass) //
+        .method(named("getImageData").and(takesNoArguments())) //
+        .intercept(FixedValue.reference(imageData)) //
+        .make() //
+        .load(classLoader) //
+        .getLoaded() //
+        .getConstructor() //
+        .newInstance();
   }
 
   ////////////////////////////////////////////////////////////////////////////

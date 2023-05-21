@@ -38,10 +38,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Shell;
 
-import net.sf.cglib.core.NamingPolicy;
-import net.sf.cglib.core.Predicate;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 
 import org.apache.commons.lang.ObjectUtils;
 
@@ -191,22 +189,18 @@ public final class DialogInfo extends AbstractComponentInfo
   // Model creation
   //
   ////////////////////////////////////////////////////////////////////////////
+
   public static Class<?> getNotAbstractDialog(ClassLoader classLoader)
       throws ClassNotFoundException {
     try {
       return classLoader.loadClass("org.eclipse.swt.widgets.Dialog_");
     } catch (ClassNotFoundException e) {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setCallbackType(NoOp.class);
-      enhancer.setSuperclass(classLoader.loadClass("org.eclipse.swt.widgets.Dialog"));
-      enhancer.setClassLoader(classLoader);
-      enhancer.setNamingPolicy(new NamingPolicy() {
-        @Override
-        public String getClassName(String prefix, String source, Object key, Predicate names) {
-          return prefix + "_";
-        }
-      });
-      return enhancer.createClass();
+      return new ByteBuddy()
+          .subclass(classLoader.loadClass("org.eclipse.swt.widgets.Dialog")) //
+          .name("org.eclipse.swt.widgets.Dialog_") //
+          .make() // We have to use injection to load the class in the CreationSupport
+          .load(classLoader, ClassLoadingStrategy.Default.INJECTION) //
+          .getLoaded();
     }
   }
 

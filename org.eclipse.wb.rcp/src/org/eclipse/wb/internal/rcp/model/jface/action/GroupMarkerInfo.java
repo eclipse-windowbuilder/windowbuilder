@@ -18,8 +18,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jface.action.GroupMarker;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
+import net.bytebuddy.ByteBuddy;
 
 /**
  * Model for {@link GroupMarker}.
@@ -66,11 +65,13 @@ public final class GroupMarkerInfo extends ContributionItemInfo {
     // create Action
     Object action;
     {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setClassLoader(classLoader);
-      enhancer.setSuperclass(classAction);
-      enhancer.setCallback(NoOp.INSTANCE);
-      action = enhancer.create(new Class<?>[]{String.class}, new Object[]{text});
+      action = new ByteBuddy() //
+          .subclass(classAction) //
+          .make() //
+          .load(classLoader) //
+          .getLoaded() //
+          .getConstructor(String.class) //
+          .newInstance(text);
     }
     // wrap Action with item
     return ReflectionUtils.getConstructorBySignature(

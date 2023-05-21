@@ -30,11 +30,15 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import static net.bytebuddy.matcher.ElementMatchers.named;
+import static net.bytebuddy.matcher.ElementMatchers.takesNoArguments;
+
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.FixedValue;
+import net.bytebuddy.implementation.InvocationHandlerAdapter;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 /**
  * Model for {@link FormPage}.
@@ -87,29 +91,20 @@ public final class FormPageInfo extends EditorPartInfo implements IThisMethodPar
     Class<?> editorClass = classLoader.loadClass(editorClassName);
     // prepare FormEditor instance
     {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setClassLoader(classLoader);
-      enhancer.setSuperclass(editorClass);
-      enhancer.setCallback(new MethodInterceptor() {
-        @Override
-        public Object intercept(Object obj,
-            java.lang.reflect.Method method,
-            Object[] args,
-            MethodProxy proxy) throws Throwable {
-          String methodSignature = ReflectionUtils.getMethodSignature(method);
-          // known methods
-          if (methodSignature.equals("getActivePageInstance()")) {
-            return null;
-          }
-          if (methodSignature.equals("getToolkit()")) {
+      m_FormEditor = new ByteBuddy() //
+          .subclass(editorClass) //
+          .method(named("getActivePageInstance").and(takesNoArguments())) //
+          .intercept(FixedValue.nullValue()) //
+          .method(named("getToolkit").and(takesNoArguments())) //
+          .intercept(InvocationHandlerAdapter.of((Object proxy, Method method, Object[] args) -> {
             prepare_FormToolkit();
             return m_FormToolkit;
-          }
-          // handle in super-Class
-          return proxy.invokeSuper(obj, args);
-        }
-      });
-      m_FormEditor = enhancer.create();
+          })) //
+          .make() //
+          .load(classLoader) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
     }
   }
 

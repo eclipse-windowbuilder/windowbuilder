@@ -104,7 +104,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.draw2d;bundle-version="3.13.0",
  com.google.guava;bundle-version="30.1.0",
  org.apache.commons.commons-beanutils;bundle-version="1.9.4",
- org.objectweb.asm;bundle-version="9.0.0"
+ org.objectweb.asm;bundle-version="9.0.0",
+ net.bytebuddy.byte-buddy;bundle-version="1.14.4"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.wb.rcp

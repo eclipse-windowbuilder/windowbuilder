@@ -21,8 +21,6 @@ import org.eclipse.wb.internal.core.utils.reflect.IClassLoaderInitializer;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import net.sf.cglib.core.ReflectUtils;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.objectweb.asm.ClassReader;
@@ -126,10 +124,13 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
     byte[] bytes = IOUtils.toByteArray(stream);
     stream.close();
     // inject DefaultBean to project class loader
-    ReflectUtils.defineClass(
+    ReflectionUtils.invokeMethod(
+        projectClassLoader,
+        "defineClass(java.lang.String,byte[],int,int)",
         "org.eclipse.wb.internal.rcp.databinding.parser.DefaultBean",
         bytes,
-        projectClassLoader);
+        0,
+        bytes.length);
   }
 
   private static ProjectClassLoader configureBindings(ClassLoader classLoader) {

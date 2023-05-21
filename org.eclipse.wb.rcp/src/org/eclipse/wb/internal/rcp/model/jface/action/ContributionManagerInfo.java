@@ -38,8 +38,7 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.Separator;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
+import net.bytebuddy.ByteBuddy;
 
 import java.util.List;
 
@@ -141,11 +140,13 @@ public abstract class ContributionManagerInfo extends AbstractComponentInfo {
       ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
       String itemClassName = getArtificialContributionItem_className();
       Class<?> itemClass = editorLoader.loadClass(itemClassName);
-      Enhancer enhancer = new Enhancer();
-      enhancer.setClassLoader(editorLoader);
-      enhancer.setSuperclass(itemClass);
-      enhancer.setCallback(NoOp.INSTANCE);
-      item = enhancer.create();
+      item = new ByteBuddy() //
+          .subclass(itemClass) //
+          .make() //
+          .load(editorLoader) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
     }
     // do insert
     low_insertContributionItem(index, item);

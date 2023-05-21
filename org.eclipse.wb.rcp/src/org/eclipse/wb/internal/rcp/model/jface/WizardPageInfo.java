@@ -27,8 +27,7 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
+import net.bytebuddy.ByteBuddy;
 
 /**
  * Model for {@link WizardPage}.
@@ -64,11 +63,13 @@ public final class WizardPageInfo extends DialogPageInfo implements IJavaInfoRen
     Wizard wizard;
     {
       Class<?> wizardClass = editorLoader.loadClass("org.eclipse.jface.wizard.Wizard");
-      Enhancer enhancer = new Enhancer();
-      enhancer.setClassLoader(editorLoader);
-      enhancer.setSuperclass(wizardClass);
-      enhancer.setCallback(NoOp.INSTANCE);
-      wizard = (Wizard) enhancer.create();
+      wizard = (Wizard) new ByteBuddy() //
+          .subclass(wizardClass) //
+          .make() //
+          .load(editorLoader) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
     }
     // add this WizardPage
     wizard.addPage((WizardPage) getObject());

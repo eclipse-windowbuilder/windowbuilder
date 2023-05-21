@@ -26,8 +26,7 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
+import net.bytebuddy.ByteBuddy;
 
 /**
  * Model for {@link IToolBarManager}.
@@ -112,11 +111,13 @@ public final class ToolBarManagerInfo extends ContributionManagerInfo {
     {
       ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
       Class<?> actionClass = editorLoader.loadClass("org.eclipse.jface.action.Action");
-      Enhancer enhancer = new Enhancer();
-      enhancer.setClassLoader(editorLoader);
-      enhancer.setSuperclass(actionClass);
-      enhancer.setCallback(NoOp.INSTANCE);
-      action = enhancer.create(new Class[]{String.class}, new Object[]{emptyText});
+      action = new ByteBuddy() //
+          .subclass(actionClass) //
+          .make() //
+          .load(editorLoader) //
+          .getLoaded() //
+          .getConstructor(String.class) //
+          .newInstance(emptyText);
     }
     // append Action and update
     ReflectionUtils.invokeMethod(getObject(), "add(org.eclipse.jface.action.IAction)", action);
