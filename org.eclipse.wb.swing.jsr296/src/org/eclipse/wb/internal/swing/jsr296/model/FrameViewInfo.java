@@ -29,9 +29,7 @@ import org.eclipse.wb.internal.swing.utils.SwingUtils;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.ByteBuddy;
 
 import javax.swing.JFrame;
 
@@ -69,18 +67,13 @@ public class FrameViewInfo extends AbstractComponentInfo implements IThisMethodP
       ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
       Class<?> applicationClass = classLoader.loadClass("org.jdesktop.application.Application");
       // prepare Application instance (only for Class with callback)
-      Enhancer enhancer = new Enhancer();
-      enhancer.setClassLoader(classLoader);
-      enhancer.setSuperclass(applicationClass);
-      enhancer.setCallback(new MethodInterceptor() {
-        public Object intercept(Object obj,
-            java.lang.reflect.Method method,
-            Object[] args,
-            MethodProxy proxy) throws Throwable {
-          return proxy.invokeSuper(obj, args);
-        }
-      });
-      Object applicationForClass = enhancer.create();
+      Object applicationForClass = new ByteBuddy() //
+          .subclass(applicationClass) //
+          .make() //
+          .load(classLoader) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
       // create Application instance using Application method, which performs required initializations
       return ReflectionUtils.invokeMethod(
           applicationClass,
