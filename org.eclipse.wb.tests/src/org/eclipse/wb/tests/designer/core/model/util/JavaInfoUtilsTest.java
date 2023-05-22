@@ -42,7 +42,6 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.ToolkitProvider;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -68,9 +67,9 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.FixedValue;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.easymock.EasyMock.capture;
@@ -3784,40 +3783,30 @@ public class JavaInfoUtilsTest extends SwingModelTest {
     // exposed wrapper
     final JavaInfo exposedWrapper;
     {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setSuperclass(CreationSupport.class);
-      enhancer.setInterfaces(new Class<?>[]{IExposedCreationSupport.class});
-      enhancer.setCallback(new MethodInterceptor() {
-        @Override
-        public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy)
-            throws Throwable {
-          String signature = ReflectionUtils.getMethodSignature(method);
-          if (signature.equals("isDirect()")) {
-            return isDirect;
-          }
-          return null;
-        }
-      });
-      CreationSupport exposedCreation = (CreationSupport) enhancer.create();
+      CreationSupport exposedCreation = new ByteBuddy() //
+          .subclass(CreationSupport.class) //
+          .implement(IExposedCreationSupport.class) //
+          .method(ElementMatchers.named("isDirect")) //
+          .intercept(FixedValue.reference(isDirect)) //
+          .make() //
+          .load(getClass().getClassLoader()) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
       exposedWrapper = JavaInfoUtils.createJavaInfo(m_lastEditor, JButton.class, exposedCreation);
     }
     // wrapped component
     {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setSuperclass(CreationSupport.class);
-      enhancer.setInterfaces(new Class<?>[]{IWrapperControlCreationSupport.class});
-      enhancer.setCallback(new MethodInterceptor() {
-        @Override
-        public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy)
-            throws Throwable {
-          String signature = ReflectionUtils.getMethodSignature(method);
-          if (signature.equals("getWrapperInfo()")) {
-            return exposedWrapper;
-          }
-          return null;
-        }
-      });
-      CreationSupport wrappedCreation = (CreationSupport) enhancer.create();
+      CreationSupport wrappedCreation = new ByteBuddy() //
+          .subclass(CreationSupport.class) //
+          .implement(IWrapperControlCreationSupport.class) //
+          .method(ElementMatchers.named("getWrapperInfo")) //
+          .intercept(FixedValue.reference(exposedWrapper)) //
+          .make() //
+          .load(getClass().getClassLoader()) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
       return JavaInfoUtils.createJavaInfo(m_lastEditor, JButton.class, wrappedCreation);
     }
   }

@@ -16,8 +16,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
+import net.bytebuddy.ByteBuddy;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.easymock.EasyMock;
@@ -44,11 +43,13 @@ public class AbstractVariableSupportTest extends AbstractVariableTest {
     // create abstract VariableSupport instance
     VariableSupport variableSupport;
     {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setSuperclass(VariableSupport.class);
-      enhancer.setCallback(NoOp.INSTANCE);
-      variableSupport =
-          (VariableSupport) enhancer.create(new Class[]{JavaInfo.class}, new Object[]{javaInfo});
+      variableSupport = new ByteBuddy() //
+          .subclass(VariableSupport.class) //
+          .make() //
+          .load(getClass().getClassLoader()) //
+          .getLoaded() //
+          .getConstructor(JavaInfo.class) //
+          .newInstance(javaInfo);
     }
     // JavaInfo-related methods
     {

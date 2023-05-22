@@ -66,9 +66,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.graphics.Image;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.FixedValue;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -258,24 +258,16 @@ public class ActionTest extends RcpModelTest {
     // set CreationSupport with IActionIconProvider
     final Image expectedImage = DesignerPlugin.getImage("test.png");
     {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setSuperclass(CreationSupport.class);
-      enhancer.setInterfaces(new Class<?>[]{IActionIconProvider.class});
-      enhancer.setClassLoader(IActionIconProvider.class.getClassLoader());
-      enhancer.setCallback(new MethodInterceptor() {
-        @Override
-        public Object intercept(Object obj,
-            java.lang.reflect.Method method,
-            Object[] args,
-            MethodProxy proxy) throws Throwable {
-          if (method.getName().equals("getActionIcon")) {
-            return expectedImage;
-          }
-          return proxy.invokeSuper(obj, args);
-        }
-      });
-      // set new CreationSupport for "action"
-      CreationSupport creationSupport = (CreationSupport) enhancer.create();
+      CreationSupport creationSupport = new ByteBuddy() //
+          .subclass(CreationSupport.class) //
+          .implement(IActionIconProvider.class) //
+          .method(ElementMatchers.named("getActionIcon")) //
+          .intercept(FixedValue.reference(expectedImage)) //
+          .make() //
+          .load(IActionIconProvider.class.getClassLoader()) //
+          .getLoaded() //
+          .getConstructor() //
+          .newInstance();
       action.setCreationSupport(creationSupport);
     }
     // now "expectedImage"

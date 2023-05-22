@@ -20,18 +20,10 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import net.sf.cglib.asm.Opcodes;
-import net.sf.cglib.core.ClassGenerator;
-import net.sf.cglib.core.CodeEmitter;
-import net.sf.cglib.core.DefaultGeneratorStrategy;
-import net.sf.cglib.core.Signature;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
-import net.sf.cglib.proxy.NoOp;
-import net.sf.cglib.transform.ClassEmitterTransformer;
-import net.sf.cglib.transform.ClassTransformer;
-import net.sf.cglib.transform.TransformingClassGenerator;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.FixedValue;
+import net.bytebuddy.implementation.SuperMethodCall;
+import net.bytebuddy.matcher.ElementMatchers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -805,10 +797,11 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   public void test_getNormalClass() throws Exception {
     assertSame(ArrayList.class, ReflectionUtils.getNormalClass(ArrayList.class));
     {
-      Enhancer enhancer = new Enhancer();
-      enhancer.setSuperclass(ArrayList.class);
-      enhancer.setCallback(NoOp.INSTANCE);
-      Class<?> clazz = enhancer.create().getClass();
+      Class<?> clazz = new ByteBuddy() //
+          .subclass(ArrayList.class) //
+          .make() //
+          .load(getClass().getClassLoader()) //
+          .getLoaded();
       assertThat(clazz.getName()).contains("$");
       assertSame(ArrayList.class, ReflectionUtils.getNormalClass(clazz));
     }
@@ -827,42 +820,15 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     {
       Class<?> clazz;
       {
-        Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(ArrayList.class);
-        enhancer.setStrategy(new DefaultGeneratorStrategy() {
-          private final ClassTransformer t = new ClassEmitterTransformer() {
-            @Override
-            public void begin_class(int version,
-                int access,
-                String className,
-                net.sf.cglib.asm.Type superType,
-                net.sf.cglib.asm.Type[] interfaces,
-                String sourceFile) {
-              super.begin_class(version, access, className, superType, interfaces, sourceFile);
-              CodeEmitter emitter =
-                  begin_method(Opcodes.ACC_PUBLIC, new Signature("__foo__",
-                      net.sf.cglib.asm.Type.VOID_TYPE,
-                      new net.sf.cglib.asm.Type[]{}), null);
-              emitter.return_value();
-              emitter.end_method();
-            }
-          };
-
-          @Override
-          protected ClassGenerator transform(ClassGenerator cg) throws Exception {
-            return new TransformingClassGenerator(cg, t);
-          }
-        });
-        enhancer.setCallback(new MethodInterceptor() {
-          @Override
-          public Object intercept(Object obj,
-              java.lang.reflect.Method method,
-              Object[] args,
-              MethodProxy proxy) throws Throwable {
-            return proxy.invokeSuper(obj, args);
-          }
-        });
-        clazz = enhancer.create().getClass();
+        clazz = new ByteBuddy() //
+            .subclass(ArrayList.class) //
+            .method(ElementMatchers.any()) //
+            .intercept(SuperMethodCall.INSTANCE) //
+            .defineMethod("__foo__", Void.class) //
+            .intercept(FixedValue.nullValue()) //
+            .make() //
+            .load(getClass().getClassLoader()) //
+            .getLoaded();
       }
       // method "size()" was done by CGLib, but exists in ArrayList, so method from ArrayList returned
       {
