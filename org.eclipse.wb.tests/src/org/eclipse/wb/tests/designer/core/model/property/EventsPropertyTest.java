@@ -43,10 +43,14 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.capture;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import org.easymock.Capture;
-import org.easymock.EasyMock;
+import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 
 import java.util.EventObject;
 import java.util.concurrent.atomic.AtomicReference;
@@ -1562,7 +1566,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
   // Stub
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void DISABLE_test_openStubMethod() throws Exception {
+  public void test_openStubMethod() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "// filler filler filler",
@@ -1574,12 +1578,10 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
     IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
     preferences.setValue(P_CREATE_STUB, true);
     // set mock for DesignPageSite
-    IDesignPageSite pageSite;
-    Capture<Integer> openSourcePosition = new Capture<Integer>();
+    DesignPageSite pageSite;
+    ArgumentCaptor<Integer> openSourcePosition = ArgumentCaptor.forClass(Integer.class);
     {
-      pageSite = EasyMock.createStrictMock(IDesignPageSite.class);
-      pageSite.openSourcePosition(capture(openSourcePosition));
-      EasyMock.replay(pageSite);
+      pageSite = mock(DesignPageSite.class);
       // do set
       DesignPageSite.Helper.setSite(panel, pageSite);
     }
@@ -1588,7 +1590,8 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
     ReflectionUtils.invokeMethod(keyPressedProperty, "openStubMethod()");
     waitEventLoop(0);
     // verify
-    EasyMock.verify(pageSite);
+    verify(pageSite).openSourcePosition(openSourcePosition.capture());
+    verifyNoMoreInteractions(pageSite);
     assertEditor(
         "// filler filler filler",
         "public class Test extends JPanel {",
@@ -1605,7 +1608,6 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
         "}");
     // check captured position
     {
-      assertTrue(openSourcePosition.hasCaptured());
       assertTrue(openSourcePosition.getValue() != 0);
       MethodDeclaration openMethod = m_lastEditor.getEnclosingMethod(openSourcePosition.getValue());
       assertEquals("do_this_keyPressed", openMethod.getName().getIdentifier());
@@ -1615,12 +1617,13 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
       String expectedsource = m_lastEditor.getSource();
       // reset mock
       {
-        EasyMock.reset(pageSite);
-        pageSite.openSourcePosition(openSourcePosition.getValue());
-        EasyMock.replay(pageSite);
+        clearInvocations(pageSite);
       }
       // again, open stub
       ReflectionUtils.invokeMethod(keyPressedProperty, "openStubMethod()");
+      waitEventLoop(0);
+      verify(pageSite).openSourcePosition(openSourcePosition.capture());
+      verifyNoMoreInteractions(pageSite);
       assertEquals(expectedsource, m_lastEditor.getSource());
     }
   }
@@ -1823,7 +1826,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
    * listener.<br>
    * In this case such listener/method combination exists.
    */
-  public void DISABLE_test_openStubListenerMethod_valid() throws Exception {
+  public void test_openStubListenerMethod_valid() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "// filler filler filler",
@@ -1832,11 +1835,9 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
             "  }",
             "}");
     // set mock for DesignPageSite
-    IDesignPageSite pageSite;
+    DesignPageSite pageSite;
     {
-      pageSite = EasyMock.createStrictMock(IDesignPageSite.class);
-      pageSite.openSourcePosition(org.easymock.EasyMock.anyInt());
-      EasyMock.replay(pageSite);
+      pageSite = mock(DesignPageSite.class);
       // do set
       DesignPageSite.Helper.setSite(panel, pageSite);
     }
@@ -1845,7 +1846,8 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
     eventsProperty.openStubMethod("key/pressed");
     waitEventLoop(0);
     // test results
-    EasyMock.verify(pageSite);
+    verify(pageSite).openSourcePosition(ArgumentMatchers.anyInt());
+    verifyNoMoreInteractions(pageSite);
     assertEditor(
         "// filler filler filler",
         "public class Test extends JPanel {",
@@ -1878,11 +1880,9 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
     ComponentInfo button = getJavaInfoByName("button");
     // set mock for DesignPageSite
     IDesignPageSite pageSite;
-    Capture<Integer> openSourcePosition = new Capture<Integer>();
+    ArgumentCaptor<Integer> openSourcePosition = ArgumentCaptor.forClass(Integer.class);
     {
-      pageSite = EasyMock.createStrictMock(IDesignPageSite.class);
-      pageSite.openSourcePosition(capture(openSourcePosition));
-      EasyMock.replay(pageSite);
+      pageSite = mock(IDesignPageSite.class);
       // do set
       DesignPageSite.Helper.setSite(button, pageSite);
     }
@@ -1891,7 +1891,8 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
     eventsProperty.openStubMethod("wbp:openSource");
     waitEventLoop(0);
     // test results
-    EasyMock.verify(pageSite);
+    verify(pageSite).openSourcePosition(openSourcePosition.capture());
+    verifyNoMoreInteractions(pageSite);
     assertEquals(
         button.getCreationSupport().getNode().getStartPosition(),
         openSourcePosition.getValue().intValue());
@@ -1960,8 +1961,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
     // set mock for DesignPageSite
     IDesignPageSite pageSite;
     {
-      pageSite = EasyMock.createStrictMock(IDesignPageSite.class);
-      EasyMock.replay(pageSite);
+      pageSite = mock(IDesignPageSite.class);
       // do set
       DesignPageSite.Helper.setSite(panel, pageSite);
     }
@@ -1969,7 +1969,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
     EventsProperty eventsProperty = (EventsProperty) panel.getPropertyByTitle("Events");
     eventsProperty.openStubMethod("no-such-listener/no-matter-what-method");
     // test results
-    EasyMock.verify(pageSite);
+    verifyNoInteractions(pageSite);
     assertEditor(
         "// filler filler filler",
         "public class Test extends JPanel {",

@@ -41,10 +41,10 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.widgets.Table;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-import org.easymock.Capture;
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
+import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 
@@ -555,7 +555,7 @@ public class TableViewerColumnTest extends RcpModelTest {
   // "sorter" property
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void DISABLE_test_sorterProperty() throws Exception {
+  public void test_sorterProperty() throws Exception {
     CompositeInfo shell =
         parseComposite(
             "public class Test extends Shell {",
@@ -580,16 +580,14 @@ public class TableViewerColumnTest extends RcpModelTest {
     assertEquals("<double click>", getPropertyText(sorterProperty));
     // kick "doubleClick", assert that some position opened
     {
-      Capture<Integer> positionCapture = new Capture<Integer>();
+      ArgumentCaptor<Integer> positionCapture = ArgumentCaptor.forClass(Integer.class);
       // prepare scenario
-      IMocksControl mocksControl = EasyMock.createStrictControl();
-      IDesignPageSite designerPageSite = mocksControl.createMock(IDesignPageSite.class);
-      designerPageSite.openSourcePosition(org.easymock.EasyMock.capture(positionCapture));
-      mocksControl.replay();
+      IDesignPageSite designerPageSite = mock(IDesignPageSite.class);
       // use DesignPageSite, open position
       DesignPageSite.Helper.setSite(shell, designerPageSite);
       sorterEditor.doubleClick(sorterProperty, null);
-      mocksControl.verify();
+      //
+      verify(designerPageSite).openSourcePosition(positionCapture.capture());
       // source
       assertThat(m_lastEditor.getSource()).contains(
           "new TableViewerColumnSorter(tableViewerColumn) {");

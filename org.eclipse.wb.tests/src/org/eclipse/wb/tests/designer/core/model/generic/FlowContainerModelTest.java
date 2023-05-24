@@ -28,15 +28,15 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.designer.tests.mock.EasyMockTemplate;
-import org.eclipse.wb.tests.designer.tests.mock.MockRunnable;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.createStrictControl;
-import static org.easymock.EasyMock.expect;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.apache.commons.lang.StringUtils;
-import org.easymock.IMocksControl;
+import org.mockito.InOrder;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -548,7 +548,7 @@ public class FlowContainerModelTest extends SwingModelTest {
   // Duck typing
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static class MyFlowContainer extends JavaInfo {
+  public static class MyFlowContainer extends JavaInfo {
     public MyFlowContainer(AstEditor editor,
         ComponentDescription description,
         CreationSupport creationSupport) throws Exception {
@@ -567,7 +567,7 @@ public class FlowContainerModelTest extends SwingModelTest {
     public void command_MOVE_after(Object component, Object nextComponent) {
     }
   }
-  private static class MyFlowContainer_useMostSpecific extends JavaInfo {
+  public static class MyFlowContainer_useMostSpecific extends JavaInfo {
     public MyFlowContainer_useMostSpecific(AstEditor editor,
         ComponentDescription description,
         CreationSupport creationSupport) throws Exception {
@@ -588,10 +588,10 @@ public class FlowContainerModelTest extends SwingModelTest {
    * implementation.
    */
   public void test_duckTyping() throws Exception {
-    IMocksControl mocksControl = createStrictControl();
-    final JavaInfo component = mocksControl.createMock(JavaInfo.class);
-    final JavaInfo nextComponent = mocksControl.createMock(JavaInfo.class);
-    final MyFlowContainer container = mocksControl.createMock(MyFlowContainer.class);
+    final JavaInfo component = mock(JavaInfo.class);
+    final JavaInfo nextComponent = mock(JavaInfo.class);
+    final MyFlowContainer container = mock(MyFlowContainer.class);
+    final InOrder inOrder = inOrder(component, nextComponent, container);
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
@@ -601,42 +601,29 @@ public class FlowContainerModelTest extends SwingModelTest {
                 ContainerObjectValidators.alwaysTrue(),
                 StringUtils.EMPTY));
     // CREATE
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        container.command_CREATE(component, nextComponent);
-        container.command_CREATE_after(component, nextComponent);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        flowContainer.command_CREATE(component, nextComponent);
-      }
-    });
+    flowContainer.command_CREATE(component, nextComponent);
+    //
+    inOrder.verify(container).command_CREATE(component, nextComponent);
+    inOrder.verify(container).command_CREATE_after(component, nextComponent);
+    inOrder.verifyNoMoreInteractions();
     // MOVE
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        container.command_MOVE(component, nextComponent);
-        container.command_MOVE_after(component, nextComponent);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        flowContainer.command_MOVE(component, nextComponent);
-      }
-    });
+    clearInvocations(container);
+    //
+    flowContainer.command_MOVE(component, nextComponent);
+    //
+    inOrder.verify(container).command_MOVE(component, nextComponent);
+    inOrder.verify(container).command_MOVE_after(component, nextComponent);
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
    * Test that most specific version "command_CREATE" method is used.
    */
   public void test_duckTyping_useMostSpecific() throws Exception {
-    IMocksControl mocksControl = createStrictControl();
-    final JavaInfo component = mocksControl.createMock(JavaInfo.class);
-    final JavaInfo nextComponent = mocksControl.createMock(JavaInfo.class);
-    final MyFlowContainer_useMostSpecific container =
-        mocksControl.createMock(MyFlowContainer_useMostSpecific.class);
+    final JavaInfo component = mock(JavaInfo.class);
+    final JavaInfo nextComponent = mock(JavaInfo.class);
+    final MyFlowContainer_useMostSpecific container = mock(MyFlowContainer_useMostSpecific.class);
+    final InOrder inOrder = inOrder(component, nextComponent, container);
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
@@ -646,17 +633,10 @@ public class FlowContainerModelTest extends SwingModelTest {
                 ContainerObjectValidators.alwaysTrue(),
                 StringUtils.EMPTY));
     // CREATE
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        container.command_CREATE(component, nextComponent);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        flowContainer.command_CREATE(component, nextComponent);
-      }
-    });
+    flowContainer.command_CREATE(component, nextComponent);
+    //
+    inOrder.verify(container).command_CREATE(component, nextComponent);
+    inOrder.verifyNoMoreInteractions();
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -665,52 +645,37 @@ public class FlowContainerModelTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_validateMethods() throws Exception {
-    IMocksControl mocksControl = createStrictControl();
-    JavaInfo container = mocksControl.createMock(JavaInfo.class);
-    final JavaInfo component = mocksControl.createMock(JavaInfo.class);
-    final JavaInfo reference = mocksControl.createMock(JavaInfo.class);
-    final FlowContainerConfiguration configuration =
-        mocksControl.createMock(FlowContainerConfiguration.class);
+    final JavaInfo container = mock(JavaInfo.class);
+    final JavaInfo component = mock(JavaInfo.class);
+    final JavaInfo reference = mock(JavaInfo.class);
+    final FlowContainerConfiguration configuration = mock(FlowContainerConfiguration.class);
+    final InOrder inOrder = inOrder(container, component, reference, configuration);
     final FlowContainer flowContainer = new FlowContainerConfigurable(container, configuration);
     // isHorizontal()
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        Predicate<Object> horizontalPredicate = Predicates.alwaysTrue();
-        expect(configuration.getHorizontalPredicate()).andReturn(horizontalPredicate);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertTrue(flowContainer.isHorizontal());
-      }
-    });
+    when(configuration.getHorizontalPredicate()).thenReturn(Predicates.alwaysTrue());
+    //
+    assertTrue(flowContainer.isHorizontal());
+    //
+    inOrder.verify(configuration).getHorizontalPredicate();
+    inOrder.verifyNoMoreInteractions();
     // validateComponent() = true
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        expect(configuration.getComponentValidator()).andReturn(
-            ContainerObjectValidators.alwaysTrue());
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertTrue(flowContainer.validateComponent(component));
-      }
-    });
+    clearInvocations(configuration);
+    //
+    when(configuration.getComponentValidator()).thenReturn(ContainerObjectValidators.alwaysTrue());
+    //
+    assertTrue(flowContainer.validateComponent(component));
+    //
+    inOrder.verify(configuration).getComponentValidator();
+    inOrder.verifyNoMoreInteractions();
     // validateReference() = false
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        expect(configuration.getReferenceValidator()).andReturn(
-            ContainerObjectValidators.alwaysTrue());
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertTrue(flowContainer.validateReference(reference));
-      }
-    });
+    clearInvocations(configuration);
+    //
+    when(configuration.getReferenceValidator()).thenReturn(ContainerObjectValidators.alwaysTrue());
+    //
+    assertTrue(flowContainer.validateReference(reference));
+    //
+    inOrder.verify(configuration).getReferenceValidator();
+    inOrder.verifyNoMoreInteractions();
   }
 
   ////////////////////////////////////////////////////////////////////////////

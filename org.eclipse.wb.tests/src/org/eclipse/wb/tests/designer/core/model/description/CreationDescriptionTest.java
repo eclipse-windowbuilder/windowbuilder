@@ -21,10 +21,10 @@ import org.eclipse.swt.graphics.Image;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
-import static org.easymock.EasyMock.createStrictMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -67,16 +67,16 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // prepare ComponentDescription
     ComponentDescription component;
     {
-      component = createStrictMock(ComponentDescription.class);
-      expect(component.getComponentClass()).andReturn((Class) JButton.class);
-      replay(component);
+      component = mock(ComponentDescription.class);
+      when(component.getComponentClass()).thenReturn((Class) JButton.class);
     }
     // prepare creation
     CreationDescription creation = new CreationDescription(component, "myId", "myName");
     assertEquals("myId", creation.getId());
     assertEquals("myName", creation.getName());
     // final verification
-    verify(component);
+    verify(component).getComponentClass();
+    verifyNoMoreInteractions(component);
   }
 
   /**
@@ -87,16 +87,16 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // prepare ComponentDescription
     ComponentDescription component;
     {
-      component = createStrictMock(ComponentDescription.class);
-      expect(component.getComponentClass()).andReturn((Class) JButton.class);
-      replay(component);
+      component = mock(ComponentDescription.class);
+      when(component.getComponentClass()).thenReturn((Class) JButton.class);
     }
     // prepare creation
     CreationDescription creation = new CreationDescription(component, "myId", null);
     assertEquals("myId", creation.getId());
     assertEquals("JButton", creation.getName());
     // final verification
-    verify(component);
+    verify(component).getComponentClass();
+    verifyNoMoreInteractions(component);
   }
 
   /**
@@ -108,11 +108,10 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // prepare ComponentDescription
     ComponentDescription component;
     {
-      component = createStrictMock(ComponentDescription.class);
-      expect(component.getComponentClass()).andReturn((Class) JButton.class);
-      expect(component.getIcon()).andReturn(TYPE_ICON);
-      expect(component.getDescription()).andReturn("type description");
-      replay(component);
+      component = mock(ComponentDescription.class);
+      when(component.getComponentClass()).thenReturn((Class) JButton.class);
+      when(component.getIcon()).thenReturn(TYPE_ICON);
+      when(component.getDescription()).thenReturn("type description");
     }
     // prepare creation
     CreationDescription creation = new CreationDescription(component, "myId", "myName");
@@ -123,7 +122,10 @@ public class CreationDescriptionTest extends DesignerTestCase {
     assertNull(creation.getSource());
     assertEquals(0, creation.getInvocations().size());
     // final verification
-    verify(component);
+    verify(component).getComponentClass();
+    verify(component).getIcon();
+    verify(component).getDescription();
+    verifyNoMoreInteractions(component);
   }
 
   /**
@@ -135,9 +137,8 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // prepare ComponentDescription
     ComponentDescription component;
     {
-      component = createStrictMock(ComponentDescription.class);
-      expect(component.getComponentClass()).andReturn((Class) JButton.class);
-      replay(component);
+      component = mock(ComponentDescription.class);
+      when(component.getComponentClass()).thenReturn((Class) JButton.class);
     }
     // prepare creation
     CreationDescription creation = new CreationDescription(component, "myId", "myName");
@@ -148,7 +149,8 @@ public class CreationDescriptionTest extends DesignerTestCase {
     creation.setDescription("creation description");
     assertEquals("creation description", creation.getDescription());
     // final verification
-    verify(component);
+    verify(component).getComponentClass();
+    verifyNoMoreInteractions(component);
   }
 
   /**
@@ -159,16 +161,16 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // prepare ComponentDescription
     ComponentDescription component;
     {
-      component = createStrictMock(ComponentDescription.class);
-      expect(component.getComponentClass()).andReturn((Class) JButton.class);
-      replay(component);
+      component = mock(ComponentDescription.class);
+      when(component.getComponentClass()).thenReturn((Class) JButton.class);
     }
     // prepare creation
     CreationDescription creation = new CreationDescription(component, "myId", "myName");
     creation.setDescription("creation \r\n     \t  description");
     assertEquals("creation description", creation.getDescription());
     // final verification
-    verify(component);
+    verify(component).getComponentClass();
+    verifyNoMoreInteractions(component);
   }
 
   /**
@@ -179,9 +181,8 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // prepare ComponentDescription
     ComponentDescription component;
     {
-      component = createStrictMock(ComponentDescription.class);
-      expect(component.getComponentClass()).andReturn((Class) JButton.class);
-      replay(component);
+      component = mock(ComponentDescription.class);
+      when(component.getComponentClass()).thenReturn((Class) JButton.class);
     }
     // check creation
     CreationDescription creation = new CreationDescription(component, "myId", "myName");
@@ -196,7 +197,8 @@ public class CreationDescriptionTest extends DesignerTestCase {
       assertEquals("new javax.swing.JButton()", creation.getSource());
     }
     // final verification
-    verify(component);
+    verify(component).getComponentClass();
+    verifyNoMoreInteractions(component);
   }
 
   /**
@@ -209,9 +211,8 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // prepare ComponentDescription
     ComponentDescription component;
     {
-      component = createStrictMock(ComponentDescription.class);
-      expect(component.getComponentClass()).andReturn((Class) MyInnerClass.class);
-      replay(component);
+      component = mock(ComponentDescription.class);
+      when(component.getComponentClass()).thenReturn((Class) MyInnerClass.class);
     }
     // check creation
     CreationDescription creation = new CreationDescription(component, "myId", "myName");
@@ -223,7 +224,8 @@ public class CreationDescriptionTest extends DesignerTestCase {
           creation.getSource());
     }
     // final verification
-    verify(component);
+    verify(component).getComponentClass();
+    verifyNoMoreInteractions(component);
   }
 
   /**
@@ -234,9 +236,8 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // prepare ComponentDescription
     ComponentDescription component;
     {
-      component = createStrictMock(ComponentDescription.class);
-      expect(component.getComponentClass()).andReturn((Class) JButton.class);
-      replay(component);
+      component = mock(ComponentDescription.class);
+      when(component.getComponentClass()).thenReturn((Class) JButton.class);
     }
     // check creation
     CreationDescription creation = new CreationDescription(component, "myId", "myName");
@@ -257,7 +258,8 @@ public class CreationDescriptionTest extends DesignerTestCase {
       assertTrue(invocations.contains(invocation));
     }
     // final verification
-    verify(component);
+    verify(component).getComponentClass();
+    verifyNoMoreInteractions(component);
   }
 
   /**
@@ -268,9 +270,8 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // prepare ComponentDescription
     ComponentDescription component;
     {
-      component = createStrictMock(ComponentDescription.class);
-      expect(component.getComponentClass()).andReturn((Class) JButton.class);
-      replay(component);
+      component = mock(ComponentDescription.class);
+      when(component.getComponentClass()).thenReturn((Class) JButton.class);
     }
     // prepare creation
     CreationDescription creation = new CreationDescription(component, "myId", "myName");
@@ -283,6 +284,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
         entry("name_1", "value_1"),
         entry("name_2", "value_2"));
     // final verification
-    verify(component);
+    verify(component).getComponentClass();
+    verifyNoMoreInteractions(component);
   }
 }

@@ -25,12 +25,12 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.createStrictMock;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.reset;
-import static org.easymock.EasyMock.verify;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.mockito.InOrder;
 
 import java.util.List;
 import java.util.Map;
@@ -544,88 +544,80 @@ public class ObjectInfoTest extends DesignerTestCase {
     ObjectInfo child = new TestObjectInfo();
     parent.addChild(child);
     // prepare mock
-    ObjectEventListener listener = createStrictMock(ObjectEventListener.class);
+    ObjectEventListener listener = mock(ObjectEventListener.class);
+    InOrder inOrder = inOrder(listener);
     // add listener
     parent.addBroadcastListener(listener);
     // case 1: only root can be refreshed
     {
-      reset(listener);
-      replay(listener);
       try {
         child.refresh();
         fail();
       } catch (IllegalArgumentException e) {
       }
-      verify(listener);
+      //
+      inOrder.verifyNoMoreInteractions();
     }
     // case 2: refresh root
     {
-      reset(listener);
-      listener.refreshDispose();
-      listener.refreshBeforeCreate();
-      listener.refreshAfterCreate0();
-      listener.refreshAfterCreate();
-      listener.refreshAfterCreate2();
-      listener.refreshFinallyRefresh();
-      listener.refreshed();
-      listener.refreshed2();
-      replay(listener);
       // do refresh
       parent.refresh();
-      verify(listener);
+      //
+      inOrder.verify(listener).refreshDispose();
+      inOrder.verify(listener).refreshBeforeCreate();
+      inOrder.verify(listener).refreshAfterCreate0();
+      inOrder.verify(listener).refreshAfterCreate();
+      inOrder.verify(listener).refreshAfterCreate2();
+      inOrder.verify(listener).refreshFinallyRefresh();
+      inOrder.verify(listener).refreshed();
+      inOrder.verify(listener).refreshed2();
+      inOrder.verifyNoMoreInteractions();
     }
     // case 3: use start/endEdit for root
     {
-      reset(listener);
-      listener.endEdit_aboutToRefresh();
-      listener.refreshDispose();
-      listener.refreshBeforeCreate();
-      listener.refreshAfterCreate0();
-      listener.refreshAfterCreate();
-      listener.refreshAfterCreate2();
-      listener.refreshFinallyRefresh();
-      listener.refreshed();
-      listener.refreshed2();
-      replay(listener);
+      clearInvocations(listener);
       // do edit operation
       try {
         parent.startEdit();
       } finally {
         parent.endEdit();
       }
-      verify(listener);
+      //
+      inOrder.verify(listener).endEdit_aboutToRefresh();
+      inOrder.verify(listener).refreshDispose();
+      inOrder.verify(listener).refreshBeforeCreate();
+      inOrder.verify(listener).refreshAfterCreate0();
+      inOrder.verify(listener).refreshAfterCreate();
+      inOrder.verify(listener).refreshAfterCreate2();
+      inOrder.verify(listener).refreshFinallyRefresh();
+      inOrder.verify(listener).refreshed();
+      inOrder.verify(listener).refreshed2();
+      inOrder.verifyNoMoreInteractions();
     }
     // case 4: use start/endEdit for child
     {
-      reset(listener);
-      listener.endEdit_aboutToRefresh();
-      listener.refreshDispose();
-      listener.refreshBeforeCreate();
-      listener.refreshAfterCreate0();
-      listener.refreshAfterCreate();
-      listener.refreshAfterCreate2();
-      listener.refreshFinallyRefresh();
-      listener.refreshed();
-      listener.refreshed2();
-      replay(listener);
+      clearInvocations(listener);
       // do edit operation
       try {
         child.startEdit();
       } finally {
         child.endEdit();
       }
-      verify(listener);
+      //
+      inOrder.verify(listener).endEdit_aboutToRefresh();
+      inOrder.verify(listener).refreshDispose();
+      inOrder.verify(listener).refreshBeforeCreate();
+      inOrder.verify(listener).refreshAfterCreate0();
+      inOrder.verify(listener).refreshAfterCreate();
+      inOrder.verify(listener).refreshAfterCreate2();
+      inOrder.verify(listener).refreshFinallyRefresh();
+      inOrder.verify(listener).refreshed();
+      inOrder.verify(listener).refreshed2();
+      inOrder.verifyNoMoreInteractions();
     }
     // case 5: disable refresh
     {
-      reset(listener);
-      listener.refreshDispose();
-      listener.refreshBeforeCreate();
-      listener.refreshAfterCreate0();
-      listener.refreshAfterCreate();
-      listener.refreshAfterCreate2();
-      listener.refreshFinallyRefresh();
-      replay(listener);
+      clearInvocations(listener);
       // do refresh
       parent.putArbitraryValue(ObjectInfo.KEY_NO_REFRESHED_BROADCAST, Boolean.FALSE);
       try {
@@ -634,16 +626,22 @@ public class ObjectInfoTest extends DesignerTestCase {
         parent.removeArbitraryValue(ObjectInfo.KEY_NO_REFRESHED_BROADCAST);
       }
       // no refreshed() notifications expected
-      verify(listener);
+      inOrder.verify(listener).refreshDispose();
+      inOrder.verify(listener).refreshBeforeCreate();
+      inOrder.verify(listener).refreshAfterCreate0();
+      inOrder.verify(listener).refreshAfterCreate();
+      inOrder.verify(listener).refreshAfterCreate2();
+      inOrder.verify(listener).refreshFinallyRefresh();
+      inOrder.verifyNoMoreInteractions();
     }
     // case 6: remove listener, we should not receive refresh notifications
     {
-      reset(listener);
-      replay(listener);
+      clearInvocations(listener);
       // do refresh
       parent.removeBroadcastListener(listener);
       parent.refresh();
-      verify(listener);
+      //
+      inOrder.verifyNoMoreInteractions();
     }
   }
 

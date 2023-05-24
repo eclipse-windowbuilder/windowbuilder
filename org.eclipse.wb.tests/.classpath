@@ -11,6 +11,5 @@
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="lib/EasyMock-3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

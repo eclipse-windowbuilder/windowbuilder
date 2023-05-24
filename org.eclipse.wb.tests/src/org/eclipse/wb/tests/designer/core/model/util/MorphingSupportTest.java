@@ -37,8 +37,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import org.easymock.EasyMock;
+import static org.mockito.Mockito.mock;
 
 import java.util.List;
 
@@ -898,7 +897,7 @@ public class MorphingSupportTest extends SwingModelTest {
     // "object" methods
     {
       assertEquals(0, action.hashCode());
-      assertEquals(action, EasyMock.createStrictMock(action.getClass()));
+      assertEquals(action, mock(action.getClass()));
       assertFalse(action.equals(this));
     }
     // do run, morphing should be performed

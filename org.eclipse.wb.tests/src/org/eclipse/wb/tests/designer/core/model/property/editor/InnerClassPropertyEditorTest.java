@@ -25,8 +25,9 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * Test for {@link InnerClassPropertyEditor}.
@@ -92,14 +93,13 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
     {
       int expectedPosition = ((GenericProperty) property).getExpression().getStartPosition();
       // prepare scenario
-      IMocksControl mocksControl = EasyMock.createStrictControl();
-      IDesignPageSite designerPageSite = mocksControl.createMock(IDesignPageSite.class);
-      designerPageSite.openSourcePosition(expectedPosition);
-      mocksControl.replay();
+      IDesignPageSite designerPageSite = mock(IDesignPageSite.class);
       // use DesignPageSite, open position
       DesignPageSite.Helper.setSite(button, designerPageSite);
       propertyEditor.doubleClick(property, null);
-      mocksControl.verify();
+      //
+      verify(designerPageSite).openSourcePosition(expectedPosition);
+      verifyNoMoreInteractions(designerPageSite);
     }
   }
 

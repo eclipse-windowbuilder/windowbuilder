@@ -27,7 +27,10 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 
-import org.easymock.EasyMock;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.Map;
 import java.util.Set;
@@ -96,15 +99,17 @@ public class AbstractNamedTest extends AbstractVariableTest {
    * <code>"."</code>.
    */
   public void test_getAccessExpression() throws Exception {
-    AbstractNamedVariableSupport variable =
-        EasyMock.createStrictMock(AbstractNamedVariableSupport.class);
+    AbstractNamedVariableSupport variable = mock(AbstractNamedVariableSupport.class);
     NodeTarget target = null;
     // configure variable
-    org.easymock.EasyMock.expect(variable.getReferenceExpression(target)).andReturn("button");
-    EasyMock.replay(variable);
+    when(variable.getAccessExpression(target)).thenCallRealMethod();
+    when(variable.getReferenceExpression(target)).thenReturn("button");
     // do verify
     assertEquals("button.", variable.getAccessExpression(target));
-    EasyMock.verify(variable);
+    //
+    verify(variable).getAccessExpression(target);
+    verify(variable).getReferenceExpression(target);
+    verifyNoMoreInteractions(variable);
   }
 
   ////////////////////////////////////////////////////////////////////////////

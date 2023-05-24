@@ -84,10 +84,10 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.ui.ide.IDE;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.easymock.EasyMock;
 
 import java.util.List;
 
@@ -7202,7 +7202,7 @@ public class AstEditorTest extends AbstractJavaTest {
         "import javax.swing.*;",
         "public class Test {",
         "}");
-    VariableDeclaration variableDeclaration = EasyMock.createMock(VariableDeclaration.class);
+    VariableDeclaration variableDeclaration = mock(VariableDeclaration.class);
     try {
       m_lastEditor.replaceVariableType(variableDeclaration, "javax.swing.JTextField");
       fail();
