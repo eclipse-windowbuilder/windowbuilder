@@ -24,14 +24,13 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.designer.tests.mock.EasyMockTemplate;
-import org.eclipse.wb.tests.designer.tests.mock.MockRunnable2;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.expect;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
+import org.mockito.InOrder;
 
 import java.util.List;
 
@@ -201,19 +200,19 @@ public class CompoundAssociationTest extends SwingModelTest {
    * deleted, then {@link CompoundAssociation} also can not be deleted.
    */
   public void test_canNotDelete() throws Exception {
-    IMocksControl mockControl = EasyMock.createStrictControl();
     // prepare mocks
-    Association association_1 = mockControl.createMock(Association.class);
-    Association association_2 = mockControl.createMock(Association.class);
+    Association association_1 = mock(Association.class);
+    Association association_2 = mock(Association.class);
+    InOrder inOrder = inOrder(association_1, association_2);
     // record expectations: one association can not be deleted
-    mockControl.reset();
-    expect(association_1.canDelete()).andReturn(true);
-    expect(association_2.canDelete()).andReturn(false);
-    mockControl.replay();
+    when(association_1.canDelete()).thenReturn(true);
     // verify: ...so compound association also can not be deleted
     CompoundAssociation compoundAssociation = new CompoundAssociation(association_1, association_2);
     assertFalse(compoundAssociation.canDelete());
-    mockControl.verify();
+    //
+    inOrder.verify(association_1).canDelete();
+    inOrder.verify(association_2).canDelete();
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
@@ -221,19 +220,20 @@ public class CompoundAssociationTest extends SwingModelTest {
    * {@link CompoundAssociation} also can be deleted.
    */
   public void test_canDelete() throws Exception {
-    IMocksControl mockControl = EasyMock.createStrictControl();
     // prepare mocks
-    Association association_1 = mockControl.createMock(Association.class);
-    Association association_2 = mockControl.createMock(Association.class);
+    Association association_1 = mock(Association.class);
+    Association association_2 = mock(Association.class);
+    InOrder inOrder = inOrder(association_1, association_2);
     // record expectations: all associations can be deleted
-    mockControl.reset();
-    expect(association_1.canDelete()).andReturn(true);
-    expect(association_2.canDelete()).andReturn(true);
-    mockControl.replay();
+    when(association_1.canDelete()).thenReturn(true);
+    when(association_2.canDelete()).thenReturn(true);
     // verify: ...so compound association also can be deleted
     CompoundAssociation compoundAssociation = new CompoundAssociation(association_1, association_2);
     assertTrue(compoundAssociation.canDelete());
-    mockControl.verify();
+    //
+    inOrder.verify(association_1).canDelete();
+    inOrder.verify(association_2).canDelete();
+    inOrder.verifyNoMoreInteractions();
   }
 
   public void test_delete() throws Exception {
@@ -275,33 +275,22 @@ public class CompoundAssociationTest extends SwingModelTest {
             "  public Test() {",
             "  }",
             "}");
-    final IMocksControl mocksControl = EasyMock.createStrictControl();
-    EasyMockTemplate.run(mocksControl, new MockRunnable2() {
-      Association association_1 = mocksControl.createMock(Association.class);
-      Association association_2 = mocksControl.createMock(Association.class);
-      Association compoundAssociation = new CompoundAssociation(association_1, association_2);
-
-      @Override
-      public void configure() throws Exception {
-        panel.setAssociation(compoundAssociation);
-      }
-
-      @Override
-      public void expectations() throws Exception {
-        expect(association_1.remove()).andReturn(true);
-        expect(association_2.remove()).andReturn(true);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertTrue(compoundAssociation.remove());
-      }
-
-      @Override
-      public void verify() throws Exception {
-        assertNull(panel.getAssociation());
-      }
-    });
+    Association association_1 = mock(Association.class);
+    Association association_2 = mock(Association.class);
+    InOrder inOrder = inOrder(association_1, association_2);
+    Association compoundAssociation = new CompoundAssociation(association_1, association_2);
+    //
+    panel.setAssociation(compoundAssociation);
+    //
+    when(association_1.remove()).thenReturn(true);
+    when(association_2.remove()).thenReturn(true);
+    //
+    assertTrue(compoundAssociation.remove());
+    assertNull(panel.getAssociation());
+    //
+    inOrder.verify(association_1).remove();
+    inOrder.verify(association_2).remove();
+    inOrder.verifyNoMoreInteractions();
   }
 
   public void test_moveInner() throws Exception {

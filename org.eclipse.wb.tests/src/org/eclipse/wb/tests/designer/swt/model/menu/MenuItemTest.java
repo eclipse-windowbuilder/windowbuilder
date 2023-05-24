@@ -26,7 +26,11 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
 
-import org.easymock.EasyMock;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
+import org.mockito.ArgumentMatchers;
 
 import java.util.List;
 
@@ -490,17 +494,16 @@ public class MenuItemTest extends RcpModelTest {
     // set mock for DesignPageSite
     IDesignPageSite pageSite;
     {
-      pageSite = EasyMock.createStrictMock(IDesignPageSite.class);
+      pageSite = mock(IDesignPageSite.class);
       DesignPageSite.Helper.setSite(shell, pageSite);
-      pageSite.openSourcePosition(org.easymock.EasyMock.anyInt());
-      EasyMock.replay(pageSite);
     }
     // add selection listener
     EventsProperty eventsProperty = (EventsProperty) menuItem.getPropertyByTitle("Events");
     eventsProperty.openStubMethod("selection/widgetSelected");
     waitEventLoop(0);
     // test results
-    EasyMock.verify(pageSite);
+    verify(pageSite).openSourcePosition(ArgumentMatchers.anyInt());
+    verifyNoMoreInteractions(pageSite);
     assertEditor(
         "public class Test extends Shell {",
         "  public Test() {",

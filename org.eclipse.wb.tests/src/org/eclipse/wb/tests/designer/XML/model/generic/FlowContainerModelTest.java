@@ -28,14 +28,14 @@ import org.eclipse.wb.internal.core.xml.model.generic.FlowContainerConfigurable;
 import org.eclipse.wb.internal.core.xml.model.generic.FlowContainerConfiguration;
 import org.eclipse.wb.internal.core.xml.model.generic.FlowContainerFactory;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
-import org.eclipse.wb.tests.designer.tests.mock.EasyMockTemplate;
-import org.eclipse.wb.tests.designer.tests.mock.MockRunnable;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.expect;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
+import org.mockito.InOrder;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -515,7 +515,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
   // Duck typing
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static class MyFlowContainer extends XmlObjectInfo {
+  public static class MyFlowContainer extends XmlObjectInfo {
     public MyFlowContainer(EditorContext context,
         ComponentDescription description,
         CreationSupport creationSupport) throws Exception {
@@ -537,7 +537,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
     public void command_APPEND_after(Object component, Object nextComponent) {
     }
   }
-  private static class MyFlowContainerForAdd extends XmlObjectInfo {
+  public static class MyFlowContainerForAdd extends XmlObjectInfo {
     public MyFlowContainerForAdd(EditorContext context,
         ComponentDescription description,
         CreationSupport creationSupport) throws Exception {
@@ -553,7 +553,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
     public void command_APPEND_after(Object component, Object nextComponent) {
     }
   }
-  private static class MyFlowContainer_useMostSpecific extends XmlObjectInfo {
+  public static class MyFlowContainer_useMostSpecific extends XmlObjectInfo {
     public MyFlowContainer_useMostSpecific(EditorContext context,
         ComponentDescription description,
         CreationSupport creationSupport) throws Exception {
@@ -574,10 +574,10 @@ public class FlowContainerModelTest extends AbstractCoreTest {
    * implementation.
    */
   public void test_duckTyping() throws Exception {
-    IMocksControl mocksControl = EasyMock.createStrictControl();
-    final XmlObjectInfo component = mocksControl.createMock(XmlObjectInfo.class);
-    final XmlObjectInfo nextComponent = mocksControl.createMock(XmlObjectInfo.class);
-    final MyFlowContainer container = mocksControl.createMock(MyFlowContainer.class);
+    final XmlObjectInfo component = mock(XmlObjectInfo.class);
+    final XmlObjectInfo nextComponent = mock(XmlObjectInfo.class);
+    final MyFlowContainer container = mock(MyFlowContainer.class);
+    final InOrder inOrder = inOrder(component, nextComponent, container);
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
@@ -586,43 +586,31 @@ public class FlowContainerModelTest extends AbstractCoreTest {
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue()));
     // CREATE
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        container.command_CREATE(component, nextComponent);
-        container.command_CREATE_after(component, nextComponent);
-        container.command_APPEND_after(component, nextComponent);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        flowContainer.command_CREATE(component, nextComponent);
-      }
-    });
+    flowContainer.command_CREATE(component, nextComponent);
+    //
+    inOrder.verify(container).command_CREATE(component, nextComponent);
+    inOrder.verify(container).command_CREATE_after(component, nextComponent);
+    inOrder.verify(container).command_APPEND_after(component, nextComponent);
+    inOrder.verifyNoMoreInteractions();
     // MOVE
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        container.command_MOVE(component, nextComponent);
-        container.command_MOVE_after(component, nextComponent);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        flowContainer.command_MOVE(component, nextComponent);
-      }
-    });
+    clearInvocations(container);
+    //
+    flowContainer.command_MOVE(component, nextComponent);
+    //
+    inOrder.verify(container).command_MOVE(component, nextComponent);
+    inOrder.verify(container).command_MOVE_after(component, nextComponent);
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
    * After ADD operation method "command_ADD_after" should be called.
    */
   public void test_duckTyping_ADD() throws Exception {
-    IMocksControl mocksControl = EasyMock.createNiceControl();
-    final XmlObjectInfo component = mocksControl.createMock(XmlObjectInfo.class);
-    final XmlObjectInfo oldContainer = mocksControl.createMock(XmlObjectInfo.class);
-    final XmlObjectInfo nextComponent = mocksControl.createMock(XmlObjectInfo.class);
-    final MyFlowContainerForAdd container = mocksControl.createMock(MyFlowContainerForAdd.class);
+    final XmlObjectInfo component = mock(XmlObjectInfo.class);
+    final XmlObjectInfo oldContainer = mock(XmlObjectInfo.class);
+    final XmlObjectInfo nextComponent = mock(XmlObjectInfo.class);
+    final MyFlowContainerForAdd container = mock(MyFlowContainerForAdd.class);
+    final InOrder inOrder = inOrder(component, oldContainer, nextComponent, container);
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
@@ -631,36 +619,28 @@ public class FlowContainerModelTest extends AbstractCoreTest {
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue()));
     // MOVE (as ADD)
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        ReflectionUtils.setField(component, "m_parent", oldContainer);
-        container.command_ADD_after(component, nextComponent);
-        container.command_APPEND_after(component, nextComponent);
-        container.command_MOVE_after(component, nextComponent);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        System.setProperty("flowContainer.simulateMove", "true");
-        try {
-          flowContainer.command_MOVE(component, nextComponent);
-        } finally {
-          System.clearProperty("flowContainer.simulateMove");
-        }
-      }
-    });
+    ReflectionUtils.setField(component, "m_parent", oldContainer);
+    System.setProperty("flowContainer.simulateMove", "true");
+    try {
+      flowContainer.command_MOVE(component, nextComponent);
+    } finally {
+      System.clearProperty("flowContainer.simulateMove");
+    }
+    //
+    inOrder.verify(container).command_ADD_after(component, nextComponent);
+    inOrder.verify(container).command_APPEND_after(component, nextComponent);
+    inOrder.verify(container).command_MOVE_after(component, nextComponent);
+    inOrder.verifyNoMoreInteractions();
   }
 
   /**
    * Test that most specific version "command_CREATE" method is used.
    */
   public void test_duckTyping_useMostSpecific() throws Exception {
-    IMocksControl mocksControl = EasyMock.createStrictControl();
-    final XmlObjectInfo component = mocksControl.createMock(XmlObjectInfo.class);
-    final XmlObjectInfo nextComponent = mocksControl.createMock(XmlObjectInfo.class);
-    final MyFlowContainer_useMostSpecific container =
-        mocksControl.createMock(MyFlowContainer_useMostSpecific.class);
+    final XmlObjectInfo component = mock(XmlObjectInfo.class);
+    final XmlObjectInfo nextComponent = mock(XmlObjectInfo.class);
+    final MyFlowContainer_useMostSpecific container = mock(MyFlowContainer_useMostSpecific.class);
+    final InOrder inOrder = inOrder(component, nextComponent, container);
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
@@ -669,17 +649,10 @@ public class FlowContainerModelTest extends AbstractCoreTest {
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue()));
     // CREATE
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        container.command_CREATE(component, nextComponent);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        flowContainer.command_CREATE(component, nextComponent);
-      }
-    });
+    flowContainer.command_CREATE(component, nextComponent);
+    //
+    inOrder.verify(container).command_CREATE(component, nextComponent);
+    inOrder.verifyNoMoreInteractions();
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -688,52 +661,37 @@ public class FlowContainerModelTest extends AbstractCoreTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_validateMethods() throws Exception {
-    IMocksControl mocksControl = EasyMock.createStrictControl();
-    XmlObjectInfo container = mocksControl.createMock(XmlObjectInfo.class);
-    final XmlObjectInfo component = mocksControl.createMock(XmlObjectInfo.class);
-    final XmlObjectInfo reference = mocksControl.createMock(XmlObjectInfo.class);
-    final FlowContainerConfiguration configuration =
-        mocksControl.createMock(FlowContainerConfiguration.class);
+    XmlObjectInfo container = mock(XmlObjectInfo.class);
+    final XmlObjectInfo component = mock(XmlObjectInfo.class);
+    final XmlObjectInfo reference = mock(XmlObjectInfo.class);
+    final FlowContainerConfiguration configuration = mock(FlowContainerConfiguration.class);
+    final InOrder inOrder = inOrder(container, component, reference, configuration);
     final FlowContainer flowContainer = new FlowContainerConfigurable(container, configuration);
     // isHorizontal()
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        Predicate<Object> horizontalPredicate = Predicates.alwaysTrue();
-        expect(configuration.getHorizontalPredicate()).andReturn(horizontalPredicate);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertTrue(flowContainer.isHorizontal());
-      }
-    });
+    when(configuration.getHorizontalPredicate()).thenReturn(Predicates.alwaysTrue());
+    //
+    assertTrue(flowContainer.isHorizontal());
+    //
+    inOrder.verify(configuration).getHorizontalPredicate();
+    inOrder.verifyNoMoreInteractions();
     // validateComponent() = true
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        expect(configuration.getComponentValidator()).andReturn(
-            ContainerObjectValidators.alwaysTrue());
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertTrue(flowContainer.validateComponent(component));
-      }
-    });
+    clearInvocations(configuration);
+    //
+    when(configuration.getComponentValidator()).thenReturn(ContainerObjectValidators.alwaysTrue());
+    //
+    assertTrue(flowContainer.validateComponent(component));
+    //
+    inOrder.verify(configuration).getComponentValidator();
+    inOrder.verifyNoMoreInteractions();
     // validateReference() = false
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        expect(configuration.getReferenceValidator()).andReturn(
-            ContainerObjectValidators.alwaysTrue());
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertTrue(flowContainer.validateReference(reference));
-      }
-    });
+    clearInvocations(configuration);
+    //
+    when(configuration.getReferenceValidator()).thenReturn(ContainerObjectValidators.alwaysTrue());
+    //
+    assertTrue(flowContainer.validateReference(reference));
+    //
+    inOrder.verify(configuration).getReferenceValidator();
+    inOrder.verifyNoMoreInteractions();
   }
 
   ////////////////////////////////////////////////////////////////////////////

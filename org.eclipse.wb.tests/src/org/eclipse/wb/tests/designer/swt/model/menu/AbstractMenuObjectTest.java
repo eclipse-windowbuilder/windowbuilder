@@ -20,9 +20,12 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.swt.graphics.Image;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
 import org.apache.commons.lang.NotImplementedException;
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
 
 /**
  * Tests for {@link AbstractMenuObject}.
@@ -30,7 +33,6 @@ import org.easymock.IMocksControl;
  * @author scheglov_ke
  */
 public class AbstractMenuObjectTest extends DesignerTestCase {
-  private IMocksControl m_mocksControl;
   private AbstractMenuObject m_menuObject;
   private IMenuObjectListener m_listener;
 
@@ -42,7 +44,6 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
   @Override
   protected void setUp() throws Exception {
     super.setUp();
-    m_mocksControl = EasyMock.createStrictControl();
     m_menuObject = new AbstractMenuObject(null) {
       @Override
       public Object getModel() {
@@ -64,13 +65,7 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
         throw new NotImplementedException();
       }
     };
-    m_listener = m_mocksControl.createMock(IMenuObjectListener.class);
-  }
-
-  @Override
-  protected void tearDown() throws Exception {
-    m_mocksControl.verify();
-    super.tearDown();
+    m_listener = mock(IMenuObjectListener.class);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -82,12 +77,12 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
    * Test that {@link IMenuObjectListener#refresh()} can be send.
    */
   public void test_refreshEvent() throws Exception {
-    // prepare expectations
-    m_listener.refresh();
-    m_mocksControl.replay();
     // perform operations
     m_menuObject.addListener(m_listener);
     ReflectionUtils.invokeMethod2(m_menuObject, "fireRefreshListeners");
+    //
+    verify(m_listener).refresh();
+    verifyNoMoreInteractions(m_listener);
   }
 
   /**
@@ -95,33 +90,33 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
    */
   public void test_deleteEvent() throws Exception {
     Object object = new Object();
-    // prepare expectations
-    m_listener.deleting(object);
-    m_mocksControl.replay();
     // perform operations
     m_menuObject.addListener(m_listener);
     ReflectionUtils.invokeMethod2(m_menuObject, "fireDeleteListeners", Object.class, object);
+    //
+    verify(m_listener).deleting(object);
+    verifyNoMoreInteractions(m_listener);
   }
 
   /**
    * If {@link IMenuObjectInfo} is not added, it will not receive invocations.
    */
   public void test_noListener_noEvents() throws Exception {
-    // prepare expectations
-    m_mocksControl.replay();
     // perform operations
     ReflectionUtils.invokeMethod2(m_menuObject, "fireRefreshListeners");
+    //
+    verifyNoInteractions(m_listener);
   }
 
   /**
    * If {@link IMenuObjectInfo} is not added, it will not receive invocations.
    */
   public void test_removeListener_noEvents() throws Exception {
-    // prepare expectations
-    m_mocksControl.replay();
     // perform operations
     m_menuObject.addListener(m_listener);
     m_menuObject.removeListener(m_listener);
     ReflectionUtils.invokeMethod2(m_menuObject, "fireRefreshListeners");
+    //
+    verifyNoInteractions(m_listener);
   }
 }

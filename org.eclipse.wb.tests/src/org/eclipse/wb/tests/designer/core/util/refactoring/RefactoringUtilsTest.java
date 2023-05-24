@@ -29,10 +29,10 @@ import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.expect;
-
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 /**
  * Tests for {@link RefactoringUtils}.
@@ -289,13 +289,13 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
     }
     assertThat(newChangeComposite.getChildren()).hasSize(1);
     // expectations
-    IMocksControl mocksControl = EasyMock.createControl();
-    RefactoringParticipant participant = mocksControl.createMock(RefactoringParticipant.class);
-    expect(participant.getTextChange(file)).andReturn(existingChange);
+    RefactoringParticipant participant = mock(RefactoringParticipant.class);
+    when(participant.getTextChange(file)).thenReturn(existingChange);
     // reply
-    mocksControl.replay();
     RefactoringUtils.mergeTextChange(participant, newChangeComposite);
-    mocksControl.verify();
+    //
+    verify(participant).getTextChange(file);
+    verifyNoMoreInteractions(participant);
     // perform change
     existingChange.perform(PM);
     assertEquals("AAbC", getFileContent(file));

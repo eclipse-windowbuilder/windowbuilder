@@ -72,11 +72,12 @@ import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.matcher.ElementMatchers;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.capture;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import org.assertj.core.api.Assertions;
-import org.easymock.Capture;
-import org.easymock.EasyMock;
+import org.mockito.ArgumentCaptor;
 
 import java.awt.FlowLayout;
 import java.lang.reflect.Method;
@@ -327,22 +328,19 @@ public class JavaInfoUtilsTest extends SwingModelTest {
     MethodDeclaration constructor = JavaInfoUtils.getTypeDeclaration(panel).getMethods()[0];
     // set mock for DesignPageSite
     IDesignPageSite pageSite;
-    Capture<Integer> openSourcePosition = new Capture<Integer>();
+    ArgumentCaptor<Integer> openSourcePosition = ArgumentCaptor.forClass(Integer.class);
     {
-      pageSite = EasyMock.createStrictMock(IDesignPageSite.class);
-      pageSite.openSourcePosition(capture(openSourcePosition));
-      EasyMock.replay(pageSite);
+      pageSite = mock(IDesignPageSite.class);
       // do set
       DesignPageSite.Helper.setSite(panel, pageSite);
     }
     // open Node
     JavaInfoUtils.scheduleOpenNode(panel, constructor);
-    // opened only after running messages loop
-    assertFalse(openSourcePosition.hasCaptured());
     waitEventLoop(0);
     //
-    EasyMock.verify(pageSite);
-    assertTrue(openSourcePosition.hasCaptured());
+    verify(pageSite).openSourcePosition(openSourcePosition.capture());
+    verifyNoMoreInteractions(pageSite);
+    //
     assertTrue(openSourcePosition.getValue() != 0);
     assertEquals(constructor.getStartPosition(), openSourcePosition.getValue().intValue());
   }

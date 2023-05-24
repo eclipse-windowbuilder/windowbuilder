@@ -22,11 +22,12 @@ import org.eclipse.wb.internal.core.utils.IAdaptableFactory;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import static org.easymock.EasyMock.createStrictControl;
-import static org.easymock.EasyMock.expect;
-
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -45,8 +46,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Test for {@link MenuObjectInfoUtils#setSelectingObject(IMenuObjectInfo)}.
    */
   public void test_setSelectingObject_menuObject() throws Exception {
-    IMocksControl control = createStrictControl();
-    IMenuObjectInfo object = control.createMock(IMenuObjectInfo.class);
+    IMenuObjectInfo object = mock(IMenuObjectInfo.class);
     //
     MenuObjectInfoUtils.setSelectingObject(object);
     assertSame(object, MenuObjectInfoUtils.m_selectingObject);
@@ -56,16 +56,17 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Test for {@link MenuObjectInfoUtils#setSelectingObject(Object)}.
    */
   public void test_setSelectingObject_pureObject() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IAdaptable object = control.createMock(IAdaptable.class);
-    IMenuItemInfo itemInfo = control.createMock(IMenuItemInfo.class);
+    IAdaptable object = mock(IAdaptable.class);
+    IMenuItemInfo itemInfo = mock(IMenuItemInfo.class);
     // prepare scenario
-    expect(object.getAdapter(IMenuObjectInfo.class)).andReturn(itemInfo);
-    control.replay();
+    when(object.getAdapter(IMenuObjectInfo.class)).thenReturn(itemInfo);
     // validate
     MenuObjectInfoUtils.setSelectingObject(object);
     assertSame(itemInfo, MenuObjectInfoUtils.m_selectingObject);
-    control.verify();
+    //
+    verify(object).getAdapter(IMenuObjectInfo.class);
+    verifyNoMoreInteractions(object);
+    verifyNoInteractions(itemInfo);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -78,13 +79,11 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Object does not implement {@link IAdaptable}.
    */
   public void test_getMenuObjectInfo_1() throws Exception {
-    IMocksControl control = createStrictControl();
-    Object object = control.createMock(Object.class);
-    // prepare scenario
-    control.replay();
+    Object object = mock(Object.class);
     // validate
     assertNull(MenuObjectInfoUtils.getMenuObjectInfo(object));
-    control.verify();
+    //
+    verifyNoInteractions(object);
   }
 
   /**
@@ -92,15 +91,16 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Object implements {@link IAdaptable} and returns {@link IMenuItemInfo}.
    */
   public void test_getMenuObjectInfo_2() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IAdaptable object = control.createMock(IAdaptable.class);
-    IMenuItemInfo itemInfo = control.createMock(IMenuItemInfo.class);
+    IAdaptable object = mock(IAdaptable.class);
+    IMenuItemInfo itemInfo = mock(IMenuItemInfo.class);
     // prepare scenario
-    expect(object.getAdapter(IMenuObjectInfo.class)).andReturn(itemInfo);
-    control.replay();
+    when(object.getAdapter(IMenuObjectInfo.class)).thenReturn(itemInfo);
     // validate
     assertSame(itemInfo, MenuObjectInfoUtils.getMenuObjectInfo(object));
-    control.verify();
+    //
+    verify(object).getAdapter(IMenuObjectInfo.class);
+    verifyNoMoreInteractions(object);
+    verifyNoInteractions(itemInfo);
   }
 
   /**
@@ -108,15 +108,16 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Object implements {@link IAdaptable} and returns {@link IMenuInfo}.
    */
   public void test_getMenuObjectInfo_3() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IAdaptable object = control.createMock(IAdaptable.class);
-    IMenuInfo menuInfo = control.createMock(IMenuInfo.class);
+    IAdaptable object = mock(IAdaptable.class);
+    IMenuInfo menuInfo = mock(IMenuInfo.class);
     // prepare scenario
-    expect(object.getAdapter(IMenuObjectInfo.class)).andReturn(menuInfo);
-    control.replay();
+    when(object.getAdapter(IMenuObjectInfo.class)).thenReturn(menuInfo);
     // validate
     assertSame(menuInfo, MenuObjectInfoUtils.getMenuObjectInfo(object));
-    control.verify();
+    //
+    verify(object).getAdapter(IMenuObjectInfo.class);
+    verifyNoMoreInteractions(object);
+    verifyNoInteractions(menuInfo);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -129,13 +130,11 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Object does not implement {@link IAdaptable}.
    */
   public void test_getMenuItemInfo_1() throws Exception {
-    IMocksControl control = createStrictControl();
-    Object object = control.createMock(Object.class);
-    // prepare scenario
-    control.replay();
+    Object object = mock(Object.class);
     // validate
     assertNull(MenuObjectInfoUtils.getMenuItemInfo(object));
-    control.verify();
+    //
+    verifyNoInteractions(object);
   }
 
   /**
@@ -143,15 +142,16 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Object implements {@link IAdaptable} and returns {@link IMenuItemInfo}.
    */
   public void test_getMenuItemInfo_2() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IAdaptable object = control.createMock(IAdaptable.class);
-    IMenuItemInfo itemInfo = control.createMock(IMenuItemInfo.class);
+    IAdaptable object = mock(IAdaptable.class);
+    IMenuItemInfo itemInfo = mock(IMenuItemInfo.class);
     // prepare scenario
-    expect(object.getAdapter(IMenuItemInfo.class)).andReturn(itemInfo);
-    control.replay();
+    when(object.getAdapter(IMenuItemInfo.class)).thenReturn(itemInfo);
     // validate
     assertSame(itemInfo, MenuObjectInfoUtils.getMenuItemInfo(object));
-    control.verify();
+    //
+    verify(object).getAdapter(IMenuItemInfo.class);
+    verifyNoMoreInteractions(object);
+    verifyNoInteractions(itemInfo);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -166,9 +166,8 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * External {@link IAdaptableFactory}.
    */
   public void test_getMenuItemInfo_3() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IAdaptable object = control.createMock(IAdaptable.class);
-    m_tmpItemInfo = control.createMock(IMenuItemInfo.class);
+    IAdaptable object = mock(IAdaptable.class);
+    m_tmpItemInfo = mock(IMenuItemInfo.class);
     //
     String pointId = "org.eclipse.wb.core.adaptableFactories";
     {
@@ -176,12 +175,12 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
       TestUtils.addDynamicExtension(pointId, contribution);
     }
     try {
-      // prepare scenario
-      expect(object.getAdapter(IMenuItemInfo.class)).andReturn(null);
-      control.replay();
       // validate
       assertSame(m_tmpItemInfo, MenuObjectInfoUtils.getMenuItemInfo(object));
-      control.verify();
+      //
+      verify(object).getAdapter(IMenuItemInfo.class);
+      verifyNoMoreInteractions(object);
+      verifyNoInteractions(m_tmpItemInfo);
     } finally {
       TestUtils.removeDynamicExtension(pointId);
     }
@@ -210,13 +209,11 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Object does not implement {@link IAdaptable}.
    */
   public void test_getMenuInfo_1() throws Exception {
-    IMocksControl control = createStrictControl();
-    Object object = control.createMock(Object.class);
-    // prepare scenario
-    control.replay();
+    Object object = mock(Object.class);
     // validate
     assertNull(MenuObjectInfoUtils.getMenuInfo(object));
-    control.verify();
+    //
+    verifyNoInteractions(object);
   }
 
   /**
@@ -224,15 +221,16 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Object implements {@link IAdaptable} and returns {@link IMenuInfo}.
    */
   public void test_getMenuInfo_2() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IAdaptable object = control.createMock(IAdaptable.class);
-    IMenuInfo menuInfo = control.createMock(IMenuInfo.class);
+    IAdaptable object = mock(IAdaptable.class);
+    IMenuInfo menuInfo = mock(IMenuInfo.class);
     // prepare scenario
-    expect(object.getAdapter(IMenuInfo.class)).andReturn(menuInfo);
-    control.replay();
+    when(object.getAdapter(IMenuInfo.class)).thenReturn(menuInfo);
     // validate
     assertSame(menuInfo, MenuObjectInfoUtils.getMenuInfo(object));
-    control.verify();
+    //
+    verify(object).getAdapter(IMenuInfo.class);
+    verifyNoMoreInteractions(object);
+    verifyNoInteractions(menuInfo);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -245,13 +243,11 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Object does not implement {@link IAdaptable}.
    */
   public void test_getMenuPopupInfo_1() throws Exception {
-    IMocksControl control = createStrictControl();
-    Object object = control.createMock(Object.class);
-    // prepare scenario
-    control.replay();
+    Object object = mock(Object.class);
     // validate
     assertNull(MenuObjectInfoUtils.getMenuPopupInfo(object));
-    control.verify();
+    //
+    verifyNoInteractions(object);
   }
 
   /**
@@ -259,15 +255,16 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Object implements {@link IAdaptable} and returns {@link IMenuPopupInfo}.
    */
   public void test_getMenuPopupInfo_2() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IAdaptable object = control.createMock(IAdaptable.class);
-    IMenuPopupInfo popupInfo = control.createMock(IMenuPopupInfo.class);
+    IAdaptable object = mock(IAdaptable.class);
+    IMenuPopupInfo popupInfo = mock(IMenuPopupInfo.class);
     // prepare scenario
-    expect(object.getAdapter(IMenuPopupInfo.class)).andReturn(popupInfo);
-    control.replay();
+    when(object.getAdapter(IMenuPopupInfo.class)).thenReturn(popupInfo);
     // validate
     assertSame(popupInfo, MenuObjectInfoUtils.getMenuPopupInfo(object));
-    control.verify();
+    //
+    verify(object).getAdapter(IMenuPopupInfo.class);
+    verifyNoMoreInteractions(object);
+    verifyNoInteractions(popupInfo);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -280,13 +277,11 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Use on {@link IMenuInfo}, that can not have {@link IMenuInfo}.
    */
   public void test_getSubMenu_1() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IMenuInfo menuInfo = control.createMock(IMenuInfo.class);
-    // prepare scenario
-    control.replay();
+    IMenuInfo menuInfo = mock(IMenuInfo.class);
     // validate
     assertNull(MenuObjectInfoUtils.getSubMenu(menuInfo));
-    control.verify();
+    //
+    verifyNoInteractions(menuInfo);
   }
 
   /**
@@ -294,15 +289,16 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Use on {@link IMenuPopupInfo}.
    */
   public void test_getSubMenu_2() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IMenuPopupInfo popupInfo = control.createMock(IMenuPopupInfo.class);
-    IMenuInfo menuInfo = control.createMock(IMenuInfo.class);
+    IMenuPopupInfo popupInfo = mock(IMenuPopupInfo.class);
+    IMenuInfo menuInfo = mock(IMenuInfo.class);
     // prepare scenario
-    expect(popupInfo.getMenu()).andReturn(menuInfo);
-    control.replay();
+    when(popupInfo.getMenu()).thenReturn(menuInfo);
     // validate
     assertSame(menuInfo, MenuObjectInfoUtils.getSubMenu(popupInfo));
-    control.verify();
+    //
+    verify(popupInfo).getMenu();
+    verifyNoMoreInteractions(popupInfo);
+    verifyNoInteractions(menuInfo);
   }
 
   /**
@@ -310,15 +306,16 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Use on {@link IMenuItemInfo}.
    */
   public void test_getSubMenu_3() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IMenuItemInfo itemInfo = control.createMock(IMenuItemInfo.class);
-    IMenuInfo menuInfo = control.createMock(IMenuInfo.class);
+    IMenuItemInfo itemInfo = mock(IMenuItemInfo.class);
+    IMenuInfo menuInfo = mock(IMenuInfo.class);
     // prepare scenario
-    expect(itemInfo.getMenu()).andReturn(menuInfo);
-    control.replay();
+    when(itemInfo.getMenu()).thenReturn(menuInfo);
     // validate
     assertSame(menuInfo, MenuObjectInfoUtils.getSubMenu(itemInfo));
-    control.verify();
+    //
+    verify(itemInfo).getMenu();
+    verifyNoMoreInteractions(itemInfo);
+    verifyNoInteractions(menuInfo);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -331,29 +328,28 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * One or two <code>null</code> objects.
    */
   public void test_isParentChild_null() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IMenuObjectInfo parent = control.createMock(IMenuObjectInfo.class);
-    IMenuObjectInfo child = control.createMock(IMenuObjectInfo.class);
+    IMenuObjectInfo parent = mock(IMenuObjectInfo.class);
+    IMenuObjectInfo child = mock(IMenuObjectInfo.class);
     // two "null" objects
     {
-      control.replay();
       assertFalse(MenuObjectInfoUtils.isParentChild(null, null));
-      control.verify();
-      control.reset();
+      //
+      verifyNoInteractions(parent);
+      verifyNoInteractions(child);
     }
     // parent "null"
     {
-      control.replay();
       assertFalse(MenuObjectInfoUtils.isParentChild(null, child));
-      control.verify();
-      control.reset();
+      //
+      verifyNoInteractions(parent);
+      verifyNoInteractions(child);
     }
     // child "null"
     {
-      control.replay();
       assertFalse(MenuObjectInfoUtils.isParentChild(parent, null));
-      control.verify();
-      control.reset();
+      //
+      verifyNoInteractions(parent);
+      verifyNoInteractions(child);
     }
   }
 
@@ -362,13 +358,13 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Two general {@link IMenuObjectInfo}'s.
    */
   public void test_isParentChild_genericObjects() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IMenuObjectInfo parent = control.createMock(IMenuObjectInfo.class);
-    IMenuObjectInfo child = control.createMock(IMenuObjectInfo.class);
+    IMenuObjectInfo parent = mock(IMenuObjectInfo.class);
+    IMenuObjectInfo child = mock(IMenuObjectInfo.class);
     // validate
-    control.replay();
     assertFalse(MenuObjectInfoUtils.isParentChild(parent, child));
-    control.verify();
+    //
+    verifyNoInteractions(parent);
+    verifyNoInteractions(child);
   }
 
   /**
@@ -376,12 +372,11 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * Parent/child found.
    */
   public void test_isParentChild_hit() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IMenuObjectInfo object = control.createMock(IMenuObjectInfo.class);
+    IMenuObjectInfo object = mock(IMenuObjectInfo.class);
     // validate
-    control.replay();
     assertTrue(MenuObjectInfoUtils.isParentChild(object, object));
-    control.verify();
+    //
+    verifyNoInteractions(object);
   }
 
   /**
@@ -389,15 +384,16 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * {@link IMenuPopupInfo} and its menu.
    */
   public void test_isParentChild_popupWithMenu() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IMenuPopupInfo popup = control.createMock(IMenuPopupInfo.class);
-    IMenuInfo menu = control.createMock(IMenuInfo.class);
+    IMenuPopupInfo popup = mock(IMenuPopupInfo.class);
+    IMenuInfo menu = mock(IMenuInfo.class);
     // prepare scenario
-    expect(popup.getMenu()).andReturn(menu);
-    control.replay();
+    when(popup.getMenu()).thenReturn(menu);
     // validate
     assertTrue(MenuObjectInfoUtils.isParentChild(popup, menu));
-    control.verify();
+    //
+    verify(popup).getMenu();
+    verifyNoMoreInteractions(popup);
+    verifyNoInteractions(menu);
   }
 
   /**
@@ -405,15 +401,16 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * {@link IMenuItemInfo} and its menu.
    */
   public void test_isParentChild_itemWithMenu() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IMenuItemInfo item = control.createMock(IMenuItemInfo.class);
-    IMenuInfo menu = control.createMock(IMenuInfo.class);
+    IMenuItemInfo item = mock(IMenuItemInfo.class);
+    IMenuInfo menu = mock(IMenuInfo.class);
     // prepare scenario
-    expect(item.getMenu()).andReturn(menu);
-    control.replay();
+    when(item.getMenu()).thenReturn(menu);
     // validate
     assertTrue(MenuObjectInfoUtils.isParentChild(item, menu));
-    control.verify();
+    //
+    verify(item).getMenu();
+    verifyNoMoreInteractions(item);
+    verifyNoInteractions(menu);
   }
 
   /**
@@ -421,18 +418,22 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * {@link IMenuInfo} and some of its {@link IMenuItemInfo}.
    */
   public void test_isParentChild_menuWithItems() throws Exception {
-    IMocksControl control = EasyMock.createStrictControl();
-    IMenuInfo menu = control.createMock(IMenuInfo.class);
-    IMenuItemInfo item_1 = control.createMock(IMenuItemInfo.class);
-    IMenuItemInfo item_2 = control.createMock(IMenuItemInfo.class);
-    IMenuItemInfo item_3 = control.createMock(IMenuItemInfo.class);
+    IMenuInfo menu = mock(IMenuInfo.class);
+    IMenuItemInfo item_1 = mock(IMenuItemInfo.class);
+    IMenuItemInfo item_2 = mock(IMenuItemInfo.class);
+    IMenuItemInfo item_3 = mock(IMenuItemInfo.class);
     List<IMenuItemInfo> items = ImmutableList.of(item_1, item_2, item_3);
     // prepare scenario
-    expect(menu.getItems()).andReturn(items);
-    expect(item_1.getMenu()).andReturn(null);
-    control.replay();
+    when(menu.getItems()).thenReturn(items);
+    when(item_1.getMenu()).thenReturn(null);
     // validate
     assertTrue(MenuObjectInfoUtils.isParentChild(menu, item_2));
-    control.verify();
+    //
+    verify(menu).getItems();
+    verifyNoMoreInteractions(menu);
+    verify(item_1).getMenu();
+    verifyNoMoreInteractions(item_1);
+    verifyNoInteractions(item_2);
+    verifyNoInteractions(item_3);
   }
 }

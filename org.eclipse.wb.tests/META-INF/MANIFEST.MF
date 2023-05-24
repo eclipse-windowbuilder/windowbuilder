@@ -51,15 +51,12 @@ Require-Bundle: org.eclipse.core.runtime,
  org.junit;bundle-version="4.12.0",
  com.google.guava;bundle-version="30.1.0",
  org.apache.commons.digester;bundle-version="3.2.0",
+ org.mockito.mockito-core;bundle-version="5.3.1",
  org.objectweb.asm;bundle-version="9.0.0",
  org.objenesis,
  net.bytebuddy.byte-buddy;bundle-version="1.14.4"
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: 
- lib/EasyMock-3.0.jar,
- .
-Export-Package: org.easymock,
- org.eclipse.wb.tests.designer,
+Export-Package: org.eclipse.wb.tests.designer,
  org.eclipse.wb.tests.designer.XML,
  org.eclipse.wb.tests.designer.XML.editor,
  org.eclipse.wb.tests.designer.XML.gef,
@@ -178,7 +175,6 @@ Export-Package: org.easymock,
  org.eclipse.wb.tests.designer.swt.support,
  org.eclipse.wb.tests.designer.tests,
  org.eclipse.wb.tests.designer.tests.common,
- org.eclipse.wb.tests.designer.tests.mock,
  org.eclipse.wb.tests.draw2d,
  org.eclipse.wb.tests.gef,
  org.eclipse.wb.tests.utils

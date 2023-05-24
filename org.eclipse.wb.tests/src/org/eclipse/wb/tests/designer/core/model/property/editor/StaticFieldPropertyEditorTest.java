@@ -20,12 +20,14 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.easymock.EasyMock.expect;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.assertj.core.api.Assertions;
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
 
 import java.util.List;
 
@@ -251,34 +253,37 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
     StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
     editor.configure(SwingConstants.class, new String[]{"LEFT:asLeft", "*remove", "RIGHT"});
     // prepare for mocking
-    IMocksControl mocksControl = EasyMock.createStrictControl();
-    Property property = mocksControl.createMock(Property.class);
+    Property property = mock(Property.class);
     // LEFT:asLeft
     {
-      mocksControl.reset();
-      expect(property.getValue()).andReturn(SwingConstants.LEFT);
-      mocksControl.replay();
+      when(property.getValue()).thenReturn(SwingConstants.LEFT);
       //
       assertEquals("asLeft", editor.getText(property));
-      mocksControl.verify();
+      //
+      verify(property).getValue();
+      verifyNoMoreInteractions(property);
     }
     // RIGHT
     {
-      mocksControl.reset();
-      expect(property.getValue()).andReturn(SwingConstants.RIGHT);
-      mocksControl.replay();
+      clearInvocations(property);
+      //
+      when(property.getValue()).thenReturn(SwingConstants.RIGHT);
       //
       assertEquals("RIGHT", editor.getText(property));
-      mocksControl.verify();
+      //
+      verify(property).getValue();
+      verifyNoMoreInteractions(property);
     }
     // UNKNOWN_VALUE
     {
-      mocksControl.reset();
-      expect(property.getValue()).andReturn(Property.UNKNOWN_VALUE);
-      mocksControl.replay();
+      clearInvocations(property);
+      //
+      when(property.getValue()).thenReturn(Property.UNKNOWN_VALUE);
       //
       assertEquals(null, editor.getText(property));
-      mocksControl.verify();
+      //
+      verify(property).getValue();
+      verifyNoMoreInteractions(property);
     }
   }
 
@@ -289,16 +294,15 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
     StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
     editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
     // prepare for mocking
-    IMocksControl mocksControl = EasyMock.createStrictControl();
-    GenericProperty property = mocksControl.createMock(GenericProperty.class);
+    GenericProperty property = mock(GenericProperty.class);
     // LEFT
     {
-      mocksControl.reset();
-      expect(property.getValue()).andReturn(SwingConstants.LEFT);
-      mocksControl.replay();
+      when(property.getValue()).thenReturn(SwingConstants.LEFT);
       //
       assertEquals("javax.swing.SwingConstants.LEFT", editor.getClipboardSource(property));
-      mocksControl.verify();
+      //
+      verify(property).getValue();
+      verifyNoMoreInteractions(property);
     }
   }
 
@@ -315,16 +319,13 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
     StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
     editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
     // prepare for mocking
-    IMocksControl mocksControl = EasyMock.createStrictControl();
-    GenericProperty property = mocksControl.createMock(GenericProperty.class);
+    GenericProperty property = mock(GenericProperty.class);
     // LEFT
     {
-      mocksControl.reset();
-      property.setExpression("javax.swing.SwingConstants.LEFT", SwingConstants.LEFT);
-      mocksControl.replay();
-      //
       editor.setValue(property, SwingConstants.LEFT);
-      mocksControl.verify();
+      //
+      verify(property).setExpression("javax.swing.SwingConstants.LEFT", SwingConstants.LEFT);
+      verifyNoMoreInteractions(property);
     }
   }
 
@@ -336,16 +337,13 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
     StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
     editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
     // prepare for mocking
-    IMocksControl mocksControl = EasyMock.createStrictControl();
-    Property property = mocksControl.createMock(Property.class);
+    Property property = mock(Property.class);
     // LEFT
     {
-      mocksControl.reset();
-      property.setValue(SwingConstants.LEFT);
-      mocksControl.replay();
-      //
       editor.setValue(property, SwingConstants.LEFT);
-      mocksControl.verify();
+      //
+      verify(property).setValue(SwingConstants.LEFT);
+      verifyNoMoreInteractions(property);
     }
   }
 }

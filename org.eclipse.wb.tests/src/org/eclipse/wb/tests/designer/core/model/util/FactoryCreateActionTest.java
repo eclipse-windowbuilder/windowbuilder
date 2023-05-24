@@ -33,9 +33,12 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.widgets.TreeItem;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
 import org.apache.commons.lang.StringUtils;
-import org.easymock.EasyMock;
-import org.easymock.IArgumentMatcher;
+import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 
@@ -531,26 +534,6 @@ public class FactoryCreateActionTest extends SwingModelTest {
   }
 
   /**
-   * Method that adds implementation of {@link IArgumentMatcher} to remember some {@link Object}.
-   */
-  private static <T> T memObj(final T[] value) {
-    EasyMock.reportMatcher(new IArgumentMatcher() {
-      @Override
-      @SuppressWarnings("unchecked")
-      public boolean matches(Object argument) {
-        value[0] = (T) argument;
-        return true;
-      }
-
-      @Override
-      public void appendTo(StringBuffer buffer) {
-        buffer.append("<memObj>");
-      }
-    });
-    return null;
-  }
-
-  /**
    * Test that we add {@link FactoryAddCommand} to the palette.
    */
   public void test_generate_addFactoryOnPalette() throws Exception {
@@ -582,12 +565,10 @@ public class FactoryCreateActionTest extends SwingModelTest {
     }
     // set palette site
     IPaletteSite paletteSite;
-    FactoryAddCommand[] factoryCommand = new FactoryAddCommand[1];
+    ArgumentCaptor<FactoryAddCommand> factoryCommand = ArgumentCaptor.forClass(FactoryAddCommand.class);
     {
-      paletteSite = EasyMock.createStrictMock(IPaletteSite.class);
+      paletteSite = mock(IPaletteSite.class);
       IPaletteSite.Helper.setSite(panel, paletteSite);
-      paletteSite.addCommand(memObj(factoryCommand));
-      EasyMock.replay(paletteSite);
     }
     // prepare target category
     CategoryInfo categoryInfo = manager.getPalette().getCategories().get(0);
@@ -619,16 +600,18 @@ public class FactoryCreateActionTest extends SwingModelTest {
         "  }",
         "}");
     // verify palette
-    EasyMock.verify(paletteSite);
-    assertNotNull(factoryCommand[0]);
+    verify(paletteSite).addCommand(factoryCommand.capture());
+    verifyNoMoreInteractions(paletteSite);
+    //
+    assertNotNull(factoryCommand.getValue());
     // unsafe command checks
     {
       assertEquals(
           "createComponent()",
-          ReflectionUtils.getFieldObject(factoryCommand[0], "m_methodSignature"));
+          ReflectionUtils.getFieldObject(factoryCommand.getValue(), "m_methodSignature"));
       assertEquals(
           categoryInfo.getId(),
-          ReflectionUtils.getFieldObject(factoryCommand[0], "m_categoryId"));
+          ReflectionUtils.getFieldObject(factoryCommand.getValue(), "m_categoryId"));
     }
   }
 

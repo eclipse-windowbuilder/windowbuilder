@@ -21,12 +21,10 @@ import org.eclipse.wb.internal.core.xml.model.description.CreationDescription;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import static org.mockito.Mockito.mock;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
-
-import java.lang.reflect.Method;
 
 /**
  * Test for {@link ElementCreationSupport}.
@@ -52,8 +50,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
    * Test for abstract {@link CreationSupport}.
    */
   public void test_CreationSupport() throws Exception {
-    IMocksControl control = EasyMock.createNiceControl();
-    CreationSupport creationSupport = control.createMock(CreationSupport.class, new Method[0]);
+    CreationSupport creationSupport = mock(CreationSupport.class);
     // no getTitle()
     try {
       creationSupport.getTitle();

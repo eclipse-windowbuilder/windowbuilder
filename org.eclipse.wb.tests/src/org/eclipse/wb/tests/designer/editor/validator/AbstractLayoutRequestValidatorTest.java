@@ -20,13 +20,11 @@ import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.designer.tests.mock.EasyMockTemplate;
-import org.eclipse.wb.tests.designer.tests.mock.MockRunnable;
 
-import static org.easymock.EasyMock.expect;
-
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 /**
  * Abstract tests for {@link ILayoutRequestValidator}.
@@ -111,51 +109,35 @@ public class AbstractLayoutRequestValidatorTest extends SwingModelTest {
       final boolean expected,
       final EditPart host,
       final Object child) throws Exception {
-    final IMocksControl mocksControl = EasyMock.createNiceControl();
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      EditPart editPart = mocksControl.createMock(EditPart.class);
+    EditPart editPart = createHost(child);
 
-      @Override
-      public void expectations() throws Exception {
-        expect(editPart.getModel()).andReturn(child).anyTimes();
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        ChangeBoundsRequest request = new ChangeBoundsRequest();
-        request.setEditParts(ImmutableList.of(editPart));
-        assertEquals(expected, validator.validateMoveRequest(host, request));
-      }
-    });
+    ChangeBoundsRequest request = new ChangeBoundsRequest();
+    request.setEditParts(ImmutableList.of(editPart));
+    //
+    assertEquals(expected, validator.validateMoveRequest(host, request));
+    //
+    verify(editPart).getModel();
+    verifyNoMoreInteractions(editPart);
   }
 
   protected static void assert_validateAddRequest(final ILayoutRequestValidator validator,
       final boolean expected,
       final EditPart host,
       final Object child) throws Exception {
-    final IMocksControl mocksControl = EasyMock.createNiceControl();
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      EditPart editPart = mocksControl.createMock(EditPart.class);
+    EditPart editPart = createHost(child);
 
-      @Override
-      public void expectations() throws Exception {
-        expect(editPart.getModel()).andReturn(child).anyTimes();
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        ChangeBoundsRequest request = new ChangeBoundsRequest();
-        request.setEditParts(ImmutableList.of(editPart));
-        assertEquals(expected, validator.validateAddRequest(host, request));
-      }
-    });
+    ChangeBoundsRequest request = new ChangeBoundsRequest();
+    request.setEditParts(ImmutableList.of(editPart));
+    //
+    assertEquals(expected, validator.validateAddRequest(host, request));
+    //
+    verify(editPart).getModel();
+    verifyNoMoreInteractions(editPart);
   }
 
   private static EditPart createHost(Object parent) {
-    IMocksControl mocksControl = EasyMock.createNiceControl();
-    EditPart host = mocksControl.createMock(EditPart.class);
-    expect(host.getModel()).andReturn(parent).anyTimes();
-    mocksControl.replay();
+    EditPart host = mock(EditPart.class);
+    when(host.getModel()).thenReturn(parent);
     return host;
   }
 }

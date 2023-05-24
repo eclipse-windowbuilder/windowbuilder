@@ -18,10 +18,10 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.expect;
-
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Map;
@@ -74,15 +74,14 @@ public class AbstractTextPropertyEditorTest extends SwingModelTest {
       TextDisplayPropertyEditor editor,
       Object value) throws Exception {
     // prepare for mocking
-    IMocksControl mocksControl = EasyMock.createStrictControl();
-    GenericProperty property = mocksControl.createMock(GenericProperty.class);
+    GenericProperty property = mock(GenericProperty.class);
     // configure property
-    mocksControl.reset();
-    expect(property.getValue()).andReturn(value);
-    mocksControl.replay();
+    when(property.getValue()).thenReturn(value);
     // verify
     Object result = ReflectionUtils.invokeMethod(editor, signature, property);
-    mocksControl.verify();
+    //
+    verify(property).getValue();
+    verifyNoMoreInteractions(property);
     return result;
   }
 

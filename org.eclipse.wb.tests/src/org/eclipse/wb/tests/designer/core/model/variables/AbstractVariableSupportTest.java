@@ -18,8 +18,9 @@ import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 
 import net.bytebuddy.ByteBuddy;
 
+import static org.mockito.Mockito.mock;
+
 import org.apache.commons.lang.NotImplementedException;
-import org.easymock.EasyMock;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class AbstractVariableSupportTest extends AbstractVariableTest {
    * abstract, and check its methods.
    */
   public void test() throws Exception {
-    JavaInfo javaInfo = EasyMock.createMock(JavaInfo.class);
+    JavaInfo javaInfo = mock(JavaInfo.class);
     // create abstract VariableSupport instance
     VariableSupport variableSupport;
     {

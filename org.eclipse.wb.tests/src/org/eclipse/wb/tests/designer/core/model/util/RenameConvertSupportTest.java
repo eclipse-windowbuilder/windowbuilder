@@ -30,7 +30,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolItem;
 
-import org.easymock.EasyMock;
+import static org.mockito.Mockito.mock;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
     }
     // no JavaInfo's -> action
     {
-      ObjectInfo objectMock = EasyMock.createStrictMock(ObjectInfo.class);
+      ObjectInfo objectMock = mock(ObjectInfo.class);
       assertNull(getRenameAction(objectMock));
     }
     // give JavaInfo -> receive action
@@ -112,7 +112,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
     assertNotNull(action);
     // test known behavior of equals/hashCode
     assertEquals(0, action.hashCode());
-    assertEquals(action, EasyMock.createStrictMock(action.getClass()));
+    assertEquals(action, mock(action.getClass()));
   }
 
   /**

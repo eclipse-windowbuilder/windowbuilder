@@ -33,14 +33,14 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
-import org.eclipse.wb.tests.designer.tests.mock.EasyMockTemplate;
-import org.eclipse.wb.tests.designer.tests.mock.MockRunnable;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.createStrictControl;
-import static org.easymock.EasyMock.expect;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import org.easymock.IMocksControl;
+import org.mockito.InOrder;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -354,7 +354,7 @@ public class SimpleContainerModelTest extends SwingModelTest {
   // Duck typing
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static class MySimpleContainer extends JavaInfo {
+  public static class MySimpleContainer extends JavaInfo {
     public MySimpleContainer(AstEditor editor,
         ComponentDescription description,
         CreationSupport creationSupport) throws Exception {
@@ -378,9 +378,9 @@ public class SimpleContainerModelTest extends SwingModelTest {
    * implementation.
    */
   public void test_duckTyping() throws Exception {
-    final IMocksControl mocksControl = createStrictControl();
-    final JavaInfo component = mocksControl.createMock(JavaInfo.class);
-    final MySimpleContainer container = mocksControl.createMock(MySimpleContainer.class);
+    final JavaInfo component = mock(JavaInfo.class);
+    final MySimpleContainer container = mock(MySimpleContainer.class);
+    final InOrder inOrder = inOrder(component, container);
     final SimpleContainer simpleContainer;
     {
       ContainerObjectValidator validator = ContainerObjectValidators.alwaysTrue();
@@ -389,85 +389,67 @@ public class SimpleContainerModelTest extends SwingModelTest {
       simpleContainer = new SimpleContainerConfigurable(container, configuration);
     }
     // isEmpty() == true, because no existing children
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        List<ObjectInfo> children = ImmutableList.<ObjectInfo>of();
-        expect(container.getSimpleContainerChildren()).andReturn(children);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertTrue(simpleContainer.isEmpty());
-      }
-    });
+    {
+      when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
+      //
+      assertTrue(simpleContainer.isEmpty());
+      //
+      inOrder.verify(container).getSimpleContainerChildren();
+      inOrder.verifyNoMoreInteractions();
+    }
     // isEmpty() == false, because return existing child
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        TestObjectInfo existingChild = new TestObjectInfo();
-        List<ObjectInfo> children = ImmutableList.<ObjectInfo>of(existingChild);
-        expect(container.getSimpleContainerChildren()).andReturn(children);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertFalse(simpleContainer.isEmpty());
-      }
-    });
+    {
+      clearInvocations(container);
+      //
+      final TestObjectInfo existingChild = new TestObjectInfo();
+      when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
+      //
+      assertFalse(simpleContainer.isEmpty());
+      //
+      inOrder.verify(container).getSimpleContainerChildren();
+      inOrder.verifyNoMoreInteractions();
+    }
     // getChild() == null, because no existing children
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        List<ObjectInfo> children = ImmutableList.<ObjectInfo>of();
-        expect(container.getSimpleContainerChildren()).andReturn(children);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertSame(null, simpleContainer.getChild());
-      }
-    });
+    {
+      clearInvocations(container);
+      //
+      when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
+      //
+      assertSame(null, simpleContainer.getChild());
+      //
+      inOrder.verify(container).getSimpleContainerChildren();
+      inOrder.verifyNoMoreInteractions();
+    }
     // getChild() != null, because return existing child
     {
+      clearInvocations(container);
+      //
       final TestObjectInfo existingChild = new TestObjectInfo();
-      EasyMockTemplate.run(mocksControl, new MockRunnable() {
-        @Override
-        public void expectations() throws Exception {
-          List<ObjectInfo> children = ImmutableList.<ObjectInfo>of(existingChild);
-          expect(container.getSimpleContainerChildren()).andReturn(children);
-        }
-
-        @Override
-        public void codeToTest() throws Exception {
-          assertSame(existingChild, simpleContainer.getChild());
-        }
-      });
+      when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
+      //
+      assertSame(existingChild, simpleContainer.getChild());
+      //
+      inOrder.verify(container).getSimpleContainerChildren();
+      inOrder.verifyNoMoreInteractions();
     }
     // CREATE
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        container.command_CREATE(component);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        simpleContainer.command_CREATE(component);
-      }
-    });
+    {
+      clearInvocations(container);
+      //
+      simpleContainer.command_CREATE(component);
+      //
+      inOrder.verify(container).command_CREATE(component);
+      inOrder.verifyNoMoreInteractions();
+    }
     // MOVE
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        container.command_ADD(component);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        simpleContainer.command_ADD(component);
-      }
-    });
+    {
+      clearInvocations(container);
+      //
+      simpleContainer.command_ADD(component);
+      //
+      inOrder.verify(container).command_ADD(component);
+      inOrder.verifyNoMoreInteractions();
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -476,26 +458,17 @@ public class SimpleContainerModelTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_validateMethods() throws Exception {
-    IMocksControl mocksControl = createStrictControl();
-    JavaInfo container = mocksControl.createMock(JavaInfo.class);
-    final JavaInfo component = mocksControl.createMock(JavaInfo.class);
-    final SimpleContainerConfiguration configuration =
-        mocksControl.createMock(SimpleContainerConfiguration.class);
+    final JavaInfo container = mock(JavaInfo.class);
+    final JavaInfo component = mock(JavaInfo.class);
+    final SimpleContainerConfiguration configuration = mock(SimpleContainerConfiguration.class);
+    final InOrder inOrder = inOrder(component, container, configuration);
     final SimpleContainer simpleContainer =
         new SimpleContainerConfigurable(container, configuration);
     // validateComponent() = true
-    EasyMockTemplate.run(mocksControl, new MockRunnable() {
-      @Override
-      public void expectations() throws Exception {
-        ContainerObjectValidator validator = ContainerObjectValidators.alwaysTrue();
-        expect(configuration.getComponentValidator()).andReturn(validator);
-      }
-
-      @Override
-      public void codeToTest() throws Exception {
-        assertTrue(simpleContainer.validateComponent(component));
-      }
-    });
+    when(configuration.getComponentValidator()).thenReturn(ContainerObjectValidators.alwaysTrue());
+    assertTrue(simpleContainer.validateComponent(component));
+    inOrder.verify(configuration).getComponentValidator();
+    inOrder.verifyNoMoreInteractions();
   }
 
   ////////////////////////////////////////////////////////////////////////////

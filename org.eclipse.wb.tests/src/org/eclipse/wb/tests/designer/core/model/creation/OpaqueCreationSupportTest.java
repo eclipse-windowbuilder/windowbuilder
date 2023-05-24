@@ -23,10 +23,10 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 
-import static org.easymock.EasyMock.expect;
-
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import javax.swing.JButton;
 
@@ -119,44 +119,45 @@ public class OpaqueCreationSupportTest extends SwingModelTest {
       creationSupport.setJavaInfo(panel);
     }
     //
-    IMocksControl mocksControl = EasyMock.createStrictControl();
     // set ICreationSupportPermissions
     ICreationSupportPermissions permissions;
     {
-      permissions = mocksControl.createMock(ICreationSupportPermissions.class);
+      permissions = mock(ICreationSupportPermissions.class);
       creationSupport.setPermissions(permissions);
     }
     // canDelete()
     {
-      expect(permissions.canDelete(panel)).andReturn(false);
-      mocksControl.replay();
       assertFalse(creationSupport.canDelete());
-      mocksControl.verify();
-      mocksControl.reset();
+      //
+      verify(permissions).canDelete(panel);
+      verifyNoMoreInteractions(permissions);
     }
     // delete()
     {
-      permissions.delete(panel);
-      mocksControl.replay();
+      clearInvocations(permissions);
+      //
       creationSupport.delete();
-      mocksControl.verify();
-      mocksControl.reset();
+      //
+      verify(permissions).delete(panel);
+      verifyNoMoreInteractions(permissions);
     }
     // canReorder()
     {
-      expect(permissions.canReorder(panel)).andReturn(false);
-      mocksControl.replay();
+      clearInvocations(permissions);
+      //
       assertFalse(creationSupport.canReorder());
-      mocksControl.verify();
-      mocksControl.reset();
+      //
+      verify(permissions).canReorder(panel);
+      verifyNoMoreInteractions(permissions);
     }
     // canReparent()
     {
-      expect(permissions.canReparent(panel)).andReturn(false);
-      mocksControl.replay();
+      clearInvocations(permissions);
+      //
       assertFalse(creationSupport.canReparent());
-      mocksControl.verify();
-      mocksControl.reset();
+      //
+      verify(permissions).canReparent(panel);
+      verifyNoMoreInteractions(permissions);
     }
   }
 }
