@@ -236,7 +236,6 @@
 
     <module>org.eclipse.wb.rcp.SWT_AWT</module>
     <module>org.eclipse.wb.runtime</module>
-    <module>org.eclipse.wb.runtime.lib</module>
 
     <module>org.eclipse.wb.swing</module>
     <module>org.eclipse.wb.swing.databinding</module>

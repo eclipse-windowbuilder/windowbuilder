@@ -4,8 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.runtime;singleton:=true
 Bundle-Version: 1.9.1.qualifier
 Bundle-Vendor: %providerName
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.wb.runtime.lib;visibility:=reexport
+Require-Bundle: org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
