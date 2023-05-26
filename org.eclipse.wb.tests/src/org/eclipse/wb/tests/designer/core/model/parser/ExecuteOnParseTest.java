@@ -1599,7 +1599,7 @@ public class ExecuteOnParseTest extends SwingModelTest {
     // refresh
     panel.refresh();
     assertNoErrors(panel);
-    // normal class, not enhanced by CGLib
+    // normal class, not enhanced by ByteBuddy
     assertFalse(ReflectionUtils.isEnchancedClass(panel.getObject().getClass()));
   }
 

@@ -201,8 +201,8 @@
 		<pre>{3}</pre>
 	</exception>
 	<exception id="311" title="Unable to create 'this' component. Non-public constructor.">Your top level
-		component calls a non-public constructor <code>{0}</code>. Normally, {product_name} uses CGLib to
-		create a superclass instance. However CGLib can't call non-public constructors (at least in different
+		component calls a non-public constructor <code>{0}</code>. Normally, {product_name} uses ByteBuddy to
+		create a superclass instance. However ByteBuddy can't call non-public constructors (at least in different
 		ClassLoaders), so make the constructor public so that it can be rendered in {product_name}.</exception>
 	<exception id="312" title="Expression part of invocation is null.">Expression part of invocation
 		<b>{0}</b> was evaluated into <b>null</b>. Possible reasons and solutions: <ul>

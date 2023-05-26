@@ -36,7 +36,7 @@ public class AbstractVariableSupportTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * Create instance of {@link VariableSupport} using CGLib, because {@link VariableSupport} is
+   * Create instance of {@link VariableSupport} using ByteBuddy, because {@link VariableSupport} is
    * abstract, and check its methods.
    */
   public void test() throws Exception {

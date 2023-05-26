@@ -830,13 +830,13 @@ public class ReflectionUtilsTest extends DesignerTestCase {
             .load(getClass().getClassLoader()) //
             .getLoaded();
       }
-      // method "size()" was done by CGLib, but exists in ArrayList, so method from ArrayList returned
+      // method "size()" was done by ByteBuddy, but exists in ArrayList, so method from ArrayList returned
       {
         Method method = ReflectionUtils.getMethodBySignature(clazz, "size()");
         assertThat(method.toString()).contains("$");
         assertEquals("public int java.util.ArrayList.size()", ReflectionUtils.toString(method));
       }
-      // method "__foo__" was generated only in CGLib, so no other method to return
+      // method "__foo__" was generated only in ByteBuddy, so no other method to return
       {
         Method method = ReflectionUtils.getMethodBySignature(clazz, "__foo__()");
         String usualToString = method.toString();

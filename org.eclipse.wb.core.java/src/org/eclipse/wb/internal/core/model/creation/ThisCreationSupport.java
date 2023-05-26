@@ -309,7 +309,7 @@ public final class ThisCreationSupport extends CreationSupport {
     } catch (DesignerException e) {
       throw e;
     } catch (Throwable e) {
-      throw new DesignerException(ICoreExceptionConstants.EVAL_CGLIB,
+      throw new DesignerException(ICoreExceptionConstants.EVAL_BYTEBUDDY,
           e,
           ReflectionUtils.getShortConstructorString(constructor),
           InvocationEvaluator.getArguments_toString(argumentValues),
@@ -357,7 +357,7 @@ public final class ThisCreationSupport extends CreationSupport {
       ReflectionUtils.setField(instance, MethodInterceptor.FIELD_INTERCEPTOR, PROXY_INTERCEPTOR.get());
       return instance;
     } catch (ReflectiveOperationException e) {
-      throw new DesignerException(ICoreExceptionConstants.EVAL_CGLIB, e);
+      throw new DesignerException(ICoreExceptionConstants.EVAL_BYTEBUDDY, e);
     } finally {
       PROXY_INTERCEPTOR.set(null);
       flowDescription.leaveStatement(m_constructor.getBody());
