@@ -762,10 +762,6 @@ public abstract class AbstractParseFactory implements IParseFactory {
 
   protected void initializeClassLoader_parent(AstEditor editor,
       CompositeClassLoader parentClassLoader) throws Exception {
-    // add required
-    parentClassLoader.add(
-        new BundleClassLoader("org.eclipse.wb.runtime"),
-        ImmutableList.of("net.sf.cglib."));
     // add class loader for ByteBuddy enhancement
     parentClassLoader.add(
         new BundleClassLoader("org.eclipse.wb.core.java"),
