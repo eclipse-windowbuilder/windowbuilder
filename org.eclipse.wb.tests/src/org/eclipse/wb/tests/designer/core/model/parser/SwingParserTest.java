@@ -935,7 +935,7 @@ public class SwingParserTest extends SwingModelTest {
   }
 
   /**
-   * We can not use CGLib to create non-abstract version of standard Swing class (from system
+   * We can not use ByteBuddy to create non-abstract version of standard Swing class (from system
    * {@link ClassLoader}).
    */
   public void test_abstractStandardSwingClass() throws Exception {

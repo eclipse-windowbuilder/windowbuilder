@@ -110,7 +110,7 @@ public final class ResourceManagerClassLoaderInitializer implements IClassLoader
           .getConstructor() //
           .newInstance();
     } catch (ReflectiveOperationException e) {
-      throw new DesignerException(ICoreExceptionConstants.EVAL_CGLIB, e);
+      throw new DesignerException(ICoreExceptionConstants.EVAL_BYTEBUDDY, e);
     }
   }
 

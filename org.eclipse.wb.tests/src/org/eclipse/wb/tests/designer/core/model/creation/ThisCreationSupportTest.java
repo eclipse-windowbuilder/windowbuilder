@@ -448,11 +448,11 @@ public class ThisCreationSupportTest extends SwingModelTest {
   }
 
   /**
-   * We can not use CGLib when superclass has non-public constructor.
+   * We can not use ByteBuddy when superclass has non-public constructor.
    * <p>
    * 40274: Can't parse a derived ViewPart
    */
-  public void test_create_packagePrivateConstructor_forCGLib() throws Exception {
+  public void test_create_packagePrivateConstructor_forByteBuddy() throws Exception {
     setFileContentSrc(
         "test/MyPanel.java",
         getTestSource(
@@ -504,7 +504,7 @@ public class ThisCreationSupportTest extends SwingModelTest {
       fail();
     } catch (Throwable e) {
       DesignerException de = DesignerExceptionUtils.getDesignerException(e);
-      assertEquals(ICoreExceptionConstants.EVAL_CGLIB, de.getCode());
+      assertEquals(ICoreExceptionConstants.EVAL_BYTEBUDDY, de.getCode());
     }
   }
 
@@ -593,7 +593,7 @@ public class ThisCreationSupportTest extends SwingModelTest {
   }
 
   /**
-   * We should not try to intercept "private" methods, because CGLib can not invoke them later.
+   * We should not try to intercept "private" methods, because ByteBuddy can not invoke them later.
    */
   public void test_notInterceptPrivateMethod() throws Exception {
     setFileContentSrc(
