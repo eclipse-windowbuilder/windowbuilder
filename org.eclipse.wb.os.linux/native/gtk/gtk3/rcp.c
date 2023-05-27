@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -280,7 +280,8 @@ JNIEXPORT void JNICALL OS_NATIVE(_1setAlpha)(
 			JNIEnv *envir, jobject that, JHANDLE jshellHandle, jint jalpha) {
 	if (isValidVersion()) {
 		GtkWidget *shell = (GtkWidget*)unwrap_pointer(envir, jshellHandle);
-		if (gtk_widget_is_composited(shell)) {
+		GdkScreen *screen = gtk_widget_get_screen(shell);
+		if (gdk_screen_is_composited(screen)) {
 			int alpha = (int)jalpha;
 			alpha &= 0xFF;
 			gtk_widget_set_opacity(shell, alpha / 255.0);
@@ -292,7 +293,8 @@ JNIEXPORT jint JNICALL OS_NATIVE(_1getAlpha)(
 			JNIEnv *envir, jobject that, JHANDLE jshellHandle) {
 	if (isValidVersion()) {
 		GtkWidget *shell = (GtkWidget*)unwrap_pointer(envir, jshellHandle);
-		if (gtk_widget_is_composited(shell)) {
+		GdkScreen *screen = gtk_widget_get_screen(shell);
+		if (gdk_screen_is_composited(screen)) {
 			return (jint) (gtk_widget_get_opacity(shell) * 255);
 		}
 	}
