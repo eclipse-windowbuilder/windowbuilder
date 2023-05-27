@@ -73,16 +73,18 @@ static cairo_surface_t* getImageSurface(GdkWindow *window) {
 	gint width, height;
 	gdk_window_get_geometry(window, NULL, NULL, &width, &height);
 	// force paint. Note, not all widgets do this completely, known so far is GtkTreeViewer.
-	GdkRectangle rect;
+	cairo_rectangle_int_t rect;
 	rect.x = 0;	rect.y = 0;	rect.width = width;	rect.height = height;
-	gdk_window_begin_paint_rect(window, &rect);
-	gdk_window_invalidate_rect(window, &rect, TRUE);
+	cairo_region_t *rectRegion = cairo_region_create_rectangle(&rect);
+	GdkDrawingContext *drawingContext = gdk_window_begin_draw_frame(window, rectRegion);
+	gdk_window_invalidate_region(window, rectRegion, TRUE);
 	// access a widget registered with the window
 	gpointer widget = NULL;
 	gdk_window_get_user_data(window, &widget);
 	// end force paint and copy image
+	gdk_window_end_draw_frame(window, drawingContext);
 	gdk_window_process_updates(window, TRUE);
-	gdk_window_end_paint(window);
+	cairo_region_destroy(rectRegion);
 	cairo_surface_t *surface = copyImageSurface(window, width, height);
 	// get Java code notified
 	if (m_callback) {
