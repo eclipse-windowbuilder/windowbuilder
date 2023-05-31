@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,18 +73,16 @@ static cairo_surface_t* getImageSurface(GdkWindow *window) {
 	gint width, height;
 	gdk_window_get_geometry(window, NULL, NULL, &width, &height);
 	// force paint. Note, not all widgets do this completely, known so far is GtkTreeViewer.
-	cairo_rectangle_int_t rect;
+	GdkRectangle rect;
 	rect.x = 0;	rect.y = 0;	rect.width = width;	rect.height = height;
-	cairo_region_t *rectRegion = cairo_region_create_rectangle(&rect);
-	GdkDrawingContext *drawingContext = gdk_window_begin_draw_frame(window, rectRegion);
-	gdk_window_invalidate_region(window, rectRegion, TRUE);
+	gdk_window_begin_paint_rect(window, &rect);
+	gdk_window_invalidate_rect(window, &rect, TRUE);
 	// access a widget registered with the window
 	gpointer widget = NULL;
 	gdk_window_get_user_data(window, &widget);
 	// end force paint and copy image
-	gdk_window_end_draw_frame(window, drawingContext);
 	gdk_window_process_updates(window, TRUE);
-	cairo_region_destroy(rectRegion);
+	gdk_window_end_paint(window);
 	cairo_surface_t *surface = copyImageSurface(window, width, height);
 	// get Java code notified
 	if (m_callback) {
@@ -282,8 +280,7 @@ JNIEXPORT void JNICALL OS_NATIVE(_1setAlpha)(
 			JNIEnv *envir, jobject that, JHANDLE jshellHandle, jint jalpha) {
 	if (isValidVersion()) {
 		GtkWidget *shell = (GtkWidget*)unwrap_pointer(envir, jshellHandle);
-		GdkScreen *screen = gtk_widget_get_screen(shell);
-		if (gdk_screen_is_composited(screen)) {
+		if (gtk_widget_is_composited(shell)) {
 			int alpha = (int)jalpha;
 			alpha &= 0xFF;
 			gtk_widget_set_opacity(shell, alpha / 255.0);
@@ -295,8 +292,7 @@ JNIEXPORT jint JNICALL OS_NATIVE(_1getAlpha)(
 			JNIEnv *envir, jobject that, JHANDLE jshellHandle) {
 	if (isValidVersion()) {
 		GtkWidget *shell = (GtkWidget*)unwrap_pointer(envir, jshellHandle);
-		GdkScreen *screen = gtk_widget_get_screen(shell);
-		if (gdk_screen_is_composited(screen)) {
+		if (gtk_widget_is_composited(shell)) {
 			return (jint) (gtk_widget_get_opacity(shell) * 255);
 		}
 	}
