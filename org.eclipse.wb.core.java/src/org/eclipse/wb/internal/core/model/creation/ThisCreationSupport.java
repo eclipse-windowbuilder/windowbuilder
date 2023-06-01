@@ -74,6 +74,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.TypeCache;
 import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
 import net.bytebuddy.implementation.bind.annotation.Origin;
@@ -410,7 +411,7 @@ public final class ThisCreationSupport extends CreationSupport {
         .method(ElementMatchers.noneOf(getIgnoredMethods(componentClass))) //
         .intercept(MethodDelegation.to(new StubMethodInterceptor(), MethodInterceptor.class));
 
-    PROXY_CACHE.findOrInsert(getClassLoader(), proxyKey, () -> builder.make().load(getClassLoader()).getLoaded());
+    PROXY_CACHE.findOrInsert(getClassLoader(), proxyKey, () -> builder.make().load(getClassLoader(), ClassLoadingStrategy.Default.INJECTION).getLoaded());
   }
 
   /**
