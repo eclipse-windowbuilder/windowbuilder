@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.rcp.databinding.xwt;singleton:=true
-Bundle-Version: 1.9.1.qualifier
+Bundle-Version: 1.9.2.qualifier
 Bundle-Activator: org.eclipse.wb.internal.rcp.databinding.xwt.Activator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
