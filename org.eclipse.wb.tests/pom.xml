@@ -73,7 +73,6 @@
 				<configuration>
 					<argLine>${ui.test.vmargs}</argLine>
 					<appArgLine>-nl de -clearPersistedState -consoleLog</appArgLine>
-					<forkedProcessTimeoutInSeconds>3600</forkedProcessTimeoutInSeconds>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>true</useUIThread>
 					<application>org.eclipse.ui.ide.workbench</application>
