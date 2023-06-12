@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,12 +47,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	static {
@@ -70,7 +69,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	protected static final OSSupport INSTANCE = new Impl64();
-	private String m_oldShellText;
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Screen shot
@@ -148,7 +146,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	public void beginShot(Object controlObject) {
 		Shell shell = layoutShell(controlObject);
 		// setup key title to be used by compiz WM (if enabled)
-		changeTitle(shell);
 		if (!isWorkaroundsDisabled()) {
 			// prepare
 			_begin_shot(getShellHandle(shell));
@@ -165,10 +162,9 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 			if (m_eclipseShell != null) {
 				m_eclipseToggledOnTop = _toggle_above(getShellHandle(m_eclipseShell), false);
 			}
-		} else {
-			shell.setLocation(10000, 10000);
-			shell.setVisible(true);
 		}
+		shell.setLocation(10000, 10000);
+		shell.setVisible(true);
 	}
 
 	@Override
@@ -176,8 +172,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 		// hide shell. The shell should be visible during all the period of fetching visual data.
 		super.endShot(controlObject);
 		Shell shell = getShell(controlObject);
-		// restore title
-		restoreTitle(shell);
 		if (!isWorkaroundsDisabled()) {
 			_end_shot(getShellHandle(shell));
 			if (m_eclipseShell != null) {
@@ -186,21 +180,10 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 		}
 	}
 
-	private void changeTitle(Shell shell) {
-		m_oldShellText = shell.getText();
-		shell.setText("__wbp_preview_window");
-	}
-
-	private void restoreTitle(Shell shell) {
-		shell.setText(m_oldShellText);
-	}
-
 	@Override
 	public void makeShots(Object controlObject) throws Exception {
 		Shell shell = getShell(controlObject);
 		makeShots0(shell);
-		// check for decorations and draw if needed
-		drawDecorations(shell, shell.getDisplay());
 	}
 
 	/**
@@ -208,44 +191,36 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 *
 	 * <pre>
 	 * 1. Register controls which requires the image. See {@link #registerControl(Control)}.
-	 * 2. Create the callback, which should be passed into native code. See {@link #_makeShot(int, IScreenshotCallback)}.
-	 * 3. While traversing the gtk widgets/gdk windows in native code, the callback returns native widget handle and the image handle
-	 *    for it (see {@link IScreenshotCallback}). At this time if the control found in registry, the received image handle converted
-	 *    into {@link Image} and bound to control (see {@link #bindImage(Display, Control, int)}).
-	 *    Otherwise, the image handle is disposed later (because it may be used in drawing in native code).
-	 * 4. Since its not possible to capture window decorations, it needs to be drawn manually. The root shell image replaced with
-	 *    the one with decorations (if applicable/available to draw).
+	 * 2. Create the callback, binding the screenshot to the model. See {@link #makeShot(Shell, BiConsumer)
+	 * 3. While traversing the gtk widgets/gdk windows, the callback returns native widget handle and the
+	 *    image. If the control corresponding to the widget handle has been found in the registry the
+	 *    received image is bound to the control (see {@link #bindImage(Display, Control, int)}).
+	 *    Otherwise, the image is disposed later (because it may be used in drawing).
 	 * </pre>
 	 */
 	private void makeShots0(final Shell shell) throws Exception {
 		prepareScreenshot(shell);
-		// get the handle for the root window
-		H shellHandle = getShellHandle(shell);
-		final Set<H> disposeImageHandles = Sets.newHashSet();
+		final Set<Image> disposeImages = Sets.newHashSet();
 		// apply shot magic
-		_makeShot(shellHandle, new IScreenshotCallback<H>() {
-			@Override
-			public void storeImage(H handle, H imageHandle) {
-				// get the registered control by handle
-				Control imageForControl = m_controlsRegistry.get(handle);
-				if (imageForControl == null || !bindImage(imageForControl, imageHandle)) {
-					// this means given image handle used to draw the gtk widget internally
-					disposeImageHandles.add(imageHandle);
-				}
+		makeShot(shell, (handle, image) -> {
+			// get the registered control by handle
+			Control imageForControl = m_controlsRegistry.get(handle);
+			if (imageForControl == null || !bindImage(imageForControl, image)) {
+				// this means given image handle used to draw the gtk widget internally
+				disposeImages.add(image);
 			}
 		});
 		// done, dispose image handles needed to draw internally.
-		for (H imageHandle : disposeImageHandles) {
-			_disposeImageHandle(imageHandle);
+		for (Image image : disposeImages) {
+			image.dispose();
 		}
 	}
 
-	private boolean bindImage(final Control control, final H imageHandle) {
+	private boolean bindImage(final Control control, final Image image) {
 		return ExecutionUtils.runObject(new RunnableObjectEx<Boolean>() {
 			@Override
 			public Boolean runObject() throws Exception {
 				if (control.getData(WBP_NEED_IMAGE) != null && control.getData(WBP_IMAGE) == null) {
-					Image image = createImage(imageHandle);
 					control.setData(WBP_IMAGE, image);
 					return true;
 				}
@@ -263,110 +238,27 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 		// get the handle for the control
 		shell.setLocation(10000, 10000);
 		shell.setVisible(true);
-		changeTitle(shell);
 		Rectangle controlBounds = control.getBounds();
 		if (controlBounds.width == 0 || controlBounds.height == 0) {
 			return null;
 		}
 		try {
-			H widgetHandle = getHandleValue(shell, "fixedHandle");
-			if (widgetHandle == null) {
-				// may be null, roll back to "handle"
-				widgetHandle = getHandleValue(shell, "handle");
-			}
 			// apply shot magic
-			H imageHandle = _makeShot(widgetHandle, null);
-			return createImage(imageHandle);
+			return makeShot(shell, null);
 		} finally {
 			shell.setVisible(false);
-			restoreTitle(shell);
 		}
 	}
 
 	/**
-	 * Draws decorations if available/applicable.
+	 * Causes taking the screen shot.
+	 *
+	 * @param shell    the root {@link Shell} to capture.
+	 * @param callback the callback instance for binding the snapshot to the data
+	 *                 model. Can be <code>null</code>.
+	 * @return the GdkPixmap* or cairo_surface_t* of {@link Shell}.
 	 */
-	private void drawDecorations(Shell shell, final Display display) {
-		Rectangle shellBounds = shell.getBounds();
-		Image shellImage = (Image) shell.getData(WBP_IMAGE);
-		if (shellImage != null) {
-			Rectangle imageBounds = shellImage.getBounds();
-			Point offset = shell.toControl(shell.getLocation());
-			offset.x = -offset.x;
-			offset.y = -offset.y;
-			// adjust by menu bar size
-			if (shell.getMenuBar() != null) {
-				offset.y -= getWidgetBounds(shell.getMenuBar()).height;
-			}
-			// draw
-			Image decoratedShellImage = new Image(display, shellBounds);
-			GC gc = new GC(decoratedShellImage);
-			// draw background
-			gc.setBackground(IColorConstants.titleBackground);
-			gc.fillRectangle(0, 0, shellBounds.width, shellBounds.height);
-			// draw title if any
-			if ((shell.getStyle() & SWT.TITLE) != 0) {
-				// title area gradient
-				gc.setForeground(IColorConstants.titleGradient);
-				gc.fillGradientRectangle(0, 0, shellBounds.width, offset.y, true);
-				int buttonGapX = offset.x - 1;
-				int nextPositionX;
-				// buttons and title
-				{
-					// menu button
-					Image buttonImage = Activator.getImage("decorations/button-menu-icon.png");
-					Rectangle buttonImageBounds = buttonImage.getBounds();
-					int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
-					gc.drawImage(buttonImage, buttonGapX, buttonOffsetY);
-					nextPositionX = buttonGapX + buttonImageBounds.width + buttonGapX;
-				}
-				{
-					// Shell title
-					String shellTitle = m_oldShellText;
-					if (!StringUtils.isEmpty(shellTitle)) {
-						gc.setForeground(IColorConstants.titleForeground);
-						Point titleExtent = gc.stringExtent(shellTitle);
-						gc.drawString(shellTitle, nextPositionX, offset.y / 2 - titleExtent.y / 2, true);
-					}
-				}
-				{
-					// close button
-					Image buttonImage = Activator.getImage("decorations/button-close-icon.png");
-					Rectangle buttonImageBounds = buttonImage.getBounds();
-					nextPositionX = shellBounds.width - buttonImageBounds.width - buttonGapX;
-					int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
-					gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
-					nextPositionX -= buttonGapX + buttonImageBounds.width;
-				}
-				{
-					// maximize button
-					Image buttonImage = Activator.getImage("decorations/button-max-icon.png");
-					Rectangle buttonImageBounds = buttonImage.getBounds();
-					int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
-					gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
-					nextPositionX -= buttonGapX + buttonImageBounds.width;
-				}
-				{
-					// minimize button
-					Image buttonImage = Activator.getImage("decorations/button-min-icon.png");
-					Rectangle buttonImageBounds = buttonImage.getBounds();
-					int buttonOffsetY = offset.y / 2 - buttonImageBounds.height / 2;
-					gc.drawImage(buttonImage, nextPositionX, buttonOffsetY);
-				}
-				// outline
-				gc.setForeground(TITLE_BORDER_COLOR_DARKEST);
-				gc.drawRectangle(offset.x - 1, offset.y - 1, imageBounds.width + 1, imageBounds.height + 1);
-				gc.setForeground(TITLE_BORDER_COLOR_DARKER);
-				gc.drawRectangle(offset.x - 2, offset.y - 2, imageBounds.width + 3, imageBounds.height + 3);
-				// shell screen shot
-				gc.drawImage(shellImage, offset.x, offset.y);
-				// done
-				gc.dispose();
-				shellImage.dispose();
-				shell.setData(WBP_IMAGE, decoratedShellImage);
-			}
-		}
-	}
+	protected abstract Image makeShot(Shell shell, BiConsumer<H, Image> callback);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -389,7 +281,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	/**
 	 * @return the handle value of the {@link Shell} using reflection.
 	 */
-	private H getShellHandle(Shell shell) {
+	protected H getShellHandle(Shell shell) {
 		H widgetHandle = getHandleValue(shell, "fixedHandle");
 		if (widgetHandle == null) {
 			// may be null, roll back to "shellHandle"
@@ -441,13 +333,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * @see <a href="https://docs.gtk.org/gdk3/func.threads_enter.html">GTK3</a>
 	 */
 	private static void gdkThreadsEnter() {
-		try {
-			ReflectionUtils.invokeMethod(
-					OSSupportLinux.class.getClassLoader().loadClass("org.eclipse.swt.internal.gtk.GDK"),
-					"gdk_threads_enter()");
-		} catch (Exception e) {
-			DesignerPlugin.log(e.getMessage(), e);
-		}
+		gdk("gdk_threads_enter()");
 	}
 
 	/**
@@ -467,13 +353,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * @see <a href="https://docs.gtk.org/gdk3/func.threads_leave.html">GTK3</a>
 	 */
 	private static void gdkThreadsLeave() {
-		try {
-			ReflectionUtils.invokeMethod(
-					OSSupportLinux.class.getClassLoader().loadClass("org.eclipse.swt.internal.gtk.GDK"),
-					"gdk_threads_leave()");
-		} catch (Exception e) {
-			DesignerPlugin.log(e.getMessage(), e);
-		}
+		gdk("gdk_threads_leave()");
 	}
 
 	/**
@@ -684,23 +564,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	private static native <H extends Number> H _fetchMenuVisualData(H menuHandle, int[] bounds);
 
 	/**
-	 * Causes taking the screen shot.
-	 *
-	 * @param windowHandle
-	 *          the handle (GtkWidget*) of root gtk widget of {@link Shell}.
-	 * @param callback
-	 *          the instance of {@link IScreenshotCallback}. Can be <code>null</code>.
-	 * @return the GdkPixmap* or cairo_surface_t* of {@link Shell}.
-	 */
-	private static native <H extends Number> H _makeShot(H windowHandle,
-			IScreenshotCallback<H> callback);
-
-	/**
-	 * Do dispose for given <code>imageHandle</code>.
-	 */
-	private static native <H extends Number> void _disposeImageHandle(H imageHandle);
-
-	/**
 	 * Toggles the "above" X Window property. If <code>forceToggle</code> is <code>false</code> then
 	 * no toggling if window already has the "above" property set.
 	 *
@@ -722,6 +585,135 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 	 * Finalizes the process of screen shot.
 	 */
 	private static native <H extends Number> boolean _end_shot(H windowHandle);
+
+	/**
+	 * <p>Sends one or more expose events to window. The areas in each expose event
+	 * will cover the entire update area for the window (see
+	 * gdk_window_invalidate_region() for details). Normally GDK calls
+	 * gdk_window_process_all_updates() on your behalf, so there’s no need to call
+	 * this function unless you want to force expose events to be delivered
+	 * immediately and synchronously (vs. the usual case, where GDK delivers them in
+	 * an idle handler). Occasionally this is useful to produce nicer scrolling
+	 * behavior, for example.</p>
+	 *
+	 * @param <H>             {@link Long} on a 64bit system, otherwise
+	 *                        {@link Integer}.
+	 * @param window          cast = (GdkWindow*).
+	 * @param update_children Whether to also process updates for child windows.
+	 * @deprecated Deprecated since: 3.22
+	 */
+	@Deprecated
+	private static native <H extends Number> void _gdk_window_process_updates(H window, boolean update_children);
+
+	/**
+	 * Checks whether the window has been mapped (with gdk_window_show() or
+	 * gdk_window_show_unraised()).
+	 *
+	 * @param <H>    {@link Long} on a 64bit system, otherwise {@link Integer}.
+	 * @param window cast = (GdkWindow*).
+	 * @return {@code true} if the window is mapped.
+	 */
+	private static native <H extends Number> boolean _gdk_window_is_visible(H window);
+
+	/**
+	 * <p>Any of the return location arguments to this function may be {@code null},
+	 * if you aren’t interested in getting the value of that field.</p>
+	 *
+	 * <p>The X and Y coordinates returned are relative to the parent window of
+	 * window, which for toplevels usually means relative to the window decorations
+	 * (titlebar, etc.) rather than relative to the root window (screen-size
+	 * background window).</p>
+	 *
+	 * <p>On the X11 platform, the geometry is obtained from the X server, so
+	 * reflects the latest position of window; this may be out-of-sync with the
+	 * position of window delivered in the most-recently-processed
+	 * GdkEventConfigure. gdk_window_get_position() in contrast gets the position
+	 * from the most recent configure event.</p>
+	 *
+	 * <p>Note: If window is not a toplevel, it is much better to call
+	 * gdk_window_get_position(), gdk_window_get_width() and gdk_window_get_height()
+	 * instead, because it avoids the roundtrip to the X server and because these
+	 * functions support the full 32-bit coordinate space, whereas
+	 * gdk_window_get_geometry() is restricted to the 16-bit coordinates of X11.</p>
+	 *
+	 * @param <H>    {@link Long} on a 64bit system, otherwise {@link Integer}.
+	 * @param window cast = (GdkWindow*)
+	 * @param x      cast = (gint*)
+	 * @param y      cast = (gint*)
+	 * @param width  cast = (gint*)
+	 * @param height cast = (gint*)
+	 */
+	private static native <H extends Number> void _gdk_window_get_geometry(H window, int[] x, int[] y, int[] width,
+			int[] height);
+
+	/**
+	 * <p>Returns the widget’s window if it is realized, {@code null} otherwise.</p>
+	 *
+	 * @param <H>    {@link Long} on a 64bit system, otherwise {@link Integer}.
+	 * @param widget cast = (GtkWidget*)
+	 * @return {@code widget}'s window. The data is owned by the instance. The
+	 *         return value can be {@code null}.
+	 */
+	private static native <H extends Number> H _gtk_widget_get_window(H widget);
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GDK/GTK wrappers
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * <p>Utility class for calling the internal GDK methods of SWT.</p>
+	 * <p>We can't call those methods directly, as the GDK class isn't available on
+	 * Windows and MacOS and thus would result in compile errors, if this workspace
+	 * is checked out on those systems.</p>
+	 *
+	 * @param <H>             {@link Long} on a 64bit system, otherwise
+	 *                        {@link Integer}.
+	 * @param methodSignature method signature. e.g. {@code gdk_window_show(long)}.
+	 * @param args            method arguments.
+	 * @return method return value. {@code null} for {@code void}.
+	 */
+	protected static final <T> T gdk(String methodSignature, Object... args) {
+		return swt("org.eclipse.swt.internal.gtk.GDK", methodSignature, args);
+	}
+
+	/**
+	 * <p>Utility class for calling the internal GTK methods of SWT.</p>
+	 * <p>We can't call those methods directly, as the GTK class isn't available on
+	 * Windows and MacOS and thus would result in compile errors, if this workspace
+	 * is checked out on those systems.</p>
+	 *
+	 * @param <H>             {@link Long} on a 64bit system, otherwise
+	 *                        {@link Integer}.
+	 * @param methodSignature method signature. e.g. {@code g_object_unref(long)}.
+	 * @param args            method arguments.
+	 * @return method return value. {@code null} for {@code void}.
+	 */
+	protected static final <T> T gtk(String methodSignature, Object... args) {
+		return swt("org.eclipse.swt.internal.gtk.GTK", methodSignature, args);
+	}
+
+	/**
+	 * <p>Utility class for calling interal SWT methods via reflection.</p>
+	 * <p>We can't call those methods directly, as their classes aren't available on
+	 * Windows and MacOS and thus would result in compile errors, if this workspace
+	 * is checked out on those systems.</p>
+	 * <p>The classes are loaded using the {@link OSSupportLinux} classloader.</p>
+	 *
+	 * @param <H>             {@link Long} on a 64bit system, otherwise
+	 *                        {@link Integer}.
+	 * @param fullClassName   fully qualified class name.
+	 * @param methodSignature method signature. e.g. {@code g_object_unref(long)}.
+	 * @param args            method arguments.
+	 * @return method return value. {@code null} for {@code void}.
+	 */
+	@SuppressWarnings("unchecked")
+	private static final <T> T swt(String fullClassName, String methodSignature, Object... args) {
+		return ExecutionUtils.runObject(() -> (T) ReflectionUtils.invokeMethod(
+				OSSupportLinux.class.getClassLoader().loadClass(fullClassName), methodSignature, args)
+				);
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -758,6 +750,95 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 					SWT.BITMAP,
 					imageHandle.longValue(),
 					0);
+		}
+
+		protected Image getImageSurface(Shell shell, Long window, BiConsumer<Long, Image> callback) {
+			if (!_gdk_window_is_visible(window)) {
+				// don't deal with unmapped windows
+				return null;
+			}
+
+			int[] x = new int[1], y = new int[1], width = new int[1], height = new int[1];
+			_gdk_window_get_geometry(window, x, y, width, height);
+			// force paint. Note, not all widgets do this completely, known so far is GtkTreeViewer.
+			_gdk_window_process_updates(window, true);
+			// access a widget registered with the window
+			long[] widget = new long[1];
+			gdk("gdk_window_get_user_data(long,long[])", window, widget);
+			// take screenshot
+			Image image = getImageSurface(shell, widget[0], new Rectangle(x[0], y[0], width[0], height[0]));
+			// get Java code notified
+			if (callback != null) {
+				callback.accept(widget[0], image);
+			}
+			// done
+			return image;
+		}
+
+		private Image getImageSurface(Shell shell, Long widget, Rectangle surface) {
+			// Take a shot of the entire shell, not just the client area.
+			if (shell.getDisplay().findWidget(widget) instanceof Shell) {
+				return getImageSurface(shell);
+			}
+
+			return getImageSurface(shell, surface);
+		}
+
+		private Image getImageSurface(Shell shell) {
+			Image image = new Image(shell.getDisplay(), shell.getBounds());
+			Point location = shell.getLocation();
+			GC gc = new GC(shell.getDisplay());
+			gc.copyArea(image, location.x, location.y);
+			gc.dispose();
+			return image;
+		}
+
+		private Image getImageSurface(Shell shell, Rectangle surface) {
+			// Wayland: Trying to take a screenshot of a partially unmapped widget
+			// results in a SIGFAULT.
+			Rectangle visibleSurface = shell.getClientArea().intersection(surface);
+
+			// Create "dummy" image in case of unmapped widget
+			if (visibleSurface.width <= 0 || visibleSurface.height <= 0) {
+				return new Image(shell.getDisplay(), 1, 1);
+			}
+
+			// Wayland: Trying to use the shell as a drawable results in a SIGFAULT.
+			// Use the display instead.
+			Point location = shell.toDisplay(visibleSurface.x, visibleSurface.y);
+
+			Image image = new Image(shell.getDisplay(), visibleSurface);
+			GC gc = new GC(shell.getDisplay());
+			gc.copyArea(image, location.x, location.y);
+			gc.dispose();
+			return image;
+
+		}
+
+		private Image traverse(Shell shell, Long window, BiConsumer<Long, Image> callback) {
+			Image image = getImageSurface(shell, window, callback);
+			if (image == null) {
+				return null;
+			}
+			/* GList */ Long children = gdk("gdk_window_get_children(long)", window);
+			int length = gtk("g_list_length(long)", children);
+			for (int i = 0; i < length; ++i) {
+				Long childWindow = gtk("g_list_nth_data(long,int)", children, i);
+				Image childImage = traverse(shell, childWindow, callback);
+				if (childImage == null) {
+					continue;
+				}
+				if (callback == null) {
+					childImage.dispose();
+				}
+			}
+			gtk("g_list_free(long)", children);
+			return image;
+		}
+
+		@Override
+		protected Image makeShot(Shell shell, BiConsumer<Long, Image> callback) {
+			return traverse(shell, _gtk_widget_get_window(getShellHandle(shell)), callback);
 		}
 	}
 }
