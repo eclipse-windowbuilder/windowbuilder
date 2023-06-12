@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -197,6 +197,42 @@ static cairo_surface_t* fetchMenuVisualData(GtkMenu *menu, JNIEnv *envir, jintAr
 //
 ////////////////////////////////////////////////////////////////////////////
 JNIEXPORT jboolean JNICALL 
+	OS_NATIVE(_1gdk_1window_1is_1visible)
+		(JNIEnv *envir, jobject that, JHANDLE windowHandle) {
+	return gdk_window_is_visible((GdkWindow*)unwrap_pointer(envir, windowHandle));
+}
+JNIEXPORT void JNICALL 
+	OS_NATIVE(_1gdk_1window_1get_1geometry)
+		(JNIEnv *envir, jobject that, JHANDLE windowHandle, jintArray x, jintArray y, jintArray width, jintArray height) {
+	jint x1;
+	jint y1;
+	jint width1;
+	jint height1;
+	gdk_window_get_geometry((GdkWindow*)unwrap_pointer(envir, windowHandle), &x1, &y1, &width1, &height1);
+	if (x != NULL) {
+		(*envir) -> SetIntArrayRegion(envir, x, 0, 1, &x1);
+	}
+	if (y != NULL) {
+		(*envir) -> SetIntArrayRegion(envir, y, 0, 1, &y1);
+	}
+	if (width != NULL) {
+		(*envir) -> SetIntArrayRegion(envir, width, 0, 1, &width1);
+	}
+	if (height != NULL) {
+		(*envir) -> SetIntArrayRegion(envir, height, 0, 1, &height1);
+	}
+}
+JNIEXPORT JHANDLE JNICALL 
+	OS_NATIVE(_1gtk_1widget_1get_1window)
+		(JNIEnv *envir, jobject that, JHANDLE widgetHandle) {
+	return (JHANDLE)wrap_pointer(envir, gtk_widget_get_window((GtkWidget*)unwrap_pointer(envir, widgetHandle)));
+}
+JNIEXPORT JHANDLE JNICALL 
+	OS_NATIVE(_1gdk_1window_1process_1updates)
+		(JNIEnv *envir, jobject that, JHANDLE widgetHandle, jboolean update_children) {
+	gdk_window_process_updates((GdkWindow*)unwrap_pointer(envir, widgetHandle), update_children);
+}
+JNIEXPORT jboolean JNICALL 
 	OS_NATIVE(_1toggle_1above)
 		(JNIEnv *envir, jobject that, JHANDLE widgetHandle, jboolean forceToggle) {
 	// NOT IMPLEMENTED
@@ -216,26 +252,6 @@ JNIEXPORT jboolean JNICALL
 	gtk_widget_hide((GtkWidget*)unwrap_pointer(envir, widgetHandle));
 	return JNI_TRUE;
 }
-// shot
-JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1makeShot)(
-			JNIEnv *envir, jobject that, JHANDLE widgetHandle, jobject callback) {
-	m_envir = envir;
-	if (callback != NULL) {
-		m_callback = (*envir)->NewGlobalRef(envir, callback);
-		jclass clazz = (*envir)->GetObjectClass(envir, m_callback);
-		m_IScreenshotCallback_storeImage = (*envir)->GetMethodID(envir, clazz, "storeImage", CALLBACK_SIG);
-		/* uncomment this for debug purposes
-		m_IScreenshotCallback_log = (*envir)->GetMethodID(envir, clazz, "log", "(Ljava/lang/String;)V"); */
-	}
-	// make shot
-	cairo_surface_t* surface = makeShot((GtkWidget*)unwrap_pointer(envir, widgetHandle));
-	// clean up
-	if (callback != NULL) {
-		(*envir)->DeleteGlobalRef(envir, m_callback);
-	}
-	m_callback = NULL;
-	return (JHANDLE)wrap_pointer(envir, surface);
-}
 // menu
 JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1fetchMenuVisualData)(
 			JNIEnv *envir, jobject that, JHANDLE jmenuHandle, jintArray jsizes) {
@@ -247,11 +263,6 @@ JNIEXPORT JHANDLE JNICALL OS_NATIVE(_1fetchMenuVisualData)(
 JNIEXPORT void JNICALL OS_NATIVE(_1getWidgetBounds)(
 			JNIEnv *envir, jobject that, JHANDLE jhandle, jintArray jsizes) {
 	getWidgetBounds((GtkWidget*)unwrap_pointer(envir, jhandle), envir, jsizes);
-}
-// unref
-JNIEXPORT void JNICALL OS_NATIVE(_1disposeImageHandle)(
-			JNIEnv *envir, jobject that, JHANDLE jhandle) {
-	cairo_surface_destroy((cairo_surface_t*)unwrap_pointer(envir, jhandle));
 }
 // other
 static int isValidVersion() {
