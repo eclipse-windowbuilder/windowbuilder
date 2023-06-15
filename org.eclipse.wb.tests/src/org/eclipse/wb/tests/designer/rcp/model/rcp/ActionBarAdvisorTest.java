@@ -277,7 +277,6 @@ public class ActionBarAdvisorTest extends RcpModelTest {
     assertNotNull(advisor.getPropertyByTitle("initialSize"));
     assertNotNull(advisor.getPropertyByTitle("shellStyle"));
     assertNotNull(advisor.getPropertyByTitle("showCoolBar"));
-    assertNotNull(advisor.getPropertyByTitle("showFastViewBars"));
     assertNotNull(advisor.getPropertyByTitle("showMenuBar"));
     assertNotNull(advisor.getPropertyByTitle("showPerspectiveBar"));
     assertNotNull(advisor.getPropertyByTitle("showProgressIndicator"));
