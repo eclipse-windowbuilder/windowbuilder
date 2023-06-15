@@ -41,7 +41,7 @@ public class PopupDialogTest extends RcpModelTest {
             "import org.eclipse.jface.dialogs.*;",
             "public class Test extends org.eclipse.jface.dialogs.PopupDialog {",
             "  public Test(Shell parentShell) {",
-            "    super(parentShell, SWT.DIALOG_TRIM, true, true, true, true, 'Title text', 'Info text');",
+            "    super(parentShell, SWT.DIALOG_TRIM, true, true, true, true, true, 'Title text', 'Info text');",
             "  }",
             "  protected Control createDialogArea(Composite parent) {",
             "    Composite container = (Composite) super.createDialogArea(parent);",
@@ -69,7 +69,7 @@ public class PopupDialogTest extends RcpModelTest {
             "import org.eclipse.jface.dialogs.*;",
             "public class Test extends org.eclipse.jface.dialogs.PopupDialog {",
             "  public Test(Shell parentShell) {",
-            "    super(parentShell, SWT.DIALOG_TRIM, true, true, true, true, 'Title text', 'Info text');",
+            "    super(parentShell, SWT.DIALOG_TRIM, true, true, true, true, true, 'Title text', 'Info text');",
             "  }",
             "}");
     // set properties
@@ -80,7 +80,7 @@ public class PopupDialogTest extends RcpModelTest {
         "import org.eclipse.jface.dialogs.*;",
         "public class Test extends org.eclipse.jface.dialogs.PopupDialog {",
         "  public Test(Shell parentShell) {",
-        "    super(parentShell, 0, true, true, true, true, 'New title text', 'New info text');",
+        "    super(parentShell, 0, true, true, true, true, true, 'New title text', 'New info text');",
         "  }",
         "}");
   }
