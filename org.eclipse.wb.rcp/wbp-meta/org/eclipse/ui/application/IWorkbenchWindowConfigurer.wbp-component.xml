@@ -6,9 +6,6 @@
 	<property id="setShowCoolBar(boolean)">
 		<defaultValue value="true"/>
 	</property>
-	<property id="setShowFastViewBars(boolean)">
-		<defaultValue value="false"/>
-	</property>
 	<property id="setShowMenuBar(boolean)">
 		<defaultValue value="true"/>
 	</property>
