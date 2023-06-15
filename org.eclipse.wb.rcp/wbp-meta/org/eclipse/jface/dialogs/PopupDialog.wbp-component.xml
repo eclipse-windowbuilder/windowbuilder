@@ -10,6 +10,7 @@
 			<parameter type="boolean"/>
 			<parameter type="boolean"/>
 			<parameter type="boolean"/>
+			<parameter type="boolean"/>
 			<parameter type="java.lang.String" property="setTitleText(java.lang.String)"/>
 			<parameter type="java.lang.String" property="setInfoText(java.lang.String)"/>
 		</constructor>
