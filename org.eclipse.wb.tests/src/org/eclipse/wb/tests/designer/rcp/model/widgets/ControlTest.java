@@ -279,11 +279,11 @@ public class ControlTest extends RcpModelTest {
       CompositeInfo shell =
           parseComposite(
               "import org.eclipse.core.databinding.observable.Realm;",
-              "import org.eclipse.jface.databinding.swt.SWTObservables;",
+              "import org.eclipse.jface.databinding.swt.DisplayRealm;",
               "public class Test {",
               "  public static void main(String[] args) {",
               "    Display display = Display.getDefault();",
-              "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+              "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
               "      public void run() {",
               "        Test window = new Test();",
               "      }",
