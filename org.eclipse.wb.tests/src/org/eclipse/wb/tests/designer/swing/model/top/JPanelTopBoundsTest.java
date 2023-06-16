@@ -94,13 +94,22 @@ public class JPanelTopBoundsTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_resize_veryBig() throws Exception {
+		// expand horizontally
 		Dimension oldSize = new Dimension(500, 400);
-		Dimension newSize = new Dimension(5000, 5000);
+		Dimension newSize = new Dimension(5000, 400);
 		check_resize_JPanel(
 				"setSize(new Dimension(500, 400));",
 				oldSize,
 				newSize,
-				"setSize(new Dimension(5000, 5000));");
+				"setSize(new Dimension(5000, 400));");
+		// expand vertically
+		oldSize = new Dimension(5000, 400);
+		newSize = new Dimension(500, 4000);
+		check_resize_JPanel(
+				"setSize(new Dimension(5000, 400));",
+				oldSize,
+				newSize,
+				"setSize(new Dimension(500, 4000));");
 	}
 
 	/**
