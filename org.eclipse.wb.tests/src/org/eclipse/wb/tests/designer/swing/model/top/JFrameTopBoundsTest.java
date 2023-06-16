@@ -104,10 +104,21 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 				"  }",
 				"}"));
 		waitForAutoBuild();
-		//
+		// Expand horizontally
 		Dimension oldSize = new Dimension(500, 400);
-		Dimension resizeSize = new Dimension(5000, 5000);
+		Dimension resizeSize = new Dimension(5000, 400);
 		ICompilationUnit unit = check_resize("MyVeryBigFrame",
+				"// no size",
+				"// none",
+				oldSize,
+				resizeSize,
+				resizeSize,
+				"// no size");
+		assert_sameSizeAfterReparse(unit, resizeSize);
+		// Expand vertically
+		oldSize = new Dimension(5000, 400);
+		resizeSize = new Dimension(500, 4000);
+		unit = check_resize("MyVeryBigFrame",
 				"// no size",
 				"// none",
 				oldSize,
