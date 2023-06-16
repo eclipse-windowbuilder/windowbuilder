@@ -27,6 +27,7 @@ import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
@@ -75,6 +76,10 @@ public final class SwingScreenshotMaker {
 			m_window = (Window) m_component;
 		} else {
 			JFrame frame = new JFrame();
+			// The JFrame decorations are causing issues when taking the screenshot on
+			// Windows and are not relevant for the captured image.
+			frame.setUndecorated(true);
+			frame.setPreferredSize(m_component.getSize());
 			m_window = frame;
 			// configure panel to have same size as given component
 			JPanel panel;
@@ -94,6 +99,22 @@ public final class SwingScreenshotMaker {
 				panel.add(m_component);
 			}
 			frame.pack();
+		}
+		// When the size of the frame exceeds the size of the screen, then the frame
+		// will be maximized instead. As a result, the edges of the frame outside the
+		// visible area won't be captured. This behavior can be explicitly disabled by
+		// simply clearing the "resizable" flag.
+		if (m_window instanceof Frame frame) {
+			frame.setResizable(false);
+		}
+		// Just clearing the "resizable" flag doesn't seem to be sufficient on Windows
+		// and the edges are still cut off when they are larger than the screen. I've
+		// traced the problem back to a native call to
+		// sun.awt.windows.WWindowPeer.reshapeFrame, so this is something beyond our
+		// control. The only way to resolve this issue is by "forcing" the frame to be
+		// at least as large as the component we try to capture.
+		if (EnvironmentUtils.IS_WINDOWS) {
+			m_window.setMinimumSize(m_window.getPreferredSize());
 		}
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -89,6 +89,31 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 						resizeSize,
 						resizeSize,
 						"// no size");
+		assert_sameSizeAfterReparse(unit, resizeSize);
+	}
+
+	/**
+	 * The size of the JFrame should be able to exceed the display resolution.
+	 */
+	@Test
+	public void test_JFrame_veryBig() throws Exception {
+		setFileContentSrc("test/MyVeryBigFrame.java",
+				getTestSource("public class MyVeryBigFrame extends JFrame {",
+				"  public MyVeryBigFrame() {",
+				"    setSize(500, 400);",
+				"  }",
+				"}"));
+		waitForAutoBuild();
+		//
+		Dimension oldSize = new Dimension(500, 400);
+		Dimension resizeSize = new Dimension(5000, 5000);
+		ICompilationUnit unit = check_resize("MyVeryBigFrame",
+				"// no size",
+				"// none",
+				oldSize,
+				resizeSize,
+				resizeSize,
+				"// no size");
 		assert_sameSizeAfterReparse(unit, resizeSize);
 	}
 
