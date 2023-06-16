@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -69,7 +69,12 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
 		{
 			Component component = (Component) m_component.getObject();
 			org.eclipse.draw2d.geometry.Dimension size = getResourceSize();
-			component.setSize(size.width, size.height);
+			java.awt.Dimension awtSize = new java.awt.Dimension(size.width, size.height);
+			// The real size might be smaller than the preferred size (e.g. limited by the
+			// screen resolution). Store it as preferred size for later use when taking the
+			// screenshot.
+			component.setSize(awtSize);
+			component.setPreferredSize(awtSize);
 		}
 	}
 
