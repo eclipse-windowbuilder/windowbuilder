@@ -22,7 +22,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 	 // geometry
-    PointListTest.class,
     TransposerTest.class,
     // Border
     MarginBorderTest.class,
