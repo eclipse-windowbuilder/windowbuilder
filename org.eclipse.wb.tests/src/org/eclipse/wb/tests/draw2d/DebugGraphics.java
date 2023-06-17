@@ -11,9 +11,9 @@
 package org.eclipse.wb.tests.draw2d;
 
 import org.eclipse.wb.draw2d.Graphics;
-import org.eclipse.wb.draw2d.geometry.PointList;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
