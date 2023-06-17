@@ -19,7 +19,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.IPositionConstants;
-import org.eclipse.wb.draw2d.geometry.Transposer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AbstractAlignmentActionsSupport;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
@@ -32,6 +31,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.actions.AnchorActionsClassi
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.geometry.Transposer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.TabFolder;
