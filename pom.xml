@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2016 vogella GmbH Foundation and others.
+  Copyright (c) 2016, 2023 vogella GmbH Foundation and others.
   All rights reserved. This program and the accompanying materials
   are made available under the terms of the Eclipse Distribution License v1.0
   which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@
     <tycho.version>4.0.0-SNAPSHOT</tycho.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <eclipse-jarsigner-version>1.3.2</eclipse-jarsigner-version>
+    <baseline.repo>https://download.eclipse.org/windowbuilder/updates/release/latest</baseline.repo>
   </properties>
   
   <pluginRepositories>
@@ -110,6 +111,16 @@
         <plugin>
           <groupId>org.eclipse.tycho</groupId>
           <artifactId>tycho-source-plugin</artifactId>
+          <version>${tycho.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-packaging-plugin</artifactId>
+          <version>${tycho.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho.extras</groupId>
+          <artifactId>tycho-p2-extras-plugin</artifactId>
           <version>${tycho.version}</version>
         </plugin>
       </plugins>
@@ -205,6 +216,40 @@
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>org.eclipse.tycho.extras</groupId>
+        <artifactId>tycho-p2-extras-plugin</artifactId>
+        <executions>
+          <execution> 
+            <id>compare-version-with-baseline</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>compare-version-with-baselines</goal>
+            </goals>
+            <configuration>
+              <baselines>
+                <baseline>${baseline.repo}</baseline>
+              </baselines>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-packaging-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-buildtimestamp-jgit</artifactId>
+            <version>${tycho.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <timestampProvider>jgit</timestampProvider>
+          <jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 

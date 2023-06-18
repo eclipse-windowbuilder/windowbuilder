@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2021, vogella GmbH
+  Copyright (c) 2021, 2023, vogella GmbH
   All rights reserved. This program and the accompanying materials
   are made available under the terms of the Eclipse Distribution License v1.0
   which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@
   </parent>
   <groupId>org.eclipse.wb</groupId>
   <artifactId>org.eclipse.wb.tests</artifactId>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.2.2-SNAPSHOT</version>
   <packaging>eclipse-test-plugin</packaging>
 
  
