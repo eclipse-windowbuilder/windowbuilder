@@ -507,6 +507,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
   public static String moveProjectIntoWorkspaceSubFolder() throws Exception {
     String newProjectLocation = workspaceLocation + "/subFolder/Test";
     // move project content
+    FileUtils.deleteQuietly(new File(newProjectLocation));
     FileUtils.moveDirectory(
         new File(m_project.getLocation().toPortableString()),
         new File(newProjectLocation));
