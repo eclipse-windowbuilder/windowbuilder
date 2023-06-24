@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
-import org.eclipse.swt.graphics.Font;
+import org.eclipse.jface.resource.FontDescriptor;
 
 /**
  * Provider for preferences of {@link PaletteComposite}.
@@ -21,14 +21,14 @@ import org.eclipse.swt.graphics.Font;
  */
 public interface IPalettePreferences {
   /**
-   * @return the {@link Font} for {@link ICategory}.
+   * @return the {@link FontDescriptor} for {@link ICategory}.
    */
-  Font getCategoryFont();
+  FontDescriptor getCategoryFontDescriptor();
 
   /**
-   * @return the {@link Font} for {@link IEntry}.
+   * @return the {@link FontDescriptor} for {@link IEntry}.
    */
-  Font getEntryFont();
+  FontDescriptor getEntryFontDescriptor();
 
   /**
    * @return <code>true</code> if only icons should be displayed for {@link IEntry}'s.

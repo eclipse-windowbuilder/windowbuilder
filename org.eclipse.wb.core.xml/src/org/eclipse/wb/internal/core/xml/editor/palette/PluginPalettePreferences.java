@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,12 +14,11 @@ import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
 import org.eclipse.wb.core.controls.palette.IPalettePreferences;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 
@@ -31,8 +30,8 @@ import org.eclipse.swt.widgets.Display;
  */
 public final class PluginPalettePreferences implements IPalettePreferences {
   private final IPreferenceStore m_store;
-  private Font m_categoryFont;
-  private Font m_entryFont;
+  private FontDescriptor m_categoryFont;
+  private FontDescriptor m_entryFont;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -87,19 +86,19 @@ public final class PluginPalettePreferences implements IPalettePreferences {
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  public Font getCategoryFont() {
+  public FontDescriptor getCategoryFontDescriptor() {
     if (m_categoryFont == null) {
       FontData[] fontDataArray = PreferenceConverter.getFontDataArray(m_store, m_categoryFontKey);
-      m_categoryFont = SwtResourceManager.getFont(fontDataArray);
+      m_categoryFont = FontDescriptor.createFrom(fontDataArray);
     }
     return m_categoryFont;
   }
 
   @Override
-  public Font getEntryFont() {
+  public FontDescriptor getEntryFontDescriptor() {
     if (m_entryFont == null) {
       FontData[] fontDataArray = PreferenceConverter.getFontDataArray(m_store, m_entryFontKey);
-      m_entryFont = SwtResourceManager.getFont(fontDataArray);
+      m_entryFont = FontDescriptor.createFrom(fontDataArray);
     }
     return m_entryFont;
   }

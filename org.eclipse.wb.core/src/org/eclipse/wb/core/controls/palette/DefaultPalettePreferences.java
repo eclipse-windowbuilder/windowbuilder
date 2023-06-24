@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
-import org.eclipse.swt.graphics.Font;
+import org.eclipse.jface.resource.FontDescriptor;
 
 /**
  * The default implementation of {@link IPalettePreferences}.
@@ -21,12 +21,12 @@ import org.eclipse.swt.graphics.Font;
  */
 public final class DefaultPalettePreferences implements IPalettePreferences {
   @Override
-  public Font getCategoryFont() {
+  public FontDescriptor getCategoryFontDescriptor() {
     return null;
   }
 
   @Override
-  public Font getEntryFont() {
+  public FontDescriptor getEntryFontDescriptor() {
     return null;
   }
 

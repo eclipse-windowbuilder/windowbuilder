@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,6 +32,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
@@ -105,6 +108,7 @@ public final class PaletteComposite extends Composite {
   private final PaletteFigure m_paletteFigure;
   private final Layer m_feedbackLayer;
   private final Map<ICategory, CategoryFigure> m_categoryFigures = new HashMap<>();
+  private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
   private MenuManager m_menuManager;
   private IPalette m_palette;
   private IEntry m_selectedEntry;
@@ -177,6 +181,18 @@ public final class PaletteComposite extends Composite {
     }
     // add actions
     m_palette.addPopupActions(menuManager, targetObject, m_layoutType);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Dispose
+  //
+  ////////////////////////////////////////////////////////////////////////////
+
+  @Override
+  public void dispose() {
+    super.dispose();
+    m_resourceManager.dispose();
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -383,7 +399,7 @@ public final class PaletteComposite extends Composite {
      * This method is invoked when {@link IPalettePreferences} changes.
      */
     public void onPreferencesUpdate() {
-      setFont(m_preferences.getCategoryFont());
+      setFont(m_resourceManager.createFont(m_preferences.getCategoryFontDescriptor()));
       for (Iterator<Figure> I = getChildren().iterator(); I.hasNext();) {
         EntryFigure entryFigure = (EntryFigure) I.next();
         entryFigure.onPreferencesUpdate();
@@ -723,7 +739,7 @@ public final class PaletteComposite extends Composite {
      * This method is invoked when {@link IPalettePreferences} changes.
      */
     public void onPreferencesUpdate() {
-      setFont(m_preferences.getEntryFont());
+      setFont(m_resourceManager.createFont(m_preferences.getEntryFontDescriptor()));
     }
 
     ////////////////////////////////////////////////////////////////////////////
