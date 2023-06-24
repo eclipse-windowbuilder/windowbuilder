@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -115,8 +115,8 @@ public final class PalettePreferencesDialog extends AbstractPaletteDialog {
     }
     // initialize fields
     m_minColumnsField.setSelection(new int[]{m_preferences.getMinColumns() - 1});
-    m_categoryFontField.setFontDataArray(m_preferences.getCategoryFont().getFontData());
-    m_entryFontField.setFontDataArray(m_preferences.getEntryFont().getFontData());
+    m_categoryFontField.setFontDataArray(m_preferences.getCategoryFontDescriptor().getFontData());
+    m_entryFontField.setFontDataArray(m_preferences.getEntryFontDescriptor().getFontData());
     m_layoutDialogField.setSelection(new int[]{m_preferences.getLayoutType()});
   }
 
