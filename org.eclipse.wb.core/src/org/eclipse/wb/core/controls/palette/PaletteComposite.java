@@ -32,6 +32,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
@@ -399,7 +400,8 @@ public final class PaletteComposite extends Composite {
      * This method is invoked when {@link IPalettePreferences} changes.
      */
     public void onPreferencesUpdate() {
-      setFont(m_resourceManager.createFont(m_preferences.getCategoryFontDescriptor()));
+      FontDescriptor fontDescriptor = m_preferences.getCategoryFontDescriptor();
+      setFont(fontDescriptor == null ? null : m_resourceManager.createFont(fontDescriptor));
       for (Iterator<Figure> I = getChildren().iterator(); I.hasNext();) {
         EntryFigure entryFigure = (EntryFigure) I.next();
         entryFigure.onPreferencesUpdate();
@@ -739,7 +741,8 @@ public final class PaletteComposite extends Composite {
      * This method is invoked when {@link IPalettePreferences} changes.
      */
     public void onPreferencesUpdate() {
-      setFont(m_resourceManager.createFont(m_preferences.getEntryFontDescriptor()));
+      FontDescriptor fontDescriptor = m_preferences.getEntryFontDescriptor();
+      setFont(fontDescriptor == null ? null : m_resourceManager.createFont(fontDescriptor));
     }
 
     ////////////////////////////////////////////////////////////////////////////
