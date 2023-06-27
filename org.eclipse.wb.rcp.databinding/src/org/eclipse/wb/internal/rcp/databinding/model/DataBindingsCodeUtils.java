@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -71,7 +71,7 @@ public final class DataBindingsCodeUtils {
     boolean addDatabindingCore =
         !ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.Binding");
     boolean addDatabindingBeans =
-        !ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.beans.BeansObservables");
+        !ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.beans.typed.BeanProperties");
     boolean addDatabindingObservable =
         ReflectivePDE.findModel("org.eclipse.core.databinding.observable") != null
             && !ProjectUtils.hasType(
@@ -81,7 +81,7 @@ public final class DataBindingsCodeUtils {
         ReflectivePDE.findModel("org.eclipse.core.databinding.property") != null
             && !ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.property.IProperty");
     boolean addDatabindingJFace =
-        !ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.SWTObservables");
+        !ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.typed.WidgetProperties");
     boolean addEquinoxCommon =
         !ProjectUtils.hasType(javaProject, "org.eclipse.core.runtime.Status");
     boolean addComIbmIcu = !ProjectUtils.hasType(javaProject, "com.ibm.icu.text.NumberFormat");
@@ -297,7 +297,7 @@ public final class DataBindingsCodeUtils {
             new StatementTarget(mainMethod, true));
     //
     List<String> lines = Lists.newArrayList();
-    lines.add("org.eclipse.core.databinding.observable.Realm.runWithDefault(org.eclipse.jface.databinding.swt.SWTObservables.getRealm(display), new java.lang.Runnable() {");
+    lines.add("org.eclipse.core.databinding.observable.Realm.runWithDefault(org.eclipse.jface.databinding.swt.DisplayRealm.getRealm(display), new java.lang.Runnable() {");
     lines.add("\tpublic void run() {");
     lines.add("\t}");
     lines.add("});");

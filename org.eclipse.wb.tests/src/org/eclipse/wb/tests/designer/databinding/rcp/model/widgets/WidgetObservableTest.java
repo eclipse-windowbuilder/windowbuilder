@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -39,49 +39,49 @@ public class WidgetObservableTest extends AbstractBindingTest {
   ////////////////////////////////////////////////////////////////////////////
   public void test_observeEnabled() throws Exception {
     observeControl(
-        "    IObservableValue observeWidget = SWTObservables.observeEnabled(m_shell);",
+        "    IObservableValue observeWidget = WidgetProperties.enabled().observe(m_shell);",
         "enabled|observeEnabled|boolean",
         "m_shell.enabled");
   }
 
   public void test_observeVisible() throws Exception {
     observeControl(
-        "    IObservableValue observeWidget = SWTObservables.observeVisible(m_shell);",
+        "    IObservableValue observeWidget = WidgetProperties.visible().observe(m_shell);",
         "visible|observeVisible|boolean",
         "m_shell.visible");
   }
 
   public void test_observeText() throws Exception {
     observeControl(
-        "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
+        "    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
         "text|observeText|java.lang.String",
         "m_shell.text");
   }
 
   public void test_observeTooltipText() throws Exception {
     observeControl(
-        "    IObservableValue observeWidget = SWTObservables.observeTooltipText(m_shell);",
+        "    IObservableValue observeWidget = WidgetProperties.tooltipText().observe(m_shell);",
         "tooltipText|observeTooltipText|java.lang.String",
         "m_shell.tooltipText");
   }
 
   public void test_observeForeground() throws Exception {
     observeControl(
-        "    IObservableValue observeWidget = SWTObservables.observeForeground(m_shell);",
+        "    IObservableValue observeWidget = WidgetProperties.foreground().observe(m_shell);",
         "foreground|observeForeground|org.eclipse.swt.graphics.Color",
         "m_shell.foreground");
   }
 
   public void test_observeBackground() throws Exception {
     observeControl(
-        "    IObservableValue observeWidget = SWTObservables.observeBackground(m_shell);",
+        "    IObservableValue observeWidget = WidgetProperties.background().observe(m_shell);",
         "background|observeBackground|org.eclipse.swt.graphics.Color",
         "m_shell.background");
   }
 
   public void test_observeFont() throws Exception {
     observeControl(
-        "    IObservableValue observeWidget = SWTObservables.observeFont(m_shell);",
+        "    IObservableValue observeWidget = WidgetProperties.font().observe(m_shell);",
         "font|observeFont|org.eclipse.swt.graphics.Font",
         "m_shell.font");
   }
@@ -115,7 +115,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
+                "    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
                 codeLine,
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
@@ -181,8 +181,8 @@ public class WidgetObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
-                "    IObservableValue observeWidget = SWTObservables.observeDelayedValue(100, SWTObservables.observeFont(m_shell));",
+                "    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
+                "    IObservableValue observeWidget = WidgetProperties.font().observeDelayed(100, m_shell);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
                 "    return bindingContext;",
@@ -223,7 +223,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Text m_text;",
         "    m_text = new Text(m_shell, SWT.BORDER);",
-        "    IObservableValue observeWidget = SWTObservables.observeEditable(m_text);",
+        "    IObservableValue observeWidget = WidgetProperties.editable().observe(m_text);",
         "m_text|m_text|org.eclipse.swt.widgets.Text",
         "editable|observeEditable|boolean",
         "m_text.editable");
@@ -233,7 +233,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Spinner m_spinner;",
         "    m_spinner = new Spinner(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeMin(m_spinner);",
+        "    IObservableValue observeWidget = WidgetProperties.minimum().observe(m_spinner);",
         "m_spinner|m_spinner|org.eclipse.swt.widgets.Spinner",
         "minimum|observeMin|int",
         "m_spinner.minimum");
@@ -243,7 +243,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Spinner m_spinner;",
         "    m_spinner = new Spinner(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeMax(m_spinner);",
+        "    IObservableValue observeWidget = WidgetProperties.maximum().observe(m_spinner);",
         "m_spinner|m_spinner|org.eclipse.swt.widgets.Spinner",
         "maximum|observeMax|int",
         "m_spinner.maximum");
@@ -253,7 +253,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Scale m_scale;",
         "    m_scale = new Scale(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeMin(m_scale);",
+        "    IObservableValue observeWidget = WidgetProperties.minimum().observe(m_scale);",
         "m_scale|m_scale|org.eclipse.swt.widgets.Scale",
         "minimum|observeMin|int",
         "m_scale.minimum");
@@ -263,7 +263,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Scale m_scale;",
         "    m_scale = new Scale(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeMax(m_scale);",
+        "    IObservableValue observeWidget = WidgetProperties.maximum().observe(m_scale);",
         "m_scale|m_scale|org.eclipse.swt.widgets.Scale",
         "maximum|observeMax|int",
         "m_scale.maximum");
@@ -273,7 +273,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Spinner m_spinner;",
         "    m_spinner = new Spinner(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSelection(m_spinner);",
+        "    IObservableValue observeWidget = WidgetProperties.spinnerSelection().observe(m_spinner);",
         "m_spinner|m_spinner|org.eclipse.swt.widgets.Spinner",
         "selection|observeSelection|int",
         "m_spinner.selection");
@@ -283,7 +283,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Scale m_scale;",
         "    m_scale = new Scale(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSelection(m_scale);",
+        "    IObservableValue observeWidget = WidgetProperties.scaleSelection().observe(m_scale);",
         "m_scale|m_scale|org.eclipse.swt.widgets.Scale",
         "selection|observeSelection|int",
         "m_scale.selection");
@@ -293,7 +293,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Button m_button;",
         "    m_button = new Button(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSelection(m_button);",
+        "    IObservableValue observeWidget = WidgetProperties.buttonSelection().observe(m_button);",
         "m_button|m_button|org.eclipse.swt.widgets.Button",
         "selection|observeSelection|boolean",
         "m_button.selection");
@@ -303,7 +303,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Combo m_combo;",
         "    m_combo = new Combo(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSelection(m_combo);",
+        "    IObservableValue observeWidget = WidgetProperties.comboSelection().observe(m_combo);",
         "m_combo|m_combo|org.eclipse.swt.widgets.Combo",
         "selection|observeSelection|java.lang.String",
         "m_combo.selection");
@@ -313,7 +313,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private CCombo m_combo;",
         "    m_combo = new CCombo(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSelection(m_combo);",
+        "    IObservableValue observeWidget = WidgetProperties.ccomboSelection().observe(m_combo);",
         "m_combo|m_combo|org.eclipse.swt.custom.CCombo",
         "selection|observeSelection|java.lang.String",
         "m_combo.selection");
@@ -323,7 +323,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private List m_list;",
         "    m_list = new List(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSelection(m_list);",
+        "    IObservableValue observeWidget = WidgetProperties.listSelection().observe(m_list);",
         "m_list|m_list|org.eclipse.swt.widgets.List",
         "selection|observeSelection|java.lang.String",
         "m_list.selection");
@@ -333,7 +333,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Combo m_combo;",
         "    m_combo = new Combo(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSingleSelectionIndex(m_combo);",
+        "    IObservableValue observeWidget = WidgetProperties.singleSelectionIndex().observe(m_combo);",
         "m_combo|m_combo|org.eclipse.swt.widgets.Combo",
         "singleSelectionIndex|observeSingleSelectionIndex|int",
         "m_combo.singleSelectionIndex");
@@ -343,7 +343,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private CCombo m_combo;",
         "    m_combo = new CCombo(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSingleSelectionIndex(m_combo);",
+        "    IObservableValue observeWidget = WidgetProperties.singleSelectionIndex().observe(m_combo);",
         "m_combo|m_combo|org.eclipse.swt.custom.CCombo",
         "singleSelectionIndex|observeSingleSelectionIndex|int",
         "m_combo.singleSelectionIndex");
@@ -353,7 +353,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private List m_list;",
         "    m_list = new List(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSingleSelectionIndex(m_list);",
+        "    IObservableValue observeWidget = WidgetProperties.singleSelectionIndex().observe(m_list);",
         "m_list|m_list|org.eclipse.swt.widgets.List",
         "singleSelectionIndex|observeSingleSelectionIndex|int",
         "m_list.singleSelectionIndex");
@@ -363,7 +363,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeWidget(
         "  private Table m_table;",
         "    m_table = new Table(m_shell, SWT.NONE);",
-        "    IObservableValue observeWidget = SWTObservables.observeSingleSelectionIndex(m_table);",
+        "    IObservableValue observeWidget = WidgetProperties.singleSelectionIndex().observe(m_table);",
         "m_table|m_table|org.eclipse.swt.widgets.Table",
         "singleSelectionIndex|observeSingleSelectionIndex|int",
         "m_table.singleSelectionIndex");
@@ -405,7 +405,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
+                "    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
                 observeLine,
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
@@ -444,7 +444,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 
   public void test_observeText_Modify() throws Exception {
     observeText(
-        "    IObservableValue observeWidget = SWTObservables.observeText(m_text, SWT.Modify);",
+        "    IObservableValue observeWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
         SWT.Modify,
         0,
         "m_text.text(SWT.Modify)");
@@ -452,7 +452,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 
   public void test_observeText_FocusOut() throws Exception {
     observeText(
-        "    IObservableValue observeWidget = SWTObservables.observeText(m_text, SWT.FocusOut);",
+        "    IObservableValue observeWidget = WidgetProperties.text(SWT.FocusOut).observe(m_text);",
         SWT.FocusOut,
         1,
         "m_text.text(SWT.FocusOut)");
@@ -460,7 +460,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 
   public void test_observeText_NONE() throws Exception {
     observeText(
-        "    IObservableValue observeWidget = SWTObservables.observeText(m_text, SWT.NONE);",
+        "    IObservableValue observeWidget = WidgetProperties.text(SWT.NONE).observe(m_text);",
         SWT.NONE,
         2,
         "m_text.text(SWT.NONE)");
@@ -468,7 +468,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
 
   public void test_observeText_None() throws Exception {
     observeText(
-        "    IObservableValue observeWidget = SWTObservables.observeText(m_text, SWT.None);",
+        "    IObservableValue observeWidget = WidgetProperties.text(SWT.None).observe(m_text);",
         SWT.None,
         2,
         "m_text.text(SWT.NONE)");
@@ -508,7 +508,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
+                "    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
                 codeLine,
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
@@ -552,7 +552,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeItems(
         "  private Combo m_combo;",
         "    m_combo = new Combo(m_shell, SWT.NONE);",
-        "    IObservableList observeWidget = SWTObservables.observeItems(m_combo);",
+        "    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
         "m_combo|m_combo|org.eclipse.swt.widgets.Combo",
         "m_combo.items");
   }
@@ -561,7 +561,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeItems(
         "  private CCombo m_combo;",
         "    m_combo = new CCombo(m_shell, SWT.NONE);",
-        "    IObservableList observeWidget = SWTObservables.observeItems(m_combo);",
+        "    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
         "m_combo|m_combo|org.eclipse.swt.custom.CCombo",
         "m_combo.items");
   }
@@ -570,7 +570,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
     observeItems(
         "  private List m_list;",
         "    m_list = new List(m_shell, SWT.NONE);",
-        "    IObservableList observeWidget = SWTObservables.observeItems(m_list);",
+        "    IObservableList observeWidget = WidgetProperties.items().observe(m_list);",
         "m_list|m_list|org.eclipse.swt.widgets.List",
         "m_list.items");
   }
@@ -622,7 +622,7 @@ public class WidgetObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList = BeansObservables.observeList(Realm.getDefault(), m_bean, \"names\");",
+                "    IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);",
                 observeLine,
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindList(observeWidget, observeList, null, null);",

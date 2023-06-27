@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,7 +64,10 @@ import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Widgets container with type {@link ObserveType#WIDGETS}. Works on <code>SWT</code> widgets and
@@ -128,24 +131,37 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
           "org.eclipse.jface.databinding.viewers.ViewersObservables.observeCheckedElements(org.eclipse.jface.viewers.CheckboxTreeViewer,java.lang.Object)"};
   private static final String OBSERVABLE_VIEWER_FILTERS_METHOD =
       "org.eclipse.jface.databinding.viewers.ViewersObservables.observeFilters(org.eclipse.jface.viewers.StructuredViewer)";
-  private static final String[] WIDGET_PROPERTIES_METHODS = {
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.background()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.bounds()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.editable()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.enabled()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.focused()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.font()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.foreground()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.image()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.location()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.maximum()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.message()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.minimum()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.selection()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.singleSelectionIndex()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.size()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.tooltipText()",
-      "org.eclipse.jface.databinding.swt.typed.WidgetProperties.visible()"};
+  private static final Map<String, String> WIDGET_PROPERTIES_METHODS = new HashMap<>();
+  static {
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.background()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.bounds()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.editable()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.enabled()", "org.eclipse.swt.widgets.Widget");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.focused()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.font()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.foreground()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.image()", "org.eclipse.swt.widgets.Widget");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.location()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.maximum()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.message()", "org.eclipse.swt.widgets.Widget");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.minimum()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.widgetSelection()", "org.eclipse.swt.widgets.Widget");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.dateTimeSelection()", "org.eclipse.swt.widgets.DateTime");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.localDateSelection()", "org.eclipse.swt.widgets.DateTime");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.localTimeSelection()", "org.eclipse.swt.widgets.DateTime");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.buttonSelection()", "org.eclipse.swt.widgets.Button");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.comboSelection()", "org.eclipse.swt.widgets.Combo");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.ccomboSelection()", "org.eclipse.swt.custom.CCombo");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.listSelection()", "org.eclipse.swt.widgets.List");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.menuItemSelection()", "org.eclipse.swt.widgets.MenuItem");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.scaleSelection()", "org.eclipse.swt.widgets.Scale");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.sliderSelection()", "org.eclipse.swt.widgets.Slider");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.spinnerSelection()", "org.eclipse.swt.widgets.Spinner");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.singleSelectionIndex()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.size()", "org.eclipse.swt.widgets.Control");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.tooltipText()", "org.eclipse.swt.widgets.Widget");
+    WIDGET_PROPERTIES_METHODS.put("org.eclipse.jface.databinding.swt.typed.WidgetProperties.visible()", "org.eclipse.swt.widgets.Widget");
+  };
   private static final String ITEMS_WIDGET_PROPERTY =
       "org.eclipse.jface.databinding.swt.typed.WidgetProperties.items()";
   private static final String[] TEXT_WIDGET_PROPERTIES = {
@@ -156,8 +172,9 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.singleSelection()";
   private static final String MULTI_SELECTION_VIEWER_PROPERTY =
       "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.multipleSelection()";
-  private static final String CHECKED_ELEMENTS_VIEWER_PROPERTY =
-      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.checkedElements(java.lang.Object)";
+  private static final Set<String> CHECKED_ELEMENTS_VIEWER_PROPERTIES = Set.of(
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.checkedElements(java.lang.Object)",
+      "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.checkedElements(java.lang.Class)");
   private static final String FILTERS_ELEMENTS_VIEWER_PROPERTY =
       "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.filters()";
   private List<WidgetBindableInfo> m_observables = Collections.emptyList();
@@ -380,9 +397,11 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       FiltersObservableInfo observable = new FiltersObservableInfo(bindableWidget);
       observable.setCodeSupport(new FiltersObservableCodeSupport());
       return observable;
-    } else if (ArrayUtils.contains(WIDGET_PROPERTIES_METHODS, signature)) {
+    } else if (WIDGET_PROPERTIES_METHODS.containsKey(signature)) {
       // WidgetProperties.XXXX()
-      return new WidgetPropertiesCodeSupport(SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(invocation.getName().getIdentifier()));
+      return new WidgetPropertiesCodeSupport(
+          SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.getOrDefault(invocation.getName().getIdentifier(), invocation.getName().getIdentifier()),
+          WIDGET_PROPERTIES_METHODS.get(signature));
     } else if (ITEMS_WIDGET_PROPERTY.equals(signature)) {
       // WidgetProperties.items()
       return new WidgetPropertyItemsCodeSupport();
@@ -407,7 +426,7 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
     } else if (MULTI_SELECTION_VIEWER_PROPERTY.equals(signature)) {
       // ViewerProperties.multipleSelection()
       return new ViewerPropertyMultiSelectionCodeSupport();
-    } else if (CHECKED_ELEMENTS_VIEWER_PROPERTY.equals(signature)) {
+    } else if (CHECKED_ELEMENTS_VIEWER_PROPERTIES.contains(signature)) {
       // ViewerProperties.checkedElements(...)
       Class<?> elementType = CoreUtils.evaluate(Class.class, editor, arguments[0]);
       return new ViewerPropertyCheckedElementsCodeSupport(elementType);

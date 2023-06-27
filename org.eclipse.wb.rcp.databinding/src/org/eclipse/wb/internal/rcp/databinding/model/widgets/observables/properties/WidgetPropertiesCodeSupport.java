@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,9 +32,16 @@ public class WidgetPropertiesCodeSupport extends AbstractWidgetPropertiesCodeSup
   //
   ////////////////////////////////////////////////////////////////////////////
   public WidgetPropertiesCodeSupport(String propertyReference) {
-    super(propertyReference,
-        "org.eclipse.jface.databinding.swt.IWidgetValueProperty.observe(org.eclipse.swt.widgets.Widget)",
-        "org.eclipse.jface.databinding.swt.IWidgetValueProperty.observeDelayed(int,org.eclipse.swt.widgets.Widget)");
+    this(propertyReference, "org.eclipse.swt.widgets.Widget");
+  }
+
+  public WidgetPropertiesCodeSupport(String propertyReference, Class<?> widgetClass) {
+    this(propertyReference, widgetClass.getName());
+  }
+
+  public WidgetPropertiesCodeSupport(String propertyReference, String widgetClassName) {
+    super(propertyReference, "org.eclipse.jface.databinding.swt.IWidgetValueProperty.observe(" + widgetClassName + ")",
+        "org.eclipse.jface.databinding.swt.IWidgetValueProperty.observeDelayed(int," + widgetClassName + ")");
   }
 
   ////////////////////////////////////////////////////////////////////////////

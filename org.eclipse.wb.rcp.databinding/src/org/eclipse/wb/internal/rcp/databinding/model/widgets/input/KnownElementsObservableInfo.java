@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
+import org.eclipse.wb.internal.rcp.databinding.model.beans.IMasterDetailProvider;
 
 /**
  * Accessor model for describe method invocation <code>getKnownElements()</code> on observable
@@ -22,7 +23,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */
-public final class KnownElementsObservableInfo extends ObservableInfo {
+public final class KnownElementsObservableInfo extends ObservableInfo implements IMasterDetailProvider {
   private final AstObjectInfo m_parent;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -71,5 +72,16 @@ public final class KnownElementsObservableInfo extends ObservableInfo {
    */
   public String getSourceCode() throws Exception {
     return m_parent.getVariableIdentifier() + ".getKnownElements()";
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // IMasterDetailProvider
+  //
+  ////////////////////////////////////////////////////////////////////////////
+
+  @Override
+  public ObservableInfo getMasterObservable() throws Exception {
+    return this;
   }
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,7 +37,11 @@ import org.apache.commons.lang.StringUtils;
 
 import java.beans.PropertyDescriptor;
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Abstract model for org.eclipse.core.databinding.property.IProperty based objects.
@@ -46,9 +50,8 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
-  private final String m_observeSignature0;
-  private final String m_observeSignature1;
-  private final String m_observeDetailSignature;
+  protected Map<String, Integer> m_observeSignatures = new HashMap<>();
+  protected Set<String> m_observeDetailSignatures = new HashSet<>();
   protected Class<?> m_parserBeanType;
   protected String m_parserPropertyReference;
   protected Class<?> m_parserPropertyType;
@@ -59,12 +62,13 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public BeanPropertiesCodeSupport(String parseClass) {
-    m_observeSignature0 = parseClass + ".observe(java.lang.Object)";
-    m_observeSignature1 =
-        parseClass + ".observe(org.eclipse.core.databinding.observable.Realm,java.lang.Object)";
-    m_observeDetailSignature = parseClass
-        + ".observeDetail(org.eclipse.core.databinding.observable.value.IObservableValue)";
+  public BeanPropertiesCodeSupport() {
+    m_observeSignatures
+        .put(getObservableType() + ".observe(java.lang.Object)", 0);
+    m_observeSignatures
+        .put(getObservableType() + ".observe(org.eclipse.core.databinding.observable.Realm,java.lang.Object)", 1);
+    m_observeDetailSignatures
+        .add(getObservableType() + ".observeDetail(org.eclipse.core.databinding.observable.value.IObservableValue)");
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -128,11 +132,9 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
             ObserveType.BEANS);
     // extract bean expression
     Expression beanExpression;
-    if (m_observeSignature0.equals(signature)) {
-      beanExpression = arguments[0];
-    } else if (m_observeSignature1.equals(signature)) {
-      beanExpression = arguments[1];
-    } else if (m_observeDetailSignature.equals(signature)) {
+    if (m_observeSignatures.containsKey(signature)) {
+      beanExpression = arguments[m_observeSignatures.get(signature)];
+    } else if (m_observeDetailSignatures.contains(signature)) {
       ObservableInfo masterObservable =
           BeansObserveTypeContainer.getMasterObservable(editor, resolver, arguments[0]);
       if (masterObservable == null) {
@@ -201,6 +203,8 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
     observable.setCodeSupport(this);
     return observable;
   }
+
+  protected abstract String getObservableType();
 
   /**
    * @return {@link ObservableInfo} model for given object and property.

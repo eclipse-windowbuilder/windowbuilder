@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,6 +64,8 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.MultiSe
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.SingleSelectionObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.SwtObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.TextSwtObservableInfo;
+import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.properties.WidgetPropertiesCodeSupport;
+import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.properties.WidgetPropertyTextCodeSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.standard.CheckedElementsObservableCodeSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.standard.MultiSelectionObservableCodeSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.standard.SingleSelectionObservableCodeSupport;
@@ -538,9 +540,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "_strategy",
         "org.eclipse.core.databinding.UpdateValueStrategy _strategy = new com.company.project.Strategy();",
         "_strategy.setConverter(new org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter());",
+        "_strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());",
         "org.eclipse.core.databinding.validation.IValidator validator = new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator();",
-        "_strategy.setAfterGetValidator(validator);",
-        "_strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());");
+        "_strategy.setAfterGetValidator(validator);");
     //
     validator.setClassName("org.eclipse.core.internal.databinding.validation.StringToByteValidator");
     //
@@ -549,9 +551,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "_strategy",
         "org.eclipse.core.databinding.UpdateValueStrategy _strategy = new com.company.project.Strategy();",
         "_strategy.setConverter(new org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter());",
+        "_strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());",
         "org.eclipse.core.databinding.validation.IValidator validator = new org.eclipse.core.internal.databinding.validation.StringToByteValidator();",
-        "_strategy.setAfterGetValidator(validator);",
-        "_strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());");
+        "_strategy.setAfterGetValidator(validator);");
     //
     strategy.setVariableIdentifier(null);
     assertStrategy(
@@ -559,9 +561,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "strategy",
         "org.eclipse.core.databinding.UpdateValueStrategy strategy = new com.company.project.Strategy();",
         "strategy.setConverter(new org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter());",
+        "strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());",
         "org.eclipse.core.databinding.validation.IValidator validator = new org.eclipse.core.internal.databinding.validation.StringToByteValidator();",
-        "strategy.setAfterGetValidator(validator);",
-        "strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());");
+        "strategy.setAfterGetValidator(validator);");
     //
     strategy.setConverter(new ConverterInfo("org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter"));
     assertStrategy(
@@ -569,9 +571,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "strategy",
         "org.eclipse.core.databinding.UpdateValueStrategy strategy = new com.company.project.Strategy();",
         "strategy.setConverter(new org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter());",
+        "strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());",
         "org.eclipse.core.databinding.validation.IValidator validator = new org.eclipse.core.internal.databinding.validation.StringToByteValidator();",
-        "strategy.setAfterGetValidator(validator);",
-        "strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());");
+        "strategy.setAfterGetValidator(validator);");
     //
     strategy.setValidator("setAfterConvertValidator", null);
     assertStrategy(
@@ -616,7 +618,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
     BeanBindableInfo bindableObject = (BeanBindableInfo) observes.get(0);
     BeanPropertyBindableInfo bindableProperty =
         (BeanPropertyBindableInfo) bindableObject.getChildren(
-            ChildrenContext.ChildrenForPropertiesTable).get(0);
+            ChildrenContext.ChildrenForPropertiesTable).get(1);
     //
     assertObservableInfo(
         new ListBeanObservableInfo(bindableObject, bindableProperty),
@@ -742,7 +744,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
     BeanBindableInfo bindableObject = (BeanBindableInfo) observes.get(0);
     BeanPropertyBindableInfo bindableProperty =
         (BeanPropertyBindableInfo) bindableObject.getChildren(
-            ChildrenContext.ChildrenForPropertiesTable).get(0);
+            ChildrenContext.ChildrenForPropertiesTable).get(1);
     //
     ValueBeanObservableInfo masterObservable =
         new ValueBeanObservableInfo(bindableObject, bindableProperty);
@@ -1500,8 +1502,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
             "    m_bindingContext = initDataBindings();",
             "  }",
             "  private DataBindingContext initDataBindings() {",
-            "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
-            "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
+            "    IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);",
+            "    IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);",
             "    DataBindingContext bindingContext = new DataBindingContext();",
             "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
             "    return bindingContext;",
@@ -1544,8 +1546,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "    m_bindingContext = initDataBindings();",
         "  }",
         "  private DataBindingContext initDataBindings() {",
-        "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
-        "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
+        "    IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);",
+        "    IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);",
         "    DataBindingContext bindingContext = new DataBindingContext();",
         "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
         "    return bindingContext;",
@@ -1580,8 +1582,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "    m_bindingContext = initDataBindings();",
         "  }",
         "  private DataBindingContext initDataBindings() {",
-        "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
-        "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
+        "    IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);",
+        "    IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);",
         "    DataBindingContext bindingContext = new DataBindingContext();",
         "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
         "    return bindingContext;",
@@ -1615,8 +1617,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "    m_bindingContext = initDataBindings();",
         "  }",
         "  private DataBindingContext initDataBindings() {",
-        "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
-        "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
+        "    IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);",
+        "    IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);",
         "    DataBindingContext bindingContext = new DataBindingContext();",
         "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
         "    return bindingContext;",
@@ -1751,7 +1753,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  protected Shell m_shell;",
         "  public static void main(String[] args) {",
         "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+        "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
         "      public void run() {",
         "        Test test = new Test();",
         "        test.open();",
@@ -1781,7 +1783,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  protected Shell m_shell;",
         "  public static void main(String[] args) {",
         "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+        "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
         "      public void run() {",
         "        Test test = new Test();",
         "        test.open();",
@@ -2352,8 +2354,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
             "  protected DataBindingContext initDataBindings() {",
             "    DataBindingContext bindingContext = new DataBindingContext();",
             "    //",
-            "    IObservableValue widget0 = SWTObservables.observeEnabled(m_text);",
-            "    IObservableValue widget1 = SWTObservables.observeEnabled(m_combo);",
+            "    IObservableValue widget0 = WidgetProperties.enabled().observe(m_text);",
+            "    IObservableValue widget1 = WidgetProperties.enabled().observe(m_combo);",
             "    bindingContext.bindValue(widget0, widget1, null, null);",
             "    //",
             "    return bindingContext;",
@@ -2394,8 +2396,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  protected DataBindingContext initDataBindings() {",
         "    DataBindingContext bindingContext = new DataBindingContext();",
         "    //",
-        "    IObservableValue widget0 = SWTObservables.observeEnabled(m_text);",
-        "    IObservableValue widget1 = SWTObservables.observeEnabled(m_combo);",
+        "    IObservableValue widget0 = WidgetProperties.enabled().observe(m_text);",
+        "    IObservableValue widget1 = WidgetProperties.enabled().observe(m_combo);",
         "    bindingContext.bindValue(widget0, widget1, null, null);",
         "    //",
         "    return bindingContext;",
@@ -2411,7 +2413,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  private DataBindingContext m_bindingContext;",
         "  public static void main(String[] args) {",
         "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+        "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
         "      public void run() {",
         "        Test test = new Test();",
         "        test.open();",
@@ -2487,9 +2489,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
             ChildrenContext.ChildrenForPropertiesTable).get(10);
     //
     SwtObservableInfo target = new SwtObservableInfo(shellObserve, shellTextProperty);
-    target.setCodeSupport(new SwtObservableCodeSupport());
+    target.setCodeSupport(new WidgetPropertiesCodeSupport("observeText"));
     TextSwtObservableInfo model = new TextSwtObservableInfo(textObserve, textTextProperty);
-    model.setCodeSupport(new SwtObservableTextCodeSupport());
+    model.setCodeSupport(new WidgetPropertyTextCodeSupport(new int[] {SWT.Modify}));
     ValueBindingInfo binding = new ValueBindingInfo(target, model);
     provider.addBinding(binding);
     //
@@ -2501,7 +2503,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
             "  private Text m_text;",
             "  public static void main(String[] args) {",
             "    Display display = Display.getDefault();",
-            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
             "      public void run() {",
             "        Test test = new Test();",
             "        test.open();",
@@ -2528,9 +2530,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
             "  protected DataBindingContext initDataBindings() {",
             "    DataBindingContext bindingContext = new DataBindingContext();",
             "    //",
-            "    IObservableValue shellObserveTextObserveWidget = SWTObservables.observeText(m_shell);",
-            "    IObservableValue textObserveTextObserveWidget = SWTObservables.observeText(m_text, SWT.Modify);",
-            "    bindingContext.bindValue(shellObserveTextObserveWidget, textObserveTextObserveWidget, null, null);",
+            "    IObservableValue observeTextShellObserveWidget = WidgetProperties.text().observe(m_shell);",
+            "    IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
+            "    bindingContext.bindValue(observeTextShellObserveWidget, observeTextTextObserveWidget, null, null);",
             "    //",
             "    return bindingContext;",
             "  }",
@@ -2549,7 +2551,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  private Text m_text;",
         "  public static void main(String[] args) {",
         "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+        "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
         "      public void run() {",
         "        Test test = new Test();",
         "        test.open();",
@@ -2576,8 +2578,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  protected DataBindingContext initDataBindings() {",
         "    DataBindingContext bindingContext = new DataBindingContext();",
         "    //",
-        "    IObservableValue target = SWTObservables.observeText(m_shell);",
-        "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
+        "    IObservableValue target = WidgetProperties.text().observe(m_shell);",
+        "    IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);",
         "    bindingContext.bindValue(target, model, null, null);",
         "    //",
         "    return bindingContext;",
@@ -2593,7 +2595,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  private Text m_text;",
         "  public static void main(String[] args) {",
         "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+        "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
         "      public void run() {",
         "        Test test = new Test();",
         "        test.open();",
@@ -2666,9 +2668,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
             ChildrenContext.ChildrenForPropertiesTable).get(10);
     //
     SwtObservableInfo target = new SwtObservableInfo(shellObserve, shellTextProperty);
-    target.setCodeSupport(new SwtObservableCodeSupport());
+    target.setCodeSupport(new WidgetPropertiesCodeSupport("observeText"));
     TextSwtObservableInfo model = new TextSwtObservableInfo(textObserve, textTextProperty);
-    model.setCodeSupport(new SwtObservableTextCodeSupport());
+    model.setCodeSupport(new WidgetPropertyTextCodeSupport(new int[] { SWT.Modify }));
     ValueBindingInfo binding = new ValueBindingInfo(target, model);
     provider.addBinding(binding);
     //
@@ -2680,7 +2682,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
             "  private Text m_text;",
             "  public static void main(String[] args) {",
             "    Display display = Display.getDefault();",
-            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
             "      public void run() {",
             "        Test test = new Test();",
             "        test.open();",
@@ -2704,9 +2706,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
             "  protected DataBindingContext initDataBindings() {",
             "    DataBindingContext bindingContext = new DataBindingContext();",
             "    //",
-            "    IObservableValue shellObserveTextObserveWidget = SWTObservables.observeText(m_shell);",
-            "    IObservableValue textObserveTextObserveWidget = SWTObservables.observeText(m_text, SWT.Modify);",
-            "    bindingContext.bindValue(shellObserveTextObserveWidget, textObserveTextObserveWidget, null, null);",
+            "    IObservableValue observeTextShellObserveWidget = WidgetProperties.text().observe(m_shell);",
+            "    IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
+            "    bindingContext.bindValue(observeTextShellObserveWidget, observeTextTextObserveWidget, null, null);",
             "    //",
             "    return bindingContext;",
             "  }",
@@ -2725,7 +2727,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  private Text m_text;",
         "  public static void main(String[] args) {",
         "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+        "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
         "      public void run() {",
         "        Test test = new Test();",
         "        test.open();",
@@ -2749,8 +2751,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  protected DataBindingContext initDataBindings() {",
         "    DataBindingContext bindingContext = new DataBindingContext();",
         "    //",
-        "    IObservableValue target = SWTObservables.observeText(m_shell);",
-        "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
+        "    IObservableValue target = WidgetProperties.text().observe(m_shell);",
+        "    IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);",
         "    bindingContext.bindValue(target, model, null, null);",
         "    //",
         "    return bindingContext;",
@@ -2766,7 +2768,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  private Text m_text;",
         "  public static void main(String[] args) {",
         "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+        "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
         "      public void run() {",
         "        Test test = new Test();",
         "        test.open();",
@@ -2832,9 +2834,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
             ChildrenContext.ChildrenForPropertiesTable).get(10);
     //
     SwtObservableInfo target = new SwtObservableInfo(shellObserve, shellTextProperty);
-    target.setCodeSupport(new SwtObservableCodeSupport());
+    target.setCodeSupport(new WidgetPropertiesCodeSupport("observeText"));
     TextSwtObservableInfo model = new TextSwtObservableInfo(textObserve, textTextProperty);
-    model.setCodeSupport(new SwtObservableTextCodeSupport());
+    model.setCodeSupport(new WidgetPropertyTextCodeSupport(new int[] { SWT.Modify }));
     ValueBindingInfo binding = new ValueBindingInfo(target, model);
     provider.addBinding(binding);
     //
@@ -2845,7 +2847,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
             "  private static Text m_text;",
             "  public static void main(String[] args) {",
             "    Display display = Display.getDefault();",
-            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
             "      public void run() {",
             "        Display display = new Display();",
             "        m_shell = new Shell();",
@@ -2865,9 +2867,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
             "  protected static DataBindingContext initDataBindings() {",
             "    DataBindingContext bindingContext = new DataBindingContext();",
             "    //",
-            "    IObservableValue shellObserveTextObserveWidget = SWTObservables.observeText(m_shell);",
-            "    IObservableValue textObserveTextObserveWidget = SWTObservables.observeText(m_text, SWT.Modify);",
-            "    bindingContext.bindValue(shellObserveTextObserveWidget, textObserveTextObserveWidget, null, null);",
+            "    IObservableValue observeTextShellObserveWidget = WidgetProperties.text().observe(m_shell);",
+            "    IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
+            "    bindingContext.bindValue(observeTextShellObserveWidget, observeTextTextObserveWidget, null, null);",
             "    //",
             "    return bindingContext;",
             "  }",
@@ -2885,7 +2887,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  private static Text m_text;",
         "  public static void main(String[] args) {",
         "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+        "    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
         "      public void run() {",
         "        Display display = new Display();",
         "        m_shell = new Shell();",
@@ -2905,8 +2907,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  protected DataBindingContext initDataBindings() {",
         "    DataBindingContext bindingContext = new DataBindingContext();",
         "    //",
-        "    IObservableValue target = SWTObservables.observeText(m_shell);",
-        "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
+        "    IObservableValue target = WidgetProperties.text().observe(m_shell);",
+        "    IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);",
         "    bindingContext.bindValue(target, model, null, null);",
         "    //",
         "    return bindingContext;",
@@ -2943,9 +2945,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
             ChildrenContext.ChildrenForPropertiesTable).get(10);
     //
     SwtObservableInfo target = new SwtObservableInfo(compositeObserve, compositeEnabledProperty);
-    target.setCodeSupport(new SwtObservableCodeSupport());
+    target.setCodeSupport(new WidgetPropertiesCodeSupport("observeText"));
     TextSwtObservableInfo model = new TextSwtObservableInfo(textObserve, textTextProperty);
-    model.setCodeSupport(new SwtObservableTextCodeSupport());
+    model.setCodeSupport(new WidgetPropertyTextCodeSupport(new int[] { SWT.Modify }));
     ValueBindingInfo binding = new ValueBindingInfo(target, model);
     provider.addBinding(binding);
     //
@@ -2963,9 +2965,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
             "  protected DataBindingContext initDataBindings() {",
             "    DataBindingContext bindingContext = new DataBindingContext();",
             "    //",
-            "    IObservableValue thisObserveEnabledObserveWidget = SWTObservables.observeEnabled(this);",
-            "    IObservableValue textObserveTextObserveWidget = SWTObservables.observeText(m_text, SWT.Modify);",
-            "    bindingContext.bindValue(thisObserveEnabledObserveWidget, textObserveTextObserveWidget, null, null);",
+            "    IObservableValue observeEnabledThisObserveWidget = WidgetProperties.enabled().observe(this);",
+            "    IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
+            "    bindingContext.bindValue(observeEnabledThisObserveWidget, observeTextTextObserveWidget, null, null);",
             "    //",
             "    return bindingContext;",
             "  }",
@@ -2990,8 +2992,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "  protected DataBindingContext initDataBindings() {",
         "    DataBindingContext bindingContext = new DataBindingContext();",
         "    //",
-        "    IObservableValue target = SWTObservables.observeEnabled(this);",
-        "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
+        "    IObservableValue target = WidgetProperties.enabled().observe(this);",
+        "    IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);",
         "    bindingContext.bindValue(target, model, null, null);",
         "    //",
         "    return bindingContext;",

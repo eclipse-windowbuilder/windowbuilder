@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -95,8 +95,8 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
-                "    IObservableValue observeWidget = ViewersObservables.observeSingleSelection(m_viewer);",
+                "    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
+                "    IObservableValue observeWidget = ViewerProperties.singleSelection().observe(m_viewer);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
                 "    return bindingContext;",
@@ -200,8 +200,8 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList = BeansObservables.observeList(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableList observeWidget = ViewersObservables.observeMultiSelection(m_viewer);",
+                "    IObservableList observeList = BeanProperties.list(\"name\").observe(Realm.getDefault(), getClass());",
+                "    IObservableList observeWidget = ViewerProperties.multipleSelection().observe((Viewer)m_viewer);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindList(observeWidget, observeList, null, null);",
                 "    return bindingContext;",
@@ -281,8 +281,8 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableSet observeSet = BeansObservables.observeSet(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableSet observeWidget = ViewersObservables.observeCheckedElements(m_viewer, Integer.class);",
+                "    IObservableSet observeSet = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableSet observeWidget = ViewerProperties.checkedElements(Integer.class).observe((Viewer)m_viewer);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindSet(observeWidget, observeSet, null, null);",
                 "    return bindingContext;",
@@ -383,10 +383,10 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    //",
                 "    ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();",
                 "    m_viewer.setContentProvider(viewerContentProvider);",
-                "    IObservableMap[] viewerLabelProviderMaps = BeansObservables.observeMaps(viewerContentProvider.getKnownElements(), TestBean.class, new String[]{\"name\"});",
-                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMaps));",
+                "    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
+                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
                 "    //",
-                "    IObservableList selectionObserveList = ViewersObservables.observeMultiSelection(m_sourceViewer);",
+                "    IObservableList selectionObserveList = ViewerProperties.multipleSelection().observe(m_sourceViewer);",
                 "    m_viewer.setInput(selectionObserveList);",
                 "    //",
                 "    return bindingContext;",
@@ -433,7 +433,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     //
     assertNull(binding.getVariableIdentifier());
     assertEquals(
-        "m_viewer.input(ObservableListContentProvider, ObservableMaps[name])",
+        "m_viewer.input(ObservableListContentProvider, ObservableMaps[\"name\"])",
         binding.getPresentationText());
     //
     assertNotNull(binding.getElementType());
@@ -444,7 +444,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     assertEquals(
         "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
         labelProvider.getClassName());
-    assertEquals("ObservableMaps[name]", labelProvider.getPresentationText());
+    assertEquals("ObservableMaps[\"name\"]", labelProvider.getPresentationText());
     assertNull(labelProvider.getVariableIdentifier());
     //
     MapsBeanObservableInfo mapsObservable = labelProvider.getMapsObservable();
@@ -457,7 +457,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     String[] properties = mapsObservable.getProperties();
     assertNotNull(properties);
     assertEquals(1, properties.length);
-    assertEquals("name", properties[0]);
+    assertEquals("\"name\"", properties[0]);
     //
     assertNotNull(mapsObservable.getDomainObservable());
     assertInstanceOf(KnownElementsObservableInfo.class, mapsObservable.getDomainObservable());
@@ -532,10 +532,10 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    //",
                 "    ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();",
                 "    m_viewer.setContentProvider(viewerContentProvider);",
-                "    IObservableMap[] viewerLabelProviderMaps = BeansObservables.observeMaps(viewerContentProvider.getKnownElements(), TestBean.class, new String[]{\"name\"});",
-                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMaps));",
+                "    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
+                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
                 "    //",
-                "    IObservableList beanObserveList = BeansObservables.observeList(Realm.getDefault(), m_bean, \"beans\");",
+                "    IObservableList beanObserveList = BeanProperties.list(\"beans\").observe(Realm.getDefault(), m_bean);",
                 "    m_viewer.setInput(beanObserveList);",
                 "    //",
                 "    return bindingContext;",
@@ -580,7 +580,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     //
     assertNull(binding.getVariableIdentifier());
     assertEquals(
-        "m_viewer.input(ObservableListContentProvider, ObservableMaps[name])",
+        "m_viewer.input(ObservableListContentProvider, ObservableMaps[\"name\"])",
         binding.getPresentationText());
     //
     assertNotNull(binding.getElementType());
@@ -591,7 +591,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     assertEquals(
         "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
         labelProvider.getClassName());
-    assertEquals("ObservableMaps[name]", labelProvider.getPresentationText());
+    assertEquals("ObservableMaps[\"name\"]", labelProvider.getPresentationText());
     assertNull(labelProvider.getVariableIdentifier());
     //
     MapsBeanObservableInfo mapsObservable = labelProvider.getMapsObservable();
@@ -604,7 +604,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     String[] properties = mapsObservable.getProperties();
     assertNotNull(properties);
     assertEquals(1, properties.length);
-    assertEquals("name", properties[0]);
+    assertEquals("\"name\"", properties[0]);
     //
     assertNotNull(mapsObservable.getDomainObservable());
     assertInstanceOf(KnownElementsObservableInfo.class, mapsObservable.getDomainObservable());
@@ -679,8 +679,8 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    //",
                 "    ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();",
                 "    m_viewer.setContentProvider(viewerContentProvider);",
-                "    IObservableMap[] viewerLabelProviderMaps = BeansObservables.observeMaps(viewerContentProvider.getKnownElements(), TestBean.class, new String[]{\"name\"});",
-                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMaps));",
+                "    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
+                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
                 "    //",
                 "    m_viewer.setInput(new WritableList(m_beans, TestBean.class));",
                 "    //",
@@ -726,7 +726,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     //
     assertNull(binding.getVariableIdentifier());
     assertEquals(
-        "m_viewer.input(ObservableListContentProvider, ObservableMaps[name])",
+        "m_viewer.input(ObservableListContentProvider, ObservableMaps[\"name\"])",
         binding.getPresentationText());
     //
     assertNotNull(binding.getElementType());
@@ -737,7 +737,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     assertEquals(
         "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
         labelProvider.getClassName());
-    assertEquals("ObservableMaps[name]", labelProvider.getPresentationText());
+    assertEquals("ObservableMaps[\"name\"]", labelProvider.getPresentationText());
     assertNull(labelProvider.getVariableIdentifier());
     //
     MapsBeanObservableInfo mapsObservable = labelProvider.getMapsObservable();
@@ -750,7 +750,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     String[] properties = mapsObservable.getProperties();
     assertNotNull(properties);
     assertEquals(1, properties.length);
-    assertEquals("name", properties[0]);
+    assertEquals("\"name\"", properties[0]);
     //
     assertNotNull(mapsObservable.getDomainObservable());
     assertInstanceOf(KnownElementsObservableInfo.class, mapsObservable.getDomainObservable());
@@ -833,11 +833,11 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    //",
                 "    ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();",
                 "    m_viewer.setContentProvider(viewerContentProvider);",
-                "    IObservableMap[] viewerLabelProviderMaps = BeansObservables.observeMaps(viewerContentProvider.getKnownElements(), TestBean.class, new String[]{\"name\"});",
-                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMaps));",
+                "    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
+                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
                 "    //",
-                "    IObservableValue selectionObserve = ViewersObservables.observeSingleSelection(m_sourceViewer);",
-                "    IObservableList containerObserveDetailList = BeansObservables.observeDetailList(Realm.getDefault(), selectionObserve, \"beans\", TestBean.class);",
+                "    IObservableValue selectionObserve = ViewerProperties.singleSelection().observe(m_sourceViewer);",
+                "    IObservableList containerObserveDetailList = BeanProperties.list(\"beans\", TestBean.class).observeDetail(selectionObserve);",
                 "    m_viewer.setInput(containerObserveDetailList);",
                 "    //",
                 "    return bindingContext;",
@@ -886,7 +886,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     //
     assertNull(binding.getVariableIdentifier());
     assertEquals(
-        "m_viewer.input(ObservableListContentProvider, ObservableMaps[name])",
+        "m_viewer.input(ObservableListContentProvider, ObservableMaps[\"name\"])",
         binding.getPresentationText());
     //
     assertNotNull(binding.getElementType());
@@ -897,7 +897,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     assertEquals(
         "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
         labelProvider.getClassName());
-    assertEquals("ObservableMaps[name]", labelProvider.getPresentationText());
+    assertEquals("ObservableMaps[\"name\"]", labelProvider.getPresentationText());
     assertNull(labelProvider.getVariableIdentifier());
     //
     MapsBeanObservableInfo mapsObservable = labelProvider.getMapsObservable();
@@ -910,7 +910,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     String[] properties = mapsObservable.getProperties();
     assertNotNull(properties);
     assertEquals(1, properties.length);
-    assertEquals("name", properties[0]);
+    assertEquals("\"name\"", properties[0]);
     //
     assertNotNull(mapsObservable.getDomainObservable());
     assertInstanceOf(KnownElementsObservableInfo.class, mapsObservable.getDomainObservable());
@@ -987,10 +987,10 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    //",
                 "    ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();",
                 "    m_viewer.setContentProvider(viewerContentProvider);",
-                "    IObservableMap[] viewerLabelProviderMaps = BeansObservables.observeMaps(viewerContentProvider.getKnownElements(), TestBean.class, new String[]{\"name\"});",
-                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMaps));",
+                "    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
+                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
                 "    //",
-                "    IObservableSet checkedObserveSet = ViewersObservables.observeCheckedElements(m_sourceViewer, TestBean.class);",
+                "    IObservableSet checkedObserveSet = ViewerProperties.checkedElements(TestBean.class).observe((Viewer)m_sourceViewer);",
                 "    m_viewer.setInput(checkedObserveSet);",
                 "    //",
                 "    return bindingContext;",
@@ -1040,7 +1040,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     //
     assertNull(binding.getVariableIdentifier());
     assertEquals(
-        "m_viewer.input(ObservableSetContentProvider, ObservableMaps[name])",
+        "m_viewer.input(ObservableSetContentProvider, ObservableMaps[\"name\"])",
         binding.getPresentationText());
     //
     assertNotNull(binding.getElementType());
@@ -1051,7 +1051,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     assertEquals(
         "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
         labelProvider.getClassName());
-    assertEquals("ObservableMaps[name]", labelProvider.getPresentationText());
+    assertEquals("ObservableMaps[\"name\"]", labelProvider.getPresentationText());
     assertNull(labelProvider.getVariableIdentifier());
     //
     MapsBeanObservableInfo mapsObservable = labelProvider.getMapsObservable();
@@ -1064,7 +1064,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     String[] properties = mapsObservable.getProperties();
     assertNotNull(properties);
     assertEquals(1, properties.length);
-    assertEquals("name", properties[0]);
+    assertEquals("\"name\"", properties[0]);
     //
     assertNotNull(mapsObservable.getDomainObservable());
     assertInstanceOf(KnownElementsObservableInfo.class, mapsObservable.getDomainObservable());
@@ -1139,10 +1139,10 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    //",
                 "    ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();",
                 "    m_viewer.setContentProvider(viewerContentProvider);",
-                "    IObservableMap[] viewerLabelProviderMaps = BeansObservables.observeMaps(viewerContentProvider.getKnownElements(), TestBean.class, new String[]{\"name\"});",
-                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMaps));",
+                "    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
+                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
                 "    //",
-                "    IObservableSet beanObserveSet = BeansObservables.observeSet(Realm.getDefault(), m_bean, \"beans\");",
+                "    IObservableSet beanObserveSet = BeanProperties.set(\"beans\").observe(Realm.getDefault(), m_bean);",
                 "    m_viewer.setInput(beanObserveSet);",
                 "    //",
                 "    return bindingContext;",
@@ -1187,7 +1187,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     //
     assertNull(binding.getVariableIdentifier());
     assertEquals(
-        "m_viewer.input(ObservableSetContentProvider, ObservableMaps[name])",
+        "m_viewer.input(ObservableSetContentProvider, ObservableMaps[\"name\"])",
         binding.getPresentationText());
     //
     assertNotNull(binding.getElementType());
@@ -1198,7 +1198,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     assertEquals(
         "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
         labelProvider.getClassName());
-    assertEquals("ObservableMaps[name]", labelProvider.getPresentationText());
+    assertEquals("ObservableMaps[\"name\"]", labelProvider.getPresentationText());
     assertNull(labelProvider.getVariableIdentifier());
     //
     MapsBeanObservableInfo mapsObservable = labelProvider.getMapsObservable();
@@ -1211,7 +1211,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     String[] properties = mapsObservable.getProperties();
     assertNotNull(properties);
     assertEquals(1, properties.length);
-    assertEquals("name", properties[0]);
+    assertEquals("\"name\"", properties[0]);
     //
     assertNotNull(mapsObservable.getDomainObservable());
     assertInstanceOf(KnownElementsObservableInfo.class, mapsObservable.getDomainObservable());
@@ -1286,8 +1286,8 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    //",
                 "    ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();",
                 "    m_viewer.setContentProvider(viewerContentProvider);",
-                "    IObservableMap[] viewerLabelProviderMaps = BeansObservables.observeMaps(viewerContentProvider.getKnownElements(), TestBean.class, new String[]{\"name\"});",
-                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMaps));",
+                "    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
+                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
                 "    //",
                 "    m_viewer.setInput(new WritableSet(m_beans, TestBean.class));",
                 "    //",
@@ -1333,7 +1333,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     //
     assertNull(binding.getVariableIdentifier());
     assertEquals(
-        "m_viewer.input(ObservableSetContentProvider, ObservableMaps[name])",
+        "m_viewer.input(ObservableSetContentProvider, ObservableMaps[\"name\"])",
         binding.getPresentationText());
     //
     assertNotNull(binding.getElementType());
@@ -1344,7 +1344,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     assertEquals(
         "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
         labelProvider.getClassName());
-    assertEquals("ObservableMaps[name]", labelProvider.getPresentationText());
+    assertEquals("ObservableMaps[\"name\"]", labelProvider.getPresentationText());
     assertNull(labelProvider.getVariableIdentifier());
     //
     MapsBeanObservableInfo mapsObservable = labelProvider.getMapsObservable();
@@ -1357,7 +1357,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     String[] properties = mapsObservable.getProperties();
     assertNotNull(properties);
     assertEquals(1, properties.length);
-    assertEquals("name", properties[0]);
+    assertEquals("\"name\"", properties[0]);
     //
     assertNotNull(mapsObservable.getDomainObservable());
     assertInstanceOf(KnownElementsObservableInfo.class, mapsObservable.getDomainObservable());
@@ -1440,11 +1440,11 @@ public class ViewerObservableTest extends AbstractBindingTest {
                 "    //",
                 "    ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();",
                 "    m_viewer.setContentProvider(viewerContentProvider);",
-                "    IObservableMap[] viewerLabelProviderMaps = BeansObservables.observeMaps(viewerContentProvider.getKnownElements(), TestBean.class, new String[]{\"name\"});",
-                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMaps));",
+                "    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
+                "    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
                 "    //",
-                "    IObservableValue selectionObserve = ViewersObservables.observeSingleSelection(m_sourceViewer);",
-                "    IObservableSet containerObserveDetailSet = BeansObservables.observeDetailSet(Realm.getDefault(), selectionObserve, \"beans\", TestBean.class);",
+                "    IObservableValue selectionObserve = ViewerProperties.singleSelection().observe(m_sourceViewer);",
+                "    IObservableSet containerObserveDetailSet = BeanProperties.set(\"beans\", TestBean.class).observeDetail(selectionObserve);",
                 "    m_viewer.setInput(containerObserveDetailSet);",
                 "    //",
                 "    return bindingContext;",
@@ -1493,7 +1493,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     //
     assertNull(binding.getVariableIdentifier());
     assertEquals(
-        "m_viewer.input(ObservableSetContentProvider, ObservableMaps[name])",
+        "m_viewer.input(ObservableSetContentProvider, ObservableMaps[\"name\"])",
         binding.getPresentationText());
     //
     assertNotNull(binding.getElementType());
@@ -1504,7 +1504,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     assertEquals(
         "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
         labelProvider.getClassName());
-    assertEquals("ObservableMaps[name]", labelProvider.getPresentationText());
+    assertEquals("ObservableMaps[\"name\"]", labelProvider.getPresentationText());
     assertNull(labelProvider.getVariableIdentifier());
     //
     MapsBeanObservableInfo mapsObservable = labelProvider.getMapsObservable();
@@ -1517,7 +1517,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
     String[] properties = mapsObservable.getProperties();
     assertNotNull(properties);
     assertEquals(1, properties.length);
-    assertEquals("name", properties[0]);
+    assertEquals("\"name\"", properties[0]);
     //
     assertNotNull(mapsObservable.getDomainObservable());
     assertInstanceOf(KnownElementsObservableInfo.class, mapsObservable.getDomainObservable());

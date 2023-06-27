@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -147,29 +147,36 @@ public class BeanBindableTest extends AbstractBindingTest {
     //
     List<IObserveInfo> nameProperties =
         observes.get(1).getChildren(ChildrenContext.ChildrenForPropertiesTable);
-    assertEquals(3, nameProperties.size());
+    assertEquals(4, nameProperties.size());
+    //
+    assertBindable(
+        BeanPropertyDescriptorBindableInfo.class,
+        null,
+        false,
+        "blank|\"blank\"|boolean",
+        nameProperties.get(0));
     //
     assertBindable(
         BeanPropertyDescriptorBindableInfo.class,
         null,
         true,
         "bytes|\"bytes\"|[B",
-        nameProperties.get(0));
+        nameProperties.get(1));
     //
     List<IObserveInfo> bytesProperties =
-        nameProperties.get(0).getChildren(ChildrenContext.ChildrenForPropertiesTable);
+        nameProperties.get(1).getChildren(ChildrenContext.ChildrenForPropertiesTable);
     assertEquals(1, bytesProperties.size());
     //
     assertBindable(
         BeanPropertyDescriptorBindableInfo.class,
-        nameProperties.get(0),
+        nameProperties.get(1),
         true,
         "class|\"bytes.class\"|java.lang.Class",
         bytesProperties.get(0));
     //
     FieldBeanBindableInfo nameField = (FieldBeanBindableInfo) observes.get(1);
     assertNull(nameField.resolvePropertyReference("bytez"));
-    assertSame(nameProperties.get(0), nameField.resolvePropertyReference("\"bytes\""));
+    assertSame(nameProperties.get(1), nameField.resolvePropertyReference("\"bytes\""));
     assertSame(bytesProperties.get(0), nameField.resolvePropertyReference("\"bytes.class\""));
     //
     assertBindable(
@@ -177,14 +184,14 @@ public class BeanBindableTest extends AbstractBindingTest {
         null,
         true,
         "class|\"class\"|java.lang.Class",
-        nameProperties.get(1));
+        nameProperties.get(2));
     //
     assertBindable(
         BeanPropertyDescriptorBindableInfo.class,
         null,
         false,
         "empty|\"empty\"|boolean",
-        nameProperties.get(2));
+        nameProperties.get(3));
     //
     assertBindable(
         FieldBeanBindableInfo.class,

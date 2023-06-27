@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindabl
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanPropertyBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailSetBeanObservableInfo;
-import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.ListBeanObservableInfo;
+import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.SetBeanObservableInfo;
 
 import java.util.List;
 
@@ -34,8 +34,9 @@ public class SetPropertyCodeSupport extends BeanPropertiesCodeSupport {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public SetPropertyCodeSupport() {
-    super("org.eclipse.core.databinding.property.set.ISetProperty");
+  @Override
+  protected String getObservableType() {
+    return "org.eclipse.core.databinding.property.set.ISetProperty";
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -46,7 +47,7 @@ public class SetPropertyCodeSupport extends BeanPropertiesCodeSupport {
   @Override
   protected ObservableInfo createObservable(BeanBindableInfo bindableObject,
       BeanPropertyBindableInfo bindableProperty) throws Exception {
-    return new ListBeanObservableInfo(bindableObject, bindableProperty);
+    return new SetBeanObservableInfo(bindableObject, bindableProperty);
   }
 
   @Override
