@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -521,7 +521,20 @@ public final class SwtProperties {
             "observeMultiSelection",
             "observeInput",
             "observeCheckedElements",
-            "observeFilters"};
+            "observeFilters",
+            // observeSelection method is overloaded...
+            "observeSelection",
+            "observeSelection",
+            "observeSelection",
+            "observeSelection",
+            "observeSelection",
+            "observeSelection",
+            "observeSelection",
+            "observeSelection",
+            "observeSelection",
+            "observeSelection",
+            "observeSelection",
+            "observeSelection"};
     String[] values =
         {
             "enabled",
@@ -547,7 +560,20 @@ public final class SwtProperties {
             "multipleSelection",
             "input",
             "checkedElements",
-            "filters"};
+            "filters",
+            "dateTimeSelection",
+            "localDateSelection",
+            "localTimeSelection",
+            "buttonSelection",
+            "comboSelection",
+            "ccomboSelection",
+            "listSelection",
+            "menuItemSelection",
+            "scaleSelection",
+            "sliderSelection",
+            "spinnerSelection",
+            // widgetSelection -> observeSelection
+            "widgetSelection"};
     //
     for (int i = 0; i < keys.length; i++) {
       SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.put(keys[i], values[i]);

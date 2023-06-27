@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.BeansObserveTypeContainer;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.PropertyBindableInfo;
+import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.MapsBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.properties.ValuePropertyCodeSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.context.DataBindingContextInfo;
@@ -257,9 +258,13 @@ public final class ViewerInputParser implements ISubParser {
       Assert.isTrue(signature.endsWith("<init>(org.eclipse.core.databinding.observable.map.IObservableMap[])")
           || signature.endsWith("<init>(org.eclipse.core.databinding.observable.map.IObservableMap)"));
       // prepare maps observable
-      MapsBeanObservableInfo mapsObservable =
-          (MapsBeanObservableInfo) resolver.getModel(arguments[0]);
-      if (mapsObservable == null) {
+      MapsBeanObservableInfo mapsObservable = null;
+      AstObjectInfo astObject = resolver.getModel(arguments[0]);
+      if (astObject instanceof MapsBeanObservableInfo) {
+        mapsObservable = (MapsBeanObservableInfo) astObject;
+      } else if (astObject instanceof DetailBeanObservableInfo) {
+        mapsObservable = new MapsBeanObservableInfo((DetailBeanObservableInfo) astObject);
+      } else {
         AbstractParser.addError(
             editor,
             MessageFormat.format(Messages.ViewerInputParser_argumentNotFound, arguments[0]),

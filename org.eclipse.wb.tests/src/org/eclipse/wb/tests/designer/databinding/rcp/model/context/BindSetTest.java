@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,8 +76,8 @@ public class BindSetTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableSet observeSet = BeansObservables.observeSet(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableSet observeWidget = ViewersObservables.observeCheckedElements(m_viewer, String.class);",
+                "    IObservableSet observeSet = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableSet observeWidget = ViewerProperties.checkedElements(String.class).observe((Viewer)m_viewer);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindSet(observeWidget, observeSet, null, null);",
                 "    return bindingContext;",
@@ -189,8 +189,8 @@ public class BindSetTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableSet observeSet = BeansObservables.observeSet(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableSet observeWidget = ViewersObservables.observeCheckedElements(m_viewer, String.class);",
+                "    IObservableSet observeSet = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableSet observeWidget = ViewerProperties.checkedElements(String.class).observe((Viewer)m_viewer);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 line,
                 "    return bindingContext;",
@@ -264,8 +264,8 @@ public class BindSetTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableSet observeSet = BeansObservables.observeSet(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableSet observeWidget = ViewersObservables.observeCheckedElements(m_viewer, String.class);",
+                "    IObservableSet observeSet = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableSet observeWidget = ViewerProperties.checkedElements(String.class).observe((Viewer)m_viewer);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    UpdateSetStrategy strategy0 = new UpdateSetStrategy();",
                 "    UpdateSetStrategy strategy1 = new UpdateSetStrategy(UpdateSetStrategy.POLICY_NEVER);",
@@ -347,8 +347,8 @@ public class BindSetTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableSet observeSet = BeansObservables.observeSet(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableSet observeWidget = ViewersObservables.observeCheckedElements(m_viewer, String.class);",
+                "    IObservableSet observeSet = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableSet observeWidget = ViewerProperties.checkedElements(String.class).observe((Viewer)m_viewer);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindSet(observeWidget, observeSet, null, new test.TestStrategy());",
                 "    return bindingContext;",
@@ -446,8 +446,8 @@ public class BindSetTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableSet observeSet = BeansObservables.observeSet(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableSet observeWidget = ViewersObservables.observeCheckedElements(m_viewer, String.class);",
+                "    IObservableSet observeSet = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableSet observeWidget = ViewerProperties.checkedElements(String.class).observe((Viewer)m_viewer);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    UpdateSetStrategy strategy = new UpdateSetStrategy();",
                 line0,

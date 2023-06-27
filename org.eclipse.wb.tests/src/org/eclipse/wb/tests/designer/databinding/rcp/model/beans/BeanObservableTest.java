@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -423,7 +423,7 @@ public class BeanObservableTest extends AbstractBindingTest {
             "  }",
             "  private DataBindingContext initDataBindings() {",
             "    DataBindingContext bindingContext = new DataBindingContext();",
-            "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
+            "    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
             "    bindingContext.bindValue(observeWidget, m_value, null, null);",
             "    return bindingContext;",
             "  }",
@@ -483,8 +483,8 @@ public class BeanObservableTest extends AbstractBindingTest {
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
-                "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
-                "    IObservableValue observeDetail = BeansObservables.observeDetailValue(m_value, \"name\", String.class);",
+                "    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
+                "    IObservableValue observeDetail = BeanProperties.value(\"name\", String.class).observeDetail(m_value);",
                 "    bindingContext.bindValue(observeWidget, observeDetail, null, null);",
                 "    return bindingContext;",
                 "  }",
@@ -666,7 +666,7 @@ public class BeanObservableTest extends AbstractBindingTest {
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
-                "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
+                "    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
                 "    bindingContext.bindValue(observeWidget, m_binding0.getValidationStatus(), null, null);",
                 "    return bindingContext;",
                 "  }",
@@ -705,14 +705,14 @@ public class BeanObservableTest extends AbstractBindingTest {
   ////////////////////////////////////////////////////////////////////////////
   public void test_observeValue_1() throws Exception {
     observeValue(
-        "    IObservableValue observeValue0 = BeansObservables.observeValue(m_bean0, \"name\");",
-        "    IObservableValue observeValue1 = BeansObservables.observeValue(getBean1(), \"value\");");
+        "    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
+        "    IObservableValue observeValue1 = BeanProperties.value(\"value\").observe(getBean1());");
   }
 
   public void test_observeValue_2() throws Exception {
     observeValue(
-        "    IObservableValue observeValue0 = BeansObservables.observeValue(Realm.getDefault(), m_bean0, \"name\");",
-        "    IObservableValue observeValue1 = BeansObservables.observeValue(Realm.getDefault(), getBean1(), \"value\");");
+        "    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(Realm.getDefault(), m_bean0);",
+        "    IObservableValue observeValue1 = BeanProperties.value(\"value\").observe(Realm.getDefault(), getBean1());");
   }
 
   private void observeValue(String line0, String line1) throws Exception {
@@ -817,14 +817,14 @@ public class BeanObservableTest extends AbstractBindingTest {
 
   public void test_observeList_1() throws Exception {
     observeList(
-        "    IObservableList observeList0 = BeansObservables.observeList(Realm.getDefault(), m_bean0, \"names\");",
-        "    IObservableList observeList1 = BeansObservables.observeList(Realm.getDefault(), getBean1(), \"names\");");
+        "    IObservableList observeList0 = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean0);",
+        "    IObservableList observeList1 = BeanProperties.list(\"names\").observe(Realm.getDefault(), getBean1());");
   }
 
   public void test_observeList_2() throws Exception {
     observeList(
-        "    IObservableList observeList0 = BeansObservables.observeList(Realm.getDefault(), m_bean0, \"names\", java.lang.String.class);",
-        "    IObservableList observeList1 = BeansObservables.observeList(Realm.getDefault(), getBean1(), \"names\", String.class);");
+        "    IObservableList observeList0 = BeanProperties.list(\"names\", java.lang.String.class).observe(Realm.getDefault(),m_bean0);",
+        "    IObservableList observeList1 = BeanProperties.list(\"names\", String.class).observe(Realm.getDefault(), getBean1());");
   }
 
   private void observeList(String line0, String line1) throws Exception {
@@ -927,14 +927,14 @@ public class BeanObservableTest extends AbstractBindingTest {
 
   public void test_observeSet_1() throws Exception {
     observeSet(
-        "    IObservableSet observeSet0 = BeansObservables.observeSet(Realm.getDefault(), m_bean0, \"names\");",
-        "    IObservableSet observeSet1 = BeansObservables.observeSet(Realm.getDefault(), getBean1(), \"names\");");
+        "    IObservableSet observeSet0 = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean0);",
+        "    IObservableSet observeSet1 = BeanProperties.set(\"names\").observe(Realm.getDefault(), getBean1());");
   }
 
   public void test_observeSet_2() throws Exception {
     observeSet(
-        "    IObservableSet observeSet0 = BeansObservables.observeSet(Realm.getDefault(), m_bean0, \"names\", java.lang.String.class);",
-        "    IObservableSet observeSet1 = BeansObservables.observeSet(Realm.getDefault(), getBean1(), \"names\", String.class);");
+        "    IObservableSet observeSet0 = BeanProperties.set(\"names\", java.lang.String.class).observe(Realm.getDefault(), m_bean0);",
+        "    IObservableSet observeSet1 = BeanProperties.set(\"names\", String.class).observe(Realm.getDefault(), getBean1());");
   }
 
   private void observeSet(String line0, String line1) throws Exception {
@@ -1035,11 +1035,11 @@ public class BeanObservableTest extends AbstractBindingTest {
   }
 
   public void test_observeDetailValue_1() throws Exception {
-    observeDetailValue("    IObservableValue observeDetailsValue = BeansObservables.observeDetailValue(Realm.getDefault(), observeValue0, \"empty\", boolean.class);");
+    observeDetailValue("    IObservableValue observeDetailsValue = BeanProperties.value(\"empty\", boolean.class).observeDetail(observeValue0);");
   }
 
   public void test_observeDetailValue_2() throws Exception {
-    observeDetailValue("    IObservableValue observeDetailsValue = BeansObservables.observeDetailValue(Realm.getDefault(), observeValue0, String.class, \"empty\", boolean.class);");
+    observeDetailValue("    IObservableValue observeDetailsValue = BeanProperties.value(String.class, \"empty\", boolean.class).observeDetail(observeValue0);");
   }
 
   private void observeDetailValue(String line) throws Exception {
@@ -1085,9 +1085,9 @@ public class BeanObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue0 = BeansObservables.observeValue(m_bean0, \"name\");",
+                "    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
                 line,
-                "    IObservableValue observeValue1 = BeansObservables.observeValue(getBean1(), \"value\");",
+                "    IObservableValue observeValue1 = BeanProperties.value(\"value\").observe(getBean1());",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindValue(observeDetailsValue, observeValue1, null, null);",
                 "    return bindingContext;",
@@ -1186,9 +1186,9 @@ public class BeanObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue0 = BeansObservables.observeValue(m_bean0, \"name\");",
-                "    IObservableList observeDetailsList = BeansObservables.observeDetailList(Realm.getDefault(), observeValue0, \"empty\", boolean.class);",
-                "    IObservableList observeList1 = BeansObservables.observeList(Realm.getDefault(), getBean1(), \"values\");",
+                "    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
+                "    IObservableList observeDetailsList = BeanProperties.list(\"empty\", boolean.class).observeDetail(observeValue0);",
+                "    IObservableList observeList1 = BeanProperties.list(\"values\").observe(getBean1());",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindList(observeDetailsList, observeList1, null, null);",
                 "    return bindingContext;",
@@ -1301,9 +1301,9 @@ public class BeanObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue0 = BeansObservables.observeValue(m_bean0, \"name\");",
-                "    IObservableSet observeDetailsSet = BeansObservables.observeDetailSet(Realm.getDefault(), observeValue0, \"empty\", boolean.class);",
-                "    IObservableSet observeSet1 = BeansObservables.observeSet(Realm.getDefault(), getBean1(), \"values\");",
+                "    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
+                "    IObservableSet observeDetailsSet = BeanProperties.set(\"empty\", boolean.class).observeDetail(observeValue0);",
+                "    IObservableSet observeSet1 = BeanProperties.set(\"values\").observe(getBean1());",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindSet(observeDetailsSet, observeSet1, null, null);",
                 "    return bindingContext;",
@@ -1408,7 +1408,7 @@ public class BeanObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList = BeansObservables.observeList(Realm.getDefault(), m_bean0, \"names\", java.lang.String.class);",
+                "    IObservableList observeList = BeanProperties.list(\"names\", java.lang.String.class).observe(Realm.getDefault(), m_bean0);",
                 line,
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindList(observeList, writableList, null, null);",
@@ -1522,7 +1522,7 @@ public class BeanObservableTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableSet observeSet = BeansObservables.observeSet(Realm.getDefault(), m_bean0, \"names\", java.lang.String.class);",
+                "    IObservableSet observeSet = BeanProperties.set(\"names\", java.lang.String.class).observe(m_bean0);",
                 line,
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindSet(observeSet, writableSet, null, null);",

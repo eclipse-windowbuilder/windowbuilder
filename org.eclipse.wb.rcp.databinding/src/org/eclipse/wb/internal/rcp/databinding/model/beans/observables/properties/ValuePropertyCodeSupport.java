@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,17 @@ public class ValuePropertyCodeSupport extends BeanPropertiesCodeSupport {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ValuePropertyCodeSupport() {
-    super("org.eclipse.core.databinding.property.value.IValueProperty");
+    m_observeDetailSignatures
+        .add(getObservableType() + ".observeDetail(org.eclipse.core.databinding.observable.list.IObservableList)");
+    m_observeDetailSignatures
+        .add(getObservableType() + ".observeDetail(org.eclipse.core.databinding.observable.set.IObservableSet)");
+    m_observeDetailSignatures
+        .add(getObservableType() + ".observeDetail(org.eclipse.core.databinding.observable.map.IObservableMap)");
+  }
+
+  @Override
+  protected String getObservableType() {
+    return "org.eclipse.core.databinding.property.value.IValueProperty";
   }
 
   ////////////////////////////////////////////////////////////////////////////

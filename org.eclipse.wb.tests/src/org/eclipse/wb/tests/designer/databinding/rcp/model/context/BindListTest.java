@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,8 +76,8 @@ public class BindListTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList = BeansObservables.observeList(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableList observeWidget = SWTObservables.observeItems(m_combo);",
+                "    IObservableList observeList = BeanProperties.list(\"names\").observe(m_bean);",
+                "    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindList(observeWidget, observeList, null, null);",
                 "    return bindingContext;",
@@ -189,8 +189,8 @@ public class BindListTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList = BeansObservables.observeList(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableList observeWidget = SWTObservables.observeItems(m_combo);",
+                "    IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 line,
                 "    return bindingContext;",
@@ -264,8 +264,8 @@ public class BindListTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList = BeansObservables.observeList(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableList observeWidget = SWTObservables.observeItems(m_combo);",
+                "    IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    UpdateListStrategy strategy0 = new UpdateListStrategy();",
                 "    UpdateListStrategy strategy1 = new UpdateListStrategy(UpdateListStrategy.POLICY_NEVER);",
@@ -347,8 +347,8 @@ public class BindListTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList = BeansObservables.observeList(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableList observeWidget = SWTObservables.observeItems(m_combo);",
+                "    IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindList(observeWidget, observeList, null, new test.TestStrategy());",
                 "    return bindingContext;",
@@ -446,8 +446,8 @@ public class BindListTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList = BeansObservables.observeList(Realm.getDefault(), m_bean, \"names\");",
-                "    IObservableList observeWidget = SWTObservables.observeItems(m_combo);",
+                "    IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);",
+                "    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    UpdateListStrategy strategy = new UpdateListStrategy();",
                 line0,

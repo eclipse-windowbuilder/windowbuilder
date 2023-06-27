@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -85,12 +85,12 @@ public class UiConfigurationTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
-                "    IObservableValue observeDetailValue = BeansObservables.observeDetailValue(observeValue, \"empty\", boolean.class);",
-                "    IObservableValue observeWidget = SWTObservables.observeFont(m_shell);",
-                "    IObservableValue observeText = SWTObservables.observeText(m_text, SWT.Modify);",
-                "    IObservableSet observeSet = BeansObservables.observeSet(getClass(), \"name\");",
-                "    IObservableSet observeViewerSet = ViewersObservables.observeCheckedElements(m_viewer, String.class);",
+                "    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
+                "    IObservableValue observeDetailValue = BeanProperties.value(\"empty\", boolean.class).observeDetail(observeValue);",
+                "    IObservableValue observeWidget = WidgetProperties.font().observe(m_shell);",
+                "    IObservableValue observeText = WidgetProperties.text(SWT.Modify).observe(m_text);",
+                "    IObservableSet observeSet = BeanProperties.set(\"name\").observe(getClass());",
+                "    IObservableSet observeViewerSet = ViewerProperties.checkedElements(String.class).observe((Viewer)m_viewer);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
                 "    bindingContext.bindValue(observeText, observeDetailValue, null, null);",
@@ -207,8 +207,8 @@ public class UiConfigurationTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
-                "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
+                "    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
+                "    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
                 "    return bindingContext;",
@@ -353,8 +353,8 @@ public class UiConfigurationTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
-                "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
+                "    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
+                "    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
                 "    return bindingContext;",
@@ -394,19 +394,21 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     List<IUiContentProvider> providers = provider.getContentProviders(binding, listener);
     //
-    assertEquals(10, providers.size());
+    assertEquals(11, providers.size());
     // ---------------------------------------------------------------------------
     assertInstanceOf(LabelUiContentProvider.class, providers.get(0));
     assertEquals("Target:", ReflectionUtils.getFieldObject(providers.get(0), "m_title"));
     assertEquals("m_shell.text", ReflectionUtils.getFieldObject(providers.get(0), "m_value"));
     // ---------------------------------------------------------------------------
-    assertInstanceOf(SwtDelayUiContentProvider.class, providers.get(1));
+    assertInstanceOf(SwtTextEventsUiContentProvider.class, providers.get(1));
     // ---------------------------------------------------------------------------
-    assertInstanceOf(UpdateStrategyUiContentProvider.class, providers.get(2));
+    assertInstanceOf(SwtDelayUiContentProvider.class, providers.get(2));
+    // ---------------------------------------------------------------------------
+    assertInstanceOf(UpdateStrategyUiContentProvider.class, providers.get(3));
     assertInstanceOf(
         ChooseClassConfiguration.class,
-        ReflectionUtils.getFieldObject(providers.get(2), "m_configuration"));
-    ChooseClassConfiguration actualTargetStrategy = getConfiguration(providers.get(2));
+        ReflectionUtils.getFieldObject(providers.get(3), "m_configuration"));
+    ChooseClassConfiguration actualTargetStrategy = getConfiguration(providers.get(3));
     //
     ChooseClassConfiguration expectedTargetStrategy = new ChooseClassConfiguration();
     expectedTargetStrategy.setDialogFieldLabel("UpdateValueStrategy:");
@@ -426,10 +428,10 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     assertEquals(expectedTargetStrategy, actualTargetStrategy);
     // ---------------------------------------------------------------------------
-    assertInstanceOf(UpdateStrategyPropertiesUiContentProvider.class, providers.get(3));
+    assertInstanceOf(UpdateStrategyPropertiesUiContentProvider.class, providers.get(4));
     //
     List<IUiContentProvider> subProvidersTargetStrategy =
-        (List<IUiContentProvider>) ReflectionUtils.getFieldObject(providers.get(3), "m_providers");
+        (List<IUiContentProvider>) ReflectionUtils.getFieldObject(providers.get(4), "m_providers");
     assertEquals(4, subProvidersTargetStrategy.size());
     assertInstanceOf(ValidatorUiContentProvider.class, subProvidersTargetStrategy.get(0));
     assertInstanceOf(ValidatorUiContentProvider.class, subProvidersTargetStrategy.get(1));
@@ -492,17 +494,17 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     assertEquals(converterExpectedTarget, converterActualTarget);
     // ---------------------------------------------------------------------------
-    assertInstanceOf(SeparatorUiContentProvider.class, providers.get(4));
+    assertInstanceOf(SeparatorUiContentProvider.class, providers.get(5));
     // ---------------------------------------------------------------------------
-    assertInstanceOf(LabelUiContentProvider.class, providers.get(5));
-    assertEquals("Model:", ReflectionUtils.getFieldObject(providers.get(5), "m_title"));
-    assertEquals("getClass().name", ReflectionUtils.getFieldObject(providers.get(5), "m_value"));
+    assertInstanceOf(LabelUiContentProvider.class, providers.get(6));
+    assertEquals("Model:", ReflectionUtils.getFieldObject(providers.get(6), "m_title"));
+    assertEquals("getClass().name", ReflectionUtils.getFieldObject(providers.get(6), "m_value"));
     // ---------------------------------------------------------------------------
-    assertInstanceOf(UpdateStrategyUiContentProvider.class, providers.get(6));
+    assertInstanceOf(UpdateStrategyUiContentProvider.class, providers.get(7));
     assertInstanceOf(
         ChooseClassConfiguration.class,
-        ReflectionUtils.getFieldObject(providers.get(6), "m_configuration"));
-    ChooseClassConfiguration actualModelStrategy = getConfiguration(providers.get(6));
+        ReflectionUtils.getFieldObject(providers.get(7), "m_configuration"));
+    ChooseClassConfiguration actualModelStrategy = getConfiguration(providers.get(7));
     //
     ChooseClassConfiguration expectedModelStrategy = new ChooseClassConfiguration();
     expectedModelStrategy.setDialogFieldLabel("UpdateValueStrategy:");
@@ -522,10 +524,10 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     assertEquals(expectedModelStrategy, actualModelStrategy);
     // ---------------------------------------------------------------------------
-    assertInstanceOf(UpdateStrategyPropertiesUiContentProvider.class, providers.get(7));
+    assertInstanceOf(UpdateStrategyPropertiesUiContentProvider.class, providers.get(8));
     //
     List<IUiContentProvider> subProvidersModelStrategy =
-        (List<IUiContentProvider>) ReflectionUtils.getFieldObject(providers.get(7), "m_providers");
+        (List<IUiContentProvider>) ReflectionUtils.getFieldObject(providers.get(8), "m_providers");
     assertEquals(4, subProvidersModelStrategy.size());
     assertInstanceOf(ValidatorUiContentProvider.class, subProvidersModelStrategy.get(0));
     assertInstanceOf(ValidatorUiContentProvider.class, subProvidersModelStrategy.get(1));
@@ -588,9 +590,9 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     assertEquals(converterExpectedModel, converterActualModel);
     // ---------------------------------------------------------------------------
-    assertInstanceOf(SeparatorUiContentProvider.class, providers.get(8));
+    assertInstanceOf(SeparatorUiContentProvider.class, providers.get(9));
     // ---------------------------------------------------------------------------
-    assertInstanceOf(BindingContentProvider.class, providers.get(9));
+    assertInstanceOf(BindingContentProvider.class, providers.get(10));
   }
 
   public void test_UpdateListStrategy() throws Exception {
@@ -622,8 +624,8 @@ public class UiConfigurationTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList1 = BeansObservables.observeList(getClass(), \"name\");",
-                "    IObservableList observeList2 = BeansObservables.observeList(getClass(), \"modifiers\");",
+                "    IObservableList observeList1 = BeanProperties.list(\"name\").observe(getClass());",
+                "    IObservableList observeList2 = BeanProperties.list(\"modifiers\").observe(getClass());",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindList(observeList1, observeList2, null, null);",
                 "    return bindingContext;",
@@ -716,8 +718,8 @@ public class UiConfigurationTest extends AbstractBindingTest {
                 "    m_bindingContext = initDataBindings();",
                 "  }",
                 "  private DataBindingContext initDataBindings() {",
-                "    IObservableSet observeSet1 = BeansObservables.observeSet(getClass(), \"name\");",
-                "    IObservableSet observeSet2 = BeansObservables.observeSet(getClass(), \"modifiers\");",
+                "    IObservableSet observeSet1 = BeanProperties.set(\"name\").observe(getClass());",
+                "    IObservableSet observeSet2 = BeanProperties.set(\"modifiers\").observe(getClass());",
                 "    DataBindingContext bindingContext = new DataBindingContext();",
                 "    bindingContext.bindSet(observeSet1, observeSet2, null, null);",
                 "    return bindingContext;",

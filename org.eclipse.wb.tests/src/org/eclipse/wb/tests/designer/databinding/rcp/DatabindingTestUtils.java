@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ public class DatabindingTestUtils {
     testProject.addPlugin("org.eclipse.core.databinding");
     testProject.addPlugin("org.eclipse.core.databinding.beans");
     testProject.addPlugin("org.eclipse.core.databinding.observable");
+    testProject.addPlugin("org.eclipse.core.databinding.property");
     testProject.addPlugin("org.eclipse.jface.databinding");
   }
 
@@ -61,8 +62,11 @@ public class DatabindingTestUtils {
             "import org.eclipse.core.databinding.observable.value.*;",
             "import org.eclipse.core.databinding.validation.*;",
             "import org.eclipse.core.databinding.beans.*;",
+            "import org.eclipse.core.databinding.beans.typed.*;",
             "import org.eclipse.jface.databinding.swt.*;",
-            "import org.eclipse.jface.databinding.viewers.*;"},
+            "import org.eclipse.jface.databinding.swt.typed.*;",
+            "import org.eclipse.jface.databinding.viewers.*;",
+            "import org.eclipse.jface.databinding.viewers.typed.*;" },
         lines});
   }
 
