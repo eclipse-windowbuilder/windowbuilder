@@ -20,8 +20,8 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
  * @coverage core.gef.policy
  */
 public interface ILayoutEditPolicyFactory {
-  /**
-   * @return the {@link LayoutEditPolicy} for given model.
-   */
-  LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model);
+	/**
+	 * @return the {@link LayoutEditPolicy} for given model.
+	 */
+	LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model);
 }

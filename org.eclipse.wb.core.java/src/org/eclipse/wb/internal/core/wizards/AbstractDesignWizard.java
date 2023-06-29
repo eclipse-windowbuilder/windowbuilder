@@ -24,86 +24,86 @@ import org.eclipse.jface.wizard.WizardPage;
  * @coverage core.wizards.ui
  */
 public abstract class AbstractDesignWizard extends DesignerNewElementWizard {
-  // TODO(scheglov) move to shared place
-  private static final String EDITOR_ID = "org.eclipse.wb.core.guiEditor";
-  protected AbstractDesignWizardPage m_mainPage;
+	// TODO(scheglov) move to shared place
+	private static final String EDITOR_ID = "org.eclipse.wb.core.guiEditor";
+	protected AbstractDesignWizardPage m_mainPage;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addPages() {
-    if (!validateSelection()) {
-      return;
-    }
-    m_mainPage = createMainPage();
-    addPage(m_mainPage);
-    m_mainPage.setInitialSelection(getSelection());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addPages() {
+		if (!validateSelection()) {
+			return;
+		}
+		m_mainPage = createMainPage();
+		addPage(m_mainPage);
+		m_mainPage.setInitialSelection(getSelection());
+	}
 
-  /**
-   * Create main wizard page for this wizard.
-   */
-  protected abstract AbstractDesignWizardPage createMainPage();
+	/**
+	 * Create main wizard page for this wizard.
+	 */
+	protected abstract AbstractDesignWizardPage createMainPage();
 
-  /**
-   * @return <code>true</code> if current selection is valid, or adds error {@link WizardPage} and
-   *         return <code>false</code>.
-   */
-  protected boolean validateSelection() {
-    return true;
-  }
+	/**
+	 * @return <code>true</code> if current selection is valid, or adds error {@link WizardPage} and
+	 *         return <code>false</code>.
+	 */
+	protected boolean validateSelection() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Finish
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean performFinish() {
-    boolean canFinish = super.performFinish();
-    if (canFinish) {
-      openEditor();
-    }
-    return canFinish;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Finish
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean performFinish() {
+		boolean canFinish = super.performFinish();
+		if (canFinish) {
+			openEditor();
+		}
+		return canFinish;
+	}
 
-  @Override
-  protected void finishPage(IProgressMonitor monitor) throws Exception {
-    m_mainPage.createType(monitor);
-  }
+	@Override
+	protected void finishPage(IProgressMonitor monitor) throws Exception {
+		m_mainPage.createType(monitor);
+	}
 
-  public final IJavaElement getCreatedElement() {
-    return m_mainPage.getCreatedType();
-  }
+	public final IJavaElement getCreatedElement() {
+		return m_mainPage.getCreatedType();
+	}
 
-  /**
-   * Opens creates UI in editor.
-   */
-  protected void openEditor() {
-    IFile file = (IFile) m_mainPage.getModifiedResource();
-    openEditor(file);
-  }
+	/**
+	 * Opens creates UI in editor.
+	 */
+	protected void openEditor() {
+		IFile file = (IFile) m_mainPage.getModifiedResource();
+		openEditor(file);
+	}
 
-  /**
-   * Opens created {@link IFile} in editor.
-   */
-  protected void openEditor(IFile file) {
-    openResource(file, EDITOR_ID);
-  }
+	/**
+	 * Opens created {@link IFile} in editor.
+	 */
+	protected void openEditor(IFile file) {
+		openResource(file, EDITOR_ID);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link IJavaProject} of selection, may be <code>null</code>.
-   */
-  protected final IJavaProject getJavaProject() {
-    IStructuredSelection selection = getSelection();
-    return WizardUtils.getJavaProject(selection);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link IJavaProject} of selection, may be <code>null</code>.
+	 */
+	protected final IJavaProject getJavaProject() {
+		IStructuredSelection selection = getSelection();
+		return WizardUtils.getJavaProject(selection);
+	}
 }

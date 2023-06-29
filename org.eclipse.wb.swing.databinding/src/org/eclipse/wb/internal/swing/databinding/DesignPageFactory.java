@@ -29,36 +29,36 @@ import java.util.List;
  * @coverage bindings.swing.ui
  */
 public final class DesignPageFactory implements IEditorPageFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDesignPageFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void createPages(IDesignerEditor editor, List<IEditorPage> pages) {
-    if (isSwingDB(editor.getCompilationUnit())) {
-      BindingDesignPage.addPage(pages);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDesignPageFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void createPages(IDesignerEditor editor, List<IEditorPage> pages) {
+		if (isSwingDB(editor.getCompilationUnit())) {
+			BindingDesignPage.addPage(pages);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static boolean isSwingDB(ICompilationUnit compilationUnit) {
-    IJavaProject javaProject = compilationUnit.getJavaProject();
-    if (DataBindingsCodeUtils.isDBAvailable(javaProject)) {
-      try {
-        IImportDeclaration[] imports = compilationUnit.getImports();
-        for (IImportDeclaration importDeclaration : imports) {
-          String elementName = importDeclaration.getElementName();
-          if (elementName.startsWith("java.awt") || elementName.startsWith("javax.swing")) {
-            return true;
-          }
-        }
-      } catch (Throwable e) {
-      }
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static boolean isSwingDB(ICompilationUnit compilationUnit) {
+		IJavaProject javaProject = compilationUnit.getJavaProject();
+		if (DataBindingsCodeUtils.isDBAvailable(javaProject)) {
+			try {
+				IImportDeclaration[] imports = compilationUnit.getImports();
+				for (IImportDeclaration importDeclaration : imports) {
+					String elementName = importDeclaration.getElementName();
+					if (elementName.startsWith("java.awt") || elementName.startsWith("javax.swing")) {
+						return true;
+					}
+				}
+			} catch (Throwable e) {
+			}
+		}
+		return false;
+	}
 }

@@ -23,30 +23,30 @@ import java.lang.reflect.Method;
  *
  */
 public class GefTestCase extends TestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GefTestCase(Class<?> _class) {
-    super(_class.getName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GefTestCase(Class<?> _class) {
+		super(_class.getName());
+	}
 
-  @Override
-  protected void setUp() throws Exception {
-    // check create display for initialize figure's colors
-    Display.getDefault();
-  }
+	@Override
+	protected void setUp() throws Exception {
+		// check create display for initialize figure's colors
+		Display.getDefault();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected static final void addChildEditPart(EditPart parent, EditPart child) throws Exception {
-    Method method =
-        EditPart.class.getDeclaredMethod("addChild", new Class[]{EditPart.class, int.class});
-    method.setAccessible(true);
-    method.invoke(parent, new Object[]{child, -1});
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected static final void addChildEditPart(EditPart parent, EditPart child) throws Exception {
+		Method method =
+				EditPart.class.getDeclaredMethod("addChild", new Class[]{EditPart.class, int.class});
+		method.setAccessible(true);
+		method.invoke(parent, new Object[]{child, -1});
+	}
 }

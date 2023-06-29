@@ -28,23 +28,23 @@ import java.util.List;
  * @coverage core.editor.errors.report2
  */
 public final class EclipseErrorLogsReportEntry extends FileListReportEntry {
-  @Override
-  protected List<File> getFiles() {
-    // get path to Eclipse .log file(s) and get it's directory
-    IPath logsPath = Platform.getLogFileLocation().makeAbsolute().removeLastSegments(1);
-    File logsPathAsFile = logsPath.toFile();
-    // get list of .log files
-    File[] logFiles = logsPathAsFile.listFiles(new FilenameFilter() {
-      @Override
-      public boolean accept(File dir, String name) {
-        return name.endsWith(".log");
-      }
-    });
-    return Lists.newArrayList(logFiles);
-  }
+	@Override
+	protected List<File> getFiles() {
+		// get path to Eclipse .log file(s) and get it's directory
+		IPath logsPath = Platform.getLogFileLocation().makeAbsolute().removeLastSegments(1);
+		File logsPathAsFile = logsPath.toFile();
+		// get list of .log files
+		File[] logFiles = logsPathAsFile.listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".log");
+			}
+		});
+		return Lists.newArrayList(logFiles);
+	}
 
-  @Override
-  protected String getPrefix() {
-    return "eclipse-logs/";
-  }
+	@Override
+	protected String getPrefix() {
+		return "eclipse-logs/";
+	}
 }

@@ -27,55 +27,55 @@ import org.eclipse.jdt.core.dom.Expression;
  * @coverage core.model.property.accessor
  */
 public final class ConstructorAccessor extends ExpressionAccessor {
-  private final int m_index;
-  private final String m_defaultSource;
+	private final int m_index;
+	private final String m_defaultSource;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ConstructorAccessor(int index, String defaultSource) {
-    m_index = index;
-    m_defaultSource = defaultSource;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ConstructorAccessor(int index, String defaultSource) {
+		m_index = index;
+		m_defaultSource = defaultSource;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionAccessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Expression getExpression(JavaInfo javaInfo) throws Exception {
-    ClassInstanceCreation creation =
-        ((ConstructorCreationSupport) javaInfo.getCreationSupport()).getCreation();
-    return DomGenerics.arguments(creation).get(m_index);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionAccessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Expression getExpression(JavaInfo javaInfo) throws Exception {
+		ClassInstanceCreation creation =
+				((ConstructorCreationSupport) javaInfo.getCreationSupport()).getCreation();
+		return DomGenerics.arguments(creation).get(m_index);
+	}
 
-  @Override
-  public boolean setExpression(final JavaInfo javaInfo, String source) throws Exception {
-    // if given source is "null", use default source (but it also can be "null")
-    final String newSource;
-    if (source != null) {
-      newSource = source;
-    } else {
-      newSource = m_defaultSource;
-    }
-    // if we have source to replace current, do this
-    if (newSource != null) {
-      final AstEditor editor = javaInfo.getEditor();
-      final Expression oldExpression = getExpression(javaInfo);
-      if (!editor.getSource(oldExpression).equals(source)) {
-        ExecutionUtils.run(javaInfo, new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            javaInfo.replaceExpression(oldExpression, newSource);
-          }
-        });
-        return true;
-      }
-    }
-    // no changes
-    return false;
-  }
+	@Override
+	public boolean setExpression(final JavaInfo javaInfo, String source) throws Exception {
+		// if given source is "null", use default source (but it also can be "null")
+		final String newSource;
+		if (source != null) {
+			newSource = source;
+		} else {
+			newSource = m_defaultSource;
+		}
+		// if we have source to replace current, do this
+		if (newSource != null) {
+			final AstEditor editor = javaInfo.getEditor();
+			final Expression oldExpression = getExpression(javaInfo);
+			if (!editor.getSource(oldExpression).equals(source)) {
+				ExecutionUtils.run(javaInfo, new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						javaInfo.replaceExpression(oldExpression, newSource);
+					}
+				});
+				return true;
+			}
+		}
+		// no changes
+		return false;
+	}
 }

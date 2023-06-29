@@ -19,18 +19,18 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.model
  */
 public interface IObservePresentation {
-  /**
-   * @return the text to display for user.
-   */
-  String getText() throws Exception;
+	/**
+	 * @return the text to display for user.
+	 */
+	String getText() throws Exception;
 
-  /**
-   * @return the text to display for user.
-   */
-  String getTextForBinding() throws Exception;
+	/**
+	 * @return the text to display for user.
+	 */
+	String getTextForBinding() throws Exception;
 
-  /**
-   * @return the image to display for user.
-   */
-  Image getImage() throws Exception;
+	/**
+	 * @return the image to display for user.
+	 */
+	Image getImage() throws Exception;
 }

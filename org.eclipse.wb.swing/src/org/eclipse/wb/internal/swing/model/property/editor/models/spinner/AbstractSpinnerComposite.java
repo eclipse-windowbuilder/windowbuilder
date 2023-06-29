@@ -23,48 +23,48 @@ import javax.swing.SpinnerModel;
  * @coverage swing.property.editor
  */
 abstract class AbstractSpinnerComposite extends Composite {
-  protected final SpinnerModelDialog m_modelDialog;
+	protected final SpinnerModelDialog m_modelDialog;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractSpinnerComposite(Composite parent, SpinnerModelDialog modelDialog) {
-    super(parent, SWT.NONE);
-    m_modelDialog = modelDialog;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractSpinnerComposite(Composite parent, SpinnerModelDialog modelDialog) {
+		super(parent, SWT.NONE);
+		m_modelDialog = modelDialog;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the title to display.
-   */
-  public abstract String getTitle();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the title to display.
+	 */
+	public abstract String getTitle();
 
-  /**
-   * Sets the {@link SpinnerModel} to display/edit.
-   *
-   * @return <code>true</code> if this {@link AbstractSpinnerComposite} understands given model.
-   */
-  public abstract boolean setModel(SpinnerModel model);
+	/**
+	 * Sets the {@link SpinnerModel} to display/edit.
+	 *
+	 * @return <code>true</code> if this {@link AbstractSpinnerComposite} understands given model.
+	 */
+	public abstract boolean setModel(SpinnerModel model);
 
-  /**
-   * @return the error message, or <code>null</code> if model configured correctly.
-   */
-  public abstract String validate();
+	/**
+	 * @return the error message, or <code>null</code> if model configured correctly.
+	 */
+	public abstract String validate();
 
-  /**
-   * @return the {@link SpinnerModel} that corresponds to this {@link AbstractSpinnerComposite} and
-   *         configuration. This {@link SpinnerModel} is used later for preview in {@link JSpinner}.
-   */
-  public abstract SpinnerModel getModel();
+	/**
+	 * @return the {@link SpinnerModel} that corresponds to this {@link AbstractSpinnerComposite} and
+	 *         configuration. This {@link SpinnerModel} is used later for preview in {@link JSpinner}.
+	 */
+	public abstract SpinnerModel getModel();
 
-  /**
-   * @return the source to apply.
-   */
-  public abstract String getSource() throws Exception;
+	/**
+	 * @return the source to apply.
+	 */
+	public abstract String getSource() throws Exception;
 }

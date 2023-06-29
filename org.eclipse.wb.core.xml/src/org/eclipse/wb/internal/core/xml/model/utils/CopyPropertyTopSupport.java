@@ -32,30 +32,30 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.util
  */
 public final class CopyPropertyTopSupport extends CopyPropertyTopAbstractSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures hierarchy to copy properties according parameters in description.
-   */
-  public CopyPropertyTopSupport(ObjectInfo root) {
-    super(root, "x-copyPropertyTop ");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures hierarchy to copy properties according parameters in description.
+	 */
+	public CopyPropertyTopSupport(ObjectInfo root) {
+		super(root, "x-copyPropertyTop ");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Predicate<XmlObjectInfo> createTargetPredicate(final XmlObjectInfo object) {
-    return new Predicate<XmlObjectInfo>() {
-      @Override
-      public boolean apply(XmlObjectInfo t) {
-        return t == object;
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Predicate<XmlObjectInfo> createTargetPredicate(final XmlObjectInfo object) {
+		return new Predicate<XmlObjectInfo>() {
+			@Override
+			public boolean apply(XmlObjectInfo t) {
+				return t == object;
+			}
+		};
+	}
 }

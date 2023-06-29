@@ -25,45 +25,45 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
  * @coverage gef.graphical
  */
 public class MoveHandle extends Handle {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates a handle for the given <code>{@link GraphicalEditPart}</code> using
-   * <code>{@link MoveHandleLocator}</code>.
-   */
-  public MoveHandle(GraphicalEditPart owner) {
-    this(owner, new MoveHandleLocator(owner.getFigure()));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates a handle for the given <code>{@link GraphicalEditPart}</code> using
+	 * <code>{@link MoveHandleLocator}</code>.
+	 */
+	public MoveHandle(GraphicalEditPart owner) {
+		this(owner, new MoveHandleLocator(owner.getFigure()));
+	}
 
-  /**
-   * Creates a handle for the given <code>{@link EditPart}</code> using the given
-   * <code>{@link ILocator}</code>.
-   */
-  public MoveHandle(GraphicalEditPart owner, ILocator locator) {
-    super(owner, locator);
-    setBorder(new LineBorder(1));
-    setCursor(ICursorConstants.SIZEALL);
-    // set drag tracker
-    {
-      Tool tracker = new DragEditPartTracker(owner);
-      tracker.setDefaultCursor(getCursor());
-      setDragTrackerTool(tracker);
-    }
-  }
+	/**
+	 * Creates a handle for the given <code>{@link EditPart}</code> using the given
+	 * <code>{@link ILocator}</code>.
+	 */
+	public MoveHandle(GraphicalEditPart owner, ILocator locator) {
+		super(owner, locator);
+		setBorder(new LineBorder(1));
+		setCursor(ICursorConstants.SIZEALL);
+		// set drag tracker
+		{
+			Tool tracker = new DragEditPartTracker(owner);
+			tracker.setDefaultCursor(getCursor());
+			setDragTrackerTool(tracker);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean containsPoint(int x, int y) {
-    if (!super.containsPoint(x, y)) {
-      return false;
-    }
-    return !getBounds().getCopy().shrink(2, 2).contains(x, y);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean containsPoint(int x, int y) {
+		if (!super.containsPoint(x, y)) {
+			return false;
+		}
+		return !getBounds().getCopy().shrink(2, 2).contains(x, y);
+	}
 }

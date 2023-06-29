@@ -23,21 +23,21 @@ import org.xml.sax.Attributes;
  * @coverage XML.model.description
  */
 public final class PropertyCategoryRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    // prepare category
-    PropertyCategory category;
-    {
-      String categoryText = attributes.getValue("value");
-      category = PropertyCategory.get(categoryText, null);
-    }
-    // set category
-    GenericPropertyDescription property = (GenericPropertyDescription) getDigester().peek();
-    property.setCategory(category);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		// prepare category
+		PropertyCategory category;
+		{
+			String categoryText = attributes.getValue("value");
+			category = PropertyCategory.get(categoryText, null);
+		}
+		// set category
+		GenericPropertyDescription property = (GenericPropertyDescription) getDigester().peek();
+		property.setCategory(category);
+	}
 }

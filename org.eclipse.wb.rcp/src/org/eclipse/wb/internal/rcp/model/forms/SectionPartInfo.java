@@ -54,250 +54,250 @@ import java.lang.reflect.Constructor;
  * @coverage rcp.model.forms
  */
 public final class SectionPartInfo extends AbstractComponentInfo
-    implements
-      IThisMethodParameterEvaluator,
-      IWrapperInfo {
-  private Shell m_shell;
-  private Object m_ManagedForm;
-  private Composite m_ManagedFormBody;
-  private Object m_formPage;
+implements
+IThisMethodParameterEvaluator,
+IWrapperInfo {
+	private Shell m_shell;
+	private Object m_ManagedForm;
+	private Composite m_ManagedFormBody;
+	private Object m_formPage;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SectionPartInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SectionPartInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the underlying {@link SectionInfo}.
-   */
-  public SectionInfo getSection() {
-    try {
-      return (SectionInfo) getWrapper().getWrappedInfo();
-    } catch (Exception e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the underlying {@link SectionInfo}.
+	 */
+	public SectionInfo getSection() {
+		try {
+			return (SectionInfo) getWrapper().getWrappedInfo();
+		} catch (Exception e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  /**
-   * @return <code>true</code> if we design this {@link SectionPart} now.
-   */
-  private boolean isThisSectionPart() {
-    return getCreationSupport() instanceof ThisCreationSupport;
-  }
+	/**
+	 * @return <code>true</code> if we design this {@link SectionPart} now.
+	 */
+	private boolean isThisSectionPart() {
+		return getCreationSupport() instanceof ThisCreationSupport;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialization
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    if (isThisSectionPart()) {
-      getWrapper().configureHierarchy(getParentJava());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialization
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		if (isThisSectionPart()) {
+			getWrapper().configureHierarchy(getParentJava());
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IThisMethodParameterEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluateParameter(EvaluationContext context,
-      MethodDeclaration methodDeclaration,
-      String methodSignature,
-      SingleVariableDeclaration parameter,
-      int index) throws Exception {
-    if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.swt.widgets.Composite")) {
-      prepare_hosting_ManagedForm();
-      return m_ManagedFormBody;
-    }
-    if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.ui.forms.editor.FormPage")) {
-      prepare_hosting_ManagedForm();
-      prepare_hosting_FormPage();
-      return m_formPage;
-    }
-    if (index == 2) {
-      return ExpandableComposite.TITLE_BAR
-          | ExpandableComposite.TWISTIE
-          | ExpandableComposite.EXPANDED;
-    }
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IThisMethodParameterEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluateParameter(EvaluationContext context,
+			MethodDeclaration methodDeclaration,
+			String methodSignature,
+			SingleVariableDeclaration parameter,
+			int index) throws Exception {
+		if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.swt.widgets.Composite")) {
+			prepare_hosting_ManagedForm();
+			return m_ManagedFormBody;
+		}
+		if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.ui.forms.editor.FormPage")) {
+			prepare_hosting_ManagedForm();
+			prepare_hosting_FormPage();
+			return m_formPage;
+		}
+		if (index == 2) {
+			return ExpandableComposite.TITLE_BAR
+					| ExpandableComposite.TWISTIE
+					| ExpandableComposite.EXPANDED;
+		}
+		return AstEvaluationEngine.UNKNOWN;
+	}
 
-  private void prepare_hosting_FormPage() throws Exception {
-    ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
-    Class<?> class_FormPage = editorLoader.loadClass("org.eclipse.ui.forms.editor.FormPage");
-    // create FormPage
-    m_formPage = new ByteBuddy() //
-        .subclass(class_FormPage) //
-        .method(named("getManagedForm").and(takesNoArguments())) //
-        .intercept(FixedValue.reference(m_ManagedForm)) //
-        .make() //
-        .load(editorLoader) //
-        .getLoaded() //
-        .getConstructor(String.class, String.class) //
-        .newInstance("id", "title");
-  }
+	private void prepare_hosting_FormPage() throws Exception {
+		ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
+		Class<?> class_FormPage = editorLoader.loadClass("org.eclipse.ui.forms.editor.FormPage");
+		// create FormPage
+		m_formPage = new ByteBuddy() //
+				.subclass(class_FormPage) //
+				.method(named("getManagedForm").and(takesNoArguments())) //
+				.intercept(FixedValue.reference(m_ManagedForm)) //
+				.make() //
+				.load(editorLoader) //
+				.getLoaded() //
+				.getConstructor(String.class, String.class) //
+				.newInstance("id", "title");
+	}
 
-  /**
-   * Prepares hosting {@link Shell} and {@link ManagedForm}.
-   */
-  private void prepare_hosting_ManagedForm() throws Exception {
-    ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
-    // use same Shell and ManagedForm (so same FormToolkit instance) during life of this model
-    // We should use same FormToolkit, because some default values for Color/Font properties are
-    // from this FormToolkit, so will be disposed with FormToolkit,
-    // so we should use IDefaultValueConverter to "copy" them, or use same instance of FormToolkit.
-    if (m_shell == null) {
-      m_shell = new Shell();
-      m_shell.setLayout(new FillLayout());
-      // prepare ManagedForm instance
-      {
-        Class<?> class_ManagedForm = editorLoader.loadClass("org.eclipse.ui.forms.ManagedForm");
-        Constructor<?> constructor =
-            ReflectionUtils.getConstructor(class_ManagedForm, Composite.class);
-        m_ManagedForm = constructor.newInstance(m_shell);
-      }
-      // initialize ManagedForm.getForm().getBody()
-      {
-        Object formObject = ReflectionUtils.invokeMethod2(m_ManagedForm, "getForm");
-        m_ManagedFormBody = (Composite) ReflectionUtils.invokeMethod2(formObject, "getBody");
-        m_ManagedFormBody.setLayout(new FillLayout());
-      }
-      // schedule dispose
-      addBroadcastListener(new ObjectEventListener() {
-        @Override
-        public void dispose() throws Exception {
-          if (m_ManagedForm != null) {
-            ReflectionUtils.invokeMethod2(m_ManagedForm, "dispose");
-            m_ManagedForm = null;
-          }
-          if (m_shell != null) {
-            m_shell.dispose();
-            m_shell = null;
-          }
-        }
-      });
-    }
-  }
+	/**
+	 * Prepares hosting {@link Shell} and {@link ManagedForm}.
+	 */
+	private void prepare_hosting_ManagedForm() throws Exception {
+		ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
+		// use same Shell and ManagedForm (so same FormToolkit instance) during life of this model
+		// We should use same FormToolkit, because some default values for Color/Font properties are
+		// from this FormToolkit, so will be disposed with FormToolkit,
+		// so we should use IDefaultValueConverter to "copy" them, or use same instance of FormToolkit.
+		if (m_shell == null) {
+			m_shell = new Shell();
+			m_shell.setLayout(new FillLayout());
+			// prepare ManagedForm instance
+			{
+				Class<?> class_ManagedForm = editorLoader.loadClass("org.eclipse.ui.forms.ManagedForm");
+				Constructor<?> constructor =
+						ReflectionUtils.getConstructor(class_ManagedForm, Composite.class);
+				m_ManagedForm = constructor.newInstance(m_shell);
+			}
+			// initialize ManagedForm.getForm().getBody()
+			{
+				Object formObject = ReflectionUtils.invokeMethod2(m_ManagedForm, "getForm");
+				m_ManagedFormBody = (Composite) ReflectionUtils.invokeMethod2(formObject, "getBody");
+				m_ManagedFormBody.setLayout(new FillLayout());
+			}
+			// schedule dispose
+			addBroadcastListener(new ObjectEventListener() {
+				@Override
+				public void dispose() throws Exception {
+					if (m_ManagedForm != null) {
+						ReflectionUtils.invokeMethod2(m_ManagedForm, "dispose");
+						m_ManagedForm = null;
+					}
+					if (m_shell != null) {
+						m_shell.dispose();
+						m_shell = null;
+					}
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractComponentInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected TopBoundsSupport createTopBoundsSupport() {
-    return new SectionPartTopBoundsSupport(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractComponentInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected TopBoundsSupport createTopBoundsSupport() {
+		return new SectionPartTopBoundsSupport(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canBeRoot() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canBeRoot() {
+		return true;
+	}
 
-  @Override
-  public Object getComponentObject() {
-    return getSection().getObject();
-  }
+	@Override
+	public Object getComponentObject() {
+		return getSection().getObject();
+	}
 
-  /**
-   * @return the top level {@link Shell}.
-   */
-  Shell getShell() {
-    return m_shell;
-  }
+	/**
+	 * @return the top level {@link Shell}.
+	 */
+	Shell getShell() {
+		return m_shell;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_dispose() throws Exception {
-    // if we have SectionPart, dispose its GUI
-    if (isThisSectionPart()) {
-      if (getObject() != null) {
-        ReflectionUtils.invokeMethod(
-            m_ManagedForm,
-            "removePart(org.eclipse.ui.forms.IFormPart)",
-            getObject());
-        ControlSupport.dispose(getSection().getObject());
-      }
-    }
-    // continue
-    super.refresh_dispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_dispose() throws Exception {
+		// if we have SectionPart, dispose its GUI
+		if (isThisSectionPart()) {
+			if (getObject() != null) {
+				ReflectionUtils.invokeMethod(
+						m_ManagedForm,
+						"removePart(org.eclipse.ui.forms.IFormPart)",
+						getObject());
+				ControlSupport.dispose(getSection().getObject());
+			}
+		}
+		// continue
+		super.refresh_dispose();
+	}
 
-  @Override
-  public void refresh_beforeCreate() throws Exception {
-    if (isThisSectionPart()) {
-      prepare_hosting_ManagedForm();
-    }
-    super.refresh_beforeCreate();
-  }
+	@Override
+	public void refresh_beforeCreate() throws Exception {
+		if (isThisSectionPart()) {
+			prepare_hosting_ManagedForm();
+		}
+		super.refresh_beforeCreate();
+	}
 
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    // associate this IFormPart (SectionPart is IFormPart) with ManagedForm
-    if (isThisSectionPart()) {
-      ReflectionUtils.invokeMethod(
-          m_ManagedForm,
-          "addPart(org.eclipse.ui.forms.IFormPart)",
-          getObject());
-    }
-  }
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		// associate this IFormPart (SectionPart is IFormPart) with ManagedForm
+		if (isThisSectionPart()) {
+			ReflectionUtils.invokeMethod(
+					m_ManagedForm,
+					"addPart(org.eclipse.ui.forms.IFormPart)",
+					getObject());
+		}
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    ControlInfo.refresh_fetch(this, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        SectionPartInfo.super.refresh_fetch();
-      }
-    });
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		ControlInfo.refresh_fetch(this, new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				SectionPartInfo.super.refresh_fetch();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IWrapperInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private WrapperByMethod m_wrapper;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IWrapperInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private WrapperByMethod m_wrapper;
 
-  @Override
-  public WrapperByMethod getWrapper() {
-    if (m_wrapper == null) {
-      m_wrapper = new WrapperByMethod(this, "getSection") {
-        @Override
-        protected void configureHierarchy(JavaInfo parent, JavaInfo control) throws Exception {
-          if (isThisSectionPart()) {
-            softAddChild(m_wrapperInfo, m_wrappedInfo);
-          } else {
-            super.configureHierarchy(parent, control);
-          }
-        }
-      };
-    }
-    return m_wrapper;
-  }
+	@Override
+	public WrapperByMethod getWrapper() {
+		if (m_wrapper == null) {
+			m_wrapper = new WrapperByMethod(this, "getSection") {
+				@Override
+				protected void configureHierarchy(JavaInfo parent, JavaInfo control) throws Exception {
+					if (isThisSectionPart()) {
+						softAddChild(m_wrapperInfo, m_wrappedInfo);
+					} else {
+						super.configureHierarchy(parent, control);
+					}
+				}
+			};
+		}
+		return m_wrapper;
+	}
 }

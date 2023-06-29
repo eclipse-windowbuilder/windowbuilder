@@ -27,33 +27,33 @@ import java.util.List;
  * @coverage XWT.model.widgets
  */
 public final class ToolBarInfo extends CompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ToolBarInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ToolBarInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link ToolBarInfo} has horizontal layout.
-   */
-  public boolean isHorizontal() {
-    return ControlSupport.hasStyle(getControl(), SWT.HORIZONTAL);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link ToolBarInfo} has horizontal layout.
+	 */
+	public boolean isHorizontal() {
+		return ControlSupport.hasStyle(getControl(), SWT.HORIZONTAL);
+	}
 
-  /**
-   * @return the {@link ToolItemInfo} children.
-   */
-  public List<ToolItemInfo> getItems() {
-    return getChildren(ToolItemInfo.class);
-  }
+	/**
+	 * @return the {@link ToolItemInfo} children.
+	 */
+	public List<ToolItemInfo> getItems() {
+		return getChildren(ToolItemInfo.class);
+	}
 }

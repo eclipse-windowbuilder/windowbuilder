@@ -27,68 +27,68 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class ViewerPropertyCheckedElementsCodeSupport extends ViewerObservableCodeSupport {
-  private final Class<?> m_parseElementType;
+	private final Class<?> m_parseElementType;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerPropertyCheckedElementsCodeSupport() {
-    this(null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerPropertyCheckedElementsCodeSupport() {
+		this(null);
+	}
 
-  public ViewerPropertyCheckedElementsCodeSupport(Class<?> elementType) {
-    super("observeCheckedElements",
-        "org.eclipse.jface.databinding.viewers.IViewerSetProperty.observe(org.eclipse.jface.viewers.Viewer)",
-        null);
-    m_parseElementType = elementType;
-  }
+	public ViewerPropertyCheckedElementsCodeSupport(Class<?> elementType) {
+		super("observeCheckedElements",
+				"org.eclipse.jface.databinding.viewers.IViewerSetProperty.observe(org.eclipse.jface.viewers.Viewer)",
+				null);
+		m_parseElementType = elementType;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
-      WidgetPropertyBindableInfo bindableProperty,
-      int delayValue) throws Exception {
-    Assert.isNotNull(m_parseElementType);
-    return new CheckedElementsObservableInfo(bindableWidget, m_parseElementType);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
+			WidgetPropertyBindableInfo bindableProperty,
+			int delayValue) throws Exception {
+		Assert.isNotNull(m_parseElementType);
+		return new CheckedElementsObservableInfo(bindableWidget, m_parseElementType);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    super.addSourceCode(observable, lines, generationSupport);
-    CheckedElementsObservableInfo checkedObservable = (CheckedElementsObservableInfo) observable;
-    String sourceCode =
-        "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.checkedElements("
-            + CoreUtils.getClassName(checkedObservable.getElementType())
-            + ".class)";
-    if (getVariableIdentifier() != null) {
-      if (generationSupport.addModel(this)) {
-        lines.add("org.eclipse.jface.databinding.viewers.IViewerSetProperty "
-            + getVariableIdentifier()
-            + " = "
-            + sourceCode
-            + ";");
-      }
-      sourceCode = getVariableIdentifier();
-    }
-    lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
-        + observable.getVariableIdentifier()
-        + " = "
-        + sourceCode
-        + ".observe("
-        + observable.getBindableObject().getReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		super.addSourceCode(observable, lines, generationSupport);
+		CheckedElementsObservableInfo checkedObservable = (CheckedElementsObservableInfo) observable;
+		String sourceCode =
+				"org.eclipse.jface.databinding.viewers.typed.ViewerProperties.checkedElements("
+						+ CoreUtils.getClassName(checkedObservable.getElementType())
+						+ ".class)";
+		if (getVariableIdentifier() != null) {
+			if (generationSupport.addModel(this)) {
+				lines.add("org.eclipse.jface.databinding.viewers.IViewerSetProperty "
+						+ getVariableIdentifier()
+						+ " = "
+						+ sourceCode
+						+ ";");
+			}
+			sourceCode = getVariableIdentifier();
+		}
+		lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
+				+ observable.getVariableIdentifier()
+				+ " = "
+				+ sourceCode
+				+ ".observe("
+				+ observable.getBindableObject().getReference()
+				+ ");");
+	}
 }

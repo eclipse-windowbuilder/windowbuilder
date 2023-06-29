@@ -20,19 +20,19 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
  * @coverage core.model.description
  */
 public final class MethodOrderFirst extends MethodOrder {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MethodOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canReference(JavaInfo javaInfo) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MethodOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canReference(JavaInfo javaInfo) {
+		return true;
+	}
 
-  @Override
-  protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
-      throws Exception {
-    return javaInfo.getVariableSupport().getStatementTarget();
-  }
+	@Override
+	protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
+			throws Exception {
+		return javaInfo.getVariableSupport().getStatementTarget();
+	}
 }

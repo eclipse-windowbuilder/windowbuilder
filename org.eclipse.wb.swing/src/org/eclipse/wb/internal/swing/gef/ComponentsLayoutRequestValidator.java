@@ -22,10 +22,10 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
  * @coverage swing.gef
  */
 public final class ComponentsLayoutRequestValidator {
-  public static final ILayoutRequestValidator INSTANCE =
-      LayoutRequestValidators.modelType(ComponentInfo.class);
-  public static final ILayoutRequestValidator INSTANCE_EXT =
-      LayoutRequestValidators.finalize(LayoutRequestValidators.and(
-          MenuLayoutRequestValidator.INSTANCE,
-          new ModelClassLayoutRequestValidator(ComponentInfo.class)));
+	public static final ILayoutRequestValidator INSTANCE =
+			LayoutRequestValidators.modelType(ComponentInfo.class);
+	public static final ILayoutRequestValidator INSTANCE_EXT =
+			LayoutRequestValidators.finalize(LayoutRequestValidators.and(
+					MenuLayoutRequestValidator.INSTANCE,
+					new ModelClassLayoutRequestValidator(ComponentInfo.class)));
 }

@@ -40,381 +40,381 @@ import java.util.Map;
  * @coverage gef.core
  */
 public abstract class AbstractEditPartViewer implements IEditPartViewer {
-  private/*final*/IRootContainer m_rootEditPart;
-  private EditDomain m_domain;
-  private IEditPartFactory m_factory;
-  private final Map<Object, EditPart> m_modelToEditPart = new HashMap<>();
-  private MenuManager m_contextMenu;
-  private List<EditPart> m_selectionList = Lists.newArrayList();
-  private EventTable m_eventTable;
-  /**
-   * The EditPart which is being selected in selection process.
-   */
-  private EditPart m_selecting;
+	private/*final*/IRootContainer m_rootEditPart;
+	private EditDomain m_domain;
+	private IEditPartFactory m_factory;
+	private final Map<Object, EditPart> m_modelToEditPart = new HashMap<>();
+	private MenuManager m_contextMenu;
+	private List<EditPart> m_selectionList = Lists.newArrayList();
+	private EventTable m_eventTable;
+	/**
+	 * The EditPart which is being selected in selection process.
+	 */
+	private EditPart m_selecting;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the {@link IRootContainer}.
-   */
-  @Override
-  public IRootContainer getRootContainer() {
-    return m_rootEditPart;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the {@link IRootContainer}.
+	 */
+	@Override
+	public IRootContainer getRootContainer() {
+		return m_rootEditPart;
+	}
 
-  protected final void setRootEditPart(IRootContainer rootEditPart) {
-    Assert.isTrue(m_rootEditPart == null);
-    m_rootEditPart = rootEditPart;
-  }
+	protected final void setRootEditPart(IRootContainer rootEditPart) {
+		Assert.isTrue(m_rootEditPart == null);
+		m_rootEditPart = rootEditPart;
+	}
 
-  /**
-   * Get factory for creating new EditParts.
-   */
-  @Override
-  public IEditPartFactory getEditPartFactory() {
-    return m_factory;
-  }
+	/**
+	 * Get factory for creating new EditParts.
+	 */
+	@Override
+	public IEditPartFactory getEditPartFactory() {
+		return m_factory;
+	}
 
-  /**
-   * Set factory for creating new EditParts.
-   */
-  public void setEditPartFactory(IEditPartFactory factory) {
-    m_factory = factory;
-  }
+	/**
+	 * Set factory for creating new EditParts.
+	 */
+	public void setEditPartFactory(IEditPartFactory factory) {
+		m_factory = factory;
+	}
 
-  /**
-   * Register given {@link EditPart} into this viewer.
-   */
-  @Override
-  public void registerEditPart(EditPart editPart) {
-    m_modelToEditPart.put(editPart.getModel(), editPart);
-  }
+	/**
+	 * Register given {@link EditPart} into this viewer.
+	 */
+	@Override
+	public void registerEditPart(EditPart editPart) {
+		m_modelToEditPart.put(editPart.getModel(), editPart);
+	}
 
-  /**
-   * Unregister given {@link EditPart} into this viewer.
-   */
-  @Override
-  public void unregisterEditPart(EditPart editPart) {
-    Object model = editPart.getModel();
-    Object registerPart = m_modelToEditPart.get(model);
-    /*
-     * check editPart because during refreshChildren firstly add new child,
-     * example (old model, new EditPart) after remove old child (old model, old EditPart)
-     */
-    if (registerPart == editPart) {
-      m_modelToEditPart.remove(model);
-    }
-  }
+	/**
+	 * Unregister given {@link EditPart} into this viewer.
+	 */
+	@Override
+	public void unregisterEditPart(EditPart editPart) {
+		Object model = editPart.getModel();
+		Object registerPart = m_modelToEditPart.get(model);
+		/*
+		 * check editPart because during refreshChildren firstly add new child,
+		 * example (old model, new EditPart) after remove old child (old model, old EditPart)
+		 */
+		if (registerPart == editPart) {
+			m_modelToEditPart.remove(model);
+		}
+	}
 
-  /**
-   * Returns {@link EditPart} register into this viewer associate given model.
-   */
-  @Override
-  public EditPart getEditPartByModel(Object model) {
-    return m_modelToEditPart.get(model);
-  }
+	/**
+	 * Returns {@link EditPart} register into this viewer associate given model.
+	 */
+	@Override
+	public EditPart getEditPartByModel(Object model) {
+		return m_modelToEditPart.get(model);
+	}
 
-  /**
-   * Returns the {@link EditDomain EditDomain} to which this viewer belongs.
-   */
-  @Override
-  public EditDomain getEditDomain() {
-    return m_domain;
-  }
+	/**
+	 * Returns the {@link EditDomain EditDomain} to which this viewer belongs.
+	 */
+	@Override
+	public EditDomain getEditDomain() {
+		return m_domain;
+	}
 
-  /**
-   * Sets the <code>{@link EditDomain}</code> for this viewer. The Viewer will route all mouse and
-   * keyboard events to the {@link EditDomain}.
-   */
-  public void setEditDomain(EditDomain domain) {
-    m_domain = domain;
-  }
+	/**
+	 * Sets the <code>{@link EditDomain}</code> for this viewer. The Viewer will route all mouse and
+	 * keyboard events to the {@link EditDomain}.
+	 */
+	public void setEditDomain(EditDomain domain) {
+		m_domain = domain;
+	}
 
-  /**
-   * Set input model for this viewer.
-   */
-  public void setInput(Object model) {
-    EditPart contentEditPart = m_factory.createEditPart((EditPart) m_rootEditPart, model);
-    m_rootEditPart.setContent(contentEditPart);
-  }
+	/**
+	 * Set input model for this viewer.
+	 */
+	public void setInput(Object model) {
+		EditPart contentEditPart = m_factory.createEditPart((EditPart) m_rootEditPart, model);
+		m_rootEditPart.setContent(contentEditPart);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Context menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public MenuManager getContextMenu() {
-    return m_contextMenu;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Context menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public MenuManager getContextMenu() {
+		return m_contextMenu;
+	}
 
-  @Override
-  public void setContextMenu(MenuManager menu) {
-    // dispose old menu
-    if (m_contextMenu != null && m_contextMenu != menu) {
-      m_contextMenu.dispose();
-    }
-    // remember new
-    m_contextMenu = menu;
-    // create new menu
-    Control control = getControl();
-    Menu menuWidget = m_contextMenu.createContextMenu(control);
-    if (menuWidget.getShell() == control.getShell()) {
-      control.setMenu(menuWidget);
-    }
-  }
+	@Override
+	public void setContextMenu(MenuManager menu) {
+		// dispose old menu
+		if (m_contextMenu != null && m_contextMenu != menu) {
+			m_contextMenu.dispose();
+		}
+		// remember new
+		m_contextMenu = menu;
+		// create new menu
+		Control control = getControl();
+		Menu menuWidget = m_contextMenu.createContextMenu(control);
+		if (menuWidget.getShell() == control.getShell()) {
+			control.setMenu(menuWidget);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Selection
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSelectionChangedListener(ISelectionChangedListener listener) {
-    getEnsureEventTable().addListener(ISelectionChangedListener.class, listener);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Selection
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSelectionChangedListener(ISelectionChangedListener listener) {
+		getEnsureEventTable().addListener(ISelectionChangedListener.class, listener);
+	}
 
-  @Override
-  public void removeSelectionChangedListener(ISelectionChangedListener listener) {
-    getEnsureEventTable().removeListener(ISelectionChangedListener.class, listener);
-  }
+	@Override
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
+		getEnsureEventTable().removeListener(ISelectionChangedListener.class, listener);
+	}
 
-  /**
-   * Returns an {@link ISelection} containing a list of one or more {@link EditPart}. Whenever
-   * {@link #getSelectedEditParts()} returns an empty list, the <i>contents</i> editpart is returned
-   * as the current selection.
-   */
-  @Override
-  public ISelection getSelection() {
-    if (m_selectionList.isEmpty()) {
-      EditPart content = m_rootEditPart.getContent();
-      if (content != null) {
-        return new StructuredSelection(content);
-      }
-    }
-    return new StructuredSelection(m_selectionList);
-  }
+	/**
+	 * Returns an {@link ISelection} containing a list of one or more {@link EditPart}. Whenever
+	 * {@link #getSelectedEditParts()} returns an empty list, the <i>contents</i> editpart is returned
+	 * as the current selection.
+	 */
+	@Override
+	public ISelection getSelection() {
+		if (m_selectionList.isEmpty()) {
+			EditPart content = m_rootEditPart.getContent();
+			if (content != null) {
+				return new StructuredSelection(content);
+			}
+		}
+		return new StructuredSelection(m_selectionList);
+	}
 
-  @Override
-  @SuppressWarnings("unchecked")
-  public void setSelection(ISelection selection) {
-    if (selection instanceof IStructuredSelection) {
-      IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-      setSelection(structuredSelection.toList());
-    }
-  }
+	@Override
+	@SuppressWarnings("unchecked")
+	public void setSelection(ISelection selection) {
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			setSelection(structuredSelection.toList());
+		}
+	}
 
-  private void fireSelectionChanged() {
-    List<ISelectionChangedListener> listeners = getListeners(ISelectionChangedListener.class);
-    if (listeners != null && !listeners.isEmpty()) {
-      SelectionChangedEvent event = new SelectionChangedEvent(this, getSelection());
-      for (ISelectionChangedListener listener : listeners) {
-        listener.selectionChanged(event);
-      }
-    }
-  }
+	private void fireSelectionChanged() {
+		List<ISelectionChangedListener> listeners = getListeners(ISelectionChangedListener.class);
+		if (listeners != null && !listeners.isEmpty()) {
+			SelectionChangedEvent event = new SelectionChangedEvent(this, getSelection());
+			for (ISelectionChangedListener listener : listeners) {
+				listener.selectionChanged(event);
+			}
+		}
+	}
 
-  /**
-   * Appends the specified <code>{@link EditPart}</code> to the viewer's <i>selection</i>. The
-   * {@link EditPart} becomes the new primary selection.
-   */
-  @Override
-  public void appendSelection(EditPart part) {
-    Assert.isNotNull(part);
-    if (!m_selectionList.isEmpty()) {
-      EditPart primary = m_selectionList.get(m_selectionList.size() - 1);
-      if (primary != part) {
-        try {
-          m_selecting = part;
-          primary.setSelected(EditPart.SELECTED);
-        } finally {
-          m_selecting = null;
-        }
-      }
-    }
-    //
-    try {
-      m_selecting = part;
-      m_selectionList.remove(part);
-      m_selectionList.add(part);
-      part.setSelected(EditPart.SELECTED_PRIMARY);
-    } finally {
-      m_selecting = null;
-    }
-    //
-    fireSelectionChanged();
-  }
+	/**
+	 * Appends the specified <code>{@link EditPart}</code> to the viewer's <i>selection</i>. The
+	 * {@link EditPart} becomes the new primary selection.
+	 */
+	@Override
+	public void appendSelection(EditPart part) {
+		Assert.isNotNull(part);
+		if (!m_selectionList.isEmpty()) {
+			EditPart primary = m_selectionList.get(m_selectionList.size() - 1);
+			if (primary != part) {
+				try {
+					m_selecting = part;
+					primary.setSelected(EditPart.SELECTED);
+				} finally {
+					m_selecting = null;
+				}
+			}
+		}
+		//
+		try {
+			m_selecting = part;
+			m_selectionList.remove(part);
+			m_selectionList.add(part);
+			part.setSelected(EditPart.SELECTED_PRIMARY);
+		} finally {
+			m_selecting = null;
+		}
+		//
+		fireSelectionChanged();
+	}
 
-  /**
-   * Replaces the current selection with the specified <code>{@link EditPart EditParts}</code>.
-   */
-  @Override
-  public void setSelection(List<EditPart> editParts) {
-    try {
-      if (!editParts.isEmpty()) {
-        m_selecting = editParts.get(0);
-      }
-      internalDeselectAll();
-      //
-      for (Iterator<EditPart> I = editParts.iterator(); I.hasNext();) {
-        EditPart part = I.next();
-        if(part != null) {
-          m_selectionList.add(part);
-          m_selecting = part;
-          if (I.hasNext()) {
-            part.setSelected(EditPart.SELECTED);
-          } else {
-            part.setSelected(EditPart.SELECTED_PRIMARY);
-          }
-        }
-      }
-    } finally {
-      m_selecting = null;
-    }
-    //
-    fireSelectionChanged();
-  }
+	/**
+	 * Replaces the current selection with the specified <code>{@link EditPart EditParts}</code>.
+	 */
+	@Override
+	public void setSelection(List<EditPart> editParts) {
+		try {
+			if (!editParts.isEmpty()) {
+				m_selecting = editParts.get(0);
+			}
+			internalDeselectAll();
+			//
+			for (Iterator<EditPart> I = editParts.iterator(); I.hasNext();) {
+				EditPart part = I.next();
+				if(part != null) {
+					m_selectionList.add(part);
+					m_selecting = part;
+					if (I.hasNext()) {
+						part.setSelected(EditPart.SELECTED);
+					} else {
+						part.setSelected(EditPart.SELECTED_PRIMARY);
+					}
+				}
+			}
+		} finally {
+			m_selecting = null;
+		}
+		//
+		fireSelectionChanged();
+	}
 
-  /**
-   * Replaces the current selection with the specified <code>{@link EditPart}</code>. That part
-   * becomes the primary selection.
-   */
-  @Override
-  public void select(EditPart part) {
-    Assert.isNotNull(part);
-    if (m_selectionList.size() != 1 || m_selectionList.get(0) != part) {
-      try {
-        m_selectionList.add(part);
-        m_selecting = part;
-        internalDeselectAll();
-        appendSelection(part);
-      } finally {
-        m_selecting = null;
-      }
-    }
-  }
+	/**
+	 * Replaces the current selection with the specified <code>{@link EditPart}</code>. That part
+	 * becomes the primary selection.
+	 */
+	@Override
+	public void select(EditPart part) {
+		Assert.isNotNull(part);
+		if (m_selectionList.size() != 1 || m_selectionList.get(0) != part) {
+			try {
+				m_selectionList.add(part);
+				m_selecting = part;
+				internalDeselectAll();
+				appendSelection(part);
+			} finally {
+				m_selecting = null;
+			}
+		}
+	}
 
-  /**
-   * Removes the specified <code>{@link EditPart}</code> from the current selection. The last
-   * EditPart in the new selection is made {@link EditPart#SELECTED_PRIMARY primary}.
-   */
-  @Override
-  public void deselect(EditPart part) {
-    Assert.isNotNull(part);
-    m_selectionList.remove(part);
-    part.setSelected(EditPart.SELECTED_NONE);
-    //
-    if (!m_selectionList.isEmpty()) {
-      EditPart primary = m_selectionList.get(m_selectionList.size() - 1);
-      primary.setSelected(EditPart.SELECTED_PRIMARY);
-    }
-    //
-    fireSelectionChanged();
-  }
+	/**
+	 * Removes the specified <code>{@link EditPart}</code> from the current selection. The last
+	 * EditPart in the new selection is made {@link EditPart#SELECTED_PRIMARY primary}.
+	 */
+	@Override
+	public void deselect(EditPart part) {
+		Assert.isNotNull(part);
+		m_selectionList.remove(part);
+		part.setSelected(EditPart.SELECTED_NONE);
+		//
+		if (!m_selectionList.isEmpty()) {
+			EditPart primary = m_selectionList.get(m_selectionList.size() - 1);
+			primary.setSelected(EditPart.SELECTED_PRIMARY);
+		}
+		//
+		fireSelectionChanged();
+	}
 
-  /**
-   * Removes the specified <code>{@link List}</code> of <code>{@link EditPart}</code>'s from the
-   * current selection. The last EditPart in the new selection is made
-   * {@link EditPart#SELECTED_PRIMARY primary}.
-   */
-  @Override
-  public void deselect(List<EditPart> editParts) {
-    for (EditPart part : editParts) {
-      Assert.isNotNull(part);
-      m_selectionList.remove(part);
-      part.setSelected(EditPart.SELECTED_NONE);
-    }
-    //
-    if (!m_selectionList.isEmpty()) {
-      EditPart primary = m_selectionList.get(m_selectionList.size() - 1);
-      primary.setSelected(EditPart.SELECTED_PRIMARY);
-    }
-    //
-    fireSelectionChanged();
-  }
+	/**
+	 * Removes the specified <code>{@link List}</code> of <code>{@link EditPart}</code>'s from the
+	 * current selection. The last EditPart in the new selection is made
+	 * {@link EditPart#SELECTED_PRIMARY primary}.
+	 */
+	@Override
+	public void deselect(List<EditPart> editParts) {
+		for (EditPart part : editParts) {
+			Assert.isNotNull(part);
+			m_selectionList.remove(part);
+			part.setSelected(EditPart.SELECTED_NONE);
+		}
+		//
+		if (!m_selectionList.isEmpty()) {
+			EditPart primary = m_selectionList.get(m_selectionList.size() - 1);
+			primary.setSelected(EditPart.SELECTED_PRIMARY);
+		}
+		//
+		fireSelectionChanged();
+	}
 
-  /**
-   * Deselects all EditParts.
-   */
-  @Override
-  public void deselectAll() {
-    internalDeselectAll();
-    fireSelectionChanged();
-  }
+	/**
+	 * Deselects all EditParts.
+	 */
+	@Override
+	public void deselectAll() {
+		internalDeselectAll();
+		fireSelectionChanged();
+	}
 
-  private void internalDeselectAll() {
-    List<EditPart> selectionList = m_selectionList;
-    m_selectionList = Lists.newArrayList();
-    for (EditPart part : selectionList) {
-      part.setSelected(EditPart.SELECTED_NONE);
-    }
-  }
+	private void internalDeselectAll() {
+		List<EditPart> selectionList = m_selectionList;
+		m_selectionList = Lists.newArrayList();
+		for (EditPart part : selectionList) {
+			part.setSelected(EditPart.SELECTED_NONE);
+		}
+	}
 
-  /**
-   * Returns an unmodifiable <code>List</code> containing zero or more selected {@link EditPart}'s.
-   * This list may be empty. This list can be modified indirectly by calling other methods on the
-   * viewer.
-   */
-  @Override
-  public List<EditPart> getSelectedEditParts() {
-    return m_selectionList;
-  }
+	/**
+	 * Returns an unmodifiable <code>List</code> containing zero or more selected {@link EditPart}'s.
+	 * This list may be empty. This list can be modified indirectly by calling other methods on the
+	 * viewer.
+	 */
+	@Override
+	public List<EditPart> getSelectedEditParts() {
+		return m_selectionList;
+	}
 
-  /**
-   * @return The EditPart which is being selected in selection process.
-   */
-  @Override
-  public EditPart getSelectingEditPart() {
-    return m_selecting;
-  }
+	/**
+	 * @return The EditPart which is being selected in selection process.
+	 */
+	@Override
+	public EditPart getSelectingEditPart() {
+		return m_selecting;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Click
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addEditPartClickListener(IEditPartClickListener listener) {
-    getEnsureEventTable().addListener(IEditPartClickListener.class, listener);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Click
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addEditPartClickListener(IEditPartClickListener listener) {
+		getEnsureEventTable().addListener(IEditPartClickListener.class, listener);
+	}
 
-  @Override
-  public void removeEditPartClickListener(IEditPartClickListener listener) {
-    getEnsureEventTable().removeListener(IEditPartClickListener.class, listener);
-  }
+	@Override
+	public void removeEditPartClickListener(IEditPartClickListener listener) {
+		getEnsureEventTable().removeListener(IEditPartClickListener.class, listener);
+	}
 
-  @Override
-  public void fireEditPartClick(EditPart editPart) {
-    List<IEditPartClickListener> listeners = getListeners(IEditPartClickListener.class);
-    if (listeners != null && !listeners.isEmpty()) {
-      for (IEditPartClickListener listener : listeners) {
-        listener.clickNotify(editPart);
-      }
-    }
-  }
+	@Override
+	public void fireEditPartClick(EditPart editPart) {
+		List<IEditPartClickListener> listeners = getListeners(IEditPartClickListener.class);
+		if (listeners != null && !listeners.isEmpty()) {
+			for (IEditPartClickListener listener : listeners) {
+				listener.clickNotify(editPart);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Events
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Access to <code>{@link EventTable}</code> use lazy creation mechanism.
-   */
-  private EventTable getEnsureEventTable() {
-    if (m_eventTable == null) {
-      m_eventTable = new EventTable();
-    }
-    return m_eventTable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Events
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Access to <code>{@link EventTable}</code> use lazy creation mechanism.
+	 */
+	private EventTable getEnsureEventTable() {
+		if (m_eventTable == null) {
+			m_eventTable = new EventTable();
+		}
+		return m_eventTable;
+	}
 
-  /**
-   * Return all registers listeners for given class or <code>null</code>.
-   */
-  private <T extends Object> List<T> getListeners(Class<T> listenerClass) {
-    return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass);
-  }
+	/**
+	 * Return all registers listeners for given class or <code>null</code>.
+	 */
+	private <T extends Object> List<T> getListeners(Class<T> listenerClass) {
+		return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass);
+	}
 }

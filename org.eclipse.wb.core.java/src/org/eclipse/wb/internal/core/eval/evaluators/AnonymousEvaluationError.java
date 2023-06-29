@@ -21,9 +21,9 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
  * @coverage core.evaluation
  */
 public final class AnonymousEvaluationError extends Error {
-  private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 
-  public static boolean is(Throwable e) {
-    return DesignerExceptionUtils.getRootCause(e) instanceof AnonymousEvaluationError;
-  }
+	public static boolean is(Throwable e) {
+		return DesignerExceptionUtils.getRootCause(e) instanceof AnonymousEvaluationError;
+	}
 }

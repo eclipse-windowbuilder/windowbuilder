@@ -29,89 +29,89 @@ import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
  * @coverage swing.gef.policy
  */
 public final class JTabbedPaneLayoutEditPolicy extends ComponentFlowLayoutEditPolicy {
-  private final JTabbedPaneInfo m_pane;
+	private final JTabbedPaneInfo m_pane;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JTabbedPaneLayoutEditPolicy(JTabbedPaneInfo component) {
-    super(component);
-    m_pane = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JTabbedPaneLayoutEditPolicy(JTabbedPaneInfo component) {
+		super(component);
+		m_pane = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return m_pane.isHorizontal();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return m_pane.isHorizontal();
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart instanceof JTabbedPaneTabEditPart;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart instanceof JTabbedPaneTabEditPart;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getMoveCommand(Object moveObject, Object referenceObject) {
-    final ComponentInfo component = getComponent(moveObject);
-    if (component == null || !component.getCreationSupport().canReorder()) {
-      return null;
-    }
-    return super.getMoveCommand(moveObject, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getMoveCommand(Object moveObject, Object referenceObject) {
+		final ComponentInfo component = getComponent(moveObject);
+		if (component == null || !component.getCreationSupport().canReorder()) {
+			return null;
+		}
+		return super.getMoveCommand(moveObject, referenceObject);
+	}
 
-  @Override
-  protected Command getAddCommand(Object addObject, Object referenceObject) {
-    final ComponentInfo component = getComponent(addObject);
-    if (component == null || !component.getCreationSupport().canReparent()) {
-      return null;
-    }
-    return super.getAddCommand(addObject, referenceObject);
-  }
+	@Override
+	protected Command getAddCommand(Object addObject, Object referenceObject) {
+		final ComponentInfo component = getComponent(addObject);
+		if (component == null || !component.getCreationSupport().canReparent()) {
+			return null;
+		}
+		return super.getAddCommand(addObject, referenceObject);
+	}
 
-  @Override
-  protected void command_CREATE(ComponentInfo newObject, ComponentInfo referenceObject)
-      throws Exception {
-    m_pane.command_CREATE(newObject, referenceObject);
-  }
+	@Override
+	protected void command_CREATE(ComponentInfo newObject, ComponentInfo referenceObject)
+			throws Exception {
+		m_pane.command_CREATE(newObject, referenceObject);
+	}
 
-  @Override
-  protected void command_MOVE(ComponentInfo object, ComponentInfo referenceObject) throws Exception {
-    m_pane.command_MOVE(object, referenceObject);
-  }
+	@Override
+	protected void command_MOVE(ComponentInfo object, ComponentInfo referenceObject) throws Exception {
+		m_pane.command_MOVE(object, referenceObject);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ComponentInfo getObjectModel(Object object) {
-    return getComponent(object);
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ComponentInfo getObjectModel(Object object) {
+		return getComponent(object);
+	};
 
-  @Override
-  protected ComponentInfo getReferenceObjectModel(Object referenceObject) {
-    return getComponent(referenceObject);
-  }
+	@Override
+	protected ComponentInfo getReferenceObjectModel(Object referenceObject) {
+		return getComponent(referenceObject);
+	}
 
-  /**
-   * @return the {@link ComponentInfo} for given {@link JTabbedPaneTabInfo} object.
-   */
-  private static ComponentInfo getComponent(Object o) {
-    if (o instanceof ComponentInfo) {
-      return (ComponentInfo) o;
-    }
-    return o != null ? ((JTabbedPaneTabInfo) o).getComponent() : null;
-  }
+	/**
+	 * @return the {@link ComponentInfo} for given {@link JTabbedPaneTabInfo} object.
+	 */
+	private static ComponentInfo getComponent(Object o) {
+		if (o instanceof ComponentInfo) {
+			return (ComponentInfo) o;
+		}
+		return o != null ? ((JTabbedPaneTabInfo) o).getComponent() : null;
+	}
 }

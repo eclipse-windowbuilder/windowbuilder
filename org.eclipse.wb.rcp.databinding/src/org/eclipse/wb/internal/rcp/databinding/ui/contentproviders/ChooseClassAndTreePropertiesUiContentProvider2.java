@@ -25,35 +25,35 @@ import org.eclipse.swt.widgets.Control;
  * @coverage bindings.rcp.ui
  */
 public abstract class ChooseClassAndTreePropertiesUiContentProvider2
-    extends
-      ChooseClassAndTreePropertiesUiContentProvider {
-  protected ICheckboxViewerWrapper m_propertiesViewer;
+extends
+ChooseClassAndTreePropertiesUiContentProvider {
+	protected ICheckboxViewerWrapper m_propertiesViewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ChooseClassAndTreePropertiesUiContentProvider2(ChooseClassAndPropertiesConfiguration configuration) {
-    super(configuration);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ChooseClassAndTreePropertiesUiContentProvider2(ChooseClassAndPropertiesConfiguration configuration) {
+		super(configuration);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createContent(Composite parent, int columns) {
-    super.createContent(parent, columns);
-    GridDataFactory.modify(m_propertiesViewer.getViewer().getControl()).grab(true, false).minV(0).hintVC(
-        10);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createContent(Composite parent, int columns) {
+		super.createContent(parent, columns);
+		GridDataFactory.modify(m_propertiesViewer.getViewer().getControl()).grab(true, false).minV(0).hintVC(
+				10);
+	}
 
-  @Override
-  protected Control createViewers(Composite parent) {
-    m_propertiesViewer = createPropertiesViewer(parent);
-    setPropertiesViewer(m_propertiesViewer);
-    return m_propertiesViewer.getViewer().getControl();
-  }
+	@Override
+	protected Control createViewers(Composite parent) {
+		m_propertiesViewer = createPropertiesViewer(parent);
+		setPropertiesViewer(m_propertiesViewer);
+		return m_propertiesViewer.getViewer().getControl();
+	}
 }

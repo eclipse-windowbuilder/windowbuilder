@@ -21,8 +21,8 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    StringUtilitiesTest.class,
-    ProjectClassLoaderTest.class})
+	StringUtilitiesTest.class,
+	ProjectClassLoaderTest.class})
 
 public class CommonTests {
 }

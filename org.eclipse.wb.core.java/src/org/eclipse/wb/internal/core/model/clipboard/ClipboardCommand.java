@@ -21,15 +21,15 @@ import java.io.Serializable;
  * @coverage core.model.clipboard
  */
 public abstract class ClipboardCommand implements Serializable {
-  private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execute
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Executes this {@link ClipboardCommand} in context of its {@link JavaInfo}.
-   */
-  public abstract void execute(JavaInfo javaInfo) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execute
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Executes this {@link ClipboardCommand} in context of its {@link JavaInfo}.
+	 */
+	public abstract void execute(JavaInfo javaInfo) throws Exception;
 }

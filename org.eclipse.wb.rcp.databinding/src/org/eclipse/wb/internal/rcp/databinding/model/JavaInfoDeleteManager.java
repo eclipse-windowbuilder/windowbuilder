@@ -31,53 +31,53 @@ import java.util.List;
  * @coverage bindings.rcp.model
  */
 public final class JavaInfoDeleteManager
-    extends
-      org.eclipse.wb.internal.core.databinding.model.JavaInfoDeleteManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoDeleteManager(DatabindingsProvider provider) {
-    super(provider, provider.getJavaInfoRoot());
-  }
+extends
+org.eclipse.wb.internal.core.databinding.model.JavaInfoDeleteManager {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoDeleteManager(DatabindingsProvider provider) {
+		super(provider, provider.getJavaInfoRoot());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void deleteBinding(IBindingInfo ibinding, List<IBindingInfo> bindings) throws Exception {
-    AbstractBindingInfo binding = (AbstractBindingInfo) ibinding;
-    binding.delete();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void deleteBinding(IBindingInfo ibinding, List<IBindingInfo> bindings) throws Exception {
+		AbstractBindingInfo binding = (AbstractBindingInfo) ibinding;
+		binding.delete();
+	}
 
-  @Override
-  protected boolean accept(ObjectInfo javaInfo) throws Exception {
-    return javaInfo instanceof AbstractComponentInfo
-        || javaInfo instanceof ViewerInfo
-        || javaInfo.getParent() instanceof NonVisualBeanContainerInfo;
-  }
+	@Override
+	protected boolean accept(ObjectInfo javaInfo) throws Exception {
+		return javaInfo instanceof AbstractComponentInfo
+				|| javaInfo instanceof ViewerInfo
+				|| javaInfo.getParent() instanceof NonVisualBeanContainerInfo;
+	}
 
-  @Override
-  protected String getReference(ObjectInfo javaInfo) throws Exception {
-    return JavaInfoReferenceProvider.getReference((JavaInfo) javaInfo);
-  }
+	@Override
+	protected String getReference(ObjectInfo javaInfo) throws Exception {
+		return JavaInfoReferenceProvider.getReference((JavaInfo) javaInfo);
+	}
 
-  @Override
-  protected boolean equals(ObjectInfo javaInfo, String javaInfoReference, IObserveInfo iobserve)
-      throws Exception {
-    BindableInfo bindable = (BindableInfo) iobserve;
-    return checkWidget((JavaInfo) javaInfo, bindable)
-        || javaInfoReference.equals(bindable.getReference());
-  }
+	@Override
+	protected boolean equals(ObjectInfo javaInfo, String javaInfoReference, IObserveInfo iobserve)
+			throws Exception {
+		BindableInfo bindable = (BindableInfo) iobserve;
+		return checkWidget((JavaInfo) javaInfo, bindable)
+				|| javaInfoReference.equals(bindable.getReference());
+	}
 
-  static boolean checkWidget(JavaInfo javaInfo, BindableInfo bindable) {
-    if (bindable instanceof WidgetBindableInfo) {
-      WidgetBindableInfo widgetBindable = (WidgetBindableInfo) bindable;
-      return javaInfo == widgetBindable.getJavaInfo();
-    }
-    return false;
-  }
+	static boolean checkWidget(JavaInfo javaInfo, BindableInfo bindable) {
+		if (bindable instanceof WidgetBindableInfo) {
+			WidgetBindableInfo widgetBindable = (WidgetBindableInfo) bindable;
+			return javaInfo == widgetBindable.getJavaInfo();
+		}
+		return false;
+	}
 }

@@ -40,106 +40,106 @@ import java.text.MessageFormat;
  * @coverage swing.FormLayout.header
  */
 public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<FormRowInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
-    super(mainPolicy);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
+		super(mainPolicy);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Handle createResizeHandle() {
-    Handle handle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 7, false);
-    handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.SOUTH, REQ_RESIZE));
-    return handle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Handle createResizeHandle() {
+		Handle handle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 7, false);
+		handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.SOUTH, REQ_RESIZE));
+		return handle;
+	}
 
-  @Override
-  protected Point getTextFeedbackLocation(Point mouseLocation) {
-    return new Point(10, mouseLocation.y + 10);
-  }
+	@Override
+	protected Point getTextFeedbackLocation(Point mouseLocation) {
+		return new Point(10, mouseLocation.y + 10);
+	}
 
-  @Override
-  protected String getTextFeedbackText(ChangeBoundsRequest request, boolean inverse) {
-    final FormLayoutInfo layout = getLayout();
-    int pixels = getHostFigure().getSize().height;
-    int pixelsDelta = request.getSizeDelta().height;
-    try {
-      FormSizeInfo sizeCopy = getDimension().copy().getSize();
-      if (sizeCopy.getComponentSize() == null ^ inverse) {
-        // set current size if "null"
-        if (sizeCopy.getConstantSize() == null) {
-          FormSizeConstantInfo constantSize = new FormSizeConstantInfo(pixels, ConstantSize.PIXEL);
-          Unit newUnit =
-              sizeCopy.getLowerSize() != null
-                  ? sizeCopy.getLowerSize().getUnit()
-                  : ConstantSize.DIALOG_UNITS_Y;
-          constantSize.setUnit(newUnit);
-          sizeCopy.setConstantSize(constantSize);
-        }
-        // update size
-        final FormSizeConstantInfo constantSize;
-        {
-          constantSize = sizeCopy.getConstantSize();
-          constantSize.setAsPixels(pixels + pixelsDelta);
-        }
-        // prepare command
-        m_resizeCommand = new EditCommand(layout) {
-          @Override
-          protected void executeEdit() throws Exception {
-            getDimension().getSize().setConstantSize(constantSize);
-            layout.writeDimensions();
-          }
-        };
-        // return text
-        return MessageFormat.format(
-            GefMessages.RowSelectionEditPolicy_heightPattern,
-            constantSize.getSource(true, true));
-      } else {
-        // set current size if "null"
-        if (sizeCopy.getLowerSize() == null) {
-          FormSizeConstantInfo lowerSize = new FormSizeConstantInfo(pixels, ConstantSize.PIXEL);
-          Unit newUnit =
-              sizeCopy.getConstantSize() != null
-                  ? sizeCopy.getConstantSize().getUnit()
-                  : ConstantSize.DIALOG_UNITS_Y;
-          lowerSize.setUnit(newUnit);
-          sizeCopy.setLowerSize(lowerSize);
-        }
-        // update size
-        final FormSizeConstantInfo lowerSize;
-        {
-          lowerSize = sizeCopy.getLowerSize();
-          lowerSize.setAsPixels(pixels + pixelsDelta);
-        }
-        // prepare command
-        m_resizeCommand = new EditCommand(layout) {
-          @Override
-          protected void executeEdit() throws Exception {
-            FormSizeInfo size = getDimension().getSize();
-            // set component size
-            if (size.getComponentSize() == null) {
-              size.setComponentSize(Sizes.DEFAULT);
-            }
-            // set lower size
-            size.setLowerSize(lowerSize);
-            layout.writeDimensions();
-          }
-        };
-        // return text
-        return MessageFormat.format(
-            GefMessages.RowSelectionEditPolicy_minimumHeightPattern,
-            lowerSize.getSource(true, true));
-      }
-    } catch (Throwable e) {
-      return GefMessages.RowSelectionEditPolicy_exception;
-    }
-  }
+	@Override
+	protected String getTextFeedbackText(ChangeBoundsRequest request, boolean inverse) {
+		final FormLayoutInfo layout = getLayout();
+		int pixels = getHostFigure().getSize().height;
+		int pixelsDelta = request.getSizeDelta().height;
+		try {
+			FormSizeInfo sizeCopy = getDimension().copy().getSize();
+			if (sizeCopy.getComponentSize() == null ^ inverse) {
+				// set current size if "null"
+				if (sizeCopy.getConstantSize() == null) {
+					FormSizeConstantInfo constantSize = new FormSizeConstantInfo(pixels, ConstantSize.PIXEL);
+					Unit newUnit =
+							sizeCopy.getLowerSize() != null
+							? sizeCopy.getLowerSize().getUnit()
+									: ConstantSize.DIALOG_UNITS_Y;
+					constantSize.setUnit(newUnit);
+					sizeCopy.setConstantSize(constantSize);
+				}
+				// update size
+				final FormSizeConstantInfo constantSize;
+				{
+					constantSize = sizeCopy.getConstantSize();
+					constantSize.setAsPixels(pixels + pixelsDelta);
+				}
+				// prepare command
+				m_resizeCommand = new EditCommand(layout) {
+					@Override
+					protected void executeEdit() throws Exception {
+						getDimension().getSize().setConstantSize(constantSize);
+						layout.writeDimensions();
+					}
+				};
+				// return text
+				return MessageFormat.format(
+						GefMessages.RowSelectionEditPolicy_heightPattern,
+						constantSize.getSource(true, true));
+			} else {
+				// set current size if "null"
+				if (sizeCopy.getLowerSize() == null) {
+					FormSizeConstantInfo lowerSize = new FormSizeConstantInfo(pixels, ConstantSize.PIXEL);
+					Unit newUnit =
+							sizeCopy.getConstantSize() != null
+							? sizeCopy.getConstantSize().getUnit()
+									: ConstantSize.DIALOG_UNITS_Y;
+					lowerSize.setUnit(newUnit);
+					sizeCopy.setLowerSize(lowerSize);
+				}
+				// update size
+				final FormSizeConstantInfo lowerSize;
+				{
+					lowerSize = sizeCopy.getLowerSize();
+					lowerSize.setAsPixels(pixels + pixelsDelta);
+				}
+				// prepare command
+				m_resizeCommand = new EditCommand(layout) {
+					@Override
+					protected void executeEdit() throws Exception {
+						FormSizeInfo size = getDimension().getSize();
+						// set component size
+						if (size.getComponentSize() == null) {
+							size.setComponentSize(Sizes.DEFAULT);
+						}
+						// set lower size
+						size.setLowerSize(lowerSize);
+						layout.writeDimensions();
+					}
+				};
+				// return text
+				return MessageFormat.format(
+						GefMessages.RowSelectionEditPolicy_minimumHeightPattern,
+						lowerSize.getSource(true, true));
+			}
+		} catch (Throwable e) {
+			return GefMessages.RowSelectionEditPolicy_exception;
+		}
+	}
 }

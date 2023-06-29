@@ -21,14 +21,14 @@ import org.eclipse.wb.internal.xwt.model.jface.TableViewerColumnInfo;
  * @coverage XWT.gef.policy
  */
 public final class TableViewerTableViewerColumnSelectionEditPolicy
-    extends
-      AbstractColumnSelectionEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TableViewerTableViewerColumnSelectionEditPolicy(TableViewerColumnInfo column) {
-    super(column);
-  }
+extends
+AbstractColumnSelectionEditPolicy {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TableViewerTableViewerColumnSelectionEditPolicy(TableViewerColumnInfo column) {
+		super(column);
+	}
 }

@@ -16,8 +16,8 @@ package org.eclipse.wb.internal.core.model.description;
  * @author scheglov_ke
  */
 public interface IToolkitProvider {
-  /**
-   * @return the {@link ToolkitDescription} for this toolkit.
-   */
-  ToolkitDescription getDescription();
+	/**
+	 * @return the {@link ToolkitDescription} for this toolkit.
+	 */
+	ToolkitDescription getDescription();
 }

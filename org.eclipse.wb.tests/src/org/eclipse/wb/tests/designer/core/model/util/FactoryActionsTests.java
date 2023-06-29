@@ -19,11 +19,11 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class FactoryActionsTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model.util.FactoryActions");
-    suite.addTest(createSingleSuite(FactoryActionsSupportTest.class));
-    suite.addTest(createSingleSuite(FactoryCreateActionTest.class));
-    suite.addTest(createSingleSuite(FactoryApplyActionTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.util.FactoryActions");
+		suite.addTest(createSingleSuite(FactoryActionsSupportTest.class));
+		suite.addTest(createSingleSuite(FactoryCreateActionTest.class));
+		suite.addTest(createSingleSuite(FactoryApplyActionTest.class));
+		return suite;
+	}
 }

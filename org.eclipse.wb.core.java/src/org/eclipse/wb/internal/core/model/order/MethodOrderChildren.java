@@ -31,64 +31,64 @@ import java.util.List;
  * @coverage core.model.description
  */
 public abstract class MethodOrderChildren extends MethodOrder {
-  private final String[] m_childrenTypeNames;
+	private final String[] m_childrenTypeNames;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodOrderChildren(String childrenTypeNames) {
-    m_childrenTypeNames =
-        "*".equals(childrenTypeNames) || StringUtils.isEmpty(childrenTypeNames)
-            ? null
-            : StringUtils.split(childrenTypeNames);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodOrderChildren(String childrenTypeNames) {
+		m_childrenTypeNames =
+				"*".equals(childrenTypeNames) || StringUtils.isEmpty(childrenTypeNames)
+				? null
+						: StringUtils.split(childrenTypeNames);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MethodOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canReference(JavaInfo javaInfo) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MethodOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canReference(JavaInfo javaInfo) {
+		return true;
+	}
 
-  /**
-   * @return last typed (managed by this order) child {@link JavaInfo} of given parent.
-   */
-  protected JavaInfo getLastChild(JavaInfo javaInfo) throws Exception {
-    return GenericsUtils.getLastOrNull(getTargetChildren(javaInfo));
-  }
+	/**
+	 * @return last typed (managed by this order) child {@link JavaInfo} of given parent.
+	 */
+	protected JavaInfo getLastChild(JavaInfo javaInfo) throws Exception {
+		return GenericsUtils.getLastOrNull(getTargetChildren(javaInfo));
+	}
 
-  /**
-   * @return list typed (managed by this order) children {@link JavaInfo}'s of given parent.
-   */
-  protected List<JavaInfo> getTargetChildren(JavaInfo javaInfo) throws Exception {
-    List<JavaInfo> list = Lists.newArrayList();
-    for (JavaInfo child : javaInfo.getChildrenJava()) {
-      if (isTargetChild(child)) {
-        list.add(child);
-      }
-    }
-    return list;
-  }
+	/**
+	 * @return list typed (managed by this order) children {@link JavaInfo}'s of given parent.
+	 */
+	protected List<JavaInfo> getTargetChildren(JavaInfo javaInfo) throws Exception {
+		List<JavaInfo> list = Lists.newArrayList();
+		for (JavaInfo child : javaInfo.getChildrenJava()) {
+			if (isTargetChild(child)) {
+				list.add(child);
+			}
+		}
+		return list;
+	}
 
-  /**
-   * @return <code>true</code> if given {@link JavaInfo} is managed by this order.
-   */
-  public boolean isTargetChild(JavaInfo child) {
-    if (m_childrenTypeNames == null) {
-      // all children accepted
-      return true;
-    }
-    Class<?> componentClass = child.getDescription().getComponentClass();
-    for (String childTypeName : m_childrenTypeNames) {
-      if (ReflectionUtils.isSuccessorOf(componentClass, childTypeName)) {
-        return true;
-      }
-    }
-    return false;
-  }
+	/**
+	 * @return <code>true</code> if given {@link JavaInfo} is managed by this order.
+	 */
+	public boolean isTargetChild(JavaInfo child) {
+		if (m_childrenTypeNames == null) {
+			// all children accepted
+			return true;
+		}
+		Class<?> componentClass = child.getDescription().getComponentClass();
+		for (String childTypeName : m_childrenTypeNames) {
+			if (ReflectionUtils.isSuccessorOf(componentClass, childTypeName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

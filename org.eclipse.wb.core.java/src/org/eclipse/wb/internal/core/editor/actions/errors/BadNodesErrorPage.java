@@ -41,126 +41,126 @@ import java.io.StringWriter;
  * @coverage core.editor.action.error
  */
 public abstract class BadNodesErrorPage implements IErrorPage {
-  private AstEditor m_editor;
-  private BadNodesCollection m_collection;
+	private AstEditor m_editor;
+	private BadNodesCollection m_collection;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IErrorPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void setRoot(ObjectInfo rootObject) {
-    if (rootObject instanceof JavaInfo) {
-      JavaInfo javaInfo = (JavaInfo) rootObject;
-      m_editor = javaInfo.getEditor();
-      EditorState editorState = EditorState.get(m_editor);
-      m_collection = getCollection(editorState);
-    } else {
-      m_collection = null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IErrorPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void setRoot(ObjectInfo rootObject) {
+		if (rootObject instanceof JavaInfo) {
+			JavaInfo javaInfo = (JavaInfo) rootObject;
+			m_editor = javaInfo.getEditor();
+			EditorState editorState = EditorState.get(m_editor);
+			m_collection = getCollection(editorState);
+		} else {
+			m_collection = null;
+		}
+	}
 
-  @Override
-  public final boolean hasErrors() {
-    return m_collection != null && !m_collection.isEmpty();
-  }
+	@Override
+	public final boolean hasErrors() {
+		return m_collection != null && !m_collection.isEmpty();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private List m_nodesList;
-  private Browser m_browser;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private List m_nodesList;
+	private Browser m_browser;
 
-  @Override
-  public final Control create(Composite parent) {
-    Composite container = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.create(container);
-    // create List with bad nodes
-    {
-      Group group = new Group(container, SWT.NONE);
-      GridDataFactory.create(group).grabH().fill();
-      GridLayoutFactory.create(group);
-      group.setText(Messages.BadNodesErrorPage_nodesGroup);
-      //
-      m_nodesList = new List(group, SWT.BORDER | SWT.V_SCROLL);
-      GridDataFactory.create(m_nodesList).hintC(100, 10).grab().fill();
-      // fill items
-      if (m_collection != null) {
-        for (BadNodeInformation badNode : m_collection.nodes()) {
-          try {
-            m_nodesList.add(m_editor.getSource(badNode.getNode()));
-          } catch (Throwable e) {
-            DesignerPlugin.log(e);
-          }
-        }
-      }
-      // add selection listener
-      m_nodesList.addListener(SWT.Selection, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          showException();
-        }
-      });
-    }
-    // create Text for displaying selected bad node
-    {
-      Group group = new Group(container, SWT.NONE);
-      GridDataFactory.create(group).grab().fill();
-      GridLayoutFactory.create(group);
-      group.setText(Messages.BadNodesErrorPage_nodeGroup);
-      //
-      m_browser = new Browser(group, SWT.BORDER);
-      GridDataFactory.create(m_browser).hintC(100, 15).grab().fill();
-    }
-    // show first node
-    if (m_nodesList.getItemCount() != 0) {
-      m_nodesList.select(0);
-      showException();
-    }
-    //
-    return container;
-  }
+	@Override
+	public final Control create(Composite parent) {
+		Composite container = new Composite(parent, SWT.NONE);
+		GridLayoutFactory.create(container);
+		// create List with bad nodes
+		{
+			Group group = new Group(container, SWT.NONE);
+			GridDataFactory.create(group).grabH().fill();
+			GridLayoutFactory.create(group);
+			group.setText(Messages.BadNodesErrorPage_nodesGroup);
+			//
+			m_nodesList = new List(group, SWT.BORDER | SWT.V_SCROLL);
+			GridDataFactory.create(m_nodesList).hintC(100, 10).grab().fill();
+			// fill items
+			if (m_collection != null) {
+				for (BadNodeInformation badNode : m_collection.nodes()) {
+					try {
+						m_nodesList.add(m_editor.getSource(badNode.getNode()));
+					} catch (Throwable e) {
+						DesignerPlugin.log(e);
+					}
+				}
+			}
+			// add selection listener
+			m_nodesList.addListener(SWT.Selection, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					showException();
+				}
+			});
+		}
+		// create Text for displaying selected bad node
+		{
+			Group group = new Group(container, SWT.NONE);
+			GridDataFactory.create(group).grab().fill();
+			GridLayoutFactory.create(group);
+			group.setText(Messages.BadNodesErrorPage_nodeGroup);
+			//
+			m_browser = new Browser(group, SWT.BORDER);
+			GridDataFactory.create(m_browser).hintC(100, 15).grab().fill();
+		}
+		// show first node
+		if (m_nodesList.getItemCount() != 0) {
+			m_nodesList.select(0);
+			showException();
+		}
+		//
+		return container;
+	}
 
-  /**
-   * Shows given {@link BadNodeInformation}.
-   */
-  private void showException() {
-    try {
-      int index = m_nodesList.getSelectionIndex();
-      BadNodeInformation badNode = m_collection.nodes().get(index);
-      //
-      StringWriter stringWriter = new StringWriter();
-      {
-        // node source
-        stringWriter.write("<pre>");
-        stringWriter.write(m_editor.getSource(badNode.getNode()));
-        stringWriter.write("</pre>");
-        stringWriter.write("<p>");
-        // exception
-        {
-          Throwable exception = badNode.getException();
-          exception = DesignerExceptionUtils.rewriteException(exception);
-          String text = DesignerExceptionUtils.getExceptionHTML(exception);
-          stringWriter.write(text);
-        }
-      }
-      // set text
-      m_browser.setText(stringWriter.toString());
-    } catch (Throwable e) {
-      DesignerPlugin.log(e);
-    }
-  }
+	/**
+	 * Shows given {@link BadNodeInformation}.
+	 */
+	private void showException() {
+		try {
+			int index = m_nodesList.getSelectionIndex();
+			BadNodeInformation badNode = m_collection.nodes().get(index);
+			//
+			StringWriter stringWriter = new StringWriter();
+			{
+				// node source
+				stringWriter.write("<pre>");
+				stringWriter.write(m_editor.getSource(badNode.getNode()));
+				stringWriter.write("</pre>");
+				stringWriter.write("<p>");
+				// exception
+				{
+					Throwable exception = badNode.getException();
+					exception = DesignerExceptionUtils.rewriteException(exception);
+					String text = DesignerExceptionUtils.getExceptionHTML(exception);
+					stringWriter.write(text);
+				}
+			}
+			// set text
+			m_browser.setText(stringWriter.toString());
+		} catch (Throwable e) {
+			DesignerPlugin.log(e);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link BadNodesCollection} to display for given {@link EditorState}.
-   */
-  protected abstract BadNodesCollection getCollection(EditorState editorState);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link BadNodesCollection} to display for given {@link EditorState}.
+	 */
+	protected abstract BadNodesCollection getCollection(EditorState editorState);
 }

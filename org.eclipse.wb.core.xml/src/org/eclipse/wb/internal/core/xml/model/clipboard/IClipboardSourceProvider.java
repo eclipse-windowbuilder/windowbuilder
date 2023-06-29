@@ -20,9 +20,9 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericProperty;
  * @coverage XML.model.clipboard
  */
 public interface IClipboardSourceProvider {
-  /**
-   * @return the Java source that that has same value as current value of given
-   *         {@link GenericProperty}, or <code>null</code> if no such source can be provided.
-   */
-  String getClipboardSource(GenericProperty property) throws Exception;
+	/**
+	 * @return the Java source that that has same value as current value of given
+	 *         {@link GenericProperty}, or <code>null</code> if no such source can be provided.
+	 */
+	String getClipboardSource(GenericProperty property) throws Exception;
 }

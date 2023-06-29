@@ -22,17 +22,17 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class CreationTypeParametersRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String elementName, Attributes attributes) throws Exception {
-    String name = getRequiredAttribute(elementName, attributes, "name");
-    String type = getRequiredAttribute(elementName, attributes, "type");
-    String description = getRequiredAttribute(elementName, attributes, "title");
-    CreationDescription creationDescription = (CreationDescription) getDigester().peek();
-    creationDescription.setTypeParameter(name, type, description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String elementName, Attributes attributes) throws Exception {
+		String name = getRequiredAttribute(elementName, attributes, "name");
+		String type = getRequiredAttribute(elementName, attributes, "type");
+		String description = getRequiredAttribute(elementName, attributes, "title");
+		CreationDescription creationDescription = (CreationDescription) getDigester().peek();
+		creationDescription.setTypeParameter(name, type, description);
+	}
 }

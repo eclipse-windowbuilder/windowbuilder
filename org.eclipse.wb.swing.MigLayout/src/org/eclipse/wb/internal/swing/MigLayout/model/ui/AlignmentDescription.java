@@ -19,35 +19,35 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
  * @coverage swing.MigLayout.ui
  */
 public final class AlignmentDescription<A extends Enum<?>> {
-  private final A m_alignment;
-  private final String m_title;
+	private final A m_alignment;
+	private final String m_title;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AlignmentDescription(A alignment, String title) {
-    m_alignment = alignment;
-    m_title = title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AlignmentDescription(A alignment, String title) {
+		m_alignment = alignment;
+		m_title = title;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the alignment value.
-   */
-  public A getAlignment() {
-    return m_alignment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the alignment value.
+	 */
+	public A getAlignment() {
+		return m_alignment;
+	}
 
-  /**
-   * @return the title for alignment.
-   */
-  public String getTitle() {
-    return m_title;
-  }
+	/**
+	 * @return the title for alignment.
+	 */
+	public String getTitle() {
+		return m_title;
+	}
 }

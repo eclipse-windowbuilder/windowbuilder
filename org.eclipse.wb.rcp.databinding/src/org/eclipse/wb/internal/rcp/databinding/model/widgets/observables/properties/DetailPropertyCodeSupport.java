@@ -42,124 +42,124 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class DetailPropertyCodeSupport extends ObservableCodeSupport {
-  private final String m_observeClass;
-  private final String m_observeSignature;
-  private final String m_observeRealmSignature;
-  private final String m_detailObservableClass;
-  private final String m_observeMethod;
-  private final ViewerPropertySingleSelectionCodeSupport m_selectionProperty;
-  protected final BeanPropertiesCodeSupport m_detailProperty;
-  protected SingleSelectionObservableInfo m_masterObservable;
-  private DetailBeanObservableInfo m_detailObservable;
+	private final String m_observeClass;
+	private final String m_observeSignature;
+	private final String m_observeRealmSignature;
+	private final String m_detailObservableClass;
+	private final String m_observeMethod;
+	private final ViewerPropertySingleSelectionCodeSupport m_selectionProperty;
+	protected final BeanPropertiesCodeSupport m_detailProperty;
+	protected SingleSelectionObservableInfo m_masterObservable;
+	private DetailBeanObservableInfo m_detailObservable;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DetailPropertyCodeSupport(String observeClass,
-      String detailObservableClass,
-      String observeMethod,
-      ViewerPropertySingleSelectionCodeSupport selectionProperty,
-      BeanPropertiesCodeSupport detailProperty) {
-    m_observeClass = observeClass;
-    m_observeSignature = m_observeClass + ".observe(java.lang.Object)";
-    m_observeRealmSignature =
-        m_observeClass + ".observe(org.eclipse.core.databinding.observable.Realm,java.lang.Object)";
-    m_detailObservableClass = detailObservableClass;
-    m_observeMethod = observeMethod;
-    m_selectionProperty = selectionProperty;
-    m_detailProperty = detailProperty;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DetailPropertyCodeSupport(String observeClass,
+			String detailObservableClass,
+			String observeMethod,
+			ViewerPropertySingleSelectionCodeSupport selectionProperty,
+			BeanPropertiesCodeSupport detailProperty) {
+		m_observeClass = observeClass;
+		m_observeSignature = m_observeClass + ".observe(java.lang.Object)";
+		m_observeRealmSignature =
+				m_observeClass + ".observe(org.eclipse.core.databinding.observable.Realm,java.lang.Object)";
+		m_detailObservableClass = detailObservableClass;
+		m_observeMethod = observeMethod;
+		m_selectionProperty = selectionProperty;
+		m_detailProperty = detailProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    Expression widgetExpression = null;
-    if (m_observeSignature.equals(signature)) {
-      widgetExpression = arguments[0];
-    } else if (m_observeRealmSignature.equals(signature)) {
-      widgetExpression = arguments[1];
-    } else {
-      return null;
-    }
-    //
-    WidgetsObserveTypeContainer container =
-        (WidgetsObserveTypeContainer) DatabindingsProvider.cast(provider).getContainer(
-            ObserveType.WIDGETS);
-    // prepare widget
-    WidgetBindableInfo bindableWidget = container.getBindableWidget(widgetExpression);
-    if (bindableWidget == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DetailPropertyCodeSupport_widgetArgumentNotFound,
-          widgetExpression), new Throwable());
-      return null;
-    }
-    // prepare property
-    WidgetPropertyBindableInfo bindableProperty =
-        bindableWidget.resolvePropertyReference("observeSingleSelection");
-    Assert.isNotNull(bindableProperty);
-    //
-    m_masterObservable = new SingleSelectionObservableInfo(bindableWidget, bindableProperty);
-    m_masterObservable = (SingleSelectionObservableInfo) m_masterObservable.getMasterObservable();
-    Assert.isNotNull(m_masterObservable);
-    //
-    m_masterObservable.setCodeSupport(new ObservableCodeSupport() {
-      @Override
-      public void addSourceCode(ObservableInfo observable,
-          List<String> lines,
-          CodeGenerationSupport generationSupport) throws Exception {
-      }
-    });
-    //
-    m_detailObservable = createDetailObservable();
-    m_detailObservable.setCodeSupport(this);
-    return m_detailObservable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		Expression widgetExpression = null;
+		if (m_observeSignature.equals(signature)) {
+			widgetExpression = arguments[0];
+		} else if (m_observeRealmSignature.equals(signature)) {
+			widgetExpression = arguments[1];
+		} else {
+			return null;
+		}
+		//
+		WidgetsObserveTypeContainer container =
+				(WidgetsObserveTypeContainer) DatabindingsProvider.cast(provider).getContainer(
+						ObserveType.WIDGETS);
+		// prepare widget
+		WidgetBindableInfo bindableWidget = container.getBindableWidget(widgetExpression);
+		if (bindableWidget == null) {
+			AbstractParser.addError(editor, MessageFormat.format(
+					Messages.DetailPropertyCodeSupport_widgetArgumentNotFound,
+					widgetExpression), new Throwable());
+			return null;
+		}
+		// prepare property
+		WidgetPropertyBindableInfo bindableProperty =
+				bindableWidget.resolvePropertyReference("observeSingleSelection");
+		Assert.isNotNull(bindableProperty);
+		//
+		m_masterObservable = new SingleSelectionObservableInfo(bindableWidget, bindableProperty);
+		m_masterObservable = (SingleSelectionObservableInfo) m_masterObservable.getMasterObservable();
+		Assert.isNotNull(m_masterObservable);
+		//
+		m_masterObservable.setCodeSupport(new ObservableCodeSupport() {
+			@Override
+			public void addSourceCode(ObservableInfo observable,
+					List<String> lines,
+					CodeGenerationSupport generationSupport) throws Exception {
+			}
+		});
+		//
+		m_detailObservable = createDetailObservable();
+		m_detailObservable.setCodeSupport(this);
+		return m_detailObservable;
+	}
 
-  /**
-   * @return {@link DetailBeanObservableInfo} observable with this code generator.
-   */
-  protected abstract DetailBeanObservableInfo createDetailObservable();
+	/**
+	 * @return {@link DetailBeanObservableInfo} observable with this code generator.
+	 */
+	protected abstract DetailBeanObservableInfo createDetailObservable();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    String sourceCode =
-        m_selectionProperty.getMasterSourceCode(lines, generationSupport)
-            + "."
-            + m_observeMethod
-            + "("
-            + m_detailProperty.getDetailSourceCode(m_detailObservable, lines, generationSupport)
-            + ")";
-    if (getVariableIdentifier() != null) {
-      if (generationSupport.addModel(this)) {
-        lines.add(m_observeClass + " " + getVariableIdentifier() + " = " + sourceCode + ";");
-      }
-      sourceCode = getVariableIdentifier();
-    }
-    lines.add(m_detailObservableClass
-        + " "
-        + m_detailObservable.getVariableIdentifier()
-        + " = "
-        + sourceCode
-        + ".observe("
-        + m_masterObservable.getBindableObject().getReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		String sourceCode =
+				m_selectionProperty.getMasterSourceCode(lines, generationSupport)
+				+ "."
+				+ m_observeMethod
+				+ "("
+				+ m_detailProperty.getDetailSourceCode(m_detailObservable, lines, generationSupport)
+				+ ")";
+		if (getVariableIdentifier() != null) {
+			if (generationSupport.addModel(this)) {
+				lines.add(m_observeClass + " " + getVariableIdentifier() + " = " + sourceCode + ";");
+			}
+			sourceCode = getVariableIdentifier();
+		}
+		lines.add(m_detailObservableClass
+				+ " "
+				+ m_detailObservable.getVariableIdentifier()
+				+ " = "
+				+ sourceCode
+				+ ".observe("
+				+ m_masterObservable.getBindableObject().getReference()
+				+ ");");
+	}
 }

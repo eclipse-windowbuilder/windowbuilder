@@ -21,15 +21,15 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class DescriptionTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.description");
-    suite.addTest(createSingleSuite(ExpressionConverterTest.class));
-    suite.addTest(createSingleSuite(EmptyExpressionAccessorTest.class));
-    suite.addTest(createSingleSuite(MethodExpressionAccessorTest.class));
-    suite.addTest(createSingleSuite(FieldExpressionAccessorTest.class));
-    suite.addTest(createSingleSuite(ComponentDescriptionHelperTest.class));
-    suite.addTest(createSingleSuite(GenericPropertyDescriptionTest.class));
-    suite.addTest(createSingleSuite(MorphingTargetDescriptionTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.description");
+		suite.addTest(createSingleSuite(ExpressionConverterTest.class));
+		suite.addTest(createSingleSuite(EmptyExpressionAccessorTest.class));
+		suite.addTest(createSingleSuite(MethodExpressionAccessorTest.class));
+		suite.addTest(createSingleSuite(FieldExpressionAccessorTest.class));
+		suite.addTest(createSingleSuite(ComponentDescriptionHelperTest.class));
+		suite.addTest(createSingleSuite(GenericPropertyDescriptionTest.class));
+		suite.addTest(createSingleSuite(MorphingTargetDescriptionTest.class));
+		return suite;
+	}
 }

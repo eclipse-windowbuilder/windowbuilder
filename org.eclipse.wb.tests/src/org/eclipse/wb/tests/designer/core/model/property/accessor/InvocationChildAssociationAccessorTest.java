@@ -23,126 +23,126 @@ import org.eclipse.jdt.core.dom.StringLiteral;
  * @author scheglov_ke
  */
 public class InvocationChildAssociationAccessorTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    if (m_testProject != null) {
-      setFileContentSrc(
-          "test/MyContainer.java",
-          getTestSource(
-              "public class MyContainer extends JPanel {",
-              "  public void addChild(String text, Component component) {",
-              "    add(component);",
-              "  }",
-              "}"));
-      setFileContentSrc(
-          "test/MyContainer.wbp-component.xml",
-          getSourceDQ(
-              "<?xml version='1.0' encoding='UTF-8'?>",
-              "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-              "  <methods>",
-              "    <method name='addChild'>",
-              "      <parameter type='java.lang.String'/>",
-              "      <parameter type='java.awt.Component' child='true'/>",
-              "    </method>",
-              "  </methods>",
-              "</component>"));
-      waitForAutoBuild();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		if (m_testProject != null) {
+			setFileContentSrc(
+					"test/MyContainer.java",
+					getTestSource(
+							"public class MyContainer extends JPanel {",
+							"  public void addChild(String text, Component component) {",
+							"    add(component);",
+							"  }",
+							"}"));
+			setFileContentSrc(
+					"test/MyContainer.wbp-component.xml",
+					getSourceDQ(
+							"<?xml version='1.0' encoding='UTF-8'?>",
+							"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+							"  <methods>",
+							"    <method name='addChild'>",
+							"      <parameter type='java.lang.String'/>",
+							"      <parameter type='java.awt.Component' child='true'/>",
+							"    </method>",
+							"  </methods>",
+							"</component>"));
+			waitForAutoBuild();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyContainer {",
-            "  public Test() {",
-            "    addChild('text', new JButton());",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, "\"\"");
-    // check
-    assertEquals("text", ((StringLiteral) accessor.getExpression(button)).getLiteralValue());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends MyContainer {",
+						"  public Test() {",
+						"    addChild('text', new JButton());",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, "\"\"");
+		// check
+		assertEquals("text", ((StringLiteral) accessor.getExpression(button)).getLiteralValue());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // setExpression
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_setExpression_newValue() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyContainer {",
-            "  public Test() {",
-            "    addChild('text', new JButton());",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, "\"\"");
-    // check
-    assertTrue(accessor.setExpression(button, "\"new text\""));
-    assertEditor(
-        "public class Test extends MyContainer {",
-        "  public Test() {",
-        "    addChild('new text', new JButton());",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// setExpression
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_setExpression_newValue() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends MyContainer {",
+						"  public Test() {",
+						"    addChild('text', new JButton());",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, "\"\"");
+		// check
+		assertTrue(accessor.setExpression(button, "\"new text\""));
+		assertEditor(
+				"public class Test extends MyContainer {",
+				"  public Test() {",
+				"    addChild('new text', new JButton());",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Use <code>null</code> to clear value.
-   */
-  public void test_setExpression_nullValue() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyContainer {",
-            "  public Test() {",
-            "    addChild('text', new JButton());",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, "\"\"");
-    // set "null", default value is used
-    assertTrue(accessor.setExpression(button, null));
-    assertEditor(
-        "public class Test extends MyContainer {",
-        "  public Test() {",
-        "    addChild('', new JButton());",
-        "  }",
-        "}");
-  }
+	/**
+	 * Use <code>null</code> to clear value.
+	 */
+	public void test_setExpression_nullValue() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends MyContainer {",
+						"  public Test() {",
+						"    addChild('text', new JButton());",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, "\"\"");
+		// set "null", default value is used
+		assertTrue(accessor.setExpression(button, null));
+		assertEditor(
+				"public class Test extends MyContainer {",
+				"  public Test() {",
+				"    addChild('', new JButton());",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Use <code>null</code> to clear value.
-   */
-  public void test_setExpression_nullValue_noDefault() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyContainer {",
-            "  public Test() {",
-            "    addChild('text', new JButton());",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, null);
-    // set "null", but no default value, so ignored
-    assertFalse(accessor.setExpression(button, null));
-    assertEditor(
-        "public class Test extends MyContainer {",
-        "  public Test() {",
-        "    addChild('text', new JButton());",
-        "  }",
-        "}");
-  }
+	/**
+	 * Use <code>null</code> to clear value.
+	 */
+	public void test_setExpression_nullValue_noDefault() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends MyContainer {",
+						"  public Test() {",
+						"    addChild('text', new JButton());",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, null);
+		// set "null", but no default value, so ignored
+		assertFalse(accessor.setExpression(button, null));
+		assertEditor(
+				"public class Test extends MyContainer {",
+				"  public Test() {",
+				"    addChild('text', new JButton());",
+				"  }",
+				"}");
+	}
 }

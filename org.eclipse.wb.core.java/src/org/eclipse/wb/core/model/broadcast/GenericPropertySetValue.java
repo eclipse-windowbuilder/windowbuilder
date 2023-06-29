@@ -23,16 +23,16 @@ import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
  * @coverage core.model
  */
 public interface GenericPropertySetValue {
-  /**
-   * @param property
-   *          the {@link GenericPropertyImpl} that sends this event.
-   * @param value
-   *          the single element array with new value.
-   * @param shouldSetValue
-   *          the single element array that specifies if value can be set, subscriber may set it to
-   *          <code>false</code> if it did required modification itself, or thinks that value of
-   *          this property should not be modified at all.
-   */
-  void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
-      throws Exception;
+	/**
+	 * @param property
+	 *          the {@link GenericPropertyImpl} that sends this event.
+	 * @param value
+	 *          the single element array with new value.
+	 * @param shouldSetValue
+	 *          the single element array that specifies if value can be set, subscriber may set it to
+	 *          <code>false</code> if it did required modification itself, or thinks that value of
+	 *          this property should not be modified at all.
+	 */
+	void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
+			throws Exception;
 }

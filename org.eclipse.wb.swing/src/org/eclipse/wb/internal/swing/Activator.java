@@ -27,65 +27,65 @@ import java.io.InputStream;
  * @coverage swing
  */
 public final class Activator extends AbstractUIPlugin {
-  public static final String PLUGIN_ID = "org.eclipse.wb.swing";
-  private static Activator m_plugin;
+	public static final String PLUGIN_ID = "org.eclipse.wb.swing";
+	private static Activator m_plugin;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Bundle operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void start(BundleContext context) throws Exception {
-    super.start(context);
-    m_plugin = this;
-    System.setProperty("javax.swing.adjustPopupLocationToFit", "false");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Bundle operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		m_plugin = this;
+		System.setProperty("javax.swing.adjustPopupLocationToFit", "false");
+	}
 
-  @Override
-  public void stop(BundleContext context) throws Exception {
-    m_plugin = null;
-    super.stop(context);
-  }
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		m_plugin = null;
+		super.stop(context);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the instance of {@link Activator}.
-   */
-  public static Activator getDefault() {
-    return m_plugin;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the instance of {@link Activator}.
+	 */
+	public static Activator getDefault() {
+		return m_plugin;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resources
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final BundleResourceProvider m_resourceProvider =
-      BundleResourceProvider.get(PLUGIN_ID);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resources
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final BundleResourceProvider m_resourceProvider =
+			BundleResourceProvider.get(PLUGIN_ID);
 
-  /**
-   * @return the {@link InputStream} for file from plugin directory.
-   */
-  public static InputStream getFile(String path) {
-    return m_resourceProvider.getFile(path);
-  }
+	/**
+	 * @return the {@link InputStream} for file from plugin directory.
+	 */
+	public static InputStream getFile(String path) {
+		return m_resourceProvider.getFile(path);
+	}
 
-  /**
-   * @return the {@link Image} from "icons" directory, with caching.
-   */
-  public static Image getImage(String path) {
-    return m_resourceProvider.getImage("icons/" + path);
-  }
+	/**
+	 * @return the {@link Image} from "icons" directory, with caching.
+	 */
+	public static Image getImage(String path) {
+		return m_resourceProvider.getImage("icons/" + path);
+	}
 
-  /**
-   * @return the {@link ImageDescriptor} from "icons" directory.
-   */
-  public static ImageDescriptor getImageDescriptor(String path) {
-    return m_resourceProvider.getImageDescriptor("icons/" + path);
-  }
+	/**
+	 * @return the {@link ImageDescriptor} from "icons" directory.
+	 */
+	public static ImageDescriptor getImageDescriptor(String path) {
+		return m_resourceProvider.getImageDescriptor("icons/" + path);
+	}
 }

@@ -21,63 +21,63 @@ import javax.swing.JTabbedPane;
  * @coverage swing.model
  */
 public final class JTabbedPaneTabInfo {
-  private final JTabbedPaneInfo m_pane;
-  private final ComponentInfo m_component;
-  private final Rectangle m_bounds;
+	private final JTabbedPaneInfo m_pane;
+	private final ComponentInfo m_component;
+	private final Rectangle m_bounds;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JTabbedPaneTabInfo(JTabbedPaneInfo pane, ComponentInfo component, Rectangle bounds) {
-    m_pane = pane;
-    m_component = component;
-    m_bounds = bounds;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JTabbedPaneTabInfo(JTabbedPaneInfo pane, ComponentInfo component, Rectangle bounds) {
+		m_pane = pane;
+		m_component = component;
+		m_bounds = bounds;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int hashCode() {
-    return m_component.hashCode();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int hashCode() {
+		return m_component.hashCode();
+	}
 
-  @Override
-  public boolean equals(Object obj) {
-    if (obj instanceof JTabbedPaneTabInfo) {
-      JTabbedPaneTabInfo tab = (JTabbedPaneTabInfo) obj;
-      return tab.m_component == m_component;
-    }
-    return false;
-  }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof JTabbedPaneTabInfo) {
+			JTabbedPaneTabInfo tab = (JTabbedPaneTabInfo) obj;
+			return tab.m_component == m_component;
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link JTabbedPaneInfo} container for this tab.
-   */
-  public JTabbedPaneInfo getPane() {
-    return m_pane;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link JTabbedPaneInfo} container for this tab.
+	 */
+	public JTabbedPaneInfo getPane() {
+		return m_pane;
+	}
 
-  /**
-   * @return the {@link ComponentInfo} of this tab.
-   */
-  public ComponentInfo getComponent() {
-    return m_component;
-  }
+	/**
+	 * @return the {@link ComponentInfo} of this tab.
+	 */
+	public ComponentInfo getComponent() {
+		return m_component;
+	}
 
-  /**
-   * @return the bounds of this tab.
-   */
-  public Rectangle getBounds() {
-    return m_bounds;
-  }
+	/**
+	 * @return the bounds of this tab.
+	 */
+	public Rectangle getBounds() {
+		return m_bounds;
+	}
 }

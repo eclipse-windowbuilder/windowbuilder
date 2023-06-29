@@ -24,31 +24,31 @@ import java.util.Set;
  * @coverage core.model
  */
 public final class VisitedNodes {
-  private final Set<ASTNode> m_nodes = Sets.newHashSet();
+	private final Set<ASTNode> m_nodes = Sets.newHashSet();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Clears visited nodes before performing new visiting operation.
-   */
-  public void clear() {
-    m_nodes.clear();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Clears visited nodes before performing new visiting operation.
+	 */
+	public void clear() {
+		m_nodes.clear();
+	}
 
-  /**
-   * Adds {@link ASTNode} which was visited or evaluated.
-   */
-  public void add(ASTNode node) {
-    m_nodes.add(node);
-  }
+	/**
+	 * Adds {@link ASTNode} which was visited or evaluated.
+	 */
+	public void add(ASTNode node) {
+		m_nodes.add(node);
+	}
 
-  /**
-   * @return the visited {@link ASTNode}s.
-   */
-  public Collection<ASTNode> getNodes() {
-    return m_nodes;
-  }
+	/**
+	 * @return the visited {@link ASTNode}s.
+	 */
+	public Collection<ASTNode> getNodes() {
+		return m_nodes;
+	}
 }

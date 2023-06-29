@@ -25,57 +25,57 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class ViewerPropertyMultiSelectionCodeSupport extends ViewerObservableCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerPropertyMultiSelectionCodeSupport() {
-    super("observeMultiSelection",
-        "org.eclipse.jface.databinding.viewers.IViewerListProperty.observe(org.eclipse.jface.viewers.Viewer)",
-        null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerPropertyMultiSelectionCodeSupport() {
+		super("observeMultiSelection",
+				"org.eclipse.jface.databinding.viewers.IViewerListProperty.observe(org.eclipse.jface.viewers.Viewer)",
+				null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
-      WidgetPropertyBindableInfo bindableProperty,
-      int delayValue) throws Exception {
-    return new MultiSelectionObservableInfo(bindableWidget, bindableProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
+			WidgetPropertyBindableInfo bindableProperty,
+			int delayValue) throws Exception {
+		return new MultiSelectionObservableInfo(bindableWidget, bindableProperty);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    super.addSourceCode(observable, lines, generationSupport);
-    String sourceCode =
-        "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.multipleSelection()";
-    if (getVariableIdentifier() != null) {
-      if (generationSupport.addModel(this)) {
-        lines.add("org.eclipse.jface.databinding.viewers.IViewerListProperty "
-            + getVariableIdentifier()
-            + " = "
-            + sourceCode
-            + ";");
-      }
-      sourceCode = getVariableIdentifier();
-    }
-    lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
-        + observable.getVariableIdentifier()
-        + " = "
-        + sourceCode
-        + ".observe("
-        + observable.getBindableObject().getReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		super.addSourceCode(observable, lines, generationSupport);
+		String sourceCode =
+				"org.eclipse.jface.databinding.viewers.typed.ViewerProperties.multipleSelection()";
+		if (getVariableIdentifier() != null) {
+			if (generationSupport.addModel(this)) {
+				lines.add("org.eclipse.jface.databinding.viewers.IViewerListProperty "
+						+ getVariableIdentifier()
+						+ " = "
+						+ sourceCode
+						+ ";");
+			}
+			sourceCode = getVariableIdentifier();
+		}
+		lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
+				+ observable.getVariableIdentifier()
+				+ " = "
+				+ sourceCode
+				+ ".observe("
+				+ observable.getBindableObject().getReference()
+				+ ");");
+	}
 }

@@ -23,26 +23,26 @@ import org.eclipse.jface.resource.ImageDescriptor;
  * @coverage swing.gef.policy
  */
 public final class SetGrowAction<T extends DimensionInfo> extends DimensionHeaderAction<T> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetGrowAction(DimensionHeaderEditPart<T> header,
-      String text,
-      ImageDescriptor imageDescriptor) {
-    super(header, text, imageDescriptor, AS_CHECK_BOX);
-    setChecked(header.getDimension().hasWeight());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetGrowAction(DimensionHeaderEditPart<T> header,
+			String text,
+			ImageDescriptor imageDescriptor) {
+		super(header, text, imageDescriptor, AS_CHECK_BOX);
+		setChecked(header.getDimension().hasWeight());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void run(T dimension) throws Exception {
-    double weight = dimension.hasWeight() ? 0.0 : 1.0;
-    dimension.setWeight(weight);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void run(T dimension) throws Exception {
+		double weight = dimension.hasWeight() ? 0.0 : 1.0;
+		dimension.setWeight(weight);
+	}
 }

@@ -29,57 +29,57 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
  * @coverage swing.gef.policy
  */
 public final class DropLayoutEditPolicy extends LayoutEditPolicy {
-  private static final ILayoutRequestValidator VALIDATOR =
-      LayoutRequestValidators.modelType(LayoutInfo.class);
-  private final ContainerInfo m_container;
+	private static final ILayoutRequestValidator VALIDATOR =
+			LayoutRequestValidators.modelType(LayoutInfo.class);
+	private final ContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DropLayoutEditPolicy(ContainerInfo container) {
-    m_container = container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DropLayoutEditPolicy(ContainerInfo container) {
+		m_container = container;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    PolicyUtils.showBorderTargetFeedback(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		PolicyUtils.showBorderTargetFeedback(this);
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    PolicyUtils.eraseBorderTargetFeedback(this);
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		PolicyUtils.eraseBorderTargetFeedback(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(CreateRequest request) {
-    final LayoutInfo newLayout = (LayoutInfo) request.getNewObject();
-    return new EditCommand(m_container) {
-      @Override
-      protected void executeEdit() throws Exception {
-        m_container.setLayout(newLayout);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(CreateRequest request) {
+		final LayoutInfo newLayout = (LayoutInfo) request.getNewObject();
+		return new EditCommand(m_container) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_container.setLayout(newLayout);
+			}
+		};
+	}
 }

@@ -34,77 +34,77 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage swing.MigLayout.header
  */
 public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<MigRowInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
-    super(mainPolicy);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
+		super(mainPolicy);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Handle createResizeHandle() {
-    Handle handle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 7, true);
-    handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.SOUTH, REQ_RESIZE));
-    return handle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Handle createResizeHandle() {
+		Handle handle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 7, true);
+		handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.SOUTH, REQ_RESIZE));
+		return handle;
+	}
 
-  @Override
-  protected Point getTextFeedbackLocation(Point mouseLocation) {
-    return new Point(10, mouseLocation.y + 10);
-  }
+	@Override
+	protected Point getTextFeedbackLocation(Point mouseLocation) {
+		return new Point(10, mouseLocation.y + 10);
+	}
 
-  @Override
-  protected int getPixelSize(Dimension resizeDelta) {
-    return getHostFigure().getSize().height + resizeDelta.height;
-  }
+	@Override
+	protected int getPixelSize(Dimension resizeDelta) {
+		return getHostFigure().getSize().height + resizeDelta.height;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Keyboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    super.performRequest(request);
-    if (request instanceof KeyRequest) {
-      KeyRequest keyRequest = (KeyRequest) request;
-      if (keyRequest.isPressed()) {
-        char c = keyRequest.getCharacter();
-        // vertical
-        if (c == 'd' || c == 'D') {
-          setAlignment(MigRowInfo.Alignment.DEFAULT);
-        } else if (c == 't') {
-          setAlignment(MigRowInfo.Alignment.TOP);
-        } else if (c == 'm' || c == 'M' || c == 'c' || c == 'C') {
-          setAlignment(MigRowInfo.Alignment.CENTER);
-        } else if (c == 'b') {
-          setAlignment(MigRowInfo.Alignment.BOTTOM);
-        } else if (c == 'f' || c == 'F') {
-          setAlignment(MigRowInfo.Alignment.FILL);
-        } else if (c == 'a') {
-          setAlignment(MigRowInfo.Alignment.BASELINE);
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Keyboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		super.performRequest(request);
+		if (request instanceof KeyRequest) {
+			KeyRequest keyRequest = (KeyRequest) request;
+			if (keyRequest.isPressed()) {
+				char c = keyRequest.getCharacter();
+				// vertical
+				if (c == 'd' || c == 'D') {
+					setAlignment(MigRowInfo.Alignment.DEFAULT);
+				} else if (c == 't') {
+					setAlignment(MigRowInfo.Alignment.TOP);
+				} else if (c == 'm' || c == 'M' || c == 'c' || c == 'C') {
+					setAlignment(MigRowInfo.Alignment.CENTER);
+				} else if (c == 'b') {
+					setAlignment(MigRowInfo.Alignment.BOTTOM);
+				} else if (c == 'f' || c == 'F') {
+					setAlignment(MigRowInfo.Alignment.FILL);
+				} else if (c == 'a') {
+					setAlignment(MigRowInfo.Alignment.BASELINE);
+				}
+			}
+		}
+	}
 
-  /**
-   * Sets the alignment for {@link MigRowInfo}.
-   */
-  private void setAlignment(final MigRowInfo.Alignment alignment) {
-    final MigLayoutInfo layout = getLayout();
-    ExecutionUtils.run(layout, new RunnableEx() {
-      public void run() throws Exception {
-        getDimension().setAlignment(alignment);
-        layout.writeDimensions();
-      }
-    });
-  }
+	/**
+	 * Sets the alignment for {@link MigRowInfo}.
+	 */
+	private void setAlignment(final MigRowInfo.Alignment alignment) {
+		final MigLayoutInfo layout = getLayout();
+		ExecutionUtils.run(layout, new RunnableEx() {
+			public void run() throws Exception {
+				getDimension().setAlignment(alignment);
+				layout.writeDimensions();
+			}
+		});
+	}
 }

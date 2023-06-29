@@ -25,36 +25,36 @@ import org.eclipse.ui.IPageLayout;
  * @coverage rcp.model.rcp
  */
 public final class PerspectiveShortcutInfo extends AbstractShortcutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectiveShortcutInfo(PageLayoutInfo page,
-      PerspectiveShortcutContainerInfo container,
-      MethodInvocation invocation) throws Exception {
-    super(page, container, invocation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectiveShortcutInfo(PageLayoutInfo page,
+			PerspectiveShortcutContainerInfo container,
+			MethodInvocation invocation) throws Exception {
+		super(page, container, invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Image getPresentationIcon() throws Exception {
-    return getPerspectiveInfo().getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Image getPresentationIcon() throws Exception {
+		return getPerspectiveInfo().getIcon();
+	}
 
-  @Override
-  protected String getPresentationText() throws Exception {
-    return "\"" + getPerspectiveInfo().getName() + "\" - " + getId();
-  }
+	@Override
+	protected String getPresentationText() throws Exception {
+		return "\"" + getPerspectiveInfo().getName() + "\" - " + getId();
+	}
 
-  /**
-   * @return the {@link PerspectiveInfo} for this perspective.
-   */
-  private PerspectiveInfo getPerspectiveInfo() {
-    return PdeUtils.getPerspectiveInfoDefault(getId());
-  }
+	/**
+	 * @return the {@link PerspectiveInfo} for this perspective.
+	 */
+	private PerspectiveInfo getPerspectiveInfo() {
+		return PdeUtils.getPerspectiveInfoDefault(getId());
+	}
 }

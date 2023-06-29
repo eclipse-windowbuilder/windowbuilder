@@ -25,72 +25,72 @@ import org.objectweb.asm.Type;
  * @coverage core.util
  */
 public final class AbstractMethodsImplementorVisitor extends ToBytesClassAdapter {
-  private final String m_className;
-  private boolean m_interface;
+	private final String m_className;
+	private boolean m_interface;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractMethodsImplementorVisitor(String className) {
-    super(ClassWriter.COMPUTE_FRAMES);
-    m_className = className;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractMethodsImplementorVisitor(String className) {
+		super(ClassWriter.COMPUTE_FRAMES);
+		m_className = className;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Class visitor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void visit(int version,
-      int access,
-      String name,
-      String signature,
-      String superName,
-      String[] interfaces) {
-    m_interface = (access & ACC_INTERFACE) != 0;
-    if (!m_interface) {
-      access &= ~ACC_ABSTRACT;
-    }
-    super.visit(version, access, name, signature, superName, interfaces);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Class visitor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void visit(int version,
+			int access,
+			String name,
+			String signature,
+			String superName,
+			String[] interfaces) {
+		m_interface = (access & ACC_INTERFACE) != 0;
+		if (!m_interface) {
+			access &= ~ACC_ABSTRACT;
+		}
+		super.visit(version, access, name, signature, superName, interfaces);
+	}
 
-  @Override
-  public MethodVisitor visitMethod(int access,
-      String name,
-      String desc,
-      String signature,
-      String[] exceptions) {
-    // replace abstract method with method that throws java.lang.Error
-    if ((access & ACC_ABSTRACT) != 0) {
-      if (!m_interface) {
-        MethodVisitor mv =
-            cv.visitMethod(access & ~ACC_ABSTRACT, name, desc, signature, exceptions);
-        mv.visitCode();
-        // throw exception
-        if (!Type.getReturnType(desc).getClassName().equals("void")) {
-          mv.visitTypeInsn(NEW, "java/lang/Error");
-          mv.visitInsn(DUP);
-          mv.visitLdcInsn("Designer implemented stub for abstract method "
-              + m_className
-              + "."
-              + name
-              + desc
-              + " however you can not use this method (we just can not know what it should do).");
-          mv.visitMethodInsn(INVOKESPECIAL, "java/lang/Error", "<init>", "(Ljava/lang/String;)V");
-          mv.visitInsn(ATHROW);
-        } else {
-          mv.visitInsn(RETURN);
-        }
-        // end
-        mv.visitMaxs(0, 0);
-        mv.visitEnd();
-        return mv;
-      }
-    }
-    // default handling
-    return super.visitMethod(access, name, desc, signature, exceptions);
-  }
+	@Override
+	public MethodVisitor visitMethod(int access,
+			String name,
+			String desc,
+			String signature,
+			String[] exceptions) {
+		// replace abstract method with method that throws java.lang.Error
+		if ((access & ACC_ABSTRACT) != 0) {
+			if (!m_interface) {
+				MethodVisitor mv =
+						cv.visitMethod(access & ~ACC_ABSTRACT, name, desc, signature, exceptions);
+				mv.visitCode();
+				// throw exception
+				if (!Type.getReturnType(desc).getClassName().equals("void")) {
+					mv.visitTypeInsn(NEW, "java/lang/Error");
+					mv.visitInsn(DUP);
+					mv.visitLdcInsn("Designer implemented stub for abstract method "
+							+ m_className
+							+ "."
+							+ name
+							+ desc
+							+ " however you can not use this method (we just can not know what it should do).");
+					mv.visitMethodInsn(INVOKESPECIAL, "java/lang/Error", "<init>", "(Ljava/lang/String;)V");
+					mv.visitInsn(ATHROW);
+				} else {
+					mv.visitInsn(RETURN);
+				}
+				// end
+				mv.visitMaxs(0, 0);
+				mv.visitEnd();
+				return mv;
+			}
+		}
+		// default handling
+		return super.visitMethod(access, name, desc, signature, exceptions);
+	}
 }

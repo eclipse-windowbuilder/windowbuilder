@@ -24,14 +24,14 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class RefactoringTests extends DesignerSuiteTests {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Suite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.refactoring");
-    suite.addTest(createSingleSuite(RefactoringUtilsTest.class));
-    return suite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Suite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.refactoring");
+		suite.addTest(createSingleSuite(RefactoringUtilsTest.class));
+		return suite;
+	}
 }

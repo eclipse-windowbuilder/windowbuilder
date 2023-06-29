@@ -21,46 +21,46 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.IMasterDetailProvider
  * @coverage bindings.rcp.model.beans
  */
 public abstract class BeanObservableInfo extends ObservableInfo implements IMasterDetailProvider {
-  protected final BindableInfo m_bindableObject;
-  protected final BindableInfo m_bindableProperty;
+	protected final BindableInfo m_bindableObject;
+	protected final BindableInfo m_bindableProperty;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeanObservableInfo(BindableInfo bindableObject, BindableInfo bindableProperty) {
-    m_bindableObject = bindableObject;
-    m_bindableProperty = bindableProperty;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeanObservableInfo(BindableInfo bindableObject, BindableInfo bindableProperty) {
+		m_bindableObject = bindableObject;
+		m_bindableProperty = bindableProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final BindableInfo getBindableObject() {
-    return m_bindableObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final BindableInfo getBindableObject() {
+		return m_bindableObject;
+	}
 
-  @Override
-  public final BindableInfo getBindableProperty() {
-    return m_bindableProperty;
-  }
+	@Override
+	public final BindableInfo getBindableProperty() {
+		return m_bindableProperty;
+	}
 
-  @Override
-  public final boolean canShared() {
-    return true;
-  }
+	@Override
+	public final boolean canShared() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IMasterDetailProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final ObservableInfo getMasterObservable() throws Exception {
-    return this;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IMasterDetailProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final ObservableInfo getMasterObservable() throws Exception {
+		return this;
+	}
 }

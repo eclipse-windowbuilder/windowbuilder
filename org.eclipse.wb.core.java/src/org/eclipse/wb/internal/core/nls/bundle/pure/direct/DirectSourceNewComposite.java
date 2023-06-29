@@ -26,66 +26,66 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.nls.ui
  */
 public final class DirectSourceNewComposite extends AbstractBundleSourceNewComposite {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DirectSourceNewComposite(Composite parent, int style, JavaInfo root) {
-    super(parent, style, root);
-    // create GUI controls
-    createPropertyGroup();
-    // initialize fields
-    initializePropertyGroup();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DirectSourceNewComposite(Composite parent, int style, JavaInfo root) {
+		super(parent, style, root);
+		// create GUI controls
+		createPropertyGroup();
+		// initialize fields
+		initializePropertyGroup();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Display
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static String getTitle() {
-    return Messages.DirectSourceNewComposite_title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Display
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static String getTitle() {
+		return Messages.DirectSourceNewComposite_title;
+	}
 
-  @Override
-  public String getSample() {
-    return "button.setText( ResourceBundle.getBundle(\"full.bundle.name\").getString(\"some.key\") );";
-  }
+	@Override
+	public String getSample() {
+		return "button.setText( ResourceBundle.getBundle(\"full.bundle.name\").getString(\"some.key\") );";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creating
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IEditableSource createEditableSource(Object o) {
-    SourceParameters parameters = (SourceParameters) o;
-    try {
-      // create editable source
-      IEditableSource editableSource;
-      {
-        // check, may be we already have such property file
-        if (parameters.m_propertyFileExists) {
-          // use existing property file
-          DirectSource source = new DirectSource(m_root, parameters.m_propertyBundleName);
-          editableSource = source.getEditable();
-        } else {
-          editableSource = createEmptyEditable(parameters.m_propertyBundleName);
-        }
-      }
-      // configure editable source and return
-      editableSource.setKeyGeneratorStrategy(AbstractBundleSource.KEY_GENERATOR);
-      return editableSource;
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creating
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IEditableSource createEditableSource(Object o) {
+		SourceParameters parameters = (SourceParameters) o;
+		try {
+			// create editable source
+			IEditableSource editableSource;
+			{
+				// check, may be we already have such property file
+				if (parameters.m_propertyFileExists) {
+					// use existing property file
+					DirectSource source = new DirectSource(m_root, parameters.m_propertyBundleName);
+					editableSource = source.getEditable();
+				} else {
+					editableSource = createEmptyEditable(parameters.m_propertyBundleName);
+				}
+			}
+			// configure editable source and return
+			editableSource.setKeyGeneratorStrategy(AbstractBundleSource.KEY_GENERATOR);
+			return editableSource;
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  @Override
-  public Object createParametersObject() throws Exception {
-    SourceParameters parameters = new SourceParameters();
-    fillPropertyParameters(parameters);
-    return parameters;
-  }
+	@Override
+	public Object createParametersObject() throws Exception {
+		SourceParameters parameters = new SourceParameters();
+		fillPropertyParameters(parameters);
+		return parameters;
+	}
 }

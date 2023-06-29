@@ -20,28 +20,28 @@ import org.eclipse.jface.viewers.StructuredViewer;
  * @coverage bindings.ui
  */
 public interface ICheckboxViewerWrapper {
-  /**
-   * @return wrapped viewer.
-   */
-  StructuredViewer getViewer();
+	/**
+	 * @return wrapped viewer.
+	 */
+	StructuredViewer getViewer();
 
-  /**
-   * @return {@link ICheckable} presentation of wrapped viewer.
-   */
-  ICheckable getCheckable();
+	/**
+	 * @return {@link ICheckable} presentation of wrapped viewer.
+	 */
+	ICheckable getCheckable();
 
-  /**
-   * @return the array of checked elements.
-   */
-  Object[] getCheckedElements();
+	/**
+	 * @return the array of checked elements.
+	 */
+	Object[] getCheckedElements();
 
-  /**
-   * Sets which nodes are checked in this viewer.
-   */
-  void setCheckedElements(Object[] elements);
+	/**
+	 * Sets which nodes are checked in this viewer.
+	 */
+	void setCheckedElements(Object[] elements);
 
-  /**
-   * Sets to the given value the checked state for all elements in this viewer.
-   */
-  void setAllChecked(boolean state);
+	/**
+	 * Sets to the given value the checked state for all elements in this viewer.
+	 */
+	void setAllChecked(boolean state);
 }

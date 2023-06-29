@@ -29,68 +29,68 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.rcp.model.beans
  */
 public abstract class PropertyBindableInfo extends BeanBindableInfo implements IObserveDecoration {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      Class<?> objectType,
-      IReferenceProvider referenceProvider,
-      IObservePresentation presentation) {
-    super(beanSupport, parent, objectType, referenceProvider, presentation);
-    setBindingDecoration(SwtResourceManager.TOP_LEFT);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			Class<?> objectType,
+			IReferenceProvider referenceProvider,
+			IObservePresentation presentation) {
+		super(beanSupport, parent, objectType, referenceProvider, presentation);
+		setBindingDecoration(SwtResourceManager.TOP_LEFT);
+	}
 
-  public PropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      String text,
-      Image image,
-      Class<?> objectType,
-      IReferenceProvider referenceProvider) {
-    this(beanSupport, parent, objectType, referenceProvider, new SimpleObservePresentation(text,
-        image));
-  }
+	public PropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			String text,
+			Image image,
+			Class<?> objectType,
+			IReferenceProvider referenceProvider) {
+		this(beanSupport, parent, objectType, referenceProvider, new SimpleObservePresentation(text,
+				image));
+	}
 
-  public PropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      String text,
-      Image image,
-      Class<?> objectType,
-      String reference) {
-    this(beanSupport, parent, text, image, objectType, new StringReferenceProvider(reference));
-  }
+	public PropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			String text,
+			Image image,
+			Class<?> objectType,
+			String reference) {
+		this(beanSupport, parent, text, image, objectType, new StringReferenceProvider(reference));
+	}
 
-  public PropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      String text,
-      Class<?> objectType,
-      String reference) {
-    this(beanSupport, parent, text, TypeImageProvider.getImage(objectType), objectType, reference);
-  }
+	public PropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			String text,
+			Class<?> objectType,
+			String reference) {
+		this(beanSupport, parent, text, TypeImageProvider.getImage(objectType), objectType, reference);
+	}
 
-  public PropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      String text,
-      Class<?> objectType,
-      IReferenceProvider referenceProvider) {
-    this(beanSupport,
-        parent,
-        text,
-        TypeImageProvider.getImage(objectType),
-        objectType,
-        referenceProvider);
-  }
+	public PropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			String text,
+			Class<?> objectType,
+			IReferenceProvider referenceProvider) {
+		this(beanSupport,
+				parent,
+				text,
+				TypeImageProvider.getImage(objectType),
+				objectType,
+				referenceProvider);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link IObservableFactory} for create observables with this property.
-   */
-  @Override
-  public abstract IObservableFactory getObservableFactory() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link IObservableFactory} for create observables with this property.
+	 */
+	@Override
+	public abstract IObservableFactory getObservableFactory() throws Exception;
 }

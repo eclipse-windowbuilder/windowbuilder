@@ -21,14 +21,14 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
  * @coverage swt.model.jface
  */
 public final class ColorRegistryInfo extends ResourceRegistryInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColorRegistryInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColorRegistryInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 }

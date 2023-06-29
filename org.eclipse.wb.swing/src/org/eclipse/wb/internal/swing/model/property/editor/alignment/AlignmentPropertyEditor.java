@@ -42,91 +42,91 @@ import javax.swing.JComponent;
  * @coverage swing.property.editor
  */
 abstract class AlignmentPropertyEditor extends FloatPropertyEditor {
-  private final Map<Float, ButtonPropertyEditorPresentation> m_valueToPresentation =
-      Maps.newHashMap();
+	private final Map<Float, ButtonPropertyEditorPresentation> m_valueToPresentation =
+			Maps.newHashMap();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AlignmentPropertyEditor(String[] fields, String[] images) {
-    Assert.equals(fields.length, images.length);
-    for (int i = 0; i < fields.length; i++) {
-      final String field = fields[i];
-      final float value = ReflectionUtils.getFieldFloat(Component.class, field);
-      final Image image = Activator.getImage("info/alignment/" + images[i]);
-      ButtonPropertyEditorPresentation presentation =
-          new ButtonPropertyEditorPresentation(SWT.TOGGLE) {
-            @Override
-            protected Image getImage() {
-              return image;
-            }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AlignmentPropertyEditor(String[] fields, String[] images) {
+		Assert.equals(fields.length, images.length);
+		for (int i = 0; i < fields.length; i++) {
+			final String field = fields[i];
+			final float value = ReflectionUtils.getFieldFloat(Component.class, field);
+			final Image image = Activator.getImage("info/alignment/" + images[i]);
+			ButtonPropertyEditorPresentation presentation =
+					new ButtonPropertyEditorPresentation(SWT.TOGGLE) {
+				@Override
+				protected Image getImage() {
+					return image;
+				}
 
-            @Override
-            protected String getTooltip() {
-              return field;
-            }
+				@Override
+				protected String getTooltip() {
+					return field;
+				}
 
-            @Override
-            protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
-              GenericProperty genericProperty = (GenericProperty) property;
-              genericProperty.setExpression("java.awt.Component." + field, value);
-            }
-          };
-      m_presentation.add(presentation);
-      // remember presentation for value
-      m_valueToPresentation.put(value, presentation);
-    }
-  }
+				@Override
+				protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
+					GenericProperty genericProperty = (GenericProperty) property;
+					genericProperty.setExpression("java.awt.Component." + field, value);
+				}
+			};
+			m_presentation.add(presentation);
+			// remember presentation for value
+			m_valueToPresentation.put(value, presentation);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final CompoundPropertyEditorPresentation m_presentation =
-      new CompoundPropertyEditorPresentation() {
-        @Override
-        public int show(final PropertyTable propertyTable,
-            final Property property,
-            int x,
-            int y,
-            int width,
-            int height) {
-          int presentationWidth = super.show(propertyTable, property, x, y, width, height);
-          ExecutionUtils.runLog(new RunnableEx() {
-            public void run() throws Exception {
-              selectButtonByValue(propertyTable, property);
-            }
-          });
-          return presentationWidth;
-        }
-      };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final CompoundPropertyEditorPresentation m_presentation =
+			new CompoundPropertyEditorPresentation() {
+		@Override
+		public int show(final PropertyTable propertyTable,
+				final Property property,
+				int x,
+				int y,
+				int width,
+				int height) {
+			int presentationWidth = super.show(propertyTable, property, x, y, width, height);
+			ExecutionUtils.runLog(new RunnableEx() {
+				public void run() throws Exception {
+					selectButtonByValue(propertyTable, property);
+				}
+			});
+			return presentationWidth;
+		}
+	};
 
-  @Override
-  public PropertyEditorPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public PropertyEditorPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Selects {@link ButtonPropertyEditorPresentation} that corresponds to current value of
-   * {@link Property}.
-   */
-  private void selectButtonByValue(PropertyTable propertyTable, Property property) throws Exception {
-    Object value = property.getValue();
-    for (Map.Entry<Float, ButtonPropertyEditorPresentation> entry : m_valueToPresentation.entrySet()) {
-      ButtonPropertyEditorPresentation presentation = entry.getValue();
-      if (entry.getKey().equals(value)) {
-        presentation.setSelection(propertyTable, property, true);
-      } else {
-        presentation.setSelection(propertyTable, property, false);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Selects {@link ButtonPropertyEditorPresentation} that corresponds to current value of
+	 * {@link Property}.
+	 */
+	private void selectButtonByValue(PropertyTable propertyTable, Property property) throws Exception {
+		Object value = property.getValue();
+		for (Map.Entry<Float, ButtonPropertyEditorPresentation> entry : m_valueToPresentation.entrySet()) {
+			ButtonPropertyEditorPresentation presentation = entry.getValue();
+			if (entry.getKey().equals(value)) {
+				presentation.setSelection(propertyTable, property, true);
+			} else {
+				presentation.setSelection(propertyTable, property, false);
+			}
+		}
+	}
 }

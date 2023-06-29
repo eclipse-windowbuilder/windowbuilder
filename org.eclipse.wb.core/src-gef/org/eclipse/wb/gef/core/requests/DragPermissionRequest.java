@@ -19,49 +19,49 @@ import org.eclipse.wb.gef.core.EditPart;
  * @coverage gef.core
  */
 public final class DragPermissionRequest extends Request {
-  private boolean m_canMove = true;
-  private boolean m_canReparent = true;
+	private boolean m_canMove = true;
+	private boolean m_canReparent = true;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Permissions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if move can be performed.
-   */
-  public boolean canMove() {
-    return m_canMove;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Permissions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if move can be performed.
+	 */
+	public boolean canMove() {
+		return m_canMove;
+	}
 
-  /**
-   * Enable/disable move.
-   */
-  public void setMove(boolean canMove) {
-    m_canMove &= canMove;
-  }
+	/**
+	 * Enable/disable move.
+	 */
+	public void setMove(boolean canMove) {
+		m_canMove &= canMove;
+	}
 
-  /**
-   * @return <code>true</code> if reparenting can be performed.
-   */
-  public boolean canReparent() {
-    return m_canReparent;
-  }
+	/**
+	 * @return <code>true</code> if reparenting can be performed.
+	 */
+	public boolean canReparent() {
+		return m_canReparent;
+	}
 
-  /**
-   * Enable/disable reparent.
-   */
-  public void setReparent(boolean canReparent) {
-    m_canReparent &= canReparent;
-  }
+	/**
+	 * Enable/disable reparent.
+	 */
+	public void setReparent(boolean canReparent) {
+		m_canReparent &= canReparent;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "DragPermissionRequest(move=" + m_canMove + ", reparent=" + m_canReparent + ")";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "DragPermissionRequest(move=" + m_canMove + ", reparent=" + m_canReparent + ")";
+	}
 }

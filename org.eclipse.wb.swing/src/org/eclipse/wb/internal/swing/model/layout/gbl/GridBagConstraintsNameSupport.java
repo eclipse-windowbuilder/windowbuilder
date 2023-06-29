@@ -26,48 +26,48 @@ import java.util.Map;
  * @coverage swing.model.layout
  */
 public final class GridBagConstraintsNameSupport
-    extends
-      org.eclipse.wb.internal.core.model.layout.LayoutDataNameSupport<AbstractGridBagConstraintsInfo> {
-  public final static String[] TEMPLATES = new String[]{
-      "${constraintsAcronym}_${componentName}",
-      "${constraintsAcronym}${componentName-cap}",
-      "${componentName}${constraintsClassName}",
-      "${defaultName}"};
+extends
+org.eclipse.wb.internal.core.model.layout.LayoutDataNameSupport<AbstractGridBagConstraintsInfo> {
+	public final static String[] TEMPLATES = new String[]{
+			"${constraintsAcronym}_${componentName}",
+			"${constraintsAcronym}${componentName-cap}",
+			"${componentName}${constraintsClassName}",
+	"${defaultName}"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridBagConstraintsNameSupport(AbstractGridBagConstraintsInfo layoutData) {
-    super(layoutData);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridBagConstraintsNameSupport(AbstractGridBagConstraintsInfo layoutData) {
+		super(layoutData);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utilities
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getTemplate() {
-    IPreferenceStore preferences = m_childInfo.getDescription().getToolkit().getPreferences();
-    String template = preferences.getString(IPreferenceConstants.P_CONSTRAINTS_NAME_TEMPLATE);
-    if (!isValidTemplate(TEMPLATES, template)) {
-      template = getTemplateForDefault();
-    }
-    return template;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utilities
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getTemplate() {
+		IPreferenceStore preferences = m_childInfo.getDescription().getToolkit().getPreferences();
+		String template = preferences.getString(IPreferenceConstants.P_CONSTRAINTS_NAME_TEMPLATE);
+		if (!isValidTemplate(TEMPLATES, template)) {
+			template = getTemplateForDefault();
+		}
+		return template;
+	}
 
-  @Override
-  protected Map<String, String> getValueMap() {
-    // prepare variables
-    Map<String, String> valueMap = Maps.newTreeMap();
-    {
-      valueMap.put("constraintsAcronym", getAcronym());
-      valueMap.put("constraintsClassName", getClassName());
-      valueMap.put("componentName", getParentName());
-      valueMap.put("componentName-cap", getParentNameCap());
-    }
-    return valueMap;
-  }
+	@Override
+	protected Map<String, String> getValueMap() {
+		// prepare variables
+		Map<String, String> valueMap = Maps.newTreeMap();
+		{
+			valueMap.put("constraintsAcronym", getAcronym());
+			valueMap.put("constraintsClassName", getClassName());
+			valueMap.put("componentName", getParentName());
+			valueMap.put("componentName-cap", getParentNameCap());
+		}
+		return valueMap;
+	}
 }

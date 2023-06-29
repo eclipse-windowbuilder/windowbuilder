@@ -30,37 +30,37 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class DialogWizardPage extends RcpWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogWizardPage() {
-    setTitle(WizardsMessages.DialogWizardPage_title2);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/Dialog/banner.gif"));
-    setDescription(WizardsMessages.DialogWizardPage_description2);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogWizardPage() {
+		setTitle(WizardsMessages.DialogWizardPage_title2);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/Dialog/banner.gif"));
+		setDescription(WizardsMessages.DialogWizardPage_description2);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/swt/Dialog.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/swt/Dialog.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("org.eclipse.swt.widgets.Dialog", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("org.eclipse.swt.widgets.Dialog", true);
+	}
 }

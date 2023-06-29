@@ -16,8 +16,8 @@ package org.eclipse.wb.tests.gef;
  * @author scheglov_ke
  */
 public interface UIPredicate {
-  /**
-   * @return <code>true</code> if condition happened.
-   */
-  boolean check();
+	/**
+	 * @return <code>true</code> if condition happened.
+	 */
+	boolean check();
 }

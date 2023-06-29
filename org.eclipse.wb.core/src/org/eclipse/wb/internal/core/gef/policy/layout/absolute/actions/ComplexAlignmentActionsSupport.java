@@ -21,96 +21,96 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
  * @coverage swt.gef.policy
  */
 public abstract class ComplexAlignmentActionsSupport<C extends IAbstractComponentInfo>
-    extends
-      AbstractAlignmentActionsSupport<C> {
-  private final PlacementsSupport m_placementsSupport;
+extends
+AbstractAlignmentActionsSupport<C> {
+	private final PlacementsSupport m_placementsSupport;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComplexAlignmentActionsSupport(PlacementsSupport placementsSupport) {
-    m_placementsSupport = placementsSupport;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComplexAlignmentActionsSupport(PlacementsSupport placementsSupport) {
+		m_placementsSupport = placementsSupport;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Alignments
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void commandAlignLeft() throws Exception {
-    m_placementsSupport.align(m_components, true, IPositionConstants.LEFT);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Alignments
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void commandAlignLeft() throws Exception {
+		m_placementsSupport.align(m_components, true, IPositionConstants.LEFT);
+	}
 
-  @Override
-  protected void commandAlignRight() throws Exception {
-    m_placementsSupport.align(m_components, true, IPositionConstants.RIGHT);
-  }
+	@Override
+	protected void commandAlignRight() throws Exception {
+		m_placementsSupport.align(m_components, true, IPositionConstants.RIGHT);
+	}
 
-  @Override
-  protected void commandAlignCenterHorizontally() throws Exception {
-    m_placementsSupport.align(m_components, true, IPositionConstants.CENTER);
-  }
+	@Override
+	protected void commandAlignCenterHorizontally() throws Exception {
+		m_placementsSupport.align(m_components, true, IPositionConstants.CENTER);
+	}
 
-  @Override
-  protected void commandAlignTop() throws Exception {
-    m_placementsSupport.align(m_components, false, IPositionConstants.TOP);
-  }
+	@Override
+	protected void commandAlignTop() throws Exception {
+		m_placementsSupport.align(m_components, false, IPositionConstants.TOP);
+	}
 
-  @Override
-  protected void commandAlignBottom() throws Exception {
-    m_placementsSupport.align(m_components, false, IPositionConstants.BOTTOM);
-  }
+	@Override
+	protected void commandAlignBottom() throws Exception {
+		m_placementsSupport.align(m_components, false, IPositionConstants.BOTTOM);
+	}
 
-  @Override
-  protected void commandAlignCenterVertically() throws Exception {
-    m_placementsSupport.align(m_components, false, IPositionConstants.CENTER);
-  }
+	@Override
+	protected void commandAlignCenterVertically() throws Exception {
+		m_placementsSupport.align(m_components, false, IPositionConstants.CENTER);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Center in container
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void commandCenterHorizontally() throws Exception {
-    m_placementsSupport.center(m_components, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Center in container
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void commandCenterHorizontally() throws Exception {
+		m_placementsSupport.center(m_components, true);
+	}
 
-  @Override
-  protected void commandCenterVertically() throws Exception {
-    m_placementsSupport.center(m_components, false);
-  }
+	@Override
+	protected void commandCenterVertically() throws Exception {
+		m_placementsSupport.center(m_components, false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Replicate size
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void commandReplicateWidth() throws Exception {
-    m_placementsSupport.replicateSize(m_components, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Replicate size
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void commandReplicateWidth() throws Exception {
+		m_placementsSupport.replicateSize(m_components, true);
+	}
 
-  @Override
-  protected void commandReplicateHeight() throws Exception {
-    m_placementsSupport.replicateSize(m_components, false);
-  }
+	@Override
+	protected void commandReplicateHeight() throws Exception {
+		m_placementsSupport.replicateSize(m_components, false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Distribute space
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void commandDistributeSpaceHorizontally() throws Exception {
-    m_placementsSupport.distributeSpace(m_components, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Distribute space
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void commandDistributeSpaceHorizontally() throws Exception {
+		m_placementsSupport.distributeSpace(m_components, true);
+	}
 
-  @Override
-  protected void commandDistributeSpaceVertically() throws Exception {
-    m_placementsSupport.distributeSpace(m_components, false);
-  }
+	@Override
+	protected void commandDistributeSpaceVertically() throws Exception {
+		m_placementsSupport.distributeSpace(m_components, false);
+	}
 }

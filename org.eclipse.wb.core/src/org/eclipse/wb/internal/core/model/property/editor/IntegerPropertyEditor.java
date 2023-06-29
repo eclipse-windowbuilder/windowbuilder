@@ -24,61 +24,61 @@ import java.text.MessageFormat;
  * @coverage core.model.property.editor
  */
 public final class IntegerPropertyEditor extends AbstractTextPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IntegerPropertyEditor INSTANCE = new IntegerPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IntegerPropertyEditor INSTANCE = new IntegerPropertyEditor();
 
-  private IntegerPropertyEditor() {
-  }
+	private IntegerPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof Integer) {
-      return value.toString();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof Integer) {
+			return value.toString();
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getEditorText(Property property) throws Exception {
-    return getText(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getEditorText(Property property) throws Exception {
+		return getText(property);
+	}
 
-  @Override
-  protected boolean setEditorText(Property property, String text) throws Exception {
-    text = text.trim();
-    // check for delete
-    if (text.length() == 0) {
-      property.setValue(Property.UNKNOWN_VALUE);
-      return true;
-    }
-    // prepare value
-    Integer value;
-    try {
-      value = Integer.valueOf(text);
-    } catch (Throwable e) {
-      UiUtils.openWarning(
-          DesignerPlugin.getShell(),
-          property.getTitle(),
-          MessageFormat.format(ModelMessages.IntegerPropertyEditor_notValidInt, text));
-      return false;
-    }
-    // modify property
-    property.setValue(value);
-    return true;
-  }
+	@Override
+	protected boolean setEditorText(Property property, String text) throws Exception {
+		text = text.trim();
+		// check for delete
+		if (text.length() == 0) {
+			property.setValue(Property.UNKNOWN_VALUE);
+			return true;
+		}
+		// prepare value
+		Integer value;
+		try {
+			value = Integer.valueOf(text);
+		} catch (Throwable e) {
+			UiUtils.openWarning(
+					DesignerPlugin.getShell(),
+					property.getTitle(),
+					MessageFormat.format(ModelMessages.IntegerPropertyEditor_notValidInt, text));
+			return false;
+		}
+		// modify property
+		property.setValue(value);
+		return true;
+	}
 }

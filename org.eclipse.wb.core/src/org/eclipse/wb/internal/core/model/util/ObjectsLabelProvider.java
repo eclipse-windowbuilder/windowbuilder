@@ -26,62 +26,62 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.model.util
  */
 public final class ObjectsLabelProvider extends LabelProvider {
-  public static final ObjectsLabelProvider INSTANCE = new ObjectsLabelProvider();
+	public static final ObjectsLabelProvider INSTANCE = new ObjectsLabelProvider();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ObjectsLabelProvider() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ObjectsLabelProvider() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LabelProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getImage(final Object element) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-      @Override
-      public Image runObject() throws Exception {
-        ObjectInfo objectInfo = (ObjectInfo) element;
-        Image icon = objectInfo.getPresentation().getIcon();
-        // decorate
-        {
-          Image[] decoratedIcon = new Image[]{icon};
-          objectInfo.getBroadcast(ObjectInfoPresentationDecorateIcon.class).invoke(
-              objectInfo,
-              decoratedIcon);
-          icon = decoratedIcon[0];
-        }
-        // final icon
-        return icon;
-      }
-    },
-        null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LabelProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getImage(final Object element) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+			@Override
+			public Image runObject() throws Exception {
+				ObjectInfo objectInfo = (ObjectInfo) element;
+				Image icon = objectInfo.getPresentation().getIcon();
+				// decorate
+				{
+					Image[] decoratedIcon = new Image[]{icon};
+					objectInfo.getBroadcast(ObjectInfoPresentationDecorateIcon.class).invoke(
+							objectInfo,
+							decoratedIcon);
+					icon = decoratedIcon[0];
+				}
+				// final icon
+				return icon;
+			}
+		},
+				null);
+	}
 
-  @Override
-  public String getText(final Object element) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-      @Override
-      public String runObject() throws Exception {
-        ObjectInfo objectInfo = (ObjectInfo) element;
-        String text = objectInfo.getPresentation().getText();
-        // decorate
-        {
-          String[] decoratedText = new String[]{text};
-          objectInfo.getBroadcast(ObjectInfoPresentationDecorateText.class).invoke(
-              objectInfo,
-              decoratedText);
-          text = decoratedText[0];
-        }
-        // final text
-        return text;
-      }
-    },
-        "<exception, see log>");
-  }
+	@Override
+	public String getText(final Object element) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+			@Override
+			public String runObject() throws Exception {
+				ObjectInfo objectInfo = (ObjectInfo) element;
+				String text = objectInfo.getPresentation().getText();
+				// decorate
+				{
+					String[] decoratedText = new String[]{text};
+					objectInfo.getBroadcast(ObjectInfoPresentationDecorateText.class).invoke(
+							objectInfo,
+							decoratedText);
+					text = decoratedText[0];
+				}
+				// final text
+				return text;
+			}
+		},
+				"<exception, see log>");
+	}
 }

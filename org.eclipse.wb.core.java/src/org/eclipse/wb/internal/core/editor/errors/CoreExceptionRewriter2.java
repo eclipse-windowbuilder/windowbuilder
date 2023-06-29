@@ -23,27 +23,27 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
  * @coverage core.editor.errors
  */
 public class CoreExceptionRewriter2 implements IExceptionRewriter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IExceptionRewriter INSTANCE = new CoreExceptionRewriter2();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IExceptionRewriter INSTANCE = new CoreExceptionRewriter2();
 
-  private CoreExceptionRewriter2() {
-  }
+	private CoreExceptionRewriter2() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExceptionRewriter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Throwable rewrite(Throwable e) {
-    Throwable rootException = DesignerExceptionUtils.getRootCause(e);
-    if (rootException instanceof AnonymousEvaluationError) {
-      return new DesignerException(ICoreExceptionConstants.EVAL_ANONYMOUS, e, e.getMessage());
-    }
-    return e;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExceptionRewriter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Throwable rewrite(Throwable e) {
+		Throwable rootException = DesignerExceptionUtils.getRootCause(e);
+		if (rootException instanceof AnonymousEvaluationError) {
+			return new DesignerException(ICoreExceptionConstants.EVAL_ANONYMOUS, e, e.getMessage());
+		}
+		return e;
+	}
 }

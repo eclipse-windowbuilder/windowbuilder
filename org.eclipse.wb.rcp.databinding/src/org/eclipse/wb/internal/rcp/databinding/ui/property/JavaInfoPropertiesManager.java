@@ -30,36 +30,36 @@ import org.eclipse.wb.internal.swt.model.jface.viewer.ViewerInfo;
  * @coverage bindings.rcp.ui.properties
  */
 public class JavaInfoPropertiesManager extends AbstractJavaInfoPropertiesManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoPropertiesManager(IDatabindingsProvider provider, JavaInfo javaInfoRoot) {
-    super(provider, javaInfoRoot);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoPropertiesManager(IDatabindingsProvider provider, JavaInfo javaInfoRoot) {
+		super(provider, javaInfoRoot);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractJavaInfoPropertiesManager
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isCreateProperty(ObjectInfo objectInfo) throws Exception {
-    JavaInfo javaInfo = (JavaInfo) objectInfo;
-    if (JavaInfoUtils.hasTrueParameter(javaInfo, "databinding.disable")) {
-      return false;
-    }
-    DatabindingsProvider provider = (DatabindingsProvider) m_provider;
-    boolean nonVisual =
-        !provider.isController() && javaInfo.getParent() instanceof NonVisualBeanContainerInfo;
-    return (javaInfo instanceof AbstractComponentInfo || javaInfo instanceof ViewerInfo || nonVisual)
-        && JavaInfoReferenceProvider.getReference(javaInfo) != null
-        && (PropertiesSupport.isObservableInfo(javaInfo) || nonVisual);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractJavaInfoPropertiesManager
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isCreateProperty(ObjectInfo objectInfo) throws Exception {
+		JavaInfo javaInfo = (JavaInfo) objectInfo;
+		if (JavaInfoUtils.hasTrueParameter(javaInfo, "databinding.disable")) {
+			return false;
+		}
+		DatabindingsProvider provider = (DatabindingsProvider) m_provider;
+		boolean nonVisual =
+				!provider.isController() && javaInfo.getParent() instanceof NonVisualBeanContainerInfo;
+		return (javaInfo instanceof AbstractComponentInfo || javaInfo instanceof ViewerInfo || nonVisual)
+				&& JavaInfoReferenceProvider.getReference(javaInfo) != null
+				&& (PropertiesSupport.isObservableInfo(javaInfo) || nonVisual);
+	}
 
-  @Override
-  protected AbstractBindingsProperty createProperty(ObjectInfo objectInfo) throws Exception {
-    return new BindingsProperty(new Context(Activator.getDefault(), m_provider, objectInfo));
-  }
+	@Override
+	protected AbstractBindingsProperty createProperty(ObjectInfo objectInfo) throws Exception {
+		return new BindingsProperty(new Context(Activator.getDefault(), m_provider, objectInfo));
+	}
 }

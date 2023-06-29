@@ -23,15 +23,15 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage rcp.swing2swt.model.layout
  */
 public final class BorderLayoutAssistantPage extends AbstractAssistantPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BorderLayoutAssistantPage(Composite parent, Object selection) {
-    super(parent, selection);
-    GridLayoutFactory.create(this).columns(2);
-    addIntegerProperty(this, "hgap", Messages.BorderLayoutAssistantPage_horizontalGap);
-    addIntegerProperty(this, "vgap", Messages.BorderLayoutAssistantPage_verticalGap);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BorderLayoutAssistantPage(Composite parent, Object selection) {
+		super(parent, selection);
+		GridLayoutFactory.create(this).columns(2);
+		addIntegerProperty(this, "hgap", Messages.BorderLayoutAssistantPage_horizontalGap);
+		addIntegerProperty(this, "vgap", Messages.BorderLayoutAssistantPage_verticalGap);
+	}
 }

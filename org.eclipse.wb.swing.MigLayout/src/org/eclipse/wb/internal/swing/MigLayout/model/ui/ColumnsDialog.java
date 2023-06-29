@@ -25,65 +25,65 @@ import java.util.List;
  * @coverage swing.MigLayout.ui
  */
 public final class ColumnsDialog extends DimensionsDialog<MigColumnInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnsDialog(Shell parentShell, MigLayoutInfo layout) {
-    super(parentShell, layout, layout.getColumns());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnsDialog(Shell parentShell, MigLayoutInfo layout) {
+		super(parentShell, layout, layout.getColumns());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DimensionsDialog: strings
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getDialogTitle() {
-    return ModelMessages.ColumnsDialog_dialogTitle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DimensionsDialog: strings
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getDialogTitle() {
+		return ModelMessages.ColumnsDialog_dialogTitle;
+	}
 
-  @Override
-  protected String getDialogMessage() {
-    return ModelMessages.ColumnsDialog_dialogMessage;
-  }
+	@Override
+	protected String getDialogMessage() {
+		return ModelMessages.ColumnsDialog_dialogMessage;
+	}
 
-  @Override
-  protected String getViewerTitle() {
-    return ModelMessages.ColumnsDialog_viewerTitle;
-  }
+	@Override
+	protected String getViewerTitle() {
+		return ModelMessages.ColumnsDialog_viewerTitle;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DimensionsDialog: dimensions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void moveDimensionsUp(Iterable<MigColumnInfo> dimensions) throws Exception {
-    for (MigColumnInfo column : dimensions) {
-      int index = column.getIndex();
-      m_layout.moveColumn(index, index - 1);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DimensionsDialog: dimensions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void moveDimensionsUp(Iterable<MigColumnInfo> dimensions) throws Exception {
+		for (MigColumnInfo column : dimensions) {
+			int index = column.getIndex();
+			m_layout.moveColumn(index, index - 1);
+		}
+	}
 
-  @Override
-  protected void moveDimensionsDown(Iterable<MigColumnInfo> dimensions) throws Exception {
-    for (MigColumnInfo column : dimensions) {
-      int index = column.getIndex();
-      m_layout.moveColumn(index, index + 2);
-    }
-  }
+	@Override
+	protected void moveDimensionsDown(Iterable<MigColumnInfo> dimensions) throws Exception {
+		for (MigColumnInfo column : dimensions) {
+			int index = column.getIndex();
+			m_layout.moveColumn(index, index + 2);
+		}
+	}
 
-  @Override
-  protected boolean editSelectedDimension(MigColumnInfo column) {
-    return new ColumnEditDialog(getShell(), m_layout, column).open() == OK;
-  }
+	@Override
+	protected boolean editSelectedDimension(MigColumnInfo column) {
+		return new ColumnEditDialog(getShell(), m_layout, column).open() == OK;
+	}
 
-  @Override
-  protected MigColumnInfo createNewDimension(int targetIndex) throws Exception {
-    MigColumnInfo column = new MigColumnInfo(m_layout);
-    m_layout.insertColumn(targetIndex);
-    return column;
-  }
+	@Override
+	protected MigColumnInfo createNewDimension(int targetIndex) throws Exception {
+		MigColumnInfo column = new MigColumnInfo(m_layout);
+		m_layout.insertColumn(targetIndex);
+		return column;
+	}
 }

@@ -23,51 +23,51 @@ import org.eclipse.draw2d.geometry.Dimension;
  * @coverage rcp.model.jface
  */
 public final class DialogPageTopBoundsSupport extends TopBoundsSupport {
-  private final DialogPageInfo m_page;
+	private final DialogPageInfo m_page;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogPageTopBoundsSupport(DialogPageInfo page) {
-    super(page);
-    m_page = page;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogPageTopBoundsSupport(DialogPageInfo page) {
+		super(page);
+		m_page = page;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TopBoundsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void apply() throws Exception {
-    // set size from resource properties (or default)
-    {
-      Dimension size = getResourceSize();
-      ControlSupport.setSize(m_page.getShell(), size.width, size.height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TopBoundsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void apply() throws Exception {
+		// set size from resource properties (or default)
+		{
+			Dimension size = getResourceSize();
+			ControlSupport.setSize(m_page.getShell(), size.width, size.height);
+		}
+	}
 
-  @Override
-  public void setSize(int width, int height) throws Exception {
-    // remember size in resource properties
-    setResourceSize(width, height);
-  }
+	@Override
+	public void setSize(int width, int height) throws Exception {
+		// remember size in resource properties
+		setResourceSize(width, height);
+	}
 
-  @Override
-  protected Dimension getDefaultSize() {
-    return new Dimension(600, 500);
-  }
+	@Override
+	protected Dimension getDefaultSize() {
+		return new Dimension(600, 500);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Show
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean show() throws Exception {
-    CompositeTopBoundsSupport.show(m_page, m_page.getShell());
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Show
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean show() throws Exception {
+		CompositeTopBoundsSupport.show(m_page, m_page.getShell());
+		return true;
+	}
 }

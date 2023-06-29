@@ -26,42 +26,42 @@ import org.eclipse.swt.widgets.Listener;
  * @coverage XML.editor
  */
 public final class LineControl extends Canvas {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LineControl(Composite parent, int style) {
-    super(parent, style);
-    addListener(SWT.Paint, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        GC gc = event.gc;
-        gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
-        if (isHorizontal()) {
-          gc.drawLine(0, 0, getSize().x, 0);
-        } else {
-          gc.drawLine(0, 0, 0, getSize().y);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LineControl(Composite parent, int style) {
+		super(parent, style);
+		addListener(SWT.Paint, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				GC gc = event.gc;
+				gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
+				if (isHorizontal()) {
+					gc.drawLine(0, 0, getSize().x, 0);
+				} else {
+					gc.drawLine(0, 0, 0, getSize().y);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Control
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Point computeSize(int wHint, int hHint, boolean changed) {
-    if (isHorizontal()) {
-      return new Point(wHint, 1);
-    } else {
-      return new Point(1, hHint);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Control
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Point computeSize(int wHint, int hHint, boolean changed) {
+		if (isHorizontal()) {
+			return new Point(wHint, 1);
+		} else {
+			return new Point(1, hHint);
+		}
+	}
 
-  private boolean isHorizontal() {
-    return (getStyle() & SWT.HORIZONTAL) == SWT.HORIZONTAL;
-  }
+	private boolean isHorizontal() {
+		return (getStyle() & SWT.HORIZONTAL) == SWT.HORIZONTAL;
+	}
 }

@@ -18,47 +18,47 @@ import org.eclipse.swt.graphics.Image;
  *
  */
 public class SimpleObservePresentation extends ObservePresentation {
-  private final String m_text;
-  private final String m_textForBinding;
-  private final Image m_image;
+	private final String m_text;
+	private final String m_textForBinding;
+	private final Image m_image;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimpleObservePresentation(String text, Image image) {
-    this(text, text, image);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimpleObservePresentation(String text, Image image) {
+		this(text, text, image);
+	}
 
-  public SimpleObservePresentation(String text, String textForBinding, Image image) {
-    m_text = text;
-    m_textForBinding = textForBinding;
-    m_image = image;
-  }
+	public SimpleObservePresentation(String text, String textForBinding, Image image) {
+		m_text = text;
+		m_textForBinding = textForBinding;
+		m_image = image;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Image getInternalImage() throws Exception {
-    return m_image;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Image getInternalImage() throws Exception {
+		return m_image;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObservePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText() throws Exception {
-    return m_text;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObservePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText() throws Exception {
+		return m_text;
+	}
 
-  @Override
-  public String getTextForBinding() throws Exception {
-    return m_textForBinding;
-  }
+	@Override
+	public String getTextForBinding() throws Exception {
+		return m_textForBinding;
+	}
 }

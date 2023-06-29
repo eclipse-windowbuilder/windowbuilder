@@ -27,40 +27,40 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public class BeanObservableDetailValueCodeSupport extends BeanObservableDetailCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addDetailSourceCode(List<String> lines,
-      CodeGenerationSupport generationSupport,
-      DetailBeanObservableInfo observable,
-      ObservableInfo masterObservable) throws Exception {
-    boolean dontUseDeprecatedMethods =
-        Activator.getStore().getBoolean(IPreferenceConstants.DONT_USE_DEPRECATED_METHODS);
-    String realmCode =
-        dontUseDeprecatedMethods
-            ? ""
-            : "org.eclipse.core.databinding.observable.Realm.getDefault(), ";
-    String observeMethod =
-        observable.isPojoBindable0()
-            ? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeDetailValue("
-            : " = org.eclipse.core.databinding.beans.BeansObservables.observeDetailValue(";
-    String masterTypeCode =
-        observable.getDetailBeanClass() == null || observable.isPojoBindable0()
-            ? ""
-            : CoreUtils.getClassName(observable.getDetailBeanClass()) + ".class, ";
-    lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
-        + observable.getVariableIdentifier()
-        + observeMethod
-        + realmCode
-        + masterObservable.getVariableIdentifier()
-        + ", "
-        + masterTypeCode
-        + observable.getDetailPropertyReference()
-        + ", "
-        + CoreUtils.getClassName(observable.getDetailPropertyType())
-        + ".class);");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addDetailSourceCode(List<String> lines,
+			CodeGenerationSupport generationSupport,
+			DetailBeanObservableInfo observable,
+			ObservableInfo masterObservable) throws Exception {
+		boolean dontUseDeprecatedMethods =
+				Activator.getStore().getBoolean(IPreferenceConstants.DONT_USE_DEPRECATED_METHODS);
+		String realmCode =
+				dontUseDeprecatedMethods
+				? ""
+						: "org.eclipse.core.databinding.observable.Realm.getDefault(), ";
+		String observeMethod =
+				observable.isPojoBindable0()
+				? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeDetailValue("
+						: " = org.eclipse.core.databinding.beans.BeansObservables.observeDetailValue(";
+		String masterTypeCode =
+				observable.getDetailBeanClass() == null || observable.isPojoBindable0()
+				? ""
+						: CoreUtils.getClassName(observable.getDetailBeanClass()) + ".class, ";
+		lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
+				+ observable.getVariableIdentifier()
+				+ observeMethod
+				+ realmCode
+				+ masterObservable.getVariableIdentifier()
+				+ ", "
+						+ masterTypeCode
+						+ observable.getDetailPropertyReference()
+						+ ", "
+						+ CoreUtils.getClassName(observable.getDetailPropertyType())
+						+ ".class);");
+	}
 }

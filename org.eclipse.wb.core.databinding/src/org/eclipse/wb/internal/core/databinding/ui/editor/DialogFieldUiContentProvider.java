@@ -28,85 +28,85 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage bindings.ui
  */
 public abstract class DialogFieldUiContentProvider implements IUiContentProvider {
-  private Shell m_shell;
-  private ICompleteListener m_listener;
-  private String m_errorMessage;
+	private Shell m_shell;
+	private ICompleteListener m_listener;
+	private String m_errorMessage;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Complete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void setCompleteListener(ICompleteListener listener) {
-    m_listener = listener;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Complete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void setCompleteListener(ICompleteListener listener) {
+		m_listener = listener;
+	}
 
-  @Override
-  public final String getErrorMessage() {
-    return m_errorMessage;
-  }
+	@Override
+	public final String getErrorMessage() {
+		return m_errorMessage;
+	}
 
-  protected final ICompleteListener getListener() {
-    return m_listener;
-  }
+	protected final ICompleteListener getListener() {
+		return m_listener;
+	}
 
-  /**
-   * Sets or clears the error message for this provider.
-   */
-  protected final void setErrorMessage(String message) {
-    m_errorMessage = message;
-    if (m_listener != null) {
-      m_listener.calculateFinish();
-    }
-  }
+	/**
+	 * Sets or clears the error message for this provider.
+	 */
+	protected final void setErrorMessage(String message) {
+		m_errorMessage = message;
+		if (m_listener != null) {
+			m_listener.calculateFinish();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final int getNumberOfControls() {
-    return getDialogField().getNumberOfControls();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final int getNumberOfControls() {
+		return getDialogField().getNumberOfControls();
+	}
 
-  @Override
-  public void createContent(Composite parent, int columns) {
-    getDialogField().doFillIntoGrid(parent, columns);
-    m_shell = parent.getShell();
-  }
+	@Override
+	public void createContent(Composite parent, int columns) {
+		getDialogField().doFillIntoGrid(parent, columns);
+		m_shell = parent.getShell();
+	}
 
-  /**
-   * Helper method for access to {@link Shell}.
-   */
-  protected final Shell getShell() {
-    return m_shell;
-  }
+	/**
+	 * Helper method for access to {@link Shell}.
+	 */
+	protected final Shell getShell() {
+		return m_shell;
+	}
 
-  /**
-   * @return {@link DialogField} that represented GUI object for this provider.
-   */
-  public abstract DialogField getDialogField();
+	/**
+	 * @return {@link DialogField} that represented GUI object for this provider.
+	 */
+	public abstract DialogField getDialogField();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ClassLoader
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Helper method for load classes over editor class loader.
-   */
-  protected Class<?> loadClass(String className) throws ClassNotFoundException {
-    return CoreUtils.load(JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo()), className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ClassLoader
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Helper method for load classes over editor class loader.
+	 */
+	protected Class<?> loadClass(String className) throws ClassNotFoundException {
+		return CoreUtils.load(JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo()), className);
+	}
 
-  /**
-   * Helper method for access to current (enclosing project for editing compilation unit)
-   * {@link IJavaProject}.
-   */
-  protected IJavaProject getJavaProject() {
-    AstEditor editor = EditorState.getActiveJavaInfo().getEditor();
-    return editor.getJavaProject();
-  }
+	/**
+	 * Helper method for access to current (enclosing project for editing compilation unit)
+	 * {@link IJavaProject}.
+	 */
+	protected IJavaProject getJavaProject() {
+		AstEditor editor = EditorState.getActiveJavaInfo().getEditor();
+		return editor.getJavaProject();
+	}
 }

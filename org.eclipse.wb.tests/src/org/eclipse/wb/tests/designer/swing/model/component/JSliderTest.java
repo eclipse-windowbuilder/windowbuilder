@@ -23,27 +23,27 @@ import javax.swing.JSlider;
  * @author scheglov_ke
  */
 public class JSliderTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * {@link JSlider#setLabelTable(java.util.Dictionary)} requires filled {@link Dictionary}, but
-   * right now we don't evaluate invocations of object. So, we should ignore this method invocation,
-   * or at least don't crash.
-   */
-  public void test_36471() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JSlider slider = new JSlider();",
-            "    slider.setLabelTable(new java.util.Hashtable());",
-            "    slider.setPaintLabels(true);",
-            "    add(slider);",
-            "  }",
-            "}");
-    panel.refresh();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * {@link JSlider#setLabelTable(java.util.Dictionary)} requires filled {@link Dictionary}, but
+	 * right now we don't evaluate invocations of object. So, we should ignore this method invocation,
+	 * or at least don't crash.
+	 */
+	public void test_36471() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    JSlider slider = new JSlider();",
+						"    slider.setLabelTable(new java.util.Hashtable());",
+						"    slider.setPaintLabels(true);",
+						"    add(slider);",
+						"  }",
+						"}");
+		panel.refresh();
+	}
 }

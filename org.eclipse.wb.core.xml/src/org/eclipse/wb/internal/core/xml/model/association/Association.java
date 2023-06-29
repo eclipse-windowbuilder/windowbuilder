@@ -21,21 +21,21 @@ import org.eclipse.wb.internal.core.xml.model.utils.ElementTarget;
  * @coverage XML.model.association
  */
 public abstract class Association {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds {@link DocumentElement} of new {@link XmlObjectInfo}.
-   */
-  public abstract void add(XmlObjectInfo object, ElementTarget target) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds {@link DocumentElement} of new {@link XmlObjectInfo}.
+	 */
+	public abstract void add(XmlObjectInfo object, ElementTarget target) throws Exception;
 
-  /**
-   * Moves {@link DocumentElement} of existing {@link XmlObjectInfo}.
-   */
-  public abstract void move(XmlObjectInfo object,
-      ElementTarget target,
-      XmlObjectInfo oldParent,
-      XmlObjectInfo newParent) throws Exception;
+	/**
+	 * Moves {@link DocumentElement} of existing {@link XmlObjectInfo}.
+	 */
+	public abstract void move(XmlObjectInfo object,
+			ElementTarget target,
+			XmlObjectInfo oldParent,
+			XmlObjectInfo newParent) throws Exception;
 }

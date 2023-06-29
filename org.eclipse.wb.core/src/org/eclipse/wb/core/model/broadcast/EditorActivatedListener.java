@@ -18,10 +18,10 @@ package org.eclipse.wb.core.model.broadcast;
  * @coverage core.model
  */
 public interface EditorActivatedListener {
-  /**
-   * @param request
-   *          the request to specify operation that should be performed. Listeners may use
-   *          "requestX()" methods to specify operation that should be performed.
-   */
-  void invoke(EditorActivatedRequest request) throws Exception;
+	/**
+	 * @param request
+	 *          the request to specify operation that should be performed. Listeners may use
+	 *          "requestX()" methods to specify operation that should be performed.
+	 */
+	void invoke(EditorActivatedRequest request) throws Exception;
 }

@@ -25,15 +25,15 @@ import java.awt.BorderLayout;
  * @coverage swing.assistant
  */
 public final class BorderLayoutAssistantPage extends AbstractAssistantPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BorderLayoutAssistantPage(Composite parent, Object selection) {
-    super(parent, selection);
-    GridLayoutFactory.create(this).columns(2);
-    addIntegerProperty(this, "hgap", ModelMessages.BorderLayoutAssistantPage_horizontalGap);
-    addIntegerProperty(this, "vgap", ModelMessages.BorderLayoutAssistantPage_verticalGap);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BorderLayoutAssistantPage(Composite parent, Object selection) {
+		super(parent, selection);
+		GridLayoutFactory.create(this).columns(2);
+		addIntegerProperty(this, "hgap", ModelMessages.BorderLayoutAssistantPage_horizontalGap);
+		addIntegerProperty(this, "vgap", ModelMessages.BorderLayoutAssistantPage_verticalGap);
+	}
 }

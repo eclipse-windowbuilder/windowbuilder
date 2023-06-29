@@ -35,77 +35,77 @@ import javax.swing.border.CompoundBorder;
  * @coverage swing.property.editor
  */
 public final class CompoundBorderComposite extends AbstractBorderComposite {
-  private final BorderField m_outsideField;
-  private final BorderField m_insideField;
+	private final BorderField m_outsideField;
+	private final BorderField m_insideField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompoundBorderComposite(Composite parent) {
-    super(parent, "CompoundBorder");
-    GridLayoutFactory.create(this);
-    m_outsideField =
-        createBorderField(
-            ModelMessages.CompoundBorderComposite_outsideBorder,
-            ModelMessages.CompoundBorderComposite_outsideEdit);
-    m_insideField =
-        createBorderField(
-            ModelMessages.CompoundBorderComposite_insideBorder,
-            ModelMessages.CompoundBorderComposite_insideEdit);
-    {
-      Button swapButton = new Button(this, SWT.NONE);
-      GridDataFactory.create(swapButton).grabH().alignHR().hintHC(10);
-      swapButton.setText(ModelMessages.CompoundBorderComposite_swap);
-      swapButton.addListener(SWT.Selection, new Listener() {
-        public void handleEvent(Event e) {
-          ExecutionUtils.runLog(new RunnableEx() {
-            public void run() throws Exception {
-              Border outsideBorder = m_outsideField.getBorder();
-              m_outsideField.setBorder(m_insideField.getBorder());
-              m_insideField.setBorder(outsideBorder);
-              m_borderDialog.borderUpdated();
-            }
-          });
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompoundBorderComposite(Composite parent) {
+		super(parent, "CompoundBorder");
+		GridLayoutFactory.create(this);
+		m_outsideField =
+				createBorderField(
+						ModelMessages.CompoundBorderComposite_outsideBorder,
+						ModelMessages.CompoundBorderComposite_outsideEdit);
+		m_insideField =
+				createBorderField(
+						ModelMessages.CompoundBorderComposite_insideBorder,
+						ModelMessages.CompoundBorderComposite_insideEdit);
+		{
+			Button swapButton = new Button(this, SWT.NONE);
+			GridDataFactory.create(swapButton).grabH().alignHR().hintHC(10);
+			swapButton.setText(ModelMessages.CompoundBorderComposite_swap);
+			swapButton.addListener(SWT.Selection, new Listener() {
+				public void handleEvent(Event e) {
+					ExecutionUtils.runLog(new RunnableEx() {
+						public void run() throws Exception {
+							Border outsideBorder = m_outsideField.getBorder();
+							m_outsideField.setBorder(m_insideField.getBorder());
+							m_insideField.setBorder(outsideBorder);
+							m_borderDialog.borderUpdated();
+						}
+					});
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initialize(BorderDialog borderDialog, AstEditor editor) {
-    super.initialize(borderDialog, editor);
-    m_outsideField.setEditor(editor);
-    m_insideField.setEditor(editor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initialize(BorderDialog borderDialog, AstEditor editor) {
+		super.initialize(borderDialog, editor);
+		m_outsideField.setEditor(editor);
+		m_insideField.setEditor(editor);
+	}
 
-  @Override
-  public boolean setBorder(Border border) throws Exception {
-    if (border instanceof CompoundBorder) {
-      CompoundBorder ourBorder = (CompoundBorder) border;
-      m_outsideField.setBorder(ourBorder.getOutsideBorder());
-      m_insideField.setBorder(ourBorder.getInsideBorder());
-      // OK, this is our Border
-      return true;
-    } else {
-      // no, we don't know this Border
-      return false;
-    }
-  }
+	@Override
+	public boolean setBorder(Border border) throws Exception {
+		if (border instanceof CompoundBorder) {
+			CompoundBorder ourBorder = (CompoundBorder) border;
+			m_outsideField.setBorder(ourBorder.getOutsideBorder());
+			m_insideField.setBorder(ourBorder.getInsideBorder());
+			// OK, this is our Border
+			return true;
+		} else {
+			// no, we don't know this Border
+			return false;
+		}
+	}
 
-  @Override
-  public String getSource() throws Exception {
-    String outsideSource = m_outsideField.getSource();
-    String insideSource = m_insideField.getSource();
-    if (outsideSource == null && insideSource == null) {
-      return "new javax.swing.border.CompoundBorder()";
-    }
-    return "new javax.swing.border.CompoundBorder(" + outsideSource + ", " + insideSource + ")";
-  }
+	@Override
+	public String getSource() throws Exception {
+		String outsideSource = m_outsideField.getSource();
+		String insideSource = m_insideField.getSource();
+		if (outsideSource == null && insideSource == null) {
+			return "new javax.swing.border.CompoundBorder()";
+		}
+		return "new javax.swing.border.CompoundBorder(" + outsideSource + ", " + insideSource + ")";
+	}
 }

@@ -29,165 +29,165 @@ import java.util.List;
  * @coverage swing.MigLayout.model
  */
 public class SelectionActionsSupport extends ObjectEventListener {
-  private final MigLayoutInfo m_layout;
+	private final MigLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionActionsSupport(MigLayoutInfo layout) {
-    m_layout = layout;
-    m_layout.addBroadcastListener(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionActionsSupport(MigLayoutInfo layout) {
+		m_layout = layout;
+		m_layout.addBroadcastListener(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObjectEventListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSelectionActions(List<ObjectInfo> objects, List<Object> actions) throws Exception {
-    if (objects.isEmpty()) {
-      return;
-    }
-    // prepare constraints
-    List<CellConstraintsSupport> constraints = Lists.newArrayList();
-    for (ObjectInfo object : objects) {
-      // check object
-      if (!(object instanceof ComponentInfo) || object.getParent() != m_layout.getContainer()) {
-        return;
-      }
-      // add data info
-      ComponentInfo component = (ComponentInfo) object;
-      constraints.add(MigLayoutInfo.getConstraints(component));
-    }
-    // create horizontal actions
-    actions.add(new Separator());
-    addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.DEFAULT);
-    addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.LEFT);
-    addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.CENTER);
-    addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.RIGHT);
-    addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.FILL);
-    addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.LEADING);
-    addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.TRAILING);
-    // create vertical actions
-    actions.add(new Separator());
-    addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.DEFAULT);
-    addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.TOP);
-    addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.CENTER);
-    addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.BOTTOM);
-    addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.FILL);
-    addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.BASELINE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObjectEventListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSelectionActions(List<ObjectInfo> objects, List<Object> actions) throws Exception {
+		if (objects.isEmpty()) {
+			return;
+		}
+		// prepare constraints
+		List<CellConstraintsSupport> constraints = Lists.newArrayList();
+		for (ObjectInfo object : objects) {
+			// check object
+			if (!(object instanceof ComponentInfo) || object.getParent() != m_layout.getContainer()) {
+				return;
+			}
+			// add data info
+			ComponentInfo component = (ComponentInfo) object;
+			constraints.add(MigLayoutInfo.getConstraints(component));
+		}
+		// create horizontal actions
+		actions.add(new Separator());
+		addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.DEFAULT);
+		addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.LEFT);
+		addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.CENTER);
+		addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.RIGHT);
+		addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.FILL);
+		addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.LEADING);
+		addHorizontalAlignmentAction(actions, constraints, MigColumnInfo.Alignment.TRAILING);
+		// create vertical actions
+		actions.add(new Separator());
+		addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.DEFAULT);
+		addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.TOP);
+		addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.CENTER);
+		addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.BOTTOM);
+		addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.FILL);
+		addVerticalAlignmentAction(actions, constraints, MigRowInfo.Alignment.BASELINE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Horizontal
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void addHorizontalAlignmentAction(List<Object> actions,
-      List<CellConstraintsSupport> constraints,
-      MigColumnInfo.Alignment alignment) {
-    boolean isChecked = hasGivenHorizontalAlignment(constraints, alignment);
-    IAction action = new HorizontalAlignmentAction(constraints, isChecked, alignment);
-    actions.add(action);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Horizontal
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void addHorizontalAlignmentAction(List<Object> actions,
+			List<CellConstraintsSupport> constraints,
+			MigColumnInfo.Alignment alignment) {
+		boolean isChecked = hasGivenHorizontalAlignment(constraints, alignment);
+		IAction action = new HorizontalAlignmentAction(constraints, isChecked, alignment);
+		actions.add(action);
+	}
 
-  private boolean hasGivenHorizontalAlignment(List<CellConstraintsSupport> constraints,
-      MigColumnInfo.Alignment alignment) {
-    for (CellConstraintsSupport constraint : constraints) {
-      if (constraint.getHorizontalAlignment() != alignment) {
-        return false;
-      }
-    }
-    return true;
-  }
+	private boolean hasGivenHorizontalAlignment(List<CellConstraintsSupport> constraints,
+			MigColumnInfo.Alignment alignment) {
+		for (CellConstraintsSupport constraint : constraints) {
+			if (constraint.getHorizontalAlignment() != alignment) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-  private final class HorizontalAlignmentAction extends ObjectInfoAction {
-    private final List<CellConstraintsSupport> m_constraints;
-    private final MigColumnInfo.Alignment m_alignment;
+	private final class HorizontalAlignmentAction extends ObjectInfoAction {
+		private final List<CellConstraintsSupport> m_constraints;
+		private final MigColumnInfo.Alignment m_alignment;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public HorizontalAlignmentAction(List<CellConstraintsSupport> constraints,
-        boolean checked,
-        MigColumnInfo.Alignment alignment) {
-      super(m_layout, alignment.getText(), alignment.getMenuImage(), AS_RADIO_BUTTON);
-      setChecked(checked);
-      m_constraints = constraints;
-      m_alignment = alignment;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public HorizontalAlignmentAction(List<CellConstraintsSupport> constraints,
+				boolean checked,
+				MigColumnInfo.Alignment alignment) {
+			super(m_layout, alignment.getText(), alignment.getMenuImage(), AS_RADIO_BUTTON);
+			setChecked(checked);
+			m_constraints = constraints;
+			m_alignment = alignment;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Run
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected void runEx() throws Exception {
-      for (CellConstraintsSupport constraint : m_constraints) {
-        constraint.setHorizontalAlignment(m_alignment);
-        constraint.write();
-      }
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Run
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected void runEx() throws Exception {
+			for (CellConstraintsSupport constraint : m_constraints) {
+				constraint.setHorizontalAlignment(m_alignment);
+				constraint.write();
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Vertical
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void addVerticalAlignmentAction(List<Object> actions,
-      List<CellConstraintsSupport> constraints,
-      MigRowInfo.Alignment alignment) {
-    boolean isChecked = hasGivenVerticalAlignment(constraints, alignment);
-    IAction action = new VerticalAlignmentAction(constraints, isChecked, alignment);
-    actions.add(action);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Vertical
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void addVerticalAlignmentAction(List<Object> actions,
+			List<CellConstraintsSupport> constraints,
+			MigRowInfo.Alignment alignment) {
+		boolean isChecked = hasGivenVerticalAlignment(constraints, alignment);
+		IAction action = new VerticalAlignmentAction(constraints, isChecked, alignment);
+		actions.add(action);
+	}
 
-  private boolean hasGivenVerticalAlignment(List<CellConstraintsSupport> constraints,
-      MigRowInfo.Alignment alignment) {
-    for (CellConstraintsSupport constraint : constraints) {
-      if (constraint.getVerticalAlignment() != alignment) {
-        return false;
-      }
-    }
-    return true;
-  }
+	private boolean hasGivenVerticalAlignment(List<CellConstraintsSupport> constraints,
+			MigRowInfo.Alignment alignment) {
+		for (CellConstraintsSupport constraint : constraints) {
+			if (constraint.getVerticalAlignment() != alignment) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-  private final class VerticalAlignmentAction extends ObjectInfoAction {
-    private final List<CellConstraintsSupport> m_constraints;
-    private final MigRowInfo.Alignment m_alignment;
+	private final class VerticalAlignmentAction extends ObjectInfoAction {
+		private final List<CellConstraintsSupport> m_constraints;
+		private final MigRowInfo.Alignment m_alignment;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public VerticalAlignmentAction(List<CellConstraintsSupport> constraints,
-        boolean checked,
-        MigRowInfo.Alignment alignment) {
-      super(m_layout, alignment.getText(), alignment.getMenuImage(), AS_RADIO_BUTTON);
-      setChecked(checked);
-      m_constraints = constraints;
-      m_alignment = alignment;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public VerticalAlignmentAction(List<CellConstraintsSupport> constraints,
+				boolean checked,
+				MigRowInfo.Alignment alignment) {
+			super(m_layout, alignment.getText(), alignment.getMenuImage(), AS_RADIO_BUTTON);
+			setChecked(checked);
+			m_constraints = constraints;
+			m_alignment = alignment;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Run
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected void runEx() throws Exception {
-      for (CellConstraintsSupport constraint : m_constraints) {
-        constraint.setVerticalAlignment(m_alignment);
-        constraint.write();
-      }
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Run
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected void runEx() throws Exception {
+			for (CellConstraintsSupport constraint : m_constraints) {
+				constraint.setVerticalAlignment(m_alignment);
+				constraint.write();
+			}
+		}
+	}
 }

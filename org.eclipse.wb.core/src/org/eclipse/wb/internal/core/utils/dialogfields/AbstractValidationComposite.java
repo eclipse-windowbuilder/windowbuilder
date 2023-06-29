@@ -20,58 +20,58 @@ import org.eclipse.swt.widgets.Control;
  * @author scheglov_ke
  */
 public class AbstractValidationComposite extends Composite {
-  protected final IMessageContainer m_messageContainer;
+	protected final IMessageContainer m_messageContainer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractValidationComposite(Composite parent, int style, IMessageContainer messageContainer) {
-    super(parent, style);
-    m_messageContainer = messageContainer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractValidationComposite(Composite parent, int style, IMessageContainer messageContainer) {
+		super(parent, style);
+		m_messageContainer = messageContainer;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
-    @Override
-    public void dialogFieldChanged(DialogField field) {
-      validateAll();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
+		@Override
+		public void dialogFieldChanged(DialogField field) {
+			validateAll();
+		}
+	};
 
-  /**
-   * Validate all and update {@link IMessageContainer}.
-   */
-  public final void validateAll() {
-    String errorMessage = validate();
-    m_messageContainer.setErrorMessage(errorMessage);
-  }
+	/**
+	 * Validate all and update {@link IMessageContainer}.
+	 */
+	public final void validateAll() {
+		String errorMessage = validate();
+		m_messageContainer.setErrorMessage(errorMessage);
+	}
 
-  /**
-   * Validate fields and returns error message or <code>null</code>.
-   */
-  protected String validate() {
-    return null;
-  }
+	/**
+	 * Validate fields and returns error message or <code>null</code>.
+	 */
+	protected String validate() {
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures given {@link DialogField} and creates corresponding {@link Control}'s.
-   */
-  protected final void doCreateField(DialogField dialogField, String labelText, int charsWidth) {
-    dialogField.setLabelText(labelText);
-    dialogField.setDialogFieldListener(m_validateListener);
-    // fill controls
-    int columns = ((GridLayout) getLayout()).numColumns;
-    DialogFieldUtils.fillControls(this, dialogField, columns, charsWidth);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures given {@link DialogField} and creates corresponding {@link Control}'s.
+	 */
+	protected final void doCreateField(DialogField dialogField, String labelText, int charsWidth) {
+		dialogField.setLabelText(labelText);
+		dialogField.setDialogFieldListener(m_validateListener);
+		// fill controls
+		int columns = ((GridLayout) getLayout()).numColumns;
+		DialogFieldUtils.fillControls(this, dialogField, columns, charsWidth);
+	}
 }

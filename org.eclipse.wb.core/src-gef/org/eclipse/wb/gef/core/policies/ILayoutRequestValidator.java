@@ -28,98 +28,98 @@ import org.eclipse.wb.gef.core.requests.Request;
  * @coverage gef.core
  */
 public interface ILayoutRequestValidator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if {@link Request#REQ_CREATE} {@link Request} is valid.
-   */
-  boolean validateCreateRequest(EditPart host, CreateRequest request);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if {@link Request#REQ_CREATE} {@link Request} is valid.
+	 */
+	boolean validateCreateRequest(EditPart host, CreateRequest request);
 
-  /**
-   * @return <code>true</code> if {@link Request#REQ_PASTE} {@link Request} is valid.
-   */
-  boolean validatePasteRequest(EditPart host, PasteRequest request);
+	/**
+	 * @return <code>true</code> if {@link Request#REQ_PASTE} {@link Request} is valid.
+	 */
+	boolean validatePasteRequest(EditPart host, PasteRequest request);
 
-  /**
-   * @return <code>true</code> if {@link Request#REQ_MOVE} {@link Request} is valid.
-   */
-  boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request);
+	/**
+	 * @return <code>true</code> if {@link Request#REQ_MOVE} {@link Request} is valid.
+	 */
+	boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request);
 
-  /**
-   * @return <code>true</code> if {@link Request#REQ_ADD} {@link Request} is valid.
-   */
-  boolean validateAddRequest(EditPart host, ChangeBoundsRequest request);
+	/**
+	 * @return <code>true</code> if {@link Request#REQ_ADD} {@link Request} is valid.
+	 */
+	boolean validateAddRequest(EditPart host, ChangeBoundsRequest request);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LITERALS
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Instance of validator allowing all requests.
-   */
-  ILayoutRequestValidator TRUE = new LayoutRequestValidatorStubTrue() {
-  };
-  /**
-   * Instance of validator disallowing all requests.
-   */
-  ILayoutRequestValidator FALSE = new LayoutRequestValidatorStubFalse() {
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LITERALS
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Instance of validator allowing all requests.
+	 */
+	ILayoutRequestValidator TRUE = new LayoutRequestValidatorStubTrue() {
+	};
+	/**
+	 * Instance of validator disallowing all requests.
+	 */
+	ILayoutRequestValidator FALSE = new LayoutRequestValidatorStubFalse() {
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Default validator stubs
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link ILayoutRequestValidator} that allows all requests.
-   */
-  public abstract class LayoutRequestValidatorStubTrue implements ILayoutRequestValidator {
-    @Override
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      return true;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Default validator stubs
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link ILayoutRequestValidator} that allows all requests.
+	 */
+	public abstract class LayoutRequestValidatorStubTrue implements ILayoutRequestValidator {
+		@Override
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			return true;
+		}
 
-    @Override
-    public boolean validatePasteRequest(EditPart host, PasteRequest request) {
-      return true;
-    }
+		@Override
+		public boolean validatePasteRequest(EditPart host, PasteRequest request) {
+			return true;
+		}
 
-    @Override
-    public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-      return true;
-    }
+		@Override
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+			return true;
+		}
 
-    @Override
-    public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-      return true;
-    }
-  }
-  /**
-   * Implementation of {@link ILayoutRequestValidator} which denies all requests.
-   */
-  public abstract class LayoutRequestValidatorStubFalse implements ILayoutRequestValidator {
-    @Override
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      return false;
-    }
+		@Override
+		public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+			return true;
+		}
+	}
+	/**
+	 * Implementation of {@link ILayoutRequestValidator} which denies all requests.
+	 */
+	public abstract class LayoutRequestValidatorStubFalse implements ILayoutRequestValidator {
+		@Override
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			return false;
+		}
 
-    @Override
-    public boolean validatePasteRequest(EditPart host, PasteRequest request) {
-      return false;
-    }
+		@Override
+		public boolean validatePasteRequest(EditPart host, PasteRequest request) {
+			return false;
+		}
 
-    @Override
-    public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-      return false;
-    }
+		@Override
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+			return false;
+		}
 
-    @Override
-    public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-      return false;
-    }
-  }
+		@Override
+		public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+			return false;
+		}
+	}
 }

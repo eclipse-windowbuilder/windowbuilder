@@ -19,19 +19,19 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class AstTests extends DesignerSuiteTests {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Suite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.ast");
-    suite.addTest(createSingleSuite(AstEditorTest.class));
-    suite.addTest(createSingleSuite(GathererTest.class));
-    suite.addTest(createSingleSuite(AstNodeUtilsTest.class));
-    suite.addTest(createSingleSuite(AstReflectionUtilsTest.class));
-    suite.addTest(createSingleSuite(BindingsTest.class));
-    suite.addTest(createSingleSuite(AstVisitorExTest.class));
-    return suite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Suite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.ast");
+		suite.addTest(createSingleSuite(AstEditorTest.class));
+		suite.addTest(createSingleSuite(GathererTest.class));
+		suite.addTest(createSingleSuite(AstNodeUtilsTest.class));
+		suite.addTest(createSingleSuite(AstReflectionUtilsTest.class));
+		suite.addTest(createSingleSuite(BindingsTest.class));
+		suite.addTest(createSingleSuite(AstVisitorExTest.class));
+		return suite;
+	}
 }

@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectResolveTag;
  * @coverage XML.model.utils
  */
 public interface TagResolverProvider {
-  /**
-   * Analyzes given {@link XmlObjectInfo} and may be adds {@link XmlObjectResolveTag} broadcast.
-   */
-  void register(XmlObjectInfo rootObject) throws Exception;
+	/**
+	 * Analyzes given {@link XmlObjectInfo} and may be adds {@link XmlObjectResolveTag} broadcast.
+	 */
+	void register(XmlObjectInfo rootObject) throws Exception;
 }

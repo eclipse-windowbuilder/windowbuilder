@@ -22,77 +22,77 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage XML.editor.palette
  */
 public interface IPaletteSite {
-  /**
-   * @return the {@link Shell} that contains palette widget.
-   */
-  Shell getShell();
+	/**
+	 * @return the {@link Shell} that contains palette widget.
+	 */
+	Shell getShell();
 
-  /**
-   * @return the {@link PaletteInfo} displayed currently in this {@link IPaletteSite}.
-   */
-  PaletteInfo getPalette();
+	/**
+	 * @return the {@link PaletteInfo} displayed currently in this {@link IPaletteSite}.
+	 */
+	PaletteInfo getPalette();
 
-  /**
-   * Adds some external palette {@link Command}.
-   */
-  void addCommand(Command command);
+	/**
+	 * Adds some external palette {@link Command}.
+	 */
+	void addCommand(Command command);
 
-  /**
-   * Opens palette editing dialog.<br>
-   * Note, that after this method {@link #getPalette()} may return different instance of
-   * {@link PaletteInfo} .
-   */
-  void editPalette();
+	/**
+	 * Opens palette editing dialog.<br>
+	 * Note, that after this method {@link #getPalette()} may return different instance of
+	 * {@link PaletteInfo} .
+	 */
+	void editPalette();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Helper
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Helper for accessing {@link IPaletteSite}.
-   *
-   * @author scheglov_ke
-   */
-  public static class Helper {
-    private static final String KEY = "key_IPaletteSite";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Helper
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Helper for accessing {@link IPaletteSite}.
+	 *
+	 * @author scheglov_ke
+	 */
+	public static class Helper {
+		private static final String KEY = "key_IPaletteSite";
 
-    /**
-     * @return {@link IPaletteSite} for given {@link ObjectInfo}.
-     */
-    public static IPaletteSite getSite(ObjectInfo objectInfo) {
-      return (IPaletteSite) objectInfo.getRoot().getArbitraryValue(KEY);
-    }
+		/**
+		 * @return {@link IPaletteSite} for given {@link ObjectInfo}.
+		 */
+		public static IPaletteSite getSite(ObjectInfo objectInfo) {
+			return (IPaletteSite) objectInfo.getRoot().getArbitraryValue(KEY);
+		}
 
-    /**
-     * Sets the {@link IPaletteSite} for given {@link ObjectInfo}.
-     */
-    public static void setSite(ObjectInfo objectInfo, IPaletteSite site) {
-      objectInfo.getRoot().putArbitraryValue(KEY, site);
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Empty implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static class Empty implements IPaletteSite {
-    @Override
-    public void addCommand(Command command) {
-    }
+		/**
+		 * Sets the {@link IPaletteSite} for given {@link ObjectInfo}.
+		 */
+		public static void setSite(ObjectInfo objectInfo, IPaletteSite site) {
+			objectInfo.getRoot().putArbitraryValue(KEY, site);
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Empty implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static class Empty implements IPaletteSite {
+		@Override
+		public void addCommand(Command command) {
+		}
 
-    @Override
-    public void editPalette() {
-    }
+		@Override
+		public void editPalette() {
+		}
 
-    @Override
-    public PaletteInfo getPalette() {
-      return null;
-    }
+		@Override
+		public PaletteInfo getPalette() {
+			return null;
+		}
 
-    @Override
-    public Shell getShell() {
-      return null;
-    }
-  }
+		@Override
+		public Shell getShell() {
+			return null;
+		}
+	}
 }

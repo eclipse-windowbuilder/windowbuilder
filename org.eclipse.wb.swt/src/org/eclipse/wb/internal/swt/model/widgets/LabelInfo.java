@@ -22,26 +22,26 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
  * @coverage swt.model.widgets
  */
 public final class LabelInfo extends ControlInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LabelInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LabelInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new LabelStylePresentation(this);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new LabelStylePresentation(this);
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 }

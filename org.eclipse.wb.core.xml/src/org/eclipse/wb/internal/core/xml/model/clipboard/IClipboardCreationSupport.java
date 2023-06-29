@@ -23,19 +23,19 @@ import java.io.Serializable;
  * @coverage XML.model.clipboard
  */
 public abstract class IClipboardCreationSupport implements Serializable {
-  private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 
-  /**
-   * @param rootObject
-   *          the root {@link XmlObjectInfo} to which new {@link XmlObjectInfo} will be added.
-   *
-   * @return the {@link CreationSupport} for creating {@link XmlObjectInfo}.
-   */
-  public abstract CreationSupport create(XmlObjectInfo rootObject) throws Exception;
+	/**
+	 * @param rootObject
+	 *          the root {@link XmlObjectInfo} to which new {@link XmlObjectInfo} will be added.
+	 *
+	 * @return the {@link CreationSupport} for creating {@link XmlObjectInfo}.
+	 */
+	public abstract CreationSupport create(XmlObjectInfo rootObject) throws Exception;
 
-  /**
-   * Notification that {@link XmlObjectInfo} was created using this {@link CreationSupport}.
-   */
-  public void apply(XmlObjectInfo object) throws Exception {
-  }
+	/**
+	 * Notification that {@link XmlObjectInfo} was created using this {@link CreationSupport}.
+	 */
+	public void apply(XmlObjectInfo object) throws Exception {
+	}
 }

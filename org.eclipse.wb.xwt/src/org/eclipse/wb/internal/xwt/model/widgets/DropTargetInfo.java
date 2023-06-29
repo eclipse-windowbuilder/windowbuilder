@@ -24,14 +24,14 @@ import org.eclipse.swt.dnd.DropTarget;
  * @coverage XWT.model.widgets
  */
 public class DropTargetInfo extends ItemInfo implements IDropTargetInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DropTargetInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DropTargetInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 }

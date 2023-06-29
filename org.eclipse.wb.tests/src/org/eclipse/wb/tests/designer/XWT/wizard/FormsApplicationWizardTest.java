@@ -25,59 +25,59 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class FormsApplicationWizardTest extends XwtWizardTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_contents() throws Exception {
-    animateWizard();
-    // Java
-    {
-      String content = getFileContentSrc("test/MyApp.java");
-      assertThat(content).contains("main(String args[])");
-      assertThat(content).contains("XWTForms.load");
-      assertThat(content).contains(".readAndDispatch()");
-    }
-    // XWT
-    {
-      String content = getFileContentSrc("test/MyApp.xwt");
-      assertThat(content).contains("<Shell");
-      assertThat(content).contains("<RowLayout/>");
-      assertThat(content).contains("<Button text=");
-      assertThat(content).contains("<!-- Forms API -->");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_contents() throws Exception {
+		animateWizard();
+		// Java
+		{
+			String content = getFileContentSrc("test/MyApp.java");
+			assertThat(content).contains("main(String args[])");
+			assertThat(content).contains("XWTForms.load");
+			assertThat(content).contains(".readAndDispatch()");
+		}
+		// XWT
+		{
+			String content = getFileContentSrc("test/MyApp.xwt");
+			assertThat(content).contains("<Shell");
+			assertThat(content).contains("<RowLayout/>");
+			assertThat(content).contains("<Button text=");
+			assertThat(content).contains("<!-- Forms API -->");
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void animateWizard() throws Exception {
-    new UiContext().executeAndCheck(new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        TestUtils.runWizard(
-            new FormsApplicationWizard(),
-            new StructuredSelection(m_packageFragment));
-      }
-    }, new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        context.useShell("New XWT Application");
-        context.getTextByLabel("Name:").setText("MyApp");
-        context.clickButton("Finish");
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void animateWizard() throws Exception {
+		new UiContext().executeAndCheck(new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				TestUtils.runWizard(
+						new FormsApplicationWizard(),
+						new StructuredSelection(m_packageFragment));
+			}
+		}, new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				context.useShell("New XWT Application");
+				context.getTextByLabel("Name:").setText("MyApp");
+				context.clickButton("Finish");
+			}
+		});
+	}
 }

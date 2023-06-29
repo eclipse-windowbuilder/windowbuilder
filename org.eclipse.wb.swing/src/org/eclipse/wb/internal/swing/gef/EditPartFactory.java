@@ -54,134 +54,134 @@ import javax.swing.Box;
  * @coverage swing.gef
  */
 public final class EditPartFactory implements IEditPartFactory {
-  private final IEditPartFactory[] FACTORIES = {
-      MENU_FACTORY,
-      BOX_FACTORY,
-      SPECIAL_FACTORY,
-      MATCHING_FACTORY,
-      GENERIC_FACTORY};
+	private final IEditPartFactory[] FACTORIES = {
+			MENU_FACTORY,
+			BOX_FACTORY,
+			SPECIAL_FACTORY,
+			MATCHING_FACTORY,
+			GENERIC_FACTORY};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditPart createEditPart(EditPart context, Object model) {
-    for (IEditPartFactory factory : FACTORIES) {
-      EditPart editPart = factory.createEditPart(null, model);
-      if (editPart != null) {
-        return editPart;
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditPart createEditPart(EditPart context, Object model) {
+		for (IEditPartFactory factory : FACTORIES) {
+			EditPart editPart = factory.createEditPart(null, model);
+			if (editPart != null) {
+				return editPart;
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Factories
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final IEditPartFactory MENU_FACTORY = new IEditPartFactory() {
-    public EditPart createEditPart(EditPart context, Object model) {
-      if (model instanceof JMenuBarInfo) {
-        JMenuBarInfo menu = (JMenuBarInfo) model;
-        IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(menu);
-        return MenuEditPartFactory.createMenu(model, menuObject);
-      }
-      if (model instanceof JPopupMenuInfo) {
-        JPopupMenuInfo popup = (JPopupMenuInfo) model;
-        IMenuPopupInfo popupObject = MenuObjectInfoUtils.getMenuPopupInfo(popup);
-        return MenuEditPartFactory.createPopupMenu(popup, popupObject);
-      }
-      if (model instanceof IMenuInfo) {
-        IMenuInfo menu = (IMenuInfo) model;
-        return MenuEditPartFactory.createMenu(model, menu);
-      }
-      if (model instanceof JMenuInfo) {
-        JMenuInfo menu = (JMenuInfo) model;
-        IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(menu);
-        return MenuEditPartFactory.createMenuItem(menu, itemObject);
-      }
-      if (model instanceof JMenuItemInfo) {
-        JMenuItemInfo item = (JMenuItemInfo) model;
-        IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(item);
-        return MenuEditPartFactory.createMenuItem(item, itemObject);
-      }
-      return null;
-    }
-  };
-  private static final IEditPartFactory SPECIAL_FACTORY = new IEditPartFactory() {
-    public EditPart createEditPart(EditPart context, Object model) {
-      if (model instanceof JSplitPaneInfo) {
-        return new JSplitPaneEditPart((JSplitPaneInfo) model);
-      }
-      if (model instanceof JScrollPaneInfo) {
-        return new JScrollPaneEditPart((JScrollPaneInfo) model);
-      }
-      if (model instanceof JTabbedPaneInfo) {
-        return new JTabbedPaneEditPart((JTabbedPaneInfo) model);
-      }
-      if (model instanceof JTabbedPaneTabInfo) {
-        return new JTabbedPaneTabEditPart((JTabbedPaneTabInfo) model);
-      }
-      return null;
-    }
-  };
-  private static final IEditPartFactory BOX_FACTORY = new IEditPartFactory() {
-    public EditPart createEditPart(EditPart context, Object model) {
-      if (model instanceof ComponentInfo) {
-        ComponentInfo component = (ComponentInfo) model;
-        if (component.getCreationSupport() instanceof StaticFactoryCreationSupport) {
-          StaticFactoryCreationSupport factoryCreationSupport =
-              (StaticFactoryCreationSupport) component.getCreationSupport();
-          FactoryMethodDescription factoryMethodDescription =
-              factoryCreationSupport.getDescription();
-          if (factoryMethodDescription.getDeclaringClass() == Box.class) {
-            String signature = factoryMethodDescription.getSignature();
-            return createEditPart(component, signature);
-          }
-        }
-      }
-      return null;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Factories
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final IEditPartFactory MENU_FACTORY = new IEditPartFactory() {
+		public EditPart createEditPart(EditPart context, Object model) {
+			if (model instanceof JMenuBarInfo) {
+				JMenuBarInfo menu = (JMenuBarInfo) model;
+				IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(menu);
+				return MenuEditPartFactory.createMenu(model, menuObject);
+			}
+			if (model instanceof JPopupMenuInfo) {
+				JPopupMenuInfo popup = (JPopupMenuInfo) model;
+				IMenuPopupInfo popupObject = MenuObjectInfoUtils.getMenuPopupInfo(popup);
+				return MenuEditPartFactory.createPopupMenu(popup, popupObject);
+			}
+			if (model instanceof IMenuInfo) {
+				IMenuInfo menu = (IMenuInfo) model;
+				return MenuEditPartFactory.createMenu(model, menu);
+			}
+			if (model instanceof JMenuInfo) {
+				JMenuInfo menu = (JMenuInfo) model;
+				IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(menu);
+				return MenuEditPartFactory.createMenuItem(menu, itemObject);
+			}
+			if (model instanceof JMenuItemInfo) {
+				JMenuItemInfo item = (JMenuItemInfo) model;
+				IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(item);
+				return MenuEditPartFactory.createMenuItem(item, itemObject);
+			}
+			return null;
+		}
+	};
+	private static final IEditPartFactory SPECIAL_FACTORY = new IEditPartFactory() {
+		public EditPart createEditPart(EditPart context, Object model) {
+			if (model instanceof JSplitPaneInfo) {
+				return new JSplitPaneEditPart((JSplitPaneInfo) model);
+			}
+			if (model instanceof JScrollPaneInfo) {
+				return new JScrollPaneEditPart((JScrollPaneInfo) model);
+			}
+			if (model instanceof JTabbedPaneInfo) {
+				return new JTabbedPaneEditPart((JTabbedPaneInfo) model);
+			}
+			if (model instanceof JTabbedPaneTabInfo) {
+				return new JTabbedPaneTabEditPart((JTabbedPaneTabInfo) model);
+			}
+			return null;
+		}
+	};
+	private static final IEditPartFactory BOX_FACTORY = new IEditPartFactory() {
+		public EditPart createEditPart(EditPart context, Object model) {
+			if (model instanceof ComponentInfo) {
+				ComponentInfo component = (ComponentInfo) model;
+				if (component.getCreationSupport() instanceof StaticFactoryCreationSupport) {
+					StaticFactoryCreationSupport factoryCreationSupport =
+							(StaticFactoryCreationSupport) component.getCreationSupport();
+					FactoryMethodDescription factoryMethodDescription =
+							factoryCreationSupport.getDescription();
+					if (factoryMethodDescription.getDeclaringClass() == Box.class) {
+						String signature = factoryMethodDescription.getSignature();
+						return createEditPart(component, signature);
+					}
+				}
+			}
+			return null;
+		}
 
-    private EditPart createEditPart(ComponentInfo component, String signature) {
-      // glue
-      if (signature.equals("createGlue()")) {
-        return new BoxGlueEditPart(component);
-      }
-      if (signature.equals("createHorizontalGlue()")) {
-        return new BoxGlueHorizontalEditPart(component);
-      }
-      if (signature.equals("createVerticalGlue()")) {
-        return new BoxGlueVerticalEditPart(component);
-      }
-      // strut
-      if (signature.equals("createRigidArea(java.awt.Dimension)")) {
-        return new BoxRigidAreaEditPart(component);
-      }
-      if (signature.equals("createHorizontalStrut(int)")) {
-        return new BoxStrutHorizontalEditPart(component);
-      }
-      if (signature.equals("createVerticalStrut(int)")) {
-        return new BoxStrutVerticalEditPart(component);
-      }
-      // unknown
-      return null;
-    }
-  };
-  private final static IEditPartFactory MATCHING_FACTORY =
-      new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.swing.model.component"),
-          ImmutableList.of("org.eclipse.wb.internal.swing.gef.part"));
-  private static final IEditPartFactory GENERIC_FACTORY = new IEditPartFactory() {
-    public EditPart createEditPart(EditPart context, Object model) {
-      if (model instanceof ContainerInfo) {
-        return new ContainerEditPart((ContainerInfo) model);
-      }
-      if (model instanceof ComponentInfo) {
-        return new ComponentEditPart((ComponentInfo) model);
-      }
-      return null;
-    }
-  };
+		private EditPart createEditPart(ComponentInfo component, String signature) {
+			// glue
+			if (signature.equals("createGlue()")) {
+				return new BoxGlueEditPart(component);
+			}
+			if (signature.equals("createHorizontalGlue()")) {
+				return new BoxGlueHorizontalEditPart(component);
+			}
+			if (signature.equals("createVerticalGlue()")) {
+				return new BoxGlueVerticalEditPart(component);
+			}
+			// strut
+			if (signature.equals("createRigidArea(java.awt.Dimension)")) {
+				return new BoxRigidAreaEditPart(component);
+			}
+			if (signature.equals("createHorizontalStrut(int)")) {
+				return new BoxStrutHorizontalEditPart(component);
+			}
+			if (signature.equals("createVerticalStrut(int)")) {
+				return new BoxStrutVerticalEditPart(component);
+			}
+			// unknown
+			return null;
+		}
+	};
+	private final static IEditPartFactory MATCHING_FACTORY =
+			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.swing.model.component"),
+					ImmutableList.of("org.eclipse.wb.internal.swing.gef.part"));
+	private static final IEditPartFactory GENERIC_FACTORY = new IEditPartFactory() {
+		public EditPart createEditPart(EditPart context, Object model) {
+			if (model instanceof ContainerInfo) {
+				return new ContainerEditPart((ContainerInfo) model);
+			}
+			if (model instanceof ComponentInfo) {
+				return new ComponentEditPart((ComponentInfo) model);
+			}
+			return null;
+		}
+	};
 }

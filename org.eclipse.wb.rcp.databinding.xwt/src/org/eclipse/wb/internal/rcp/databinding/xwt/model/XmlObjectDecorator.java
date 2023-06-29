@@ -23,37 +23,37 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets.WidgetBindableI
  *
  */
 public class XmlObjectDecorator extends JavaInfoDecorator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlObjectDecorator(DatabindingsProvider provider) {
-    super(provider, provider.getXmlObjectRoot());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlObjectDecorator(DatabindingsProvider provider) {
+		super(provider, provider.getXmlObjectRoot());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // JavaInfoDecorator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean accept(ObjectInfo object) throws Exception {
-    return object instanceof XmlObjectInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// JavaInfoDecorator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean accept(ObjectInfo object) throws Exception {
+		return object instanceof XmlObjectInfo;
+	}
 
-  @Override
-  protected boolean equals(ObjectInfo object, String objectReference, IObserveInfo iobserve)
-      throws Exception {
-    if (iobserve instanceof WidgetBindableInfo) {
-      WidgetBindableInfo widget = (WidgetBindableInfo) iobserve;
-      return object == widget.getXMLObjectInfo();
-    }
-    return false;
-  }
+	@Override
+	protected boolean equals(ObjectInfo object, String objectReference, IObserveInfo iobserve)
+			throws Exception {
+		if (iobserve instanceof WidgetBindableInfo) {
+			WidgetBindableInfo widget = (WidgetBindableInfo) iobserve;
+			return object == widget.getXMLObjectInfo();
+		}
+		return false;
+	}
 
-  @Override
-  protected String getReference(ObjectInfo object) throws Exception {
-    return "";
-  }
+	@Override
+	protected String getReference(ObjectInfo object) throws Exception {
+		return "";
+	}
 }

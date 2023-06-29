@@ -23,42 +23,42 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage XWT.wizards
  */
 public final class ApplicationWizardPage extends XwtWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ApplicationWizardPage() {
-    setTitle("Create XWT Application");
-    setImageDescriptor(Activator.getImageDescriptor("wizard/Application/banner.png"));
-    setDescription("Create a simple XWT application with Shell.");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ApplicationWizardPage() {
+		setTitle("Create XWT Application");
+		setImageDescriptor(Activator.getImageDescriptor("wizard/Application/banner.png"));
+		setDescription("Create a simple XWT application with Shell.");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Create
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getTemplatePath_Java() {
-    return "templates/Application.jvt";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Create
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getTemplatePath_Java() {
+		return "templates/Application.jvt";
+	}
 
-  @Override
-  protected String getTemplatePath_XWT() {
-    return "templates/Application.xwt";
-  }
+	@Override
+	protected String getTemplatePath_XWT() {
+		return "templates/Application.xwt";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    // I always use same names during tests
-    if (EnvironmentUtils.DEVELOPER_HOST) {
-      setTypeName("Application_1", true);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		// I always use same names during tests
+		if (EnvironmentUtils.DEVELOPER_HOST) {
+			setTypeName("Application_1", true);
+		}
+	}
 }

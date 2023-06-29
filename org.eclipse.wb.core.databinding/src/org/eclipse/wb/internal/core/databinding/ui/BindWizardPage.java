@@ -36,93 +36,93 @@ import java.util.List;
  * @coverage bindings.ui
  */
 public class BindWizardPage extends WizardPage implements IPageListener {
-  private final Context m_context;
-  private final ObserveElementsWizardPage m_firstPage;
-  private Composite m_composite;
-  private UiContentProviderComposite m_providerComposite;
-  private IBindingInfo m_binding;
+	private final Context m_context;
+	private final ObserveElementsWizardPage m_firstPage;
+	private Composite m_composite;
+	private UiContentProviderComposite m_providerComposite;
+	private IBindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BindWizardPage(Context context, ObserveElementsWizardPage firstPage) {
-    super("second");
-    m_context = context;
-    m_firstPage = firstPage;
-    m_firstPage.setSecondPage(this);
-    setPageComplete(false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BindWizardPage(Context context, ObserveElementsWizardPage firstPage) {
+		super("second");
+		m_context = context;
+		m_firstPage = firstPage;
+		m_firstPage.setSecondPage(this);
+		setPageComplete(false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IPageListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setTitleImage(Image image) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IPageListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setTitleImage(Image image) {
+	}
 
-  @Override
-  public void setPageComplete(boolean complete) {
-    super.setPageComplete(complete);
-    IWizardContainer container = getContainer();
-    if (container != null) {
-      container.updateButtons();
-    }
-  }
+	@Override
+	public void setPageComplete(boolean complete) {
+		super.setPageComplete(complete);
+		IWizardContainer container = getContainer();
+		if (container != null) {
+			container.updateButtons();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IBindingInfo performFinish() throws Exception {
-    m_providerComposite.performFinish();
-    return m_binding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IBindingInfo performFinish() throws Exception {
+		m_providerComposite.performFinish();
+		return m_binding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createControl(Composite parent) {
-    m_composite = new Composite(parent, SWT.NONE);
-    m_composite.setLayout(new FillLayout());
-    setControl(m_composite);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createControl(Composite parent) {
+		m_composite = new Composite(parent, SWT.NONE);
+		m_composite.setLayout(new FillLayout());
+		setControl(m_composite);
+	}
 
-  public void calculateFinish() {
-    if (m_providerComposite != null) {
-      m_providerComposite.dispose();
-      m_providerComposite = null;
-    }
-    List<IUiContentProvider> providers =
-        ExecutionUtils.runObjectLog(new RunnableObjectEx<List<IUiContentProvider>>() {
-          @Override
-          public List<IUiContentProvider> runObject() throws Exception {
-            m_binding = m_firstPage.getBinding();
-            return m_context.provider.getContentProviders(m_binding, BindWizardPage.this);
-          }
-        }, Collections.<IUiContentProvider>emptyList());
-    m_providerComposite = new UiContentProviderComposite(this, providers, m_composite, SWT.NONE);
-    // initial state
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        m_providerComposite.performInitialize();
-      }
-    });
-  }
+	public void calculateFinish() {
+		if (m_providerComposite != null) {
+			m_providerComposite.dispose();
+			m_providerComposite = null;
+		}
+		List<IUiContentProvider> providers =
+				ExecutionUtils.runObjectLog(new RunnableObjectEx<List<IUiContentProvider>>() {
+					@Override
+					public List<IUiContentProvider> runObject() throws Exception {
+						m_binding = m_firstPage.getBinding();
+						return m_context.provider.getContentProviders(m_binding, BindWizardPage.this);
+					}
+				}, Collections.<IUiContentProvider>emptyList());
+		m_providerComposite = new UiContentProviderComposite(this, providers, m_composite, SWT.NONE);
+		// initial state
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				m_providerComposite.performInitialize();
+			}
+		});
+	}
 
-  @Override
-  public void setVisible(boolean visible) {
-    if (visible) {
-      m_composite.layout();
-    }
-    super.setVisible(visible);
-  }
+	@Override
+	public void setVisible(boolean visible) {
+		if (visible) {
+			m_composite.layout();
+		}
+		super.setVisible(visible);
+	}
 }

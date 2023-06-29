@@ -34,85 +34,85 @@ import org.apache.commons.lang.StringUtils;
  * @coverage core.editor.errors
  */
 public class BrowserMessageDialog extends Dialog {
-  // default html
-  private static final String HTML_HEADER = "<html><head><style type=\"text/css\"> "
-      + "body { background-color: %bg_color%; font-size: 8pt; font-family: Verdana;Helvetica;} "
-      + "table { font-size: 8pt; font-family: Verdana;Helvetica;} "
-      + "h3 {font-size: 10pt;}</style></head><body>";
-  private static final String HTML_FOOTER = "</body></html>";
-  // fields
-  private final String m_title;
-  private String m_htmlToShow;
+	// default html
+	private static final String HTML_HEADER = "<html><head><style type=\"text/css\"> "
+			+ "body { background-color: %bg_color%; font-size: 8pt; font-family: Verdana;Helvetica;} "
+			+ "table { font-size: 8pt; font-family: Verdana;Helvetica;} "
+			+ "h3 {font-size: 10pt;}</style></head><body>";
+	private static final String HTML_FOOTER = "</body></html>";
+	// fields
+	private final String m_title;
+	private String m_htmlToShow;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected BrowserMessageDialog(Shell parentShell, String title) {
-    super(parentShell);
-    m_title = title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected BrowserMessageDialog(Shell parentShell, String title) {
+		super(parentShell);
+		m_title = title;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Contents
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Control createDialogArea(Composite parent) {
-    Composite area = (Composite) super.createDialogArea(parent);
-    Composite composite = new Composite(area, SWT.NONE);
-    GridDataFactory.modify(composite).grab().fill();
-    composite.setLayout(new FillLayout());
-    BrowserComposite browser = new BrowserComposite(composite, SWT.NONE);
-    browser.setText(m_htmlToShow);
-    return area;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Contents
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		Composite area = (Composite) super.createDialogArea(parent);
+		Composite composite = new Composite(area, SWT.NONE);
+		GridDataFactory.modify(composite).grab().fill();
+		composite.setLayout(new FillLayout());
+		BrowserComposite browser = new BrowserComposite(composite, SWT.NONE);
+		browser.setText(m_htmlToShow);
+		return area;
+	}
 
-  @Override
-  protected void createButtonsForButtonBar(Composite parent) {
-    createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
-  }
+	@Override
+	protected void createButtonsForButtonBar(Composite parent) {
+		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+	}
 
-  @Override
-  protected Point getInitialSize() {
-    return getParentShell().getSize();
-  }
+	@Override
+	protected Point getInitialSize() {
+		return getParentShell().getSize();
+	}
 
-  @Override
-  protected Point getInitialLocation(Point initialSize) {
-    return getParentShell().getLocation();
-  }
+	@Override
+	protected Point getInitialLocation(Point initialSize) {
+		return getParentShell().getLocation();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the content part of HTML. This means that <code>html</code> parameter should contain only
-   * the contents needed to display in this dialog (i.e. without html, head, title, body tags).
-   */
-  public void setHTML(String html) {
-    m_htmlToShow =
-        StringUtils.replace(
-            HTML_HEADER,
-            "%bg_color%",
-            DesignerExceptionUtils.getColorWebString(IColorConstants.button))
-            + (m_title != null ? "<h3>" + m_title + "</h3>" : "")
-            + html
-            + HTML_FOOTER;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the content part of HTML. This means that <code>html</code> parameter should contain only
+	 * the contents needed to display in this dialog (i.e. without html, head, title, body tags).
+	 */
+	public void setHTML(String html) {
+		m_htmlToShow =
+				StringUtils.replace(
+						HTML_HEADER,
+						"%bg_color%",
+						DesignerExceptionUtils.getColorWebString(IColorConstants.button))
+				+ (m_title != null ? "<h3>" + m_title + "</h3>" : "")
+				+ html
+				+ HTML_FOOTER;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Usage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static void openMessage(Shell shell, String title, String html) {
-    BrowserMessageDialog dialog = new BrowserMessageDialog(shell, title);
-    dialog.setHTML(html);
-    dialog.open();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Usage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static void openMessage(Shell shell, String title, String html) {
+		BrowserMessageDialog dialog = new BrowserMessageDialog(shell, title);
+		dialog.setHTML(html);
+		dialog.open();
+	}
 }

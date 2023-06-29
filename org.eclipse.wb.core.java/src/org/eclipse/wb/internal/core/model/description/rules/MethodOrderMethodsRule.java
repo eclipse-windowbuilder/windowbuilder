@@ -29,48 +29,48 @@ import java.util.List;
  * @coverage core.model.description
  */
 public final class MethodOrderMethodsRule extends AbstractDesignerRule {
-  private MethodOrder m_order;
-  private List<String> m_signatures;
+	private MethodOrder m_order;
+	private List<String> m_signatures;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    // prepare order
-    {
-      String specification = getRequiredAttribute(name, attributes, "order");
-      m_order = MethodOrder.parse(specification);
-    }
-    // push List for signatures
-    {
-      m_signatures = Lists.newArrayList();
-      getDigester().push(m_signatures);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		// prepare order
+		{
+			String specification = getRequiredAttribute(name, attributes, "order");
+			m_order = MethodOrder.parse(specification);
+		}
+		// push List for signatures
+		{
+			m_signatures = Lists.newArrayList();
+			getDigester().push(m_signatures);
+		}
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    getDigester().pop();
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    for (String signature : m_signatures) {
-      // prepare method
-      MethodDescription methodDescription;
-      {
-        methodDescription = componentDescription.getMethod(signature);
-        Assert.isNotNull(
-            methodDescription,
-            "Can not find method %s for %s.",
-            signature,
-            componentDescription);
-      }
-      // set order
-      methodDescription.setOrder(m_order);
-    }
-    // clean up
-    m_order = null;
-    m_signatures = null;
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		getDigester().pop();
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		for (String signature : m_signatures) {
+			// prepare method
+			MethodDescription methodDescription;
+			{
+				methodDescription = componentDescription.getMethod(signature);
+				Assert.isNotNull(
+						methodDescription,
+						"Can not find method %s for %s.",
+						signature,
+						componentDescription);
+			}
+			// set order
+			methodDescription.setOrder(m_order);
+		}
+		// clean up
+		m_order = null;
+		m_signatures = null;
+	}
 }

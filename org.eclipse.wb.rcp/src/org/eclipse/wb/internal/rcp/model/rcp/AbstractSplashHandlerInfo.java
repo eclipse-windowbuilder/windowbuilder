@@ -33,96 +33,96 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage rcp.model.rcp
  */
 public class AbstractSplashHandlerInfo extends AbstractComponentInfo implements IJavaInfoRendering {
-  private Shell m_shell;
+	private Shell m_shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractSplashHandlerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    JavaInfoUtils.scheduleSpecialRendering(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractSplashHandlerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		JavaInfoUtils.scheduleSpecialRendering(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IJavaInfoRendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void render() throws Exception {
-    Object window = getObject();
-    {
-      ASTNode node = getCreationSupport().getNode();
-      ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
-      m_shell = (Shell) SwtMethodParameterEvaluator.getDefaultShell(node, classLoader);
-      m_shell.setLayout(new FillLayout());
-      //m_shell.setVisible(true);
-    }
-    ReflectionUtils.invokeMethod(window, "init(org.eclipse.swt.widgets.Shell)", m_shell);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IJavaInfoRendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void render() throws Exception {
+		Object window = getObject();
+		{
+			ASTNode node = getCreationSupport().getNode();
+			ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
+			m_shell = (Shell) SwtMethodParameterEvaluator.getDefaultShell(node, classLoader);
+			m_shell.setLayout(new FillLayout());
+			//m_shell.setVisible(true);
+		}
+		ReflectionUtils.invokeMethod(window, "init(org.eclipse.swt.widgets.Shell)", m_shell);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractComponentInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected TopBoundsSupport createTopBoundsSupport() {
-    return new AbstractSplashHandlerTopBoundsSupport(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractComponentInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected TopBoundsSupport createTopBoundsSupport() {
+		return new AbstractSplashHandlerTopBoundsSupport(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canBeRoot() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canBeRoot() {
+		return true;
+	}
 
-  @Override
-  public Object getComponentObject() {
-    return m_shell;
-  }
+	@Override
+	public Object getComponentObject() {
+		return m_shell;
+	}
 
-  /**
-   * @return the {@link AbstractSplashHandlerInfo}'s Shell.
-   */
-  Object getShell() {
-    return m_shell;
-  }
+	/**
+	 * @return the {@link AbstractSplashHandlerInfo}'s Shell.
+	 */
+	Object getShell() {
+		return m_shell;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_dispose() throws Exception {
-    // dispose Dialog
-    {
-      Object object = getObject();
-      if (object != null) {
-        ReflectionUtils.invokeMethod(object, "dispose()");
-        m_shell = null;
-      }
-    }
-    // call "super"
-    super.refresh_dispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_dispose() throws Exception {
+		// dispose Dialog
+		{
+			Object object = getObject();
+			if (object != null) {
+				ReflectionUtils.invokeMethod(object, "dispose()");
+				m_shell = null;
+			}
+		}
+		// call "super"
+		super.refresh_dispose();
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    ControlInfo.refresh_fetch(this, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        AbstractSplashHandlerInfo.super.refresh_fetch();
-      }
-    });
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		ControlInfo.refresh_fetch(this, new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				AbstractSplashHandlerInfo.super.refresh_fetch();
+			}
+		});
+	}
 }

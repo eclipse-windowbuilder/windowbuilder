@@ -26,13 +26,13 @@ import org.eclipse.wb.gef.core.requests.Request;
  * @coverage gef.tree
  */
 public final class SelectionEditPolicy extends EditPolicy {
-  @Override
-  public boolean understandsRequest(Request request) {
-    return request.getType() == Request.REQ_SELECTION;
-  }
+	@Override
+	public boolean understandsRequest(Request request) {
+		return request.getType() == Request.REQ_SELECTION;
+	}
 
-  @Override
-  public EditPart getTargetEditPart(Request request) {
-    return getHost();
-  }
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		return getHost();
+	}
 }

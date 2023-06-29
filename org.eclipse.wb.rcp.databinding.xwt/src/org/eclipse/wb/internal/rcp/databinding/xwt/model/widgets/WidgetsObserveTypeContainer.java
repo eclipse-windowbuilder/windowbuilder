@@ -28,54 +28,54 @@ import java.util.List;
  *
  */
 public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
-  private List<WidgetBindableInfo> m_observables = Collections.emptyList();
+	private List<WidgetBindableInfo> m_observables = Collections.emptyList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WidgetsObserveTypeContainer() {
-    super(ObserveType.WIDGETS, true, false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WidgetsObserveTypeContainer() {
+		super(ObserveType.WIDGETS, true, false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObserveInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void synchronizeObserves() throws Exception {
-    for (WidgetBindableInfo widget : m_observables) {
-      widget.update();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObserveInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void synchronizeObserves() throws Exception {
+		for (WidgetBindableInfo widget : m_observables) {
+			widget.update();
+		}
+	}
 
-  @Override
-  public void createObservables(XmlObjectInfo xmlObjectRoot) throws Exception {
-    m_observables = Lists.newArrayList();
-    m_observables.add(new WidgetBindableInfo(xmlObjectRoot, null));
-  }
+	@Override
+	public void createObservables(XmlObjectInfo xmlObjectRoot) throws Exception {
+		m_observables = Lists.newArrayList();
+		m_observables.add(new WidgetBindableInfo(xmlObjectRoot, null));
+	}
 
-  @Override
-  public List<IObserveInfo> getObservables() {
-    return CoreUtils.cast(m_observables);
-  }
+	@Override
+	public List<IObserveInfo> getObservables() {
+		return CoreUtils.cast(m_observables);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WidgetBindableInfo resolve(XmlObjectInfo xmlObjectInfo) {
-    return m_observables.get(0).resolve(xmlObjectInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WidgetBindableInfo resolve(XmlObjectInfo xmlObjectInfo) {
+		return m_observables.get(0).resolve(xmlObjectInfo);
+	}
 
-  public WidgetBindableInfo resolve(DocumentElement element) {
-    return m_observables.get(0).resolve(element);
-  }
+	public WidgetBindableInfo resolve(DocumentElement element) {
+		return m_observables.get(0).resolve(element);
+	}
 
-  public WidgetBindableInfo resolve(String reference) throws Exception {
-    return (WidgetBindableInfo) m_observables.get(0).resolveReference(reference);
-  }
+	public WidgetBindableInfo resolve(String reference) throws Exception {
+		return (WidgetBindableInfo) m_observables.get(0).resolveReference(reference);
+	}
 }

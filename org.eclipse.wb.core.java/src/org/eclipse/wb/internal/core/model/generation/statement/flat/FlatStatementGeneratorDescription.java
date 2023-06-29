@@ -30,69 +30,69 @@ import org.eclipse.swt.widgets.Text;
  * @coverage core.model.generation
  */
 public final class FlatStatementGeneratorDescription extends StatementGeneratorDescription {
-  public static final StatementGeneratorDescription INSTANCE =
-      new FlatStatementGeneratorDescription();
+	public static final StatementGeneratorDescription INSTANCE =
+			new FlatStatementGeneratorDescription();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private FlatStatementGeneratorDescription() {
-    super("org.eclipse.wb.core.model.statement.flat", "Flat", "all components in same block");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private FlatStatementGeneratorDescription() {
+		super("org.eclipse.wb.core.model.statement.flat", "Flat", "all components in same block");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StatementGeneratorDescription
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public StatementGenerator get() {
-    return FlatStatementGenerator.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StatementGeneratorDescription
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public StatementGenerator get() {
+		return FlatStatementGenerator.INSTANCE;
+	}
 
-  @Override
-  public void configureDefaultPreferences(IPreferenceStore store) {
-    store.setDefault(FlatStatementGenerator.P_USE_PREFIX, true);
-    store.setDefault(FlatStatementGenerator.P_PREFIX_TEXT, "");
-  }
+	@Override
+	public void configureDefaultPreferences(IPreferenceStore store) {
+		store.setDefault(FlatStatementGenerator.P_USE_PREFIX, true);
+		store.setDefault(FlatStatementGenerator.P_PREFIX_TEXT, "");
+	}
 
-  @Override
-  public GenerationPropertiesComposite createPropertiesComposite(Composite parent,
-      DataBindManager bindManager,
-      IPreferenceStore store) {
-    return new PropertiesComposite(parent, bindManager, store);
-  }
+	@Override
+	public GenerationPropertiesComposite createPropertiesComposite(Composite parent,
+			DataBindManager bindManager,
+			IPreferenceStore store) {
+		return new PropertiesComposite(parent, bindManager, store);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static class PropertiesComposite extends GenerationPropertiesComposite {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public PropertiesComposite(Composite parent,
-        DataBindManager bindManager,
-        IPreferenceStore preferences) {
-      super(parent, bindManager, preferences);
-      // prefix flag
-      Button prefixFlagButton = new Button(this, SWT.CHECK);
-      prefixFlagButton.setText("Prefix component creation code:");
-      // prefix text
-      Text prefixText = new Text(this, SWT.BORDER);
-      GridDataFactory.create(prefixText).indentHC(3).grabH().fill();
-      // bind
-      {
-        CheckButtonEditor prefixFlagEditor =
-            bindBoolean(prefixFlagButton, FlatStatementGenerator.P_USE_PREFIX);
-        prefixFlagEditor.addEnableControl(prefixText);
-        bindString(prefixText, FlatStatementGenerator.P_PREFIX_TEXT);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static class PropertiesComposite extends GenerationPropertiesComposite {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public PropertiesComposite(Composite parent,
+				DataBindManager bindManager,
+				IPreferenceStore preferences) {
+			super(parent, bindManager, preferences);
+			// prefix flag
+			Button prefixFlagButton = new Button(this, SWT.CHECK);
+			prefixFlagButton.setText("Prefix component creation code:");
+			// prefix text
+			Text prefixText = new Text(this, SWT.BORDER);
+			GridDataFactory.create(prefixText).indentHC(3).grabH().fill();
+			// bind
+			{
+				CheckButtonEditor prefixFlagEditor =
+						bindBoolean(prefixFlagButton, FlatStatementGenerator.P_USE_PREFIX);
+				prefixFlagEditor.addEnableControl(prefixText);
+				bindString(prefixText, FlatStatementGenerator.P_PREFIX_TEXT);
+			}
+		}
+	}
 }

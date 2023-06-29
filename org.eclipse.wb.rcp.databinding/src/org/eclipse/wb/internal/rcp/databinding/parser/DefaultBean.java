@@ -22,42 +22,42 @@ import java.util.Set;
  * @coverage bindings.rcp.parser
  */
 public final class DefaultBean {
-  public static final DefaultBean INSTANCE = new DefaultBean();
+	public static final DefaultBean INSTANCE = new DefaultBean();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Events
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void addPropertyChangeListener(PropertyChangeListener listener) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Events
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+	}
 
-  public void removePropertyChangeListener(PropertyChangeListener listener) {
-  }
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Simple property.
-   */
-  public String getFoo() {
-    return "";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Simple property.
+	 */
+	public String getFoo() {
+		return "";
+	}
 
-  /**
-   * List property.
-   */
-  public List<?> getFooList() {
-    return Collections.EMPTY_LIST;
-  }
+	/**
+	 * List property.
+	 */
+	public List<?> getFooList() {
+		return Collections.EMPTY_LIST;
+	}
 
-  /**
-   * Set property.
-   */
-  public Set<?> getFooSet() {
-    return Collections.EMPTY_SET;
-  }
+	/**
+	 * Set property.
+	 */
+	public Set<?> getFooSet() {
+		return Collections.EMPTY_SET;
+	}
 }

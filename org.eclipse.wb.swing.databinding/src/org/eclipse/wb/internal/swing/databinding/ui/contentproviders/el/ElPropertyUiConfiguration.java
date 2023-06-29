@@ -22,77 +22,77 @@ import org.eclipse.swt.graphics.Color;
  * @coverage bindings.swing.ui
  */
 public class ElPropertyUiConfiguration {
-  private String m_title;
-  private int m_rows = 4;
-  private Color m_stringsColor = SwtResourceManager.getColor(42, 0, 255);
-  private Color m_keywordsColor = SwtResourceManager.getColor(127, 0, 85);
-  private Color m_numbersColor = SwtResourceManager.getColor(SWT.COLOR_BLACK);
-  private Color m_operatorsColor = SwtResourceManager.getColor(0, 57, 29);
-  private Color m_propertiesColor = SwtResourceManager.getColor(130, 0, 0);
+	private String m_title;
+	private int m_rows = 4;
+	private Color m_stringsColor = SwtResourceManager.getColor(42, 0, 255);
+	private Color m_keywordsColor = SwtResourceManager.getColor(127, 0, 85);
+	private Color m_numbersColor = SwtResourceManager.getColor(SWT.COLOR_BLACK);
+	private Color m_operatorsColor = SwtResourceManager.getColor(0, 57, 29);
+	private Color m_propertiesColor = SwtResourceManager.getColor(130, 0, 0);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getTitle() {
-    return m_title == null ? "" : m_title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getTitle() {
+		return m_title == null ? "" : m_title;
+	}
 
-  public void setTitle(String title) {
-    m_title = title;
-  }
+	public void setTitle(String title) {
+		m_title = title;
+	}
 
-  public int getRows() {
-    return m_rows;
-  }
+	public int getRows() {
+		return m_rows;
+	}
 
-  public void setRows(int rows) {
-    m_rows = rows;
-  }
+	public void setRows(int rows) {
+		m_rows = rows;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Colors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Color getStringsColor() {
-    return m_stringsColor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Colors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Color getStringsColor() {
+		return m_stringsColor;
+	}
 
-  public void setStringsColor(Color textColor) {
-    m_stringsColor = textColor;
-  }
+	public void setStringsColor(Color textColor) {
+		m_stringsColor = textColor;
+	}
 
-  public Color getKeywordsColor() {
-    return m_keywordsColor;
-  }
+	public Color getKeywordsColor() {
+		return m_keywordsColor;
+	}
 
-  public void setKeywordsColor(Color wordColor) {
-    m_keywordsColor = wordColor;
-  }
+	public void setKeywordsColor(Color wordColor) {
+		m_keywordsColor = wordColor;
+	}
 
-  public Color getNumbersColor() {
-    return m_numbersColor;
-  }
+	public Color getNumbersColor() {
+		return m_numbersColor;
+	}
 
-  public void setNumbersColor(Color digitsColor) {
-    m_numbersColor = digitsColor;
-  }
+	public void setNumbersColor(Color digitsColor) {
+		m_numbersColor = digitsColor;
+	}
 
-  public Color getOperatorsColor() {
-    return m_operatorsColor;
-  }
+	public Color getOperatorsColor() {
+		return m_operatorsColor;
+	}
 
-  public void setOperatorsColor(Color operatorsColor) {
-    m_operatorsColor = operatorsColor;
-  }
+	public void setOperatorsColor(Color operatorsColor) {
+		m_operatorsColor = operatorsColor;
+	}
 
-  public Color getPropertiesColor() {
-    return m_propertiesColor;
-  }
+	public Color getPropertiesColor() {
+		return m_propertiesColor;
+	}
 
-  public void setPropertiesColor(Color propertyColor) {
-    m_propertiesColor = propertyColor;
-  }
+	public void setPropertiesColor(Color propertyColor) {
+		m_propertiesColor = propertyColor;
+	}
 }

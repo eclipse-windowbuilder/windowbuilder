@@ -48,148 +48,148 @@ import java.lang.reflect.Method;
  * @coverage rcp.model.jface
  */
 public final class FieldEditorSubComponentVariableSupport extends AbstractNoNameVariableSupport {
-  private final FieldEditorInfo m_fieldEditor;
-  private final Method m_method;
+	private final FieldEditorInfo m_fieldEditor;
+	private final Method m_method;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FieldEditorSubComponentVariableSupport(JavaInfo javaInfo,
-      FieldEditorInfo fieldEditor,
-      Method method) {
-    super(javaInfo);
-    m_fieldEditor = fieldEditor;
-    m_method = method;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FieldEditorSubComponentVariableSupport(JavaInfo javaInfo,
+			FieldEditorInfo fieldEditor,
+			Method method) {
+		super(javaInfo);
+		m_fieldEditor = fieldEditor;
+		m_method = method;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "subComponent";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "subComponent";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isValidStatementForChild(Statement statement) {
-    return m_fieldEditor.getVariableSupport().isValidStatementForChild(statement);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isValidStatementForChild(Statement statement) {
+		return m_fieldEditor.getVariableSupport().isValidStatementForChild(statement);
+	}
 
-  @Override
-  public String getTitle() throws Exception {
-    return m_method.getName() + "()";
-  }
+	@Override
+	public String getTitle() throws Exception {
+		return m_method.getName() + "()";
+	}
 
-  @Override
-  public String getComponentName() {
-    String methodName = m_method.getName();
-    if (methodName.startsWith("get")) {
-      methodName = methodName.substring("get".length());
-    }
-    return m_fieldEditor.getVariableSupport().getComponentName()
-        + StringUtils.capitalize(methodName);
-  }
+	@Override
+	public String getComponentName() {
+		String methodName = m_method.getName();
+		if (methodName.startsWith("get")) {
+			methodName = methodName.substring("get".length());
+		}
+		return m_fieldEditor.getVariableSupport().getComponentName()
+				+ StringUtils.capitalize(methodName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public StatementTarget getStatementTarget() throws Exception {
-    return m_fieldEditor.getVariableSupport().getStatementTarget();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public StatementTarget getStatementTarget() throws Exception {
+		return m_fieldEditor.getVariableSupport().getStatementTarget();
+	}
 
-  @Override
-  public StatementTarget getChildTarget() throws Exception {
-    return JavaInfoUtils.getTarget(m_fieldEditor);
-  }
+	@Override
+	public StatementTarget getChildTarget() throws Exception {
+		return JavaInfoUtils.getTarget(m_fieldEditor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    String parentName = ensureParentComposite();
-    String parentAccess = m_fieldEditor.getVariableSupport().getAccessExpression(target);
-    return parentAccess + m_method.getName() + "(" + parentName + ")";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		String parentName = ensureParentComposite();
+		String parentAccess = m_fieldEditor.getVariableSupport().getAccessExpression(target);
+		return parentAccess + m_method.getName() + "(" + parentName + ")";
+	}
 
-  @Override
-  public String getAccessExpression(NodeTarget target) throws Exception {
-    return getReferenceExpression(target) + ".";
-  }
+	@Override
+	public String getAccessExpression(NodeTarget target) throws Exception {
+		return getReferenceExpression(target) + ".";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Ensures that "parentComposite" is assigned into variable. This is important because in
-   * {@link FieldEditorPreferencePage#FLAT} mode each invocation of
-   * {@link FieldEditorPreferencePage#getFieldEditorParent()} creates new instance of
-   * {@link Composite}. But sub-component access methods require same instance as
-   * {@link FieldEditor} itself.
-   */
-  private String ensureParentComposite() throws Exception {
-    String parentName = null;
-    // find "parentComposite" in ClassInstanceCreation
-    {
-      Expression parentExpression = getParentExpression(m_fieldEditor);
-      if (parentExpression instanceof MethodInvocation) {
-        Statement editorCreationStatement = AstNodeUtils.getEnclosingStatement(parentExpression);
-        AstEditor astEditor = m_fieldEditor.getEditor();
-        parentName =
-            astEditor.getUniqueVariableName(
-                editorCreationStatement.getStartPosition(),
-                "composite",
-                null);
-        astEditor.addStatement("org.eclipse.swt.widgets.Composite "
-            + parentName
-            + " = "
-            + astEditor.getSource(parentExpression)
-            + ";", new StatementTarget(editorCreationStatement, true));
-        astEditor.replaceExpression(parentExpression, parentName);
-      } else if (parentExpression instanceof SimpleName) {
-        SimpleName parentSimpleName = (SimpleName) parentExpression;
-        parentName = parentSimpleName.getIdentifier();
-      }
-    }
-    // final check
-    Assert.isNotNull(parentName, "Unable to find name of 'parentComposite' for %s.", m_fieldEditor);
-    return parentName;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Ensures that "parentComposite" is assigned into variable. This is important because in
+	 * {@link FieldEditorPreferencePage#FLAT} mode each invocation of
+	 * {@link FieldEditorPreferencePage#getFieldEditorParent()} creates new instance of
+	 * {@link Composite}. But sub-component access methods require same instance as
+	 * {@link FieldEditor} itself.
+	 */
+	private String ensureParentComposite() throws Exception {
+		String parentName = null;
+		// find "parentComposite" in ClassInstanceCreation
+		{
+			Expression parentExpression = getParentExpression(m_fieldEditor);
+			if (parentExpression instanceof MethodInvocation) {
+				Statement editorCreationStatement = AstNodeUtils.getEnclosingStatement(parentExpression);
+				AstEditor astEditor = m_fieldEditor.getEditor();
+				parentName =
+						astEditor.getUniqueVariableName(
+								editorCreationStatement.getStartPosition(),
+								"composite",
+								null);
+				astEditor.addStatement("org.eclipse.swt.widgets.Composite "
+						+ parentName
+						+ " = "
+						+ astEditor.getSource(parentExpression)
+						+ ";", new StatementTarget(editorCreationStatement, true));
+				astEditor.replaceExpression(parentExpression, parentName);
+			} else if (parentExpression instanceof SimpleName) {
+				SimpleName parentSimpleName = (SimpleName) parentExpression;
+				parentName = parentSimpleName.getIdentifier();
+			}
+		}
+		// final check
+		Assert.isNotNull(parentName, "Unable to find name of 'parentComposite' for %s.", m_fieldEditor);
+		return parentName;
+	}
 
-  /**
-   * @return the {@link Expression} for "parentComposite" in creation of given
-   *         {@link FieldEditorInfo}.
-   */
-  static Expression getParentExpression(FieldEditorInfo m_fieldEditor) {
-    Expression parentExpression = null;
-    // find "parentComposite" in ClassInstanceCreation
-    Assert.instanceOf(ConstructorCreationSupport.class, m_fieldEditor.getCreationSupport());
-    ConstructorCreationSupport creationSupport =
-        (ConstructorCreationSupport) m_fieldEditor.getCreationSupport();
-    ClassInstanceCreation creation = creationSupport.getCreation();
-    for (ParameterDescription parameter : creationSupport.getDescription().getParameters()) {
-      if (FieldEditorInfo.isParameterComposite(parameter)) {
-        parentExpression = DomGenerics.arguments(creation).get(parameter.getIndex());
-      }
-    }
-    // final check
-    Assert.isNotNull(parentExpression, "Unable to find 'parentComposite' for %s.", m_fieldEditor);
-    return parentExpression;
-  }
+	/**
+	 * @return the {@link Expression} for "parentComposite" in creation of given
+	 *         {@link FieldEditorInfo}.
+	 */
+	static Expression getParentExpression(FieldEditorInfo m_fieldEditor) {
+		Expression parentExpression = null;
+		// find "parentComposite" in ClassInstanceCreation
+		Assert.instanceOf(ConstructorCreationSupport.class, m_fieldEditor.getCreationSupport());
+		ConstructorCreationSupport creationSupport =
+				(ConstructorCreationSupport) m_fieldEditor.getCreationSupport();
+		ClassInstanceCreation creation = creationSupport.getCreation();
+		for (ParameterDescription parameter : creationSupport.getDescription().getParameters()) {
+			if (FieldEditorInfo.isParameterComposite(parameter)) {
+				parentExpression = DomGenerics.arguments(creation).get(parameter.getIndex());
+			}
+		}
+		// final check
+		Assert.isNotNull(parentExpression, "Unable to find 'parentComposite' for %s.", m_fieldEditor);
+		return parentExpression;
+	}
 }

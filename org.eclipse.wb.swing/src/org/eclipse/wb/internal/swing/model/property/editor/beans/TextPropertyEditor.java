@@ -29,92 +29,92 @@ import org.eclipse.swt.graphics.Point;
  * @coverage swing.property.beans
  */
 public final class TextPropertyEditor extends AbstractTextPropertyEditor
-    implements
-      IValueSourcePropertyEditor,
-      IClipboardSourceProvider {
-  private final PropertyEditorWrapper m_editorWrapper;
+implements
+IValueSourcePropertyEditor,
+IClipboardSourceProvider {
+	private final PropertyEditorWrapper m_editorWrapper;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TextPropertyEditor(PropertyEditorWrapper editorWrapper) {
-    m_editorWrapper = editorWrapper;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TextPropertyEditor(PropertyEditorWrapper editorWrapper) {
+		m_editorWrapper = editorWrapper;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean activate(PropertyTable propertyTable, Property property, Point location)
-      throws Exception {
-    if (getText(property) == null) {
-      if (getPresentation() != null && location == null) {
-        m_editorWrapper.openDialogEditor(propertyTable, property);
-      }
-      return false;
-    }
-    return super.activate(propertyTable, property, location);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean activate(PropertyTable propertyTable, Property property, Point location)
+			throws Exception {
+		if (getText(property) == null) {
+			if (getPresentation() != null && location == null) {
+				m_editorWrapper.openDialogEditor(propertyTable, property);
+			}
+			return false;
+		}
+		return super.activate(propertyTable, property, location);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Text
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getEditorText(Property property) throws Exception {
-    return getText(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Text
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getEditorText(Property property) throws Exception {
+		return getText(property);
+	}
 
-  @Override
-  protected boolean setEditorText(Property property, String text) throws Exception {
-    if (text.length() == 0) {
-      property.setValue(Property.UNKNOWN_VALUE);
-    } else {
-      m_editorWrapper.setText(property, text);
-    }
-    return true;
-  }
+	@Override
+	protected boolean setEditorText(Property property, String text) throws Exception {
+		if (text.length() == 0) {
+			property.setValue(Property.UNKNOWN_VALUE);
+		} else {
+			m_editorWrapper.setText(property, text);
+		}
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IValueSourcePropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getValueSource(Object value) throws Exception {
-    return m_editorWrapper.getSource(value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IValueSourcePropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getValueSource(Object value) throws Exception {
+		return m_editorWrapper.getSource(value);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IClipboardSourceProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getClipboardSource(GenericProperty property) throws Exception {
-    return m_editorWrapper.getSource(property.getValue());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IClipboardSourceProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getClipboardSource(GenericProperty property) throws Exception {
+		return m_editorWrapper.getSource(property.getValue());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public PropertyEditorPresentation getPresentation() {
-    return m_editorWrapper.getPresentation();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public PropertyEditorPresentation getPresentation() {
+		return m_editorWrapper.getPresentation();
+	}
 
-  @Override
-  protected String getText(Property property) throws Exception {
-    return m_editorWrapper.getText(property);
-  }
+	@Override
+	protected String getText(Property property) throws Exception {
+		return m_editorWrapper.getText(property);
+	}
 
-  @Override
-  public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
-    m_editorWrapper.paint(property, gc, x, y, width, height);
-  }
+	@Override
+	public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
+		m_editorWrapper.paint(property, gc, x, y, width, height);
+	}
 }

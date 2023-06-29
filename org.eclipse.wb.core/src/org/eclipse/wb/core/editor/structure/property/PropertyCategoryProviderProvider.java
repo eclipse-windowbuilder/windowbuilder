@@ -22,9 +22,9 @@ import java.util.List;
  * @coverage core.editor.structure
  */
 public interface PropertyCategoryProviderProvider {
-  /**
-   * @return the {@link PropertyCategoryProvider} for properties of given {@link ObjectInfo}-s, may
-   *         be <code>null</code> so default provider will be used.
-   */
-  PropertyCategoryProvider get(List<ObjectInfo> objects);
+	/**
+	 * @return the {@link PropertyCategoryProvider} for properties of given {@link ObjectInfo}-s, may
+	 *         be <code>null</code> so default provider will be used.
+	 */
+	PropertyCategoryProvider get(List<ObjectInfo> objects);
 }

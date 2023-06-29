@@ -24,28 +24,28 @@ import org.eclipse.wb.gef.core.tools.Tool;
  * @coverage gef.tree
  */
 public class DoubleClickEditPartTracker extends Tool {
-  private final EditPart m_sourceEditPart;
+	private final EditPart m_sourceEditPart;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DoubleClickEditPartTracker(EditPart sourceEditPart) {
-    m_sourceEditPart = sourceEditPart;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DoubleClickEditPartTracker(EditPart sourceEditPart) {
+		m_sourceEditPart = sourceEditPart;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // High-Level handle MouseEvent
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void handleDoubleClick(int button) {
-    if (button == 1) {
-      SelectionRequest request = new SelectionRequest(Request.REQ_OPEN);
-      request.setLocation(getLocation());
-      m_sourceEditPart.performRequest(request);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// High-Level handle MouseEvent
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void handleDoubleClick(int button) {
+		if (button == 1) {
+			SelectionRequest request = new SelectionRequest(Request.REQ_OPEN);
+			request.setLocation(getLocation());
+			m_sourceEditPart.performRequest(request);
+		}
+	}
 }

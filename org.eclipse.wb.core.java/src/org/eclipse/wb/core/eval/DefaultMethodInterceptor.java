@@ -20,10 +20,10 @@ import java.lang.reflect.Method;
  * @coverage core.evaluation
  */
 public class DefaultMethodInterceptor implements InvocationHandler {
-  public static final InvocationHandlerAdapter INSTANCE = InvocationHandlerAdapter.of(new DefaultMethodInterceptor());
+	public static final InvocationHandlerAdapter INSTANCE = InvocationHandlerAdapter.of(new DefaultMethodInterceptor());
 
-  @Override
-  public Object invoke(Object obj, Method method, Object[] args) throws Throwable {
-      return ReflectionUtils.getDefaultValue(method.getReturnType());
-  }
+	@Override
+	public Object invoke(Object obj, Method method, Object[] args) throws Throwable {
+		return ReflectionUtils.getDefaultValue(method.getReturnType());
+	}
 }

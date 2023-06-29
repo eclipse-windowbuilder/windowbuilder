@@ -28,29 +28,29 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
  * @coverage rcp.model
  */
 public final class RcpMethodParameterEvaluator implements IMethodParameterEvaluator {
-  public static final IMethodParameterEvaluator INSTANCE = new RcpMethodParameterEvaluator();
-  public static final FormToolkit FORM_TOOLKIT = new FormToolkit(Display.getDefault());
+	public static final IMethodParameterEvaluator INSTANCE = new RcpMethodParameterEvaluator();
+	public static final FormToolkit FORM_TOOLKIT = new FormToolkit(Display.getDefault());
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IMethodParameterEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluateParameter(EvaluationContext context,
-      MethodDeclaration methodDeclaration,
-      String methodSignature,
-      SingleVariableDeclaration parameter,
-      int index) throws Exception {
-    // FormToolkit parameter may be used before creating "this", passed in "super", so provide it
-    if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.ui.forms.widgets.FormToolkit")) {
-      return FORM_TOOLKIT;
-    }
-    // provide empty, but not null, value for ISelection
-    if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.jface.viewers.ISelection")) {
-      return new StructuredSelection();
-    }
-    // unknown parameter
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IMethodParameterEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluateParameter(EvaluationContext context,
+			MethodDeclaration methodDeclaration,
+			String methodSignature,
+			SingleVariableDeclaration parameter,
+			int index) throws Exception {
+		// FormToolkit parameter may be used before creating "this", passed in "super", so provide it
+		if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.ui.forms.widgets.FormToolkit")) {
+			return FORM_TOOLKIT;
+		}
+		// provide empty, but not null, value for ISelection
+		if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.jface.viewers.ISelection")) {
+			return new StructuredSelection();
+		}
+		// unknown parameter
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

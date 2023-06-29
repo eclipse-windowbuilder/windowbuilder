@@ -23,63 +23,63 @@ import org.eclipse.jdt.core.IJavaProject;
  * @coverage swt.utils
  */
 public class ManagerUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ManagerUtils() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ManagerUtils() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.SWTResourceManager</code>.
-   *
-   * @param component
-   *          the component to access {@link IJavaProject}.
-   */
-  public static void ensure_SWTResourceManager(JavaInfo component) throws Exception {
-    IJavaProject javaProject = component.getEditor().getJavaProject();
-    ToolkitDescription toolkit = component.getDescription().getToolkit();
-    ensure_SWTResourceManager(javaProject, toolkit);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.SWTResourceManager</code>.
+	 *
+	 * @param component
+	 *          the component to access {@link IJavaProject}.
+	 */
+	public static void ensure_SWTResourceManager(JavaInfo component) throws Exception {
+		IJavaProject javaProject = component.getEditor().getJavaProject();
+		ToolkitDescription toolkit = component.getDescription().getToolkit();
+		ensure_SWTResourceManager(javaProject, toolkit);
+	}
 
-  /**
-   * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.SWTResourceManager</code>.
-   */
-  public static void ensure_SWTResourceManager(IJavaProject javaProject, ToolkitDescription toolkit)
-      throws Exception {
-    ProjectUtils.ensureResourceType(
-        javaProject,
-        toolkit.getBundle(),
-        "org.eclipse.wb.swt.SWTResourceManager");
-  }
+	/**
+	 * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.SWTResourceManager</code>.
+	 */
+	public static void ensure_SWTResourceManager(IJavaProject javaProject, ToolkitDescription toolkit)
+			throws Exception {
+		ProjectUtils.ensureResourceType(
+				javaProject,
+				toolkit.getBundle(),
+				"org.eclipse.wb.swt.SWTResourceManager");
+	}
 
-  /**
-   * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.ResourceManager</code>.
-   *
-   * @param component
-   *          the component to access {@link IJavaProject}.
-   */
-  public static void ensure_ResourceManager(JavaInfo component) throws Exception {
-    IJavaProject javaProject = component.getEditor().getJavaProject();
-    ToolkitDescription toolkit = component.getDescription().getToolkit();
-    ensure_ResourceManager(javaProject, toolkit);
-  }
+	/**
+	 * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.ResourceManager</code>.
+	 *
+	 * @param component
+	 *          the component to access {@link IJavaProject}.
+	 */
+	public static void ensure_ResourceManager(JavaInfo component) throws Exception {
+		IJavaProject javaProject = component.getEditor().getJavaProject();
+		ToolkitDescription toolkit = component.getDescription().getToolkit();
+		ensure_ResourceManager(javaProject, toolkit);
+	}
 
-  /**
-   * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.ResourceManager</code>.
-   */
-  public static void ensure_ResourceManager(IJavaProject javaProject, ToolkitDescription toolkit)
-      throws Exception {
-    ensure_SWTResourceManager(javaProject, toolkit);
-    ProjectUtils.ensureResourceType(
-        javaProject,
-        toolkit.getBundle(),
-        "org.eclipse.wb.swt.ResourceManager");
-  }
+	/**
+	 * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.ResourceManager</code>.
+	 */
+	public static void ensure_ResourceManager(IJavaProject javaProject, ToolkitDescription toolkit)
+			throws Exception {
+		ensure_SWTResourceManager(javaProject, toolkit);
+		ProjectUtils.ensureResourceType(
+				javaProject,
+				toolkit.getBundle(),
+				"org.eclipse.wb.swt.ResourceManager");
+	}
 }

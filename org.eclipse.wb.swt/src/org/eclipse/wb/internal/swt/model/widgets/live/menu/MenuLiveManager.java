@@ -28,30 +28,30 @@ import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
  * @coverage swt.model.widgets.live
  */
 public class MenuLiveManager extends SwtLiveManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuLiveManager(AbstractComponentInfo component) {
-    super(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuLiveManager(AbstractComponentInfo component) {
+		super(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LiveComponentsManager
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addWidget(CompositeInfo shell, WidgetInfo widget) throws Exception {
-    JavaInfoUtils.add(widget, getAssociation_(widget), shell, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LiveComponentsManager
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addWidget(CompositeInfo shell, WidgetInfo widget) throws Exception {
+		JavaInfoUtils.add(widget, getAssociation_(widget), shell, null);
+	}
 
-  private static AssociationObject getAssociation_(WidgetInfo widget) throws Exception {
-    InvocationChildAssociation asBar =
-        new InvocationChildAssociation("%parent%.setMenuBar(%child%)");
-    InvocationChildAssociation asSub = new InvocationChildAssociation("%parent%.setMenu(%child%)");
-    Association association = new CompoundAssociation(asBar, asSub);
-    return new AssociationObject(association, true);
-  }
+	private static AssociationObject getAssociation_(WidgetInfo widget) throws Exception {
+		InvocationChildAssociation asBar =
+				new InvocationChildAssociation("%parent%.setMenuBar(%child%)");
+		InvocationChildAssociation asSub = new InvocationChildAssociation("%parent%.setMenu(%child%)");
+		Association association = new CompoundAssociation(asBar, asSub);
+		return new AssociationObject(association, true);
+	}
 }

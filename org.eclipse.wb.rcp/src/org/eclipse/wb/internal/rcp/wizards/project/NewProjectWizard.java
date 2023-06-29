@@ -25,46 +25,46 @@ import org.eclipse.jdt.core.IJavaProject;
  * @coverage rcp.wizards
  */
 public class NewProjectWizard extends DesignerJavaProjectWizard {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NewProjectWizard() {
-    setDefaultPageImageDescriptor(Activator.getImageDescriptor("wizard/Project/banner.gif"));
-    setWindowTitle(WizardsMessages.NewProjectWizard_title);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NewProjectWizard() {
+		setDefaultPageImageDescriptor(Activator.getImageDescriptor("wizard/Project/banner.gif"));
+		setWindowTitle(WizardsMessages.NewProjectWizard_title);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Wizard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean performFinish() {
-    boolean result = super.performFinish();
-    if (result) {
-      try {
-        addRequiredLibraries(getCreatedElement());
-      } catch (Throwable e) {
-        DesignerPlugin.log(e);
-      }
-    }
-    return result;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Wizard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean performFinish() {
+		boolean result = super.performFinish();
+		if (result) {
+			try {
+				addRequiredLibraries(getCreatedElement());
+			} catch (Throwable e) {
+				DesignerPlugin.log(e);
+			}
+		}
+		return result;
+	}
 
-  private static void addRequiredLibraries(IJavaProject javaProject) throws Exception {
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.osgi");
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.core.commands");
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.equinox.common");
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.equinox.registry");
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.core.runtime");
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.text");
-    ProjectUtils.addSWTLibrary(javaProject);
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.jface");
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.jface.text");
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.workbench");
-    ProjectUtils.addPluginLibraries(javaProject, "com.ibm.icu");
-    ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.forms");
-  }
+	private static void addRequiredLibraries(IJavaProject javaProject) throws Exception {
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.osgi");
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.core.commands");
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.equinox.common");
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.equinox.registry");
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.core.runtime");
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.text");
+		ProjectUtils.addSWTLibrary(javaProject);
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.jface");
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.jface.text");
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.workbench");
+		ProjectUtils.addPluginLibraries(javaProject, "com.ibm.icu");
+		ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.forms");
+	}
 }

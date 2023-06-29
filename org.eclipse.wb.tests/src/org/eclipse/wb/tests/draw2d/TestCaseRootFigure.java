@@ -18,34 +18,34 @@ import org.eclipse.wb.tests.gef.TestLogger;
  *
  */
 public class TestCaseRootFigure extends RootFigure {
-  private final TestLogger m_logger;
+	private final TestLogger m_logger;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TestCaseRootFigure(TestLogger logger) {
-    super(null, null);
-    m_logger = logger;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TestCaseRootFigure(TestLogger logger) {
+		super(null, null);
+		m_logger = logger;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void repaint(boolean reset, int x, int y, int width, int height) {
-    if (m_logger != null) {
-      m_logger.log("repaint(" + reset + ", " + x + ", " + y + ", " + width + ", " + height + ")");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void repaint(boolean reset, int x, int y, int width, int height) {
+		if (m_logger != null) {
+			m_logger.log("repaint(" + reset + ", " + x + ", " + y + ", " + width + ", " + height + ")");
+		}
+	}
 
-  @Override
-  protected void updateCursor() {
-    if (m_logger != null) {
-      m_logger.log("updateCursor");
-    }
-  }
+	@Override
+	protected void updateCursor() {
+		if (m_logger != null) {
+			m_logger.log("updateCursor");
+		}
+	}
 }

@@ -28,56 +28,56 @@ import org.eclipse.swt.widgets.Control;
  * @coverage rcp.model.layout
  */
 public final class GridLayoutInfo
-    extends
-      org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+extends
+org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    replaceGridLayout();
-    super.refresh_afterCreate();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		replaceGridLayout();
+		super.refresh_afterCreate();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Replace
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Replaces standard {@link GridLayout} and {@link GridData} with our {@link GridLayout2} and
-   * {@link GridData2}.
-   */
-  private void replaceGridLayout() throws Exception {
-    Composite composite = (Composite) getComposite().getObject();
-    // update GridLayout
-    {
-      GridLayout2 newGridLayout = GridLayout2.replaceGridLayout(composite);
-      setObject(newGridLayout);
-    }
-    // force layout() to recalculate "design" fields
-    composite.layout();
-    // update GridDataInfo's
-    for (ControlInfo controlInfo : getControls()) {
-      Control control = (Control) controlInfo.getObject();
-      GridData2 gridDataObject = GridLayout2.getLayoutData2(control);
-      if (gridDataObject != null) {
-        GridDataInfo gridDataInfo = getGridData(controlInfo);
-        gridDataInfo.setObject(gridDataObject);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Replace
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Replaces standard {@link GridLayout} and {@link GridData} with our {@link GridLayout2} and
+	 * {@link GridData2}.
+	 */
+	private void replaceGridLayout() throws Exception {
+		Composite composite = (Composite) getComposite().getObject();
+		// update GridLayout
+		{
+			GridLayout2 newGridLayout = GridLayout2.replaceGridLayout(composite);
+			setObject(newGridLayout);
+		}
+		// force layout() to recalculate "design" fields
+		composite.layout();
+		// update GridDataInfo's
+		for (ControlInfo controlInfo : getControls()) {
+			Control control = (Control) controlInfo.getObject();
+			GridData2 gridDataObject = GridLayout2.getLayoutData2(control);
+			if (gridDataObject != null) {
+				GridDataInfo gridDataInfo = getGridData(controlInfo);
+				gridDataInfo.setObject(gridDataObject);
+			}
+		}
+	}
 }

@@ -44,213 +44,213 @@ import java.util.List;
  * @coverage core.model.creation
  */
 public final class InstanceFactoryCreationSupport extends AbstractExplicitFactoryCreationSupport {
-  private final InstanceFactoryInfo m_factory;
+	private final InstanceFactoryInfo m_factory;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public InstanceFactoryCreationSupport(InstanceFactoryInfo factory,
-      FactoryMethodDescription description) {
-    super(description);
-    m_factory = factory;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public InstanceFactoryCreationSupport(InstanceFactoryInfo factory,
+			FactoryMethodDescription description) {
+		super(description);
+		m_factory = factory;
+	}
 
-  public InstanceFactoryCreationSupport(InstanceFactoryInfo factory,
-      FactoryMethodDescription description,
-      MethodInvocation invocation) {
-    super(description, invocation);
-    m_factory = factory;
-  }
+	public InstanceFactoryCreationSupport(InstanceFactoryInfo factory,
+			FactoryMethodDescription description,
+			MethodInvocation invocation) {
+		super(description, invocation);
+		m_factory = factory;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "instance factory: "
-        + "{"
-        + m_factory.getVariableSupport().toString()
-        + "}"
-        + " "
-        + m_description.getSignature();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "instance factory: "
+				+ "{"
+				+ m_factory.getVariableSupport().toString()
+				+ "}"
+				+ " "
+				+ m_description.getSignature();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link InstanceFactoryInfo} used to create this component.
-   */
-  public InstanceFactoryInfo getFactory() {
-    return m_factory;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link InstanceFactoryInfo} used to create this component.
+	 */
+	public InstanceFactoryInfo getFactory() {
+		return m_factory;
+	}
 
-  @Override
-  public CreationSupport getLiveComponentCreation() {
-    FactoryMethodDescription factoryMethodDescription = getDescription();
-    return new LiveCreationSupport(factoryMethodDescription);
-  }
+	@Override
+	public CreationSupport getLiveComponentCreation() {
+		FactoryMethodDescription factoryMethodDescription = getDescription();
+		return new LiveCreationSupport(factoryMethodDescription);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String add_getSource_invocationExpression(NodeTarget target) throws Exception {
-    return TemplateUtils.getExpression(m_factory) + ".";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String add_getSource_invocationExpression(NodeTarget target) throws Exception {
+		return TemplateUtils.getExpression(m_factory) + ".";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IClipboardCreationSupport getClipboard() throws Exception {
-    final String factoryClassName = m_description.getDeclaringClass().getName();
-    final String methodSignature = m_description.getSignature();
-    final String argumentsSource = getClipboardArguments();
-    return new IClipboardCreationSupport() {
-      private static final long serialVersionUID = 0L;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IClipboardCreationSupport getClipboard() throws Exception {
+		final String factoryClassName = m_description.getDeclaringClass().getName();
+		final String methodSignature = m_description.getSignature();
+		final String argumentsSource = getClipboardArguments();
+		return new IClipboardCreationSupport() {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      public CreationSupport create(JavaInfo rootObject) throws Exception {
-        AstEditor editor = rootObject.getEditor();
-        Class<?> factoryClass =
-            EditorState.get(editor).getEditorLoader().loadClass(factoryClassName);
-        //
-        InstanceFactoryInfo factoryInfo = getFactory(rootObject, factoryClass);
-        FactoryMethodDescription description =
-            FactoryDescriptionHelper.getDescription(editor, factoryClass, methodSignature, false);
-        //
-        InstanceFactoryCreationSupport creationSupport =
-            new InstanceFactoryCreationSupport(factoryInfo, description);
-        creationSupport.m_addArguments = argumentsSource;
-        return creationSupport;
-      }
+			@Override
+			public CreationSupport create(JavaInfo rootObject) throws Exception {
+				AstEditor editor = rootObject.getEditor();
+				Class<?> factoryClass =
+						EditorState.get(editor).getEditorLoader().loadClass(factoryClassName);
+				//
+				InstanceFactoryInfo factoryInfo = getFactory(rootObject, factoryClass);
+				FactoryMethodDescription description =
+						FactoryDescriptionHelper.getDescription(editor, factoryClass, methodSignature, false);
+				//
+				InstanceFactoryCreationSupport creationSupport =
+						new InstanceFactoryCreationSupport(factoryInfo, description);
+				creationSupport.m_addArguments = argumentsSource;
+				return creationSupport;
+			}
 
-      /**
-       * @return the new or existing {@link InstanceFactoryInfo} from hierarchy.
-       */
-      private InstanceFactoryInfo getFactory(JavaInfo rootObject, Class<?> factoryClass)
-          throws Exception {
-        List<InstanceFactoryInfo> factories =
-            InstanceFactoryInfo.getFactories(rootObject, factoryClass);
-        // single factory
-        if (factories.size() == 1) {
-          return factories.get(0);
-        }
-        // no factories
-        /*if (factories.size() == 0)*/{
-          Assert.isTrue(factories.isEmpty(), "Only single and no instance factories expected for "
-              + factoryClassName
-              + "."
-              + methodSignature
-              + ", but found "
-              + factories);
-          return InstanceFactoryInfo.add(rootObject, factoryClass);
-        }
-      }
-    };
-  }
+			/**
+			 * @return the new or existing {@link InstanceFactoryInfo} from hierarchy.
+			 */
+			private InstanceFactoryInfo getFactory(JavaInfo rootObject, Class<?> factoryClass)
+					throws Exception {
+				List<InstanceFactoryInfo> factories =
+						InstanceFactoryInfo.getFactories(rootObject, factoryClass);
+				// single factory
+				if (factories.size() == 1) {
+					return factories.get(0);
+				}
+				// no factories
+				/*if (factories.size() == 0)*/{
+					Assert.isTrue(factories.isEmpty(), "Only single and no instance factories expected for "
+							+ factoryClassName
+							+ "."
+							+ methodSignature
+							+ ", but found "
+							+ factories);
+					return InstanceFactoryInfo.add(rootObject, factoryClass);
+				}
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LiveCreationSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link CreationSupport} for creating {@link JavaInfo} for
-   * {@link AbstractLiveManager}.
-   * <p>
-   * We use here special trick - instead of real source code for {@link InstanceFactoryInfo} access
-   * we use casted {@link NullLiteral}, and then evaluate it as
-   * <em>already existing<em> object of factory! This object
-   * exists because "live" works when we already show some GUI for user, so there are objects for all {@link JavaInfo}'s,
-   * including {@link InstanceFactoryInfo}.
-   */
-  private final class LiveCreationSupport extends AbstractExplicitFactoryCreationSupport {
-    private final String m_factoryTypeName;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LiveCreationSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link CreationSupport} for creating {@link JavaInfo} for
+	 * {@link AbstractLiveManager}.
+	 * <p>
+	 * We use here special trick - instead of real source code for {@link InstanceFactoryInfo} access
+	 * we use casted {@link NullLiteral}, and then evaluate it as
+	 * <em>already existing<em> object of factory! This object
+	 * exists because "live" works when we already show some GUI for user, so there are objects for all {@link JavaInfo}'s,
+	 * including {@link InstanceFactoryInfo}.
+	 */
+	private final class LiveCreationSupport extends AbstractExplicitFactoryCreationSupport {
+		private final String m_factoryTypeName;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    private LiveCreationSupport(FactoryMethodDescription description) {
-      super(description);
-      m_factoryTypeName = m_factory.getDescription().getComponentClass().getName();
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		private LiveCreationSupport(FactoryMethodDescription description) {
+			super(description);
+			m_factoryTypeName = m_factory.getDescription().getComponentClass().getName();
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Evaluation
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    private boolean m_canBeEvaluated = false;
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Evaluation
+		//
+		////////////////////////////////////////////////////////////////////////////
+		private boolean m_canBeEvaluated = false;
 
-    @Override
-    public boolean canBeEvaluated() {
-      // first time return "false", so force to call our "create()" method
-      if (!m_canBeEvaluated) {
-        m_canBeEvaluated = true;
-        return false;
-      }
-      // next times return "true" to evaluate using ASTEvaluationEngine,
-      // with our IExpressionEvaluator that evaluates "(our.factory.Type) null"
-      return true;
-    }
+		@Override
+		public boolean canBeEvaluated() {
+			// first time return "false", so force to call our "create()" method
+			if (!m_canBeEvaluated) {
+				m_canBeEvaluated = true;
+				return false;
+			}
+			// next times return "true" to evaluate using ASTEvaluationEngine,
+			// with our IExpressionEvaluator that evaluates "(our.factory.Type) null"
+			return true;
+		}
 
-    @Override
-    public Object create(EvaluationContext context, ExecutionFlowFrameVisitor visitor)
-        throws Exception {
-      // evaluates "(our.factory.Type) null" into factory object
-      IExpressionEvaluator evaluator = new IExpressionEvaluator() {
-        @Override
-        public Object evaluate(EvaluationContext _context,
-            Expression expression,
-            ITypeBinding typeBinding,
-            String typeQualifiedName) throws Exception {
-          if (expression instanceof CastExpression) {
-            CastExpression castExpression = (CastExpression) expression;
-            String typeName = AstNodeUtils.getFullyQualifiedName(castExpression.getType(), false);
-            if (typeName.equals(m_factoryTypeName)
-                && castExpression.getExpression() instanceof NullLiteral) {
-              return m_factory.getObject();
-            }
-          }
-          return AstEvaluationEngine.UNKNOWN;
-        }
-      };
-      // JavaInfo object is evaluation of invocation
-      context.addEvaluator(evaluator);
-      try {
-        return AstEvaluationEngine.evaluate(context, m_invocation);
-      } finally {
-        context.removeEvaluator(evaluator);
-      }
-    }
+		@Override
+		public Object create(EvaluationContext context, ExecutionFlowFrameVisitor visitor)
+				throws Exception {
+			// evaluates "(our.factory.Type) null" into factory object
+			IExpressionEvaluator evaluator = new IExpressionEvaluator() {
+				@Override
+				public Object evaluate(EvaluationContext _context,
+						Expression expression,
+						ITypeBinding typeBinding,
+						String typeQualifiedName) throws Exception {
+					if (expression instanceof CastExpression) {
+						CastExpression castExpression = (CastExpression) expression;
+						String typeName = AstNodeUtils.getFullyQualifiedName(castExpression.getType(), false);
+						if (typeName.equals(m_factoryTypeName)
+								&& castExpression.getExpression() instanceof NullLiteral) {
+							return m_factory.getObject();
+						}
+					}
+					return AstEvaluationEngine.UNKNOWN;
+				}
+			};
+			// JavaInfo object is evaluation of invocation
+			context.addEvaluator(evaluator);
+			try {
+				return AstEvaluationEngine.evaluate(context, m_invocation);
+			} finally {
+				context.removeEvaluator(evaluator);
+			}
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Adding
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected String add_getSource_invocationExpression(NodeTarget target) throws Exception {
-      return "((" + m_factoryTypeName + ") null).";
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Adding
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected String add_getSource_invocationExpression(NodeTarget target) throws Exception {
+			return "((" + m_factoryTypeName + ") null).";
+		}
 
-    @Override
-    public CreationSupport getLiveComponentCreation() {
-      throw new NotImplementedException();
-    }
-  }
+		@Override
+		public CreationSupport getLiveComponentCreation() {
+			throw new NotImplementedException();
+		}
+	}
 }

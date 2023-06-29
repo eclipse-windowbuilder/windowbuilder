@@ -22,14 +22,14 @@ import org.eclipse.jface.preference.PreferencePage;
  * @coverage rcp.preferences.ui
  */
 public final class EventsPreferencePage
-    extends
-      org.eclipse.wb.internal.core.preferences.event.EventsPreferencePage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EventsPreferencePage() {
-    super(Activator.getDefault().getPreferenceStore());
-  }
+extends
+org.eclipse.wb.internal.core.preferences.event.EventsPreferencePage {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EventsPreferencePage() {
+		super(Activator.getDefault().getPreferenceStore());
+	}
 }

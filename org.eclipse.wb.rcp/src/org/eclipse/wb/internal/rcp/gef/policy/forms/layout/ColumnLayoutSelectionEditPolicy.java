@@ -43,131 +43,131 @@ import java.util.List;
  * @coverage rcp.gef.policy
  */
 public final class ColumnLayoutSelectionEditPolicy<C extends IControlInfo>
-    extends
-      SelectionEditPolicy {
-  private static final String REQ_RESIZE = "resize";
-  private final IColumnLayoutInfo<C> m_layout;
-  private final C m_control;
+extends
+SelectionEditPolicy {
+	private static final String REQ_RESIZE = "resize";
+	private final IColumnLayoutInfo<C> m_layout;
+	private final C m_control;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnLayoutSelectionEditPolicy(IColumnLayoutInfo<C> layout, C control) {
-    m_layout = layout;
-    m_control = control;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnLayoutSelectionEditPolicy(IColumnLayoutInfo<C> layout, C control) {
+		m_layout = layout;
+		m_control = control;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    handles.add(new MoveHandle(getHost()));
-    handles.add(createHandle(IPositionConstants.EAST));
-    handles.add(createHandle(IPositionConstants.SOUTH));
-    handles.add(createHandle(IPositionConstants.SOUTH_EAST));
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		handles.add(new MoveHandle(getHost()));
+		handles.add(createHandle(IPositionConstants.EAST));
+		handles.add(createHandle(IPositionConstants.SOUTH));
+		handles.add(createHandle(IPositionConstants.SOUTH_EAST));
+		return handles;
+	}
 
-  /**
-   * @return the {@link ResizeHandle} for given direction.
-   */
-  private Handle createHandle(int direction) {
-    ResizeHandle handle = new ResizeHandle(getHost(), direction);
-    handle.setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE));
-    return handle;
-  }
+	/**
+	 * @return the {@link ResizeHandle} for given direction.
+	 */
+	private Handle createHandle(int direction) {
+		ResizeHandle handle = new ResizeHandle(getHost(), direction);
+		handle.setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE));
+		return handle;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Routing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean understandsRequest(Request request) {
-    return super.understandsRequest(request) || request.getType() == REQ_RESIZE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Routing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean understandsRequest(Request request) {
+		return super.understandsRequest(request) || request.getType() == REQ_RESIZE;
+	}
 
-  @Override
-  public Command getCommand(final Request request) {
-    return getResizeCommand((ChangeBoundsRequest) request);
-  }
+	@Override
+	public Command getCommand(final Request request) {
+		return getResizeCommand((ChangeBoundsRequest) request);
+	}
 
-  @Override
-  public void showSourceFeedback(Request request) {
-    showResizeFeedback((ChangeBoundsRequest) request);
-  }
+	@Override
+	public void showSourceFeedback(Request request) {
+		showResizeFeedback((ChangeBoundsRequest) request);
+	}
 
-  @Override
-  public void eraseSourceFeedback(Request request) {
-    eraseResizeFeedback((ChangeBoundsRequest) request);
-  }
+	@Override
+	public void eraseSourceFeedback(Request request) {
+		eraseResizeFeedback((ChangeBoundsRequest) request);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Figure m_resizeFeedback;
-  private TextFeedback m_textFeedback;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Figure m_resizeFeedback;
+	private TextFeedback m_textFeedback;
 
-  //
-  private Command getResizeCommand(ChangeBoundsRequest request) {
-    final int resizeDirection = request.getResizeDirection();
-    final Rectangle newBounds = request.getTransformedRectangle(getHost().getFigure().getBounds());
-    return new EditCommand(m_control) {
-      @Override
-      protected void executeEdit() throws Exception {
-        IColumnLayoutDataInfo columnData = m_layout.getColumnData2(m_control);
-        if (PolicyUtils.hasDirection(resizeDirection, IPositionConstants.EAST)) {
-          columnData.setWidthHint(newBounds.width);
-        }
-        if (PolicyUtils.hasDirection(resizeDirection, IPositionConstants.SOUTH)) {
-          columnData.setHeightHint(newBounds.height);
-        }
-      }
-    };
-  }
+	//
+	private Command getResizeCommand(ChangeBoundsRequest request) {
+		final int resizeDirection = request.getResizeDirection();
+		final Rectangle newBounds = request.getTransformedRectangle(getHost().getFigure().getBounds());
+		return new EditCommand(m_control) {
+			@Override
+			protected void executeEdit() throws Exception {
+				IColumnLayoutDataInfo columnData = m_layout.getColumnData2(m_control);
+				if (PolicyUtils.hasDirection(resizeDirection, IPositionConstants.EAST)) {
+					columnData.setWidthHint(newBounds.width);
+				}
+				if (PolicyUtils.hasDirection(resizeDirection, IPositionConstants.SOUTH)) {
+					columnData.setHeightHint(newBounds.height);
+				}
+			}
+		};
+	}
 
-  private void showResizeFeedback(ChangeBoundsRequest request) {
-    if (m_resizeFeedback == null) {
-      // create selection feedback
-      {
-        m_resizeFeedback = new RectangleFigure();
-        m_resizeFeedback.setForeground(IColorConstants.red);
-        addFeedback(m_resizeFeedback);
-      }
-      // create text feedback
-      {
-        m_textFeedback = new TextFeedback(getFeedbackLayer());
-        m_textFeedback.add();
-      }
-    }
-    // prepare bounds
-    Rectangle bounds;
-    {
-      Figure hostFigure = getHostFigure();
-      bounds = request.getTransformedRectangle(hostFigure.getBounds());
-      FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
-    }
-    // update selection feedback
-    m_resizeFeedback.setBounds(bounds);
-    // update text feedback
-    m_textFeedback.setText(Integer.toString(bounds.width) + " x " + Integer.toString(bounds.height));
-    m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
-  }
+	private void showResizeFeedback(ChangeBoundsRequest request) {
+		if (m_resizeFeedback == null) {
+			// create selection feedback
+			{
+				m_resizeFeedback = new RectangleFigure();
+				m_resizeFeedback.setForeground(IColorConstants.red);
+				addFeedback(m_resizeFeedback);
+			}
+			// create text feedback
+			{
+				m_textFeedback = new TextFeedback(getFeedbackLayer());
+				m_textFeedback.add();
+			}
+		}
+		// prepare bounds
+		Rectangle bounds;
+		{
+			Figure hostFigure = getHostFigure();
+			bounds = request.getTransformedRectangle(hostFigure.getBounds());
+			FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
+		}
+		// update selection feedback
+		m_resizeFeedback.setBounds(bounds);
+		// update text feedback
+		m_textFeedback.setText(Integer.toString(bounds.width) + " x " + Integer.toString(bounds.height));
+		m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
+	}
 
-  private void eraseResizeFeedback(ChangeBoundsRequest request) {
-    // erase selection feedback
-    removeFeedback(m_resizeFeedback);
-    m_resizeFeedback = null;
-    // erase text feedback
-    m_textFeedback.remove();
-    m_textFeedback = null;
-  }
+	private void eraseResizeFeedback(ChangeBoundsRequest request) {
+		// erase selection feedback
+		removeFeedback(m_resizeFeedback);
+		m_resizeFeedback = null;
+		// erase text feedback
+		m_textFeedback.remove();
+		m_textFeedback = null;
+	}
 }

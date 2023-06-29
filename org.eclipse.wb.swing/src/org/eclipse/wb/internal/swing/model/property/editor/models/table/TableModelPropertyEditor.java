@@ -38,80 +38,80 @@ import javax.swing.table.TableModel;
  * @coverage swing.property.editor
  */
 public final class TableModelPropertyEditor extends TextDialogPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new TableModelPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new TableModelPropertyEditor();
 
-  private TableModelPropertyEditor() {
-  }
+	private TableModelPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    if (property.isModified()) {
-      Object value = property.getValue();
-      if (value instanceof TableModel) {
-        TableModel tableModel = (TableModel) value;
-        return tableModel.getColumnCount() + " columns, " + tableModel.getRowCount() + " rows";
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		if (property.isModified()) {
+			Object value = property.getValue();
+			if (value instanceof TableModel) {
+				TableModel tableModel = (TableModel) value;
+				return tableModel.getColumnCount() + " columns, " + tableModel.getRowCount() + " rows";
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    GenericProperty genericProperty = (GenericProperty) property;
-    JTable table = (JTable) genericProperty.getJavaInfo().getObject();
-    TableModelDescription model = new TableModelDescription(table);
-    TableModelDialog dialog =
-        new TableModelDialog(DesignerPlugin.getShell(), property.getTitle(), model);
-    // open dialog
-    if (dialog.open() == Window.OK) {
-      setModel(genericProperty, model);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		GenericProperty genericProperty = (GenericProperty) property;
+		JTable table = (JTable) genericProperty.getJavaInfo().getObject();
+		TableModelDescription model = new TableModelDescription(table);
+		TableModelDialog dialog =
+				new TableModelDialog(DesignerPlugin.getShell(), property.getTitle(), model);
+		// open dialog
+		if (dialog.open() == Window.OK) {
+			setModel(genericProperty, model);
+		}
+	}
 
-  private static void setModel(final GenericProperty genericProperty,
-      final TableModelDescription model) throws Exception {
-    final ComponentInfo table = (ComponentInfo) genericProperty.getJavaInfo();
-    ExecutionUtils.run(table, new RunnableEx() {
-      public void run() throws Exception {
-        setModelEx(table, genericProperty, model);
-      }
-    });
-  }
+	private static void setModel(final GenericProperty genericProperty,
+			final TableModelDescription model) throws Exception {
+		final ComponentInfo table = (ComponentInfo) genericProperty.getJavaInfo();
+		ExecutionUtils.run(table, new RunnableEx() {
+			public void run() throws Exception {
+				setModelEx(table, genericProperty, model);
+			}
+		});
+	}
 
-  private static void setModelEx(ComponentInfo table,
-      GenericProperty genericProperty,
-      TableModelDescription model) throws Exception {
-    genericProperty.setExpression(model.getModelSource(), Property.UNKNOWN_VALUE);
-    // remove existing column invocations
-    table.removeMethodInvocations("getColumnModel()");
-    // add new column invocations
-    ASTNode prevNode = table.getMethodInvocation("setModel(javax.swing.table.TableModel)");
-    for (String columnInvocation : model.getColumnModelInvocations()) {
-      String newSource = TemplateUtils.getExpression(table) + "." + columnInvocation;
-      prevNode = addExpressionStatement(table, prevNode, newSource);
-    }
-  }
+	private static void setModelEx(ComponentInfo table,
+			GenericProperty genericProperty,
+			TableModelDescription model) throws Exception {
+		genericProperty.setExpression(model.getModelSource(), Property.UNKNOWN_VALUE);
+		// remove existing column invocations
+		table.removeMethodInvocations("getColumnModel()");
+		// add new column invocations
+		ASTNode prevNode = table.getMethodInvocation("setModel(javax.swing.table.TableModel)");
+		for (String columnInvocation : model.getColumnModelInvocations()) {
+			String newSource = TemplateUtils.getExpression(table) + "." + columnInvocation;
+			prevNode = addExpressionStatement(table, prevNode, newSource);
+		}
+	}
 
-  private static ASTNode addExpressionStatement(JavaInfo javaInfo,
-      ASTNode nodeOfPrevStatement,
-      String expressionSource) throws Exception {
-    Statement prevStatement = AstNodeUtils.getEnclosingStatement(nodeOfPrevStatement);
-    StatementTarget target = new StatementTarget(prevStatement, false);
-    return javaInfo.addExpressionStatement(target, expressionSource);
-  }
+	private static ASTNode addExpressionStatement(JavaInfo javaInfo,
+			ASTNode nodeOfPrevStatement,
+			String expressionSource) throws Exception {
+		Statement prevStatement = AstNodeUtils.getEnclosingStatement(nodeOfPrevStatement);
+		StatementTarget target = new StatementTarget(prevStatement, false);
+		return javaInfo.addExpressionStatement(target, expressionSource);
+	}
 }

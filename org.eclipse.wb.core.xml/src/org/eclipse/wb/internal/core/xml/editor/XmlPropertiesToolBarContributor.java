@@ -20,42 +20,42 @@ import java.util.List;
  * @coverage XML.editor
  */
 public final class XmlPropertiesToolBarContributor implements IPropertiesToolBarContributor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IPropertiesToolBarContributor INSTANCE =
-      new XmlPropertiesToolBarContributor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IPropertiesToolBarContributor INSTANCE =
+			new XmlPropertiesToolBarContributor();
 
-  private XmlPropertiesToolBarContributor() {
-  }
+	private XmlPropertiesToolBarContributor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IPropertiesToolBarContributor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void contributeToolBar(IToolBarManager manager, final List<ObjectInfo> objects)
-      throws Exception {
-    addGotoDefinitionAction(manager, objects);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IPropertiesToolBarContributor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void contributeToolBar(IToolBarManager manager, final List<ObjectInfo> objects)
+			throws Exception {
+		addGotoDefinitionAction(manager, objects);
+	}
 
-  private void addGotoDefinitionAction(IToolBarManager manager, List<ObjectInfo> objects) {
-    if (objects.size() == 1 && objects.get(0) instanceof XmlObjectInfo) {
-      final XmlObjectInfo javaInfo = (XmlObjectInfo) objects.get(0);
-      IAction gotoDefinitionAction = new Action() {
-        @Override
-        public void run() {
-          int position = javaInfo.getElement().getOffset();
-          IDesignPageSite site = IDesignPageSite.Helper.getSite(javaInfo);
-          site.openSourcePosition(position);
-        }
-      };
-      gotoDefinitionAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/goto_definition.gif"));
-      gotoDefinitionAction.setToolTipText(Messages.ComponentsPropertiesPage_goDefinition);
-      manager.appendToGroup(GROUP_EDIT, gotoDefinitionAction);
-    }
-  }
+	private void addGotoDefinitionAction(IToolBarManager manager, List<ObjectInfo> objects) {
+		if (objects.size() == 1 && objects.get(0) instanceof XmlObjectInfo) {
+			final XmlObjectInfo javaInfo = (XmlObjectInfo) objects.get(0);
+			IAction gotoDefinitionAction = new Action() {
+				@Override
+				public void run() {
+					int position = javaInfo.getElement().getOffset();
+					IDesignPageSite site = IDesignPageSite.Helper.getSite(javaInfo);
+					site.openSourcePosition(position);
+				}
+			};
+			gotoDefinitionAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/goto_definition.gif"));
+			gotoDefinitionAction.setToolTipText(Messages.ComponentsPropertiesPage_goDefinition);
+			manager.appendToGroup(GROUP_EDIT, gotoDefinitionAction);
+		}
+	}
 }

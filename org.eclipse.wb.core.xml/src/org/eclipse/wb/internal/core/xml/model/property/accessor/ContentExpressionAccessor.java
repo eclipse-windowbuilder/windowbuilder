@@ -20,35 +20,35 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.property
  */
 public final class ContentExpressionAccessor extends ExpressionAccessor {
-  public static final ExpressionAccessor INSTANCE = new ContentExpressionAccessor();
+	public static final ExpressionAccessor INSTANCE = new ContentExpressionAccessor();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ContentExpressionAccessor() {
-    super(null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ContentExpressionAccessor() {
+		super(null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isModified(XmlObjectInfo object) throws Exception {
-    return object.getElement().getTextNode() != null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isModified(XmlObjectInfo object) throws Exception {
+		return object.getElement().getTextNode() != null;
+	}
 
-  @Override
-  public String getExpression(XmlObjectInfo object) {
-    DocumentTextNode textNode = object.getElement().getTextNode();
-    return textNode != null ? textNode.getText() : null;
-  }
+	@Override
+	public String getExpression(XmlObjectInfo object) {
+		DocumentTextNode textNode = object.getElement().getTextNode();
+		return textNode != null ? textNode.getText() : null;
+	}
 
-  @Override
-  public void setExpression(XmlObjectInfo object, String expression) throws Exception {
-    object.getElement().setText(expression, false);
-  }
+	@Override
+	public void setExpression(XmlObjectInfo object, String expression) throws Exception {
+		object.getElement().setText(expression, false);
+	}
 }

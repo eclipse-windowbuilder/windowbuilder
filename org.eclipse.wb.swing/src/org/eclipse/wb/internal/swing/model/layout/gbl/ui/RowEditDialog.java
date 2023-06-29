@@ -27,46 +27,46 @@ import java.util.List;
  * @coverage swing.model.layout.ui
  */
 public final class RowEditDialog extends DimensionEditDialog<RowInfo, RowInfo.Alignment> {
-  private static final List<AlignmentDescription<RowInfo.Alignment>> ALIGNMENTS =
-      Lists.newArrayList();
-  static {
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.TOP,
-        ModelMessages.RowEditDialog_aTop));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.CENTER,
-        ModelMessages.RowEditDialog_aCenter));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BOTTOM,
-        ModelMessages.RowEditDialog_aBottom));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.FILL,
-        ModelMessages.RowEditDialog_aFill));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE,
-        ModelMessages.RowEditDialog_aBaseline));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_ABOVE,
-        ModelMessages.RowEditDialog_aAboveBaseline));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_BELOW,
-        ModelMessages.RowEditDialog_aBelowBaseline));
-  }
+	private static final List<AlignmentDescription<RowInfo.Alignment>> ALIGNMENTS =
+			Lists.newArrayList();
+	static {
+		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.TOP,
+				ModelMessages.RowEditDialog_aTop));
+		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.CENTER,
+				ModelMessages.RowEditDialog_aCenter));
+		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BOTTOM,
+				ModelMessages.RowEditDialog_aBottom));
+		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.FILL,
+				ModelMessages.RowEditDialog_aFill));
+		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE,
+				ModelMessages.RowEditDialog_aBaseline));
+		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_ABOVE,
+				ModelMessages.RowEditDialog_aAboveBaseline));
+		ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_BELOW,
+				ModelMessages.RowEditDialog_aBelowBaseline));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowEditDialog(Shell parentShell, AbstractGridBagLayoutInfo layout, RowInfo row) {
-    super(parentShell, layout, layout.getRows(), row, ModelMessages.RowEditDialog_title, ALIGNMENTS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowEditDialog(Shell parentShell, AbstractGridBagLayoutInfo layout, RowInfo row) {
+		super(parentShell, layout, layout.getRows(), row, ModelMessages.RowEditDialog_title, ALIGNMENTS);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected RowInfo.Alignment getAlignment(RowInfo dimension) {
-    return dimension.getAlignment();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected RowInfo.Alignment getAlignment(RowInfo dimension) {
+		return dimension.getAlignment();
+	}
 
-  @Override
-  protected void setAlignment(RowInfo dimension, RowInfo.Alignment alignment) throws Exception {
-    dimension.setAlignment(alignment);
-  }
+	@Override
+	protected void setAlignment(RowInfo dimension, RowInfo.Alignment alignment) throws Exception {
+		dimension.setAlignment(alignment);
+	}
 }

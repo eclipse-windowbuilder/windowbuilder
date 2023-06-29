@@ -20,70 +20,70 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
  * @author scheglov_ke
  */
 public class ScrolledFormTest extends XwtModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parse() throws Exception {
-    parse(
-        "<!-- Forms API -->",
-        "<Shell>",
-        "  <Shell.layout>",
-        "    <FillLayout/>",
-        "  </Shell.layout>",
-        "  <ScrolledForm wbp:name='form'/>",
-        "</Shell>");
-    assertHierarchy(
-        "// filler filler filler filler filler",
-        "<Shell>",
-        "  <FillLayout>",
-        "  <ScrolledForm wbp:name='form'>",
-        "    <ScrolledForm.form?>",
-        "    <ScrolledForm.body?>",
-        "      implicit-layout: absolute");
-    refresh();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parse() throws Exception {
+		parse(
+				"<!-- Forms API -->",
+				"<Shell>",
+				"  <Shell.layout>",
+				"    <FillLayout/>",
+				"  </Shell.layout>",
+				"  <ScrolledForm wbp:name='form'/>",
+				"</Shell>");
+		assertHierarchy(
+				"// filler filler filler filler filler",
+				"<Shell>",
+				"  <FillLayout>",
+				"  <ScrolledForm wbp:name='form'>",
+				"    <ScrolledForm.form?>",
+				"    <ScrolledForm.body?>",
+				"      implicit-layout: absolute");
+		refresh();
+	}
 
-  public void test_create() throws Exception {
-    CompositeInfo shell =
-        parse(
-            "<!-- Forms API -->",
-            "<Shell>",
-            "  <Shell.layout>",
-            "    <FillLayout/>",
-            "  </Shell.layout>",
-            "</Shell>");
-    refresh();
-    //
-    ScrolledFormInfo newForm = createObject("org.eclipse.ui.forms.widgets.ScrolledForm");
-    shell.getLayout().command_CREATE(newForm, null);
-    assertXML(
-        "<!-- Forms API -->",
-        "<Shell>",
-        "  <Shell.layout>",
-        "    <FillLayout/>",
-        "  </Shell.layout>",
-        "  <ScrolledForm>",
-        "    <ScrolledForm.form text='New ScrolledForm'/>",
-        "  </ScrolledForm>",
-        "</Shell>");
-    assertHierarchy(
-        "// filler filler filler filler filler",
-        "<Shell>",
-        "  <FillLayout>",
-        "  <ScrolledForm>",
-        "    <ScrolledForm.form text='New ScrolledForm'>",
-        "    <ScrolledForm.body?>",
-        "      implicit-layout: absolute");
-  }
+	public void test_create() throws Exception {
+		CompositeInfo shell =
+				parse(
+						"<!-- Forms API -->",
+						"<Shell>",
+						"  <Shell.layout>",
+						"    <FillLayout/>",
+						"  </Shell.layout>",
+						"</Shell>");
+		refresh();
+		//
+		ScrolledFormInfo newForm = createObject("org.eclipse.ui.forms.widgets.ScrolledForm");
+		shell.getLayout().command_CREATE(newForm, null);
+		assertXML(
+				"<!-- Forms API -->",
+				"<Shell>",
+				"  <Shell.layout>",
+				"    <FillLayout/>",
+				"  </Shell.layout>",
+				"  <ScrolledForm>",
+				"    <ScrolledForm.form text='New ScrolledForm'/>",
+				"  </ScrolledForm>",
+				"</Shell>");
+		assertHierarchy(
+				"// filler filler filler filler filler",
+				"<Shell>",
+				"  <FillLayout>",
+				"  <ScrolledForm>",
+				"    <ScrolledForm.form text='New ScrolledForm'>",
+				"    <ScrolledForm.body?>",
+				"      implicit-layout: absolute");
+	}
 }

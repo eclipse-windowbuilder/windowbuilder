@@ -22,38 +22,38 @@ import org.eclipse.swt.custom.SashForm;
  * @coverage rcp.model.widgets
  */
 public interface ISashFormInfo<C extends IControlInfo> extends ICompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link SashForm} has horizontal layout.
-   */
-  public boolean isHorizontal();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link SashForm} has horizontal layout.
+	 */
+	public boolean isHorizontal();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link IControlInfo}.
-   */
-  void command_CREATE(C control, C nextControl) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link IControlInfo}.
+	 */
+	void command_CREATE(C control, C nextControl) throws Exception;
 
-  /**
-   * Moves existing {@link IControlInfo}.
-   */
-  void command_MOVE(C control, C nextControl) throws Exception;
+	/**
+	 * Moves existing {@link IControlInfo}.
+	 */
+	void command_MOVE(C control, C nextControl) throws Exception;
 
-  /**
-   * Sets requested size for {@link IControlInfo}.
-   *
-   * @param control
-   *          the {@link IControlInfo}, not last.
-   * @param size
-   *          the size that should be set for given {@link IControlInfo}.
-   */
-  void command_RESIZE(C control, int size) throws Exception;
+	/**
+	 * Sets requested size for {@link IControlInfo}.
+	 *
+	 * @param control
+	 *          the {@link IControlInfo}, not last.
+	 * @param size
+	 *          the size that should be set for given {@link IControlInfo}.
+	 */
+	void command_RESIZE(C control, int size) throws Exception;
 }

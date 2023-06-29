@@ -27,38 +27,38 @@ import java.util.List;
  * @coverage XWT.model.property
  */
 final class EventsPropertyEditor extends AbstractComplexEventPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final EventsPropertyEditor INSTANCE = new EventsPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final EventsPropertyEditor INSTANCE = new EventsPropertyEditor();
 
-  private EventsPropertyEditor() {
-  }
+	private EventsPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IComplexPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AbstractListenerProperty[] getProperties(Property property) throws Exception {
-    EventsProperty eventsProperty = (EventsProperty) property;
-    XmlObjectInfo javaInfo = eventsProperty.getObject();
-    // get from cache or create
-    AbstractListenerProperty[] properties =
-        (AbstractListenerProperty[]) javaInfo.getArbitraryValue(eventsProperty);
-    if (properties == null) {
-      properties = createProperties(javaInfo);
-      javaInfo.putArbitraryValue(eventsProperty, properties);
-    }
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IComplexPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AbstractListenerProperty[] getProperties(Property property) throws Exception {
+		EventsProperty eventsProperty = (EventsProperty) property;
+		XmlObjectInfo javaInfo = eventsProperty.getObject();
+		// get from cache or create
+		AbstractListenerProperty[] properties =
+				(AbstractListenerProperty[]) javaInfo.getArbitraryValue(eventsProperty);
+		if (properties == null) {
+			properties = createProperties(javaInfo);
+			javaInfo.putArbitraryValue(eventsProperty, properties);
+		}
+		return properties;
+	}
 
-  private AbstractListenerProperty[] createProperties(XmlObjectInfo object) throws Exception {
-    List<AbstractListenerProperty> properties = Lists.newArrayList();
-    object.getBroadcast(XmlObjectEventListeners.class).invoke(object, properties);
-    return properties.toArray(new AbstractListenerProperty[properties.size()]);
-  }
+	private AbstractListenerProperty[] createProperties(XmlObjectInfo object) throws Exception {
+		List<AbstractListenerProperty> properties = Lists.newArrayList();
+		object.getBroadcast(XmlObjectEventListeners.class).invoke(object, properties);
+		return properties.toArray(new AbstractListenerProperty[properties.size()]);
+	}
 }

@@ -21,35 +21,35 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage nebula.gef
  */
 public final class CollapsibleButtonDropRequest extends AbstractCreateRequest {
-  public static final String TYPE = "drop Collapsible button";
+	public static final String TYPE = "drop Collapsible button";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CollapsibleButtonDropRequest() {
-    super(TYPE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CollapsibleButtonDropRequest() {
+		super(TYPE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Component
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ControlInfo m_button;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Component
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ControlInfo m_button;
 
-  /**
-   * @return the {@link ControlInfo} button to select after drop finished.
-   */
-  public ControlInfo getButton() {
-    return m_button;
-  }
+	/**
+	 * @return the {@link ControlInfo} button to select after drop finished.
+	 */
+	public ControlInfo getButton() {
+		return m_button;
+	}
 
-  /**
-   * Sets the {@link ControlInfo} button to select after drop finished.
-   */
-  public void setButton(ControlInfo button) {
-    m_button = button;
-  }
+	/**
+	 * Sets the {@link ControlInfo} button to select after drop finished.
+	 */
+	public void setButton(ControlInfo button) {
+		m_button = button;
+	}
 }

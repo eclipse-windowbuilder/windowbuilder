@@ -20,35 +20,35 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
  * @coverage core.model.property
  */
 public class EmptyProperty extends Property {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EmptyProperty() {
-    super(BooleanPropertyEditor.INSTANCE);
-  }
-  public EmptyProperty(PropertyEditor editor) {
-    super(editor);
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() {
-    return null;
-  }
-  @Override
-  public boolean isModified() throws Exception {
-    return false;
-  }
-  @Override
-  public Object getValue() throws Exception {
-    return UNKNOWN_VALUE;
-  }
-  @Override
-  public void setValue(Object value) throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EmptyProperty() {
+		super(BooleanPropertyEditor.INSTANCE);
+	}
+	public EmptyProperty(PropertyEditor editor) {
+		super(editor);
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() {
+		return null;
+	}
+	@Override
+	public boolean isModified() throws Exception {
+		return false;
+	}
+	@Override
+	public Object getValue() throws Exception {
+		return UNKNOWN_VALUE;
+	}
+	@Override
+	public void setValue(Object value) throws Exception {
+	}
 }

@@ -43,106 +43,106 @@ import javax.swing.ButtonGroup;
  * @coverage swing.model
  */
 public final class ButtonGroupInfo extends JavaInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ButtonGroupInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ButtonGroupInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the list of {@link ObjectReferenceInfo}'s on {@link ComponentInfo}'s with
-   *         {@link AbstractButton} model, bounded to this {@link ButtonGroupInfo}.
-   */
-  public List<ObjectReferenceInfo> getButtons() throws Exception {
-    getChildren().clear();
-    List<ObjectReferenceInfo> buttons = Lists.newArrayList();
-    for (MethodInvocation addInvocation : getMethodInvocations("add(javax.swing.AbstractButton)")) {
-      Expression buttonReference = DomGenerics.arguments(addInvocation).get(0);
-      ComponentInfo button = (ComponentInfo) getRootJava().getChildRepresentedBy(buttonReference);
-      if (button != null) {
-        ObjectReferenceInfo reference = new ObjectReferenceInfo(button);
-        addChild(reference);
-        buttons.add(reference);
-      }
-    }
-    return buttons;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the list of {@link ObjectReferenceInfo}'s on {@link ComponentInfo}'s with
+	 *         {@link AbstractButton} model, bounded to this {@link ButtonGroupInfo}.
+	 */
+	public List<ObjectReferenceInfo> getButtons() throws Exception {
+		getChildren().clear();
+		List<ObjectReferenceInfo> buttons = Lists.newArrayList();
+		for (MethodInvocation addInvocation : getMethodInvocations("add(javax.swing.AbstractButton)")) {
+			Expression buttonReference = DomGenerics.arguments(addInvocation).get(0);
+			ComponentInfo button = (ComponentInfo) getRootJava().getChildRepresentedBy(buttonReference);
+			if (button != null) {
+				ObjectReferenceInfo reference = new ObjectReferenceInfo(button);
+				addChild(reference);
+				buttons.add(reference);
+			}
+		}
+		return buttons;
+	}
 
-  /**
-   * @return <code>true</code> if given {@link AbstractButton} is contained in this
-   *         {@link ButtonGroupInfo}.
-   */
-  public boolean hasButton(ComponentInfo button) {
-    for (MethodInvocation addInvocation : getMethodInvocations("add(javax.swing.AbstractButton)")) {
-      Expression buttonExpression = DomGenerics.arguments(addInvocation).get(0);
-      if (button.isRepresentedBy(buttonExpression)) {
-        return true;
-      }
-    }
-    // no such button
-    return false;
-  }
+	/**
+	 * @return <code>true</code> if given {@link AbstractButton} is contained in this
+	 *         {@link ButtonGroupInfo}.
+	 */
+	public boolean hasButton(ComponentInfo button) {
+		for (MethodInvocation addInvocation : getMethodInvocations("add(javax.swing.AbstractButton)")) {
+			Expression buttonExpression = DomGenerics.arguments(addInvocation).get(0);
+			if (button.isRepresentedBy(buttonExpression)) {
+				return true;
+			}
+		}
+		// no such button
+		return false;
+	}
 
-  /**
-   * Removes given {@link AbstractButton} from any {@link ButtonGroupInfo}.
-   */
-  public static void clearButton(ComponentInfo button) throws Exception {
-    assertIsButton(button);
-    for (ASTNode relatedNode : button.getRelatedNodes()) {
-      if (relatedNode.getLocationInParent() == MethodInvocation.ARGUMENTS_PROPERTY) {
-        MethodInvocation invocation = (MethodInvocation) relatedNode.getParent();
-        if (AstNodeUtils.getMethodSignature(invocation).equals("add(javax.swing.AbstractButton)")) {
-          button.getEditor().removeEnclosingStatement(invocation);
-        }
-      }
-    }
-  }
+	/**
+	 * Removes given {@link AbstractButton} from any {@link ButtonGroupInfo}.
+	 */
+	public static void clearButton(ComponentInfo button) throws Exception {
+		assertIsButton(button);
+		for (ASTNode relatedNode : button.getRelatedNodes()) {
+			if (relatedNode.getLocationInParent() == MethodInvocation.ARGUMENTS_PROPERTY) {
+				MethodInvocation invocation = (MethodInvocation) relatedNode.getParent();
+				if (AstNodeUtils.getMethodSignature(invocation).equals("add(javax.swing.AbstractButton)")) {
+					button.getEditor().removeEnclosingStatement(invocation);
+				}
+			}
+		}
+	}
 
-  /**
-   * Adds new {@link AbstractButton} to this {@link ButtonGroupInfo}.
-   */
-  public void addButton(ComponentInfo button) throws Exception {
-    assertIsButton(button);
-    clearButton(button);
-    // add to this ButtonGroupInfo
-    {
-      String addSource = TemplateUtils.format("{0}.add({1})", this, button);
-      MethodInvocation addInvocation = (MethodInvocation) button.addExpressionStatement(addSource);
-      addRelatedNode(addInvocation.getExpression());
-    }
-  }
+	/**
+	 * Adds new {@link AbstractButton} to this {@link ButtonGroupInfo}.
+	 */
+	public void addButton(ComponentInfo button) throws Exception {
+		assertIsButton(button);
+		clearButton(button);
+		// add to this ButtonGroupInfo
+		{
+			String addSource = TemplateUtils.format("{0}.add({1})", this, button);
+			MethodInvocation addInvocation = (MethodInvocation) button.addExpressionStatement(addSource);
+			addRelatedNode(addInvocation.getExpression());
+		}
+	}
 
-  /**
-   * Asserts that given {@link ComponentInfo} is {@link AbstractButton}.
-   */
-  private static void assertIsButton(ComponentInfo button) {
-    Assert.isLegal(AbstractButton.class.isAssignableFrom(button.getDescription().getComponentClass()));
-  }
+	/**
+	 * Asserts that given {@link ComponentInfo} is {@link AbstractButton}.
+	 */
+	private static void assertIsButton(ComponentInfo button) {
+		Assert.isLegal(AbstractButton.class.isAssignableFrom(button.getDescription().getComponentClass()));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenTree() throws Exception {
-      return new ArrayList<ObjectInfo>(getButtons());
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenTree() throws Exception {
+			return new ArrayList<ObjectInfo>(getButtons());
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 }

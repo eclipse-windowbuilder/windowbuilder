@@ -23,29 +23,29 @@ import org.eclipse.jdt.core.JavaCore;
  * @coverage core.model.property.converter
  */
 public abstract class AbstractNumberConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if context {@link IJavaProject} supports auto-boxing.
-   */
-  protected final boolean isBoxingEnabled(JavaInfo javaInfo) {
-    if (javaInfo == null) {
-      return false;
-    }
-    IJavaProject javaProject = javaInfo.getEditor().getJavaProject();
-    // we need Java 5+
-    if (!ProjectUtils.isJDK15(javaProject)) {
-      return false;
-    }
-    // ...auto-boxing enabled?
-    String option = javaProject.getOption(JavaCore.COMPILER_PB_AUTOBOXING, true);
-    if (!"ignore".equals(option)) {
-      return false;
-    }
-    // OK
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if context {@link IJavaProject} supports auto-boxing.
+	 */
+	protected final boolean isBoxingEnabled(JavaInfo javaInfo) {
+		if (javaInfo == null) {
+			return false;
+		}
+		IJavaProject javaProject = javaInfo.getEditor().getJavaProject();
+		// we need Java 5+
+		if (!ProjectUtils.isJDK15(javaProject)) {
+			return false;
+		}
+		// ...auto-boxing enabled?
+		String option = javaProject.getOption(JavaCore.COMPILER_PB_AUTOBOXING, true);
+		if (!"ignore".equals(option)) {
+			return false;
+		}
+		// OK
+		return true;
+	}
 }

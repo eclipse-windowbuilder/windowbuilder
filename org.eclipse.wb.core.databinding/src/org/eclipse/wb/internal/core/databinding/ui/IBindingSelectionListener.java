@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
  * @coverage bindings.ui
  */
 interface IBindingSelectionListener {
-  /**
-   * Notifies that the selection has changed.
-   */
-  void selectionChanged(IBindingInfo binding);
+	/**
+	 * Notifies that the selection has changed.
+	 */
+	void selectionChanged(IBindingInfo binding);
 }

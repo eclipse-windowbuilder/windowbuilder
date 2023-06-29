@@ -19,32 +19,32 @@ import org.eclipse.wb.core.model.ObjectInfo;
  * @coverage swing.assistant
  */
 public class LayoutAssistantSupport
-    extends
-      org.eclipse.wb.core.editor.actions.assistant.LayoutAssistantSupport {
-  protected final LayoutInfo m_layout;
+extends
+org.eclipse.wb.core.editor.actions.assistant.LayoutAssistantSupport {
+	protected final LayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutAssistantSupport(LayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutAssistantSupport(LayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final String getConstraintsPageTitle() {
-    return "Constraints";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final String getConstraintsPageTitle() {
+		return "Constraints";
+	}
 
-  @Override
-  protected final ObjectInfo getContainer() {
-    return m_layout.getContainer();
-  }
+	@Override
+	protected final ObjectInfo getContainer() {
+		return m_layout.getContainer();
+	}
 }

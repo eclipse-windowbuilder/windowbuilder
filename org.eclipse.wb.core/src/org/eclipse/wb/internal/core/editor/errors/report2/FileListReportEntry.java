@@ -27,40 +27,40 @@ import java.util.zip.ZipOutputStream;
  * @coverage core.editor.errors.report2
  */
 public abstract class FileListReportEntry implements IReportEntry {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Abstract
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the List of Files to be included into report.
-   */
-  protected abstract List<File> getFiles();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Abstract
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the List of Files to be included into report.
+	 */
+	protected abstract List<File> getFiles();
 
-  /**
-   * @return the prefix to create directory.
-   */
-  protected abstract String getPrefix();
+	/**
+	 * @return the prefix to create directory.
+	 */
+	protected abstract String getPrefix();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IReportEntry
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void write(ZipOutputStream zipStream) throws Exception {
-    List<File> files = getFiles();
-    for (File file : files) {
-      InputStream fileStream = new FileInputStream(file);
-      // get name with prefix
-      String filePath = getPrefix() + FilenameUtils.getName(file.getAbsolutePath());
-      zipStream.putNextEntry(new ZipEntry(filePath));
-      try {
-        IOUtils.copy(fileStream, zipStream);
-      } finally {
-        zipStream.closeEntry();
-        IOUtils.closeQuietly(fileStream);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IReportEntry
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void write(ZipOutputStream zipStream) throws Exception {
+		List<File> files = getFiles();
+		for (File file : files) {
+			InputStream fileStream = new FileInputStream(file);
+			// get name with prefix
+			String filePath = getPrefix() + FilenameUtils.getName(file.getAbsolutePath());
+			zipStream.putNextEntry(new ZipEntry(filePath));
+			try {
+				IOUtils.copy(fileStream, zipStream);
+			} finally {
+				zipStream.closeEntry();
+				IOUtils.closeQuietly(fileStream);
+			}
+		}
+	}
 }

@@ -30,60 +30,60 @@ import javax.swing.border.LineBorder;
  * @coverage swing.property.editor
  */
 public final class LineBorderComposite extends AbstractBorderComposite {
-  private final ColorField m_colorField;
-  private final IntegerField m_thicknessField;
-  private final BooleanField m_typeField;
+	private final ColorField m_colorField;
+	private final IntegerField m_thicknessField;
+	private final BooleanField m_typeField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LineBorderComposite(Composite parent) {
-    super(parent, "LineBorder");
-    GridLayoutFactory.create(this);
-    m_colorField = createColorField(ModelMessages.LineBorderComposite_color);
-    m_thicknessField = createIntegerField(ModelMessages.LineBorderComposite_thinkness);
-    m_typeField =
-        createBooleanField(ModelMessages.LineBorderComposite_corners, new String[]{
-            ModelMessages.LineBorderComposite_cornersSquare,
-            ModelMessages.LineBorderComposite_cornersRounded});
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LineBorderComposite(Composite parent) {
+		super(parent, "LineBorder");
+		GridLayoutFactory.create(this);
+		m_colorField = createColorField(ModelMessages.LineBorderComposite_color);
+		m_thicknessField = createIntegerField(ModelMessages.LineBorderComposite_thinkness);
+		m_typeField =
+				createBooleanField(ModelMessages.LineBorderComposite_corners, new String[]{
+						ModelMessages.LineBorderComposite_cornersSquare,
+						ModelMessages.LineBorderComposite_cornersRounded});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean setBorder(Border border) throws Exception {
-    if (border instanceof LineBorder) {
-      LineBorder ourBorder = (LineBorder) border;
-      m_colorField.setValue(ourBorder.getLineColor());
-      m_thicknessField.setValue(ourBorder.getThickness());
-      m_typeField.setValue(ourBorder.getRoundedCorners());
-      // OK, this is our Border
-      return true;
-    } else {
-      m_colorField.setValue(Color.BLACK);
-      m_thicknessField.setValue(1);
-      m_typeField.setValue(false);
-      // no, we don't know this Border
-      return false;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean setBorder(Border border) throws Exception {
+		if (border instanceof LineBorder) {
+			LineBorder ourBorder = (LineBorder) border;
+			m_colorField.setValue(ourBorder.getLineColor());
+			m_thicknessField.setValue(ourBorder.getThickness());
+			m_typeField.setValue(ourBorder.getRoundedCorners());
+			// OK, this is our Border
+			return true;
+		} else {
+			m_colorField.setValue(Color.BLACK);
+			m_thicknessField.setValue(1);
+			m_typeField.setValue(false);
+			// no, we don't know this Border
+			return false;
+		}
+	}
 
-  @Override
-  public String getSource() throws Exception {
-    String colorSource = m_colorField.getSource();
-    String thinknessSource = m_thicknessField.getSource();
-    String cornersSource = m_typeField.getSource();
-    if ("false".equals(cornersSource)) {
-      if ("1".equals(thinknessSource)) {
-        return "new javax.swing.border.LineBorder(" + colorSource + ")";
-      }
-      return "new javax.swing.border.LineBorder(" + colorSource + ", " + thinknessSource + ")";
-    }
-    return "new javax.swing.border.LineBorder(" + colorSource + ", " + thinknessSource + ", true)";
-  }
+	@Override
+	public String getSource() throws Exception {
+		String colorSource = m_colorField.getSource();
+		String thinknessSource = m_thicknessField.getSource();
+		String cornersSource = m_typeField.getSource();
+		if ("false".equals(cornersSource)) {
+			if ("1".equals(thinknessSource)) {
+				return "new javax.swing.border.LineBorder(" + colorSource + ")";
+			}
+			return "new javax.swing.border.LineBorder(" + colorSource + ", " + thinknessSource + ")";
+		}
+		return "new javax.swing.border.LineBorder(" + colorSource + ", " + thinknessSource + ", true)";
+	}
 }

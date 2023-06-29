@@ -30,37 +30,37 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class TitleAreaDialogWizardPage extends RcpWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TitleAreaDialogWizardPage() {
-    setTitle(WizardsMessages.TitleAreaDialogWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/TitleAreaDialog/banner.gif"));
-    setDescription(WizardsMessages.TitleAreaDialogWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TitleAreaDialogWizardPage() {
+		setTitle(WizardsMessages.TitleAreaDialogWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/TitleAreaDialog/banner.gif"));
+		setDescription(WizardsMessages.TitleAreaDialogWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/jface/TitleAreaDialog.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/jface/TitleAreaDialog.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("org.eclipse.jface.dialogs.TitleAreaDialog", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("org.eclipse.jface.dialogs.TitleAreaDialog", true);
+	}
 }

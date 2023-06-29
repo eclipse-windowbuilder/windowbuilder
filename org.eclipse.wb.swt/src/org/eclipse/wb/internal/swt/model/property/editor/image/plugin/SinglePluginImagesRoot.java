@@ -24,46 +24,46 @@ import org.eclipse.pde.core.plugin.PluginRegistry;
  * @coverage swt.property.editor.plugin
  */
 public class SinglePluginImagesRoot implements IImageRoot {
-  private final String m_symbolicName;
-  private final ImageContainer[] m_containers = new ImageContainer[1];
+	private final String m_symbolicName;
+	private final ImageContainer[] m_containers = new ImageContainer[1];
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SinglePluginImagesRoot(IProject project) {
-    IPluginModelBase pluginModel = PluginRegistry.findModel(project);
-    m_symbolicName = pluginModel.getBundleDescription().getSymbolicName();
-    m_containers[0] = new ProjectImageContainer(project, m_symbolicName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SinglePluginImagesRoot(IProject project) {
+		IPluginModelBase pluginModel = PluginRegistry.findModel(project);
+		m_symbolicName = pluginModel.getBundleDescription().getSymbolicName();
+		m_containers[0] = new ProjectImageContainer(project, m_symbolicName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IImageRoot
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IImageElement[] elements() {
-    return m_containers;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IImageRoot
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IImageElement[] elements() {
+		return m_containers;
+	}
 
-  @Override
-  public void dispose() {
-    ImageContainer container = m_containers[0];
-    if (container != null) {
-      container.dispose();
-      m_containers[0] = null;
-    }
-  }
+	@Override
+	public void dispose() {
+		ImageContainer container = m_containers[0];
+		if (container != null) {
+			container.dispose();
+			m_containers[0] = null;
+		}
+	}
 
-  @Override
-  public Object[] getSelectionPath(Object data) {
-    String imagePath = (String) data;
-    Object[] resource = m_containers[0].findResource(m_symbolicName, imagePath);
-    if (resource != null) {
-      return resource;
-    }
-    return null;
-  }
+	@Override
+	public Object[] getSelectionPath(Object data) {
+		String imagePath = (String) data;
+		Object[] resource = m_containers[0].findResource(m_symbolicName, imagePath);
+		if (resource != null) {
+			return resource;
+		}
+		return null;
+	}
 }

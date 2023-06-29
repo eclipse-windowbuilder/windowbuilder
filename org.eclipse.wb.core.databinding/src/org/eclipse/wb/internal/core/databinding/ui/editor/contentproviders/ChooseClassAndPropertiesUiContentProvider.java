@@ -340,7 +340,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider extends ChooseCl
 							break;
 						case Last:
 							m_propertiesViewer
-									.setCheckedElements(new Object[] { m_properties.get(m_properties.size() - 1) });
+							.setCheckedElements(new Object[] { m_properties.get(m_properties.size() - 1) });
 							break;
 						case All:
 							m_propertiesViewer.setCheckedElements(m_properties.toArray());

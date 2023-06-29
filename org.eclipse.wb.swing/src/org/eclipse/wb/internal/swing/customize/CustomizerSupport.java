@@ -31,59 +31,59 @@ import java.util.List;
  * @coverage swing.customize
  */
 public final class CustomizerSupport implements IJavaInfoInitializationParticipator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IJavaInfoInitializationParticipator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void process(final JavaInfo javaInfo) throws Exception {
-    final Class<Customizer> customizerClass = getCustomizerClass(javaInfo);
-    if (customizerClass != null) {
-      javaInfo.addBroadcastListener(new ObjectEventListener() {
-        @Override
-        public void addContextMenu(List<? extends ObjectInfo> objects,
-            ObjectInfo object,
-            IMenuManager manager) throws Exception {
-          if (javaInfo == object && objects.size() == 1) {
-            contribute(javaInfo, manager, customizerClass);
-          }
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IJavaInfoInitializationParticipator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void process(final JavaInfo javaInfo) throws Exception {
+		final Class<Customizer> customizerClass = getCustomizerClass(javaInfo);
+		if (customizerClass != null) {
+			javaInfo.addBroadcastListener(new ObjectEventListener() {
+				@Override
+				public void addContextMenu(List<? extends ObjectInfo> objects,
+						ObjectInfo object,
+						IMenuManager manager) throws Exception {
+					if (javaInfo == object && objects.size() == 1) {
+						contribute(javaInfo, manager, customizerClass);
+					}
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Bean utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Customizer} class, explicit for bean, of inherited from super class.
-   */
-  @SuppressWarnings("unchecked")
-  private static Class<Customizer> getCustomizerClass(JavaInfo javaInfo) throws Exception {
-    BeanDescriptor beanDescriptor = javaInfo.getDescription().getBeanDescriptor();
-    if (beanDescriptor != null) {
-      Class<?> customizerClass = beanDescriptor.getCustomizerClass();
-      if (customizerClass != null && Customizer.class.isAssignableFrom(customizerClass)) {
-        return (Class<Customizer>) customizerClass;
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Bean utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Customizer} class, explicit for bean, of inherited from super class.
+	 */
+	@SuppressWarnings("unchecked")
+	private static Class<Customizer> getCustomizerClass(JavaInfo javaInfo) throws Exception {
+		BeanDescriptor beanDescriptor = javaInfo.getDescription().getBeanDescriptor();
+		if (beanDescriptor != null) {
+			Class<?> customizerClass = beanDescriptor.getCustomizerClass();
+			if (customizerClass != null && Customizer.class.isAssignableFrom(customizerClass)) {
+				return (Class<Customizer>) customizerClass;
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Contribution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Contribute "Customize" action.
-   */
-  private static void contribute(JavaInfo javaInfo,
-      IContributionManager manager,
-      Class<Customizer> customizerClass) {
-    CustomizerAction action = new CustomizerAction(javaInfo, customizerClass);
-    manager.appendToGroup(IContextMenuConstants.GROUP_ADDITIONAL, action);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Contribution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Contribute "Customize" action.
+	 */
+	private static void contribute(JavaInfo javaInfo,
+			IContributionManager manager,
+			Class<Customizer> customizerClass) {
+		CustomizerAction action = new CustomizerAction(javaInfo, customizerClass);
+		manager.appendToGroup(IContextMenuConstants.GROUP_ADDITIONAL, action);
+	}
 }

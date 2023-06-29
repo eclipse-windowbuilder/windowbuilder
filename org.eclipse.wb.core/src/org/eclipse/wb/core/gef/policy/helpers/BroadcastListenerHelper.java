@@ -23,35 +23,35 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
  * @coverage core.gef.policy
  */
 public final class BroadcastListenerHelper implements IEditPolicyListener {
-  private final ObjectInfo m_object;
-  private final EditPolicy m_editPolicy;
-  private final Object m_listener;
+	private final ObjectInfo m_object;
+	private final EditPolicy m_editPolicy;
+	private final Object m_listener;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BroadcastListenerHelper(ObjectInfo object, EditPolicy editPolicy, Object listener) {
-    m_object = object;
-    m_editPolicy = editPolicy;
-    m_listener = listener;
-    m_editPolicy.addEditPolicyListener(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BroadcastListenerHelper(ObjectInfo object, EditPolicy editPolicy, Object listener) {
+		m_object = object;
+		m_editPolicy = editPolicy;
+		m_listener = listener;
+		m_editPolicy.addEditPolicyListener(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPolicyListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void activatePolicy(EditPolicy policy) {
-    m_object.addBroadcastListener(m_listener);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPolicyListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void activatePolicy(EditPolicy policy) {
+		m_object.addBroadcastListener(m_listener);
+	}
 
-  @Override
-  public void deactivatePolicy(EditPolicy policy) {
-    m_object.removeBroadcastListener(m_listener);
-    m_editPolicy.removeEditPolicyListener(this);
-  }
+	@Override
+	public void deactivatePolicy(EditPolicy policy) {
+		m_object.removeBroadcastListener(m_listener);
+		m_editPolicy.removeEditPolicyListener(this);
+	}
 }

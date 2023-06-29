@@ -26,43 +26,43 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage swt.model.layout
  */
 public final class SelectionActionsSupport<C extends IControlInfo>
-    extends
-      org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.SimpleAlignmentActionsSupport<C> {
-  private final IAbsoluteLayoutInfo<C> m_layout;
+extends
+org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.SimpleAlignmentActionsSupport<C> {
+	private final IAbsoluteLayoutInfo<C> m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionActionsSupport(IAbsoluteLayoutInfo<C> layout) {
-    super();
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionActionsSupport(IAbsoluteLayoutInfo<C> layout) {
+		super();
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SelectionActionsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isComponentInfo(ObjectInfo object) {
-    return object instanceof IControlInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SelectionActionsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isComponentInfo(ObjectInfo object) {
+		return object instanceof IControlInfo;
+	}
 
-  @Override
-  protected boolean isValidObjectOnRootPath(IAbstractComponentInfo parent) {
-    CompositeInfo composite = (CompositeInfo) parent;
-    return composite.hasLayout() && composite.getLayout() instanceof IAbsoluteLayoutInfo<?>;
-  }
+	@Override
+	protected boolean isValidObjectOnRootPath(IAbstractComponentInfo parent) {
+		CompositeInfo composite = (CompositeInfo) parent;
+		return composite.hasLayout() && composite.getLayout() instanceof IAbsoluteLayoutInfo<?>;
+	}
 
-  @Override
-  protected IAbstractComponentInfo getLayoutContainer() {
-    return m_layout.getComposite();
-  }
+	@Override
+	protected IAbstractComponentInfo getLayoutContainer() {
+		return m_layout.getComposite();
+	}
 
-  @Override
-  protected void commandChangeBounds(C control, Point location, Dimension size) throws Exception {
-    m_layout.commandChangeBounds(control, location, size);
-  }
+	@Override
+	protected void commandChangeBounds(C control, Point location, Dimension size) throws Exception {
+		m_layout.commandChangeBounds(control, location, size);
+	}
 }

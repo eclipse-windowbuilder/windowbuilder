@@ -23,39 +23,39 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
  */
 @SuppressWarnings("serial")
 public final class MultipleConstructorsError extends Error {
-  private final AstEditor m_editor;
-  private final TypeDeclaration m_typeDeclaration;
+	private final AstEditor m_editor;
+	private final TypeDeclaration m_typeDeclaration;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Constructor to use this exception as marker.
-   */
-  public MultipleConstructorsError() {
-    this(null, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Constructor to use this exception as marker.
+	 */
+	public MultipleConstructorsError() {
+		this(null, null);
+	}
 
-  /**
-   * Constructor with all required information.
-   */
-  public MultipleConstructorsError(AstEditor editor, TypeDeclaration typeDeclaration) {
-    m_editor = editor;
-    m_typeDeclaration = typeDeclaration;
-  }
+	/**
+	 * Constructor with all required information.
+	 */
+	public MultipleConstructorsError(AstEditor editor, TypeDeclaration typeDeclaration) {
+		m_editor = editor;
+		m_typeDeclaration = typeDeclaration;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AstEditor getEditor() {
-    return m_editor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AstEditor getEditor() {
+		return m_editor;
+	}
 
-  public TypeDeclaration getTypeDeclaration() {
-    return m_typeDeclaration;
-  }
+	public TypeDeclaration getTypeDeclaration() {
+		return m_typeDeclaration;
+	}
 }

@@ -20,24 +20,24 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author scheglov_ke
  */
 public class RootAssociationTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parse() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    RootAssociation association = (RootAssociation) panel.getAssociation();
-    assertSame(panel, association.getJavaInfo());
-    assertTrue(association.canDelete());
-    // try to remove()
-    assertFalse(association.remove());
-    assertSame(association, panel.getAssociation());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parse() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		RootAssociation association = (RootAssociation) panel.getAssociation();
+		assertSame(panel, association.getJavaInfo());
+		assertTrue(association.canDelete());
+		// try to remove()
+		assertFalse(association.remove());
+		assertSame(association, panel.getAssociation());
+	}
 }

@@ -33,185 +33,185 @@ import java.util.List;
  * @coverage gef.graphical
  */
 public abstract class SelectionEditPolicy extends GraphicalEditPolicy
-    implements
-      IEditPartSelectionListener {
-  private int m_selection = EditPart.SELECTED_NONE;
-  private List<Handle> m_staticHandles;
-  private List<Handle> m_handles;
+implements
+IEditPartSelectionListener {
+	private int m_selection = EditPart.SELECTED_NONE;
+	private List<Handle> m_staticHandles;
+	private List<Handle> m_handles;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void activate() {
-    super.activate();
-    getHost().addSelectionListener(this);
-    showStaticHandles();
-    selectionChanged(getHost());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void activate() {
+		super.activate();
+		getHost().addSelectionListener(this);
+		showStaticHandles();
+		selectionChanged(getHost());
+	}
 
-  @Override
-  public void deactivate() {
-    getHost().removeSelectionListener(this);
-    selectionChanged(EditPart.SELECTED_NONE);
-    hideStaticHandles();
-    super.deactivate();
-  }
+	@Override
+	public void deactivate() {
+		getHost().removeSelectionListener(this);
+		selectionChanged(EditPart.SELECTED_NONE);
+		hideStaticHandles();
+		super.deactivate();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Selection
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void selectionChanged(EditPart editPart) {
-    selectionChanged(editPart.getSelected());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Selection
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void selectionChanged(EditPart editPart) {
+		selectionChanged(editPart.getSelected());
+	}
 
-  private void selectionChanged(int selection) {
-    if (m_selection != selection) {
-      m_selection = selection;
-      //
-      if (m_selection == EditPart.SELECTED_NONE) {
-        hideSelection();
-      } else {
-        showSelection();
-      }
-    }
-  }
+	private void selectionChanged(int selection) {
+		if (m_selection != selection) {
+			m_selection = selection;
+			//
+			if (m_selection == EditPart.SELECTED_NONE) {
+				hideSelection();
+			} else {
+				showSelection();
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds "static" handles to static_handle layer. This handle's always visible independently of
-   * selection.
-   */
-  protected void showStaticHandles() {
-    Layer layer = getLayer(IEditPartViewer.HANDLE_LAYER_STATIC);
-    m_staticHandles = createStaticHandles();
-    for (Handle handle : m_staticHandles) {
-      layer.add(handle);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds "static" handles to static_handle layer. This handle's always visible independently of
+	 * selection.
+	 */
+	protected void showStaticHandles() {
+		Layer layer = getLayer(IEditPartViewer.HANDLE_LAYER_STATIC);
+		m_staticHandles = createStaticHandles();
+		for (Handle handle : m_staticHandles) {
+			layer.add(handle);
+		}
+	}
 
-  /**
-   * Removes "static" handles from static_handle layer.
-   */
-  protected void hideStaticHandles() {
-    if (m_staticHandles != null && !m_staticHandles.isEmpty()) {
-      Layer layer = getLayer(IEditPartViewer.HANDLE_LAYER_STATIC);
-      for (Handle handle : m_staticHandles) {
-        layer.remove(handle);
-      }
-      m_staticHandles = null;
-    }
-  }
+	/**
+	 * Removes "static" handles from static_handle layer.
+	 */
+	protected void hideStaticHandles() {
+		if (m_staticHandles != null && !m_staticHandles.isEmpty()) {
+			Layer layer = getLayer(IEditPartViewer.HANDLE_LAYER_STATIC);
+			for (Handle handle : m_staticHandles) {
+				layer.remove(handle);
+			}
+			m_staticHandles = null;
+		}
+	}
 
-  /**
-   * Shows selection. Default implementation adds {@link Handle}s.
-   */
-  protected void showSelection() {
-    hideSelection();
-    Layer layer = getLayer(IEditPartViewer.HANDLE_LAYER);
-    m_handles = createSelectionHandles();
-    for (Handle handle : m_handles) {
-      layer.add(handle);
-    }
-    fire_showSelection();
-  }
+	/**
+	 * Shows selection. Default implementation adds {@link Handle}s.
+	 */
+	protected void showSelection() {
+		hideSelection();
+		Layer layer = getLayer(IEditPartViewer.HANDLE_LAYER);
+		m_handles = createSelectionHandles();
+		for (Handle handle : m_handles) {
+			layer.add(handle);
+		}
+		fire_showSelection();
+	}
 
-  /**
-   * Hides selection. Default implementation removes {@link Handle}s.
-   */
-  protected void hideSelection() {
-    fire_hideSelection();
-    if (m_handles != null) {
-      for (Handle handle : m_handles) {
-        FigureUtils.removeFigure(handle);
-      }
-      m_handles = null;
-    }
-  }
+	/**
+	 * Hides selection. Default implementation removes {@link Handle}s.
+	 */
+	protected void hideSelection() {
+		fire_hideSelection();
+		if (m_handles != null) {
+			for (Handle handle : m_handles) {
+				FigureUtils.removeFigure(handle);
+			}
+			m_handles = null;
+		}
+	}
 
-  /**
-   * Hides/shows selection, useful when selection presentation should be updated.
-   */
-  public void refreshSelection() {
-    showSelection();
-  }
+	/**
+	 * Hides/shows selection, useful when selection presentation should be updated.
+	 */
+	public void refreshSelection() {
+		showSelection();
+	}
 
-  /**
-   * Subclasses must implement to provide the list of "static" handles.
-   */
-  protected List<Handle> createStaticHandles() {
-    return Collections.<Handle>emptyList();
-  }
+	/**
+	 * Subclasses must implement to provide the list of "static" handles.
+	 */
+	protected List<Handle> createStaticHandles() {
+		return Collections.<Handle>emptyList();
+	}
 
-  /**
-   * Subclasses must implement to provide the list of handles.
-   */
-  protected abstract List<Handle> createSelectionHandles();
+	/**
+	 * Subclasses must implement to provide the list of handles.
+	 */
+	protected abstract List<Handle> createSelectionHandles();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean understandsRequest(Request request) {
-    return request.getType() == Request.REQ_SELECTION;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean understandsRequest(Request request) {
+		return request.getType() == Request.REQ_SELECTION;
+	}
 
-  @Override
-  public EditPart getTargetEditPart(Request request) {
-    return getHost();
-  }
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		return getHost();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds {@link ISelectionEditPolicyListener} for listening {@link SelectionEditPolicy} events.
-   */
-  public void addSelectionPolicyListener(ISelectionEditPolicyListener listener) {
-    getEnsureEventTable().addListener(ISelectionEditPolicyListener.class, listener);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds {@link ISelectionEditPolicyListener} for listening {@link SelectionEditPolicy} events.
+	 */
+	public void addSelectionPolicyListener(ISelectionEditPolicyListener listener) {
+		getEnsureEventTable().addListener(ISelectionEditPolicyListener.class, listener);
+	}
 
-  /**
-   * Removes {@link ISelectionEditPolicyListener} for listening {@link SelectionEditPolicy} events.
-   */
-  public void removeSelectionPolicyListener(ISelectionEditPolicyListener listener) {
-    getEnsureEventTable().removeListener(ISelectionEditPolicyListener.class, listener);
-  }
+	/**
+	 * Removes {@link ISelectionEditPolicyListener} for listening {@link SelectionEditPolicy} events.
+	 */
+	public void removeSelectionPolicyListener(ISelectionEditPolicyListener listener) {
+		getEnsureEventTable().removeListener(ISelectionEditPolicyListener.class, listener);
+	}
 
-  /**
-   * Notifies {@link ISelectionEditPolicyListener}s that {@link #showSelection()} was executed.
-   */
-  private void fire_showSelection() {
-    List<ISelectionEditPolicyListener> listeners = getListeners(ISelectionEditPolicyListener.class);
-    if (listeners != null && !listeners.isEmpty()) {
-      for (ISelectionEditPolicyListener listener : listeners) {
-        listener.showSelection(this);
-      }
-    }
-  }
+	/**
+	 * Notifies {@link ISelectionEditPolicyListener}s that {@link #showSelection()} was executed.
+	 */
+	private void fire_showSelection() {
+		List<ISelectionEditPolicyListener> listeners = getListeners(ISelectionEditPolicyListener.class);
+		if (listeners != null && !listeners.isEmpty()) {
+			for (ISelectionEditPolicyListener listener : listeners) {
+				listener.showSelection(this);
+			}
+		}
+	}
 
-  /**
-   * Notifies {@link ISelectionEditPolicyListener}s that {@link #hideSelection()} was executed.
-   */
-  private void fire_hideSelection() {
-    List<ISelectionEditPolicyListener> listeners = getListeners(ISelectionEditPolicyListener.class);
-    if (listeners != null && !listeners.isEmpty()) {
-      for (ISelectionEditPolicyListener listener : listeners) {
-        listener.hideSelection(this);
-      }
-    }
-  }
+	/**
+	 * Notifies {@link ISelectionEditPolicyListener}s that {@link #hideSelection()} was executed.
+	 */
+	private void fire_hideSelection() {
+		List<ISelectionEditPolicyListener> listeners = getListeners(ISelectionEditPolicyListener.class);
+		if (listeners != null && !listeners.isEmpty()) {
+			for (ISelectionEditPolicyListener listener : listeners) {
+				listener.hideSelection(this);
+			}
+		}
+	}
 }

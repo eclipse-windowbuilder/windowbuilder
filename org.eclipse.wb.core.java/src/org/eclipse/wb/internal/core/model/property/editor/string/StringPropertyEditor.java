@@ -26,74 +26,74 @@ import org.eclipse.jface.window.Window;
  * @coverage core.model.property.editor
  */
 public class StringPropertyEditor extends AbstractTextPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new StringPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new StringPropertyEditor();
 
-  private StringPropertyEditor() {
-  }
+	private StringPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final PropertyEditorPresentation m_presentation = new ButtonPropertyEditorPresentation() {
-    @Override
-    protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
-      openDialog(propertyTable, property);
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final PropertyEditorPresentation m_presentation = new ButtonPropertyEditorPresentation() {
+		@Override
+		protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
+			openDialog(propertyTable, property);
+		}
+	};
 
-  @Override
-  public PropertyEditorPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public PropertyEditorPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof String) {
-      return (String) value;
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof String) {
+			return (String) value;
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getEditorText(Property property) throws Exception {
-    return getText(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getEditorText(Property property) throws Exception {
+		return getText(property);
+	}
 
-  @Override
-  protected boolean setEditorText(Property property, String text) throws Exception {
-    property.setValue(text);
-    return true;
-  }
+	@Override
+	protected boolean setEditorText(Property property, String text) throws Exception {
+		property.setValue(text);
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing in dialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Opens editing dialog.
-   */
-  private void openDialog(PropertyTable propertyTable, Property property) throws Exception {
-    StringPropertyDialog dialog = new StringPropertyDialog(propertyTable.getShell(), property);
-    if (dialog.open() == Window.OK) {
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing in dialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Opens editing dialog.
+	 */
+	private void openDialog(PropertyTable propertyTable, Property property) throws Exception {
+		StringPropertyDialog dialog = new StringPropertyDialog(propertyTable.getShell(), property);
+		if (dialog.open() == Window.OK) {
+		}
+	}
 }

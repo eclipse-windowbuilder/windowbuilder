@@ -33,46 +33,46 @@ import javax.swing.JPanel;
  * @coverage swing.wizards.ui
  */
 public final class NewJPanelWizardPage extends SwingWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NewJPanelWizardPage() {
-    setTitle(Messages.NewJPanelWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/JPanel/banner.gif"));
-    setDescription(Messages.NewJPanelWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NewJPanelWizardPage() {
+		setTitle(Messages.NewJPanelWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/JPanel/banner.gif"));
+		setDescription(Messages.NewJPanelWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createLocalControls(Composite parent, int nColumns) {
-    super.createLocalControls(parent, nColumns);
-    // I always use same names during tests
-    if (EnvironmentUtils.DEVELOPER_HOST) {
-      setTypeName("JPanel_1", true);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createLocalControls(Composite parent, int nColumns) {
+		super.createLocalControls(parent, nColumns);
+		// I always use same names during tests
+		if (EnvironmentUtils.DEVELOPER_HOST) {
+			setTypeName("JPanel_1", true);
+		}
+	}
 
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/JPanel.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/JPanel.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("javax.swing.JPanel", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("javax.swing.JPanel", true);
+	}
 }

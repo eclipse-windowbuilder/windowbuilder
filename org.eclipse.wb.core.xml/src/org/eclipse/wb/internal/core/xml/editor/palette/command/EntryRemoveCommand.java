@@ -23,43 +23,43 @@ import org.xml.sax.Attributes;
  * @coverage XML.editor.palette
  */
 public final class EntryRemoveCommand extends Command {
-  public static final String ID = "removeEntry";
-  private final String m_id;
+	public static final String ID = "removeEntry";
+	private final String m_id;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EntryRemoveCommand(EntryInfo entry) {
-    m_id = entry.getId();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EntryRemoveCommand(EntryInfo entry) {
+		m_id = entry.getId();
+	}
 
-  public EntryRemoveCommand(Attributes attributes) {
-    m_id = attributes.getValue("id");
-  }
+	public EntryRemoveCommand(Attributes attributes) {
+		m_id = attributes.getValue("id");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    EntryInfo entry = palette.getEntry(m_id);
-    if (entry != null) {
-      CategoryInfo category = entry.getCategory();
-      category.removeEntry(entry);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		EntryInfo entry = palette.getEntry(m_id);
+		if (entry != null) {
+			CategoryInfo category = entry.getCategory();
+			category.removeEntry(entry);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    addAttribute("id", m_id);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		addAttribute("id", m_id);
+	}
 }

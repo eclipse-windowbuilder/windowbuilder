@@ -19,33 +19,33 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.property.converter
  */
 public final class ByteObjectConverter extends AbstractNumberConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new ByteObjectConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new ByteObjectConverter();
 
-  private ByteObjectConverter() {
-  }
+	private ByteObjectConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) {
-    if (value == null) {
-      return "(Byte) null";
-    }
-    // has value
-    String text = "(byte) " + ((Byte) value).toString();
-    // may be use auto-boxing
-    if (isBoxingEnabled(javaInfo)) {
-      return text;
-    }
-    // use explicit boxing
-    return "Byte.valueOf(" + text + ")";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) {
+		if (value == null) {
+			return "(Byte) null";
+		}
+		// has value
+		String text = "(byte) " + ((Byte) value).toString();
+		// may be use auto-boxing
+		if (isBoxingEnabled(javaInfo)) {
+			return text;
+		}
+		// use explicit boxing
+		return "Byte.valueOf(" + text + ")";
+	}
 }

@@ -20,6 +20,6 @@ import org.eclipse.wb.internal.core.model.variable.VariableSupport;
  * @coverage core.model
  */
 public interface JavaInfoSetVariable {
-  void invoke(JavaInfo javaInfo, VariableSupport oldVariable, VariableSupport newVariable)
-      throws Exception;
+	void invoke(JavaInfo javaInfo, VariableSupport oldVariable, VariableSupport newVariable)
+			throws Exception;
 }

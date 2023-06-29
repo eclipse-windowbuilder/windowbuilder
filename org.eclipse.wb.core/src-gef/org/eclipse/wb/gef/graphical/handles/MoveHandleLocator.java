@@ -25,37 +25,37 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage gef.graphical
  */
 public class MoveHandleLocator implements ILocator {
-  private final Figure m_reference;
+	private final Figure m_reference;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates a new {@link MoveHandleLocator} and sets its reference figure to <code>ref</code>. The
-   * reference figure should be the handle's owner figure.
-   */
-  public MoveHandleLocator(Figure reference) {
-    m_reference = reference;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates a new {@link MoveHandleLocator} and sets its reference figure to <code>ref</code>. The
+	 * reference figure should be the handle's owner figure.
+	 */
+	public MoveHandleLocator(Figure reference) {
+		m_reference = reference;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILocator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the handle's bounds to that of its owner figure's bounds, expanded by the handle's
-   * {@link Insets}.
-   */
-  @Override
-  public void relocate(Figure target) {
-    Rectangle bounds = m_reference.getBounds().getResized(-1, -1);
-    FigureUtils.translateFigureToFigure(m_reference, target, bounds);
-    //
-    bounds.expand(target.getInsets());
-    bounds.resize(1, 1);
-    target.setBounds(bounds);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILocator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the handle's bounds to that of its owner figure's bounds, expanded by the handle's
+	 * {@link Insets}.
+	 */
+	@Override
+	public void relocate(Figure target) {
+		Rectangle bounds = m_reference.getBounds().getResized(-1, -1);
+		FigureUtils.translateFigureToFigure(m_reference, target, bounds);
+		//
+		bounds.expand(target.getInsets());
+		bounds.resize(1, 1);
+		target.setBounds(bounds);
+	}
 }

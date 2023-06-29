@@ -22,20 +22,20 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class FormLayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.FormLayout");
-    suite.addTest(createSingleSuite(FormSizeInfoTest.class));
-    suite.addTest(createSingleSuite(FormDimensionInfoTest.class));
-    suite.addTest(createSingleSuite(FormLayoutTest.class));
-    suite.addTest(createSingleSuite(CellConstraintsSupportTest.class));
-    suite.addTest(createSingleSuite(FormLayoutGroupsTest.class));
-    suite.addTest(createSingleSuite(FormColumnInfoTest.class));
-    suite.addTest(createSingleSuite(FormRowInfoTest.class));
-    suite.addTest(createSingleSuite(FormLayoutParametersTest.class));
-    suite.addTest(createSingleSuite(FormLayoutConverterTest.class));
-    suite.addTest(createSingleSuite(FormLayoutSelectionActionsTest.class));
-    suite.addTest(createSingleSuite(FormLayoutGefTest.class));
-    suite.addTest(createSingleSuite(DefaultComponentFactoryTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.FormLayout");
+		suite.addTest(createSingleSuite(FormSizeInfoTest.class));
+		suite.addTest(createSingleSuite(FormDimensionInfoTest.class));
+		suite.addTest(createSingleSuite(FormLayoutTest.class));
+		suite.addTest(createSingleSuite(CellConstraintsSupportTest.class));
+		suite.addTest(createSingleSuite(FormLayoutGroupsTest.class));
+		suite.addTest(createSingleSuite(FormColumnInfoTest.class));
+		suite.addTest(createSingleSuite(FormRowInfoTest.class));
+		suite.addTest(createSingleSuite(FormLayoutParametersTest.class));
+		suite.addTest(createSingleSuite(FormLayoutConverterTest.class));
+		suite.addTest(createSingleSuite(FormLayoutSelectionActionsTest.class));
+		suite.addTest(createSingleSuite(FormLayoutGefTest.class));
+		suite.addTest(createSingleSuite(DefaultComponentFactoryTest.class));
+		return suite;
+	}
 }

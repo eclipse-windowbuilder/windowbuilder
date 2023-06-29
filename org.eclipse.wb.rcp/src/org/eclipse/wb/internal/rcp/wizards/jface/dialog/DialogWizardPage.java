@@ -30,37 +30,37 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class DialogWizardPage extends RcpWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogWizardPage() {
-    setTitle(WizardsMessages.DialogWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/Dialog/banner.gif"));
-    setDescription(WizardsMessages.DialogWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogWizardPage() {
+		setTitle(WizardsMessages.DialogWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/Dialog/banner.gif"));
+		setDescription(WizardsMessages.DialogWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/jface/Dialog.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/jface/Dialog.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("org.eclipse.jface.dialogs.Dialog", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("org.eclipse.jface.dialogs.Dialog", true);
+	}
 }

@@ -23,49 +23,49 @@ import org.eclipse.ui.texteditor.IWorkbenchActionDefinitionIds;
  * @author sablin_aa
  */
 public class DefaultControlActionsManager extends AbstractControlActionsManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DefaultControlActionsManager(final Control control) {
-    super(control);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DefaultControlActionsManager(final Control control) {
+		super(control);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handlers
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected IHandler getHandlerFor(String actionName) {
-    if (actionName.equalsIgnoreCase(IWorkbenchActionDefinitionIds.SELECT_ALL)) {
-      return SELECTALL_HANDLER;
-    }
-    return super.getHandlerFor(actionName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handlers
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected IHandler getHandlerFor(String actionName) {
+		if (actionName.equalsIgnoreCase(IWorkbenchActionDefinitionIds.SELECT_ALL)) {
+			return SELECTALL_HANDLER;
+		}
+		return super.getHandlerFor(actionName);
+	}
 
-  /**
-   * Handler for process "Select all" action.
-   */
-  private final IHandler SELECTALL_HANDLER = new AbstractHandler() {
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException {
-      selectAllExecuted();
-      return null;
-    }
+	/**
+	 * Handler for process "Select all" action.
+	 */
+	private final IHandler SELECTALL_HANDLER = new AbstractHandler() {
+		@Override
+		public Object execute(ExecutionEvent event) throws ExecutionException {
+			selectAllExecuted();
+			return null;
+		}
 
-    @Override
-    public boolean isEnabled() {
-      return true;
-    }
+		@Override
+		public boolean isEnabled() {
+			return true;
+		}
 
-    @Override
-    public boolean isHandled() {
-      return true;
-    }
-  };
+		@Override
+		public boolean isHandled() {
+			return true;
+		}
+	};
 
-  protected void selectAllExecuted() {
-  }
+	protected void selectAllExecuted() {
+	}
 }

@@ -32,84 +32,84 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * @coverage core.preferences.ui
  */
 public abstract class AbstractBindingPreferencesPage extends PreferencePage
-    implements
-      IWorkbenchPreferencePage {
-  protected final DataBindManager m_bindManager = new DataBindManager();
-  protected final ToolkitDescription m_toolkit;
-  protected final IPreferenceStore m_preferences;
+implements
+IWorkbenchPreferencePage {
+	protected final DataBindManager m_bindManager = new DataBindManager();
+	protected final ToolkitDescription m_toolkit;
+	protected final IPreferenceStore m_preferences;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractBindingPreferencesPage(ToolkitDescription toolkit) {
-    m_toolkit = toolkit;
-    m_preferences = m_toolkit.getPreferences();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractBindingPreferencesPage(ToolkitDescription toolkit) {
+		m_toolkit = toolkit;
+		m_preferences = m_toolkit.getPreferences();
+	}
 
-  public AbstractBindingPreferencesPage(IPreferenceStore preferences) {
-    m_toolkit = null;
-    m_preferences = preferences;
-  }
+	public AbstractBindingPreferencesPage(IPreferenceStore preferences) {
+		m_toolkit = null;
+		m_preferences = preferences;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private AbstractBindingComposite m_composite;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private AbstractBindingComposite m_composite;
 
-  @Override
-  protected final Control createContents(Composite parent) {
-    Composite contents = new Composite(parent, SWT.NONE);
-    contents.setLayout(new FillLayout());
-    //
-    m_composite = createBindingComposite(contents);
-    m_composite.setValidationListener(new IValidationListener() {
-      @Override
-      public void update(String message) {
-        setErrorMessage(message);
-        setValid(message == null);
-      }
-    });
-    m_composite.updateValidate();
-    //
-    return contents;
-  }
+	@Override
+	protected final Control createContents(Composite parent) {
+		Composite contents = new Composite(parent, SWT.NONE);
+		contents.setLayout(new FillLayout());
+		//
+		m_composite = createBindingComposite(contents);
+		m_composite.setValidationListener(new IValidationListener() {
+			@Override
+			public void update(String message) {
+				setErrorMessage(message);
+				setValid(message == null);
+			}
+		});
+		m_composite.updateValidate();
+		//
+		return contents;
+	}
 
-  /**
-   * Creates single {@link AbstractBindingComposite} on given parent.
-   */
-  protected abstract AbstractBindingComposite createBindingComposite(Composite parent);
+	/**
+	 * Creates single {@link AbstractBindingComposite} on given parent.
+	 */
+	protected abstract AbstractBindingComposite createBindingComposite(Composite parent);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // State
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean performOk() {
-    if (!m_composite.performOk()) {
-      return false;
-    }
-    m_bindManager.performCommit();
-    return super.performOk();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// State
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean performOk() {
+		if (!m_composite.performOk()) {
+			return false;
+		}
+		m_bindManager.performCommit();
+		return super.performOk();
+	}
 
-  @Override
-  protected void performDefaults() {
-    m_composite.performDefaults();
-    m_bindManager.performDefault();
-    super.performDefaults();
-  }
+	@Override
+	protected void performDefaults() {
+		m_composite.performDefaults();
+		m_bindManager.performDefault();
+		super.performDefaults();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IWorkbenchPreferencePage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void init(IWorkbench workbench) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IWorkbenchPreferencePage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void init(IWorkbench workbench) {
+	}
 }

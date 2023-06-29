@@ -22,31 +22,31 @@ import java.lang.reflect.Constructor;
  * @coverage swt.support
  */
 public class ImageSupport extends AbstractSupport {
-  /**
-   * Disposes given {@link org.eclipse.swt.graphics.Image}.
-   */
-  public static void dispose(Object image) {
-    if (image != null) {
-      ReflectionUtils.invokeMethodEx(image, "dispose()");
-    }
-  }
+	/**
+	 * Disposes given {@link org.eclipse.swt.graphics.Image}.
+	 */
+	public static void dispose(Object image) {
+		if (image != null) {
+			ReflectionUtils.invokeMethodEx(image, "dispose()");
+		}
+	}
 
-  /**
-   * Create new {@link org.eclipse.swt.graphics.Image}.
-   */
-  public static Object createImage(InputStream stream) throws Exception {
-    Constructor<?> constructor =
-        ReflectionUtils.getConstructorBySignature(
-            getImageClass(),
-            "<init>(org.eclipse.swt.graphics.Device,java.io.InputStream)");
-    return constructor.newInstance(null, stream);
-  }
+	/**
+	 * Create new {@link org.eclipse.swt.graphics.Image}.
+	 */
+	public static Object createImage(InputStream stream) throws Exception {
+		Constructor<?> constructor =
+				ReflectionUtils.getConstructorBySignature(
+						getImageClass(),
+						"<init>(org.eclipse.swt.graphics.Device,java.io.InputStream)");
+		return constructor.newInstance(null, stream);
+	}
 
-  /**
-   * @return {@link org.eclipse.swt.graphics.Image} {@link Class} loaded from active editor
-   *         {@link ClassLoader}.
-   */
-  public static Class<?> getImageClass() {
-    return loadClass("org.eclipse.swt.graphics.Image");
-  }
+	/**
+	 * @return {@link org.eclipse.swt.graphics.Image} {@link Class} loaded from active editor
+	 *         {@link ClassLoader}.
+	 */
+	public static Class<?> getImageClass() {
+		return loadClass("org.eclipse.swt.graphics.Image");
+	}
 }

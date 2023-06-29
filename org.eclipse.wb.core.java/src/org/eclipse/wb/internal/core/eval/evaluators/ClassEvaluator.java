@@ -30,51 +30,51 @@ import org.eclipse.jdt.core.dom.TypeLiteral;
  * @coverage core.evaluation
  */
 public final class ClassEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    // TypeLiteral
-    if (expression instanceof TypeLiteral) {
-      TypeLiteral typeLiteral = (TypeLiteral) expression;
-      ITypeBinding binding = AstNodeUtils.getTypeBinding(typeLiteral.getType());
-      return loadClass(context, binding);
-    }
-    // getClass()
-    if (expression instanceof MethodInvocation) {
-      MethodInvocation invocation = (MethodInvocation) expression;
-      if (isThisInvocation(invocation) && AstNodeUtils.isMethodInvocation(invocation, "getClass()")) {
-        TypeDeclaration typeDeclaration = AstNodeUtils.getEnclosingType(invocation);
-        ITypeBinding binding = AstNodeUtils.getTypeBinding(typeDeclaration);
-        return loadClass(context, binding);
-      }
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		// TypeLiteral
+		if (expression instanceof TypeLiteral) {
+			TypeLiteral typeLiteral = (TypeLiteral) expression;
+			ITypeBinding binding = AstNodeUtils.getTypeBinding(typeLiteral.getType());
+			return loadClass(context, binding);
+		}
+		// getClass()
+		if (expression instanceof MethodInvocation) {
+			MethodInvocation invocation = (MethodInvocation) expression;
+			if (isThisInvocation(invocation) && AstNodeUtils.isMethodInvocation(invocation, "getClass()")) {
+				TypeDeclaration typeDeclaration = AstNodeUtils.getEnclosingType(invocation);
+				ITypeBinding binding = AstNodeUtils.getTypeBinding(typeDeclaration);
+				return loadClass(context, binding);
+			}
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 
-  /**
-   * @return <code>true</code> if target of given {@link MethodInvocation} is "this" class.
-   */
-  private static boolean isThisInvocation(MethodInvocation invocation) {
-    Expression expression = invocation.getExpression();
-    return expression == null || expression instanceof ThisExpression;
-  }
+	/**
+	 * @return <code>true</code> if target of given {@link MethodInvocation} is "this" class.
+	 */
+	private static boolean isThisInvocation(MethodInvocation invocation) {
+		Expression expression = invocation.getExpression();
+		return expression == null || expression instanceof ThisExpression;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static Object loadClass(EvaluationContext context, ITypeBinding binding) throws Exception {
-    ClassLoader classLoader = context.getClassLoader();
-    String className = AstNodeUtils.getFullyQualifiedName(binding, true);
-    return ReflectionUtils.getClassByName(classLoader, className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static Object loadClass(EvaluationContext context, ITypeBinding binding) throws Exception {
+		ClassLoader classLoader = context.getClassLoader();
+		String className = AstNodeUtils.getFullyQualifiedName(binding, true);
+		return ReflectionUtils.getClassByName(classLoader, className);
+	}
 }

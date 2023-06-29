@@ -25,45 +25,45 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.Checked
  * @coverage bindings.rcp.ui
  */
 public final class CheckedElementsUiContentProvider extends ChooseClassUiContentProvider {
-  private final CheckedElementsObservableInfo m_observable;
-  private final DatabindingsProvider m_provider;
+	private final CheckedElementsObservableInfo m_observable;
+	private final DatabindingsProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CheckedElementsUiContentProvider(ChooseClassConfiguration configuration,
-      CheckedElementsObservableInfo observable,
-      DatabindingsProvider provider) {
-    super(configuration);
-    m_observable = observable;
-    m_provider = provider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CheckedElementsUiContentProvider(ChooseClassConfiguration configuration,
+			CheckedElementsObservableInfo observable,
+			DatabindingsProvider provider) {
+		super(configuration);
+		m_observable = observable;
+		m_provider = provider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-    // prepare element type
-    Class<?> elementType = m_observable.getElementType();
-    if (elementType == null) {
-      elementType =
-          AbstractViewerInputBindingInfo.getViewerInutElementType(m_observable, m_provider);
-    }
-    // set element type
-    if (elementType == null) {
-      calculateFinish();
-    } else {
-      setClassName(CoreUtils.getClassName(elementType));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+		// prepare element type
+		Class<?> elementType = m_observable.getElementType();
+		if (elementType == null) {
+			elementType =
+					AbstractViewerInputBindingInfo.getViewerInutElementType(m_observable, m_provider);
+		}
+		// set element type
+		if (elementType == null) {
+			calculateFinish();
+		} else {
+			setClassName(CoreUtils.getClassName(elementType));
+		}
+	}
 
-  @Override
-  public void saveToObject() throws Exception {
-    m_observable.setElementType(loadClass(getClassName()));
-  }
+	@Override
+	public void saveToObject() throws Exception {
+		m_observable.setElementType(loadClass(getClassName()));
+	}
 }

@@ -22,17 +22,17 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class AccessorsTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model.property.accessor");
-    suite.addTest(createSingleSuite(AccessorUtilsTest.class));
-    suite.addTest(createSingleSuite(FieldAccessorTest.class));
-    suite.addTest(createSingleSuite(SetterAccessorTest.class));
-    suite.addTest(createSingleSuite(ConstructorAccessorTest.class));
-    suite.addTest(createSingleSuite(SuperConstructorAccessorTest.class));
-    suite.addTest(createSingleSuite(FactoryAccessorTest.class));
-    suite.addTest(createSingleSuite(InvocationChildAssociationAccessorTest.class));
-    suite.addTest(createSingleSuite(MethodInvocationAccessorTest.class));
-    suite.addTest(createSingleSuite(MethodInvocationArgumentAccessorTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.property.accessor");
+		suite.addTest(createSingleSuite(AccessorUtilsTest.class));
+		suite.addTest(createSingleSuite(FieldAccessorTest.class));
+		suite.addTest(createSingleSuite(SetterAccessorTest.class));
+		suite.addTest(createSingleSuite(ConstructorAccessorTest.class));
+		suite.addTest(createSingleSuite(SuperConstructorAccessorTest.class));
+		suite.addTest(createSingleSuite(FactoryAccessorTest.class));
+		suite.addTest(createSingleSuite(InvocationChildAssociationAccessorTest.class));
+		suite.addTest(createSingleSuite(MethodInvocationAccessorTest.class));
+		suite.addTest(createSingleSuite(MethodInvocationArgumentAccessorTest.class));
+		return suite;
+	}
 }

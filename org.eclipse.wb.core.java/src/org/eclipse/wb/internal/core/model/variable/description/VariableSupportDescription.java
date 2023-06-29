@@ -21,28 +21,28 @@ import org.eclipse.wb.internal.core.model.variable.VariableSupport;
  * @coverage core.model.variable
  */
 public abstract class VariableSupportDescription extends GenerationDescription {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected VariableSupportDescription(String id, String name, String description) {
-    super(id, name, description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected VariableSupportDescription(String id, String name, String description) {
+		super(id, name, description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the type of {@link VariableSupport} that will be created by this
-   *         {@link VariableSupportDescription}.
-   */
-  public abstract Class<? extends VariableSupport> getType();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the type of {@link VariableSupport} that will be created by this
+	 *         {@link VariableSupportDescription}.
+	 */
+	public abstract Class<? extends VariableSupport> getType();
 
-  /**
-   * @return the {@link VariableSupport} for given {@link JavaInfo}.
-   */
-  public abstract VariableSupport createSupport(JavaInfo javaInfo);
+	/**
+	 * @return the {@link VariableSupport} for given {@link JavaInfo}.
+	 */
+	public abstract VariableSupport createSupport(JavaInfo javaInfo);
 }

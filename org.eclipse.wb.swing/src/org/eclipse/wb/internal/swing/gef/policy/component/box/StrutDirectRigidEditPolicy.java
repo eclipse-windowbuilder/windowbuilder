@@ -27,31 +27,31 @@ import org.apache.commons.lang.StringUtils;
  * @coverage swing.gef.policy
  */
 public final class StrutDirectRigidEditPolicy extends StrutDirectEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StrutDirectRigidEditPolicy(ComponentInfo strut) {
-    super(strut);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StrutDirectRigidEditPolicy(ComponentInfo strut) {
+		super(strut);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DirectTextEditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText() {
-    Rectangle bounds = getHost().getFigure().getBounds();
-    return bounds.width + " " + bounds.height;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DirectTextEditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText() {
+		Rectangle bounds = getHost().getFigure().getBounds();
+		return bounds.width + " " + bounds.height;
+	}
 
-  @Override
-  protected String getSource(ComponentInfo strut, String text) throws Exception {
-    String[] parts = StringUtils.split(text);
-    int width = Integer.parseInt(parts[0]);
-    int height = Integer.parseInt(parts[1]);
-    return DimensionConverter.INSTANCE.toJavaSource(strut, new java.awt.Dimension(width, height));
-  }
+	@Override
+	protected String getSource(ComponentInfo strut, String text) throws Exception {
+		String[] parts = StringUtils.split(text);
+		int width = Integer.parseInt(parts[0]);
+		int height = Integer.parseInt(parts[1]);
+		return DimensionConverter.INSTANCE.toJavaSource(strut, new java.awt.Dimension(width, height));
+	}
 }

@@ -37,89 +37,89 @@ import javax.swing.JLabel;
  * @coverage swing.property.editor
  */
 public final class FontPreviewCanvas extends Canvas {
-  private FontInfo m_fontInfo;
+	private FontInfo m_fontInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FontPreviewCanvas(Composite parent, int style) {
-    super(parent, style);
-    addListener(SWT.Paint, new Listener() {
-      public void handleEvent(Event event) {
-        onPaint(event.gc);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FontPreviewCanvas(Composite parent, int style) {
+		super(parent, style);
+		addListener(SWT.Paint, new Listener() {
+			public void handleEvent(Event event) {
+				onPaint(event.gc);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Painting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Point computeSize(int wHint, int hHint, boolean changed) {
-    int width = 450;
-    int height = 50;
-    return new Point(width, height);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Painting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Point computeSize(int wHint, int hHint, boolean changed) {
+		int width = 450;
+		int height = 50;
+		return new Point(width, height);
+	}
 
-  /**
-   * Handler for {@link SWT#Paint}.
-   */
-  private void onPaint(final GC gc) {
-    if (m_fontInfo != null) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        public void run() throws Exception {
-          // prepare label
-          JLabel label;
-          {
-            label = new JLabel();
-            label.setFont(m_fontInfo.getFont());
-            label.setText(m_fontInfo.getText());
-            {
-              org.eclipse.swt.graphics.Color swtColor = gc.getBackground();
-              label.setBackground(new Color(swtColor.getRed(),
-                  swtColor.getGreen(),
-                  swtColor.getBlue()));
-              label.setOpaque(true);
-            }
-          }
-          // prepare image
-          Image image;
-          {
-            label.setSize(label.getPreferredSize());
-            image = SwingImageUtils.createComponentShot(label);
-          }
-          // draw image
-          try {
-            Rectangle clientArea = getClientArea();
-            DrawUtils.drawImageCHCV(
-                gc,
-                image,
-                clientArea.x,
-                clientArea.y,
-                clientArea.width,
-                clientArea.height);
-          } finally {
-            image.dispose();
-          }
-        }
-      });
-    }
-  }
+	/**
+	 * Handler for {@link SWT#Paint}.
+	 */
+	private void onPaint(final GC gc) {
+		if (m_fontInfo != null) {
+			ExecutionUtils.runLog(new RunnableEx() {
+				public void run() throws Exception {
+					// prepare label
+					JLabel label;
+					{
+						label = new JLabel();
+						label.setFont(m_fontInfo.getFont());
+						label.setText(m_fontInfo.getText());
+						{
+							org.eclipse.swt.graphics.Color swtColor = gc.getBackground();
+							label.setBackground(new Color(swtColor.getRed(),
+									swtColor.getGreen(),
+									swtColor.getBlue()));
+							label.setOpaque(true);
+						}
+					}
+					// prepare image
+					Image image;
+					{
+						label.setSize(label.getPreferredSize());
+						image = SwingImageUtils.createComponentShot(label);
+					}
+					// draw image
+					try {
+						Rectangle clientArea = getClientArea();
+						DrawUtils.drawImageCHCV(
+								gc,
+								image,
+								clientArea.x,
+								clientArea.y,
+								clientArea.width,
+								clientArea.height);
+					} finally {
+						image.dispose();
+					}
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the {@link Font} to display.
-   */
-  public void setFontInfo(FontInfo font) {
-    m_fontInfo = font;
-    redraw();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the {@link Font} to display.
+	 */
+	public void setFontInfo(FontInfo font) {
+		m_fontInfo = font;
+		redraw();
+	}
 }

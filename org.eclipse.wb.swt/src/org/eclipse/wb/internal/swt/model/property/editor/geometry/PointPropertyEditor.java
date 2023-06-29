@@ -26,84 +26,84 @@ import org.eclipse.jface.dialogs.IDialogConstants;
  * @coverage swt.property.editor
  */
 public final class PointPropertyEditor extends TextDialogPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new PointPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new PointPropertyEditor();
 
-  private PointPropertyEditor() {
-  }
+	private PointPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value == Property.UNKNOWN_VALUE) {
-      // unknown value
-      return null;
-    }
-    //
-    return PointSupport.toString(value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value == Property.UNKNOWN_VALUE) {
+			// unknown value
+			return null;
+		}
+		//
+		return PointSupport.toString(value);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    // prepare Point to edit
-    Object point;
-    {
-      Object value = property.getValue();
-      if (value == Property.UNKNOWN_VALUE) {
-        point = PointSupport.newPoint(0, 0);
-      } else {
-        point = PointSupport.getPointCopy(value);
-      }
-    }
-    // prepare dialog
-    PointDialog pointDialog = new PointDialog(property.getTitle(), point);
-    // open dialog
-    int result = pointDialog.open();
-    if (result == IDialogConstants.IGNORE_ID) {
-      property.setValue(Property.UNKNOWN_VALUE);
-    } else if (result == IDialogConstants.OK_ID) {
-      property.setValue(point);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		// prepare Point to edit
+		Object point;
+		{
+			Object value = property.getValue();
+			if (value == Property.UNKNOWN_VALUE) {
+				point = PointSupport.newPoint(0, 0);
+			} else {
+				point = PointSupport.getPointCopy(value);
+			}
+		}
+		// prepare dialog
+		PointDialog pointDialog = new PointDialog(property.getTitle(), point);
+		// open dialog
+		int result = pointDialog.open();
+		if (result == IDialogConstants.IGNORE_ID) {
+			property.setValue(Property.UNKNOWN_VALUE);
+		} else if (result == IDialogConstants.OK_ID) {
+			property.setValue(point);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PointDialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final class PointDialog extends AbstractGeometryDialog {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public PointDialog(String title, Object point) {
-      super(title, point);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PointDialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final class PointDialog extends AbstractGeometryDialog {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public PointDialog(String title, Object point) {
+			super(title, point);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // GUI
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected void createEditors() {
-      createEditor(ModelMessages.PointPropertyEditor_xLabel, "x");
-      createEditor(ModelMessages.PointPropertyEditor_yLabel, "y");
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// GUI
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected void createEditors() {
+			createEditor(ModelMessages.PointPropertyEditor_xLabel, "x");
+			createEditor(ModelMessages.PointPropertyEditor_yLabel, "y");
+		}
+	}
 }

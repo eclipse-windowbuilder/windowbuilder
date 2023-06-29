@@ -27,29 +27,29 @@ import org.eclipse.ltk.core.refactoring.Change;
  * @coverage XWT.refactoring
  */
 public class EventListenerMethodRenameParticipant extends AbstractRenameParticipant {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Change
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Change createChangeEx(IProgressMonitor pm) throws Exception {
-    IFile javaFile = (IFile) m_method.getUnderlyingResource();
-    if (javaFile != null) {
-      IFile xwtFile = XwtPairResourceProvider.INSTANCE.getPair(javaFile);
-      if (xwtFile != null) {
-        final String oldName = m_method.getElementName();
-        final String newName = getArguments().getNewName();
-        return RefactoringUtils.modifyXML(xwtFile, new DocumentModelVisitor() {
-          @Override
-          public void visit(DocumentAttribute attribute) {
-            if (attribute.getName().endsWith("Event") && attribute.getValue().equals(oldName)) {
-              attribute.setValue(newName);
-            }
-          }
-        }, new FileDocumentEditContext(xwtFile));
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Change
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Change createChangeEx(IProgressMonitor pm) throws Exception {
+		IFile javaFile = (IFile) m_method.getUnderlyingResource();
+		if (javaFile != null) {
+			IFile xwtFile = XwtPairResourceProvider.INSTANCE.getPair(javaFile);
+			if (xwtFile != null) {
+				final String oldName = m_method.getElementName();
+				final String newName = getArguments().getNewName();
+				return RefactoringUtils.modifyXML(xwtFile, new DocumentModelVisitor() {
+					@Override
+					public void visit(DocumentAttribute attribute) {
+						if (attribute.getName().endsWith("Event") && attribute.getValue().equals(oldName)) {
+							attribute.setValue(newName);
+						}
+					}
+				}, new FileDocumentEditContext(xwtFile));
+			}
+		}
+		return null;
+	}
 }

@@ -23,42 +23,42 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class BeanFieldInputObservableInfo extends ObservableInfo {
-  private final BindableInfo m_object;
-  private final BindableInfo m_property;
+	private final BindableInfo m_object;
+	private final BindableInfo m_property;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeanFieldInputObservableInfo(BindableInfo object, BindableInfo property) {
-    m_object = object;
-    m_property = property;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeanFieldInputObservableInfo(BindableInfo object, BindableInfo property) {
+		m_object = object;
+		m_property = property;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public BindableInfo getBindableObject() {
-    return m_object;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public BindableInfo getBindableObject() {
+		return m_object;
+	}
 
-  @Override
-  public BindableInfo getBindableProperty() {
-    return m_property;
-  }
+	@Override
+	public BindableInfo getBindableProperty() {
+		return m_property;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Source code
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    setVariableIdentifier(m_object.getReference());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Source code
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		setVariableIdentifier(m_object.getReference());
+	}
 }

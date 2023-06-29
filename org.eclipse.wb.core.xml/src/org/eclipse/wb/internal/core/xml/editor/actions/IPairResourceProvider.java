@@ -21,8 +21,8 @@ import org.eclipse.ui.IEditorPart;
  * @coverage XML.editor.action
  */
 public interface IPairResourceProvider {
-  /**
-   * @return the {@link IFile} pair for given {@link IFile}, may be <code>null</code>.
-   */
-  IFile getPair(IFile file);
+	/**
+	 * @return the {@link IFile} pair for given {@link IFile}, may be <code>null</code>.
+	 */
+	IFile getPair(IFile file);
 }

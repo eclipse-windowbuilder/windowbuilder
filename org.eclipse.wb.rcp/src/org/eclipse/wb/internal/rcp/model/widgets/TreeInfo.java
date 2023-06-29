@@ -32,87 +32,87 @@ import java.util.List;
  * @coverage rcp.model.widgets
  */
 public final class TreeInfo extends org.eclipse.wb.internal.swt.model.widgets.TreeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TreeInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    contributeToClipboardCopy();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TreeInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		contributeToClipboardCopy();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Broadcasts
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void contributeToClipboardCopy() {
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void clipboardCopy(JavaInfo javaInfo, List<ClipboardCommand> commands)
-          throws Exception {
-        // copy TreeColumn's
-        if (javaInfo == TreeInfo.this) {
-          for (TreeColumnInfo column : getColumns()) {
-            final JavaInfoMemento columnMemento = JavaInfoMemento.createMemento(column);
-            commands.add(new ClipboardCommand() {
-              private static final long serialVersionUID = 0L;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Broadcasts
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void contributeToClipboardCopy() {
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void clipboardCopy(JavaInfo javaInfo, List<ClipboardCommand> commands)
+					throws Exception {
+				// copy TreeColumn's
+				if (javaInfo == TreeInfo.this) {
+					for (TreeColumnInfo column : getColumns()) {
+						final JavaInfoMemento columnMemento = JavaInfoMemento.createMemento(column);
+						commands.add(new ClipboardCommand() {
+							private static final long serialVersionUID = 0L;
 
-              @Override
-              public void execute(JavaInfo javaInfo) throws Exception {
-                TreeColumnInfo column = (TreeColumnInfo) columnMemento.create(javaInfo);
-                JavaInfoUtils.add(column, null, javaInfo, null);
-                columnMemento.apply();
-              }
-            });
-          }
-        }
-      }
-    });
-  }
+							@Override
+							public void execute(JavaInfo javaInfo) throws Exception {
+								TreeColumnInfo column = (TreeColumnInfo) columnMemento.create(javaInfo);
+								JavaInfoUtils.add(column, null, javaInfo, null);
+								columnMemento.apply();
+							}
+						});
+					}
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static int BORDER_WIDTH = 1;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static int BORDER_WIDTH = 1;
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    // prepare metrics
-    int headerHeight;
-    {
-      Object tree = getObject();
-      headerHeight = (Integer) ReflectionUtils.invokeMethod(tree, "getHeaderHeight()");
-    }
-    // prepare columns bounds
-    int x = BORDER_WIDTH;
-    int y = BORDER_WIDTH;
-    {
-      for (TreeColumnInfo column : getColumns()) {
-        int columnWidth = (Integer) ReflectionUtils.invokeMethod(column.getObject(), "getWidth()");
-        Rectangle bounds = new Rectangle(x, y, columnWidth, headerHeight);
-        column.setModelBounds(bounds);
-        column.setBounds(bounds);
-        x += columnWidth;
-      }
-    }
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		// prepare metrics
+		int headerHeight;
+		{
+			Object tree = getObject();
+			headerHeight = (Integer) ReflectionUtils.invokeMethod(tree, "getHeaderHeight()");
+		}
+		// prepare columns bounds
+		int x = BORDER_WIDTH;
+		int y = BORDER_WIDTH;
+		{
+			for (TreeColumnInfo column : getColumns()) {
+				int columnWidth = (Integer) ReflectionUtils.invokeMethod(column.getObject(), "getWidth()");
+				Rectangle bounds = new Rectangle(x, y, columnWidth, headerHeight);
+				column.setModelBounds(bounds);
+				column.setBounds(bounds);
+				x += columnWidth;
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link TreeColumnInfo} children.
-   */
-  public List<TreeColumnInfo> getColumns() {
-    return getChildren(TreeColumnInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link TreeColumnInfo} children.
+	 */
+	public List<TreeColumnInfo> getColumns() {
+		return getChildren(TreeColumnInfo.class);
+	}
 }

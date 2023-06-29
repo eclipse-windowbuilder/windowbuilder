@@ -26,38 +26,38 @@ import java.util.List;
  * @coverage core.model.association
  */
 public final class InvocationChildArrayAssociation extends InvocationAssociation {
-  private final ArrayObjectInfo m_arrayInfo;
+	private final ArrayObjectInfo m_arrayInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public InvocationChildArrayAssociation(MethodInvocation invocation, ArrayObjectInfo arrayInfo) {
-    super(invocation);
-    m_arrayInfo = arrayInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public InvocationChildArrayAssociation(MethodInvocation invocation, ArrayObjectInfo arrayInfo) {
+		super(invocation);
+		m_arrayInfo = arrayInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean remove() throws Exception {
-    int elementIndex = m_arrayInfo.getItems().indexOf(m_javaInfo);
-    Assert.isTrue(elementIndex >= 0);
-    ArrayInitializer initializer = m_arrayInfo.getCreation().getInitializer();
-    m_editor.removeArrayElement(initializer, elementIndex);
-    // check then empty
-    if (((List<?>) initializer.expressions()).isEmpty()) {
-      // if no items...
-      if (m_arrayInfo.isRemoveOnEmpty() && m_invocation.getParent() instanceof ExpressionStatement) {
-        // ... and single invocation then remove invocation
-        m_editor.removeEnclosingStatement(m_invocation);
-      }
-    }
-    // yes, association removed
-    return super.remove();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean remove() throws Exception {
+		int elementIndex = m_arrayInfo.getItems().indexOf(m_javaInfo);
+		Assert.isTrue(elementIndex >= 0);
+		ArrayInitializer initializer = m_arrayInfo.getCreation().getInitializer();
+		m_editor.removeArrayElement(initializer, elementIndex);
+		// check then empty
+		if (((List<?>) initializer.expressions()).isEmpty()) {
+			// if no items...
+			if (m_arrayInfo.isRemoveOnEmpty() && m_invocation.getParent() instanceof ExpressionStatement) {
+				// ... and single invocation then remove invocation
+				m_editor.removeEnclosingStatement(m_invocation);
+			}
+		}
+		// yes, association removed
+		return super.remove();
+	}
 }

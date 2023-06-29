@@ -22,27 +22,27 @@ import org.eclipse.jface.action.IAction;
  * @author mitin_aa
  */
 public class RefreshActionTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_1() throws Exception {
-    JavaInfo currentRoot =
-        openContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "	public Test() {",
-            "	}",
-            "}");
-    // do refresh
-    {
-      IAction refreshAction = m_designPageActions.getRefreshAction();
-      refreshAction.run();
-      waitEventLoop(10);
-    }
-    // different root JavaInfo expected
-    fetchContentFields();
-    assertNotSame(currentRoot, m_contentJavaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_1() throws Exception {
+		JavaInfo currentRoot =
+				openContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"	public Test() {",
+						"	}",
+						"}");
+		// do refresh
+		{
+			IAction refreshAction = m_designPageActions.getRefreshAction();
+			refreshAction.run();
+			waitEventLoop(10);
+		}
+		// different root JavaInfo expected
+		fetchContentFields();
+		assertNotSame(currentRoot, m_contentJavaInfo);
+	}
 }

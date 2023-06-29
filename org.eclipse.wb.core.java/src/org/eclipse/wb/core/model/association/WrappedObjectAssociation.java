@@ -24,45 +24,45 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.association
  */
 public class WrappedObjectAssociation extends Association {
-  private final AbstractWrapper m_wrapper;
+	private final AbstractWrapper m_wrapper;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WrappedObjectAssociation(AbstractWrapper wrapper) {
-    m_wrapper = wrapper;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WrappedObjectAssociation(AbstractWrapper wrapper) {
+		m_wrapper = wrapper;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Statement getStatement() {
-    return m_wrapper.getWrapperInfo().getAssociation().getStatement();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Statement getStatement() {
+		return m_wrapper.getWrapperInfo().getAssociation().getStatement();
+	}
 
-  @Override
-  public String getSource() {
-    return m_wrapper.getWrapperInfo().getAssociation().getSource();
-  }
+	@Override
+	public String getSource() {
+		return m_wrapper.getWrapperInfo().getAssociation().getSource();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean remove() throws Exception {
-    // Control association with Viewer can not be broken
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean remove() throws Exception {
+		// Control association with Viewer can not be broken
+		return false;
+	}
 
-  @Override
-  public void setParent(JavaInfo parent) throws Exception {
-    m_wrapper.getWrapperInfo().getAssociation().setParent(parent);
-  }
+	@Override
+	public void setParent(JavaInfo parent) throws Exception {
+		m_wrapper.getWrapperInfo().getAssociation().setParent(parent);
+	}
 }

@@ -35,168 +35,168 @@ import org.eclipse.swt.widgets.Text;
  * @author scheglov_ke
  */
 public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_access() throws Exception {
-    ChooseComponentEntryInfo entry = new ChooseComponentEntryInfo();
-    assertNotNull(entry.getIcon());
-    assertNotNull(entry.getName());
-    assertNotNull(entry.getDescription());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_access() throws Exception {
+		ChooseComponentEntryInfo entry = new ChooseComponentEntryInfo();
+		assertNotNull(entry.getIcon());
+		assertNotNull(entry.getName());
+		assertNotNull(entry.getDescription());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parse
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parse() throws Exception {
-    addPaletteExtension(new String[]{
-        "<category id='category_1' name='category 1'>",
-        "  <x-entry id='system.chooseComponent' name='my name'"
-            + " class='org.eclipse.wb.internal.core.xml.editor.palette.model.ChooseComponentEntryInfo'/>",
-        "</category>"});
-    PaletteInfo palette = loadPalette();
-    // prepare entry
-    CategoryInfo category = palette.getCategory("category_1");
-    ChooseComponentEntryInfo entry = (ChooseComponentEntryInfo) category.getEntries().get(0);
-    // check component
-    assertSame(category, entry.getCategory());
-    assertEquals("system.chooseComponent", entry.getId());
-    assertEquals("my name", entry.getName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parse
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parse() throws Exception {
+		addPaletteExtension(new String[]{
+				"<category id='category_1' name='category 1'>",
+				"  <x-entry id='system.chooseComponent' name='my name'"
+						+ " class='org.eclipse.wb.internal.core.xml.editor.palette.model.ChooseComponentEntryInfo'/>",
+		"</category>"});
+		PaletteInfo palette = loadPalette();
+		// prepare entry
+		CategoryInfo category = palette.getCategory("category_1");
+		ChooseComponentEntryInfo entry = (ChooseComponentEntryInfo) category.getEntries().get(0);
+		// check component
+		assertSame(category, entry.getCategory());
+		assertEquals("system.chooseComponent", entry.getId());
+		assertEquals("my name", entry.getName());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tool
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_createTool_select() throws Exception {
-    addPaletteExtension(new String[]{
-        "<category id='category_1' name='category 1'>",
-        "  <x-entry id='system.chooseComponent' class='org.eclipse.wb.internal.core.xml.editor.palette.model.ChooseComponentEntryInfo'/>",
-        "</category>"});
-    XmlObjectInfo panel = parseEmptyPanel();
-    final PaletteManager manager = new PaletteManager(panel, TOOLKIT_ID);
-    manager.reloadPalette();
-    // set palette site
-    IPaletteSite.Helper.setSite(panel, new IPaletteSite.Empty() {
-      @Override
-      public Shell getShell() {
-        return DesignerPlugin.getShell();
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tool
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_createTool_select() throws Exception {
+		addPaletteExtension(new String[]{
+				"<category id='category_1' name='category 1'>",
+				"  <x-entry id='system.chooseComponent' class='org.eclipse.wb.internal.core.xml.editor.palette.model.ChooseComponentEntryInfo'/>",
+		"</category>"});
+		XmlObjectInfo panel = parseEmptyPanel();
+		final PaletteManager manager = new PaletteManager(panel, TOOLKIT_ID);
+		manager.reloadPalette();
+		// set palette site
+		IPaletteSite.Helper.setSite(panel, new IPaletteSite.Empty() {
+			@Override
+			public Shell getShell() {
+				return DesignerPlugin.getShell();
+			}
 
-      @Override
-      public PaletteInfo getPalette() {
-        return manager.getPalette();
-      }
+			@Override
+			public PaletteInfo getPalette() {
+				return manager.getPalette();
+			}
 
-      @Override
-      public void addCommand(Command command) {
-        manager.commands_add(command);
-      }
-    });
-    // prepare entry
-    final ChooseComponentEntryInfo entry;
-    {
-      PaletteInfo palette = manager.getPalette();
-      CategoryInfo category = palette.getCategory("category_1");
-      entry = (ChooseComponentEntryInfo) category.getEntries().get(0);
-    }
-    // initialize
-    assertTrue(entry.initialize(null, panel));
-    // create tool
-    CreationTool creationTool;
-    {
-      final CreationTool[] tools = new CreationTool[1];
-      new UiContext().executeAndCheck(new UIRunnable() {
-        @Override
-        public void run(UiContext context) throws Exception {
-          tools[0] = (CreationTool) entry.createTool();
-        }
-      }, new UIRunnable() {
-        @Override
-        public void run(UiContext context) throws Exception {
-          // set filter
-          {
-            Text filterText = context.findFirstWidget(Text.class);
-            filterText.setText("org.eclipse.swt.widgets.Button");
-          }
-          // wait for types
-          {
-            final Table typesTable = context.findFirstWidget(Table.class);
-            context.waitFor(new UIPredicate() {
-              @Override
-              public boolean check() {
-                return typesTable.getItems().length != 0;
-              }
-            });
-          }
-          // click OK
-          context.clickButton("OK");
-        }
-      });
-      creationTool = tools[0];
-    }
-    // check tool
-    {
-      ICreationFactory creationFactory = creationTool.getFactory();
-      creationFactory.activate();
-      // check new object
-      XmlObjectInfo newObject = (XmlObjectInfo) creationFactory.getNewObject();
-      {
-        DocumentElement newElement = getNewCreationElement(newObject);
-        assertEquals("Button", newElement.getTag());
-        assertEquals("New Button", newElement.getAttribute("text"));
-      }
-    }
-  }
+			@Override
+			public void addCommand(Command command) {
+				manager.commands_add(command);
+			}
+		});
+		// prepare entry
+		final ChooseComponentEntryInfo entry;
+		{
+			PaletteInfo palette = manager.getPalette();
+			CategoryInfo category = palette.getCategory("category_1");
+			entry = (ChooseComponentEntryInfo) category.getEntries().get(0);
+		}
+		// initialize
+		assertTrue(entry.initialize(null, panel));
+		// create tool
+		CreationTool creationTool;
+		{
+			final CreationTool[] tools = new CreationTool[1];
+			new UiContext().executeAndCheck(new UIRunnable() {
+				@Override
+				public void run(UiContext context) throws Exception {
+					tools[0] = (CreationTool) entry.createTool();
+				}
+			}, new UIRunnable() {
+				@Override
+				public void run(UiContext context) throws Exception {
+					// set filter
+					{
+						Text filterText = context.findFirstWidget(Text.class);
+						filterText.setText("org.eclipse.swt.widgets.Button");
+					}
+					// wait for types
+					{
+						final Table typesTable = context.findFirstWidget(Table.class);
+						context.waitFor(new UIPredicate() {
+							@Override
+							public boolean check() {
+								return typesTable.getItems().length != 0;
+							}
+						});
+					}
+					// click OK
+					context.clickButton("OK");
+				}
+			});
+			creationTool = tools[0];
+		}
+		// check tool
+		{
+			ICreationFactory creationFactory = creationTool.getFactory();
+			creationFactory.activate();
+			// check new object
+			XmlObjectInfo newObject = (XmlObjectInfo) creationFactory.getNewObject();
+			{
+				DocumentElement newElement = getNewCreationElement(newObject);
+				assertEquals("Button", newElement.getTag());
+				assertEquals("New Button", newElement.getAttribute("text"));
+			}
+		}
+	}
 
-  public void test_createTool_cancel() throws Exception {
-    addPaletteExtension(new String[]{
-        "<category id='category_1' name='category 1'>",
-        "  <x-entry id='system.chooseComponent' class='org.eclipse.wb.internal.core.xml.editor.palette.model.ChooseComponentEntryInfo'/>",
-        "</category>"});
-    XmlObjectInfo panel = parseEmptyPanel();
-    final PaletteManager manager = new PaletteManager(panel, TOOLKIT_ID);
-    manager.reloadPalette();
-    // set palette site
-    IPaletteSite.Helper.setSite(panel, new IPaletteSite.Empty() {
-      @Override
-      public Shell getShell() {
-        return DesignerPlugin.getShell();
-      }
-    });
-    // prepare entry
-    final ChooseComponentEntryInfo entry;
-    {
-      PaletteInfo palette = manager.getPalette();
-      CategoryInfo category = palette.getCategory("category_1");
-      entry = (ChooseComponentEntryInfo) category.getEntries().get(0);
-    }
-    // initialize
-    assertTrue(entry.initialize(null, panel));
-    // create tool
-    CreationTool creationTool;
-    {
-      final CreationTool[] tools = new CreationTool[1];
-      new UiContext().executeAndCheck(new UIRunnable() {
-        @Override
-        public void run(UiContext context) throws Exception {
-          tools[0] = (CreationTool) entry.createTool();
-        }
-      }, new UIRunnable() {
-        @Override
-        public void run(UiContext context) throws Exception {
-          context.useShell("Open type");
-          context.clickButton("Cancel");
-        }
-      });
-      creationTool = tools[0];
-    }
-    // check tool
-    assertNull(creationTool);
-  }
+	public void test_createTool_cancel() throws Exception {
+		addPaletteExtension(new String[]{
+				"<category id='category_1' name='category 1'>",
+				"  <x-entry id='system.chooseComponent' class='org.eclipse.wb.internal.core.xml.editor.palette.model.ChooseComponentEntryInfo'/>",
+		"</category>"});
+		XmlObjectInfo panel = parseEmptyPanel();
+		final PaletteManager manager = new PaletteManager(panel, TOOLKIT_ID);
+		manager.reloadPalette();
+		// set palette site
+		IPaletteSite.Helper.setSite(panel, new IPaletteSite.Empty() {
+			@Override
+			public Shell getShell() {
+				return DesignerPlugin.getShell();
+			}
+		});
+		// prepare entry
+		final ChooseComponentEntryInfo entry;
+		{
+			PaletteInfo palette = manager.getPalette();
+			CategoryInfo category = palette.getCategory("category_1");
+			entry = (ChooseComponentEntryInfo) category.getEntries().get(0);
+		}
+		// initialize
+		assertTrue(entry.initialize(null, panel));
+		// create tool
+		CreationTool creationTool;
+		{
+			final CreationTool[] tools = new CreationTool[1];
+			new UiContext().executeAndCheck(new UIRunnable() {
+				@Override
+				public void run(UiContext context) throws Exception {
+					tools[0] = (CreationTool) entry.createTool();
+				}
+			}, new UIRunnable() {
+				@Override
+				public void run(UiContext context) throws Exception {
+					context.useShell("Open type");
+					context.clickButton("Cancel");
+				}
+			});
+			creationTool = tools[0];
+		}
+		// check tool
+		assertNull(creationTool);
+	}
 }

@@ -23,71 +23,71 @@ import org.eclipse.swt.layout.FormLayout;
  * @coverage swt.model.layout.form
  */
 public interface IFormAttachmentInfo<C extends IControlInfo> extends IObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //	Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  int getAlignment();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//	Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	int getAlignment();
 
-  int getNumerator();
+	int getNumerator();
 
-  int getDenominator();
+	int getDenominator();
 
-  int getOffset();
+	int getOffset();
 
-  C getControl();
+	C getControl();
 
-  void setControl(C object);
+	void setControl(C object);
 
-  void setNumerator(int percent);
+	void setNumerator(int percent);
 
-  void setDenominator(int value);
+	void setDenominator(int value);
 
-  void setOffset(int offset);
+	void setOffset(int offset);
 
-  void setAlignment(int value);
+	void setAlignment(int value);
 
-  /**
-   * @return the FormSide reflecting which side this attachment belongs to.
-   */
-  FormSide getSide();
+	/**
+	 * @return the FormSide reflecting which side this attachment belongs to.
+	 */
+	FormSide getSide();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //	Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Does code changes according to FormAttachment's properties set.
-   */
-  void write() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//	Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Does code changes according to FormAttachment's properties set.
+	 */
+	void write() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //	Misc
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this attachment doesn't yet exist in code.
-   */
-  boolean isVirtual();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//	Misc
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this attachment doesn't yet exist in code.
+	 */
+	boolean isVirtual();
 
-  /**
-   * @return <code>true</code> if this attachment bound to parent in leading direction (control ==
-   *         null && denominator == 100 && numerator == 0);
-   */
-  boolean isParentLeading();
+	/**
+	 * @return <code>true</code> if this attachment bound to parent in leading direction (control ==
+	 *         null && denominator == 100 && numerator == 0);
+	 */
+	boolean isParentLeading();
 
-  /**
-   * @return <code>true</code> if this attachment bound to parent in trailing direction (control ==
-   *         null && denominator == numerator);
-   */
-  boolean isParentTrailing();
+	/**
+	 * @return <code>true</code> if this attachment bound to parent in trailing direction (control ==
+	 *         null && denominator == numerator);
+	 */
+	boolean isParentTrailing();
 
-  /**
-   * @return <code>true</code> if this attachment bound to parent by some percentage value (control
-   *         == null && 0 < numerator < 100);
-   */
-  boolean isPercentaged();
+	/**
+	 * @return <code>true</code> if this attachment bound to parent by some percentage value (control
+	 *         == null && 0 < numerator < 100);
+	 */
+	boolean isPercentaged();
 }

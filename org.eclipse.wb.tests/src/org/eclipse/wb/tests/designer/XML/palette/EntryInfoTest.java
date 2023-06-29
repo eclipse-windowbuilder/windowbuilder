@@ -26,42 +26,42 @@ import org.eclipse.swt.graphics.Image;
  * @author scheglov_ke
  */
 public class EntryInfoTest extends AbstractPaletteTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    XmlObjectInfo panel = parseEmptyPanel();
-    IEditPartViewer editPartViewer = new EmptyEditPartViewer();
-    // prepare ToolEntryInfo
-    EntryInfo toolEntry = new EntryInfo() {
-      @Override
-      public Image getIcon() {
-        return null;
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		XmlObjectInfo panel = parseEmptyPanel();
+		IEditPartViewer editPartViewer = new EmptyEditPartViewer();
+		// prepare ToolEntryInfo
+		EntryInfo toolEntry = new EntryInfo() {
+			@Override
+			public Image getIcon() {
+				return null;
+			}
 
-      @Override
-      public boolean activate(boolean reload) {
-        return false;
-      }
-    };
-    assertTrue(toolEntry.isEnabled());
-    // initialize
-    assertTrue(toolEntry.initialize(editPartViewer, panel));
-    // site
-    {
-      IPaletteSite.Empty site = new IPaletteSite.Empty();
-      IPaletteSite.Helper.setSite(panel, site);
-      assertSame(site, ReflectionUtils.invokeMethod(toolEntry, "getSite()"));
-    }
-    // can not activate
-    assertFalse(toolEntry.activate(false));
-    // category
-    {
-      CategoryInfo category = new CategoryInfo();
-      toolEntry.setCategory(category);
-      assertSame(category, toolEntry.getCategory());
-    }
-  }
+			@Override
+			public boolean activate(boolean reload) {
+				return false;
+			}
+		};
+		assertTrue(toolEntry.isEnabled());
+		// initialize
+		assertTrue(toolEntry.initialize(editPartViewer, panel));
+		// site
+		{
+			IPaletteSite.Empty site = new IPaletteSite.Empty();
+			IPaletteSite.Helper.setSite(panel, site);
+			assertSame(site, ReflectionUtils.invokeMethod(toolEntry, "getSite()"));
+		}
+		// can not activate
+		assertFalse(toolEntry.activate(false));
+		// category
+		{
+			CategoryInfo category = new CategoryInfo();
+			toolEntry.setCategory(category);
+			assertSame(category, toolEntry.getCategory());
+		}
+	}
 }

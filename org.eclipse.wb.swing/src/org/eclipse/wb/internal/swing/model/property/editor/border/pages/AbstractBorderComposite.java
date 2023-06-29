@@ -35,134 +35,134 @@ import javax.swing.border.Border;
  * @coverage swing.property.editor
  */
 public abstract class AbstractBorderComposite extends Composite {
-  private final String m_title;
-  protected BorderDialog m_borderDialog;
+	private final String m_title;
+	protected BorderDialog m_borderDialog;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractBorderComposite(Composite parent, String title) {
-    super(parent, SWT.NONE);
-    m_title = title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractBorderComposite(Composite parent, String title) {
+		super(parent, SWT.NONE);
+		m_title = title;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Initializes this {@link AbstractBorderComposite}.
-   */
-  public void initialize(BorderDialog borderDialog, AstEditor editor) {
-    m_borderDialog = borderDialog;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Initializes this {@link AbstractBorderComposite}.
+	 */
+	public void initialize(BorderDialog borderDialog, AstEditor editor) {
+		m_borderDialog = borderDialog;
+	}
 
-  /**
-   * @return the title to display for user.
-   */
-  public final String getTitle() {
-    return m_title;
-  }
+	/**
+	 * @return the title to display for user.
+	 */
+	public final String getTitle() {
+		return m_title;
+	}
 
-  /**
-   * Sets the {@link Border} to edit.
-   *
-   * @return <code>true</code> if this {@link AbstractBorderComposite} understands given
-   *         {@link Border}.
-   */
-  public abstract boolean setBorder(Border border) throws Exception;
+	/**
+	 * Sets the {@link Border} to edit.
+	 *
+	 * @return <code>true</code> if this {@link AbstractBorderComposite} understands given
+	 *         {@link Border}.
+	 */
+	public abstract boolean setBorder(Border border) throws Exception;
 
-  /**
-   * @return the source for updated {@link Border}.
-   */
-  public abstract String getSource() throws Exception;
+	/**
+	 * @return the source for updated {@link Border}.
+	 */
+	public abstract String getSource() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Components
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Binds given {@link AbstractBorderField}, so that when {@link SWT#Selection} event issued, we
-   * notify {@link BorderDialog}.
-   */
-  private void bindField(AbstractBorderField field) {
-    field.addListener(SWT.Selection, new Listener() {
-      public void handleEvent(Event event) {
-        m_borderDialog.borderUpdated();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Components
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Binds given {@link AbstractBorderField}, so that when {@link SWT#Selection} event issued, we
+	 * notify {@link BorderDialog}.
+	 */
+	private void bindField(AbstractBorderField field) {
+		field.addListener(SWT.Selection, new Listener() {
+			public void handleEvent(Event event) {
+				m_borderDialog.borderUpdated();
+			}
+		});
+	}
 
-  /**
-   * @return the bound {@link TextField}.
-   */
-  protected final TextField createTextField(String label) {
-    TextField field = new TextField(this, label);
-    bindField(field);
-    return field;
-  }
+	/**
+	 * @return the bound {@link TextField}.
+	 */
+	protected final TextField createTextField(String label) {
+		TextField field = new TextField(this, label);
+		bindField(field);
+		return field;
+	}
 
-  /**
-   * @return the bound {@link IntegerField}.
-   */
-  protected final IntegerField createIntegerField(String label) {
-    IntegerField field = new IntegerField(this, label);
-    bindField(field);
-    return field;
-  }
+	/**
+	 * @return the bound {@link IntegerField}.
+	 */
+	protected final IntegerField createIntegerField(String label) {
+		IntegerField field = new IntegerField(this, label);
+		bindField(field);
+		return field;
+	}
 
-  /**
-   * @return the bound {@link RadioField}.
-   */
-  protected final RadioField createRadioField(String label,
-      Class<?> clazz,
-      String[] fields,
-      String[] titles) {
-    RadioField field = new RadioField(this, label, clazz, fields, titles);
-    bindField(field);
-    return field;
-  }
+	/**
+	 * @return the bound {@link RadioField}.
+	 */
+	protected final RadioField createRadioField(String label,
+			Class<?> clazz,
+			String[] fields,
+			String[] titles) {
+		RadioField field = new RadioField(this, label, clazz, fields, titles);
+		bindField(field);
+		return field;
+	}
 
-  /**
-   * @return the bound {@link ComboField}.
-   */
-  protected final ComboField createComboField(String label,
-      Class<?> clazz,
-      String[] fields,
-      String[] titles) {
-    ComboField field = new ComboField(this, label, clazz, fields, titles);
-    bindField(field);
-    return field;
-  }
+	/**
+	 * @return the bound {@link ComboField}.
+	 */
+	protected final ComboField createComboField(String label,
+			Class<?> clazz,
+			String[] fields,
+			String[] titles) {
+		ComboField field = new ComboField(this, label, clazz, fields, titles);
+		bindField(field);
+		return field;
+	}
 
-  /**
-   * @return the bound {@link BooleanField}.
-   */
-  protected final BooleanField createBooleanField(String label, String[] titles) {
-    BooleanField field = new BooleanField(this, label, titles);
-    bindField(field);
-    return field;
-  }
+	/**
+	 * @return the bound {@link BooleanField}.
+	 */
+	protected final BooleanField createBooleanField(String label, String[] titles) {
+		BooleanField field = new BooleanField(this, label, titles);
+		bindField(field);
+		return field;
+	}
 
-  /**
-   * @return the bound {@link ColorField}.
-   */
-  protected final ColorField createColorField(String label) {
-    ColorField field = new ColorField(this, label);
-    bindField(field);
-    return field;
-  }
+	/**
+	 * @return the bound {@link ColorField}.
+	 */
+	protected final ColorField createColorField(String label) {
+		ColorField field = new ColorField(this, label);
+		bindField(field);
+		return field;
+	}
 
-  /**
-   * @return the bound {@link BorderField}.
-   */
-  protected final BorderField createBorderField(String label, String buttonText) {
-    BorderField field = new BorderField(this, label, buttonText);
-    bindField(field);
-    return field;
-  }
+	/**
+	 * @return the bound {@link BorderField}.
+	 */
+	protected final BorderField createBorderField(String label, String buttonText) {
+		BorderField field = new BorderField(this, label, buttonText);
+		bindField(field);
+		return field;
+	}
 }

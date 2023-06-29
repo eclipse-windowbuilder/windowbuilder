@@ -26,29 +26,29 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  * @coverage rcp.gefTree
  */
 public final class EditPartFactory implements IEditPartFactory {
-  private final static IEditPartFactory MATCHING_FACTORY =
-      new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.rcp.model"),
-          ImmutableList.of("org.eclipse.wb.internal.rcp.gefTree.part"));
+	private final static IEditPartFactory MATCHING_FACTORY =
+			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.rcp.model"),
+					ImmutableList.of("org.eclipse.wb.internal.rcp.gefTree.part"));
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart createEditPart(EditPart context, Object model) {
-    // special Composite's
-    if (model instanceof CompositeInfo) {
-      CompositeInfo composite = (CompositeInfo) model;
-      // Form.getHead()
-      if (composite.getParent() instanceof FormInfo) {
-        FormInfo form = (FormInfo) composite.getParent();
-        if (form.getHead() == composite) {
-          return new FormHeadEditPart(form);
-        }
-      }
-    }
-    // most EditPart's can be created using matching
-    return MATCHING_FACTORY.createEditPart(context, model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart createEditPart(EditPart context, Object model) {
+		// special Composite's
+		if (model instanceof CompositeInfo) {
+			CompositeInfo composite = (CompositeInfo) model;
+			// Form.getHead()
+			if (composite.getParent() instanceof FormInfo) {
+				FormInfo form = (FormInfo) composite.getParent();
+				if (form.getHead() == composite) {
+					return new FormHeadEditPart(form);
+				}
+			}
+		}
+		// most EditPart's can be created using matching
+		return MATCHING_FACTORY.createEditPart(context, model);
+	}
 }

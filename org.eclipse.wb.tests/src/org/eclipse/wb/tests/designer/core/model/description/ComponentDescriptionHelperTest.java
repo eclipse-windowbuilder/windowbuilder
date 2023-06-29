@@ -304,7 +304,7 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 	public void test_presentationCaching_use_forStandardComponents() throws Exception {
 		// parse for context
 		String[] lines = { "// filler filler filler", "public class Test extends JPanel {", "  public Test() {", "  }",
-				"}" };
+		"}" };
 		parseContainer(lines);
 		// prepare component description
 		ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
@@ -323,7 +323,7 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 		TestUtils.createImagePNG(m_testProject, "src/test/MyButton.png", 10, 10);
 		waitForAutoBuild();
 		String[] lines = { "// filler filler filler", "public class Test extends JPanel {", "  public Test() {", "  }",
-				"}" };
+		"}" };
 		// parse for context
 		parseContainer(lines);
 		// prepare component description

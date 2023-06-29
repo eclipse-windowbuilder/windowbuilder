@@ -25,78 +25,78 @@ import java.util.List;
  * @coverage gef.draw2d
  */
 public interface IRootFigure {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Layer's
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds the given layer as a child of this {@link IRootFigure}.
-   */
-  void addLayer(Layer layer);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Layer's
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds the given layer as a child of this {@link IRootFigure}.
+	 */
+	void addLayer(Layer layer);
 
-  /**
-   * Adds the given layer as a child of this {@link IRootFigure} with given index.
-   */
-  void addLayer(Layer layer, int index);
+	/**
+	 * Adds the given layer as a child of this {@link IRootFigure} with given index.
+	 */
+	void addLayer(Layer layer, int index);
 
-  /**
-   * Returns the layer identified by the <code>name</code> given in the input.
-   */
-  Layer getLayer(String name);
+	/**
+	 * Returns the layer identified by the <code>name</code> given in the input.
+	 */
+	Layer getLayer(String name);
 
-  /**
-   * Return all layer's from this {@link IRootFigure}.
-   */
-  List<Layer> getLayers();
+	/**
+	 * Return all layer's from this {@link IRootFigure}.
+	 */
+	List<Layer> getLayers();
 
-  /**
-   * Removes the layer identified by the given key from this {@link IRootFigure}.
-   */
-  void removeLayer(String name);
+	/**
+	 * Removes the layer identified by the given key from this {@link IRootFigure}.
+	 */
+	void removeLayer(String name);
 
-  /**
-   * Removes the given layer from this {@link IRootFigure}.
-   */
-  void removeLayer(Layer layer);
+	/**
+	 * Removes the given layer from this {@link IRootFigure}.
+	 */
+	void removeLayer(Layer layer);
 
-  /**
-   * Remove all layer's from this {@link IRootFigure}.
-   */
-  void removeAll();
+	/**
+	 * Remove all layer's from this {@link IRootFigure}.
+	 */
+	void removeAll();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the background Color of this Figure.
-   */
-  Color getBackground();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the background Color of this Figure.
+	 */
+	Color getBackground();
 
-  /**
-   * Sets the background color.
-   */
-  void setBackground(Color background);
+	/**
+	 * Sets the background color.
+	 */
+	void setBackground(Color background);
 
-  /**
-   * Returns the local foreground Color of this Figure.
-   */
-  Color getForeground();
+	/**
+	 * Returns the local foreground Color of this Figure.
+	 */
+	Color getForeground();
 
-  /**
-   * Sets the foreground color.
-   */
-  void setForeground(Color foreground);
+	/**
+	 * Sets the foreground color.
+	 */
+	void setForeground(Color foreground);
 
-  /**
-   * Returns the current Font by reference.
-   */
-  Font getFont();
+	/**
+	 * Returns the current Font by reference.
+	 */
+	Font getFont();
 
-  /**
-   * Sets the font.
-   */
-  void setFont(Font font);
+	/**
+	 * Sets the font.
+	 */
+	void setFont(Font font);
 }

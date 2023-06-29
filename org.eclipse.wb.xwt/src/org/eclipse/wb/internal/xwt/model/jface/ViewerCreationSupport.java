@@ -28,52 +28,52 @@ import java.lang.reflect.Method;
  * @coverage XWT.model.jface
  */
 public class ViewerCreationSupport extends CreationSupport implements ILiveCreationSupport {
-  private final ViewerInfo m_viewer;
-  private final Method m_method;
-  private final String m_property;
+	private final ViewerInfo m_viewer;
+	private final Method m_method;
+	private final String m_property;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerCreationSupport(ViewerInfo viewer, Method method, String property) {
-    m_viewer = viewer;
-    m_method = method;
-    m_property = property;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerCreationSupport(ViewerInfo viewer, Method method, String property) {
+		m_viewer = viewer;
+		m_method = method;
+		m_property = property;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addElement(DocumentElement parent, int index) throws Exception {
-    m_viewer.getCreationSupport().addElement(parent, index);
-    m_object.setCreationSupport(new ViewerControlCreationSupport(m_viewer, m_method, m_property));
-    m_object.addChild(m_viewer);
-    // configure using script
-    {
-      String script = XmlObjectUtils.getParameter(m_viewer, "viewer.configureNew");
-      if (script != null) {
-        ScriptUtils.evaluate(
-            m_viewer.getContext().getClassLoader(),
-            script,
-            "viewer",
-            m_viewer,
-            "control",
-            m_object);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addElement(DocumentElement parent, int index) throws Exception {
+		m_viewer.getCreationSupport().addElement(parent, index);
+		m_object.setCreationSupport(new ViewerControlCreationSupport(m_viewer, m_method, m_property));
+		m_object.addChild(m_viewer);
+		// configure using script
+		{
+			String script = XmlObjectUtils.getParameter(m_viewer, "viewer.configureNew");
+			if (script != null) {
+				ScriptUtils.evaluate(
+						m_viewer.getContext().getClassLoader(),
+						script,
+						"viewer",
+						m_viewer,
+						"control",
+						m_object);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILiveCreationSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CreationSupport getLiveComponentCreation() {
-    return ((ILiveCreationSupport) m_viewer.getCreationSupport()).getLiveComponentCreation();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILiveCreationSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CreationSupport getLiveComponentCreation() {
+		return ((ILiveCreationSupport) m_viewer.getCreationSupport()).getLiveComponentCreation();
+	}
 }

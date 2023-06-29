@@ -21,14 +21,14 @@ import org.eclipse.wb.internal.xwt.parser.XwtParser;
  * @coverage XWT.editor
  */
 public final class XwtDesignPage extends XmlDesignPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Render
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected XmlObjectInfo parse() throws Exception {
-    XwtParser parser = new XwtParser(m_file, m_document);
-    return parser.parse();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Render
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected XmlObjectInfo parse() throws Exception {
+		XwtParser parser = new XwtParser(m_file, m_document);
+		return parser.parse();
+	}
 }

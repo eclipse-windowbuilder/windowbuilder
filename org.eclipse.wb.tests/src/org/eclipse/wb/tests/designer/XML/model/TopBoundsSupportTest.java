@@ -22,37 +22,37 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author scheglov_ke
  */
 public class TopBoundsSupportTest extends AbstractCoreTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    AbstractComponentInfo shell = parse("<Shell/>");
-    shell.refresh();
-    // initial size
-    {
-      Rectangle bounds = shell.getBounds();
-      assertEquals(450, bounds.width);
-      assertEquals(300, bounds.height);
-    }
-    // set new size
-    TopBoundsSupport topBoundsSupport = shell.getTopBoundsSupport();
-    topBoundsSupport.setSize(500, 400);
-    shell.refresh();
-    {
-      Rectangle bounds = shell.getBounds();
-      assertEquals(500, bounds.width);
-      assertEquals(400, bounds.height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		AbstractComponentInfo shell = parse("<Shell/>");
+		shell.refresh();
+		// initial size
+		{
+			Rectangle bounds = shell.getBounds();
+			assertEquals(450, bounds.width);
+			assertEquals(300, bounds.height);
+		}
+		// set new size
+		TopBoundsSupport topBoundsSupport = shell.getTopBoundsSupport();
+		topBoundsSupport.setSize(500, 400);
+		shell.refresh();
+		{
+			Rectangle bounds = shell.getBounds();
+			assertEquals(500, bounds.width);
+			assertEquals(400, bounds.height);
+		}
+	}
 }

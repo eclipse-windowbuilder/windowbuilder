@@ -17,20 +17,20 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
  * @coverage bindings.swing.ui
  */
 public class ChooseClassAndPropertiesConfiguration
-    extends
-      org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration {
-  private boolean m_workWithELProperty = true;
+extends
+org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration {
+	private boolean m_workWithELProperty = true;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ELProperty
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isWorkWithELProperty() {
-    return m_workWithELProperty;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ELProperty
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isWorkWithELProperty() {
+		return m_workWithELProperty;
+	}
 
-  public void setWorkWithELProperty(boolean workWithElProperty) {
-    m_workWithELProperty = workWithElProperty;
-  }
+	public void setWorkWithELProperty(boolean workWithElProperty) {
+		m_workWithELProperty = workWithElProperty;
+	}
 }

@@ -20,8 +20,8 @@ import java.util.Map;
  * @author scheglov_ke
  */
 public interface IConfigurablePropertyObject {
-  /**
-   * Configures object with given {@link Map} of parameters.
-   */
-  void configure(EditorState state, Map<String, Object> parameters) throws Exception;
+	/**
+	 * Configures object with given {@link Map} of parameters.
+	 */
+	void configure(EditorState state, Map<String, Object> parameters) throws Exception;
 }

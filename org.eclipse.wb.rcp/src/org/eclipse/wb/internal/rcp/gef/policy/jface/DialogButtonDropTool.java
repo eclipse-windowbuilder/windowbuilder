@@ -25,26 +25,26 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage rcp.gef.policy
  */
 public final class DialogButtonDropTool extends AbstractCreationTool {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractCreationTool
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Request createTargetRequest() {
-    return new DialogButtonDropRequest();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractCreationTool
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Request createTargetRequest() {
+		return new DialogButtonDropRequest();
+	}
 
-  @Override
-  protected void selectAddedObjects() {
-    DialogButtonDropRequest request = (DialogButtonDropRequest) getTargetRequest();
-    ControlInfo button = request.getButton();
-    if (button != null) {
-      IEditPartViewer viewer = getViewer();
-      EditPart editPart = viewer.getEditPartByModel(button);
-      if (editPart != null) {
-        viewer.select(editPart);
-      }
-    }
-  }
+	@Override
+	protected void selectAddedObjects() {
+		DialogButtonDropRequest request = (DialogButtonDropRequest) getTargetRequest();
+		ControlInfo button = request.getButton();
+		if (button != null) {
+			IEditPartViewer viewer = getViewer();
+			EditPart editPart = viewer.getEditPartByModel(button);
+			if (editPart != null) {
+				viewer.select(editPart);
+			}
+		}
+	}
 }

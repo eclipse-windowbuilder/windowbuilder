@@ -23,29 +23,29 @@ import org.eclipse.swt.layout.RowData;
  * @coverage swt.model.layout
  */
 public final class RowDataInfo extends LayoutDataInfo implements IRowDataInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowDataInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowDataInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setWidth(int width) throws Exception {
-    getPropertyByTitle("width").setValue(width);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setWidth(int width) throws Exception {
+		getPropertyByTitle("width").setValue(width);
+	}
 
-  @Override
-  public void setHeight(int height) throws Exception {
-    getPropertyByTitle("height").setValue(height);
-  }
+	@Override
+	public void setHeight(int height) throws Exception {
+		getPropertyByTitle("height").setValue(height);
+	}
 }

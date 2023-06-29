@@ -20,14 +20,14 @@ import org.eclipse.wb.internal.swing.ToolkitProvider;
  * @coverage swing.preferences.ui
  */
 public final class VariablesPreferencePage
-    extends
-      org.eclipse.wb.internal.core.preferences.code.VariablesPreferencePage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VariablesPreferencePage() {
-    super(ToolkitProvider.DESCRIPTION);
-  }
+extends
+org.eclipse.wb.internal.core.preferences.code.VariablesPreferencePage {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VariablesPreferencePage() {
+		super(ToolkitProvider.DESCRIPTION);
+	}
 }

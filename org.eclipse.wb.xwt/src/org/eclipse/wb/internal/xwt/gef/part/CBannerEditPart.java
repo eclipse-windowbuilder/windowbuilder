@@ -22,27 +22,27 @@ import org.eclipse.wb.internal.xwt.model.widgets.CBannerInfo;
  * @coverage XWT.gef.part
  */
 public final class CBannerEditPart extends CompositeEditPart {
-  private final CBannerInfo m_composite;
+	private final CBannerInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CBannerEditPart(CBannerInfo composite) {
-    super(composite);
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CBannerEditPart(CBannerInfo composite) {
+		super(composite);
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(new CBannerLayoutEditPolicy(m_composite));
-    installEditPolicy(new TerminatorLayoutEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(new CBannerLayoutEditPolicy(m_composite));
+		installEditPolicy(new TerminatorLayoutEditPolicy());
+	}
 }

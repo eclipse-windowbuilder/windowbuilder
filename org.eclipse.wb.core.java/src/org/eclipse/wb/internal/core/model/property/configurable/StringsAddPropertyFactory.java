@@ -26,69 +26,69 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
  * @coverage core.model.property.editor
  */
 public final class StringsAddPropertyFactory implements IConfigurablePropertyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IConfigurablePropertyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Property create(JavaInfo javaInfo, ConfigurablePropertyDescription description)
-      throws Exception {
-    Property property = new ConfigurableProperty(javaInfo, description.getTitle());
-    if (property.getEditor() instanceof IConfigurablePropertyObject) {
-      EditorState editorState = EditorState.get(javaInfo.getEditor());
-      IConfigurablePropertyObject editor = (IConfigurablePropertyObject) property.getEditor();
-      description.configure(editorState, editor);
-    }
-    return property;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IConfigurablePropertyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Property create(JavaInfo javaInfo, ConfigurablePropertyDescription description)
+			throws Exception {
+		Property property = new ConfigurableProperty(javaInfo, description.getTitle());
+		if (property.getEditor() instanceof IConfigurablePropertyObject) {
+			EditorState editorState = EditorState.get(javaInfo.getEditor());
+			IConfigurablePropertyObject editor = (IConfigurablePropertyObject) property.getEditor();
+			description.configure(editorState, editor);
+		}
+		return property;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * {@link ConfigurableProperty} implementation for this {@link IConfigurablePropertyFactory}.
-   */
-  private static final class ConfigurableProperty extends JavaProperty {
-    private final StringsAddPropertyEditor m_stringsEditor;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * {@link ConfigurableProperty} implementation for this {@link IConfigurablePropertyFactory}.
+	 */
+	private static final class ConfigurableProperty extends JavaProperty {
+		private final StringsAddPropertyEditor m_stringsEditor;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public ConfigurableProperty(JavaInfo javaInfo, String title) {
-      super(javaInfo, title, new StringsAddPropertyEditor());
-      m_stringsEditor = (StringsAddPropertyEditor) getEditor();
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public ConfigurableProperty(JavaInfo javaInfo, String title) {
+			super(javaInfo, title, new StringsAddPropertyEditor());
+			m_stringsEditor = (StringsAddPropertyEditor) getEditor();
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Presentation
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public boolean isModified() throws Exception {
-      return m_stringsEditor.getItems(this).length != 0;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Presentation
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public boolean isModified() throws Exception {
+			return m_stringsEditor.getItems(this).length != 0;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Value
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public Object getValue() throws Exception {
-      return m_stringsEditor.getItems(this);
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Value
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public Object getValue() throws Exception {
+			return m_stringsEditor.getItems(this);
+		}
 
-    @Override
-    public void setValue(Object value) throws Exception {
-      if (value instanceof String[]) {
-        m_stringsEditor.setItems(this, (String[]) value);
-      }
-    }
-  }
+		@Override
+		public void setValue(Object value) throws Exception {
+			if (value instanceof String[]) {
+				m_stringsEditor.setItems(this, (String[]) value);
+			}
+		}
+	}
 }

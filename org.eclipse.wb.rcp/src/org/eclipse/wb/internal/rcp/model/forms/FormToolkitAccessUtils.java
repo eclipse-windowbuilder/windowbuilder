@@ -39,79 +39,79 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
  * @coverage rcp.model.forms
  */
 public final class FormToolkitAccessUtils {
-  /**
-   * Creates {@link InstanceFactoryInfo} for {@link FormToolkit} using {@link FormToolkitAccess}.
-   * This method should be used during {@link JavaInfo} initializing of "this" component, i.e.
-   * practically during parsing.
-   *
-   * @return the created {@link InstanceFactoryInfo}.
-   */
-  public static InstanceFactoryInfo createFormToolkit_usingAccess(JavaInfo hostJavaInfo)
-      throws Exception {
-    TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(hostJavaInfo);
-    // prepare "toolkit"
-    FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);
-    CreationSupport creationSupport = new FormToolkitCreationSupport(hostJavaInfo, toolkitAccess);
-    InstanceFactoryInfo toolkit = createFormToolkit(hostJavaInfo.getEditor(), creationSupport);
-    {
-      VariableSupport variableSupport =
-          new FormToolkitVariableSupport(toolkit, hostJavaInfo, toolkitAccess);
-      toolkit.setVariableSupport(variableSupport);
-    }
-    return toolkit;
-  }
+	/**
+	 * Creates {@link InstanceFactoryInfo} for {@link FormToolkit} using {@link FormToolkitAccess}.
+	 * This method should be used during {@link JavaInfo} initializing of "this" component, i.e.
+	 * practically during parsing.
+	 *
+	 * @return the created {@link InstanceFactoryInfo}.
+	 */
+	public static InstanceFactoryInfo createFormToolkit_usingAccess(JavaInfo hostJavaInfo)
+			throws Exception {
+		TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(hostJavaInfo);
+		// prepare "toolkit"
+		FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);
+		CreationSupport creationSupport = new FormToolkitCreationSupport(hostJavaInfo, toolkitAccess);
+		InstanceFactoryInfo toolkit = createFormToolkit(hostJavaInfo.getEditor(), creationSupport);
+		{
+			VariableSupport variableSupport =
+					new FormToolkitVariableSupport(toolkit, hostJavaInfo, toolkitAccess);
+			toolkit.setVariableSupport(variableSupport);
+		}
+		return toolkit;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // FormToolkit as constructor parameter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create {@link InstanceFactoryInfo} for {@link FormToolkit} parameter of
-   * {@link MethodDeclaration}.
-   */
-  public static void createFormToolkit_asMethodParameter(AstEditor editor,
-      final MethodDeclaration method) throws Exception {
-    for (SingleVariableDeclaration parameter : DomGenerics.parameters(method)) {
-      if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.ui.forms.widgets.FormToolkit")) {
-        CreationSupport creationSupport = new MethodParameterCreationSupport(parameter);
-        final InstanceFactoryInfo toolkit = createFormToolkit(editor, creationSupport);
-        // we may be don't have hierarchy yet
-        GlobalStateJava.activate(toolkit);
-        // bind to variable
-        ExecutionFlowUtils2.ensurePermanentValue(parameter.getName()).setModel(toolkit);
-        {
-          VariableSupport variableSupport = new MethodParameterVariableSupport(toolkit, parameter);
-          toolkit.setVariableSupport(variableSupport);
-        }
-        // set object during evaluation
-        toolkit.addBroadcastListener(new ExecutionFlowEnterFrame() {
-          @Override
-          public void invoke(ASTNode node) throws Exception {
-            if (node == method) {
-              toolkit.setObject(RcpMethodParameterEvaluator.FORM_TOOLKIT);
-            }
-          }
-        });
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// FormToolkit as constructor parameter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create {@link InstanceFactoryInfo} for {@link FormToolkit} parameter of
+	 * {@link MethodDeclaration}.
+	 */
+	public static void createFormToolkit_asMethodParameter(AstEditor editor,
+			final MethodDeclaration method) throws Exception {
+		for (SingleVariableDeclaration parameter : DomGenerics.parameters(method)) {
+			if (AstNodeUtils.isSuccessorOf(parameter, "org.eclipse.ui.forms.widgets.FormToolkit")) {
+				CreationSupport creationSupport = new MethodParameterCreationSupport(parameter);
+				final InstanceFactoryInfo toolkit = createFormToolkit(editor, creationSupport);
+				// we may be don't have hierarchy yet
+				GlobalStateJava.activate(toolkit);
+				// bind to variable
+				ExecutionFlowUtils2.ensurePermanentValue(parameter.getName()).setModel(toolkit);
+				{
+					VariableSupport variableSupport = new MethodParameterVariableSupport(toolkit, parameter);
+					toolkit.setVariableSupport(variableSupport);
+				}
+				// set object during evaluation
+				toolkit.addBroadcastListener(new ExecutionFlowEnterFrame() {
+					@Override
+					public void invoke(ASTNode node) throws Exception {
+						if (node == method) {
+							toolkit.setObject(RcpMethodParameterEvaluator.FORM_TOOLKIT);
+						}
+					}
+				});
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static InstanceFactoryInfo createFormToolkit(AstEditor editor,
-      CreationSupport creationSupport) throws Exception {
-    EditorState editorState = EditorState.get(editor);
-    ClassLoader editorLoader = editorState.getEditorLoader();
-    InstanceFactoryInfo toolkit =
-        InstanceFactoryInfo.createFactory(
-            editor,
-            editorLoader.loadClass("org.eclipse.ui.forms.widgets.FormToolkit"),
-            creationSupport);
-    editorState.getTmp_Components().add(toolkit);
-    return toolkit;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static InstanceFactoryInfo createFormToolkit(AstEditor editor,
+			CreationSupport creationSupport) throws Exception {
+		EditorState editorState = EditorState.get(editor);
+		ClassLoader editorLoader = editorState.getEditorLoader();
+		InstanceFactoryInfo toolkit =
+				InstanceFactoryInfo.createFactory(
+						editor,
+						editorLoader.loadClass("org.eclipse.ui.forms.widgets.FormToolkit"),
+						creationSupport);
+		editorState.getTmp_Components().add(toolkit);
+		return toolkit;
+	}
 }

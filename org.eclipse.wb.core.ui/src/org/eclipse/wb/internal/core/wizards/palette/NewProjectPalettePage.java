@@ -48,194 +48,194 @@ import java.util.List;
  * @coverage core.wizards.ui
  */
 public final class NewProjectPalettePage extends WizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NewProjectPalettePage() {
-    super("main");
-    setTitle(UiMessages.NewProjectPalettePage_title);
-    setDescription(UiMessages.NewProjectPalettePage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NewProjectPalettePage() {
+		super("main");
+		setTitle(UiMessages.NewProjectPalettePage_title);
+		setDescription(UiMessages.NewProjectPalettePage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private IJavaProject m_initialProject;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private IJavaProject m_initialProject;
 
-  /**
-   * Initializes this page with current selection.
-   */
-  public void init(IStructuredSelection selection) {
-    // initial IJavaProject
-    {
-      IJavaElement javaElement = null;
-      Object selectedElement = selection.getFirstElement();
-      if (selectedElement instanceof IAdaptable) {
-        IAdaptable adaptable = (IAdaptable) selectedElement;
-        javaElement = (IJavaElement) adaptable.getAdapter(IJavaElement.class);
-        if (javaElement == null) {
-          IResource resource = (IResource) adaptable.getAdapter(IResource.class);
-          if (resource != null && resource.getType() != IResource.ROOT) {
-            while (javaElement == null && resource.getType() != IResource.PROJECT) {
-              resource = resource.getParent();
-              javaElement = (IJavaElement) resource.getAdapter(IJavaElement.class);
-            }
-            if (javaElement == null) {
-              javaElement = JavaCore.create(resource);
-            }
-          }
-        }
-      }
-      // get IJavaProject
-      if (javaElement != null) {
-        m_initialProject = (IJavaProject) javaElement.getAncestor(IJavaElement.JAVA_PROJECT);
-      }
-    }
-  }
+	/**
+	 * Initializes this page with current selection.
+	 */
+	public void init(IStructuredSelection selection) {
+		// initial IJavaProject
+		{
+			IJavaElement javaElement = null;
+			Object selectedElement = selection.getFirstElement();
+			if (selectedElement instanceof IAdaptable) {
+				IAdaptable adaptable = (IAdaptable) selectedElement;
+				javaElement = (IJavaElement) adaptable.getAdapter(IJavaElement.class);
+				if (javaElement == null) {
+					IResource resource = (IResource) adaptable.getAdapter(IResource.class);
+					if (resource != null && resource.getType() != IResource.ROOT) {
+						while (javaElement == null && resource.getType() != IResource.PROJECT) {
+							resource = resource.getParent();
+							javaElement = (IJavaElement) resource.getAdapter(IJavaElement.class);
+						}
+						if (javaElement == null) {
+							javaElement = JavaCore.create(resource);
+						}
+					}
+				}
+			}
+			// get IJavaProject
+			if (javaElement != null) {
+				m_initialProject = (IJavaProject) javaElement.getAncestor(IJavaElement.JAVA_PROJECT);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the selected {@link IJavaProject}.
-   */
-  IJavaProject getJavaProject() {
-    return m_projectField.getProject();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the selected {@link IJavaProject}.
+	 */
+	IJavaProject getJavaProject() {
+		return m_projectField.getProject();
+	}
 
-  /**
-   * @return the selected {@link ToolkitDescription}.
-   */
-  ToolkitDescription getToolkit() {
-    return m_toolkits.get(m_toolkitField.getSelectionIndex());
-  }
+	/**
+	 * @return the selected {@link ToolkitDescription}.
+	 */
+	ToolkitDescription getToolkit() {
+		return m_toolkits.get(m_toolkitField.getSelectionIndex());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ProjectSelectionDialogField m_projectField;
-  private ComboDialogField m_toolkitField;
-  private final List<ToolkitDescription> m_toolkits = Lists.newArrayList();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ProjectSelectionDialogField m_projectField;
+	private ComboDialogField m_toolkitField;
+	private final List<ToolkitDescription> m_toolkits = Lists.newArrayList();
 
-  @Override
-  public void createControl(Composite parent) {
-    Composite container = new Composite(parent, SWT.NONE);
-    setControl(container);
-    GridLayoutFactory.create(container).columns(3);
-    // create fields
-    {
-      m_projectField = ProjectSelectionDialogField.create();
-      m_projectField.setButtonLabel(UiMessages.NewProjectPalettePage_projectBrowse);
-      m_projectField.setProject(m_initialProject);
-      doCreateField(m_projectField, UiMessages.NewProjectPalettePage_projectLabel);
-      m_projectField.setUpdateListener(m_validateListener);
-    }
-    {
-      m_toolkitField = new ComboDialogField(SWT.READ_ONLY);
-      m_toolkitField.setVisibleItemCount(10);
-      ExecutionUtils.runLog(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          Collections.addAll(m_toolkits, DescriptionHelper.getToolkits());
-          // sort by name
-          Collections.sort(m_toolkits, new Comparator<ToolkitDescription>() {
-            @Override
-            public int compare(ToolkitDescription o1, ToolkitDescription o2) {
-              return o1.getName().compareTo(o2.getName());
-            }
-          });
-          // add items
-          for (ToolkitDescription toolkit : m_toolkits) {
-            m_toolkitField.addItem(toolkit.getName());
-          }
-        }
-      });
-      m_toolkitField.selectItem(1); // select second, because first is "Core Java"
-      doCreateField(m_toolkitField, UiMessages.NewProjectPalettePage_toolkitLabel);
-    }
-    m_projectField.setFocus();
-    // initial validation
-    m_validationEnabled = true;
-    validateAll();
-  }
+	@Override
+	public void createControl(Composite parent) {
+		Composite container = new Composite(parent, SWT.NONE);
+		setControl(container);
+		GridLayoutFactory.create(container).columns(3);
+		// create fields
+		{
+			m_projectField = ProjectSelectionDialogField.create();
+			m_projectField.setButtonLabel(UiMessages.NewProjectPalettePage_projectBrowse);
+			m_projectField.setProject(m_initialProject);
+			doCreateField(m_projectField, UiMessages.NewProjectPalettePage_projectLabel);
+			m_projectField.setUpdateListener(m_validateListener);
+		}
+		{
+			m_toolkitField = new ComboDialogField(SWT.READ_ONLY);
+			m_toolkitField.setVisibleItemCount(10);
+			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					Collections.addAll(m_toolkits, DescriptionHelper.getToolkits());
+					// sort by name
+					Collections.sort(m_toolkits, new Comparator<ToolkitDescription>() {
+						@Override
+						public int compare(ToolkitDescription o1, ToolkitDescription o2) {
+							return o1.getName().compareTo(o2.getName());
+						}
+					});
+					// add items
+					for (ToolkitDescription toolkit : m_toolkits) {
+						m_toolkitField.addItem(toolkit.getName());
+					}
+				}
+			});
+			m_toolkitField.selectItem(1); // select second, because first is "Core Java"
+			doCreateField(m_toolkitField, UiMessages.NewProjectPalettePage_toolkitLabel);
+		}
+		m_projectField.setFocus();
+		// initial validation
+		m_validationEnabled = true;
+		validateAll();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean m_validationEnabled;
-  /**
-   * Implementation of {@link IDialogFieldListener} for {@link DialogField}'s validation.
-   */
-  protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
-    @Override
-    public void dialogFieldChanged(DialogField field) {
-      validateAll();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean m_validationEnabled;
+	/**
+	 * Implementation of {@link IDialogFieldListener} for {@link DialogField}'s validation.
+	 */
+	protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
+		@Override
+		public void dialogFieldChanged(DialogField field) {
+			validateAll();
+		}
+	};
 
-  /**
-   * Validate all and disable/enable page.
-   */
-  private void validateAll() {
-    if (m_validationEnabled) {
-      String errorMessage = validate();
-      setErrorMessage(errorMessage);
-      setPageComplete(errorMessage == null);
-    }
-  }
+	/**
+	 * Validate all and disable/enable page.
+	 */
+	private void validateAll() {
+		if (m_validationEnabled) {
+			String errorMessage = validate();
+			setErrorMessage(errorMessage);
+			setPageComplete(errorMessage == null);
+		}
+	}
 
-  /**
-   * Validate {@link DialogField}'s and returns error message or <code>null</code>.
-   */
-  private String validate() {
-    // validate project
-    IJavaProject javaProject;
-    {
-      javaProject = m_projectField.getProject();
-      if (javaProject == null) {
-        return UiMessages.NewProjectPalettePage_validateNoProject;
-      }
-    }
-    // validate toolkit
-    {
-      int toolkitIndex = m_toolkitField.getSelectionIndex();
-      ToolkitDescription toolkit = m_toolkits.get(toolkitIndex);
-      IFile paletteFile =
-          javaProject.getProject().getFile(
-              new Path("wbp-meta/" + toolkit.getId() + ".wbp-palette.xml"));
-      if (paletteFile.exists()) {
-        return MessageFormat.format(
-            UiMessages.NewProjectPalettePage_validateHasToolkit,
-            toolkit.getName(),
-            paletteFile.getFullPath());
-      }
-    }
-    // no error
-    return null;
-  }
+	/**
+	 * Validate {@link DialogField}'s and returns error message or <code>null</code>.
+	 */
+	private String validate() {
+		// validate project
+		IJavaProject javaProject;
+		{
+			javaProject = m_projectField.getProject();
+			if (javaProject == null) {
+				return UiMessages.NewProjectPalettePage_validateNoProject;
+			}
+		}
+		// validate toolkit
+		{
+			int toolkitIndex = m_toolkitField.getSelectionIndex();
+			ToolkitDescription toolkit = m_toolkits.get(toolkitIndex);
+			IFile paletteFile =
+					javaProject.getProject().getFile(
+							new Path("wbp-meta/" + toolkit.getId() + ".wbp-palette.xml"));
+			if (paletteFile.exists()) {
+				return MessageFormat.format(
+						UiMessages.NewProjectPalettePage_validateHasToolkit,
+						toolkit.getName(),
+						paletteFile.getFullPath());
+			}
+		}
+		// no error
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures given {@link DialogField}.
-   */
-  private void doCreateField(DialogField dialogField, String labelText) {
-    dialogField.setLabelText(labelText);
-    dialogField.setDialogFieldListener(m_validateListener);
-    Composite parent = (Composite) getControl();
-    DialogFieldUtils.fillControls(parent, dialogField, 3, 40);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures given {@link DialogField}.
+	 */
+	private void doCreateField(DialogField dialogField, String labelText) {
+		dialogField.setLabelText(labelText);
+		dialogField.setDialogFieldListener(m_validateListener);
+		Composite parent = (Composite) getControl();
+		DialogFieldUtils.fillControls(parent, dialogField, 3, 40);
+	}
 }

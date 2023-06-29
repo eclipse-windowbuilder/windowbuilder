@@ -22,35 +22,35 @@ import java.util.List;
  * @coverage gef.core
  */
 public class ParentTargetDragEditPartTracker extends DragEditPartTracker {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ParentTargetDragEditPartTracker(EditPart sourceEditPart) {
-    super(sourceEditPart);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ParentTargetDragEditPartTracker(EditPart sourceEditPart) {
+		super(sourceEditPart);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // High-Level handle MouseEvent
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void handleButtonUp(int button) {
-    if (m_state == STATE_DRAG_IN_PROGRESS) {
-      unlockTargetEditPart();
-    }
-    super.handleButtonUp(button);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// High-Level handle MouseEvent
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void handleButtonUp(int button) {
+		if (m_state == STATE_DRAG_IN_PROGRESS) {
+			unlockTargetEditPart();
+		}
+		super.handleButtonUp(button);
+	}
 
-  @Override
-  protected void handleDragStarted() {
-    super.handleDragStarted();
-    if (m_state == STATE_DRAG_IN_PROGRESS) {
-      ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
-      List<EditPart> editParts = request.getEditParts();
-      lockTargetEditPart(editParts.get(0).getParent());
-    }
-  }
+	@Override
+	protected void handleDragStarted() {
+		super.handleDragStarted();
+		if (m_state == STATE_DRAG_IN_PROGRESS) {
+			ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
+			List<EditPart> editParts = request.getEditParts();
+			lockTargetEditPart(editParts.get(0).getParent());
+		}
+	}
 }

@@ -25,65 +25,65 @@ import java.util.List;
  * @coverage swing.MigLayout.ui
  */
 public final class RowsDialog extends DimensionsDialog<MigRowInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowsDialog(Shell parentShell, MigLayoutInfo layout) {
-    super(parentShell, layout, layout.getRows());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowsDialog(Shell parentShell, MigLayoutInfo layout) {
+		super(parentShell, layout, layout.getRows());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DimensionsDialog: strings
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getDialogTitle() {
-    return ModelMessages.RowsDialog_dialogTitle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DimensionsDialog: strings
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getDialogTitle() {
+		return ModelMessages.RowsDialog_dialogTitle;
+	}
 
-  @Override
-  protected String getDialogMessage() {
-    return ModelMessages.RowsDialog_dialogMessage;
-  }
+	@Override
+	protected String getDialogMessage() {
+		return ModelMessages.RowsDialog_dialogMessage;
+	}
 
-  @Override
-  protected String getViewerTitle() {
-    return ModelMessages.RowsDialog_viewerTitle;
-  }
+	@Override
+	protected String getViewerTitle() {
+		return ModelMessages.RowsDialog_viewerTitle;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DimensionsDialog: dimensions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void moveDimensionsUp(Iterable<MigRowInfo> dimensions) throws Exception {
-    for (MigRowInfo row : dimensions) {
-      int index = row.getIndex();
-      m_layout.moveRow(index, index - 1);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DimensionsDialog: dimensions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void moveDimensionsUp(Iterable<MigRowInfo> dimensions) throws Exception {
+		for (MigRowInfo row : dimensions) {
+			int index = row.getIndex();
+			m_layout.moveRow(index, index - 1);
+		}
+	}
 
-  @Override
-  protected void moveDimensionsDown(Iterable<MigRowInfo> dimensions) throws Exception {
-    for (MigRowInfo row : dimensions) {
-      int index = row.getIndex();
-      m_layout.moveRow(index, index + 2);
-    }
-  }
+	@Override
+	protected void moveDimensionsDown(Iterable<MigRowInfo> dimensions) throws Exception {
+		for (MigRowInfo row : dimensions) {
+			int index = row.getIndex();
+			m_layout.moveRow(index, index + 2);
+		}
+	}
 
-  @Override
-  protected boolean editSelectedDimension(MigRowInfo row) {
-    return new RowEditDialog(getShell(), m_layout, row).open() == OK;
-  }
+	@Override
+	protected boolean editSelectedDimension(MigRowInfo row) {
+		return new RowEditDialog(getShell(), m_layout, row).open() == OK;
+	}
 
-  @Override
-  protected MigRowInfo createNewDimension(int targetIndex) throws Exception {
-    MigRowInfo row = new MigRowInfo(m_layout);
-    m_layout.insertRow(targetIndex);
-    return row;
-  }
+	@Override
+	protected MigRowInfo createNewDimension(int targetIndex) throws Exception {
+		MigRowInfo row = new MigRowInfo(m_layout);
+		m_layout.insertRow(targetIndex);
+		return row;
+	}
 }

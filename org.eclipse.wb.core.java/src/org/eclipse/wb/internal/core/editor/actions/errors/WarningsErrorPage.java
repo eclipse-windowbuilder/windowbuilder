@@ -39,107 +39,107 @@ import org.eclipse.swt.widgets.Listener;
  * @coverage core.editor.action.error
  */
 public final class WarningsErrorPage implements IErrorPage {
-  private AstEditor m_editor;
-  private java.util.List<EditorWarning> m_collection;
+	private AstEditor m_editor;
+	private java.util.List<EditorWarning> m_collection;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IErrorPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() {
-    return Messages.WarningsErrorPage_title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IErrorPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() {
+		return Messages.WarningsErrorPage_title;
+	}
 
-  @Override
-  public final void setRoot(ObjectInfo rootObject) {
-    if (rootObject instanceof JavaInfo) {
-      JavaInfo javaInfo = (JavaInfo) rootObject;
-      m_editor = javaInfo.getEditor();
-      EditorState editorState = EditorState.get(m_editor);
-      m_collection = editorState.getWarnings();
-    } else {
-      m_collection = null;
-    }
-  }
+	@Override
+	public final void setRoot(ObjectInfo rootObject) {
+		if (rootObject instanceof JavaInfo) {
+			JavaInfo javaInfo = (JavaInfo) rootObject;
+			m_editor = javaInfo.getEditor();
+			EditorState editorState = EditorState.get(m_editor);
+			m_collection = editorState.getWarnings();
+		} else {
+			m_collection = null;
+		}
+	}
 
-  @Override
-  public final boolean hasErrors() {
-    return m_collection != null && !m_collection.isEmpty();
-  }
+	@Override
+	public final boolean hasErrors() {
+		return m_collection != null && !m_collection.isEmpty();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private List m_nodesList;
-  private Browser m_browser;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private List m_nodesList;
+	private Browser m_browser;
 
-  @Override
-  public final Control create(Composite parent) {
-    Composite container = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.create(container);
-    // create List with bad nodes
-    {
-      Group group = new Group(container, SWT.NONE);
-      GridDataFactory.create(group).grabH().fill();
-      GridLayoutFactory.create(group);
-      group.setText(Messages.WarningsErrorPage_listLabel);
-      //
-      m_nodesList = new List(group, SWT.BORDER | SWT.V_SCROLL);
-      GridDataFactory.create(m_nodesList).hintC(100, 10).grab().fill();
-      // fill items
-      if (m_collection != null) {
-        for (EditorWarning warning : m_collection) {
-          try {
-            m_nodesList.add(warning.getMessage());
-          } catch (Throwable e) {
-            DesignerPlugin.log(e);
-          }
-        }
-      }
-      // add selection listener
-      m_nodesList.addListener(SWT.Selection, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          showException();
-        }
-      });
-    }
-    // create Text for displaying selected bad node
-    {
-      Group group = new Group(container, SWT.NONE);
-      GridDataFactory.create(group).grab().fill();
-      GridLayoutFactory.create(group);
-      group.setText(Messages.WarningsErrorPage_singleLabel);
-      //
-      m_browser = new Browser(group, SWT.BORDER);
-      GridDataFactory.create(m_browser).hintC(100, 15).grab().fill();
-    }
-    // show first node
-    if (m_nodesList.getItemCount() != 0) {
-      m_nodesList.select(0);
-      showException();
-    }
-    //
-    return container;
-  }
+	@Override
+	public final Control create(Composite parent) {
+		Composite container = new Composite(parent, SWT.NONE);
+		GridLayoutFactory.create(container);
+		// create List with bad nodes
+		{
+			Group group = new Group(container, SWT.NONE);
+			GridDataFactory.create(group).grabH().fill();
+			GridLayoutFactory.create(group);
+			group.setText(Messages.WarningsErrorPage_listLabel);
+			//
+			m_nodesList = new List(group, SWT.BORDER | SWT.V_SCROLL);
+			GridDataFactory.create(m_nodesList).hintC(100, 10).grab().fill();
+			// fill items
+			if (m_collection != null) {
+				for (EditorWarning warning : m_collection) {
+					try {
+						m_nodesList.add(warning.getMessage());
+					} catch (Throwable e) {
+						DesignerPlugin.log(e);
+					}
+				}
+			}
+			// add selection listener
+			m_nodesList.addListener(SWT.Selection, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					showException();
+				}
+			});
+		}
+		// create Text for displaying selected bad node
+		{
+			Group group = new Group(container, SWT.NONE);
+			GridDataFactory.create(group).grab().fill();
+			GridLayoutFactory.create(group);
+			group.setText(Messages.WarningsErrorPage_singleLabel);
+			//
+			m_browser = new Browser(group, SWT.BORDER);
+			GridDataFactory.create(m_browser).hintC(100, 15).grab().fill();
+		}
+		// show first node
+		if (m_nodesList.getItemCount() != 0) {
+			m_nodesList.select(0);
+			showException();
+		}
+		//
+		return container;
+	}
 
-  /**
-   * Shows given {@link BadNodeInformation}.
-   */
-  private void showException() {
-    try {
-      int index = m_nodesList.getSelectionIndex();
-      EditorWarning warning = m_collection.get(index);
-      // set html
-      String html =
-          DesignerExceptionUtils.getExceptionHTML0(warning.getMessage(), warning.getException());
-      m_browser.setText(html);
-    } catch (Throwable e) {
-      DesignerPlugin.log(e);
-    }
-  }
+	/**
+	 * Shows given {@link BadNodeInformation}.
+	 */
+	private void showException() {
+		try {
+			int index = m_nodesList.getSelectionIndex();
+			EditorWarning warning = m_collection.get(index);
+			// set html
+			String html =
+					DesignerExceptionUtils.getExceptionHTML0(warning.getMessage(), warning.getException());
+			m_browser.setText(html);
+		} catch (Throwable e) {
+			DesignerPlugin.log(e);
+		}
+	}
 }

@@ -21,24 +21,24 @@ import org.eclipse.wb.internal.core.databinding.ui.property.Context;
  * @coverage bindings.xwt.ui.properties
  */
 public class ObserveProperty
-    extends
-      org.eclipse.wb.internal.rcp.databinding.ui.property.ObserveProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
-    super(context, observeProperty);
-  }
+extends
+org.eclipse.wb.internal.rcp.databinding.ui.property.ObserveProperty {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
+		super(context, observeProperty);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractObserveProperty
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AbstractBindingProperty createBindingProperty() throws Exception {
-    return new BindingProperty(m_context);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractObserveProperty
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AbstractBindingProperty createBindingProperty() throws Exception {
+		return new BindingProperty(m_context);
+	}
 }

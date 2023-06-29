@@ -22,5 +22,5 @@ import java.util.List;
  * @coverage XML.model
  */
 public interface XmlObjectEventListeners {
-  void invoke(XmlObjectInfo object, List<AbstractListenerProperty> properties) throws Exception;
+	void invoke(XmlObjectInfo object, List<AbstractListenerProperty> properties) throws Exception;
 }

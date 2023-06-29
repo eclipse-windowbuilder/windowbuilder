@@ -19,30 +19,30 @@ import org.eclipse.wb.core.model.association.AssociationObjectFactory;
  * @coverage core.model.generic
  */
 public class SimpleContainerConfiguration {
-  private final ContainerObjectValidator m_componentValidator;
-  private final AssociationObjectFactory m_associationObjectFactory;
+	private final ContainerObjectValidator m_componentValidator;
+	private final AssociationObjectFactory m_associationObjectFactory;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimpleContainerConfiguration(ContainerObjectValidator componentValidator,
-      AssociationObjectFactory associationObjectFactory) {
-    m_componentValidator = componentValidator;
-    m_associationObjectFactory = associationObjectFactory;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimpleContainerConfiguration(ContainerObjectValidator componentValidator,
+			AssociationObjectFactory associationObjectFactory) {
+		m_componentValidator = componentValidator;
+		m_associationObjectFactory = associationObjectFactory;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AssociationObjectFactory getAssociationObjectFactory() {
-    return m_associationObjectFactory;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AssociationObjectFactory getAssociationObjectFactory() {
+		return m_associationObjectFactory;
+	}
 
-  public ContainerObjectValidator getComponentValidator() {
-    return m_componentValidator;
-  }
+	public ContainerObjectValidator getComponentValidator() {
+		return m_componentValidator;
+	}
 }

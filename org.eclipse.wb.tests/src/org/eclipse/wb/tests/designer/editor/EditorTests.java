@@ -19,15 +19,15 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    //basic policy
-    TopSelectionEditPolicyTest.class,
-    // basic features
-    UndoManagerTest.class,
-    ContentDescriberTest.class,
-    ReparseOnModificationTest.class,
-    SelectSupportTest.class,
-    ComponentsPropertiesPageTest.class,
-    JavaPropertiesToolBarContributorTest.class
+	//basic policy
+	TopSelectionEditPolicyTest.class,
+	// basic features
+	UndoManagerTest.class,
+	ContentDescriberTest.class,
+	ReparseOnModificationTest.class,
+	SelectSupportTest.class,
+	ComponentsPropertiesPageTest.class,
+	JavaPropertiesToolBarContributorTest.class
 })
 
 public class EditorTests {

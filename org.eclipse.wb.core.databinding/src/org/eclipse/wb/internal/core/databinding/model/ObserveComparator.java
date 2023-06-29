@@ -22,22 +22,22 @@ import java.util.Comparator;
  * @coverage bindings.model
  */
 public final class ObserveComparator implements Comparator<IObserveInfo> {
-  public static final Comparator<IObserveInfo> INSTANCE = new ObserveComparator();
+	public static final Comparator<IObserveInfo> INSTANCE = new ObserveComparator();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Comparator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int compare(final IObserveInfo observe1, final IObserveInfo observe2) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Integer>() {
-      @Override
-      public Integer runObject() throws Exception {
-        String text1 = observe1.getPresentation().getText();
-        String text2 = observe2.getPresentation().getText();
-        return text1.compareTo(text2);
-      }
-    }, 0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Comparator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int compare(final IObserveInfo observe1, final IObserveInfo observe2) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Integer>() {
+			@Override
+			public Integer runObject() throws Exception {
+				String text1 = observe1.getPresentation().getText();
+				String text2 = observe2.getPresentation().getText();
+				return text1.compareTo(text2);
+			}
+		}, 0);
+	}
 }

@@ -23,14 +23,14 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.preferences.ui
  */
 public abstract class GenerationPropertiesComposite extends AbstractBindingComposite {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenerationPropertiesComposite(Composite parent,
-      DataBindManager bindManager,
-      IPreferenceStore preferences) {
-    super(parent, bindManager, preferences);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenerationPropertiesComposite(Composite parent,
+			DataBindManager bindManager,
+			IPreferenceStore preferences) {
+		super(parent, bindManager, preferences);
+	}
 }

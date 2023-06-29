@@ -25,33 +25,33 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage gef.draw2d
  */
 public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ICustomTooltipProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure) {
-    FigureCanvas canvas = new FigureCanvas(parent, SWT.NONE);
-    GridDataFactory.create(canvas).fill().grab();
-    canvas.addListener(SWT.MouseDown, site.getHideListener());
-    canvas.addListener(SWT.MouseExit, site.getHideListener());
-    //
-    RootFigure rootFigure = canvas.getRootFigure();
-    rootFigure.setForeground(parent.getForeground());
-    rootFigure.setBackground(parent.getBackground());
-    //
-    Layer layer = new Layer("Tooltip");
-    layer.add(createTooltipFigure(figure));
-    rootFigure.addLayer(layer);
-    //
-    return canvas;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ICustomTooltipProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure) {
+		FigureCanvas canvas = new FigureCanvas(parent, SWT.NONE);
+		GridDataFactory.create(canvas).fill().grab();
+		canvas.addListener(SWT.MouseDown, site.getHideListener());
+		canvas.addListener(SWT.MouseExit, site.getHideListener());
+		//
+		RootFigure rootFigure = canvas.getRootFigure();
+		rootFigure.setForeground(parent.getForeground());
+		rootFigure.setBackground(parent.getBackground());
+		//
+		Layer layer = new Layer("Tooltip");
+		layer.add(createTooltipFigure(figure));
+		rootFigure.addLayer(layer);
+		//
+		return canvas;
+	}
 
-  @Override
-  public void show(Shell shell) {
-    shell.setVisible(true);
-  }
+	@Override
+	public void show(Shell shell) {
+		shell.setVisible(true);
+	}
 
-  protected abstract Figure createTooltipFigure(Figure hostFigure);
+	protected abstract Figure createTooltipFigure(Figure hostFigure);
 }

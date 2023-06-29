@@ -30,11 +30,11 @@ import java.io.Serializable;
  * @coverage core.model.clipboard
  */
 public abstract interface IClipboardImplicitCreationSupport extends Serializable {
-  /**
-   * Returns the child of given host, that corresponds to this {@link IImplicitCreationSupport}.
-   *
-   * @param host
-   *          the host {@link JavaInfo} to find children in.
-   */
-  JavaInfo find(JavaInfo host) throws Exception;
+	/**
+	 * Returns the child of given host, that corresponds to this {@link IImplicitCreationSupport}.
+	 *
+	 * @param host
+	 *          the host {@link JavaInfo} to find children in.
+	 */
+	JavaInfo find(JavaInfo host) throws Exception;
 }

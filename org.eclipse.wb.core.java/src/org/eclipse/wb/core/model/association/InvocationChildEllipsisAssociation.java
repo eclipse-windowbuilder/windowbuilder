@@ -23,44 +23,44 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage core.model.association
  */
 public final class InvocationChildEllipsisAssociation extends InvocationAssociation {
-  private final EllipsisObjectInfo m_ellipsisInfo;
+	private final EllipsisObjectInfo m_ellipsisInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public InvocationChildEllipsisAssociation(MethodInvocation invocation,
-      EllipsisObjectInfo ellipsisInfo) {
-    super(invocation);
-    m_ellipsisInfo = ellipsisInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public InvocationChildEllipsisAssociation(MethodInvocation invocation,
+			EllipsisObjectInfo ellipsisInfo) {
+		super(invocation);
+		m_ellipsisInfo = ellipsisInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean remove() throws Exception {
-    int elementIndex = m_ellipsisInfo.getItems().indexOf(m_javaInfo);
-    Assert.isTrue(elementIndex >= 0);
-    int parameterIndex = m_ellipsisInfo.getParameterIndex();
-    m_editor.removeInvocationArgument(m_invocation, parameterIndex + elementIndex);
-    // check then empty
-    if (m_invocation.arguments().size() <= parameterIndex) {
-      // if no items...
-      if (m_ellipsisInfo.isRemoveOnEmpty()
-          && m_invocation.getParent() instanceof ExpressionStatement) {
-        // ... and single invocation then remove invocation
-        m_editor.removeEnclosingStatement(m_invocation);
-      } else if (parameterIndex == 0) {
-        // ... and no more arguments
-        m_editor.replaceExpression(m_invocation, m_ellipsisInfo.getOnEmptySource());
-        m_ellipsisInfo.setInvocation(null);
-      }
-    }
-    // yes, association removed
-    return super.remove();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean remove() throws Exception {
+		int elementIndex = m_ellipsisInfo.getItems().indexOf(m_javaInfo);
+		Assert.isTrue(elementIndex >= 0);
+		int parameterIndex = m_ellipsisInfo.getParameterIndex();
+		m_editor.removeInvocationArgument(m_invocation, parameterIndex + elementIndex);
+		// check then empty
+		if (m_invocation.arguments().size() <= parameterIndex) {
+			// if no items...
+			if (m_ellipsisInfo.isRemoveOnEmpty()
+					&& m_invocation.getParent() instanceof ExpressionStatement) {
+				// ... and single invocation then remove invocation
+				m_editor.removeEnclosingStatement(m_invocation);
+			} else if (parameterIndex == 0) {
+				// ... and no more arguments
+				m_editor.replaceExpression(m_invocation, m_ellipsisInfo.getOnEmptySource());
+				m_ellipsisInfo.setInvocation(null);
+			}
+		}
+		// yes, association removed
+		return super.remove();
+	}
 }

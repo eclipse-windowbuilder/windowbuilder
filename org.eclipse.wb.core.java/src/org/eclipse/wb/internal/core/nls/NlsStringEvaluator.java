@@ -33,34 +33,34 @@ import java.util.List;
  * @coverage core.nls
  */
 public final class NlsStringEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    if ("java.lang.String".equals(typeQualifiedName)) {
-      AstEditor editor = (AstEditor) context.getArbitraryValue(JavaInfoEvaluationHelper.KEY_EDITOR);
-      if (editor != null) {
-        JavaInfo root = (JavaInfo) editor.getGlobalValue(JavaInfoParser.KEY_ROOT);
-        if (root != null) {
-          String value = NlsSupport.get(root).getValue(expression);
-          return value != null ? value : AstEvaluationEngine.UNKNOWN;
-        } else if (expression instanceof MethodInvocation || expression instanceof QualifiedName) {
-          @SuppressWarnings("unchecked")
-          List<JavaInfo> components =
-              (List<JavaInfo>) editor.getGlobalValue(JavaInfoParser.KEY_COMPONENTS);
-          Assert.isTrue(!components.isEmpty(), "Components should have at least one JavaInfo.");
-          String value = NlsSupport.getValue(components.get(0), expression);
-          return value != null ? value : AstEvaluationEngine.UNKNOWN;
-        }
-      }
-    }
-    // no ASTEditor or JavaInfo, can not access NLSSupport
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		if ("java.lang.String".equals(typeQualifiedName)) {
+			AstEditor editor = (AstEditor) context.getArbitraryValue(JavaInfoEvaluationHelper.KEY_EDITOR);
+			if (editor != null) {
+				JavaInfo root = (JavaInfo) editor.getGlobalValue(JavaInfoParser.KEY_ROOT);
+				if (root != null) {
+					String value = NlsSupport.get(root).getValue(expression);
+					return value != null ? value : AstEvaluationEngine.UNKNOWN;
+				} else if (expression instanceof MethodInvocation || expression instanceof QualifiedName) {
+					@SuppressWarnings("unchecked")
+					List<JavaInfo> components =
+					(List<JavaInfo>) editor.getGlobalValue(JavaInfoParser.KEY_COMPONENTS);
+					Assert.isTrue(!components.isEmpty(), "Components should have at least one JavaInfo.");
+					String value = NlsSupport.getValue(components.get(0), expression);
+					return value != null ? value : AstEvaluationEngine.UNKNOWN;
+				}
+			}
+		}
+		// no ASTEditor or JavaInfo, can not access NLSSupport
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

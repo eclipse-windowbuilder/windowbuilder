@@ -25,158 +25,158 @@ import org.eclipse.jface.action.IAction;
  * @author scheglov_ke
  */
 public class CopyActionTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * "Copy" action is disabled if no selection.
-   */
-  public void test_noSelection() throws Exception {
-    openContainer(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "  }",
-        "  // filler filler filler",
-        "}");
-    // prepare "Copy" action
-    IAction copyAction = getCopyAction();
-    // no selection - disabled action
-    canvas.select();
-    assertFalse(copyAction.isEnabled());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * "Copy" action is disabled if no selection.
+	 */
+	public void test_noSelection() throws Exception {
+		openContainer(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"  }",
+				"  // filler filler filler",
+				"}");
+		// prepare "Copy" action
+		IAction copyAction = getCopyAction();
+		// no selection - disabled action
+		canvas.select();
+		assertFalse(copyAction.isEnabled());
+	}
 
-  /**
-   * "This" component can not be copied.
-   */
-  public void test_thisSelection() throws Exception {
-    ContainerInfo panel = openContainer(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "  }",
-        "  // filler filler filler",
-        "}");
-    // prepare "Copy" action
-    IAction copyAction = getCopyAction();
-    // "this" selected - disabled action
-    canvas.select(panel);
-    assertFalse(copyAction.isEnabled());
-  }
+	/**
+	 * "This" component can not be copied.
+	 */
+	public void test_thisSelection() throws Exception {
+		ContainerInfo panel = openContainer(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"  }",
+				"  // filler filler filler",
+				"}");
+		// prepare "Copy" action
+		IAction copyAction = getCopyAction();
+		// "this" selected - disabled action
+		canvas.select(panel);
+		assertFalse(copyAction.isEnabled());
+	}
 
-  /**
-   * Test for copy/paste single component.
-   */
-  public void DISABLED_test_copySingle() throws Exception {
-    ContainerInfo panel = openContainer(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    {",
-        "      JButton btn = new JButton();",
-        "      add(btn);",
-        "    }",
-        "  }",
-        "}");
-    // select "btn"
-    {
-      ComponentInfo button = panel.getChildrenComponents().get(0);
-      canvas.select(button);
-    }
-    // copy
-    {
-      IAction copyAction = getCopyAction();
-      assertTrue(copyAction.isEnabled());
-      copyAction.run();
-    }
-    // paste
-    {
-      IAction pasteAction = getPasteAction();
-      assertTrue(pasteAction.isEnabled());
-      pasteAction.run();
-      // do paste
-      {
-        EditPart targetEditPart = m_contentEditPart;
-        canvas.moveTo(targetEditPart, 10, 10);
-        canvas.click();
-      }
-      assertEditor(
-          "public class Test extends JPanel {",
-          "  public Test() {",
-          "    {",
-          "      JButton button = new JButton();",
-          "      add(button);",
-          "    }",
-          "    {",
-          "      JButton btn = new JButton();",
-          "      add(btn);",
-          "    }",
-          "  }",
-          "}");
-    }
-  }
+	/**
+	 * Test for copy/paste single component.
+	 */
+	public void DISABLED_test_copySingle() throws Exception {
+		ContainerInfo panel = openContainer(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    {",
+				"      JButton btn = new JButton();",
+				"      add(btn);",
+				"    }",
+				"  }",
+				"}");
+		// select "btn"
+		{
+			ComponentInfo button = panel.getChildrenComponents().get(0);
+			canvas.select(button);
+		}
+		// copy
+		{
+			IAction copyAction = getCopyAction();
+			assertTrue(copyAction.isEnabled());
+			copyAction.run();
+		}
+		// paste
+		{
+			IAction pasteAction = getPasteAction();
+			assertTrue(pasteAction.isEnabled());
+			pasteAction.run();
+			// do paste
+			{
+				EditPart targetEditPart = m_contentEditPart;
+				canvas.moveTo(targetEditPart, 10, 10);
+				canvas.click();
+			}
+			assertEditor(
+					"public class Test extends JPanel {",
+					"  public Test() {",
+					"    {",
+					"      JButton button = new JButton();",
+					"      add(button);",
+					"    }",
+					"    {",
+					"      JButton btn = new JButton();",
+					"      add(btn);",
+					"    }",
+					"  }",
+					"}");
+		}
+	}
 
-  /**
-   * If container and its child are selected, then only ocntainer should be copied, it will copy
-   * child automatically.
-   */
-  public void DISABLED_test_copyParentAndItsChild() throws Exception {
-    ContainerInfo panel = openContainer(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    {",
-        "      JPanel inner = new JPanel();",
-        "      add(inner);",
-        "      {",
-        "        JButton button = new JButton();",
-        "        inner.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}");
-    // select "inner" and "button"
-    {
-      ContainerInfo inner = (ContainerInfo) panel.getChildrenComponents().get(0);
-      ComponentInfo button = inner.getChildrenComponents().get(0);
-      canvas.select(inner, button);
-    }
-    // copy
-    {
-      IAction copyAction = getCopyAction();
-      assertTrue(copyAction.isEnabled());
-      copyAction.run();
-    }
-    // paste
-    {
-      IAction pasteAction = getPasteAction();
-      assertTrue(pasteAction.isEnabled());
-      pasteAction.run();
-      // do paste
-      {
-        EditPart targetEditPart = m_contentEditPart;
-        canvas.moveTo(targetEditPart, 10, 10);
-        canvas.click();
-      }
-      assertEditor(
-          "public class Test extends JPanel {",
-          "  public Test() {",
-          "    {",
-          "      JPanel panel = new JPanel();",
-          "      add(panel);",
-          "      {",
-          "        JButton button = new JButton();",
-          "        panel.add(button);",
-          "      }",
-          "    }",
-          "    {",
-          "      JPanel inner = new JPanel();",
-          "      add(inner);",
-          "      {",
-          "        JButton button = new JButton();",
-          "        inner.add(button);",
-          "      }",
-          "    }",
-          "  }",
-          "}");
-    }
-  }
+	/**
+	 * If container and its child are selected, then only ocntainer should be copied, it will copy
+	 * child automatically.
+	 */
+	public void DISABLED_test_copyParentAndItsChild() throws Exception {
+		ContainerInfo panel = openContainer(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    {",
+				"      JPanel inner = new JPanel();",
+				"      add(inner);",
+				"      {",
+				"        JButton button = new JButton();",
+				"        inner.add(button);",
+				"      }",
+				"    }",
+				"  }",
+				"}");
+		// select "inner" and "button"
+		{
+			ContainerInfo inner = (ContainerInfo) panel.getChildrenComponents().get(0);
+			ComponentInfo button = inner.getChildrenComponents().get(0);
+			canvas.select(inner, button);
+		}
+		// copy
+		{
+			IAction copyAction = getCopyAction();
+			assertTrue(copyAction.isEnabled());
+			copyAction.run();
+		}
+		// paste
+		{
+			IAction pasteAction = getPasteAction();
+			assertTrue(pasteAction.isEnabled());
+			pasteAction.run();
+			// do paste
+			{
+				EditPart targetEditPart = m_contentEditPart;
+				canvas.moveTo(targetEditPart, 10, 10);
+				canvas.click();
+			}
+			assertEditor(
+					"public class Test extends JPanel {",
+					"  public Test() {",
+					"    {",
+					"      JPanel panel = new JPanel();",
+					"      add(panel);",
+					"      {",
+					"        JButton button = new JButton();",
+					"        panel.add(button);",
+					"      }",
+					"    }",
+					"    {",
+					"      JPanel inner = new JPanel();",
+					"      add(inner);",
+					"      {",
+					"        JButton button = new JButton();",
+					"        inner.add(button);",
+					"      }",
+					"    }",
+					"  }",
+					"}");
+		}
+	}
 }

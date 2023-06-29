@@ -26,77 +26,77 @@ import org.eclipse.swt.graphics.GC;
  * @coverage swing.property.beans
  */
 public final class ComboPropertyEditor extends AbstractComboPropertyEditor
-    implements
-      IValueSourcePropertyEditor {
-  private final PropertyEditorWrapper m_editorWrapper;
+implements
+IValueSourcePropertyEditor {
+	private final PropertyEditorWrapper m_editorWrapper;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComboPropertyEditor(PropertyEditorWrapper editorWrapper) {
-    m_editorWrapper = editorWrapper;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComboPropertyEditor(PropertyEditorWrapper editorWrapper) {
+		m_editorWrapper = editorWrapper;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Combo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addItems(Property property, CCombo3 combo) throws Exception {
-    for (String item : getTags(property)) {
-      combo.add(item);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Combo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addItems(Property property, CCombo3 combo) throws Exception {
+		for (String item : getTags(property)) {
+			combo.add(item);
+		}
+	}
 
-  @Override
-  protected void selectItem(Property property, CCombo3 combo) throws Exception {
-    combo.setText(getText(property));
-  }
+	@Override
+	protected void selectItem(Property property, CCombo3 combo) throws Exception {
+		combo.setText(getText(property));
+	}
 
-  @Override
-  protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
-    String[] items = getTags(property);
-    m_editorWrapper.setText(property, items[index]);
-  }
+	@Override
+	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+		String[] items = getTags(property);
+		m_editorWrapper.setText(property, items[index]);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IValueSourcePropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getValueSource(Object value) throws Exception {
-    return m_editorWrapper.getSource(value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IValueSourcePropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getValueSource(Object value) throws Exception {
+		return m_editorWrapper.getSource(value);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public PropertyEditorPresentation getPresentation() {
-    return m_editorWrapper.getPresentation();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public PropertyEditorPresentation getPresentation() {
+		return m_editorWrapper.getPresentation();
+	}
 
-  @Override
-  protected String getText(Property property) throws Exception {
-    return m_editorWrapper.getText(property);
-  }
+	@Override
+	protected String getText(Property property) throws Exception {
+		return m_editorWrapper.getText(property);
+	}
 
-  @Override
-  public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
-    m_editorWrapper.paint(property, gc, x, y, width, height);
-  }
+	@Override
+	public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
+		m_editorWrapper.paint(property, gc, x, y, width, height);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String[] getTags(Property property) throws Exception {
-    return m_editorWrapper.getTags(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String[] getTags(Property property) throws Exception {
+		return m_editorWrapper.getTags(property);
+	}
 }

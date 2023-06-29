@@ -25,78 +25,78 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
  * @coverage XWT.model
  */
 public final class XwtStringArraySupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XwtStringArraySupport(XmlObjectInfo rootObject) {
-    rootObject.addBroadcastListener(new GenericPropertySetValue() {
-      public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
-          throws Exception {
-        GenericPropertyDescription description = property.getDescription();
-        if (description.getType() == String[].class) {
-          XmlObjectInfo object = property.getObject();
-          DocumentElement element = object.getCreationSupport().getElement();
-          // update
-          if (value[0] instanceof String[]) {
-            setStringArray(object, element, description.getName(), (String[]) value[0]);
-          } else if (value[0] == Property.UNKNOWN_VALUE) {
-            removeStringArray(object, element, description.getName());
-          }
-          // we handled it
-          shouldSetValue[0] = false;
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XwtStringArraySupport(XmlObjectInfo rootObject) {
+		rootObject.addBroadcastListener(new GenericPropertySetValue() {
+			public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
+					throws Exception {
+				GenericPropertyDescription description = property.getDescription();
+				if (description.getType() == String[].class) {
+					XmlObjectInfo object = property.getObject();
+					DocumentElement element = object.getCreationSupport().getElement();
+					// update
+					if (value[0] instanceof String[]) {
+						setStringArray(object, element, description.getName(), (String[]) value[0]);
+					} else if (value[0] == Property.UNKNOWN_VALUE) {
+						removeStringArray(object, element, description.getName());
+					}
+					// we handled it
+					shouldSetValue[0] = false;
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void setStringArray(XmlObjectInfo object,
-      DocumentElement element,
-      String name,
-      String[] values) throws Exception {
-    DocumentElement propertyElement = getPropertyElement(element, name);
-    // remove old items
-    propertyElement.removeChildren();
-    // add new items
-    String itemTag = XmlObjectUtils.getTagForClass(object, String.class);
-    for (String value : values) {
-      DocumentElement itemElement = new DocumentElement();
-      itemElement.setTag(itemTag);
-      propertyElement.addChild(itemElement);
-      itemElement.setText(value, false);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void setStringArray(XmlObjectInfo object,
+			DocumentElement element,
+			String name,
+			String[] values) throws Exception {
+		DocumentElement propertyElement = getPropertyElement(element, name);
+		// remove old items
+		propertyElement.removeChildren();
+		// add new items
+		String itemTag = XmlObjectUtils.getTagForClass(object, String.class);
+		for (String value : values) {
+			DocumentElement itemElement = new DocumentElement();
+			itemElement.setTag(itemTag);
+			propertyElement.addChild(itemElement);
+			itemElement.setText(value, false);
+		}
+	}
 
-  private void removeStringArray(XmlObjectInfo object, DocumentElement element, String name)
-      throws Exception {
-    DocumentElement propertyElement = getPropertyElement(element, name);
-    if (propertyElement != null) {
-      propertyElement.remove();
-    }
-  }
+	private void removeStringArray(XmlObjectInfo object, DocumentElement element, String name)
+			throws Exception {
+		DocumentElement propertyElement = getPropertyElement(element, name);
+		if (propertyElement != null) {
+			propertyElement.remove();
+		}
+	}
 
-  /**
-   * @return existing or new child {@link DocumentElement} for property with given name.
-   */
-  private DocumentElement getPropertyElement(DocumentElement element, String name) {
-    String propertyTag = element.getTag() + "." + name;
-    // try to find existing element
-    {
-      DocumentElement propertyElement = element.getChild(propertyTag, true);
-      if (propertyElement != null) {
-        return propertyElement;
-      }
-    }
-    // add new element
-    DocumentElement propertyElement = new DocumentElement();
-    propertyElement.setTag(propertyTag);
-    element.addChild(propertyElement);
-    return propertyElement;
-  }
+	/**
+	 * @return existing or new child {@link DocumentElement} for property with given name.
+	 */
+	private DocumentElement getPropertyElement(DocumentElement element, String name) {
+		String propertyTag = element.getTag() + "." + name;
+		// try to find existing element
+		{
+			DocumentElement propertyElement = element.getChild(propertyTag, true);
+			if (propertyElement != null) {
+				return propertyElement;
+			}
+		}
+		// add new element
+		DocumentElement propertyElement = new DocumentElement();
+		propertyElement.setTag(propertyTag);
+		element.addChild(propertyElement);
+		return propertyElement;
+	}
 }

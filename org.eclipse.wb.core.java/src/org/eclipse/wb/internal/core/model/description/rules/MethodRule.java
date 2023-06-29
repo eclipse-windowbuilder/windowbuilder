@@ -27,84 +27,84 @@ import java.lang.reflect.Method;
  * @coverage core.model.description
  */
 public final class MethodRule extends AbstractDesignerRule {
-  private ComponentDescription componentDescription;
-  private MethodDescription methodDescription;
+	private ComponentDescription componentDescription;
+	private MethodDescription methodDescription;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule.begin
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    componentDescription = (ComponentDescription) getDigester().peek();
-    pushNewMethodDescription();
-    configureBegin(attributes);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule.begin
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		componentDescription = (ComponentDescription) getDigester().peek();
+		pushNewMethodDescription();
+		configureBegin(attributes);
+	}
 
-  private void pushNewMethodDescription() {
-    Class<?> componentClass = componentDescription.getComponentClass();
-    methodDescription = new MethodDescription(componentClass);
-    getDigester().push(methodDescription);
-  }
+	private void pushNewMethodDescription() {
+		Class<?> componentClass = componentDescription.getComponentClass();
+		methodDescription = new MethodDescription(componentClass);
+		getDigester().push(methodDescription);
+	}
 
-  private void configureBegin(Attributes attributes) {
-    methodDescription.setName(getRequiredAttribute("method", attributes, "name"));
-    setOptionalOrder(attributes);
-    setExecutableFlag(attributes);
-  }
+	private void configureBegin(Attributes attributes) {
+		methodDescription.setName(getRequiredAttribute("method", attributes, "name"));
+		setOptionalOrder(attributes);
+		setExecutableFlag(attributes);
+	}
 
-  private void setOptionalOrder(Attributes attributes) {
-    String orderSpecification = attributes.getValue("order");
-    if (orderSpecification != null) {
-      methodDescription.setOrderSpecification(orderSpecification);
-    }
-  }
+	private void setOptionalOrder(Attributes attributes) {
+		String orderSpecification = attributes.getValue("order");
+		if (orderSpecification != null) {
+			methodDescription.setOrderSpecification(orderSpecification);
+		}
+	}
 
-  private void setExecutableFlag(Attributes attributes) {
-    String executableString = attributes.getValue("executable");
-    if (executableString != null) {
-      boolean executable = !"false".equalsIgnoreCase(executableString);
-      methodDescription.setExecutable(executable);
-    }
-  }
+	private void setExecutableFlag(Attributes attributes) {
+		String executableString = attributes.getValue("executable");
+		if (executableString != null) {
+			boolean executable = !"false".equalsIgnoreCase(executableString);
+			methodDescription.setExecutable(executable);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule.end
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    popMethodDescription();
-    configureEnd();
-    componentDescription.addMethod(methodDescription);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule.end
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		popMethodDescription();
+		configureEnd();
+		componentDescription.addMethod(methodDescription);
+	}
 
-  private void popMethodDescription() {
-    getDigester().pop();
-  }
+	private void popMethodDescription() {
+		getDigester().pop();
+	}
 
-  private void configureEnd() {
-    methodDescription.postProcess();
-    configureWithReflectionMethod();
-  }
+	private void configureEnd() {
+		methodDescription.postProcess();
+		configureWithReflectionMethod();
+	}
 
-  private void configureWithReflectionMethod() {
-    Method method = getReflectionMethod();
-    methodDescription.setReturnClass(method.getReturnType());
-  }
+	private void configureWithReflectionMethod() {
+		Method method = getReflectionMethod();
+		methodDescription.setReturnClass(method.getReturnType());
+	}
 
-  private Method getReflectionMethod() {
-    Class<?> componentClass = methodDescription.getDeclaringClass();
-    String signature = methodDescription.getSignature();
-    Method method = ReflectionUtils.getMethodBySignature(componentClass, signature);
-    Assert.isNotNull2(
-        method,
-        "No such method {0}.{1} during parsing {2}",
-        componentClass.getName(),
-        signature,
-        componentDescription.getCurrentClass().getName());
-    return method;
-  }
+	private Method getReflectionMethod() {
+		Class<?> componentClass = methodDescription.getDeclaringClass();
+		String signature = methodDescription.getSignature();
+		Method method = ReflectionUtils.getMethodBySignature(componentClass, signature);
+		Assert.isNotNull2(
+				method,
+				"No such method {0}.{1} during parsing {2}",
+				componentClass.getName(),
+				signature,
+				componentDescription.getCurrentClass().getName());
+		return method;
+	}
 }

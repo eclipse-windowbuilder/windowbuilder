@@ -24,47 +24,47 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage rcp.gefTree.policy
  */
 public final class AbstractPositionLayoutEditPolicy
-    extends
-      SingleObjectLayoutEditPolicy<ControlInfo> {
-  private final AbstractPositionInfo m_position;
+extends
+SingleObjectLayoutEditPolicy<ControlInfo> {
+	private final AbstractPositionInfo m_position;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractPositionLayoutEditPolicy(AbstractPositionInfo position) {
-    super(position.getComposite());
-    m_position = position;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractPositionLayoutEditPolicy(AbstractPositionInfo position) {
+		super(position.getComposite());
+		m_position = position;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ControlsLayoutRequestValidator.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ControlsLayoutRequestValidator.INSTANCE;
+	}
 
-  @Override
-  protected boolean isEmpty() {
-    return true;
-  }
+	@Override
+	protected boolean isEmpty() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ControlInfo control) throws Exception {
-    m_position.command_CREATE(control);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ControlInfo control) throws Exception {
+		m_position.command_CREATE(control);
+	}
 
-  @Override
-  protected void command_ADD(ControlInfo control) throws Exception {
-    m_position.command_MOVE(control);
-  }
+	@Override
+	protected void command_ADD(ControlInfo control) throws Exception {
+		m_position.command_MOVE(control);
+	}
 }

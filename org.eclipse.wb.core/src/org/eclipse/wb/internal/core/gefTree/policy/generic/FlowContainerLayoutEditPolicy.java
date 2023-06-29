@@ -27,52 +27,52 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainer;
  * @coverage core.gefTree.policy
  */
 public final class FlowContainerLayoutEditPolicy extends ObjectLayoutEditPolicy<Object> {
-  private final FlowContainer m_container;
-  private final ILayoutRequestValidator m_requestValidator;
+	private final FlowContainer m_container;
+	private final ILayoutRequestValidator m_requestValidator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FlowContainerLayoutEditPolicy(ObjectInfo model, FlowContainer container) {
-    super(model);
-    m_container = container;
-    {
-      ILayoutRequestValidator validator = new AbstractContainerRequestValidator(container);
-      validator = LayoutRequestValidators.cache(validator);
-      m_requestValidator = LayoutRequestValidators.finalize(validator);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FlowContainerLayoutEditPolicy(ObjectInfo model, FlowContainer container) {
+		super(model);
+		m_container = container;
+		{
+			ILayoutRequestValidator validator = new AbstractContainerRequestValidator(container);
+			validator = LayoutRequestValidators.cache(validator);
+			m_requestValidator = LayoutRequestValidators.finalize(validator);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return m_requestValidator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return m_requestValidator;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    Object referenceModel = editPart.getModel();
-    return m_container.validateReference(referenceModel);
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		Object referenceModel = editPart.getModel();
+		return m_container.validateReference(referenceModel);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(Object newObject, Object referenceObject) throws Exception {
-    m_container.command_CREATE(newObject, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(Object newObject, Object referenceObject) throws Exception {
+		m_container.command_CREATE(newObject, referenceObject);
+	}
 
-  @Override
-  protected void command_MOVE(Object object, Object referenceObject) throws Exception {
-    m_container.command_MOVE(object, referenceObject);
-  }
+	@Override
+	protected void command_MOVE(Object object, Object referenceObject) throws Exception {
+		m_container.command_MOVE(object, referenceObject);
+	}
 }

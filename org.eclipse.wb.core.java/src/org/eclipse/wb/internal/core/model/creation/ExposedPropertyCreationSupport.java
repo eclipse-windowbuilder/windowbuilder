@@ -38,210 +38,210 @@ import java.lang.reflect.Method;
  * @coverage core.model.creation
  */
 public final class ExposedPropertyCreationSupport extends CreationSupport
-    implements
-      IImplicitCreationSupport,
-      IExposedCreationSupport {
-  private static final String IS_SET_REPLACED = "ExposedPropertyCreationSupport.isSetReplaced";
-  private final JavaInfo m_hostJavaInfo;
-  private final Method m_getMethod;
-  private final String m_getMethodSignature;
-  private final String m_setMethodSignature;
-  private final boolean m_direct;
+implements
+IImplicitCreationSupport,
+IExposedCreationSupport {
+	private static final String IS_SET_REPLACED = "ExposedPropertyCreationSupport.isSetReplaced";
+	private final JavaInfo m_hostJavaInfo;
+	private final Method m_getMethod;
+	private final String m_getMethodSignature;
+	private final String m_setMethodSignature;
+	private final boolean m_direct;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExposedPropertyCreationSupport(JavaInfo hostJavaInfo,
-      Method getMethod,
-      Method setMethod,
-      boolean direct) {
-    m_hostJavaInfo = hostJavaInfo;
-    m_getMethod = getMethod;
-    m_direct = direct;
-    m_getMethodSignature = ReflectionUtils.getMethodSignature(m_getMethod);
-    m_setMethodSignature = setMethod != null ? ReflectionUtils.getMethodSignature(setMethod) : null;
-    // add listeners to remove/add exposed component when "setXXX()" added/removed
-    if (setMethod != null) {
-      m_hostJavaInfo.addBroadcastListener(new JavaInfoMethodAssociationOnParse() {
-        @Override
-        public void invoke(JavaInfo parent, JavaInfo child, MethodDescription methodDescription)
-            throws Exception {
-          if (parent == m_hostJavaInfo) {
-            if (m_setMethodSignature.equals(methodDescription.getSignature())) {
-              parent.removeChild(m_javaInfo);
-              child.putArbitraryValue(IS_SET_REPLACED, Boolean.TRUE);
-            }
-          }
-        }
-      });
-      m_hostJavaInfo.addBroadcastListener(new ObjectInfoDelete() {
-        @Override
-        public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
-          // when delete component, associated using "setXXX()", restore original exposed component
-          if (parent == m_hostJavaInfo && child != m_javaInfo) {
-            MethodInvocation invocation = m_hostJavaInfo.getMethodInvocation(m_setMethodSignature);
-            if (invocation != null) {
-              Expression argument = (Expression) invocation.arguments().get(0);
-              JavaInfo removingChild = m_hostJavaInfo.getChildRepresentedBy(argument);
-              if (removingChild != null) {
-                parent.addChild(m_javaInfo);
-              }
-            }
-          }
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExposedPropertyCreationSupport(JavaInfo hostJavaInfo,
+			Method getMethod,
+			Method setMethod,
+			boolean direct) {
+		m_hostJavaInfo = hostJavaInfo;
+		m_getMethod = getMethod;
+		m_direct = direct;
+		m_getMethodSignature = ReflectionUtils.getMethodSignature(m_getMethod);
+		m_setMethodSignature = setMethod != null ? ReflectionUtils.getMethodSignature(setMethod) : null;
+		// add listeners to remove/add exposed component when "setXXX()" added/removed
+		if (setMethod != null) {
+			m_hostJavaInfo.addBroadcastListener(new JavaInfoMethodAssociationOnParse() {
+				@Override
+				public void invoke(JavaInfo parent, JavaInfo child, MethodDescription methodDescription)
+						throws Exception {
+					if (parent == m_hostJavaInfo) {
+						if (m_setMethodSignature.equals(methodDescription.getSignature())) {
+							parent.removeChild(m_javaInfo);
+							child.putArbitraryValue(IS_SET_REPLACED, Boolean.TRUE);
+						}
+					}
+				}
+			});
+			m_hostJavaInfo.addBroadcastListener(new ObjectInfoDelete() {
+				@Override
+				public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
+					// when delete component, associated using "setXXX()", restore original exposed component
+					if (parent == m_hostJavaInfo && child != m_javaInfo) {
+						MethodInvocation invocation = m_hostJavaInfo.getMethodInvocation(m_setMethodSignature);
+						if (invocation != null) {
+							Expression argument = (Expression) invocation.arguments().get(0);
+							JavaInfo removingChild = m_hostJavaInfo.getChildRepresentedBy(argument);
+							if (removingChild != null) {
+								parent.addChild(m_javaInfo);
+							}
+						}
+					}
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "method: " + ReflectionUtils.toString(m_getMethod);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "method: " + ReflectionUtils.toString(m_getMethod);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    // evaluation
-    m_hostJavaInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
-      @Override
-      public void invoke(JavaInfo target, Object o) throws Exception {
-        if (target == m_hostJavaInfo) {
-          if (m_javaInfo.getObject() == null) {
-            // get object, may fail if not right time, case 47105
-            Object object;
-            try {
-              object = m_getMethod.invoke(o);
-            } catch (Throwable e) {
-              object = null;
-            }
-            // set object
-            if (object != null) {
-              m_javaInfo.setObject(object);
-            }
-          }
-        }
-      }
-    });
-    // icon decorator
-    m_javaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
-      @Override
-      public void invoke(ObjectInfo object, Image[] icon) throws Exception {
-        if (object == m_javaInfo) {
-          Image decorator = DesignerPlugin.getImage("exposed/decorator.gif");
-          icon[0] =
-              SwtResourceManager.decorateImage(icon[0], decorator, SwtResourceManager.BOTTOM_RIGHT);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		// evaluation
+		m_hostJavaInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+			@Override
+			public void invoke(JavaInfo target, Object o) throws Exception {
+				if (target == m_hostJavaInfo) {
+					if (m_javaInfo.getObject() == null) {
+						// get object, may fail if not right time, case 47105
+						Object object;
+						try {
+							object = m_getMethod.invoke(o);
+						} catch (Throwable e) {
+							object = null;
+						}
+						// set object
+						if (object != null) {
+							m_javaInfo.setObject(object);
+						}
+					}
+				}
+			}
+		});
+		// icon decorator
+		m_javaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
+			@Override
+			public void invoke(ObjectInfo object, Image[] icon) throws Exception {
+				if (object == m_javaInfo) {
+					Image decorator = DesignerPlugin.getImage("exposed/decorator.gif");
+					icon[0] =
+							SwtResourceManager.decorateImage(icon[0], decorator, SwtResourceManager.BOTTOM_RIGHT);
+				}
+			}
+		});
+	}
 
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    if (node instanceof MethodInvocation) {
-      MethodInvocation invocation = (MethodInvocation) node;
-      return invocation.arguments().isEmpty()
-          && invocation.getName().getIdentifier().equals(m_getMethod.getName())
-          && m_hostJavaInfo.isRepresentedBy(invocation.getExpression());
-    }
-    return false;
-  }
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		if (node instanceof MethodInvocation) {
+			MethodInvocation invocation = (MethodInvocation) node;
+			return invocation.arguments().isEmpty()
+					&& invocation.getName().getIdentifier().equals(m_getMethod.getName())
+					&& m_hostJavaInfo.isRepresentedBy(invocation.getExpression());
+		}
+		return false;
+	}
 
-  @Override
-  public ASTNode getNode() {
-    return m_hostJavaInfo.getCreationSupport().getNode();
-  }
+	@Override
+	public ASTNode getNode() {
+		return m_hostJavaInfo.getCreationSupport().getNode();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Special access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link JavaInfo} that exposes this {@link JavaInfo}.
-   */
-  @Override
-  public JavaInfo getHostJavaInfo() {
-    return m_hostJavaInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Special access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link JavaInfo} that exposes this {@link JavaInfo}.
+	 */
+	@Override
+	public JavaInfo getHostJavaInfo() {
+		return m_hostJavaInfo;
+	}
 
-  /**
-   * @return the {@link Method} used to expose this {@link JavaInfo}.
-   */
-  public Method getMethod() {
-    return m_getMethod;
-  }
+	/**
+	 * @return the {@link Method} used to expose this {@link JavaInfo}.
+	 */
+	public Method getMethod() {
+		return m_getMethod;
+	}
 
-  /**
-   * @return <code>true</code> if this {@link JavaInfo} is direct child of host {@link JavaInfo}.
-   */
-  @Override
-  public boolean isDirect() {
-    return m_direct;
-  }
+	/**
+	 * @return <code>true</code> if this {@link JavaInfo} is direct child of host {@link JavaInfo}.
+	 */
+	@Override
+	public boolean isDirect() {
+		return m_direct;
+	}
 
-  /**
-   * @return <code>true</code> if given {@link JavaInfo} was set using "setXXX()" during parsing
-   *         instead of some exposed child.
-   */
-  public static boolean isReplacementForExposed(JavaInfo javaInfo) {
-    return javaInfo.getArbitraryValue(IS_SET_REPLACED) != null;
-  }
+	/**
+	 * @return <code>true</code> if given {@link JavaInfo} was set using "setXXX()" during parsing
+	 *         instead of some exposed child.
+	 */
+	public static boolean isReplacementForExposed(JavaInfo javaInfo) {
+		return javaInfo.getArbitraryValue(IS_SET_REPLACED) != null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Components with {@link ExposedPropertyCreationSupport} can be "deleted", but for them this
-   * means that they delete their children and related nodes, but keep themselves in parent.
-   */
-  @Override
-  public boolean canDelete() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Components with {@link ExposedPropertyCreationSupport} can be "deleted", but for them this
+	 * means that they delete their children and related nodes, but keep themselves in parent.
+	 */
+	@Override
+	public boolean canDelete() {
+		return true;
+	}
 
-  @Override
-  public void delete() throws Exception {
-    JavaInfoUtils.deleteJavaInfo(m_javaInfo, false);
-  }
+	@Override
+	public void delete() throws Exception {
+		JavaInfoUtils.deleteJavaInfo(m_javaInfo, false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IClipboardImplicitCreationSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IClipboardImplicitCreationSupport getImplicitClipboard() {
-    final String getMethodSignature = m_getMethodSignature;
-    return new IClipboardImplicitCreationSupport() {
-      private static final long serialVersionUID = 0L;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IClipboardImplicitCreationSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IClipboardImplicitCreationSupport getImplicitClipboard() {
+		final String getMethodSignature = m_getMethodSignature;
+		return new IClipboardImplicitCreationSupport() {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      public JavaInfo find(JavaInfo host) throws Exception {
-        for (JavaInfo child : host.getChildrenJava()) {
-          if (child.getCreationSupport() instanceof ExposedPropertyCreationSupport) {
-            ExposedPropertyCreationSupport exposedCreation =
-                (ExposedPropertyCreationSupport) child.getCreationSupport();
-            if (exposedCreation.m_getMethodSignature.equals(getMethodSignature)) {
-              return child;
-            }
-          }
-        }
-        return null;
-      }
-    };
-  }
+			@Override
+			public JavaInfo find(JavaInfo host) throws Exception {
+				for (JavaInfo child : host.getChildrenJava()) {
+					if (child.getCreationSupport() instanceof ExposedPropertyCreationSupport) {
+						ExposedPropertyCreationSupport exposedCreation =
+								(ExposedPropertyCreationSupport) child.getCreationSupport();
+						if (exposedCreation.m_getMethodSignature.equals(getMethodSignature)) {
+							return child;
+						}
+					}
+				}
+				return null;
+			}
+		};
+	}
 }

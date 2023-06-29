@@ -21,31 +21,31 @@ import org.eclipse.wb.internal.core.xml.model.property.IConfigurablePropertyObje
  * @coverage XML.model.description
  */
 public final class PropertyEditorDescription extends AbstractConfigurableDescription {
-  private final EditorContext m_context;
-  private final PropertyEditor m_editor;
+	private final EditorContext m_context;
+	private final PropertyEditor m_editor;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyEditorDescription(EditorContext context, PropertyEditor editor) {
-    m_context = context;
-    m_editor = editor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyEditorDescription(EditorContext context, PropertyEditor editor) {
+		m_context = context;
+		m_editor = editor;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return configured {@link PropertyEditor}.
-   */
-  public PropertyEditor getConfiguredEditor() throws Exception {
-    if (m_editor instanceof IConfigurablePropertyObject) {
-      configure(m_context, (IConfigurablePropertyObject) m_editor);
-    }
-    return m_editor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return configured {@link PropertyEditor}.
+	 */
+	public PropertyEditor getConfiguredEditor() throws Exception {
+		if (m_editor instanceof IConfigurablePropertyObject) {
+			configure(m_context, (IConfigurablePropertyObject) m_editor);
+		}
+		return m_editor;
+	}
 }

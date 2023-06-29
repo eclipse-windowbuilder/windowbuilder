@@ -23,50 +23,50 @@ import org.xml.sax.Attributes;
  * @coverage swing.laf.model
  */
 public final class AddCategoryCommand extends Command {
-  // constants
-  public static final String ID = "add-category";
-  // fields
-  private final String m_id;
-  private final String m_name;
-  private boolean m_executed;
+	// constants
+	public static final String ID = "add-category";
+	// fields
+	private final String m_id;
+	private final String m_name;
+	private boolean m_executed;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AddCategoryCommand(String id, String name) {
-    m_id = id;
-    m_name = name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AddCategoryCommand(String id, String name) {
+		m_id = id;
+		m_name = name;
+	}
 
-  public AddCategoryCommand(Attributes attributes) {
-    m_id = attributes.getValue(ATTR_ID);
-    m_name = attributes.getValue(ATTR_NAME);
-  }
+	public AddCategoryCommand(Attributes attributes) {
+		m_id = attributes.getValue(ATTR_ID);
+		m_name = attributes.getValue(ATTR_NAME);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execute
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute() {
-    // this may be called twice because this command need to be executed while adding LAF and the user adds new category in adding LAF dialog.
-    if (!m_executed) {
-      LafSupport.addLAFCategory(m_id, m_name);
-      m_executed = true;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execute
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute() {
+		// this may be called twice because this command need to be executed while adding LAF and the user adds new category in adding LAF dialog.
+		if (!m_executed) {
+			LafSupport.addLAFCategory(m_id, m_name);
+			m_executed = true;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Save
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes(XmlWriter writer) {
-    addAttribute(writer, ATTR_ID, m_id);
-    addAttribute(writer, ATTR_NAME, m_name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Save
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes(XmlWriter writer) {
+		addAttribute(writer, ATTR_ID, m_id);
+		addAttribute(writer, ATTR_NAME, m_name);
+	}
 }

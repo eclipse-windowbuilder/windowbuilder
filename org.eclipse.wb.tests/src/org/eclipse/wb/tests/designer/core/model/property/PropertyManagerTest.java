@@ -26,95 +26,95 @@ import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
  * @author scheglov_ke
  */
 public class PropertyManagerTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Just {@link Property} does not know its {@link ToolkitDescription}, so nowhere to remember
-   * category.
-   */
-  public void test_unknownProperty() throws Exception {
-    Property property = new PropertyWithTitle("title");
-    property.setCategory(PropertyCategory.ADVANCED);
-    // ask category
-    assertSame(PropertyCategory.ADVANCED, PropertyManager.getCategory(property));
-    // try to set "preferred" - ignored
-    PropertyManager.setCategory(property, PropertyCategory.PREFERRED);
-    assertSame(PropertyCategory.ADVANCED, PropertyManager.getCategory(property));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Just {@link Property} does not know its {@link ToolkitDescription}, so nowhere to remember
+	 * category.
+	 */
+	public void test_unknownProperty() throws Exception {
+		Property property = new PropertyWithTitle("title");
+		property.setCategory(PropertyCategory.ADVANCED);
+		// ask category
+		assertSame(PropertyCategory.ADVANCED, PropertyManager.getCategory(property));
+		// try to set "preferred" - ignored
+		PropertyManager.setCategory(property, PropertyCategory.PREFERRED);
+		assertSame(PropertyCategory.ADVANCED, PropertyManager.getCategory(property));
+	}
 
-  /**
-   * {@link GenericProperty} can remember and return forced category.
-   */
-  public void test_GenericProperty() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    Property property = panel.getPropertyByTitle("background");
-    // "normal" initially
-    assertSame(null, PropertyManager.getCategoryForced(property));
-    assertSame(PropertyCategory.NORMAL, PropertyManager.getCategory(property));
-    // check categories
-    checkCategory(property, PropertyCategory.PREFERRED);
-    checkCategory(property, PropertyCategory.NORMAL);
-    checkCategory(property, PropertyCategory.ADVANCED);
-    // remove forced category, so "normal" again
-    {
-      PropertyManager.setCategory(property, null);
-      assertSame(PropertyCategory.NORMAL, PropertyManager.getCategory(property));
-    }
-    // again set "preferred" for next test
-    PropertyManager.setCategory(property, PropertyCategory.PREFERRED);
-  }
+	/**
+	 * {@link GenericProperty} can remember and return forced category.
+	 */
+	public void test_GenericProperty() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		Property property = panel.getPropertyByTitle("background");
+		// "normal" initially
+		assertSame(null, PropertyManager.getCategoryForced(property));
+		assertSame(PropertyCategory.NORMAL, PropertyManager.getCategory(property));
+		// check categories
+		checkCategory(property, PropertyCategory.PREFERRED);
+		checkCategory(property, PropertyCategory.NORMAL);
+		checkCategory(property, PropertyCategory.ADVANCED);
+		// remove forced category, so "normal" again
+		{
+			PropertyManager.setCategory(property, null);
+			assertSame(PropertyCategory.NORMAL, PropertyManager.getCategory(property));
+		}
+		// again set "preferred" for next test
+		PropertyManager.setCategory(property, PropertyCategory.PREFERRED);
+	}
 
-  private void checkCategory(Property property, PropertyCategory category) {
-    PropertyManager.setCategory(property, category);
-    assertSame(category, PropertyManager.getCategoryForced(property));
-    assertSame(category, PropertyManager.getCategory(property));
-    // flush cache, so reload
-    PropertyManager.flushCache();
-    assertSame(category, PropertyManager.getCategory(property));
-  }
+	private void checkCategory(Property property, PropertyCategory category) {
+		PropertyManager.setCategory(property, category);
+		assertSame(category, PropertyManager.getCategoryForced(property));
+		assertSame(category, PropertyManager.getCategory(property));
+		// flush cache, so reload
+		PropertyManager.flushCache();
+		assertSame(category, PropertyManager.getCategory(property));
+	}
 
-  /**
-   * Previous test specified that "background" property is "preferred".
-   */
-  public void test_GenericProperty2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    Property property = panel.getPropertyByTitle("background");
-    // "preferred" from previous test
-    assertSame(PropertyCategory.PREFERRED, PropertyManager.getCategory(property));
-  }
+	/**
+	 * Previous test specified that "background" property is "preferred".
+	 */
+	public void test_GenericProperty2() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		Property property = panel.getPropertyByTitle("background");
+		// "preferred" from previous test
+		assertSame(PropertyCategory.PREFERRED, PropertyManager.getCategory(property));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Test suite tear down
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void test_tearDown() throws Exception {
-    PropertyManager.setCategory(SwingToolkitDescription.INSTANCE, "background", null);
-    super.test_tearDown();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Test suite tear down
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void test_tearDown() throws Exception {
+		PropertyManager.setCategory(SwingToolkitDescription.INSTANCE, "background", null);
+		super.test_tearDown();
+	}
 }

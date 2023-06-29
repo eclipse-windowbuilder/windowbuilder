@@ -27,62 +27,62 @@ import org.eclipse.swt.widgets.Text;
  * @coverage core.controls
  */
 public class BrowserComposite extends Composite {
-  private Browser m_browser;
-  private Text m_text;
+	private Browser m_browser;
+	private Text m_text;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BrowserComposite(Composite parent, int style) {
-    super(parent, style);
-    setLayout(new FillLayout());
-    if (browserAvailable(this)) {
-      m_browser = new Browser(this, SWT.NONE);
-    } else {
-      m_text = new Text(this, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
-      m_text.setBackground(IColorConstants.button);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BrowserComposite(Composite parent, int style) {
+		super(parent, style);
+		setLayout(new FillLayout());
+		if (browserAvailable(this)) {
+			m_browser = new Browser(this, SWT.NONE);
+		} else {
+			m_text = new Text(this, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
+			m_text.setBackground(IColorConstants.button);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setText(String text) {
-    if (m_browser != null) {
-      m_browser.setText(text);
-    } else {
-      m_text.setText(text);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setText(String text) {
+		if (m_browser != null) {
+			m_browser.setText(text);
+		} else {
+			m_text.setText(text);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Check availability
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static boolean m_initDone;
-  private static boolean m_available;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Check availability
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static boolean m_initDone;
+	private static boolean m_available;
 
-  /**
-   * @return <code>true</code> if the Browser widget is available to display html-based text.
-   */
-  public static boolean browserAvailable(Composite parent) {
-    if (!m_initDone) {
-      Browser browser = null;
-      try {
-        browser = new Browser(parent, SWT.NONE);
-        m_available = true;
-        browser.dispose();
-      } catch (Throwable e) {
-        // don't care
-      }
-      // don't try again
-      m_initDone = true;
-    }
-    return m_available;
-  }
+	/**
+	 * @return <code>true</code> if the Browser widget is available to display html-based text.
+	 */
+	public static boolean browserAvailable(Composite parent) {
+		if (!m_initDone) {
+			Browser browser = null;
+			try {
+				browser = new Browser(parent, SWT.NONE);
+				m_available = true;
+				browser.dispose();
+			} catch (Throwable e) {
+				// don't care
+			}
+			// don't try again
+			m_initDone = true;
+		}
+		return m_available;
+	}
 }

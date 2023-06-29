@@ -28,8 +28,8 @@ import org.eclipse.wb.gef.core.requests.Request;
  * @coverage gef.graphical
  */
 public final class TerminatorLayoutEditPolicy extends LayoutEditPolicy {
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return false;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return false;
+	}
 }

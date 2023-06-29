@@ -23,15 +23,15 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class MethodOrderDefaultRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    String specification = getRequiredAttribute(name, attributes, "order");
-    componentDescription.setDefaultMethodOrder(MethodOrder.parse(specification));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		String specification = getRequiredAttribute(name, attributes, "order");
+		componentDescription.setDefaultMethodOrder(MethodOrder.parse(specification));
+	}
 }

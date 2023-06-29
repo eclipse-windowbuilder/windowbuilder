@@ -28,82 +28,82 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainer;
  * @coverage core.gef.policy
  */
 public final class FlowContainerLayoutEditPolicy extends ObjectFlowLayoutEditPolicy<Object> {
-  private final FlowContainer m_container;
-  private final ILayoutRequestValidator m_requestValidator;
-  private final ObjectInfo m_model;
+	private final FlowContainer m_container;
+	private final ILayoutRequestValidator m_requestValidator;
+	private final ObjectInfo m_model;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FlowContainerLayoutEditPolicy(ObjectInfo model, FlowContainer container) {
-    super(model);
-    m_model = model;
-    m_container = container;
-    {
-      ILayoutRequestValidator validator = new AbstractContainerRequestValidator(container);
-      validator = LayoutRequestValidators.cache(validator);
-      m_requestValidator = LayoutRequestValidators.finalize(validator);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FlowContainerLayoutEditPolicy(ObjectInfo model, FlowContainer container) {
+		super(model);
+		m_model = model;
+		m_container = container;
+		{
+			ILayoutRequestValidator validator = new AbstractContainerRequestValidator(container);
+			validator = LayoutRequestValidators.cache(validator);
+			m_requestValidator = LayoutRequestValidators.finalize(validator);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Decoration
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void decorateChild(EditPart child) {
-    if (m_container.validateComponent(child.getModel())) {
-      child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-      new SelectionEditPolicyInstaller(m_model, child).decorate();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Decoration
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void decorateChild(EditPart child) {
+		if (m_container.validateComponent(child.getModel())) {
+			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+			new SelectionEditPolicyInstaller(m_model, child).decorate();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return m_container.isHorizontal();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return m_container.isHorizontal();
+	}
 
-  @Override
-  protected boolean isRtl(Request request) {
-    return m_container.isRtl();
-  }
+	@Override
+	protected boolean isRtl(Request request) {
+		return m_container.isRtl();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return m_requestValidator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return m_requestValidator;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    Object referenceModel = editPart.getModel();
-    return m_container.validateReference(referenceModel);
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		Object referenceModel = editPart.getModel();
+		return m_container.validateReference(referenceModel);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(Object newObject, Object referenceObject) throws Exception {
-    m_container.command_CREATE(newObject, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(Object newObject, Object referenceObject) throws Exception {
+		m_container.command_CREATE(newObject, referenceObject);
+	}
 
-  @Override
-  protected void command_MOVE(Object object, Object referenceObject) throws Exception {
-    m_container.command_MOVE(object, referenceObject);
-  }
+	@Override
+	protected void command_MOVE(Object object, Object referenceObject) throws Exception {
+		m_container.command_MOVE(object, referenceObject);
+	}
 }

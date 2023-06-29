@@ -40,122 +40,122 @@ import javax.swing.JFrame;
  * @coverage swing.jsr296
  */
 public class FrameViewInfo extends AbstractComponentInfo implements IThisMethodParameterEvaluator {
-  private JFrame m_frame;
+	private JFrame m_frame;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FrameViewInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FrameViewInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IThisMethodParameterEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Object evaluateParameter(EvaluationContext context,
-      MethodDeclaration methodDeclaration,
-      String methodSignature,
-      SingleVariableDeclaration parameter,
-      int index) throws Exception {
-    if (AstNodeUtils.isSuccessorOf(parameter, "org.jdesktop.application.Application")) {
-      ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
-      Class<?> applicationClass = classLoader.loadClass("org.jdesktop.application.Application");
-      // prepare Application instance (only for Class with callback)
-      Object applicationForClass = new ByteBuddy() //
-          .subclass(applicationClass) //
-          .make() //
-          .load(classLoader) //
-          .getLoaded() //
-          .getConstructor() //
-          .newInstance();
-      // create Application instance using Application method, which performs required initializations
-      return ReflectionUtils.invokeMethod(
-          applicationClass,
-          "create(java.lang.Class)",
-          applicationForClass.getClass());
-    }
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IThisMethodParameterEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Object evaluateParameter(EvaluationContext context,
+			MethodDeclaration methodDeclaration,
+			String methodSignature,
+			SingleVariableDeclaration parameter,
+			int index) throws Exception {
+		if (AstNodeUtils.isSuccessorOf(parameter, "org.jdesktop.application.Application")) {
+			ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
+			Class<?> applicationClass = classLoader.loadClass("org.jdesktop.application.Application");
+			// prepare Application instance (only for Class with callback)
+			Object applicationForClass = new ByteBuddy() //
+					.subclass(applicationClass) //
+					.make() //
+					.load(classLoader) //
+					.getLoaded() //
+					.getConstructor() //
+					.newInstance();
+			// create Application instance using Application method, which performs required initializations
+			return ReflectionUtils.invokeMethod(
+					applicationClass,
+					"create(java.lang.Class)",
+					applicationForClass.getClass());
+		}
+		return AstEvaluationEngine.UNKNOWN;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractComponentInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected TopBoundsSupport createTopBoundsSupport() {
-    return new FrameViewTopBoundsSupport(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractComponentInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected TopBoundsSupport createTopBoundsSupport() {
+		return new FrameViewTopBoundsSupport(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canBeRoot() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canBeRoot() {
+		return true;
+	}
 
-  @Override
-  public Object getComponentObject() {
-    return m_frame;
-  }
+	@Override
+	public Object getComponentObject() {
+		return m_frame;
+	}
 
-  /**
-   * @return the {@link FrameViewInfo}'s {@link JFrame}.
-   */
-  public JFrame getFrame() {
-    return m_frame;
-  }
+	/**
+	 * @return the {@link FrameViewInfo}'s {@link JFrame}.
+	 */
+	public JFrame getFrame() {
+		return m_frame;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void execRefreshOperation(final RunnableEx runnableEx) throws Exception {
-    SwingUtils.runLaterAndWait(runnableEx);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void execRefreshOperation(final RunnableEx runnableEx) throws Exception {
+		SwingUtils.runLaterAndWait(runnableEx);
+	}
 
-  @Override
-  public void refresh_dispose() throws Exception {
-    // dispose JFrame
-    if (m_frame != null) {
-      m_frame.dispose();
-      m_frame = null;
-    }
-    // call "super"
-    super.refresh_dispose();
-  }
+	@Override
+	public void refresh_dispose() throws Exception {
+		// dispose JFrame
+		if (m_frame != null) {
+			m_frame.dispose();
+			m_frame = null;
+		}
+		// call "super"
+		super.refresh_dispose();
+	}
 
-  @Override
-  public void setObject(Object object) throws Exception {
-    super.setObject(object);
-    m_frame = (JFrame) ReflectionUtils.invokeMethod(getObject(), "getFrame()");
-  }
+	@Override
+	public void setObject(Object object) throws Exception {
+		super.setObject(object);
+		m_frame = (JFrame) ReflectionUtils.invokeMethod(getObject(), "getFrame()");
+	}
 
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    // preferred size, should be here, because "super" applies "top bounds"
-    setPreferredSize(CoordinateUtils.get(m_frame.getPreferredSize()));
-    // call "super"
-    super.refresh_afterCreate();
-  }
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		// preferred size, should be here, because "super" applies "top bounds"
+		setPreferredSize(CoordinateUtils.get(m_frame.getPreferredSize()));
+		// call "super"
+		super.refresh_afterCreate();
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    ComponentInfo.refresh_fetch(this, m_frame, new RunnableEx() {
-      public void run() throws Exception {
-        FrameViewInfo.super.refresh_fetch();
-      }
-    });
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		ComponentInfo.refresh_fetch(this, m_frame, new RunnableEx() {
+			public void run() throws Exception {
+				FrameViewInfo.super.refresh_fetch();
+			}
+		});
+	}
 }

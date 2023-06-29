@@ -22,27 +22,27 @@ import org.eclipse.wb.internal.xwt.model.widgets.ViewFormInfo;
  * @coverage XWT.gef.part
  */
 public final class ViewFormEditPart extends CompositeEditPart {
-  private final ViewFormInfo m_composite;
+	private final ViewFormInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewFormEditPart(ViewFormInfo composite) {
-    super(composite);
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewFormEditPart(ViewFormInfo composite) {
+		super(composite);
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(new ViewFormLayoutEditPolicy(m_composite));
-    installEditPolicy(new TerminatorLayoutEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(new ViewFormLayoutEditPolicy(m_composite));
+		installEditPolicy(new TerminatorLayoutEditPolicy());
+	}
 }

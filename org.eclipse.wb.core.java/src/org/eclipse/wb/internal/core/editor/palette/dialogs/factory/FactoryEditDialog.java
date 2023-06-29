@@ -27,57 +27,57 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage core.editor.palette.ui
  */
 public final class FactoryEditDialog extends FactoryAbstractDialog {
-  private final FactoryEntryInfo m_entry;
+	private final FactoryEntryInfo m_entry;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FactoryEditDialog(Shell parentShell,
-      AstEditor editor,
-      boolean forStatic,
-      FactoryEntryInfo entry) {
-    super(parentShell, editor, forStatic, forStatic
-        ? Messages.FactoryEditDialog_titleStatic
-        : Messages.FactoryEditDialog_titleInstance, forStatic
-        ? Messages.FactoryEditDialog_messageStatic
-        : Messages.FactoryEditDialog_messageInstance);
-    m_entry = entry;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FactoryEditDialog(Shell parentShell,
+			AstEditor editor,
+			boolean forStatic,
+			FactoryEntryInfo entry) {
+		super(parentShell, editor, forStatic, forStatic
+				? Messages.FactoryEditDialog_titleStatic
+						: Messages.FactoryEditDialog_titleInstance, forStatic
+						? Messages.FactoryEditDialog_messageStatic
+								: Messages.FactoryEditDialog_messageInstance);
+		m_entry = entry;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createControls(Composite container) {
-    super.createControls(container);
-    m_nameField.setText(m_entry.getName());
-    m_factoryClassField.setText(m_entry.getFactoryClassName());
-    m_methodSignatureField.setText(m_entry.getMethodSignature());
-    m_descriptionField.setText(m_entry.getDescription());
-    m_visibleField.setSelection(m_entry.isVisible());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createControls(Composite container) {
+		super.createControls(container);
+		m_nameField.setText(m_entry.getName());
+		m_factoryClassField.setText(m_entry.getFactoryClassName());
+		m_methodSignatureField.setText(m_entry.getMethodSignature());
+		m_descriptionField.setText(m_entry.getDescription());
+		m_visibleField.setSelection(m_entry.isVisible());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command createCommand() {
-    String name = m_nameField.getText().trim();
-    String description = getDescriptionText();
-    String factoryClassName = m_factoryClassField.getText();
-    String methodSignature = m_methodSignatureField.getText();
-    return new FactoryEditCommand(m_entry.getId(),
-        name,
-        description,
-        m_visibleField.getSelection(),
-        factoryClassName,
-        methodSignature,
-        m_forStatic);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command createCommand() {
+		String name = m_nameField.getText().trim();
+		String description = getDescriptionText();
+		String factoryClassName = m_factoryClassField.getText();
+		String methodSignature = m_methodSignatureField.getText();
+		return new FactoryEditCommand(m_entry.getId(),
+				name,
+				description,
+				m_visibleField.getSelection(),
+				factoryClassName,
+				methodSignature,
+				m_forStatic);
+	}
 }

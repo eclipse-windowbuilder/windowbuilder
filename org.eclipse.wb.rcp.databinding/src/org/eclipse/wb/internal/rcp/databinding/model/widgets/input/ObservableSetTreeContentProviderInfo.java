@@ -22,59 +22,59 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public final class ObservableSetTreeContentProviderInfo
-    extends
-      ObservableCollectionTreeContentProviderInfo {
-  private static final String PROVIDER_CLASS =
-      "org.eclipse.jface.databinding.viewers.ObservableSetTreeContentProvider";
+extends
+ObservableCollectionTreeContentProviderInfo {
+	private static final String PROVIDER_CLASS =
+			"org.eclipse.jface.databinding.viewers.ObservableSetTreeContentProvider";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObservableSetTreeContentProviderInfo(String className,
-      ObservableFactoryInfo factoryInfo,
-      TreeStructureAdvisorInfo advisorInfo) {
-    super(className, factoryInfo, advisorInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObservableSetTreeContentProviderInfo(String className,
+			ObservableFactoryInfo factoryInfo,
+			TreeStructureAdvisorInfo advisorInfo) {
+		super(className, factoryInfo, advisorInfo);
+	}
 
-  public ObservableSetTreeContentProviderInfo(ObservableFactoryInfo factoryInfo,
-      TreeStructureAdvisorInfo advisorInfo) {
-    this(PROVIDER_CLASS, factoryInfo, advisorInfo);
-  }
+	public ObservableSetTreeContentProviderInfo(ObservableFactoryInfo factoryInfo,
+			TreeStructureAdvisorInfo advisorInfo) {
+		this(PROVIDER_CLASS, factoryInfo, advisorInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configure(ChooseClassConfiguration configuration, boolean useClear) {
-    configuration.setValueScope(PROVIDER_CLASS);
-    if (useClear) {
-      configuration.setClearValue(PROVIDER_CLASS);
-    }
-    configuration.setBaseClassName(PROVIDER_CLASS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configure(ChooseClassConfiguration configuration, boolean useClear) {
+		configuration.setValueScope(PROVIDER_CLASS);
+		if (useClear) {
+			configuration.setClearValue(PROVIDER_CLASS);
+		}
+		configuration.setBaseClassName(PROVIDER_CLASS);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    super.addSourceCode(lines, generationSupport);
-    // add code
-    lines.add("org.eclipse.jface.databinding.viewers.ObservableSetTreeContentProvider "
-        + getVariableIdentifier()
-        + " = new "
-        + m_className
-        + "("
-        + m_factoryInfo.getVariableIdentifier()
-        + ", "
-        + m_advisorInfo.getVariableIdentifier()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		super.addSourceCode(lines, generationSupport);
+		// add code
+		lines.add("org.eclipse.jface.databinding.viewers.ObservableSetTreeContentProvider "
+				+ getVariableIdentifier()
+				+ " = new "
+				+ m_className
+				+ "("
+				+ m_factoryInfo.getVariableIdentifier()
+				+ ", "
+				+ m_advisorInfo.getVariableIdentifier()
+				+ ");");
+	}
 }

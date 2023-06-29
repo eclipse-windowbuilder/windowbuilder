@@ -22,43 +22,43 @@ import org.xml.sax.Attributes;
  * @coverage core.editor.palette
  */
 public final class CategoryMoveCommand extends Command {
-  public static final String ID = "moveCategory";
-  private final String m_id;
-  private final String m_nextCategoryId;
+	public static final String ID = "moveCategory";
+	private final String m_id;
+	private final String m_nextCategoryId;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CategoryMoveCommand(CategoryInfo category, CategoryInfo nextCategory) {
-    m_id = category.getId();
-    m_nextCategoryId = nextCategory != null ? nextCategory.getId() : null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CategoryMoveCommand(CategoryInfo category, CategoryInfo nextCategory) {
+		m_id = category.getId();
+		m_nextCategoryId = nextCategory != null ? nextCategory.getId() : null;
+	}
 
-  public CategoryMoveCommand(Attributes attributes) {
-    m_id = attributes.getValue("id");
-    m_nextCategoryId = attributes.getValue("nextCategory");
-  }
+	public CategoryMoveCommand(Attributes attributes) {
+		m_id = attributes.getValue("id");
+		m_nextCategoryId = attributes.getValue("nextCategory");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    palette.moveCategory(m_id, m_nextCategoryId);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		palette.moveCategory(m_id, m_nextCategoryId);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    addAttribute("id", m_id);
-    addAttribute("nextCategory", m_nextCategoryId);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		addAttribute("id", m_id);
+		addAttribute("nextCategory", m_nextCategoryId);
+	}
 }

@@ -24,41 +24,41 @@ import java.util.List;
  * @coverage core.model.description
  */
 public abstract class FromListDescriptionVersionsProvider implements IDescriptionVersionsProvider {
-  private final List<String> m_versions = Lists.newArrayList();
+	private final List<String> m_versions = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FromListDescriptionVersionsProvider(List<String> allVersions, String currentVersion) {
-    int currentVersionIndex = allVersions.indexOf(currentVersion);
-    Assert.isTrue(
-        currentVersionIndex != -1,
-        "Version %s is not present in %s",
-        currentVersion,
-        allVersions);
-    // add versions from current to earlier versions
-    for (String version : allVersions) {
-      m_versions.add(0, version);
-      if (version.equals(currentVersion)) {
-        break;
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FromListDescriptionVersionsProvider(List<String> allVersions, String currentVersion) {
+		int currentVersionIndex = allVersions.indexOf(currentVersion);
+		Assert.isTrue(
+				currentVersionIndex != -1,
+				"Version %s is not present in %s",
+				currentVersion,
+				allVersions);
+		// add versions from current to earlier versions
+		for (String version : allVersions) {
+			m_versions.add(0, version);
+			if (version.equals(currentVersion)) {
+				break;
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDescriptionVersionsProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public List<String> getVersions(Class<?> componentClass) throws Exception {
-    if (validate(componentClass)) {
-      return m_versions;
-    }
-    return ImmutableList.of();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDescriptionVersionsProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public List<String> getVersions(Class<?> componentClass) throws Exception {
+		if (validate(componentClass)) {
+			return m_versions;
+		}
+		return ImmutableList.of();
+	}
 
-  protected abstract boolean validate(Class<?> componentClass) throws Exception;
+	protected abstract boolean validate(Class<?> componentClass) throws Exception;
 }

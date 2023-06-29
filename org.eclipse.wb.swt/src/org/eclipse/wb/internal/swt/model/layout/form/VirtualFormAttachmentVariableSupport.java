@@ -30,79 +30,79 @@ import org.eclipse.jdt.core.dom.Expression;
  * @coverage swt.model.layout.form
  */
 public final class VirtualFormAttachmentVariableSupport extends AbstractNoNameVariableSupport {
-  private final FormSide m_side;
+	private final FormSide m_side;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualFormAttachmentVariableSupport(JavaInfo javaInfo, FormSide side) {
-    super(javaInfo);
-    m_side = side;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualFormAttachmentVariableSupport(JavaInfo javaInfo, FormSide side) {
+		super(javaInfo);
+		m_side = side;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // VariableSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isDefault() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// VariableSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isDefault() {
+		return true;
+	}
 
-  @Override
-  public String getTitle() throws Exception {
-    return "(no attachment)";
-  }
+	@Override
+	public String getTitle() throws Exception {
+		return "(no attachment)";
+	}
 
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		throw new IllegalStateException();
+	}
 
-  /**
-   * Makes the attachment 'real': changes the variable support and creation support.
-   */
-  public void materialize() throws Exception {
-    // create expression statement and variable support
-    JavaInfo formData = (JavaInfo) m_javaInfo.getParent();
-    Expression expressionStatement =
-        formData.addExpressionStatement(TemplateUtils.format(
-            "{0}.{1} = new org.eclipse.swt.layout.FormAttachment(0, 0)",
-            formData,
-            m_side.getField()));
-    VariableSupport variableSupport = new EmptyVariableSupport(m_javaInfo, expressionStatement);
-    m_javaInfo.setVariableSupport(variableSupport);
-    // creation support
-    {
-      Assignment assignment = (Assignment) expressionStatement;
-      ClassInstanceCreation creation = (ClassInstanceCreation) assignment.getRightHandSide();
-      m_javaInfo.setCreationSupport(new ConstructorCreationSupport(creation));
-      m_javaInfo.bindToExpression(creation);
-    }
-    m_javaInfo.addRelatedNodes(expressionStatement);
-    formData.addRelatedNodes(expressionStatement);
-  }
+	/**
+	 * Makes the attachment 'real': changes the variable support and creation support.
+	 */
+	public void materialize() throws Exception {
+		// create expression statement and variable support
+		JavaInfo formData = (JavaInfo) m_javaInfo.getParent();
+		Expression expressionStatement =
+				formData.addExpressionStatement(TemplateUtils.format(
+						"{0}.{1} = new org.eclipse.swt.layout.FormAttachment(0, 0)",
+						formData,
+						m_side.getField()));
+		VariableSupport variableSupport = new EmptyVariableSupport(m_javaInfo, expressionStatement);
+		m_javaInfo.setVariableSupport(variableSupport);
+		// creation support
+		{
+			Assignment assignment = (Assignment) expressionStatement;
+			ClassInstanceCreation creation = (ClassInstanceCreation) assignment.getRightHandSide();
+			m_javaInfo.setCreationSupport(new ConstructorCreationSupport(creation));
+			m_javaInfo.bindToExpression(creation);
+		}
+		m_javaInfo.addRelatedNodes(expressionStatement);
+		formData.addRelatedNodes(expressionStatement);
+	}
 
-  @Override
-  public String getAccessExpression(NodeTarget target) throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public String getAccessExpression(NodeTarget target) throws Exception {
+		throw new IllegalStateException();
+	}
 
-  @Override
-  public StatementTarget getStatementTarget() throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public StatementTarget getStatementTarget() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "form-attachment";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "form-attachment";
+	}
 }

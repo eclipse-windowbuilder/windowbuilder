@@ -24,23 +24,23 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class StandardBeanPropertyTagRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    String propertyName = getRequiredAttribute(name, attributes, "name");
-    // check all properties
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
-      String id = propertyDescription.getId();
-      if (StandardBeanPropertiesFlaggedRule.matchPropertyId(id, propertyName)) {
-        String tag = getRequiredAttribute(name, attributes, "tag");
-        String value = getRequiredAttribute(name, attributes, "value");
-        propertyDescription.putTag(tag, value);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		String propertyName = getRequiredAttribute(name, attributes, "name");
+		// check all properties
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
+			String id = propertyDescription.getId();
+			if (StandardBeanPropertiesFlaggedRule.matchPropertyId(id, propertyName)) {
+				String tag = getRequiredAttribute(name, attributes, "tag");
+				String value = getRequiredAttribute(name, attributes, "value");
+				propertyDescription.putTag(tag, value);
+			}
+		}
+	}
 }

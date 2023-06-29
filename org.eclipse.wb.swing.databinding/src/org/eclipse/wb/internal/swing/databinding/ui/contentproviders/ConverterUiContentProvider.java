@@ -24,50 +24,50 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
  * @coverage bindings.swing.ui
  */
 public class ConverterUiContentProvider extends ChooseClassUiContentProvider {
-  private final BindingInfo m_binding;
+	private final BindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ConverterUiContentProvider(ChooseClassConfiguration configuration, BindingInfo binding) {
-    super(configuration);
-    m_binding = binding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ConverterUiContentProvider(ChooseClassConfiguration configuration, BindingInfo binding) {
+		super(configuration);
+		m_binding = binding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    ConverterInfo converter = m_binding.getConverter();
-    setClassName(converter == null ? "N/S" : converter.getFullClassName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		ConverterInfo converter = m_binding.getConverter();
+		setClassName(converter == null ? "N/S" : converter.getFullClassName());
+	}
 
-  public void saveToObject() throws Exception {
-    String className = getClassName();
-    // check set or clear value
-    if ("N/S".equals(className)) {
-      m_binding.setConverter(null);
-    } else {
-      String parameters = null;
-      int index = className.indexOf('(');
-      if (index != -1) {
-        parameters = className.substring(index);
-        className = className.substring(0, index);
-      }
-      IGenericType converterType = new ClassGenericType(loadClass(className), null, null);
-      ConverterInfo converter = m_binding.getConverter();
-      // check new converter or edit value
-      if (converter == null) {
-        converter = new ConverterInfo(converterType, m_binding);
-        m_binding.setConverter(converter);
-      } else {
-        converter.setClass(converterType);
-      }
-      converter.setParameters(parameters);
-    }
-  }
+	public void saveToObject() throws Exception {
+		String className = getClassName();
+		// check set or clear value
+		if ("N/S".equals(className)) {
+			m_binding.setConverter(null);
+		} else {
+			String parameters = null;
+			int index = className.indexOf('(');
+			if (index != -1) {
+				parameters = className.substring(index);
+				className = className.substring(0, index);
+			}
+			IGenericType converterType = new ClassGenericType(loadClass(className), null, null);
+			ConverterInfo converter = m_binding.getConverter();
+			// check new converter or edit value
+			if (converter == null) {
+				converter = new ConverterInfo(converterType, m_binding);
+				m_binding.setConverter(converter);
+			} else {
+				converter.setClass(converterType);
+			}
+			converter.setParameters(parameters);
+		}
+	}
 }

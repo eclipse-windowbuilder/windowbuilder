@@ -34,88 +34,88 @@ import java.util.List;
  * @coverage swing.model.layout
  */
 public final class GridLayoutInfo extends GenericFlowLayoutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    // GridLayout uses "columns" only when "rows == 0"
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void setPropertyExpression(GenericPropertyImpl property,
-          String[] source,
-          Object[] value,
-          boolean[] shouldSet) throws Exception {
-        if (property.getJavaInfo() == GridLayoutInfo.this && property.getTitle().equals("columns")) {
-          getPropertyByTitle("rows").setValue(0);
-        }
-      }
-    });
-    // alignment support
-    new LayoutAssistantSupport(this) {
-      @Override
-      protected AbstractAssistantPage createLayoutPage(Composite parent) {
-        return new GridLayoutAssistantPage(parent, m_layout);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		// GridLayout uses "columns" only when "rows == 0"
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void setPropertyExpression(GenericPropertyImpl property,
+					String[] source,
+					Object[] value,
+					boolean[] shouldSet) throws Exception {
+				if (property.getJavaInfo() == GridLayoutInfo.this && property.getTitle().equals("columns")) {
+					getPropertyByTitle("rows").setValue(0);
+				}
+			}
+		});
+		// alignment support
+		new LayoutAssistantSupport(this) {
+			@Override
+			protected AbstractAssistantPage createLayoutPage(Composite parent) {
+				return new GridLayoutAssistantPage(parent, m_layout);
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void onSet() throws Exception {
-    super.onSet();
-    GridLayoutConverter.convert(getContainer(), this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void onSet() throws Exception {
+		super.onSet();
+		GridLayoutConverter.convert(getContainer(), this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Manage general layout data.
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void storeLayoutData(ComponentInfo component) throws Exception {
-    if (isManagedObject(component)) {
-      GeneralLayoutData generalLayoutData = new GeneralLayoutData();
-      {
-        // calculate cell
-        List<ComponentInfo> components = getComponents();
-        int rowCount = (Integer) ReflectionUtils.invokeMethod(getObject(), "getRows()");
-        int colCount;
-        if (rowCount > 0) {
-          colCount = (components.size() - 1) / rowCount + 1;
-        } else {
-          colCount = (Integer) ReflectionUtils.invokeMethod(getObject(), "getColumns()");
-        }
-        int index = components.indexOf(component);
-        generalLayoutData.gridX = index % colCount;
-        generalLayoutData.gridY = index / colCount;
-      }
-      generalLayoutData.spanX = 1;
-      generalLayoutData.spanY = 1;
-      generalLayoutData.horizontalGrab = null;
-      generalLayoutData.verticalGrab = null;
-      // alignments
-      generalLayoutData.horizontalAlignment = HorizontalAlignment.FILL;
-      generalLayoutData.verticalAlignment = VerticalAlignment.FILL;
-      generalLayoutData.putToInfo(component);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Manage general layout data.
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void storeLayoutData(ComponentInfo component) throws Exception {
+		if (isManagedObject(component)) {
+			GeneralLayoutData generalLayoutData = new GeneralLayoutData();
+			{
+				// calculate cell
+				List<ComponentInfo> components = getComponents();
+				int rowCount = (Integer) ReflectionUtils.invokeMethod(getObject(), "getRows()");
+				int colCount;
+				if (rowCount > 0) {
+					colCount = (components.size() - 1) / rowCount + 1;
+				} else {
+					colCount = (Integer) ReflectionUtils.invokeMethod(getObject(), "getColumns()");
+				}
+				int index = components.indexOf(component);
+				generalLayoutData.gridX = index % colCount;
+				generalLayoutData.gridY = index / colCount;
+			}
+			generalLayoutData.spanX = 1;
+			generalLayoutData.spanY = 1;
+			generalLayoutData.horizontalGrab = null;
+			generalLayoutData.verticalGrab = null;
+			// alignments
+			generalLayoutData.horizontalAlignment = HorizontalAlignment.FILL;
+			generalLayoutData.verticalAlignment = VerticalAlignment.FILL;
+			generalLayoutData.putToInfo(component);
+		}
+	}
 }

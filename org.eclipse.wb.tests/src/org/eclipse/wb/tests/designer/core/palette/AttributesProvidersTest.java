@@ -39,64 +39,64 @@ import javax.xml.parsers.SAXParserFactory;
  * @author scheglov_ke
  */
 public class AttributesProvidersTest extends AbstractPaletteTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PaletteManager
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link AttributesProviders#get(IConfigurationElement)}.
-   */
-  public void test_getIConfigurationElement() throws Exception {
-    String POINT_ID = "org.eclipse.wb.tests.testPoint";
-    try {
-      // add dynamic extension
-      {
-        String contribution = "<testObject attr='someValue'/>";
-        TestUtils.addDynamicExtension(POINT_ID, contribution);
-      }
-      // prepare IConfigurationElement
-      IConfigurationElement configurationElement;
-      {
-        List<IConfigurationElement> elements =
-            ExternalFactoriesHelper.getElements(POINT_ID, "testObject");
-        assertThat(elements).hasSize(1);
-        configurationElement = elements.get(0);
-      }
-      // test AttributesProvider
-      AttributesProvider provider = AttributesProviders.get(configurationElement);
-      assertEquals("someValue", provider.getAttribute("attr"));
-      assertNull(provider.getAttribute("noSuchAttribute"));
-    } finally {
-      TestUtils.removeDynamicExtension(POINT_ID);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PaletteManager
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link AttributesProviders#get(IConfigurationElement)}.
+	 */
+	public void test_getIConfigurationElement() throws Exception {
+		String POINT_ID = "org.eclipse.wb.tests.testPoint";
+		try {
+			// add dynamic extension
+			{
+				String contribution = "<testObject attr='someValue'/>";
+				TestUtils.addDynamicExtension(POINT_ID, contribution);
+			}
+			// prepare IConfigurationElement
+			IConfigurationElement configurationElement;
+			{
+				List<IConfigurationElement> elements =
+						ExternalFactoriesHelper.getElements(POINT_ID, "testObject");
+				assertThat(elements).hasSize(1);
+				configurationElement = elements.get(0);
+			}
+			// test AttributesProvider
+			AttributesProvider provider = AttributesProviders.get(configurationElement);
+			assertEquals("someValue", provider.getAttribute("attr"));
+			assertNull(provider.getAttribute("noSuchAttribute"));
+		} finally {
+			TestUtils.removeDynamicExtension(POINT_ID);
+		}
+	}
 
-  /**
-   * Test for {@link AttributesProviders#get(Attributes)}.
-   */
-  public void test_getXML() throws Exception {
-    SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-    parser.parse(
-        new InputSource(new StringReader("<rootElement attr='someValue'/>")),
-        new DefaultHandler() {
-          @Override
-          public void startElement(String uri, String localName, String name, Attributes attributes)
-              throws SAXException {
-            AttributesProvider provider = AttributesProviders.get(attributes);
-            assertEquals("someValue", provider.getAttribute("attr"));
-            assertNull(provider.getAttribute("noSuchAttribute"));
-          }
-        });
-  }
+	/**
+	 * Test for {@link AttributesProviders#get(Attributes)}.
+	 */
+	public void test_getXML() throws Exception {
+		SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+		parser.parse(
+				new InputSource(new StringReader("<rootElement attr='someValue'/>")),
+				new DefaultHandler() {
+					@Override
+					public void startElement(String uri, String localName, String name, Attributes attributes)
+							throws SAXException {
+						AttributesProvider provider = AttributesProviders.get(attributes);
+						assertEquals("someValue", provider.getAttribute("attr"));
+						assertNull(provider.getAttribute("noSuchAttribute"));
+					}
+				});
+	}
 
-  /**
-   * Test for {@link AttributesProviders#get(Map)}.
-   */
-  public void test_getMap() throws Exception {
-    Map<String, String> attributes = ImmutableMap.of("attr", "someValue");
-    AttributesProvider provider = AttributesProviders.get(attributes);
-    assertEquals("someValue", provider.getAttribute("attr"));
-    assertNull(provider.getAttribute("noSuchAttribute"));
-  }
+	/**
+	 * Test for {@link AttributesProviders#get(Map)}.
+	 */
+	public void test_getMap() throws Exception {
+		Map<String, String> attributes = ImmutableMap.of("attr", "someValue");
+		AttributesProvider provider = AttributesProviders.get(attributes);
+		assertEquals("someValue", provider.getAttribute("attr"));
+		assertNull(provider.getAttribute("noSuchAttribute"));
+	}
 }

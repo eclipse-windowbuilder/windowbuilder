@@ -24,47 +24,47 @@ import java.util.Locale;
  * @author scheglov_ke
  */
 public class LocalePropertyEditorTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_setText() throws Exception {
-    setFileContentSrc(
-        "test/MyButton.java",
-        getTestSource(
-            "import java.util.Locale;",
-            "public class MyButton extends JButton {",
-            "  public void setFoo(Locale locale) {",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-    // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    MyButton button = new MyButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    //
-    Property property = button.getPropertyByTitle("foo");
-    assertInstanceOf(LocalePropertyEditor.class, property.getEditor());
-    // initially no value, so not text
-    assertEquals(null, getPropertyText(property));
-    // set value
-    property.setValue(Locale.GERMAN);
-    assertEditor(
-        "import java.util.Locale;",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    MyButton button = new MyButton();",
-        "    button.setFoo(Locale.GERMAN);",
-        "    add(button);",
-        "  }",
-        "}");
-    assertEquals(Locale.GERMAN.getDisplayName(), getPropertyText(property));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_setText() throws Exception {
+		setFileContentSrc(
+				"test/MyButton.java",
+				getTestSource(
+						"import java.util.Locale;",
+						"public class MyButton extends JButton {",
+						"  public void setFoo(Locale locale) {",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+		// parse
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    MyButton button = new MyButton();",
+						"    add(button);",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		//
+		Property property = button.getPropertyByTitle("foo");
+		assertInstanceOf(LocalePropertyEditor.class, property.getEditor());
+		// initially no value, so not text
+		assertEquals(null, getPropertyText(property));
+		// set value
+		property.setValue(Locale.GERMAN);
+		assertEditor(
+				"import java.util.Locale;",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    MyButton button = new MyButton();",
+				"    button.setFoo(Locale.GERMAN);",
+				"    add(button);",
+				"  }",
+				"}");
+		assertEquals(Locale.GERMAN.getDisplayName(), getPropertyText(property));
+	}
 }

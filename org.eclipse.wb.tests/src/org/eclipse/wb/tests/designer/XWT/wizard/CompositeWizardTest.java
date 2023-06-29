@@ -26,48 +26,48 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class CompositeWizardTest extends XwtWizardTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @DisposeProjectAfter
-  public void test_forJava() throws Exception {
-    new UiContext().executeAndCheck(new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        TestUtils.runWizard(new CompositeWizard(), new StructuredSelection(m_packageFragment));
-      }
-    }, new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        context.useShell("New XWT Composite");
-        context.getTextByLabel("Name:").setText("MyComposite");
-        context.clickButton("Finish");
-      }
-    });
-    // Java
-    {
-      String content = getFileContentSrc("test/MyComposite.java");
-      assertThat(content).contains("public class MyComposite extends Composite {");
-      assertThat(content).contains("XWT.loadWithOptions(");
-    }
-    // XWT
-    {
-      String content = getFileContentSrc("test/MyComposite.xwt");
-      assertThat(content).contains("<Composite ");
-      assertThat(content).contains("x:Class=\"test.MyComposite\"");
-      assertThat(content).contains("<RowLayout/>");
-      assertThat(content).contains("<Button text=");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@DisposeProjectAfter
+	public void test_forJava() throws Exception {
+		new UiContext().executeAndCheck(new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				TestUtils.runWizard(new CompositeWizard(), new StructuredSelection(m_packageFragment));
+			}
+		}, new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				context.useShell("New XWT Composite");
+				context.getTextByLabel("Name:").setText("MyComposite");
+				context.clickButton("Finish");
+			}
+		});
+		// Java
+		{
+			String content = getFileContentSrc("test/MyComposite.java");
+			assertThat(content).contains("public class MyComposite extends Composite {");
+			assertThat(content).contains("XWT.loadWithOptions(");
+		}
+		// XWT
+		{
+			String content = getFileContentSrc("test/MyComposite.xwt");
+			assertThat(content).contains("<Composite ");
+			assertThat(content).contains("x:Class=\"test.MyComposite\"");
+			assertThat(content).contains("<RowLayout/>");
+			assertThat(content).contains("<Button text=");
+		}
+	}
 }

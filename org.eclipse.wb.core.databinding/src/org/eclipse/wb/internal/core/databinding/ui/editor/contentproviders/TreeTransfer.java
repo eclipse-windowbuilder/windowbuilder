@@ -22,36 +22,36 @@ import org.apache.commons.lang.ArrayUtils;
  * @coverage bindings.ui
  */
 final class TreeTransfer extends ByteArrayTransfer {
-  public static final TreeTransfer INSTANCE = new TreeTransfer();
-  private static final String TYPE_NAME = "Tree content provider bindings tranfser";
-  private static final int TYPE_ID = registerType(TYPE_NAME);
+	public static final TreeTransfer INSTANCE = new TreeTransfer();
+	private static final String TYPE_NAME = "Tree content provider bindings tranfser";
+	private static final int TYPE_ID = registerType(TYPE_NAME);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Transfer
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected int[] getTypeIds() {
-    return new int[]{TYPE_ID};
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Transfer
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected int[] getTypeIds() {
+		return new int[]{TYPE_ID};
+	}
 
-  @Override
-  protected String[] getTypeNames() {
-    return new String[]{TYPE_NAME};
-  }
+	@Override
+	protected String[] getTypeNames() {
+		return new String[]{TYPE_NAME};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ByteArrayTransfer
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void javaToNative(Object object, TransferData transferData) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ByteArrayTransfer
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void javaToNative(Object object, TransferData transferData) {
+	}
 
-  @Override
-  protected Object nativeToJava(TransferData transferData) {
-    return ArrayUtils.EMPTY_BYTE_ARRAY;
-  }
+	@Override
+	protected Object nativeToJava(TransferData transferData) {
+		return ArrayUtils.EMPTY_BYTE_ARRAY;
+	}
 }

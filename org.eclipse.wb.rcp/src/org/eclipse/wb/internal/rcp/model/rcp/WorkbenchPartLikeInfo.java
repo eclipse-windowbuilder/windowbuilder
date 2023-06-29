@@ -52,194 +52,194 @@ import org.eclipse.ui.part.WorkbenchPart;
  * @coverage rcp.model.rcp
  */
 public abstract class WorkbenchPartLikeInfo extends AbstractComponentInfo
-    implements
-      IJavaInfoRendering {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WorkbenchPartLikeInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    JavaInfoUtils.scheduleSpecialRendering(this);
-  }
+implements
+IJavaInfoRendering {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WorkbenchPartLikeInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		JavaInfoUtils.scheduleSpecialRendering(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exposed
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createExposedChildren() throws Exception {
-    super.createExposedChildren();
-    WidgetInfo.createExposedChildren(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exposed
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createExposedChildren() throws Exception {
+		super.createExposedChildren();
+		WidgetInfo.createExposedChildren(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Shell m_shell;
-  protected CTabFolder m_tabFolder;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Shell m_shell;
+	protected CTabFolder m_tabFolder;
 
-  @Override
-  public void render() throws Exception {
-    m_shell = new Shell();
-    m_shell.setLayout(new FillLayout());
-    // prepare gradient workbench-like CTabFolder
-    m_tabFolder = new CTabFolder(m_shell, SWT.BORDER | SWT.CLOSE);
-    m_tabFolder.setSimple(false);
-    m_tabFolder.setMinimizeVisible(true);
-    m_tabFolder.setMaximizeVisible(true);
-    TabFolderDecorator.setActiveTabColors(true, m_tabFolder);
-    // prepare "tabItem" that looks according to concrete model
-    CTabItem tabItem = new CTabItem(m_tabFolder, SWT.NONE);
-    m_tabFolder.setSelection(tabItem);
-    configureTabItem(tabItem);
-    // prepare "container" for hosting WorkbenchPart control
-    Composite container = new Composite(m_tabFolder, SWT.NONE);
-    container.setLayout(new FillLayout());
-    tabItem.setControl(container);
-    // OK, we prepared everything, now render GUI
-    ReflectionUtils.invokeMethod(getObject(), getGUIMethodName()
-        + "(org.eclipse.swt.widgets.Composite)", container);
-  }
+	@Override
+	public void render() throws Exception {
+		m_shell = new Shell();
+		m_shell.setLayout(new FillLayout());
+		// prepare gradient workbench-like CTabFolder
+		m_tabFolder = new CTabFolder(m_shell, SWT.BORDER | SWT.CLOSE);
+		m_tabFolder.setSimple(false);
+		m_tabFolder.setMinimizeVisible(true);
+		m_tabFolder.setMaximizeVisible(true);
+		TabFolderDecorator.setActiveTabColors(true, m_tabFolder);
+		// prepare "tabItem" that looks according to concrete model
+		CTabItem tabItem = new CTabItem(m_tabFolder, SWT.NONE);
+		m_tabFolder.setSelection(tabItem);
+		configureTabItem(tabItem);
+		// prepare "container" for hosting WorkbenchPart control
+		Composite container = new Composite(m_tabFolder, SWT.NONE);
+		container.setLayout(new FillLayout());
+		tabItem.setControl(container);
+		// OK, we prepared everything, now render GUI
+		ReflectionUtils.invokeMethod(getObject(), getGUIMethodName()
+				+ "(org.eclipse.swt.widgets.Composite)", container);
+	}
 
-  /**
-   * @return the name of method that creates GUI in sub-class of {@link WorkbenchPartLikeInfo}.
-   */
-  protected abstract String getGUIMethodName();
+	/**
+	 * @return the name of method that creates GUI in sub-class of {@link WorkbenchPartLikeInfo}.
+	 */
+	protected abstract String getGUIMethodName();
 
-  /**
-   * Configures given {@link CTabItem} in concrete subtype of {@link WorkbenchPartLikeInfo}.
-   */
-  protected abstract void configureTabItem(CTabItem tabItem) throws Exception;
+	/**
+	 * Configures given {@link CTabItem} in concrete subtype of {@link WorkbenchPartLikeInfo}.
+	 */
+	protected abstract void configureTabItem(CTabItem tabItem) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractComponentInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected TopBoundsSupport createTopBoundsSupport() {
-    return new WorkbenchPartTopBoundsSupport(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractComponentInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected TopBoundsSupport createTopBoundsSupport() {
+		return new WorkbenchPartTopBoundsSupport(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canBeRoot() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canBeRoot() {
+		return true;
+	}
 
-  @Override
-  public Object getComponentObject() {
-    return m_tabFolder;
-  }
+	@Override
+	public Object getComponentObject() {
+		return m_tabFolder;
+	}
 
-  /**
-   * @return the top level {@link Shell}.
-   */
-  public Shell getShell() {
-    return m_shell;
-  }
+	/**
+	 * @return the top level {@link Shell}.
+	 */
+	public Shell getShell() {
+		return m_shell;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_dispose() throws Exception {
-    if (m_shell != null) {
-      m_shell.dispose();
-      m_shell = null;
-    }
-    super.refresh_dispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_dispose() throws Exception {
+		if (m_shell != null) {
+			m_shell.dispose();
+			m_shell = null;
+		}
+		super.refresh_dispose();
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    ControlInfo.refresh_fetch(this, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        WorkbenchPartLikeInfo.super.refresh_fetch();
-      }
-    });
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		ControlInfo.refresh_fetch(this, new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				WorkbenchPartLikeInfo.super.refresh_fetch();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Utility method to use in {@link #configureTabItem(CTabItem)} for components that have
-   * "Extension" property, i.e. contributed from <code>plugin.xml</code> file.
-   */
-  protected final void configureTabItem_fromExtension(CTabItem tabItem, String defaultText)
-      throws Exception {
-    // at parsing time it is dangerous to ask properties
-    if (GlobalState.isParsing()) {
-      return;
-    }
-    ComplexProperty extensionProperty = (ComplexProperty) getPropertyByTitle("Extension");
-    // text
-    {
-      String text = defaultText;
-      // try to get "name" from extension
-      if (extensionProperty != null) {
-        Property nameProperty = extensionProperty.getProperties()[0];
-        if (nameProperty.isModified()) {
-          text = (String) nameProperty.getValue();
-        }
-      }
-      // OK, set text
-      tabItem.setText(text);
-    }
-    // icon
-    {
-      Image icon = getDescription().getIcon();
-      // try to get "icon" from extension
-      if (extensionProperty != null) {
-        Property iconProperty = extensionProperty.getProperties()[1];
-        if (iconProperty.isModified()) {
-          String iconPath = (String) iconProperty.getValue();
-          IProject project = getEditor().getJavaProject().getProject();
-          IFile iconFile = project.getFile(new Path(iconPath));
-          if (iconFile.exists()) {
-            String iconLocation = iconFile.getLocation().toOSString();
-            icon = SwtResourceManager.getImage(iconLocation);
-          }
-        }
-      }
-      // OK, set icon
-      tabItem.setImage(icon);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Utility method to use in {@link #configureTabItem(CTabItem)} for components that have
+	 * "Extension" property, i.e. contributed from <code>plugin.xml</code> file.
+	 */
+	protected final void configureTabItem_fromExtension(CTabItem tabItem, String defaultText)
+			throws Exception {
+		// at parsing time it is dangerous to ask properties
+		if (GlobalState.isParsing()) {
+			return;
+		}
+		ComplexProperty extensionProperty = (ComplexProperty) getPropertyByTitle("Extension");
+		// text
+		{
+			String text = defaultText;
+			// try to get "name" from extension
+			if (extensionProperty != null) {
+				Property nameProperty = extensionProperty.getProperties()[0];
+				if (nameProperty.isModified()) {
+					text = (String) nameProperty.getValue();
+				}
+			}
+			// OK, set text
+			tabItem.setText(text);
+		}
+		// icon
+		{
+			Image icon = getDescription().getIcon();
+			// try to get "icon" from extension
+			if (extensionProperty != null) {
+				Property iconProperty = extensionProperty.getProperties()[1];
+				if (iconProperty.isModified()) {
+					String iconPath = (String) iconProperty.getValue();
+					IProject project = getEditor().getJavaProject().getProject();
+					IFile iconFile = project.getFile(new Path(iconPath));
+					if (iconFile.exists()) {
+						String iconLocation = iconFile.getLocation().toOSString();
+						icon = SwtResourceManager.getImage(iconLocation);
+					}
+				}
+			}
+			// OK, set icon
+			tabItem.setImage(icon);
+		}
+	}
 
-  /**
-   * @return the ID from <code>ID</code> field.
-   */
-  protected final String getID() {
-    TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(this);
-    FieldDeclaration[] fields = typeDeclaration.getFields();
-    for (FieldDeclaration field : fields) {
-      for (VariableDeclarationFragment fragment : DomGenerics.fragments(field)) {
-        if (fragment.getName().getIdentifier().equals("ID")) {
-          Expression initializer = fragment.getInitializer();
-          if (initializer instanceof StringLiteral) {
-            return ((StringLiteral) initializer).getLiteralValue();
-          }
-        }
-      }
-    }
-    return null;
-  }
+	/**
+	 * @return the ID from <code>ID</code> field.
+	 */
+	protected final String getID() {
+		TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(this);
+		FieldDeclaration[] fields = typeDeclaration.getFields();
+		for (FieldDeclaration field : fields) {
+			for (VariableDeclarationFragment fragment : DomGenerics.fragments(field)) {
+				if (fragment.getName().getIdentifier().equals("ID")) {
+					Expression initializer = fragment.getInitializer();
+					if (initializer instanceof StringLiteral) {
+						return ((StringLiteral) initializer).getLiteralValue();
+					}
+				}
+			}
+		}
+		return null;
+	}
 }

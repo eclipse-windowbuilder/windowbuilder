@@ -27,74 +27,74 @@ import java.util.WeakHashMap;
  * @coverage core.gef.policy
  */
 public abstract class SelectionPolicyDecorationHelper {
-  private final LayoutEditPolicy m_layoutPolicy;
-  private final Map<EditPart, EditPolicy> m_policies = new WeakHashMap<EditPart, EditPolicy>();
+	private final LayoutEditPolicy m_layoutPolicy;
+	private final Map<EditPart, EditPolicy> m_policies = new WeakHashMap<EditPart, EditPolicy>();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionPolicyDecorationHelper(LayoutEditPolicy layoutPolicy) {
-    m_layoutPolicy = layoutPolicy;
-    m_layoutPolicy.addEditPartListener(new IEditPartDecorationListener() {
-      @Override
-      public void decorate(EditPart child) {
-        if (shouldChangePolicy(child)) {
-          rememberOldPolicy(child);
-          setNewPolicy(child);
-        }
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionPolicyDecorationHelper(LayoutEditPolicy layoutPolicy) {
+		m_layoutPolicy = layoutPolicy;
+		m_layoutPolicy.addEditPartListener(new IEditPartDecorationListener() {
+			@Override
+			public void decorate(EditPart child) {
+				if (shouldChangePolicy(child)) {
+					rememberOldPolicy(child);
+					setNewPolicy(child);
+				}
+			}
 
-      @Override
-      public void undecorate(EditPart child) {
-        if (shouldChangePolicy(child)) {
-          restoreOldPolicy(child);
-        }
-      }
-    });
-  }
+			@Override
+			public void undecorate(EditPart child) {
+				if (shouldChangePolicy(child)) {
+					restoreOldPolicy(child);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void rememberOldPolicy(EditPart child) {
-    EditPolicy selectionPolicy = child.getEditPolicy(EditPolicy.SELECTION_ROLE);
-    if (selectionPolicy != null) {
-      m_policies.put(child, selectionPolicy);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void rememberOldPolicy(EditPart child) {
+		EditPolicy selectionPolicy = child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+		if (selectionPolicy != null) {
+			m_policies.put(child, selectionPolicy);
+		}
+	}
 
-  private void setNewPolicy(EditPart child) {
-    EditPolicy newPolicy = getNewPolicy(child);
-    child.installEditPolicy(EditPolicy.SELECTION_ROLE, newPolicy);
-  }
+	private void setNewPolicy(EditPart child) {
+		EditPolicy newPolicy = getNewPolicy(child);
+		child.installEditPolicy(EditPolicy.SELECTION_ROLE, newPolicy);
+	}
 
-  private void restoreOldPolicy(EditPart child) {
-    EditPolicy selectionPolicy = m_policies.get(child);
-    child.installEditPolicy(EditPolicy.SELECTION_ROLE, selectionPolicy);
-  }
+	private void restoreOldPolicy(EditPart child) {
+		EditPolicy selectionPolicy = m_policies.get(child);
+		child.installEditPolicy(EditPolicy.SELECTION_ROLE, selectionPolicy);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation specific
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if {@link EditPolicy#SELECTION_ROLE} of given {@link EditPart} should
-   *         be changed.
-   */
-  protected boolean shouldChangePolicy(EditPart child) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation specific
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if {@link EditPolicy#SELECTION_ROLE} of given {@link EditPart} should
+	 *         be changed.
+	 */
+	protected boolean shouldChangePolicy(EditPart child) {
+		return true;
+	}
 
-  /**
-   * @return new {@link EditPolicy} to use for {@link EditPolicy#SELECTION_ROLE}, may be
-   *         <code>null</code>.
-   */
-  protected EditPolicy getNewPolicy(EditPart child) {
-    return null;
-  }
+	/**
+	 * @return new {@link EditPolicy} to use for {@link EditPolicy#SELECTION_ROLE}, may be
+	 *         <code>null</code>.
+	 */
+	protected EditPolicy getNewPolicy(EditPart child) {
+		return null;
+	}
 }

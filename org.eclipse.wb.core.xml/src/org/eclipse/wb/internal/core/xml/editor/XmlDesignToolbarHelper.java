@@ -26,61 +26,61 @@ import org.eclipse.swt.widgets.ToolBar;
  * @coverage XML.editor
  */
 public final class XmlDesignToolbarHelper extends DesignToolbarHelper {
-  private DesignPageActions m_pageActions;
+	private DesignPageActions m_pageActions;
 
-  //private ExternalizeStringsContributionItem m_externalizeItem;
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlDesignToolbarHelper(ToolBar toolBar) {
-    super(toolBar);
-  }
+	//private ExternalizeStringsContributionItem m_externalizeItem;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlDesignToolbarHelper(ToolBar toolBar) {
+		super(toolBar);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Initializes with {@link DesignPageActions} and {@link IEditPartViewer}.
-   */
-  public void initialize(DesignPageActions pageActions, IEditPartViewer viewer) {
-    super.initialize(viewer);
-    m_pageActions = pageActions;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Initializes with {@link DesignPageActions} and {@link IEditPartViewer}.
+	 */
+	public void initialize(DesignPageActions pageActions, IEditPartViewer viewer) {
+		super.initialize(viewer);
+		m_pageActions = pageActions;
+	}
 
-  /**
-   * Fills {@link ToolBar} with actions.
-   */
-  @Override
-  public void fill() {
-    /*{
+	/**
+	 * Fills {@link ToolBar} with actions.
+	 */
+	@Override
+	public void fill() {
+		/*{
     	m_toolBarManager.add(m_pageActions.getErrorsAction());
     	m_toolBarManager.add(new Separator());
     }*/
-    {
-      m_toolBarManager.add(m_pageActions.getTestAction());
-      m_toolBarManager.add(m_pageActions.getRefreshAction());
-      m_toolBarManager.add(new Separator());
-    }
-    super.fill();
-    {
-      m_toolBarManager.add(m_pageActions.getAssistantAction());
-      m_toolBarManager.add(new Separator());
-    }
-    /*{
+		{
+			m_toolBarManager.add(m_pageActions.getTestAction());
+			m_toolBarManager.add(m_pageActions.getRefreshAction());
+			m_toolBarManager.add(new Separator());
+		}
+		super.fill();
+		{
+			m_toolBarManager.add(m_pageActions.getAssistantAction());
+			m_toolBarManager.add(new Separator());
+		}
+		/*{
     	m_externalizeItem = new ExternalizeStringsContributionItem();
     	m_toolBarManager.add(m_externalizeItem);
     }*/
-    super.fill2();
-  }
+		super.fill2();
+	}
 
-  @Override
-  public void setRoot(ObjectInfo rootObject) {
-    super.setRoot(rootObject);
-    //m_externalizeItem.setRoot((JavaInfo) rootObject);
-    m_toolBarManager.getControl().getParent().layout();
-  }
+	@Override
+	public void setRoot(ObjectInfo rootObject) {
+		super.setRoot(rootObject);
+		//m_externalizeItem.setRoot((JavaInfo) rootObject);
+		m_toolBarManager.getControl().getParent().layout();
+	}
 }

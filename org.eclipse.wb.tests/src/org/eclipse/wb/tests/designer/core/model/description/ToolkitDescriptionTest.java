@@ -35,76 +35,76 @@ import java.util.Set;
  * @author scheglov_ke
  */
 public class ToolkitDescriptionTest extends DesignerTestCase {
-  /**
-   * Test for {@link ToolkitDescription}.
-   */
-  public void test_ToolkitDescription() throws Exception {
-    ToolkitDescriptionJava toolkit = org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION;
-    assertEquals(
-        org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID,
-        toolkit.getId());
-    assertEquals("Swing toolkit", toolkit.getName());
-    assertEquals(Platform.getBundle("org.eclipse.wb.swing"), toolkit.getBundle());
-    assertSame(
-        org.eclipse.wb.internal.swing.Activator.getDefault().getPreferenceStore(),
-        toolkit.getPreferences());
-    {
-      GenerationSettings generationSettings = toolkit.getGenerationSettings();
-      assertNotNull(generationSettings);
-      assertThat(generationSettings.getVariables()).isNotEmpty();
-    }
-  }
+	/**
+	 * Test for {@link ToolkitDescription}.
+	 */
+	public void test_ToolkitDescription() throws Exception {
+		ToolkitDescriptionJava toolkit = org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION;
+		assertEquals(
+				org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID,
+				toolkit.getId());
+		assertEquals("Swing toolkit", toolkit.getName());
+		assertEquals(Platform.getBundle("org.eclipse.wb.swing"), toolkit.getBundle());
+		assertSame(
+				org.eclipse.wb.internal.swing.Activator.getDefault().getPreferenceStore(),
+				toolkit.getPreferences());
+		{
+			GenerationSettings generationSettings = toolkit.getGenerationSettings();
+			assertNotNull(generationSettings);
+			assertThat(generationSettings.getVariables()).isNotEmpty();
+		}
+	}
 
-  /**
-   * Test for {@link ComponentDescriptionHelper#getToolkitElements()}.
-   */
-  public void test_getToolkitElements() throws Exception {
-    Set<String> toolkitIds = Sets.newHashSet();
-    {
-      List<IConfigurationElement> toolkitElements = DescriptionHelper.getToolkitElements();
-      for (IConfigurationElement toolkitElement : toolkitElements) {
-        toolkitIds.add(toolkitElement.getAttribute("id"));
-      }
-    }
-    assertTrue(toolkitIds.contains(org.eclipse.wb.internal.core.preferences.IPreferenceConstants.TOOLKIT_ID));
-    assertTrue(toolkitIds.contains(org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID));
-    assertFalse(toolkitIds.contains("no-such-toolkit-id"));
-  }
+	/**
+	 * Test for {@link ComponentDescriptionHelper#getToolkitElements()}.
+	 */
+	public void test_getToolkitElements() throws Exception {
+		Set<String> toolkitIds = Sets.newHashSet();
+		{
+			List<IConfigurationElement> toolkitElements = DescriptionHelper.getToolkitElements();
+			for (IConfigurationElement toolkitElement : toolkitElements) {
+				toolkitIds.add(toolkitElement.getAttribute("id"));
+			}
+		}
+		assertTrue(toolkitIds.contains(org.eclipse.wb.internal.core.preferences.IPreferenceConstants.TOOLKIT_ID));
+		assertTrue(toolkitIds.contains(org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID));
+		assertFalse(toolkitIds.contains("no-such-toolkit-id"));
+	}
 
-  /**
-   * Test for {@link ComponentDescriptionHelper#getToolkitElements(String)}.
-   */
-  public void test_getToolkitElements_forSingleToolkit() throws Exception {
-    String toolkitId = org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID;
-    for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(toolkitId)) {
-      assertEquals(toolkitId, ExternalFactoriesHelper.getRequiredAttribute(toolkitElement, "id"));
-    }
-  }
+	/**
+	 * Test for {@link ComponentDescriptionHelper#getToolkitElements(String)}.
+	 */
+	public void test_getToolkitElements_forSingleToolkit() throws Exception {
+		String toolkitId = org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID;
+		for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(toolkitId)) {
+			assertEquals(toolkitId, ExternalFactoriesHelper.getRequiredAttribute(toolkitElement, "id"));
+		}
+	}
 
-  /**
-   * Test for {@link ComponentDescriptionHelper#getToolkit(String)}.
-   */
-  public void test_getToolkit() throws Exception {
-    // check for existing toolkit
-    assertSame(
-        org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION,
-        DescriptionHelper.getToolkit(org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID));
-    // check for not existing toolkit
-    try {
-      DescriptionHelper.getToolkit("no-such-toolkit-id");
-      fail();
-    } catch (AssertionFailedException e) {
-    }
-  }
+	/**
+	 * Test for {@link ComponentDescriptionHelper#getToolkit(String)}.
+	 */
+	public void test_getToolkit() throws Exception {
+		// check for existing toolkit
+		assertSame(
+				org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION,
+				DescriptionHelper.getToolkit(org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID));
+		// check for not existing toolkit
+		try {
+			DescriptionHelper.getToolkit("no-such-toolkit-id");
+			fail();
+		} catch (AssertionFailedException e) {
+		}
+	}
 
-  /**
-   * Test for {@link ComponentDescriptionHelper#getToolkits()}.
-   */
-  public void test_getToolkits() throws Exception {
-    ToolkitDescription[] toolkits = DescriptionHelper.getToolkits();
-    assertThat(toolkits).contains(
-        org.eclipse.wb.internal.core.ToolkitProvider.DESCRIPTION,
-        org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION,
-        org.eclipse.wb.internal.rcp.ToolkitProvider.DESCRIPTION);
-  }
+	/**
+	 * Test for {@link ComponentDescriptionHelper#getToolkits()}.
+	 */
+	public void test_getToolkits() throws Exception {
+		ToolkitDescription[] toolkits = DescriptionHelper.getToolkits();
+		assertThat(toolkits).contains(
+				org.eclipse.wb.internal.core.ToolkitProvider.DESCRIPTION,
+				org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION,
+				org.eclipse.wb.internal.rcp.ToolkitProvider.DESCRIPTION);
+	}
 }

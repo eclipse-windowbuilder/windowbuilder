@@ -31,57 +31,57 @@ import javax.swing.AbstractButton;
  * @coverage swing.gef.policy
  */
 public final class ActionDropButtonLayoutEditPolicy extends LayoutEditPolicy {
-  private static final ILayoutRequestValidator VALIDATOR =
-      LayoutRequestValidators.modelType(ActionInfo.class);
-  private final ComponentInfo m_component;
+	private static final ILayoutRequestValidator VALIDATOR =
+			LayoutRequestValidators.modelType(ActionInfo.class);
+	private final ComponentInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionDropButtonLayoutEditPolicy(ComponentInfo component) {
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionDropButtonLayoutEditPolicy(ComponentInfo component) {
+		m_component = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    PolicyUtils.showBorderTargetFeedback(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		PolicyUtils.showBorderTargetFeedback(this);
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    PolicyUtils.eraseBorderTargetFeedback(this);
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		PolicyUtils.eraseBorderTargetFeedback(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(CreateRequest request) {
-    final ActionInfo action = (ActionInfo) request.getNewObject();
-    return new EditCommand(m_component) {
-      @Override
-      protected void executeEdit() throws Exception {
-        ActionInfo.setAction(m_component, action);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(CreateRequest request) {
+		final ActionInfo action = (ActionInfo) request.getNewObject();
+		return new EditCommand(m_component) {
+			@Override
+			protected void executeEdit() throws Exception {
+				ActionInfo.setAction(m_component, action);
+			}
+		};
+	}
 }

@@ -18,26 +18,26 @@ package org.eclipse.wb.internal.core.databinding.model.reference;
  * @coverage bindings.model
  */
 public final class CompoundReferenceProvider implements IReferenceProvider {
-  private final IReferenceProvider m_leftReferenceProvider;
-  private final String m_rightReference;
+	private final IReferenceProvider m_leftReferenceProvider;
+	private final String m_rightReference;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompoundReferenceProvider(IReferenceProvider leftReferenceProvider, String rightReference) {
-    m_leftReferenceProvider = leftReferenceProvider;
-    m_rightReference = rightReference;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompoundReferenceProvider(IReferenceProvider leftReferenceProvider, String rightReference) {
+		m_leftReferenceProvider = leftReferenceProvider;
+		m_rightReference = rightReference;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IReferenceProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReference() throws Exception {
-    return m_leftReferenceProvider.getReference() + m_rightReference;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IReferenceProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReference() throws Exception {
+		return m_leftReferenceProvider.getReference() + m_rightReference;
+	}
 }

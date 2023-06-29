@@ -19,40 +19,40 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.property.converter
  */
 public final class BooleanArrayConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new BooleanArrayConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new BooleanArrayConverter();
 
-  private BooleanArrayConverter() {
-  }
+	private BooleanArrayConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    if (value == null) {
-      return "(boolean[]) null";
-    } else {
-      StringBuilder buffer = new StringBuilder();
-      buffer.append("new boolean[] {");
-      // add items
-      boolean[] items = (boolean[]) value;
-      for (int i = 0; i < items.length; i++) {
-        boolean item = items[i];
-        if (i != 0) {
-          buffer.append(", ");
-        }
-        buffer.append(BooleanConverter.INSTANCE.toJavaSource(javaInfo, item));
-      }
-      //
-      buffer.append("}");
-      return buffer.toString();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		if (value == null) {
+			return "(boolean[]) null";
+		} else {
+			StringBuilder buffer = new StringBuilder();
+			buffer.append("new boolean[] {");
+			// add items
+			boolean[] items = (boolean[]) value;
+			for (int i = 0; i < items.length; i++) {
+				boolean item = items[i];
+				if (i != 0) {
+					buffer.append(", ");
+				}
+				buffer.append(BooleanConverter.INSTANCE.toJavaSource(javaInfo, item));
+			}
+			//
+			buffer.append("}");
+			return buffer.toString();
+		}
+	}
 }

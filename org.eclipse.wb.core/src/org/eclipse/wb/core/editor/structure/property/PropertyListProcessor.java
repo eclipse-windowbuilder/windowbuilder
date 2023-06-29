@@ -24,8 +24,8 @@ import java.util.List;
  * @coverage core.editor.structure
  */
 public interface PropertyListProcessor {
-  /**
-   * Processes given {@link Property}-s or {@link ObjectInfo}-s.
-   */
-  void process(List<ObjectInfo> objects, List<Property> properties);
+	/**
+	 * Processes given {@link Property}-s or {@link ObjectInfo}-s.
+	 */
+	void process(List<ObjectInfo> objects, List<Property> properties);
 }

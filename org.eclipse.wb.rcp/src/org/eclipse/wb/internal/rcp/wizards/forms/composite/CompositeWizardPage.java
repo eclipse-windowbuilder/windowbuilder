@@ -30,37 +30,37 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class CompositeWizardPage extends RcpWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompositeWizardPage() {
-    setTitle(WizardsMessages.CompositeWizardPage_title2);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/Composite/banner.gif"));
-    setDescription(WizardsMessages.CompositeWizardPage_description2);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompositeWizardPage() {
+		setTitle(WizardsMessages.CompositeWizardPage_title2);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/Composite/banner.gif"));
+		setDescription(WizardsMessages.CompositeWizardPage_description2);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/forms/Composite.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/forms/Composite.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("org.eclipse.swt.widgets.Composite", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("org.eclipse.swt.widgets.Composite", true);
+	}
 }

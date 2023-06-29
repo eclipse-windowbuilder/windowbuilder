@@ -26,124 +26,124 @@ import java.util.List;
  * @coverage rcp.model.forms
  */
 public interface ITableWrapLayoutInfo<C extends IControlInfo> extends ILayoutInfo<C> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given {@link IControlInfo} is filler.
-   */
-  boolean isFiller(C control);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given {@link IControlInfo} is filler.
+	 */
+	boolean isFiller(C control);
 
-  /**
-   * "Fixes" grid, i.e. ensures that all cells are filled (at least with fillers), even if this is
-   * not strongly required by layout itself for final cells. We do this to avoid checks for
-   * <code>null</code> in many places.
-   */
-  void fixGrid() throws Exception;
+	/**
+	 * "Fixes" grid, i.e. ensures that all cells are filled (at least with fillers), even if this is
+	 * not strongly required by layout itself for final cells. We do this to avoid checks for
+	 * <code>null</code> in many places.
+	 */
+	void fixGrid() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dimensions access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link List} of {@link TableWrapColumnInfo}.
-   */
-  List<TableWrapColumnInfo<C>> getColumns();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dimensions access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link List} of {@link TableWrapColumnInfo}.
+	 */
+	List<TableWrapColumnInfo<C>> getColumns();
 
-  /**
-   * @return the {@link List} of {@link TableWrapRowInfo}.
-   */
-  List<TableWrapRowInfo<C>> getRows();
+	/**
+	 * @return the {@link List} of {@link TableWrapRowInfo}.
+	 */
+	List<TableWrapRowInfo<C>> getRows();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dimensions operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Deletes column with given index and all controls that located in this column.
-   */
-  void command_deleteColumn(int column, boolean deleteEmptyRows) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dimensions operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Deletes column with given index and all controls that located in this column.
+	 */
+	void command_deleteColumn(int column, boolean deleteEmptyRows) throws Exception;
 
-  /**
-   * Deletes row with given index and all controls that located in this row.
-   */
-  void command_deleteRow(int row, boolean deleteEmptyColumn) throws Exception;
+	/**
+	 * Deletes row with given index and all controls that located in this row.
+	 */
+	void command_deleteRow(int row, boolean deleteEmptyColumn) throws Exception;
 
-  /**
-   * Moves column from/to given index.
-   */
-  void command_MOVE_COLUMN(int fromIndex, int toIndex) throws Exception;
+	/**
+	 * Moves column from/to given index.
+	 */
+	void command_MOVE_COLUMN(int fromIndex, int toIndex) throws Exception;
 
-  /**
-   * Moves row from/to given index.
-   */
-  void command_MOVE_ROW(int fromIndex, int toIndex) throws Exception;
+	/**
+	 * Moves row from/to given index.
+	 */
+	void command_MOVE_ROW(int fromIndex, int toIndex) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link IControlInfo} in given cell.
-   *
-   * @param newControl
-   *          the new {@link IControlInfo} to create.
-   * @param column
-   *          the column (0 based).
-   * @param row
-   *          the row (0 based).
-   */
-  void command_CREATE(C newControl, int column, boolean insertColumn, int row, boolean insertRow)
-      throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link IControlInfo} in given cell.
+	 *
+	 * @param newControl
+	 *          the new {@link IControlInfo} to create.
+	 * @param column
+	 *          the column (0 based).
+	 * @param row
+	 *          the row (0 based).
+	 */
+	void command_CREATE(C newControl, int column, boolean insertColumn, int row, boolean insertRow)
+			throws Exception;
 
-  /**
-   * Moves existing {@link IControlInfo} into new cell.
-   */
-  void command_MOVE(C control, int column, boolean insertColumn, int row, boolean insertRow)
-      throws Exception;
+	/**
+	 * Moves existing {@link IControlInfo} into new cell.
+	 */
+	void command_MOVE(C control, int column, boolean insertColumn, int row, boolean insertRow)
+			throws Exception;
 
-  /**
-   * Adds {@link IControlInfo} from other parent into cell.
-   */
-  void command_ADD(C control, int column, boolean insertColumn, int row, boolean insertRow)
-      throws Exception;
+	/**
+	 * Adds {@link IControlInfo} from other parent into cell.
+	 */
+	void command_ADD(C control, int column, boolean insertColumn, int row, boolean insertRow)
+			throws Exception;
 
-  /**
-   * Sets the cells occupied by given {@link IControlInfo}.
-   *
-   * @param forMove
-   *          is <code>true</code> if we move control and <code>false</code> if we set cells for
-   *          newly added control.
-   */
-  void command_setCells(C control, Rectangle cells, boolean forMove) throws Exception;
+	/**
+	 * Sets the cells occupied by given {@link IControlInfo}.
+	 *
+	 * @param forMove
+	 *          is <code>true</code> if we move control and <code>false</code> if we set cells for
+	 *          newly added control.
+	 */
+	void command_setCells(C control, Rectangle cells, boolean forMove) throws Exception;
 
-  /**
-   * Sets the height hint for given {@link IControlInfo}.
-   */
-  void command_setHeightHint(C control, int size) throws Exception;
+	/**
+	 * Sets the height hint for given {@link IControlInfo}.
+	 */
+	void command_setHeightHint(C control, int size) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IGridInfo support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link IGridInfo} that describes this layout.
-   */
-  IGridInfo getGridInfo();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IGridInfo support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link IGridInfo} that describes this layout.
+	 */
+	IGridInfo getGridInfo();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Layout data
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link ITableWrapDataInfo} associated with given {@link IControlInfo}.
-   */
-  ITableWrapDataInfo getTableWrapData2(C control);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Layout data
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link ITableWrapDataInfo} associated with given {@link IControlInfo}.
+	 */
+	ITableWrapDataInfo getTableWrapData2(C control);
 }

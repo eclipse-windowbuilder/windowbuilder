@@ -26,41 +26,41 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.description
  */
 public abstract class MethodOrderRelativeAssociation extends MethodOrder {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MethodOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canReference(JavaInfo javaInfo) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MethodOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canReference(JavaInfo javaInfo) {
+		return true;
+	}
 
-  @Override
-  protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
-      throws Exception {
-    if (canUseAssociation(javaInfo)) {
-      JavaInfoUtils.materializeVariable(javaInfo);
-      Statement statement = javaInfo.getAssociation().getStatement();
-      boolean before = this instanceof MethodOrderBeforeAssociation;
-      return new StatementTarget(statement, before);
-    }
-    return javaInfo.getVariableSupport().getStatementTarget();
-  }
+	@Override
+	protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
+			throws Exception {
+		if (canUseAssociation(javaInfo)) {
+			JavaInfoUtils.materializeVariable(javaInfo);
+			Statement statement = javaInfo.getAssociation().getStatement();
+			boolean before = this instanceof MethodOrderBeforeAssociation;
+			return new StatementTarget(statement, before);
+		}
+		return javaInfo.getVariableSupport().getStatementTarget();
+	}
 
-  private static boolean canUseAssociation(JavaInfo javaInfo) {
-    if (javaInfo.getCreationSupport() instanceof IImplicitCreationSupport) {
-      return canUseAssociation(javaInfo.getParentJava());
-    }
-    if (javaInfo.getAssociation() == null) {
-      return false;
-    }
-    if (javaInfo.getAssociation().getStatement() == null) {
-      return false;
-    }
-    if (javaInfo.getVariableSupport() instanceof LazyVariableSupport) {
-      return false;
-    }
-    return true;
-  }
+	private static boolean canUseAssociation(JavaInfo javaInfo) {
+		if (javaInfo.getCreationSupport() instanceof IImplicitCreationSupport) {
+			return canUseAssociation(javaInfo.getParentJava());
+		}
+		if (javaInfo.getAssociation() == null) {
+			return false;
+		}
+		if (javaInfo.getAssociation().getStatement() == null) {
+			return false;
+		}
+		if (javaInfo.getVariableSupport() instanceof LazyVariableSupport) {
+			return false;
+		}
+		return true;
+	}
 }

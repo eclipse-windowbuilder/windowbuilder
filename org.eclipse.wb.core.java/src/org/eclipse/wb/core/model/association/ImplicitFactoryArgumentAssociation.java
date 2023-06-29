@@ -30,71 +30,71 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage core.model.association
  */
 public final class ImplicitFactoryArgumentAssociation extends InvocationAssociation {
-  private final JavaInfo m_factoryJavaInfo;
+	private final JavaInfo m_factoryJavaInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @param factoryJavaInfo
-   *          the {@link JavaInfo} created by implicit factory, where this {@link JavaInfo} is
-   *          argument.
-   */
-  public ImplicitFactoryArgumentAssociation(MethodInvocation invocation, JavaInfo factoryJavaInfo) {
-    super(invocation);
-    m_factoryJavaInfo = factoryJavaInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @param factoryJavaInfo
+	 *          the {@link JavaInfo} created by implicit factory, where this {@link JavaInfo} is
+	 *          argument.
+	 */
+	public ImplicitFactoryArgumentAssociation(MethodInvocation invocation, JavaInfo factoryJavaInfo) {
+		super(invocation);
+		m_factoryJavaInfo = factoryJavaInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setJavaInfo(final JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    // argument of implicit factory can not be moved
-    javaInfo.addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void canMove(JavaInfo _javaInfo, boolean[] forceMoveEnable, boolean[] forceMoveDisable)
-          throws Exception {
-        if (_javaInfo == javaInfo) {
-          forceMoveDisable[0] = true;
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setJavaInfo(final JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		// argument of implicit factory can not be moved
+		javaInfo.addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void canMove(JavaInfo _javaInfo, boolean[] forceMoveEnable, boolean[] forceMoveDisable)
+					throws Exception {
+				if (_javaInfo == javaInfo) {
+					forceMoveDisable[0] = true;
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean remove() throws Exception {
-    // our JavaInfo is in delete/reparent process, so schedule delete m_factoryJavaInfo
-    m_factoryJavaInfo.getRootJava().addBroadcastListener(new ObjectInfoDelete() {
-      @Override
-      public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
-        if (child == m_javaInfo) {
-          if (!m_factoryJavaInfo.isDeleting()) {
-            m_factoryJavaInfo.delete();
-          }
-        }
-      }
-    });
-    m_factoryJavaInfo.getRootJava().addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void moveAfter(JavaInfo child, ObjectInfo oldParent, JavaInfo newParent)
-          throws Exception {
-        if (child == m_javaInfo) {
-          m_factoryJavaInfo.delete();
-        }
-      }
-    });
-    // continue with default implementation
-    return super.remove();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean remove() throws Exception {
+		// our JavaInfo is in delete/reparent process, so schedule delete m_factoryJavaInfo
+		m_factoryJavaInfo.getRootJava().addBroadcastListener(new ObjectInfoDelete() {
+			@Override
+			public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
+				if (child == m_javaInfo) {
+					if (!m_factoryJavaInfo.isDeleting()) {
+						m_factoryJavaInfo.delete();
+					}
+				}
+			}
+		});
+		m_factoryJavaInfo.getRootJava().addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void moveAfter(JavaInfo child, ObjectInfo oldParent, JavaInfo newParent)
+					throws Exception {
+				if (child == m_javaInfo) {
+					m_factoryJavaInfo.delete();
+				}
+			}
+		});
+		// continue with default implementation
+		return super.remove();
+	}
 }

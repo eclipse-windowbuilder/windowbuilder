@@ -23,14 +23,14 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
  * @coverage gef.core
  */
 public interface IRootContainer {
-  /**
-   * Returns the <i>content</i> {@link EditPart}.
-   */
-  EditPart getContent();
+	/**
+	 * Returns the <i>content</i> {@link EditPart}.
+	 */
+	EditPart getContent();
 
-  /**
-   * Sets the <i>content</i> {@link EditPart}. A IRootEditPart only has a single child, called its
-   * <i>contents</i>.
-   */
-  void setContent(EditPart contentEditPart);
+	/**
+	 * Sets the <i>content</i> {@link EditPart}. A IRootEditPart only has a single child, called its
+	 * <i>contents</i>.
+	 */
+	void setContent(EditPart contentEditPart);
 }

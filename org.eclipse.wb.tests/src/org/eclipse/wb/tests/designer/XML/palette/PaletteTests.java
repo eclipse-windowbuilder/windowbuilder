@@ -23,23 +23,23 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class PaletteTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xml.palette");
-    suite.addTest(createSingleSuite(IPaletteSiteTest.class));
-    suite.addTest(createSingleSuite(AttributesProvidersTest.class));
-    suite.addTest(createSingleSuite(AbstractElementInfoTest.class));
-    suite.addTest(createSingleSuite(EntryInfoTest.class));
-    suite.addTest(createSingleSuite(ToolEntryInfoTest.class));
-    suite.addTest(createSingleSuite(PaletteInfoTest.class));
-    suite.addTest(createSingleSuite(CategoryInfoTest.class));
-    suite.addTest(createSingleSuite(SelectionToolEntryInfoTest.class));
-    suite.addTest(createSingleSuite(MarqueeSelectionToolEntryInfoTest.class));
-    suite.addTest(createSingleSuite(ChooseComponentEntryInfoTest.class));
-    suite.addTest(createSingleSuite(ComponentEntryInfoTest.class));
-    suite.addTest(createSingleSuite(PaletteManagerTest.class));
-    suite.addTest(createSingleSuite(CategoryCommandsTest.class));
-    suite.addTest(createSingleSuite(ComponentCommandsTest.class));
-    suite.addTest(PaletteUiTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xml.palette");
+		suite.addTest(createSingleSuite(IPaletteSiteTest.class));
+		suite.addTest(createSingleSuite(AttributesProvidersTest.class));
+		suite.addTest(createSingleSuite(AbstractElementInfoTest.class));
+		suite.addTest(createSingleSuite(EntryInfoTest.class));
+		suite.addTest(createSingleSuite(ToolEntryInfoTest.class));
+		suite.addTest(createSingleSuite(PaletteInfoTest.class));
+		suite.addTest(createSingleSuite(CategoryInfoTest.class));
+		suite.addTest(createSingleSuite(SelectionToolEntryInfoTest.class));
+		suite.addTest(createSingleSuite(MarqueeSelectionToolEntryInfoTest.class));
+		suite.addTest(createSingleSuite(ChooseComponentEntryInfoTest.class));
+		suite.addTest(createSingleSuite(ComponentEntryInfoTest.class));
+		suite.addTest(createSingleSuite(PaletteManagerTest.class));
+		suite.addTest(createSingleSuite(CategoryCommandsTest.class));
+		suite.addTest(createSingleSuite(ComponentCommandsTest.class));
+		suite.addTest(PaletteUiTests.suite());
+		return suite;
+	}
 }

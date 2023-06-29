@@ -26,169 +26,169 @@ import org.eclipse.ui.ide.IDE;
  * @author scheglov_ke
  */
 public class ContentDescriberTest extends AbstractJavaTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    DesignerPlugin.getPreferences().setValue(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI, true);
-    if (m_testProject == null) {
-      do_projectCreate();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		DesignerPlugin.getPreferences().setValue(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI, true);
+		if (m_testProject == null) {
+			do_projectCreate();
+		}
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    DesignerPlugin.getPreferences().setToDefault(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI);
-    super.tearDown();
-    do_projectDispose();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		DesignerPlugin.getPreferences().setToDefault(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI);
+		super.tearDown();
+		do_projectDispose();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_notGUI() throws Exception {
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ("package test;", "public class Test {", "  // filler", "}"));
-    waitForContentType();
-    assertFalse(isDesignerType(file));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_notGUI() throws Exception {
+		IFile file =
+				setFileContentSrc(
+						"test/Test.java",
+						getSourceDQ("package test;", "public class Test {", "  // filler", "}"));
+		waitForContentType();
+		assertFalse(isDesignerType(file));
+	}
 
-  public void test_disableRecognition() throws Exception {
-    DesignerPlugin.getPreferences().setValue(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI, false);
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ(
-                "package test;",
-                "import javax.swing.*;",
-                "public class Test extends JPanel {",
-                "  // filler",
-                "}"));
-    waitForContentType();
-    assertFalse(isDesignerType(file));
-  }
+	public void test_disableRecognition() throws Exception {
+		DesignerPlugin.getPreferences().setValue(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI, false);
+		IFile file =
+				setFileContentSrc(
+						"test/Test.java",
+						getSourceDQ(
+								"package test;",
+								"import javax.swing.*;",
+								"public class Test extends JPanel {",
+								"  // filler",
+								"}"));
+		waitForContentType();
+		assertFalse(isDesignerType(file));
+	}
 
-  public void test_useExcludePattern() throws Exception {
-    TestBundle testBundle = new TestBundle();
-    try {
-      testBundle.addExtension(
-          "org.eclipse.wb.core.designerContentPatterns",
-          new String[]{"<excludePattern>use this string to exclude</excludePattern>"});
-      testBundle.install();
-      //
-      IFile file =
-          setFileContentSrc(
-              "test/Test.java",
-              getSourceDQ(
-                  "package test;",
-                  "import javax.swing.*;",
-                  "public class Test extends JPanel {",
-                  "  // use this string to exclude",
-                  "}"));
-      waitForContentType();
-      assertFalse(isDesignerType(file));
-    } finally {
-      testBundle.dispose();
-    }
-  }
+	public void test_useExcludePattern() throws Exception {
+		TestBundle testBundle = new TestBundle();
+		try {
+			testBundle.addExtension(
+					"org.eclipse.wb.core.designerContentPatterns",
+					new String[]{"<excludePattern>use this string to exclude</excludePattern>"});
+			testBundle.install();
+			//
+			IFile file =
+					setFileContentSrc(
+							"test/Test.java",
+							getSourceDQ(
+									"package test;",
+									"import javax.swing.*;",
+									"public class Test extends JPanel {",
+									"  // use this string to exclude",
+									"}"));
+			waitForContentType();
+			assertFalse(isDesignerType(file));
+		} finally {
+			testBundle.dispose();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AWT/Swing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_AWT_Applet() throws Exception {
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ(
-                "package test;",
-                "import java.applet.Applet;",
-                "public class Test extends Applet {",
-                "  // filler",
-                "}"));
-    waitForContentType();
-    assertTrue(isDesignerType(file));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AWT/Swing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_AWT_Applet() throws Exception {
+		IFile file =
+				setFileContentSrc(
+						"test/Test.java",
+						getSourceDQ(
+								"package test;",
+								"import java.applet.Applet;",
+								"public class Test extends Applet {",
+								"  // filler",
+								"}"));
+		waitForContentType();
+		assertTrue(isDesignerType(file));
+	}
 
-  public void test_Swing() throws Exception {
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ(
-                "package test;",
-                "import javax.swing.*;",
-                "public class Test extends JPanel {",
-                "  // filler",
-                "}"));
-    waitForContentType();
-    assertTrue(isDesignerType(file));
-  }
+	public void test_Swing() throws Exception {
+		IFile file =
+				setFileContentSrc(
+						"test/Test.java",
+						getSourceDQ(
+								"package test;",
+								"import javax.swing.*;",
+								"public class Test extends JPanel {",
+								"  // filler",
+								"}"));
+		waitForContentType();
+		assertTrue(isDesignerType(file));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SWT/RCP
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_SWT() throws Exception {
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ(
-                "package test;",
-                "public class Test {",
-                "  // org.eclipse.swt.widgets.Button",
-                "}"));
-    waitForContentType();
-    assertTrue(isDesignerType(file));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SWT/RCP
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_SWT() throws Exception {
+		IFile file =
+				setFileContentSrc(
+						"test/Test.java",
+						getSourceDQ(
+								"package test;",
+								"public class Test {",
+								"  // org.eclipse.swt.widgets.Button",
+								"}"));
+		waitForContentType();
+		assertTrue(isDesignerType(file));
+	}
 
-  public void test_RCP_ActionBarAdvisor() throws Exception {
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ(
-                "package test;",
-                "public class Test {",
-                "  // org.eclipse.ui.application.ActionBarAdvisor",
-                "}"));
-    waitForContentType();
-    assertTrue(isDesignerType(file));
-  }
+	public void test_RCP_ActionBarAdvisor() throws Exception {
+		IFile file =
+				setFileContentSrc(
+						"test/Test.java",
+						getSourceDQ(
+								"package test;",
+								"public class Test {",
+								"  // org.eclipse.ui.application.ActionBarAdvisor",
+								"}"));
+		waitForContentType();
+		assertTrue(isDesignerType(file));
+	}
 
-  public void test_RCP_IPerspectiveFactory() throws Exception {
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ(
-                "package test;",
-                "public class Test {",
-                "  // org.eclipse.ui.IPerspectiveFactory",
-                "}"));
-    waitForContentType();
-    assertTrue(isDesignerType(file));
-  }
+	public void test_RCP_IPerspectiveFactory() throws Exception {
+		IFile file =
+				setFileContentSrc(
+						"test/Test.java",
+						getSourceDQ(
+								"package test;",
+								"public class Test {",
+								"  // org.eclipse.ui.IPerspectiveFactory",
+								"}"));
+		waitForContentType();
+		assertTrue(isDesignerType(file));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static boolean isDesignerType(IFile file) {
-    IContentType contentType = IDE.getContentType(file);
-    return "org.eclipse.wb.core.java.javaSourceGUI".equals(contentType.getId());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static boolean isDesignerType(IFile file) {
+		IContentType contentType = IDE.getContentType(file);
+		return "org.eclipse.wb.core.java.javaSourceGUI".equals(contentType.getId());
+	}
 
-  private void waitForContentType() throws Exception {
-    waitEventLoop(1);
-    waitForAutoBuild();
-  }
+	private void waitForContentType() throws Exception {
+		waitEventLoop(1);
+		waitForAutoBuild();
+	}
 }

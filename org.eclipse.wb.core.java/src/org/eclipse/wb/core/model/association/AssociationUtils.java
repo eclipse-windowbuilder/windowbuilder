@@ -35,106 +35,106 @@ import java.util.Map.Entry;
  * @coverage core.model.association
  */
 public final class AssociationUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private AssociationUtils() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private AssociationUtils() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the new parent reference in {@link MethodInvocation} or {@link ClassInstanceCreation}
-   * arguments.
-   */
-  public static void updateParentAssociation(AbstractInvocationDescription description,
-      List<Expression> arguments,
-      JavaInfo newParent) throws Exception {
-    for (ParameterDescription parameter : description.getParameters()) {
-      if (parameter.isParent()) {
-        Expression argument = arguments.get(parameter.getIndex());
-        String replacement = TemplateUtils.getExpression(newParent);
-        newParent.replaceExpression(argument, replacement);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the new parent reference in {@link MethodInvocation} or {@link ClassInstanceCreation}
+	 * arguments.
+	 */
+	public static void updateParentAssociation(AbstractInvocationDescription description,
+			List<Expression> arguments,
+			JavaInfo newParent) throws Exception {
+		for (ParameterDescription parameter : description.getParameters()) {
+			if (parameter.isParent()) {
+				Expression argument = arguments.get(parameter.getIndex());
+				String replacement = TemplateUtils.getExpression(newParent);
+				newParent.replaceExpression(argument, replacement);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Templates
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the source with replaced templates. Following templates are supported:
-   *
-   * <ol>
-   * <li>%parent% - replaced with
-   * <code>parent.getVariableSupport().getReferenceExpression(target).</code></li>
-   * <li>%child% - replaced with
-   * <code>child.getVariableSupport().getReferenceExpression(target).</code></li>
-   * <li>%index% - replaced with next child number in parent.</li>
-   * </ol>
-   */
-  public static String replaceTemplates(JavaInfo child, String source, StatementTarget target)
-      throws Exception {
-    return replaceTemplates(child, source, new NodeTarget(target));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Templates
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the source with replaced templates. Following templates are supported:
+	 *
+	 * <ol>
+	 * <li>%parent% - replaced with
+	 * <code>parent.getVariableSupport().getReferenceExpression(target).</code></li>
+	 * <li>%child% - replaced with
+	 * <code>child.getVariableSupport().getReferenceExpression(target).</code></li>
+	 * <li>%index% - replaced with next child number in parent.</li>
+	 * </ol>
+	 */
+	public static String replaceTemplates(JavaInfo child, String source, StatementTarget target)
+			throws Exception {
+		return replaceTemplates(child, source, new NodeTarget(target));
+	}
 
-  /**
-   * Returns the source with replaced templates. Following templates are supported:
-   *
-   * <ol>
-   * <li>%parent% - replaced with
-   * <code>parent.getVariableSupport().getReferenceExpression(target).</code></li>
-   * <li>%child% - replaced with
-   * <code>child.getVariableSupport().getReferenceExpression(target).</code></li>
-   * <li>%index% - replaced with next child number in parent.</li>
-   * </ol>
-   */
-  public static String replaceTemplates(JavaInfo child, String source, NodeTarget target)
-      throws Exception {
-    // send broadcast
-    {
-      String[] sourceArray = new String[]{source};
-      child.getBroadcastJava().associationTemplate(child, sourceArray);
-      source = sourceArray[0];
-    }
-    // replace parent expressions
-    {
-      if (source.contains("%parent%")) {
-        source =
-            StringUtils.replace(
-                source,
-                "%parent%",
-                TemplateUtils.getExpression(child.getParentJava()));
-      }
-    }
-    // replace child expressions
-    if (source.contains("%child%")) {
-      source = StringUtils.replace(source, "%child%", TemplateUtils.getExpression(child));
-    }
-    // replace index expressions
-    if (source.contains("%index%")) {
-      ObjectInfo parentInfo = child.getParent();
-      if (parentInfo != null) {
-        int index = parentInfo.getChildren(JavaInfo.class).size();
-        source = StringUtils.replace(source, "%index%", Integer.toString(index));
-      }
-    }
-    // replace other templates
-    Map<String, String> templateArguments = child.getTemplateArguments();
-    if (templateArguments != null) {
-      for (Entry<String, String> template : templateArguments.entrySet()) {
-        source = StringUtils.replace(source, "%" + template.getKey() + "%", template.getValue());
-      }
-    }
-    // OK, final result
-    source = TemplateUtils.resolve(target, source);
-    return source;
-  }
+	/**
+	 * Returns the source with replaced templates. Following templates are supported:
+	 *
+	 * <ol>
+	 * <li>%parent% - replaced with
+	 * <code>parent.getVariableSupport().getReferenceExpression(target).</code></li>
+	 * <li>%child% - replaced with
+	 * <code>child.getVariableSupport().getReferenceExpression(target).</code></li>
+	 * <li>%index% - replaced with next child number in parent.</li>
+	 * </ol>
+	 */
+	public static String replaceTemplates(JavaInfo child, String source, NodeTarget target)
+			throws Exception {
+		// send broadcast
+		{
+			String[] sourceArray = new String[]{source};
+			child.getBroadcastJava().associationTemplate(child, sourceArray);
+			source = sourceArray[0];
+		}
+		// replace parent expressions
+		{
+			if (source.contains("%parent%")) {
+				source =
+						StringUtils.replace(
+								source,
+								"%parent%",
+								TemplateUtils.getExpression(child.getParentJava()));
+			}
+		}
+		// replace child expressions
+		if (source.contains("%child%")) {
+			source = StringUtils.replace(source, "%child%", TemplateUtils.getExpression(child));
+		}
+		// replace index expressions
+		if (source.contains("%index%")) {
+			ObjectInfo parentInfo = child.getParent();
+			if (parentInfo != null) {
+				int index = parentInfo.getChildren(JavaInfo.class).size();
+				source = StringUtils.replace(source, "%index%", Integer.toString(index));
+			}
+		}
+		// replace other templates
+		Map<String, String> templateArguments = child.getTemplateArguments();
+		if (templateArguments != null) {
+			for (Entry<String, String> template : templateArguments.entrySet()) {
+				source = StringUtils.replace(source, "%" + template.getKey() + "%", template.getValue());
+			}
+		}
+		// OK, final result
+		source = TemplateUtils.resolve(target, source);
+		return source;
+	}
 }

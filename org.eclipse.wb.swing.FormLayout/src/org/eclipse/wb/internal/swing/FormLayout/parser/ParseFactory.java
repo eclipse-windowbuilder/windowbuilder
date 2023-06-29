@@ -31,33 +31,33 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage swing.FormLayout.model
  */
 public class ParseFactory extends AbstractParseFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IParseFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public JavaInfo create(AstEditor editor,
-      MethodInvocation invocation,
-      IMethodBinding methodBinding,
-      Expression arguments[],
-      JavaInfo expressionInfo,
-      JavaInfo argumentInfos[],
-      IJavaInfoParseResolver javaInfoResolver) throws Exception {
-    if (invocation.getExpression() != null
-        && AstNodeUtils.isSuccessorOf(
-            invocation.getExpression(),
-            "com.jgoodies.forms.factories.DefaultComponentFactory")
-        && invocation.getName().getIdentifier().startsWith("create")) {
-      Class<?> clazz = getClass(editor, methodBinding.getReturnType());
-      CreationSupport creationSupport = new DefaultComponentFactoryCreationSupport(invocation);
-      return JavaInfoUtils.createJavaInfo(editor, clazz, creationSupport);
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IParseFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public JavaInfo create(AstEditor editor,
+			MethodInvocation invocation,
+			IMethodBinding methodBinding,
+			Expression arguments[],
+			JavaInfo expressionInfo,
+			JavaInfo argumentInfos[],
+			IJavaInfoParseResolver javaInfoResolver) throws Exception {
+		if (invocation.getExpression() != null
+				&& AstNodeUtils.isSuccessorOf(
+						invocation.getExpression(),
+						"com.jgoodies.forms.factories.DefaultComponentFactory")
+				&& invocation.getName().getIdentifier().startsWith("create")) {
+			Class<?> clazz = getClass(editor, methodBinding.getReturnType());
+			CreationSupport creationSupport = new DefaultComponentFactoryCreationSupport(invocation);
+			return JavaInfoUtils.createJavaInfo(editor, clazz, creationSupport);
+		}
+		return null;
+	}
 
-  @Override
-  protected String getToolkitId() {
-    return Activator.PLUGIN_ID;
-  }
+	@Override
+	protected String getToolkitId() {
+		return Activator.PLUGIN_ID;
+	}
 }

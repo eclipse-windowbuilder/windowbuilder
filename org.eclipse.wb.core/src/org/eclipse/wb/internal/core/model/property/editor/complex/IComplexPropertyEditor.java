@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
  * @coverage core.model.property.editor
  */
 public interface IComplexPropertyEditor {
-  /**
-   * @return sub-properties of given complex property.
-   */
-  Property[] getProperties(Property property) throws Exception;
+	/**
+	 * @return sub-properties of given complex property.
+	 */
+	Property[] getProperties(Property property) throws Exception;
 }

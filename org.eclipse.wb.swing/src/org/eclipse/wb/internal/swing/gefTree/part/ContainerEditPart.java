@@ -26,37 +26,37 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
  * @coverage swing.gefTree.part
  */
 public final class ContainerEditPart extends ComponentEditPart {
-  private final ContainerInfo m_container;
-  private LayoutInfo m_currentLayout;
+	private final ContainerInfo m_container;
+	private LayoutInfo m_currentLayout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ContainerEditPart(ContainerInfo model) {
-    super(model);
-    m_container = model;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ContainerEditPart(ContainerInfo model) {
+		super(model);
+		m_container = model;
+	}
 
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    // support for dropping LayoutInfo's
-    if (m_container.canSetLayout()) {
-      installEditPolicy(new DropLayoutEditPolicy(m_container));
-    }
-    // support for dropping components
-    if (m_container.hasLayout()) {
-      LayoutInfo layout = m_container.getLayout();
-      if (layout != m_currentLayout) {
-        m_currentLayout = layout;
-        LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
-        if (policy == null) {
-          policy = new DefaultLayoutEditPolicy();
-        }
-        installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
-      }
-    }
-  }
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		// support for dropping LayoutInfo's
+		if (m_container.canSetLayout()) {
+			installEditPolicy(new DropLayoutEditPolicy(m_container));
+		}
+		// support for dropping components
+		if (m_container.hasLayout()) {
+			LayoutInfo layout = m_container.getLayout();
+			if (layout != m_currentLayout) {
+				m_currentLayout = layout;
+				LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
+				if (policy == null) {
+					policy = new DefaultLayoutEditPolicy();
+				}
+				installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
+			}
+		}
+	}
 }

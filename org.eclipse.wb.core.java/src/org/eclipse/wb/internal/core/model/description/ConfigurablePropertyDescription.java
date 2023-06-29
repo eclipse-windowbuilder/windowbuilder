@@ -25,47 +25,47 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage core.model.description
  */
 public final class ConfigurablePropertyDescription extends AbstractConfigurableDescription {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ID
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_id;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ID
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_id;
 
-  /**
-   * @return the ID of {@link IConfigurablePropertyFactory} that should be used to create
-   *         {@link Property}.
-   */
-  public String getId() {
-    return m_id;
-  }
+	/**
+	 * @return the ID of {@link IConfigurablePropertyFactory} that should be used to create
+	 *         {@link Property}.
+	 */
+	public String getId() {
+		return m_id;
+	}
 
-  /**
-   * Sets the ID of {@link IConfigurablePropertyFactory} that should be used to create
-   * {@link Property}.
-   */
-  public void setId(String id) {
-    m_id = id;
-  }
+	/**
+	 * Sets the ID of {@link IConfigurablePropertyFactory} that should be used to create
+	 * {@link Property}.
+	 */
+	public void setId(String id) {
+		m_id = id;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Title
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_title;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Title
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_title;
 
-  /**
-   * @return the title of {@link Property} to display for user.
-   */
-  public String getTitle() {
-    return m_title;
-  }
+	/**
+	 * @return the title of {@link Property} to display for user.
+	 */
+	public String getTitle() {
+		return m_title;
+	}
 
-  /**
-   * Sets the title of {@link Property} to display for user.
-   */
-  public void setTitle(String title) {
-    m_title = title;
-  }
+	/**
+	 * Sets the title of {@link Property} to display for user.
+	 */
+	public void setTitle(String title) {
+		m_title = title;
+	}
 }

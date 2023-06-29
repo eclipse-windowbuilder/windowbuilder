@@ -25,9 +25,9 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
  * @coverage core.nls
  */
 public interface IKeyGeneratorStrategy {
-  /**
-   * @return the base key for given component and property. We use this method during externalizing
-   *         property.
-   */
-  String generateBaseKey(JavaInfo component, GenericProperty property);
+	/**
+	 * @return the base key for given component and property. We use this method during externalizing
+	 *         property.
+	 */
+	String generateBaseKey(JavaInfo component, GenericProperty property);
 }

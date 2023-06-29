@@ -37,164 +37,164 @@ import java.util.List;
  * @coverage swing.gef.policy
  */
 public final class GroupLayoutEditPolicy extends AbsoluteBasedLayoutEditPolicySwing {
-  private final GroupLayoutInfo m_layout;
+	private final GroupLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GroupLayoutEditPolicy(GroupLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-    createPlacementsSupport(m_layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GroupLayoutEditPolicy(GroupLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+		createPlacementsSupport(m_layout);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Decorate Child
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void decorateChild(EditPart child) {
-    Object model = child.getModel();
-    if (model instanceof ComponentInfo) {
-      child.installEditPolicy(EditPolicy.SELECTION_ROLE, new GroupSelectionEditPolicy(m_layout));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Decorate Child
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void decorateChild(EditPart child) {
+		Object model = child.getModel();
+		if (model instanceof ComponentInfo) {
+			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new GroupSelectionEditPolicy(m_layout));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Coordinates
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Dimension getContainerSize() {
-    return m_layout.getContainer().getModelBounds().getSize();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Coordinates
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Dimension getContainerSize() {
+		return m_layout.getContainer().getModelBounds().getSize();
+	}
 
-  @Override
-  public Point getClientAreaOffset() {
-    return new Point(0, 0);
-  }
+	@Override
+	public Point getClientAreaOffset() {
+		return new Point(0, 0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Move
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void eraseSelectionFeedbacks() {
-    super.eraseSelectionFeedbacks();
-    for (EditPart child : getHost().getChildren()) {
-      if (child.getModel() instanceof ComponentInfo) {
-        GroupSelectionEditPolicy editPolicy =
-            (GroupSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
-        editPolicy.hideSelection();
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Move
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void eraseSelectionFeedbacks() {
+		super.eraseSelectionFeedbacks();
+		for (EditPart child : getHost().getChildren()) {
+			if (child.getModel() instanceof ComponentInfo) {
+				GroupSelectionEditPolicy editPolicy =
+						(GroupSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+				editPolicy.hideSelection();
+			}
+		}
+	}
 
-  @Override
-  protected void showSelectionFeedbacks() {
-    super.showSelectionFeedbacks();
-    for (EditPart child : getHost().getChildren()) {
-      if (child.getModel() instanceof ComponentInfo
-          && child.getSelected() != EditPart.SELECTED_NONE) {
-        GroupSelectionEditPolicy editPolicy =
-            (GroupSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
-        editPolicy.showSelection();
-      }
-    }
-  }
+	@Override
+	protected void showSelectionFeedbacks() {
+		super.showSelectionFeedbacks();
+		for (EditPart child : getHost().getChildren()) {
+			if (child.getModel() instanceof ComponentInfo
+					&& child.getSelected() != EditPart.SELECTED_NONE) {
+				GroupSelectionEditPolicy editPolicy =
+						(GroupSelectionEditPolicy) child.getEditPolicy(EditPolicy.SELECTION_ROLE);
+				editPolicy.showSelection();
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Create
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(final CreateRequest request) {
-    return new EditCommand(m_layout) {
-      @Override
-      protected void executeEdit() throws Exception {
-        ComponentInfo component = (ComponentInfo) request.getNewObject();
-        m_layout.command_CREATE(component, null);
-        placementsSupport.commitAdd();
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Create
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(final CreateRequest request) {
+		return new EditCommand(m_layout) {
+			@Override
+			protected void executeEdit() throws Exception {
+				ComponentInfo component = (ComponentInfo) request.getNewObject();
+				m_layout.command_CREATE(component, null);
+				placementsSupport.commitAdd();
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Move
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getMoveCommand(final ChangeBoundsRequest request) {
-    return new EditCommand(m_layout) {
-      @Override
-      protected void executeEdit() throws Exception {
-        placementsSupport.commit();
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Move
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getMoveCommand(final ChangeBoundsRequest request) {
+		return new EditCommand(m_layout) {
+			@Override
+			protected void executeEdit() throws Exception {
+				placementsSupport.commit();
+			}
+		};
+	}
 
-  @Override
-  protected Command getAddCommand(ChangeBoundsRequest request) {
-    final List<EditPart> editParts = request.getEditParts();
-    //
-    return new EditCommand(m_layout) {
-      @Override
-      protected void executeEdit() throws Exception {
-        for (EditPart editPart : editParts) {
-          ComponentInfo component = (ComponentInfo) editPart.getModel();
-          m_layout.command_MOVE(component, null);
-        }
-        placementsSupport.commitAdd();
-      }
-    };
-  }
+	@Override
+	protected Command getAddCommand(ChangeBoundsRequest request) {
+		final List<EditPart> editParts = request.getEditParts();
+		//
+		return new EditCommand(m_layout) {
+			@Override
+			protected void executeEdit() throws Exception {
+				for (EditPart editPart : editParts) {
+					ComponentInfo component = (ComponentInfo) editPart.getModel();
+					m_layout.command_MOVE(component, null);
+				}
+				placementsSupport.commitAdd();
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getResizeCommand(ChangeBoundsRequest request) {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getResizeCommand(ChangeBoundsRequest request) {
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Paste
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void doPasteComponent(Point pasteLocation, PastedComponentInfo pastedWidget)
-      throws Exception {
-    ComponentInfo control = (ComponentInfo) pastedWidget.getComponent();
-    m_layout.command_CREATE(control, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Paste
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void doPasteComponent(Point pasteLocation, PastedComponentInfo pastedWidget)
+			throws Exception {
+		ComponentInfo control = (ComponentInfo) pastedWidget.getComponent();
+		m_layout.command_CREATE(control, null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Selection Actions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractAlignmentActionsSupport<ComponentInfo> getAlignmentActionsSupport() {
-    return new ComplexAlignmentActionsSupport<ComponentInfo>(placementsSupport) {
-      @Override
-      protected boolean isComponentInfo(ObjectInfo object) {
-        return object instanceof ComponentInfo;
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Selection Actions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractAlignmentActionsSupport<ComponentInfo> getAlignmentActionsSupport() {
+		return new ComplexAlignmentActionsSupport<ComponentInfo>(placementsSupport) {
+			@Override
+			protected boolean isComponentInfo(ObjectInfo object) {
+				return object instanceof ComponentInfo;
+			}
 
-      @Override
-      protected AbstractComponentInfo getLayoutContainer() {
-        return m_layout.getContainer();
-      }
-    };
-  }
+			@Override
+			protected AbstractComponentInfo getLayoutContainer() {
+				return m_layout.getContainer();
+			}
+		};
+	}
 }

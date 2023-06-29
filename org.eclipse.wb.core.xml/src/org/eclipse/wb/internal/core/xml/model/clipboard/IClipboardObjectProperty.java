@@ -19,14 +19,14 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage XML.model.clipboard
  */
 public interface IClipboardObjectProperty {
-  /**
-   * @return the {@link Object} that can be used later to set same value, or
-   *         {@link Property#UNKNOWN_VALUE} if no such object can be provided.
-   */
-  Object getClipboardObject() throws Exception;
+	/**
+	 * @return the {@link Object} that can be used later to set same value, or
+	 *         {@link Property#UNKNOWN_VALUE} if no such object can be provided.
+	 */
+	Object getClipboardObject() throws Exception;
 
-  /**
-   * Applies {@link Object} during paste and attempt to set {@link Property} corresponding value.
-   */
-  void setClipboardObject(Object value) throws Exception;
+	/**
+	 * Applies {@link Object} during paste and attempt to set {@link Property} corresponding value.
+	 */
+	void setClipboardObject(Object value) throws Exception;
 }

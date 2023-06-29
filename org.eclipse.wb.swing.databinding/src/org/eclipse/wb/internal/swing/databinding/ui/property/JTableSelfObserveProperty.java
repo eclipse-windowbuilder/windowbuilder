@@ -24,32 +24,32 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.JTableBindingInf
  * @coverage bindings.swing.ui.properties
  */
 public class JTableSelfObserveProperty extends ObserveProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JTableSelfObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
-    super(context, observeProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JTableSelfObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
+		super(context, observeProperty);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createBinding() throws Exception {
-    if (isModified()) {
-      for (AbstractBindingProperty property : m_bindingProperties) {
-        if (property.getBinding() instanceof JTableBindingInfo) {
-          property.editBinding();
-          return;
-        }
-      }
-      Assert.fail(Messages.JTableSelfObserveProperty_errNotFound);
-    } else {
-      super.createBinding();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createBinding() throws Exception {
+		if (isModified()) {
+			for (AbstractBindingProperty property : m_bindingProperties) {
+				if (property.getBinding() instanceof JTableBindingInfo) {
+					property.editBinding();
+					return;
+				}
+			}
+			Assert.fail(Messages.JTableSelfObserveProperty_errNotFound);
+		} else {
+			super.createBinding();
+		}
+	}
 }

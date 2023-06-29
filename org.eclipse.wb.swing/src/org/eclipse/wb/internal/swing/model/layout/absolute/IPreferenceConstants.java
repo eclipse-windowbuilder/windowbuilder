@@ -17,7 +17,7 @@ package org.eclipse.wb.internal.swing.model.layout.absolute;
  * @coverage swing.model.layout
  */
 public interface IPreferenceConstants
-    extends
-      org.eclipse.wb.internal.core.model.layout.absolute.IPreferenceConstants {
-  String P_USE_JDK_LAYOUT_STYLE = "P_USE_JDK_LAYOUT_STYLE";
+extends
+org.eclipse.wb.internal.core.model.layout.absolute.IPreferenceConstants {
+	String P_USE_JDK_LAYOUT_STYLE = "P_USE_JDK_LAYOUT_STYLE";
 }

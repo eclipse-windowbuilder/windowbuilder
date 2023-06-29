@@ -32,60 +32,60 @@ import java.awt.Container;
  * @coverage swing.model
  */
 public abstract class AbstractPositionContainerInfo extends ContainerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractPositionContainerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractPositionContainerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link ComponentInfo} and associates using given method.
-   */
-  public final void command_CREATE(ComponentInfo component, String methodName) throws Exception {
-    JavaInfoUtils.add(component, getAssociation(methodName), this, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link ComponentInfo} and associates using given method.
+	 */
+	public final void command_CREATE(ComponentInfo component, String methodName) throws Exception {
+		JavaInfoUtils.add(component, getAssociation(methodName), this, null);
+	}
 
-  /**
-   * Moves child {@link ComponentInfo} to given position.
-   */
-  public final void command_MOVE(ComponentInfo component, String methodName) throws Exception {
-    MethodInvocation invocation = getAssociationInvocation(component);
-    getEditor().replaceInvocationName(invocation, methodName);
-  }
+	/**
+	 * Moves child {@link ComponentInfo} to given position.
+	 */
+	public final void command_MOVE(ComponentInfo component, String methodName) throws Exception {
+		MethodInvocation invocation = getAssociationInvocation(component);
+		getEditor().replaceInvocationName(invocation, methodName);
+	}
 
-  /**
-   * Reparents {@link ComponentInfo} to given position.
-   */
-  public final void command_ADD(ComponentInfo component, String methodName) throws Exception {
-    JavaInfoUtils.move(component, getAssociation(methodName), this, null);
-  }
+	/**
+	 * Reparents {@link ComponentInfo} to given position.
+	 */
+	public final void command_ADD(ComponentInfo component, String methodName) throws Exception {
+		JavaInfoUtils.move(component, getAssociation(methodName), this, null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link AssociationObject} for associating using given method.
-   */
-  private static AssociationObject getAssociation(String methodName) throws Exception {
-    return AssociationObjects.invocationChild("%parent%." + methodName + "(%child%)", false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link AssociationObject} for associating using given method.
+	 */
+	private static AssociationObject getAssociation(String methodName) throws Exception {
+		return AssociationObjects.invocationChild("%parent%." + methodName + "(%child%)", false);
+	}
 
-  /**
-   * @return the {@link MethodInvocation} of given {@link JavaInfo} association.
-   */
-  private static MethodInvocation getAssociationInvocation(JavaInfo javaInfo) {
-    return ((InvocationChildAssociation) javaInfo.getAssociation()).getInvocation();
-  }
+	/**
+	 * @return the {@link MethodInvocation} of given {@link JavaInfo} association.
+	 */
+	private static MethodInvocation getAssociationInvocation(JavaInfo javaInfo) {
+		return ((InvocationChildAssociation) javaInfo.getAssociation()).getInvocation();
+	}
 }

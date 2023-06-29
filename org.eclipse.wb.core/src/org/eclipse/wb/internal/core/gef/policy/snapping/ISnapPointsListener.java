@@ -22,8 +22,8 @@ import java.util.List;
  * @author mitin_aa
  */
 public interface ISnapPointsListener {
-  void boundsChanged(Rectangle bounds,
-      List<? extends IAbstractComponentInfo> components,
-      SnapPoint[] snapPoints,
-      int[] directions);
+	void boundsChanged(Rectangle bounds,
+			List<? extends IAbstractComponentInfo> components,
+			SnapPoint[] snapPoints,
+			int[] directions);
 }

@@ -24,24 +24,24 @@ import org.eclipse.ui.part.ViewPart;
  * @coverage rcp.wizards.ui
  */
 public final class ViewPartWizardPage extends AbstractViewPartWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewPartWizardPage() {
-    setTitle(WizardsMessages.ViewPartWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/ViewPart/banner.gif"));
-    setDescription(WizardsMessages.ViewPartWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewPartWizardPage() {
+		setTitle(WizardsMessages.ViewPartWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/ViewPart/banner.gif"));
+		setDescription(WizardsMessages.ViewPartWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getCreateTemplate() {
-    return "templates/rcp/ViewPart.jvt";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getCreateTemplate() {
+		return "templates/rcp/ViewPart.jvt";
+	}
 }

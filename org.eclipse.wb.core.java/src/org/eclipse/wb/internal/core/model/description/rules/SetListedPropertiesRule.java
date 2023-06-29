@@ -23,37 +23,37 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class SetListedPropertiesRule extends Rule {
-  private final String[] m_attributeNames;
-  private final String[] m_propertyNames;
+	private final String[] m_attributeNames;
+	private final String[] m_propertyNames;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetListedPropertiesRule(String[] propertyNames) {
-    this(propertyNames, propertyNames);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetListedPropertiesRule(String[] propertyNames) {
+		this(propertyNames, propertyNames);
+	}
 
-  public SetListedPropertiesRule(String[] attributeNames, String[] propertyNames) {
-    m_attributeNames = attributeNames;
-    m_propertyNames = propertyNames;
-    Assert.isTrue(m_attributeNames.length == m_propertyNames.length);
-  }
+	public SetListedPropertiesRule(String[] attributeNames, String[] propertyNames) {
+		m_attributeNames = attributeNames;
+		m_propertyNames = propertyNames;
+		Assert.isTrue(m_attributeNames.length == m_propertyNames.length);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    for (int i = 0; i < m_attributeNames.length; i++) {
-      String attributeName = m_attributeNames[i];
-      String value = attributes.getValue(attributeName);
-      if (value != null) {
-        BeanUtils.setProperty(getDigester().peek(), m_propertyNames[i], value);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		for (int i = 0; i < m_attributeNames.length; i++) {
+			String attributeName = m_attributeNames[i];
+			String value = attributes.getValue(attributeName);
+			if (value != null) {
+				BeanUtils.setProperty(getDigester().peek(), m_propertyNames[i], value);
+			}
+		}
+	}
 }

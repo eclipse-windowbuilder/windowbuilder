@@ -32,113 +32,113 @@ import java.util.Map;
  * @coverage core.gef.policy
  */
 public final class CompatibleLayoutRequestValidator extends AbstractLayoutRequestValidator {
-  private static final ILayoutRequestValidator INSTANCE0 = new CompatibleLayoutRequestValidator();
-  public static final ILayoutRequestValidator INSTANCE =
-      new CachingLayoutRequestValidator(INSTANCE0);
+	private static final ILayoutRequestValidator INSTANCE0 = new CompatibleLayoutRequestValidator();
+	public static final ILayoutRequestValidator INSTANCE =
+			new CachingLayoutRequestValidator(INSTANCE0);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private CompatibleLayoutRequestValidator() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private CompatibleLayoutRequestValidator() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean validate(EditPart host, Object child) {
-    return areCompatible(host, child);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean validate(EditPart host, Object child) {
+		return areCompatible(host, child);
+	}
 
-  @Override
-  protected boolean validateDescription(EditPart host, IComponentDescription childDescription) {
-    return areCompatible(host, childDescription);
-  }
+	@Override
+	protected boolean validateDescription(EditPart host, IComponentDescription childDescription) {
+		return areCompatible(host, childDescription);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given parent and child objects are compatible.
-   */
-  private static boolean areCompatible(final EditPart host, final Object child) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
-        Object parent = host.getModel();
-        return parentAgreeToAcceptChild(parent, child)
-            && childAgreeToBeDroppedOnParent(parent, child);
-      }
-    },
-        false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given parent and child objects are compatible.
+	 */
+	private static boolean areCompatible(final EditPart host, final Object child) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+			@Override
+			public Boolean runObject() throws Exception {
+				Object parent = host.getModel();
+				return parentAgreeToAcceptChild(parent, child)
+						&& childAgreeToBeDroppedOnParent(parent, child);
+			}
+		},
+				false);
+	}
 
-  private static boolean parentAgreeToAcceptChild(Object parent, Object child) throws Exception {
-    // ask parent script, if it accepts child
-    {
-      String script = getParameter(parent, "GEF.requestValidator.parent");
-      if (script != null) {
-        return executeScriptBoolean(script, parent, child);
-      }
-    }
-    // OK
-    return true;
-  }
+	private static boolean parentAgreeToAcceptChild(Object parent, Object child) throws Exception {
+		// ask parent script, if it accepts child
+		{
+			String script = getParameter(parent, "GEF.requestValidator.parent");
+			if (script != null) {
+				return executeScriptBoolean(script, parent, child);
+			}
+		}
+		// OK
+		return true;
+	}
 
-  private static boolean childAgreeToBeDroppedOnParent(Object parent, Object child)
-      throws Exception {
-    // ask child script, if it can be dropped
-    {
-      String script = getParameter(child, "GEF.requestValidator.child");
-      if (script != null) {
-        if (!executeScriptBoolean(script, parent, child)) {
-          return false;
-        }
-      }
-    }
-    // ask "child" if it can be placed on "parent"
-    if (!GlobalState.getValidatorHelper().canUseParentForChild(parent, child)) {
-      return false;
-    }
-    // OK
-    return true;
-  }
+	private static boolean childAgreeToBeDroppedOnParent(Object parent, Object child)
+			throws Exception {
+		// ask child script, if it can be dropped
+		{
+			String script = getParameter(child, "GEF.requestValidator.child");
+			if (script != null) {
+				if (!executeScriptBoolean(script, parent, child)) {
+					return false;
+				}
+			}
+		}
+		// ask "child" if it can be placed on "parent"
+		if (!GlobalState.getValidatorHelper().canUseParentForChild(parent, child)) {
+			return false;
+		}
+		// OK
+		return true;
+	}
 
-  /**
-   * @param object
-   *          the component or its description.
-   *
-   * @return the value of parameter with given name.
-   */
-  private static String getParameter(Object object, String name) {
-    return GlobalState.getParametersProvider().getParameter(object, name);
-  }
+	/**
+	 * @param object
+	 *          the component or its description.
+	 *
+	 * @return the value of parameter with given name.
+	 */
+	private static String getParameter(Object object, String name) {
+		return GlobalState.getParametersProvider().getParameter(object, name);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Scripts
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final String DEF_functions = StringUtils.join(new String[]{
-      "def isComponentType(model, c) {",
-      "  if (ReflectionUtils.isSuccessorOf(model, 'org.eclipse.wb.core.model.ObjectInfo')) {",
-      "    return ReflectionUtils.isSuccessorOf(model.description.componentClass, c);",
-      "  } else {",
-      "    return ReflectionUtils.isSuccessorOf(model.componentClass, c);",
-      "  }",
-      "};",}, "\n");
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Scripts
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final String DEF_functions = StringUtils.join(new String[]{
+			"def isComponentType(model, c) {",
+			"  if (ReflectionUtils.isSuccessorOf(model, 'org.eclipse.wb.core.model.ObjectInfo')) {",
+			"    return ReflectionUtils.isSuccessorOf(model.description.componentClass, c);",
+			"  } else {",
+			"    return ReflectionUtils.isSuccessorOf(model.componentClass, c);",
+			"  }",
+			"};",}, "\n");
 
-  private static boolean executeScriptBoolean(String script, Object parent, Object child)
-      throws Exception {
-    Map<String, Object> variables = Maps.newTreeMap();
-    variables.put("parent", parent);
-    variables.put("child", child);
-    return (Boolean) ScriptUtils.evaluate(DEF_functions + script, variables);
-  }
+	private static boolean executeScriptBoolean(String script, Object parent, Object child)
+			throws Exception {
+		Map<String, Object> variables = Maps.newTreeMap();
+		variables.put("parent", parent);
+		variables.put("child", child);
+		return (Boolean) ScriptUtils.evaluate(DEF_functions + script, variables);
+	}
 }

@@ -23,53 +23,53 @@ import org.xml.sax.Attributes;
  * @coverage core.editor.palette
  */
 public final class ComponentAddCommand extends ComponentAbstractCommand {
-  public static final String ID = "addComponent";
-  private final String m_categoryId;
+	public static final String ID = "addComponent";
+	private final String m_categoryId;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComponentAddCommand(String id,
-      String name,
-      String description,
-      boolean visible,
-      String className,
-      CategoryInfo category) {
-    super(id, name, description, visible, className);
-    m_categoryId = category.getId();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComponentAddCommand(String id,
+			String name,
+			String description,
+			boolean visible,
+			String className,
+			CategoryInfo category) {
+		super(id, name, description, visible, className);
+		m_categoryId = category.getId();
+	}
 
-  public ComponentAddCommand(Attributes attributes) {
-    super(attributes);
-    m_categoryId = attributes.getValue("category");
-  }
+	public ComponentAddCommand(Attributes attributes) {
+		super(attributes);
+		m_categoryId = attributes.getValue("category");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    // create component entry
-    ComponentEntryInfo component = new ComponentEntryInfo();
-    component.setId(m_id);
-    updateElement(component);
-    // prepare category
-    CategoryInfo category = palette.getCategory(m_categoryId);
-    category.addEntry(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		// create component entry
+		ComponentEntryInfo component = new ComponentEntryInfo();
+		component.setId(m_id);
+		updateElement(component);
+		// prepare category
+		CategoryInfo category = palette.getCategory(m_categoryId);
+		category.addEntry(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    super.addAttributes();
-    addAttribute("category", m_categoryId);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		super.addAttributes();
+		addAttribute("category", m_categoryId);
+	}
 }

@@ -17,8 +17,8 @@ package org.eclipse.wb.draw2d;
  * @coverage gef.draw2d
  */
 public interface ILocator {
-  /**
-   * Relocates the given {@link Figure}.
-   */
-  void relocate(Figure target);
+	/**
+	 * Relocates the given {@link Figure}.
+	 */
+	void relocate(Figure target);
 }

@@ -47,65 +47,65 @@ import java.text.MessageFormat;
  * @coverage core.editor.palette.ui
  */
 final class DesignerPalettePopupActions {
-  // image constants
-  private static final ImageDescriptor ID_ADD_CATEGORY = getImageDescription("add_category.gif");
-  private static final ImageDescriptor ID_ADD_COMPONENT = getImageDescription("add_component.gif");
-  private static final ImageDescriptor IMPORT_JAR_IMAGE = getImageDescription("import_jar.png");
-  private static final ImageDescriptor ID_REMOVE = getImageDescription("remove.gif");
-  private static final ImageDescriptor ID_MANAGER = getImageDescription("manager.gif");
-  private static final ImageDescriptor ID_SETTINGS = getImageDescription("settings.png");
-  private static final ImageDescriptor ID_IMPORT = getImageDescription("import.png");
-  private static final ImageDescriptor ID_EXPORT = getImageDescription("export.png");
-  private static final ImageDescriptor ID_SELECTED = getImageDescription("selected.gif");
-  // field
-  private final DesignerPaletteOperations m_operations;
-  private final PluginPalettePreferences m_preferences =
-      new PluginPalettePreferences(DesignerPlugin.getPreferences());
+	// image constants
+	private static final ImageDescriptor ID_ADD_CATEGORY = getImageDescription("add_category.gif");
+	private static final ImageDescriptor ID_ADD_COMPONENT = getImageDescription("add_component.gif");
+	private static final ImageDescriptor IMPORT_JAR_IMAGE = getImageDescription("import_jar.png");
+	private static final ImageDescriptor ID_REMOVE = getImageDescription("remove.gif");
+	private static final ImageDescriptor ID_MANAGER = getImageDescription("manager.gif");
+	private static final ImageDescriptor ID_SETTINGS = getImageDescription("settings.png");
+	private static final ImageDescriptor ID_IMPORT = getImageDescription("import.png");
+	private static final ImageDescriptor ID_EXPORT = getImageDescription("export.png");
+	private static final ImageDescriptor ID_SELECTED = getImageDescription("selected.gif");
+	// field
+	private final DesignerPaletteOperations m_operations;
+	private final PluginPalettePreferences m_preferences =
+			new PluginPalettePreferences(DesignerPlugin.getPreferences());
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DesignerPalettePopupActions(DesignerPaletteOperations operations) {
-    m_operations = operations;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DesignerPalettePopupActions(DesignerPaletteOperations operations) {
+		m_operations = operations;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Popup
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ImageDescriptor} for palette image.
-   */
-  private static ImageDescriptor getImageDescription(String path) {
-    return DesignerPlugin.getImageDescriptor("palette/" + path);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Popup
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ImageDescriptor} for palette image.
+	 */
+	private static ImageDescriptor getImageDescription(String path) {
+		return DesignerPlugin.getImageDescriptor("palette/" + path);
+	}
 
-  /**
-   * @see IPalette#addPopupActions(IMenuManager, Object)
-   */
-  void addPopupActions(IMenuManager menuManager, Object target, int iconsType) {
-    if (m_operations.canEditPalette()) {
-      addPopupActions_edit(menuManager, target, iconsType);
-    }
-    //
-    menuManager.add(new Separator());
-    // settings
-    {
-      Action settingsAction =
-          new Action(Messages.DesignerPalettePopupActions_settingsAction, ID_SETTINGS) {
-            @Override
-            public void run() {
-              m_operations.editPreferences();
-            }
-          };
-      menuManager.add(settingsAction);
-    }
-  }
+	/**
+	 * @see IPalette#addPopupActions(IMenuManager, Object)
+	 */
+	void addPopupActions(IMenuManager menuManager, Object target, int iconsType) {
+		if (m_operations.canEditPalette()) {
+			addPopupActions_edit(menuManager, target, iconsType);
+		}
+		//
+		menuManager.add(new Separator());
+		// settings
+		{
+			Action settingsAction =
+					new Action(Messages.DesignerPalettePopupActions_settingsAction, ID_SETTINGS) {
+				@Override
+				public void run() {
+					m_operations.editPreferences();
+				}
+			};
+			menuManager.add(settingsAction);
+		}
+	}
 
-  private void addPopupActions_edit(IMenuManager menuManager, Object target, int type) {
+	private void addPopupActions_edit(IMenuManager menuManager, Object target, int type) {
 
 		Preferences preferences = InstanceScope.INSTANCE
 				.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE);
@@ -115,335 +115,335 @@ final class DesignerPalettePopupActions {
 			addPopupActions_edit_unUsed(menuManager, target);
 			menuManager.add(new Separator());
 		}
-    // add layout action
-    {
-      IMenuManager layoutMenuManager = new MenuManager("Layout");
-      menuManager.add(layoutMenuManager);
-      // single
-      {
-        ImageDescriptor image = null;
-        if (type == DesignerPalette.COLUMN_ICONS_TYPE) {
-          image = ID_SELECTED;
-        }
-        Action columnAction = new Action("Columns", image) {
-          @Override
-          public void run() {
-            m_operations.setIconsType(DesignerPalette.COLUMN_ICONS_TYPE);
-          }
-        };
-        layoutMenuManager.add(columnAction);
-        image = null;
-        if (type == DesignerPalette.LIST_ICONS_TYPE) {
-          image = ID_SELECTED;
-        }
-        Action listAction = new Action("List", image) {
-          @Override
-          public void run() {
-            m_operations.setIconsType(DesignerPalette.LIST_ICONS_TYPE);
-          }
-        };
-        layoutMenuManager.add(listAction);
-        image = null;
-        if (type == DesignerPalette.ONLY_ICONS_TYPE) {
-          image = ID_SELECTED;
-        }
-        Action onlyIconAction = new Action("Icons Only", image) {
-          @Override
-          public void run() {
-            m_operations.setIconsType(DesignerPalette.ONLY_ICONS_TYPE);
-          }
-        };
-        layoutMenuManager.add(onlyIconAction);
-        image = null;
-        if (type == DesignerPalette.DETAIL_ICONS_TYPE) {
-          image = ID_SELECTED;
-        }
-        Action detailAction = new Action("Detail", image) {
-          @Override
-          public void run() {
-            m_operations.setIconsType(DesignerPalette.DETAIL_ICONS_TYPE);
-          }
-        };
-        layoutMenuManager.add(detailAction);
-      }
-    }
-    // separator
-    menuManager.add(new Separator());
-  }
+		// add layout action
+		{
+			IMenuManager layoutMenuManager = new MenuManager("Layout");
+			menuManager.add(layoutMenuManager);
+			// single
+			{
+				ImageDescriptor image = null;
+				if (type == DesignerPalette.COLUMN_ICONS_TYPE) {
+					image = ID_SELECTED;
+				}
+				Action columnAction = new Action("Columns", image) {
+					@Override
+					public void run() {
+						m_operations.setIconsType(DesignerPalette.COLUMN_ICONS_TYPE);
+					}
+				};
+				layoutMenuManager.add(columnAction);
+				image = null;
+				if (type == DesignerPalette.LIST_ICONS_TYPE) {
+					image = ID_SELECTED;
+				}
+				Action listAction = new Action("List", image) {
+					@Override
+					public void run() {
+						m_operations.setIconsType(DesignerPalette.LIST_ICONS_TYPE);
+					}
+				};
+				layoutMenuManager.add(listAction);
+				image = null;
+				if (type == DesignerPalette.ONLY_ICONS_TYPE) {
+					image = ID_SELECTED;
+				}
+				Action onlyIconAction = new Action("Icons Only", image) {
+					@Override
+					public void run() {
+						m_operations.setIconsType(DesignerPalette.ONLY_ICONS_TYPE);
+					}
+				};
+				layoutMenuManager.add(onlyIconAction);
+				image = null;
+				if (type == DesignerPalette.DETAIL_ICONS_TYPE) {
+					image = ID_SELECTED;
+				}
+				Action detailAction = new Action("Detail", image) {
+					@Override
+					public void run() {
+						m_operations.setIconsType(DesignerPalette.DETAIL_ICONS_TYPE);
+					}
+				};
+				layoutMenuManager.add(detailAction);
+			}
+		}
+		// separator
+		menuManager.add(new Separator());
+	}
 
-  /**
-   * now we unused it for 2003
-   *
-   * @param menuManager
-   * @param target
-   */
-  private void addPopupActions_edit_unUsed(IMenuManager menuManager, Object target) {
-    final EntryInfo targetEntry = getEntry(target);
-    final CategoryInfo targetCategory = getCategory(target);
-    // add category
-    {
-      Action addCategoryAction =
-          new Action(Messages.DesignerPalettePopupActions_addCategoryAction, ID_ADD_CATEGORY) {
-            @Override
-            public void run() {
-              // prepare initial "next category"
-              CategoryInfo nextCategory = null;
-              if (targetCategory != null) {
-                nextCategory = targetCategory;
-              } else if (targetEntry != null) {
-                nextCategory = targetEntry.getCategory();
-              }
-              m_operations.addCategory(nextCategory);
-            }
-          };
-      menuManager.add(addCategoryAction);
-    }
-    // add component
-    {
-      Action addComponentAction =
-          new Action(Messages.DesignerPalettePopupActions_addComponentAction, ID_ADD_COMPONENT) {
-            @Override
-            public void run() {
-              // prepare category for new component
-              CategoryInfo category = targetCategory;
-              if (targetEntry != null) {
-                category = targetEntry.getCategory();
-              }
-              m_operations.addComponent(category);
-            }
-          };
-      menuManager.add(addComponentAction);
-    }
-    // factories
-    {
-      // prepare parameters
-      final CategoryInfo category =
-          targetEntry != null ? targetEntry.getCategory() : targetCategory;
-      // add static factories
-      {
-        IMenuManager staticMenuManager =
-            new MenuManager(Messages.DesignerPalettePopupActions_addStaticFactoryAction);
-        menuManager.add(staticMenuManager);
-        // single
-        {
-          IAction action = popup_createAction_addFactory(category, true);
-          staticMenuManager.add(action);
-        }
-        // multiple
-        {
-          IAction action = popup_createAction_addFactories(category, true);
-          staticMenuManager.add(action);
-        }
-      }
-      // add instance factories
-      {
-        IMenuManager instanceMenuManager =
-            new MenuManager(Messages.DesignerPalettePopupActions_addInstanceFactoryAction);
-        menuManager.add(instanceMenuManager);
-        // single
-        {
-          IAction action = popup_createAction_addFactory(category, false);
-          instanceMenuManager.add(action);
-        }
-        // multiple
-        {
-          IAction action = popup_createAction_addFactories(category, false);
-          instanceMenuManager.add(action);
-        }
-      }
-    }
-    // separator
-    menuManager.add(new Separator());
-    // Jar
-    menuManager.add(new Action(Messages.DesignerPalettePopupActions_importJarAction,
-        IMPORT_JAR_IMAGE) {
-      @Override
-      public void run() {
-        // prepare initial "next category"
-        CategoryInfo nextCategory = null;
-        if (targetCategory != null) {
-          nextCategory = targetCategory;
-        } else if (targetEntry != null) {
-          nextCategory = targetEntry.getCategory();
-        }
-        m_operations.importJar(nextCategory);
-      }
-    });
-    // separator
-    menuManager.add(new Separator());
-    // edit
-    {
-      Action editAction = new Action(Messages.DesignerPalettePopupActions_editAction) {
-        @Override
-        public void run() {
-          if (targetCategory != null) {
-            m_operations.editCategory(targetCategory);
-          } else if (targetEntry instanceof ToolEntryInfo) {
-            m_operations.editEntry((ToolEntryInfo) targetEntry);
-          }
-        }
-      };
-      menuManager.add(editAction);
-      editAction.setEnabled(targetCategory != null
-          || targetEntry instanceof ComponentEntryInfo
-          || targetEntry instanceof FactoryEntryInfo);
-    }
-    // remove
-    {
-      Action removeAction =
-          new Action(Messages.DesignerPalettePopupActions_removeAction, ID_REMOVE) {
-            @Override
-            public void run() {
-              if (targetEntry != null) {
-                if (MessageDialog.openConfirm(
-                    getShell(),
-                    Messages.DesignerPalettePopupActions_removeEntryTitle,
-                    MessageFormat.format(
-                        Messages.DesignerPalettePopupActions_removeEntryMessage,
-                        targetEntry.getName()))) {
-                  m_operations.removeEntry(targetEntry);
-                }
-              } else if (targetCategory != null) {
-                if (MessageDialog.openConfirm(
-                    getShell(),
-                    Messages.DesignerPalettePopupActions_removeCategoryTitle,
-                    MessageFormat.format(
-                        Messages.DesignerPalettePopupActions_removeCategoryMessage,
-                        targetCategory.getName()))) {
-                  m_operations.removeCategory(targetCategory);
-                }
-              }
-            }
-          };
-      menuManager.add(removeAction);
-      removeAction.setEnabled(targetEntry != null || targetCategory != null);
-    }
-    // separator
-    menuManager.add(new Separator());
-    // default
-    {
-      Action defaultAction =
-          new Action(Messages.DesignerPalettePopupActions_restoreDefaultsAction) {
-            @Override
-            public void run() {
-              if (MessageDialog.openConfirm(
-                  getShell(),
-                  Messages.DesignerPalettePopupActions_restoreDefaultsTitle,
-                  Messages.DesignerPalettePopupActions_restoreDefaultsMessage)) {
-                m_operations.defaultPalette();
-              }
-            }
-          };
-      menuManager.add(defaultAction);
-    }
-    // palette manager
-    {
-      Action managerAction =
-          new Action(Messages.DesignerPalettePopupActions_managerAction, ID_MANAGER) {
-            @Override
-            public void run() {
-              m_operations.editPalette();
-            }
-          };
-      menuManager.add(managerAction);
-    }
-    // import/export
-    addImportExport(menuManager);
-  }
+	/**
+	 * now we unused it for 2003
+	 *
+	 * @param menuManager
+	 * @param target
+	 */
+	private void addPopupActions_edit_unUsed(IMenuManager menuManager, Object target) {
+		final EntryInfo targetEntry = getEntry(target);
+		final CategoryInfo targetCategory = getCategory(target);
+		// add category
+		{
+			Action addCategoryAction =
+					new Action(Messages.DesignerPalettePopupActions_addCategoryAction, ID_ADD_CATEGORY) {
+				@Override
+				public void run() {
+					// prepare initial "next category"
+					CategoryInfo nextCategory = null;
+					if (targetCategory != null) {
+						nextCategory = targetCategory;
+					} else if (targetEntry != null) {
+						nextCategory = targetEntry.getCategory();
+					}
+					m_operations.addCategory(nextCategory);
+				}
+			};
+			menuManager.add(addCategoryAction);
+		}
+		// add component
+		{
+			Action addComponentAction =
+					new Action(Messages.DesignerPalettePopupActions_addComponentAction, ID_ADD_COMPONENT) {
+				@Override
+				public void run() {
+					// prepare category for new component
+					CategoryInfo category = targetCategory;
+					if (targetEntry != null) {
+						category = targetEntry.getCategory();
+					}
+					m_operations.addComponent(category);
+				}
+			};
+			menuManager.add(addComponentAction);
+		}
+		// factories
+		{
+			// prepare parameters
+			final CategoryInfo category =
+					targetEntry != null ? targetEntry.getCategory() : targetCategory;
+			// add static factories
+			{
+				IMenuManager staticMenuManager =
+						new MenuManager(Messages.DesignerPalettePopupActions_addStaticFactoryAction);
+				menuManager.add(staticMenuManager);
+				// single
+				{
+					IAction action = popup_createAction_addFactory(category, true);
+					staticMenuManager.add(action);
+				}
+				// multiple
+				{
+					IAction action = popup_createAction_addFactories(category, true);
+					staticMenuManager.add(action);
+				}
+			}
+			// add instance factories
+			{
+				IMenuManager instanceMenuManager =
+						new MenuManager(Messages.DesignerPalettePopupActions_addInstanceFactoryAction);
+				menuManager.add(instanceMenuManager);
+				// single
+				{
+					IAction action = popup_createAction_addFactory(category, false);
+					instanceMenuManager.add(action);
+				}
+				// multiple
+				{
+					IAction action = popup_createAction_addFactories(category, false);
+					instanceMenuManager.add(action);
+				}
+			}
+		}
+		// separator
+		menuManager.add(new Separator());
+		// Jar
+		menuManager.add(new Action(Messages.DesignerPalettePopupActions_importJarAction,
+				IMPORT_JAR_IMAGE) {
+			@Override
+			public void run() {
+				// prepare initial "next category"
+				CategoryInfo nextCategory = null;
+				if (targetCategory != null) {
+					nextCategory = targetCategory;
+				} else if (targetEntry != null) {
+					nextCategory = targetEntry.getCategory();
+				}
+				m_operations.importJar(nextCategory);
+			}
+		});
+		// separator
+		menuManager.add(new Separator());
+		// edit
+		{
+			Action editAction = new Action(Messages.DesignerPalettePopupActions_editAction) {
+				@Override
+				public void run() {
+					if (targetCategory != null) {
+						m_operations.editCategory(targetCategory);
+					} else if (targetEntry instanceof ToolEntryInfo) {
+						m_operations.editEntry((ToolEntryInfo) targetEntry);
+					}
+				}
+			};
+			menuManager.add(editAction);
+			editAction.setEnabled(targetCategory != null
+					|| targetEntry instanceof ComponentEntryInfo
+					|| targetEntry instanceof FactoryEntryInfo);
+		}
+		// remove
+		{
+			Action removeAction =
+					new Action(Messages.DesignerPalettePopupActions_removeAction, ID_REMOVE) {
+				@Override
+				public void run() {
+					if (targetEntry != null) {
+						if (MessageDialog.openConfirm(
+								getShell(),
+								Messages.DesignerPalettePopupActions_removeEntryTitle,
+								MessageFormat.format(
+										Messages.DesignerPalettePopupActions_removeEntryMessage,
+										targetEntry.getName()))) {
+							m_operations.removeEntry(targetEntry);
+						}
+					} else if (targetCategory != null) {
+						if (MessageDialog.openConfirm(
+								getShell(),
+								Messages.DesignerPalettePopupActions_removeCategoryTitle,
+								MessageFormat.format(
+										Messages.DesignerPalettePopupActions_removeCategoryMessage,
+										targetCategory.getName()))) {
+							m_operations.removeCategory(targetCategory);
+						}
+					}
+				}
+			};
+			menuManager.add(removeAction);
+			removeAction.setEnabled(targetEntry != null || targetCategory != null);
+		}
+		// separator
+		menuManager.add(new Separator());
+		// default
+		{
+			Action defaultAction =
+					new Action(Messages.DesignerPalettePopupActions_restoreDefaultsAction) {
+				@Override
+				public void run() {
+					if (MessageDialog.openConfirm(
+							getShell(),
+							Messages.DesignerPalettePopupActions_restoreDefaultsTitle,
+							Messages.DesignerPalettePopupActions_restoreDefaultsMessage)) {
+						m_operations.defaultPalette();
+					}
+				}
+			};
+			menuManager.add(defaultAction);
+		}
+		// palette manager
+		{
+			Action managerAction =
+					new Action(Messages.DesignerPalettePopupActions_managerAction, ID_MANAGER) {
+				@Override
+				public void run() {
+					m_operations.editPalette();
+				}
+			};
+			menuManager.add(managerAction);
+		}
+		// import/export
+		addImportExport(menuManager);
+	}
 
-  /**
-   * @return the {@link IAction} for adding single factory method.
-   */
-  private IAction popup_createAction_addFactory(final CategoryInfo category, final boolean forStatic) {
-    return new Action(Messages.DesignerPalettePopupActions_factorySingleAction) {
-      @Override
-      public void run() {
-        m_operations.addFactory(category, forStatic);
-      }
-    };
-  }
+	/**
+	 * @return the {@link IAction} for adding single factory method.
+	 */
+	private IAction popup_createAction_addFactory(final CategoryInfo category, final boolean forStatic) {
+		return new Action(Messages.DesignerPalettePopupActions_factorySingleAction) {
+			@Override
+			public void run() {
+				m_operations.addFactory(category, forStatic);
+			}
+		};
+	}
 
-  /**
-   * @return the {@link IAction} for adding multiple factory methods.
-   */
-  private IAction popup_createAction_addFactories(final CategoryInfo category,
-      final boolean forStatic) {
-    return new Action(Messages.DesignerPalettePopupActions_factoryMultipleAction) {
-      @Override
-      public void run() {
-        m_operations.addFactories(category, forStatic);
-      }
-    };
-  }
+	/**
+	 * @return the {@link IAction} for adding multiple factory methods.
+	 */
+	private IAction popup_createAction_addFactories(final CategoryInfo category,
+			final boolean forStatic) {
+		return new Action(Messages.DesignerPalettePopupActions_factoryMultipleAction) {
+			@Override
+			public void run() {
+				m_operations.addFactories(category, forStatic);
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Import/export
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void addImportExport(IMenuManager menuManager) {
-    Action importAction = new Action(Messages.DesignerPalettePopupActions_importAction, ID_IMPORT) {
-      @Override
-      public void run() {
-        importPalette();
-      }
-    };
-    Action exportAction = new Action(Messages.DesignerPalettePopupActions_exportAction, ID_EXPORT) {
-      @Override
-      public void run() {
-        exportPalette();
-      }
-    };
-    menuManager.add(importAction);
-    menuManager.add(exportAction);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Import/export
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void addImportExport(IMenuManager menuManager) {
+		Action importAction = new Action(Messages.DesignerPalettePopupActions_importAction, ID_IMPORT) {
+			@Override
+			public void run() {
+				importPalette();
+			}
+		};
+		Action exportAction = new Action(Messages.DesignerPalettePopupActions_exportAction, ID_EXPORT) {
+			@Override
+			public void run() {
+				exportPalette();
+			}
+		};
+		menuManager.add(importAction);
+		menuManager.add(exportAction);
+	}
 
-  private void exportPalette() {
-    final String path = getImportExportPath(SWT.SAVE);
-    if (path != null) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          m_operations.exportPalette(path);
-        }
-      });
-    }
-  }
+	private void exportPalette() {
+		final String path = getImportExportPath(SWT.SAVE);
+		if (path != null) {
+			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					m_operations.exportPalette(path);
+				}
+			});
+		}
+	}
 
-  private void importPalette() {
-    final String path = getImportExportPath(SWT.OPEN);
-    if (path != null) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          m_operations.importPalette(path);
-        }
-      });
-    }
-  }
+	private void importPalette() {
+		final String path = getImportExportPath(SWT.OPEN);
+		if (path != null) {
+			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					m_operations.importPalette(path);
+				}
+			});
+		}
+	}
 
-  private String getImportExportPath(int style) {
-    FileDialog fileDialog = new FileDialog(getShell(), style);
-    fileDialog.setFilterExtensions(new String[]{"*.xml"});
-    fileDialog.setFilterNames(new String[]{Messages.DesignerPalettePopupActions_paletteFilterName});
-    fileDialog.setFileName(m_operations.getToolkitId() + ".xml");
-    return fileDialog.open();
-  }
+	private String getImportExportPath(int style) {
+		FileDialog fileDialog = new FileDialog(getShell(), style);
+		fileDialog.setFilterExtensions(new String[]{"*.xml"});
+		fileDialog.setFilterNames(new String[]{Messages.DesignerPalettePopupActions_paletteFilterName});
+		fileDialog.setFileName(m_operations.getToolkitId() + ".xml");
+		return fileDialog.open();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Misc
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Shell getShell() {
-    return m_operations.getShell();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Misc
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Shell getShell() {
+		return m_operations.getShell();
+	}
 
-  private CategoryInfo getCategory(Object target) {
-    return m_operations.getCategory(target);
-  }
+	private CategoryInfo getCategory(Object target) {
+		return m_operations.getCategory(target);
+	}
 
-  private EntryInfo getEntry(Object target) {
-    return m_operations.getEntry(target);
-  }
+	private EntryInfo getEntry(Object target) {
+		return m_operations.getEntry(target);
+	}
 }

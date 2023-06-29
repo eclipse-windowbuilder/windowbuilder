@@ -27,44 +27,44 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage rcp.gef.part
  */
 public final class EditorAreaEditPart extends GraphicalEditPart {
-  private final EditorAreaInfo m_editorArea;
+	private final EditorAreaInfo m_editorArea;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditorAreaEditPart(EditorAreaInfo editorArea) {
-    m_editorArea = editorArea;
-    setModel(m_editorArea);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditorAreaEditPart(EditorAreaInfo editorArea) {
+		m_editorArea = editorArea;
+		setModel(m_editorArea);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure();
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    Rectangle bounds = m_editorArea.getBounds();
-    getFigure().setBounds(bounds);
-  }
+	@Override
+	protected void refreshVisuals() {
+		Rectangle bounds = m_editorArea.getBounds();
+		getFigure().setBounds(bounds);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-    installEditPolicy(new PageLayoutSidesLayoutEditPolicy(m_editorArea.getPage(),
-        m_editorArea,
-        false));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+		installEditPolicy(new PageLayoutSidesLayoutEditPolicy(m_editorArea.getPage(),
+				m_editorArea,
+				false));
+	}
 }

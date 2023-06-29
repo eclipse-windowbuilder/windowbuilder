@@ -35,60 +35,60 @@ import java.util.Map;
  * @coverage rcp.editor.palette
  */
 public final class ActionFactoryNewEntryInfo extends ToolEntryInfo {
-  private static final Map<String, Image> m_namedIcons = Maps.newTreeMap();
-  private final String m_name;
-  private final Image m_icon;
+	private static final Map<String, Image> m_namedIcons = Maps.newTreeMap();
+	private final String m_name;
+	private final Image m_icon;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionFactoryNewEntryInfo(String name) throws Exception {
-    m_name = name;
-    setId("org.eclipse.ui.actions.ActionFactory." + name);
-    // prepare IWorkbenchAction
-    IWorkbenchAction action;
-    {
-      ActionFactory actionFactory =
-          (ActionFactory) ReflectionUtils.getFieldObject(ActionFactory.class, name);
-      action = actionFactory.create(DesignerPlugin.getActiveWorkbenchWindow());
-    }
-    // use IWorkbenchAction to configure this entry
-    try {
-      setName(action.getText());
-      setDescription(action.getDescription());
-      // icon
-      {
-        Image icon = m_namedIcons.get(m_name);
-        if (icon == null) {
-          if (action.getImageDescriptor() != null) {
-            icon = action.getImageDescriptor().createImage();
-          } else {
-            icon = ActionFactoryCreationSupport.DEFAULT_ICON;
-          }
-          m_namedIcons.put(m_name, icon);
-        }
-        m_icon = icon;
-      }
-    } finally {
-      action.dispose();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionFactoryNewEntryInfo(String name) throws Exception {
+		m_name = name;
+		setId("org.eclipse.ui.actions.ActionFactory." + name);
+		// prepare IWorkbenchAction
+		IWorkbenchAction action;
+		{
+			ActionFactory actionFactory =
+					(ActionFactory) ReflectionUtils.getFieldObject(ActionFactory.class, name);
+			action = actionFactory.create(DesignerPlugin.getActiveWorkbenchWindow());
+		}
+		// use IWorkbenchAction to configure this entry
+		try {
+			setName(action.getText());
+			setDescription(action.getDescription());
+			// icon
+			{
+				Image icon = m_namedIcons.get(m_name);
+				if (icon == null) {
+					if (action.getImageDescriptor() != null) {
+						icon = action.getImageDescriptor().createImage();
+					} else {
+						icon = ActionFactoryCreationSupport.DEFAULT_ICON;
+					}
+					m_namedIcons.put(m_name, icon);
+				}
+				m_icon = icon;
+			}
+		} finally {
+			action.dispose();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return m_icon;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return m_icon;
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    ActionInfo action = ActionFactoryCreationSupport.createNew(m_rootJavaInfo, m_name);
-    return new ActionDropTool(action);
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		ActionInfo action = ActionFactoryCreationSupport.createNew(m_rootJavaInfo, m_name);
+		return new ActionDropTool(action);
+	}
 }

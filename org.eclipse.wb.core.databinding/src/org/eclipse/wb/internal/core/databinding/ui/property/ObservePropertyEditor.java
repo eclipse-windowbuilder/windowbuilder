@@ -26,80 +26,80 @@ import java.util.List;
  * @coverage bindings.ui.properties
  */
 public final class ObservePropertyEditor extends TextDialogPropertyEditor
-    implements
-      IComplexPropertyEditor {
-  public static final ObservePropertyEditor EDITOR = new ObservePropertyEditor();
+implements
+IComplexPropertyEditor {
+	public static final ObservePropertyEditor EDITOR = new ObservePropertyEditor();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IComplexPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public List<AbstractBindingProperty> updateProperties(Property property) throws Exception {
-    AbstractObserveProperty observeProperty = (AbstractObserveProperty) property;
-    List<AbstractBindingProperty> bindingProperties = observeProperty.getBindingProperties();
-    //
-    List<IBindingInfo> bindings = Lists.newArrayList();
-    List<Boolean> isTargets = Lists.newArrayList();
-    observeProperty.getBindings(bindings, isTargets);
-    //
-    int oldSize = bindingProperties.size();
-    int newSize = bindings.size();
-    int size = Math.min(oldSize, newSize);
-    //
-    for (int i = 0; i < size; i++) {
-      bindingProperties.get(i).setBinding(bindings.get(i), isTargets.get(i));
-    }
-    if (oldSize > newSize) {
-      for (int i = newSize; i < oldSize; i++) {
-        bindingProperties.remove(newSize);
-      }
-    } else if (oldSize < newSize) {
-      for (int i = oldSize; i < newSize; i++) {
-        AbstractBindingProperty bindingProperty = observeProperty.createBindingProperty();
-        bindingProperty.setBinding(bindings.get(i), isTargets.get(i));
-        bindingProperties.add(bindingProperty);
-      }
-    }
-    //
-    return bindingProperties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IComplexPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public List<AbstractBindingProperty> updateProperties(Property property) throws Exception {
+		AbstractObserveProperty observeProperty = (AbstractObserveProperty) property;
+		List<AbstractBindingProperty> bindingProperties = observeProperty.getBindingProperties();
+		//
+		List<IBindingInfo> bindings = Lists.newArrayList();
+		List<Boolean> isTargets = Lists.newArrayList();
+		observeProperty.getBindings(bindings, isTargets);
+		//
+		int oldSize = bindingProperties.size();
+		int newSize = bindings.size();
+		int size = Math.min(oldSize, newSize);
+		//
+		for (int i = 0; i < size; i++) {
+			bindingProperties.get(i).setBinding(bindings.get(i), isTargets.get(i));
+		}
+		if (oldSize > newSize) {
+			for (int i = newSize; i < oldSize; i++) {
+				bindingProperties.remove(newSize);
+			}
+		} else if (oldSize < newSize) {
+			for (int i = oldSize; i < newSize; i++) {
+				AbstractBindingProperty bindingProperty = observeProperty.createBindingProperty();
+				bindingProperty.setBinding(bindings.get(i), isTargets.get(i));
+				bindingProperties.add(bindingProperty);
+			}
+		}
+		//
+		return bindingProperties;
+	}
 
-  @Override
-  public Property[] getProperties(Property property) throws Exception {
-    List<AbstractBindingProperty> properties = updateProperties(property);
-    return properties.toArray(new Property[properties.size()]);
-  }
+	@Override
+	public Property[] getProperties(Property property) throws Exception {
+		List<AbstractBindingProperty> properties = updateProperties(property);
+		return properties.toArray(new Property[properties.size()]);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TextDisplayPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    StringBuffer text = new StringBuffer();
-    for (AbstractBindingProperty bindingProperty : updateProperties(property)) {
-      if (text.length() > 0) {
-        text.append(", ");
-      }
-      text.append(bindingProperty.getText());
-    }
-    if (text.length() > 0) {
-      text.insert(0, "[");
-      text.append("]");
-    }
-    return text.toString();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TextDisplayPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		StringBuffer text = new StringBuffer();
+		for (AbstractBindingProperty bindingProperty : updateProperties(property)) {
+			if (text.length() > 0) {
+				text.append(", ");
+			}
+			text.append(bindingProperty.getText());
+		}
+		if (text.length() > 0) {
+			text.insert(0, "[");
+			text.append("]");
+		}
+		return text.toString();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TextDialogPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    AbstractObserveProperty observeProperty = (AbstractObserveProperty) property;
-    observeProperty.createBinding();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TextDialogPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		AbstractObserveProperty observeProperty = (AbstractObserveProperty) property;
+		observeProperty.createBinding();
+	}
 }

@@ -26,61 +26,61 @@ import org.eclipse.ui.IEditorPart;
  * @coverage XML.editor.action
  */
 public abstract class EditorRelatedAction extends Action implements IEditorActionDelegate {
-  private AbstractXmlEditor m_editor;
+	private AbstractXmlEditor m_editor;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditorActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void setActiveEditor(IAction action, IEditorPart editor) {
-    m_editor = null;
-    if (editor instanceof AbstractXmlEditor) {
-      m_editor = (AbstractXmlEditor) editor;
-    }
-    setEnabled(m_editor != null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditorActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void setActiveEditor(IAction action, IEditorPart editor) {
+		m_editor = null;
+		if (editor instanceof AbstractXmlEditor) {
+			m_editor = (AbstractXmlEditor) editor;
+		}
+		setEnabled(m_editor != null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void selectionChanged(IAction action, ISelection selection) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+	}
 
-  @Override
-  public void run(IAction action) {
-    run();
-  }
+	@Override
+	public void run(IAction action) {
+		run();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the active {@link AbstractXmlEditor}.
-   */
-  protected final AbstractXmlEditor getEditor() {
-    AbstractXmlEditor designerEditor = m_editor;
-    if (designerEditor == null) {
-      designerEditor = getActiveEditor();
-    }
-    return designerEditor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the active {@link AbstractXmlEditor}.
+	 */
+	protected final AbstractXmlEditor getEditor() {
+		AbstractXmlEditor designerEditor = m_editor;
+		if (designerEditor == null) {
+			designerEditor = getActiveEditor();
+		}
+		return designerEditor;
+	}
 
-  /**
-   * @return the active {@link AbstractXmlEditor}.
-   */
-  public static AbstractXmlEditor getActiveEditor() {
-    IEditorPart editor =
-        DesignerPlugin.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-    if (editor != null && editor instanceof AbstractXmlEditor) {
-      return (AbstractXmlEditor) editor;
-    }
-    return null;
-  }
+	/**
+	 * @return the active {@link AbstractXmlEditor}.
+	 */
+	public static AbstractXmlEditor getActiveEditor() {
+		IEditorPart editor =
+				DesignerPlugin.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if (editor != null && editor instanceof AbstractXmlEditor) {
+			return (AbstractXmlEditor) editor;
+		}
+		return null;
+	}
 }

@@ -31,56 +31,56 @@ import java.util.List;
  * @coverage rcp.gef.part
  */
 abstract class AbstractShortcutContainerEditPart extends GraphicalEditPart {
-  private final AbstractShortcutContainerInfo m_container;
+	private final AbstractShortcutContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractShortcutContainerEditPart(AbstractShortcutContainerInfo container) {
-    m_container = container;
-    setModel(m_container);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractShortcutContainerEditPart(AbstractShortcutContainerInfo container) {
+		m_container = container;
+		setModel(m_container);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure();
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    Rectangle bounds = m_container.getBounds();
-    getFigure().setBounds(bounds);
-  }
+	@Override
+	protected void refreshVisuals() {
+		Rectangle bounds = m_container.getBounds();
+		getFigure().setBounds(bounds);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<?> getModelChildren() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
-      @Override
-      public List<?> runObject() throws Exception {
-        return m_container.getPresentation().getChildrenGraphical();
-      }
-    }, Collections.emptyList());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<?> getModelChildren() {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
+			@Override
+			public List<?> runObject() throws Exception {
+				return m_container.getPresentation().getChildrenGraphical();
+			}
+		}, Collections.emptyList());
+	}
 }

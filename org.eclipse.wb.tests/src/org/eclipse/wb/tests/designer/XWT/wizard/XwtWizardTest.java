@@ -22,26 +22,26 @@ import org.eclipse.jdt.core.IPackageFragment;
  * @author scheglov_ke
  */
 public class XwtWizardTest extends XwtModelTest {
-  protected IPackageFragment m_packageFragment;
+	protected IPackageFragment m_packageFragment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    m_packageFragment = m_testProject.getPackage("test");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		m_packageFragment = m_testProject.getPackage("test");
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    {
-      waitEventLoop(0);
-      TestUtils.closeAllEditors();
-      waitEventLoop(0);
-    }
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		{
+			waitEventLoop(0);
+			TestUtils.closeAllEditors();
+			waitEventLoop(0);
+		}
+		super.tearDown();
+	}
 }

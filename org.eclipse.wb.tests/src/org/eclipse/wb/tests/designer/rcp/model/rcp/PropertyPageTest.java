@@ -22,40 +22,40 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class PropertyPageTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    PropertyPageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.ui.dialogs.*;",
-            "public class Test extends PropertyPage {",
-            "  public Test() {",
-            "  }",
-            "  public Control createContents(Composite parent) {",
-            "    Composite container = new Composite(parent, SWT.NULL);",
-            "    return container;",
-            "  }",
-            "}");
-    // check hierarchy
-    assertHierarchy(
-        "{this: org.eclipse.ui.dialogs.PropertyPage} {this} {}",
-        "  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-        "    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /container/}",
-        "      {implicit-layout: absolute} {implicit-layout} {}");
-    CompositeInfo parentComposite = page.getChildren(CompositeInfo.class).get(0);
-    CompositeInfo container = (CompositeInfo) parentComposite.getChildrenControls().get(0);
-    // refresh()
-    page.refresh();
-    assertNoErrors(page);
-    // check bounds
-    assertThat(page.getBounds().width).isEqualTo(600);
-    assertThat(page.getBounds().height).isEqualTo(500);
-    assertThat(parentComposite.getBounds().width).isGreaterThan(300);
-    assertThat(parentComposite.getBounds().height).isGreaterThan(30);
-    assertThat(container.getBounds().width).isGreaterThan(300);
-	assertThat(container.getBounds().height).isGreaterThan(230);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		PropertyPageInfo page =
+				parseJavaInfo(
+						"import org.eclipse.ui.dialogs.*;",
+						"public class Test extends PropertyPage {",
+						"  public Test() {",
+						"  }",
+						"  public Control createContents(Composite parent) {",
+						"    Composite container = new Composite(parent, SWT.NULL);",
+						"    return container;",
+						"  }",
+						"}");
+		// check hierarchy
+		assertHierarchy(
+				"{this: org.eclipse.ui.dialogs.PropertyPage} {this} {}",
+				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
+				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /container/}",
+				"      {implicit-layout: absolute} {implicit-layout} {}");
+		CompositeInfo parentComposite = page.getChildren(CompositeInfo.class).get(0);
+		CompositeInfo container = (CompositeInfo) parentComposite.getChildrenControls().get(0);
+		// refresh()
+		page.refresh();
+		assertNoErrors(page);
+		// check bounds
+		assertThat(page.getBounds().width).isEqualTo(600);
+		assertThat(page.getBounds().height).isEqualTo(500);
+		assertThat(parentComposite.getBounds().width).isGreaterThan(300);
+		assertThat(parentComposite.getBounds().height).isGreaterThan(30);
+		assertThat(container.getBounds().width).isGreaterThan(300);
+		assertThat(container.getBounds().height).isGreaterThan(230);
+	}
 }

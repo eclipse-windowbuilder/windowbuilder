@@ -22,49 +22,49 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
  * @coverage rcp.gef.policy
  */
 public final class ActionDropRequest extends AbstractCreateRequest {
-  public static final String TYPE = "drop JFace Action";
-  private final ActionInfo m_action;
+	public static final String TYPE = "drop JFace Action";
+	private final ActionInfo m_action;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionDropRequest(ActionInfo action) {
-    super(TYPE);
-    m_action = action;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionDropRequest(ActionInfo action) {
+		super(TYPE);
+		m_action = action;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ActionInfo} to drop.
-   */
-  public ActionInfo getAction() {
-    return m_action;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ActionInfo} to drop.
+	 */
+	public ActionInfo getAction() {
+		return m_action;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Item
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ActionContributionItemInfo m_item;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Item
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ActionContributionItemInfo m_item;
 
-  /**
-   * @return the {@link ActionContributionItemInfo} to select after drop finished.
-   */
-  public ActionContributionItemInfo getItem() {
-    return m_item;
-  }
+	/**
+	 * @return the {@link ActionContributionItemInfo} to select after drop finished.
+	 */
+	public ActionContributionItemInfo getItem() {
+		return m_item;
+	}
 
-  /**
-   * Sets the {@link ActionContributionItemInfo} to select after drop finished.
-   */
-  public void setItem(ActionContributionItemInfo item) {
-    m_item = item;
-  }
+	/**
+	 * Sets the {@link ActionContributionItemInfo} to select after drop finished.
+	 */
+	public void setItem(ActionContributionItemInfo item) {
+		m_item = item;
+	}
 }

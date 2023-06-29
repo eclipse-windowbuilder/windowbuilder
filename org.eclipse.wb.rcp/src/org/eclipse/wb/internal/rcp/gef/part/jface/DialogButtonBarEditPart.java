@@ -24,27 +24,27 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  * @coverage rcp.gef.part
  */
 public final class DialogButtonBarEditPart extends CompositeEditPart {
-  private final CompositeInfo m_composite;
+	private final CompositeInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogButtonBarEditPart(CompositeInfo composite) {
-    super(composite);
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogButtonBarEditPart(CompositeInfo composite) {
+		super(composite);
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(new DialogButtonBarLayoutEditPolicy(m_composite));
-    installEditPolicy(new TerminatorLayoutEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(new DialogButtonBarLayoutEditPolicy(m_composite));
+		installEditPolicy(new TerminatorLayoutEditPolicy());
+	}
 }

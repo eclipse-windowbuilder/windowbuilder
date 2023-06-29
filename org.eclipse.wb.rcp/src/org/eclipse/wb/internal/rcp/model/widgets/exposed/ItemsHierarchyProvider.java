@@ -25,44 +25,44 @@ import org.apache.commons.lang.ArrayUtils;
  * @coverage rcp.model.widgets
  */
 public final class ItemsHierarchyProvider extends HierarchyProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // HierarchyProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getParentObject(Object object) throws Exception {
-    if (isSuccessorOf(object, "org.eclipse.swt.widgets.TreeColumn")) {
-      return ReflectionUtils.invokeMethod(object, "getParent()");
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// HierarchyProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getParentObject(Object object) throws Exception {
+		if (isSuccessorOf(object, "org.eclipse.swt.widgets.TreeColumn")) {
+			return ReflectionUtils.invokeMethod(object, "getParent()");
+		}
+		return null;
+	}
 
-  @Override
-  public Object[] getChildrenObjects(Object object) throws Exception {
-    if (AbstractSupport.is_RCP() && isSuccessorOf(object, "org.eclipse.swt.widgets.Tree")) {
-      return getItems(object, "getColumns");
-    }
-    // no children
-    return ArrayUtils.EMPTY_OBJECT_ARRAY;
-  }
+	@Override
+	public Object[] getChildrenObjects(Object object) throws Exception {
+		if (AbstractSupport.is_RCP() && isSuccessorOf(object, "org.eclipse.swt.widgets.Tree")) {
+			return getItems(object, "getColumns");
+		}
+		// no children
+		return ArrayUtils.EMPTY_OBJECT_ARRAY;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given {@link Object} has compatible type.
-   */
-  private static boolean isSuccessorOf(Object object, String requiredClass) throws Exception {
-    return ReflectionUtils.isSuccessorOf(object.getClass(), requiredClass);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given {@link Object} has compatible type.
+	 */
+	private static boolean isSuccessorOf(Object object, String requiredClass) throws Exception {
+		return ReflectionUtils.isSuccessorOf(object.getClass(), requiredClass);
+	}
 
-  /**
-   * @return the result of "get array" method, such as {@link Table#getItems()}.
-   */
-  private static Object[] getItems(Object object, String methodName) throws Exception {
-    return (Object[]) ReflectionUtils.invokeMethod2(object, methodName);
-  }
+	/**
+	 * @return the result of "get array" method, such as {@link Table#getItems()}.
+	 */
+	private static Object[] getItems(Object object, String methodName) throws Exception {
+		return (Object[]) ReflectionUtils.invokeMethod2(object, methodName);
+	}
 }

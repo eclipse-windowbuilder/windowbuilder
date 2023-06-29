@@ -33,28 +33,28 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class LayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.layout");
-    suite.addTest(createSingleSuite(LayoutManagersTest.class));
-    suite.addTest(createSingleSuite(ImplicitLayoutTest.class));
-    suite.addTest(createSingleSuite(AbsoluteLayoutTest.class));
-    suite.addTest(createSingleSuite(AbsoluteLayoutSelectionActionsTest.class));
-    suite.addTest(createSingleSuite(AbsoluteLayoutGefTest.class));
-    //suite.addTest(createSingleSuite(ConstraintsAbsoluteLayoutTest.class));
-    suite.addTest(createSingleSuite(BorderLayoutTest.class));
-    suite.addTest(createSingleSuite(FlowLayoutTest.class));
-    suite.addTest(createSingleSuite(FlowLayoutGefTest.class));
-    suite.addTest(createSingleSuite(GridLayoutTest.class));
-    suite.addTest(createSingleSuite(BoxLayoutTest.class));
-    suite.addTest(createSingleSuite(CardLayoutTest.class));
-    suite.addTest(createSingleSuite(CardLayoutGefTest.class));
-    suite.addTest(FormLayoutTests.suite());
-    suite.addTest(MigLayoutTests.suite());
-    suite.addTest(GridBagLayoutTests.suite());
-    suite.addTest(SpringLayoutTests.suite());
-    suite.addTest(GroupLayoutTests.suite());
-    //suite.addTest(GEFLayoutTests.suite());
-    suite.addTest(createSingleSuite(LayoutGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.layout");
+		suite.addTest(createSingleSuite(LayoutManagersTest.class));
+		suite.addTest(createSingleSuite(ImplicitLayoutTest.class));
+		suite.addTest(createSingleSuite(AbsoluteLayoutTest.class));
+		suite.addTest(createSingleSuite(AbsoluteLayoutSelectionActionsTest.class));
+		suite.addTest(createSingleSuite(AbsoluteLayoutGefTest.class));
+		//suite.addTest(createSingleSuite(ConstraintsAbsoluteLayoutTest.class));
+		suite.addTest(createSingleSuite(BorderLayoutTest.class));
+		suite.addTest(createSingleSuite(FlowLayoutTest.class));
+		suite.addTest(createSingleSuite(FlowLayoutGefTest.class));
+		suite.addTest(createSingleSuite(GridLayoutTest.class));
+		suite.addTest(createSingleSuite(BoxLayoutTest.class));
+		suite.addTest(createSingleSuite(CardLayoutTest.class));
+		suite.addTest(createSingleSuite(CardLayoutGefTest.class));
+		suite.addTest(FormLayoutTests.suite());
+		suite.addTest(MigLayoutTests.suite());
+		suite.addTest(GridBagLayoutTests.suite());
+		suite.addTest(SpringLayoutTests.suite());
+		suite.addTest(GroupLayoutTests.suite());
+		//suite.addTest(GEFLayoutTests.suite());
+		suite.addTest(createSingleSuite(LayoutGefTest.class));
+		return suite;
+	}
 }

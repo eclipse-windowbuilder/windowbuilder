@@ -19,33 +19,33 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.property.converter
  */
 public final class IntegerObjectConverter extends AbstractNumberConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new IntegerObjectConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new IntegerObjectConverter();
 
-  private IntegerObjectConverter() {
-  }
+	private IntegerObjectConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) {
-    if (value == null) {
-      return "(Integer) null";
-    }
-    // has value
-    String text = ((Integer) value).toString();
-    // may be use auto-boxing
-    if (isBoxingEnabled(javaInfo)) {
-      return text;
-    }
-    // use explicit boxing
-    return "Integer.valueOf(" + text + ")";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) {
+		if (value == null) {
+			return "(Integer) null";
+		}
+		// has value
+		String text = ((Integer) value).toString();
+		// may be use auto-boxing
+		if (isBoxingEnabled(javaInfo)) {
+			return text;
+		}
+		// use explicit boxing
+		return "Integer.valueOf(" + text + ")";
+	}
 }

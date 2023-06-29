@@ -32,93 +32,93 @@ import java.util.Map;
  * @author sablin_aa
  */
 public class AbstractTextPropertyEditorTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Assertions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected static void assert_getText(String expectedText,
-      TextDisplayPropertyEditor editor,
-      Object value) throws Exception {
-    String actualText =
-        (String) callMethodWithPropertyValue(
-            "getText(org.eclipse.wb.internal.core.model.property.Property)",
-            editor,
-            value);
-    assertEquals(expectedText, actualText);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Assertions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected static void assert_getText(String expectedText,
+			TextDisplayPropertyEditor editor,
+			Object value) throws Exception {
+		String actualText =
+				(String) callMethodWithPropertyValue(
+						"getText(org.eclipse.wb.internal.core.model.property.Property)",
+						editor,
+						value);
+		assertEquals(expectedText, actualText);
+	}
 
-  protected static void assert_getEditorText(String expectedText,
-      TextDisplayPropertyEditor editor,
-      Object value) throws Exception {
-    String actualText =
-        (String) callMethodWithPropertyValue(
-            "getEditorText(org.eclipse.wb.internal.core.model.property.Property)",
-            editor,
-            value);
-    assertEquals(expectedText, actualText);
-  }
+	protected static void assert_getEditorText(String expectedText,
+			TextDisplayPropertyEditor editor,
+			Object value) throws Exception {
+		String actualText =
+				(String) callMethodWithPropertyValue(
+						"getEditorText(org.eclipse.wb.internal.core.model.property.Property)",
+						editor,
+						value);
+		assertEquals(expectedText, actualText);
+	}
 
-  protected static void assert_getClipboardSource(String expectedSource,
-      TextDisplayPropertyEditor editor,
-      Object value) throws Exception {
-    String actualSource =
-        (String) callMethodWithPropertyValue(
-            "getClipboardSource(org.eclipse.wb.internal.core.model.property.GenericProperty)",
-            editor,
-            value);
-    assertEquals(expectedSource, actualSource);
-  }
+	protected static void assert_getClipboardSource(String expectedSource,
+			TextDisplayPropertyEditor editor,
+			Object value) throws Exception {
+		String actualSource =
+				(String) callMethodWithPropertyValue(
+						"getClipboardSource(org.eclipse.wb.internal.core.model.property.GenericProperty)",
+						editor,
+						value);
+		assertEquals(expectedSource, actualSource);
+	}
 
-  private static Object callMethodWithPropertyValue(String signature,
-      TextDisplayPropertyEditor editor,
-      Object value) throws Exception {
-    // prepare for mocking
-    GenericProperty property = mock(GenericProperty.class);
-    // configure property
-    when(property.getValue()).thenReturn(value);
-    // verify
-    Object result = ReflectionUtils.invokeMethod(editor, signature, property);
-    //
-    verify(property).getValue();
-    verifyNoMoreInteractions(property);
-    return result;
-  }
+	private static Object callMethodWithPropertyValue(String signature,
+			TextDisplayPropertyEditor editor,
+			Object value) throws Exception {
+		// prepare for mocking
+		GenericProperty property = mock(GenericProperty.class);
+		// configure property
+		when(property.getValue()).thenReturn(value);
+		// verify
+		Object result = ReflectionUtils.invokeMethod(editor, signature, property);
+		//
+		verify(property).getValue();
+		verifyNoMoreInteractions(property);
+		return result;
+	}
 
-  /**
-   *
-   * Assert class array field equal for .
-   *
-   * @param editor
-   * @param fieldName
-   * @param expected
-   * @throws Exception
-   */
-  protected static void assertContainsOnly(Object editor, String fieldName, List<?> expected)
-      throws Exception {
-    assertThat((Object[]) getFieldValue(editor, fieldName)).containsOnly(expected.toArray());
-  }
+	/**
+	 *
+	 * Assert class array field equal for .
+	 *
+	 * @param editor
+	 * @param fieldName
+	 * @param expected
+	 * @throws Exception
+	 */
+	protected static void assertContainsOnly(Object editor, String fieldName, List<?> expected)
+			throws Exception {
+		assertThat((Object[]) getFieldValue(editor, fieldName)).containsOnly(expected.toArray());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize environment
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected void initTestSourceState() throws Exception {
-    parseContainer(
-        "// filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize environment
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected void initTestSourceState() throws Exception {
+		parseContainer(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"  }",
+				"}");
+	}
 
-  protected <T extends TextDisplayPropertyEditor> T createEditor(Class<T> clazz,
-      Map<String, Object> parameters) throws Exception {
-    initTestSourceState();
-    T editor = clazz.newInstance();
-    IConfigurablePropertyObject configurableEditor = (IConfigurablePropertyObject) editor;
-    configurableEditor.configure(m_lastState, parameters);
-    return editor;
-  }
+	protected <T extends TextDisplayPropertyEditor> T createEditor(Class<T> clazz,
+			Map<String, Object> parameters) throws Exception {
+		initTestSourceState();
+		T editor = clazz.newInstance();
+		IConfigurablePropertyObject configurableEditor = (IConfigurablePropertyObject) editor;
+		configurableEditor.configure(m_lastState, parameters);
+		return editor;
+	}
 }

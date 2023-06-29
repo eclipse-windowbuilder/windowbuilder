@@ -30,67 +30,67 @@ import org.eclipse.jdt.core.dom.ASTNode;
  * @coverage bindings.swing.model.widgets
  */
 public final class JavaInfoReferenceProvider implements IReferenceProvider {
-  public static boolean LAZY_DETECTED;
-  private JavaInfo m_javaInfo;
+	public static boolean LAZY_DETECTED;
+	private JavaInfo m_javaInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoReferenceProvider(JavaInfo javaInfo) {
-    m_javaInfo = javaInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoReferenceProvider(JavaInfo javaInfo) {
+		m_javaInfo = javaInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setJavaInfo(JavaInfo javaInfo) {
-    m_javaInfo = javaInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setJavaInfo(JavaInfo javaInfo) {
+		m_javaInfo = javaInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IReferenceProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getReference() throws Exception {
-    return getReference(m_javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IReferenceProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getReference() throws Exception {
+		return getReference(m_javaInfo);
+	}
 
-  public static String getReference(JavaInfo javaInfo) throws Exception {
-    VariableSupport variableSupport = javaInfo.getVariableSupport();
-    // handle lazy
-    if (LAZY_DETECTED && variableSupport instanceof LazyVariableSupport) {
-      LazyVariableSupport lazyVariableSupport = (LazyVariableSupport) variableSupport;
-      return lazyVariableSupport.getAccessorReferenceExpression();
-    }
-    // handle this
-    if (variableSupport instanceof ThisVariableSupport) {
-      return "this";
-    }
-    // handle named variable
-    if (variableSupport instanceof AbstractSimpleVariableSupport && variableSupport.hasName()) {
-      return variableSupport.getName();
-    }
-    // handle exposed
-    if (variableSupport instanceof ExposedPropertyVariableSupport
-        || variableSupport instanceof ExposedFieldVariableSupport) {
-      try {
-        for (ASTNode node : javaInfo.getRelatedNodes()) {
-          if (AstNodeUtils.isVariable(node)) {
-            return CoreUtils.getNodeReference(node);
-          }
-        }
-      } catch (Throwable e) {
-      }
-      String reference = getReference(javaInfo.getParentJava());
-      if (reference != null) {
-        return reference + "." + variableSupport.getTitle();
-      }
-    }
-    return null;
-  }
+	public static String getReference(JavaInfo javaInfo) throws Exception {
+		VariableSupport variableSupport = javaInfo.getVariableSupport();
+		// handle lazy
+		if (LAZY_DETECTED && variableSupport instanceof LazyVariableSupport) {
+			LazyVariableSupport lazyVariableSupport = (LazyVariableSupport) variableSupport;
+			return lazyVariableSupport.getAccessorReferenceExpression();
+		}
+		// handle this
+		if (variableSupport instanceof ThisVariableSupport) {
+			return "this";
+		}
+		// handle named variable
+		if (variableSupport instanceof AbstractSimpleVariableSupport && variableSupport.hasName()) {
+			return variableSupport.getName();
+		}
+		// handle exposed
+		if (variableSupport instanceof ExposedPropertyVariableSupport
+				|| variableSupport instanceof ExposedFieldVariableSupport) {
+			try {
+				for (ASTNode node : javaInfo.getRelatedNodes()) {
+					if (AstNodeUtils.isVariable(node)) {
+						return CoreUtils.getNodeReference(node);
+					}
+				}
+			} catch (Throwable e) {
+			}
+			String reference = getReference(javaInfo.getParentJava());
+			if (reference != null) {
+				return reference + "." + variableSupport.getTitle();
+			}
+		}
+		return null;
+	}
 }

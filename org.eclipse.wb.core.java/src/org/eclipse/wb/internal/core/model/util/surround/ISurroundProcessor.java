@@ -29,13 +29,13 @@ import javax.swing.JTabbedPane;
  * @coverage core.model.util
  */
 public interface ISurroundProcessor<C extends IAbstractComponentInfo, T extends IAbstractComponentInfo> {
-  /**
-   * @return the <code>true</code> if this {@link ISurroundProcessor} wants to perform move
-   *         operation.
-   */
-  boolean filter(C sourceContainer, C targetContainer) throws Exception;
-  /**
-   * Moves components from source to target container.
-   */
-  void move(C sourceContainer, C targetContainer, List<T> components) throws Exception;
+	/**
+	 * @return the <code>true</code> if this {@link ISurroundProcessor} wants to perform move
+	 *         operation.
+	 */
+	boolean filter(C sourceContainer, C targetContainer) throws Exception;
+	/**
+	 * Moves components from source to target container.
+	 */
+	void move(C sourceContainer, C targetContainer, List<T> components) throws Exception;
 }

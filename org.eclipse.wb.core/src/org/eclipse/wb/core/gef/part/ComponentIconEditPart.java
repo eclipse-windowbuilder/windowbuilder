@@ -29,59 +29,59 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.gef
  */
 public abstract class ComponentIconEditPart extends GraphicalEditPart {
-  private final Object m_component;
+	private final Object m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComponentIconEditPart(Object component) {
-    setModel(component);
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComponentIconEditPart(Object component) {
+		setModel(component);
+		m_component = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        Image image = getIcon();
-        graphics.drawImage(image, 0, 0);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				Image image = getIcon();
+				graphics.drawImage(image, 0, 0);
+			}
+		};
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    org.eclipse.swt.graphics.Rectangle iconBounds = getIcon().getBounds();
-    Rectangle bounds = getFigureBounds(iconBounds.width, iconBounds.height);
-    getFigure().setBounds(bounds);
-  }
+	@Override
+	protected void refreshVisuals() {
+		org.eclipse.swt.graphics.Rectangle iconBounds = getIcon().getBounds();
+		Rectangle bounds = getFigureBounds(iconBounds.width, iconBounds.height);
+		getFigure().setBounds(bounds);
+	}
 
-  private Image getIcon() {
-    IComponentDescription description =
-        GlobalState.getDescriptionHelper().getDescription(m_component);
-    return description.getIcon();
-  }
+	private Image getIcon() {
+		IComponentDescription description =
+				GlobalState.getDescriptionHelper().getDescription(m_component);
+		return description.getIcon();
+	}
 
-  /**
-   * @return the bounds of {@link Figure} based on size of icon.
-   */
-  protected abstract Rectangle getFigureBounds(int width, int height);
+	/**
+	 * @return the bounds of {@link Figure} based on size of icon.
+	 */
+	protected abstract Rectangle getFigureBounds(int width, int height);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+	}
 }

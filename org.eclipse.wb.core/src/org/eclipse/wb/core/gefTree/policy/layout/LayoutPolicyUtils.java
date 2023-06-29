@@ -23,36 +23,36 @@ import java.util.List;
  * @coverage core.gefTree.policy
  */
 public class LayoutPolicyUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LayoutPolicyUtils() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LayoutPolicyUtils() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LayoutEditPolicy creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link LayoutEditPolicy} for given model.
-   */
-  public static LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    List<ILayoutEditPolicyFactory> factories =
-        ExternalFactoriesHelper.getElementsInstances(
-            ILayoutEditPolicyFactory.class,
-            "org.eclipse.wb.core.treeEditPolicyFactories",
-            "factory");
-    // try to create policy
-    for (ILayoutEditPolicyFactory factory : factories) {
-      LayoutEditPolicy layoutEditPolicy = factory.createLayoutEditPolicy(context, model);
-      if (layoutEditPolicy != null) {
-        return layoutEditPolicy;
-      }
-    }
-    // not found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LayoutEditPolicy creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link LayoutEditPolicy} for given model.
+	 */
+	public static LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		List<ILayoutEditPolicyFactory> factories =
+				ExternalFactoriesHelper.getElementsInstances(
+						ILayoutEditPolicyFactory.class,
+						"org.eclipse.wb.core.treeEditPolicyFactories",
+						"factory");
+		// try to create policy
+		for (ILayoutEditPolicyFactory factory : factories) {
+			LayoutEditPolicy layoutEditPolicy = factory.createLayoutEditPolicy(context, model);
+			if (layoutEditPolicy != null) {
+				return layoutEditPolicy;
+			}
+		}
+		// not found
+		return null;
+	}
 }

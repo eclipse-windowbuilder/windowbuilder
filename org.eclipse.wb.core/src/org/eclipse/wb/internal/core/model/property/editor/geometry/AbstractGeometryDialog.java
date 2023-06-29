@@ -36,110 +36,110 @@ import java.lang.reflect.Field;
  * @coverage swing.property.editor
  */
 public abstract class AbstractGeometryDialog extends Dialog {
-  private final String m_title;
-  private final Object m_object;
+	private final String m_title;
+	private final Object m_object;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractGeometryDialog(String title, Object object) {
-    super(DesignerPlugin.getShell());
-    m_title = title;
-    m_object = object;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractGeometryDialog(String title, Object object) {
+		super(DesignerPlugin.getShell());
+		m_title = title;
+		m_object = object;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Composite m_area;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Composite m_area;
 
-  @Override
-  protected final Control createDialogArea(Composite parent) {
-    m_area = new Composite(parent, SWT.NONE);
-    GridDataFactory.create(m_area).grab().fill();
-    GridLayoutFactory.create(m_area).margins(10).columns(3);
-    //
-    createEditors();
-    return m_area;
-  }
+	@Override
+	protected final Control createDialogArea(Composite parent) {
+		m_area = new Composite(parent, SWT.NONE);
+		GridDataFactory.create(m_area).grab().fill();
+		GridLayoutFactory.create(m_area).margins(10).columns(3);
+		//
+		createEditors();
+		return m_area;
+	}
 
-  /**
-   * Creates editors using {@link #createEditor(String, String)}.
-   */
-  protected abstract void createEditors();
+	/**
+	 * Creates editors using {@link #createEditor(String, String)}.
+	 */
+	protected abstract void createEditors();
 
-  @Override
-  protected final void createButtonsForButtonBar(Composite parent) {
-    createButton(
-        parent,
-        IDialogConstants.IGNORE_ID,
-        ModelMessages.AbstractGeometryDialog_defaultButton,
-        false);
-    super.createButtonsForButtonBar(parent);
-  }
+	@Override
+	protected final void createButtonsForButtonBar(Composite parent) {
+		createButton(
+				parent,
+				IDialogConstants.IGNORE_ID,
+				ModelMessages.AbstractGeometryDialog_defaultButton,
+				false);
+		super.createButtonsForButtonBar(parent);
+	}
 
-  @Override
-  protected final void buttonPressed(int buttonId) {
-    if (buttonId == IDialogConstants.IGNORE_ID) {
-      setReturnCode(buttonId);
-      close();
-    }
-    super.buttonPressed(buttonId);
-  }
+	@Override
+	protected final void buttonPressed(int buttonId) {
+		if (buttonId == IDialogConstants.IGNORE_ID) {
+			setReturnCode(buttonId);
+			close();
+		}
+		super.buttonPressed(buttonId);
+	}
 
-  @Override
-  protected final void configureShell(Shell newShell) {
-    super.configureShell(newShell);
-    newShell.setText(m_title);
-  }
+	@Override
+	protected final void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText(m_title);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final void createEditor(String title, String fieldName) {
-    // title
-    {
-      Label titleLabel = new Label(m_area, SWT.NONE);
-      GridDataFactory.create(titleLabel).hintHC(15);
-      titleLabel.setText(title);
-    }
-    // spinner
-    {
-      final CSpinner spinner = new CSpinner(m_area, SWT.BORDER);
-      GridDataFactory.create(spinner).hintHC(8).grabH().fillH();
-      spinner.setMinimum(0);
-      spinner.setMaximum(Integer.MAX_VALUE);
-      // bind control to field
-      try {
-        final Field field = ReflectionUtils.getFieldByName(m_object.getClass(), fieldName);
-        // copy value from Object to control
-        {
-          int value = field.getInt(m_object);
-          spinner.setSelection(value);
-        }
-        // add listeners
-        spinner.addListener(SWT.Selection, new Listener() {
-          @Override
-          public void handleEvent(Event event) {
-            try {
-              field.setInt(m_object, spinner.getSelection());
-            } catch (Throwable e) {
-            }
-          }
-        });
-      } catch (Throwable e) {
-      }
-    }
-    // pixels
-    {
-      Label pixelsLabel = new Label(m_area, SWT.NONE);
-      pixelsLabel.setText(ModelMessages.AbstractGeometryDialog_pixelsLabel);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final void createEditor(String title, String fieldName) {
+		// title
+		{
+			Label titleLabel = new Label(m_area, SWT.NONE);
+			GridDataFactory.create(titleLabel).hintHC(15);
+			titleLabel.setText(title);
+		}
+		// spinner
+		{
+			final CSpinner spinner = new CSpinner(m_area, SWT.BORDER);
+			GridDataFactory.create(spinner).hintHC(8).grabH().fillH();
+			spinner.setMinimum(0);
+			spinner.setMaximum(Integer.MAX_VALUE);
+			// bind control to field
+			try {
+				final Field field = ReflectionUtils.getFieldByName(m_object.getClass(), fieldName);
+				// copy value from Object to control
+				{
+					int value = field.getInt(m_object);
+					spinner.setSelection(value);
+				}
+				// add listeners
+				spinner.addListener(SWT.Selection, new Listener() {
+					@Override
+					public void handleEvent(Event event) {
+						try {
+							field.setInt(m_object, spinner.getSelection());
+						} catch (Throwable e) {
+						}
+					}
+				});
+			} catch (Throwable e) {
+			}
+		}
+		// pixels
+		{
+			Label pixelsLabel = new Label(m_area, SWT.NONE);
+			pixelsLabel.setText(ModelMessages.AbstractGeometryDialog_pixelsLabel);
+		}
+	}
 }

@@ -25,15 +25,15 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage swt.gef.policy
  */
 public final class DefaultLayoutEditPolicy extends LayoutEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Decoration
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void decorateChild(EditPart child) {
-    if (child.getModel() instanceof ControlInfo) {
-      child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Decoration
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void decorateChild(EditPart child) {
+		if (child.getModel() instanceof ControlInfo) {
+			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+		}
+	}
 }

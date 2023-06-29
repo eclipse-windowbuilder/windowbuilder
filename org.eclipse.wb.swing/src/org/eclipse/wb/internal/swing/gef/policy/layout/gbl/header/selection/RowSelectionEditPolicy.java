@@ -33,49 +33,49 @@ import java.text.MessageFormat;
  * @coverage swing.gef.policy
  */
 public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<RowInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
-    super(mainPolicy);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
+		super(mainPolicy);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Handle createResizeHandle() {
-    Handle handle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 7, false);
-    handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.SOUTH, REQ_RESIZE));
-    return handle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Handle createResizeHandle() {
+		Handle handle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 7, false);
+		handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.SOUTH, REQ_RESIZE));
+		return handle;
+	}
 
-  @Override
-  protected Point getTextFeedbackLocation(Point mouseLocation) {
-    return new Point(10, mouseLocation.y + 10);
-  }
+	@Override
+	protected Point getTextFeedbackLocation(Point mouseLocation) {
+		return new Point(10, mouseLocation.y + 10);
+	}
 
-  @Override
-  protected String getFeedbackText(ChangeBoundsRequest request) {
-    int pixels = getDimensionSize(getLayout().getGridInfo().getRowIntervals());
-    int pixelsDelta = request.getSizeDelta().height;
-    final int newPixels = pixels + pixelsDelta;
-    // prepare command
-    m_resizeCommand = new EditCommand(getLayout()) {
-      @Override
-      protected void executeEdit() throws Exception {
-        getDimension().setSize(newPixels);
-      }
-    };
-    // return text
-    String deltaText = pixelsDelta > 0 ? "+" + pixelsDelta : "" + pixelsDelta;
-    return MessageFormat.format(
-        GefMessages.RowSelectionEditPolicy_feedbackPattern,
-        newPixels,
-        deltaText);
-  }
+	@Override
+	protected String getFeedbackText(ChangeBoundsRequest request) {
+		int pixels = getDimensionSize(getLayout().getGridInfo().getRowIntervals());
+		int pixelsDelta = request.getSizeDelta().height;
+		final int newPixels = pixels + pixelsDelta;
+		// prepare command
+		m_resizeCommand = new EditCommand(getLayout()) {
+			@Override
+			protected void executeEdit() throws Exception {
+				getDimension().setSize(newPixels);
+			}
+		};
+		// return text
+		String deltaText = pixelsDelta > 0 ? "+" + pixelsDelta : "" + pixelsDelta;
+		return MessageFormat.format(
+				GefMessages.RowSelectionEditPolicy_feedbackPattern,
+				newPixels,
+				deltaText);
+	}
 }

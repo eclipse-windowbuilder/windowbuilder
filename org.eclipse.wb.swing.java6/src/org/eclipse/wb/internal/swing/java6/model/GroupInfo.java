@@ -21,13 +21,13 @@ import java.util.List;
  * @coverage swing.model.layout.group
  */
 public abstract class GroupInfo extends SpringInfo {
-  protected List<SpringInfo> m_children = Lists.newArrayList();
+	protected List<SpringInfo> m_children = Lists.newArrayList();
 
-  /**
-   * Adds a child spring.
-   */
-  public void add(SpringInfo child) {
-    m_children.add(child);
-    child.setParent(this);
-  }
+	/**
+	 * Adds a child spring.
+	 */
+	public void add(SpringInfo child) {
+		m_children.add(child);
+		child.setParent(this);
+	}
 }

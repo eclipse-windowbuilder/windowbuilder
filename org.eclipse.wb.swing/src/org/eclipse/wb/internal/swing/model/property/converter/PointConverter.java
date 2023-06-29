@@ -22,28 +22,28 @@ import java.awt.Point;
  * @coverage swing.property.converter
  */
 public final class PointConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new PointConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new PointConverter();
 
-  private PointConverter() {
-  }
+	private PointConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    if (value == null) {
-      return "(java.awt.Point) null";
-    } else {
-      Point point = (Point) value;
-      return "new java.awt.Point(" + point.x + ", " + point.y + ")";
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		if (value == null) {
+			return "(java.awt.Point) null";
+		} else {
+			Point point = (Point) value;
+			return "new java.awt.Point(" + point.x + ", " + point.y + ")";
+		}
+	}
 }

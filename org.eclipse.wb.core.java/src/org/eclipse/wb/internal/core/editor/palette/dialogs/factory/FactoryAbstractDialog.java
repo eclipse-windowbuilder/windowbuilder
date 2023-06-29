@@ -50,191 +50,191 @@ import java.util.Map;
  * @coverage core.editor.palette.ui
  */
 public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog {
-  private final AstEditor m_editor;
-  protected final boolean m_forStatic;
+	private final AstEditor m_editor;
+	protected final boolean m_forStatic;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FactoryAbstractDialog(Shell parentShell,
-      AstEditor editor,
-      boolean forStatic,
-      String shellText,
-      String titleText) {
-    super(parentShell, shellText, titleText, null, Messages.FactoryAbstractDialog_message);
-    m_editor = editor;
-    m_forStatic = forStatic;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FactoryAbstractDialog(Shell parentShell,
+			AstEditor editor,
+			boolean forStatic,
+			String shellText,
+			String titleText) {
+		super(parentShell, shellText, titleText, null, Messages.FactoryAbstractDialog_message);
+		m_editor = editor;
+		m_forStatic = forStatic;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected StringDialogField m_nameField;
-  protected StringButtonDialogField m_factoryClassField;
-  protected StringButtonDialogField m_methodSignatureField;
-  protected StringAreaDialogField m_descriptionField;
-  protected BooleanDialogField m_visibleField;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected StringDialogField m_nameField;
+	protected StringButtonDialogField m_factoryClassField;
+	protected StringButtonDialogField m_methodSignatureField;
+	protected StringAreaDialogField m_descriptionField;
+	protected BooleanDialogField m_visibleField;
 
-  @Override
-  protected void createControls(Composite container) {
-    m_fieldsContainer = container;
-    GridLayoutFactory.create(container).columns(3);
-    // name
-    {
-      m_nameField = new StringDialogField();
-      doCreateField(m_nameField, Messages.FactoryAbstractDialog_nameLabel);
-    }
-    // factory class
-    {
-      m_factoryClassField = new StringButtonDialogField(new IStringButtonAdapter() {
-        @Override
-        public void changeControlPressed(DialogField field) {
-          try {
-            String factoryClassName =
-                JdtUiUtils.selectTypeName(getShell(), m_editor.getJavaProject());
-            if (factoryClassName != null) {
-              m_factoryClassField.setText(factoryClassName);
-            }
-          } catch (Throwable e) {
-            DesignerPlugin.log(e);
-          }
-        }
-      });
-      m_factoryClassField.setButtonLabel(Messages.FactoryAbstractDialog_classChoose);
-      doCreateField(m_factoryClassField, Messages.FactoryAbstractDialog_classLabel);
-      m_factoryClassField.getTextControl(null).setEditable(false);
-    }
-    // method signature
-    {
-      m_methodSignatureField = new StringButtonDialogField(new IStringButtonAdapter() {
-        @Override
-        public void changeControlPressed(DialogField field) {
-          try {
-            ElementListSelectionDialog dialog =
-                new ElementListSelectionDialog(getShell(), new LabelProvider() {
-                  @Override
-                  public Image getImage(Object element) {
-                    return JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PUBLIC);
-                  }
+	@Override
+	protected void createControls(Composite container) {
+		m_fieldsContainer = container;
+		GridLayoutFactory.create(container).columns(3);
+		// name
+		{
+			m_nameField = new StringDialogField();
+			doCreateField(m_nameField, Messages.FactoryAbstractDialog_nameLabel);
+		}
+		// factory class
+		{
+			m_factoryClassField = new StringButtonDialogField(new IStringButtonAdapter() {
+				@Override
+				public void changeControlPressed(DialogField field) {
+					try {
+						String factoryClassName =
+								JdtUiUtils.selectTypeName(getShell(), m_editor.getJavaProject());
+						if (factoryClassName != null) {
+							m_factoryClassField.setText(factoryClassName);
+						}
+					} catch (Throwable e) {
+						DesignerPlugin.log(e);
+					}
+				}
+			});
+			m_factoryClassField.setButtonLabel(Messages.FactoryAbstractDialog_classChoose);
+			doCreateField(m_factoryClassField, Messages.FactoryAbstractDialog_classLabel);
+			m_factoryClassField.getTextControl(null).setEditable(false);
+		}
+		// method signature
+		{
+			m_methodSignatureField = new StringButtonDialogField(new IStringButtonAdapter() {
+				@Override
+				public void changeControlPressed(DialogField field) {
+					try {
+						ElementListSelectionDialog dialog =
+								new ElementListSelectionDialog(getShell(), new LabelProvider() {
+									@Override
+									public Image getImage(Object element) {
+										return JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PUBLIC);
+									}
 
-                  @Override
-                  public String getText(Object element) {
-                    return super.getText(element);
-                  }
-                });
-            dialog.setTitle(Messages.FactoryAbstractDialog_methodDialogTitle);
-            dialog.setMessage(Messages.FactoryAbstractDialog_methodDialogMessage);
-            // set signatures
-            dialog.setElements(m_signaturesMap.keySet().toArray());
-            // open dialog
-            if (dialog.open() == Window.OK) {
-              String signature = (String) dialog.getFirstResult();
-              m_methodSignatureField.setText(signature);
-              // update presentation
-              m_nameField.setText(signature);
-              m_descriptionField.setText("");
-            }
-          } catch (Throwable e) {
-            DesignerPlugin.log(e);
-          }
-        }
-      });
-      m_methodSignatureField.setButtonLabel(Messages.FactoryAbstractDialog_methodChoose);
-      doCreateField(m_methodSignatureField, Messages.FactoryAbstractDialog_methodLabel);
-      m_methodSignatureField.getTextControl(null).setEditable(false);
-    }
-    // description
-    {
-      m_descriptionField = new StringAreaDialogField(5);
-      doCreateField(m_descriptionField, Messages.FactoryAbstractDialog_descriptionLabel);
-      GridDataFactory.modify(m_descriptionField.getTextControl(null)).grabV();
-    }
-    // state
-    {
-      m_visibleField = new BooleanDialogField();
-      doCreateField(m_visibleField, Messages.FactoryAbstractDialog_visibleFlag);
-    }
-  }
+									@Override
+									public String getText(Object element) {
+										return super.getText(element);
+									}
+								});
+						dialog.setTitle(Messages.FactoryAbstractDialog_methodDialogTitle);
+						dialog.setMessage(Messages.FactoryAbstractDialog_methodDialogMessage);
+						// set signatures
+						dialog.setElements(m_signaturesMap.keySet().toArray());
+						// open dialog
+						if (dialog.open() == Window.OK) {
+							String signature = (String) dialog.getFirstResult();
+							m_methodSignatureField.setText(signature);
+							// update presentation
+							m_nameField.setText(signature);
+							m_descriptionField.setText("");
+						}
+					} catch (Throwable e) {
+						DesignerPlugin.log(e);
+					}
+				}
+			});
+			m_methodSignatureField.setButtonLabel(Messages.FactoryAbstractDialog_methodChoose);
+			doCreateField(m_methodSignatureField, Messages.FactoryAbstractDialog_methodLabel);
+			m_methodSignatureField.getTextControl(null).setEditable(false);
+		}
+		// description
+		{
+			m_descriptionField = new StringAreaDialogField(5);
+			doCreateField(m_descriptionField, Messages.FactoryAbstractDialog_descriptionLabel);
+			GridDataFactory.modify(m_descriptionField.getTextControl(null)).grabV();
+		}
+		// state
+		{
+			m_visibleField = new BooleanDialogField();
+			doCreateField(m_visibleField, Messages.FactoryAbstractDialog_visibleFlag);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Map<String, FactoryMethodDescription> m_signaturesMap;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Map<String, FactoryMethodDescription> m_signaturesMap;
 
-  @Override
-  protected final String validate() {
-    // validate class
-    {
-      String factoryClassName = m_factoryClassField.getText().trim();
-      if (factoryClassName.length() == 0) {
-        return Messages.FactoryAbstractDialog_validateEmptyClass;
-      }
-      // check for existence
-      try {
-        EditorState state = EditorState.get(m_editor);
-        Class<?> factoryClass = state.getEditorLoader().loadClass(factoryClassName);
-        m_signaturesMap =
-            FactoryDescriptionHelper.getDescriptionsMap(m_editor, factoryClass, m_forStatic);
-      } catch (Throwable e) {
-        return e.getClass().getName() + ": " + e.getMessage();
-      }
-      // validate signatures
-      if (m_signaturesMap.isEmpty()) {
-        return MessageFormat.format(
-            Messages.FactoryAbstractDialog_validateNoMethods,
-            factoryClassName);
-      }
-    }
-    // validate signature
-    {
-      String signature = m_methodSignatureField.getText();
-      if (signature.length() == 0) {
-        return Messages.FactoryAbstractDialog_validateEmptyMethod;
-      }
-    }
-    // validate name
-    {
-      String name = m_nameField.getText().trim();
-      if (name.length() == 0) {
-        return Messages.FactoryAbstractDialog_validateEmptyName;
-      }
-    }
-    // OK
-    return null;
-  }
+	@Override
+	protected final String validate() {
+		// validate class
+		{
+			String factoryClassName = m_factoryClassField.getText().trim();
+			if (factoryClassName.length() == 0) {
+				return Messages.FactoryAbstractDialog_validateEmptyClass;
+			}
+			// check for existence
+			try {
+				EditorState state = EditorState.get(m_editor);
+				Class<?> factoryClass = state.getEditorLoader().loadClass(factoryClassName);
+				m_signaturesMap =
+						FactoryDescriptionHelper.getDescriptionsMap(m_editor, factoryClass, m_forStatic);
+			} catch (Throwable e) {
+				return e.getClass().getName() + ": " + e.getMessage();
+			}
+			// validate signatures
+			if (m_signaturesMap.isEmpty()) {
+				return MessageFormat.format(
+						Messages.FactoryAbstractDialog_validateNoMethods,
+						factoryClassName);
+			}
+		}
+		// validate signature
+		{
+			String signature = m_methodSignatureField.getText();
+			if (signature.length() == 0) {
+				return Messages.FactoryAbstractDialog_validateEmptyMethod;
+			}
+		}
+		// validate name
+		{
+			String name = m_nameField.getText().trim();
+			if (name.length() == 0) {
+				return Messages.FactoryAbstractDialog_validateEmptyName;
+			}
+		}
+		// OK
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Composite m_fieldsContainer;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Composite m_fieldsContainer;
 
-  /**
-   * Configures given {@link DialogField} for specific of this dialog.
-   */
-  protected final void doCreateField(DialogField dialogField, String labelText) {
-    dialogField.setLabelText(labelText);
-    dialogField.setDialogFieldListener(m_validateListener);
-    DialogFieldUtils.fillControls(m_fieldsContainer, dialogField, 3, 60);
-  }
+	/**
+	 * Configures given {@link DialogField} for specific of this dialog.
+	 */
+	protected final void doCreateField(DialogField dialogField, String labelText) {
+		dialogField.setLabelText(labelText);
+		dialogField.setDialogFieldListener(m_validateListener);
+		DialogFieldUtils.fillControls(m_fieldsContainer, dialogField, 3, 60);
+	}
 
-  /**
-   * @return the description text to use in command, may be <code>null</code> if entered text is
-   *         default, so description from metadata should be used.
-   */
-  protected final String getDescriptionText() {
-    String text = m_descriptionField.getText();
-    boolean isEmpty = StringUtils.isEmpty(text);
-    if (isEmpty) {
-      text = null;
-    }
-    return text;
-  }
+	/**
+	 * @return the description text to use in command, may be <code>null</code> if entered text is
+	 *         default, so description from metadata should be used.
+	 */
+	protected final String getDescriptionText() {
+		String text = m_descriptionField.getText();
+		boolean isEmpty = StringUtils.isEmpty(text);
+		if (isEmpty) {
+			text = null;
+		}
+		return text;
+	}
 }

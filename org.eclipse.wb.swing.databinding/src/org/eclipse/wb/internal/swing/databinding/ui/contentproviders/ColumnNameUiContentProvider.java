@@ -23,40 +23,40 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.ColumnBindingInf
  * @coverage bindings.swing.ui
  */
 public class ColumnNameUiContentProvider extends DialogFieldUiContentProvider {
-  private final ColumnBindingInfo m_binding;
-  private final StringDialogField m_dialogField;
+	private final ColumnBindingInfo m_binding;
+	private final StringDialogField m_dialogField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnNameUiContentProvider(ColumnBindingInfo binding) {
-    m_binding = binding;
-    m_dialogField = new StringDialogField();
-    m_dialogField.setLabelText(Messages.ColumnNameUiContentProvider_label);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnNameUiContentProvider(ColumnBindingInfo binding) {
+		m_binding = binding;
+		m_dialogField = new StringDialogField();
+		m_dialogField.setLabelText(Messages.ColumnNameUiContentProvider_label);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DialogFieldUIContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public DialogField getDialogField() {
-    return m_dialogField;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DialogFieldUIContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DialogField getDialogField() {
+		return m_dialogField;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    m_dialogField.setText(m_binding.getColumnName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		m_dialogField.setText(m_binding.getColumnName());
+	}
 
-  public void saveToObject() throws Exception {
-    m_binding.setColumnName(m_dialogField.getText());
-  }
+	public void saveToObject() throws Exception {
+		m_binding.setColumnName(m_dialogField.getText());
+	}
 }

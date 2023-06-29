@@ -23,25 +23,25 @@ import java.util.List;
  *
  */
 public class EmfObservableDetailListCodeSupport extends BeanObservableDetailCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // BeanObservableDetailCodeSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addDetailSourceCode(List<String> lines,
-      CodeGenerationSupport generationSupport,
-      DetailBeanObservableInfo observable,
-      ObservableInfo masterObservable) throws Exception {
-    DetailEmfObservableInfo emfObservable = (DetailEmfObservableInfo) observable;
-    //
-    lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
-        + observable.getVariableIdentifier()
-        + emfObservable.getPropertiesSupport().getEMFObservablesCode(
-            "observeDetailList(org.eclipse.core.databinding.observable.Realm.getDefault(), ")
-        + masterObservable.getVariableIdentifier()
-        + ", "
-        + emfObservable.getDetailPropertyReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// BeanObservableDetailCodeSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addDetailSourceCode(List<String> lines,
+			CodeGenerationSupport generationSupport,
+			DetailBeanObservableInfo observable,
+			ObservableInfo masterObservable) throws Exception {
+		DetailEmfObservableInfo emfObservable = (DetailEmfObservableInfo) observable;
+		//
+		lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
+				+ observable.getVariableIdentifier()
+				+ emfObservable.getPropertiesSupport().getEMFObservablesCode(
+						"observeDetailList(org.eclipse.core.databinding.observable.Realm.getDefault(), ")
+				+ masterObservable.getVariableIdentifier()
+				+ ", "
+				+ emfObservable.getDetailPropertyReference()
+				+ ");");
+	}
 }

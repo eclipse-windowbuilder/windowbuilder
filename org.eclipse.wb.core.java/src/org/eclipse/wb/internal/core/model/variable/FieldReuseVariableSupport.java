@@ -29,144 +29,144 @@ import java.util.List;
  * @coverage core.model.variable
  */
 public final class FieldReuseVariableSupport extends FieldVariableSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FieldReuseVariableSupport(JavaInfo javaInfo, Expression variable) {
-    super(javaInfo, variable);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FieldReuseVariableSupport(JavaInfo javaInfo, Expression variable) {
+		super(javaInfo, variable);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "field-reused: " + getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "field-reused: " + getName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Name
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setName(String newName) throws Exception {
-    splitUniqueField();
-    m_javaInfo.getVariableSupport().setName(newName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Name
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setName(String newName) throws Exception {
+		splitUniqueField();
+		m_javaInfo.getVariableSupport().setName(newName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    assertJavaInfoCreatedAt(target);
-    if (isVisibleAtTarget(target)) {
-      return getName();
-    } else {
-      splitUniqueField();
-      return m_javaInfo.getVariableSupport().getReferenceExpression(target);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		assertJavaInfoCreatedAt(target);
+		if (isVisibleAtTarget(target)) {
+			return getName();
+		} else {
+			splitUniqueField();
+			return m_javaInfo.getVariableSupport().getReferenceExpression(target);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Conversion
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canConvertFieldToLocal() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Conversion
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canConvertFieldToLocal() {
+		return false;
+	}
 
-  @Override
-  public void convertFieldToLocal() throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public void convertFieldToLocal() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Preferences
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean prefixThis() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Preferences
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean prefixThis() {
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Morphing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setType(String newTypeName) throws Exception {
-    splitUniqueField();
-    ((FieldUniqueVariableSupport) m_javaInfo.getVariableSupport()).setType(newTypeName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Morphing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setType(String newTypeName) throws Exception {
+		splitUniqueField();
+		((FieldUniqueVariableSupport) m_javaInfo.getVariableSupport()).setType(newTypeName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Split
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates unique field for this component.
-   */
-  private void splitUniqueField() throws Exception {
-    // add new field and use its name
-    {
-      AstEditor editor = m_javaInfo.getEditor();
-      VariableDeclaration oldDeclaration = m_declaration;
-      FieldDeclaration oldField = (FieldDeclaration) oldDeclaration.getParent();
-      String oldFieldName = getName();
-      String newFieldName = editor.getUniqueVariableName(-1, oldFieldName, null);
-      // prepare modifiers
-      String modifiers;
-      {
-        modifiers = "private ";
-        if (AstNodeUtils.isStatic(oldField)) {
-          modifiers += "static ";
-        }
-      }
-      // check when field has assignment of our component
-      if (oldDeclaration.getName() == m_variable) {
-        // use temporary name for all references
-        modifyName("__tmpField");
-        // add new field with oldFieldName
-        {
-          String fieldSource =
-              modifiers + editor.getSource(oldField.getType()) + " " + oldFieldName + ";";
-          editor.addFieldDeclaration(fieldSource, new BodyDeclarationTarget(oldField, true));
-        }
-        // change references: this component -> newFieldName, other -> oldFieldName
-        {
-          // prepare list of references for this JavaInfo (not just on same variable)
-          // NB: we need this list because during replacing references it will become temporary invalid
-          List<Expression> componentReferences = getComponentReferences();
-          // replace references
-          for (Expression reference : getReferences()) {
-            if (componentReferences.contains(reference)) {
-              modifyVariableName(reference, newFieldName);
-            } else {
-              modifyVariableName(reference, oldFieldName);
-            }
-          }
-        }
-      } else {
-        String fieldSource =
-            modifiers + editor.getSource(oldField.getType()) + " " + newFieldName + ";";
-        editor.addFieldDeclaration(fieldSource, new BodyDeclarationTarget(oldField, false));
-        replaceComponentReferences(newFieldName);
-      }
-    }
-    // use field variable support
-    m_javaInfo.setVariableSupport(new FieldUniqueVariableSupport(m_javaInfo, m_variable));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Split
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates unique field for this component.
+	 */
+	private void splitUniqueField() throws Exception {
+		// add new field and use its name
+		{
+			AstEditor editor = m_javaInfo.getEditor();
+			VariableDeclaration oldDeclaration = m_declaration;
+			FieldDeclaration oldField = (FieldDeclaration) oldDeclaration.getParent();
+			String oldFieldName = getName();
+			String newFieldName = editor.getUniqueVariableName(-1, oldFieldName, null);
+			// prepare modifiers
+			String modifiers;
+			{
+				modifiers = "private ";
+				if (AstNodeUtils.isStatic(oldField)) {
+					modifiers += "static ";
+				}
+			}
+			// check when field has assignment of our component
+			if (oldDeclaration.getName() == m_variable) {
+				// use temporary name for all references
+				modifyName("__tmpField");
+				// add new field with oldFieldName
+				{
+					String fieldSource =
+							modifiers + editor.getSource(oldField.getType()) + " " + oldFieldName + ";";
+					editor.addFieldDeclaration(fieldSource, new BodyDeclarationTarget(oldField, true));
+				}
+				// change references: this component -> newFieldName, other -> oldFieldName
+				{
+					// prepare list of references for this JavaInfo (not just on same variable)
+					// NB: we need this list because during replacing references it will become temporary invalid
+					List<Expression> componentReferences = getComponentReferences();
+					// replace references
+					for (Expression reference : getReferences()) {
+						if (componentReferences.contains(reference)) {
+							modifyVariableName(reference, newFieldName);
+						} else {
+							modifyVariableName(reference, oldFieldName);
+						}
+					}
+				}
+			} else {
+				String fieldSource =
+						modifiers + editor.getSource(oldField.getType()) + " " + newFieldName + ";";
+				editor.addFieldDeclaration(fieldSource, new BodyDeclarationTarget(oldField, false));
+				replaceComponentReferences(newFieldName);
+			}
+		}
+		// use field variable support
+		m_javaInfo.setVariableSupport(new FieldUniqueVariableSupport(m_javaInfo, m_variable));
+	}
 }

@@ -20,29 +20,29 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
  * @coverage bindings.ui.properties
  */
 public abstract class AbstractProperty extends Property {
-  protected final Context m_context;
+	protected final Context m_context;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractProperty(PropertyEditor editor, Context context) {
-    super(editor);
-    m_context = context;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractProperty(PropertyEditor editor, Context context) {
+		super(editor);
+		m_context = context;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Object getValue() throws Exception {
-    return UNKNOWN_VALUE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Object getValue() throws Exception {
+		return UNKNOWN_VALUE;
+	}
 
-  @Override
-  public void setValue(Object value) throws Exception {
-  }
+	@Override
+	public void setValue(Object value) throws Exception {
+	}
 }

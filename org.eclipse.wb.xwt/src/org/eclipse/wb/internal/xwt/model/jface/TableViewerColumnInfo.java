@@ -23,14 +23,14 @@ import org.eclipse.jface.viewers.TableViewerColumn;
  * @coverage XWT.model.jface
  */
 public class TableViewerColumnInfo extends ViewerColumnInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TableViewerColumnInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TableViewerColumnInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 }

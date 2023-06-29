@@ -17,73 +17,73 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
  * @coverage bindings.ui
  */
 public class TabContainerConfiguration {
-  private boolean m_useAddButton;
-  private boolean m_useMultiAddButton;
-  private boolean m_useRemoveButton;
-  private boolean m_useUpDownButtons;
+	private boolean m_useAddButton;
+	private boolean m_useMultiAddButton;
+	private boolean m_useRemoveButton;
+	private boolean m_useUpDownButtons;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Buttons
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isUseAddButton() {
-    return m_useAddButton;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Buttons
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isUseAddButton() {
+		return m_useAddButton;
+	}
 
-  public void setUseAddButton(boolean value) {
-    m_useAddButton = value;
-  }
+	public void setUseAddButton(boolean value) {
+		m_useAddButton = value;
+	}
 
-  public boolean isUseMultiAddButton() {
-    return m_useMultiAddButton;
-  }
+	public boolean isUseMultiAddButton() {
+		return m_useMultiAddButton;
+	}
 
-  public void setUseMultiAddButton(boolean value) {
-    m_useMultiAddButton = value;
-  }
+	public void setUseMultiAddButton(boolean value) {
+		m_useMultiAddButton = value;
+	}
 
-  public boolean isUseRemoveButton() {
-    return m_useRemoveButton;
-  }
+	public boolean isUseRemoveButton() {
+		return m_useRemoveButton;
+	}
 
-  public void setUseRemoveButton(boolean value) {
-    m_useRemoveButton = value;
-  }
+	public void setUseRemoveButton(boolean value) {
+		m_useRemoveButton = value;
+	}
 
-  public boolean isUseUpDownButtons() {
-    return m_useUpDownButtons;
-  }
+	public boolean isUseUpDownButtons() {
+		return m_useUpDownButtons;
+	}
 
-  public void setUseUpDownButtons(boolean value) {
-    m_useUpDownButtons = value;
-  }
+	public void setUseUpDownButtons(boolean value) {
+		m_useUpDownButtons = value;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EmptyPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean m_createEmptyPage;
-  private String m_emptyPageTitle;
-  private String m_emptyPageMessage;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EmptyPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean m_createEmptyPage;
+	private String m_emptyPageTitle;
+	private String m_emptyPageMessage;
 
-  //
-  public boolean isCreateEmptyPage() {
-    return m_createEmptyPage;
-  }
+	//
+	public boolean isCreateEmptyPage() {
+		return m_createEmptyPage;
+	}
 
-  public String getEmptyPageTitle() {
-    return m_emptyPageTitle;
-  }
+	public String getEmptyPageTitle() {
+		return m_emptyPageTitle;
+	}
 
-  public String getEmptyPageMessage() {
-    return m_emptyPageMessage;
-  }
+	public String getEmptyPageMessage() {
+		return m_emptyPageMessage;
+	}
 
-  public void setCreateEmptyPage(String title, String message) {
-    m_createEmptyPage = true;
-    m_emptyPageTitle = title;
-    m_emptyPageMessage = message;
-  }
+	public void setCreateEmptyPage(String title, String message) {
+		m_createEmptyPage = true;
+		m_emptyPageTitle = title;
+		m_emptyPageMessage = message;
+	}
 }

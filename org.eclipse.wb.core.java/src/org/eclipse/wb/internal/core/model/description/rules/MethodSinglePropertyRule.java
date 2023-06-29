@@ -28,35 +28,35 @@ import java.lang.reflect.Method;
  * @coverage core.model.description
  */
 public final class MethodSinglePropertyRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    Class<?> componentClass = componentDescription.getComponentClass();
-    // prepare method attributes
-    String propertyTitle = getRequiredAttribute(name, attributes, "title");
-    String methodSignature = getRequiredAttribute(name, attributes, "method");
-    // prepare method
-    Method method = ReflectionUtils.getMethodBySignature(componentClass, methodSignature);
-    Assert.isTrue(
-        method.getParameterTypes().length == 1,
-        "Method with single parameter expected: %s",
-        method);
-    // add property
-    GenericPropertyDescription property = StandardBeanPropertiesRule.addSingleProperty(
-        componentDescription,
-        propertyTitle,
-        method,
-        null);
-    getDigester().push(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		Class<?> componentClass = componentDescription.getComponentClass();
+		// prepare method attributes
+		String propertyTitle = getRequiredAttribute(name, attributes, "title");
+		String methodSignature = getRequiredAttribute(name, attributes, "method");
+		// prepare method
+		Method method = ReflectionUtils.getMethodBySignature(componentClass, methodSignature);
+		Assert.isTrue(
+				method.getParameterTypes().length == 1,
+				"Method with single parameter expected: %s",
+				method);
+		// add property
+		GenericPropertyDescription property = StandardBeanPropertiesRule.addSingleProperty(
+				componentDescription,
+				propertyTitle,
+				method,
+				null);
+		getDigester().push(property);
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    getDigester().pop();
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		getDigester().pop();
+	}
 }

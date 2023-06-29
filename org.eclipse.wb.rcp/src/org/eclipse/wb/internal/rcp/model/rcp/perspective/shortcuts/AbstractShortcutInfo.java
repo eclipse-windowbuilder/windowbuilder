@@ -45,116 +45,116 @@ import org.eclipse.ui.IPageLayout;
  * @coverage rcp.model.rcp
  */
 public abstract class AbstractShortcutInfo extends AbstractComponentInfo implements IRenderableInfo {
-  private final AbstractShortcutContainerInfo m_container;
+	private final AbstractShortcutContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractShortcutInfo(PageLayoutInfo page,
-      AbstractShortcutContainerInfo container,
-      MethodInvocation invocation) throws Exception {
-    super(page.getEditor(), new ComponentDescription(null), new PageLayoutAddCreationSupport(page,
-        invocation));
-    m_container = container;
-    ObjectInfoUtils.setNewId(this);
-    getDescription().setToolkit(page.getDescription().getToolkit());
-    setAssociation(new InvocationVoidAssociation());
-    setVariableSupport(new EmptyPureVariableSupport(this));
-    container.addChild(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractShortcutInfo(PageLayoutInfo page,
+			AbstractShortcutContainerInfo container,
+			MethodInvocation invocation) throws Exception {
+		super(page.getEditor(), new ComponentDescription(null), new PageLayoutAddCreationSupport(page,
+				invocation));
+		m_container = container;
+		ObjectInfoUtils.setNewId(this);
+		getDescription().setToolkit(page.getDescription().getToolkit());
+		setAssociation(new InvocationVoidAssociation());
+		setVariableSupport(new EmptyPureVariableSupport(this));
+		container.addChild(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the <code>ID</code> of this {@link AbstractPartInfo}.
-   */
-  public final String getId() {
-    return (String) getInvocationArgument(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the <code>ID</code> of this {@link AbstractPartInfo}.
+	 */
+	public final String getId() {
+		return (String) getInvocationArgument(0);
+	}
 
-  /**
-   * @return the underlying {@link MethodInvocation}.
-   */
-  private MethodInvocation getInvocation() {
-    return (MethodInvocation) getCreationSupport().getNode();
-  }
+	/**
+	 * @return the underlying {@link MethodInvocation}.
+	 */
+	private MethodInvocation getInvocation() {
+		return (MethodInvocation) getCreationSupport().getNode();
+	}
 
-  /**
-   * @return the value of argument of underlying {@link MethodInvocation}.
-   */
-  private Object getInvocationArgument(int index) {
-    MethodInvocation invocation = getInvocation();
-    Expression argument = DomGenerics.arguments(invocation).get(index);
-    return JavaInfoEvaluationHelper.getValue(argument);
-  }
+	/**
+	 * @return the value of argument of underlying {@link MethodInvocation}.
+	 */
+	private Object getInvocationArgument(int index) {
+		MethodInvocation invocation = getInvocation();
+		Expression argument = DomGenerics.arguments(invocation).get(index);
+		return JavaInfoEvaluationHelper.getValue(argument);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public Image getIcon() throws Exception {
-      return getPresentationIcon();
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public Image getIcon() throws Exception {
+			return getPresentationIcon();
+		}
 
-    @Override
-    public String getText() throws Exception {
-      return getPresentationText();
-    }
-  };
+		@Override
+		public String getText() throws Exception {
+			return getPresentationText();
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  /**
-   * @return the icon to show in component tree.
-   */
-  protected abstract Image getPresentationIcon() throws Exception;
+	/**
+	 * @return the icon to show in component tree.
+	 */
+	protected abstract Image getPresentationIcon() throws Exception;
 
-  /**
-   * @return the text to show in component tree.
-   */
-  protected abstract String getPresentationText() throws Exception;
+	/**
+	 * @return the text to show in component tree.
+	 */
+	protected abstract String getPresentationText() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ToolItem m_item;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ToolItem m_item;
 
-  @Override
-  public Object render() throws Exception {
-    ToolBar toolBar = m_container.getToolBar();
-    m_item = new ToolItem(toolBar, SWT.NONE);
-    m_item.setImage(getPresentationIcon());
-    m_item.setToolTipText(getPresentationText());
-    return m_item;
-  }
+	@Override
+	public Object render() throws Exception {
+		ToolBar toolBar = m_container.getToolBar();
+		m_item = new ToolItem(toolBar, SWT.NONE);
+		m_item.setImage(getPresentationIcon());
+		m_item.setToolTipText(getPresentationText());
+		return m_item;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    {
-      Composite composite = m_container.getComposite();
-      Rectangle toolBarBounds = CoordinateUtils.getBounds(composite, m_container.getToolBar());
-      Rectangle itemBounds = RectangleSupport.getRectangle(m_item.getBounds());
-      itemBounds.performTranslate(toolBarBounds.x, toolBarBounds.y);
-      setModelBounds(itemBounds);
-    }
-    super.refresh_fetch();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		{
+			Composite composite = m_container.getComposite();
+			Rectangle toolBarBounds = CoordinateUtils.getBounds(composite, m_container.getToolBar());
+			Rectangle itemBounds = RectangleSupport.getRectangle(m_item.getBounds());
+			itemBounds.performTranslate(toolBarBounds.x, toolBarBounds.y);
+			setModelBounds(itemBounds);
+		}
+		super.refresh_fetch();
+	}
 }

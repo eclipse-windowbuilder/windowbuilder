@@ -28,46 +28,46 @@ import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
  * @coverage core.gef
  */
 public final class EditPartFactory2 implements IEditPartFactory {
-  public static final EditPartFactory2 INSTANCE = new EditPartFactory2();
+	public static final EditPartFactory2 INSTANCE = new EditPartFactory2();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private EditPartFactory2() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private EditPartFactory2() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart createEditPart(EditPart context, Object model) {
-    if (model == null) {
-      return null;
-    }
-    // designer root
-    if (model instanceof DesignRootObject) {
-      DesignRootObject designRootObject = (DesignRootObject) model;
-      return new DesignRootEditPart(designRootObject);
-    }
-    // child array
-    if (model instanceof AbstractArrayObjectInfo) {
-      AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
-      ArrayObjectEditPart editPart = new ArrayObjectEditPart(arrayInfo);
-      EditPartFactory.configureEditPart(context, editPart);
-      return editPart;
-    }
-    // IWrapperInfo
-    if (model instanceof IWrapperInfo) {
-      IWrapper wrapper = ((IWrapperInfo) model).getWrapper();
-      AbstractWrapperEditPart editPart = new AbstractWrapperEditPart(wrapper);
-      EditPartFactory.configureEditPart(context, editPart);
-      return editPart;
-    }
-    // no EditPart found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart createEditPart(EditPart context, Object model) {
+		if (model == null) {
+			return null;
+		}
+		// designer root
+		if (model instanceof DesignRootObject) {
+			DesignRootObject designRootObject = (DesignRootObject) model;
+			return new DesignRootEditPart(designRootObject);
+		}
+		// child array
+		if (model instanceof AbstractArrayObjectInfo) {
+			AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
+			ArrayObjectEditPart editPart = new ArrayObjectEditPart(arrayInfo);
+			EditPartFactory.configureEditPart(context, editPart);
+			return editPart;
+		}
+		// IWrapperInfo
+		if (model instanceof IWrapperInfo) {
+			IWrapper wrapper = ((IWrapperInfo) model).getWrapper();
+			AbstractWrapperEditPart editPart = new AbstractWrapperEditPart(wrapper);
+			EditPartFactory.configureEditPart(context, editPart);
+			return editPart;
+		}
+		// no EditPart found
+		return null;
+	}
 }

@@ -27,89 +27,89 @@ import java.util.List;
  * @coverage core.gef
  */
 public final class EditPartFactory implements IEditPartFactory {
-  public static final EditPartFactory INSTANCE = new EditPartFactory();
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private EditPartFactory() {
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart createEditPart(EditPart context, Object model) {
-    if (model == null) {
-      return null;
-    }
-    // designer root
-    // TODO(scheglov)
-//    if (model instanceof DesignRootObject) {
-//      DesignRootObject designRootObject = (DesignRootObject) model;
-//      return new DesignRootEditPart(designRootObject);
-//    }
-    // menu
-    if (model instanceof MenuReference) {
-      MenuReference reference = (MenuReference) model;
-      MenuEditPart editPart = new MenuEditPart(reference, reference.getMenu());
-      configureEditPart(context, editPart);
-      return editPart;
-    }
-    // child array
-    // TODO(scheglov)
-//    if (model instanceof AbstractArrayObjectInfo) {
-//      AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
-//      ArrayObjectEditPart editPart = new ArrayObjectEditPart(arrayInfo);
-//      configureEditPart(context, editPart);
-//      return editPart;
-//    }
-    // check each external factory
-    for (IEditPartFactory factory : getFactories()) {
-      EditPart editPart = factory.createEditPart(context, model);
-      if (editPart != null) {
-        configureEditPart(context, editPart);
-        return editPart;
-      }
-    }
-    // IWrapperInfo
-    // TODO(scheglov)
-//    if (model instanceof IWrapperInfo) {
-//      IWrapper wrapper = ((IWrapperInfo) model).getWrapper();
-//      AbstractWrapperEditPart editPart = new AbstractWrapperEditPart(wrapper);
-//      configureEditPart(context, editPart);
-//      return editPart;
-//    }
-    // no EditPart found
-    return null;
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Extensions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the instances of {@link IEditPartFactory}.
-   */
-  private static List<IEditPartFactory> getFactories() {
-    return ExternalFactoriesHelper.getElementsInstances(
-        IEditPartFactory.class,
-        "org.eclipse.wb.core.editPartFactories",
-        "factory");
-  }
-  /**
-   * Configures given {@link EditPart} using externally contributed {@link IEditPartConfigurator}'s.
-   */
-  public static void configureEditPart(EditPart context, EditPart editPart) {
-    List<IEditPartConfigurator> configurators =
-        ExternalFactoriesHelper.getElementsInstances(
-            IEditPartConfigurator.class,
-            "org.eclipse.wb.core.editPartConfigurators",
-            "configurator");
-    for (IEditPartConfigurator configurator : configurators) {
-      configurator.configure(context, editPart);
-    }
-  }
+	public static final EditPartFactory INSTANCE = new EditPartFactory();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private EditPartFactory() {
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart createEditPart(EditPart context, Object model) {
+		if (model == null) {
+			return null;
+		}
+		// designer root
+		// TODO(scheglov)
+		//    if (model instanceof DesignRootObject) {
+		//      DesignRootObject designRootObject = (DesignRootObject) model;
+		//      return new DesignRootEditPart(designRootObject);
+		//    }
+		// menu
+		if (model instanceof MenuReference) {
+			MenuReference reference = (MenuReference) model;
+			MenuEditPart editPart = new MenuEditPart(reference, reference.getMenu());
+			configureEditPart(context, editPart);
+			return editPart;
+		}
+		// child array
+		// TODO(scheglov)
+		//    if (model instanceof AbstractArrayObjectInfo) {
+		//      AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
+		//      ArrayObjectEditPart editPart = new ArrayObjectEditPart(arrayInfo);
+		//      configureEditPart(context, editPart);
+		//      return editPart;
+		//    }
+		// check each external factory
+		for (IEditPartFactory factory : getFactories()) {
+			EditPart editPart = factory.createEditPart(context, model);
+			if (editPart != null) {
+				configureEditPart(context, editPart);
+				return editPart;
+			}
+		}
+		// IWrapperInfo
+		// TODO(scheglov)
+		//    if (model instanceof IWrapperInfo) {
+		//      IWrapper wrapper = ((IWrapperInfo) model).getWrapper();
+		//      AbstractWrapperEditPart editPart = new AbstractWrapperEditPart(wrapper);
+		//      configureEditPart(context, editPart);
+		//      return editPart;
+		//    }
+		// no EditPart found
+		return null;
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Extensions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the instances of {@link IEditPartFactory}.
+	 */
+	private static List<IEditPartFactory> getFactories() {
+		return ExternalFactoriesHelper.getElementsInstances(
+				IEditPartFactory.class,
+				"org.eclipse.wb.core.editPartFactories",
+				"factory");
+	}
+	/**
+	 * Configures given {@link EditPart} using externally contributed {@link IEditPartConfigurator}'s.
+	 */
+	public static void configureEditPart(EditPart context, EditPart editPart) {
+		List<IEditPartConfigurator> configurators =
+				ExternalFactoriesHelper.getElementsInstances(
+						IEditPartConfigurator.class,
+						"org.eclipse.wb.core.editPartConfigurators",
+						"configurator");
+		for (IEditPartConfigurator configurator : configurators) {
+			configurator.configure(context, editPart);
+		}
+	}
 }

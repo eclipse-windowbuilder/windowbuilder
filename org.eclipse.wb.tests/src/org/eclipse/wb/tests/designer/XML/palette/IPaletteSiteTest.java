@@ -18,17 +18,17 @@ import org.eclipse.wb.internal.core.xml.editor.palette.model.IPaletteSite;
  * @author scheglov_ke
  */
 public class IPaletteSiteTest extends AbstractPaletteTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_Empty() throws Exception {
-    IPaletteSite site = new IPaletteSite.Empty();
-    assertSame(null, site.getPalette());
-    assertSame(null, site.getShell());
-    // no-op
-    site.editPalette();
-    site.addCommand(null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_Empty() throws Exception {
+		IPaletteSite site = new IPaletteSite.Empty();
+		assertSame(null, site.getPalette());
+		assertSame(null, site.getShell());
+		// no-op
+		site.editPalette();
+		site.addCommand(null);
+	}
 }

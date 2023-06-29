@@ -21,34 +21,34 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
  * @coverage swing.model
  */
 public abstract class ContainerClipboardCommand<T> extends ClipboardCommand {
-  private static final long serialVersionUID = 0L;
-  private final JavaInfoMemento m_memento;
+	private static final long serialVersionUID = 0L;
+	private final JavaInfoMemento m_memento;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ContainerClipboardCommand(ComponentInfo component) throws Exception {
-    m_memento = JavaInfoMemento.createMemento(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ContainerClipboardCommand(ComponentInfo component) throws Exception {
+		m_memento = JavaInfoMemento.createMemento(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execute
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  @SuppressWarnings("unchecked")
-  public final void execute(JavaInfo javaInfo) throws Exception {
-    T container = (T) javaInfo;
-    ComponentInfo component = (ComponentInfo) m_memento.create(javaInfo);
-    add(container, component);
-    m_memento.apply();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execute
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	@SuppressWarnings("unchecked")
+	public final void execute(JavaInfo javaInfo) throws Exception {
+		T container = (T) javaInfo;
+		ComponentInfo component = (ComponentInfo) m_memento.create(javaInfo);
+		add(container, component);
+		m_memento.apply();
+	}
 
-  /**
-   * Adds given {@link ComponentInfo} to {@link ContainerInfo} using container specific way.
-   */
-  protected abstract void add(T container, ComponentInfo component) throws Exception;
+	/**
+	 * Adds given {@link ComponentInfo} to {@link ContainerInfo} using container specific way.
+	 */
+	protected abstract void add(T container, ComponentInfo component) throws Exception;
 }

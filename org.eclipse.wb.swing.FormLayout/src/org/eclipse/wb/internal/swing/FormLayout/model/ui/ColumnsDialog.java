@@ -32,73 +32,73 @@ import java.util.List;
  * @coverage swing.FormLayout.ui
  */
 public final class ColumnsDialog extends DimensionsDialog<FormColumnInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnsDialog(Shell parentShell, FormLayoutInfo layout) {
-    super(parentShell, layout, createColumnsCopy(layout), layout.getMinimumSize().width);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnsDialog(Shell parentShell, FormLayoutInfo layout) {
+		super(parentShell, layout, createColumnsCopy(layout), layout.getMinimumSize().width);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Copy/update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the deep copy of {@link List} with {@link FormColumnInfo}'s.
-   */
-  private static List<FormColumnInfo> createColumnsCopy(final FormLayoutInfo layout) {
-    final List<FormColumnInfo> columns = Lists.newArrayList();
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        for (FormColumnInfo column : layout.getColumns()) {
-          columns.add(column.copy());
-        }
-      }
-    });
-    return columns;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Copy/update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the deep copy of {@link List} with {@link FormColumnInfo}'s.
+	 */
+	private static List<FormColumnInfo> createColumnsCopy(final FormLayoutInfo layout) {
+		final List<FormColumnInfo> columns = Lists.newArrayList();
+		ExecutionUtils.runRethrow(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				for (FormColumnInfo column : layout.getColumns()) {
+					columns.add(column.copy());
+				}
+			}
+		});
+		return columns;
+	}
 
-  @Override
-  protected void updateLayoutInfo(List<FormColumnInfo> dimensions) throws Exception {
-    m_layout.setColumns(dimensions);
-  }
+	@Override
+	protected void updateLayoutInfo(List<FormColumnInfo> dimensions) throws Exception {
+		m_layout.setColumns(dimensions);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DimensionsDialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getDialogTitle() {
-    return ModelMessages.ColumnsDialog_dialogTitle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DimensionsDialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getDialogTitle() {
+		return ModelMessages.ColumnsDialog_dialogTitle;
+	}
 
-  @Override
-  protected String getDialogMessage() {
-    return ModelMessages.ColumnsDialog_dialogMessage;
-  }
+	@Override
+	protected String getDialogMessage() {
+		return ModelMessages.ColumnsDialog_dialogMessage;
+	}
 
-  @Override
-  protected String getViewerTitle() {
-    return ModelMessages.ColumnsDialog_viewerTitle;
-  }
+	@Override
+	protected String getViewerTitle() {
+		return ModelMessages.ColumnsDialog_viewerTitle;
+	}
 
-  @Override
-  protected String getMinimalErrorMessage(int minimumDimensions) {
-    return MessageFormat.format(ModelMessages.ColumnsDialog_minimalErrorMessage, minimumDimensions);
-  }
+	@Override
+	protected String getMinimalErrorMessage(int minimumDimensions) {
+		return MessageFormat.format(ModelMessages.ColumnsDialog_minimalErrorMessage, minimumDimensions);
+	}
 
-  @Override
-  protected boolean editSelectedDimension(List<FormColumnInfo> dimensions, FormColumnInfo column) {
-    return new ColumnEditDialog(getShell(), dimensions, column).open() == OK;
-  }
+	@Override
+	protected boolean editSelectedDimension(List<FormColumnInfo> dimensions, FormColumnInfo column) {
+		return new ColumnEditDialog(getShell(), dimensions, column).open() == OK;
+	}
 
-  @Override
-  protected FormColumnInfo createNewDimension() throws Exception {
-    return new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
-  }
+	@Override
+	protected FormColumnInfo createNewDimension() throws Exception {
+		return new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
+	}
 }

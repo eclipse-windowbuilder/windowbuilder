@@ -20,17 +20,17 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model
  */
 public abstract class XmlObjectMove {
-  /**
-   * Before {@link XmlObjectInfo} moved.
-   */
-  public void before(XmlObjectInfo child, ObjectInfo oldParent, ObjectInfo newParent)
-      throws Exception {
-  }
+	/**
+	 * Before {@link XmlObjectInfo} moved.
+	 */
+	public void before(XmlObjectInfo child, ObjectInfo oldParent, ObjectInfo newParent)
+			throws Exception {
+	}
 
-  /**
-   * After {@link XmlObjectInfo} moved.
-   */
-  public void after(XmlObjectInfo child, ObjectInfo oldParent, ObjectInfo newParent)
-      throws Exception {
-  }
+	/**
+	 * After {@link XmlObjectInfo} moved.
+	 */
+	public void after(XmlObjectInfo child, ObjectInfo oldParent, ObjectInfo newParent)
+			throws Exception {
+	}
 }

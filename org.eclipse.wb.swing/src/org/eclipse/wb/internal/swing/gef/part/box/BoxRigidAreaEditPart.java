@@ -29,41 +29,41 @@ import javax.swing.Box;
  * @coverage swing.gef.part
  */
 public final class BoxRigidAreaEditPart extends BoxEditPart {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BoxRigidAreaEditPart(ComponentInfo component) {
-    super(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BoxRigidAreaEditPart(ComponentInfo component) {
+		super(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new StrutSelectionRigidEditPolicy(m_component));
-    installEditPolicy(new StrutDirectRigidEditPolicy(m_component));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new StrutSelectionRigidEditPolicy(m_component));
+		installEditPolicy(new StrutDirectRigidEditPolicy(m_component));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        Rectangle r = getClientArea();
-        BoxStrutHorizontalEditPart.draw(graphics, r);
-        BoxStrutVerticalEditPart.draw(graphics, r);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				Rectangle r = getClientArea();
+				BoxStrutHorizontalEditPart.draw(graphics, r);
+				BoxStrutVerticalEditPart.draw(graphics, r);
+			}
+		};
+	}
 }

@@ -27,88 +27,88 @@ import org.eclipse.swt.widgets.Button;
  * @coverage core.model.property.editor
  */
 public abstract class ButtonPropertyEditorPresentation extends PropertyEditorPresentation {
-  private final int m_style;
-  private final ButtonPropertyEditorPresentationImpl m_impl;
+	private final int m_style;
+	private final ButtonPropertyEditorPresentationImpl m_impl;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ButtonPropertyEditorPresentation() {
-    this(SWT.NONE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ButtonPropertyEditorPresentation() {
+		this(SWT.NONE);
+	}
 
-  public ButtonPropertyEditorPresentation(int style) {
-    m_style = style;
-    m_impl =
-        EnvironmentUtils.IS_MAC
-            ? new ButtonPropertyEditorPresentationImplMac(this)
-            : new ButtonPropertyEditorPresentationImpl(this);
-  }
+	public ButtonPropertyEditorPresentation(int style) {
+		m_style = style;
+		m_impl =
+				EnvironmentUtils.IS_MAC
+				? new ButtonPropertyEditorPresentationImplMac(this)
+						: new ButtonPropertyEditorPresentationImpl(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets "selection" property of {@link Button}.
-   */
-  public final void setSelection(PropertyTable propertyTable, Property property, boolean selected) {
-    m_impl.setSelection(propertyTable, property, selected);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets "selection" property of {@link Button}.
+	 */
+	public final void setSelection(PropertyTable propertyTable, Property property, boolean selected) {
+		m_impl.setSelection(propertyTable, property, selected);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyEditorPresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final int show(final PropertyTable propertyTable,
-      final Property property,
-      final int x,
-      final int y,
-      final int width,
-      final int height) {
-    return m_impl.show(propertyTable, property, x, y, width, height);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyEditorPresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final int show(final PropertyTable propertyTable,
+			final Property property,
+			final int x,
+			final int y,
+			final int width,
+			final int height) {
+		return m_impl.show(propertyTable, property, x, y, width, height);
+	}
 
-  @Override
-  public final void hide(PropertyTable propertyTable, Property property) {
-    m_impl.hide(propertyTable, property);
-  }
+	@Override
+	public final void hide(PropertyTable propertyTable, Property property) {
+		m_impl.hide(propertyTable, property);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  final int getStyle() {
-    return m_style;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	final int getStyle() {
+		return m_style;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Image} to display on {@link Button}.
-   */
-  protected Image getImage() {
-    return DesignerPlugin.getImage("properties/dots.gif");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Image} to display on {@link Button}.
+	 */
+	protected Image getImage() {
+		return DesignerPlugin.getImage("properties/dots.gif");
+	}
 
-  /**
-   * @return the tooltip text to display for {@link Button}.
-   */
-  protected String getTooltip() {
-    return null;
-  }
+	/**
+	 * @return the tooltip text to display for {@link Button}.
+	 */
+	protected String getTooltip() {
+		return null;
+	}
 
-  /**
-   * Handles click on {@link Button}.
-   */
-  protected abstract void onClick(PropertyTable propertyTable, Property property) throws Exception;
+	/**
+	 * Handles click on {@link Button}.
+	 */
+	protected abstract void onClick(PropertyTable propertyTable, Property property) throws Exception;
 }

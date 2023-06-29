@@ -26,29 +26,29 @@ import org.eclipse.swt.widgets.TabItem;
  * @coverage rcp.model.widgets
  */
 public final class TabItemInfo extends AbstractTabItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TabItemInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TabItemInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    // set bounds
-    {
-      Rectangle bounds = new Rectangle(OSSupport.get().getTabItemBounds(getObject()));
-      setModelBounds(bounds);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		// set bounds
+		{
+			Rectangle bounds = new Rectangle(OSSupport.get().getTabItemBounds(getObject()));
+			setModelBounds(bounds);
+		}
+	}
 }

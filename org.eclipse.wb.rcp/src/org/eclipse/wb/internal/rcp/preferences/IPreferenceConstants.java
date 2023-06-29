@@ -20,22 +20,22 @@ import org.eclipse.swt.widgets.Control;
  * @coverage rcp.preferences
  */
 public interface IPreferenceConstants {
-  String TOOLKIT_ID = "org.eclipse.wb.rcp";
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Forms API
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  String FORMS_PAINT_BORDERS = TOOLKIT_ID + ".forms: paint borders for";
-  String FORMS_ADAPT_CONTROL = TOOLKIT_ID + ".forms: adapt new controls";
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PreferencePage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Specifies that {@link FieldEditor}s should use same code generation settings as {@link Control}
-   * s.
-   */
-  String PREF_FIELD_USUAL_CODE = TOOLKIT_ID + ".preferencePage: use usual code generation style";
+	String TOOLKIT_ID = "org.eclipse.wb.rcp";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Forms API
+	//
+	////////////////////////////////////////////////////////////////////////////
+	String FORMS_PAINT_BORDERS = TOOLKIT_ID + ".forms: paint borders for";
+	String FORMS_ADAPT_CONTROL = TOOLKIT_ID + ".forms: adapt new controls";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PreferencePage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Specifies that {@link FieldEditor}s should use same code generation settings as {@link Control}
+	 * s.
+	 */
+	String PREF_FIELD_USUAL_CODE = TOOLKIT_ID + ".preferencePage: use usual code generation style";
 }

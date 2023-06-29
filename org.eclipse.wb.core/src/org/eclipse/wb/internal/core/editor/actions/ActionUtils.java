@@ -24,25 +24,25 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
  * @coverage core.editor.action
  */
 public class ActionUtils {
-  /**
-   * Copies text, image, accelerator, etc from {@link ActionFactory} to target {@link IAction}.
-   */
-  public static void copyPresentation(IAction target, ActionFactory actionFactory) {
-    IWorkbenchAction action = actionFactory.create(DesignerPlugin.getActiveWorkbenchWindow());
-    try {
-      target.setText(action.getText());
-      target.setToolTipText(action.getToolTipText());
-      target.setDescription(action.getDescription());
-      //
-      target.setImageDescriptor(action.getImageDescriptor());
-      target.setDisabledImageDescriptor(action.getDisabledImageDescriptor());
-      target.setHoverImageDescriptor(action.getHoverImageDescriptor());
-      //
-      target.setId(action.getId());
-      target.setActionDefinitionId(action.getActionDefinitionId());
-      target.setAccelerator(action.getAccelerator());
-    } finally {
-      action.dispose();
-    }
-  }
+	/**
+	 * Copies text, image, accelerator, etc from {@link ActionFactory} to target {@link IAction}.
+	 */
+	public static void copyPresentation(IAction target, ActionFactory actionFactory) {
+		IWorkbenchAction action = actionFactory.create(DesignerPlugin.getActiveWorkbenchWindow());
+		try {
+			target.setText(action.getText());
+			target.setToolTipText(action.getToolTipText());
+			target.setDescription(action.getDescription());
+			//
+			target.setImageDescriptor(action.getImageDescriptor());
+			target.setDisabledImageDescriptor(action.getDisabledImageDescriptor());
+			target.setHoverImageDescriptor(action.getHoverImageDescriptor());
+			//
+			target.setId(action.getId());
+			target.setActionDefinitionId(action.getActionDefinitionId());
+			target.setAccelerator(action.getAccelerator());
+		} finally {
+			action.dispose();
+		}
+	}
 }

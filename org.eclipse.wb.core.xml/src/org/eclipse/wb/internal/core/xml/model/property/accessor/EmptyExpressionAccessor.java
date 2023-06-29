@@ -20,29 +20,29 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.property
  */
 public class EmptyExpressionAccessor extends ExpressionAccessor {
-  public static final ExpressionAccessor INSTANCE = new EmptyExpressionAccessor();
+	public static final ExpressionAccessor INSTANCE = new EmptyExpressionAccessor();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EmptyExpressionAccessor() {
-    super("no-attribute");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EmptyExpressionAccessor() {
+		super("no-attribute");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue(XmlObjectInfo object) throws Exception {
-    return Property.UNKNOWN_VALUE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue(XmlObjectInfo object) throws Exception {
+		return Property.UNKNOWN_VALUE;
+	}
 
-  @Override
-  public Object getDefaultValue(XmlObjectInfo object) throws Exception {
-    return Property.UNKNOWN_VALUE;
-  }
+	@Override
+	public Object getDefaultValue(XmlObjectInfo object) throws Exception {
+		return Property.UNKNOWN_VALUE;
+	}
 }

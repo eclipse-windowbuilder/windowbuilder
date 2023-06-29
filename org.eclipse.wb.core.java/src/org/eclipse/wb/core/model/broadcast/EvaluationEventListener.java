@@ -24,31 +24,31 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
  * @coverage core.model
  */
 public abstract class EvaluationEventListener {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Visiting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * When parser {@link ASTVisitor} leaves given {@link ASTNode} frame.
-   */
-  public void leaveFrame(ASTNode node) throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Visiting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * When parser {@link ASTVisitor} leaves given {@link ASTNode} frame.
+	 */
+	public void leaveFrame(ASTNode node) throws Exception {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Evaluation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Given {@link ASTNode} is going to be evaluated.
-   */
-  public void evaluateBefore(EvaluationContext context, ASTNode node) throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Evaluation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Given {@link ASTNode} is going to be evaluated.
+	 */
+	public void evaluateBefore(EvaluationContext context, ASTNode node) throws Exception {
+	}
 
-  /**
-   * Given {@link ASTNode} was just evaluated, so underlying toolkit objects may be changed.
-   */
-  public void evaluateAfter(EvaluationContext context, ASTNode node) throws Exception {
-  }
+	/**
+	 * Given {@link ASTNode} was just evaluated, so underlying toolkit objects may be changed.
+	 */
+	public void evaluateAfter(EvaluationContext context, ASTNode node) throws Exception {
+	}
 }

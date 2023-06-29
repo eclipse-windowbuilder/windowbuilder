@@ -19,5 +19,5 @@ import org.eclipse.wb.internal.core.editor.DesignComposite;
  * @coverage core.views
  */
 public interface IDesignCompositeProvider {
-  DesignComposite getDesignComposite();
+	DesignComposite getDesignComposite();
 }

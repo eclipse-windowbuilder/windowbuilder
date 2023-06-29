@@ -21,27 +21,27 @@ import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvid
  * @coverage bindings.rcp.model.widgets
  */
 public final class JavaInfoObservePresentation
-    extends
-      org.eclipse.wb.internal.core.databinding.model.presentation.JavaInfoObservePresentation {
-  private final IReferenceProvider m_referenceProvider;
+extends
+org.eclipse.wb.internal.core.databinding.model.presentation.JavaInfoObservePresentation {
+	private final IReferenceProvider m_referenceProvider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoObservePresentation(JavaInfo javaInfo, IReferenceProvider referenceProvider) {
-    super(javaInfo);
-    m_referenceProvider = referenceProvider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoObservePresentation(JavaInfo javaInfo, IReferenceProvider referenceProvider) {
+		super(javaInfo);
+		m_referenceProvider = referenceProvider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObservePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTextForBinding() throws Exception {
-    return m_referenceProvider.getReference();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObservePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTextForBinding() throws Exception {
+		return m_referenceProvider.getReference();
+	}
 }

@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.utils.execution;
  * @coverage core.util
  */
 public interface RunnableEx {
-  /**
-   * Executes operation that can cause {@link Exception}.
-   */
-  void run() throws Exception;
+	/**
+	 * Executes operation that can cause {@link Exception}.
+	 */
+	void run() throws Exception;
 }

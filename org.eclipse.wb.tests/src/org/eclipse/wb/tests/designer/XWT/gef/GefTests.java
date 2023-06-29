@@ -21,10 +21,10 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class GefTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.gef");
-    suite.addTest(createSingleSuite(XwtPairResourceProviderTest.class));
-    suite.addTest(createSingleSuite(XwtJavaParseValidatorTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.gef");
+		suite.addTest(createSingleSuite(XwtPairResourceProviderTest.class));
+		suite.addTest(createSingleSuite(XwtJavaParseValidatorTest.class));
+		return suite;
+	}
 }

@@ -24,131 +24,131 @@ import org.apache.commons.lang.ArrayUtils;
  * @author scheglov_ke
  */
 public class StringsAddPropertyTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    createMyPanel();
-    setFileContentSrc(
-        "test/MyPanel.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <methods>",
-            "      <method name='addItem'>",
-            "        <parameter type='java.lang.String'/>",
-            "      </method>",
-            "  </methods>",
-            "  <add-property id='stringsAdd' title='items'>",
-            "    <parameter name='addMethod'>addItem</parameter>",
-            "  </add-property>",
-            "</component>"));
-    waitForAutoBuild();
-    // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    addItem('aaa');",
-            "    addItem('bbb');",
-            "  }",
-            "}");
-    panel.refresh();
-    // prepare "items" property
-    Property itemsProperty = panel.getPropertyByTitle("items");
-    assertNotNull(itemsProperty);
-    // initial state
-    {
-      assertEquals("[aaa,bbb]", getPropertyText(itemsProperty));
-      assertTrue(itemsProperty.isModified());
-      assertTrue(ArrayUtils.isEquals(new String[]{"aaa", "bbb"}, itemsProperty.getValue()));
-    }
-    // set new items
-    {
-      itemsProperty.setValue(new String[]{"000", "111", "222"});
-      assertEditor(
-          "public class Test extends MyPanel {",
-          "  public Test() {",
-          "    addItem('000');",
-          "    addItem('111');",
-          "    addItem('222');",
-          "  }",
-          "}");
-      assertEquals("[000,111,222]", getPropertyText(itemsProperty));
-      assertTrue(itemsProperty.isModified());
-      assertTrue(ArrayUtils.isEquals(new String[]{"000", "111", "222"}, itemsProperty.getValue()));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		createMyPanel();
+		setFileContentSrc(
+				"test/MyPanel.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <methods>",
+						"      <method name='addItem'>",
+						"        <parameter type='java.lang.String'/>",
+						"      </method>",
+						"  </methods>",
+						"  <add-property id='stringsAdd' title='items'>",
+						"    <parameter name='addMethod'>addItem</parameter>",
+						"  </add-property>",
+						"</component>"));
+		waitForAutoBuild();
+		// parse
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends MyPanel {",
+						"  public Test() {",
+						"    addItem('aaa');",
+						"    addItem('bbb');",
+						"  }",
+						"}");
+		panel.refresh();
+		// prepare "items" property
+		Property itemsProperty = panel.getPropertyByTitle("items");
+		assertNotNull(itemsProperty);
+		// initial state
+		{
+			assertEquals("[aaa,bbb]", getPropertyText(itemsProperty));
+			assertTrue(itemsProperty.isModified());
+			assertTrue(ArrayUtils.isEquals(new String[]{"aaa", "bbb"}, itemsProperty.getValue()));
+		}
+		// set new items
+		{
+			itemsProperty.setValue(new String[]{"000", "111", "222"});
+			assertEditor(
+					"public class Test extends MyPanel {",
+					"  public Test() {",
+					"    addItem('000');",
+					"    addItem('111');",
+					"    addItem('222');",
+					"  }",
+					"}");
+			assertEquals("[000,111,222]", getPropertyText(itemsProperty));
+			assertTrue(itemsProperty.isModified());
+			assertTrue(ArrayUtils.isEquals(new String[]{"000", "111", "222"}, itemsProperty.getValue()));
+		}
+	}
 
-  public void test_removeMethods() throws Exception {
-    createMyPanel();
-    setFileContentSrc(
-        "test/MyPanel.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <methods>",
-            "      <method name='addItem'>",
-            "        <parameter type='java.lang.String'/>",
-            "      </method>",
-            "  </methods>",
-            "  <add-property id='stringsAdd' title='items'>",
-            "    <parameter name='addMethod'>addItem</parameter>",
-            "    <parameter name='removeMethods'>clear() insertItem(java.lang.String,int)</parameter>",
-            "  </add-property>",
-            "</component>"));
-    waitForAutoBuild();
-    // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    clear();",
-            "    addItem('aaa');",
-            "    addItem('bbb');",
-            "    insertItem('ccc', 1);",
-            "  }",
-            "}");
-    panel.refresh();
-    // prepare "items" property
-    Property itemsProperty = panel.getPropertyByTitle("items");
-    assertNotNull(itemsProperty);
-    // initial state
-    {
-      assertEquals("[aaa,bbb]", getPropertyText(itemsProperty));
-      assertTrue(itemsProperty.isModified());
-      assertTrue(ArrayUtils.isEquals(new String[]{"aaa", "bbb"}, itemsProperty.getValue()));
-    }
-    // set new items
-    {
-      itemsProperty.setValue(new String[]{"000", "111", "222"});
-      assertEditor(
-          "public class Test extends MyPanel {",
-          "  public Test() {",
-          "    addItem('000');",
-          "    addItem('111');",
-          "    addItem('222');",
-          "  }",
-          "}");
-      assertEquals("[000,111,222]", getPropertyText(itemsProperty));
-      assertTrue(itemsProperty.isModified());
-      assertTrue(ArrayUtils.isEquals(new String[]{"000", "111", "222"}, itemsProperty.getValue()));
-    }
-  }
+	public void test_removeMethods() throws Exception {
+		createMyPanel();
+		setFileContentSrc(
+				"test/MyPanel.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <methods>",
+						"      <method name='addItem'>",
+						"        <parameter type='java.lang.String'/>",
+						"      </method>",
+						"  </methods>",
+						"  <add-property id='stringsAdd' title='items'>",
+						"    <parameter name='addMethod'>addItem</parameter>",
+						"    <parameter name='removeMethods'>clear() insertItem(java.lang.String,int)</parameter>",
+						"  </add-property>",
+						"</component>"));
+		waitForAutoBuild();
+		// parse
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends MyPanel {",
+						"  public Test() {",
+						"    clear();",
+						"    addItem('aaa');",
+						"    addItem('bbb');",
+						"    insertItem('ccc', 1);",
+						"  }",
+						"}");
+		panel.refresh();
+		// prepare "items" property
+		Property itemsProperty = panel.getPropertyByTitle("items");
+		assertNotNull(itemsProperty);
+		// initial state
+		{
+			assertEquals("[aaa,bbb]", getPropertyText(itemsProperty));
+			assertTrue(itemsProperty.isModified());
+			assertTrue(ArrayUtils.isEquals(new String[]{"aaa", "bbb"}, itemsProperty.getValue()));
+		}
+		// set new items
+		{
+			itemsProperty.setValue(new String[]{"000", "111", "222"});
+			assertEditor(
+					"public class Test extends MyPanel {",
+					"  public Test() {",
+					"    addItem('000');",
+					"    addItem('111');",
+					"    addItem('222');",
+					"  }",
+					"}");
+			assertEquals("[000,111,222]", getPropertyText(itemsProperty));
+			assertTrue(itemsProperty.isModified());
+			assertTrue(ArrayUtils.isEquals(new String[]{"000", "111", "222"}, itemsProperty.getValue()));
+		}
+	}
 
-  private void createMyPanel() throws Exception {
-    setFileContentSrc(
-        "test/MyPanel.java",
-        getTestSource(
-            "public class MyPanel extends JPanel {",
-            "  public void clear() {",
-            "  }",
-            "  public void addItem(String item) {",
-            "  }",
-            "  public void insertItem(String item, int index) {",
-            "  }",
-            "}"));
-  }
+	private void createMyPanel() throws Exception {
+		setFileContentSrc(
+				"test/MyPanel.java",
+				getTestSource(
+						"public class MyPanel extends JPanel {",
+						"  public void clear() {",
+						"  }",
+						"  public void addItem(String item) {",
+						"  }",
+						"  public void insertItem(String item, int index) {",
+						"  }",
+						"}"));
+	}
 }

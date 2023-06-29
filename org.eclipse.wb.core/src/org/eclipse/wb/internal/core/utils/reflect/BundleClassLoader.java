@@ -23,43 +23,43 @@ import org.osgi.framework.Bundle;
  * @coverage core.util
  */
 public final class BundleClassLoader extends ClassLoader {
-  private final Bundle m_bundle;
+	private final Bundle m_bundle;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BundleClassLoader(Bundle bundle) {
-    Assert.isNotNull(bundle);
-    m_bundle = bundle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BundleClassLoader(Bundle bundle) {
+		Assert.isNotNull(bundle);
+		m_bundle = bundle;
+	}
 
-  public BundleClassLoader(String bundleId) {
-    Bundle bundle = Platform.getBundle(bundleId);
-    Assert.isNotNull(bundle, "Unable to find Bundle %s", bundleId);
-    m_bundle = bundle;
-  }
+	public BundleClassLoader(String bundleId) {
+		Bundle bundle = Platform.getBundle(bundleId);
+		Assert.isNotNull(bundle, "Unable to find Bundle %s", bundleId);
+		m_bundle = bundle;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ClassLoader
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Class<?> findClass(String name) throws ClassNotFoundException {
-    return m_bundle.loadClass(name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ClassLoader
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Class<?> findClass(String name) throws ClassNotFoundException {
+		return m_bundle.loadClass(name);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Factory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ClassLoader} for {@link Bundle}.
-   */
-  public static ClassLoader create(final Bundle bundle) {
-    return new BundleClassLoader(bundle);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Factory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ClassLoader} for {@link Bundle}.
+	 */
+	public static ClassLoader create(final Bundle bundle) {
+		return new BundleClassLoader(bundle);
+	}
 }

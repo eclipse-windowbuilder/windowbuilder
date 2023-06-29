@@ -23,25 +23,25 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  * @coverage nebula.model
  */
 public final class GalleryInfo extends CompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GalleryInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GalleryInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Orientation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isHorizontal() throws Exception {
-    Property property = getPropertyByTitle("vertical");
-    Object value = property.getValue();
-    return !((java.lang.Boolean) value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Orientation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isHorizontal() throws Exception {
+		Property property = getPropertyByTitle("vertical");
+		Object value = property.getValue();
+		return !((java.lang.Boolean) value);
+	}
 }

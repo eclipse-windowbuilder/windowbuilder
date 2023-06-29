@@ -29,128 +29,128 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public class MapsBeanObservableInfo extends ObservableInfo {
-  private final ObservableInfo m_domainObservable;
-  private Class<?> m_elementType;
-  private String[] m_properties;
+	private final ObservableInfo m_domainObservable;
+	private Class<?> m_elementType;
+	private String[] m_properties;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MapsBeanObservableInfo(DetailBeanObservableInfo observable) {
-    this(observable.getMasterObservable(), observable.getDetailBeanClass(),
-        new String[] { observable.getDetailPropertyReference() });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MapsBeanObservableInfo(DetailBeanObservableInfo observable) {
+		this(observable.getMasterObservable(), observable.getDetailBeanClass(),
+				new String[] { observable.getDetailPropertyReference() });
+	}
 
-  public MapsBeanObservableInfo(ObservableInfo domainObservable,
-      Class<?> elementType,
-      String[] properties) {
-    m_domainObservable = domainObservable;
-    m_elementType = elementType;
-    m_properties = properties;
-  }
+	public MapsBeanObservableInfo(ObservableInfo domainObservable,
+			Class<?> elementType,
+			String[] properties) {
+		m_domainObservable = domainObservable;
+		m_elementType = elementType;
+		m_properties = properties;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObservableInfo getDomainObservable() {
-    return m_domainObservable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObservableInfo getDomainObservable() {
+		return m_domainObservable;
+	}
 
-  public Class<?> getElementType() {
-    return m_elementType;
-  }
+	public Class<?> getElementType() {
+		return m_elementType;
+	}
 
-  public void setElementType(Class<?> elementType) {
-    m_elementType = elementType;
-  }
+	public void setElementType(Class<?> elementType) {
+		m_elementType = elementType;
+	}
 
-  public String[] getProperties() {
-    return m_properties;
-  }
+	public String[] getProperties() {
+		return m_properties;
+	}
 
-  public void setProperties(String[] properties) throws Exception {
-    m_properties = properties;
-  }
+	public void setProperties(String[] properties) throws Exception {
+		m_properties = properties;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public BindableInfo getBindableObject() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public BindableInfo getBindableObject() {
+		return null;
+	}
 
-  @Override
-  public BindableInfo getBindableProperty() {
-    return null;
-  }
+	@Override
+	public BindableInfo getBindableProperty() {
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    // prepare variable
-    if (getVariableIdentifier() == null) {
-      if (m_properties.length == 1) {
-        setVariableIdentifier(generationSupport.generateLocalName("observeMap"));
-      } else {
-        setVariableIdentifier(generationSupport.generateLocalName("observeMaps"));
-      }
-    }
-    //
-    KnownElementsObservableInfo domainObservable = (KnownElementsObservableInfo) m_domainObservable;
-    //
-    if (m_properties.length == 1) {
-      String observeMethod =
-          isPojoBean(m_elementType)
-              ? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeMap("
-              : " = org.eclipse.core.databinding.beans.BeansObservables.observeMap(";
-      // add code
-      lines.add("org.eclipse.core.databinding.observable.map.IObservableMap "
-          + getVariableIdentifier()
-          + observeMethod
-          + domainObservable.getSourceCode()
-          + ", "
-          + CoreUtils.getClassName(m_elementType)
-          + ".class, \""
-          + m_properties[0]
-          + "\");");
-    } else {
-      String observeMethod =
-          isPojoBean(m_elementType)
-              ? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeMaps("
-              : " = org.eclipse.core.databinding.beans.BeansObservables.observeMaps(";
-      // add code
-      lines.add("org.eclipse.core.databinding.observable.map.IObservableMap[] "
-          + getVariableIdentifier()
-          + observeMethod
-          + domainObservable.getSourceCode()
-          + ", "
-          + CoreUtils.getClassName(m_elementType)
-          + ".class, new java.lang.String[]{\""
-          + StringUtils.join(m_properties, "\", \"")
-          + "\"});");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		// prepare variable
+		if (getVariableIdentifier() == null) {
+			if (m_properties.length == 1) {
+				setVariableIdentifier(generationSupport.generateLocalName("observeMap"));
+			} else {
+				setVariableIdentifier(generationSupport.generateLocalName("observeMaps"));
+			}
+		}
+		//
+		KnownElementsObservableInfo domainObservable = (KnownElementsObservableInfo) m_domainObservable;
+		//
+		if (m_properties.length == 1) {
+			String observeMethod =
+					isPojoBean(m_elementType)
+					? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeMap("
+							: " = org.eclipse.core.databinding.beans.BeansObservables.observeMap(";
+			// add code
+			lines.add("org.eclipse.core.databinding.observable.map.IObservableMap "
+					+ getVariableIdentifier()
+					+ observeMethod
+					+ domainObservable.getSourceCode()
+					+ ", "
+					+ CoreUtils.getClassName(m_elementType)
+					+ ".class, \""
+					+ m_properties[0]
+							+ "\");");
+		} else {
+			String observeMethod =
+					isPojoBean(m_elementType)
+					? " = " + DataBindingsCodeUtils.getPojoObservablesClass() + ".observeMaps("
+							: " = org.eclipse.core.databinding.beans.BeansObservables.observeMaps(";
+			// add code
+			lines.add("org.eclipse.core.databinding.observable.map.IObservableMap[] "
+					+ getVariableIdentifier()
+					+ observeMethod
+					+ domainObservable.getSourceCode()
+					+ ", "
+					+ CoreUtils.getClassName(m_elementType)
+					+ ".class, new java.lang.String[]{\""
+					+ StringUtils.join(m_properties, "\", \"")
+					+ "\"});");
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Visiting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void accept(AstObjectInfoVisitor visitor) throws Exception {
-    super.accept(visitor);
-    m_domainObservable.accept(visitor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Visiting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void accept(AstObjectInfoVisitor visitor) throws Exception {
+		super.accept(visitor);
+		m_domainObservable.accept(visitor);
+	}
 }

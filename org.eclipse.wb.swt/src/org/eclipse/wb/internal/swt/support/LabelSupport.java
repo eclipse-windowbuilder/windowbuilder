@@ -23,47 +23,47 @@ import java.lang.reflect.Constructor;
  * @coverage swt.support
  */
 public class LabelSupport extends AbstractSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return new instance of {@link Label}.
-   */
-  public static Object newInstance(Object parent) throws Exception {
-    Constructor<?> labelConstructor =
-        ReflectionUtils.getConstructor(
-            getLabelClass(),
-            ContainerSupport.getCompositeClass(),
-            int.class);
-    return labelConstructor.newInstance(parent, SwtSupport.NONE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return new instance of {@link Label}.
+	 */
+	public static Object newInstance(Object parent) throws Exception {
+		Constructor<?> labelConstructor =
+				ReflectionUtils.getConstructor(
+						getLabelClass(),
+						ContainerSupport.getCompositeClass(),
+						int.class);
+		return labelConstructor.newInstance(parent, SwtSupport.NONE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Invoke method <code>Label.getText()</code> for given label.
-   */
-  public static String getText(Object label) throws Exception {
-    return (String) ReflectionUtils.invokeMethod(label, "getText()");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Invoke method <code>Label.getText()</code> for given label.
+	 */
+	public static String getText(Object label) throws Exception {
+		return (String) ReflectionUtils.invokeMethod(label, "getText()");
+	}
 
-  /**
-   * Invoke method <code>Label.getText()</code> for given label.
-   */
-  public static void setText(Object label, String text) throws Exception {
-    ReflectionUtils.invokeMethod(label, "setText(java.lang.String)", text);
-  }
+	/**
+	 * Invoke method <code>Label.getText()</code> for given label.
+	 */
+	public static void setText(Object label, String text) throws Exception {
+		ReflectionUtils.invokeMethod(label, "setText(java.lang.String)", text);
+	}
 
-  /**
-   * @return {@link org.eclipse.swt.widgets.Label} {@link Class} loaded from active editor
-   *         {@link ClassLoader}.
-   */
-  public static Class<?> getLabelClass() {
-    return loadClass("org.eclipse.swt.widgets.Label");
-  }
+	/**
+	 * @return {@link org.eclipse.swt.widgets.Label} {@link Class} loaded from active editor
+	 *         {@link ClassLoader}.
+	 */
+	public static Class<?> getLabelClass() {
+		return loadClass("org.eclipse.swt.widgets.Label");
+	}
 }

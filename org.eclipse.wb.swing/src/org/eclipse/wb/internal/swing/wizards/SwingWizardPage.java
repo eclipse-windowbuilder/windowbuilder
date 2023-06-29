@@ -25,42 +25,42 @@ import org.apache.commons.lang.StringUtils;
  * @coverage swing.wizards.ui
  */
 public class SwingWizardPage extends TemplateDesignWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Substitution support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static String doPerformSubstitutions(TemplateDesignWizardPage page,
-      String code,
-      ImportsManager imports) {
-    code = StringUtils.replace(code, "%SwingLayout%", page.getLayoutCode("", imports));
-    code =
-        StringUtils.replace(
-            code,
-            "%ContentPane.SwingLayout%",
-            page.getLayoutCode("getContentPane().", imports));
-    return code;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Substitution support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static String doPerformSubstitutions(TemplateDesignWizardPage page,
+			String code,
+			ImportsManager imports) {
+		code = StringUtils.replace(code, "%SwingLayout%", page.getLayoutCode("", imports));
+		code =
+				StringUtils.replace(
+						code,
+						"%ContentPane.SwingLayout%",
+						page.getLayoutCode("getContentPane().", imports));
+		return code;
+	}
 
-  @Override
-  protected String performSubstitutions(String code, ImportsManager imports) {
-    code = super.performSubstitutions(code, imports);
-    code = doPerformSubstitutions(this, code, imports);
-    return code;
-  }
+	@Override
+	protected String performSubstitutions(String code, ImportsManager imports) {
+		code = super.performSubstitutions(code, imports);
+		code = doPerformSubstitutions(this, code, imports);
+		return code;
+	}
 
-  @Override
-  protected ToolkitDescriptionJava getToolkitDescription() {
-    return ToolkitProvider.DESCRIPTION;
-  }
+	@Override
+	protected ToolkitDescriptionJava getToolkitDescription() {
+		return ToolkitProvider.DESCRIPTION;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createDesignSuperClassControls(Composite composite, int nColumns) {
-    createSuperClassControls(composite, nColumns);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createDesignSuperClassControls(Composite composite, int nColumns) {
+		createSuperClassControls(composite, nColumns);
+	}
 }

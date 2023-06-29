@@ -29,83 +29,83 @@ import org.eclipse.swt.widgets.ToolItem;
  * @author scheglov_ke
  */
 public class StringItemDialogField extends StringDialogField {
-  private final IStringItemAdapter m_adapter;
+	private final IStringItemAdapter m_adapter;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StringItemDialogField(IStringItemAdapter adapter) {
-    m_adapter = adapter;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StringItemDialogField(IStringItemAdapter adapter) {
+		m_adapter = adapter;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Fill
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int getNumberOfControls() {
-    return 3;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Fill
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int getNumberOfControls() {
+		return 3;
+	}
 
-  @Override
-  public Control[] doFillIntoGrid(Composite parent, int nColumns) {
-    if (nColumns < getNumberOfControls()) {
-      throw new IllegalArgumentException("given number of columns is too small");
-    }
-    //
-    Label label = getLabelControl(parent);
-    GridDataFactory.create(label).fillH();
-    //
-    final Text text = getTextControl(parent);
-    GridDataFactory.create(text).grabH().spanH(nColumns - 2).fillH();
-    //
-    ToolBar toolBar = new ToolBar(parent, SWT.FLAT | SWT.RIGHT);
-    GridDataFactory.create(toolBar).alignVM();
-    {
-      ToolItem clearItem = new ToolItem(toolBar, SWT.NONE);
-      clearItem.setImage(m_itemImage);
-      clearItem.setToolTipText(m_itemToolTip);
-      clearItem.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          m_adapter.itemPressed(StringItemDialogField.this);
-        }
-      });
-    }
-    //
-    return new Control[]{label, text, toolBar};
-  }
+	@Override
+	public Control[] doFillIntoGrid(Composite parent, int nColumns) {
+		if (nColumns < getNumberOfControls()) {
+			throw new IllegalArgumentException("given number of columns is too small");
+		}
+		//
+		Label label = getLabelControl(parent);
+		GridDataFactory.create(label).fillH();
+		//
+		final Text text = getTextControl(parent);
+		GridDataFactory.create(text).grabH().spanH(nColumns - 2).fillH();
+		//
+		ToolBar toolBar = new ToolBar(parent, SWT.FLAT | SWT.RIGHT);
+		GridDataFactory.create(toolBar).alignVM();
+		{
+			ToolItem clearItem = new ToolItem(toolBar, SWT.NONE);
+			clearItem.setImage(m_itemImage);
+			clearItem.setToolTipText(m_itemToolTip);
+			clearItem.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					m_adapter.itemPressed(StringItemDialogField.this);
+				}
+			});
+		}
+		//
+		return new Control[]{label, text, toolBar};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Clear control
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Image m_itemImage;
-  private String m_itemToolTip;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Clear control
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Image m_itemImage;
+	private String m_itemToolTip;
 
-  public void setItemImage(Image clearImage) {
-    m_itemImage = clearImage;
-  }
+	public void setItemImage(Image clearImage) {
+		m_itemImage = clearImage;
+	}
 
-  public void setItemToolTip(String clearToolTip) {
-    m_itemToolTip = clearToolTip;
-  }
+	public void setItemToolTip(String clearToolTip) {
+		m_itemToolTip = clearToolTip;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adapter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Change listener used by {@link StringItemDialogField}.
-   *
-   * @author scheglov_ke
-   */
-  public interface IStringItemAdapter {
-    void itemPressed(DialogField field);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adapter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Change listener used by {@link StringItemDialogField}.
+	 *
+	 * @author scheglov_ke
+	 */
+	public interface IStringItemAdapter {
+		void itemPressed(DialogField field);
+	}
 }

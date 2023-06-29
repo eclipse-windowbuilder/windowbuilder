@@ -31,71 +31,71 @@ import org.apache.commons.lang.ArrayUtils;
  * @coverage core.preferences.ui
  */
 public final class GenerationDescriptionEditor implements IDataEditor {
-  private final TabFolder m_tabFolder;
+	private final TabFolder m_tabFolder;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenerationDescriptionEditor(TabFolder tabFolder) {
-    m_tabFolder = tabFolder;
-    trackTabFolderSelection();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenerationDescriptionEditor(TabFolder tabFolder) {
+		m_tabFolder = tabFolder;
+		trackTabFolderSelection();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDialogField
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setValue(Object value) {
-    for (TabItem tabItem : m_tabFolder.getItems()) {
-      if (tabItem.getData() == value) {
-        m_tabFolder.setSelection(tabItem);
-        updateTabFolderSelection();
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDialogField
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setValue(Object value) {
+		for (TabItem tabItem : m_tabFolder.getItems()) {
+			if (tabItem.getData() == value) {
+				m_tabFolder.setSelection(tabItem);
+				updateTabFolderSelection();
+			}
+		}
+	}
 
-  @Override
-  public Object getValue() {
-    return m_tabFolder.getSelection()[0].getData();
-  }
+	@Override
+	public Object getValue() {
+		return m_tabFolder.getSelection()[0].getData();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Selected TabItem decoration
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final Image TAB_IMAGE_SELECTION_FALSE =
-      DesignerPlugin.getImage("preferences/tab_selection_false.gif");
-  private static final Image TAB_IMAGE_SELECTION_TRUE =
-      DesignerPlugin.getImage("preferences/tab_selection_true.gif");
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Selected TabItem decoration
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final Image TAB_IMAGE_SELECTION_FALSE =
+			DesignerPlugin.getImage("preferences/tab_selection_false.gif");
+	private static final Image TAB_IMAGE_SELECTION_TRUE =
+			DesignerPlugin.getImage("preferences/tab_selection_true.gif");
 
-  /**
-   * Installs {@link Listener} for highlighting selected {@link TabItem} in given {@link TabFolder}.
-   */
-  private void trackTabFolderSelection() {
-    updateTabFolderSelection();
-    m_tabFolder.addListener(SWT.Selection, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        updateTabFolderSelection();
-      }
-    });
-  }
+	/**
+	 * Installs {@link Listener} for highlighting selected {@link TabItem} in given {@link TabFolder}.
+	 */
+	private void trackTabFolderSelection() {
+		updateTabFolderSelection();
+		m_tabFolder.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				updateTabFolderSelection();
+			}
+		});
+	}
 
-  /**
-   * Updates images for {@link TabItem}'s of given {@link TabFolder} to highlight selected
-   * {@link TabItem}.
-   */
-  private void updateTabFolderSelection() {
-    TabItem[] selectedItems = m_tabFolder.getSelection();
-    for (TabItem tabItem : m_tabFolder.getItems()) {
-      tabItem.setImage(ArrayUtils.contains(selectedItems, tabItem)
-          ? TAB_IMAGE_SELECTION_TRUE
-          : TAB_IMAGE_SELECTION_FALSE);
-    }
-  }
+	/**
+	 * Updates images for {@link TabItem}'s of given {@link TabFolder} to highlight selected
+	 * {@link TabItem}.
+	 */
+	private void updateTabFolderSelection() {
+		TabItem[] selectedItems = m_tabFolder.getSelection();
+		for (TabItem tabItem : m_tabFolder.getItems()) {
+			tabItem.setImage(ArrayUtils.contains(selectedItems, tabItem)
+					? TAB_IMAGE_SELECTION_TRUE
+							: TAB_IMAGE_SELECTION_FALSE);
+		}
+	}
 }

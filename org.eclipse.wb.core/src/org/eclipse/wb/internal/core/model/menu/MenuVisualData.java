@@ -22,18 +22,18 @@ import java.util.List;
  * @coverage core.model.menu
  */
 public final class MenuVisualData {
-  /**
-   * An image representing popup menu for menu bar m_menuImage == null because we have a shell
-   * window as menu image
-   */
-  public Image m_menuImage;
-  /**
-   * A rectangle of menu bounds. For popup menu it is menu image size, for menu bar it is bounds in
-   * shell coordinates
-   */
-  public Rectangle m_menuBounds;
-  /**
-   * An ArrayList of Rectangles of menu item bounds in menu window coordinates.
-   */
-  public List<Rectangle> m_itemBounds;
+	/**
+	 * An image representing popup menu for menu bar m_menuImage == null because we have a shell
+	 * window as menu image
+	 */
+	public Image m_menuImage;
+	/**
+	 * A rectangle of menu bounds. For popup menu it is menu image size, for menu bar it is bounds in
+	 * shell coordinates
+	 */
+	public Rectangle m_menuBounds;
+	/**
+	 * An ArrayList of Rectangles of menu item bounds in menu window coordinates.
+	 */
+	public List<Rectangle> m_itemBounds;
 }

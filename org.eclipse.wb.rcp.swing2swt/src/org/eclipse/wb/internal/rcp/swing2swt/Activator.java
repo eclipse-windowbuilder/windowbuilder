@@ -23,37 +23,37 @@ import org.osgi.framework.BundleContext;
  * @coverage rcp.swing2swt
  */
 public class Activator extends AbstractUIPlugin {
-  public static final String PLUGIN_ID = "org.eclipse.wb.rcp.swing2swt";
-  private static Activator m_plugin;
+	public static final String PLUGIN_ID = "org.eclipse.wb.rcp.swing2swt";
+	private static Activator m_plugin;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void stop(BundleContext context) throws Exception {
-    m_plugin = null;
-    super.stop(context);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		m_plugin = null;
+		super.stop(context);
+	}
 
-  @Override
-  public void start(BundleContext context) throws Exception {
-    super.start(context);
-    m_plugin = this;
-  }
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		m_plugin = this;
+	}
 
-  /**
-   * @return the shared instance.
-   */
-  public static Activator getDefault() {
-    return m_plugin;
-  }
+	/**
+	 * @return the shared instance.
+	 */
+	public static Activator getDefault() {
+		return m_plugin;
+	}
 
-  /**
-   * @return this {@link Bundle}, can be used even without starting this plugin.
-   */
-  public static Bundle getBundleStatic() {
-    return Platform.getBundle(PLUGIN_ID);
-  }
+	/**
+	 * @return this {@link Bundle}, can be used even without starting this plugin.
+	 */
+	public static Bundle getBundleStatic() {
+		return Platform.getBundle(PLUGIN_ID);
+	}
 }

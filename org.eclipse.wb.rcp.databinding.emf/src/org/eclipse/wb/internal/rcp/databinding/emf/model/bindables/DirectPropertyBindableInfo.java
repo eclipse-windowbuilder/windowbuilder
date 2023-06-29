@@ -29,55 +29,55 @@ import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
  * @coverage bindings.rcp.emf.model
  */
 public class DirectPropertyBindableInfo extends EPropertyBindableInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DirectPropertyBindableInfo(Class<?> objectType) {
-    super(objectType, "", new SimpleObservePresentation(DirectObservableInfo.DETAIL_PROPERTY_NAME,
-        TypeImageProvider.DIRECT_IMAGE));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DirectPropertyBindableInfo(Class<?> objectType) {
+		super(objectType, "", new SimpleObservePresentation(DirectObservableInfo.DETAIL_PROPERTY_NAME,
+				TypeImageProvider.DIRECT_IMAGE));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObservableFactory m_observableFactory = new IObservableFactory() {
-    @Override
-    public Type getType() throws Exception {
-      return Type.Detail;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObservableFactory m_observableFactory = new IObservableFactory() {
+		@Override
+		public Type getType() throws Exception {
+			return Type.Detail;
+		}
 
-    @Override
-    public ObservableInfo createObservable(BindableInfo object,
-        BindableInfo property,
-        Type type,
-        boolean version_1_3) throws Exception {
-      EObjectBindableInfo eObject = (EObjectBindableInfo) object;
-      PropertiesSupport propertiesSupport = eObject.getPropertiesSupport();
-      // create master
-      DirectObservableInfo masterObservable = new DirectObservableInfo(object, property);
-      // create detail
-      ObservableInfo observable = null;
-      switch (type) {
-        case OnlyValue :
-          observable = new DetailValueEmfObservableInfo(masterObservable, propertiesSupport);
-          observable.setCodeSupport(new EmfObservableDetailValueCodeSupport());
-          break;
-        case OnlyList :
-          observable = new DetailListEmfObservableInfo(masterObservable, propertiesSupport);
-          observable.setCodeSupport(new EmfObservableDetailListCodeSupport());
-          break;
-      }
-      Assert.isNotNull(observable);
-      return observable;
-    }
-  };
+		@Override
+		public ObservableInfo createObservable(BindableInfo object,
+				BindableInfo property,
+				Type type,
+				boolean version_1_3) throws Exception {
+			EObjectBindableInfo eObject = (EObjectBindableInfo) object;
+			PropertiesSupport propertiesSupport = eObject.getPropertiesSupport();
+			// create master
+			DirectObservableInfo masterObservable = new DirectObservableInfo(object, property);
+			// create detail
+			ObservableInfo observable = null;
+			switch (type) {
+			case OnlyValue :
+				observable = new DetailValueEmfObservableInfo(masterObservable, propertiesSupport);
+				observable.setCodeSupport(new EmfObservableDetailValueCodeSupport());
+				break;
+			case OnlyList :
+				observable = new DetailListEmfObservableInfo(masterObservable, propertiesSupport);
+				observable.setCodeSupport(new EmfObservableDetailListCodeSupport());
+				break;
+			}
+			Assert.isNotNull(observable);
+			return observable;
+		}
+	};
 
-  @Override
-  public IObservableFactory getObservableFactory() throws Exception {
-    return m_observableFactory;
-  }
+	@Override
+	public IObservableFactory getObservableFactory() throws Exception {
+		return m_observableFactory;
+	}
 }

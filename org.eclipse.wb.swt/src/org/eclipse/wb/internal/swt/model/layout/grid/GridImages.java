@@ -23,17 +23,17 @@ import org.eclipse.swt.layout.GridLayout;
  * @coverage swt.model.layout
  */
 public final class GridImages {
-  /**
-   * @return the {@link Image} for {@link GridLayout}.
-   */
-  public static Image getImage(String path) {
-    return Activator.getImage("info/layout/GridLayout/" + path);
-  }
+	/**
+	 * @return the {@link Image} for {@link GridLayout}.
+	 */
+	public static Image getImage(String path) {
+		return Activator.getImage("info/layout/GridLayout/" + path);
+	}
 
-  /**
-   * @return the {@link ImageDescriptor} for {@link GridLayout}.
-   */
-  public static ImageDescriptor getImageDescriptor(String path) {
-    return Activator.getImageDescriptor("info/layout/GridLayout/" + path);
-  }
+	/**
+	 * @return the {@link ImageDescriptor} for {@link GridLayout}.
+	 */
+	public static ImageDescriptor getImageDescriptor(String path) {
+		return Activator.getImageDescriptor("info/layout/GridLayout/" + path);
+	}
 }

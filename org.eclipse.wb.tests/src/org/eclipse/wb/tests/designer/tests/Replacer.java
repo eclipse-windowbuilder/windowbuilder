@@ -19,100 +19,100 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Replacer {
-  private static final String TESTS_SRC = "C:\\eclipsePL\\workspace\\org.eclipse.wb.tests\\src";
+	private static final String TESTS_SRC = "C:\\eclipsePL\\workspace\\org.eclipse.wb.tests\\src";
 
-  public static void main(String[] args) throws Exception {
-    File srcFolder = new File(TESTS_SRC);
-    visit(srcFolder);
-  }
+	public static void main(String[] args) throws Exception {
+		File srcFolder = new File(TESTS_SRC);
+		visit(srcFolder);
+	}
 
-  private static void visit(File file) throws Exception {
-    if (file.isDirectory()) {
-      for (File child : file.listFiles()) {
-        visit(child);
-      }
-    }
-    if (file.isFile()
-        && file.getName().endsWith(".java")
-        && !file.getName().endsWith("Replacer.java")) {
-      /*String name = file.getAbsolutePath().substring(TESTS_SRC.length() + 1);
+	private static void visit(File file) throws Exception {
+		if (file.isDirectory()) {
+			for (File child : file.listFiles()) {
+				visit(child);
+			}
+		}
+		if (file.isFile()
+				&& file.getName().endsWith(".java")
+				&& !file.getName().endsWith("Replacer.java")) {
+			/*String name = file.getAbsolutePath().substring(TESTS_SRC.length() + 1);
       System.out.println(name);*/
-      replaceInFile(file);
-    }
-  }
+			replaceInFile(file);
+		}
+	}
 
-  private static void replaceInFile(File file) throws Exception {
-    String originalContent = IOUtils2.readString(file);
-    //System.out.println(file);
-    String s = replaceInString(originalContent);
-    if (!originalContent.equals(s)) {
-      System.out.println(file);
-      //System.out.println(s);
-      /*FileOutputStream stream = new FileOutputStream(file);
+	private static void replaceInFile(File file) throws Exception {
+		String originalContent = IOUtils2.readString(file);
+		//System.out.println(file);
+		String s = replaceInString(originalContent);
+		if (!originalContent.equals(s)) {
+			System.out.println(file);
+			//System.out.println(s);
+			/*FileOutputStream stream = new FileOutputStream(file);
       stream.write(s.getBytes());
       stream.close();*/
-    }
-  }
+		}
+	}
 
-  private static String replaceInString(String s) {
-    int invocationLast = 0;
-    Pattern patternBegin =
-        Pattern.compile("createTypeDeclaration\\(\\s*\"test\",\\s*\"Test\\.java\", getSourceDQ\\(");
-    Pattern patternEnd = Pattern.compile("\"\\)\\);");
-    while (true) {
-      // prepare begin of "invocation"
-      int invocationBegin;
-      String begin;
-      {
-        Matcher matcher = patternBegin.matcher(s);
-        if (!matcher.find(invocationLast)) {
-          break;
-        }
-        invocationBegin = matcher.start();
-        begin = matcher.group();
-        //System.out.println(begin);
-      }
-      //
-      //int invocationEnd = s.indexOf("\"}), m_lastEditor);\r\n", invocationBegin);
-      int invocationEnd;
-      String end;
-      {
-        Matcher matcher = patternEnd.matcher(s);
-        if (!matcher.find(invocationBegin)) {
-          System.out.println(s.substring(invocationBegin));
-          System.out.println("!!!!!!!!!!!!!");
-          System.exit(0);
-        }
-        invocationEnd = matcher.end();
-        invocationEnd -= ");".length();
-        end = s.substring(matcher.start(), invocationEnd);
-        //System.out.println(end);
-      }
-      // process single "invocation"
-      {
-        String invocation = s.substring(invocationBegin, invocationEnd);
-        if (invocation.contains(";\r\n")) {
-          System.out.println(invocation);
-          System.out.println("???????????");
-          System.exit(0);
-        }
-        // begin/end
-        invocation = StringUtils.removeStart(invocation, begin);
-        invocation = StringUtils.removeEnd(invocation, end);
-        //invocation = "createTypeDeclaration_Test0(" + invocation + "\")";
-        invocation = "createTypeDeclaration_Test0(" + invocation;
-        System.out.println(invocation);
-        // replace " with '
-        invocation = StringUtils.replace(invocation, "\\\"", "'");
-        // apply updated "invocation"
-        s = s.substring(0, invocationBegin) + invocation + s.substring(invocationEnd);
-      }
-      // next
-      invocationLast = invocationBegin + 1;
-    }
-    return s;
-  }
-  /*private static String replaceInString(String s) {
+	private static String replaceInString(String s) {
+		int invocationLast = 0;
+		Pattern patternBegin =
+				Pattern.compile("createTypeDeclaration\\(\\s*\"test\",\\s*\"Test\\.java\", getSourceDQ\\(");
+		Pattern patternEnd = Pattern.compile("\"\\)\\);");
+		while (true) {
+			// prepare begin of "invocation"
+			int invocationBegin;
+			String begin;
+			{
+				Matcher matcher = patternBegin.matcher(s);
+				if (!matcher.find(invocationLast)) {
+					break;
+				}
+				invocationBegin = matcher.start();
+				begin = matcher.group();
+				//System.out.println(begin);
+			}
+			//
+			//int invocationEnd = s.indexOf("\"}), m_lastEditor);\r\n", invocationBegin);
+			int invocationEnd;
+			String end;
+			{
+				Matcher matcher = patternEnd.matcher(s);
+				if (!matcher.find(invocationBegin)) {
+					System.out.println(s.substring(invocationBegin));
+					System.out.println("!!!!!!!!!!!!!");
+					System.exit(0);
+				}
+				invocationEnd = matcher.end();
+				invocationEnd -= ");".length();
+				end = s.substring(matcher.start(), invocationEnd);
+				//System.out.println(end);
+			}
+			// process single "invocation"
+			{
+				String invocation = s.substring(invocationBegin, invocationEnd);
+				if (invocation.contains(";\r\n")) {
+					System.out.println(invocation);
+					System.out.println("???????????");
+					System.exit(0);
+				}
+				// begin/end
+				invocation = StringUtils.removeStart(invocation, begin);
+				invocation = StringUtils.removeEnd(invocation, end);
+				//invocation = "createTypeDeclaration_Test0(" + invocation + "\")";
+				invocation = "createTypeDeclaration_Test0(" + invocation;
+				System.out.println(invocation);
+				// replace " with '
+				invocation = StringUtils.replace(invocation, "\\\"", "'");
+				// apply updated "invocation"
+				s = s.substring(0, invocationBegin) + invocation + s.substring(invocationEnd);
+			}
+			// next
+			invocationLast = invocationBegin + 1;
+		}
+		return s;
+	}
+	/*private static String replaceInString(String s) {
   	int invocationLast = 0;
   	Pattern patternBegin =
   			Pattern.compile("assertEditor\\(\\s*getExtSource\\(\\s*new String\\[\\]\\{\\s*\"");
@@ -168,7 +168,7 @@ public class Replacer {
   	}
   	return s;
   }*/
-  /*private static String replaceInString(String s) {
+	/*private static String replaceInString(String s) {
   	int invocationLast = 0;
   	Pattern pattern =
   		Pattern.compile("ETestUtils\\.parseTestSource\\(" + "\\s*this,\\s*new String\\[\\]\\{");
@@ -205,7 +205,7 @@ public class Replacer {
   	}
   	return s;
   }*/
-  /*private static String replaceInString(String s) {
+	/*private static String replaceInString(String s) {
   	int invocationLast = 0;
   	while (true) {
   		// prepare begin/end of "invocation"

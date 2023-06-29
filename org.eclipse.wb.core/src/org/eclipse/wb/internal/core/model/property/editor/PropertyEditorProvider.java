@@ -19,26 +19,26 @@ import java.beans.PropertyDescriptor;
  * @coverage core.model.property.editor
  */
 public class PropertyEditorProvider {
-  /**
-   * @return the {@link PropertyEditor} for given property type or <code>null</code>.
-   */
-  public PropertyEditor getEditorForType(Class<?> propertyType) throws Exception {
-    return null;
-  }
+	/**
+	 * @return the {@link PropertyEditor} for given property type or <code>null</code>.
+	 */
+	public PropertyEditor getEditorForType(Class<?> propertyType) throws Exception {
+		return null;
+	}
 
-  /**
-   * @return the {@link PropertyEditor} for given {@link java.beans.PropertyEditor} editor type or
-   *         <code>null</code>.
-   */
-  public PropertyEditor getEditorForEditorType(Class<?> editorType) throws Exception {
-    return null;
-  }
+	/**
+	 * @return the {@link PropertyEditor} for given {@link java.beans.PropertyEditor} editor type or
+	 *         <code>null</code>.
+	 */
+	public PropertyEditor getEditorForEditorType(Class<?> editorType) throws Exception {
+		return null;
+	}
 
-  /**
-   * @return the {@link PropertyEditor} for given {@link PropertyDescriptor} or <code>null</code>.
-   */
-  public PropertyEditor getEditorForPropertyDescriptor(PropertyDescriptor descriptor)
-      throws Exception {
-    return null;
-  }
+	/**
+	 * @return the {@link PropertyEditor} for given {@link PropertyDescriptor} or <code>null</code>.
+	 */
+	public PropertyEditor getEditorForPropertyDescriptor(PropertyDescriptor descriptor)
+			throws Exception {
+		return null;
+	}
 }

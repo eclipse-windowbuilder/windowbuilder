@@ -17,8 +17,8 @@ package org.eclipse.wb.core.model;
  * @coverage core.model
  */
 public interface HasSourcePosition {
-  /**
-   * @return the position of this component in source.
-   */
-  int getSourcePosition();
+	/**
+	 * @return the position of this component in source.
+	 */
+	int getSourcePosition();
 }

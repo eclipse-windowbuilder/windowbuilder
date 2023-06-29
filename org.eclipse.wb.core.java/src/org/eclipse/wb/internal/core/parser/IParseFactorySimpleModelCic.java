@@ -24,17 +24,17 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @coverage core.model.parser
  */
 public interface IParseFactorySimpleModelCic {
-  /**
-   * @return <code>true</code> if this and only this factory should be used to create
-   *         {@link JavaInfo}. If no {@link JavaInfo} returned, then no other factories will be
-   *         checked.
-   */
-  boolean accept(AstEditor editor, ClassInstanceCreation creation, ITypeBinding typeBinding)
-      throws Exception;
+	/**
+	 * @return <code>true</code> if this and only this factory should be used to create
+	 *         {@link JavaInfo}. If no {@link JavaInfo} returned, then no other factories will be
+	 *         checked.
+	 */
+	boolean accept(AstEditor editor, ClassInstanceCreation creation, ITypeBinding typeBinding)
+			throws Exception;
 
-  /**
-   * @return the {@link JavaInfo} for given {@link ClassInstanceCreation}, may be <code>null</code>.
-   */
-  JavaInfo create(AstEditor editor, ClassInstanceCreation creation, ITypeBinding typeBinding)
-      throws Exception;
+	/**
+	 * @return the {@link JavaInfo} for given {@link ClassInstanceCreation}, may be <code>null</code>.
+	 */
+	JavaInfo create(AstEditor editor, ClassInstanceCreation creation, ITypeBinding typeBinding)
+			throws Exception;
 }

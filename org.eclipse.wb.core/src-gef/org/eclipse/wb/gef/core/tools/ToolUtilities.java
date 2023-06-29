@@ -25,52 +25,52 @@ import java.util.List;
  * @coverage gef.core
  */
 public class ToolUtilities {
-  /**
-   * Returns a list containing the top level selected {@link EditPart}'s based on the viewer's
-   * selection. If selection parents of edit parts is differed returns empty list.
-   */
-  public static List<EditPart> getSelectionWithoutDependants(IEditPartViewer viewer) {
-    List<EditPart> operationSet = Lists.newArrayList();
-    // add selected EditPart's only if their parent is not added yet
-    {
-      List<EditPart> selectedParts = viewer.getSelectedEditParts();
-      for (EditPart part : selectedParts) {
-        if (!isAncestorContainedIn(selectedParts, part)) {
-          operationSet.add(part);
-        }
-      }
-    }
-    // check that all EditPart's have same parent
-    {
-      EditPart commonParent = null;
-      for (EditPart editPart : operationSet) {
-        if (commonParent == null) {
-          commonParent = editPart.getParent();
-        } else if (editPart.getParent() != commonParent) {
-          return Collections.emptyList();
-        }
-      }
-    }
-    // OK, we have valid set
-    return operationSet;
-  }
+	/**
+	 * Returns a list containing the top level selected {@link EditPart}'s based on the viewer's
+	 * selection. If selection parents of edit parts is differed returns empty list.
+	 */
+	public static List<EditPart> getSelectionWithoutDependants(IEditPartViewer viewer) {
+		List<EditPart> operationSet = Lists.newArrayList();
+		// add selected EditPart's only if their parent is not added yet
+		{
+			List<EditPart> selectedParts = viewer.getSelectedEditParts();
+			for (EditPart part : selectedParts) {
+				if (!isAncestorContainedIn(selectedParts, part)) {
+					operationSet.add(part);
+				}
+			}
+		}
+		// check that all EditPart's have same parent
+		{
+			EditPart commonParent = null;
+			for (EditPart editPart : operationSet) {
+				if (commonParent == null) {
+					commonParent = editPart.getParent();
+				} else if (editPart.getParent() != commonParent) {
+					return Collections.emptyList();
+				}
+			}
+		}
+		// OK, we have valid set
+		return operationSet;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if <code>containers</code> contains parent of given {@link EditPart}.
-   */
-  private static boolean isAncestorContainedIn(List<EditPart> container, EditPart part) {
-    EditPart parent = part.getParent();
-    while (parent != null) {
-      if (container.contains(parent)) {
-        return true;
-      }
-      parent = parent.getParent();
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if <code>containers</code> contains parent of given {@link EditPart}.
+	 */
+	private static boolean isAncestorContainedIn(List<EditPart> container, EditPart part) {
+		EditPart parent = part.getParent();
+		while (parent != null) {
+			if (container.contains(parent)) {
+				return true;
+			}
+			parent = parent.getParent();
+		}
+		return false;
+	}
 }

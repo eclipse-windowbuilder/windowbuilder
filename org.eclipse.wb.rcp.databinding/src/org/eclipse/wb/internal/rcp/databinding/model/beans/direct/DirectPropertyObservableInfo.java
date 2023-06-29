@@ -23,56 +23,56 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public class DirectPropertyObservableInfo extends ObservableInfo {
-  protected final BindableInfo m_bindableObject;
-  protected final BindableInfo m_property;
+	protected final BindableInfo m_bindableObject;
+	protected final BindableInfo m_property;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DirectPropertyObservableInfo(BindableInfo bindableObject, BindableInfo property) {
-    m_bindableObject = bindableObject;
-    m_property = property;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DirectPropertyObservableInfo(BindableInfo bindableObject, BindableInfo property) {
+		m_bindableObject = bindableObject;
+		m_property = property;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Variable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getVariableIdentifier() throws Exception {
-    return m_bindableObject.getReference() + "." + m_property.getReference();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Variable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getVariableIdentifier() throws Exception {
+		return m_bindableObject.getReference() + "." + m_property.getReference();
+	}
 
-  @Override
-  public final void setVariableIdentifier(String identifier) {
-    throw new UnsupportedOperationException();
-  }
+	@Override
+	public final void setVariableIdentifier(String identifier) {
+		throw new UnsupportedOperationException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final BindableInfo getBindableObject() {
-    return m_bindableObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final BindableInfo getBindableObject() {
+		return m_bindableObject;
+	}
 
-  @Override
-  public final BindableInfo getBindableProperty() {
-    return m_property;
-  }
+	@Override
+	public final BindableInfo getBindableProperty() {
+		return m_property;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+	}
 }

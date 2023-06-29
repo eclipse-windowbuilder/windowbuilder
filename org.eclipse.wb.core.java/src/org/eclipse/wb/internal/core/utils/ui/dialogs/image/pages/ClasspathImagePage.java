@@ -26,32 +26,32 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.ui
  */
 public final class ClasspathImagePage extends AbstractBrowseImagePage {
-  public static final String ID = "CLASSPATH";
+	public static final String ID = "CLASSPATH";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ClasspathImagePage(Composite parent,
-      int style,
-      AbstractImageDialog imageDialog,
-      IJavaProject javaProject) {
-    super(parent, style, imageDialog, new ClasspathImageRoot(ID, javaProject));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ClasspathImagePage(Composite parent,
+			int style,
+			AbstractImageDialog imageDialog,
+			IJavaProject javaProject) {
+		super(parent, style, imageDialog, new ClasspathImageRoot(ID, javaProject));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getId() {
-    return ID;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getId() {
+		return ID;
+	}
 
-  @Override
-  public String getTitle() {
-    return Messages.ClasspathImagePage_title;
-  }
+	@Override
+	public String getTitle() {
+		return Messages.ClasspathImagePage_title;
+	}
 }

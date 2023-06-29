@@ -28,106 +28,106 @@ import java.beans.PropertyDescriptor;
  * @coverage core.model.property.editor
  */
 public class EnumerationValuesPropertyEditor extends AbstractComboPropertyEditor
-    implements
-      IValueSourcePropertyEditor,
-      IClipboardSourceProvider {
-  private final String[] m_names;
-  private final Object[] m_values;
-  private final String[] m_sources;
+implements
+IValueSourcePropertyEditor,
+IClipboardSourceProvider {
+	private final String[] m_names;
+	private final Object[] m_values;
+	private final String[] m_sources;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EnumerationValuesPropertyEditor(Object attributeValue) {
-    Object[] enumElements = (Object[]) attributeValue;
-    int items = enumElements.length / 3;
-    m_names = new String[items];
-    m_values = new Object[items];
-    m_sources = new String[items];
-    for (int i = 0; i < items; i++) {
-      m_names[i] = (String) enumElements[3 * i + 0];
-      m_values[i] = enumElements[3 * i + 1];
-      m_sources[i] = (String) enumElements[3 * i + 2];
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EnumerationValuesPropertyEditor(Object attributeValue) {
+		Object[] enumElements = (Object[]) attributeValue;
+		int items = enumElements.length / 3;
+		m_names = new String[items];
+		m_values = new Object[items];
+		m_sources = new String[items];
+		for (int i = 0; i < items; i++) {
+			m_names[i] = (String) enumElements[3 * i + 0];
+			m_values[i] = enumElements[3 * i + 1];
+			m_sources[i] = (String) enumElements[3 * i + 2];
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TextDisplayPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    // return name for value
-    if (value != Property.UNKNOWN_VALUE) {
-      for (int i = 0; i < m_values.length; i++) {
-        if (ObjectUtils.equals(m_values[i], value)) {
-          return m_names[i];
-        }
-      }
-    }
-    // unknown value
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TextDisplayPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		// return name for value
+		if (value != Property.UNKNOWN_VALUE) {
+			for (int i = 0; i < m_values.length; i++) {
+				if (ObjectUtils.equals(m_values[i], value)) {
+					return m_names[i];
+				}
+			}
+		}
+		// unknown value
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IValueSourcePropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getValueSource(Object value) throws Exception {
-    if (value != Property.UNKNOWN_VALUE) {
-      for (int i = 0; i < m_values.length; i++) {
-        if (ObjectUtils.equals(m_values[i], value)) {
-          return m_sources[i];
-        }
-      }
-    }
-    // unknown value
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IValueSourcePropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getValueSource(Object value) throws Exception {
+		if (value != Property.UNKNOWN_VALUE) {
+			for (int i = 0; i < m_values.length; i++) {
+				if (ObjectUtils.equals(m_values[i], value)) {
+					return m_sources[i];
+				}
+			}
+		}
+		// unknown value
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IClipboardSourceProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getClipboardSource(GenericProperty property) throws Exception {
-    Object value = property.getValue();
-    return getValueSource(value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IClipboardSourceProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getClipboardSource(GenericProperty property) throws Exception {
+		Object value = property.getValue();
+		return getValueSource(value);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Combo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addItems(Property property, CCombo3 combo) throws Exception {
-    for (String title : m_names) {
-      combo.add(title);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Combo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addItems(Property property, CCombo3 combo) throws Exception {
+		for (String title : m_names) {
+			combo.add(title);
+		}
+	}
 
-  @Override
-  protected void selectItem(Property property, CCombo3 combo) throws Exception {
-    combo.setText(getText(property));
-  }
+	@Override
+	protected void selectItem(Property property, CCombo3 combo) throws Exception {
+		combo.setText(getText(property));
+	}
 
-  @Override
-  protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
-    Object value = m_values[index];
-    if (property instanceof GenericProperty) {
-      GenericProperty genericProperty = (GenericProperty) property;
-      String source = getValueSource(value);
-      genericProperty.setExpression(source, value);
-    } else {
-      property.setValue(value);
-    }
-  }
+	@Override
+	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+		Object value = m_values[index];
+		if (property instanceof GenericProperty) {
+			GenericProperty genericProperty = (GenericProperty) property;
+			String source = getValueSource(value);
+			genericProperty.setExpression(source, value);
+		} else {
+			property.setValue(value);
+		}
+	}
 }

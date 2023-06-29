@@ -23,51 +23,51 @@ import org.eclipse.draw2d.geometry.Dimension;
  * @coverage rcp.model.rcp
  */
 public final class ActionBarAdvisorTopBoundsSupport extends TopBoundsSupport {
-  private final ActionBarAdvisorInfo m_advisor;
+	private final ActionBarAdvisorInfo m_advisor;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionBarAdvisorTopBoundsSupport(ActionBarAdvisorInfo advisor) {
-    super(advisor);
-    m_advisor = advisor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionBarAdvisorTopBoundsSupport(ActionBarAdvisorInfo advisor) {
+		super(advisor);
+		m_advisor = advisor;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TopBoundsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void apply() throws Exception {
-    // set size from resource properties (or default)
-    {
-      Dimension size = getResourceSize();
-      ControlSupport.setSize(m_advisor.getShell(), size.width, size.height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TopBoundsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void apply() throws Exception {
+		// set size from resource properties (or default)
+		{
+			Dimension size = getResourceSize();
+			ControlSupport.setSize(m_advisor.getShell(), size.width, size.height);
+		}
+	}
 
-  @Override
-  public void setSize(int width, int height) throws Exception {
-    // remember size in resource properties
-    setResourceSize(width, height);
-  }
+	@Override
+	public void setSize(int width, int height) throws Exception {
+		// remember size in resource properties
+		setResourceSize(width, height);
+	}
 
-  @Override
-  protected Dimension getDefaultSize() {
-    return new Dimension(600, 500);
-  }
+	@Override
+	protected Dimension getDefaultSize() {
+		return new Dimension(600, 500);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Show
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean show() throws Exception {
-    CompositeTopBoundsSupport.show(m_advisor, m_advisor.getShell());
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Show
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean show() throws Exception {
+		CompositeTopBoundsSupport.show(m_advisor, m_advisor.getShell());
+		return true;
+	}
 }

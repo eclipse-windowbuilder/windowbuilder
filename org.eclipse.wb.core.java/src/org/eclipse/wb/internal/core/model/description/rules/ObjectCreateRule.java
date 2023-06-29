@@ -20,29 +20,29 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class ObjectCreateRule extends Rule {
-  private final Class<?> m_class;
+	private final Class<?> m_class;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObjectCreateRule(Class<?> clazz) {
-    m_class = clazz;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObjectCreateRule(Class<?> clazz) {
+		m_class = clazz;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    getDigester().push(m_class.newInstance());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		getDigester().push(m_class.newInstance());
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    getDigester().pop();
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		getDigester().pop();
+	}
 }

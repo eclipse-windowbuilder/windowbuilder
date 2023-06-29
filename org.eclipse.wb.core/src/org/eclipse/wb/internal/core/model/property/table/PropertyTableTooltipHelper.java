@@ -30,168 +30,168 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage core.model.property.table
  */
 class PropertyTableTooltipHelper implements IPropertyTooltipSite {
-  private final PropertyTable m_table;
-  private Shell m_tooltip;
+	private final PropertyTable m_table;
+	private Shell m_tooltip;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyTableTooltipHelper(PropertyTable table) {
-    m_table = table;
-    m_table.addListener(SWT.MouseHover, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        if (event.stateMask == 0) {
-          showTooltip();
-        }
-      }
-    });
-    m_table.addListener(SWT.MouseExit, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        // check, may be cursor is now on tooltip, so ignore this MouseExit
-        {
-          Control control = Display.getCurrent().getCursorControl();
-          while (control != null) {
-            if (control == m_tooltip) {
-              return;
-            }
-            control = control.getParent();
-          }
-        }
-        // no, we should hide tooltip
-        hideTooltip();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyTableTooltipHelper(PropertyTable table) {
+		m_table = table;
+		m_table.addListener(SWT.MouseHover, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				if (event.stateMask == 0) {
+					showTooltip();
+				}
+			}
+		});
+		m_table.addListener(SWT.MouseExit, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				// check, may be cursor is now on tooltip, so ignore this MouseExit
+				{
+					Control control = Display.getCurrent().getCursorControl();
+					while (control != null) {
+						if (control == m_tooltip) {
+							return;
+						}
+						control = control.getParent();
+					}
+				}
+				// no, we should hide tooltip
+				hideTooltip();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Property m_property;
-  private boolean m_onTitle;
-  private boolean m_onValue;
-  private int m_beginX;
-  private int m_endX;
-  private int m_y;
-  private int m_rowHeight;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Property m_property;
+	private boolean m_onTitle;
+	private boolean m_onValue;
+	private int m_beginX;
+	private int m_endX;
+	private int m_y;
+	private int m_rowHeight;
 
-  /**
-   * {@link PropertyTable} call this method to inform that cursor location was changed.
-   */
-  public void update(Property property,
-      boolean onTitle,
-      boolean onValue,
-      int beginX,
-      int endX,
-      int y,
-      int rowHeight) {
-    m_property = property;
-    m_onTitle = onTitle;
-    m_onValue = onValue;
-    m_beginX = beginX;
-    m_endX = endX;
-    m_y = y;
-    m_rowHeight = rowHeight;
-  }
+	/**
+	 * {@link PropertyTable} call this method to inform that cursor location was changed.
+	 */
+	public void update(Property property,
+			boolean onTitle,
+			boolean onValue,
+			int beginX,
+			int endX,
+			int y,
+			int rowHeight) {
+		m_property = property;
+		m_onTitle = onTitle;
+		m_onValue = onValue;
+		m_beginX = beginX;
+		m_endX = endX;
+		m_y = y;
+		m_rowHeight = rowHeight;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IPropertyTooltipSite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public PropertyTable getTable() {
-    return m_table;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IPropertyTooltipSite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public PropertyTable getTable() {
+		return m_table;
+	}
 
-  @Override
-  public void hideTooltip() {
-    if (m_tooltip != null && !m_tooltip.isDisposed()) {
-      m_tooltip.dispose();
-    }
-    m_tooltip = null;
-  }
+	@Override
+	public void hideTooltip() {
+		if (m_tooltip != null && !m_tooltip.isDisposed()) {
+			m_tooltip.dispose();
+		}
+		m_tooltip = null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Showing tooltip
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void showTooltip() {
-    hideTooltip();
-    // check for property
-    if (m_property == null) {
-      return;
-    }
-    //
-    if (m_onTitle) {
-      showTooltip(m_property, m_beginX, m_endX);
-    }
-    if (m_onValue) {
-      showTooltip(m_property.getEditor(), m_beginX, m_endX);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Showing tooltip
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void showTooltip() {
+		hideTooltip();
+		// check for property
+		if (m_property == null) {
+			return;
+		}
+		//
+		if (m_onTitle) {
+			showTooltip(m_property, m_beginX, m_endX);
+		}
+		if (m_onValue) {
+			showTooltip(m_property.getEditor(), m_beginX, m_endX);
+		}
+	}
 
-  private void showTooltip(IAdaptable adaptable, int startX, int endX) {
-    // prepare provider
-    PropertyTooltipProvider provider = null;
-    {
-      provider = adaptable.getAdapter(PropertyTooltipProvider.class);
-      if (provider == null) {
-        return;
-      }
-    }
-    // create Shell
-    {
-      m_tooltip = new Shell(m_table.getShell(), SWT.NO_FOCUS | SWT.ON_TOP | SWT.TOOL | SWT.SINGLE);
-      configureColors(m_tooltip);
-      GridLayoutFactory.create(m_tooltip).noMargins();
-    }
-    // prepare control
-    Control control = provider.createTooltipControl(m_property, m_tooltip, endX - startX, this);
-    if (control == null) {
-      hideTooltip();
-      return;
-    }
-    // show Shell
-    {
-      // prepare tooltip location
-      Point tooltipLocation;
-      if (provider.getTooltipPosition() == PropertyTooltipProvider.ON) {
-        tooltipLocation = m_table.toDisplay(new Point(startX, m_y));
-      } else {
-        tooltipLocation = m_table.toDisplay(new Point(startX, m_y + m_rowHeight));
-      }
-      // set location/size and open
-      m_tooltip.setLocation(tooltipLocation.x, tooltipLocation.y);
-      // for non-windows systems the tooltip may have invalid tooltip bounds
-      // because some widget's API functions may fail if tooltip content is not visible
-      // ex., on MacOSX tree widget's items has zero bounds since they are not yet visible.
-      // the workaround is to preset tooltip size to big values before any computeSize called.
-      if (!EnvironmentUtils.IS_WINDOWS) {
-        m_tooltip.setSize(1000, 1000);
-      }
-      m_tooltip.setSize(m_tooltip.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-      provider.show(m_tooltip);
-    }
-  }
+	private void showTooltip(IAdaptable adaptable, int startX, int endX) {
+		// prepare provider
+		PropertyTooltipProvider provider = null;
+		{
+			provider = adaptable.getAdapter(PropertyTooltipProvider.class);
+			if (provider == null) {
+				return;
+			}
+		}
+		// create Shell
+		{
+			m_tooltip = new Shell(m_table.getShell(), SWT.NO_FOCUS | SWT.ON_TOP | SWT.TOOL | SWT.SINGLE);
+			configureColors(m_tooltip);
+			GridLayoutFactory.create(m_tooltip).noMargins();
+		}
+		// prepare control
+		Control control = provider.createTooltipControl(m_property, m_tooltip, endX - startX, this);
+		if (control == null) {
+			hideTooltip();
+			return;
+		}
+		// show Shell
+		{
+			// prepare tooltip location
+			Point tooltipLocation;
+			if (provider.getTooltipPosition() == PropertyTooltipProvider.ON) {
+				tooltipLocation = m_table.toDisplay(new Point(startX, m_y));
+			} else {
+				tooltipLocation = m_table.toDisplay(new Point(startX, m_y + m_rowHeight));
+			}
+			// set location/size and open
+			m_tooltip.setLocation(tooltipLocation.x, tooltipLocation.y);
+			// for non-windows systems the tooltip may have invalid tooltip bounds
+			// because some widget's API functions may fail if tooltip content is not visible
+			// ex., on MacOSX tree widget's items has zero bounds since they are not yet visible.
+			// the workaround is to preset tooltip size to big values before any computeSize called.
+			if (!EnvironmentUtils.IS_WINDOWS) {
+				m_tooltip.setSize(1000, 1000);
+			}
+			m_tooltip.setSize(m_tooltip.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			provider.show(m_tooltip);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets given {@link Control} correct background/foreground for tooltips.
-   */
-  private void configureColors(Control control) {
-    Display display = Display.getCurrent();
-    control.setForeground(display.getSystemColor(SWT.COLOR_INFO_FOREGROUND));
-    control.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets given {@link Control} correct background/foreground for tooltips.
+	 */
+	private void configureColors(Control control) {
+		Display display = Display.getCurrent();
+		control.setForeground(display.getSystemColor(SWT.COLOR_INFO_FOREGROUND));
+		control.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+	}
 }

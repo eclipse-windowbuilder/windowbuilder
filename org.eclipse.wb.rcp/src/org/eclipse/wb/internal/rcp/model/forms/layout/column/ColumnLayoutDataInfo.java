@@ -24,44 +24,44 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
  * @coverage rcp.model.forms
  */
 public final class ColumnLayoutDataInfo extends LayoutDataInfo implements IColumnLayoutDataInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnLayoutDataInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnLayoutDataInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Size
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setWidthHint(int widthHint) throws Exception {
-    getPropertyByTitle("widthHint").setValue(widthHint);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Size
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setWidthHint(int widthHint) throws Exception {
+		getPropertyByTitle("widthHint").setValue(widthHint);
+	}
 
-  @Override
-  public void setHeightHint(int heightHint) throws Exception {
-    getPropertyByTitle("heightHint").setValue(heightHint);
-  }
+	@Override
+	public void setHeightHint(int heightHint) throws Exception {
+		getPropertyByTitle("heightHint").setValue(heightHint);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Alignment
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int getHorizontalAlignment() throws Exception {
-    return (Integer) getPropertyByTitle("horizontalAlignment").getValue();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Alignment
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int getHorizontalAlignment() throws Exception {
+		return (Integer) getPropertyByTitle("horizontalAlignment").getValue();
+	}
 
-  @Override
-  public void setHorizontalAlignment(int horizontalAlignment) throws Exception {
-    getPropertyByTitle("horizontalAlignment").setValue(horizontalAlignment);
-  }
+	@Override
+	public void setHorizontalAlignment(int horizontalAlignment) throws Exception {
+		getPropertyByTitle("horizontalAlignment").setValue(horizontalAlignment);
+	}
 }

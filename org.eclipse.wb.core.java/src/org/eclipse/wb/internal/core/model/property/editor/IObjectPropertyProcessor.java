@@ -22,13 +22,13 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
  * @coverage core.model.property.editor
  */
 public interface IObjectPropertyProcessor {
-  /**
-   * @param property
-   *          {@link Property} to assign object value.
-   * @param componentValue
-   *          value {@link JavaInfo} for assign.
-   * @return the {@link StatementTarget} for assign invocation.
-   */
-  public StatementTarget getObjectPropertyStatementTarget(GenericProperty property,
-      JavaInfo componentValue) throws Exception;
+	/**
+	 * @param property
+	 *          {@link Property} to assign object value.
+	 * @param componentValue
+	 *          value {@link JavaInfo} for assign.
+	 * @return the {@link StatementTarget} for assign invocation.
+	 */
+	public StatementTarget getObjectPropertyStatementTarget(GenericProperty property,
+			JavaInfo componentValue) throws Exception;
 }

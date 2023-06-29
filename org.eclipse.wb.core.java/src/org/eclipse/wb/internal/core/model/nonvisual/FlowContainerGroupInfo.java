@@ -28,74 +28,74 @@ import java.util.List;
  * @coverage core.model.nonvisual
  */
 public class FlowContainerGroupInfo extends CollectorObjectInfo {
-  private final JavaInfo m_component;
-  ArrayList<FlowContainerConfigurable> m_containers = Lists.newArrayList();
+	private final JavaInfo m_component;
+	ArrayList<FlowContainerConfigurable> m_containers = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FlowContainerGroupInfo(AstEditor editor, JavaInfo javaInfo, String caption)
-      throws Exception {
-    super(editor, caption);
-    m_component = javaInfo;
-    m_component.addChild(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FlowContainerGroupInfo(AstEditor editor, JavaInfo javaInfo, String caption)
+			throws Exception {
+		super(editor, caption);
+		m_component = javaInfo;
+		m_component.addChild(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Items
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public List<ObjectInfo> getItems() {
-    List<ObjectInfo> list = Lists.newArrayList();
-    List<JavaInfo> children = m_component.getChildrenJava();
-    for (JavaInfo child : children) {
-      for (FlowContainerConfigurable container : m_containers) {
-        if (container.validateComponent(child)) {
-          list.add(child);
-          break;
-        }
-      }
-    }
-    return list;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Items
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public List<ObjectInfo> getItems() {
+		List<ObjectInfo> list = Lists.newArrayList();
+		List<JavaInfo> children = m_component.getChildrenJava();
+		for (JavaInfo child : children) {
+			for (FlowContainerConfigurable container : m_containers) {
+				if (container.validateComponent(child)) {
+					list.add(child);
+					break;
+				}
+			}
+		}
+		return list;
+	}
 
-  @Override
-  public void addItem(ObjectInfo item) throws Exception {
-    error("addItem(ObjectInfo)");
-  }
+	@Override
+	public void addItem(ObjectInfo item) throws Exception {
+		error("addItem(ObjectInfo)");
+	}
 
-  @Override
-  protected void addItem(int index, ObjectInfo item) throws Exception {
-    error("addItem(int,ObjectInfo)");
-  }
+	@Override
+	protected void addItem(int index, ObjectInfo item) throws Exception {
+		error("addItem(int,ObjectInfo)");
+	}
 
-  @Override
-  protected void removeItem(ObjectInfo item) throws Exception {
-    error("removeItem(ObjectInfo)");
-  }
+	@Override
+	protected void removeItem(ObjectInfo item) throws Exception {
+		error("removeItem(ObjectInfo)");
+	}
 
-  private void error(String operation) throws Exception {
-    throw new Exception("Operation '" + operation + "' not allowed.");
-  }
+	private void error(String operation) throws Exception {
+		throw new Exception("Operation '" + operation + "' not allowed.");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public List<FlowContainerConfigurable> getContainers() {
-    return Collections.unmodifiableList(m_containers);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public List<FlowContainerConfigurable> getContainers() {
+		return Collections.unmodifiableList(m_containers);
+	}
 
-  public void addContainer(FlowContainerConfigurable container) {
-    m_containers.add(container);
-  }
+	public void addContainer(FlowContainerConfigurable container) {
+		m_containers.add(container);
+	}
 
-  public boolean removeContainer(FlowContainerConfigurable container) {
-    return m_containers.remove(container);
-  }
+	public boolean removeContainer(FlowContainerConfigurable container) {
+		return m_containers.remove(container);
+	}
 }

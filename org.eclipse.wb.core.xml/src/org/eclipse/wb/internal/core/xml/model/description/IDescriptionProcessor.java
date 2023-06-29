@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.xml.model.EditorContext;
  * @coverage XML.model.description
  */
 public interface IDescriptionProcessor {
-  /**
-   * Processes given {@link ComponentDescription}.
-   */
-  void process(EditorContext context, ComponentDescription componentDescription) throws Exception;
+	/**
+	 * Processes given {@link ComponentDescription}.
+	 */
+	void process(EditorContext context, ComponentDescription componentDescription) throws Exception;
 }

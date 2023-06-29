@@ -19,33 +19,33 @@ import java.util.List;
  * @coverage bindings.swing.model.generic
  */
 public interface IGenericType {
-  /**
-   * @return {@link Class} for this object.
-   */
-  Class<?> getRawType();
+	/**
+	 * @return {@link Class} for this object.
+	 */
+	Class<?> getRawType();
 
-  /**
-   * @return the class full name with all generic parameters.
-   */
-  String getFullTypeName();
+	/**
+	 * @return the class full name with all generic parameters.
+	 */
+	String getFullTypeName();
 
-  /**
-   * @return the class name without the package name.
-   */
-  String getSimpleTypeName();
+	/**
+	 * @return the class name without the package name.
+	 */
+	String getSimpleTypeName();
 
-  /**
-   * @return the list of {@link IGenericType} sub generic information models.
-   */
-  List<IGenericType> getSubTypes();
+	/**
+	 * @return the list of {@link IGenericType} sub generic information models.
+	 */
+	List<IGenericType> getSubTypes();
 
-  /**
-   * @return {@link IGenericType} sub generic information model for given index.
-   */
-  IGenericType getSubType(int index);
+	/**
+	 * @return {@link IGenericType} sub generic information model for given index.
+	 */
+	IGenericType getSubType(int index);
 
-  /**
-   * @return <code>true</code> if this model not contains sub generic information models.
-   */
-  boolean isEmpty();
+	/**
+	 * @return <code>true</code> if this model not contains sub generic information models.
+	 */
+	boolean isEmpty();
 }

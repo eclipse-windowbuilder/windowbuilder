@@ -27,19 +27,19 @@ import org.eclipse.jdt.core.dom.Block;
  * @coverage swt.model.layout
  */
 public final class VirtualLayoutDataStatementGenerator extends AbstractInsideStatementGenerator {
-  public static final StatementGenerator INSTANCE = new VirtualLayoutDataStatementGenerator();
+	public static final StatementGenerator INSTANCE = new VirtualLayoutDataStatementGenerator();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StatementGenerator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void add(JavaInfo child, StatementTarget target, Association association) throws Exception {
-    // prepare block
-    Block block = (Block) child.getEditor().addStatement(ImmutableList.of("{", "}"), target);
-    // add statements in block
-    target = new StatementTarget(block, true);
-    add(child, target, null, association);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StatementGenerator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void add(JavaInfo child, StatementTarget target, Association association) throws Exception {
+		// prepare block
+		Block block = (Block) child.getEditor().addStatement(ImmutableList.of("{", "}"), target);
+		// add statements in block
+		target = new StatementTarget(block, true);
+		add(child, target, null, association);
+	}
 }

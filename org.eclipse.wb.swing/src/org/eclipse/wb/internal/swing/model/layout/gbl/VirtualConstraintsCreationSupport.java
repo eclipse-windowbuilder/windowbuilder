@@ -28,91 +28,91 @@ import java.awt.GridBagConstraints;
  * @coverage swing.model.layout
  */
 public final class VirtualConstraintsCreationSupport extends CreationSupport {
-  private final VirtualConstraintsCreationSupport m_this = this;
-  private final AbstractGridBagLayoutInfo m_layout;
-  private final ComponentInfo m_component;
+	private final VirtualConstraintsCreationSupport m_this = this;
+	private final AbstractGridBagLayoutInfo m_layout;
+	private final ComponentInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualConstraintsCreationSupport(ComponentInfo component) throws Exception {
-    m_component = component;
-    m_layout = (AbstractGridBagLayoutInfo) ((ContainerInfo) m_component.getParent()).getLayout();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualConstraintsCreationSupport(ComponentInfo component) throws Exception {
+		m_component = component;
+		m_layout = (AbstractGridBagLayoutInfo) ((ContainerInfo) m_component.getParent()).getLayout();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		return false;
+	}
 
-  @Override
-  public ASTNode getNode() {
-    return null;
-  }
+	@Override
+	public ASTNode getNode() {
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    // evaluate during each "refresh"
-    m_javaInfo.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshAfterCreate() throws Exception {
-        if (m_javaInfo.getCreationSupport() == m_this) {
-          evaluateConstraints();
-        } else {
-          m_javaInfo.removeBroadcastListener(this);
-        }
-      }
-    });
-    // evaluate first time now
-    evaluateConstraints();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		// evaluate during each "refresh"
+		m_javaInfo.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshAfterCreate() throws Exception {
+				if (m_javaInfo.getCreationSupport() == m_this) {
+					evaluateConstraints();
+				} else {
+					m_javaInfo.removeBroadcastListener(this);
+				}
+			}
+		});
+		// evaluate first time now
+		evaluateConstraints();
+	}
 
-  /**
-   * Evaluates current {@link GridBagConstraints} value.
-   */
-  private void evaluateConstraints() throws Exception {
-    Component component = m_component.getComponent();
-    // prepare constraints
-    Object constraints = m_layout.getConstraintsObject(component);
-    // set constraints object
-    m_javaInfo.setObject(constraints);
-  }
+	/**
+	 * Evaluates current {@link GridBagConstraints} value.
+	 */
+	private void evaluateConstraints() throws Exception {
+		Component component = m_component.getComponent();
+		// prepare constraints
+		Object constraints = m_layout.getConstraintsObject(component);
+		// set constraints object
+		m_javaInfo.setObject(constraints);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return true;
+	}
 
-  @Override
-  public void delete() throws Exception {
-    m_component.removeChild(m_javaInfo);
-  }
+	@Override
+	public void delete() throws Exception {
+		m_component.removeChild(m_javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "virtual-GBL-constraints";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "virtual-GBL-constraints";
+	}
 }

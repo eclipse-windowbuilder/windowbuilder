@@ -26,30 +26,30 @@ import java.awt.FlowLayout;
  * @coverage swing.model.layout
  */
 public final class FlowLayoutInfo extends GenericFlowLayoutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FlowLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FlowLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    new LayoutAssistantSupport(this) {
-      @Override
-      protected AbstractAssistantPage createLayoutPage(Composite parent) {
-        return new FlowLayoutAssistantPage(parent, m_layout);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		new LayoutAssistantSupport(this) {
+			@Override
+			protected AbstractAssistantPage createLayoutPage(Composite parent) {
+				return new FlowLayoutAssistantPage(parent, m_layout);
+			}
+		};
+	}
 }

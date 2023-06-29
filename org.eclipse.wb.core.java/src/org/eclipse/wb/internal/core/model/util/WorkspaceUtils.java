@@ -27,109 +27,109 @@ import org.eclipse.swt.widgets.Display;
  * @coverage core.model.util
  */
 public class WorkspaceUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private WorkspaceUtils() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private WorkspaceUtils() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Job utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Process UI input but do not return for the specified time interval.
-   *
-   * @param waitTimeMillis
-   *          the number of milliseconds
-   */
-  public static void delay(long waitTimeMillis) {
-    Display display = Display.getCurrent();
-    // If this is the user interface thread, then process input
-    if (display != null) {
-      long endTimeMillis = System.currentTimeMillis() + waitTimeMillis;
-      while (System.currentTimeMillis() < endTimeMillis) {
-        if (!display.readAndDispatch()) {
-          display.sleep();
-        }
-      }
-      display.update();
-    }
-    // Otherwise perform a simple sleep
-    else {
-      try {
-        Thread.sleep(waitTimeMillis);
-      } catch (InterruptedException e) {
-        // ignored
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Job utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Process UI input but do not return for the specified time interval.
+	 *
+	 * @param waitTimeMillis
+	 *          the number of milliseconds
+	 */
+	public static void delay(long waitTimeMillis) {
+		Display display = Display.getCurrent();
+		// If this is the user interface thread, then process input
+		if (display != null) {
+			long endTimeMillis = System.currentTimeMillis() + waitTimeMillis;
+			while (System.currentTimeMillis() < endTimeMillis) {
+				if (!display.readAndDispatch()) {
+					display.sleep();
+				}
+			}
+			display.update();
+		}
+		// Otherwise perform a simple sleep
+		else {
+			try {
+				Thread.sleep(waitTimeMillis);
+			} catch (InterruptedException e) {
+				// ignored
+			}
+		}
+	}
 
-  /**
-   * Wait until all background tasks are complete
-   */
-  public static void waitForJobs() {
-    while (Job.getJobManager().currentJob() != null) {
-      delay(10);
-    }
-  }
+	/**
+	 * Wait until all background tasks are complete
+	 */
+	public static void waitForJobs() {
+		while (Job.getJobManager().currentJob() != null) {
+			delay(10);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Class utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Wait until type with given name will appear in project. We use this function if we need open
-   * this type in editor directly after creation.
-   */
-  public static IType waitForType(IJavaProject project, String fullClassName) {
-    while (true) {
-      // try to find type in model
-      try {
-        IType type = project.findType(fullClassName);
-        if (type != null) {
-          return type;
-        }
-      } catch (Throwable e) {
-      }
-      // delay
-      delay(10);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Class utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Wait until type with given name will appear in project. We use this function if we need open
+	 * this type in editor directly after creation.
+	 */
+	public static IType waitForType(IJavaProject project, String fullClassName) {
+		while (true) {
+			// try to find type in model
+			try {
+				IType type = project.findType(fullClassName);
+				if (type != null) {
+					return type;
+				}
+			} catch (Throwable e) {
+			}
+			// delay
+			delay(10);
+		}
+	}
 
-  /**
-   * Wait until class with given name will appear in project.<br>
-   * We use this function during code generation for classes that will be used directly after
-   * creation.
-   */
-  public static void waitForClass(AstEditor editor, String fullClassName) {
-    Job.getJobManager().wakeUp(ResourcesPlugin.FAMILY_AUTO_BUILD);
-    //
-    IJavaProject project = editor.getJavaProject();
-    ClassLoader editorLoader = EditorState.get(editor).getEditorLoader();
-    while (true) {
-      // try to find type in model
-      IType type = null;
-      try {
-        type = project.findType(fullClassName);
-      } catch (Throwable e) {
-      }
-      // try to load class
-      if (type != null) {
-        try {
-          editorLoader.loadClass(fullClassName);
-          break;
-        } catch (ClassNotFoundException e) {
-        } catch (Throwable e) {
-          throw ReflectionUtils.propagate(e);
-        }
-      }
-      // delay
-      delay(10);
-    }
-  }
+	/**
+	 * Wait until class with given name will appear in project.<br>
+	 * We use this function during code generation for classes that will be used directly after
+	 * creation.
+	 */
+	public static void waitForClass(AstEditor editor, String fullClassName) {
+		Job.getJobManager().wakeUp(ResourcesPlugin.FAMILY_AUTO_BUILD);
+		//
+		IJavaProject project = editor.getJavaProject();
+		ClassLoader editorLoader = EditorState.get(editor).getEditorLoader();
+		while (true) {
+			// try to find type in model
+			IType type = null;
+			try {
+				type = project.findType(fullClassName);
+			} catch (Throwable e) {
+			}
+			// try to load class
+			if (type != null) {
+				try {
+					editorLoader.loadClass(fullClassName);
+					break;
+				} catch (ClassNotFoundException e) {
+				} catch (Throwable e) {
+					throw ReflectionUtils.propagate(e);
+				}
+			}
+			// delay
+			delay(10);
+		}
+	}
 }

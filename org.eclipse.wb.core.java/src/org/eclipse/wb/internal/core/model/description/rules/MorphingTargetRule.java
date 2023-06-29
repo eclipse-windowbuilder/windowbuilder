@@ -25,43 +25,43 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class MorphingTargetRule extends Rule {
-  private final EditorState m_state;
-  private final ClassLoader m_classLoader;
+	private final EditorState m_state;
+	private final ClassLoader m_classLoader;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MorphingTargetRule(EditorState state) {
-    m_state = state;
-    m_classLoader = m_state.getEditorLoader();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MorphingTargetRule(EditorState state) {
+		m_state = state;
+		m_classLoader = m_state.getEditorLoader();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    try {
-      addTarget(attributes);
-    } catch (ClassNotFoundException e) {
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		try {
+			addTarget(attributes);
+		} catch (ClassNotFoundException e) {
+		}
+	}
 
-  private void addTarget(Attributes attributes) throws ClassNotFoundException {
-    String creationId = attributes.getValue("creationId");
-    // prepare class
-    Class<?> clazz;
-    {
-      String className = attributes.getValue("class");
-      Assert.isNotNull(className);
-      clazz = m_classLoader.loadClass(className);
-    }
-    // add morphing target
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    componentDescription.addMorphingTarget(new MorphingTargetDescription(clazz, creationId));
-  }
+	private void addTarget(Attributes attributes) throws ClassNotFoundException {
+		String creationId = attributes.getValue("creationId");
+		// prepare class
+		Class<?> clazz;
+		{
+			String className = attributes.getValue("class");
+			Assert.isNotNull(className);
+			clazz = m_classLoader.loadClass(className);
+		}
+		// add morphing target
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		componentDescription.addMorphingTarget(new MorphingTargetDescription(clazz, creationId));
+	}
 }

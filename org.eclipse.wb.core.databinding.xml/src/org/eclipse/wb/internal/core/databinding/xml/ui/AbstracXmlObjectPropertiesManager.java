@@ -21,21 +21,21 @@ import java.util.List;
  * @author lobas_av
  */
 public abstract class AbstracXmlObjectPropertiesManager
-    extends
-      org.eclipse.wb.internal.core.databinding.ui.property.AbstractJavaInfoPropertiesManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstracXmlObjectPropertiesManager(IDatabindingsProvider provider,
-      XmlObjectInfo xmlObjectRoot) {
-    super(provider);
-    xmlObjectRoot.addBroadcastListener(new XmlObjectAddProperties() {
-      @Override
-      public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
-        addBindingsProperty(object, properties);
-      }
-    });
-  }
+extends
+org.eclipse.wb.internal.core.databinding.ui.property.AbstractJavaInfoPropertiesManager {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstracXmlObjectPropertiesManager(IDatabindingsProvider provider,
+			XmlObjectInfo xmlObjectRoot) {
+		super(provider);
+		xmlObjectRoot.addBroadcastListener(new XmlObjectAddProperties() {
+			@Override
+			public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
+				addBindingsProperty(object, properties);
+			}
+		});
+	}
 }

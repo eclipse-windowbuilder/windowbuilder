@@ -19,8 +19,8 @@ import org.eclipse.wb.core.model.ObjectInfo;
  * @coverage core.model
  */
 public interface ObjectInfoChildAddAfter {
-  /**
-   * After adding child to parent.
-   */
-  void invoke(ObjectInfo parent, ObjectInfo child) throws Exception;
+	/**
+	 * After adding child to parent.
+	 */
+	void invoke(ObjectInfo parent, ObjectInfo child) throws Exception;
 }

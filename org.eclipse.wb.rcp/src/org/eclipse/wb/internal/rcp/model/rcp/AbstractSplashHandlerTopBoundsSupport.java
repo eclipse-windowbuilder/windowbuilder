@@ -23,46 +23,46 @@ import org.eclipse.draw2d.geometry.Dimension;
  * @coverage rcp.model.rcp
  */
 public class AbstractSplashHandlerTopBoundsSupport extends TopBoundsSupport {
-  private final AbstractSplashHandlerInfo m_splash;
+	private final AbstractSplashHandlerInfo m_splash;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractSplashHandlerTopBoundsSupport(AbstractSplashHandlerInfo splash) {
-    super(splash);
-    m_splash = splash;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractSplashHandlerTopBoundsSupport(AbstractSplashHandlerInfo splash) {
+		super(splash);
+		m_splash = splash;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TopBoundsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void apply() throws Exception {
-    // set size from resource properties (or default)
-    {
-      Dimension size = getResourceSize();
-      ControlSupport.setSize(m_splash.getShell(), size.width, size.height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TopBoundsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void apply() throws Exception {
+		// set size from resource properties (or default)
+		{
+			Dimension size = getResourceSize();
+			ControlSupport.setSize(m_splash.getShell(), size.width, size.height);
+		}
+	}
 
-  @Override
-  public void setSize(int width, int height) throws Exception {
-    // remember size in resource properties
-    setResourceSize(width, height);
-  }
+	@Override
+	public void setSize(int width, int height) throws Exception {
+		// remember size in resource properties
+		setResourceSize(width, height);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Show
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean show() throws Exception {
-    CompositeTopBoundsSupport.show(m_splash, m_splash.getShell());
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Show
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean show() throws Exception {
+		CompositeTopBoundsSupport.show(m_splash, m_splash.getShell());
+		return true;
+	}
 }

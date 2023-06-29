@@ -22,10 +22,10 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainer;
  * @coverage core.gef.policy
  */
 public final class GenericEditPolicyFactory {
-  /**
-   * @return the {@link LayoutEditPolicy} for {@link FlowContainer}.
-   */
-  public static LayoutEditPolicy createFlow(ObjectInfo model, FlowContainer container) {
-    return new FlowContainerLayoutEditPolicy(model, container);
-  }
+	/**
+	 * @return the {@link LayoutEditPolicy} for {@link FlowContainer}.
+	 */
+	public static LayoutEditPolicy createFlow(ObjectInfo model, FlowContainer container) {
+		return new FlowContainerLayoutEditPolicy(model, container);
+	}
 }

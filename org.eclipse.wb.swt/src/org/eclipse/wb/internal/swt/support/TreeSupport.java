@@ -21,16 +21,16 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage swt.support
  */
 public class TreeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TreeItem
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Invoke method <code>TreeItem.getBounds()</code> for given tree item.
-   */
-  public static Rectangle getBounds(Object treeItem) throws Exception {
-    Object rectangle = ReflectionUtils.invokeMethod(treeItem, "getBounds()");
-    return RectangleSupport.getRectangle(rectangle);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TreeItem
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Invoke method <code>TreeItem.getBounds()</code> for given tree item.
+	 */
+	public static Rectangle getBounds(Object treeItem) throws Exception {
+		Object rectangle = ReflectionUtils.invokeMethod(treeItem, "getBounds()");
+		return RectangleSupport.getRectangle(rectangle);
+	}
 }

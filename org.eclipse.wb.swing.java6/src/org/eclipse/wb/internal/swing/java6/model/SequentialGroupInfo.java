@@ -19,17 +19,17 @@ import org.apache.commons.lang.StringUtils;
  * @coverage swing.model.layout.group
  */
 public final class SequentialGroupInfo extends GroupInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dump
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dump(int level, StringBuffer buffer) {
-    buffer.append(StringUtils.repeat(" ", level));
-    buffer.append("S\n");
-    for (SpringInfo child : m_children) {
-      child.dump(level + 1, buffer);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dump
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dump(int level, StringBuffer buffer) {
+		buffer.append(StringUtils.repeat(" ", level));
+		buffer.append("S\n");
+		for (SpringInfo child : m_children) {
+			child.dump(level + 1, buffer);
+		}
+	}
 }

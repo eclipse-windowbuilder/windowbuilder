@@ -18,8 +18,8 @@ package org.eclipse.wb.internal.core.model.menu;
  * @coverage core.model.menu
  */
 public interface IMenuPopupInfo extends IMenuObjectInfo {
-  /**
-   * @return the underlying {@link IMenuInfo}.
-   */
-  IMenuInfo getMenu();
+	/**
+	 * @return the underlying {@link IMenuInfo}.
+	 */
+	IMenuInfo getMenu();
 }

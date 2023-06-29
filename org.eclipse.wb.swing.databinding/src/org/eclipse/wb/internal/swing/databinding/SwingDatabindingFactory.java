@@ -24,34 +24,34 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * @coverage bindings.swing.model
  */
 public final class SwingDatabindingFactory implements IDatabindingFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDatabindingFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IDatabindingsProvider createProvider(JavaInfo javaInfoRoot) throws Exception {
-    if (isSwingObject(javaInfoRoot)) {
-      DatabindingsProvider provider = new DatabindingsProvider(javaInfoRoot);
-      DatabindingParser.parse(provider);
-      provider.hookJavaInfoEvents();
-      return provider;
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDatabindingFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IDatabindingsProvider createProvider(JavaInfo javaInfoRoot) throws Exception {
+		if (isSwingObject(javaInfoRoot)) {
+			DatabindingsProvider provider = new DatabindingsProvider(javaInfoRoot);
+			DatabindingParser.parse(provider);
+			provider.hookJavaInfoEvents();
+			return provider;
+		}
+		return null;
+	}
 
-  public AbstractUIPlugin getPlugin() {
-    return Activator.getDefault();
-  }
+	public AbstractUIPlugin getPlugin() {
+		return Activator.getDefault();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given {@link JavaInfo} is Swing/AWT object.
-   */
-  private static boolean isSwingObject(JavaInfo javaInfoRoot) {
-    return javaInfoRoot.getDescription().getToolkit().getId() == org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given {@link JavaInfo} is Swing/AWT object.
+	 */
+	private static boolean isSwingObject(JavaInfo javaInfoRoot) {
+		return javaInfoRoot.getDescription().getToolkit().getId() == org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID;
+	}
 }

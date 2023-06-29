@@ -38,96 +38,96 @@ import java.io.InputStream;
  * @coverage bindings.wizard.auto
  */
 public abstract class AutomaticDatabindingFirstPage extends TemplateDesignWizardPage {
-  private final IAutomaticDatabindingProvider m_databindingProvider;
-  private final String m_initialBeanClassName;
+	private final IAutomaticDatabindingProvider m_databindingProvider;
+	private final String m_initialBeanClassName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AutomaticDatabindingFirstPage(IAutomaticDatabindingProvider databindingProvider,
-      String initialBeanClassName) {
-    m_databindingProvider = databindingProvider;
-    m_initialBeanClassName =
-        initialBeanClassName == null ? null : ClassUtils.getShortClassName(initialBeanClassName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AutomaticDatabindingFirstPage(IAutomaticDatabindingProvider databindingProvider,
+			String initialBeanClassName) {
+		m_databindingProvider = databindingProvider;
+		m_initialBeanClassName =
+				initialBeanClassName == null ? null : ClassUtils.getShortClassName(initialBeanClassName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass(m_databindingProvider.getInitialSuperClass(), false);
-    // handle initial wizard selection
-    if (m_initialBeanClassName != null) {
-      setTypeName(getInitialTypeNameWithSuperClass(), true);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass(m_databindingProvider.getInitialSuperClass(), false);
+		// handle initial wizard selection
+		if (m_initialBeanClassName != null) {
+			setTypeName(getInitialTypeNameWithSuperClass(), true);
+		}
+	}
 
-  private String getInitialTypeNameWithSuperClass() {
-    return m_initialBeanClassName + ClassUtils.getShortClassName(getSuperClass());
-  }
+	private String getInitialTypeNameWithSuperClass() {
+		return m_initialBeanClassName + ClassUtils.getShortClassName(getSuperClass());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    // prepare super classes
-    final String[] superClasses = m_databindingProvider.getSuperClasses();
-    int current = ArrayUtils.indexOf(superClasses, m_databindingProvider.getInitialSuperClass());
-    // create dialog field
-    final SelectionButtonDialogFieldGroup fieldsGroup =
-        new SelectionButtonDialogFieldGroup(SWT.RADIO, superClasses, 1);
-    fieldsGroup.setLabelText(Messages.AutomaticDatabindingFirstPage_superClassLabel);
-    fieldsGroup.setSelection(current, true);
-    fieldsGroup.doFillIntoGrid(parent, columns);
-    // handle change super class
-    fieldsGroup.setDialogFieldListener(new IDialogFieldListener() {
-      @Override
-      public void dialogFieldChanged(DialogField field) {
-        int[] selection = fieldsGroup.getSelection();
-        if (selection.length == 1) {
-          String superClass = superClasses[selection[0]];
-          // handle initial wizard selection
-          if (m_initialBeanClassName != null) {
-            if (getTypeName().equals(getInitialTypeNameWithSuperClass())) {
-              setTypeName(m_initialBeanClassName + ClassUtils.getShortClassName(superClass), true);
-            }
-          }
-          //
-          setSuperClass(superClass, false);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		// prepare super classes
+		final String[] superClasses = m_databindingProvider.getSuperClasses();
+		int current = ArrayUtils.indexOf(superClasses, m_databindingProvider.getInitialSuperClass());
+		// create dialog field
+		final SelectionButtonDialogFieldGroup fieldsGroup =
+				new SelectionButtonDialogFieldGroup(SWT.RADIO, superClasses, 1);
+		fieldsGroup.setLabelText(Messages.AutomaticDatabindingFirstPage_superClassLabel);
+		fieldsGroup.setSelection(current, true);
+		fieldsGroup.doFillIntoGrid(parent, columns);
+		// handle change super class
+		fieldsGroup.setDialogFieldListener(new IDialogFieldListener() {
+			@Override
+			public void dialogFieldChanged(DialogField field) {
+				int[] selection = fieldsGroup.getSelection();
+				if (selection.length == 1) {
+					String superClass = superClasses[selection[0]];
+					// handle initial wizard selection
+					if (m_initialBeanClassName != null) {
+						if (getTypeName().equals(getInitialTypeNameWithSuperClass())) {
+							setTypeName(m_initialBeanClassName + ClassUtils.getShortClassName(superClass), true);
+						}
+					}
+					//
+					setSuperClass(superClass, false);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Finish
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    // prepare template content
-    InputStream stream = m_databindingProvider.getTemplateFile(newType.getSuperclassName());
-    try {
-      // generate auto binding code
-      String code = IOUtils.toString(stream);
-      code = m_databindingProvider.performSubstitutions(code, imports);
-      // create type
-      fillTypeFromTemplate(newType, imports, monitor, new ByteArrayInputStream(code.getBytes()));
-    } catch (Throwable e) {
-      throw new CoreException(DesignerPlugin.createStatus("Error load template file", e));
-    } finally {
-      IOUtils.closeQuietly(stream);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Finish
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		// prepare template content
+		InputStream stream = m_databindingProvider.getTemplateFile(newType.getSuperclassName());
+		try {
+			// generate auto binding code
+			String code = IOUtils.toString(stream);
+			code = m_databindingProvider.performSubstitutions(code, imports);
+			// create type
+			fillTypeFromTemplate(newType, imports, monitor, new ByteArrayInputStream(code.getBytes()));
+		} catch (Throwable e) {
+			throw new CoreException(DesignerPlugin.createStatus("Error load template file", e));
+		} finally {
+			IOUtils.closeQuietly(stream);
+		}
+	}
 }

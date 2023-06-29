@@ -29,50 +29,50 @@ import java.util.List;
  * @coverage swing.gefTree.policy
  */
 public final class GridBagLayoutEditPolicy extends ObjectLayoutEditPolicy<ComponentInfo> {
-  private final GridBagLayoutInfo m_layout;
+	private final GridBagLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridBagLayoutEditPolicy(GridBagLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridBagLayoutEditPolicy(GridBagLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof ComponentInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof ComponentInfo;
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ComponentsLayoutRequestValidator.INSTANCE;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ComponentsLayoutRequestValidator.INSTANCE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ComponentInfo component, ComponentInfo reference) throws Exception {
-    m_layout.command_CREATE_last(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ComponentInfo component, ComponentInfo reference) throws Exception {
+		m_layout.command_CREATE_last(component);
+	}
 
-  @Override
-  protected Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
-    return null;
-  }
+	@Override
+	protected Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
+		return null;
+	}
 
-  @Override
-  protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
-    return null;
-  }
+	@Override
+	protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+		return null;
+	}
 }

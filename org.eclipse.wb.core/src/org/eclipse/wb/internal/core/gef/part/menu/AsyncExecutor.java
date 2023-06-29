@@ -27,43 +27,43 @@ import org.eclipse.swt.widgets.Display;
  * @coverage core.gef.menu
  */
 public final class AsyncExecutor {
-  public static void schedule(Runnable runnable) {
-    new AsyncExecutor(runnable);
-  }
+	public static void schedule(Runnable runnable) {
+		new AsyncExecutor(runnable);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final Display m_display = Display.getDefault();
-  private final ObjectInfo m_activeObject = GlobalState.getActiveObject();
-  private final Runnable m_runnable;
-  private boolean m_shouldExecute = true;
-  private final Object m_broadcastListener = new ObjectEventListener() {
-    @Override
-    public void refreshBeforeCreate() throws Exception {
-      m_shouldExecute = false;
-    }
-  };
-  private final Runnable m_schedulingRunnable = new Runnable() {
-    @Override
-    public void run() {
-      m_activeObject.removeBroadcastListener(m_broadcastListener);
-      if (m_shouldExecute) {
-        m_runnable.run();
-      }
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final Display m_display = Display.getDefault();
+	private final ObjectInfo m_activeObject = GlobalState.getActiveObject();
+	private final Runnable m_runnable;
+	private boolean m_shouldExecute = true;
+	private final Object m_broadcastListener = new ObjectEventListener() {
+		@Override
+		public void refreshBeforeCreate() throws Exception {
+			m_shouldExecute = false;
+		}
+	};
+	private final Runnable m_schedulingRunnable = new Runnable() {
+		@Override
+		public void run() {
+			m_activeObject.removeBroadcastListener(m_broadcastListener);
+			if (m_shouldExecute) {
+				m_runnable.run();
+			}
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private AsyncExecutor(Runnable runnable) {
-    m_runnable = runnable;
-    m_activeObject.addBroadcastListener(m_broadcastListener);
-    m_display.asyncExec(m_schedulingRunnable);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private AsyncExecutor(Runnable runnable) {
+		m_runnable = runnable;
+		m_activeObject.addBroadcastListener(m_broadcastListener);
+		m_display.asyncExec(m_schedulingRunnable);
+	}
 }

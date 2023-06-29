@@ -27,15 +27,15 @@ import org.eclipse.wb.gef.core.tools.Tool;
  * @coverage gef.core
  */
 public abstract class RequestProcessor {
-  /**
-   * Processes given {@link Request}.
-   *
-   * @param editPart
-   *          the {@link EditPart} which initiates {@link Request} processing.
-   * @param request
-   *          the {@link Request} to process.
-   *
-   * @return a new {@link Request}, or same {@link Request}.
-   */
-  public abstract Request process(EditPart editPart, Request request) throws Exception;
+	/**
+	 * Processes given {@link Request}.
+	 *
+	 * @param editPart
+	 *          the {@link EditPart} which initiates {@link Request} processing.
+	 * @param request
+	 *          the {@link Request} to process.
+	 *
+	 * @return a new {@link Request}, or same {@link Request}.
+	 */
+	public abstract Request process(EditPart editPart, Request request) throws Exception;
 }

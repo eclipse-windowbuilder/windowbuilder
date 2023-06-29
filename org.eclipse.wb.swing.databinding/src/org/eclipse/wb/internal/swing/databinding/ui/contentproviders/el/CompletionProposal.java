@@ -26,55 +26,55 @@ import org.eclipse.swt.graphics.Point;
  * @coverage bindings.swing.ui
  */
 public final class CompletionProposal implements ICompletionProposal {
-  private final String m_displayText;
-  private final Image m_image;
-  private final int m_offset;
-  private final String m_data;
-  private final Point m_selection;
+	private final String m_displayText;
+	private final Image m_image;
+	private final int m_offset;
+	private final String m_data;
+	private final Point m_selection;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompletionProposal(String displayText, Image image, int offset, String data, int selection) {
-    m_displayText = displayText;
-    m_image = image;
-    m_offset = offset;
-    m_data = data;
-    m_selection = new Point(selection, 0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompletionProposal(String displayText, Image image, int offset, String data, int selection) {
+		m_displayText = displayText;
+		m_image = image;
+		m_offset = offset;
+		m_data = data;
+		m_selection = new Point(selection, 0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ICompletionProposal
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void apply(IDocument document) {
-    try {
-      document.replace(m_offset, 0, m_data);
-    } catch (BadLocationException e) {
-      DesignerPlugin.log(e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ICompletionProposal
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void apply(IDocument document) {
+		try {
+			document.replace(m_offset, 0, m_data);
+		} catch (BadLocationException e) {
+			DesignerPlugin.log(e);
+		}
+	}
 
-  public String getDisplayString() {
-    return m_displayText;
-  }
+	public String getDisplayString() {
+		return m_displayText;
+	}
 
-  public Image getImage() {
-    return m_image;
-  }
+	public Image getImage() {
+		return m_image;
+	}
 
-  public Point getSelection(IDocument document) {
-    return m_selection;
-  }
+	public Point getSelection(IDocument document) {
+		return m_selection;
+	}
 
-  public String getAdditionalProposalInfo() {
-    return null;
-  }
+	public String getAdditionalProposalInfo() {
+		return null;
+	}
 
-  public IContextInformation getContextInformation() {
-    return null;
-  }
+	public IContextInformation getContextInformation() {
+		return null;
+	}
 }

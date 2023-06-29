@@ -19,15 +19,15 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class NlsUiTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.nls.ui");
-    suite.addTest(createSingleSuite(FlagRepositoryTest.class));
-    suite.addTest(createSingleSuite(LocaleUtilsTest.class));
-    suite.addTest(createSingleSuite(ContributionItemTest.class));
-    suite.addTest(createSingleSuite(NlsDialogTest.class));
-    suite.addTest(createSingleSuite(SourceCompositeTest.class));
-    suite.addTest(createSingleSuite(PropertiesCompositeTest.class));
-    suite.addTest(createSingleSuite(NewSourceDialogTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.nls.ui");
+		suite.addTest(createSingleSuite(FlagRepositoryTest.class));
+		suite.addTest(createSingleSuite(LocaleUtilsTest.class));
+		suite.addTest(createSingleSuite(ContributionItemTest.class));
+		suite.addTest(createSingleSuite(NlsDialogTest.class));
+		suite.addTest(createSingleSuite(SourceCompositeTest.class));
+		suite.addTest(createSingleSuite(PropertiesCompositeTest.class));
+		suite.addTest(createSingleSuite(NewSourceDialogTest.class));
+		return suite;
+	}
 }

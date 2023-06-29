@@ -24,198 +24,198 @@ import org.eclipse.swt.graphics.Point;
  * @author scheglov_ke
  */
 public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link BooleanObjectPropertyEditor#doubleClick(Property, Point)}.
-   */
-  public void test_doubleClick() throws Exception {
-    prepareBooleanPanel();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    panel.refresh();
-    // prepare property
-    Property property = panel.getPropertyByTitle("foo");
-    BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
-    // unknown -> true
-    editor.doubleClick(property, null);
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    setFoo(true);",
-        "  }",
-        "}");
-    // true -> false
-    editor.doubleClick(property, null);
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    setFoo(false);",
-        "  }",
-        "}");
-    // false -> true
-    editor.doubleClick(property, null);
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    setFoo(true);",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link BooleanObjectPropertyEditor#doubleClick(Property, Point)}.
+	 */
+	public void test_doubleClick() throws Exception {
+		prepareBooleanPanel();
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends MyPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		panel.refresh();
+		// prepare property
+		Property property = panel.getPropertyByTitle("foo");
+		BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
+		// unknown -> true
+		editor.doubleClick(property, null);
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    setFoo(true);",
+				"  }",
+				"}");
+		// true -> false
+		editor.doubleClick(property, null);
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    setFoo(false);",
+				"  }",
+				"}");
+		// false -> true
+		editor.doubleClick(property, null);
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    setFoo(true);",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Test for {@link BooleanObjectPropertyEditor#doubleClick(Property, Point)}.
-   */
-  public void test_doubleClick_fromNull() throws Exception {
-    prepareBooleanPanel();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    setFoo(null);",
-            "  }",
-            "}");
-    panel.refresh();
-    // prepare property
-    Property property = panel.getPropertyByTitle("foo");
-    BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
-    // null -> true
-    editor.doubleClick(property, null);
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    setFoo(true);",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for {@link BooleanObjectPropertyEditor#doubleClick(Property, Point)}.
+	 */
+	public void test_doubleClick_fromNull() throws Exception {
+		prepareBooleanPanel();
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends MyPanel {",
+						"  public Test() {",
+						"    setFoo(null);",
+						"  }",
+						"}");
+		panel.refresh();
+		// prepare property
+		Property property = panel.getPropertyByTitle("foo");
+		BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
+		// null -> true
+		editor.doubleClick(property, null);
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    setFoo(true);",
+				"  }",
+				"}");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // activate()
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link BooleanObjectPropertyEditor#activate(PropertyTable, Property, Point)}.
-   */
-  public void test_activate_usingKeyboard() throws Exception {
-    prepareBooleanPanel();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    setFoo(true);",
-            "  }",
-            "}");
-    panel.refresh();
-    // prepare property
-    Property property = panel.getPropertyByTitle("foo");
-    BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
-    // true -> false
-    boolean activated = editor.activate(null, property, null);
-    assertFalse(activated);
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    setFoo(false);",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// activate()
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link BooleanObjectPropertyEditor#activate(PropertyTable, Property, Point)}.
+	 */
+	public void test_activate_usingKeyboard() throws Exception {
+		prepareBooleanPanel();
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends MyPanel {",
+						"  public Test() {",
+						"    setFoo(true);",
+						"  }",
+						"}");
+		panel.refresh();
+		// prepare property
+		Property property = panel.getPropertyByTitle("foo");
+		BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
+		// true -> false
+		boolean activated = editor.activate(null, property, null);
+		assertFalse(activated);
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    setFoo(false);",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Test for {@link BooleanObjectPropertyEditor#activate(PropertyTable, Property, Point)}.
-   */
-  public void test_activate_clickOnCheckBox() throws Exception {
-    prepareBooleanPanel();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    setFoo(true);",
-            "  }",
-            "}");
-    panel.refresh();
-    // prepare property
-    Property property = panel.getPropertyByTitle("foo");
-    BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
-    // true -> false
-    boolean activated = editor.activate(null, property, new Point(10, 0));
-    assertFalse(activated);
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    setFoo(false);",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for {@link BooleanObjectPropertyEditor#activate(PropertyTable, Property, Point)}.
+	 */
+	public void test_activate_clickOnCheckBox() throws Exception {
+		prepareBooleanPanel();
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends MyPanel {",
+						"  public Test() {",
+						"    setFoo(true);",
+						"  }",
+						"}");
+		panel.refresh();
+		// prepare property
+		Property property = panel.getPropertyByTitle("foo");
+		BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
+		// true -> false
+		boolean activated = editor.activate(null, property, new Point(10, 0));
+		assertFalse(activated);
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    setFoo(false);",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Test for {@link BooleanObjectPropertyEditor#activate(PropertyTable, Property, Point)}.
-   */
-  public void test_activate_justClickToSelect() throws Exception {
-    prepareBooleanPanel();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    setFoo(true);",
-            "  }",
-            "}");
-    panel.refresh();
-    // prepare property
-    Property property = panel.getPropertyByTitle("foo");
-    BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
-    // true -> false
-    boolean activated = editor.activate(null, property, new Point(100, 0));
-    assertFalse(activated);
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    setFoo(true);",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for {@link BooleanObjectPropertyEditor#activate(PropertyTable, Property, Point)}.
+	 */
+	public void test_activate_justClickToSelect() throws Exception {
+		prepareBooleanPanel();
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends MyPanel {",
+						"  public Test() {",
+						"    setFoo(true);",
+						"  }",
+						"}");
+		panel.refresh();
+		// prepare property
+		Property property = panel.getPropertyByTitle("foo");
+		BooleanObjectPropertyEditor editor = (BooleanObjectPropertyEditor) property.getEditor();
+		// true -> false
+		boolean activated = editor.activate(null, property, new Point(100, 0));
+		assertFalse(activated);
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    setFoo(true);",
+				"  }",
+				"}");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void prepareBooleanPanel() throws Exception {
-    setFileContentSrc(
-        "test/MyPanel.java",
-        getTestSource(
-            "public class MyPanel extends JPanel {",
-            "  public void setFoo(Boolean foo) {",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void prepareBooleanPanel() throws Exception {
+		setFileContentSrc(
+				"test/MyPanel.java",
+				getTestSource(
+						"public class MyPanel extends JPanel {",
+						"  public void setFoo(Boolean foo) {",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+	}
 }

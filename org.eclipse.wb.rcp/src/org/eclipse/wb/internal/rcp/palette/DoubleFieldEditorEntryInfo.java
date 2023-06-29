@@ -35,58 +35,58 @@ import java.io.InputStream;
  * @coverage rcp.editor.palette
  */
 public final class DoubleFieldEditorEntryInfo extends ToolEntryInfo {
-  private static final String TYPE_NAME = "org.eclipse.wb.swt.DoubleFieldEditor";
-  private static final Image ICON = loadIcon();
+	private static final String TYPE_NAME = "org.eclipse.wb.swt.DoubleFieldEditor";
+	private static final Image ICON = loadIcon();
 
-  private static Image loadIcon() {
-    InputStream input = Activator.getFile("wbp-meta/org/eclipse/wb/swt/DoubleFieldEditor.png");
-    try {
-      return new Image(null, input);
-    } finally {
-      IOUtils.closeQuietly(input);
-    }
-  }
+	private static Image loadIcon() {
+		InputStream input = Activator.getFile("wbp-meta/org/eclipse/wb/swt/DoubleFieldEditor.png");
+		try {
+			return new Image(null, input);
+		} finally {
+			IOUtils.closeQuietly(input);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DoubleFieldEditorEntryInfo() throws Exception {
-    setId(getClass().getName());
-    setName(PaletteMessages.DoubleFieldEditorEntryInfo_name);
-    setDescription(PaletteMessages.DoubleFieldEditorEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DoubleFieldEditorEntryInfo() throws Exception {
+		setId(getClass().getName());
+		setName(PaletteMessages.DoubleFieldEditorEntryInfo_name);
+		setDescription(PaletteMessages.DoubleFieldEditorEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    ProjectUtils.ensureResourceType(m_javaProject, Activator.getDefault().getBundle(), TYPE_NAME);
-    // create tool
-    ICreationFactory factory = new ICreationFactory() {
-      private JavaInfo m_javaInfo;
+	@Override
+	public Tool createTool() throws Exception {
+		ProjectUtils.ensureResourceType(m_javaProject, Activator.getDefault().getBundle(), TYPE_NAME);
+		// create tool
+		ICreationFactory factory = new ICreationFactory() {
+			private JavaInfo m_javaInfo;
 
-      @Override
-      public void activate() throws Exception {
-        CreationSupport creationSupport = new ConstructorCreationSupport();
-        m_javaInfo = JavaInfoUtils.createJavaInfo(m_editor, TYPE_NAME, creationSupport);
-        m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
-      }
+			@Override
+			public void activate() throws Exception {
+				CreationSupport creationSupport = new ConstructorCreationSupport();
+				m_javaInfo = JavaInfoUtils.createJavaInfo(m_editor, TYPE_NAME, creationSupport);
+				m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
+			}
 
-      @Override
-      public Object getNewObject() {
-        return m_javaInfo;
-      }
-    };
-    return new CreationTool(factory);
-  }
+			@Override
+			public Object getNewObject() {
+				return m_javaInfo;
+			}
+		};
+		return new CreationTool(factory);
+	}
 }

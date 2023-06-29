@@ -51,143 +51,143 @@ import java.util.Set;
  * @coverage core.editor
  */
 public class VisitedLinesHighlighter implements IPainter, LineBackgroundListener {
-  private boolean m_shouldHighlight;
-  private Color m_color;
-  private final List<Position> m_linePositions = Lists.newArrayList();
-  private final ISourceViewer m_sourceViewer;
-  private final IDocument m_document;
-  private final StyledText m_textWidget;
-  private final ITextViewerExtension2 m_extension2;
-  private final ITextViewerExtension5 m_extension5;
-  private IPaintPositionManager m_positionManager;
+	private boolean m_shouldHighlight;
+	private Color m_color;
+	private final List<Position> m_linePositions = Lists.newArrayList();
+	private final ISourceViewer m_sourceViewer;
+	private final IDocument m_document;
+	private final StyledText m_textWidget;
+	private final ITextViewerExtension2 m_extension2;
+	private final ITextViewerExtension5 m_extension5;
+	private IPaintPositionManager m_positionManager;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VisitedLinesHighlighter(ISourceViewer sourceViewer) {
-    m_sourceViewer = sourceViewer;
-    m_document = m_sourceViewer.getDocument();
-    m_textWidget = sourceViewer.getTextWidget();
-    m_extension2 = (ITextViewerExtension2) sourceViewer;
-    m_extension5 = (ITextViewerExtension5) m_sourceViewer;
-    m_extension2.addPainter(this);
-    m_textWidget.addLineBackgroundListener(this);
-    //
-    trackPreferences();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VisitedLinesHighlighter(ISourceViewer sourceViewer) {
+		m_sourceViewer = sourceViewer;
+		m_document = m_sourceViewer.getDocument();
+		m_textWidget = sourceViewer.getTextWidget();
+		m_extension2 = (ITextViewerExtension2) sourceViewer;
+		m_extension5 = (ITextViewerExtension5) m_sourceViewer;
+		m_extension2.addPainter(this);
+		m_textWidget.addLineBackgroundListener(this);
+		//
+		trackPreferences();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Preferences tracking
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  IPropertyChangeListener m_preferenceListener = new IPropertyChangeListener() {
-    @Override
-    public void propertyChange(PropertyChangeEvent event) {
-      trackPreferences_getCurrentValues();
-      m_textWidget.redraw();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Preferences tracking
+	//
+	////////////////////////////////////////////////////////////////////////////
+	IPropertyChangeListener m_preferenceListener = new IPropertyChangeListener() {
+		@Override
+		public void propertyChange(PropertyChangeEvent event) {
+			trackPreferences_getCurrentValues();
+			m_textWidget.redraw();
+		}
+	};
 
-  private void trackPreferences() {
-    trackPreferences_getCurrentValues();
-    DesignerPlugin.getPreferences().addPropertyChangeListener(m_preferenceListener);
-  }
+	private void trackPreferences() {
+		trackPreferences_getCurrentValues();
+		DesignerPlugin.getPreferences().addPropertyChangeListener(m_preferenceListener);
+	}
 
-  private void trackPreferences_getCurrentValues() {
-    IPreferenceStore preferences = DesignerPlugin.getPreferences();
-    m_shouldHighlight = preferences.getBoolean(IPreferenceConstants.P_HIGHLIGHT_VISITED);
-    RGB rgb =
-        PreferenceConverter.getColor(preferences, IPreferenceConstants.P_HIGHLIGHT_VISITED_COLOR);
-    m_color = SwtResourceManager.getColor(rgb);
-  }
+	private void trackPreferences_getCurrentValues() {
+		IPreferenceStore preferences = DesignerPlugin.getPreferences();
+		m_shouldHighlight = preferences.getBoolean(IPreferenceConstants.P_HIGHLIGHT_VISITED);
+		RGB rgb =
+				PreferenceConverter.getColor(preferences, IPreferenceConstants.P_HIGHLIGHT_VISITED_COLOR);
+		m_color = SwtResourceManager.getColor(rgb);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setVisitedNodes(Collection<ASTNode> nodes) throws Exception {
-    // unmanage previous positions
-    for (Position position : m_linePositions) {
-      m_positionManager.unmanagePosition(position);
-    }
-    // prepare lines
-    Set<Integer> lines = Sets.newHashSet();
-    for (ASTNode node : nodes) {
-      int line = m_document.getLineOfOffset(node.getStartPosition());
-      lines.add(line);
-    }
-    // create new positions
-    m_linePositions.clear();
-    for (Integer line : lines) {
-      int lineOffset = m_document.getLineOffset(line);
-      Position position = new Position(lineOffset);
-      m_linePositions.add(position);
-      m_positionManager.managePosition(position);
-    }
-    // paint
-    ExecutionUtils.runAsync(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        m_textWidget.redraw();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setVisitedNodes(Collection<ASTNode> nodes) throws Exception {
+		// unmanage previous positions
+		for (Position position : m_linePositions) {
+			m_positionManager.unmanagePosition(position);
+		}
+		// prepare lines
+		Set<Integer> lines = Sets.newHashSet();
+		for (ASTNode node : nodes) {
+			int line = m_document.getLineOfOffset(node.getStartPosition());
+			lines.add(line);
+		}
+		// create new positions
+		m_linePositions.clear();
+		for (Integer line : lines) {
+			int lineOffset = m_document.getLineOffset(line);
+			Position position = new Position(lineOffset);
+			m_linePositions.add(position);
+			m_positionManager.managePosition(position);
+		}
+		// paint
+		ExecutionUtils.runAsync(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				m_textWidget.redraw();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IPainter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setPositionManager(IPaintPositionManager manager) {
-    m_positionManager = manager;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IPainter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setPositionManager(IPaintPositionManager manager) {
+		m_positionManager = manager;
+	}
 
-  @Override
-  public void paint(int reason) {
-  }
+	@Override
+	public void paint(int reason) {
+	}
 
-  @Override
-  public void deactivate(boolean redraw) {
-  }
+	@Override
+	public void deactivate(boolean redraw) {
+	}
 
-  @Override
-  public void dispose() {
-    DesignerPlugin.getPreferences().removePropertyChangeListener(m_preferenceListener);
-  }
+	@Override
+	public void dispose() {
+		DesignerPlugin.getPreferences().removePropertyChangeListener(m_preferenceListener);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LineBackgroundListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void lineGetBackground(LineBackgroundEvent event) {
-    if (!m_shouldHighlight) {
-      return;
-    }
-    // prepare "model" line offset
-    int lineOffset = event.lineOffset;
-    lineOffset = m_extension5.widgetOffset2ModelOffset(lineOffset);
-    // if already not default background, such as "current line", then keep it as is
-    if (event.lineBackground != null) {
-      Color defaultBackground = m_textWidget.getBackground();
-      if (!event.lineBackground.equals(defaultBackground)) {
-        return;
-      }
-    }
-    // try to find position for given line
-    for (Position position : m_linePositions) {
-      if (!position.isDeleted()) {
-        if (position.getOffset() == lineOffset) {
-          event.lineBackground = m_color;
-          break;
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LineBackgroundListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void lineGetBackground(LineBackgroundEvent event) {
+		if (!m_shouldHighlight) {
+			return;
+		}
+		// prepare "model" line offset
+		int lineOffset = event.lineOffset;
+		lineOffset = m_extension5.widgetOffset2ModelOffset(lineOffset);
+		// if already not default background, such as "current line", then keep it as is
+		if (event.lineBackground != null) {
+			Color defaultBackground = m_textWidget.getBackground();
+			if (!event.lineBackground.equals(defaultBackground)) {
+				return;
+			}
+		}
+		// try to find position for given line
+		for (Position position : m_linePositions) {
+			if (!position.isDeleted()) {
+				if (position.getOffset() == lineOffset) {
+					event.lineBackground = m_color;
+					break;
+				}
+			}
+		}
+	}
 }

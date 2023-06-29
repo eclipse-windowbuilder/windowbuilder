@@ -25,28 +25,28 @@ import org.apache.commons.lang.WordUtils;
  * @coverage swing.FormLayout.header
  */
 public final class SetTemplateAction<T extends FormDimensionInfo> extends DimensionHeaderAction<T> {
-  private final FormDimensionTemplate m_template;
+	private final FormDimensionTemplate m_template;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetTemplateAction(DimensionHeaderEditPart<T> header, FormDimensionTemplate template) {
-    super(header, WordUtils.capitalize(template.getTitle()), template.getIcon(), AS_RADIO_BUTTON);
-    m_template = template;
-    setChecked(header.getDimension().isTemplate(template));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetTemplateAction(DimensionHeaderEditPart<T> header, FormDimensionTemplate template) {
+		super(header, WordUtils.capitalize(template.getTitle()), template.getIcon(), AS_RADIO_BUTTON);
+		m_template = template;
+		setChecked(header.getDimension().isTemplate(template));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void run(T dimension) throws Exception {
-    if (isChecked()) {
-      dimension.setTemplate(m_template);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void run(T dimension) throws Exception {
+		if (isChecked()) {
+			dimension.setTemplate(m_template);
+		}
+	}
 }

@@ -19,8 +19,8 @@ import org.eclipse.wb.gef.core.tools.Tool;
  * @coverage gef.core
  */
 public interface IActiveToolListener {
-  /**
-   * Notifies that new {@link Tool} was activated.
-   */
-  void toolActivated(Tool tool);
+	/**
+	 * Notifies that new {@link Tool} was activated.
+	 */
+	void toolActivated(Tool tool);
 }

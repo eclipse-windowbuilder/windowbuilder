@@ -39,50 +39,50 @@ import javax.swing.ListModel;
  * @coverage swing.model
  */
 public final class ListModelEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    // check for anonymous AbstractListModel
-    if (expression instanceof ClassInstanceCreation) {
-      ClassInstanceCreation creation = (ClassInstanceCreation) expression;
-      if (creation.getAnonymousClassDeclaration() != null
-          && AstNodeUtils.isSuccessorOf(expression, AbstractListModel.class)) {
-        AnonymousClassDeclaration declaration = creation.getAnonymousClassDeclaration();
-        List<BodyDeclaration> declarations = DomGenerics.bodyDeclarations(declaration);
-        for (BodyDeclaration bodyDeclaration : declarations) {
-          if (bodyDeclaration instanceof FieldDeclaration) {
-            FieldDeclaration fieldDeclaration = (FieldDeclaration) bodyDeclaration;
-            VariableDeclaration fragment = DomGenerics.fragments(fieldDeclaration).get(0);
-            Type fieldType = fieldDeclaration.getType();
-            String fieldTypeName = AstNodeUtils.getFullyQualifiedName(fieldType, false);
-            if (fieldTypeName.equals("java.lang.String[]")) {
-              final String[] values =
-                  (String[]) AstEvaluationEngine.evaluate(context, fragment.getInitializer());
-              if (values != null) {
-                return new AbstractListModel() {
-                  private static final long serialVersionUID = 0L;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		// check for anonymous AbstractListModel
+		if (expression instanceof ClassInstanceCreation) {
+			ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+			if (creation.getAnonymousClassDeclaration() != null
+					&& AstNodeUtils.isSuccessorOf(expression, AbstractListModel.class)) {
+				AnonymousClassDeclaration declaration = creation.getAnonymousClassDeclaration();
+				List<BodyDeclaration> declarations = DomGenerics.bodyDeclarations(declaration);
+				for (BodyDeclaration bodyDeclaration : declarations) {
+					if (bodyDeclaration instanceof FieldDeclaration) {
+						FieldDeclaration fieldDeclaration = (FieldDeclaration) bodyDeclaration;
+						VariableDeclaration fragment = DomGenerics.fragments(fieldDeclaration).get(0);
+						Type fieldType = fieldDeclaration.getType();
+						String fieldTypeName = AstNodeUtils.getFullyQualifiedName(fieldType, false);
+						if (fieldTypeName.equals("java.lang.String[]")) {
+							final String[] values =
+									(String[]) AstEvaluationEngine.evaluate(context, fragment.getInitializer());
+							if (values != null) {
+								return new AbstractListModel() {
+									private static final long serialVersionUID = 0L;
 
-                  public int getSize() {
-                    return values.length;
-                  }
+									public int getSize() {
+										return values.length;
+									}
 
-                  public Object getElementAt(int index) {
-                    return values[index];
-                  }
-                };
-              }
-            }
-          }
-        }
-      }
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+									public Object getElementAt(int index) {
+										return values[index];
+									}
+								};
+							}
+						}
+					}
+				}
+			}
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

@@ -27,78 +27,78 @@ import java.util.List;
  * @author scheglov_ke
  */
 public final class RequestsLogger {
-  private final List<String> m_events = Lists.newArrayList();
+	private final List<String> m_events = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Removes all logged events.
-   */
-  public void clear() {
-    m_events.clear();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Removes all logged events.
+	 */
+	public void clear() {
+		m_events.clear();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Assert
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Asserts that this {@link RequestsLogger} has no events.
-   */
-  public void assertEmpty() {
-    Assert.assertTrue(m_events.isEmpty());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Assert
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Asserts that this {@link RequestsLogger} has no events.
+	 */
+	public void assertEmpty() {
+		Assert.assertTrue(m_events.isEmpty());
+	}
 
-  /**
-   * Asserts that this {@link RequestsLogger} contains same events as in expected one.
-   */
-  public void assertEquals(RequestsLogger expectedLogger) {
-    Assert.assertEquals(getString(expectedLogger), getString(this));
-  }
+	/**
+	 * Asserts that this {@link RequestsLogger} contains same events as in expected one.
+	 */
+	public void assertEquals(RequestsLogger expectedLogger) {
+		Assert.assertEquals(getString(expectedLogger), getString(this));
+	}
 
-  /**
-   * Asserts with given <b>actual</b> {@link RequestsLogger}.
-   */
-  public void backAssertEquals(RequestsLogger actualLogger) {
-    actualLogger.assertEquals(this);
-  }
+	/**
+	 * Asserts with given <b>actual</b> {@link RequestsLogger}.
+	 */
+	public void backAssertEquals(RequestsLogger actualLogger) {
+		actualLogger.assertEquals(this);
+	}
 
-  /**
-   * @return the single {@link String} from events of given {@link RequestsLogger}.
-   */
-  private static String getString(RequestsLogger logger) {
-    return StringUtils.join(logger.m_events.iterator(), "\n");
-  }
+	/**
+	 * @return the single {@link String} from events of given {@link RequestsLogger}.
+	 */
+	private static String getString(RequestsLogger logger) {
+		return StringUtils.join(logger.m_events.iterator(), "\n");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Logging
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Logs new event.
-   */
-  public void log(EditPart source, String event) {
-    m_events.add(source + " = " + event);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Logging
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Logs new event.
+	 */
+	public void log(EditPart source, String event) {
+		m_events.add(source + " = " + event);
+	}
 
-  /**
-   * Logs new event with given {@link Request}.
-   */
-  public void log(EditPart source, String event, Request request) {
-    m_events.add(source + " = " + event + "[ " + request + " ]");
-  }
+	/**
+	 * Logs new event with given {@link Request}.
+	 */
+	public void log(EditPart source, String event, Request request) {
+		m_events.add(source + " = " + event + "[ " + request + " ]");
+	}
 
-  /**
-   * Logs new events with given {@link Request}.
-   */
-  public void log(EditPart source, String[] events, Request request) {
-    for (int i = 0; i < events.length; i++) {
-      log(source, events[i], request);
-    }
-  }
+	/**
+	 * Logs new events with given {@link Request}.
+	 */
+	public void log(EditPart source, String[] events, Request request) {
+		for (int i = 0; i < events.length; i++) {
+			log(source, events[i], request);
+		}
+	}
 }

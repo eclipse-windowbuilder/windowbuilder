@@ -22,25 +22,25 @@ import org.eclipse.wb.internal.xwt.IExceptionConstants;
  * @coverage XWT.parser
  */
 public class XwtJavaParseValidator implements IParseValidator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IParseValidator INSTANCE = new XwtJavaParseValidator();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IParseValidator INSTANCE = new XwtJavaParseValidator();
 
-  private XwtJavaParseValidator() {
-  }
+	private XwtJavaParseValidator() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IParseValidator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void validate(AstEditor editor) throws Exception {
-    if (editor.getSource().contains("XWT.load")) {
-      throw new DesignerException(IExceptionConstants.DONT_OPEN_JAVA,
-          editor.getModelUnit().getElementName());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IParseValidator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void validate(AstEditor editor) throws Exception {
+		if (editor.getSource().contains("XWT.load")) {
+			throw new DesignerException(IExceptionConstants.DONT_OPEN_JAVA,
+					editor.getModelUnit().getElementName());
+		}
+	}
 }

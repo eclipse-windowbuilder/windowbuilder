@@ -24,53 +24,53 @@ import org.eclipse.wb.internal.core.model.variable.description.VariableSupportDe
  * @coverage core.model.generation
  */
 public final class GenerationUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private GenerationUtils() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private GenerationUtils() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link VariableSupport} for given {@link JavaInfo}.
-   */
-  public static VariableSupport getVariableSupport(JavaInfo javaInfo) throws Exception {
-    VariableSupportDescription description = getVariableDescription(javaInfo);
-    return description.createSupport(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link VariableSupport} for given {@link JavaInfo}.
+	 */
+	public static VariableSupport getVariableSupport(JavaInfo javaInfo) throws Exception {
+		VariableSupportDescription description = getVariableDescription(javaInfo);
+		return description.createSupport(javaInfo);
+	}
 
-  /**
-   * @return the {@link VariableSupportDescription} for given {@link JavaInfo}.
-   */
-  public static VariableSupportDescription getVariableDescription(JavaInfo javaInfo) {
-    GenerationSettings generationSettings = getToolkit(javaInfo).getGenerationSettings();
-    return generationSettings.getVariable(javaInfo);
-  }
+	/**
+	 * @return the {@link VariableSupportDescription} for given {@link JavaInfo}.
+	 */
+	public static VariableSupportDescription getVariableDescription(JavaInfo javaInfo) {
+		GenerationSettings generationSettings = getToolkit(javaInfo).getGenerationSettings();
+		return generationSettings.getVariable(javaInfo);
+	}
 
-  /**
-   * @return the {@link StatementGenerator} for given {@link JavaInfo}.
-   */
-  public static StatementGenerator getStatementGenerator(JavaInfo javaInfo) throws Exception {
-    GenerationSettings generationSettings = getToolkit(javaInfo).getGenerationSettings();
-    StatementGeneratorDescription description = generationSettings.getStatement(javaInfo);
-    return description.get();
-  }
+	/**
+	 * @return the {@link StatementGenerator} for given {@link JavaInfo}.
+	 */
+	public static StatementGenerator getStatementGenerator(JavaInfo javaInfo) throws Exception {
+		GenerationSettings generationSettings = getToolkit(javaInfo).getGenerationSettings();
+		StatementGeneratorDescription description = generationSettings.getStatement(javaInfo);
+		return description.get();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ToolkitDescriptionJava} for given {@link JavaInfo}.
-   */
-  private static ToolkitDescriptionJava getToolkit(JavaInfo javaInfo) {
-    return javaInfo.getDescription().getToolkit();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ToolkitDescriptionJava} for given {@link JavaInfo}.
+	 */
+	private static ToolkitDescriptionJava getToolkit(JavaInfo javaInfo) {
+		return javaInfo.getDescription().getToolkit();
+	}
 }

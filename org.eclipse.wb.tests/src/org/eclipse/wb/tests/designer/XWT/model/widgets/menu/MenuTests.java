@@ -23,11 +23,11 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class MenuTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.widgets.menu");
-    suite.addTest(createSingleSuite(MenuItemTest.class));
-    suite.addTest(createSingleSuite(MenuTest.class));
-    suite.addTest(createSingleSuite(MenuGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.widgets.menu");
+		suite.addTest(createSingleSuite(MenuItemTest.class));
+		suite.addTest(createSingleSuite(MenuTest.class));
+		suite.addTest(createSingleSuite(MenuGefTest.class));
+		return suite;
+	}
 }

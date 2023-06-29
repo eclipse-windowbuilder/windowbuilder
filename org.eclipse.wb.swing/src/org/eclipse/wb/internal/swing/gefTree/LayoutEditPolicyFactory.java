@@ -31,27 +31,27 @@ import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
  * @coverage swing.gefTree
  */
 public class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutEditPolicyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    if (model instanceof GenericFlowLayoutInfo) {
-      return new GenericFlowLayoutEditPolicy((GenericFlowLayoutInfo) model);
-    }
-    if (model instanceof BorderLayoutInfo) {
-      return new BorderLayoutEditPolicy((BorderLayoutInfo) model);
-    }
-    if (model instanceof GridBagLayoutInfo) {
-      return new GridBagLayoutEditPolicy((GridBagLayoutInfo) model);
-    }
-    if (model instanceof AbstractAbsoluteLayoutInfo) {
-      return new AbsoluteLayoutEditPolicy((AbstractAbsoluteLayoutInfo) model);
-    }
-    if (model instanceof SpringLayoutInfo) {
-      return new SpringLayoutEditPolicy((SpringLayoutInfo) model);
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutEditPolicyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		if (model instanceof GenericFlowLayoutInfo) {
+			return new GenericFlowLayoutEditPolicy((GenericFlowLayoutInfo) model);
+		}
+		if (model instanceof BorderLayoutInfo) {
+			return new BorderLayoutEditPolicy((BorderLayoutInfo) model);
+		}
+		if (model instanceof GridBagLayoutInfo) {
+			return new GridBagLayoutEditPolicy((GridBagLayoutInfo) model);
+		}
+		if (model instanceof AbstractAbsoluteLayoutInfo) {
+			return new AbsoluteLayoutEditPolicy((AbstractAbsoluteLayoutInfo) model);
+		}
+		if (model instanceof SpringLayoutInfo) {
+			return new SpringLayoutEditPolicy((SpringLayoutInfo) model);
+		}
+		return null;
+	}
 }

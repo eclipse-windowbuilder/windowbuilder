@@ -19,23 +19,23 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.model.description
  */
 public interface IComponentDescription {
-  /**
-   * @return the {@link ToolkitDescription} for this component.
-   */
-  ToolkitDescription getToolkit();
+	/**
+	 * @return the {@link ToolkitDescription} for this component.
+	 */
+	ToolkitDescription getToolkit();
 
-  /**
-   * @return the {@link Class} of component for which this description is.
-   */
-  Class<?> getComponentClass();
+	/**
+	 * @return the {@link Class} of component for which this description is.
+	 */
+	Class<?> getComponentClass();
 
-  /**
-   * @return the {@link Class} of model that should be used for this component.
-   */
-  Class<?> getModelClass();
+	/**
+	 * @return the {@link Class} of model that should be used for this component.
+	 */
+	Class<?> getModelClass();
 
-  /**
-   * @return the icon for this component.
-   */
-  Image getIcon();
+	/**
+	 * @return the icon for this component.
+	 */
+	Image getIcon();
 }

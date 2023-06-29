@@ -46,129 +46,129 @@ import javax.swing.Icon;
  * @coverage swing.model
  */
 public class ActionInfo extends JavaInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    addListeners();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		addListeners();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listeners
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds broadcast listeners.
-   */
-  private void addListeners() {
-    // add to palette
-    addBroadcastListener(new PaletteEventListener() {
-      @Override
-      public void entries(CategoryInfo category, List<EntryInfo> entries) throws Exception {
-        if (category.getId().equals("org.eclipse.wb.internal.swing.actions")) {
-          entries.add(new ActionUseEntryInfo(ActionInfo.this));
-        }
-      }
-    });
-    // update SMALL_ICON image
-    addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshed() throws Exception {
-        refreshIconImage();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listeners
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds broadcast listeners.
+	 */
+	private void addListeners() {
+		// add to palette
+		addBroadcastListener(new PaletteEventListener() {
+			@Override
+			public void entries(CategoryInfo category, List<EntryInfo> entries) throws Exception {
+				if (category.getId().equals("org.eclipse.wb.internal.swing.actions")) {
+					entries.add(new ActionUseEntryInfo(ActionInfo.this));
+				}
+			}
+		});
+		// update SMALL_ICON image
+		addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshed() throws Exception {
+				refreshIconImage();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * The SWT {@link Image} created from {@link Action#SMALL_ICON}, may be <code>null</code>.
-   */
-  private Image m_smallIconImage;
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public Image getIcon() throws Exception {
-      if (m_smallIconImage != null) {
-        return m_smallIconImage;
-      }
-      return super.getIcon();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * The SWT {@link Image} created from {@link Action#SMALL_ICON}, may be <code>null</code>.
+	 */
+	private Image m_smallIconImage;
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public Image getIcon() throws Exception {
+			if (m_smallIconImage != null) {
+				return m_smallIconImage;
+			}
+			return super.getIcon();
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  /**
-   * Converts {@link Action#SMALL_ICON} into {@link #m_smallIconImage}.
-   */
-  private void refreshIconImage() throws IOException {
-    m_smallIconImage = null;
-    // if Action has icon, convert it into SWT image
-    if (getObject() instanceof Action) {
-      javax.swing.Icon smallIcon = (Icon) ((Action) getObject()).getValue(Action.SMALL_ICON);
-      if (smallIcon != null) {
-        m_smallIconImage = ImageUtils.convertToSWT(smallIcon);
-        // schedule SWT image for disposing
-        JavaInfoUtils.getState(this).addDisposableImage(m_smallIconImage);
-      }
-    }
-  }
+	/**
+	 * Converts {@link Action#SMALL_ICON} into {@link #m_smallIconImage}.
+	 */
+	private void refreshIconImage() throws IOException {
+		m_smallIconImage = null;
+		// if Action has icon, convert it into SWT image
+		if (getObject() instanceof Action) {
+			javax.swing.Icon smallIcon = (Icon) ((Action) getObject()).getValue(Action.SMALL_ICON);
+			if (smallIcon != null) {
+				m_smallIconImage = ImageUtils.convertToSWT(smallIcon);
+				// schedule SWT image for disposing
+				JavaInfoUtils.getState(this).addDisposableImage(m_smallIconImage);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets {@link ActionInfo} for given {@link ComponentInfo} using
-   * {@link AbstractButton#setAction(javax.swing.Action)}.
-   *
-   * @param component
-   *          the {@link ComponentInfo} to set action for.
-   * @param action
-   *          the {@link ActionInfo} to set, may be <code>null</code>, then any existing action will
-   *          be unset.
-   */
-  public static void setAction(ComponentInfo component, ActionInfo action) throws Exception {
-    if (action == null) {
-      component.removeMethodInvocations("setAction(javax.swing.Action)");
-    } else {
-      // ensure that ActionInfo is already added
-      if (action.getParent() == null) {
-        ActionContainerInfo.add(component.getRootJava(), action);
-      }
-      // do set using setAction()
-      String actionSource = TemplateUtils.getExpression(action);
-      MethodInvocation invocation = component.getMethodInvocation("setAction(javax.swing.Action)");
-      if (invocation != null) {
-        component.replaceExpression(DomGenerics.arguments(invocation).get(0), actionSource);
-      } else {
-        invocation = component.addMethodInvocation("setAction(javax.swing.Action)", actionSource);
-      }
-      action.addRelatedNodes(invocation);
-      // select component
-      component.getBroadcastObject().select(ImmutableList.of(component));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets {@link ActionInfo} for given {@link ComponentInfo} using
+	 * {@link AbstractButton#setAction(javax.swing.Action)}.
+	 *
+	 * @param component
+	 *          the {@link ComponentInfo} to set action for.
+	 * @param action
+	 *          the {@link ActionInfo} to set, may be <code>null</code>, then any existing action will
+	 *          be unset.
+	 */
+	public static void setAction(ComponentInfo component, ActionInfo action) throws Exception {
+		if (action == null) {
+			component.removeMethodInvocations("setAction(javax.swing.Action)");
+		} else {
+			// ensure that ActionInfo is already added
+			if (action.getParent() == null) {
+				ActionContainerInfo.add(component.getRootJava(), action);
+			}
+			// do set using setAction()
+			String actionSource = TemplateUtils.getExpression(action);
+			MethodInvocation invocation = component.getMethodInvocation("setAction(javax.swing.Action)");
+			if (invocation != null) {
+				component.replaceExpression(DomGenerics.arguments(invocation).get(0), actionSource);
+			} else {
+				invocation = component.addMethodInvocation("setAction(javax.swing.Action)", actionSource);
+			}
+			action.addRelatedNodes(invocation);
+			// select component
+			component.getBroadcastObject().select(ImmutableList.of(component));
+		}
+	}
 
-  /**
-   * @return the new {@link ActionInfo} instance for adding as inner class.
-   */
-  public static ActionInfo createInner(AstEditor editor) throws Exception {
-    return (ActionInfo) JavaInfoUtils.createJavaInfo(
-        editor,
-        Action.class,
-        new ActionInnerCreationSupport());
-  }
+	/**
+	 * @return the new {@link ActionInfo} instance for adding as inner class.
+	 */
+	public static ActionInfo createInner(AstEditor editor) throws Exception {
+		return (ActionInfo) JavaInfoUtils.createJavaInfo(
+				editor,
+				Action.class,
+				new ActionInnerCreationSupport());
+	}
 }

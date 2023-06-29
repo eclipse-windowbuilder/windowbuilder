@@ -32,84 +32,84 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class CoordinateUtilsTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  // Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-  public void DISABLE_test_1() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    Button button = new Button(this, SWT.NONE);",
-            "    button.setBounds(10, 20, 50, 30);",
-            "  }",
-            "}");
-    ControlInfo button = shell.getChildrenControls().get(0);
-    shell.refresh();
-    // On GTK, the bounds are only calculated if the shell is visible
-    if (EnvironmentUtils.IS_LINUX) {
-      Shell swtShell = (Shell) shell.getObject();
-      swtShell.setVisible(true);
-      waitEventLoop(10);
-    }
-    // Shell location
-    Point shellLocation = CoordinateUtils.getDisplayLocation(shell.getObject());
-    // The shell is located at (0, 0), when invisible
-    if (EnvironmentUtils.IS_WINDOWS) {
-      assertEquals(new Point(-10000, -10000), shellLocation);
-    }
-    // Shell client area insets
-    Insets shellInsets = CoordinateUtils.getClientAreaInsets(shell.getObject());
-    assertTrue(shellInsets.left == shellInsets.right);
-    assertThat(shellInsets.left).isGreaterThanOrEqualTo(0);
-    assertThat(shellInsets.top).isGreaterThanOrEqualTo(15);
-    // Button location
-    {
-      Point buttonLocation = CoordinateUtils.getDisplayLocation(button.getObject());
-      assertEquals(shellLocation.x + shellInsets.left + 10, buttonLocation.x);
-      assertEquals(shellLocation.y + shellInsets.top + 20, buttonLocation.y);
-    }
-    // getBounds() for Button relative to Shell
-    {
-      Rectangle bounds = CoordinateUtils.getBounds(shell.getObject(), button.getObject());
-      assertEquals(shellInsets.left + 10, bounds.x);
-      assertEquals(shellInsets.top + 20, bounds.y);
-      assertEquals(50, bounds.width);
-      assertEquals(30, bounds.height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
+	public void DISABLE_test_1() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    Button button = new Button(this, SWT.NONE);",
+						"    button.setBounds(10, 20, 50, 30);",
+						"  }",
+						"}");
+		ControlInfo button = shell.getChildrenControls().get(0);
+		shell.refresh();
+		// On GTK, the bounds are only calculated if the shell is visible
+		if (EnvironmentUtils.IS_LINUX) {
+			Shell swtShell = (Shell) shell.getObject();
+			swtShell.setVisible(true);
+			waitEventLoop(10);
+		}
+		// Shell location
+		Point shellLocation = CoordinateUtils.getDisplayLocation(shell.getObject());
+		// The shell is located at (0, 0), when invisible
+		if (EnvironmentUtils.IS_WINDOWS) {
+			assertEquals(new Point(-10000, -10000), shellLocation);
+		}
+		// Shell client area insets
+		Insets shellInsets = CoordinateUtils.getClientAreaInsets(shell.getObject());
+		assertTrue(shellInsets.left == shellInsets.right);
+		assertThat(shellInsets.left).isGreaterThanOrEqualTo(0);
+		assertThat(shellInsets.top).isGreaterThanOrEqualTo(15);
+		// Button location
+		{
+			Point buttonLocation = CoordinateUtils.getDisplayLocation(button.getObject());
+			assertEquals(shellLocation.x + shellInsets.left + 10, buttonLocation.x);
+			assertEquals(shellLocation.y + shellInsets.top + 20, buttonLocation.y);
+		}
+		// getBounds() for Button relative to Shell
+		{
+			Rectangle bounds = CoordinateUtils.getBounds(shell.getObject(), button.getObject());
+			assertEquals(shellInsets.left + 10, bounds.x);
+			assertEquals(shellInsets.top + 20, bounds.y);
+			assertEquals(50, bounds.width);
+			assertEquals(30, bounds.height);
+		}
+	}
 
-  /**
-   * Test for {@link CoordinateUtils#getClientAreaInsets2(Object)} for {@link Group}.
-   */
-  public void DISABLE_test_withGroup() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    Group group = new Group(this, SWT.NONE);",
-            "  }",
-            "}");
-    shell.refresh();
-    CompositeInfo group = (CompositeInfo) shell.getChildrenControls().get(0);
-    //
-    Insets insets =
-        Expectations.get(new Insets(15, 3, 3, 3), new InsValue[]{
-            new InsValue("flanker-windows", new Insets(15, 3, 3, 3)),
-            new InsValue("scheglov-win", new Insets(15, 3, 3, 3))});
-    assertEquals(insets, CoordinateUtils.getClientAreaInsets2(group.getObject()));
-  }
+	/**
+	 * Test for {@link CoordinateUtils#getClientAreaInsets2(Object)} for {@link Group}.
+	 */
+	public void DISABLE_test_withGroup() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    setLayout(new FillLayout());",
+						"    Group group = new Group(this, SWT.NONE);",
+						"  }",
+						"}");
+		shell.refresh();
+		CompositeInfo group = (CompositeInfo) shell.getChildrenControls().get(0);
+		//
+		Insets insets =
+				Expectations.get(new Insets(15, 3, 3, 3), new InsValue[]{
+						new InsValue("flanker-windows", new Insets(15, 3, 3, 3)),
+						new InsValue("scheglov-win", new Insets(15, 3, 3, 3))});
+		assertEquals(insets, CoordinateUtils.getClientAreaInsets2(group.getObject()));
+	}
 }

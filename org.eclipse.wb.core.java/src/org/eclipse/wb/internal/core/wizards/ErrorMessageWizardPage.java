@@ -21,30 +21,30 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.wizards.ui
  */
 public class ErrorMessageWizardPage extends WizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ErrorMessageWizardPage(String title, String message) {
-    super("ErrorMessagePage");
-    setTitle(title);
-    setErrorMessage(message);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ErrorMessageWizardPage(String title, String message) {
+		super("ErrorMessagePage");
+		setTitle(title);
+		setErrorMessage(message);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createControl(Composite parent) {
-    Composite composite = new Composite(parent, SWT.NONE);
-    setControl(composite);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createControl(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		setControl(composite);
+	}
 
-  @Override
-  public boolean isPageComplete() {
-    return false;
-  }
+	@Override
+	public boolean isPageComplete() {
+		return false;
+	}
 }

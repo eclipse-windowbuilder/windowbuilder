@@ -32,80 +32,80 @@ import java.util.List;
  * @coverage core.ui
  */
 final class SrcPackageImageContainer implements IImageContainer {
-  private final IPackageFragment m_packageFragment;
-  private final SrcImageResource[] m_resources;
+	private final IPackageFragment m_packageFragment;
+	private final SrcImageResource[] m_resources;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SrcPackageImageContainer(String id,
-      IPackageFragmentRoot packageFragmentRoot,
-      IPackageFragment packageFragment) throws Exception {
-    m_packageFragment = packageFragment;
-    //
-    List<SrcImageResource> resources = Lists.newArrayList();
-    {
-      Object[] nonJavaResources = m_packageFragment.getNonJavaResources();
-      for (Object nonJavaResource : nonJavaResources) {
-        if (nonJavaResource instanceof IFile) {
-          IFile resource = (IFile) nonJavaResource;
-          String extension = resource.getLocation().getFileExtension();
-          if (AbstractBrowseImagePage.isImageExtension(extension)) {
-            SrcImageResource imageResource =
-                new SrcImageResource(id, packageFragmentRoot, resource);
-            resources.add(imageResource);
-          }
-        }
-      }
-    }
-    m_resources = resources.toArray(new SrcImageResource[resources.size()]);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SrcPackageImageContainer(String id,
+			IPackageFragmentRoot packageFragmentRoot,
+			IPackageFragment packageFragment) throws Exception {
+		m_packageFragment = packageFragment;
+		//
+		List<SrcImageResource> resources = Lists.newArrayList();
+		{
+			Object[] nonJavaResources = m_packageFragment.getNonJavaResources();
+			for (Object nonJavaResource : nonJavaResources) {
+				if (nonJavaResource instanceof IFile) {
+					IFile resource = (IFile) nonJavaResource;
+					String extension = resource.getLocation().getFileExtension();
+					if (AbstractBrowseImagePage.isImageExtension(extension)) {
+						SrcImageResource imageResource =
+								new SrcImageResource(id, packageFragmentRoot, resource);
+						resources.add(imageResource);
+					}
+				}
+			}
+		}
+		m_resources = resources.toArray(new SrcImageResource[resources.size()]);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IImageElement
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getImage() {
-    return JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IImageElement
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getImage() {
+		return JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE);
+	}
 
-  @Override
-  public String getName() {
-    return m_packageFragment.getElementName();
-  }
+	@Override
+	public String getName() {
+		return m_packageFragment.getElementName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IImageContainer
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IImageElement[] elements() {
-    return m_resources;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IImageContainer
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IImageElement[] elements() {
+		return m_resources;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this jar does not have any images.
-   */
-  boolean isEmpty() {
-    return m_resources.length == 0;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this jar does not have any images.
+	 */
+	boolean isEmpty() {
+		return m_resources.length == 0;
+	}
 
-  /**
-   * Disposes any allocated resources.
-   */
-  void dispose() {
-    for (SrcImageResource resource : m_resources) {
-      resource.dispose();
-    }
-  }
+	/**
+	 * Disposes any allocated resources.
+	 */
+	void dispose() {
+		for (SrcImageResource resource : m_resources) {
+			resource.dispose();
+		}
+	}
 }

@@ -31,85 +31,85 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.PerspectiveSh
  * @coverage rcp.gef.policy
  */
 public final class PerspectiveShortcutContainerLayoutEditPolicy
-    extends
-      AbstractFlowLayoutEditPolicy {
-  private static final ILayoutRequestValidator VALIDATOR =
-      LayoutRequestValidators.modelType(PerspectiveShortcutInfo.class);
-  private final PageLayoutInfo m_page;
-  private final PerspectiveShortcutContainerInfo m_container;
+extends
+AbstractFlowLayoutEditPolicy {
+	private static final ILayoutRequestValidator VALIDATOR =
+			LayoutRequestValidators.modelType(PerspectiveShortcutInfo.class);
+	private final PageLayoutInfo m_page;
+	private final PerspectiveShortcutContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectiveShortcutContainerLayoutEditPolicy(PerspectiveShortcutContainerInfo container) {
-    m_container = container;
-    m_page = container.getPage();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectiveShortcutContainerLayoutEditPolicy(PerspectiveShortcutContainerInfo container) {
+		m_container = container;
+		m_page = container.getPage();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof PerspectiveShortcutInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof PerspectiveShortcutInfo;
+	}
 
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return super.isRequestCondition(request) || request instanceof PerspectiveDropRequest;
-  }
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return super.isRequestCondition(request) || request instanceof PerspectiveDropRequest;
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractFlowLayoutEditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractFlowLayoutEditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCommand(Request request, Object referenceObject) {
-    if (request instanceof PerspectiveDropRequest) {
-      final PerspectiveDropRequest perspectiveDrop_Request = (PerspectiveDropRequest) request;
-      final PerspectiveInfo perspectiveInfo = perspectiveDrop_Request.getPerspective();
-      final PerspectiveShortcutInfo reference = (PerspectiveShortcutInfo) referenceObject;
-      return new EditCommand(m_page) {
-        @Override
-        protected void executeEdit() throws Exception {
-          PerspectiveShortcutInfo newPerspective =
-              m_container.command_CREATE(perspectiveInfo.getId(), reference);
-          perspectiveDrop_Request.setComponent(newPerspective);
-        }
-      };
-    }
-    return super.getCommand(request, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCommand(Request request, Object referenceObject) {
+		if (request instanceof PerspectiveDropRequest) {
+			final PerspectiveDropRequest perspectiveDrop_Request = (PerspectiveDropRequest) request;
+			final PerspectiveInfo perspectiveInfo = perspectiveDrop_Request.getPerspective();
+			final PerspectiveShortcutInfo reference = (PerspectiveShortcutInfo) referenceObject;
+			return new EditCommand(m_page) {
+				@Override
+				protected void executeEdit() throws Exception {
+					PerspectiveShortcutInfo newPerspective =
+							m_container.command_CREATE(perspectiveInfo.getId(), reference);
+					perspectiveDrop_Request.setComponent(newPerspective);
+				}
+			};
+		}
+		return super.getCommand(request, referenceObject);
+	}
 
-  @Override
-  protected Command getMoveCommand(Object moveObject, Object referenceObject) {
-    final PerspectiveShortcutInfo item = (PerspectiveShortcutInfo) moveObject;
-    final PerspectiveShortcutInfo nextItem = (PerspectiveShortcutInfo) referenceObject;
-    return new EditCommand(m_page) {
-      @Override
-      protected void executeEdit() throws Exception {
-        m_container.command_MOVE(item, nextItem);
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(Object moveObject, Object referenceObject) {
+		final PerspectiveShortcutInfo item = (PerspectiveShortcutInfo) moveObject;
+		final PerspectiveShortcutInfo nextItem = (PerspectiveShortcutInfo) referenceObject;
+		return new EditCommand(m_page) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_container.command_MOVE(item, nextItem);
+			}
+		};
+	}
 }

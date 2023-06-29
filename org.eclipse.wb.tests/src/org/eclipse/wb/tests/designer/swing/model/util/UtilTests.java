@@ -21,9 +21,9 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class UtilTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.util");
-    suite.addTest(createSingleSuite(SurroundSupportTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.util");
+		suite.addTest(createSingleSuite(SurroundSupportTest.class));
+		return suite;
+	}
 }

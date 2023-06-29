@@ -30,59 +30,59 @@ import org.apache.commons.lang.StringUtils;
  * @coverage bindings.wizard.auto
  */
 public abstract class AutomaticDatabindingWizard extends AbstractDesignWizard {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public abstract void addPages();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public abstract void addPages();
 
-  @Override
-  protected final AbstractDesignWizardPage createMainPage() {
-    return null;
-  }
+	@Override
+	protected final AbstractDesignWizardPage createMainPage() {
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the fully qualified name of class if given {@link IStructuredSelection} contains .java
-   *         file.
-   */
-  protected static String getSelectionBeanClass(IStructuredSelection selection) {
-    try {
-      // check no selection
-      if (UiUtils.isEmpty(selection)) {
-        return null;
-      }
-      // prepare selection object
-      Object object = selection.getFirstElement();
-      // check java selection
-      if (object instanceof IJavaElement) {
-        IJavaElement element = (IJavaElement) object;
-        // find compilation unit
-        while (element != null) {
-          if (element instanceof ICompilationUnit) {
-            ICompilationUnit compilationUnit = (ICompilationUnit) element;
-            IType[] types = compilationUnit.getTypes();
-            // find main type
-            if (!ArrayUtils.isEmpty(types)) {
-              return StringUtils.defaultIfEmpty(types[0].getFullyQualifiedName(), null);
-            }
-            // wrong selection
-            return null;
-          }
-          // lookup to parent
-          element = element.getParent();
-        }
-      }
-    } catch (Throwable e) {
-      DesignerPlugin.log(e);
-    }
-    // wrong selection
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the fully qualified name of class if given {@link IStructuredSelection} contains .java
+	 *         file.
+	 */
+	protected static String getSelectionBeanClass(IStructuredSelection selection) {
+		try {
+			// check no selection
+			if (UiUtils.isEmpty(selection)) {
+				return null;
+			}
+			// prepare selection object
+			Object object = selection.getFirstElement();
+			// check java selection
+			if (object instanceof IJavaElement) {
+				IJavaElement element = (IJavaElement) object;
+				// find compilation unit
+				while (element != null) {
+					if (element instanceof ICompilationUnit) {
+						ICompilationUnit compilationUnit = (ICompilationUnit) element;
+						IType[] types = compilationUnit.getTypes();
+						// find main type
+						if (!ArrayUtils.isEmpty(types)) {
+							return StringUtils.defaultIfEmpty(types[0].getFullyQualifiedName(), null);
+						}
+						// wrong selection
+						return null;
+					}
+					// lookup to parent
+					element = element.getParent();
+				}
+			}
+		} catch (Throwable e) {
+			DesignerPlugin.log(e);
+		}
+		// wrong selection
+		return null;
+	}
 }

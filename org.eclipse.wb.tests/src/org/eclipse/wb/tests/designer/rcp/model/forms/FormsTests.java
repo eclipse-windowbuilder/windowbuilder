@@ -22,21 +22,21 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class FormsTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.forms");
-    suite.addTest(createSingleSuite(FormToolkitTest.class));
-    suite.addTest(createSingleSuite(FormTextTest.class));
-    suite.addTest(createSingleSuite(ExpandableCompositeTest.class));
-    suite.addTest(createSingleSuite(SectionTest.class));
-    suite.addTest(createSingleSuite(FormTest.class));
-    suite.addTest(createSingleSuite(ScrolledFormTest.class));
-    suite.addTest(createSingleSuite(FormPageTest.class));
-    suite.addTest(createSingleSuite(SectionPartTest.class));
-    suite.addTest(createSingleSuite(FormToolkitAccessTest.class));
-    suite.addTest(createSingleSuite(DetailsPageTest.class));
-    suite.addTest(createSingleSuite(MasterDetailsBlockTest.class));
-    suite.addTest(createSingleSuite(ColumnLayoutTest.class));
-    suite.addTest(TableWrapLayoutTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.forms");
+		suite.addTest(createSingleSuite(FormToolkitTest.class));
+		suite.addTest(createSingleSuite(FormTextTest.class));
+		suite.addTest(createSingleSuite(ExpandableCompositeTest.class));
+		suite.addTest(createSingleSuite(SectionTest.class));
+		suite.addTest(createSingleSuite(FormTest.class));
+		suite.addTest(createSingleSuite(ScrolledFormTest.class));
+		suite.addTest(createSingleSuite(FormPageTest.class));
+		suite.addTest(createSingleSuite(SectionPartTest.class));
+		suite.addTest(createSingleSuite(FormToolkitAccessTest.class));
+		suite.addTest(createSingleSuite(DetailsPageTest.class));
+		suite.addTest(createSingleSuite(MasterDetailsBlockTest.class));
+		suite.addTest(createSingleSuite(ColumnLayoutTest.class));
+		suite.addTest(TableWrapLayoutTests.suite());
+		return suite;
+	}
 }

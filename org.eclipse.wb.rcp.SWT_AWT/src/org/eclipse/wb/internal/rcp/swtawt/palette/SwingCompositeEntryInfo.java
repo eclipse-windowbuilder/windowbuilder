@@ -46,121 +46,121 @@ import javax.swing.JRootPane;
  * @coverage rcp.editor.palette
  */
 public final class SwingCompositeEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = Activator.getImage("info/SWT_AWT/Composite_SWT_AWT.png");
+	private static final Image ICON = Activator.getImage("info/SWT_AWT/Composite_SWT_AWT.png");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SwingCompositeEntryInfo() {
-    setId(getClass().getName());
-    setName(Messages.SwingCompositeEntryInfo_name);
-    setDescription(Messages.SwingCompositeEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SwingCompositeEntryInfo() {
+		setId(getClass().getName());
+		setName(Messages.SwingCompositeEntryInfo_name);
+		setDescription(Messages.SwingCompositeEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ToolEntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Tool createTool() throws Exception {
-    ICreationFactory factory = new ICreationFactory() {
-      private JavaInfo m_javaInfo;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ToolEntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Tool createTool() throws Exception {
+		ICreationFactory factory = new ICreationFactory() {
+			private JavaInfo m_javaInfo;
 
-      @Override
-      public void activate() throws Exception {
-        m_javaInfo = createEmbeddedComposite();
-      }
+			@Override
+			public void activate() throws Exception {
+				m_javaInfo = createEmbeddedComposite();
+			}
 
-      @Override
-      public Object getNewObject() {
-        return m_javaInfo;
-      }
-    };
-    return new CreationTool(factory);
-  }
+			@Override
+			public Object getNewObject() {
+				return m_javaInfo;
+			}
+		};
+		return new CreationTool(factory);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private JavaInfo createEmbeddedComposite() throws Exception {
-    final JavaInfo composite =
-        JavaInfoUtils.createJavaInfo(m_editor, Composite.class, new ConstructorCreationSupport());
-    composite.addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
-        if (child == composite) {
-          composite.removeBroadcastListener(this);
-          fillEmbeddedComposite(composite);
-        }
-      }
-    });
-    return composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private JavaInfo createEmbeddedComposite() throws Exception {
+		final JavaInfo composite =
+				JavaInfoUtils.createJavaInfo(m_editor, Composite.class, new ConstructorCreationSupport());
+		composite.addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
+				if (child == composite) {
+					composite.removeBroadcastListener(this);
+					fillEmbeddedComposite(composite);
+				}
+			}
+		});
+		return composite;
+	}
 
-  private void fillEmbeddedComposite(JavaInfo composite) throws Exception {
-    composite.getPropertyByTitle("Style").setValue(SWT.EMBEDDED);
-    // SWT_AWT.new_Frame()
-    ContainerInfo frame;
-    {
-      FactoryMethodDescription methodDescription =
-          FactoryDescriptionHelper.getDescription(
-              m_editor,
-              SWT_AWT.class,
-              "new_Frame(org.eclipse.swt.widgets.Composite)",
-              true);
-      ComponentDescription componentDescription =
-          ComponentDescriptionHelper.getDescription(m_editor, methodDescription);
-      frame =
-          (ContainerInfo) JavaInfoUtils.createJavaInfo(
-              m_editor,
-              componentDescription,
-              new StaticFactoryCreationSupport(methodDescription));
-      JavaInfoUtils.add(frame, null, composite, null);
-      frame.getRoot().refreshLight();
-    }
-    // java.awt.Panel
-    ContainerInfo panel;
-    {
-      panel =
-          (ContainerInfo) JavaInfoUtils.createJavaInfo(
-              m_editor,
-              Panel.class,
-              new ConstructorCreationSupport());
-      ((BorderLayoutInfo) frame.getLayout()).command_CREATE(panel, null);
-      frame.getRoot().refreshLight();
-    }
-    // set java.awt.BorderLayout on Panel
-    {
-      BorderLayoutInfo borderLayout =
-          (BorderLayoutInfo) JavaInfoUtils.createJavaInfo(
-              m_editor,
-              BorderLayout.class,
-              new ConstructorCreationSupport());
-      panel.setLayout(borderLayout);
-    }
-    // javax.swing.JRootPane
-    {
-      ContainerInfo rootPane =
-          (ContainerInfo) JavaInfoUtils.createJavaInfo(
-              m_editor,
-              JRootPane.class,
-              new ConstructorCreationSupport());
-      ((BorderLayoutInfo) panel.getLayout()).command_CREATE(rootPane, null);
-    }
-  }
+	private void fillEmbeddedComposite(JavaInfo composite) throws Exception {
+		composite.getPropertyByTitle("Style").setValue(SWT.EMBEDDED);
+		// SWT_AWT.new_Frame()
+		ContainerInfo frame;
+		{
+			FactoryMethodDescription methodDescription =
+					FactoryDescriptionHelper.getDescription(
+							m_editor,
+							SWT_AWT.class,
+							"new_Frame(org.eclipse.swt.widgets.Composite)",
+							true);
+			ComponentDescription componentDescription =
+					ComponentDescriptionHelper.getDescription(m_editor, methodDescription);
+			frame =
+					(ContainerInfo) JavaInfoUtils.createJavaInfo(
+							m_editor,
+							componentDescription,
+							new StaticFactoryCreationSupport(methodDescription));
+			JavaInfoUtils.add(frame, null, composite, null);
+			frame.getRoot().refreshLight();
+		}
+		// java.awt.Panel
+		ContainerInfo panel;
+		{
+			panel =
+					(ContainerInfo) JavaInfoUtils.createJavaInfo(
+							m_editor,
+							Panel.class,
+							new ConstructorCreationSupport());
+			((BorderLayoutInfo) frame.getLayout()).command_CREATE(panel, null);
+			frame.getRoot().refreshLight();
+		}
+		// set java.awt.BorderLayout on Panel
+		{
+			BorderLayoutInfo borderLayout =
+					(BorderLayoutInfo) JavaInfoUtils.createJavaInfo(
+							m_editor,
+							BorderLayout.class,
+							new ConstructorCreationSupport());
+			panel.setLayout(borderLayout);
+		}
+		// javax.swing.JRootPane
+		{
+			ContainerInfo rootPane =
+					(ContainerInfo) JavaInfoUtils.createJavaInfo(
+							m_editor,
+							JRootPane.class,
+							new ConstructorCreationSupport());
+			((BorderLayoutInfo) panel.getLayout()).command_CREATE(rootPane, null);
+		}
+	}
 }

@@ -34,65 +34,65 @@ import java.util.List;
  * @coverage XWT.model.forms
  */
 public final class ColumnLayoutInfo extends GenericFlowLayoutInfo
-    implements
-      IColumnLayoutInfo<ControlInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnLayoutInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-    new ColumnLayoutAssistant(this);
-    new ColumnLayoutSelectionActionsSupport<ControlInfo>(this);
-  }
+implements
+IColumnLayoutInfo<ControlInfo> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnLayoutInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+		new ColumnLayoutAssistant(this);
+		new ColumnLayoutSelectionActionsSupport<ControlInfo>(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Components/constraints
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IColumnLayoutDataInfo getColumnData2(ControlInfo control) {
-    return getColumnData(control);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Components/constraints
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IColumnLayoutDataInfo getColumnData2(ControlInfo control) {
+		return getColumnData(control);
+	}
 
-  /**
-   * @return {@link ColumnLayoutDataInfo} associated with given {@link ControlInfo}.
-   */
-  public static ColumnLayoutDataInfo getColumnData(ControlInfo control) {
-    return (ColumnLayoutDataInfo) getLayoutData(control);
-  }
+	/**
+	 * @return {@link ColumnLayoutDataInfo} associated with given {@link ControlInfo}.
+	 */
+	public static ColumnLayoutDataInfo getColumnData(ControlInfo control) {
+		return (ColumnLayoutDataInfo) getLayoutData(control);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isHorizontal() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isHorizontal() {
+		return true;
+	}
 
-  //////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void clipboardCopy_addControlCommands(ControlInfo control,
-      List<ClipboardCommand> commands) throws Exception {
-    // command for adding child
-    commands.add(new LayoutClipboardCommand<ColumnLayoutInfo>(control) {
-      private static final long serialVersionUID = 0L;
+	//////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void clipboardCopy_addControlCommands(ControlInfo control,
+			List<ClipboardCommand> commands) throws Exception {
+		// command for adding child
+		commands.add(new LayoutClipboardCommand<ColumnLayoutInfo>(control) {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      protected void add(ColumnLayoutInfo layout, ControlInfo control) throws Exception {
-        layout.command_CREATE(control, null);
-      }
-    });
-    // command for ColumnLayoutData
-    commands.add(new LayoutDataClipboardCommand(this, control));
-  }
+			@Override
+			protected void add(ColumnLayoutInfo layout, ControlInfo control) throws Exception {
+				layout.command_CREATE(control, null);
+			}
+		});
+		// command for ColumnLayoutData
+		commands.add(new LayoutDataClipboardCommand(this, control));
+	}
 }

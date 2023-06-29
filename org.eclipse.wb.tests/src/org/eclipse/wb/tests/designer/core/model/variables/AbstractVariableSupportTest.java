@@ -30,75 +30,75 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class AbstractVariableSupportTest extends AbstractVariableTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create instance of {@link VariableSupport} using ByteBuddy, because {@link VariableSupport} is
-   * abstract, and check its methods.
-   */
-  public void test() throws Exception {
-    JavaInfo javaInfo = mock(JavaInfo.class);
-    // create abstract VariableSupport instance
-    VariableSupport variableSupport;
-    {
-      variableSupport = new ByteBuddy() //
-          .subclass(VariableSupport.class) //
-          .make() //
-          .load(getClass().getClassLoader()) //
-          .getLoaded() //
-          .getConstructor(JavaInfo.class) //
-          .newInstance(javaInfo);
-    }
-    // JavaInfo-related methods
-    {
-      assertSame(javaInfo, variableSupport.getJavaInfo());
-      assertFalse(variableSupport.isJavaInfo(null));
-      assertFalse(variableSupport.isDefault());
-    }
-    // getComponentName()
-    assertEquals("other", variableSupport.getComponentName());
-    // addProperties()
-    {
-      List<Property> properties = Lists.newArrayList();
-      variableSupport.addProperties(properties);
-      assertTrue(properties.isEmpty());
-    }
-    // deleteBefore() and deleteAfter() do nothing
-    {
-      variableSupport.deleteBefore();
-      variableSupport.deleteAfter();
-    }
-    // isValidStatementForChild() returns "true"
-    assertTrue(variableSupport.isValidStatementForChild(null));
-    // no ensureInstanceReadyAt()
-    try {
-      variableSupport.ensureInstanceReadyAt(null);
-      fail();
-    } catch (NotImplementedException e) {
-    }
-    // no getAssociationTarget()
-    try {
-      variableSupport.getAssociationTarget(null);
-      fail();
-    } catch (NotImplementedException e) {
-    }
-    // no add_*() methods
-    {
-      try {
-        variableSupport.add_getVariableStatementSource(null);
-        fail();
-      } catch (NotImplementedException e) {
-      }
-      try {
-        variableSupport.add_setVariableStatement(null);
-        fail();
-      } catch (NotImplementedException e) {
-      }
-    }
-    // no expression
-    assertFalse(variableSupport.hasExpression(null));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create instance of {@link VariableSupport} using ByteBuddy, because {@link VariableSupport} is
+	 * abstract, and check its methods.
+	 */
+	public void test() throws Exception {
+		JavaInfo javaInfo = mock(JavaInfo.class);
+		// create abstract VariableSupport instance
+		VariableSupport variableSupport;
+		{
+			variableSupport = new ByteBuddy() //
+					.subclass(VariableSupport.class) //
+					.make() //
+					.load(getClass().getClassLoader()) //
+					.getLoaded() //
+					.getConstructor(JavaInfo.class) //
+					.newInstance(javaInfo);
+		}
+		// JavaInfo-related methods
+		{
+			assertSame(javaInfo, variableSupport.getJavaInfo());
+			assertFalse(variableSupport.isJavaInfo(null));
+			assertFalse(variableSupport.isDefault());
+		}
+		// getComponentName()
+		assertEquals("other", variableSupport.getComponentName());
+		// addProperties()
+		{
+			List<Property> properties = Lists.newArrayList();
+			variableSupport.addProperties(properties);
+			assertTrue(properties.isEmpty());
+		}
+		// deleteBefore() and deleteAfter() do nothing
+		{
+			variableSupport.deleteBefore();
+			variableSupport.deleteAfter();
+		}
+		// isValidStatementForChild() returns "true"
+		assertTrue(variableSupport.isValidStatementForChild(null));
+		// no ensureInstanceReadyAt()
+		try {
+			variableSupport.ensureInstanceReadyAt(null);
+			fail();
+		} catch (NotImplementedException e) {
+		}
+		// no getAssociationTarget()
+		try {
+			variableSupport.getAssociationTarget(null);
+			fail();
+		} catch (NotImplementedException e) {
+		}
+		// no add_*() methods
+		{
+			try {
+				variableSupport.add_getVariableStatementSource(null);
+				fail();
+			} catch (NotImplementedException e) {
+			}
+			try {
+				variableSupport.add_setVariableStatement(null);
+				fail();
+			} catch (NotImplementedException e) {
+			}
+		}
+		// no expression
+		assertFalse(variableSupport.hasExpression(null));
+	}
 }

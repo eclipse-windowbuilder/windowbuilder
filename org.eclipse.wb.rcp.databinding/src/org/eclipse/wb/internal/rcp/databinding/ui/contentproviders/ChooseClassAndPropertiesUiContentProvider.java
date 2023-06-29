@@ -28,31 +28,31 @@ import java.util.List;
  * @coverage bindings.rcp.ui
  */
 public abstract class ChooseClassAndPropertiesUiContentProvider
-    extends
-      org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesUiContentProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ChooseClassAndPropertiesUiContentProvider(ChooseClassAndPropertiesConfiguration configuration) {
-    super(configuration);
-    if (configuration.getPropertiesLabelProvider() == null) {
-      configuration.setPropertiesLabelProvider(new PropertyAdapterLabelProvider());
-    }
-  }
+extends
+org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesUiContentProvider {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ChooseClassAndPropertiesUiContentProvider(ChooseClassAndPropertiesConfiguration configuration) {
+		super(configuration);
+		if (configuration.getPropertiesLabelProvider() == null) {
+			configuration.setPropertiesLabelProvider(new PropertyAdapterLabelProvider());
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception {
-    List<PropertyAdapter> properties = Lists.newArrayList();
-    for (PropertyDescriptor descriptor : BeanSupport.getPropertyDescriptors(choosenClass)) {
-      properties.add(new PropertyAdapter(descriptor));
-    }
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception {
+		List<PropertyAdapter> properties = Lists.newArrayList();
+		for (PropertyDescriptor descriptor : BeanSupport.getPropertyDescriptors(choosenClass)) {
+			properties.add(new PropertyAdapter(descriptor));
+		}
+		return properties;
+	}
 }

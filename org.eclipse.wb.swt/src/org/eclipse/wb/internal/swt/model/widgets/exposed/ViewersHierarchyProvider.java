@@ -23,19 +23,19 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  * @coverage swt.model.widgets
  */
 public final class ViewersHierarchyProvider extends HierarchyProvider {
-  @Override
-  public Object getParentObject(Object object) throws Exception {
-    if (ReflectionUtils.isSuccessorOf(object.getClass(), "org.eclipse.jface.viewers.Viewer")) {
-      Object control = ReflectionUtils.invokeMethod(object, "getControl()");
-      return ReflectionUtils.invokeMethod(control, "getParent()");
-    }
-    return null;
-  }
+	@Override
+	public Object getParentObject(Object object) throws Exception {
+		if (ReflectionUtils.isSuccessorOf(object.getClass(), "org.eclipse.jface.viewers.Viewer")) {
+			Object control = ReflectionUtils.invokeMethod(object, "getControl()");
+			return ReflectionUtils.invokeMethod(control, "getParent()");
+		}
+		return null;
+	}
 
-  @Override
-  public void add(JavaInfo host, JavaInfo exposed) throws Exception {
-    if (exposed instanceof ViewerInfo && host instanceof CompositeInfo) {
-      ((ViewerInfo) exposed).getWrapper().configureHierarchy(host);
-    }
-  }
+	@Override
+	public void add(JavaInfo host, JavaInfo exposed) throws Exception {
+		if (exposed instanceof ViewerInfo && host instanceof CompositeInfo) {
+			((ViewerInfo) exposed).getWrapper().configureHierarchy(host);
+		}
+	}
 }

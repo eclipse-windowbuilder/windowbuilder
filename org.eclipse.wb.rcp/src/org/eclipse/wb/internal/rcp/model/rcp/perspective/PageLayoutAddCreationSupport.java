@@ -28,68 +28,68 @@ import org.eclipse.ui.IPageLayout;
  * @coverage rcp.model.rcp
  */
 public final class PageLayoutAddCreationSupport extends VoidInvocationCreationSupport {
-  private String m_addSource;
+	private String m_addSource;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PageLayoutAddCreationSupport(JavaInfo hostJavaInfo, MethodInvocation invocation) {
-    super(hostJavaInfo, getMethodDescription(hostJavaInfo, invocation), invocation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PageLayoutAddCreationSupport(JavaInfo hostJavaInfo, MethodInvocation invocation) {
+		super(hostJavaInfo, getMethodDescription(hostJavaInfo, invocation), invocation);
+	}
 
-  public PageLayoutAddCreationSupport(JavaInfo hostJavaInfo,
-      MethodDescription description,
-      String addSource) {
-    super(hostJavaInfo, description);
-    m_addSource = addSource;
-  }
+	public PageLayoutAddCreationSupport(JavaInfo hostJavaInfo,
+			MethodDescription description,
+			String addSource) {
+		super(hostJavaInfo, description);
+		m_addSource = addSource;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static MethodDescription getMethodDescription(JavaInfo hostJavaInfo,
-      MethodInvocation invocation) {
-    String signature = AstNodeUtils.getMethodSignature(invocation);
-    return hostJavaInfo.getDescription().getMethod(signature);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static MethodDescription getMethodDescription(JavaInfo hostJavaInfo,
+			MethodInvocation invocation) {
+		String signature = AstNodeUtils.getMethodSignature(invocation);
+		return hostJavaInfo.getDescription().getMethod(signature);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Object getObject(Object hostObject) throws Exception {
-    return ((IRenderableInfo) m_javaInfo).render();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Object getObject(Object hostObject) throws Exception {
+		return ((IRenderableInfo) m_javaInfo).render();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canReorder() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canReorder() {
+		return true;
+	}
 
-  @Override
-  public boolean canReparent() {
-    return true;
-  }
+	@Override
+	public boolean canReparent() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String add_getMethodSource() throws Exception {
-    Assert.isNotNull(m_addSource);
-    return m_addSource;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String add_getMethodSource() throws Exception {
+		Assert.isNotNull(m_addSource);
+		return m_addSource;
+	}
 }

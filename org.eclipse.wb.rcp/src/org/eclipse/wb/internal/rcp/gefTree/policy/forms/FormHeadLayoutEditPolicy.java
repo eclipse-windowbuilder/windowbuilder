@@ -24,45 +24,45 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage rcp.gefTree.policy
  */
 public final class FormHeadLayoutEditPolicy extends SingleObjectLayoutEditPolicy<ControlInfo> {
-  private final FormInfo m_form;
+	private final FormInfo m_form;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormHeadLayoutEditPolicy(FormInfo item) {
-    super(item);
-    m_form = item;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormHeadLayoutEditPolicy(FormInfo item) {
+		super(item);
+		m_form = item;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ControlsLayoutRequestValidator.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ControlsLayoutRequestValidator.INSTANCE;
+	}
 
-  @Override
-  protected boolean isEmpty() {
-    return m_form.getHeadClient() == null;
-  }
+	@Override
+	protected boolean isEmpty() {
+		return m_form.getHeadClient() == null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ControlInfo control) throws Exception {
-    m_form.setHeadClient(control);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ControlInfo control) throws Exception {
+		m_form.setHeadClient(control);
+	}
 
-  @Override
-  protected void command_ADD(ControlInfo control) throws Exception {
-    m_form.setHeadClient(control);
-  }
+	@Override
+	protected void command_ADD(ControlInfo control) throws Exception {
+		m_form.setHeadClient(control);
+	}
 }

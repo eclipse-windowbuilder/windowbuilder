@@ -26,39 +26,39 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.description
  */
 public final class MethodOrderAfterCreation extends MethodOrder {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MethodOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canReference(JavaInfo javaInfo) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MethodOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canReference(JavaInfo javaInfo) {
+		return true;
+	}
 
-  @Override
-  protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
-      throws Exception {
-    // check for "first"
-    {
-      Statement lastFirstStatement = getLastFirstStatement(javaInfo);
-      if (lastFirstStatement != null) {
-        return new StatementTarget(lastFirstStatement, false);
-      }
-    }
-    // OK, use specific
-    return javaInfo.getVariableSupport().getStatementTarget();
-  }
+	@Override
+	protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
+			throws Exception {
+		// check for "first"
+		{
+			Statement lastFirstStatement = getLastFirstStatement(javaInfo);
+			if (lastFirstStatement != null) {
+				return new StatementTarget(lastFirstStatement, false);
+			}
+		}
+		// OK, use specific
+		return javaInfo.getVariableSupport().getStatementTarget();
+	}
 
-  private static Statement getLastFirstStatement(JavaInfo javaInfo) {
-    Statement lastFirstStatement = null;
-    for (Pair<MethodInvocation, MethodOrder> pair : getInvocationOrders(javaInfo)) {
-      MethodInvocation existingInvocation = pair.getLeft();
-      MethodOrder existingOrder = pair.getRight();
-      if (existingOrder instanceof MethodOrderFirst) {
-        lastFirstStatement = AstNodeUtils.getEnclosingStatement(existingInvocation);
-      }
-    }
-    return lastFirstStatement;
-  }
+	private static Statement getLastFirstStatement(JavaInfo javaInfo) {
+		Statement lastFirstStatement = null;
+		for (Pair<MethodInvocation, MethodOrder> pair : getInvocationOrders(javaInfo)) {
+			MethodInvocation existingInvocation = pair.getLeft();
+			MethodOrder existingOrder = pair.getRight();
+			if (existingOrder instanceof MethodOrderFirst) {
+				lastFirstStatement = AstNodeUtils.getEnclosingStatement(existingInvocation);
+			}
+		}
+		return lastFirstStatement;
+	}
 }

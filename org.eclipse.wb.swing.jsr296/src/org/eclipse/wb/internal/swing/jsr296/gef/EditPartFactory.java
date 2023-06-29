@@ -23,16 +23,16 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
  * @coverage swing.jsr296
  */
 public final class EditPartFactory implements IEditPartFactory {
-  private final static IEditPartFactory MATCHING_FACTORY =
-      new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.swing.jsr296.model"),
-          ImmutableList.of("org.eclipse.wb.internal.swing.jsr296.gef"));
+	private final static IEditPartFactory MATCHING_FACTORY =
+			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.swing.jsr296.model"),
+					ImmutableList.of("org.eclipse.wb.internal.swing.jsr296.gef"));
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditPart createEditPart(EditPart context, Object model) {
-    return MATCHING_FACTORY.createEditPart(context, model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditPart createEditPart(EditPart context, Object model) {
+		return MATCHING_FACTORY.createEditPart(context, model);
+	}
 }

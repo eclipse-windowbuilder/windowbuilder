@@ -32,8 +32,8 @@ import org.eclipse.jface.window.Window;
  * @coverage core.model.util
  */
 public interface IJavaInfoRendering {
-  /**
-   * Renders {@link JavaInfo} GUI.
-   */
-  void render() throws Exception;
+	/**
+	 * Renders {@link JavaInfo} GUI.
+	 */
+	void render() throws Exception;
 }

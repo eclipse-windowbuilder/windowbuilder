@@ -23,22 +23,22 @@ import org.eclipse.draw2d.geometry.Rectangle;
  */
 public class ScrollableTest extends RcpModelTest {
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_getClientArea_Composite() throws Exception {
-    CompositeInfo composite =
-        parseComposite(
-            "public class Test extends Composite {",
-            "  public Test(Composite parent, int style) {",
-            "    super(parent, style);",
-            "  }",
-            "}");
-    composite.refresh();
-    //
-    assertEquals(new Rectangle(0, 0, 450, 300), composite.getClientArea());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_getClientArea_Composite() throws Exception {
+		CompositeInfo composite =
+				parseComposite(
+						"public class Test extends Composite {",
+						"  public Test(Composite parent, int style) {",
+						"    super(parent, style);",
+						"  }",
+						"}");
+		composite.refresh();
+		//
+		assertEquals(new Rectangle(0, 0, 450, 300), composite.getClientArea());
+	}
 
 }

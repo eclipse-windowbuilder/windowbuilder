@@ -22,12 +22,12 @@ import java.util.List;
  * @coverage core.model
  */
 public interface ObjectInfoChildrenGraphical {
-  /**
-   * This method is invoked from {@link DefaultObjectPresentation#getChildrenGraphical()} to allow
-   * processing all prepared children. Subscribers may, for example, reorder children.
-   *
-   * @param children
-   *          the {@link ObjectInfo} children to process.
-   */
-  void invoke(List<ObjectInfo> children) throws Exception;
+	/**
+	 * This method is invoked from {@link DefaultObjectPresentation#getChildrenGraphical()} to allow
+	 * processing all prepared children. Subscribers may, for example, reorder children.
+	 *
+	 * @param children
+	 *          the {@link ObjectInfo} children to process.
+	 */
+	void invoke(List<ObjectInfo> children) throws Exception;
 }

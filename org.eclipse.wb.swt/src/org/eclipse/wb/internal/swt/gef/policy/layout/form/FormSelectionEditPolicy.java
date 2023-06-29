@@ -28,43 +28,43 @@ import org.eclipse.swt.layout.FormLayout;
  * @coverage swt.gef.policy.form
  */
 public final class FormSelectionEditPolicy<C extends IControlInfo>
-    extends
-      AbsoluteComplexSelectionEditPolicy {
-  protected final FormLayoutInfoImplAutomatic<C> m_layout;
+extends
+AbsoluteComplexSelectionEditPolicy {
+	protected final FormLayoutInfoImplAutomatic<C> m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormSelectionEditPolicy(IFormLayoutInfo<C> layout) {
-    super((IAbsoluteLayoutCommands) layout.getImpl());
-    m_layout = (FormLayoutInfoImplAutomatic<C>) layout.getImpl();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormSelectionEditPolicy(IFormLayoutInfo<C> layout) {
+		super((IAbsoluteLayoutCommands) layout.getImpl());
+		m_layout = (FormLayoutInfoImplAutomatic<C>) layout.getImpl();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Overrides
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getActionImage(String imageName) {
-    return FormLayoutInfoImplAutomatic.getImage(imageName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Overrides
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getActionImage(String imageName) {
+		return FormLayoutInfoImplAutomatic.getImage(imageName);
+	}
 
-  @Override
-  protected ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
-      int side) throws Exception {
-    return m_layout.getComponentAttachmentInfo(widget, side);
-  }
+	@Override
+	protected ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
+			int side) throws Exception {
+		return m_layout.getComponentAttachmentInfo(widget, side);
+	}
 
-  @Override
-  protected void hideSelection() {
-    super.hideSelection();
-  }
+	@Override
+	protected void hideSelection() {
+		super.hideSelection();
+	}
 
-  @Override
-  protected void showSelection() {
-    super.showSelection();
-  }
+	@Override
+	protected void showSelection() {
+		super.showSelection();
+	}
 }

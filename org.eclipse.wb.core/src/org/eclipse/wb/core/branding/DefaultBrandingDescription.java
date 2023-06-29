@@ -19,30 +19,30 @@ package org.eclipse.wb.core.branding;
  * @coverage core.util
  */
 final class DefaultBrandingDescription extends AbstractBrandingDescription {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Support info
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final IBrandingSupportInfo SUPPORT_INFO = new IBrandingSupportInfo() {
-    @Override
-    public String getBugtrackingUrl() {
-      return "https://github.com/eclipse-windowbuilder/windowbuilder/issues";
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Support info
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final IBrandingSupportInfo SUPPORT_INFO = new IBrandingSupportInfo() {
+		@Override
+		public String getBugtrackingUrl() {
+			return "https://github.com/eclipse-windowbuilder/windowbuilder/issues";
+		}
 
-    @Override
-    public String getForumUrl() {
-      return "https://github.com/eclipse-windowbuilder/windowbuilder/discussions";
-    }
-  };
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static IBrandingDescription INSTANCE = new DefaultBrandingDescription();
+		@Override
+		public String getForumUrl() {
+			return "https://github.com/eclipse-windowbuilder/windowbuilder/discussions";
+		}
+	};
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static IBrandingDescription INSTANCE = new DefaultBrandingDescription();
 
-  private DefaultBrandingDescription() {
-    super("WindowBuilder", SUPPORT_INFO);
-  }
+	private DefaultBrandingDescription() {
+		super("WindowBuilder", SUPPORT_INFO);
+	}
 }

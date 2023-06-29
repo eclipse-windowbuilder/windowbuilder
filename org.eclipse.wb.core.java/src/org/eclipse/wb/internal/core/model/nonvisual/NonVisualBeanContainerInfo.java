@@ -41,137 +41,137 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.model.nonvisual
  */
 public final class NonVisualBeanContainerInfo extends ObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the existing or new {@link ActionContainerInfo} for given root.
-   */
-  public static NonVisualBeanContainerInfo get(JavaInfo root) throws Exception {
-    // try to find existing container
-    NonVisualBeanContainerInfo container = find(root);
-    if (container != null) {
-      return container;
-    }
-    // add new container
-    container = new NonVisualBeanContainerInfo();
-    root.addChild(container);
-    return container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the existing or new {@link ActionContainerInfo} for given root.
+	 */
+	public static NonVisualBeanContainerInfo get(JavaInfo root) throws Exception {
+		// try to find existing container
+		NonVisualBeanContainerInfo container = find(root);
+		if (container != null) {
+			return container;
+		}
+		// add new container
+		container = new NonVisualBeanContainerInfo();
+		root.addChild(container);
+		return container;
+	}
 
-  /**
-   * @return find the existing {@link NonVisualBeanContainerInfo} for given root, otherwise
-   *         <code>null</code>.
-   */
-  public static NonVisualBeanContainerInfo find(JavaInfo rootInfo) {
-    for (ObjectInfo child : rootInfo.getChildren()) {
-      if (child instanceof NonVisualBeanContainerInfo) {
-        return (NonVisualBeanContainerInfo) child;
-      }
-    }
-    return null;
-  }
+	/**
+	 * @return find the existing {@link NonVisualBeanContainerInfo} for given root, otherwise
+	 *         <code>null</code>.
+	 */
+	public static NonVisualBeanContainerInfo find(JavaInfo rootInfo) {
+		for (ObjectInfo child : rootInfo.getChildren()) {
+			if (child instanceof NonVisualBeanContainerInfo) {
+				return (NonVisualBeanContainerInfo) child;
+			}
+		}
+		return null;
+	}
 
-  /**
-   * @return {@link NonVisualBeanInfo} if given {@link ASTNode} contains special non-visual comment
-   *         or <code>null</code>.
-   */
-  public static NonVisualBeanInfo getNonVisualInfo(ASTNode creationNode) throws Exception {
-    BodyDeclaration member = AstNodeUtils.getEnclosingNode(creationNode, BodyDeclaration.class);
-    if (member != null) {
-      return JavadocNonVisualBeanInfo.getNonVisualBeanInfo(member);
-    }
-    return null;
-  }
+	/**
+	 * @return {@link NonVisualBeanInfo} if given {@link ASTNode} contains special non-visual comment
+	 *         or <code>null</code>.
+	 */
+	public static NonVisualBeanInfo getNonVisualInfo(ASTNode creationNode) throws Exception {
+		BodyDeclaration member = AstNodeUtils.getEnclosingNode(creationNode, BodyDeclaration.class);
+		if (member != null) {
+			return JavadocNonVisualBeanInfo.getNonVisualBeanInfo(member);
+		}
+		return null;
+	}
 
-  /**
-   * Add new <i>non-visual bean</i> to container for giver root and location.
-   */
-  public static void add(JavaInfo root, JavaInfo bean, Point location) throws Exception {
-    // prepare code generation settings
-    VariableSupport variableSupport;
-    StatementGenerator statementGenerator;
-    {
-      VariableSupportDescription variableDescription = GenerationUtils.getVariableDescription(root);
-      if (variableDescription == LazyVariableDescription.INSTANCE) {
-        variableSupport = new LazyVariableSupport(bean);
-        statementGenerator = LazyStatementGenerator.INSTANCE;
-      } else {
-        variableSupport = new FieldInitializerVariableSupport(bean);
-        statementGenerator = PureFlatStatementGenerator.INSTANCE;
-      }
-    }
-    // do add
-    JavaInfoUtils.add(
-        bean,
-        variableSupport,
-        statementGenerator,
-        AssociationObjects.nonVisual(),
-        root,
-        null);
-    root.removeChild(bean);
-    // create non-visual model
-    {
-      BodyDeclaration member =
-          AstNodeUtils.getEnclosingNode(bean.getCreationSupport().getNode(), BodyDeclaration.class);
-      NonVisualBeanInfo nonVisualInfo = new JavadocNonVisualBeanInfo(member);
-      nonVisualInfo.setJavaInfo(bean);
-      nonVisualInfo.moveLocation(location);
-    }
-    // add to container
-    get(root).addChild(bean);
-    // If "lazy" Action just added and not attached later, it will be not if execution flow.
-    // Include it now.
-    if (bean.getVariableSupport() instanceof LazyVariableSupport) {
-      LazyVariableSupport lazyVariable = (LazyVariableSupport) bean.getVariableSupport();
-      ExecutionFlowDescription flowDescription = JavaInfoUtils.getState(bean).getFlowDescription();
-      flowDescription.addStartMethod(lazyVariable.m_accessor);
-    }
-  }
+	/**
+	 * Add new <i>non-visual bean</i> to container for giver root and location.
+	 */
+	public static void add(JavaInfo root, JavaInfo bean, Point location) throws Exception {
+		// prepare code generation settings
+		VariableSupport variableSupport;
+		StatementGenerator statementGenerator;
+		{
+			VariableSupportDescription variableDescription = GenerationUtils.getVariableDescription(root);
+			if (variableDescription == LazyVariableDescription.INSTANCE) {
+				variableSupport = new LazyVariableSupport(bean);
+				statementGenerator = LazyStatementGenerator.INSTANCE;
+			} else {
+				variableSupport = new FieldInitializerVariableSupport(bean);
+				statementGenerator = PureFlatStatementGenerator.INSTANCE;
+			}
+		}
+		// do add
+		JavaInfoUtils.add(
+				bean,
+				variableSupport,
+				statementGenerator,
+				AssociationObjects.nonVisual(),
+				root,
+				null);
+		root.removeChild(bean);
+		// create non-visual model
+		{
+			BodyDeclaration member =
+					AstNodeUtils.getEnclosingNode(bean.getCreationSupport().getNode(), BodyDeclaration.class);
+			NonVisualBeanInfo nonVisualInfo = new JavadocNonVisualBeanInfo(member);
+			nonVisualInfo.setJavaInfo(bean);
+			nonVisualInfo.moveLocation(location);
+		}
+		// add to container
+		get(root).addChild(bean);
+		// If "lazy" Action just added and not attached later, it will be not if execution flow.
+		// Include it now.
+		if (bean.getVariableSupport() instanceof LazyVariableSupport) {
+			LazyVariableSupport lazyVariable = (LazyVariableSupport) bean.getVariableSupport();
+			ExecutionFlowDescription flowDescription = JavaInfoUtils.getState(bean).getFlowDescription();
+			flowDescription.addStartMethod(lazyVariable.m_accessor);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "{NonVisualBeans}";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "{NonVisualBeans}";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObjectPresentation getPresentation() {
-    return new DefaultObjectPresentation(this) {
-      @Override
-      public String getText() throws Exception {
-        return "(non-visual beans)";
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObjectPresentation getPresentation() {
+		return new DefaultObjectPresentation(this) {
+			@Override
+			public String getText() throws Exception {
+				return "(non-visual beans)";
+			}
 
-      @Override
-      public Image getIcon() throws Exception {
-        return DesignerPlugin.getImage("components/non_visual_beans_container.gif");
-      }
-    };
-  }
+			@Override
+			public Image getIcon() throws Exception {
+				return DesignerPlugin.getImage("components/non_visual_beans_container.gif");
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return false;
+	}
 
-  @Override
-  public void delete() throws Exception {
-  }
+	@Override
+	public void delete() throws Exception {
+	}
 }

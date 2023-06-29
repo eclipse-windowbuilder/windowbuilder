@@ -25,96 +25,96 @@ import org.eclipse.jdt.core.dom.IPackageBinding;
  * @coverage core.util.ast
  */
 final class DesignerPackageBinding implements IPackageBinding {
-  private final String m_name;
-  private final boolean m_unnamed;
+	private final String m_name;
+	private final boolean m_unnamed;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  DesignerPackageBinding(IPackageBinding binding) {
-    m_name = binding.getName();
-    m_unnamed = binding.isUnnamed();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	DesignerPackageBinding(IPackageBinding binding) {
+		m_name = binding.getName();
+		m_unnamed = binding.isUnnamed();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    throw new IllegalArgumentException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		throw new IllegalArgumentException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IPackageBinding methods
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getName() {
-    return m_name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IPackageBinding methods
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getName() {
+		return m_name;
+	}
 
-  @Override
-  public boolean isUnnamed() {
-    return m_unnamed;
-  }
+	@Override
+	public boolean isUnnamed() {
+		return m_unnamed;
+	}
 
-  @Override
-  public String[] getNameComponents() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public String[] getNameComponents() {
+		throw new IllegalArgumentException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IBinding methods
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int getKind() {
-    throw new IllegalArgumentException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IBinding methods
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int getKind() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public int getModifiers() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public int getModifiers() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isDeprecated() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isDeprecated() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isSynthetic() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isSynthetic() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public IJavaElement getJavaElement() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public IJavaElement getJavaElement() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public String getKey() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public String getKey() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isEqualTo(IBinding binding) {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isEqualTo(IBinding binding) {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isRecovered() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isRecovered() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public org.eclipse.jdt.core.dom.IAnnotationBinding[] getAnnotations() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public org.eclipse.jdt.core.dom.IAnnotationBinding[] getAnnotations() {
+		throw new IllegalArgumentException();
+	}
 }

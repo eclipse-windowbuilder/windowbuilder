@@ -33,53 +33,53 @@ import java.util.List;
  * @coverage XML.editor.action
  */
 public class CutAction extends Action {
-  private final IEditPartViewer m_viewer;
+	private final IEditPartViewer m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CutAction(IEditPartViewer viewer) {
-    m_viewer = viewer;
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      @Override
-      public void selectionChanged(SelectionChangedEvent event) {
-        firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
-      }
-    });
-    // copy presentation
-    ActionUtils.copyPresentation(this, ActionFactory.CUT);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CutAction(IEditPartViewer viewer) {
+		m_viewer = viewer;
+		m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
+			}
+		});
+		// copy presentation
+		ActionUtils.copyPresentation(this, ActionFactory.CUT);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Action
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Command m_command;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Action
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Command m_command;
 
-  @Override
-  public void run() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        // copy
-        {
-          List<EditPart> editParts = m_viewer.getSelectedEditParts();
-          List<XmlObjectMemento> m_mementos = CopyAction.getMementos(editParts);
-          CopyAction.doCopy(m_mementos);
-        }
-        // delete
-        m_viewer.getEditDomain().executeCommand(m_command);
-      }
-    });
-  }
+	@Override
+	public void run() {
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				// copy
+				{
+					List<EditPart> editParts = m_viewer.getSelectedEditParts();
+					List<XmlObjectMemento> m_mementos = CopyAction.getMementos(editParts);
+					CopyAction.doCopy(m_mementos);
+				}
+				// delete
+				m_viewer.getEditDomain().executeCommand(m_command);
+			}
+		});
+	}
 
-  @Override
-  public boolean isEnabled() {
-    List<EditPart> editParts = m_viewer.getSelectedEditParts();
-    m_command = DeleteAction.getCommand(editParts);
-    return CopyAction.hasMementos(editParts) && m_command != null;
-  }
+	@Override
+	public boolean isEnabled() {
+		List<EditPart> editParts = m_viewer.getSelectedEditParts();
+		m_command = DeleteAction.getCommand(editParts);
+		return CopyAction.hasMementos(editParts) && m_command != null;
+	}
 }

@@ -23,34 +23,34 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
  * @coverage bindings.swing.ui
  */
 public final class ElementTypeUiContentProvider extends ChooseClassUiContentProvider {
-  private final VirtualBindingInfo m_binding;
+	private final VirtualBindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ElementTypeUiContentProvider(ChooseClassConfiguration configuration,
-      VirtualBindingInfo binding) {
-    super(configuration);
-    m_binding = binding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ElementTypeUiContentProvider(ChooseClassConfiguration configuration,
+			VirtualBindingInfo binding) {
+		super(configuration);
+		m_binding = binding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    IGenericType elementType = m_binding.getElementType();
-    if (elementType == null) {
-      calculateFinish();
-    } else {
-      setClassName(elementType.getFullTypeName());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		IGenericType elementType = m_binding.getElementType();
+		if (elementType == null) {
+			calculateFinish();
+		} else {
+			setClassName(elementType.getFullTypeName());
+		}
+	}
 
-  public void saveToObject() throws Exception {
-    m_binding.setElementType(new ClassGenericType(getChoosenClass(), null, null));
-  }
+	public void saveToObject() throws Exception {
+		m_binding.setElementType(new ClassGenericType(getChoosenClass(), null, null));
+	}
 }

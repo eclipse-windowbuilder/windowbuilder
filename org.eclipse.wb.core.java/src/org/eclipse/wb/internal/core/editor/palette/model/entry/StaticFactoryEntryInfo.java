@@ -27,72 +27,72 @@ import org.eclipse.wb.internal.core.model.creation.factory.StaticFactoryCreation
  * @coverage core.editor.palette
  */
 public final class StaticFactoryEntryInfo extends FactoryEntryInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StaticFactoryEntryInfo() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StaticFactoryEntryInfo() {
+	}
 
-  public StaticFactoryEntryInfo(CategoryInfo categoryInfo,
-      String factoryClassName,
-      AttributesProvider attributes) {
-    super(categoryInfo, factoryClassName, attributes);
-  }
+	public StaticFactoryEntryInfo(CategoryInfo categoryInfo,
+			String factoryClassName,
+			AttributesProvider attributes) {
+		super(categoryInfo, factoryClassName, attributes);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "StaticFactoryMethod(class='"
-        + m_factoryClassName
-        + "' signature='"
-        + m_methodSignature
-        + "')";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "StaticFactoryMethod(class='"
+				+ m_factoryClassName
+				+ "' signature='"
+				+ m_methodSignature
+				+ "')";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isStaticFactory() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isStaticFactory() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ToolEntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Tool createTool() throws Exception {
-    if (!ensureComponentDescription()) {
-      return null;
-    }
-    // prepare factory
-    ICreationFactory factory = new ICreationFactory() {
-      private JavaInfo m_javaInfo;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ToolEntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Tool createTool() throws Exception {
+		if (!ensureComponentDescription()) {
+			return null;
+		}
+		// prepare factory
+		ICreationFactory factory = new ICreationFactory() {
+			private JavaInfo m_javaInfo;
 
-      @Override
-      public void activate() throws Exception {
-        CreationSupport creationSupport = new StaticFactoryCreationSupport(m_methodDescription);
-        m_javaInfo = createJavaInfo(creationSupport);
-        m_javaInfo = JavaInfoUtils.getWrapped(m_javaInfo);
-        m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
-      }
+			@Override
+			public void activate() throws Exception {
+				CreationSupport creationSupport = new StaticFactoryCreationSupport(m_methodDescription);
+				m_javaInfo = createJavaInfo(creationSupport);
+				m_javaInfo = JavaInfoUtils.getWrapped(m_javaInfo);
+				m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
+			}
 
-      @Override
-      public Object getNewObject() {
-        return m_javaInfo;
-      }
-    };
-    // return tool
-    return new CreationTool(factory);
-  }
+			@Override
+			public Object getNewObject() {
+				return m_javaInfo;
+			}
+		};
+		// return tool
+		return new CreationTool(factory);
+	}
 }

@@ -28,16 +28,16 @@ import java.util.List;
  * @coverage swing.laf.ui
  */
 public final class LafRootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
-    if (root instanceof ComponentInfo) {
-      final ComponentInfo rootComponent = (ComponentInfo) root;
-      // TODO
-      /*rootComponent.addBroadcastListener(new BroadcastGroup() {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
+		if (root instanceof ComponentInfo) {
+			final ComponentInfo rootComponent = (ComponentInfo) root;
+			// TODO
+			/*rootComponent.addBroadcastListener(new BroadcastGroup() {
         LafSelectionItem lafItem;
         {
           add(new ObjectEventListener() {
@@ -63,33 +63,33 @@ public final class LafRootProcessor implements IRootProcessor {
           });
         }
       });*/
-      new Object() {
-        LafSelectionItem lafItem;
-        {
-          rootComponent.addBroadcastListener(new ObjectEventListener() {
-            @Override
-            public void addHierarchyActions(List<Object> actions) throws Exception {
-              if (lafItem == null) {
-                lafItem = new LafSelectionItem(rootComponent);
-              }
-              actions.add(lafItem);
-            }
+			new Object() {
+				LafSelectionItem lafItem;
+				{
+					rootComponent.addBroadcastListener(new ObjectEventListener() {
+						@Override
+						public void addHierarchyActions(List<Object> actions) throws Exception {
+							if (lafItem == null) {
+								lafItem = new LafSelectionItem(rootComponent);
+							}
+							actions.add(lafItem);
+						}
 
-            @Override
-            public void refreshBeforeCreate() throws Exception {
-              LafInfo lafInfo = LafSupport.getSelectedLAF(rootComponent);
-              LafSupport.applySelectedLAF(lafInfo);
-            }
-          });
-          rootComponent.addBroadcastListener(new EditorActivatedListener() {
-            public void invoke(EditorActivatedRequest request) throws Exception {
-              if (lafItem != null) {
-                lafItem.update();
-              }
-            }
-          });
-        }
-      };
-    }
-  }
+						@Override
+						public void refreshBeforeCreate() throws Exception {
+							LafInfo lafInfo = LafSupport.getSelectedLAF(rootComponent);
+							LafSupport.applySelectedLAF(lafInfo);
+						}
+					});
+					rootComponent.addBroadcastListener(new EditorActivatedListener() {
+						public void invoke(EditorActivatedRequest request) throws Exception {
+							if (lafItem != null) {
+								lafItem.update();
+							}
+						}
+					});
+				}
+			};
+		}
+	}
 }

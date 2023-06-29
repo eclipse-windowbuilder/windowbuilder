@@ -53,354 +53,354 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @coverage swing.MigLayout.ui
  */
 abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTitleAreaDialog {
-  protected final MigLayoutInfo m_layout;
-  private final List<T> m_dimensions2;
+	protected final MigLayoutInfo m_layout;
+	private final List<T> m_dimensions2;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionsDialog(Shell parentShell, MigLayoutInfo layout, List<T> dimensions) {
-    super(parentShell, Activator.getDefault());
-    setShellStyle(SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM | SWT.RESIZE);
-    //
-    m_layout = layout;
-    m_dimensions2 = dimensions;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionsDialog(Shell parentShell, MigLayoutInfo layout, List<T> dimensions) {
+		super(parentShell, Activator.getDefault());
+		setShellStyle(SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM | SWT.RESIZE);
+		//
+		m_layout = layout;
+		m_dimensions2 = dimensions;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Control createDialogArea(Composite parent) {
-    Composite area = (Composite) super.createDialogArea(parent);
-    //
-    Composite container = new Composite(area, SWT.NONE);
-    GridDataFactory.create(container).grab().fill();
-    GridLayoutFactory.create(container).columns(2);
-    // title
-    {
-      Label label = new Label(container, SWT.NONE);
-      GridDataFactory.create(label).spanH(2);
-      label.setText(getViewerTitle());
-    }
-    // create viewer
-    createViewer(container);
-    // buttons
-    {
-      createButtonsComposite(container);
-      updateButtons();
-    }
-    // configure title area
-    setTitle(getDialogTitle());
-    setMessage(getDialogMessage());
-    return area;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		Composite area = (Composite) super.createDialogArea(parent);
+		//
+		Composite container = new Composite(area, SWT.NONE);
+		GridDataFactory.create(container).grab().fill();
+		GridLayoutFactory.create(container).columns(2);
+		// title
+		{
+			Label label = new Label(container, SWT.NONE);
+			GridDataFactory.create(label).spanH(2);
+			label.setText(getViewerTitle());
+		}
+		// create viewer
+		createViewer(container);
+		// buttons
+		{
+			createButtonsComposite(container);
+			updateButtons();
+		}
+		// configure title area
+		setTitle(getDialogTitle());
+		setMessage(getDialogMessage());
+		return area;
+	}
 
-  @Override
-  protected void configureShell(Shell newShell) {
-    super.configureShell(newShell);
-    newShell.setText(getDialogTitle());
-  }
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText(getDialogTitle());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dialog buttons
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createButtonsForButtonBar(Composite parent) {
-    createButton(parent, IDialogConstants.OK_ID, IDialogConstants.CLOSE_LABEL, false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dialog buttons
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createButtonsForButtonBar(Composite parent) {
+		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.CLOSE_LABEL, false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Viewer
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private TableViewer m_viewer;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Viewer
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private TableViewer m_viewer;
 
-  /**
-   * Creates {@link TableViewer} for {@link MigDimensionInfo}'s.
-   */
-  private void createViewer(Composite container) {
-    m_viewer = new TableViewer(container, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
-    // configure table
-    Table table = m_viewer.getTable();
-    GridDataFactory.create(table).hintC(60, 15).grab().fill();
-    table.setHeaderVisible(true);
-    table.setLinesVisible(true);
-    createColumn(ModelMessages.DimensionsDialog_columnNumber, 5);
-    createColumn(ModelMessages.DimensionsDialog_columnSpecification, 65);
-    // configure viewer
-    m_viewer.setContentProvider(new ArrayContentProvider());
-    m_viewer.setLabelProvider(new DimensionsLabelProvider());
-    m_viewer.setInput(m_dimensions2);
-    // add listeners
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      public void selectionChanged(SelectionChangedEvent event) {
-        updateButtons();
-      }
-    });
-    m_viewer.addDoubleClickListener(new IDoubleClickListener() {
-      public void doubleClick(DoubleClickEvent event) {
-        editSelectedDimension();
-      }
-    });
-    // select first
-    if (!m_dimensions2.isEmpty()) {
-      m_viewer.getTable().setSelection(0);
-    }
-  }
+	/**
+	 * Creates {@link TableViewer} for {@link MigDimensionInfo}'s.
+	 */
+	private void createViewer(Composite container) {
+		m_viewer = new TableViewer(container, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
+		// configure table
+		Table table = m_viewer.getTable();
+		GridDataFactory.create(table).hintC(60, 15).grab().fill();
+		table.setHeaderVisible(true);
+		table.setLinesVisible(true);
+		createColumn(ModelMessages.DimensionsDialog_columnNumber, 5);
+		createColumn(ModelMessages.DimensionsDialog_columnSpecification, 65);
+		// configure viewer
+		m_viewer.setContentProvider(new ArrayContentProvider());
+		m_viewer.setLabelProvider(new DimensionsLabelProvider());
+		m_viewer.setInput(m_dimensions2);
+		// add listeners
+		m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			public void selectionChanged(SelectionChangedEvent event) {
+				updateButtons();
+			}
+		});
+		m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+			public void doubleClick(DoubleClickEvent event) {
+				editSelectedDimension();
+			}
+		});
+		// select first
+		if (!m_dimensions2.isEmpty()) {
+			m_viewer.getTable().setSelection(0);
+		}
+	}
 
-  /**
-   * Creates {@link TableColumn} with given parameters.
-   */
-  private void createColumn(String text, int widthInChars) {
-    TableColumn column = new TableColumn(m_viewer.getTable(), SWT.NONE);
-    column.setText(text);
-    column.setWidth(convertWidthInCharsToPixels(widthInChars));
-  }
+	/**
+	 * Creates {@link TableColumn} with given parameters.
+	 */
+	private void createColumn(String text, int widthInChars) {
+		TableColumn column = new TableColumn(m_viewer.getTable(), SWT.NONE);
+		column.setText(text);
+		column.setWidth(convertWidthInCharsToPixels(widthInChars));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Buttons composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Button m_editButton;
-  private Button m_removeButton;
-  private Button m_moveUpButton;
-  private Button m_moveDownButton;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Buttons composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Button m_editButton;
+	private Button m_removeButton;
+	private Button m_moveUpButton;
+	private Button m_moveDownButton;
 
-  /**
-   * Creates {@link Composite} with {@link Button}'s.
-   */
-  private void createButtonsComposite(Composite parent) {
-    Composite composite = new Composite(parent, SWT.NONE);
-    GridDataFactory.create(composite).fill();
-    GridLayoutFactory.create(composite).marginsV(0);
-    //
-    createButton(composite, ModelMessages.DimensionsDialog_insertButton, new Listener() {
-      public void handleEvent(Event event) {
-        addNewDimension(0);
-      }
-    });
-    createButton(composite, ModelMessages.DimensionsDialog_appendButton, new Listener() {
-      public void handleEvent(Event event) {
-        addNewDimension(1);
-      }
-    });
-    m_editButton =
-        createButton(composite, ModelMessages.DimensionsDialog_editButton, new Listener() {
-          public void handleEvent(Event event) {
-            editSelectedDimension();
-          }
-        });
-    m_removeButton =
-        createButton(composite, ModelMessages.DimensionsDialog_removeButton, new Listener() {
-          public void handleEvent(Event event) {
-            final AtomicInteger lastIndex = new AtomicInteger();
-            applyChanges(new RunnableEx() {
-              public void run() throws Exception {
-                Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
-                for (T dimension : selectedDimensions) {
-                  lastIndex.set(dimension.getIndex());
-                  dimension.delete();
-                }
-              }
-            });
-            // set selection
-            int index = lastIndex.get();
-            index = Math.min(index, m_dimensions2.size() - 1);
-            m_viewer.getTable().select(index);
-            // validate
-            updateButtons();
-          }
-        });
-    //
-    new Label(composite, SWT.NONE);
-    m_moveUpButton =
-        createButton(composite, ModelMessages.DimensionsDialog_moveUpButton, new Listener() {
-          public void handleEvent(Event event) {
-            applyChanges(new RunnableEx() {
-              public void run() throws Exception {
-                Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
-                moveDimensionsUp(selectedDimensions);
-              }
-            });
-            updateButtons();
-          }
-        });
-    m_moveDownButton =
-        createButton(composite, ModelMessages.DimensionsDialog_moveDownButton, new Listener() {
-          public void handleEvent(Event event) {
-            applyChanges(new RunnableEx() {
-              public void run() throws Exception {
-                Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
-                moveDimensionsDown(selectedDimensions);
-              }
-            });
-            updateButtons();
-          }
-        });
-  }
+	/**
+	 * Creates {@link Composite} with {@link Button}'s.
+	 */
+	private void createButtonsComposite(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridDataFactory.create(composite).fill();
+		GridLayoutFactory.create(composite).marginsV(0);
+		//
+		createButton(composite, ModelMessages.DimensionsDialog_insertButton, new Listener() {
+			public void handleEvent(Event event) {
+				addNewDimension(0);
+			}
+		});
+		createButton(composite, ModelMessages.DimensionsDialog_appendButton, new Listener() {
+			public void handleEvent(Event event) {
+				addNewDimension(1);
+			}
+		});
+		m_editButton =
+				createButton(composite, ModelMessages.DimensionsDialog_editButton, new Listener() {
+					public void handleEvent(Event event) {
+						editSelectedDimension();
+					}
+				});
+		m_removeButton =
+				createButton(composite, ModelMessages.DimensionsDialog_removeButton, new Listener() {
+					public void handleEvent(Event event) {
+						final AtomicInteger lastIndex = new AtomicInteger();
+						applyChanges(new RunnableEx() {
+							public void run() throws Exception {
+								Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
+								for (T dimension : selectedDimensions) {
+									lastIndex.set(dimension.getIndex());
+									dimension.delete();
+								}
+							}
+						});
+						// set selection
+						int index = lastIndex.get();
+						index = Math.min(index, m_dimensions2.size() - 1);
+						m_viewer.getTable().select(index);
+						// validate
+						updateButtons();
+					}
+				});
+		//
+		new Label(composite, SWT.NONE);
+		m_moveUpButton =
+				createButton(composite, ModelMessages.DimensionsDialog_moveUpButton, new Listener() {
+					public void handleEvent(Event event) {
+						applyChanges(new RunnableEx() {
+							public void run() throws Exception {
+								Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
+								moveDimensionsUp(selectedDimensions);
+							}
+						});
+						updateButtons();
+					}
+				});
+		m_moveDownButton =
+				createButton(composite, ModelMessages.DimensionsDialog_moveDownButton, new Listener() {
+					public void handleEvent(Event event) {
+						applyChanges(new RunnableEx() {
+							public void run() throws Exception {
+								Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
+								moveDimensionsDown(selectedDimensions);
+							}
+						});
+						updateButtons();
+					}
+				});
+	}
 
-  /**
-   * @return the new {@link Button} with given text and {@link SWT#Selection} {@link Listener}.
-   */
-  private static Button createButton(Composite parent, String text, Listener listener) {
-    Button button = new Button(parent, SWT.NONE);
-    GridDataFactory.create(button).grabH().fillH();
-    button.setText(text);
-    button.addListener(SWT.Selection, listener);
-    return button;
-  }
+	/**
+	 * @return the new {@link Button} with given text and {@link SWT#Selection} {@link Listener}.
+	 */
+	private static Button createButton(Composite parent, String text, Listener listener) {
+		Button button = new Button(parent, SWT.NONE);
+		GridDataFactory.create(button).grabH().fillH();
+		button.setText(text);
+		button.addListener(SWT.Selection, listener);
+		return button;
+	}
 
-  /**
-   * Updates buttons according to the selection in viewer.
-   */
-  private void updateButtons() {
-    IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
-    boolean empty = selection.isEmpty();
-    //
-    m_editButton.setEnabled(selection.size() == 1);
-    m_removeButton.setEnabled(!empty);
-    // up/down buttons
-    {
-      m_moveUpButton.setEnabled(!empty);
-      m_moveDownButton.setEnabled(!empty);
-      for (T dimension : GenericsUtils.<T>iterable(selection)) {
-        int index = dimension.getIndex();
-        if (index == 0) {
-          m_moveUpButton.setEnabled(false);
-        }
-        if (index == m_dimensions2.size() - 1) {
-          m_moveDownButton.setEnabled(false);
-        }
-      }
-    }
-  }
+	/**
+	 * Updates buttons according to the selection in viewer.
+	 */
+	private void updateButtons() {
+		IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
+		boolean empty = selection.isEmpty();
+		//
+		m_editButton.setEnabled(selection.size() == 1);
+		m_removeButton.setEnabled(!empty);
+		// up/down buttons
+		{
+			m_moveUpButton.setEnabled(!empty);
+			m_moveDownButton.setEnabled(!empty);
+			for (T dimension : GenericsUtils.<T>iterable(selection)) {
+				int index = dimension.getIndex();
+				if (index == 0) {
+					m_moveUpButton.setEnabled(false);
+				}
+				if (index == m_dimensions2.size() - 1) {
+					m_moveDownButton.setEnabled(false);
+				}
+			}
+		}
+	}
 
-  /**
-   * Adds new {@link MigDimensionInfo}.
-   *
-   * @param indexOffset
-   *          the offset to add to the current selection index, <code>0</code> to implement insert
-   *          and <code>1</code> for append.
-   */
-  private void addNewDimension(int indexOffset) {
-    // add new dimension
-    final int index = addNewDimension_getIndex(indexOffset);
-    applyChanges(new RunnableEx() {
-      public void run() throws Exception {
-        createNewDimension(index);
-      }
-    });
-    m_viewer.getTable().setSelection(index);
-    // edit it
-    editSelectedDimension();
-  }
+	/**
+	 * Adds new {@link MigDimensionInfo}.
+	 *
+	 * @param indexOffset
+	 *          the offset to add to the current selection index, <code>0</code> to implement insert
+	 *          and <code>1</code> for append.
+	 */
+	private void addNewDimension(int indexOffset) {
+		// add new dimension
+		final int index = addNewDimension_getIndex(indexOffset);
+		applyChanges(new RunnableEx() {
+			public void run() throws Exception {
+				createNewDimension(index);
+			}
+		});
+		m_viewer.getTable().setSelection(index);
+		// edit it
+		editSelectedDimension();
+	}
 
-  private int addNewDimension_getIndex(int indexOffset) {
-    int index = m_viewer.getTable().getSelectionIndex();
-    if (index == -1) {
-      return m_dimensions2.size();
-    } else {
-      return index + indexOffset;
-    }
-  }
+	private int addNewDimension_getIndex(int indexOffset) {
+		int index = m_viewer.getTable().getSelectionIndex();
+		if (index == -1) {
+			return m_dimensions2.size();
+		} else {
+			return index + indexOffset;
+		}
+	}
 
-  /**
-   * Edits the selected {@link MigDimensionInfo}.
-   */
-  private void editSelectedDimension() {
-    T dimension = GenericsUtils.<T>first(m_viewer.getSelection());
-    editSelectedDimension(dimension);
-    applyChanges(new RunnableEx() {
-      public void run() throws Exception {
-      }
-    });
-  }
+	/**
+	 * Edits the selected {@link MigDimensionInfo}.
+	 */
+	private void editSelectedDimension() {
+		T dimension = GenericsUtils.<T>first(m_viewer.getSelection());
+		editSelectedDimension(dimension);
+		applyChanges(new RunnableEx() {
+			public void run() throws Exception {
+			}
+		});
+	}
 
-  /**
-   * Applies changes in {@link MigDimensionInfo}-s.
-   */
-  private void applyChanges(final RunnableEx runnable) {
-    ExecutionUtils.run(m_layout, new RunnableEx() {
-      public void run() throws Exception {
-        runnable.run();
-        m_layout.writeDimensions();
-      }
-    });
-    m_viewer.refresh();
-  }
+	/**
+	 * Applies changes in {@link MigDimensionInfo}-s.
+	 */
+	private void applyChanges(final RunnableEx runnable) {
+		ExecutionUtils.run(m_layout, new RunnableEx() {
+			public void run() throws Exception {
+				runnable.run();
+				m_layout.writeDimensions();
+			}
+		});
+		m_viewer.refresh();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Methods to implement: strings
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the title for dialog title area.
-   */
-  protected abstract String getDialogTitle();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Methods to implement: strings
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the title for dialog title area.
+	 */
+	protected abstract String getDialogTitle();
 
-  /**
-   * @return the description for dialog title area.
-   */
-  protected abstract String getDialogMessage();
+	/**
+	 * @return the description for dialog title area.
+	 */
+	protected abstract String getDialogMessage();
 
-  /**
-   * @return the title for dimensions viewer.
-   */
-  protected abstract String getViewerTitle();
+	/**
+	 * @return the title for dimensions viewer.
+	 */
+	protected abstract String getViewerTitle();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Methods to implement: dimensions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected abstract void moveDimensionsUp(Iterable<T> dimensions) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Methods to implement: dimensions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected abstract void moveDimensionsUp(Iterable<T> dimensions) throws Exception;
 
-  protected abstract void moveDimensionsDown(Iterable<T> dimensions) throws Exception;
+	protected abstract void moveDimensionsDown(Iterable<T> dimensions) throws Exception;
 
-  /**
-   * Edits given {@link MigDimensionInfo}.
-   *
-   * @return <code>true</code> if edit was successful.
-   */
-  protected abstract boolean editSelectedDimension(T dimension);
+	/**
+	 * Edits given {@link MigDimensionInfo}.
+	 *
+	 * @return <code>true</code> if edit was successful.
+	 */
+	protected abstract boolean editSelectedDimension(T dimension);
 
-  /**
-   * @return the new {@link MigDimensionInfo} instance to append/insert.
-   */
-  protected abstract T createNewDimension(int targetIndex) throws Exception;
+	/**
+	 * @return the new {@link MigDimensionInfo} instance to append/insert.
+	 */
+	protected abstract T createNewDimension(int targetIndex) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dimensions providers
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * {@link ITableLabelProvider} for {@link MigDimensionInfo}.
-   */
-  private class DimensionsLabelProvider extends LabelProvider implements ITableLabelProvider {
-    public String getColumnText(Object element, int columnIndex) {
-      MigDimensionInfo dimension = (MigDimensionInfo) element;
-      if (columnIndex == 0) {
-        return "" + dimension.getIndex();
-      }
-      if (columnIndex == 1) {
-        return dimension.getString(false);
-      }
-      return element.toString();
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dimensions providers
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * {@link ITableLabelProvider} for {@link MigDimensionInfo}.
+	 */
+	private class DimensionsLabelProvider extends LabelProvider implements ITableLabelProvider {
+		public String getColumnText(Object element, int columnIndex) {
+			MigDimensionInfo dimension = (MigDimensionInfo) element;
+			if (columnIndex == 0) {
+				return "" + dimension.getIndex();
+			}
+			if (columnIndex == 1) {
+				return dimension.getString(false);
+			}
+			return element.toString();
+		}
 
-    public Image getColumnImage(Object element, int columnIndex) {
-      return null;
-    }
-  }
+		public Image getColumnImage(Object element, int columnIndex) {
+			return null;
+		}
+	}
 }

@@ -22,43 +22,43 @@ import org.apache.commons.lang.ArrayUtils;
  * @author scheglov_ke
  */
 public class MigColumnTest extends AbstractMigLayoutTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_alignments() throws Exception {
-    checkAlignment(MigColumnInfo.Alignment.DEFAULT, "Default");
-    checkAlignment(MigColumnInfo.Alignment.LEFT, "Left");
-    checkAlignment(MigColumnInfo.Alignment.CENTER, "Center");
-    checkAlignment(MigColumnInfo.Alignment.RIGHT, "Right");
-    checkAlignment(MigColumnInfo.Alignment.FILL, "Fill");
-    checkAlignment(MigColumnInfo.Alignment.LEADING, "Leading");
-    checkAlignment(MigColumnInfo.Alignment.TRAILING, "Trailing");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_alignments() throws Exception {
+		checkAlignment(MigColumnInfo.Alignment.DEFAULT, "Default");
+		checkAlignment(MigColumnInfo.Alignment.LEFT, "Left");
+		checkAlignment(MigColumnInfo.Alignment.CENTER, "Center");
+		checkAlignment(MigColumnInfo.Alignment.RIGHT, "Right");
+		checkAlignment(MigColumnInfo.Alignment.FILL, "Fill");
+		checkAlignment(MigColumnInfo.Alignment.LEADING, "Leading");
+		checkAlignment(MigColumnInfo.Alignment.TRAILING, "Trailing");
+	}
 
-  private static void checkAlignment(MigColumnInfo.Alignment alignment, String expectedText) {
-    assertNotNull(alignment.getSmallImage());
-    assertNotNull(alignment.getMenuImage());
-    assertEquals(expectedText, alignment.getText());
-  }
+	private static void checkAlignment(MigColumnInfo.Alignment alignment, String expectedText) {
+		assertNotNull(alignment.getSmallImage());
+		assertNotNull(alignment.getMenuImage());
+		assertEquals(expectedText, alignment.getText());
+	}
 
-  /**
-   * Check for content of {@link MigColumnInfo#ALIGNMENTS_TO_SET}.
-   */
-  public void test_alignmentsToSet() throws Exception {
-    assertThat(MigColumnInfo.ALIGNMENTS_TO_SET).hasSize(MigColumnInfo.Alignment.values().length - 1);
-    assertFalse(ArrayUtils.contains(
-        MigColumnInfo.ALIGNMENTS_TO_SET,
-        MigColumnInfo.Alignment.UNKNOWN));
-  }
+	/**
+	 * Check for content of {@link MigColumnInfo#ALIGNMENTS_TO_SET}.
+	 */
+	public void test_alignmentsToSet() throws Exception {
+		assertThat(MigColumnInfo.ALIGNMENTS_TO_SET).hasSize(MigColumnInfo.Alignment.values().length - 1);
+		assertFalse(ArrayUtils.contains(
+				MigColumnInfo.ALIGNMENTS_TO_SET,
+				MigColumnInfo.Alignment.UNKNOWN));
+	}
 }

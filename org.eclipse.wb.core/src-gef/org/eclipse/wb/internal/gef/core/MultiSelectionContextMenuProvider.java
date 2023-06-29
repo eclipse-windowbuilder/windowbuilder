@@ -28,54 +28,54 @@ import java.util.List;
  * @coverage gef.core
  */
 public abstract class MultiSelectionContextMenuProvider extends ContextMenuProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MultiSelectionContextMenuProvider(IEditPartViewer viewer) {
-    super(viewer);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MultiSelectionContextMenuProvider(IEditPartViewer viewer) {
+		super(viewer);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Context Menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final void buildContextMenu() {
-    List<EditPart> editParts = m_viewer.getSelectedEditParts();
-    preprocessSelection(editParts);
-    // check empty
-    if (editParts.isEmpty()) {
-      return;
-    }
-    // check single selection
-    if (editParts.size() == 1) {
-      EditPart editPart = editParts.get(0);
-      buildContextMenu(editPart, this);
-      return;
-    }
-    // handle multi selection
-    List<IMenuManager> managers = Lists.newArrayList();
-    for (EditPart editPart : editParts) {
-      IMenuManager manager = new MenuManager();
-      buildContextMenu(editPart, manager);
-      managers.add(manager);
-    }
-    // select common parts
-    MenuIntersector.merge(this, managers);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Context Menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final void buildContextMenu() {
+		List<EditPart> editParts = m_viewer.getSelectedEditParts();
+		preprocessSelection(editParts);
+		// check empty
+		if (editParts.isEmpty()) {
+			return;
+		}
+		// check single selection
+		if (editParts.size() == 1) {
+			EditPart editPart = editParts.get(0);
+			buildContextMenu(editPart, this);
+			return;
+		}
+		// handle multi selection
+		List<IMenuManager> managers = Lists.newArrayList();
+		for (EditPart editPart : editParts) {
+			IMenuManager manager = new MenuManager();
+			buildContextMenu(editPart, manager);
+			managers.add(manager);
+		}
+		// select common parts
+		MenuIntersector.merge(this, managers);
+	}
 
-  /**
-   * Notifies that given {@link EditPart}'s are selected and we are going to call later
-   * {@link #buildContextMenu(EditPart, IMenuManager)} for each of them.
-   */
-  protected void preprocessSelection(List<EditPart> editParts) {
-  }
+	/**
+	 * Notifies that given {@link EditPart}'s are selected and we are going to call later
+	 * {@link #buildContextMenu(EditPart, IMenuManager)} for each of them.
+	 */
+	protected void preprocessSelection(List<EditPart> editParts) {
+	}
 
-  /**
-   * Create menu items for given {@link EditPart} and fill given <code>menu</code>.
-   */
-  protected abstract void buildContextMenu(EditPart editPart, IMenuManager manager);
+	/**
+	 * Create menu items for given {@link EditPart} and fill given <code>menu</code>.
+	 */
+	protected abstract void buildContextMenu(EditPart editPart, IMenuManager manager);
 }

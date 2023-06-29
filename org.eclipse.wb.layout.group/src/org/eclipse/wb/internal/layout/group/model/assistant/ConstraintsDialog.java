@@ -26,48 +26,48 @@ import org.eclipse.swt.widgets.Shell;
  * @author mitin_aa
  */
 public final class ConstraintsDialog extends Dialog {
-  private final AbstractComponentInfo m_component;
-  private final IGroupLayoutInfo m_layout;
-  private GroupLayoutSpacesPage m_groupLayoutSpacesPage;
+	private final AbstractComponentInfo m_component;
+	private final IGroupLayoutInfo m_layout;
+	private GroupLayoutSpacesPage m_groupLayoutSpacesPage;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ConstraintsDialog(Shell parentShell,
-      IGroupLayoutInfo layout,
-      AbstractComponentInfo component) {
-    super(parentShell);
-    m_layout = layout;
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ConstraintsDialog(Shell parentShell,
+			IGroupLayoutInfo layout,
+			AbstractComponentInfo component) {
+		super(parentShell);
+		m_layout = layout;
+		m_component = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Contents
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final Control createContents(Composite parent) {
-    Composite container = (Composite) super.createDialogArea(parent);
-    container.setLayout(new FillLayout());
-    m_groupLayoutSpacesPage = new GroupLayoutSpacesPage(container, m_layout, m_component);
-    return container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Contents
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final Control createContents(Composite parent) {
+		Composite container = (Composite) super.createDialogArea(parent);
+		container.setLayout(new FillLayout());
+		m_groupLayoutSpacesPage = new GroupLayoutSpacesPage(container, m_layout, m_component);
+		return container;
+	}
 
-  @Override
-  protected void configureShell(Shell newShell) {
-    super.configureShell(newShell);
-    newShell.setText(Messages.ConstraintsDialog_title);
-  }
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText(Messages.ConstraintsDialog_title);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final void updateUI() {
-    m_groupLayoutSpacesPage.updatePage();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final void updateUI() {
+		m_groupLayoutSpacesPage.updatePage();
+	}
 }

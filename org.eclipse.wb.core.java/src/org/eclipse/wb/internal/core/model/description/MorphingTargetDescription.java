@@ -42,35 +42,35 @@ package org.eclipse.wb.internal.core.model.description;
  * @coverage core.model.description
  */
 public final class MorphingTargetDescription {
-  private final Class<?> m_componentClass;
-  private final String m_creationId;
+	private final Class<?> m_componentClass;
+	private final String m_creationId;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MorphingTargetDescription(Class<?> componentClass, String creationId) {
-    m_componentClass = componentClass;
-    m_creationId = creationId;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MorphingTargetDescription(Class<?> componentClass, String creationId) {
+		m_componentClass = componentClass;
+		m_creationId = creationId;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the target component class.
-   */
-  public Class<?> getComponentClass() {
-    return m_componentClass;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the target component class.
+	 */
+	public Class<?> getComponentClass() {
+		return m_componentClass;
+	}
 
-  /**
-   * @return the creation id for target class.
-   */
-  public String getCreationId() {
-    return m_creationId;
-  }
+	/**
+	 * @return the creation id for target class.
+	 */
+	public String getCreationId() {
+		return m_creationId;
+	}
 }

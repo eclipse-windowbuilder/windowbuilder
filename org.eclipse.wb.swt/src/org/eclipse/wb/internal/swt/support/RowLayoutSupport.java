@@ -22,34 +22,34 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
  * @coverage swt.support
  */
 public class RowLayoutSupport extends AbstractSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // RowLayout
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create new {@link org.eclipse.swt.layout.RowData}.
-   */
-  public static Object createRowData() throws Exception {
-    return loadClass("org.eclipse.swt.layout.RowData").newInstance();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// RowLayout
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create new {@link org.eclipse.swt.layout.RowData}.
+	 */
+	public static Object createRowData() throws Exception {
+		return loadClass("org.eclipse.swt.layout.RowData").newInstance();
+	}
 
-  /**
-   * @return value of field <code>type</code>.
-   */
-  public static int getType(final Object layout) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Integer>() {
-      @Override
-      public Integer runObject() throws Exception {
-        return ReflectionUtils.getFieldInt(layout, "type");
-      }
-    }, SwtSupport.HORIZONTAL);
-  }
+	/**
+	 * @return value of field <code>type</code>.
+	 */
+	public static int getType(final Object layout) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Integer>() {
+			@Override
+			public Integer runObject() throws Exception {
+				return ReflectionUtils.getFieldInt(layout, "type");
+			}
+		}, SwtSupport.HORIZONTAL);
+	}
 
-  /**
-   * @return <code>true</code> if this layout is horizontal (type == SWT.HORIZONTAL).
-   */
-  public static boolean isHorizontal(Object layout) {
-    return getType(layout) == SwtSupport.HORIZONTAL;
-  }
+	/**
+	 * @return <code>true</code> if this layout is horizontal (type == SWT.HORIZONTAL).
+	 */
+	public static boolean isHorizontal(Object layout) {
+		return getType(layout) == SwtSupport.HORIZONTAL;
+	}
 }

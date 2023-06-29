@@ -43,182 +43,182 @@ import java.util.Map;
  * @coverage swt.model
  */
 public final class SwtInvocationEvaluatorInterceptor extends InvocationEvaluatorInterceptor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // InvocationEvaluatorInterceptor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      ClassInstanceCreation expression,
-      ITypeBinding typeBinding,
-      Class<?> clazz,
-      Constructor<?> actualConstructor,
-      Object[] arguments) throws Exception {
-    // standard SWT control
-    if (isControl(actualConstructor)) {
-      return evaluateSWT(context, expression, clazz, actualConstructor, arguments);
-    }
-    // ComboBoxCellEditor with setItems() argument
-    if (ReflectionUtils.isSuccessorOf(clazz, "org.eclipse.jface.viewers.ComboBoxCellEditor")
-        && actualConstructor.getParameterTypes().length >= 2) {
-      if (arguments[1] == null) {
-        // replace null items array with empty array
-        arguments[1] = new String[0];
-      }
-    }
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// InvocationEvaluatorInterceptor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			ClassInstanceCreation expression,
+			ITypeBinding typeBinding,
+			Class<?> clazz,
+			Constructor<?> actualConstructor,
+			Object[] arguments) throws Exception {
+		// standard SWT control
+		if (isControl(actualConstructor)) {
+			return evaluateSWT(context, expression, clazz, actualConstructor, arguments);
+		}
+		// ComboBoxCellEditor with setItems() argument
+		if (ReflectionUtils.isSuccessorOf(clazz, "org.eclipse.jface.viewers.ComboBoxCellEditor")
+				&& actualConstructor.getParameterTypes().length >= 2) {
+			if (arguments[1] == null) {
+				// replace null items array with empty array
+				arguments[1] = new String[0];
+			}
+		}
+		return AstEvaluationEngine.UNKNOWN;
+	}
 
-  private Object evaluateSWT(EvaluationContext context,
-      ClassInstanceCreation expression,
-      Class<?> clazz,
-      Constructor<?> actualConstructor,
-      Object[] arguments) throws Exception {
-    PlaceholderUtils.clear(expression);
-    Object parent = arguments[0];
-    int style = (Integer) arguments[1];
-    // try actual constructor
-    try {
-      return tryToCreate(actualConstructor, arguments);
-    } catch (Throwable e) {
-      context.addException(expression, e);
-      PlaceholderUtils.addException(expression, e);
-    }
-    // may be it failed because of "null" parent
-    if (parent == null) {
-      throw new DesignerException(IExceptionConstants.NULL_PARENT);
-    }
-    // some exception happened, try default constructor (if actual was not default)
-    {
-      Class<?> parentType = actualConstructor.getParameterTypes()[0];
-      Constructor<?> defaultConstructor =
-          ReflectionUtils.getConstructor(clazz, parentType, int.class);
-      if (defaultConstructor != null
-          && !ReflectionUtils.equals(actualConstructor, defaultConstructor)) {
-        try {
-          return tryToCreate(defaultConstructor, parent, style);
-        } catch (Throwable e) {
-          context.addException(expression, e);
-          PlaceholderUtils.addException(expression, e);
-        }
-      }
-    }
-    // still no success, use placeholder
-    PlaceholderUtils.markPlaceholder(expression);
-    return createPlaceholder(clazz, parent, style);
-  }
+	private Object evaluateSWT(EvaluationContext context,
+			ClassInstanceCreation expression,
+			Class<?> clazz,
+			Constructor<?> actualConstructor,
+			Object[] arguments) throws Exception {
+		PlaceholderUtils.clear(expression);
+		Object parent = arguments[0];
+		int style = (Integer) arguments[1];
+		// try actual constructor
+		try {
+			return tryToCreate(actualConstructor, arguments);
+		} catch (Throwable e) {
+			context.addException(expression, e);
+			PlaceholderUtils.addException(expression, e);
+		}
+		// may be it failed because of "null" parent
+		if (parent == null) {
+			throw new DesignerException(IExceptionConstants.NULL_PARENT);
+		}
+		// some exception happened, try default constructor (if actual was not default)
+		{
+			Class<?> parentType = actualConstructor.getParameterTypes()[0];
+			Constructor<?> defaultConstructor =
+					ReflectionUtils.getConstructor(clazz, parentType, int.class);
+			if (defaultConstructor != null
+					&& !ReflectionUtils.equals(actualConstructor, defaultConstructor)) {
+				try {
+					return tryToCreate(defaultConstructor, parent, style);
+				} catch (Throwable e) {
+					context.addException(expression, e);
+					PlaceholderUtils.addException(expression, e);
+				}
+			}
+		}
+		// still no success, use placeholder
+		PlaceholderUtils.markPlaceholder(expression);
+		return createPlaceholder(clazz, parent, style);
+	}
 
-  /**
-   * Tries to create {@link Control} using given constructor and arguments. If fails, disposes
-   * partially created {@link Control}-s.
-   */
-  private static Object tryToCreate(Constructor<?> actualConstructor, Object... arguments)
-      throws Exception {
-    Object parent = arguments[0];
-    // special case: no parent (probably only for Shell)
-    if (parent == null) {
-      return actualConstructor.newInstance(arguments);
-    }
-    // when has parent
-    int oldChildrenCount = ContainerSupport.getChildren(parent).length;
-    try {
-      return actualConstructor.newInstance(arguments);
-    } catch (Throwable e) {
-      // dispose new Control(s)
-      Object[] newChildren = ContainerSupport.getChildren(parent);
-      for (int i = oldChildrenCount; i < newChildren.length; i++) {
-        Object newChild = newChildren[i];
-        ControlSupport.dispose(newChild);
-      }
-      // re-throw
-      throw ReflectionUtils.getExceptionToThrow(e);
-    }
-  }
+	/**
+	 * Tries to create {@link Control} using given constructor and arguments. If fails, disposes
+	 * partially created {@link Control}-s.
+	 */
+	private static Object tryToCreate(Constructor<?> actualConstructor, Object... arguments)
+			throws Exception {
+		Object parent = arguments[0];
+		// special case: no parent (probably only for Shell)
+		if (parent == null) {
+			return actualConstructor.newInstance(arguments);
+		}
+		// when has parent
+		int oldChildrenCount = ContainerSupport.getChildren(parent).length;
+		try {
+			return actualConstructor.newInstance(arguments);
+		} catch (Throwable e) {
+			// dispose new Control(s)
+			Object[] newChildren = ContainerSupport.getChildren(parent);
+			for (int i = oldChildrenCount; i < newChildren.length; i++) {
+				Object newChild = newChildren[i];
+				ControlSupport.dispose(newChild);
+			}
+			// re-throw
+			throw ReflectionUtils.getExceptionToThrow(e);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static boolean isControl(Constructor<?> constructor) {
-    Class<?>[] parameters = constructor.getParameterTypes();
-    Class<?> clazz = constructor.getDeclaringClass();
-    return ReflectionUtils.isSuccessorOf(clazz, "org.eclipse.swt.widgets.Control")
-        && parameters.length >= 2
-        && ReflectionUtils.isSuccessorOf(parameters[0], "org.eclipse.swt.widgets.Composite")
-        && parameters[1] == int.class;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static boolean isControl(Constructor<?> constructor) {
+		Class<?>[] parameters = constructor.getParameterTypes();
+		Class<?> clazz = constructor.getDeclaringClass();
+		return ReflectionUtils.isSuccessorOf(clazz, "org.eclipse.swt.widgets.Control")
+				&& parameters.length >= 2
+				&& ReflectionUtils.isSuccessorOf(parameters[0], "org.eclipse.swt.widgets.Composite")
+				&& parameters[1] == int.class;
+	}
 
-  /**
-   * @return the {@link Control} to use as placeholder instead of real component that can not be
-   *         created because of some exception.
-   */
-  private static Object createPlaceholder(Class<?> clazz, Object parent, int style)
-      throws Exception {
-    String message =
-        MessageFormat.format(
-            ModelMessages.SwtInvocationEvaluatorInterceptor_placeholderText,
-            CodeUtils.getShortClass(clazz.getName()));
-    ClassLoader classLoader = parent.getClass().getClassLoader();
-    String script =
-        CodeUtils.getSource(
-            "import org.eclipse.swt.SWT;",
-            "import org.eclipse.swt.graphics.Color;",
-            "import org.eclipse.swt.widgets.*;",
-            "import org.eclipse.swt.layout.FillLayout;",
-            "",
-            "composite = new Composite(parent, SWT.NONE);",
-            "composite.setLayout(new FillLayout());",
-            "",
-            "label = new Label(composite, SWT.WRAP | SWT.CENTER);",
-            "label.setText(message);",
-            "label.setBackground(new Color(null, 0xFF, 0xCC, 0xCC));",
-            "",
-            "return composite;");
-    Map<String, Object> variables = Maps.newTreeMap();
-    variables.put("parent", parent);
-    variables.put("message", message);
-    return ScriptUtils.evaluate(classLoader, script, variables);
-  }
+	/**
+	 * @return the {@link Control} to use as placeholder instead of real component that can not be
+	 *         created because of some exception.
+	 */
+	private static Object createPlaceholder(Class<?> clazz, Object parent, int style)
+			throws Exception {
+		String message =
+				MessageFormat.format(
+						ModelMessages.SwtInvocationEvaluatorInterceptor_placeholderText,
+						CodeUtils.getShortClass(clazz.getName()));
+		ClassLoader classLoader = parent.getClass().getClassLoader();
+		String script =
+				CodeUtils.getSource(
+						"import org.eclipse.swt.SWT;",
+						"import org.eclipse.swt.graphics.Color;",
+						"import org.eclipse.swt.widgets.*;",
+						"import org.eclipse.swt.layout.FillLayout;",
+						"",
+						"composite = new Composite(parent, SWT.NONE);",
+						"composite.setLayout(new FillLayout());",
+						"",
+						"label = new Label(composite, SWT.WRAP | SWT.CENTER);",
+						"label.setText(message);",
+						"label.setBackground(new Color(null, 0xFF, 0xCC, 0xCC));",
+						"",
+						"return composite;");
+		Map<String, Object> variables = Maps.newTreeMap();
+		variables.put("parent", parent);
+		variables.put("message", message);
+		return ScriptUtils.evaluate(classLoader, script, variables);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Anonymous
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluateAnonymous(EvaluationContext context,
-      ClassInstanceCreation expression,
-      ITypeBinding typeBinding,
-      ITypeBinding typeBindingConcrete,
-      IMethodBinding methodBinding,
-      Object[] arguments) throws Exception {
-    if (isViewerCreation_withControl(typeBindingConcrete, arguments)
-        || isControlCreation_withParentStyle(typeBindingConcrete, arguments)) {
-      String stubClassName = AstNodeUtils.getFullyQualifiedName(typeBindingConcrete, true);
-      Class<?> stubClass = context.getClassLoader().loadClass(stubClassName);
-      Constructor<?> constructor = ReflectionUtils.getConstructorForArguments(stubClass, arguments);
-      if (constructor != null) {
-        return constructor.newInstance(arguments);
-      }
-    }
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Anonymous
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluateAnonymous(EvaluationContext context,
+			ClassInstanceCreation expression,
+			ITypeBinding typeBinding,
+			ITypeBinding typeBindingConcrete,
+			IMethodBinding methodBinding,
+			Object[] arguments) throws Exception {
+		if (isViewerCreation_withControl(typeBindingConcrete, arguments)
+				|| isControlCreation_withParentStyle(typeBindingConcrete, arguments)) {
+			String stubClassName = AstNodeUtils.getFullyQualifiedName(typeBindingConcrete, true);
+			Class<?> stubClass = context.getClassLoader().loadClass(stubClassName);
+			Constructor<?> constructor = ReflectionUtils.getConstructorForArguments(stubClass, arguments);
+			if (constructor != null) {
+				return constructor.newInstance(arguments);
+			}
+		}
+		return AstEvaluationEngine.UNKNOWN;
+	}
 
-  private static boolean isViewerCreation_withControl(ITypeBinding typeBinding, Object[] arguments) {
-    return AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.jface.viewers.Viewer")
-        && arguments.length == 1
-        && ReflectionUtils.isSuccessorOf(arguments[0], "org.eclipse.swt.widgets.Control");
-  }
+	private static boolean isViewerCreation_withControl(ITypeBinding typeBinding, Object[] arguments) {
+		return AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.jface.viewers.Viewer")
+				&& arguments.length == 1
+				&& ReflectionUtils.isSuccessorOf(arguments[0], "org.eclipse.swt.widgets.Control");
+	}
 
-  private static boolean isControlCreation_withParentStyle(ITypeBinding typeBinding,
-      Object[] arguments) {
-    boolean isControl = AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Control");
-    boolean isViewer = AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.jface.viewers.Viewer");
-    return (isControl || isViewer)
-        && arguments.length >= 2
-        && ReflectionUtils.isSuccessorOf(arguments[0], "org.eclipse.swt.widgets.Composite")
-        && ReflectionUtils.isSuccessorOf(arguments[1], "int");
-  }
+	private static boolean isControlCreation_withParentStyle(ITypeBinding typeBinding,
+			Object[] arguments) {
+		boolean isControl = AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Control");
+		boolean isViewer = AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.jface.viewers.Viewer");
+		return (isControl || isViewer)
+				&& arguments.length >= 2
+				&& ReflectionUtils.isSuccessorOf(arguments[0], "org.eclipse.swt.widgets.Composite")
+				&& ReflectionUtils.isSuccessorOf(arguments[1], "int");
+	}
 }

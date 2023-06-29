@@ -20,30 +20,30 @@ import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
  * @coverage core.model.description
  */
 public final class ComponentOrderFirst extends ComponentOrder {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ComponentOrder INSTANCE = new ComponentOrderFirst();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ComponentOrder INSTANCE = new ComponentOrderFirst();
 
-  private ComponentOrderFirst() {
-  }
+	private ComponentOrderFirst() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ComponentOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public JavaInfo getNextComponent_whenLast(JavaInfo component, JavaInfo container)
-      throws Exception {
-    for (JavaInfo child : container.getChildrenJava()) {
-      boolean isImplicit = child.getCreationSupport() instanceof IImplicitCreationSupport;
-      if (!isImplicit) {
-        return child;
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ComponentOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public JavaInfo getNextComponent_whenLast(JavaInfo component, JavaInfo container)
+			throws Exception {
+		for (JavaInfo child : container.getChildrenJava()) {
+			boolean isImplicit = child.getCreationSupport() instanceof IImplicitCreationSupport;
+			if (!isImplicit) {
+				return child;
+			}
+		}
+		return null;
+	}
 }

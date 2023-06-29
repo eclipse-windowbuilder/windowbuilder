@@ -68,267 +68,267 @@ import java.util.Set;
  * @coverage XWT.parser
  */
 public final class XwtParser {
-  private final EditorContext m_context;
-  private final IFile m_file;
-  private final IDocument m_document;
-  private final Map<String, DocumentElement> m_pathToElementMap = Maps.newHashMap();
-  private final Map<String, XmlObjectInfo> m_pathToModelMap = Maps.newHashMap();
-  private XmlObjectInfo m_rootModel;
+	private final EditorContext m_context;
+	private final IFile m_file;
+	private final IDocument m_document;
+	private final Map<String, DocumentElement> m_pathToElementMap = Maps.newHashMap();
+	private final Map<String, XmlObjectInfo> m_pathToModelMap = Maps.newHashMap();
+	private XmlObjectInfo m_rootModel;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XwtParser(IFile file, IDocument document) throws Exception {
-    m_file = file;
-    m_document = document;
-    m_context = new XwtEditorContext(file, m_document);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XwtParser(IFile file, IDocument document) throws Exception {
+		m_file = file;
+		m_document = document;
+		m_context = new XwtEditorContext(file, m_document);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parse
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlObjectInfo parse() throws Exception {
-    return ExecutionUtils.runDesignTime(new RunnableObjectEx<XmlObjectInfo>() {
-      public XmlObjectInfo runObject() throws Exception {
-        return parse0();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parse
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlObjectInfo parse() throws Exception {
+		return ExecutionUtils.runDesignTime(new RunnableObjectEx<XmlObjectInfo>() {
+			public XmlObjectInfo runObject() throws Exception {
+				return parse0();
+			}
+		});
+	}
 
-  private XmlObjectInfo parse0() throws Exception {
-    m_context.initialize();
-    m_context.setParsing(true);
-    fillMap_pathToElement();
-    // notifications from model
-    m_context.getBroadcastSupport().addListener(null, new XwtParserBindToElement() {
-      public void invoke(XmlObjectInfo object, DocumentElement element) {
-        String path = getPath(element);
-        m_pathToModelMap.put(path, object);
-      }
-    });
-    // handler for creation events
-    Core profile = new Core(new IElementLoaderFactory() {
-      private int m_level;
+	private XmlObjectInfo parse0() throws Exception {
+		m_context.initialize();
+		m_context.setParsing(true);
+		fillMap_pathToElement();
+		// notifications from model
+		m_context.getBroadcastSupport().addListener(null, new XwtParserBindToElement() {
+			public void invoke(XmlObjectInfo object, DocumentElement element) {
+				String path = getPath(element);
+				m_pathToModelMap.put(path, object);
+			}
+		});
+		// handler for creation events
+		Core profile = new Core(new IElementLoaderFactory() {
+			private int m_level;
 
-      public IVisualElementLoader createElementLoader(IRenderingContext context, IXWTLoader loader) {
-        return new ResourceLoader(context, loader) {
-          @Override
-          protected void postCreation0(final Element element, final Object targetObject) {
-            if (m_level > 1) {
-              return;
-            }
-            ExecutionUtils.runRethrow(new RunnableEx() {
-              public void run() throws Exception {
-                postCreationEx(element, targetObject);
-              }
-            });
-          }
+			public IVisualElementLoader createElementLoader(IRenderingContext context, IXWTLoader loader) {
+				return new ResourceLoader(context, loader) {
+					@Override
+					protected void postCreation0(final Element element, final Object targetObject) {
+						if (m_level > 1) {
+							return;
+						}
+						ExecutionUtils.runRethrow(new RunnableEx() {
+							public void run() throws Exception {
+								postCreationEx(element, targetObject);
+							}
+						});
+					}
 
-          private void postCreationEx(Element element, Object targetObject) throws Exception {
-            String path = getPath(element);
-            DocumentElement xmlElement = m_pathToElementMap.get(path);
-            if (xmlElement == null) {
-              return;
-            }
-            // create model
-            XmlObjectInfo objectInfo = createObjectInfo(targetObject, xmlElement);
-            if (objectInfo == null) {
-              return;
-            }
-            m_pathToModelMap.put(path, objectInfo);
-            // add to hierarchy
-            if ("0".equals(path)) {
-              m_rootModel = objectInfo;
-            } else {
-              XmlObjectInfo parentObjectInfo = getParentObjectInfo(element);
-              if (parentObjectInfo != null) {
-                parentObjectInfo.addChild(objectInfo);
-              }
-            }
-          }
+					private void postCreationEx(Element element, Object targetObject) throws Exception {
+						String path = getPath(element);
+						DocumentElement xmlElement = m_pathToElementMap.get(path);
+						if (xmlElement == null) {
+							return;
+						}
+						// create model
+						XmlObjectInfo objectInfo = createObjectInfo(targetObject, xmlElement);
+						if (objectInfo == null) {
+							return;
+						}
+						m_pathToModelMap.put(path, objectInfo);
+						// add to hierarchy
+						if ("0".equals(path)) {
+							m_rootModel = objectInfo;
+						} else {
+							XmlObjectInfo parentObjectInfo = getParentObjectInfo(element);
+							if (parentObjectInfo != null) {
+								parentObjectInfo.addChild(objectInfo);
+							}
+						}
+					}
 
-          ////////////////////////////////////////////////////////////////////////////
-          //
-          // Tweaks for handling tested XWT files
-          //
-          ////////////////////////////////////////////////////////////////////////////
-          private final Set<Element> m_processedElements = Sets.newHashSet();
+					////////////////////////////////////////////////////////////////////////////
+					//
+					// Tweaks for handling tested XWT files
+					//
+					////////////////////////////////////////////////////////////////////////////
+					private final Set<Element> m_processedElements = Sets.newHashSet();
 
-          private boolean isRoot(Element element) {
-            if (!m_processedElements.contains(element)) {
-              m_processedElements.add(element);
-              return "0".equals(element.getPath());
-            }
-            return false;
-          }
+					private boolean isRoot(Element element) {
+						if (!m_processedElements.contains(element)) {
+							m_processedElements.add(element);
+							return "0".equals(element.getPath());
+						}
+						return false;
+					}
 
-          @Override
-          protected Object doCreate(Object parent,
-              Element element,
-              Class<?> constraintType,
-              Map<String, Object> options) throws Exception {
-            boolean isRoot = isRoot(element);
-            try {
-              if (isRoot) {
-                m_level++;
-              }
-              return super.doCreate(parent, element, constraintType, options);
-            } finally {
-              if (isRoot) {
-                m_level--;
-              }
-            }
-          }
-        };
-      }
-    }, XWTLoaderManager.getActive());
-    // render, with parsing
-    XWT.applyProfile(profile);
-    ILoadingContext _loadingContext = XWT.getLoadingContext();
-    XWT.setLoadingContext(new DefaultLoadingContext(m_context.getClassLoader()));
-    try {
-      URI uri = m_file.getLocationURI();
-      IPath localPath = URIUtil.toPath(uri);
-      String host = uri.getHost();
-      URL url = (host != null && localPath == null ? uri : URIUtil.toURI(localPath)).toURL();
-      String content = m_document.get();
-      Map<String, Object> options = Maps.newHashMap();
-      options.put(IXWTLoader.DESIGN_MODE_PROPERTY, Boolean.TRUE);
-      configureForForms(m_context, options);
-      XWT.loadWithOptions(IOUtils.toInputStream(content), url, options);
-    } finally {
-      XWT.setLoadingContext(_loadingContext);
-      XWT.restoreProfile();
-    }
-    // done
-    m_context.setParsing(false);
-    NameSupport.decoratePresentationWithName(m_rootModel);
-    XmlObjectUtils.callRootProcessors(m_rootModel);
-    new XwtTagResolver(m_rootModel);
-    new XwtStringArraySupport(m_rootModel);
-    new XwtStaticFieldSupport(m_rootModel);
-    new XwtListenerProperties(m_rootModel);
-    new NamePropertySupport(m_rootModel);
-    GlobalStateXml.activate(m_rootModel);
-    m_rootModel.getBroadcast(ObjectInfoTreeComplete.class).invoke();
-    m_rootModel.refresh_dispose();
-    return m_rootModel;
-  }
+					@Override
+					protected Object doCreate(Object parent,
+							Element element,
+							Class<?> constraintType,
+							Map<String, Object> options) throws Exception {
+						boolean isRoot = isRoot(element);
+						try {
+							if (isRoot) {
+								m_level++;
+							}
+							return super.doCreate(parent, element, constraintType, options);
+						} finally {
+							if (isRoot) {
+								m_level--;
+							}
+						}
+					}
+				};
+			}
+		}, XWTLoaderManager.getActive());
+		// render, with parsing
+		XWT.applyProfile(profile);
+		ILoadingContext _loadingContext = XWT.getLoadingContext();
+		XWT.setLoadingContext(new DefaultLoadingContext(m_context.getClassLoader()));
+		try {
+			URI uri = m_file.getLocationURI();
+			IPath localPath = URIUtil.toPath(uri);
+			String host = uri.getHost();
+			URL url = (host != null && localPath == null ? uri : URIUtil.toURI(localPath)).toURL();
+			String content = m_document.get();
+			Map<String, Object> options = Maps.newHashMap();
+			options.put(IXWTLoader.DESIGN_MODE_PROPERTY, Boolean.TRUE);
+			configureForForms(m_context, options);
+			XWT.loadWithOptions(IOUtils.toInputStream(content), url, options);
+		} finally {
+			XWT.setLoadingContext(_loadingContext);
+			XWT.restoreProfile();
+		}
+		// done
+		m_context.setParsing(false);
+		NameSupport.decoratePresentationWithName(m_rootModel);
+		XmlObjectUtils.callRootProcessors(m_rootModel);
+		new XwtTagResolver(m_rootModel);
+		new XwtStringArraySupport(m_rootModel);
+		new XwtStaticFieldSupport(m_rootModel);
+		new XwtListenerProperties(m_rootModel);
+		new NamePropertySupport(m_rootModel);
+		GlobalStateXml.activate(m_rootModel);
+		m_rootModel.getBroadcast(ObjectInfoTreeComplete.class).invoke();
+		m_rootModel.refresh_dispose();
+		return m_rootModel;
+	}
 
-  /**
-   * Visits all {@link DocumentElement}s and remembers all of them with path.
-   */
-  private void fillMap_pathToElement() {
-    m_context.getRootElement().accept(new DocumentModelVisitor() {
-      @Override
-      public void endVisit(DocumentElement element) {
-        m_pathToElementMap.put(getPath(element), element);
-      }
-    });
-  }
+	/**
+	 * Visits all {@link DocumentElement}s and remembers all of them with path.
+	 */
+	private void fillMap_pathToElement() {
+		m_context.getRootElement().accept(new DocumentModelVisitor() {
+			@Override
+			public void endVisit(DocumentElement element) {
+				m_pathToElementMap.put(getPath(element), element);
+			}
+		});
+	}
 
-  private XmlObjectInfo createObjectInfo(Object targetObject, DocumentElement element)
-      throws Exception {
-    XmlObjectInfo objectInfo;
-    {
-      Class<?> componentClass = targetObject.getClass();
-      CreationSupport creationSupport = new ElementCreationSupport(element);
-      objectInfo = XmlObjectUtils.createObject(m_context, componentClass, creationSupport);
-      GlobalStateXml.activate(objectInfo);
-    }
-    // check if model should be created
-    if (!XmlObjectUtils.hasTrueParameter(objectInfo, "XWT.hasModel")) {
-      return null;
-    }
-    // done
-    objectInfo.setObject(targetObject);
-    return objectInfo;
-  }
+	private XmlObjectInfo createObjectInfo(Object targetObject, DocumentElement element)
+			throws Exception {
+		XmlObjectInfo objectInfo;
+		{
+			Class<?> componentClass = targetObject.getClass();
+			CreationSupport creationSupport = new ElementCreationSupport(element);
+			objectInfo = XmlObjectUtils.createObject(m_context, componentClass, creationSupport);
+			GlobalStateXml.activate(objectInfo);
+		}
+		// check if model should be created
+		if (!XmlObjectUtils.hasTrueParameter(objectInfo, "XWT.hasModel")) {
+			return null;
+		}
+		// done
+		objectInfo.setObject(targetObject);
+		return objectInfo;
+	}
 
-  private XmlObjectInfo getParentObjectInfo(Element element) {
-    XmlObjectInfo parent = null;
-    String path = element.getPath();
-    do {
-      path = StringUtils.substringBeforeLast(path, "/");
-      parent = m_pathToModelMap.get(path);
-    } while (parent == null && path.contains("/"));
-    return parent;
-  }
+	private XmlObjectInfo getParentObjectInfo(Element element) {
+		XmlObjectInfo parent = null;
+		String path = element.getPath();
+		do {
+			path = StringUtils.substringBeforeLast(path, "/");
+			parent = m_pathToModelMap.get(path);
+		} while (parent == null && path.contains("/"));
+		return parent;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Forms API
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final String[] FORMS_CLASSES = {
-      "org.eclipse.e4.xwt.forms.metaclass.FormMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.ButtonMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.CompositeMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.ExpandableCompositeMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.FormMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.FormTextMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.HyperlinkMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.ImageHyperlinkMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.LabelMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.ScrolledFormMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.ScrolledPageBookMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.SectionMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.TableMetaclass",
-      "org.eclipse.e4.xwt.forms.metaclass.TextMetaclass"};
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Forms API
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final String[] FORMS_CLASSES = {
+			"org.eclipse.e4.xwt.forms.metaclass.FormMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.ButtonMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.CompositeMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.ExpandableCompositeMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.FormMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.FormTextMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.HyperlinkMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.ImageHyperlinkMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.LabelMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.ScrolledFormMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.ScrolledPageBookMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.SectionMetaclass",
+			"org.eclipse.e4.xwt.forms.metaclass.TableMetaclass",
+	"org.eclipse.e4.xwt.forms.metaclass.TextMetaclass"};
 
-  /**
-   * Configures XWT and options for Forms API support.
-   */
-  static void configureForForms(EditorContext context, Map<String, Object> options)
-      throws Exception {
-    if (!hasForms(context)) {
-      XWT.registerMetaclass(new Metaclass(Button.class, null));
-      return;
-    }
-    // install Forms decoration action
-    {
-      Object createdAction = ReflectionUtils.getFieldObject(XWTForms.class, "CreatedAction");
-      options.put(IXWTLoader.CREATED_CALLBACK, createdAction);
-    }
-    // register IMetaclass-s
-    for (String className : FORMS_CLASSES) {
-      Class<?> clazz = XWTForms.class.getClassLoader().loadClass(className);
-      IMetaclass metaclass = (IMetaclass) clazz.newInstance();
-      XWT.registerMetaclass(metaclass);
-    }
-  }
+	/**
+	 * Configures XWT and options for Forms API support.
+	 */
+	static void configureForForms(EditorContext context, Map<String, Object> options)
+			throws Exception {
+		if (!hasForms(context)) {
+			XWT.registerMetaclass(new Metaclass(Button.class, null));
+			return;
+		}
+		// install Forms decoration action
+		{
+			Object createdAction = ReflectionUtils.getFieldObject(XWTForms.class, "CreatedAction");
+			options.put(IXWTLoader.CREATED_CALLBACK, createdAction);
+		}
+		// register IMetaclass-s
+		for (String className : FORMS_CLASSES) {
+			Class<?> clazz = XWTForms.class.getClassLoader().loadClass(className);
+			IMetaclass metaclass = (IMetaclass) clazz.newInstance();
+			XWT.registerMetaclass(metaclass);
+		}
+	}
 
-  public static boolean hasForms(EditorContext context) {
-    return context.getDocument().get().contains("Forms API");
-  }
+	public static boolean hasForms(EditorContext context) {
+		return context.getDocument().get().contains("Forms API");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Path
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the path of our {@link DocumentElement}. It has same format as
-   *         {@link #getPath(Element)}.
-   */
-  static String getPath(DocumentElement element) {
-    DocumentElement parent = element.getParent();
-    if (parent == null) {
-      return "0";
-    } else {
-      int index = parent.indexOf(element);
-      return getPath(parent) + "/" + index;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Path
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the path of our {@link DocumentElement}. It has same format as
+	 *         {@link #getPath(Element)}.
+	 */
+	static String getPath(DocumentElement element) {
+		DocumentElement parent = element.getParent();
+		if (parent == null) {
+			return "0";
+		} else {
+			int index = parent.indexOf(element);
+			return getPath(parent) + "/" + index;
+		}
+	}
 
-  /**
-   * @return the path of XWT element. It has same format as {@link #getPath(DocumentElement)}.
-   */
-  static String getPath(Element element) {
-    return element.getPath();
-  }
+	/**
+	 * @return the path of XWT element. It has same format as {@link #getPath(DocumentElement)}.
+	 */
+	static String getPath(Element element) {
+		return element.getPath();
+	}
 }

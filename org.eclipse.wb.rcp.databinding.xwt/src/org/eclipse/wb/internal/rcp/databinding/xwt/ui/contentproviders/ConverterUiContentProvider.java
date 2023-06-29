@@ -27,58 +27,58 @@ import org.apache.commons.lang.StringUtils;
  *
  */
 public class ConverterUiContentProvider extends ChooseClassUiContentProvider {
-  private final DatabindingsProvider m_provider;
-  private final ConverterInfo m_converter;
+	private final DatabindingsProvider m_provider;
+	private final ConverterInfo m_converter;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ConverterUiContentProvider(DatabindingsProvider provider,
-      ChooseClassConfiguration configuration,
-      ConverterInfo converter) {
-    super(configuration);
-    m_provider = provider;
-    m_converter = converter;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ConverterUiContentProvider(DatabindingsProvider provider,
+			ChooseClassConfiguration configuration,
+			ConverterInfo converter) {
+		super(configuration);
+		m_provider = provider;
+		m_converter = converter;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Class<?> loadClass(String className) throws ClassNotFoundException {
-    return CoreUtils.load(m_provider.getXmlObjectRoot().getContext().getClassLoader(), className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Class<?> loadClass(String className) throws ClassNotFoundException {
+		return CoreUtils.load(m_provider.getXmlObjectRoot().getContext().getClassLoader(), className);
+	}
 
-  @Override
-  protected IJavaProject getJavaProject() {
-    return m_provider.getXmlObjectRoot().getContext().getJavaProject();
-  }
+	@Override
+	protected IJavaProject getJavaProject() {
+		return m_provider.getXmlObjectRoot().getContext().getJavaProject();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-    setClassName(StringUtils.defaultString(m_converter.getValue(), "N/S"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+		setClassName(StringUtils.defaultString(m_converter.getValue(), "N/S"));
+	}
 
-  @Override
-  public void saveToObject() throws Exception {
-    String className = getClassName();
-    // check set or clear value
-    if ("N/S".equals(className)) {
-      m_converter.setValue(null, false);
-    } else {
-      String[] defaultValues = getConfiguration().getDefaultValues();
-      boolean staticResurce =
-          defaultValues == null ? false : ArrayUtils.contains(defaultValues, className);
-      m_converter.setValue(className, staticResurce);
-    }
-  }
+	@Override
+	public void saveToObject() throws Exception {
+		String className = getClassName();
+		// check set or clear value
+		if ("N/S".equals(className)) {
+			m_converter.setValue(null, false);
+		} else {
+			String[] defaultValues = getConfiguration().getDefaultValues();
+			boolean staticResurce =
+					defaultValues == null ? false : ArrayUtils.contains(defaultValues, className);
+			m_converter.setValue(className, staticResurce);
+		}
+	}
 }

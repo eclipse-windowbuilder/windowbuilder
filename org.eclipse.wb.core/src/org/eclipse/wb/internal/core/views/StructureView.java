@@ -22,15 +22,15 @@ import org.eclipse.ui.part.ViewPart;
  * @coverage core.views
  */
 public final class StructureView extends AbstractExtractableDesignView {
-  public static final String ID = "org.eclipse.wb.core.StructureView";
+	public static final String ID = "org.eclipse.wb.core.StructureView";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractExtractableDesignView
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected IExtractableControl getExtractableControl(DesignComposite designComposite) {
-    return designComposite.getExtractableComponents();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractExtractableDesignView
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected IExtractableControl getExtractableControl(DesignComposite designComposite) {
+		return designComposite.getExtractableComponents();
+	}
 }

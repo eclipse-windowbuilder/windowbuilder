@@ -30,53 +30,53 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage core.editor.palette.ui
  */
 public abstract class AbstractPaletteDialog extends AbstractValidationTitleAreaDialog {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractPaletteDialog(Shell parentShell,
-      String shellText,
-      String titleText,
-      Image titleImage,
-      String titleMessage) {
-    super(parentShell, DesignerPlugin.getDefault(), shellText, titleText, titleImage, titleMessage);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractPaletteDialog(Shell parentShell,
+			String shellText,
+			String titleText,
+			Image titleImage,
+			String titleMessage) {
+		super(parentShell, DesignerPlugin.getDefault(), shellText, titleText, titleImage, titleMessage);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ComboDialogField} for selecting {@link CategoryInfo}.
-   */
-  protected static ComboDialogField createCategoryField(PaletteInfo palette,
-      CategoryInfo initialCategory) {
-    final ComboDialogField categoryField = new ComboDialogField(SWT.READ_ONLY);
-    // add categories
-    boolean categorySelected = false;
-    for (CategoryInfo category : palette.getCategories()) {
-      categoryField.addItem(category.getName());
-      if (category == initialCategory) {
-        categoryField.selectItem(categoryField.getItemCount() - 1);
-        categorySelected = true;
-      }
-    }
-    // select default category
-    if (!categorySelected) {
-      categoryField.selectItem(categoryField.getItemCount() - 1);
-    }
-    // show all items
-    Display.getCurrent().asyncExec(new Runnable() {
-      @Override
-      public void run() {
-        UiUtils.setVisibleItemCount(
-            categoryField.getComboControl(null),
-            categoryField.getItemCount());
-      }
-    });
-    //
-    return categoryField;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ComboDialogField} for selecting {@link CategoryInfo}.
+	 */
+	protected static ComboDialogField createCategoryField(PaletteInfo palette,
+			CategoryInfo initialCategory) {
+		final ComboDialogField categoryField = new ComboDialogField(SWT.READ_ONLY);
+		// add categories
+		boolean categorySelected = false;
+		for (CategoryInfo category : palette.getCategories()) {
+			categoryField.addItem(category.getName());
+			if (category == initialCategory) {
+				categoryField.selectItem(categoryField.getItemCount() - 1);
+				categorySelected = true;
+			}
+		}
+		// select default category
+		if (!categorySelected) {
+			categoryField.selectItem(categoryField.getItemCount() - 1);
+		}
+		// show all items
+		Display.getCurrent().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				UiUtils.setVisibleItemCount(
+						categoryField.getComboControl(null),
+						categoryField.getItemCount());
+			}
+		});
+		//
+		return categoryField;
+	}
 }

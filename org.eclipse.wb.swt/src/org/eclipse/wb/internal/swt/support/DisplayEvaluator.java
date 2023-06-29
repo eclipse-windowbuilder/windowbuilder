@@ -29,22 +29,22 @@ import org.eclipse.swt.widgets.Display;
  * @coverage swt.support
  */
 public class DisplayEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    if (expression instanceof ClassInstanceCreation
-        && AstNodeUtils.getFullyQualifiedName(typeBinding, false).equals(
-            "org.eclipse.swt.widgets.Display")) {
-      return DisplaySupport.getCurrent();
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		if (expression instanceof ClassInstanceCreation
+				&& AstNodeUtils.getFullyQualifiedName(typeBinding, false).equals(
+						"org.eclipse.swt.widgets.Display")) {
+			return DisplaySupport.getCurrent();
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

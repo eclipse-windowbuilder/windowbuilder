@@ -31,69 +31,69 @@ import org.eclipse.swt.widgets.Label;
  * @coverage core.model.variable
  */
 public class LazyVariableDescription extends VariableSupportDescription {
-  public static final String ID = "org.eclipse.wb.core.model.variable.lazy";
-  public static final VariableSupportDescription INSTANCE = new LazyVariableDescription();
+	public static final String ID = "org.eclipse.wb.core.model.variable.lazy";
+	public static final VariableSupportDescription INSTANCE = new LazyVariableDescription();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LazyVariableDescription() {
-    super(ID, "Lazy", "each component in separate getXXX() method");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LazyVariableDescription() {
+		super(ID, "Lazy", "each component in separate getXXX() method");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // VariableSupportDescription
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Class<? extends VariableSupport> getType() {
-    return LazyVariableSupport.class;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// VariableSupportDescription
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Class<? extends VariableSupport> getType() {
+		return LazyVariableSupport.class;
+	}
 
-  @Override
-  public VariableSupport createSupport(JavaInfo javaInfo) {
-    return new LazyVariableSupport(javaInfo);
-  }
+	@Override
+	public VariableSupport createSupport(JavaInfo javaInfo) {
+		return new LazyVariableSupport(javaInfo);
+	}
 
-  @Override
-  public void configureDefaultPreferences(IPreferenceStore store) {
-    super.configureDefaultPreferences(store);
-    store.setDefault(
-        LazyVariableSupport.P_METHOD_MODIFIER,
-        LazyVariableSupport.V_METHOD_MODIFIER_PRIVATE);
-  }
+	@Override
+	public void configureDefaultPreferences(IPreferenceStore store) {
+		super.configureDefaultPreferences(store);
+		store.setDefault(
+				LazyVariableSupport.P_METHOD_MODIFIER,
+				LazyVariableSupport.V_METHOD_MODIFIER_PRIVATE);
+	}
 
-  @Override
-  public GenerationPropertiesComposite createPropertiesComposite(Composite parent,
-      DataBindManager bindManager,
-      IPreferenceStore store) {
-    return new PropertiesComposite(parent, bindManager, store);
-  }
+	@Override
+	public GenerationPropertiesComposite createPropertiesComposite(Composite parent,
+			DataBindManager bindManager,
+			IPreferenceStore store) {
+		return new PropertiesComposite(parent, bindManager, store);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static class PropertiesComposite extends GenerationPropertiesComposite {
-    public PropertiesComposite(Composite parent,
-        DataBindManager bindManager,
-        IPreferenceStore preferences) {
-      super(parent, bindManager, preferences);
-      GridLayoutFactory.create(this).columns(2);
-      {
-        new Label(this, SWT.NONE).setText("Method modifier:");
-        Combo modifierCombo = new Combo(this, SWT.READ_ONLY);
-        GridDataFactory.create(modifierCombo).grabH().fillH();
-        modifierCombo.add("private");
-        modifierCombo.add("package private");
-        modifierCombo.add("protected");
-        modifierCombo.add("public");
-        bindSelection(modifierCombo, LazyVariableSupport.P_METHOD_MODIFIER);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static class PropertiesComposite extends GenerationPropertiesComposite {
+		public PropertiesComposite(Composite parent,
+				DataBindManager bindManager,
+				IPreferenceStore preferences) {
+			super(parent, bindManager, preferences);
+			GridLayoutFactory.create(this).columns(2);
+			{
+				new Label(this, SWT.NONE).setText("Method modifier:");
+				Combo modifierCombo = new Combo(this, SWT.READ_ONLY);
+				GridDataFactory.create(modifierCombo).grabH().fillH();
+				modifierCombo.add("private");
+				modifierCombo.add("package private");
+				modifierCombo.add("protected");
+				modifierCombo.add("public");
+				bindSelection(modifierCombo, LazyVariableSupport.P_METHOD_MODIFIER);
+			}
+		}
+	}
 }

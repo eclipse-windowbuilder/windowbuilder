@@ -23,16 +23,16 @@ import org.eclipse.swt.custom.CBanner;
  * @coverage XWT.model.widgets
  */
 public final class CBannerInfo extends AbstractPositionCompositeInfo {
-  private static final String[] POSITIONS = {"left", "right", "bottom"};
+	private static final String[] POSITIONS = {"left", "right", "bottom"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CBannerInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport, POSITIONS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CBannerInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport, POSITIONS);
+	}
 }

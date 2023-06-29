@@ -38,122 +38,122 @@ import java.util.List;
  * @coverage swing.model
  */
 public final class ActionContainerInfo extends ObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "{org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "{org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the existing or new {@link ActionContainerInfo} for given root.
-   */
-  public static ActionContainerInfo get(JavaInfo root) throws Exception {
-    // try to find existing container
-    ActionContainerInfo container = findContainer(root);
-    if (container != null) {
-      return container;
-    }
-    // add new container
-    container = new ActionContainerInfo();
-    root.addChild(container);
-    return container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the existing or new {@link ActionContainerInfo} for given root.
+	 */
+	public static ActionContainerInfo get(JavaInfo root) throws Exception {
+		// try to find existing container
+		ActionContainerInfo container = findContainer(root);
+		if (container != null) {
+			return container;
+		}
+		// add new container
+		container = new ActionContainerInfo();
+		root.addChild(container);
+		return container;
+	}
 
-  /**
-   * @return all {@link ActionInfo}'s for given root.
-   */
-  public static List<ActionInfo> getActions(JavaInfo root) {
-    ActionContainerInfo container = findContainer(root);
-    if (container != null) {
-      return container.getChildren(ActionInfo.class);
-    }
-    return Collections.emptyList();
-  }
+	/**
+	 * @return all {@link ActionInfo}'s for given root.
+	 */
+	public static List<ActionInfo> getActions(JavaInfo root) {
+		ActionContainerInfo container = findContainer(root);
+		if (container != null) {
+			return container.getChildren(ActionInfo.class);
+		}
+		return Collections.emptyList();
+	}
 
-  /**
-   * Adds {@link ActionInfo} and to the {@link ActionContainerInfo}.
-   *
-   * @param action
-   *          the {@link ActionInfo} to add.
-   */
-  public static void add(JavaInfo root, ActionInfo action) throws Exception {
-    // prepare code generation settings
-    VariableSupport variableSupport = GenerationUtils.getVariableSupport(action);
-    StatementGenerator statementGenerator = GenerationUtils.getStatementGenerator(action);
-    if (!(variableSupport instanceof LazyVariableSupport)) {
-      variableSupport = new FieldInitializerVariableSupport(action);
-      statementGenerator = PureFlatStatementGenerator.INSTANCE;
-    }
-    // do add
-    JavaInfoUtils.add(
-        action,
-        variableSupport,
-        statementGenerator,
-        AssociationObjects.empty(),
-        root,
-        null);
-    root.removeChild(action);
-    ActionContainerInfo.get(root).addChild(action);
-    // If "lazy" Action just added and not attached later, it will be not if execution flow.
-    // Include it now.
-    if (action.getVariableSupport() instanceof LazyVariableSupport) {
-      LazyVariableSupport lazyVariable = (LazyVariableSupport) action.getVariableSupport();
-      ExecutionFlowDescription flowDescription =
-          JavaInfoUtils.getState(action).getFlowDescription();
-      flowDescription.addStartMethod(lazyVariable.m_accessor);
-    }
-  }
+	/**
+	 * Adds {@link ActionInfo} and to the {@link ActionContainerInfo}.
+	 *
+	 * @param action
+	 *          the {@link ActionInfo} to add.
+	 */
+	public static void add(JavaInfo root, ActionInfo action) throws Exception {
+		// prepare code generation settings
+		VariableSupport variableSupport = GenerationUtils.getVariableSupport(action);
+		StatementGenerator statementGenerator = GenerationUtils.getStatementGenerator(action);
+		if (!(variableSupport instanceof LazyVariableSupport)) {
+			variableSupport = new FieldInitializerVariableSupport(action);
+			statementGenerator = PureFlatStatementGenerator.INSTANCE;
+		}
+		// do add
+		JavaInfoUtils.add(
+				action,
+				variableSupport,
+				statementGenerator,
+				AssociationObjects.empty(),
+				root,
+				null);
+		root.removeChild(action);
+		ActionContainerInfo.get(root).addChild(action);
+		// If "lazy" Action just added and not attached later, it will be not if execution flow.
+		// Include it now.
+		if (action.getVariableSupport() instanceof LazyVariableSupport) {
+			LazyVariableSupport lazyVariable = (LazyVariableSupport) action.getVariableSupport();
+			ExecutionFlowDescription flowDescription =
+					JavaInfoUtils.getState(action).getFlowDescription();
+			flowDescription.addStartMethod(lazyVariable.m_accessor);
+		}
+	}
 
-  /**
-   * @return find the existing {@link ActionContainerInfo} for given root.
-   */
-  private static ActionContainerInfo findContainer(JavaInfo root) {
-    for (ObjectInfo child : root.getChildren()) {
-      if (child instanceof ActionContainerInfo) {
-        return (ActionContainerInfo) child;
-      }
-    }
-    return null;
-  }
+	/**
+	 * @return find the existing {@link ActionContainerInfo} for given root.
+	 */
+	private static ActionContainerInfo findContainer(JavaInfo root) {
+		for (ObjectInfo child : root.getChildren()) {
+			if (child instanceof ActionContainerInfo) {
+				return (ActionContainerInfo) child;
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds {@link ActionInfo} as {@link ObjectInfo} child.
-   */
-  void addAction(ActionInfo action) throws Exception {
-    action.setAssociation(new EmptyAssociation());
-    addChild(action);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds {@link ActionInfo} as {@link ObjectInfo} child.
+	 */
+	void addAction(ActionInfo action) throws Exception {
+		action.setAssociation(new EmptyAssociation());
+		addChild(action);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObjectPresentation getPresentation() {
-    return new DefaultObjectPresentation(this) {
-      public String getText() throws Exception {
-        return "(actions)";
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObjectPresentation getPresentation() {
+		return new DefaultObjectPresentation(this) {
+			public String getText() throws Exception {
+				return "(actions)";
+			}
 
-      @Override
-      public Image getIcon() throws Exception {
-        return Activator.getImage("info/Action/container.gif");
-      }
-    };
-  }
+			@Override
+			public Image getIcon() throws Exception {
+				return Activator.getImage("info/Action/container.gif");
+			}
+		};
+	}
 }

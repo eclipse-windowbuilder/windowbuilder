@@ -17,39 +17,39 @@ package org.eclipse.wb.internal.core.utils.state;
  * @coverage core.model
  */
 public final class EditorWarning {
-  private final String m_message;
-  private final Throwable m_exception;
+	private final String m_message;
+	private final Throwable m_exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditorWarning(String message) {
-    this(message, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditorWarning(String message) {
+		this(message, null);
+	}
 
-  public EditorWarning(String message, Throwable exception) {
-    m_message = message;
-    m_exception = exception;
-  }
+	public EditorWarning(String message, Throwable exception) {
+		m_message = message;
+		m_exception = exception;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the message of warning.
-   */
-  public String getMessage() {
-    return m_message;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the message of warning.
+	 */
+	public String getMessage() {
+		return m_message;
+	}
 
-  /**
-   * @return the exception associated with this warning, may be <code>null</code>.
-   */
-  public Throwable getException() {
-    return m_exception;
-  }
+	/**
+	 * @return the exception associated with this warning, may be <code>null</code>.
+	 */
+	public Throwable getException() {
+		return m_exception;
+	}
 }

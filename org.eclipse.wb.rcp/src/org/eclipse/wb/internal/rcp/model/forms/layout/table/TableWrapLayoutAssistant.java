@@ -28,28 +28,28 @@ import java.util.List;
  * @coverage rcp.model.forms
  */
 public final class TableWrapLayoutAssistant extends LayoutAssistantSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TableWrapLayoutAssistant(ILayoutInfo<?> layout) {
-    super(layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TableWrapLayoutAssistant(ILayoutInfo<?> layout) {
+		super(layout);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractAssistantPage createLayoutPage(Composite parent) {
-    return new TableWrapLayoutAssistantPage(parent, m_layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractAssistantPage createLayoutPage(Composite parent) {
+		return new TableWrapLayoutAssistantPage(parent, m_layout);
+	}
 
-  @Override
-  protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
-    List<ILayoutDataInfo> dataList = getDataList(objects);
-    return new TableWrapLayoutDataAssistantPage(parent, dataList);
-  }
+	@Override
+	protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
+		List<ILayoutDataInfo> dataList = getDataList(objects);
+		return new TableWrapLayoutDataAssistantPage(parent, dataList);
+	}
 }

@@ -34,87 +34,87 @@ import org.eclipse.swt.widgets.Listener;
  * @coverage swt.property.editor
  */
 public final class FontPreviewCanvas extends Canvas {
-  private Image m_image;
+	private Image m_image;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FontPreviewCanvas(Composite parent, int style) {
-    super(parent, style);
-    addListener(SWT.Paint, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        onPaint(event.gc);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FontPreviewCanvas(Composite parent, int style) {
+		super(parent, style);
+		addListener(SWT.Paint, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				onPaint(event.gc);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Widget
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dispose() {
-    if (m_image != null) {
-      m_image.dispose();
-      m_image = null;
-    }
-    super.dispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Widget
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dispose() {
+		if (m_image != null) {
+			m_image.dispose();
+			m_image = null;
+		}
+		super.dispose();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Painting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Point computeSize(int wHint, int hHint, boolean changed) {
-    int width = 450;
-    int height = 50;
-    return new Point(width, height);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Painting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Point computeSize(int wHint, int hHint, boolean changed) {
+		int width = 450;
+		int height = 50;
+		return new Point(width, height);
+	}
 
-  /**
-   * Handler for {@link SWT#Paint}.
-   */
-  protected final void onPaint(GC gc) {
-    if (m_image != null) {
-      // draw image
-      Rectangle clientArea = getClientArea();
-      DrawUtils.drawImageCHCV(
-          gc,
-          m_image,
-          clientArea.x,
-          clientArea.y,
-          clientArea.width,
-          clientArea.height);
-    }
-  }
+	/**
+	 * Handler for {@link SWT#Paint}.
+	 */
+	protected final void onPaint(GC gc) {
+		if (m_image != null) {
+			// draw image
+			Rectangle clientArea = getClientArea();
+			DrawUtils.drawImageCHCV(
+					gc,
+					m_image,
+					clientArea.x,
+					clientArea.y,
+					clientArea.width,
+					clientArea.height);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the {@link Font} to display.
-   */
-  public void setFontInfo(JavaInfo javaInfo, final FontInfo fontInfo) {
-    if (m_image != null) {
-      m_image.dispose();
-      m_image = null;
-    }
-    if (fontInfo != null) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          m_image = ToolkitSupport.getFontPreview(fontInfo.getFont());
-        }
-      });
-    }
-    redraw();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the {@link Font} to display.
+	 */
+	public void setFontInfo(JavaInfo javaInfo, final FontInfo fontInfo) {
+		if (m_image != null) {
+			m_image.dispose();
+			m_image = null;
+		}
+		if (fontInfo != null) {
+			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					m_image = ToolkitSupport.getFontPreview(fontInfo.getFont());
+				}
+			});
+		}
+		redraw();
+	}
 }

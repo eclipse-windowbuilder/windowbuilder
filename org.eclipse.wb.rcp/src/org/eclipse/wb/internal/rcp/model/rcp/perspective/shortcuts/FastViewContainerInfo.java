@@ -22,43 +22,43 @@ import org.eclipse.ui.IPageLayout;
  * @coverage rcp.model.rcp
  */
 public final class FastViewContainerInfo extends AbstractShortcutContainerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FastViewContainerInfo(PageLayoutInfo page) throws Exception {
-    super(page, SWT.HORIZONTAL);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FastViewContainerInfo(PageLayoutInfo page) throws Exception {
+		super(page, SWT.HORIZONTAL);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getPresentationText() {
-    return "(fast views)";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getPresentationText() {
+		return "(fast views)";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link FastViewInfo}.
-   *
-   * @return the created {@link FastViewInfo}.
-   */
-  public FastViewInfo command_CREATE(String viewId, FastViewInfo nextItem) throws Exception {
-    return command_CREATE(viewId, FastViewInfo.class, nextItem, "addFastViews", "addFastView");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link FastViewInfo}.
+	 *
+	 * @return the created {@link FastViewInfo}.
+	 */
+	public FastViewInfo command_CREATE(String viewId, FastViewInfo nextItem) throws Exception {
+		return command_CREATE(viewId, FastViewInfo.class, nextItem, "addFastViews", "addFastView");
+	}
 
-  /**
-   * Moves existing {@link FastViewInfo}.
-   */
-  public void command_MOVE(FastViewInfo item, FastViewInfo nextItem) throws Exception {
-    command_MOVE(item, nextItem, "addFastViews");
-  }
+	/**
+	 * Moves existing {@link FastViewInfo}.
+	 */
+	public void command_MOVE(FastViewInfo item, FastViewInfo nextItem) throws Exception {
+		command_MOVE(item, nextItem, "addFastViews");
+	}
 }

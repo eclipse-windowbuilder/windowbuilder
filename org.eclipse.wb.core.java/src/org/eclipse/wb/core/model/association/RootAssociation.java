@@ -17,8 +17,8 @@ package org.eclipse.wb.core.model.association;
  * @coverage core.model.association
  */
 public final class RootAssociation extends Association {
-  @Override
-  public boolean remove() throws Exception {
-    return false;
-  }
+	@Override
+	public boolean remove() throws Exception {
+		return false;
+	}
 }

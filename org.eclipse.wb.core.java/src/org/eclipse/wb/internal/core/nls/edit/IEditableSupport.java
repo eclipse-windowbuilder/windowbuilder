@@ -26,96 +26,96 @@ import java.util.List;
  * @coverage core.nls
  */
 public interface IEditableSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Add listener.
-   */
-  void addListener(IEditableSupportListener listener);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Add listener.
+	 */
+	void addListener(IEditableSupportListener listener);
 
-  /**
-   * Remove listener.
-   */
-  void removeListener(IEditableSupportListener listener);
+	/**
+	 * Remove listener.
+	 */
+	void removeListener(IEditableSupportListener listener);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the root {@link JavaInfo}.
-   */
-  JavaInfo getRoot();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the root {@link JavaInfo}.
+	 */
+	JavaInfo getRoot();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Sources
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if there are "real" sources.
-   */
-  boolean hasExistingSources();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Sources
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if there are "real" sources.
+	 */
+	boolean hasExistingSources();
 
-  /**
-   * @return the {@link List} of {@link IEditableSource}'s.
-   */
-  List<IEditableSource> getEditableSources();
+	/**
+	 * @return the {@link List} of {@link IEditableSource}'s.
+	 */
+	List<IEditableSource> getEditableSources();
 
-  /**
-   * @return the {@link IEditableSource} for given {@link AbstractSource}.
-   */
-  IEditableSource getEditableSource(AbstractSource source);
+	/**
+	 * @return the {@link IEditableSource} for given {@link AbstractSource}.
+	 */
+	IEditableSource getEditableSource(AbstractSource source);
 
-  /**
-   * @return the {@link AbstractSource} for given {@link IEditableSource}.
-   */
-  AbstractSource getSource(IEditableSource editableSource);
+	/**
+	 * @return the {@link AbstractSource} for given {@link IEditableSource}.
+	 */
+	AbstractSource getSource(IEditableSource editableSource);
 
-  /**
-   * Add new source with given parameters.
-   */
-  void addSource(IEditableSource editableSource,
-      SourceDescription sourceDescription,
-      Object parameters);
+	/**
+	 * Add new source with given parameters.
+	 */
+	void addSource(IEditableSource editableSource,
+			SourceDescription sourceDescription,
+			Object parameters);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link List} of all components.
-   */
-  List<JavaInfo> getComponents();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link List} of all components.
+	 */
+	List<JavaInfo> getComponents();
 
-  /**
-   * @return the list of children of given component that should be displayed for selecting
-   *         properties to externalize.
-   */
-  List<JavaInfo> getTreeChildren(JavaInfo component) throws Exception;
+	/**
+	 * @return the list of children of given component that should be displayed for selecting
+	 *         properties to externalize.
+	 */
+	List<JavaInfo> getTreeChildren(JavaInfo component) throws Exception;
 
-  /**
-   * @return {@link StringPropertyInfo}'s that can be externalized in given component.
-   */
-  List<StringPropertyInfo> getProperties(JavaInfo component);
+	/**
+	 * @return {@link StringPropertyInfo}'s that can be externalized in given component.
+	 */
+	List<StringPropertyInfo> getProperties(JavaInfo component);
 
-  /**
-   * Check that given component or any of its children has externalizable properties.
-   *
-   * For example if we don't have such properties, we don't need to display this component and its
-   * children in tree of externalizable properties.
-   */
-  boolean hasPropertiesInTree(JavaInfo component) throws Exception;
+	/**
+	 * Check that given component or any of its children has externalizable properties.
+	 *
+	 * For example if we don't have such properties, we don't need to display this component and its
+	 * children in tree of externalizable properties.
+	 */
+	boolean hasPropertiesInTree(JavaInfo component) throws Exception;
 
-  /**
-   * Externalize given property in given source.
-   */
-  void externalizeProperty(StringPropertyInfo propertyInfo,
-      IEditableSource source,
-      boolean copyToAllLocales);
+	/**
+	 * Externalize given property in given source.
+	 */
+	void externalizeProperty(StringPropertyInfo propertyInfo,
+			IEditableSource source,
+			boolean copyToAllLocales);
 }

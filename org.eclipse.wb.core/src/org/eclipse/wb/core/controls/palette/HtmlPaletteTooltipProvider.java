@@ -28,31 +28,31 @@ import org.apache.commons.lang.StringEscapeUtils;
  * @coverage core.control.palette
  */
 public final class HtmlPaletteTooltipProvider implements ICustomTooltipProvider {
-  private final String m_header;
-  private final String m_details;
+	private final String m_header;
+	private final String m_details;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public HtmlPaletteTooltipProvider(String header, String details) {
-    m_header = StringEscapeUtils.escapeHtml(header);
-    m_details = details;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public HtmlPaletteTooltipProvider(String header, String details) {
+		m_header = StringEscapeUtils.escapeHtml(header);
+		m_details = details;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ICustomTooltipProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure) {
-    return HtmlTooltipHelper.createTooltipControl(parent, m_header, m_details);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ICustomTooltipProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure) {
+		return HtmlTooltipHelper.createTooltipControl(parent, m_header, m_details);
+	}
 
-  @Override
-  public void show(Shell shell) {
-    // do nothing, show Shell when Browser ready
-  }
+	@Override
+	public void show(Shell shell) {
+		// do nothing, show Shell when Browser ready
+	}
 }

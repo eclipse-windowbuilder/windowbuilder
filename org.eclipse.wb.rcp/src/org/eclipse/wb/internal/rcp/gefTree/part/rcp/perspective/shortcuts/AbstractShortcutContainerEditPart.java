@@ -21,12 +21,12 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.AbstractShort
  * @coverage rcp.gefTree.part
  */
 abstract class AbstractShortcutContainerEditPart extends ObjectEditPart {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractShortcutContainerEditPart(AbstractShortcutContainerInfo container) {
-    super(container);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractShortcutContainerEditPart(AbstractShortcutContainerInfo container) {
+		super(container);
+	}
 }

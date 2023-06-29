@@ -17,13 +17,13 @@ import java.util.Collection;
  * @coverage bindings.rcp.wizard.auto
  */
 public interface IAutomaticWizardStub {
-  /**
-   * Add bindings additional imports.
-   */
-  void addImports(Collection<String> importList);
+	/**
+	 * Add bindings additional imports.
+	 */
+	void addImports(Collection<String> importList);
 
-  /**
-   * @return the source code create observable for given {@code fieldName} and {@code propertyName}.
-   */
-  String createSourceCode(String fieldName, String propertyName);
+	/**
+	 * @return the source code create observable for given {@code fieldName} and {@code propertyName}.
+	 */
+	String createSourceCode(String fieldName, String propertyName);
 }

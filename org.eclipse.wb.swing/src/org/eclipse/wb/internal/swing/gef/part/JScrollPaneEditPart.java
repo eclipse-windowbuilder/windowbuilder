@@ -22,26 +22,26 @@ import org.eclipse.wb.internal.swing.model.component.JScrollPaneInfo;
  * @coverage swing.gef.part
  */
 public final class JScrollPaneEditPart extends ComponentEditPart {
-  private final JScrollPaneInfo m_component;
+	private final JScrollPaneInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JScrollPaneEditPart(JScrollPaneInfo component) {
-    super(component);
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JScrollPaneEditPart(JScrollPaneInfo component) {
+		super(component);
+		m_component = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(EditPolicy.LAYOUT_ROLE, new JScrollPaneLayoutEditPolicy(m_component));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new JScrollPaneLayoutEditPolicy(m_component));
+	}
 }

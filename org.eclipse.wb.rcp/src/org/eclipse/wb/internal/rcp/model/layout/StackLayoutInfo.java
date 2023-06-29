@@ -33,111 +33,111 @@ import java.util.List;
  * @coverage rcp.model.layout
  */
 public final class StackLayoutInfo extends LayoutInfo implements IStackLayoutInfo<ControlInfo> {
-  private final StackContainerSupport<ControlInfo> m_stackContainer =
-      new StackContainerSupport<ControlInfo>(this) {
-        @Override
-        protected boolean isActive() {
-          return StackLayoutInfo.this.isActive();
-        }
+	private final StackContainerSupport<ControlInfo> m_stackContainer =
+			new StackContainerSupport<ControlInfo>(this) {
+		@Override
+		protected boolean isActive() {
+			return StackLayoutInfo.this.isActive();
+		}
 
-        @Override
-        protected ObjectInfo getContainer() {
-          return getComposite();
-        }
+		@Override
+		protected ObjectInfo getContainer() {
+			return getComposite();
+		}
 
-        @Override
-        protected List<ControlInfo> getChildren() {
-          return getControls();
-        }
-      };
+		@Override
+		protected List<ControlInfo> getChildren() {
+			return getControls();
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StackLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    new StackLayoutAssistant(this);
-    showOnlyTopControl_graphicalChild();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StackLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		new StackLayoutAssistant(this);
+		showOnlyTopControl_graphicalChild();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Broadcasts
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void showOnlyTopControl_graphicalChild() {
-    addBroadcastListener(new ObjectInfoChildGraphical() {
-      @Override
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        if (isManagedObject(object)) {
-          ControlInfo control = (ControlInfo) object;
-          if (control != getActiveControl()) {
-            visible[0] = false;
-          }
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Broadcasts
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void showOnlyTopControl_graphicalChild() {
+		addBroadcastListener(new ObjectInfoChildGraphical() {
+			@Override
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				if (isManagedObject(object)) {
+					ControlInfo control = (ControlInfo) object;
+					if (control != getActiveControl()) {
+						visible[0] = false;
+					}
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    {
-      ControlInfo topControl = getActiveControl();
-      if (topControl != null) {
-        ReflectionUtils.setField(getObject(), "topControl", topControl.getObject());
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		{
+			ControlInfo topControl = getActiveControl();
+			if (topControl != null) {
+				ReflectionUtils.setField(getObject(), "topControl", topControl.getObject());
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ControlInfo getActiveControl() {
-    return m_stackContainer.getActive();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ControlInfo getActiveControl() {
+		return m_stackContainer.getActive();
+	}
 
-  @Override
-  public ControlInfo getPrevControl() {
-    return m_stackContainer.getPrev();
-  }
+	@Override
+	public ControlInfo getPrevControl() {
+		return m_stackContainer.getPrev();
+	}
 
-  @Override
-  public ControlInfo getNextControl() {
-    return m_stackContainer.getNext();
-  }
+	@Override
+	public ControlInfo getNextControl() {
+		return m_stackContainer.getNext();
+	}
 
-  @Override
-  public void show(ControlInfo control) {
-    m_stackContainer.setActive(control);
-  }
+	@Override
+	public void show(ControlInfo control) {
+		m_stackContainer.setActive(control);
+	}
 
-  //////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void clipboardCopy_addControlCommands(ControlInfo control,
-      List<ClipboardCommand> commands) throws Exception {
-    commands.add(new LayoutClipboardCommand<StackLayoutInfo>(control) {
-      private static final long serialVersionUID = 0L;
+	//////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void clipboardCopy_addControlCommands(ControlInfo control,
+			List<ClipboardCommand> commands) throws Exception {
+		commands.add(new LayoutClipboardCommand<StackLayoutInfo>(control) {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      protected void add(StackLayoutInfo layout, ControlInfo control) throws Exception {
-        layout.command_CREATE(control, null);
-      }
-    });
-  }
+			@Override
+			protected void add(StackLayoutInfo layout, ControlInfo control) throws Exception {
+				layout.command_CREATE(control, null);
+			}
+		});
+	}
 }

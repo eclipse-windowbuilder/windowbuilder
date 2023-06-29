@@ -29,71 +29,71 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
  * @coverage core.gefTree.policy
  */
 public final class ArrayObjectRequestValidator implements ILayoutRequestValidator {
-  private final AbstractArrayObjectInfo m_arrayInfo;
+	private final AbstractArrayObjectInfo m_arrayInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ArrayObjectRequestValidator(AbstractArrayObjectInfo arrayInfo) {
-    m_arrayInfo = arrayInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ArrayObjectRequestValidator(AbstractArrayObjectInfo arrayInfo) {
+		m_arrayInfo = arrayInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutRequestValidator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-    return isValidModel(request.getNewObject());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutRequestValidator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+		return isValidModel(request.getNewObject());
+	}
 
-  @Override
-  public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-    for (EditPart editPart : request.getEditParts()) {
-      // check model
-      if (!isValidModel(editPart.getModel())) {
-        return false;
-      }
-      // allow move inside array or empty variable otherwise
-      JavaInfo javaInfo = (JavaInfo) editPart.getModel();
-      if (!m_arrayInfo.equals(AbstractArrayObjectInfo.getArrayObjectInfo(javaInfo))
-          && !(javaInfo.getVariableSupport() instanceof EmptyVariableSupport)) {
-        return false;
-      }
-    }
-    return true;
-  }
+	@Override
+	public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+		for (EditPart editPart : request.getEditParts()) {
+			// check model
+			if (!isValidModel(editPart.getModel())) {
+				return false;
+			}
+			// allow move inside array or empty variable otherwise
+			JavaInfo javaInfo = (JavaInfo) editPart.getModel();
+			if (!m_arrayInfo.equals(AbstractArrayObjectInfo.getArrayObjectInfo(javaInfo))
+					&& !(javaInfo.getVariableSupport() instanceof EmptyVariableSupport)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-  @Override
-  public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-    return validateMoveRequest(host, request);
-  }
+	@Override
+	public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+		return validateMoveRequest(host, request);
+	}
 
-  @Override
-  public boolean validatePasteRequest(EditPart host, PasteRequest request) {
-    return false;
-  }
+	@Override
+	public boolean validatePasteRequest(EditPart host, PasteRequest request) {
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isValidModel(final Object objectModel) {
-    if (objectModel instanceof JavaInfo) {
-      return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-        @Override
-        public Boolean runObject() throws Exception {
-          JavaInfo info = (JavaInfo) objectModel;
-          return ReflectionUtils.isSuccessorOf(
-              info.getDescription().getComponentClass(),
-              m_arrayInfo.getItemClass().getCanonicalName());
-        }
-      }, false);
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isValidModel(final Object objectModel) {
+		if (objectModel instanceof JavaInfo) {
+			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+				@Override
+				public Boolean runObject() throws Exception {
+					JavaInfo info = (JavaInfo) objectModel;
+					return ReflectionUtils.isSuccessorOf(
+							info.getDescription().getComponentClass(),
+							m_arrayInfo.getItemClass().getCanonicalName());
+				}
+			}, false);
+		}
+		return false;
+	}
 }

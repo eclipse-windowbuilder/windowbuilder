@@ -21,12 +21,12 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage swt.model.util
  */
 public abstract class SwtSurroundSupport extends SurroundSupport<CompositeInfo, ControlInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SwtSurroundSupport(CompositeInfo sourceContainer) {
-    super(sourceContainer, ControlInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SwtSurroundSupport(CompositeInfo sourceContainer) {
+		super(sourceContainer, ControlInfo.class);
+	}
 }

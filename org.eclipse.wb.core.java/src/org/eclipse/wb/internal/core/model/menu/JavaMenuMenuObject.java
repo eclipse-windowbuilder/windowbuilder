@@ -21,42 +21,42 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
  * @coverage core.model.menu
  */
 public abstract class JavaMenuMenuObject extends AbstractMenuMenuObject {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaMenuMenuObject(JavaInfo component) {
-    super(component);
-    m_component.addBroadcastListener(new ObjectInfoDelete() {
-      private int m_level = 0;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaMenuMenuObject(JavaInfo component) {
+		super(component);
+		m_component.addBroadcastListener(new ObjectInfoDelete() {
+			private int m_level = 0;
 
-      @Override
-      public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
-        if (m_level == 0 && isRootFor0(child)) {
-          fireDeleteListeners0(child);
-        }
-        m_level++;
-      }
+			@Override
+			public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
+				if (m_level == 0 && isRootFor0(child)) {
+					fireDeleteListeners0(child);
+				}
+				m_level++;
+			}
 
-      @Override
-      public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
-        m_level--;
-      }
-    });
-  }
+			@Override
+			public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
+				m_level--;
+			}
+		});
+	}
 
-  /**
-   * Access method for {@link #isRootFor(ObjectInfo)}.
-   */
-  private boolean isRootFor0(ObjectInfo child) {
-    return isRootFor(child);
-  }
+	/**
+	 * Access method for {@link #isRootFor(ObjectInfo)}.
+	 */
+	private boolean isRootFor0(ObjectInfo child) {
+		return isRootFor(child);
+	}
 
-  /**
-   * Access method for {@link #fireDeleteListeners(Object).
-   */
-  private void fireDeleteListeners0(Object toolkitModel) {
-    fireDeleteListeners(toolkitModel);
-  }
+	/**
+	 * Access method for {@link #fireDeleteListeners(Object).
+	 */
+	private void fireDeleteListeners0(Object toolkitModel) {
+		fireDeleteListeners(toolkitModel);
+	}
 }

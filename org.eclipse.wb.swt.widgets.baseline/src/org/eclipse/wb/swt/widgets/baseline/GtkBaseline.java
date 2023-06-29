@@ -23,63 +23,63 @@ import java.lang.reflect.Method;
  * @author mitin_aa
  */
 final class GtkBaseline extends Baseline {
-  static {
-    Library.loadLibrary("baseline");
-  }
+	static {
+		Library.loadLibrary("baseline");
+	}
 
-  private native static int fetchBaseline(long widgetHandle);
+	private native static int fetchBaseline(long widgetHandle);
 
-  private native static int fetchBaselineFromLayout(long layoutHandle);
+	private native static int fetchBaselineFromLayout(long layoutHandle);
 
-  @Override
-  int fetchBaseline(Control control, int width, int height) {
-    int baseline = NO_BASELINE;
-    try {
-      // we need to check if any text set for widget. If no text set we will set
-      // our own to fetch baseline value properly (actually I suppose that we should not do baseline
-      // fetch from widgets without "text" property).
-      Class<?> clazz = control.getClass();
-      Method setTextMethod = null;
-      try {
-        Method getTextMethod = clazz.getMethod("getText", new Class[]{});
-        if (getTextMethod != null) {
-          String oldText = (String) getTextMethod.invoke(control, new Object[]{});
-          if (oldText == null || oldText.length() == 0) {
-            setTextMethod = clazz.getMethod("setText", new Class[]{String.class});
-            setTextMethod.invoke(control, "a");
-            // wait for deferred Gtk events to complete
-            while (Display.getDefault().readAndDispatch()) {
-              ;
-            }
-          }
-        }
-      } catch (Throwable e) {
-        return NO_BASELINE;
-      }
-      // fetch baseline
-      if (control instanceof org.eclipse.swt.widgets.Link) {
-        org.eclipse.swt.widgets.Link linkControl = (org.eclipse.swt.widgets.Link) control;
-        Field layoutField = org.eclipse.swt.widgets.Link.class.getDeclaredField("layout");
-        layoutField.setAccessible(true);
-        org.eclipse.swt.graphics.TextLayout textLayout =
-            (org.eclipse.swt.graphics.TextLayout) layoutField.get(linkControl);
-        Field layoutHandleField =
-            org.eclipse.swt.graphics.TextLayout.class.getDeclaredField("layout");
-        layoutHandleField.setAccessible(true);
-        long layoutHandle = layoutHandleField.getLong(textLayout);
-        baseline = fetchBaselineFromLayout(layoutHandle);
-      } else {
-        Field controlHandleField = Widget.class.getDeclaredField("handle");
-        long controlHandle = controlHandleField.getLong(control);
-        baseline = fetchBaseline(controlHandle);
-      }
-      // bring back the empty string if needed
-      if (setTextMethod != null) {
-        setTextMethod.invoke(control, "");
-      }
-    } catch (Throwable e) {
-      e.printStackTrace();
-    }
-    return baseline;
-  }
+	@Override
+	int fetchBaseline(Control control, int width, int height) {
+		int baseline = NO_BASELINE;
+		try {
+			// we need to check if any text set for widget. If no text set we will set
+			// our own to fetch baseline value properly (actually I suppose that we should not do baseline
+			// fetch from widgets without "text" property).
+			Class<?> clazz = control.getClass();
+			Method setTextMethod = null;
+			try {
+				Method getTextMethod = clazz.getMethod("getText", new Class[]{});
+				if (getTextMethod != null) {
+					String oldText = (String) getTextMethod.invoke(control, new Object[]{});
+					if (oldText == null || oldText.length() == 0) {
+						setTextMethod = clazz.getMethod("setText", new Class[]{String.class});
+						setTextMethod.invoke(control, "a");
+						// wait for deferred Gtk events to complete
+						while (Display.getDefault().readAndDispatch()) {
+							;
+						}
+					}
+				}
+			} catch (Throwable e) {
+				return NO_BASELINE;
+			}
+			// fetch baseline
+			if (control instanceof org.eclipse.swt.widgets.Link) {
+				org.eclipse.swt.widgets.Link linkControl = (org.eclipse.swt.widgets.Link) control;
+				Field layoutField = org.eclipse.swt.widgets.Link.class.getDeclaredField("layout");
+				layoutField.setAccessible(true);
+				org.eclipse.swt.graphics.TextLayout textLayout =
+						(org.eclipse.swt.graphics.TextLayout) layoutField.get(linkControl);
+				Field layoutHandleField =
+						org.eclipse.swt.graphics.TextLayout.class.getDeclaredField("layout");
+				layoutHandleField.setAccessible(true);
+				long layoutHandle = layoutHandleField.getLong(textLayout);
+				baseline = fetchBaselineFromLayout(layoutHandle);
+			} else {
+				Field controlHandleField = Widget.class.getDeclaredField("handle");
+				long controlHandle = controlHandleField.getLong(control);
+				baseline = fetchBaseline(controlHandle);
+			}
+			// bring back the empty string if needed
+			if (setTextMethod != null) {
+				setTextMethod.invoke(control, "");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return baseline;
+	}
 }

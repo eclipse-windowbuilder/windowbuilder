@@ -30,80 +30,80 @@ import java.util.List;
  * @coverage swt.model.layout
  */
 public final class GridLayoutSurroundProcessor
-    implements
-      ISurroundProcessor<CompositeInfo, ControlInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new GridLayoutSurroundProcessor();
+implements
+ISurroundProcessor<CompositeInfo, ControlInfo> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new GridLayoutSurroundProcessor();
 
-  private GridLayoutSurroundProcessor() {
-  }
+	private GridLayoutSurroundProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ISurroundProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean filter(CompositeInfo sourceContainer, CompositeInfo targetContainer)
-      throws Exception {
-    String targetClassName = targetContainer.getDescription().getComponentClass().getName();
-    boolean isComposite = targetClassName.equals("org.eclipse.swt.widgets.Composite");
-    boolean isGroup = targetClassName.equals("org.eclipse.swt.widgets.Group");
-    return sourceContainer.hasLayout()
-        && sourceContainer.getLayout() instanceof GridLayoutInfo
-        && (isComposite || isGroup);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ISurroundProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean filter(CompositeInfo sourceContainer, CompositeInfo targetContainer)
+			throws Exception {
+		String targetClassName = targetContainer.getDescription().getComponentClass().getName();
+		boolean isComposite = targetClassName.equals("org.eclipse.swt.widgets.Composite");
+		boolean isGroup = targetClassName.equals("org.eclipse.swt.widgets.Group");
+		return sourceContainer.hasLayout()
+				&& sourceContainer.getLayout() instanceof GridLayoutInfo
+				&& (isComposite || isGroup);
+	}
 
-  @Override
-  public void move(CompositeInfo sourceContainer,
-      CompositeInfo targetContainer,
-      List<ControlInfo> components) throws Exception {
-    // set GridLayout for target
-    GridLayoutInfo targetLayout;
-    {
-      targetLayout =
-          (GridLayoutInfo) JavaInfoUtils.createJavaInfo(
-              targetContainer.getEditor(),
-              "org.eclipse.swt.layout.GridLayout",
-              new ConstructorCreationSupport());
-      targetContainer.setLayout(targetLayout);
-    }
-    // prepare cells of "targetContainer"
-    Point locationOffset;
-    {
-      Rectangle targetBounds =
-          (Rectangle) targetContainer.getArbitraryValue(GridLayoutSurroundSupport.CELLS_KEY);
-      locationOffset = targetBounds.getLocation().getNegated();
-      //
-      targetLayout.prepareCell(targetBounds.width - 1, false, targetBounds.height - 1, false);
-    }
-    // move components
-    for (ControlInfo component : components) {
-      // remember old alignments
-      int horizontalAlignment;
-      int verticalAlignment;
-      {
-        GridDataInfo gridData = GridLayoutInfo.getGridData(component);
-        horizontalAlignment = gridData.getHorizontalAlignment();
-        verticalAlignment = gridData.getVerticalAlignment();
-      }
-      // move component
-      {
-        Rectangle cells = GridLayoutSurroundSupport.getCells(component);
-        cells = cells.getTranslated(locationOffset);
-        targetLayout.command_ADD(component, cells.x, false, cells.y, false);
-        targetLayout.command_setCells(component, cells, false);
-      }
-      // set old alignments
-      {
-        GridDataInfo gridData = GridLayoutInfo.getGridData(component);
-        gridData.setHorizontalAlignment(horizontalAlignment);
-        gridData.setVerticalAlignment(verticalAlignment);
-      }
-    }
-  }
+	@Override
+	public void move(CompositeInfo sourceContainer,
+			CompositeInfo targetContainer,
+			List<ControlInfo> components) throws Exception {
+		// set GridLayout for target
+		GridLayoutInfo targetLayout;
+		{
+			targetLayout =
+					(GridLayoutInfo) JavaInfoUtils.createJavaInfo(
+							targetContainer.getEditor(),
+							"org.eclipse.swt.layout.GridLayout",
+							new ConstructorCreationSupport());
+			targetContainer.setLayout(targetLayout);
+		}
+		// prepare cells of "targetContainer"
+		Point locationOffset;
+		{
+			Rectangle targetBounds =
+					(Rectangle) targetContainer.getArbitraryValue(GridLayoutSurroundSupport.CELLS_KEY);
+			locationOffset = targetBounds.getLocation().getNegated();
+			//
+			targetLayout.prepareCell(targetBounds.width - 1, false, targetBounds.height - 1, false);
+		}
+		// move components
+		for (ControlInfo component : components) {
+			// remember old alignments
+			int horizontalAlignment;
+			int verticalAlignment;
+			{
+				GridDataInfo gridData = GridLayoutInfo.getGridData(component);
+				horizontalAlignment = gridData.getHorizontalAlignment();
+				verticalAlignment = gridData.getVerticalAlignment();
+			}
+			// move component
+			{
+				Rectangle cells = GridLayoutSurroundSupport.getCells(component);
+				cells = cells.getTranslated(locationOffset);
+				targetLayout.command_ADD(component, cells.x, false, cells.y, false);
+				targetLayout.command_setCells(component, cells, false);
+			}
+			// set old alignments
+			{
+				GridDataInfo gridData = GridLayoutInfo.getGridData(component);
+				gridData.setHorizontalAlignment(horizontalAlignment);
+				gridData.setVerticalAlignment(verticalAlignment);
+			}
+		}
+	}
 }

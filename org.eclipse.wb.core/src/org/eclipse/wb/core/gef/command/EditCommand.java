@@ -24,44 +24,44 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
  * @coverage core.gef
  */
 public abstract class EditCommand extends Command {
-  private final ObjectInfo m_object;
+	private final ObjectInfo m_object;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditCommand(ObjectInfo object) {
-    Assert.isNotNull(object);
-    m_object = object;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditCommand(ObjectInfo object) {
+		Assert.isNotNull(object);
+		m_object = object;
+	}
 
-  public EditCommand(IObjectInfo object) {
-    this(object.getUnderlyingModel());
-  }
+	public EditCommand(IObjectInfo object) {
+		this(object.getUnderlyingModel());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void execute() throws Exception {
-    ExecutionUtils.run(m_object, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        executeEdit();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void execute() throws Exception {
+		ExecutionUtils.run(m_object, new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				executeEdit();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EditCommand
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Does some editing in start/commit/endEdit cycle.
-   */
-  protected abstract void executeEdit() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EditCommand
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Does some editing in start/commit/endEdit cycle.
+	 */
+	protected abstract void executeEdit() throws Exception;
 }

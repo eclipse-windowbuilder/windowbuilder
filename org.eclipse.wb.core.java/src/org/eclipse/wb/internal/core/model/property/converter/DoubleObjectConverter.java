@@ -19,33 +19,33 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.property.converter
  */
 public final class DoubleObjectConverter extends AbstractNumberConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new DoubleObjectConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new DoubleObjectConverter();
 
-  private DoubleObjectConverter() {
-  }
+	private DoubleObjectConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) {
-    if (value == null) {
-      return "(Double) null";
-    }
-    // has value
-    String text = ((Double) value).toString();
-    // may be use auto-boxing
-    if (isBoxingEnabled(javaInfo)) {
-      return text;
-    }
-    // use explicit boxing
-    return "Double.valueOf(" + text + ")";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) {
+		if (value == null) {
+			return "(Double) null";
+		}
+		// has value
+		String text = ((Double) value).toString();
+		// may be use auto-boxing
+		if (isBoxingEnabled(javaInfo)) {
+			return text;
+		}
+		// use explicit boxing
+		return "Double.valueOf(" + text + ")";
+	}
 }

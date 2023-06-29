@@ -21,30 +21,30 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage core.model.property.editor
  */
 public final class EnumPropertyEditor extends AbstractEnumPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final EnumPropertyEditor INSTANCE = new EnumPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final EnumPropertyEditor INSTANCE = new EnumPropertyEditor();
 
-  private EnumPropertyEditor() {
-  }
+	private EnumPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Combo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Enum<?>[] getElements(Property property) throws Exception {
-    Enum<?>[] elements = null;
-    if (property instanceof ITypedProperty) {
-      Class<?> typeClass = ((ITypedProperty) property).getType();
-      if (typeClass.isEnum()) {
-        elements = (Enum<?>[]) typeClass.getEnumConstants();
-      }
-    }
-    return elements == null ? new Enum<?>[0] : elements;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Combo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Enum<?>[] getElements(Property property) throws Exception {
+		Enum<?>[] elements = null;
+		if (property instanceof ITypedProperty) {
+			Class<?> typeClass = ((ITypedProperty) property).getType();
+			if (typeClass.isEnum()) {
+				elements = (Enum<?>[]) typeClass.getEnumConstants();
+			}
+		}
+		return elements == null ? new Enum<?>[0] : elements;
+	}
 }

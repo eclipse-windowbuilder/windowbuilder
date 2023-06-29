@@ -37,120 +37,120 @@ import java.util.List;
  * @coverage rcp.model.rcp
  */
 public abstract class ExtensionPropertyHelper {
-  private final JavaInfo m_javaInfo;
-  private final IProject m_project;
-  private final String m_pointID;
-  private final String m_elementName;
+	private final JavaInfo m_javaInfo;
+	private final IProject m_project;
+	private final String m_pointID;
+	private final String m_elementName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExtensionPropertyHelper(JavaInfo javaInfo, String pointID, String elementName)
-      throws Exception {
-    m_javaInfo = javaInfo;
-    m_project = javaInfo.getEditor().getJavaProject().getProject();
-    m_pointID = pointID;
-    m_elementName = elementName;
-    m_javaInfo.addBroadcastListener(new JavaInfoAddProperties() {
-      @Override
-      public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        appendExtensionProperty(properties);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExtensionPropertyHelper(JavaInfo javaInfo, String pointID, String elementName)
+			throws Exception {
+		m_javaInfo = javaInfo;
+		m_project = javaInfo.getEditor().getJavaProject().getProject();
+		m_pointID = pointID;
+		m_elementName = elementName;
+		m_javaInfo.addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
+			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
+				appendExtensionProperty(properties);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ComplexProperty m_extensionProperty;
-  private final RunnableEx m_refreshListener = new RunnableEx() {
-    @Override
-    public void run() throws Exception {
-      m_javaInfo.refresh();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ComplexProperty m_extensionProperty;
+	private final RunnableEx m_refreshListener = new RunnableEx() {
+		@Override
+		public void run() throws Exception {
+			m_javaInfo.refresh();
+		}
+	};
 
-  /**
-   * This method is invoked one time after reparse to create {@link Property}'s using method
-   * {@link #createAttributeProperty(PropertyEditor, String)}.
-   */
-  protected abstract Property[] createProperties();
+	/**
+	 * This method is invoked one time after reparse to create {@link Property}'s using method
+	 * {@link #createAttributeProperty(PropertyEditor, String)}.
+	 */
+	protected abstract Property[] createProperties();
 
-  /**
-   * Appends {@link ComplexProperty} for properties from <code>plugin.xml</code>.
-   */
-  private void appendExtensionProperty(List<Property> properties) throws Exception {
-    // ensure ComplexProperty
-    if (m_extensionProperty == null) {
-      Property[] extensionProperties = createProperties();
-      m_extensionProperty =
-          new ComplexProperty("Extension", "(Extension properties)", extensionProperties);
-      m_extensionProperty.setCategory(PropertyCategory.system(9));
-    }
-    // OK, add ComplexProperty
-    if (((ExtensionElementProperty<?>) m_extensionProperty.getProperties()[0]).hasElement()) {
-      properties.add(m_extensionProperty);
-    }
-  }
+	/**
+	 * Appends {@link ComplexProperty} for properties from <code>plugin.xml</code>.
+	 */
+	private void appendExtensionProperty(List<Property> properties) throws Exception {
+		// ensure ComplexProperty
+		if (m_extensionProperty == null) {
+			Property[] extensionProperties = createProperties();
+			m_extensionProperty =
+					new ComplexProperty("Extension", "(Extension properties)", extensionProperties);
+			m_extensionProperty.setCategory(PropertyCategory.system(9));
+		}
+		// OK, add ComplexProperty
+		if (((ExtensionElementProperty<?>) m_extensionProperty.getProperties()[0]).hasElement()) {
+			properties.add(m_extensionProperty);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Extension property creation utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final Property createBooleanProperty(String attributeName, boolean defaultValue) {
-    return createAttributeProperty(
-        BooleanPropertyEditor.INSTANCE,
-        attributeName,
-        ExtensionElementProperty.FROM_BOOLEAN,
-        ExtensionElementProperty.TO_BOOLEAN,
-        defaultValue);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Extension property creation utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final Property createBooleanProperty(String attributeName, boolean defaultValue) {
+		return createAttributeProperty(
+				BooleanPropertyEditor.INSTANCE,
+				attributeName,
+				ExtensionElementProperty.FROM_BOOLEAN,
+				ExtensionElementProperty.TO_BOOLEAN,
+				defaultValue);
+	}
 
-  protected final Property createStringProperty(String attributeName) {
-    return createAttributeProperty(StringPropertyEditor.INSTANCE, attributeName);
-  }
+	protected final Property createStringProperty(String attributeName) {
+		return createAttributeProperty(StringPropertyEditor.INSTANCE, attributeName);
+	}
 
-  protected final Property createIconProperty(String attributeName) {
-    return createAttributeProperty(ExtensionElementIconPropertyEditor.INSTANCE, attributeName);
-  }
+	protected final Property createIconProperty(String attributeName) {
+		return createAttributeProperty(ExtensionElementIconPropertyEditor.INSTANCE, attributeName);
+	}
 
-  /**
-   * @return the {@link ExtensionElementProperty} for given attribute of extension element.
-   */
-  protected final <T> Property createAttributeProperty(PropertyEditor editor, String attributeName) {
-    return createAttributeProperty(
-        editor,
-        attributeName,
-        ExtensionElementProperty.IDENTITY,
-        ExtensionElementProperty.IDENTITY,
-        Property.UNKNOWN_VALUE);
-  }
+	/**
+	 * @return the {@link ExtensionElementProperty} for given attribute of extension element.
+	 */
+	protected final <T> Property createAttributeProperty(PropertyEditor editor, String attributeName) {
+		return createAttributeProperty(
+				editor,
+				attributeName,
+				ExtensionElementProperty.IDENTITY,
+				ExtensionElementProperty.IDENTITY,
+				Property.UNKNOWN_VALUE);
+	}
 
-  /**
-   * @return the {@link ExtensionElementProperty} for given attribute of extension element.
-   */
-  protected final <T> Property createAttributeProperty(PropertyEditor editor,
-      String attributeName,
-      Function<T, String> fromValueConverter,
-      Function<String, T> toValueConverter,
-      Object defaultValue) {
-    TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(m_javaInfo);
-    String className = AstNodeUtils.getFullyQualifiedName(typeDeclaration, true);
-    return new ExtensionElementProperty<T>(m_refreshListener,
-        editor,
-        attributeName,
-        m_project,
-        m_pointID,
-        m_elementName,
-        className,
-        attributeName,
-        fromValueConverter,
-        toValueConverter,
-        defaultValue);
-  }
+	/**
+	 * @return the {@link ExtensionElementProperty} for given attribute of extension element.
+	 */
+	protected final <T> Property createAttributeProperty(PropertyEditor editor,
+			String attributeName,
+			Function<T, String> fromValueConverter,
+			Function<String, T> toValueConverter,
+			Object defaultValue) {
+		TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(m_javaInfo);
+		String className = AstNodeUtils.getFullyQualifiedName(typeDeclaration, true);
+		return new ExtensionElementProperty<T>(m_refreshListener,
+				editor,
+				attributeName,
+				m_project,
+				m_pointID,
+				m_elementName,
+				className,
+				attributeName,
+				fromValueConverter,
+				toValueConverter,
+				defaultValue);
+	}
 }

@@ -16,5 +16,5 @@ package org.eclipse.wb.internal.rcp.databinding.emf.preferences;
  *
  */
 public interface IPreferenceConstants {
-  String GENERATE_CODE_FOR_VERSION_2_5 = "EMF_GENERATE_CODE_FOR_VERSION_2_5";
+	String GENERATE_CODE_FOR_VERSION_2_5 = "EMF_GENERATE_CODE_FOR_VERSION_2_5";
 }

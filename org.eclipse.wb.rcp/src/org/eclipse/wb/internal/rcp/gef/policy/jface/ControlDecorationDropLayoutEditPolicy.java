@@ -32,89 +32,89 @@ import java.util.List;
  * @coverage rcp.gef.policy
  */
 public final class ControlDecorationDropLayoutEditPolicy extends LayoutEditPolicy {
-  private static final ILayoutRequestValidator VALIDATOR =
-      LayoutRequestValidators.modelType(ControlDecorationInfo.class);
-  private final ControlInfo m_control;
+	private static final ILayoutRequestValidator VALIDATOR =
+			LayoutRequestValidators.modelType(ControlDecorationInfo.class);
+	private final ControlInfo m_control;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ControlDecorationDropLayoutEditPolicy(ControlInfo control) {
-    m_control = control;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ControlDecorationDropLayoutEditPolicy(ControlInfo control) {
+		m_control = control;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    PolicyUtils.showBorderTargetFeedback(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		PolicyUtils.showBorderTargetFeedback(this);
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    PolicyUtils.eraseBorderTargetFeedback(this);
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		PolicyUtils.eraseBorderTargetFeedback(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(CreateRequest request) {
-    if (isValidTargetControl()) {
-      final ControlDecorationInfo decoration = (ControlDecorationInfo) request.getNewObject();
-      return new EditCommand(m_control) {
-        @Override
-        protected void executeEdit() throws Exception {
-          decoration.command_CREATE(m_control);
-        }
-      };
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(CreateRequest request) {
+		if (isValidTargetControl()) {
+			final ControlDecorationInfo decoration = (ControlDecorationInfo) request.getNewObject();
+			return new EditCommand(m_control) {
+				@Override
+				protected void executeEdit() throws Exception {
+					decoration.command_CREATE(m_control);
+				}
+			};
+		}
+		return null;
+	}
 
-  @Override
-  protected Command getAddCommand(ChangeBoundsRequest request) {
-    List<EditPart> editParts = request.getEditParts();
-    if (isValidTargetControl() && editParts.size() == 1) {
-      final ControlDecorationInfo decoration = (ControlDecorationInfo) editParts.get(0).getModel();
-      return new EditCommand(m_control) {
-        @Override
-        protected void executeEdit() throws Exception {
-          decoration.command_ADD(m_control);
-        }
-      };
-    }
-    return null;
-  }
+	@Override
+	protected Command getAddCommand(ChangeBoundsRequest request) {
+		List<EditPart> editParts = request.getEditParts();
+		if (isValidTargetControl() && editParts.size() == 1) {
+			final ControlDecorationInfo decoration = (ControlDecorationInfo) editParts.get(0).getModel();
+			return new EditCommand(m_control) {
+				@Override
+				protected void executeEdit() throws Exception {
+					decoration.command_ADD(m_control);
+				}
+			};
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link ControlInfo} can accept {@link ControlDecorationInfo}
-   *         .
-   */
-  private boolean isValidTargetControl() {
-    return m_control.getParent() != null
-        && m_control.getChildren(ControlDecorationInfo.class).isEmpty();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link ControlInfo} can accept {@link ControlDecorationInfo}
+	 *         .
+	 */
+	private boolean isValidTargetControl() {
+		return m_control.getParent() != null
+				&& m_control.getChildren(ControlDecorationInfo.class).isEmpty();
+	}
 }

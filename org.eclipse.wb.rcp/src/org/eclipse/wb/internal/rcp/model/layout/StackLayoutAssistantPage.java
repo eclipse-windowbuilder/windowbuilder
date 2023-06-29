@@ -23,15 +23,15 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage rcp.model.layout
  */
 public final class StackLayoutAssistantPage extends AbstractAssistantPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StackLayoutAssistantPage(Composite parent, Object selection) {
-    super(parent, selection);
-    GridLayoutFactory.create(this).columns(1);
-    addIntegerProperty(this, "marginWidth", ModelMessages.StackLayoutAssistantPage_marginWidth);
-    addIntegerProperty(this, "marginHeight", ModelMessages.StackLayoutAssistantPage_marginHeight);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StackLayoutAssistantPage(Composite parent, Object selection) {
+		super(parent, selection);
+		GridLayoutFactory.create(this).columns(1);
+		addIntegerProperty(this, "marginWidth", ModelMessages.StackLayoutAssistantPage_marginWidth);
+		addIntegerProperty(this, "marginHeight", ModelMessages.StackLayoutAssistantPage_marginHeight);
+	}
 }

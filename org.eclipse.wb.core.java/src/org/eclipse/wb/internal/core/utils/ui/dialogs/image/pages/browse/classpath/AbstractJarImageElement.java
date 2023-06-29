@@ -21,16 +21,16 @@ import org.eclipse.core.runtime.IPath;
  * @coverage core.ui
  */
 public abstract class AbstractJarImageElement implements IImageElement {
-  protected final JarImageContainer m_jarContainer;
-  protected final IPath m_entryPath;
+	protected final JarImageContainer m_jarContainer;
+	protected final IPath m_entryPath;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractJarImageElement(JarImageContainer jarContainer, IPath entryPath) {
-    m_jarContainer = jarContainer;
-    m_entryPath = entryPath;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractJarImageElement(JarImageContainer jarContainer, IPath entryPath) {
+		m_jarContainer = jarContainer;
+		m_entryPath = entryPath;
+	}
 }

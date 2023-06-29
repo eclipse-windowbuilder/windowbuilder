@@ -43,191 +43,191 @@ import java.util.List;
  * @coverage XML.gef
  */
 public class AbstractComponentEditPart extends GraphicalEditPart {
-  public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
-      ? new Point(20, 28)
-      : new Point(20, 20);
-  private final AbstractComponentInfo m_component;
+	public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
+			? new Point(20, 28)
+					: new Point(20, 20);
+	private final AbstractComponentInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractComponentEditPart(AbstractComponentInfo component) {
-    m_component = component;
-    setModel(m_component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractComponentEditPart(AbstractComponentInfo component) {
+		m_component = component;
+		setModel(m_component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link AbstractComponentInfo} for this {@link AbstractComponentEditPart}.
-   */
-  public final AbstractComponentInfo getComponent() {
-    return m_component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link AbstractComponentInfo} for this {@link AbstractComponentEditPart}.
+	 */
+	public final AbstractComponentInfo getComponent() {
+		return m_component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void activate() {
-    refreshVisualsOnModelRefresh();
-    super.activate();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void activate() {
+		refreshVisualsOnModelRefresh();
+		super.activate();
+	}
 
-  private void refreshVisualsOnModelRefresh() {
-    if (!m_component.isRoot()) {
-      return;
-    }
-    m_component.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshDispose() throws Exception {
-        if (isActive()) {
-          getFigureCanvas().setDrawCached(true);
-        }
-      }
+	private void refreshVisualsOnModelRefresh() {
+		if (!m_component.isRoot()) {
+			return;
+		}
+		m_component.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshDispose() throws Exception {
+				if (isActive()) {
+					getFigureCanvas().setDrawCached(true);
+				}
+			}
 
-      @Override
-      public void refreshed() throws Exception {
-        getFigureCanvas().setDrawCached(false);
-        getFigureCanvas().redraw();
-        refresh();
-      }
+			@Override
+			public void refreshed() throws Exception {
+				getFigureCanvas().setDrawCached(false);
+				getFigureCanvas().redraw();
+				refresh();
+			}
 
-      private FigureCanvas getFigureCanvas() {
-        return (FigureCanvas) getViewer().getControl();
-      }
-    });
-  }
+			private FigureCanvas getFigureCanvas() {
+				return (FigureCanvas) getViewer().getControl();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        if (m_component.isRoot()) {
-          Image image = m_component.getImage();
-          graphics.drawImage(image, 0, 0);
-        }
-        drawCustomBorder(this, graphics);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				if (m_component.isRoot()) {
+					Image image = m_component.getImage();
+					graphics.drawImage(image, 0, 0);
+				}
+				drawCustomBorder(this, graphics);
+			}
+		};
+	}
 
-  /**
-   * Draw custom "control specific" graphics objects for given {@link Figure}.
-   */
-  protected void drawCustomBorder(Figure figure, Graphics graphics) {
-    if (shouldDrawDotsBorder()) {
-      graphics.setForegroundColor(IColorConstants.gray);
-      graphics.setLineStyle(SWT.LINE_DOT);
-      Rectangle area = figure.getClientArea();
-      graphics.drawRectangle(0, 0, area.width - 1, area.height - 1);
-    }
-  }
+	/**
+	 * Draw custom "control specific" graphics objects for given {@link Figure}.
+	 */
+	protected void drawCustomBorder(Figure figure, Graphics graphics) {
+		if (shouldDrawDotsBorder()) {
+			graphics.setForegroundColor(IColorConstants.gray);
+			graphics.setLineStyle(SWT.LINE_DOT);
+			Rectangle area = figure.getClientArea();
+			graphics.drawRectangle(0, 0, area.width - 1, area.height - 1);
+		}
+	}
 
-  private boolean shouldDrawDotsBorder() {
-    return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
-        return m_component.shouldDrawDotsBorder();
-      }
-    }, false);
-  }
+	private boolean shouldDrawDotsBorder() {
+		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+			@Override
+			public Boolean runObject() throws Exception {
+				return m_component.shouldDrawDotsBorder();
+			}
+		}, false);
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    Rectangle bounds = m_component.getBounds();
-    // prevent NPE if bounds for some component were not fetched
-    if (bounds == null) {
-      bounds = new Rectangle();
-    }
-    // root
-    if (m_component.isRoot()) {
-      Point rootLocation = getRootLocation();
-      bounds = bounds.getCopy().setLocation(rootLocation);
-    }
-    // apply bounds
-    getFigure().setBounds(bounds);
-  }
+	@Override
+	protected void refreshVisuals() {
+		Rectangle bounds = m_component.getBounds();
+		// prevent NPE if bounds for some component were not fetched
+		if (bounds == null) {
+			bounds = new Rectangle();
+		}
+		// root
+		if (m_component.isRoot()) {
+			Point rootLocation = getRootLocation();
+			bounds = bounds.getCopy().setLocation(rootLocation);
+		}
+		// apply bounds
+		getFigure().setBounds(bounds);
+	}
 
-  /**
-   * @return the location to use, if this {@link AbstractComponentInfo} is root.
-   */
-  protected Point getRootLocation() {
-    return TOP_LOCATION;
-  }
+	/**
+	 * @return the location to use, if this {@link AbstractComponentInfo} is root.
+	 */
+	protected Point getRootLocation() {
+		return TOP_LOCATION;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    if (m_component.isRoot()) {
-      installEditPolicy(EditPolicy.SELECTION_ROLE, new TopSelectionEditPolicy(m_component));
-    } else {
-      installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-    }
-    //
-    installEditPolicy(new OpenListenerEditPolicy(m_component));
-    /*OpenErrorLog_EditPolicy.install(this);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		if (m_component.isRoot()) {
+			installEditPolicy(EditPolicy.SELECTION_ROLE, new TopSelectionEditPolicy(m_component));
+		} else {
+			installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+		}
+		//
+		installEditPolicy(new OpenListenerEditPolicy(m_component));
+		/*OpenErrorLog_EditPolicy.install(this);
     refreshEditPolicies();*/
-  }
+	}
 
-  /**
-   * Installs {@link EditPolicy}'s after model refresh. For example we should install new
-   * {@link LayoutEditPolicy} if component has now new layout.
-   */
-  protected void refreshEditPolicies() {
-    //OpenErrorLog_EditPolicy.refresh(this);
-  }
+	/**
+	 * Installs {@link EditPolicy}'s after model refresh. For example we should install new
+	 * {@link LayoutEditPolicy} if component has now new layout.
+	 */
+	protected void refreshEditPolicies() {
+		//OpenErrorLog_EditPolicy.refresh(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests/Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public CompoundCommand createCompoundCommand() {
-    return new CompoundEditCommand(m_component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests/Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public CompoundCommand createCompoundCommand() {
+		return new CompoundEditCommand(m_component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh() {
-    refreshEditPolicies();
-    super.refresh();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh() {
+		refreshEditPolicies();
+		super.refresh();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<?> getModelChildren() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
-      @Override
-      public List<?> runObject() throws Exception {
-        return m_component.getPresentation().getChildrenGraphical();
-      }
-    }, Collections.emptyList());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<?> getModelChildren() {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
+			@Override
+			public List<?> runObject() throws Exception {
+				return m_component.getPresentation().getChildrenGraphical();
+			}
+		}, Collections.emptyList());
+	}
 }

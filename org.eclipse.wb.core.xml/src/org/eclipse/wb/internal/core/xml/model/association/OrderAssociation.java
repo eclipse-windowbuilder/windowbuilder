@@ -25,50 +25,50 @@ import org.apache.commons.lang.NotImplementedException;
  * @coverage XML.model.association
  */
 public class OrderAssociation extends Association {
-  public static final Association INSTANCE = new OrderAssociation();
+	public static final Association INSTANCE = new OrderAssociation();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  OrderAssociation() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	OrderAssociation() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "order";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "order";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void add(XmlObjectInfo object, ElementTarget target) throws Exception {
-    throw new NotImplementedException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void add(XmlObjectInfo object, ElementTarget target) throws Exception {
+		throw new NotImplementedException();
+	}
 
-  @Override
-  public void move(XmlObjectInfo object,
-      ElementTarget target,
-      XmlObjectInfo oldParent,
-      XmlObjectInfo newParent) throws Exception {
-    Assert.isTrue(newParent == oldParent, "Only reorder is supported.");
-    DocumentElement objectElement = object.getCreationSupport().getElementMove();
-    DocumentElement elementInOldParent =
-        XmlObjectUtils.getElementInParent(oldParent, objectElement);
-    // move element
-    {
-      DocumentElement targetElement = target.getElement();
-      int targetIndex = target.getIndex();
-      targetElement.moveChild(elementInOldParent, targetIndex);
-    }
-  }
+	@Override
+	public void move(XmlObjectInfo object,
+			ElementTarget target,
+			XmlObjectInfo oldParent,
+			XmlObjectInfo newParent) throws Exception {
+		Assert.isTrue(newParent == oldParent, "Only reorder is supported.");
+		DocumentElement objectElement = object.getCreationSupport().getElementMove();
+		DocumentElement elementInOldParent =
+				XmlObjectUtils.getElementInParent(oldParent, objectElement);
+		// move element
+		{
+			DocumentElement targetElement = target.getElement();
+			int targetIndex = target.getIndex();
+			targetElement.moveChild(elementInOldParent, targetIndex);
+		}
+	}
 }

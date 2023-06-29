@@ -23,18 +23,18 @@ import org.osgi.framework.Bundle;
  * @author scheglov_ke
  */
 public class AbstractSwing2SwtTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configureNewProject() throws Exception {
-    super.configureNewProject();
-    {
-      Bundle bundle = Activator.getBundleStatic();
-      String path = FileLocator.toFileURL(bundle.getEntry("/swing2swt.jar")).getPath();
-      m_testProject.addExternalJar(path);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configureNewProject() throws Exception {
+		super.configureNewProject();
+		{
+			Bundle bundle = Activator.getBundleStatic();
+			String path = FileLocator.toFileURL(bundle.getEntry("/swing2swt.jar")).getPath();
+			m_testProject.addExternalJar(path);
+		}
+	}
 }

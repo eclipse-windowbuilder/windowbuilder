@@ -26,85 +26,85 @@ import java.util.List;
  * @coverage swt.model.layout
  */
 public final class GridLayoutSurroundSupport extends LayoutSurroundSupport {
-  static final String CELLS_KEY = "SurroundSupport_CELLS";
-  private final GridLayoutInfo m_layout;
+	static final String CELLS_KEY = "SurroundSupport_CELLS";
+	private final GridLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridLayoutSurroundSupport(GridLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridLayoutSurroundSupport(GridLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Rectangle m_enclosingCells;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Rectangle m_enclosingCells;
 
-  @Override
-  protected boolean validateComponents(List<ControlInfo> components) throws Exception {
-    if (!super.validateComponents(components)) {
-      return false;
-    }
-    // prepare enclosing bounds
-    {
-      m_enclosingCells = getCells(components.get(0));
-      for (ControlInfo component : components) {
-        m_enclosingCells.union(getCells(component));
-      }
-    }
-    // check that there are no other controls in enclosing bounds
-    for (ControlInfo control : m_layout.getControls()) {
-      if (!components.contains(control)
-          && !m_layout.isFiller(control)
-          && m_enclosingCells.intersects(getCells(control))) {
-        return false;
-      }
-    }
-    // OK
-    return true;
-  }
+	@Override
+	protected boolean validateComponents(List<ControlInfo> components) throws Exception {
+		if (!super.validateComponents(components)) {
+			return false;
+		}
+		// prepare enclosing bounds
+		{
+			m_enclosingCells = getCells(components.get(0));
+			for (ControlInfo component : components) {
+				m_enclosingCells.union(getCells(component));
+			}
+		}
+		// check that there are no other controls in enclosing bounds
+		for (ControlInfo control : m_layout.getControls()) {
+			if (!components.contains(control)
+					&& !m_layout.isFiller(control)
+					&& m_enclosingCells.intersects(getCells(control))) {
+				return false;
+			}
+		}
+		// OK
+		return true;
+	}
 
-  @Override
-  protected void addContainer(CompositeInfo container, List<ControlInfo> components)
-      throws Exception {
-    container.putArbitraryValue(CELLS_KEY, m_enclosingCells);
-    // add container
-    int targetRow = m_layout.getRows().size();
-    m_layout.command_CREATE(container, 0, false, targetRow, false);
-    m_layout.setRemoveEmptyColumnsRows(false);
-  }
+	@Override
+	protected void addContainer(CompositeInfo container, List<ControlInfo> components)
+			throws Exception {
+		container.putArbitraryValue(CELLS_KEY, m_enclosingCells);
+		// add container
+		int targetRow = m_layout.getRows().size();
+		m_layout.command_CREATE(container, 0, false, targetRow, false);
+		m_layout.setRemoveEmptyColumnsRows(false);
+	}
 
-  @Override
-  protected void moveDone(CompositeInfo container, List<ControlInfo> components) throws Exception {
-    super.moveDone(container, components);
-    m_layout.setRemoveEmptyColumnsRows(true);
-    // move "container"
-    m_layout.command_setCells(container, m_enclosingCells, true);
-    {
-      GridDataInfo gridData = GridLayoutInfo.getGridData(container);
-      gridData.setHorizontalAlignment(SWT.FILL);
-      gridData.setVerticalAlignment(SWT.FILL);
-    }
-    // "container" may be only component in some columns/rows, so no need for spanning
-    m_layout.command_normalizeSpanning();
-  }
+	@Override
+	protected void moveDone(CompositeInfo container, List<ControlInfo> components) throws Exception {
+		super.moveDone(container, components);
+		m_layout.setRemoveEmptyColumnsRows(true);
+		// move "container"
+		m_layout.command_setCells(container, m_enclosingCells, true);
+		{
+			GridDataInfo gridData = GridLayoutInfo.getGridData(container);
+			gridData.setHorizontalAlignment(SWT.FILL);
+			gridData.setVerticalAlignment(SWT.FILL);
+		}
+		// "container" may be only component in some columns/rows, so no need for spanning
+		m_layout.command_normalizeSpanning();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Rectangle} with grid bounds, i.e. column/row plus width/height span.
-   */
-  static Rectangle getCells(ControlInfo control) throws Exception {
-    GridDataInfo gridData = GridLayoutInfo.getGridData(control);
-    return new Rectangle(gridData.x, gridData.y, gridData.width, gridData.height);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Rectangle} with grid bounds, i.e. column/row plus width/height span.
+	 */
+	static Rectangle getCells(ControlInfo control) throws Exception {
+		GridDataInfo gridData = GridLayoutInfo.getGridData(control);
+		return new Rectangle(gridData.x, gridData.y, gridData.width, gridData.height);
+	}
 }

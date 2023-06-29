@@ -25,36 +25,36 @@ import org.eclipse.ui.IPageLayout;
  * @coverage rcp.model.rcp
  */
 public final class FastViewInfo extends AbstractShortcutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FastViewInfo(PageLayoutInfo page,
-      FastViewContainerInfo container,
-      MethodInvocation invocation) throws Exception {
-    super(page, container, invocation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FastViewInfo(PageLayoutInfo page,
+			FastViewContainerInfo container,
+			MethodInvocation invocation) throws Exception {
+		super(page, container, invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Image getPresentationIcon() throws Exception {
-    return getViewInfo().getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Image getPresentationIcon() throws Exception {
+		return getViewInfo().getIcon();
+	}
 
-  @Override
-  protected String getPresentationText() throws Exception {
-    return "\"" + getViewInfo().getName() + "\" - " + getId();
-  }
+	@Override
+	protected String getPresentationText() throws Exception {
+		return "\"" + getViewInfo().getName() + "\" - " + getId();
+	}
 
-  /**
-   * @return the {@link ViewInfo} for this view.
-   */
-  private ViewInfo getViewInfo() {
-    return PdeUtils.getViewInfoDefault(getId());
-  }
+	/**
+	 * @return the {@link ViewInfo} for this view.
+	 */
+	private ViewInfo getViewInfo() {
+		return PdeUtils.getViewInfoDefault(getId());
+	}
 }

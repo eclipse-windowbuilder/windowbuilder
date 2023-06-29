@@ -49,173 +49,173 @@ import java.util.List;
  * @coverage rcp.gef.policy
  */
 public final class ColumnsLayoutEditPolicy<C extends IControlInfo>
-    extends
-      AbstractHeaderLayoutEditPolicy {
-  private final TableWrapLayoutEditPolicy<C> m_mainPolicy;
-  private final ITableWrapLayoutInfo<C> m_layout;
+extends
+AbstractHeaderLayoutEditPolicy {
+	private final TableWrapLayoutEditPolicy<C> m_mainPolicy;
+	private final ITableWrapLayoutInfo<C> m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnsLayoutEditPolicy(TableWrapLayoutEditPolicy<C> mainPolicy,
-      ITableWrapLayoutInfo<C> layout) {
-    super(mainPolicy);
-    m_mainPolicy = mainPolicy;
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnsLayoutEditPolicy(TableWrapLayoutEditPolicy<C> mainPolicy,
+			ITableWrapLayoutInfo<C> layout) {
+		super(mainPolicy);
+		m_mainPolicy = mainPolicy;
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void decorateChild(EditPart child) {
-    child.installEditPolicy(
-        EditPolicy.SELECTION_ROLE,
-        new ColumnSelectionEditPolicy<C>(m_mainPolicy));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void decorateChild(EditPart child) {
+		child.installEditPolicy(
+				EditPolicy.SELECTION_ROLE,
+				new ColumnSelectionEditPolicy<C>(m_mainPolicy));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Move
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final Figure m_insertFeedback = AbstractGridLayoutEditPolicy.createInsertFigure();
-  private TextFeedback m_feedback;
-  private Command m_moveCommand;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Move
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final Figure m_insertFeedback = AbstractGridLayoutEditPolicy.createInsertFigure();
+	private TextFeedback m_feedback;
+	private Command m_moveCommand;
 
-  @Override
-  protected Command getMoveCommand(ChangeBoundsRequest request) {
-    return m_moveCommand;
-  }
+	@Override
+	protected Command getMoveCommand(ChangeBoundsRequest request) {
+		return m_moveCommand;
+	}
 
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    // prepare header
-    DimensionHeaderEditPart<C> headerEditPart;
-    {
-      ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
-      headerEditPart = toHeaderPart(changeBoundsRequest.getEditParts().get(0));
-    }
-    // prepare location
-    Point location;
-    {
-      IDropRequest dropRequest = (IDropRequest) request;
-      location = dropRequest.getLocation().getCopy();
-    }
-    // prepare target header
-    DimensionHeaderEditPart<C> target = null;
-    {
-      List<EditPart> children = getHost().getChildren();
-      for (EditPart child : children) {
-        DimensionHeaderEditPart<C> columnEditPart = toHeaderPart(child);
-        Rectangle bounds = columnEditPart.getFigure().getBounds();
-        if (location.x < bounds.getCenter().x) {
-          target = columnEditPart;
-          break;
-        }
-      }
-    }
-    // prepare grid information
-    IGridInfo gridInfo = m_layout.getGridInfo();
-    Interval[] columnIntervals = gridInfo.getColumnIntervals();
-    Interval[] rowIntervals = gridInfo.getRowIntervals();
-    int y1 = rowIntervals[0].begin() - 5;
-    int y2 = rowIntervals[rowIntervals.length - 1].end() + 5;
-    // prepare index of target column and position for insert feedbacks
-    final int index;
-    int x;
-    int size;
-    if (target != null) {
-      index = target.getDimension().getIndex();
-      // prepare previous interval
-      Interval prevInterval;
-      if (index == 0) {
-        prevInterval = new Interval(0, 0);
-      } else {
-        prevInterval = columnIntervals[index - 1];
-      }
-      // prepare parameters
-      int[] parameters =
-          TableWrapLayoutEditPolicy.getInsertFeedbackParameters(
-              prevInterval,
-              columnIntervals[index],
-              AbstractGridLayoutEditPolicy.INSERT_COLUMN_SIZE);
-      x = parameters[1];
-      size = parameters[2] - parameters[1];
-    } else {
-      index = m_layout.getColumns().size();
-      m_mainPolicy.showInsertFeedbacks(null, null);
-      // prepare parameters
-      x = columnIntervals[columnIntervals.length - 1].end() + 1;
-      size = AbstractGridLayoutEditPolicy.INSERT_COLUMN_SIZE;
-    }
-    // show insert feedbacks
-    {
-      // ...on main viewer
-      m_mainPolicy.showInsertFeedbacks(new Rectangle(x, y1, size, y2 - y1), null);
-      // ...on header viewer
-      {
-        if (m_insertFeedback.getParent() == null) {
-          addFeedback(m_insertFeedback);
-        }
-        //
-        Point offset = headerEditPart.getOffset();
-        Rectangle bounds = new Rectangle(x + offset.x, 0, size, getHostFigure().getSize().height);
-        m_insertFeedback.setBounds(bounds);
-      }
-    }
-    // show text feedback
-    {
-      Layer feedbackLayer = getMainLayer(IEditPartViewer.FEEDBACK_LAYER);
-      // add feedback
-      if (m_feedback == null) {
-        m_feedback = new TextFeedback(feedbackLayer);
-        m_feedback.add();
-      }
-      // set feedback bounds
-      {
-        Point feedbackLocation = new Point(location.x + 30, 10);
-        FigureUtils.translateAbsoluteToFigure(feedbackLayer, feedbackLocation);
-        m_feedback.setLocation(feedbackLocation);
-      }
-      // set text
-      m_feedback.setText(MessageFormat.format(
-          GefMessages.ColumnsLayoutEditPolicy_feedbackText,
-          index));
-    }
-    // prepare command
-    {
-      TableWrapColumnInfo<C> column = (TableWrapColumnInfo<C>) headerEditPart.getDimension();
-      final int sourceIndex = column.getIndex();
-      if (index == sourceIndex || index == sourceIndex + 1) {
-        m_moveCommand = Command.EMPTY;
-      } else {
-        m_moveCommand = new EditCommand(m_layout) {
-          @Override
-          protected void executeEdit() throws Exception {
-            m_layout.command_MOVE_COLUMN(sourceIndex, index);
-          }
-        };
-      }
-    }
-  }
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		// prepare header
+		DimensionHeaderEditPart<C> headerEditPart;
+		{
+			ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
+			headerEditPart = toHeaderPart(changeBoundsRequest.getEditParts().get(0));
+		}
+		// prepare location
+		Point location;
+		{
+			IDropRequest dropRequest = (IDropRequest) request;
+			location = dropRequest.getLocation().getCopy();
+		}
+		// prepare target header
+		DimensionHeaderEditPart<C> target = null;
+		{
+			List<EditPart> children = getHost().getChildren();
+			for (EditPart child : children) {
+				DimensionHeaderEditPart<C> columnEditPart = toHeaderPart(child);
+				Rectangle bounds = columnEditPart.getFigure().getBounds();
+				if (location.x < bounds.getCenter().x) {
+					target = columnEditPart;
+					break;
+				}
+			}
+		}
+		// prepare grid information
+		IGridInfo gridInfo = m_layout.getGridInfo();
+		Interval[] columnIntervals = gridInfo.getColumnIntervals();
+		Interval[] rowIntervals = gridInfo.getRowIntervals();
+		int y1 = rowIntervals[0].begin() - 5;
+		int y2 = rowIntervals[rowIntervals.length - 1].end() + 5;
+		// prepare index of target column and position for insert feedbacks
+		final int index;
+		int x;
+		int size;
+		if (target != null) {
+			index = target.getDimension().getIndex();
+			// prepare previous interval
+			Interval prevInterval;
+			if (index == 0) {
+				prevInterval = new Interval(0, 0);
+			} else {
+				prevInterval = columnIntervals[index - 1];
+			}
+			// prepare parameters
+			int[] parameters =
+					TableWrapLayoutEditPolicy.getInsertFeedbackParameters(
+							prevInterval,
+							columnIntervals[index],
+							AbstractGridLayoutEditPolicy.INSERT_COLUMN_SIZE);
+			x = parameters[1];
+			size = parameters[2] - parameters[1];
+		} else {
+			index = m_layout.getColumns().size();
+			m_mainPolicy.showInsertFeedbacks(null, null);
+			// prepare parameters
+			x = columnIntervals[columnIntervals.length - 1].end() + 1;
+			size = AbstractGridLayoutEditPolicy.INSERT_COLUMN_SIZE;
+		}
+		// show insert feedbacks
+		{
+			// ...on main viewer
+			m_mainPolicy.showInsertFeedbacks(new Rectangle(x, y1, size, y2 - y1), null);
+			// ...on header viewer
+			{
+				if (m_insertFeedback.getParent() == null) {
+					addFeedback(m_insertFeedback);
+				}
+				//
+				Point offset = headerEditPart.getOffset();
+				Rectangle bounds = new Rectangle(x + offset.x, 0, size, getHostFigure().getSize().height);
+				m_insertFeedback.setBounds(bounds);
+			}
+		}
+		// show text feedback
+		{
+			Layer feedbackLayer = getMainLayer(IEditPartViewer.FEEDBACK_LAYER);
+			// add feedback
+			if (m_feedback == null) {
+				m_feedback = new TextFeedback(feedbackLayer);
+				m_feedback.add();
+			}
+			// set feedback bounds
+			{
+				Point feedbackLocation = new Point(location.x + 30, 10);
+				FigureUtils.translateAbsoluteToFigure(feedbackLayer, feedbackLocation);
+				m_feedback.setLocation(feedbackLocation);
+			}
+			// set text
+			m_feedback.setText(MessageFormat.format(
+					GefMessages.ColumnsLayoutEditPolicy_feedbackText,
+					index));
+		}
+		// prepare command
+		{
+			TableWrapColumnInfo<C> column = (TableWrapColumnInfo<C>) headerEditPart.getDimension();
+			final int sourceIndex = column.getIndex();
+			if (index == sourceIndex || index == sourceIndex + 1) {
+				m_moveCommand = Command.EMPTY;
+			} else {
+				m_moveCommand = new EditCommand(m_layout) {
+					@Override
+					protected void executeEdit() throws Exception {
+						m_layout.command_MOVE_COLUMN(sourceIndex, index);
+					}
+				};
+			}
+		}
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    m_mainPolicy.eraseInsertFeedbacks();
-    FigureUtils.removeFigure(m_insertFeedback);
-    if (m_feedback != null) {
-      m_feedback.remove();
-      m_feedback = null;
-    }
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		m_mainPolicy.eraseInsertFeedbacks();
+		FigureUtils.removeFigure(m_insertFeedback);
+		if (m_feedback != null) {
+			m_feedback.remove();
+			m_feedback = null;
+		}
+	}
 
-  @SuppressWarnings("unchecked")
-  private DimensionHeaderEditPart<C> toHeaderPart(EditPart child) {
-    return (DimensionHeaderEditPart<C>) child;
-  }
+	@SuppressWarnings("unchecked")
+	private DimensionHeaderEditPart<C> toHeaderPart(EditPart child) {
+		return (DimensionHeaderEditPart<C>) child;
+	}
 }

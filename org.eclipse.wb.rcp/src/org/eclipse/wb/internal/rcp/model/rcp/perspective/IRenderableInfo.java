@@ -17,10 +17,10 @@ package org.eclipse.wb.internal.rcp.model.rcp.perspective;
  * @coverage rcp.model.rcp
  */
 public interface IRenderableInfo {
-  /**
-   * Renders this {@link IRenderableInfo} by creating some {@link Object}.
-   *
-   * @return the {@link Object} that represents this {@link IRenderableInfo}.
-   */
-  Object render() throws Exception;
+	/**
+	 * Renders this {@link IRenderableInfo} by creating some {@link Object}.
+	 *
+	 * @return the {@link Object} that represents this {@link IRenderableInfo}.
+	 */
+	Object render() throws Exception;
 }

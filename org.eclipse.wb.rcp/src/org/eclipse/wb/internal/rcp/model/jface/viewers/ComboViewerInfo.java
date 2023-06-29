@@ -25,32 +25,32 @@ import org.eclipse.jface.viewers.ComboViewer;
  * @coverage rcp.model.jface.viewers
  */
 public final class ComboViewerInfo extends ViewerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComboViewerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComboViewerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setObject(Object object) throws Exception {
-    // tweak for Control method
-    {
-      ComboViewer viewer = (ComboViewer) object;
-      if (viewer.getControl() instanceof org.eclipse.swt.custom.CCombo) {
-        getWrapper().setControlMethodName("getCCombo");
-      }
-    }
-    // continue
-    super.setObject(object);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setObject(Object object) throws Exception {
+		// tweak for Control method
+		{
+			ComboViewer viewer = (ComboViewer) object;
+			if (viewer.getControl() instanceof org.eclipse.swt.custom.CCombo) {
+				getWrapper().setControlMethodName("getCCombo");
+			}
+		}
+		// continue
+		super.setObject(object);
+	}
 }

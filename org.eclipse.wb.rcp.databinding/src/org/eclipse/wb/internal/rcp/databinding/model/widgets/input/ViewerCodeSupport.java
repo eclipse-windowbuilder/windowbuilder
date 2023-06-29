@@ -25,44 +25,44 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class ViewerCodeSupport extends CodeSupport {
-  private final ViewerInputBindingInfo m_binding;
+	private final ViewerInputBindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerCodeSupport(ViewerInputBindingInfo binding) {
-    m_binding = binding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerCodeSupport(ViewerInputBindingInfo binding) {
+		m_binding = binding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    generationSupport.addSourceCode(m_binding.getInputObservable(), lines);
-    //
-    Class<?> elementType = m_binding.getElementType();
-    String[] properties = m_binding.getLabelProvider().getMapsObservable().getProperties();
-    String propertiesSourceCode =
-        ObservableInfo.isPojoBean(elementType)
-            ? "org.eclipse.core.databinding.beans.typed.PojoProperties"
-            : "org.eclipse.core.databinding.beans.typed.BeanProperties";
-    //
-    lines.add("org.eclipse.jface.databinding.viewers.ViewerSupport.bind("
-        + m_binding.getViewer().getReference()
-        + ", "
-        + m_binding.getInputObservable().getVariableIdentifier()
-        + ", "
-        + propertiesSourceCode
-        + ".values("
-        + CoreUtils.getClassName(elementType)
-        + ".class, new java.lang.String[]{\""
-        + StringUtils.join(properties, "\", \"")
-        + "\"}));");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		generationSupport.addSourceCode(m_binding.getInputObservable(), lines);
+		//
+		Class<?> elementType = m_binding.getElementType();
+		String[] properties = m_binding.getLabelProvider().getMapsObservable().getProperties();
+		String propertiesSourceCode =
+				ObservableInfo.isPojoBean(elementType)
+				? "org.eclipse.core.databinding.beans.typed.PojoProperties"
+						: "org.eclipse.core.databinding.beans.typed.BeanProperties";
+		//
+		lines.add("org.eclipse.jface.databinding.viewers.ViewerSupport.bind("
+				+ m_binding.getViewer().getReference()
+				+ ", "
+				+ m_binding.getInputObservable().getVariableIdentifier()
+				+ ", "
+				+ propertiesSourceCode
+				+ ".values("
+				+ CoreUtils.getClassName(elementType)
+				+ ".class, new java.lang.String[]{\""
+				+ StringUtils.join(properties, "\", \"")
+				+ "\"}));");
+	}
 }

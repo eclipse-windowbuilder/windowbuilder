@@ -24,37 +24,37 @@ import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
  * @coverage rcp.gef.policy
  */
 public final class ViewDropTool extends AbstractCreationTool {
-  private final ViewInfo m_view;
+	private final ViewInfo m_view;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewDropTool(ViewInfo view) {
-    m_view = view;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewDropTool(ViewInfo view) {
+		m_view = view;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractCreationTool
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Request createTargetRequest() {
-    return new ViewDropRequest(m_view);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractCreationTool
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Request createTargetRequest() {
+		return new ViewDropRequest(m_view);
+	}
 
-  @Override
-  protected void selectAddedObjects() {
-    ViewDropRequest request = (ViewDropRequest) getTargetRequest();
-    Object component = request.getComponent();
-    if (component != null) {
-      IEditPartViewer viewer = getViewer();
-      EditPart editPart = viewer.getEditPartByModel(component);
-      if (editPart != null) {
-        viewer.select(editPart);
-      }
-    }
-  }
+	@Override
+	protected void selectAddedObjects() {
+		ViewDropRequest request = (ViewDropRequest) getTargetRequest();
+		Object component = request.getComponent();
+		if (component != null) {
+			IEditPartViewer viewer = getViewer();
+			EditPart editPart = viewer.getEditPartByModel(component);
+			if (editPart != null) {
+				viewer.select(editPart);
+			}
+		}
+	}
 }

@@ -21,10 +21,10 @@ import javax.swing.JComponent;
  * @coverage swing.property.editor
  */
 public final class AlignmentYPropertyEditor extends AlignmentPropertyEditor {
-  public AlignmentYPropertyEditor() {
-    super(new String[]{"BOTTOM_ALIGNMENT", "CENTER_ALIGNMENT", "TOP_ALIGNMENT",}, new String[]{
-        "bottom.gif",
-        "middle.gif",
-        "top.gif",});
-  }
+	public AlignmentYPropertyEditor() {
+		super(new String[]{"BOTTOM_ALIGNMENT", "CENTER_ALIGNMENT", "TOP_ALIGNMENT",}, new String[]{
+				"bottom.gif",
+				"middle.gif",
+				"top.gif",});
+	}
 }

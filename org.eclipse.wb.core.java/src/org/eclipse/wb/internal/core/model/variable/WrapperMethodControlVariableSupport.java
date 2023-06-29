@@ -22,68 +22,68 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
  * @coverage core.model.variable
  */
 public class WrapperMethodControlVariableSupport extends AbstractImplicitVariableSupport {
-  private final WrapperByMethod m_wrapper;
+	private final WrapperByMethod m_wrapper;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WrapperMethodControlVariableSupport(JavaInfo javaInfo, WrapperByMethod wrapper) {
-    super(javaInfo);
-    m_wrapper = wrapper;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WrapperMethodControlVariableSupport(JavaInfo javaInfo, WrapperByMethod wrapper) {
+		super(javaInfo);
+		m_wrapper = wrapper;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "viewer";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "viewer";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isDefault() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isDefault() {
+		return true;
+	}
 
-  @Override
-  public String getTitle() throws Exception {
-    return m_wrapper.getWrapperInfo().getVariableSupport().getTitle()
-        + "."
-        + m_wrapper.getControlMethod().getName()
-        + "()";
-  }
+	@Override
+	public String getTitle() throws Exception {
+		return m_wrapper.getWrapperInfo().getVariableSupport().getTitle()
+				+ "."
+				+ m_wrapper.getControlMethod().getName()
+				+ "()";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void ensureInstanceReadyAt(StatementTarget target) throws Exception {
-    m_wrapper.getWrapperInfo().getVariableSupport().ensureInstanceReadyAt(target);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void ensureInstanceReadyAt(StatementTarget target) throws Exception {
+		m_wrapper.getWrapperInfo().getVariableSupport().ensureInstanceReadyAt(target);
+	}
 
-  @Override
-  public StatementTarget getAssociationTarget(StatementTarget target) throws Exception {
-    return m_wrapper.getWrapperInfo().getVariableSupport().getAssociationTarget(target);
-  }
+	@Override
+	public StatementTarget getAssociationTarget(StatementTarget target) throws Exception {
+		return m_wrapper.getWrapperInfo().getVariableSupport().getAssociationTarget(target);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Materializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected JavaInfo getParent() {
-    return m_wrapper.getWrapperInfo();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Materializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected JavaInfo getParent() {
+		return m_wrapper.getWrapperInfo();
+	}
 }

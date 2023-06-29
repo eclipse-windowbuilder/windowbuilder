@@ -41,215 +41,215 @@ import java.util.List;
  * @coverage rcp.model.forms
  */
 public final class FormToolkitAccess {
-  private final String m_toolkitMethodName;
-  private final String m_toolkitFieldName;
-  private final String m_formMethodName;
-  private final String m_formFieldName;
-  private final String m_toolkitSource;
+	private final String m_toolkitMethodName;
+	private final String m_toolkitFieldName;
+	private final String m_formMethodName;
+	private final String m_formFieldName;
+	private final String m_toolkitSource;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Not found exception
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final class NoFormToolkitError extends Error {
-    private static final long serialVersionUID = 0L;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Not found exception
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final class NoFormToolkitError extends Error {
+		private static final long serialVersionUID = 0L;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the valid {@link FormToolkitAccess} or <code>null</code>.
-   */
-  public static FormToolkitAccess get(TypeDeclaration typeDeclaration) {
-    try {
-      return new FormToolkitAccess(typeDeclaration);
-    } catch (NoFormToolkitError e) {
-      return null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the valid {@link FormToolkitAccess} or <code>null</code>.
+	 */
+	public static FormToolkitAccess get(TypeDeclaration typeDeclaration) {
+		try {
+			return new FormToolkitAccess(typeDeclaration);
+		} catch (NoFormToolkitError e) {
+			return null;
+		}
+	}
 
-  /**
-   * @return the valid {@link FormToolkitAccess} or throws {@link Exception}.
-   */
-  public static FormToolkitAccess getOrFail(TypeDeclaration typeDeclaration) {
-    try {
-      return new FormToolkitAccess(typeDeclaration);
-    } catch (NoFormToolkitError e) {
-      throw new DesignerException(IExceptionConstants.NO_FORM_TOOLKIT);
-    }
-  }
+	/**
+	 * @return the valid {@link FormToolkitAccess} or throws {@link Exception}.
+	 */
+	public static FormToolkitAccess getOrFail(TypeDeclaration typeDeclaration) {
+		try {
+			return new FormToolkitAccess(typeDeclaration);
+		} catch (NoFormToolkitError e) {
+			throw new DesignerException(IExceptionConstants.NO_FORM_TOOLKIT);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private FormToolkitAccess(TypeDeclaration typeDeclaration) {
-    // try to find FormToolkit in local variable declaration
-    {
-      ListGatherer<SimpleName> listGatherer = new ListGatherer<SimpleName>() {
-        @Override
-        public void postVisit(ASTNode node) {
-          if (node instanceof SimpleName
-              && node.getLocationInParent() == VariableDeclarationFragment.NAME_PROPERTY) {
-            SimpleName variable = (SimpleName) node;
-            if (AstNodeUtils.isSuccessorOf(
-                variable.resolveTypeBinding(),
-                "org.eclipse.ui.forms.widgets.FormToolkit")) {
-              addResult(variable);
-            }
-          }
-        }
-      };
-      typeDeclaration.accept(listGatherer);
-      List<SimpleName> variables = listGatherer.getResultList();
-      if (!variables.isEmpty()) {
-        m_toolkitMethodName = null;
-        m_toolkitFieldName = variables.get(0).getIdentifier();
-        m_formMethodName = null;
-        m_formFieldName = null;
-        m_toolkitSource = m_toolkitFieldName;
-        return;
-      }
-    }
-    // try to find FormToolkit: method
-    {
-      ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
-      List<IMethodBinding> methodBindings =
-          AstNodeUtils.getMethodBindings(typeBinding.getSuperclass(), Modifier.PUBLIC
-              | Modifier.PROTECTED);
-      for (IMethodBinding methodBinding : methodBindings) {
-        if (methodBinding.getParameterTypes().length == 0
-            && AstNodeUtils.isSuccessorOf(
-                methodBinding.getReturnType(),
-                "org.eclipse.ui.forms.widgets.FormToolkit")) {
-          m_toolkitMethodName = methodBinding.getName();
-          m_toolkitFieldName = null;
-          m_formMethodName = null;
-          m_formFieldName = null;
-          m_toolkitSource = m_toolkitMethodName + "()";
-          return;
-        }
-      }
-    }
-    // try to find FormToolkit: field
-    {
-      ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
-      List<IVariableBinding> fields =
-          AstNodeUtils.getFieldBindings(typeBinding, Modifier.PUBLIC
-              | Modifier.PROTECTED
-              | Modifier.PRIVATE);
-      for (IVariableBinding field : fields) {
-        if (AstNodeUtils.isSuccessorOf(field.getType(), "org.eclipse.ui.forms.widgets.FormToolkit")) {
-          m_toolkitMethodName = null;
-          m_toolkitFieldName = field.getName();
-          m_formMethodName = null;
-          m_formFieldName = null;
-          m_toolkitSource = m_toolkitFieldName;
-          return;
-        }
-      }
-    }
-    // try to find IManagedForm: method
-    {
-      ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
-      List<IMethodBinding> methodBindings =
-          AstNodeUtils.getMethodBindings(typeBinding.getSuperclass(), Modifier.PUBLIC
-              | Modifier.PROTECTED);
-      for (IMethodBinding methodBinding : methodBindings) {
-        if (methodBinding.getParameterTypes().length == 0
-            && AstNodeUtils.isSuccessorOf(
-                methodBinding.getReturnType(),
-                "org.eclipse.ui.forms.IManagedForm")) {
-          m_toolkitMethodName = null;
-          m_toolkitFieldName = null;
-          m_formMethodName = methodBinding.getName();
-          m_formFieldName = null;
-          m_toolkitSource = m_formMethodName + "().getToolkit()";
-          return;
-        }
-      }
-    }
-    // try to find IManagedForm: field
-    {
-      ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
-      List<IVariableBinding> fields =
-          AstNodeUtils.getFieldBindings(typeBinding, Modifier.PUBLIC
-              | Modifier.PROTECTED
-              | Modifier.PRIVATE);
-      for (IVariableBinding field : fields) {
-        if (AstNodeUtils.isSuccessorOf(field.getType(), "org.eclipse.ui.forms.IManagedForm")) {
-          m_toolkitMethodName = null;
-          m_toolkitFieldName = null;
-          m_formMethodName = null;
-          m_formFieldName = field.getName();
-          m_toolkitSource = m_formFieldName + ".getToolkit()";
-          return;
-        }
-      }
-    }
-    // can not find FormToolkit/IManagedForm
-    throw new NoFormToolkitError();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private FormToolkitAccess(TypeDeclaration typeDeclaration) {
+		// try to find FormToolkit in local variable declaration
+		{
+			ListGatherer<SimpleName> listGatherer = new ListGatherer<SimpleName>() {
+				@Override
+				public void postVisit(ASTNode node) {
+					if (node instanceof SimpleName
+							&& node.getLocationInParent() == VariableDeclarationFragment.NAME_PROPERTY) {
+						SimpleName variable = (SimpleName) node;
+						if (AstNodeUtils.isSuccessorOf(
+								variable.resolveTypeBinding(),
+								"org.eclipse.ui.forms.widgets.FormToolkit")) {
+							addResult(variable);
+						}
+					}
+				}
+			};
+			typeDeclaration.accept(listGatherer);
+			List<SimpleName> variables = listGatherer.getResultList();
+			if (!variables.isEmpty()) {
+				m_toolkitMethodName = null;
+				m_toolkitFieldName = variables.get(0).getIdentifier();
+				m_formMethodName = null;
+				m_formFieldName = null;
+				m_toolkitSource = m_toolkitFieldName;
+				return;
+			}
+		}
+		// try to find FormToolkit: method
+		{
+			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
+			List<IMethodBinding> methodBindings =
+					AstNodeUtils.getMethodBindings(typeBinding.getSuperclass(), Modifier.PUBLIC
+							| Modifier.PROTECTED);
+			for (IMethodBinding methodBinding : methodBindings) {
+				if (methodBinding.getParameterTypes().length == 0
+						&& AstNodeUtils.isSuccessorOf(
+								methodBinding.getReturnType(),
+								"org.eclipse.ui.forms.widgets.FormToolkit")) {
+					m_toolkitMethodName = methodBinding.getName();
+					m_toolkitFieldName = null;
+					m_formMethodName = null;
+					m_formFieldName = null;
+					m_toolkitSource = m_toolkitMethodName + "()";
+					return;
+				}
+			}
+		}
+		// try to find FormToolkit: field
+		{
+			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
+			List<IVariableBinding> fields =
+					AstNodeUtils.getFieldBindings(typeBinding, Modifier.PUBLIC
+							| Modifier.PROTECTED
+							| Modifier.PRIVATE);
+			for (IVariableBinding field : fields) {
+				if (AstNodeUtils.isSuccessorOf(field.getType(), "org.eclipse.ui.forms.widgets.FormToolkit")) {
+					m_toolkitMethodName = null;
+					m_toolkitFieldName = field.getName();
+					m_formMethodName = null;
+					m_formFieldName = null;
+					m_toolkitSource = m_toolkitFieldName;
+					return;
+				}
+			}
+		}
+		// try to find IManagedForm: method
+		{
+			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
+			List<IMethodBinding> methodBindings =
+					AstNodeUtils.getMethodBindings(typeBinding.getSuperclass(), Modifier.PUBLIC
+							| Modifier.PROTECTED);
+			for (IMethodBinding methodBinding : methodBindings) {
+				if (methodBinding.getParameterTypes().length == 0
+						&& AstNodeUtils.isSuccessorOf(
+								methodBinding.getReturnType(),
+								"org.eclipse.ui.forms.IManagedForm")) {
+					m_toolkitMethodName = null;
+					m_toolkitFieldName = null;
+					m_formMethodName = methodBinding.getName();
+					m_formFieldName = null;
+					m_toolkitSource = m_formMethodName + "().getToolkit()";
+					return;
+				}
+			}
+		}
+		// try to find IManagedForm: field
+		{
+			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
+			List<IVariableBinding> fields =
+					AstNodeUtils.getFieldBindings(typeBinding, Modifier.PUBLIC
+							| Modifier.PROTECTED
+							| Modifier.PRIVATE);
+			for (IVariableBinding field : fields) {
+				if (AstNodeUtils.isSuccessorOf(field.getType(), "org.eclipse.ui.forms.IManagedForm")) {
+					m_toolkitMethodName = null;
+					m_toolkitFieldName = null;
+					m_formMethodName = null;
+					m_formFieldName = field.getName();
+					m_toolkitSource = m_formFieldName + ".getToolkit()";
+					return;
+				}
+			}
+		}
+		// can not find FormToolkit/IManagedForm
+		throw new NoFormToolkitError();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given {@link ASTNode} represents access of our {@link FormToolkit}
-   *         .
-   */
-  public boolean isToolkit(ASTNode node) {
-    if (node instanceof MethodInvocation) {
-      MethodInvocation invocation = (MethodInvocation) node;
-      if (invocation.arguments().isEmpty()) {
-        // getMyToolkit()
-        if (m_toolkitMethodName != null
-            && invocation.getName().getIdentifier().equals(m_toolkitMethodName)) {
-          return true;
-        }
-        // someExpression.getToolkit()
-        if (invocation.getName().getIdentifier().equals("getToolkit")) {
-          // getMyManagedForm().getToolkit()
-          if (invocation.getExpression() instanceof MethodInvocation) {
-            MethodInvocation formInvocation = (MethodInvocation) invocation.getExpression();
-            if (formInvocation.arguments().isEmpty()
-                && m_formMethodName != null
-                && formInvocation.getName().getIdentifier().equals(m_formMethodName)) {
-              return true;
-            }
-          }
-          // m_myManagedForm.getToolkit()
-          if (invocation.getExpression() instanceof SimpleName) {
-            SimpleName simpleName = (SimpleName) invocation.getExpression();
-            if (m_formFieldName != null && simpleName.getIdentifier().equals(m_formFieldName)) {
-              return true;
-            }
-          }
-        }
-      }
-    }
-    // m_myToolkit
-    if (node instanceof SimpleName) {
-      SimpleName simpleName = (SimpleName) node;
-      if (m_toolkitFieldName != null && simpleName.getIdentifier().equals(m_toolkitFieldName)) {
-        return true;
-      }
-    }
-    // unknown node
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given {@link ASTNode} represents access of our {@link FormToolkit}
+	 *         .
+	 */
+	public boolean isToolkit(ASTNode node) {
+		if (node instanceof MethodInvocation) {
+			MethodInvocation invocation = (MethodInvocation) node;
+			if (invocation.arguments().isEmpty()) {
+				// getMyToolkit()
+				if (m_toolkitMethodName != null
+						&& invocation.getName().getIdentifier().equals(m_toolkitMethodName)) {
+					return true;
+				}
+				// someExpression.getToolkit()
+				if (invocation.getName().getIdentifier().equals("getToolkit")) {
+					// getMyManagedForm().getToolkit()
+					if (invocation.getExpression() instanceof MethodInvocation) {
+						MethodInvocation formInvocation = (MethodInvocation) invocation.getExpression();
+						if (formInvocation.arguments().isEmpty()
+								&& m_formMethodName != null
+								&& formInvocation.getName().getIdentifier().equals(m_formMethodName)) {
+							return true;
+						}
+					}
+					// m_myManagedForm.getToolkit()
+					if (invocation.getExpression() instanceof SimpleName) {
+						SimpleName simpleName = (SimpleName) invocation.getExpression();
+						if (m_formFieldName != null && simpleName.getIdentifier().equals(m_formFieldName)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		// m_myToolkit
+		if (node instanceof SimpleName) {
+			SimpleName simpleName = (SimpleName) node;
+			if (m_toolkitFieldName != null && simpleName.getIdentifier().equals(m_toolkitFieldName)) {
+				return true;
+			}
+		}
+		// unknown node
+		return false;
+	}
 
-  /**
-   * @return the Java source code to reference our {@link FormToolkit}.
-   */
-  public String getReferenceExpression() {
-    return m_toolkitSource;
-  }
+	/**
+	 * @return the Java source code to reference our {@link FormToolkit}.
+	 */
+	public String getReferenceExpression() {
+		return m_toolkitSource;
+	}
 }

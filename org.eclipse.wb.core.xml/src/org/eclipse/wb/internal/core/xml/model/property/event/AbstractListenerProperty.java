@@ -23,33 +23,33 @@ import org.eclipse.jface.action.IMenuManager;
  * @coverage XML.model.property
  */
 public abstract class AbstractListenerProperty extends AbstractEventProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractListenerProperty(XmlObjectInfo object, String title, PropertyEditor propertyEditor) {
-    super(object, title, propertyEditor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractListenerProperty(XmlObjectInfo object, String title, PropertyEditor propertyEditor) {
+		super(object, title, propertyEditor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Opens Java editor with event listener, creates it if needed and possible.
-   */
-  protected abstract void openListener() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Opens Java editor with event listener, creates it if needed and possible.
+	 */
+	protected abstract void openListener() throws Exception;
 
-  /**
-   * Removes listener for this event.
-   */
-  protected abstract void removeListener() throws Exception;
+	/**
+	 * Removes listener for this event.
+	 */
+	protected abstract void removeListener() throws Exception;
 
-  /**
-   * Contributes actions into context menu.
-   */
-  protected abstract void addListenerActions(IMenuManager manager, IMenuManager implementMenuManager)
-      throws Exception;
+	/**
+	 * Contributes actions into context menu.
+	 */
+	protected abstract void addListenerActions(IMenuManager manager, IMenuManager implementMenuManager)
+			throws Exception;
 }

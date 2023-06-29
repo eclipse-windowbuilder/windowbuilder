@@ -30,48 +30,48 @@ import java.util.List;
  * @author mitin_aa
  */
 final class FormHeaderSelectionEditPolicy extends AbstractHeaderSelectionEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormHeaderSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
-    super(mainPolicy);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormHeaderSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
+		super(mainPolicy);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    // move handle
-    {
-      MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
-      moveHandle.setBorder(null);
-      handles.add(moveHandle);
-    }
-    //
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		// move handle
+		{
+			MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
+			moveHandle.setBorder(null);
+			handles.add(moveHandle);
+		}
+		//
+		return handles;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Move location
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link ILocator} to place handle directly on header.
-   */
-  private class HeaderMoveHandleLocator implements ILocator {
-    @Override
-    public void relocate(Figure target) {
-      Figure reference = getHostFigure();
-      Rectangle bounds = reference.getBounds().getCopy();
-      FigureUtils.translateFigureToFigure(reference, target, bounds);
-      target.setBounds(bounds);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Move location
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link ILocator} to place handle directly on header.
+	 */
+	private class HeaderMoveHandleLocator implements ILocator {
+		@Override
+		public void relocate(Figure target) {
+			Figure reference = getHostFigure();
+			Rectangle bounds = reference.getBounds().getCopy();
+			FigureUtils.translateFigureToFigure(reference, target, bounds);
+			target.setBounds(bounds);
+		}
+	}
 }

@@ -23,30 +23,30 @@ import java.util.List;
  * @coverage core.model.creation
  */
 public final class InstanceFactoryRootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new InstanceFactoryRootProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new InstanceFactoryRootProcessor();
 
-  private InstanceFactoryRootProcessor() {
-  }
+	private InstanceFactoryRootProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    for (JavaInfo javaInfo : components) {
-      if (javaInfo instanceof InstanceFactoryInfo) {
-        InstanceFactoryInfo instanceFactoryInfo = (InstanceFactoryInfo) javaInfo;
-        InstanceFactoryContainerInfo containerInfo = InstanceFactoryContainerInfo.get(root);
-        containerInfo.addChild(instanceFactoryInfo);
-        instanceFactoryInfo.setAssociation(new EmptyAssociation());
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		for (JavaInfo javaInfo : components) {
+			if (javaInfo instanceof InstanceFactoryInfo) {
+				InstanceFactoryInfo instanceFactoryInfo = (InstanceFactoryInfo) javaInfo;
+				InstanceFactoryContainerInfo containerInfo = InstanceFactoryContainerInfo.get(root);
+				containerInfo.addChild(instanceFactoryInfo);
+				instanceFactoryInfo.setAssociation(new EmptyAssociation());
+			}
+		}
+	}
 }

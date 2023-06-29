@@ -20,41 +20,41 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
  * @coverage core.model.description
  */
 public final class ComponentOrderBeforeSibling extends ComponentOrder {
-  private final String m_nextComponentClass;
+	private final String m_nextComponentClass;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComponentOrderBeforeSibling(String nextComponentClass) {
-    m_nextComponentClass = nextComponentClass;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComponentOrderBeforeSibling(String nextComponentClass) {
+		m_nextComponentClass = nextComponentClass;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ComponentOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public JavaInfo getNextComponent_whenLast(JavaInfo component, JavaInfo container)
-      throws Exception {
-    for (JavaInfo sibling : container.getChildrenJava()) {
-      if (isNextSibling(sibling)) {
-        return sibling;
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ComponentOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public JavaInfo getNextComponent_whenLast(JavaInfo component, JavaInfo container)
+			throws Exception {
+		for (JavaInfo sibling : container.getChildrenJava()) {
+			if (isNextSibling(sibling)) {
+				return sibling;
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean isNextSibling(JavaInfo sibling) {
-    return ReflectionUtils.isSuccessorOf(
-        sibling.getDescription().getComponentClass(),
-        m_nextComponentClass);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean isNextSibling(JavaInfo sibling) {
+		return ReflectionUtils.isSuccessorOf(
+				sibling.getDescription().getComponentClass(),
+				m_nextComponentClass);
+	}
 }

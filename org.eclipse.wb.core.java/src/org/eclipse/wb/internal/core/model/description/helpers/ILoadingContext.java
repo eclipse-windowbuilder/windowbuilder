@@ -22,13 +22,13 @@ import java.util.List;
  * @coverage core.model.description
  */
 public interface ILoadingContext {
-  String getToolkitId();
+	String getToolkitId();
 
-  URL getResource(String name) throws Exception;
+	URL getResource(String name) throws Exception;
 
-  Object getGlobalValue(String key);
+	Object getGlobalValue(String key);
 
-  void putGlobalValue(String key, Object value);
+	void putGlobalValue(String key, Object value);
 
-  List<IDescriptionVersionsProvider> getDescriptionVersionsProviders();
+	List<IDescriptionVersionsProvider> getDescriptionVersionsProviders();
 }

@@ -35,90 +35,90 @@ import org.eclipse.swt.SWT;
  * @coverage swing.gef.part
  */
 public final class ContainerEditPart extends ComponentEditPart {
-  private final ContainerInfo m_container;
+	private final ContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ContainerEditPart(ContainerInfo container) {
-    super(container);
-    m_container = container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ContainerEditPart(ContainerInfo container) {
+		super(container);
+		m_container = container;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void drawCustomBorder(Figure figure, Graphics graphics) {
-    try {
-      if (m_container.shouldDrawDotsBorder()) {
-        graphics.setForegroundColor(IColorConstants.gray);
-        graphics.setLineStyle(SWT.LINE_DOT);
-        Rectangle area = figure.getClientArea();
-        graphics.drawRectangle(0, 0, area.width - 1, area.height - 1);
-      }
-    } catch (Throwable e) {
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void drawCustomBorder(Figure figure, Graphics graphics) {
+		try {
+			if (m_container.shouldDrawDotsBorder()) {
+				graphics.setForegroundColor(IColorConstants.gray);
+				graphics.setLineStyle(SWT.LINE_DOT);
+				Rectangle area = figure.getClientArea();
+				graphics.drawRectangle(0, 0, area.width - 1, area.height - 1);
+			}
+		} catch (Throwable e) {
+		}
+	}
 
-  @Override
-  protected void addChildVisual(EditPart childPart, int index) {
-    super.addChildVisual(childPart, getFigure().getChildren().size() - index);
-  }
+	@Override
+	protected void addChildVisual(EditPart childPart, int index) {
+		super.addChildVisual(childPart, getFigure().getChildren().size() - index);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LayoutInfo m_currentLayout;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LayoutInfo m_currentLayout;
 
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    // support for dropping LayoutInfo's
-    if (m_container.canSetLayout()) {
-      installEditPolicy(new DropLayoutEditPolicy(m_container));
-    }
-    // support tab ordering for children
-    installEditPolicy(
-        TabOrderContainerEditPolicy.TAB_CONTAINER_ROLE,
-        new TabOrderContainerEditPolicy());
-  }
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		// support for dropping LayoutInfo's
+		if (m_container.canSetLayout()) {
+			installEditPolicy(new DropLayoutEditPolicy(m_container));
+		}
+		// support tab ordering for children
+		installEditPolicy(
+				TabOrderContainerEditPolicy.TAB_CONTAINER_ROLE,
+				new TabOrderContainerEditPolicy());
+	}
 
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    // support for dropping components
-    if (m_container.hasLayout()) {
-      LayoutInfo layout = m_container.getLayout();
-      if (m_currentLayout != layout) {
-        m_currentLayout = layout;
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		// support for dropping components
+		if (m_container.hasLayout()) {
+			LayoutInfo layout = m_container.getLayout();
+			if (m_currentLayout != layout) {
+				m_currentLayout = layout;
 
-		if (layout.getDescription().getComponentClass() != null) {
-			if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
-					.getBoolean(layout.getDescription().getComponentClass().getName(), true)) {
-				try {
-					m_currentLayout = m_container.getDefaultContainerInfo();
-					m_container.setLayout(m_currentLayout);
-				} catch (Exception e) {
-					e.printStackTrace();
+				if (layout.getDescription().getComponentClass() != null) {
+					if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+							.getBoolean(layout.getDescription().getComponentClass().getName(), true)) {
+						try {
+							m_currentLayout = m_container.getDefaultContainerInfo();
+							m_container.setLayout(m_currentLayout);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+				LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
+				installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
+
+			} else {
+				EditPolicy policy = getEditPolicy(EditPolicy.LAYOUT_ROLE);
+				if (policy instanceof IRefreshableEditPolicy) {
+					((IRefreshableEditPolicy) policy).refreshEditPolicy();
 				}
 			}
 		}
-		LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
-
-	} else {
-		EditPolicy policy = getEditPolicy(EditPolicy.LAYOUT_ROLE);
-		if (policy instanceof IRefreshableEditPolicy) {
-			((IRefreshableEditPolicy) policy).refreshEditPolicy();
-		}
-      }
-    }
-  }
+	}
 }

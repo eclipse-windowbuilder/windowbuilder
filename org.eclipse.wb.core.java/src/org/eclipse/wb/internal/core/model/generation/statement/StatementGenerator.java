@@ -26,30 +26,30 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @coverage core.model.generation
  */
 public abstract class StatementGenerator {
-  /**
-   * Adds given statements according rules of this {@link StatementGenerator}.
-   *
-   * @param child
-   *          the child {@link JavaInfo} that will be added to the given parent
-   * @param target
-   *          the target for association statement
-   * @param associationStatementSource
-   *          the source of statement for parent/child association
-   * @param variableStatementSource
-   *          the source of variable statement (can be <code>null</code>)
-   */
-  public abstract void add(JavaInfo child, StatementTarget target, Association association)
-      throws Exception;
+	/**
+	 * Adds given statements according rules of this {@link StatementGenerator}.
+	 *
+	 * @param child
+	 *          the child {@link JavaInfo} that will be added to the given parent
+	 * @param target
+	 *          the target for association statement
+	 * @param associationStatementSource
+	 *          the source of statement for parent/child association
+	 * @param variableStatementSource
+	 *          the source of variable statement (can be <code>null</code>)
+	 */
+	public abstract void add(JavaInfo child, StatementTarget target, Association association)
+			throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link IPreferenceStore} for given {@link JavaInfo}.
-   */
-  protected final IPreferenceStore getPreferences(JavaInfo javaInfo) {
-    return javaInfo.getDescription().getToolkit().getPreferences();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link IPreferenceStore} for given {@link JavaInfo}.
+	 */
+	protected final IPreferenceStore getPreferences(JavaInfo javaInfo) {
+		return javaInfo.getDescription().getToolkit().getPreferences();
+	}
 }

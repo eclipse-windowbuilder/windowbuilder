@@ -63,398 +63,398 @@ import java.util.List;
  * @coverage bindings.swing.model.bindings
  */
 public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo, IASTObjectInfo2 {
-  private static final String SET_CONVERTER =
-      "org.jdesktop.beansbinding.Binding.setConverter(org.jdesktop.beansbinding.Converter)";
-  private static final String SET_VALIDATOR =
-      "org.jdesktop.beansbinding.Binding.setValidator(org.jdesktop.beansbinding.Validator)";
-  //
-  private static ChooseClassConfiguration m_converterConfiguration;
-  private static ChooseClassConfiguration m_validatorConfiguration;
-  //
-  protected final ObserveInfo m_target;
-  protected final ObserveInfo m_targetProperty;
-  protected final PropertyInfo m_targetAstProperty;
-  protected final ObserveInfo m_model;
-  protected final ObserveInfo m_modelProperty;
-  protected final PropertyInfo m_modelAstProperty;
-  protected ConverterInfo m_converter;
-  protected ValidatorInfo m_validator;
-  private String m_name;
-  private boolean m_field;
+	private static final String SET_CONVERTER =
+			"org.jdesktop.beansbinding.Binding.setConverter(org.jdesktop.beansbinding.Converter)";
+	private static final String SET_VALIDATOR =
+			"org.jdesktop.beansbinding.Binding.setValidator(org.jdesktop.beansbinding.Validator)";
+	//
+	private static ChooseClassConfiguration m_converterConfiguration;
+	private static ChooseClassConfiguration m_validatorConfiguration;
+	//
+	protected final ObserveInfo m_target;
+	protected final ObserveInfo m_targetProperty;
+	protected final PropertyInfo m_targetAstProperty;
+	protected final ObserveInfo m_model;
+	protected final ObserveInfo m_modelProperty;
+	protected final PropertyInfo m_modelAstProperty;
+	protected ConverterInfo m_converter;
+	protected ValidatorInfo m_validator;
+	private String m_name;
+	private boolean m_field;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BindingInfo(ObserveInfo target,
-      ObserveInfo targetProperty,
-      PropertyInfo targetAstProperty,
-      ObserveInfo model,
-      ObserveInfo modelProperty,
-      PropertyInfo modelAstProperty) {
-    m_target = target;
-    m_targetProperty = targetProperty;
-    m_targetAstProperty = targetAstProperty;
-    m_model = model;
-    m_modelProperty = modelProperty;
-    m_modelAstProperty = modelAstProperty;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BindingInfo(ObserveInfo target,
+			ObserveInfo targetProperty,
+			PropertyInfo targetAstProperty,
+			ObserveInfo model,
+			ObserveInfo modelProperty,
+			PropertyInfo modelAstProperty) {
+		m_target = target;
+		m_targetProperty = targetProperty;
+		m_targetAstProperty = targetAstProperty;
+		m_model = model;
+		m_modelProperty = modelProperty;
+		m_modelAstProperty = modelAstProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final IObserveInfo getTarget() {
-    return m_target;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final IObserveInfo getTarget() {
+		return m_target;
+	}
 
-  public final IObserveInfo getTargetProperty() {
-    return m_targetProperty;
-  }
+	public final IObserveInfo getTargetProperty() {
+		return m_targetProperty;
+	}
 
-  public IGenericType getTargetPropertyType() {
-    return m_targetProperty.getObjectType();
-  }
+	public IGenericType getTargetPropertyType() {
+		return m_targetProperty.getObjectType();
+	}
 
-  public final PropertyInfo getTargetAstProperty() {
-    return m_targetAstProperty;
-  }
+	public final PropertyInfo getTargetAstProperty() {
+		return m_targetAstProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Model
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final IObserveInfo getModel() {
-    return m_model;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Model
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final IObserveInfo getModel() {
+		return m_model;
+	}
 
-  public final IObserveInfo getModelProperty() {
-    return m_modelProperty;
-  }
+	public final IObserveInfo getModelProperty() {
+		return m_modelProperty;
+	}
 
-  public IGenericType getModelPropertyType() {
-    return m_modelProperty.getObjectType();
-  }
+	public IGenericType getModelPropertyType() {
+		return m_modelProperty.getObjectType();
+	}
 
-  public final PropertyInfo getModelAstProperty() {
-    return m_modelAstProperty;
-  }
+	public final PropertyInfo getModelAstProperty() {
+		return m_modelAstProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getName() {
-    return m_name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getName() {
+		return m_name;
+	}
 
-  public void setName(String name) {
-    m_name = name;
-  }
+	public void setName(String name) {
+		m_name = name;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Converter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final ConverterInfo getConverter() {
-    return m_converter;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Converter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final ConverterInfo getConverter() {
+		return m_converter;
+	}
 
-  public final void setConverter(ConverterInfo converter) {
-    m_converter = converter;
-  }
+	public final void setConverter(ConverterInfo converter) {
+		m_converter = converter;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final ValidatorInfo getValidator() {
-    return m_validator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final ValidatorInfo getValidator() {
+		return m_validator;
+	}
 
-  public final void setValidator(ValidatorInfo validator) {
-    m_validator = validator;
-  }
+	public final void setValidator(ValidatorInfo validator) {
+		m_validator = validator;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create {@link IUiContentProvider} content providers for edit this model.
-   *
-   * @param provider
-   *          TODO
-   */
-  public void createContentProviders(List<BindingInfo> bindings,
-      List<IUiContentProvider> providers,
-      IPageListener listener,
-      DatabindingsProvider provider) throws Exception {
-    // configure page
-    listener.setTitle(Messages.BindingInfo_listenerTitle);
-    listener.setMessage(Messages.BindingInfo_listenerMessage);
-    // add target editors
-    providers.add(new LabelUiContentProvider(Messages.BindingInfo_target,
-        getTargetPresentationText(false)));
-    m_targetProperty.createContentProviders(providers, m_target, m_targetAstProperty);
-    // add model editors
-    providers.add(new LabelUiContentProvider(Messages.BindingInfo_model,
-        getModelPresentationText(false)));
-    m_modelProperty.createContentProviders(providers, m_model, m_modelAstProperty);
-    // binding self properties
-    providers.add(new ConverterUiContentProvider(createConverterConfiguration(), this));
-    providers.add(new ValidatorUiContentProvider(createValidatorConfiguration(), this));
-    providers.add(new BindingNameUiContentProvider(this));
-    providers.add(new BindingContentProvider(this, provider.getJavaInfoRoot()));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create {@link IUiContentProvider} content providers for edit this model.
+	 *
+	 * @param provider
+	 *          TODO
+	 */
+	public void createContentProviders(List<BindingInfo> bindings,
+			List<IUiContentProvider> providers,
+			IPageListener listener,
+			DatabindingsProvider provider) throws Exception {
+		// configure page
+		listener.setTitle(Messages.BindingInfo_listenerTitle);
+		listener.setMessage(Messages.BindingInfo_listenerMessage);
+		// add target editors
+		providers.add(new LabelUiContentProvider(Messages.BindingInfo_target,
+				getTargetPresentationText(false)));
+		m_targetProperty.createContentProviders(providers, m_target, m_targetAstProperty);
+		// add model editors
+		providers.add(new LabelUiContentProvider(Messages.BindingInfo_model,
+				getModelPresentationText(false)));
+		m_modelProperty.createContentProviders(providers, m_model, m_modelAstProperty);
+		// binding self properties
+		providers.add(new ConverterUiContentProvider(createConverterConfiguration(), this));
+		providers.add(new ValidatorUiContentProvider(createValidatorConfiguration(), this));
+		providers.add(new BindingNameUiContentProvider(this));
+		providers.add(new BindingContentProvider(this, provider.getJavaInfoRoot()));
+	}
 
-  protected final ChooseClassConfiguration createConverterConfiguration() {
-    if (m_converterConfiguration == null) {
-      m_converterConfiguration = new ChooseClassConfiguration();
-      m_converterConfiguration.setDialogFieldLabel(Messages.BindingInfo_converterLabel);
-      m_converterConfiguration.setValueScope("org.jdesktop.beansbinding.Converter");
-      m_converterConfiguration.setClearValue("N/S");
-      m_converterConfiguration.setBaseClassName("org.jdesktop.beansbinding.Converter");
-      m_converterConfiguration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-      m_converterConfiguration.setEmptyClassErrorMessage(Messages.BindingInfo_converterError);
-      m_converterConfiguration.setErrorMessagePrefix(Messages.BindingInfo_converterErrorPrefix);
-    }
-    m_converterConfiguration.clearDefaultStrings();
-    if (m_converter != null && !StringUtils.isEmpty(m_converter.getParameters())) {
-      m_converterConfiguration.addDefaultStart(m_converter.getFullClassName());
-    }
-    return m_converterConfiguration;
-  }
+	protected final ChooseClassConfiguration createConverterConfiguration() {
+		if (m_converterConfiguration == null) {
+			m_converterConfiguration = new ChooseClassConfiguration();
+			m_converterConfiguration.setDialogFieldLabel(Messages.BindingInfo_converterLabel);
+			m_converterConfiguration.setValueScope("org.jdesktop.beansbinding.Converter");
+			m_converterConfiguration.setClearValue("N/S");
+			m_converterConfiguration.setBaseClassName("org.jdesktop.beansbinding.Converter");
+			m_converterConfiguration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
+			m_converterConfiguration.setEmptyClassErrorMessage(Messages.BindingInfo_converterError);
+			m_converterConfiguration.setErrorMessagePrefix(Messages.BindingInfo_converterErrorPrefix);
+		}
+		m_converterConfiguration.clearDefaultStrings();
+		if (m_converter != null && !StringUtils.isEmpty(m_converter.getParameters())) {
+			m_converterConfiguration.addDefaultStart(m_converter.getFullClassName());
+		}
+		return m_converterConfiguration;
+	}
 
-  protected final ChooseClassConfiguration createValidatorConfiguration() {
-    if (m_validatorConfiguration == null) {
-      m_validatorConfiguration = new ChooseClassConfiguration();
-      m_validatorConfiguration.setDialogFieldLabel(Messages.BindingInfo_validatorLabel);
-      m_validatorConfiguration.setValueScope("org.jdesktop.beansbinding.Validator");
-      m_validatorConfiguration.setClearValue("N/S");
-      m_validatorConfiguration.setBaseClassName("org.jdesktop.beansbinding.Validator");
-      m_validatorConfiguration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-      m_validatorConfiguration.setEmptyClassErrorMessage(Messages.BindingInfo_validatorError);
-      m_validatorConfiguration.setErrorMessagePrefix(Messages.BindingInfo_validatorErrorPrefix);
-    }
-    m_validatorConfiguration.clearDefaultStrings();
-    if (m_validator != null && !StringUtils.isEmpty(m_validator.getParameters())) {
-      m_validatorConfiguration.addDefaultStart(m_validator.getFullClassName());
-    }
-    return m_validatorConfiguration;
-  }
+	protected final ChooseClassConfiguration createValidatorConfiguration() {
+		if (m_validatorConfiguration == null) {
+			m_validatorConfiguration = new ChooseClassConfiguration();
+			m_validatorConfiguration.setDialogFieldLabel(Messages.BindingInfo_validatorLabel);
+			m_validatorConfiguration.setValueScope("org.jdesktop.beansbinding.Validator");
+			m_validatorConfiguration.setClearValue("N/S");
+			m_validatorConfiguration.setBaseClassName("org.jdesktop.beansbinding.Validator");
+			m_validatorConfiguration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
+			m_validatorConfiguration.setEmptyClassErrorMessage(Messages.BindingInfo_validatorError);
+			m_validatorConfiguration.setErrorMessagePrefix(Messages.BindingInfo_validatorErrorPrefix);
+		}
+		m_validatorConfiguration.clearDefaultStrings();
+		if (m_validator != null && !StringUtils.isEmpty(m_validator.getParameters())) {
+			m_validatorConfiguration.addDefaultStart(m_validator.getFullClassName());
+		}
+		return m_validatorConfiguration;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IASTObjectInfo2
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final boolean isField() {
-    return m_field;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IASTObjectInfo2
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final boolean isField() {
+		return m_field;
+	}
 
-  public final void setField() {
-    m_field = true;
-  }
+	public final void setField() {
+		m_field = true;
+	}
 
-  protected final void setVariableIdentifier(final JavaInfo javaInfoRoot,
-      final String type,
-      final String newVariable,
-      boolean newFieldState) {
-    try {
-      boolean oldFieldState = m_field;
-      m_field = newFieldState;
-      //
-      final String oldVariable = getVariableIdentifier();
-      setVariableIdentifier(newVariable);
-      final TypeDeclaration rootNode = JavaInfoUtils.getTypeDeclaration(javaInfoRoot);
-      //
-      if (!oldFieldState && newFieldState) {
-        ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
-          public void run() throws Exception {
-            BodyDeclarationTarget fieldTarget = new BodyDeclarationTarget(rootNode, null, true);
-            javaInfoRoot.getEditor().addFieldDeclaration(
-                "private " + type + " " + newVariable + ";",
-                fieldTarget);
-          }
-        });
-      } else if (oldFieldState && !newFieldState) {
-        ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
-          public void run() throws Exception {
-            for (FieldDeclaration field : rootNode.getFields()) {
-              VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
-              if (fragment.getName().getIdentifier().equals(oldVariable)) {
-                javaInfoRoot.getEditor().removeBodyDeclaration(field);
-                return;
-              }
-            }
-            Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
-          }
-        });
-      } else if (oldFieldState && newFieldState) {
-        ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
-          public void run() throws Exception {
-            for (FieldDeclaration field : rootNode.getFields()) {
-              VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
-              if (fragment.getName().getIdentifier().equals(oldVariable)) {
-                javaInfoRoot.getEditor().setIdentifier(fragment.getName(), newVariable);
-                return;
-              }
-            }
-            Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
-          }
-        });
-      }
-    } catch (Throwable e) {
-      DesignerPlugin.log(e);
-    }
-  }
+	protected final void setVariableIdentifier(final JavaInfo javaInfoRoot,
+			final String type,
+			final String newVariable,
+			boolean newFieldState) {
+		try {
+			boolean oldFieldState = m_field;
+			m_field = newFieldState;
+			//
+			final String oldVariable = getVariableIdentifier();
+			setVariableIdentifier(newVariable);
+			final TypeDeclaration rootNode = JavaInfoUtils.getTypeDeclaration(javaInfoRoot);
+			//
+			if (!oldFieldState && newFieldState) {
+				ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
+					public void run() throws Exception {
+						BodyDeclarationTarget fieldTarget = new BodyDeclarationTarget(rootNode, null, true);
+						javaInfoRoot.getEditor().addFieldDeclaration(
+								"private " + type + " " + newVariable + ";",
+								fieldTarget);
+					}
+				});
+			} else if (oldFieldState && !newFieldState) {
+				ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
+					public void run() throws Exception {
+						for (FieldDeclaration field : rootNode.getFields()) {
+							VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
+							if (fragment.getName().getIdentifier().equals(oldVariable)) {
+								javaInfoRoot.getEditor().removeBodyDeclaration(field);
+								return;
+							}
+						}
+						Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
+					}
+				});
+			} else if (oldFieldState && newFieldState) {
+				ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
+					public void run() throws Exception {
+						for (FieldDeclaration field : rootNode.getFields()) {
+							VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
+							if (fragment.getName().getIdentifier().equals(oldVariable)) {
+								javaInfoRoot.getEditor().setIdentifier(fragment.getName(), newVariable);
+								return;
+							}
+						}
+						Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
+					}
+				});
+			}
+		} catch (Throwable e) {
+			DesignerPlugin.log(e);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //  Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @see to org.jdesktop.beansbinding.Binding.isManaged()
-   */
-  public boolean isManaged() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//  Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @see to org.jdesktop.beansbinding.Binding.isManaged()
+	 */
+	public boolean isManaged() {
+		return false;
+	}
 
-  protected final void addFinishSourceCode(List<String> lines,
-      CodeGenerationSupport generationSupport,
-      boolean addBind) throws Exception {
-    // converter
-    if (m_converter != null) {
-      lines.add(getVariableIdentifier()
-          + ".setConverter("
-          + m_converter.getSourceCode(lines, generationSupport)
-          + ");");
-    }
-    // validator
-    if (m_validator != null) {
-      lines.add(getVariableIdentifier()
-          + ".setValidator("
-          + m_validator.getSourceCode(lines, generationSupport)
-          + ");");
-    }
-    // bind
-    if (addBind) {
-      lines.add(getVariableIdentifier() + ".bind();");
-    }
-  }
+	protected final void addFinishSourceCode(List<String> lines,
+			CodeGenerationSupport generationSupport,
+			boolean addBind) throws Exception {
+		// converter
+		if (m_converter != null) {
+			lines.add(getVariableIdentifier()
+					+ ".setConverter("
+					+ m_converter.getSourceCode(lines, generationSupport)
+					+ ");");
+		}
+		// validator
+		if (m_validator != null) {
+			lines.add(getVariableIdentifier()
+					+ ".setValidator("
+					+ m_validator.getSourceCode(lines, generationSupport)
+					+ ");");
+		}
+		// bind
+		if (addBind) {
+			lines.add(getVariableIdentifier() + ".bind();");
+		}
+	}
 
-  protected final String getCreateMethodHeaderEnd() {
-    if (StringUtils.isEmpty(m_name)) {
-      return ")";
-    }
-    return ", \"" + StringUtilities.escapeJava(m_name) + "\")";
-  }
+	protected final String getCreateMethodHeaderEnd() {
+		if (StringUtils.isEmpty(m_name)) {
+			return ")";
+		}
+		return ", \"" + StringUtilities.escapeJava(m_name) + "\")";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    if (SET_CONVERTER.equals(signature)) {
-      // Binding.setConverter(Converter)
-      Assert.isNull(m_converter);
-      TypeObjectInfo converter = (TypeObjectInfo) resolver.getModel(arguments[0]);
-      if (converter == null) {
-        AbstractParser.addError(
-            editor,
-            MessageFormat.format(Messages.BindingInfo_converterNotFound, arguments[0]),
-            new Throwable());
-        return null;
-      }
-      m_converter = new ConverterInfo(converter.getObjectType(), this);
-      m_converter.setParameters(converter.getParameters());
-      m_converter.setVariableIdentifier(converter.getVariableIdentifier());
-    } else if (SET_VALIDATOR.equals(signature)) {
-      // Binding.setValidator(Validator)
-      Assert.isNull(m_validator);
-      TypeObjectInfo validator = (TypeObjectInfo) resolver.getModel(arguments[0]);
-      if (validator == null) {
-        AbstractParser.addError(
-            editor,
-            MessageFormat.format(Messages.BindingInfo_validatorNotFound, arguments[0]),
-            new Throwable());
-        return null;
-      }
-      m_validator = new ValidatorInfo(validator.getObjectType(), this);
-      m_validator.setParameters(validator.getParameters());
-      m_validator.setVariableIdentifier(validator.getVariableIdentifier());
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		if (SET_CONVERTER.equals(signature)) {
+			// Binding.setConverter(Converter)
+			Assert.isNull(m_converter);
+			TypeObjectInfo converter = (TypeObjectInfo) resolver.getModel(arguments[0]);
+			if (converter == null) {
+				AbstractParser.addError(
+						editor,
+						MessageFormat.format(Messages.BindingInfo_converterNotFound, arguments[0]),
+						new Throwable());
+				return null;
+			}
+			m_converter = new ConverterInfo(converter.getObjectType(), this);
+			m_converter.setParameters(converter.getParameters());
+			m_converter.setVariableIdentifier(converter.getVariableIdentifier());
+		} else if (SET_VALIDATOR.equals(signature)) {
+			// Binding.setValidator(Validator)
+			Assert.isNull(m_validator);
+			TypeObjectInfo validator = (TypeObjectInfo) resolver.getModel(arguments[0]);
+			if (validator == null) {
+				AbstractParser.addError(
+						editor,
+						MessageFormat.format(Messages.BindingInfo_validatorNotFound, arguments[0]),
+						new Throwable());
+				return null;
+			}
+			m_validator = new ValidatorInfo(validator.getObjectType(), this);
+			m_validator.setParameters(validator.getParameters());
+			m_validator.setVariableIdentifier(validator.getVariableIdentifier());
+		}
+		return null;
+	}
 
-  public void preCreate() throws Exception {
-  }
+	public void preCreate() throws Exception {
+	}
 
-  /**
-   * This method is invoked as last step of parsing.
-   */
-  public void create(List<BindingInfo> bindings) throws Exception {
-    m_target.createBinding(this);
-    m_targetProperty.createBinding(this);
-    m_model.createBinding(this);
-    m_modelProperty.createBinding(this);
-  }
+	/**
+	 * This method is invoked as last step of parsing.
+	 */
+	public void create(List<BindingInfo> bindings) throws Exception {
+		m_target.createBinding(this);
+		m_targetProperty.createBinding(this);
+		m_model.createBinding(this);
+		m_modelProperty.createBinding(this);
+	}
 
-  public void edit(List<BindingInfo> bindings) throws Exception {
-  }
+	public void edit(List<BindingInfo> bindings) throws Exception {
+	}
 
-  public boolean delete(List<BindingInfo> bindings) throws Exception {
-    return true;
-  }
+	public boolean delete(List<BindingInfo> bindings) throws Exception {
+		return true;
+	}
 
-  public void postDelete() throws Exception {
-    m_target.deleteBinding(this);
-    m_targetProperty.deleteBinding(this);
-    m_model.deleteBinding(this);
-    m_modelProperty.deleteBinding(this);
-  }
+	public void postDelete() throws Exception {
+		m_target.deleteBinding(this);
+		m_targetProperty.deleteBinding(this);
+		m_model.deleteBinding(this);
+		m_modelProperty.deleteBinding(this);
+	}
 
-  public void move(List<BindingInfo> bindings) {
-  }
+	public void move(List<BindingInfo> bindings) {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getTargetPresentationText(boolean full) throws Exception {
-    return m_targetAstProperty.getPresentationText(m_target, m_targetProperty, full);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getTargetPresentationText(boolean full) throws Exception {
+		return m_targetAstProperty.getPresentationText(m_target, m_targetProperty, full);
+	}
 
-  public String getModelPresentationText(boolean full) throws Exception {
-    return m_modelAstProperty.getPresentationText(m_model, m_modelProperty, full);
-  }
+	public String getModelPresentationText(boolean full) throws Exception {
+		return m_modelAstProperty.getPresentationText(m_model, m_modelProperty, full);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Visiting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void accept(AstObjectInfoVisitor visitor) throws Exception {
-    super.accept(visitor);
-    m_targetAstProperty.accept(visitor);
-    m_modelAstProperty.accept(visitor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Visiting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void accept(AstObjectInfoVisitor visitor) throws Exception {
+		super.accept(visitor);
+		m_targetAstProperty.accept(visitor);
+		m_modelAstProperty.accept(visitor);
+	}
 }

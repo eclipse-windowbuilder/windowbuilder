@@ -23,35 +23,35 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
  * @coverage core.editor.palette
  */
 public abstract class ToolEntryInfo extends EntryInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final boolean activate(final boolean reload) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
-        // prepare tool
-        Tool tool;
-        {
-          tool = createTool();
-          if (tool == null) {
-            return false;
-          }
-          tool.setUnloadWhenFinished(!reload);
-        }
-        // OK
-        m_editPartViewer.getEditDomain().setActiveTool(tool);
-        return true;
-      }
-    }, false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final boolean activate(final boolean reload) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+			@Override
+			public Boolean runObject() throws Exception {
+				// prepare tool
+				Tool tool;
+				{
+					tool = createTool();
+					if (tool == null) {
+						return false;
+					}
+					tool.setUnloadWhenFinished(!reload);
+				}
+				// OK
+				m_editPartViewer.getEditDomain().setActiveTool(tool);
+				return true;
+			}
+		}, false);
+	}
 
-  /**
-   * @return the {@link Tool} that should be set on activation, or <code>null</code> if no
-   *         {@link Tool} can be activated.
-   */
-  public abstract Tool createTool() throws Exception;
+	/**
+	 * @return the {@link Tool} that should be set on activation, or <code>null</code> if no
+	 *         {@link Tool} can be activated.
+	 */
+	public abstract Tool createTool() throws Exception;
 }

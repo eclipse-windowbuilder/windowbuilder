@@ -21,13 +21,13 @@ import java.util.List;
  * @coverage core.model
  */
 public interface JavaInfoTreeAlmostComplete {
-  /**
-   * Last step before building tree {@link JavaInfo} complete.
-   *
-   * @param root
-   *          the {@link JavaInfo} that is root of build component hierarchy.
-   * @param components
-   *          all components, bound and not bound, that were created during parsing.
-   */
-  void invoke(JavaInfo root, List<JavaInfo> components) throws Exception;
+	/**
+	 * Last step before building tree {@link JavaInfo} complete.
+	 *
+	 * @param root
+	 *          the {@link JavaInfo} that is root of build component hierarchy.
+	 * @param components
+	 *          all components, bound and not bound, that were created during parsing.
+	 */
+	void invoke(JavaInfo root, List<JavaInfo> components) throws Exception;
 }

@@ -18,47 +18,47 @@ import org.eclipse.core.runtime.IStatus;
  * @author scheglov_ke
  */
 public final class Binding {
-  private final IDataEditor m_editor;
-  private final IDataProvider m_provider;
+	private final IDataEditor m_editor;
+	private final IDataProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Binding(IDataEditor editor, IDataProvider provider) {
-    m_editor = editor;
-    m_provider = provider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Binding(IDataEditor editor, IDataProvider provider) {
+		m_editor = editor;
+		m_provider = provider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Updates {@link IDataEditor} with value from {@link IDataProvider}.
-   *
-   * @param def
-   *          is <code>true</code> if default value should be requested from {@link IDataProvider}.
-   */
-  void updateEditor(boolean def) {
-    Object value = m_provider.getValue(def);
-    m_editor.setValue(value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Updates {@link IDataEditor} with value from {@link IDataProvider}.
+	 *
+	 * @param def
+	 *          is <code>true</code> if default value should be requested from {@link IDataProvider}.
+	 */
+	void updateEditor(boolean def) {
+		Object value = m_provider.getValue(def);
+		m_editor.setValue(value);
+	}
 
-  /**
-   * Updates {@link IDataProvider} with value from {@link IDataEditor}.
-   *
-   * @return {@link IStatus} that shows if result of update was successful.
-   */
-  IStatus updateProvider() {
-    try {
-      Object value = m_editor.getValue();
-      m_provider.setValue(value);
-      return ValidationStatus.STATUS_OK;
-    } catch (Throwable e) {
-      return ValidationStatus.error(e.getMessage(), e);
-    }
-  }
+	/**
+	 * Updates {@link IDataProvider} with value from {@link IDataEditor}.
+	 *
+	 * @return {@link IStatus} that shows if result of update was successful.
+	 */
+	IStatus updateProvider() {
+		try {
+			Object value = m_editor.getValue();
+			m_provider.setValue(value);
+			return ValidationStatus.STATUS_OK;
+		} catch (Throwable e) {
+			return ValidationStatus.error(e.getMessage(), e);
+		}
+	}
 }

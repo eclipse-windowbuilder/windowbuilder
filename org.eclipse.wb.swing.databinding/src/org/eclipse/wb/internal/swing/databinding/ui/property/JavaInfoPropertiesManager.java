@@ -28,35 +28,35 @@ import org.eclipse.wb.internal.swing.databinding.model.components.JavaInfoRefere
  * @coverage bindings.swing.ui.properties
  */
 public class JavaInfoPropertiesManager extends AbstractJavaInfoPropertiesManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoPropertiesManager(IDatabindingsProvider provider, JavaInfo javaInfoRoot) {
-    super(provider, javaInfoRoot);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoPropertiesManager(IDatabindingsProvider provider, JavaInfo javaInfoRoot) {
+		super(provider, javaInfoRoot);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractJavaInfoPropertiesManager
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isCreateProperty(ObjectInfo objectInfo) throws Exception {
-    JavaInfo javaInfo = (JavaInfo) objectInfo;
-    if (JavaInfoUtils.hasTrueParameter(javaInfo, "databinding.disable")) {
-      return false;
-    }
-    if (!DataBindingsCodeUtils.isDBAvailable(javaInfo.getEditor().getJavaProject())) {
-      return false;
-    }
-    return (javaInfo instanceof AbstractComponentInfo || javaInfo.getParent() instanceof NonVisualBeanContainerInfo)
-        && JavaInfoReferenceProvider.getReference(javaInfo) != null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractJavaInfoPropertiesManager
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isCreateProperty(ObjectInfo objectInfo) throws Exception {
+		JavaInfo javaInfo = (JavaInfo) objectInfo;
+		if (JavaInfoUtils.hasTrueParameter(javaInfo, "databinding.disable")) {
+			return false;
+		}
+		if (!DataBindingsCodeUtils.isDBAvailable(javaInfo.getEditor().getJavaProject())) {
+			return false;
+		}
+		return (javaInfo instanceof AbstractComponentInfo || javaInfo.getParent() instanceof NonVisualBeanContainerInfo)
+				&& JavaInfoReferenceProvider.getReference(javaInfo) != null;
+	}
 
-  @Override
-  protected AbstractBindingsProperty createProperty(ObjectInfo objectInfo) throws Exception {
-    return new BindingsProperty(new Context(Activator.getDefault(), m_provider, objectInfo));
-  }
+	@Override
+	protected AbstractBindingsProperty createProperty(ObjectInfo objectInfo) throws Exception {
+		return new BindingsProperty(new Context(Activator.getDefault(), m_provider, objectInfo));
+	}
 }

@@ -28,70 +28,70 @@ import java.util.List;
  * @coverage XWT.model.widgets
  */
 public final class TreeItemInfo extends ItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TreeItemInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TreeItemInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the parent {@link TreeInfo}.
-   */
-  public TreeInfo getTree() {
-    if (getParent() instanceof TreeItemInfo) {
-      TreeItemInfo parentItem = (TreeItemInfo) getParent();
-      return parentItem.getTree();
-    }
-    return (TreeInfo) getParent();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the parent {@link TreeInfo}.
+	 */
+	public TreeInfo getTree() {
+		if (getParent() instanceof TreeItemInfo) {
+			TreeItemInfo parentItem = (TreeItemInfo) getParent();
+			return parentItem.getTree();
+		}
+		return (TreeInfo) getParent();
+	}
 
-  /**
-   * @return the {@link TreeItemInfo} children.
-   */
-  public List<TreeItemInfo> getItems() {
-    return getChildren(TreeItemInfo.class);
-  }
+	/**
+	 * @return the {@link TreeItemInfo} children.
+	 */
+	public List<TreeItemInfo> getItems() {
+		return getChildren(TreeItemInfo.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    {
-      Rectangle bounds = TreeSupport.getBounds(getObject());
-      setModelBounds(bounds);
-      // apply Tree client area insets
-      if (getParent() instanceof TreeItemInfo) {
-        Insets insets = getTree().getClientAreaInsets();
-        bounds.performTranslate(insets);
-        setBounds(bounds);
-      }
-    }
-    // continue in super()
-    super.refresh_fetch();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		{
+			Rectangle bounds = TreeSupport.getBounds(getObject());
+			setModelBounds(bounds);
+			// apply Tree client area insets
+			if (getParent() instanceof TreeItemInfo) {
+				Insets insets = getTree().getClientAreaInsets();
+				bounds.performTranslate(insets);
+				setBounds(bounds);
+			}
+		}
+		// continue in super()
+		super.refresh_fetch();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * After any using this {@link TreeItemInfo} as container.
-   */
-  public void command_TARGET_after(TreeItemInfo item, TreeItemInfo nextItem) throws Exception {
-    getPropertyByTitle("expanded").setValue(true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * After any using this {@link TreeItemInfo} as container.
+	 */
+	public void command_TARGET_after(TreeItemInfo item, TreeItemInfo nextItem) throws Exception {
+		getPropertyByTitle("expanded").setValue(true);
+	}
 }

@@ -22,15 +22,15 @@ import org.eclipse.ui.part.ViewPart;
  * @coverage core.views
  */
 public final class PaletteView extends AbstractExtractableDesignView {
-  public static final String ID = "org.eclipse.wb.core.PaletteView";
+	public static final String ID = "org.eclipse.wb.core.PaletteView";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractExtractableDesignView
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected IExtractableControl getExtractableControl(DesignComposite designComposite) {
-    return designComposite.getExtractablePalette();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractExtractableDesignView
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected IExtractableControl getExtractableControl(DesignComposite designComposite) {
+		return designComposite.getExtractablePalette();
+	}
 }

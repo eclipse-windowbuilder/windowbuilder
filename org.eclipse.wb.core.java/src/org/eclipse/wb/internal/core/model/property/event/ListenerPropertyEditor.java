@@ -23,31 +23,31 @@ import java.util.List;
  * @coverage core.model.property.events
  */
 final class ListenerPropertyEditor extends AbstractComplexEventPropertyEditor {
-  private final ListenerInfo m_listener;
+	private final ListenerInfo m_listener;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ListenerPropertyEditor(ListenerInfo listener) {
-    m_listener = listener;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ListenerPropertyEditor(ListenerInfo listener) {
+		m_listener = listener;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IComplexPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ListenerMethodProperty[] getProperties(Property property) throws Exception {
-    JavaInfo javaInfo = ((ListenerProperty) property).getJavaInfo();
-    List<ListenerMethodInfo> methods = m_listener.getMethods();
-    ListenerMethodProperty[] properties = new ListenerMethodProperty[methods.size()];
-    for (int i = 0; i < methods.size(); i++) {
-      ListenerMethodInfo method = methods.get(i);
-      properties[i] = new ListenerMethodProperty(javaInfo, m_listener, method, properties);
-    }
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IComplexPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ListenerMethodProperty[] getProperties(Property property) throws Exception {
+		JavaInfo javaInfo = ((ListenerProperty) property).getJavaInfo();
+		List<ListenerMethodInfo> methods = m_listener.getMethods();
+		ListenerMethodProperty[] properties = new ListenerMethodProperty[methods.size()];
+		for (int i = 0; i < methods.size(); i++) {
+			ListenerMethodInfo method = methods.get(i);
+			properties[i] = new ListenerMethodProperty(javaInfo, m_listener, method, properties);
+		}
+		return properties;
+	}
 }

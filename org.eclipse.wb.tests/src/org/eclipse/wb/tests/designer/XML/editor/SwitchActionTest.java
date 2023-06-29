@@ -19,59 +19,59 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
  * @author scheglov_ke
  */
 public class SwitchActionTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for switching to "Source" and back to "Design".
-   */
-  public void test_run() throws Exception {
-    openEditor("<Shell/>");
-    // prepare action
-    SwitchAction switchAction;
-    {
-      switchAction = new SwitchAction();
-      switchAction.setActiveEditor(null, m_designerEditor);
-    }
-    // after "openDesign" the "Design" page is active
-    assertEquals(1, m_designerEditor.getActivePage());
-    waitEventLoop(0);
-    // switch to "Source" using action
-    switchAction.run(null);
-    waitEventLoop(0);
-    assertEquals(0, m_designerEditor.getActivePage());
-    // switch to "Design" using action
-    switchAction.run(null);
-    waitEventLoop(0);
-    assertEquals(1, m_designerEditor.getActivePage());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for switching to "Source" and back to "Design".
+	 */
+	public void test_run() throws Exception {
+		openEditor("<Shell/>");
+		// prepare action
+		SwitchAction switchAction;
+		{
+			switchAction = new SwitchAction();
+			switchAction.setActiveEditor(null, m_designerEditor);
+		}
+		// after "openDesign" the "Design" page is active
+		assertEquals(1, m_designerEditor.getActivePage());
+		waitEventLoop(0);
+		// switch to "Source" using action
+		switchAction.run(null);
+		waitEventLoop(0);
+		assertEquals(0, m_designerEditor.getActivePage());
+		// switch to "Design" using action
+		switchAction.run(null);
+		waitEventLoop(0);
+		assertEquals(1, m_designerEditor.getActivePage());
+	}
 
-  /**
-   * Test for {@link SwitchAction#showSource()}.
-   */
-  public void test_showSource() throws Exception {
-    openEditor("<Shell/>");
-    // "Design" is active
-    assertEquals(1, m_designerEditor.getActivePage());
-    // switch to "Source"
-    SwitchAction.showSource();
-    assertEquals(0, m_designerEditor.getActivePage());
-    assertXMLSelection(0, 0);
-  }
+	/**
+	 * Test for {@link SwitchAction#showSource()}.
+	 */
+	public void test_showSource() throws Exception {
+		openEditor("<Shell/>");
+		// "Design" is active
+		assertEquals(1, m_designerEditor.getActivePage());
+		// switch to "Source"
+		SwitchAction.showSource();
+		assertEquals(0, m_designerEditor.getActivePage());
+		assertXMLSelection(0, 0);
+	}
 
-  /**
-   * Test for {@link SwitchAction#showSource(int)}.
-   */
-  public void test_showSource_withOffset() throws Exception {
-    openEditor("<Shell/>");
-    // "Design" is active
-    assertEquals(1, m_designerEditor.getActivePage());
-    // switch to "Source"
-    SwitchAction.showSource(5);
-    waitEventLoop(0);
-    assertEquals(0, m_designerEditor.getActivePage());
-    assertXMLSelection(5, 0);
-  }
+	/**
+	 * Test for {@link SwitchAction#showSource(int)}.
+	 */
+	public void test_showSource_withOffset() throws Exception {
+		openEditor("<Shell/>");
+		// "Design" is active
+		assertEquals(1, m_designerEditor.getActivePage());
+		// switch to "Source"
+		SwitchAction.showSource(5);
+		waitEventLoop(0);
+		assertEquals(0, m_designerEditor.getActivePage());
+		assertXMLSelection(5, 0);
+	}
 }

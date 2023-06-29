@@ -26,15 +26,15 @@ import javax.swing.Box;
  * @coverage swing.model.layout
  */
 public final class BoxSupport {
-  /**
-   * Sets size for {@link Box#createHorizontalStrut(int)}, {@link Box#createVerticalStrut(int)} or
-   * {@link Box#createRigidArea(java.awt.Dimension)}.
-   */
-  public static void setStrutSize(ComponentInfo strut, String source) throws Exception {
-    StaticFactoryCreationSupport factoryCreationSupport =
-        (StaticFactoryCreationSupport) strut.getCreationSupport();
-    MethodInvocation factoryInvocation = factoryCreationSupport.getInvocation();
-    Expression oldExpression = DomGenerics.arguments(factoryInvocation).get(0);
-    strut.getEditor().replaceExpression(oldExpression, source);
-  }
+	/**
+	 * Sets size for {@link Box#createHorizontalStrut(int)}, {@link Box#createVerticalStrut(int)} or
+	 * {@link Box#createRigidArea(java.awt.Dimension)}.
+	 */
+	public static void setStrutSize(ComponentInfo strut, String source) throws Exception {
+		StaticFactoryCreationSupport factoryCreationSupport =
+				(StaticFactoryCreationSupport) strut.getCreationSupport();
+		MethodInvocation factoryInvocation = factoryCreationSupport.getInvocation();
+		Expression oldExpression = DomGenerics.arguments(factoryInvocation).get(0);
+		strut.getEditor().replaceExpression(oldExpression, source);
+	}
 }

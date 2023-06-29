@@ -30,37 +30,37 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class FormPageWizardPage extends RcpWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormPageWizardPage() {
-    setTitle(WizardsMessages.FormPageWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/FormPage/banner.gif"));
-    setDescription(WizardsMessages.FormPageWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormPageWizardPage() {
+		setTitle(WizardsMessages.FormPageWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/FormPage/banner.gif"));
+		setDescription(WizardsMessages.FormPageWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/forms/FormPage.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/forms/FormPage.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("org.eclipse.ui.forms.editor.FormPage", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("org.eclipse.ui.forms.editor.FormPage", true);
+	}
 }

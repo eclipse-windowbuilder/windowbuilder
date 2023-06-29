@@ -29,96 +29,96 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @coverage XML.model
  */
 public final class XmlObjectRootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new XmlObjectRootProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new XmlObjectRootProcessor();
 
-  private XmlObjectRootProcessor() {
-  }
+	private XmlObjectRootProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final XmlObjectInfo root) throws Exception {
-    root.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void dispose() throws Exception {
-        root.onHierarchyDispose();
-      }
-    });
-    // visibility in tree/GEF
-    root.addBroadcastListener(new ObjectInfoChildTree() {
-      @Override
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        if (object instanceof XmlObjectInfo) {
-          XmlObjectInfo xObject = (XmlObjectInfo) object;
-          String visibilityTreeString = XmlObjectUtils.getParameter(xObject, "visible.inTree");
-          if (visibilityTreeString != null) {
-            visible[0] = Boolean.parseBoolean(visibilityTreeString);
-          } else {
-            String visibilityString = XmlObjectUtils.getParameter(xObject, "visible");
-            if (visibilityString != null) {
-              visible[0] = Boolean.parseBoolean(visibilityString);
-            }
-          }
-        }
-      }
-    });
-    root.addBroadcastListener(new ObjectInfoChildGraphical() {
-      @Override
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        if (object instanceof XmlObjectInfo) {
-          XmlObjectInfo xObject = (XmlObjectInfo) object;
-          String visibilityGraphString =
-              XmlObjectUtils.getParameter(xObject, "visible.inGraphical");
-          if (visibilityGraphString != null) {
-            visible[0] = Boolean.parseBoolean(visibilityGraphString);
-          } else {
-            String visibilityString = XmlObjectUtils.getParameter(xObject, "visible");
-            if (visibilityString != null) {
-              visible[0] = Boolean.parseBoolean(visibilityString);
-            }
-          }
-        }
-      }
-    });
-    // text decoration
-    root.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
-      @Override
-      public void invoke(ObjectInfo object, String[] text) throws Exception {
-        if (object instanceof XmlObjectInfo) {
-          XmlObjectInfo xObject = (XmlObjectInfo) object;
-          IPreferenceStore preferences = xObject.getDescription().getToolkit().getPreferences();
-          if (preferences.getBoolean(IPreferenceConstants.P_GENERAL_TEXT_SUFFIX)) {
-            broadcast_presentation_decorateText(xObject, text);
-          }
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final XmlObjectInfo root) throws Exception {
+		root.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void dispose() throws Exception {
+				root.onHierarchyDispose();
+			}
+		});
+		// visibility in tree/GEF
+		root.addBroadcastListener(new ObjectInfoChildTree() {
+			@Override
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				if (object instanceof XmlObjectInfo) {
+					XmlObjectInfo xObject = (XmlObjectInfo) object;
+					String visibilityTreeString = XmlObjectUtils.getParameter(xObject, "visible.inTree");
+					if (visibilityTreeString != null) {
+						visible[0] = Boolean.parseBoolean(visibilityTreeString);
+					} else {
+						String visibilityString = XmlObjectUtils.getParameter(xObject, "visible");
+						if (visibilityString != null) {
+							visible[0] = Boolean.parseBoolean(visibilityString);
+						}
+					}
+				}
+			}
+		});
+		root.addBroadcastListener(new ObjectInfoChildGraphical() {
+			@Override
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				if (object instanceof XmlObjectInfo) {
+					XmlObjectInfo xObject = (XmlObjectInfo) object;
+					String visibilityGraphString =
+							XmlObjectUtils.getParameter(xObject, "visible.inGraphical");
+					if (visibilityGraphString != null) {
+						visible[0] = Boolean.parseBoolean(visibilityGraphString);
+					} else {
+						String visibilityString = XmlObjectUtils.getParameter(xObject, "visible");
+						if (visibilityString != null) {
+							visible[0] = Boolean.parseBoolean(visibilityString);
+						}
+					}
+				}
+			}
+		});
+		// text decoration
+		root.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
+			@Override
+			public void invoke(ObjectInfo object, String[] text) throws Exception {
+				if (object instanceof XmlObjectInfo) {
+					XmlObjectInfo xObject = (XmlObjectInfo) object;
+					IPreferenceStore preferences = xObject.getDescription().getToolkit().getPreferences();
+					if (preferences.getBoolean(IPreferenceConstants.P_GENERAL_TEXT_SUFFIX)) {
+						broadcast_presentation_decorateText(xObject, text);
+					}
+				}
+			}
+		});
+	}
 
-  /**
-   * Adds "text" property prefix to the given presentation text of this {@link ObjectInfo}.
-   */
-  private static void broadcast_presentation_decorateText(XmlObjectInfo object, String[] text)
-      throws Exception {
-    for (Property property : object.getProperties()) {
-      if (property instanceof GenericPropertyImpl) {
-        GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
-        if (genericProperty.hasTrueTag("isText")
-            && genericProperty.getObject() == object
-            && genericProperty.isModified()) {
-          String suffix = (String) genericProperty.getValue();
-          text[0] = text[0] + " - \"" + suffix + "\"";
-          break;
-        }
-      }
-    }
-  }
+	/**
+	 * Adds "text" property prefix to the given presentation text of this {@link ObjectInfo}.
+	 */
+	private static void broadcast_presentation_decorateText(XmlObjectInfo object, String[] text)
+			throws Exception {
+		for (Property property : object.getProperties()) {
+			if (property instanceof GenericPropertyImpl) {
+				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+				if (genericProperty.hasTrueTag("isText")
+						&& genericProperty.getObject() == object
+						&& genericProperty.isModified()) {
+					String suffix = (String) genericProperty.getValue();
+					text[0] = text[0] + " - \"" + suffix + "\"";
+					break;
+				}
+			}
+		}
+	}
 }

@@ -27,5 +27,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface UseModelIfNotAlready {
-  Class<?> value();
+	Class<?> value();
 }

@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.utils.state;
  * @coverage core.model
  */
 public interface IOrderProcessor {
-  /**
-   * Moves component on its current container before "nextComponent".
-   */
-  void move(Object component, Object nextComponent) throws Exception;
+	/**
+	 * Moves component on its current container before "nextComponent".
+	 */
+	void move(Object component, Object nextComponent) throws Exception;
 }

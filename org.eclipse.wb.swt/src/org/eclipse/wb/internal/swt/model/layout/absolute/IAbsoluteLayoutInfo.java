@@ -23,26 +23,26 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage swt.model.layout
  */
 public interface IAbsoluteLayoutInfo<C extends IControlInfo> extends ILayoutInfo<C> {
-  /**
-   * Adds a Control into host composite.
-   */
-  void commandCreate(C control, C nextControl) throws Exception;
+	/**
+	 * Adds a Control into host composite.
+	 */
+	void commandCreate(C control, C nextControl) throws Exception;
 
-  /**
-   * Moves a Control into host composite.
-   */
-  void commandMove(C control, C nextControl) throws Exception;
+	/**
+	 * Moves a Control into host composite.
+	 */
+	void commandMove(C control, C nextControl) throws Exception;
 
-  /**
-   * Perform "move" or "resize" operation. Modifies location/size values by modifying appropriate
-   * "setLocation", "setSize", "setBounds" arguments.
-   *
-   * @param widget
-   *          a Control which modifications applies to
-   * @param location
-   *          a {@link Point} of new location of component. May be null.
-   * @param size
-   *          a {@link Dimension} of new size of component. May be null.
-   */
-  void commandChangeBounds(C widget, Point location, Dimension size) throws Exception;
+	/**
+	 * Perform "move" or "resize" operation. Modifies location/size values by modifying appropriate
+	 * "setLocation", "setSize", "setBounds" arguments.
+	 *
+	 * @param widget
+	 *          a Control which modifications applies to
+	 * @param location
+	 *          a {@link Point} of new location of component. May be null.
+	 * @param size
+	 *          a {@link Dimension} of new size of component. May be null.
+	 */
+	void commandChangeBounds(C widget, Point location, Dimension size) throws Exception;
 }

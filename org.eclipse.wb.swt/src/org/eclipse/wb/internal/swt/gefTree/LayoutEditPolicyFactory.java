@@ -28,24 +28,24 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage swt.gefTree
  */
 public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutEditPolicyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    if (model instanceof AbsoluteLayoutInfo) {
-      return new AbsoluteLayoutEditPolicy<ControlInfo>((AbsoluteLayoutInfo) model);
-    }
-    if (model instanceof FormLayoutInfo) {
-      FormLayoutInfo formLayoutInfo = (FormLayoutInfo) model;
-      if (formLayoutInfo.getImpl() instanceof FormLayoutInfoImplAutomatic) {
-        return new FormLayoutEditPolicy(formLayoutInfo);
-      } else {
-        // TODO:
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutEditPolicyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		if (model instanceof AbsoluteLayoutInfo) {
+			return new AbsoluteLayoutEditPolicy<ControlInfo>((AbsoluteLayoutInfo) model);
+		}
+		if (model instanceof FormLayoutInfo) {
+			FormLayoutInfo formLayoutInfo = (FormLayoutInfo) model;
+			if (formLayoutInfo.getImpl() instanceof FormLayoutInfoImplAutomatic) {
+				return new FormLayoutEditPolicy(formLayoutInfo);
+			} else {
+				// TODO:
+			}
+		}
+		return null;
+	}
 }

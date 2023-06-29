@@ -30,76 +30,76 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
  * @coverage XWT.model.layout
  */
 public final class VirtualLayoutDataCreationSupport extends CreationSupport
-    implements
-      IImplicitCreationSupport {
-  private final ControlInfo m_control;
-  private final Object m_dataObject;
+implements
+IImplicitCreationSupport {
+	private final ControlInfo m_control;
+	private final Object m_dataObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualLayoutDataCreationSupport(ControlInfo control, Object dataObject) {
-    m_control = control;
-    m_dataObject = dataObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualLayoutDataCreationSupport(ControlInfo control, Object dataObject) {
+		m_control = control;
+		m_dataObject = dataObject;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "virtual-LayoutData: " + m_object.getDescription().getComponentClass().getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "virtual-LayoutData: " + m_object.getDescription().getComponentClass().getName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setObject(XmlObjectInfo object) throws Exception {
-    super.setObject(object);
-    m_object.setObject(m_dataObject);
-    m_control.addBroadcastListener(new XmlObjectSetObjectAfter() {
-      public void invoke(XmlObjectInfo target, Object object) throws Exception {
-        // check, may be this creation support is not active
-        if (m_object.getCreationSupport() != VirtualLayoutDataCreationSupport.this) {
-          m_control.removeBroadcastListener(this);
-          return;
-        }
-        // OK, check for widget
-        if (target == m_control) {
-          m_object.setObject(m_dataObject);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setObject(XmlObjectInfo object) throws Exception {
+		super.setObject(object);
+		m_object.setObject(m_dataObject);
+		m_control.addBroadcastListener(new XmlObjectSetObjectAfter() {
+			public void invoke(XmlObjectInfo target, Object object) throws Exception {
+				// check, may be this creation support is not active
+				if (m_object.getCreationSupport() != VirtualLayoutDataCreationSupport.this) {
+					m_control.removeBroadcastListener(this);
+					return;
+				}
+				// OK, check for widget
+				if (target == m_control) {
+					m_object.setObject(m_dataObject);
+				}
+			}
+		});
+	}
 
-  @Override
-  public String getTitle() {
-    return toString();
-  }
+	@Override
+	public String getTitle() {
+		return toString();
+	}
 
-  @Override
-  public DocumentElement getElement() {
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      public void run() throws Exception {
-        materialize();
-      }
-    });
-    return m_object.getCreationSupport().getElement();
-  }
+	@Override
+	public DocumentElement getElement() {
+		ExecutionUtils.runRethrow(new RunnableEx() {
+			public void run() throws Exception {
+				materialize();
+			}
+		});
+		return m_object.getCreationSupport().getElement();
+	}
 
-  private void materialize() throws Exception {
-    CreationSupport elementCreationSupport = new ElementCreationSupport();
-    m_object.setCreationSupport(elementCreationSupport);
-    // add element
-    DocumentElement controlElement = m_control.getCreationSupport().getElement();
-    Association association = Associations.property("layoutData");
-    association.add(m_object, new ElementTarget(controlElement, 0));
-  }
+	private void materialize() throws Exception {
+		CreationSupport elementCreationSupport = new ElementCreationSupport();
+		m_object.setCreationSupport(elementCreationSupport);
+		// add element
+		DocumentElement controlElement = m_control.getCreationSupport().getElement();
+		Association association = Associations.property("layoutData");
+		association.add(m_object, new ElementTarget(controlElement, 0));
+	}
 }

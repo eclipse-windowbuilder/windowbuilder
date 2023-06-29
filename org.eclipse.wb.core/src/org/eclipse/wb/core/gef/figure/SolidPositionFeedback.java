@@ -25,63 +25,63 @@ import org.eclipse.swt.graphics.Color;
  * @coverage core.gef.figure
  */
 public final class SolidPositionFeedback extends AbstractPositionFeedback {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SolidPositionFeedback(Layer layer, Rectangle bounds, String hint) {
-    super(layer, bounds, hint);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SolidPositionFeedback(Layer layer, Rectangle bounds, String hint) {
+		super(layer, bounds, hint);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure methods
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    Figure figure = new Figure();
-    figure.setOpaque(true);
-    figure.setBorder(new LineBorder(getBorderColor()));
-    return figure;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure methods
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		Figure figure = new Figure();
+		figure.setOpaque(true);
+		figure.setBorder(new LineBorder(getBorderColor()));
+		return figure;
+	}
 
-  @Override
-  public void update(boolean contains) {
-    if (contains) {
-      m_figure.setBackground(getActiveColor());
-    } else {
-      m_figure.setBackground(getInactiveColor());
-    }
-  }
+	@Override
+	public void update(boolean contains) {
+		if (contains) {
+			m_figure.setBackground(getActiveColor());
+		} else {
+			m_figure.setBackground(getInactiveColor());
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Colors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the border {@link Color}.
-   */
-  private Color getBorderColor() {
-    return IColorConstants.darkGreen;
-    //return IColorConstants.orange;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Colors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the border {@link Color}.
+	 */
+	private Color getBorderColor() {
+		return IColorConstants.darkGreen;
+		//return IColorConstants.orange;
+	}
 
-  /**
-   * @return the inactivate {@link Color}.
-   */
-  private Color getInactiveColor() {
-    //return SWTResourceManager.getColor(0x64, 0x95, 0xED);
-    return IColorConstants.lightGreen;
-  }
+	/**
+	 * @return the inactivate {@link Color}.
+	 */
+	private Color getInactiveColor() {
+		//return SWTResourceManager.getColor(0x64, 0x95, 0xED);
+		return IColorConstants.lightGreen;
+	}
 
-  /**
-   * @return the activate {@link Color}.
-   */
-  private Color getActiveColor() {
-    //return SWTResourceManager.getColor(0x1E, 0xB0, 0xFF);
-    return IColorConstants.yellow;
-  }
+	/**
+	 * @return the activate {@link Color}.
+	 */
+	private Color getActiveColor() {
+		//return SWTResourceManager.getColor(0x1E, 0xB0, 0xFF);
+		return IColorConstants.yellow;
+	}
 }

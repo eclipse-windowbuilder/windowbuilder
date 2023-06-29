@@ -17,13 +17,13 @@ package org.eclipse.wb.internal.core.model.description;
  * @coverage core.model.description
  */
 public final class ConstructorDescription extends AbstractInvocationDescription {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ConstructorDescription(Class<?> declaringClass) {
-    super(declaringClass);
-    setName("<init>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ConstructorDescription(Class<?> declaringClass) {
+		super(declaringClass);
+		setName("<init>");
+	}
 }

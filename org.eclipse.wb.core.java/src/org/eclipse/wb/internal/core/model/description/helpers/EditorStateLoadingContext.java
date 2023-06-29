@@ -27,100 +27,100 @@ import java.util.List;
  * @coverage core.model.description
  */
 public class EditorStateLoadingContext implements ILoadingContext {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Factory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ILoadingContext} to use for given {@link EditorState}.
-   */
-  public static ILoadingContext get(EditorState state) {
-    String key = ILoadingContext.class.getName();
-    ILoadingContext context = (ILoadingContext) state.getEditor().getGlobalValue(key);
-    if (context == null) {
-      context = new EditorStateLoadingContext(state);
-      state.getEditor().putGlobalValue(key, context);
-    }
-    return context;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Factory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ILoadingContext} to use for given {@link EditorState}.
+	 */
+	public static ILoadingContext get(EditorState state) {
+		String key = ILoadingContext.class.getName();
+		ILoadingContext context = (ILoadingContext) state.getEditor().getGlobalValue(key);
+		if (context == null) {
+			context = new EditorStateLoadingContext(state);
+			state.getEditor().putGlobalValue(key, context);
+		}
+		return context;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final EditorState m_state;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final EditorState m_state;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private EditorStateLoadingContext(EditorState state) {
-    m_state = state;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private EditorStateLoadingContext(EditorState state) {
+		m_state = state;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILoadingContext
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getToolkitId() {
-    return m_state.getToolkitId();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILoadingContext
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getToolkitId() {
+		return m_state.getToolkitId();
+	}
 
-  @Override
-  public URL getResource(String name) throws Exception {
-    // try editor class loader
-    {
-      URL resource = m_state.getEditorLoader().getResource(name);
-      if (resource != null) {
-        return resource;
-      }
-    }
-    // try "wbp-meta" of IJavaProject
-    {
-      URL resource = getResource(m_state.getEditor().getJavaProject(), name);
-      if (resource != null) {
-        return resource;
-      }
-    }
-    // not found
-    return null;
-  }
+	@Override
+	public URL getResource(String name) throws Exception {
+		// try editor class loader
+		{
+			URL resource = m_state.getEditorLoader().getResource(name);
+			if (resource != null) {
+				return resource;
+			}
+		}
+		// try "wbp-meta" of IJavaProject
+		{
+			URL resource = getResource(m_state.getEditor().getJavaProject(), name);
+			if (resource != null) {
+				return resource;
+			}
+		}
+		// not found
+		return null;
+	}
 
-  @Override
-  public List<IDescriptionVersionsProvider> getDescriptionVersionsProviders() {
-    return m_state.getDescriptionVersionsProviders();
-  }
+	@Override
+	public List<IDescriptionVersionsProvider> getDescriptionVersionsProviders() {
+		return m_state.getDescriptionVersionsProviders();
+	}
 
-  @Override
-  public Object getGlobalValue(String key) {
-    return m_state.getEditor().getGlobalValue(key);
-  }
+	@Override
+	public Object getGlobalValue(String key) {
+		return m_state.getEditor().getGlobalValue(key);
+	}
 
-  @Override
-  public void putGlobalValue(String key, Object value) {
-    m_state.getEditor().putGlobalValue(key, value);
-  }
+	@Override
+	public void putGlobalValue(String key, Object value) {
+		m_state.getEditor().putGlobalValue(key, value);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link URL} with <code>*.wbp-component.xml</code> file for given name, in
-   *         {@link IJavaProject} itself or any required project.
-   */
-  private static URL getResource(IJavaProject javaProject, String name) throws Exception {
-    List<IFile> files = ProjectUtils.findFiles(javaProject, "wbp-meta/" + name);
-    if (!files.isEmpty()) {
-      IFile file = files.get(0);
-      return file.getLocation().toFile().toURL();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link URL} with <code>*.wbp-component.xml</code> file for given name, in
+	 *         {@link IJavaProject} itself or any required project.
+	 */
+	private static URL getResource(IJavaProject javaProject, String name) throws Exception {
+		List<IFile> files = ProjectUtils.findFiles(javaProject, "wbp-meta/" + name);
+		if (!files.isEmpty()) {
+			IFile file = files.get(0);
+			return file.getLocation().toFile().toURL();
+		}
+		return null;
+	}
 }

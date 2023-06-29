@@ -24,8 +24,8 @@ import java.util.List;
  * @coverage core.model
  */
 public interface JavaInfoAddProperties {
-  /**
-   * During preparing {@link Property} list for {@link JavaInfo}.
-   */
-  void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception;
+	/**
+	 * During preparing {@link Property} list for {@link JavaInfo}.
+	 */
+	void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception;
 }

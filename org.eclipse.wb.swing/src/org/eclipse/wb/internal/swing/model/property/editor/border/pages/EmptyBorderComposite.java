@@ -28,61 +28,61 @@ import javax.swing.border.EmptyBorder;
  * @coverage swing.property.editor
  */
 public final class EmptyBorderComposite extends AbstractBorderComposite {
-  private final IntegerField m_topField;
-  private final IntegerField m_leftField;
-  private final IntegerField m_bottomField;
-  private final IntegerField m_rightField;
+	private final IntegerField m_topField;
+	private final IntegerField m_leftField;
+	private final IntegerField m_bottomField;
+	private final IntegerField m_rightField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EmptyBorderComposite(Composite parent) {
-    super(parent, "EmptyBorder");
-    GridLayoutFactory.create(this);
-    m_topField = createIntegerField(ModelMessages.EmptyBorderComposite_top);
-    m_leftField = createIntegerField(ModelMessages.EmptyBorderComposite_left);
-    m_bottomField = createIntegerField(ModelMessages.EmptyBorderComposite_bottom);
-    m_rightField = createIntegerField(ModelMessages.EmptyBorderComposite_right);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EmptyBorderComposite(Composite parent) {
+		super(parent, "EmptyBorder");
+		GridLayoutFactory.create(this);
+		m_topField = createIntegerField(ModelMessages.EmptyBorderComposite_top);
+		m_leftField = createIntegerField(ModelMessages.EmptyBorderComposite_left);
+		m_bottomField = createIntegerField(ModelMessages.EmptyBorderComposite_bottom);
+		m_rightField = createIntegerField(ModelMessages.EmptyBorderComposite_right);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean setBorder(Border border) throws Exception {
-    if (border != null && border.getClass() == EmptyBorder.class) {
-      EmptyBorder ourBorder = (EmptyBorder) border;
-      Insets borderInsets = ourBorder.getBorderInsets();
-      m_topField.setValue(borderInsets.top);
-      m_leftField.setValue(borderInsets.left);
-      m_bottomField.setValue(borderInsets.bottom);
-      m_rightField.setValue(borderInsets.right);
-      // OK, this is our Border
-      return true;
-    } else {
-      m_topField.setValue(0);
-      m_leftField.setValue(0);
-      m_bottomField.setValue(0);
-      m_rightField.setValue(0);
-      // no, we don't know this Border
-      return false;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean setBorder(Border border) throws Exception {
+		if (border != null && border.getClass() == EmptyBorder.class) {
+			EmptyBorder ourBorder = (EmptyBorder) border;
+			Insets borderInsets = ourBorder.getBorderInsets();
+			m_topField.setValue(borderInsets.top);
+			m_leftField.setValue(borderInsets.left);
+			m_bottomField.setValue(borderInsets.bottom);
+			m_rightField.setValue(borderInsets.right);
+			// OK, this is our Border
+			return true;
+		} else {
+			m_topField.setValue(0);
+			m_leftField.setValue(0);
+			m_bottomField.setValue(0);
+			m_rightField.setValue(0);
+			// no, we don't know this Border
+			return false;
+		}
+	}
 
-  @Override
-  public String getSource() throws Exception {
-    return "new javax.swing.border.EmptyBorder("
-        + m_topField.getSource()
-        + ", "
-        + m_leftField.getSource()
-        + ", "
-        + m_bottomField.getSource()
-        + ", "
-        + m_rightField.getSource()
-        + ")";
-  }
+	@Override
+	public String getSource() throws Exception {
+		return "new javax.swing.border.EmptyBorder("
+				+ m_topField.getSource()
+				+ ", "
+				+ m_leftField.getSource()
+				+ ", "
+				+ m_bottomField.getSource()
+				+ ", "
+				+ m_rightField.getSource()
+				+ ")";
+	}
 }

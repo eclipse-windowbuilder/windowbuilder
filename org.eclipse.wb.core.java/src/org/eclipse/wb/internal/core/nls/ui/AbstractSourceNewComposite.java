@@ -25,70 +25,70 @@ import java.beans.PropertyChangeSupport;
  * @coverage core.nls.ui
  */
 public abstract class AbstractSourceNewComposite extends Composite {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractSourceNewComposite(Composite parent, int style) {
-    super(parent, style);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractSourceNewComposite(Composite parent, int style) {
+		super(parent, style);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties change support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final PropertyChangeSupport m_propertyChangeSupport = new PropertyChangeSupport(this);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties change support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final PropertyChangeSupport m_propertyChangeSupport = new PropertyChangeSupport(this);
 
-  void addPropertyChangeListener(PropertyChangeListener listener) {
-    m_propertyChangeSupport.addPropertyChangeListener(listener);
-  }
+	void addPropertyChangeListener(PropertyChangeListener listener) {
+		m_propertyChangeSupport.addPropertyChangeListener(listener);
+	}
 
-  void removePropertyChangeListener(PropertyChangeListener listener) {
-    m_propertyChangeSupport.removePropertyChangeListener(listener);
-  }
+	void removePropertyChangeListener(PropertyChangeListener listener) {
+		m_propertyChangeSupport.removePropertyChangeListener(listener);
+	}
 
-  protected final void firePropertyChanged(String property, Object oldValue, Object newValue) {
-    m_propertyChangeSupport.firePropertyChange(property, oldValue, newValue);
-  }
+	protected final void firePropertyChanged(String property, Object oldValue, Object newValue) {
+		m_propertyChangeSupport.firePropertyChange(property, oldValue, newValue);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Check
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * This method is returns <code>true</code> if we have enough information for creating new source.
-   */
-  public abstract IStatus getStatus();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Check
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * This method is returns <code>true</code> if we have enough information for creating new source.
+	 */
+	public abstract IStatus getStatus();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creating
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns editable source that will be used later for editing new source.
-   *
-   * @param o
-   *          the parameters created using {@link #createParametersObject()}
-   */
-  public abstract IEditableSource createEditableSource(Object o) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creating
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns editable source that will be used later for editing new source.
+	 *
+	 * @param o
+	 *          the parameters created using {@link #createParametersObject()}
+	 */
+	public abstract IEditableSource createEditableSource(Object o) throws Exception;
 
-  /**
-   * Returns some object that will be passed later to the static method of source class for adding
-   * new source.
-   */
-  public abstract Object createParametersObject() throws Exception;
+	/**
+	 * Returns some object that will be passed later to the static method of source class for adding
+	 * new source.
+	 */
+	public abstract Object createParametersObject() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Display
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Result is piece of Java code that can be displayed to show how this source style looks like.
-   */
-  public abstract String getSample();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Display
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Result is piece of Java code that can be displayed to show how this source style looks like.
+	 */
+	public abstract String getSample();
 }

@@ -25,48 +25,48 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swing.gef.policy
  */
 public final class CardNavigationFigure extends Figure {
-  public static final int WIDTH = 10;
-  public static final int HEIGHT = 14;
-  private static Image m_prevImage = new Image(null,
-      CardNavigationFigure.class.getResourceAsStream("prev.png"));
-  private static Image m_nextImage = new Image(null,
-      CardNavigationFigure.class.getResourceAsStream("next.png"));
-  private final CardLayoutSelectionEditPolicy m_policy;
+	public static final int WIDTH = 10;
+	public static final int HEIGHT = 14;
+	private static Image m_prevImage = new Image(null,
+			CardNavigationFigure.class.getResourceAsStream("prev.png"));
+	private static Image m_nextImage = new Image(null,
+			CardNavigationFigure.class.getResourceAsStream("next.png"));
+	private final CardLayoutSelectionEditPolicy m_policy;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CardNavigationFigure(CardLayoutSelectionEditPolicy policy) {
-    m_policy = policy;
-    addMouseListener(new IMouseListener() {
-      public void mouseUp(MouseEvent event) {
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CardNavigationFigure(CardLayoutSelectionEditPolicy policy) {
+		m_policy = policy;
+		addMouseListener(new IMouseListener() {
+			public void mouseUp(MouseEvent event) {
+			}
 
-      public void mouseDown(MouseEvent event) {
-        event.consume();
-        if (event.x < WIDTH) {
-          m_policy.showPrevComponent();
-        } else {
-          m_policy.showNextComponent();
-        }
-      }
+			public void mouseDown(MouseEvent event) {
+				event.consume();
+				if (event.x < WIDTH) {
+					m_policy.showPrevComponent();
+				} else {
+					m_policy.showNextComponent();
+				}
+			}
 
-      public void mouseDoubleClick(MouseEvent event) {
-      }
-    });
-  }
+			public void mouseDoubleClick(MouseEvent event) {
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void paintClientArea(Graphics graphics) {
-    Rectangle r = getClientArea();
-    graphics.drawImage(m_prevImage, r.x, r.y);
-    graphics.drawImage(m_nextImage, r.x + WIDTH, r.y);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void paintClientArea(Graphics graphics) {
+		Rectangle r = getClientArea();
+		graphics.drawImage(m_prevImage, r.x, r.y);
+		graphics.drawImage(m_nextImage, r.x + WIDTH, r.y);
+	}
 }

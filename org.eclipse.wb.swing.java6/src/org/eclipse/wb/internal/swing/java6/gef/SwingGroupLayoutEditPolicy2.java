@@ -23,27 +23,27 @@ import org.eclipse.wb.internal.swing.gef.MenuLayoutRequestValidator;
  * @author mitin_aa
  */
 public class SwingGroupLayoutEditPolicy2 extends GroupLayoutEditPolicy2 {
-  private static final ILayoutRequestValidator REQUEST_VALIDATOR =
-      LayoutRequestValidators.finalize(LayoutRequestValidators.and(
-          MenuLayoutRequestValidator.INSTANCE,
-          new ComponentClassLayoutRequestValidator("javax.swing.JComponent")));
+	private static final ILayoutRequestValidator REQUEST_VALIDATOR =
+			LayoutRequestValidators.finalize(LayoutRequestValidators.and(
+					MenuLayoutRequestValidator.INSTANCE,
+					new ComponentClassLayoutRequestValidator("javax.swing.JComponent")));
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SwingGroupLayoutEditPolicy2(IGroupLayoutInfo layout) {
-    super(layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SwingGroupLayoutEditPolicy2(IGroupLayoutInfo layout) {
+		super(layout);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return REQUEST_VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return REQUEST_VALIDATOR;
+	}
 }

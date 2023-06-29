@@ -29,98 +29,98 @@ import java.util.List;
  * @coverage bindings.wizard.auto
  */
 public interface IAutomaticDatabindingProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SuperClass
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return all super classes for new type.
-   */
-  String[] getSuperClasses();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SuperClass
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return all super classes for new type.
+	 */
+	String[] getSuperClasses();
 
-  /**
-   * @return super classes for initial checked.
-   */
-  String getInitialSuperClass();
+	/**
+	 * @return super classes for initial checked.
+	 */
+	String getInitialSuperClass();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Finish
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link InputStream} with template for given super class.
-   */
-  InputStream getTemplateFile(String superClassName);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Finish
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link InputStream} with template for given super class.
+	 */
+	InputStream getTemplateFile(String superClassName);
 
-  /**
-   * Generate code.
-   *
-   * @return the source code with replace template patterns on life values.
-   */
-  String performSubstitutions(String code, ImportsManager imports) throws Exception;
+	/**
+	 * Generate code.
+	 *
+	 * @return the source code with replace template patterns on life values.
+	 */
+	String performSubstitutions(String code, ImportsManager imports) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Wizard Page
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets initial wizard page objects.
-   */
-  void setCurrentWizardData(AutomaticDatabindingFirstPage firstPage, ICompleteListener pageListener);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Wizard Page
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets initial wizard page objects.
+	 */
+	void setCurrentWizardData(AutomaticDatabindingFirstPage firstPage, ICompleteListener pageListener);
 
-  /**
-   * Load class with given name. This operation is toolkit dependents and not exist universal way.
-   */
-  Class<?> loadClass(String className) throws ClassNotFoundException;
+	/**
+	 * Load class with given name. This operation is toolkit dependents and not exist universal way.
+	 */
+	Class<?> loadClass(String className) throws ClassNotFoundException;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configure properties {@link CheckboxTableViewer}: add columns, set label provider and etc.
-   */
-  void configurePropertiesViewer(CheckboxTableViewer viewer);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configure properties {@link CheckboxTableViewer}: add columns, set label provider and etc.
+	 */
+	void configurePropertiesViewer(CheckboxTableViewer viewer);
 
-  /**
-   * Add additional settings (value scope, label provider and etc.) to
-   * {@link ChooseClassAndPropertiesConfiguration}.
-   */
-  void configure(ChooseClassAndPropertiesConfiguration configuration);
+	/**
+	 * Add additional settings (value scope, label provider and etc.) to
+	 * {@link ChooseClassAndPropertiesConfiguration}.
+	 */
+	void configure(ChooseClassAndPropertiesConfiguration configuration);
 
-  /**
-   * Create bindings API depended widgets.
-   */
-  void fillWidgetComposite(Composite widgetComposite);
+	/**
+	 * Create bindings API depended widgets.
+	 */
+	void fillWidgetComposite(Composite widgetComposite);
 
-  /**
-   * Handle add/remove property.
-   */
-  void handlePropertyChecked(PropertyAdapter property, boolean checked);
+	/**
+	 * Handle add/remove property.
+	 */
+	void handlePropertyChecked(PropertyAdapter property, boolean checked);
 
-  /**
-   * Initial state for hide/show properties filter.
-   */
-  boolean getPropertiesViewerFilterInitState();
+	/**
+	 * Initial state for hide/show properties filter.
+	 */
+	boolean getPropertiesViewerFilterInitState();
 
-  /**
-   * @return {@link ViewerFilter} for hide/show the properties which can't be bound.
-   */
-  ViewerFilter getPropertiesViewerFilter();
+	/**
+	 * @return {@link ViewerFilter} for hide/show the properties which can't be bound.
+	 */
+	ViewerFilter getPropertiesViewerFilter();
 
-  /**
-   * @return list with properties for given class.
-   */
-  List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception;
+	/**
+	 * @return list with properties for given class.
+	 */
+	List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception;
 
-  /**
-   * Calculate finish state.
-   *
-   * @return the error message or <code>null</code> otherwise.
-   */
-  String calculateFinish();
+	/**
+	 * Calculate finish state.
+	 *
+	 * @return the error message or <code>null</code> otherwise.
+	 */
+	String calculateFinish();
 }

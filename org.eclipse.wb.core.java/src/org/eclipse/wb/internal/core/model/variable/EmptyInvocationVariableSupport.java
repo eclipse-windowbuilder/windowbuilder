@@ -35,51 +35,51 @@ import org.apache.commons.lang.StringUtils;
  * @coverage core.model.variable
  */
 public final class EmptyInvocationVariableSupport extends EmptyVariableSupport {
-  private final String m_invocationSource;
-  private final int m_argumentIndex;
+	private final String m_invocationSource;
+	private final int m_argumentIndex;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EmptyInvocationVariableSupport(JavaInfo javaInfo,
-      String invocationSource,
-      int argumentIndex) {
-    super(javaInfo);
-    m_invocationSource = invocationSource;
-    m_argumentIndex = argumentIndex;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EmptyInvocationVariableSupport(JavaInfo javaInfo,
+			String invocationSource,
+			int argumentIndex) {
+		super(javaInfo);
+		m_invocationSource = invocationSource;
+		m_argumentIndex = argumentIndex;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String add_getVariableStatementSource(StatementTarget associationTarget) throws Exception {
-    String source = m_invocationSource;
-    // use child creation source
-    {
-      NodeTarget creationTarget = new NodeTarget(associationTarget);
-      String childSource = m_javaInfo.getCreationSupport().add_getSource(creationTarget);
-      source = StringUtils.replace(source, "%child%", childSource);
-    }
-    // replace parent expressions
-    source = AssociationUtils.replaceTemplates(m_javaInfo, source, associationTarget);
-    {
-      /*VariableSupport parentVariable = m_javaInfo.getParentJava().getVariableSupport();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String add_getVariableStatementSource(StatementTarget associationTarget) throws Exception {
+		String source = m_invocationSource;
+		// use child creation source
+		{
+			NodeTarget creationTarget = new NodeTarget(associationTarget);
+			String childSource = m_javaInfo.getCreationSupport().add_getSource(creationTarget);
+			source = StringUtils.replace(source, "%child%", childSource);
+		}
+		// replace parent expressions
+		source = AssociationUtils.replaceTemplates(m_javaInfo, source, associationTarget);
+		{
+			/*VariableSupport parentVariable = m_javaInfo.getParentJava().getVariableSupport();
       source = StringUtils.replace(source, "%parent%", parentVariable.getReferenceExpression(true));
       source = StringUtils.replace(source, "%parent%.", parentVariable.getAccessExpression(true));*/
-    }
-    // return as Statement source
-    return source + ";";
-  }
+		}
+		// return as Statement source
+		return source + ";";
+	}
 
-  @Override
-  public void add_setVariableStatement(Statement statement) throws Exception {
-    MethodInvocation invocation =
-        (MethodInvocation) ((ExpressionStatement) statement).getExpression();
-    add_setInitializer(DomGenerics.arguments(invocation).get(m_argumentIndex));
-  }
+	@Override
+	public void add_setVariableStatement(Statement statement) throws Exception {
+		MethodInvocation invocation =
+				(MethodInvocation) ((ExpressionStatement) statement).getExpression();
+		add_setInitializer(DomGenerics.arguments(invocation).get(m_argumentIndex));
+	}
 }

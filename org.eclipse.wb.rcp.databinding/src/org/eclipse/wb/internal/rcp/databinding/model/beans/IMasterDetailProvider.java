@@ -23,8 +23,8 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
  * @coverage bindings.rcp.model.beans
  */
 public interface IMasterDetailProvider {
-  /**
-   * @return the master {@link ObservableInfo}.
-   */
-  ObservableInfo getMasterObservable() throws Exception;
+	/**
+	 * @return the master {@link ObservableInfo}.
+	 */
+	ObservableInfo getMasterObservable() throws Exception;
 }

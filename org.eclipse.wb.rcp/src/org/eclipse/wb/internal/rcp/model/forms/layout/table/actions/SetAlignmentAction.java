@@ -21,37 +21,37 @@ import org.eclipse.jface.action.Action;
  * @coverage rcp.model.forms
  */
 public final class SetAlignmentAction extends AbstractAction {
-  private final int m_alignment;
+	private final int m_alignment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetAlignmentAction(ITableWrapDataInfo layoutData,
-      String text,
-      String iconPath,
-      boolean horizontal,
-      int alignment) {
-    super(layoutData, text, AS_RADIO_BUTTON, iconPath, horizontal);
-    m_alignment = alignment;
-    // set check for current alignment
-    int currentAlignment =
-        horizontal ? layoutData.getHorizontalAlignment() : layoutData.getVerticalAlignment();
-    setChecked(currentAlignment == alignment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetAlignmentAction(ITableWrapDataInfo layoutData,
+			String text,
+			String iconPath,
+			boolean horizontal,
+			int alignment) {
+		super(layoutData, text, AS_RADIO_BUTTON, iconPath, horizontal);
+		m_alignment = alignment;
+		// set check for current alignment
+		int currentAlignment =
+				horizontal ? layoutData.getHorizontalAlignment() : layoutData.getVerticalAlignment();
+		setChecked(currentAlignment == alignment);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    if (m_horizontal) {
-      m_layoutData.setHorizontalAlignment(m_alignment);
-    } else {
-      m_layoutData.setVerticalAlignment(m_alignment);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		if (m_horizontal) {
+			m_layoutData.setHorizontalAlignment(m_alignment);
+		} else {
+			m_layoutData.setVerticalAlignment(m_alignment);
+		}
+	}
 }

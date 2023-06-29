@@ -23,20 +23,20 @@ import org.eclipse.swt.custom.ViewForm;
  * @coverage rcp.model.widgets
  */
 public final class ViewFormInfo extends AbstractPositionCompositeInfo {
-  private static final String[] POSITIONS = {
-      "setTopLeft",
-      "setTopCenter",
-      "setTopRight",
-      "setContent"};
+	private static final String[] POSITIONS = {
+			"setTopLeft",
+			"setTopCenter",
+			"setTopRight",
+	"setContent"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewFormInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport, POSITIONS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewFormInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport, POSITIONS);
+	}
 }

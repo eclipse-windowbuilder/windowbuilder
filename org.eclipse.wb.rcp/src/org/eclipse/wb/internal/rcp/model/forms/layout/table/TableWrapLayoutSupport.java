@@ -27,59 +27,59 @@ import java.util.Map;
  * @coverage rcp.model.forms
  */
 public class TableWrapLayoutSupport extends AbstractSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TableWrapLayout
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Point} with column/row for given {@link org.eclipse.swt.widgets.Control} and
-   *         {@link TableWrapLayout} objects.
-   */
-  @SuppressWarnings({"unchecked", "rawtypes"})
-  public static Point getXY(Object layout, Object control) throws Exception {
-    Map<Object, Object> map = (Map) ReflectionUtils.getFieldObject(layout, "m_controlToXY");
-    Object point = map.get(control);
-    return point != null ? PointSupport.getPoint(point) : null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TableWrapLayout
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Point} with column/row for given {@link org.eclipse.swt.widgets.Control} and
+	 *         {@link TableWrapLayout} objects.
+	 */
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public static Point getXY(Object layout, Object control) throws Exception {
+		Map<Object, Object> map = (Map) ReflectionUtils.getFieldObject(layout, "m_controlToXY");
+		Object point = map.get(control);
+		return point != null ? PointSupport.getPoint(point) : null;
+	}
 
-  /**
-   * @return the column origins for given {@link TableWrapLayout} object.
-   */
-  public static int[] getColumnOrigins(Object layout) throws Exception {
-    return (int[]) ReflectionUtils.getFieldObject(layout, "m_columnOrigins");
-  }
+	/**
+	 * @return the column origins for given {@link TableWrapLayout} object.
+	 */
+	public static int[] getColumnOrigins(Object layout) throws Exception {
+		return (int[]) ReflectionUtils.getFieldObject(layout, "m_columnOrigins");
+	}
 
-  /**
-   * @return the column widths for given {@link TableWrapLayout} object.
-   */
-  public static int[] getColumnWidths(Object layout) throws Exception {
-    return (int[]) ReflectionUtils.getFieldObject(layout, "m_columnWidths");
-  }
+	/**
+	 * @return the column widths for given {@link TableWrapLayout} object.
+	 */
+	public static int[] getColumnWidths(Object layout) throws Exception {
+		return (int[]) ReflectionUtils.getFieldObject(layout, "m_columnWidths");
+	}
 
-  /**
-   * @return the row origins for given {@link TableWrapLayout} object.
-   */
-  public static int[] getRowOrigins(Object layout) throws Exception {
-    return (int[]) ReflectionUtils.getFieldObject(layout, "m_rowOrigins");
-  }
+	/**
+	 * @return the row origins for given {@link TableWrapLayout} object.
+	 */
+	public static int[] getRowOrigins(Object layout) throws Exception {
+		return (int[]) ReflectionUtils.getFieldObject(layout, "m_rowOrigins");
+	}
 
-  /**
-   * @return the row heights for given {@link TableWrapLayout} object.
-   */
-  public static int[] getRowHeights(Object layout) throws Exception {
-    return (int[]) ReflectionUtils.getFieldObject(layout, "m_rowHeights");
-  }
+	/**
+	 * @return the row heights for given {@link TableWrapLayout} object.
+	 */
+	public static int[] getRowHeights(Object layout) throws Exception {
+		return (int[]) ReflectionUtils.getFieldObject(layout, "m_rowHeights");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TableWrapData
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create new {@link TableWrapData}.
-   */
-  public static Object createTableWrapData() throws Exception {
-    return loadClass("org.eclipse.ui.forms.widgets.TableWrapData").newInstance();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TableWrapData
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create new {@link TableWrapData}.
+	 */
+	public static Object createTableWrapData() throws Exception {
+		return loadClass("org.eclipse.ui.forms.widgets.TableWrapData").newInstance();
+	}
 }

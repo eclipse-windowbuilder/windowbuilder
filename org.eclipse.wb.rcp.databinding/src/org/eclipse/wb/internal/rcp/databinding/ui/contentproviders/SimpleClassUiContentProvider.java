@@ -21,31 +21,31 @@ import org.eclipse.wb.internal.rcp.databinding.model.SimpleClassObjectInfo;
  * @coverage bindings.rcp.ui
  */
 public final class SimpleClassUiContentProvider extends ChooseClassUiContentProvider {
-  private final SimpleClassObjectInfo m_object;
+	private final SimpleClassObjectInfo m_object;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimpleClassUiContentProvider(ChooseClassConfiguration configuration,
-      SimpleClassObjectInfo object) {
-    super(configuration);
-    m_object = object;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimpleClassUiContentProvider(ChooseClassConfiguration configuration,
+			SimpleClassObjectInfo object) {
+		super(configuration);
+		m_object = object;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-    setClassName(m_object.getClassName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+		setClassName(m_object.getClassName());
+	}
 
-  @Override
-  public void saveToObject() throws Exception {
-    m_object.setClassName(getClassName());
-  }
+	@Override
+	public void saveToObject() throws Exception {
+		m_object.setClassName(getClassName());
+	}
 }

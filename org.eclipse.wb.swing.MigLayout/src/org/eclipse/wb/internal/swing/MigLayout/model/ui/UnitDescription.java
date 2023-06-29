@@ -17,35 +17,35 @@ package org.eclipse.wb.internal.swing.MigLayout.model.ui;
  * @coverage swing.MigLayout.ui
  */
 public final class UnitDescription {
-  private final String m_unit;
-  private final String m_title;
+	private final String m_unit;
+	private final String m_title;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UnitDescription(String unit, String title) {
-    m_unit = unit;
-    m_title = title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UnitDescription(String unit, String title) {
+		m_unit = unit;
+		m_title = title;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the unit name.
-   */
-  public String getUnit() {
-    return m_unit;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the unit name.
+	 */
+	public String getUnit() {
+		return m_unit;
+	}
 
-  /**
-   * @return the title to display.
-   */
-  public String getTitle() {
-    return m_title;
-  }
+	/**
+	 * @return the title to display.
+	 */
+	public String getTitle() {
+		return m_title;
+	}
 }

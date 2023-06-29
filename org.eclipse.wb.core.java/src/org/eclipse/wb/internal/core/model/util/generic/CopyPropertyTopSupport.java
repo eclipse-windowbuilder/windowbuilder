@@ -31,30 +31,30 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage core.model.util
  */
 public final class CopyPropertyTopSupport extends CopyPropertyTopAbstractSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Installation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures given {@link JavaInfo} to copy properties according parameters in description.
-   */
-  public static void install(JavaInfo javaInfo) {
-    new CopyPropertyTopSupport().install(javaInfo, "copyPropertyTop ");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Installation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures given {@link JavaInfo} to copy properties according parameters in description.
+	 */
+	public static void install(JavaInfo javaInfo) {
+		new CopyPropertyTopSupport().install(javaInfo, "copyPropertyTop ");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Predicate<JavaInfo> createTargetPredicate(final JavaInfo javaInfo) {
-    return new Predicate<JavaInfo>() {
-      @Override
-      public boolean apply(JavaInfo t) {
-        return t == javaInfo;
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Predicate<JavaInfo> createTargetPredicate(final JavaInfo javaInfo) {
+		return new Predicate<JavaInfo>() {
+			@Override
+			public boolean apply(JavaInfo t) {
+				return t == javaInfo;
+			}
+		};
+	}
 }

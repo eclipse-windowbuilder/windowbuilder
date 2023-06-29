@@ -19,49 +19,49 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage bindings.ui
  */
 public interface IUiContentProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Complete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets listener for notification of calculate state.
-   */
-  void setCompleteListener(ICompleteListener listener);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Complete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets listener for notification of calculate state.
+	 */
+	void setCompleteListener(ICompleteListener listener);
 
-  /**
-   * @return current error state message or <code>null</code>.
-   */
-  String getErrorMessage();
+	/**
+	 * @return current error state message or <code>null</code>.
+	 */
+	String getErrorMessage();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the number of columns of the content provider.
-   */
-  int getNumberOfControls();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the number of columns of the content provider.
+	 */
+	int getNumberOfControls();
 
-  /**
-   * Creates all controls of the content provider and fills it to a composite. The composite is
-   * assumed to have <code>GridLayout</code> as layout.
-   */
-  void createContent(Composite parent, int columns);
+	/**
+	 * Creates all controls of the content provider and fills it to a composite. The composite is
+	 * assumed to have <code>GridLayout</code> as layout.
+	 */
+	void createContent(Composite parent, int columns);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Invoke for initialize all controls of the content provider from edit object.
-   */
-  void updateFromObject() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Invoke for initialize all controls of the content provider from edit object.
+	 */
+	void updateFromObject() throws Exception;
 
-  /**
-   * Invoke for save changes of edit object.
-   */
-  void saveToObject() throws Exception;
+	/**
+	 * Invoke for save changes of edit object.
+	 */
+	void saveToObject() throws Exception;
 }

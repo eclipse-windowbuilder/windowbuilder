@@ -24,27 +24,27 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @coverage rcp.preferences
  */
 public final class PreferenceInitializer extends AbstractPreferenceInitializer
-    implements
-      IPreferenceConstants {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //	Initializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initializeDefaultPreferences() {
-    IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
-    // type
-    preferenceStore.setDefault(P_CODE_TYPE, V_CODE_ANONYMOUS);
-    preferenceStore.setDefault(P_INNER_POSITION, V_INNER_AFTER);
-    // stub
-    preferenceStore.setDefault(P_CREATE_STUB, false);
-    preferenceStore.setDefault(P_STUB_NAME_TEMPLATE, "do_${component_name}_${event_name}");
-    preferenceStore.setDefault(P_DELETE_STUB, true);
-    // inner
-    preferenceStore.setDefault(P_INNER_NAME_TEMPLATE, "${Component_name}${Listener_className}");
-    // other
-    preferenceStore.setDefault(P_FINAL_PARAMETERS, false);
-    preferenceStore.setDefault(P_DECORATE_ICON, true);
-  }
+implements
+IPreferenceConstants {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//	Initializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initializeDefaultPreferences() {
+		IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
+		// type
+		preferenceStore.setDefault(P_CODE_TYPE, V_CODE_ANONYMOUS);
+		preferenceStore.setDefault(P_INNER_POSITION, V_INNER_AFTER);
+		// stub
+		preferenceStore.setDefault(P_CREATE_STUB, false);
+		preferenceStore.setDefault(P_STUB_NAME_TEMPLATE, "do_${component_name}_${event_name}");
+		preferenceStore.setDefault(P_DELETE_STUB, true);
+		// inner
+		preferenceStore.setDefault(P_INNER_NAME_TEMPLATE, "${Component_name}${Listener_className}");
+		// other
+		preferenceStore.setDefault(P_FINAL_PARAMETERS, false);
+		preferenceStore.setDefault(P_DECORATE_ICON, true);
+	}
 }

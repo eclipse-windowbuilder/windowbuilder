@@ -19,35 +19,35 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
  *
  */
 public class DatabindingsProviderTest extends XwtModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_property() throws Exception {
-    parse(
-        "// filler filler filler filler filler",
-        "<Shell>",
-        "  <Button text='Button' wbp:name='component'/>",
-        "</Shell>");
-    refresh();
-    // prepare models
-    ControlInfo button = getObjectByName("component");
-    BindingsProperty property = (BindingsProperty) button.getPropertyByTitle("bindings");
-    assertNotNull(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_property() throws Exception {
+		parse(
+				"// filler filler filler filler filler",
+				"<Shell>",
+				"  <Button text='Button' wbp:name='component'/>",
+				"</Shell>");
+		refresh();
+		// prepare models
+		ControlInfo button = getObjectByName("component");
+		BindingsProperty property = (BindingsProperty) button.getPropertyByTitle("bindings");
+		assertNotNull(property);
+	}
 
-  public void test_property_disabled() throws Exception {
-    /*setFileContentSrc(
+	public void test_property_disabled() throws Exception {
+		/*setFileContentSrc(
     	"test/client/MyFormPanel.java",
     	getTestSource(
     		"public class MyFormPanel extends FormPanel {",
@@ -64,18 +64,18 @@ public class DatabindingsProviderTest extends XwtModelTest {
     		"  </parameters>",
     		"</component>"));
     waitForAutoBuild();*/
-    prepareMyComponent(new String[]{""}, new String[]{
-        "  <parameters>",
-        "    <parameter name='databinding.disable'>true</parameter>",
-        "  </parameters>"});
-    parse(
-        "// filler filler filler filler filler",
-        "<Shell>",
-        "  <t:MyComponent wbp:name='component'/>",
-        "</Shell>");
-    refresh();
-    // prepare models
-    ControlInfo component = getObjectByName("component");
-    assertNull(component.getPropertyByTitle("bindings"));
-  }
+		prepareMyComponent(new String[]{""}, new String[]{
+				"  <parameters>",
+				"    <parameter name='databinding.disable'>true</parameter>",
+		"  </parameters>"});
+		parse(
+				"// filler filler filler filler filler",
+				"<Shell>",
+				"  <t:MyComponent wbp:name='component'/>",
+				"</Shell>");
+		refresh();
+		// prepare models
+		ControlInfo component = getObjectByName("component");
+		assertNull(component.getPropertyByTitle("bindings"));
+	}
 }

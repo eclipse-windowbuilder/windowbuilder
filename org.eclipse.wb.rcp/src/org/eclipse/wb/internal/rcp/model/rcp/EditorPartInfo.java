@@ -35,112 +35,112 @@ import java.lang.reflect.Proxy;
  * @coverage rcp.model.rcp
  */
 public class EditorPartInfo extends WorkbenchPartLikeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditorPartInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    contributeExtensionProperty();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditorPartInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		contributeExtensionProperty();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void contributeExtensionProperty() throws Exception {
-    new ExtensionPropertyHelper(this, "org.eclipse.ui.editors", "editor") {
-      @Override
-      protected Property[] createProperties() {
-        return new Property[]{
-            createStringProperty("name"),
-            createIconProperty("icon"),
-            createStringProperty("extensions"),
-            createBooleanProperty("default", false)};
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void contributeExtensionProperty() throws Exception {
+		new ExtensionPropertyHelper(this, "org.eclipse.ui.editors", "editor") {
+			@Override
+			protected Property[] createProperties() {
+				return new Property[]{
+						createStringProperty("name"),
+						createIconProperty("icon"),
+						createStringProperty("extensions"),
+						createBooleanProperty("default", false)};
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void render() throws Exception {
-    setEditorSite();
-    super.render();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void render() throws Exception {
+		setEditorSite();
+		super.render();
+	}
 
-  private void setEditorSite() throws Exception {
-    ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
-    Class<?> editorSiteClass = editorLoader.loadClass("org.eclipse.ui.IEditorSite");
-    Class<?> editorInputClass = editorLoader.loadClass("org.eclipse.ui.IEditorInput");
-    // create IEditorSite
-    Object editorSite =
-        Proxy.newProxyInstance(
-            editorLoader,
-            new Class<?>[]{editorSiteClass},
-            new InvocationHandler() {
-              @Override
-              public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                String signature = ReflectionUtils.getMethodSignature(method);
-                if (signature.equals("toString()")) {
-                  return "IEditorSite_stub";
-                }
-                if (signature.equals("hashCode()")) {
-                  return 0;
-                }
-                if (signature.equals("getId()")) {
-                  return getID();
-                }
-                if (signature.equals("getWorkbenchWindow()")) {
-                  return DesignerPlugin.getActiveWorkbenchWindow();
-                }
-                // IServiceLocator
-                if (signature.equals("hasService(java.lang.Class)")) {
-                  IServiceLocator serviceLocator = DesignerPlugin.getActiveWorkbenchWindow();
-                  return serviceLocator.hasService((Class<?>) args[0]);
-                }
-                if (signature.equals("getService(java.lang.Class)")) {
-                  IServiceLocator serviceLocator = DesignerPlugin.getActiveWorkbenchWindow();
-                  return serviceLocator.getService((Class<?>) args[0]);
-                }
-                // not implemented
-                throw new NotImplementedException(method.toString());
-              }
-            });
-    // create org.eclipse.ui.IEditorInput
-    Object editorInput =
-        Proxy.newProxyInstance(
-            editorLoader,
-            new Class<?>[]{editorInputClass},
-            new InvocationHandler() {
-              @Override
-              public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                Class<?> returnType = method.getReturnType();
-                return ReflectionUtils.getDefaultValue(returnType);
-              }
-            });
-    // call init(IEditorSite,IEditorInput)
-    ReflectionUtils.invokeMethod(
-        getObject(),
-        "init(org.eclipse.ui.IEditorSite,org.eclipse.ui.IEditorInput)",
-        editorSite,
-        editorInput);
-  }
+	private void setEditorSite() throws Exception {
+		ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
+		Class<?> editorSiteClass = editorLoader.loadClass("org.eclipse.ui.IEditorSite");
+		Class<?> editorInputClass = editorLoader.loadClass("org.eclipse.ui.IEditorInput");
+		// create IEditorSite
+		Object editorSite =
+				Proxy.newProxyInstance(
+						editorLoader,
+						new Class<?>[]{editorSiteClass},
+						new InvocationHandler() {
+							@Override
+							public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+								String signature = ReflectionUtils.getMethodSignature(method);
+								if (signature.equals("toString()")) {
+									return "IEditorSite_stub";
+								}
+								if (signature.equals("hashCode()")) {
+									return 0;
+								}
+								if (signature.equals("getId()")) {
+									return getID();
+								}
+								if (signature.equals("getWorkbenchWindow()")) {
+									return DesignerPlugin.getActiveWorkbenchWindow();
+								}
+								// IServiceLocator
+								if (signature.equals("hasService(java.lang.Class)")) {
+									IServiceLocator serviceLocator = DesignerPlugin.getActiveWorkbenchWindow();
+									return serviceLocator.hasService((Class<?>) args[0]);
+								}
+								if (signature.equals("getService(java.lang.Class)")) {
+									IServiceLocator serviceLocator = DesignerPlugin.getActiveWorkbenchWindow();
+									return serviceLocator.getService((Class<?>) args[0]);
+								}
+								// not implemented
+								throw new NotImplementedException(method.toString());
+							}
+						});
+		// create org.eclipse.ui.IEditorInput
+		Object editorInput =
+				Proxy.newProxyInstance(
+						editorLoader,
+						new Class<?>[]{editorInputClass},
+						new InvocationHandler() {
+							@Override
+							public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+								Class<?> returnType = method.getReturnType();
+								return ReflectionUtils.getDefaultValue(returnType);
+							}
+						});
+		// call init(IEditorSite,IEditorInput)
+		ReflectionUtils.invokeMethod(
+				getObject(),
+				"init(org.eclipse.ui.IEditorSite,org.eclipse.ui.IEditorInput)",
+				editorSite,
+				editorInput);
+	}
 
-  @Override
-  protected String getGUIMethodName() {
-    return "createPartControl";
-  }
+	@Override
+	protected String getGUIMethodName() {
+		return "createPartControl";
+	}
 
-  @Override
-  protected void configureTabItem(CTabItem tabItem) throws Exception {
-    configureTabItem_fromExtension(tabItem, "EditorPart");
-  }
+	@Override
+	protected void configureTabItem(CTabItem tabItem) throws Exception {
+		configureTabItem_fromExtension(tabItem, "EditorPart");
+	}
 }

@@ -22,26 +22,26 @@ import org.eclipse.wb.internal.swing.model.component.JSplitPaneInfo;
  * @coverage swing.gef.part
  */
 public final class JSplitPaneEditPart extends ComponentEditPart {
-  private final JSplitPaneInfo m_component;
+	private final JSplitPaneInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JSplitPaneEditPart(JSplitPaneInfo component) {
-    super(component);
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JSplitPaneEditPart(JSplitPaneInfo component) {
+		super(component);
+		m_component = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(EditPolicy.LAYOUT_ROLE, new JSplitPaneLayoutEditPolicy(m_component));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new JSplitPaneLayoutEditPolicy(m_component));
+	}
 }

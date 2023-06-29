@@ -24,27 +24,27 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @coverage swing.preferences
  */
 public final class PreferenceInitializer extends AbstractPreferenceInitializer
-    implements
-      IPreferenceConstants {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //	Initializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initializeDefaultPreferences() {
-    IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
-    // type
-    preferences.setDefault(P_CODE_TYPE, V_CODE_ANONYMOUS);
-    preferences.setDefault(P_INNER_POSITION, V_INNER_AFTER);
-    // stub
-    preferences.setDefault(P_CREATE_STUB, false);
-    preferences.setDefault(P_STUB_NAME_TEMPLATE, "do_${component_name}_${event_name}");
-    preferences.setDefault(P_DELETE_STUB, true);
-    // inner
-    preferences.setDefault(P_INNER_NAME_TEMPLATE, "${Component_name}${Listener_className}");
-    // other
-    preferences.setDefault(P_FINAL_PARAMETERS, false);
-    preferences.setDefault(P_DECORATE_ICON, true);
-  }
+implements
+IPreferenceConstants {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//	Initializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initializeDefaultPreferences() {
+		IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
+		// type
+		preferences.setDefault(P_CODE_TYPE, V_CODE_ANONYMOUS);
+		preferences.setDefault(P_INNER_POSITION, V_INNER_AFTER);
+		// stub
+		preferences.setDefault(P_CREATE_STUB, false);
+		preferences.setDefault(P_STUB_NAME_TEMPLATE, "do_${component_name}_${event_name}");
+		preferences.setDefault(P_DELETE_STUB, true);
+		// inner
+		preferences.setDefault(P_INNER_NAME_TEMPLATE, "${Component_name}${Listener_className}");
+		// other
+		preferences.setDefault(P_FINAL_PARAMETERS, false);
+		preferences.setDefault(P_DECORATE_ICON, true);
+	}
 }

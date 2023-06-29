@@ -32,50 +32,50 @@ import java.util.List;
  * @coverage XWT.model.layout
  */
 public final class RowLayoutInfo extends GenericFlowLayoutInfo
-    implements
-      IRowLayoutInfo<ControlInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowLayoutInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-    new RowLayoutAssistant(this);
-  }
+implements
+IRowLayoutInfo<ControlInfo> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowLayoutInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+		new RowLayoutAssistant(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isHorizontal() {
-    return ReflectionUtils.getFieldInt(getObject(), "type") == SWT.HORIZONTAL;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isHorizontal() {
+		return ReflectionUtils.getFieldInt(getObject(), "type") == SWT.HORIZONTAL;
+	}
 
-  /**
-   * @return {@link RowDataInfo} associated with given {@link ControlInfo}.
-   */
-  public static RowDataInfo getRowData(ControlInfo control) {
-    return (RowDataInfo) getLayoutData(control);
-  }
+	/**
+	 * @return {@link RowDataInfo} associated with given {@link ControlInfo}.
+	 */
+	public static RowDataInfo getRowData(ControlInfo control) {
+		return (RowDataInfo) getLayoutData(control);
+	}
 
-  public IRowDataInfo getRowData2(ControlInfo control) {
-    return getRowData(control);
-  }
+	public IRowDataInfo getRowData2(ControlInfo control) {
+		return getRowData(control);
+	}
 
-  //////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void clipboardCopy_addControlCommands(ControlInfo control,
-      List<ClipboardCommand> commands) throws Exception {
-    super.clipboardCopy_addControlCommands(control, commands);
-    commands.add(new LayoutDataClipboardCommand(this, control));
-  }
+	//////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void clipboardCopy_addControlCommands(ControlInfo control,
+			List<ClipboardCommand> commands) throws Exception {
+		super.clipboardCopy_addControlCommands(control, commands);
+		commands.add(new LayoutDataClipboardCommand(this, control));
+	}
 }

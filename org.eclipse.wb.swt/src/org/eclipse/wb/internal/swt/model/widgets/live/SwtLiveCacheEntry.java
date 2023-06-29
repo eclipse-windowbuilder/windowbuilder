@@ -21,71 +21,71 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swt.model.widgets.live
  */
 public final class SwtLiveCacheEntry implements ILiveCacheEntry {
-  private Image m_image;
-  private int m_style;
-  private int m_baseline;
+	private Image m_image;
+	private int m_style;
+	private int m_baseline;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDisposable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dispose() {
-    if (m_image != null && !m_image.isDisposed()) {
-      m_image.dispose();
-      m_image = null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDisposable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dispose() {
+		if (m_image != null && !m_image.isDisposed()) {
+			m_image.dispose();
+			m_image = null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Image
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the image to be cached.
-   */
-  public void setImage(Image image) {
-    m_image = image;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Image
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the image to be cached.
+	 */
+	public void setImage(Image image) {
+		m_image = image;
+	}
 
-  /**
-   * @return the cached image.
-   */
-  public Image getImage() {
-    return m_image;
-  }
+	/**
+	 * @return the cached image.
+	 */
+	public Image getImage() {
+		return m_image;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Style
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the style value to be cached.
-   */
-  public void setStyle(int style) {
-    m_style = style;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Style
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the style value to be cached.
+	 */
+	public void setStyle(int style) {
+		m_style = style;
+	}
 
-  /**
-   * @return the cached style value.
-   */
-  public int getStyle() {
-    return m_style;
-  }
+	/**
+	 * @return the cached style value.
+	 */
+	public int getStyle() {
+		return m_style;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Baseline
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setBaseline(int baseline) {
-    m_baseline = baseline;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Baseline
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setBaseline(int baseline) {
+		m_baseline = baseline;
+	}
 
-  public int getBaseline() {
-    return m_baseline;
-  }
+	public int getBaseline() {
+		return m_baseline;
+	}
 }

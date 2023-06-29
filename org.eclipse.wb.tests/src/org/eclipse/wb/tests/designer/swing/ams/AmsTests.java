@@ -21,10 +21,10 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class AmsTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.AMS");
-    suite.addTest(createSingleSuite(PropertyTweaksTest.class));
-    suite.addTest(createSingleSuite(VarmenuLayoutTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.AMS");
+		suite.addTest(createSingleSuite(PropertyTweaksTest.class));
+		suite.addTest(createSingleSuite(VarmenuLayoutTest.class));
+		return suite;
+	}
 }

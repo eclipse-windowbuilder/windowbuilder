@@ -26,51 +26,51 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class CategoryEditCommand extends CategoryAbstractCommand {
-  public static final String ID = "editCategory";
+	public static final String ID = "editCategory";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CategoryEditCommand(String id,
-      String name,
-      String description,
-      boolean visible,
-      boolean open) {
-    super(id, name, description, visible, open);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CategoryEditCommand(String id,
+			String name,
+			String description,
+			boolean visible,
+			boolean open) {
+		super(id, name, description, visible, open);
+	}
 
-  public CategoryEditCommand(Attributes attributes) {
-    super(attributes);
-  }
+	public CategoryEditCommand(Attributes attributes) {
+		super(attributes);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    CategoryInfo category = palette.getCategory(m_id);
-    if (category != null) {
-      updateElement(category);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		CategoryInfo category = palette.getCategory(m_id);
+		if (category != null) {
+			updateElement(category);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addToCommandList(final List<Command> commands) {
-    ExecutionUtils.runIgnore(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        removeCommands(commands, CategoryEditCommand.class, m_id);
-      }
-    });
-    commands.add(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addToCommandList(final List<Command> commands) {
+		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				removeCommands(commands, CategoryEditCommand.class, m_id);
+			}
+		});
+		commands.add(this);
+	}
 }

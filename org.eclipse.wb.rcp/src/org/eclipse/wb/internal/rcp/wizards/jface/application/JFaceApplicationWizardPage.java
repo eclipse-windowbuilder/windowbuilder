@@ -35,74 +35,74 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class JFaceApplicationWizardPage extends RcpWizardPage {
-  private Button m_toolBarButton;
+	private Button m_toolBarButton;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JFaceApplicationWizardPage() {
-    setTitle(WizardsMessages.JFaceApplicationWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/ApplicationWindow/banner.gif"));
-    setDescription(WizardsMessages.JFaceApplicationWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JFaceApplicationWizardPage() {
+		setTitle(WizardsMessages.JFaceApplicationWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/ApplicationWindow/banner.gif"));
+		setDescription(WizardsMessages.JFaceApplicationWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/jface/" + getTemplateName());
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/jface/" + getTemplateName());
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  private String getTemplateName() {
-    final boolean selection[] = new boolean[1];
-    getShell().getDisplay().syncExec(new Runnable() {
-      @Override
-      public void run() {
-        selection[0] = m_toolBarButton.getSelection();
-      }
-    });
-    if (selection[0]) {
-      return "ApplicationWindow_ToolBar.jvt";
-    }
-    return "ApplicationWindow_CoolBar.jvt";
-  }
+	private String getTemplateName() {
+		final boolean selection[] = new boolean[1];
+		getShell().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				selection[0] = m_toolBarButton.getSelection();
+			}
+		});
+		if (selection[0]) {
+			return "ApplicationWindow_ToolBar.jvt";
+		}
+		return "ApplicationWindow_CoolBar.jvt";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("org.eclipse.jface.window.ApplicationWindow", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("org.eclipse.jface.window.ApplicationWindow", true);
+	}
 
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    Composite superClassComposite = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.create(superClassComposite).margins(0);
-    GridDataFactory.create(superClassComposite).fillH().spanH(columns);
-    //
-    Label label = new Label(superClassComposite, SWT.NONE);
-    label.setText(WizardsMessages.JFaceApplicationWizardPage_typeSelect);
-    //
-    m_toolBarButton = new Button(superClassComposite, SWT.RADIO);
-    m_toolBarButton.setText(WizardsMessages.JFaceApplicationWizardPage_typeWithToolBar);
-    m_toolBarButton.setSelection(true);
-    GridDataFactory.create(m_toolBarButton).indentH(24);
-    //
-    Button coolBarButton = new Button(superClassComposite, SWT.RADIO);
-    coolBarButton.setText(WizardsMessages.JFaceApplicationWizardPage_typeWithCoolBar);
-    GridDataFactory.create(coolBarButton).indentH(24);
-    //
-    createSeparator(parent, columns);
-  }
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		Composite superClassComposite = new Composite(parent, SWT.NONE);
+		GridLayoutFactory.create(superClassComposite).margins(0);
+		GridDataFactory.create(superClassComposite).fillH().spanH(columns);
+		//
+		Label label = new Label(superClassComposite, SWT.NONE);
+		label.setText(WizardsMessages.JFaceApplicationWizardPage_typeSelect);
+		//
+		m_toolBarButton = new Button(superClassComposite, SWT.RADIO);
+		m_toolBarButton.setText(WizardsMessages.JFaceApplicationWizardPage_typeWithToolBar);
+		m_toolBarButton.setSelection(true);
+		GridDataFactory.create(m_toolBarButton).indentH(24);
+		//
+		Button coolBarButton = new Button(superClassComposite, SWT.RADIO);
+		coolBarButton.setText(WizardsMessages.JFaceApplicationWizardPage_typeWithCoolBar);
+		GridDataFactory.create(coolBarButton).indentH(24);
+		//
+		createSeparator(parent, columns);
+	}
 }

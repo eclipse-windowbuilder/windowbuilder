@@ -28,74 +28,74 @@ import java.util.List;
  * @coverage swing.laf.model
  */
 public final class SetVisibleCommand extends Command {
-  // constants
-  private static final String ATTR_VISIBLE = "visible";
-  public static final String ID = "set-visible";
-  // fields
-  private final String m_id;
-  private final boolean m_visible;
+	// constants
+	private static final String ATTR_VISIBLE = "visible";
+	public static final String ID = "set-visible";
+	// fields
+	private final String m_id;
+	private final boolean m_visible;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetVisibleCommand(LafEntryInfo element, boolean visible) {
-    m_id = element.getID();
-    m_visible = visible;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetVisibleCommand(LafEntryInfo element, boolean visible) {
+		m_id = element.getID();
+		m_visible = visible;
+	}
 
-  public SetVisibleCommand(Attributes attributes) {
-    m_id = attributes.getValue(ATTR_ID);
-    m_visible = ATTR_VALUE_TRUE.equals(attributes.getValue(ATTR_VISIBLE));
-  }
+	public SetVisibleCommand(Attributes attributes) {
+		m_id = attributes.getValue(ATTR_ID);
+		m_visible = ATTR_VALUE_TRUE.equals(attributes.getValue(ATTR_VISIBLE));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execute
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute() {
-    // try category
-    {
-      CategoryInfo category = LafSupport.getCategory(m_id);
-      if (category != null) {
-        category.setVisible(m_visible);
-        return;
-      }
-    }
-    // try LAF
-    {
-      LafInfo lafInfo = LafSupport.getLookAndFeel(m_id);
-      if (lafInfo != null) {
-        lafInfo.setVisible(m_visible);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execute
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute() {
+		// try category
+		{
+			CategoryInfo category = LafSupport.getCategory(m_id);
+			if (category != null) {
+				category.setVisible(m_visible);
+				return;
+			}
+		}
+		// try LAF
+		{
+			LafInfo lafInfo = LafSupport.getLookAndFeel(m_id);
+			if (lafInfo != null) {
+				lafInfo.setVisible(m_visible);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Save
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes(XmlWriter writer) {
-    addAttribute(writer, ATTR_ID, m_id);
-    addAttribute(writer, ATTR_VISIBLE, m_visible);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Save
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes(XmlWriter writer) {
+		addAttribute(writer, ATTR_ID, m_id);
+		addAttribute(writer, ATTR_VISIBLE, m_visible);
+	}
 
-  @Override
-  public void addToCommandList(List<Command> commands) {
-    for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
-      Command command = I.next();
-      if (command instanceof SetVisibleCommand) {
-        SetVisibleCommand svCommand = (SetVisibleCommand) command;
-        if (svCommand.m_id.equals(m_id)) {
-          I.remove();
-        }
-      }
-    }
-    commands.add(this);
-  }
+	@Override
+	public void addToCommandList(List<Command> commands) {
+		for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
+			Command command = I.next();
+			if (command instanceof SetVisibleCommand) {
+				SetVisibleCommand svCommand = (SetVisibleCommand) command;
+				if (svCommand.m_id.equals(m_id)) {
+					I.remove();
+				}
+			}
+		}
+		commands.add(this);
+	}
 }

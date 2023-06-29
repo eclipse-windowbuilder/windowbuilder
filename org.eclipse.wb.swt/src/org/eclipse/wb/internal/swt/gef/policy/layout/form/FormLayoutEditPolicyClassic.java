@@ -80,7 +80,7 @@ import java.util.Map;
  * @author mitin_aa
  */
 public class FormLayoutEditPolicyClassic<C extends IControlInfo> extends KeyboardMovingLayoutEditPolicy
-		implements IHeadersProvider {
+implements IHeadersProvider {
 	private static final int EXTENSION = 8;
 	// model
 	private final IFormLayoutInfo<C> layout;
@@ -539,13 +539,13 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo> extends Keyboar
 		// prepare create command
 		createCommand = new CompoundEditCommand(layoutModel);
 		createCommand
-				.add(GlobalState.getPasteRequestProcessor().getPasteCommand(request, new IPasteComponentProcessor() {
-					@Override
-					@SuppressWarnings("unchecked")
-					public void process(Object component) throws Exception {
-						layout.commandCreate((C) component, null);
-					}
-				}));
+		.add(GlobalState.getPasteRequestProcessor().getPasteCommand(request, new IPasteComponentProcessor() {
+			@Override
+			@SuppressWarnings("unchecked")
+			public void process(Object component) throws Exception {
+				layout.commandCreate((C) component, null);
+			}
+		}));
 		for (int i = 0; i < pastingComponents.size(); ++i) {
 			final C pasted = getControlFromList(pastingComponents, i);
 			final Dimension size = new Dimension(relativeBounds[i].width, relativeBounds[i].height);

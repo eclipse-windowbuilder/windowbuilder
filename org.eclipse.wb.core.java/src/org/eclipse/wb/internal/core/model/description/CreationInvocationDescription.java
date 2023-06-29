@@ -19,33 +19,33 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage core.model.description
  */
 public final class CreationInvocationDescription extends AbstractDescription {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Signature
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_signature;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Signature
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_signature;
 
-  public String getSignature() {
-    return m_signature;
-  }
+	public String getSignature() {
+		return m_signature;
+	}
 
-  public void setSignature(String signature) {
-    m_signature = signature;
-  }
+	public void setSignature(String signature) {
+		m_signature = signature;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Arguments
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_arguments;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Arguments
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_arguments;
 
-  public String getArguments() {
-    return m_arguments;
-  }
+	public String getArguments() {
+		return m_arguments;
+	}
 
-  public void setArguments(String arguments) {
-    m_arguments = arguments;
-  }
+	public void setArguments(String arguments) {
+		m_arguments = arguments;
+	}
 }

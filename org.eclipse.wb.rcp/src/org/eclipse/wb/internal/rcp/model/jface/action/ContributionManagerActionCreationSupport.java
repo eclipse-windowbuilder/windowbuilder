@@ -30,80 +30,80 @@ import org.eclipse.jface.action.IContributionManager;
  * @coverage rcp.model.jface
  */
 public final class ContributionManagerActionCreationSupport extends VoidInvocationCreationSupport {
-  private final ActionInfo m_action;
+	private final ActionInfo m_action;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ContributionManagerActionCreationSupport(JavaInfo hostJavaInfo,
-      MethodDescription description,
-      MethodInvocation invocation,
-      JavaInfo[] argumentInfos) {
-    super(hostJavaInfo, description, invocation);
-    m_action = (ActionInfo) argumentInfos[0];
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ContributionManagerActionCreationSupport(JavaInfo hostJavaInfo,
+			MethodDescription description,
+			MethodInvocation invocation,
+			JavaInfo[] argumentInfos) {
+		super(hostJavaInfo, description, invocation);
+		m_action = (ActionInfo) argumentInfos[0];
+	}
 
-  public ContributionManagerActionCreationSupport(JavaInfo hostJavaInfo, ActionInfo action) {
-    super(hostJavaInfo, getMethodDescription(hostJavaInfo));
-    m_action = action;
-  }
+	public ContributionManagerActionCreationSupport(JavaInfo hostJavaInfo, ActionInfo action) {
+		super(hostJavaInfo, getMethodDescription(hostJavaInfo));
+		m_action = action;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static MethodDescription getMethodDescription(JavaInfo hostJavaInfo) {
-    return hostJavaInfo.getDescription().getMethod("add(org.eclipse.jface.action.IAction)");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static MethodDescription getMethodDescription(JavaInfo hostJavaInfo) {
+		return hostJavaInfo.getDescription().getMethod("add(org.eclipse.jface.action.IAction)");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Object getObject(Object manager) throws Exception {
-    Object[] items = (Object[]) ReflectionUtils.invokeMethod2(manager, "getItems");
-    return items[items.length - 1];
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Object getObject(Object manager) throws Exception {
+		Object[] items = (Object[]) ReflectionUtils.invokeMethod2(manager, "getItems");
+		return items[items.length - 1];
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Special access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ActionInfo} that is added to create this {@link ActionContributionItemInfo}.
-   */
-  public ActionInfo getAction() {
-    return m_action;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Special access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ActionInfo} that is added to create this {@link ActionContributionItemInfo}.
+	 */
+	public ActionInfo getAction() {
+		return m_action;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final boolean canReorder() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final boolean canReorder() {
+		return true;
+	}
 
-  @Override
-  public final boolean canReparent() {
-    return true;
-  }
+	@Override
+	public final boolean canReparent() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String add_getMethodSource() throws Exception {
-    return TemplateUtils.format("add({0})", m_action);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String add_getMethodSource() throws Exception {
+		return TemplateUtils.format("add({0})", m_action);
+	}
 }

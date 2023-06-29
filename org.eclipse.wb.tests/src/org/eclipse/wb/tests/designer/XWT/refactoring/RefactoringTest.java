@@ -22,54 +22,54 @@ import org.eclipse.jdt.core.IType;
  * @author scheglov_ke
  */
 public class RefactoringTest extends XwtModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_renameEventListenerMethod() throws Exception {
-    setFileContentSrc(
-        "test/Test.java",
-        getJavaSource(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class Test {",
-            "  public void onKeyDown(Event event) {",
-            "  }",
-            "}"));
-    setFileContentSrc(
-        "test/Test.xwt",
-        getSource(
-            "// filler filler filler filler filler",
-            "<Shell x:Class='test.Test' KeyDownEvent='onKeyDown'/>"));
-    // do rename
-    {
-      IType type = m_javaProject.findType("test.Test");
-      IMethod method = type.getMethods()[0];
-      RefactoringTestUtils.renameMethod(method, "myMethod");
-    }
-    assertEquals(
-        getJavaSource(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class Test {",
-            "  public void myMethod(Event event) {",
-            "  }",
-            "}"),
-        getFileContentSrc("test/Test.java"));
-    assertEquals(
-        getSource(
-            "// filler filler filler filler filler",
-            "<Shell x:Class='test.Test' KeyDownEvent='myMethod'/>"),
-        getFileContentSrc("test/Test.xwt"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_renameEventListenerMethod() throws Exception {
+		setFileContentSrc(
+				"test/Test.java",
+				getJavaSource(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"public class Test {",
+						"  public void onKeyDown(Event event) {",
+						"  }",
+						"}"));
+		setFileContentSrc(
+				"test/Test.xwt",
+				getSource(
+						"// filler filler filler filler filler",
+						"<Shell x:Class='test.Test' KeyDownEvent='onKeyDown'/>"));
+		// do rename
+		{
+			IType type = m_javaProject.findType("test.Test");
+			IMethod method = type.getMethods()[0];
+			RefactoringTestUtils.renameMethod(method, "myMethod");
+		}
+		assertEquals(
+				getJavaSource(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"public class Test {",
+						"  public void myMethod(Event event) {",
+						"  }",
+						"}"),
+				getFileContentSrc("test/Test.java"));
+		assertEquals(
+				getSource(
+						"// filler filler filler filler filler",
+						"<Shell x:Class='test.Test' KeyDownEvent='myMethod'/>"),
+				getFileContentSrc("test/Test.xwt"));
+	}
 }

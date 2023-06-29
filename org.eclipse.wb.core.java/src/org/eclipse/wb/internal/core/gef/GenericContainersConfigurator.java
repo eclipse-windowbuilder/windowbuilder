@@ -30,48 +30,48 @@ import java.util.List;
  * @coverage core.gef
  */
 public final class GenericContainersConfigurator implements IEditPartConfigurator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartConfigurator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void configure(EditPart context, EditPart editPart) {
-    if (editPart.getModel() instanceof JavaInfo) {
-      JavaInfo component = (JavaInfo) editPart.getModel();
-      configureComponent(editPart, component);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartConfigurator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void configure(EditPart context, EditPart editPart) {
+		if (editPart.getModel() instanceof JavaInfo) {
+			JavaInfo component = (JavaInfo) editPart.getModel();
+			configureComponent(editPart, component);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Configuring
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void configureComponent(EditPart editPart, JavaInfo component) {
-    configureSimpleContainer(editPart, component);
-    configureFlowContainer(editPart, component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Configuring
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void configureComponent(EditPart editPart, JavaInfo component) {
+		configureSimpleContainer(editPart, component);
+		configureFlowContainer(editPart, component);
+	}
 
-  /**
-   * Simple containers: SimplePanel, CaptionPanel, etc.
-   */
-  private void configureSimpleContainer(EditPart editPart, JavaInfo component) {
-    List<SimpleContainer> containers = new SimpleContainerFactory(component, true).get();
-    for (SimpleContainer container : containers) {
-      EditPolicy layoutPolicy = new SimpleContainerLayoutEditPolicy(component, container);
-      editPart.installEditPolicy(container, layoutPolicy);
-    }
-  }
+	/**
+	 * Simple containers: SimplePanel, CaptionPanel, etc.
+	 */
+	private void configureSimpleContainer(EditPart editPart, JavaInfo component) {
+		List<SimpleContainer> containers = new SimpleContainerFactory(component, true).get();
+		for (SimpleContainer container : containers) {
+			EditPolicy layoutPolicy = new SimpleContainerLayoutEditPolicy(component, container);
+			editPart.installEditPolicy(container, layoutPolicy);
+		}
+	}
 
-  /**
-   * Flow containers: FlowPanel, HorizontalPanel, VerticalPanel, etc.
-   */
-  private void configureFlowContainer(EditPart editPart, JavaInfo component) {
-    List<FlowContainer> containers = new FlowContainerFactory(component, true).get();
-    for (FlowContainer container : containers) {
-      EditPolicy layoutPolicy = new FlowContainerLayoutEditPolicy(component, container);
-      editPart.installEditPolicy(container, layoutPolicy);
-    }
-  }
+	/**
+	 * Flow containers: FlowPanel, HorizontalPanel, VerticalPanel, etc.
+	 */
+	private void configureFlowContainer(EditPart editPart, JavaInfo component) {
+		List<FlowContainer> containers = new FlowContainerFactory(component, true).get();
+		for (FlowContainer container : containers) {
+			EditPolicy layoutPolicy = new FlowContainerLayoutEditPolicy(component, container);
+			editPart.installEditPolicy(container, layoutPolicy);
+		}
+	}
 }

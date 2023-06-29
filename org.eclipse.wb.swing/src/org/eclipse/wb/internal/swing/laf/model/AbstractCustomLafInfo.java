@@ -17,34 +17,34 @@ package org.eclipse.wb.internal.swing.laf.model;
  * @coverage swing.laf.model
  */
 public abstract class AbstractCustomLafInfo extends LafInfo {
-  private String m_jarFile;
+	private String m_jarFile;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractCustomLafInfo(String id, String name, String className, String jarFile) {
-    super(id, name, className);
-    m_jarFile = jarFile;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractCustomLafInfo(String id, String name, String className, String jarFile) {
+		super(id, name, className);
+		m_jarFile = jarFile;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the full path to jar-file containing this LookAndFeel.
-   */
-  public final String getJarFile() {
-    return m_jarFile;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the full path to jar-file containing this LookAndFeel.
+	 */
+	public final String getJarFile() {
+		return m_jarFile;
+	}
 
-  /**
-   * Sets the full path to jar-file containing this LookAndFeel.
-   */
-  public void setJarFile(String jarFile) {
-    m_jarFile = jarFile;
-  }
+	/**
+	 * Sets the full path to jar-file containing this LookAndFeel.
+	 */
+	public void setJarFile(String jarFile) {
+		m_jarFile = jarFile;
+	}
 }

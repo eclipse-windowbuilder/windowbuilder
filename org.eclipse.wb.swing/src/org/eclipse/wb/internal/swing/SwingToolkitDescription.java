@@ -50,135 +50,135 @@ import java.util.List;
  * @coverage swing
  */
 public final class SwingToolkitDescription extends ToolkitDescriptionJava {
-  public static final ToolkitDescriptionJava INSTANCE = new SwingToolkitDescription();
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-  private final GenerationSettings settings = new GenerationSettings(store);
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialization
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean m_initialized;
+	public static final ToolkitDescriptionJava INSTANCE = new SwingToolkitDescription();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+	private final GenerationSettings settings = new GenerationSettings(store);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialization
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean m_initialized;
 
-  void initialize() {
-    if (!m_initialized) {
-      m_initialized = true;
-      configureLAF();
-      configureGenerators();
-      configureCodeGeneration();
-      configureTypeSpecific();
-    }
-  }
+	void initialize() {
+		if (!m_initialized) {
+			m_initialized = true;
+			configureLAF();
+			configureGenerators();
+			configureCodeGeneration();
+			configureTypeSpecific();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getId() {
-    return IPreferenceConstants.TOOLKIT_ID;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getId() {
+		return IPreferenceConstants.TOOLKIT_ID;
+	}
 
-  @Override
-  public String getName() {
-    return "Swing toolkit";
-  }
+	@Override
+	public String getName() {
+		return "Swing toolkit";
+	}
 
-  @Override
-  public String getProductName() {
-    return BrandingUtils.getBranding().getProductName();
-  }
+	@Override
+	public String getProductName() {
+		return BrandingUtils.getBranding().getProductName();
+	}
 
-  @Override
-  public Bundle getBundle() {
-    return Activator.getDefault().getBundle();
-  }
+	@Override
+	public Bundle getBundle() {
+		return Activator.getDefault().getBundle();
+	}
 
-  @Override
-  public IPreferenceStore getPreferences() {
-    return store;
-  }
+	@Override
+	public IPreferenceStore getPreferences() {
+		return store;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public GenerationSettings getGenerationSettings() {
-    return settings;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public GenerationSettings getGenerationSettings() {
+		return settings;
+	}
 
-  private void configureGenerators() {
-    StatementGeneratorDescription[] usualStatements =
-        new StatementGeneratorDescription[]{
-            FlatStatementGeneratorDescription.INSTANCE,
-            BlockStatementGeneratorDescription.INSTANCE};
-    // local unique
-    settings.addGenerators(
-        LocalUniqueVariableDescription.INSTANCE,
-        usualStatements,
-        new GenerationPreview[]{
-            GenerationPreviewLocalUniqueFlat.INSTANCE,
-            GenerationPreviewLocalUniqueBlock.INSTANCE});
-    // field unique
-    settings.addGenerators(
-        FieldUniqueVariableDescription.INSTANCE,
-        usualStatements,
-        new GenerationPreview[]{
-            GenerationPreviewFieldUniqueFlat.INSTANCE,
-            GenerationPreviewFieldUniqueBlock.INSTANCE});
-    // field with initializer
-    settings.addGenerators(
-        FieldInitializerVariableDescription.INSTANCE,
-        usualStatements,
-        new GenerationPreview[]{
-            GenerationPreviewFieldInitializerFlat.INSTANCE,
-            GenerationPreviewFieldInitializerBlock.INSTANCE});
-    // lazy
-    settings.addGenerators(
-        LazyVariableDescription.INSTANCE,
-        new StatementGeneratorDescription[]{LazyStatementGeneratorDescription.INSTANCE},
-        new GenerationPreview[]{GenerationPreviewLazy.INSTANCE});
-  }
+	private void configureGenerators() {
+		StatementGeneratorDescription[] usualStatements =
+				new StatementGeneratorDescription[]{
+						FlatStatementGeneratorDescription.INSTANCE,
+						BlockStatementGeneratorDescription.INSTANCE};
+		// local unique
+		settings.addGenerators(
+				LocalUniqueVariableDescription.INSTANCE,
+				usualStatements,
+				new GenerationPreview[]{
+						GenerationPreviewLocalUniqueFlat.INSTANCE,
+						GenerationPreviewLocalUniqueBlock.INSTANCE});
+		// field unique
+		settings.addGenerators(
+				FieldUniqueVariableDescription.INSTANCE,
+				usualStatements,
+				new GenerationPreview[]{
+						GenerationPreviewFieldUniqueFlat.INSTANCE,
+						GenerationPreviewFieldUniqueBlock.INSTANCE});
+		// field with initializer
+		settings.addGenerators(
+				FieldInitializerVariableDescription.INSTANCE,
+				usualStatements,
+				new GenerationPreview[]{
+						GenerationPreviewFieldInitializerFlat.INSTANCE,
+						GenerationPreviewFieldInitializerBlock.INSTANCE});
+		// lazy
+		settings.addGenerators(
+				LazyVariableDescription.INSTANCE,
+				new StatementGeneratorDescription[]{LazyStatementGeneratorDescription.INSTANCE},
+				new GenerationPreview[]{GenerationPreviewLazy.INSTANCE});
+	}
 
-  private void configureCodeGeneration() {
-    settings.setDefaultDeduceSettings(true);
-    settings.setDefaultVariable(LocalUniqueVariableDescription.INSTANCE);
-    settings.setDefaultStatement(FlatStatementGeneratorDescription.INSTANCE);
-  }
+	private void configureCodeGeneration() {
+		settings.setDefaultDeduceSettings(true);
+		settings.setDefaultVariable(LocalUniqueVariableDescription.INSTANCE);
+		settings.setDefaultStatement(FlatStatementGeneratorDescription.INSTANCE);
+	}
 
-  private void configureTypeSpecific() {
-    List<ComponentNameDescription> descriptions = Lists.newArrayList();
-    descriptions.add(new ComponentNameDescription("javax.swing.JTextField",
-        "textField",
-        "txt",
-        true));
-    descriptions.add(new ComponentNameDescription("javax.swing.JPasswordField",
-        "passwordField",
-        "pwd",
-        true));
-    descriptions.add(new ComponentNameDescription("javax.swing.JTable", "table", "tbl", true));
-    NamesManager.setDefaultNameDescriptions(this, descriptions);
-  }
+	private void configureTypeSpecific() {
+		List<ComponentNameDescription> descriptions = Lists.newArrayList();
+		descriptions.add(new ComponentNameDescription("javax.swing.JTextField",
+				"textField",
+				"txt",
+				true));
+		descriptions.add(new ComponentNameDescription("javax.swing.JPasswordField",
+				"passwordField",
+				"pwd",
+				true));
+		descriptions.add(new ComponentNameDescription("javax.swing.JTable", "table", "tbl", true));
+		NamesManager.setDefaultNameDescriptions(this, descriptions);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Look-n-Feel
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void configureLAF() {
-    // forcibly set 'Metal' LAF under Linux, see the description
-    // of LAFSupport.getSystemDefaultLAF() for details.
-    // this is hack though because someone may already initialize Gtk LAF.
-    if (EnvironmentUtils.IS_LINUX) {
-      System.setProperty("swing.systemlaf", "javax.swing.plaf.metal.MetalLookAndFeel");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Look-n-Feel
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void configureLAF() {
+		// forcibly set 'Metal' LAF under Linux, see the description
+		// of LAFSupport.getSystemDefaultLAF() for details.
+		// this is hack though because someone may already initialize Gtk LAF.
+		if (EnvironmentUtils.IS_LINUX) {
+			System.setProperty("swing.systemlaf", "javax.swing.plaf.metal.MetalLookAndFeel");
+		}
+	}
 }

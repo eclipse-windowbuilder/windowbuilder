@@ -19,29 +19,29 @@ import org.eclipse.wb.internal.core.utils.dialogfields.SpinnerDialogField;
  * @author scheglov_ke
  */
 public class SpinnerEditor implements IDataEditor {
-  private final SpinnerDialogField m_field;
+	private final SpinnerDialogField m_field;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SpinnerEditor(SpinnerDialogField field) {
-    m_field = field;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SpinnerEditor(SpinnerDialogField field) {
+		m_field = field;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue() {
-    return new Integer(m_field.getSelection());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue() {
+		return new Integer(m_field.getSelection());
+	}
 
-  @Override
-  public void setValue(Object value) {
-    m_field.setSelection(((Integer) value).intValue());
-  }
+	@Override
+	public void setValue(Object value) {
+		m_field.setSelection(((Integer) value).intValue());
+	}
 }

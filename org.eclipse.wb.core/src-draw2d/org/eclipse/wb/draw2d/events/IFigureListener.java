@@ -19,13 +19,13 @@ import org.eclipse.wb.draw2d.Figure;
  * @coverage gef.draw2d
  */
 public interface IFigureListener {
-  /**
-   * Called when the given {@link Figure} has moved.
-   */
-  void figureMoved(Figure source);
+	/**
+	 * Called when the given {@link Figure} has moved.
+	 */
+	void figureMoved(Figure source);
 
-  /**
-   * Called when the given {@link Figure} has change parent.
-   */
-  void figureReparent(Figure source, Figure oldParent, Figure newParent);
+	/**
+	 * Called when the given {@link Figure} has change parent.
+	 */
+	void figureReparent(Figure source, Figure oldParent, Figure newParent);
 }

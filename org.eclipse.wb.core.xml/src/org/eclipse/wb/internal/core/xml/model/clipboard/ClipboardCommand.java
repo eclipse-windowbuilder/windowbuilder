@@ -21,15 +21,15 @@ import java.io.Serializable;
  * @coverage XML.model.clipboard
  */
 public abstract class ClipboardCommand implements Serializable {
-  private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execute
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Executes this {@link ClipboardCommand} in context of its {@link XmlObjectInfo}.
-   */
-  public abstract void execute(XmlObjectInfo object) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execute
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Executes this {@link ClipboardCommand} in context of its {@link XmlObjectInfo}.
+	 */
+	public abstract void execute(XmlObjectInfo object) throws Exception;
 }

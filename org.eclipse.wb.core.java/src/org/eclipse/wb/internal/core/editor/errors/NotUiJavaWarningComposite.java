@@ -29,42 +29,42 @@ import org.apache.commons.lang.ArrayUtils;
  * @coverage core.editor.errors
  */
 public final class NotUiJavaWarningComposite extends JavaWarningComposite {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NotUiJavaWarningComposite(Composite parent, int style) {
-    super(parent, style);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NotUiJavaWarningComposite(Composite parent, int style) {
+		super(parent, style);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // UI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected int getNumButtons() {
-    return 3;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// UI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected int getNumButtons() {
+		return 3;
+	}
 
-  @Override
-  protected void createButtons(Composite buttonsComposite) {
-    {
-      Button toolkitsButton = new Button(buttonsComposite, SWT.NONE);
-      GridDataFactory.create(toolkitsButton).fill();
-      toolkitsButton.setText("Open UI Toolkits");
-      toolkitsButton.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          PreferencesUtil.createPreferenceDialogOn(
-              getShell(),
-              "org.eclipse.wb.internal.discovery.ui.preferences.ToolkitsPreferencePage",
-              ArrayUtils.EMPTY_STRING_ARRAY,
-              null).open();
-        }
-      });
-    }
-    super.createButtons(buttonsComposite);
-  }
+	@Override
+	protected void createButtons(Composite buttonsComposite) {
+		{
+			Button toolkitsButton = new Button(buttonsComposite, SWT.NONE);
+			GridDataFactory.create(toolkitsButton).fill();
+			toolkitsButton.setText("Open UI Toolkits");
+			toolkitsButton.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					PreferencesUtil.createPreferenceDialogOn(
+							getShell(),
+							"org.eclipse.wb.internal.discovery.ui.preferences.ToolkitsPreferencePage",
+							ArrayUtils.EMPTY_STRING_ARRAY,
+							null).open();
+				}
+			});
+		}
+		super.createButtons(buttonsComposite);
+	}
 }

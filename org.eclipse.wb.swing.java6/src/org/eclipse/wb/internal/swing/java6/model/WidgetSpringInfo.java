@@ -23,39 +23,39 @@ import javax.swing.GroupLayout.Alignment;
  * @coverage swing.model.layout.group
  */
 public class WidgetSpringInfo extends SpringInfo {
-  private final AbstractComponentInfo m_widget;
-  private Alignment m_alignment = Alignment.LEADING;
+	private final AbstractComponentInfo m_widget;
+	private Alignment m_alignment = Alignment.LEADING;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WidgetSpringInfo(AbstractComponentInfo widget) {
-    m_widget = widget;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WidgetSpringInfo(AbstractComponentInfo widget) {
+		m_widget = widget;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setAlignment(Alignment alignment) {
-    m_alignment = alignment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setAlignment(Alignment alignment) {
+		m_alignment = alignment;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dump
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dump(int level, StringBuffer buffer) {
-    String name = m_widget.getVariableSupport().getName();
-    buffer.append(StringUtils.repeat(" ", level));
-    buffer.append("W align=" + m_alignment + " name=");
-    buffer.append((name == null ? m_widget.toString() : name) + " sizes=");
-    super.dump(level, buffer);
-    buffer.append("\n");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dump
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dump(int level, StringBuffer buffer) {
+		String name = m_widget.getVariableSupport().getName();
+		buffer.append(StringUtils.repeat(" ", level));
+		buffer.append("W align=" + m_alignment + " name=");
+		buffer.append((name == null ? m_widget.toString() : name) + " sizes=");
+		super.dump(level, buffer);
+		buffer.append("\n");
+	}
 }

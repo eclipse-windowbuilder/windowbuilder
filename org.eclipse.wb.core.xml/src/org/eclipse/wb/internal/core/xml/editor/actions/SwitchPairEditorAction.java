@@ -33,73 +33,73 @@ import java.util.List;
  * @coverage XML.editor.action
  */
 public class SwitchPairEditorAction extends Action implements IEditorActionDelegate {
-  private IEditorPart m_editor;
-  private IFile m_pairFile;
+	private IEditorPart m_editor;
+	private IFile m_pairFile;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditorActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void setActiveEditor(IAction action, IEditorPart editor) {
-    m_editor = editor;
-    m_pairFile = null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditorActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void setActiveEditor(IAction action, IEditorPart editor) {
+		m_editor = editor;
+		m_pairFile = null;
+	}
 
-  private void preparePairFile() {
-    if (m_pairFile != null) {
-      return;
-    }
-    // may be no current editor
-    if (m_editor == null) {
-      return;
-    }
-    // prepare current file
-    IFile editorFile;
-    if (!(m_editor.getEditorInput() instanceof IFileEditorInput)) {
-      return;
-    }
-    editorFile = ((IFileEditorInput) m_editor.getEditorInput()).getFile();
-    // ask providers for pair
-    List<IPairResourceProvider> providers =
-        ExternalFactoriesHelper.getElementsInstances(
-            IPairResourceProvider.class,
-            "org.eclipse.wb.core.xml.pairResourceProviders",
-            "provider");
-    for (IPairResourceProvider provider : providers) {
-      IFile pairFile = provider.getPair(editorFile);
-      if (pairFile != null && pairFile.exists()) {
-        m_pairFile = pairFile;
-        break;
-      }
-    }
-  }
+	private void preparePairFile() {
+		if (m_pairFile != null) {
+			return;
+		}
+		// may be no current editor
+		if (m_editor == null) {
+			return;
+		}
+		// prepare current file
+		IFile editorFile;
+		if (!(m_editor.getEditorInput() instanceof IFileEditorInput)) {
+			return;
+		}
+		editorFile = ((IFileEditorInput) m_editor.getEditorInput()).getFile();
+		// ask providers for pair
+		List<IPairResourceProvider> providers =
+				ExternalFactoriesHelper.getElementsInstances(
+						IPairResourceProvider.class,
+						"org.eclipse.wb.core.xml.pairResourceProviders",
+						"provider");
+		for (IPairResourceProvider provider : providers) {
+			IFile pairFile = provider.getPair(editorFile);
+			if (pairFile != null && pairFile.exists()) {
+				m_pairFile = pairFile;
+				break;
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void selectionChanged(IAction action, ISelection selection) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+	}
 
-  @Override
-  public void run(IAction action) {
-    run();
-  }
+	@Override
+	public void run(IAction action) {
+		run();
+	}
 
-  @Override
-  public void run() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        preparePairFile();
-        if (m_pairFile != null) {
-          IDE.openEditor(DesignerPlugin.getActivePage(), m_pairFile);
-        }
-      }
-    });
-  }
+	@Override
+	public void run() {
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				preparePairFile();
+				if (m_pairFile != null) {
+					IDE.openEditor(DesignerPlugin.getActivePage(), m_pairFile);
+				}
+			}
+		});
+	}
 }

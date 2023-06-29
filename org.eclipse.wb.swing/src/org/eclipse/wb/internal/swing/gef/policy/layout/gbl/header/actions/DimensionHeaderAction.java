@@ -29,82 +29,82 @@ import java.util.List;
  * @coverage swing.gef.policy
  */
 public abstract class DimensionHeaderAction<T extends DimensionInfo> extends ObjectInfoAction {
-  private final IEditPartViewer m_viewer;
+	private final IEditPartViewer m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionHeaderAction(DimensionHeaderEditPart<T> editPart, String text) {
-    this(editPart, text, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionHeaderAction(DimensionHeaderEditPart<T> editPart, String text) {
+		this(editPart, text, null);
+	}
 
-  public DimensionHeaderAction(DimensionHeaderEditPart<T> editPart,
-      String text,
-      ImageDescriptor imageDescriptor) {
-    this(editPart, text, imageDescriptor, AS_PUSH_BUTTON);
-  }
+	public DimensionHeaderAction(DimensionHeaderEditPart<T> editPart,
+			String text,
+			ImageDescriptor imageDescriptor) {
+		this(editPart, text, imageDescriptor, AS_PUSH_BUTTON);
+	}
 
-  public DimensionHeaderAction(DimensionHeaderEditPart<T> editPart,
-      String text,
-      ImageDescriptor imageDescriptor,
-      int style) {
-    super(editPart.getLayout(), text, style);
-    m_viewer = editPart.getViewer();
-    setImageDescriptor(imageDescriptor);
-  }
+	public DimensionHeaderAction(DimensionHeaderEditPart<T> editPart,
+			String text,
+			ImageDescriptor imageDescriptor,
+			int style) {
+		super(editPart.getLayout(), text, style);
+		m_viewer = editPart.getViewer();
+		setImageDescriptor(imageDescriptor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final int hashCode() {
-    return 0;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 
-  @Override
-  public boolean equals(Object obj) {
-    return obj != null && getClass() == obj.getClass();
-  }
+	@Override
+	public boolean equals(Object obj) {
+		return obj != null && getClass() == obj.getClass();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final void runEx() throws Exception {
-    // prepare selection
-    List<T> dimensions = Lists.newArrayList();
-    {
-      List<EditPart> editParts = m_viewer.getSelectedEditParts();
-      for (EditPart editPart : editParts) {
-        if (editPart instanceof DimensionHeaderEditPart) {
-          @SuppressWarnings("unchecked")
-          DimensionHeaderEditPart<T> headerEditPart = (DimensionHeaderEditPart<T>) editPart;
-          dimensions.add(headerEditPart.getDimension());
-        }
-      }
-    }
-    // run over them
-    run(dimensions);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final void runEx() throws Exception {
+		// prepare selection
+		List<T> dimensions = Lists.newArrayList();
+		{
+			List<EditPart> editParts = m_viewer.getSelectedEditParts();
+			for (EditPart editPart : editParts) {
+				if (editPart instanceof DimensionHeaderEditPart) {
+					@SuppressWarnings("unchecked")
+					DimensionHeaderEditPart<T> headerEditPart = (DimensionHeaderEditPart<T>) editPart;
+					dimensions.add(headerEditPart.getDimension());
+				}
+			}
+		}
+		// run over them
+		run(dimensions);
+	}
 
-  /**
-   * Does some operation on {@link List} of selected {@link FormDimensionInfo}'s.
-   */
-  protected void run(List<T> dimensions) throws Exception {
-    for (T dimension : dimensions) {
-      run(dimension);
-    }
-  }
+	/**
+	 * Does some operation on {@link List} of selected {@link FormDimensionInfo}'s.
+	 */
+	protected void run(List<T> dimensions) throws Exception {
+		for (T dimension : dimensions) {
+			run(dimension);
+		}
+	}
 
-  /**
-   * Does some operation on selected {@link FormDimensionInfo}'s.
-   */
-  protected void run(T dimension) throws Exception {
-  }
+	/**
+	 * Does some operation on selected {@link FormDimensionInfo}'s.
+	 */
+	protected void run(T dimension) throws Exception {
+	}
 }

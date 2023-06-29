@@ -19,18 +19,18 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class NlsTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.nls");
-    suite.addTest(createSingleSuite(LocaleInfoTest.class));
-    suite.addTest(createSingleSuite(BundleInfoTest.class));
-    suite.addTest(createSingleSuite(NlsSupportTest.class));
-    suite.addTest(createSingleSuite(EditableSupportTest.class));
-    suite.addTest(createSingleSuite(SourceEclipseOldTest.class));
-    suite.addTest(createSingleSuite(SourceEclipseModernTest.class));
-    suite.addTest(createSingleSuite(SourceDirectTest.class));
-    suite.addTest(createSingleSuite(SourceFieldTest.class));
-    suite.addTest(createSingleSuite(SourceAbstractSpecialTest.class));
-    //suite.addTest(NLSUITests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.nls");
+		suite.addTest(createSingleSuite(LocaleInfoTest.class));
+		suite.addTest(createSingleSuite(BundleInfoTest.class));
+		suite.addTest(createSingleSuite(NlsSupportTest.class));
+		suite.addTest(createSingleSuite(EditableSupportTest.class));
+		suite.addTest(createSingleSuite(SourceEclipseOldTest.class));
+		suite.addTest(createSingleSuite(SourceEclipseModernTest.class));
+		suite.addTest(createSingleSuite(SourceDirectTest.class));
+		suite.addTest(createSingleSuite(SourceFieldTest.class));
+		suite.addTest(createSingleSuite(SourceAbstractSpecialTest.class));
+		//suite.addTest(NLSUITests.suite());
+		return suite;
+	}
 }

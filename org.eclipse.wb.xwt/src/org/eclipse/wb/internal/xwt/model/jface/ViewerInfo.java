@@ -36,126 +36,126 @@ import java.lang.reflect.Method;
  * @coverage XWT.model.jface
  */
 public class ViewerInfo extends XmlObjectInfo implements IWrapperInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-    StylePropertyEditor.addStyleProperty(this);
-    if (GlobalState.isParsing()) {
-      addBroadcastListener(new ObjectInfoChildAddAfter() {
-        public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
-          if (child == ViewerInfo.this) {
-            removeBroadcastListener(this);
-            rebindHierarchy();
-          }
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+		StylePropertyEditor.addStyleProperty(this);
+		if (GlobalState.isParsing()) {
+			addBroadcastListener(new ObjectInfoChildAddAfter() {
+				public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
+					if (child == ViewerInfo.this) {
+						removeBroadcastListener(this);
+						rebindHierarchy();
+					}
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the wrapped {@link ControlInfo}.
-   */
-  public ControlInfo getControl() {
-    return (ControlInfo) getParent();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the wrapped {@link ControlInfo}.
+	 */
+	public ControlInfo getControl() {
+		return (ControlInfo) getParent();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IWrapperInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ControlInfo m_wrappedControl;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IWrapperInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ControlInfo m_wrappedControl;
 
-  public ControlInfo getWrapped() throws Exception {
-    if (m_wrappedControl == null) {
-      Method method = getWrapperMethod();
-      String property = getPropertyName(method);
-      m_wrappedControl =
-          (ControlInfo) XmlObjectUtils.createObject(
-              getContext(),
-              method.getReturnType(),
-              new ViewerCreationSupport(this, method, property));
-    }
-    return m_wrappedControl;
-  }
+	public ControlInfo getWrapped() throws Exception {
+		if (m_wrappedControl == null) {
+			Method method = getWrapperMethod();
+			String property = getPropertyName(method);
+			m_wrappedControl =
+					(ControlInfo) XmlObjectUtils.createObject(
+							getContext(),
+							method.getReturnType(),
+							new ViewerCreationSupport(this, method, property));
+		}
+		return m_wrappedControl;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean m_deleting;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean m_deleting;
 
-  @Override
-  public void delete() throws Exception {
-    if (!m_deleting) {
-      m_deleting = true;
-      ControlInfo wrapped = getControl();
-      if (!wrapped.isDeleting()) {
-        m_deleting = true;
-        try {
-          wrapped.delete();
-        } finally {
-          m_deleting = false;
-        }
-        return;
-      }
-    }
-    super.delete();
-  }
+	@Override
+	public void delete() throws Exception {
+		if (!m_deleting) {
+			m_deleting = true;
+			ControlInfo wrapped = getControl();
+			if (!wrapped.isDeleting()) {
+				m_deleting = true;
+				try {
+					wrapped.delete();
+				} finally {
+					m_deleting = false;
+				}
+				return;
+			}
+		}
+		super.delete();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates corresponding {@link ControlInfo} and binds models.
-   */
-  private void rebindHierarchy() throws Exception {
-    Method method = getWrapperMethod();
-    String property = getPropertyName(method);
-    XmlObjectInfo control =
-        XmlObjectUtils.createObject(
-            getContext(),
-            method.getReturnType(),
-            new ViewerControlCreationSupport(this, method, property));
-    // do rebind
-    ObjectInfo parent = getParent();
-    parent.addChild(control, this);
-    parent.removeChild(this);
-    control.addChild(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates corresponding {@link ControlInfo} and binds models.
+	 */
+	private void rebindHierarchy() throws Exception {
+		Method method = getWrapperMethod();
+		String property = getPropertyName(method);
+		XmlObjectInfo control =
+				XmlObjectUtils.createObject(
+						getContext(),
+						method.getReturnType(),
+						new ViewerControlCreationSupport(this, method, property));
+		// do rebind
+		ObjectInfo parent = getParent();
+		parent.addChild(control, this);
+		parent.removeChild(this);
+		control.addChild(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Method} which is used to access wrapped {@link Control}.
-   */
-  private Method getWrapperMethod() throws NoSuchMethodException {
-    String methodName = XmlObjectUtils.getParameter(this, "viewer.control.method");
-    return getDescription().getComponentClass().getMethod(methodName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Method} which is used to access wrapped {@link Control}.
+	 */
+	private Method getWrapperMethod() throws NoSuchMethodException {
+		String methodName = XmlObjectUtils.getParameter(this, "viewer.control.method");
+		return getDescription().getComponentClass().getMethod(methodName);
+	}
 
-  /**
-   * @return the name of property which corresponds to the given getter {@link Method}.
-   */
-  private static String getPropertyName(Method method) {
-    String property = StringUtils.removeStart(method.getName(), "get");
-    return StringUtils.uncapitalize(property);
-  }
+	/**
+	 * @return the name of property which corresponds to the given getter {@link Method}.
+	 */
+	private static String getPropertyName(Method method) {
+		String property = StringUtils.removeStart(method.getName(), "get");
+		return StringUtils.uncapitalize(property);
+	}
 }

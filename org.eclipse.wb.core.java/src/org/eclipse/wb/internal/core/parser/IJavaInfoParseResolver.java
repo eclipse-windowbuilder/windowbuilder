@@ -20,9 +20,9 @@ import org.eclipse.jdt.core.dom.Expression;
  * @author scheglov_ke
  */
 public interface IJavaInfoParseResolver {
-  /**
-   * @return the {@link JavaInfo} for given {@link Expression} or <code>null</code> if given
-   *         {@link Expression} does not represent {@link JavaInfo}.
-   */
-  JavaInfo getJavaInfo(Expression expression) throws Exception;
+	/**
+	 * @return the {@link JavaInfo} for given {@link Expression} or <code>null</code> if given
+	 *         {@link Expression} does not represent {@link JavaInfo}.
+	 */
+	JavaInfo getJavaInfo(Expression expression) throws Exception;
 }

@@ -23,90 +23,90 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
  * @author scheglov_ke
  */
 public class DescriptionProcessorTest extends DesignerTestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dynamic extensions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link ComponentDescriptionHelper#getDescriptionProcessors()}.
-   */
-  public void test_getDescriptionProcessors() throws Exception {
-    // dynamic processor is not yet registered, so can not be found
-    assertNull(getMyProcessor());
-    // add dynamic processor and re-load
-    {
-      addProcessorExtension(MyDescriptionProcessor.class.getName());
-      try {
-        IDescriptionProcessor myProcessor = getMyProcessor();
-        assertNotNull(myProcessor);
-        // do process
-        assertEquals(0, MyDescriptionProcessor.m_processCount);
-        myProcessor.process(null, null);
-        assertEquals(1, MyDescriptionProcessor.m_processCount);
-      } finally {
-        removeProcessorExtension();
-      }
-    }
-    // dynamic processor is unloaded, so can not be found
-    assertNull(getMyProcessor());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dynamic extensions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link ComponentDescriptionHelper#getDescriptionProcessors()}.
+	 */
+	public void test_getDescriptionProcessors() throws Exception {
+		// dynamic processor is not yet registered, so can not be found
+		assertNull(getMyProcessor());
+		// add dynamic processor and re-load
+		{
+			addProcessorExtension(MyDescriptionProcessor.class.getName());
+			try {
+				IDescriptionProcessor myProcessor = getMyProcessor();
+				assertNotNull(myProcessor);
+				// do process
+				assertEquals(0, MyDescriptionProcessor.m_processCount);
+				myProcessor.process(null, null);
+				assertEquals(1, MyDescriptionProcessor.m_processCount);
+			} finally {
+				removeProcessorExtension();
+			}
+		}
+		// dynamic processor is unloaded, so can not be found
+		assertNull(getMyProcessor());
+	}
 
-  /**
-   * @return the {@link MyDescriptionProcessor} instance loaded by
-   *         {@link ComponentDescriptionHelper}.
-   */
-  private IDescriptionProcessor getMyProcessor() {
-    String myProcessorName = MyDescriptionProcessor.class.getName();
-    IDescriptionProcessor myProcessor = null;
-    // check all processors
-    for (IDescriptionProcessor processor : ComponentDescriptionHelper.getDescriptionProcessors()) {
-      if (myProcessorName.equals(processor.getClass().getName())) {
-        myProcessor = processor;
-        break;
-      }
-    }
-    //
-    return myProcessor;
-  }
+	/**
+	 * @return the {@link MyDescriptionProcessor} instance loaded by
+	 *         {@link ComponentDescriptionHelper}.
+	 */
+	private IDescriptionProcessor getMyProcessor() {
+		String myProcessorName = MyDescriptionProcessor.class.getName();
+		IDescriptionProcessor myProcessor = null;
+		// check all processors
+		for (IDescriptionProcessor processor : ComponentDescriptionHelper.getDescriptionProcessors()) {
+			if (myProcessorName.equals(processor.getClass().getName())) {
+				myProcessor = processor;
+				break;
+			}
+		}
+		//
+		return myProcessor;
+	}
 
-  /**
-   * Test implementation of {@link IDescriptionProcessor}.
-   *
-   * @author scheglov_ke
-   */
-  public static final class MyDescriptionProcessor implements IDescriptionProcessor {
-    private static int m_processCount;
+	/**
+	 * Test implementation of {@link IDescriptionProcessor}.
+	 *
+	 * @author scheglov_ke
+	 */
+	public static final class MyDescriptionProcessor implements IDescriptionProcessor {
+		private static int m_processCount;
 
-    @Override
-    public void process(AstEditor editor, ComponentDescription componentDescription)
-        throws Exception {
-      m_processCount++;
-    }
-  }
+		@Override
+		public void process(AstEditor editor, ComponentDescription componentDescription)
+				throws Exception {
+			m_processCount++;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dynamic IDescriptionProcessor extension support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final String POINT_ID = "org.eclipse.wb.core.descriptionProcessors";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dynamic IDescriptionProcessor extension support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final String POINT_ID = "org.eclipse.wb.core.descriptionProcessors";
 
-  /**
-   * Adds dynamic {@link IDescriptionProcessor} extension.
-   *
-   * @param className
-   *          the name of {@link IDescriptionProcessor} class.
-   */
-  private static void addProcessorExtension(String className) throws Exception {
-    String contribution = "  <processor class='" + className + "'/>";
-    TestUtils.addDynamicExtension(POINT_ID, contribution);
-  }
+	/**
+	 * Adds dynamic {@link IDescriptionProcessor} extension.
+	 *
+	 * @param className
+	 *          the name of {@link IDescriptionProcessor} class.
+	 */
+	private static void addProcessorExtension(String className) throws Exception {
+		String contribution = "  <processor class='" + className + "'/>";
+		TestUtils.addDynamicExtension(POINT_ID, contribution);
+	}
 
-  /**
-   * Removes dynamic {@link IDescriptionProcessor} extension.
-   */
-  protected static void removeProcessorExtension() throws Exception {
-    TestUtils.removeDynamicExtension(POINT_ID);
-  }
+	/**
+	 * Removes dynamic {@link IDescriptionProcessor} extension.
+	 */
+	protected static void removeProcessorExtension() throws Exception {
+		TestUtils.removeDynamicExtension(POINT_ID);
+	}
 }

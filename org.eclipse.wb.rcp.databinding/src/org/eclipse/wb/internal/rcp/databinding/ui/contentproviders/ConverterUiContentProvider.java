@@ -22,44 +22,44 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateSt
  * @coverage bindings.rcp.ui
  */
 public final class ConverterUiContentProvider extends ChooseClassUiContentProvider {
-  private final UpdateStrategyInfo m_strategy;
+	private final UpdateStrategyInfo m_strategy;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ConverterUiContentProvider(ChooseClassConfiguration configuration,
-      UpdateStrategyInfo strategy) {
-    super(configuration);
-    m_strategy = strategy;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ConverterUiContentProvider(ChooseClassConfiguration configuration,
+			UpdateStrategyInfo strategy) {
+		super(configuration);
+		m_strategy = strategy;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() {
-    ConverterInfo converter = m_strategy.getConverter();
-    setClassName(converter == null ? "N/S" : converter.getClassName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() {
+		ConverterInfo converter = m_strategy.getConverter();
+		setClassName(converter == null ? "N/S" : converter.getClassName());
+	}
 
-  @Override
-  public void saveToObject() {
-    String className = getClassName();
-    // check set or clear value
-    if ("N/S".equals(className)) {
-      m_strategy.setConverter(null);
-    } else {
-      ConverterInfo converter = m_strategy.getConverter();
-      // check new converter or edit value
-      if (converter == null) {
-        m_strategy.setConverter(new ConverterInfo(className));
-      } else {
-        converter.setClassName(className);
-      }
-    }
-  }
+	@Override
+	public void saveToObject() {
+		String className = getClassName();
+		// check set or clear value
+		if ("N/S".equals(className)) {
+			m_strategy.setConverter(null);
+		} else {
+			ConverterInfo converter = m_strategy.getConverter();
+			// check new converter or edit value
+			if (converter == null) {
+				m_strategy.setConverter(new ConverterInfo(className));
+			} else {
+				converter.setClassName(className);
+			}
+		}
+	}
 }

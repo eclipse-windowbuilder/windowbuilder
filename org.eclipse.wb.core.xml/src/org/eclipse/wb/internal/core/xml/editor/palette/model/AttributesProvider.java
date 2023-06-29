@@ -17,5 +17,5 @@ package org.eclipse.wb.internal.core.xml.editor.palette.model;
  * @coverage XML.editor.palette
  */
 public interface AttributesProvider {
-  String getAttribute(String name);
+	String getAttribute(String name);
 }

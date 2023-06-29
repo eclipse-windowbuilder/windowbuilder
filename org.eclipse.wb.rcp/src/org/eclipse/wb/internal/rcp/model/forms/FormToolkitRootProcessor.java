@@ -32,54 +32,54 @@ import java.util.List;
  * @coverage rcp.model.forms
  */
 public final class FormToolkitRootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new FormToolkitRootProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new FormToolkitRootProcessor();
 
-  private FormToolkitRootProcessor() {
-  }
+	private FormToolkitRootProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    root.addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void associationTemplate(JavaInfo component, String[] source) throws Exception {
-        final String FORM_TOOLKIT_NULL = "(org.eclipse.ui.forms.widgets.FormToolkit) null";
-        if (IPreferenceConstants.TOOLKIT_ID.equals(component.getDescription().getToolkit().getId())
-            && source[0].contains(FORM_TOOLKIT_NULL)) {
-          InstanceFactoryInfo toolkitInstanceFactory = locateFormToolkitInfo(root);
-          String toolkitSource =
-              toolkitInstanceFactory != null
-                  ? TemplateUtils.getExpression(toolkitInstanceFactory)
-                  : "new org.eclipse.ui.forms.widgets.FormToolkit(org.eclipse.swt.widgets.Display.getCurrent())";
-          source[0] = StringUtils.replace(source[0], FORM_TOOLKIT_NULL, toolkitSource);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		root.addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void associationTemplate(JavaInfo component, String[] source) throws Exception {
+				final String FORM_TOOLKIT_NULL = "(org.eclipse.ui.forms.widgets.FormToolkit) null";
+				if (IPreferenceConstants.TOOLKIT_ID.equals(component.getDescription().getToolkit().getId())
+						&& source[0].contains(FORM_TOOLKIT_NULL)) {
+					InstanceFactoryInfo toolkitInstanceFactory = locateFormToolkitInfo(root);
+					String toolkitSource =
+							toolkitInstanceFactory != null
+							? TemplateUtils.getExpression(toolkitInstanceFactory)
+									: "new org.eclipse.ui.forms.widgets.FormToolkit(org.eclipse.swt.widgets.Display.getCurrent())";
+					source[0] = StringUtils.replace(source[0], FORM_TOOLKIT_NULL, toolkitSource);
+				}
+			}
+		});
+	}
 
-  public static InstanceFactoryInfo locateFormToolkitInfo(JavaInfo root) {
-    List<InstanceFactoryContainerInfo> instanceFactorieContainers =
-        root.getChildren(InstanceFactoryContainerInfo.class);
-    for (InstanceFactoryContainerInfo instanceFactoryContainerInfo : instanceFactorieContainers) {
-      List<InstanceFactoryInfo> instanceFactoryInfos =
-          instanceFactoryContainerInfo.getChildren(InstanceFactoryInfo.class);
-      for (InstanceFactoryInfo instanceFactoryInfo : instanceFactoryInfos) {
-        if (ReflectionUtils.isSuccessorOf(
-            instanceFactoryInfo.getDescription().getComponentClass(),
-            "org.eclipse.ui.forms.widgets.FormToolkit")) {
-          return instanceFactoryInfo;
-        }
-      }
-    }
-    return null;
-  }
+	public static InstanceFactoryInfo locateFormToolkitInfo(JavaInfo root) {
+		List<InstanceFactoryContainerInfo> instanceFactorieContainers =
+				root.getChildren(InstanceFactoryContainerInfo.class);
+		for (InstanceFactoryContainerInfo instanceFactoryContainerInfo : instanceFactorieContainers) {
+			List<InstanceFactoryInfo> instanceFactoryInfos =
+					instanceFactoryContainerInfo.getChildren(InstanceFactoryInfo.class);
+			for (InstanceFactoryInfo instanceFactoryInfo : instanceFactoryInfos) {
+				if (ReflectionUtils.isSuccessorOf(
+						instanceFactoryInfo.getDescription().getComponentClass(),
+						"org.eclipse.ui.forms.widgets.FormToolkit")) {
+					return instanceFactoryInfo;
+				}
+			}
+		}
+		return null;
+	}
 }

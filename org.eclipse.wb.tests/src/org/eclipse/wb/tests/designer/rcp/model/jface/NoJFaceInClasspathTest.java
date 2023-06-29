@@ -30,108 +30,108 @@ import org.eclipse.jdt.core.IJavaProject;
  * @author scheglov_ke
  */
 public class NoJFaceInClasspathTest extends AbstractJavaInfoTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    if (m_testProject == null) {
-      do_projectCreate();
-      BTestUtils.configureSWT(m_testProject);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		if (m_testProject == null) {
+			do_projectCreate();
+			BTestUtils.configureSWT(m_testProject);
+		}
+	}
 
-  @Override
-  protected void configureToolkits() {
-    super.configureToolkits();
-    configureDefaults(org.eclipse.wb.internal.rcp.ToolkitProvider.DESCRIPTION);
-  }
+	@Override
+	protected void configureToolkits() {
+		super.configureToolkits();
+		configureDefaults(org.eclipse.wb.internal.rcp.ToolkitProvider.DESCRIPTION);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_Button() throws Exception {
-    ComponentEntryInfo entry = new ComponentEntryInfo();
-    entry.setComponentClassName("org.eclipse.swt.widgets.Button");
-    //
-    check_entryIsActive(entry);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_Button() throws Exception {
+		ComponentEntryInfo entry = new ComponentEntryInfo();
+		entry.setComponentClassName("org.eclipse.swt.widgets.Button");
+		//
+		check_entryIsActive(entry);
+	}
 
-  public void test_TableViewer() throws Exception {
-    ComponentEntryInfo entry = new ComponentEntryInfo();
-    entry.setComponentClassName("org.eclipse.jface.viewers.TableViewer");
-    //
-    check_entryIsNotActive(entry);
-  }
+	public void test_TableViewer() throws Exception {
+		ComponentEntryInfo entry = new ComponentEntryInfo();
+		entry.setComponentClassName("org.eclipse.jface.viewers.TableViewer");
+		//
+		check_entryIsNotActive(entry);
+	}
 
-  public void test_TableComposite_EntryInfo() throws Exception {
-    TableCompositeEntryInfo entry = new TableCompositeEntryInfo();
-    check_entryIsNotActive(entry);
-  }
+	public void test_TableComposite_EntryInfo() throws Exception {
+		TableCompositeEntryInfo entry = new TableCompositeEntryInfo();
+		check_entryIsNotActive(entry);
+	}
 
-  public void test_TableViewerComposite_EntryInfo() throws Exception {
-    TableViewerCompositeEntryInfo entry = new TableViewerCompositeEntryInfo();
-    check_entryIsNotActive(entry);
-  }
+	public void test_TableViewerComposite_EntryInfo() throws Exception {
+		TableViewerCompositeEntryInfo entry = new TableViewerCompositeEntryInfo();
+		check_entryIsNotActive(entry);
+	}
 
-  public void test_TreeComposite_EntryInfo() throws Exception {
-    TreeCompositeEntryInfo entry = new TreeCompositeEntryInfo();
-    check_entryIsNotActive(entry);
-  }
+	public void test_TreeComposite_EntryInfo() throws Exception {
+		TreeCompositeEntryInfo entry = new TreeCompositeEntryInfo();
+		check_entryIsNotActive(entry);
+	}
 
-  public void test_TreeViewerComposite_EntryInfo() throws Exception {
-    TreeViewerCompositeEntryInfo entry = new TreeViewerCompositeEntryInfo();
-    check_entryIsNotActive(entry);
-  }
+	public void test_TreeViewerComposite_EntryInfo() throws Exception {
+		TreeViewerCompositeEntryInfo entry = new TreeViewerCompositeEntryInfo();
+		check_entryIsNotActive(entry);
+	}
 
-  public void test_CheckboxTableViewer() throws Exception {
-    StaticFactoryEntryInfo entry = new StaticFactoryEntryInfo();
-    entry.setFactoryClassName("org.eclipse.jface.viewers.CheckboxTableViewer");
-    entry.setMethodSignature("newCheckList(org.eclipse.swt.widgets.Composite,int)");
-    check_entryIsNotActive(entry);
-  }
+	public void test_CheckboxTableViewer() throws Exception {
+		StaticFactoryEntryInfo entry = new StaticFactoryEntryInfo();
+		entry.setFactoryClassName("org.eclipse.jface.viewers.CheckboxTableViewer");
+		entry.setMethodSignature("newCheckList(org.eclipse.swt.widgets.Composite,int)");
+		check_entryIsNotActive(entry);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void check_entryIsActive(EntryInfo entry) throws Exception {
-    check_entryActivation(entry, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void check_entryIsActive(EntryInfo entry) throws Exception {
+		check_entryActivation(entry, true);
+	}
 
-  private void check_entryIsNotActive(EntryInfo entry) throws Exception {
-    check_entryActivation(entry, false);
-  }
+	private void check_entryIsNotActive(EntryInfo entry) throws Exception {
+		check_entryActivation(entry, false);
+	}
 
-  private void check_entryActivation(EntryInfo entry, boolean expected) throws Exception {
-    JavaInfo shell =
-        parseSource(
-            "test",
-            "Test.java",
-            getSource(
-                "package test;",
-                "import org.eclipse.swt.widgets.*;",
-                "public class Test extends Shell {",
-                "  public Test() {",
-                "  }",
-                "}"));
-    //
-    boolean success = entry.initialize(null, shell);
-    assertEquals(expected, success);
-  }
+	private void check_entryActivation(EntryInfo entry, boolean expected) throws Exception {
+		JavaInfo shell =
+				parseSource(
+						"test",
+						"Test.java",
+						getSource(
+								"package test;",
+								"import org.eclipse.swt.widgets.*;",
+								"public class Test extends Shell {",
+								"  public Test() {",
+								"  }",
+								"}"));
+		//
+		boolean success = entry.initialize(null, shell);
+		assertEquals(expected, success);
+	}
 }

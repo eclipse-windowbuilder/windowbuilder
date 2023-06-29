@@ -32,41 +32,41 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public final class CellEditorControlPropertyCodeSupport extends ObservableCodeSupport {
-  private static final String VALUE_SIGNATURE =
-      "org.eclipse.core.databinding.property.value.IValueProperty.value(org.eclipse.core.databinding.property.value.IValueProperty)";
+	private static final String VALUE_SIGNATURE =
+			"org.eclipse.core.databinding.property.value.IValueProperty.value(org.eclipse.core.databinding.property.value.IValueProperty)";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    if (VALUE_SIGNATURE.equals(signature)) {
-      WidgetPropertiesCodeSupport detailCodeSupport =
-          (WidgetPropertiesCodeSupport) resolver.getModel(arguments[0]);
-      Assert.isNotNull(detailCodeSupport);
-      return new CellEditorValuePropertyCodeSupport(this, detailCodeSupport);
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		if (VALUE_SIGNATURE.equals(signature)) {
+			WidgetPropertiesCodeSupport detailCodeSupport =
+					(WidgetPropertiesCodeSupport) resolver.getModel(arguments[0]);
+			Assert.isNotNull(detailCodeSupport);
+			return new CellEditorValuePropertyCodeSupport(this, detailCodeSupport);
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    lines.add("org.eclipse.jface.databinding.viewers.CellEditorProperties "
-        + getVariableIdentifier()
-        + " = org.eclipse.jface.databinding.viewers.CellEditorProperties.control();");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		lines.add("org.eclipse.jface.databinding.viewers.CellEditorProperties "
+				+ getVariableIdentifier()
+				+ " = org.eclipse.jface.databinding.viewers.CellEditorProperties.control();");
+	}
 }

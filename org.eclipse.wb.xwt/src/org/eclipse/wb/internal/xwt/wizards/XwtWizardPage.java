@@ -32,78 +32,78 @@ import java.io.InputStream;
  * @coverage XWT.wizards
  */
 public abstract class XwtWizardPage extends RcpWizardPage {
-  private IFile m_javaFile;
-  private IFile m_xwtFile;
+	private IFile m_javaFile;
+	private IFile m_xwtFile;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XwtWizardPage() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XwtWizardPage() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    String templatePath = getTemplatePath_Java();
-    InputStream template = Activator.getFile(templatePath);
-    fillTypeFromTemplate(newType, imports, monitor, template);
-    m_javaFile = (IFile) newType.getUnderlyingResource();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		String templatePath = getTemplatePath_Java();
+		InputStream template = Activator.getFile(templatePath);
+		fillTypeFromTemplate(newType, imports, monitor, template);
+		m_javaFile = (IFile) newType.getUnderlyingResource();
+	}
 
-  protected void createXWT() throws Exception {
-    IType newType = getCreatedType();
-    // prepare template
-    String template;
-    {
-      String templatePath = getTemplatePath_XWT();
-      InputStream templateStream = Activator.getFile(templatePath);
-      template = IOUtils2.readString(templateStream);
-    }
-    // prepare content
-    String content;
-    {
-      String qualifiedTypeName = newType.getFullyQualifiedName();
-      content = StringUtils.replace(template, "%TypeName%", qualifiedTypeName);
-    }
-    // create XWT file
-    IFolder folder = (IFolder) getPackageFragment().getUnderlyingResource();
-    m_xwtFile = folder.getFile(newType.getElementName() + ".xwt");
-    IOUtils2.setFileContents(m_xwtFile, content);
-  }
+	protected void createXWT() throws Exception {
+		IType newType = getCreatedType();
+		// prepare template
+		String template;
+		{
+			String templatePath = getTemplatePath_XWT();
+			InputStream templateStream = Activator.getFile(templatePath);
+			template = IOUtils2.readString(templateStream);
+		}
+		// prepare content
+		String content;
+		{
+			String qualifiedTypeName = newType.getFullyQualifiedName();
+			content = StringUtils.replace(template, "%TypeName%", qualifiedTypeName);
+		}
+		// create XWT file
+		IFolder folder = (IFolder) getPackageFragment().getUnderlyingResource();
+		m_xwtFile = folder.getFile(newType.getElementName() + ".xwt");
+		IOUtils2.setFileContents(m_xwtFile, content);
+	}
 
-  /**
-   * @return the path to the Java file template in {@link Activator}.
-   */
-  protected abstract String getTemplatePath_Java();
+	/**
+	 * @return the path to the Java file template in {@link Activator}.
+	 */
+	protected abstract String getTemplatePath_Java();
 
-  /**
-   * @return the path to the XWT file template in {@link Activator}.
-   */
-  protected abstract String getTemplatePath_XWT();
+	/**
+	 * @return the path to the XWT file template in {@link Activator}.
+	 */
+	protected abstract String getTemplatePath_XWT();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the created Java {@link IFile}.
-   */
-  public IFile getFileJava() {
-    return m_javaFile;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the created Java {@link IFile}.
+	 */
+	public IFile getFileJava() {
+		return m_javaFile;
+	}
 
-  /**
-   * @return the create XWT {@link IFile}.
-   */
-  public IFile getFileXWT() {
-    return m_xwtFile;
-  }
+	/**
+	 * @return the create XWT {@link IFile}.
+	 */
+	public IFile getFileXWT() {
+		return m_xwtFile;
+	}
 }

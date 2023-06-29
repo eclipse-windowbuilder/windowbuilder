@@ -26,67 +26,67 @@ import java.util.List;
  * @coverage gef.core
  */
 public class CompoundCommand extends Command {
-  private final List<Command> m_commands = Lists.newArrayList();
+	private final List<Command> m_commands = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds the specified {@link Command} if it is not <code>null</code>.
-   */
-  public void add(Command command) {
-    if (command != null) {
-      m_commands.add(command);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds the specified {@link Command} if it is not <code>null</code>.
+	 */
+	public void add(Command command) {
+		if (command != null) {
+			m_commands.add(command);
+		}
+	}
 
-  /**
-   * Returns the {@link List} of contained {@link Command}s.
-   */
-  public List<Command> getCommands() {
-    return m_commands;
-  }
+	/**
+	 * Returns the {@link List} of contained {@link Command}s.
+	 */
+	public List<Command> getCommands() {
+		return m_commands;
+	}
 
-  /**
-   * Returns the number of contained {@link Command}s.
-   */
-  public int size() {
-    return m_commands.size();
-  }
+	/**
+	 * Returns the number of contained {@link Command}s.
+	 */
+	public int size() {
+		return m_commands.size();
+	}
 
-  /**
-   * Returns <code>true</code> if the {@link CompoundCommand} is empty.
-   */
-  public boolean isEmpty() {
-    return m_commands.isEmpty();
-  }
+	/**
+	 * Returns <code>true</code> if the {@link CompoundCommand} is empty.
+	 */
+	public boolean isEmpty() {
+		return m_commands.isEmpty();
+	}
 
-  /**
-   * Returns the simplest form of this {@link Command} that is equivalent. This is useful for
-   * removing unnecessary nesting of {@link Command}s.
-   */
-  public Command unwrap() {
-    switch (size()) {
-      case 0 :
-        return null;
-      case 1 :
-        return m_commands.get(0);
-      default :
-        return this;
-    }
-  }
+	/**
+	 * Returns the simplest form of this {@link Command} that is equivalent. This is useful for
+	 * removing unnecessary nesting of {@link Command}s.
+	 */
+	public Command unwrap() {
+		switch (size()) {
+		case 0 :
+			return null;
+		case 1 :
+			return m_commands.get(0);
+		default :
+			return this;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ICommand
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute() throws Exception {
-    for (Command command : m_commands) {
-      command.execute();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ICommand
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute() throws Exception {
+		for (Command command : m_commands) {
+			command.execute();
+		}
+	}
 }

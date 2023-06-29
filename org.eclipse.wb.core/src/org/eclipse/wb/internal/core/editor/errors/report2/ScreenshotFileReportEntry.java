@@ -27,48 +27,48 @@ import java.io.InputStream;
  * @coverage core.editor.errors.report2
  */
 public final class ScreenshotFileReportEntry extends FileReportEntry {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ScreenshotFileReportEntry(String filePath) {
-    super(filePath);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ScreenshotFileReportEntry(String filePath) {
+		super(filePath);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractFileReportInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getName() {
-    String filePath = getFilePath();
-    String name;
-    if (isBmp()) {
-      // change file extension
-      name = FilenameUtils.getBaseName(filePath) + ".png";
-    } else {
-      name = FilenameUtils.getName(filePath);
-    }
-    return "screenshots/" + name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractFileReportInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getName() {
+		String filePath = getFilePath();
+		String name;
+		if (isBmp()) {
+			// change file extension
+			name = FilenameUtils.getBaseName(filePath) + ".png";
+		} else {
+			name = FilenameUtils.getName(filePath);
+		}
+		return "screenshots/" + name;
+	}
 
-  @Override
-  protected InputStream getContents() throws Exception {
-    if (isBmp()) {
-      ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-      // attempt to convert bmp into png
-      ImageLoader imageLoader = new ImageLoader();
-      imageLoader.load(getFilePath());
-      imageLoader.save(outStream, SWT.IMAGE_PNG);
-      return new ByteArrayInputStream(outStream.toByteArray());
-    } else {
-      return super.getContents();
-    }
-  }
+	@Override
+	protected InputStream getContents() throws Exception {
+		if (isBmp()) {
+			ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+			// attempt to convert bmp into png
+			ImageLoader imageLoader = new ImageLoader();
+			imageLoader.load(getFilePath());
+			imageLoader.save(outStream, SWT.IMAGE_PNG);
+			return new ByteArrayInputStream(outStream.toByteArray());
+		} else {
+			return super.getContents();
+		}
+	}
 
-  private boolean isBmp() {
-    return FilenameUtils.getExtension(getFilePath()).equalsIgnoreCase("bmp");
-  }
+	private boolean isBmp() {
+		return FilenameUtils.getExtension(getFilePath()).equalsIgnoreCase("bmp");
+	}
 }

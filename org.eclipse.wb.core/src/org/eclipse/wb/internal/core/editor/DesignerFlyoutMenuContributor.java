@@ -25,34 +25,34 @@ import org.eclipse.jface.action.IMenuManager;
  * @coverage core.editor
  */
 public final class DesignerFlyoutMenuContributor implements IFlyoutMenuContributor {
-  private final String m_viewId;
+	private final String m_viewId;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DesignerFlyoutMenuContributor(String viewId) {
-    m_viewId = viewId;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DesignerFlyoutMenuContributor(String viewId) {
+		m_viewId = viewId;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IFlyoutMenuContributor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void contribute(IMenuManager manager) {
-    manager.add(new Action("Extract as view") {
-      @Override
-      public void run() {
-        ExecutionUtils.runLog(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            DesignerPlugin.getActivePage().showView(m_viewId);
-          }
-        });
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IFlyoutMenuContributor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void contribute(IMenuManager manager) {
+		manager.add(new Action("Extract as view") {
+			@Override
+			public void run() {
+				ExecutionUtils.runLog(new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						DesignerPlugin.getActivePage().showView(m_viewId);
+					}
+				});
+			}
+		});
+	}
 }

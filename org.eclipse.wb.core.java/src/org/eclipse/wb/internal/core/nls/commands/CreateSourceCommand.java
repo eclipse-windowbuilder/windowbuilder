@@ -20,32 +20,32 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
  * @coverage core.nls
  */
 public final class CreateSourceCommand extends AbstractCommand {
-  private final SourceDescription m_sourceDescription;
-  private final Object m_parameters;
+	private final SourceDescription m_sourceDescription;
+	private final Object m_parameters;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CreateSourceCommand(IEditableSource editableSource,
-      SourceDescription sourceDescription,
-      Object parameters) {
-    super(editableSource);
-    m_sourceDescription = sourceDescription;
-    m_parameters = parameters;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CreateSourceCommand(IEditableSource editableSource,
+			SourceDescription sourceDescription,
+			Object parameters) {
+		super(editableSource);
+		m_sourceDescription = sourceDescription;
+		m_parameters = parameters;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SourceDescription getSourceDescription() {
-    return m_sourceDescription;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SourceDescription getSourceDescription() {
+		return m_sourceDescription;
+	}
 
-  public Object getParameters() {
-    return m_parameters;
-  }
+	public Object getParameters() {
+		return m_parameters;
+	}
 }

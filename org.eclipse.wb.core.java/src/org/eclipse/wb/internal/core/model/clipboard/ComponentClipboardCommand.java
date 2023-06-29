@@ -19,22 +19,22 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.clipboard
  */
 public abstract class ComponentClipboardCommand<T> extends ClipboardCommand {
-  private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execute
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  @SuppressWarnings("unchecked")
-  public final void execute(JavaInfo javaInfo) throws Exception {
-    T container = (T) javaInfo;
-    execute(container);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execute
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	@SuppressWarnings("unchecked")
+	public final void execute(JavaInfo javaInfo) throws Exception {
+		T container = (T) javaInfo;
+		execute(container);
+	}
 
-  /**
-   * Implementation of {@link #execute(JavaInfo)} for <code>T</code>.
-   */
-  protected abstract void execute(T component) throws Exception;
+	/**
+	 * Implementation of {@link #execute(JavaInfo)} for <code>T</code>.
+	 */
+	protected abstract void execute(T component) throws Exception;
 }

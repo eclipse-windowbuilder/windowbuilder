@@ -36,63 +36,63 @@ import java.util.List;
  * @coverage rcp.gef.policy
  */
 abstract class DimensionSelectionEditPolicy<C extends IControlInfo>
-    extends
-      AbstractHeaderSelectionEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
-    super(mainPolicy);
-  }
+extends
+AbstractHeaderSelectionEditPolicy {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
+		super(mainPolicy);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    // move handle
-    {
-      MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
-      moveHandle.setForeground(IColorConstants.red);
-      handles.add(moveHandle);
-    }
-    //
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		// move handle
+		{
+			MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
+			moveHandle.setForeground(IColorConstants.red);
+			handles.add(moveHandle);
+		}
+		//
+		return handles;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the host {@link TableWrapDimensionInfo}.
-   */
-  @SuppressWarnings("unchecked")
-  protected final TableWrapDimensionInfo<C> getDimension() {
-    return ((DimensionHeaderEditPart<C>) getHost()).getDimension();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the host {@link TableWrapDimensionInfo}.
+	 */
+	@SuppressWarnings("unchecked")
+	protected final TableWrapDimensionInfo<C> getDimension() {
+		return ((DimensionHeaderEditPart<C>) getHost()).getDimension();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Move location
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link ILocator} to place handle directly on header.
-   */
-  private class HeaderMoveHandleLocator implements ILocator {
-    @Override
-    public void relocate(Figure target) {
-      Figure reference = getHostFigure();
-      Rectangle bounds = reference.getBounds().getCopy();
-      FigureUtils.translateFigureToFigure(reference, target, bounds);
-      target.setBounds(bounds);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Move location
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link ILocator} to place handle directly on header.
+	 */
+	private class HeaderMoveHandleLocator implements ILocator {
+		@Override
+		public void relocate(Figure target) {
+			Figure reference = getHostFigure();
+			Rectangle bounds = reference.getBounds().getCopy();
+			FigureUtils.translateFigureToFigure(reference, target, bounds);
+			target.setBounds(bounds);
+		}
+	}
 }

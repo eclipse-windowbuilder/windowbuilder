@@ -21,60 +21,60 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage gef.draw2d
  */
 public class Layer extends Figure {
-  private final String m_name;
+	private final String m_name;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Layer(String name) {
-    m_name = name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Layer(String name) {
+		m_name = name;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Bounds
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Direct set bounds from {@link IRootFigure} without notification.
-   */
-  @Override
-  public void setBounds(Rectangle bounds) {
-    getBounds().setBounds(bounds);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Bounds
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Direct set bounds from {@link IRootFigure} without notification.
+	 */
+	@Override
+	public void setBounds(Rectangle bounds) {
+		getBounds().setBounds(bounds);
+	}
 
-  /**
-   * If children not contains given point <code>(x, y)</code> then {@link Layer} just as not
-   * contains it.
-   */
-  @Override
-  public boolean containsPoint(int x, int y) {
-    for (Figure childFigure : getChildren()) {
-      if (childFigure.containsPoint(x, y)) {
-        return true;
-      }
-    }
-    return false;
-  }
+	/**
+	 * If children not contains given point <code>(x, y)</code> then {@link Layer} just as not
+	 * contains it.
+	 */
+	@Override
+	public boolean containsPoint(int x, int y) {
+		for (Figure childFigure : getChildren()) {
+			if (childFigure.containsPoint(x, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Return identification name.
-   */
-  public String getName() {
-    return m_name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Return identification name.
+	 */
+	public String getName() {
+		return m_name;
+	}
 
-  /**
-   * For this figure opaque is missing.
-   */
-  @Override
-  public void setOpaque(boolean opaque) {
-  }
+	/**
+	 * For this figure opaque is missing.
+	 */
+	@Override
+	public void setOpaque(boolean opaque) {
+	}
 }

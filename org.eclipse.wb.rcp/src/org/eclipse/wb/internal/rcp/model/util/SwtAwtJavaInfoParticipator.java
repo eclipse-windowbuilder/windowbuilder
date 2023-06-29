@@ -36,82 +36,82 @@ import java.util.List;
  * @coverage rcp.model.util
  */
 public final class SwtAwtJavaInfoParticipator implements IJavaInfoInitializationParticipator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new SwtAwtJavaInfoParticipator();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new SwtAwtJavaInfoParticipator();
 
-  private SwtAwtJavaInfoParticipator() {
-  }
+	private SwtAwtJavaInfoParticipator() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IJavaInfoInitializationParticipator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(JavaInfo javaInfo) throws Exception {
-    if (javaInfo.getCreationSupport() instanceof StaticFactoryCreationSupport) {
-      StaticFactoryCreationSupport creationSupport =
-          (StaticFactoryCreationSupport) javaInfo.getCreationSupport();
-      FactoryMethodDescription description = creationSupport.getDescription();
-      if (description.getDeclaringClass() == SWT_AWT.class
-          && description.getSignature().equals("new_Frame(org.eclipse.swt.widgets.Composite)")) {
-        addFrameListeners((AbstractComponentInfo) javaInfo);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IJavaInfoInitializationParticipator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(JavaInfo javaInfo) throws Exception {
+		if (javaInfo.getCreationSupport() instanceof StaticFactoryCreationSupport) {
+			StaticFactoryCreationSupport creationSupport =
+					(StaticFactoryCreationSupport) javaInfo.getCreationSupport();
+			FactoryMethodDescription description = creationSupport.getDescription();
+			if (description.getDeclaringClass() == SWT_AWT.class
+					&& description.getSignature().equals("new_Frame(org.eclipse.swt.widgets.Composite)")) {
+				addFrameListeners((AbstractComponentInfo) javaInfo);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void addFrameListeners(final AbstractComponentInfo newFrame) {
-    newFrame.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshed() throws Exception {
-        fixFrameBounds();
-        drawFrameChildren();
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void addFrameListeners(final AbstractComponentInfo newFrame) {
+		newFrame.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshed() throws Exception {
+				fixFrameBounds();
+				drawFrameChildren();
+			}
 
-      private void fixFrameBounds() {
-        if (newFrame.getParent() instanceof AbstractComponentInfo) {
-          Rectangle bounds = newFrame.getBounds();
-          AbstractComponentInfo parent = (AbstractComponentInfo) newFrame.getParent();
-          Insets clientAreaInsets = parent.getClientAreaInsets();
-          bounds.performTranslate(clientAreaInsets.left, clientAreaInsets.top);
-        }
-      }
+			private void fixFrameBounds() {
+				if (newFrame.getParent() instanceof AbstractComponentInfo) {
+					Rectangle bounds = newFrame.getBounds();
+					AbstractComponentInfo parent = (AbstractComponentInfo) newFrame.getParent();
+					Insets clientAreaInsets = parent.getClientAreaInsets();
+					bounds.performTranslate(clientAreaInsets.left, clientAreaInsets.top);
+				}
+			}
 
-      private void drawFrameChildren() {
-        List<AbstractComponentInfo> components = newFrame.getChildren(AbstractComponentInfo.class);
-        for (AbstractComponentInfo component : components) {
-          drawComponent(component);
-        }
-      }
+			private void drawFrameChildren() {
+				List<AbstractComponentInfo> components = newFrame.getChildren(AbstractComponentInfo.class);
+				for (AbstractComponentInfo component : components) {
+					drawComponent(component);
+				}
+			}
 
-      private void drawComponent(AbstractComponentInfo component) {
-        Point location = component.getBounds().getLocation();
-        ObjectInfo parent = component.getParent();
-        for (; parent != null; parent = parent.getParent()) {
-          if (parent instanceof AbstractComponentInfo) {
-            AbstractComponentInfo parentComponent = (AbstractComponentInfo) parent;
-            Image parentImage = parentComponent.getImage();
-            if (parentImage != null) {
-              GC gc = new GC(parentImage);
-              try {
-                gc.drawImage(component.getImage(), location.x, location.y);
-              } finally {
-                gc.dispose();
-              }
-            }
-            location.performTranslate(parentComponent.getBounds().getLocation());
-          }
-        }
-      }
-    });
-  }
+			private void drawComponent(AbstractComponentInfo component) {
+				Point location = component.getBounds().getLocation();
+				ObjectInfo parent = component.getParent();
+				for (; parent != null; parent = parent.getParent()) {
+					if (parent instanceof AbstractComponentInfo) {
+						AbstractComponentInfo parentComponent = (AbstractComponentInfo) parent;
+						Image parentImage = parentComponent.getImage();
+						if (parentImage != null) {
+							GC gc = new GC(parentImage);
+							try {
+								gc.drawImage(component.getImage(), location.x, location.y);
+							} finally {
+								gc.dispose();
+							}
+						}
+						location.performTranslate(parentComponent.getBounds().getLocation());
+					}
+				}
+			}
+		});
+	}
 }

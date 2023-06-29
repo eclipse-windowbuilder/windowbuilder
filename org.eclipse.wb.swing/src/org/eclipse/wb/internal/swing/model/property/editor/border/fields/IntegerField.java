@@ -26,43 +26,43 @@ import org.eclipse.swt.widgets.Listener;
  * @coverage swing.property.editor
  */
 public final class IntegerField extends AbstractBorderField {
-  private CSpinner m_spinner;
+	private CSpinner m_spinner;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IntegerField(Composite parent, String labelText) {
-    super(parent, 2, labelText);
-    // create spinner
-    {
-      m_spinner = new CSpinner(this, SWT.BORDER);
-      GridDataFactory.create(m_spinner).hintHC(15);
-      m_spinner.addListener(SWT.Selection, new Listener() {
-        public void handleEvent(Event event) {
-          notifyListeners(SWT.Selection, event);
-        }
-      });
-    }
-    new Label(this, SWT.NONE).setText("pixel");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IntegerField(Composite parent, String labelText) {
+		super(parent, 2, labelText);
+		// create spinner
+		{
+			m_spinner = new CSpinner(this, SWT.BORDER);
+			GridDataFactory.create(m_spinner).hintHC(15);
+			m_spinner.addListener(SWT.Selection, new Listener() {
+				public void handleEvent(Event event) {
+					notifyListeners(SWT.Selection, event);
+				}
+			});
+		}
+		new Label(this, SWT.NONE).setText("pixel");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the value, that should correspond to the one of the field values.
-   */
-  public void setValue(int value) throws Exception {
-    m_spinner.setSelection(value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the value, that should correspond to the one of the field values.
+	 */
+	public void setValue(int value) throws Exception {
+		m_spinner.setSelection(value);
+	}
 
-  @Override
-  public String getSource() throws Exception {
-    int value = m_spinner.getSelection();
-    return Integer.toString(value);
-  }
+	@Override
+	public String getSource() throws Exception {
+		int value = m_spinner.getSelection();
+		return Integer.toString(value);
+	}
 }

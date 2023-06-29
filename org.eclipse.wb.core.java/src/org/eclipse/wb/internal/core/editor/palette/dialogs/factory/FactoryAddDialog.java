@@ -29,67 +29,67 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage core.editor.palette.ui
  */
 public final class FactoryAddDialog extends FactoryAbstractDialog {
-  private final PaletteInfo m_palette;
-  private final CategoryInfo m_initialCategory;
+	private final PaletteInfo m_palette;
+	private final CategoryInfo m_initialCategory;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FactoryAddDialog(Shell parentShell,
-      AstEditor editor,
-      boolean forStatic,
-      PaletteInfo palette,
-      CategoryInfo initialCategory) {
-    super(parentShell, editor, forStatic, forStatic
-        ? Messages.FactoryAddDialog_titleStatic
-        : Messages.FactoryAddDialog_titleInstance, forStatic
-        ? Messages.FactoryAddDialog_messageStatic
-        : Messages.FactoryAddDialog_messageInstance);
-    m_palette = palette;
-    m_initialCategory = initialCategory;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FactoryAddDialog(Shell parentShell,
+			AstEditor editor,
+			boolean forStatic,
+			PaletteInfo palette,
+			CategoryInfo initialCategory) {
+		super(parentShell, editor, forStatic, forStatic
+				? Messages.FactoryAddDialog_titleStatic
+						: Messages.FactoryAddDialog_titleInstance, forStatic
+						? Messages.FactoryAddDialog_messageStatic
+								: Messages.FactoryAddDialog_messageInstance);
+		m_palette = palette;
+		m_initialCategory = initialCategory;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ComboDialogField m_categoryField;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ComboDialogField m_categoryField;
 
-  @Override
-  protected void createControls(Composite container) {
-    super.createControls(container);
-    // category
-    {
-      m_categoryField = createCategoryField(m_palette, m_initialCategory);
-      doCreateField(m_categoryField, Messages.FactoryAddDialog_categoryLabel);
-    }
-    // initialize fields
-    m_visibleField.setSelection(true);
-  }
+	@Override
+	protected void createControls(Composite container) {
+		super.createControls(container);
+		// category
+		{
+			m_categoryField = createCategoryField(m_palette, m_initialCategory);
+			doCreateField(m_categoryField, Messages.FactoryAddDialog_categoryLabel);
+		}
+		// initialize fields
+		m_visibleField.setSelection(true);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command createCommand() {
-    String id = "custom_" + System.currentTimeMillis();
-    String name = m_nameField.getText().trim();
-    String description = getDescriptionText();
-    String factoryClassName = m_factoryClassField.getText();
-    String methodSignature = m_methodSignatureField.getText();
-    CategoryInfo category = m_palette.getCategories().get(m_categoryField.getSelectionIndex());
-    return new FactoryAddCommand(id,
-        name,
-        description,
-        m_visibleField.getSelection(),
-        factoryClassName,
-        methodSignature,
-        m_forStatic,
-        category);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command createCommand() {
+		String id = "custom_" + System.currentTimeMillis();
+		String name = m_nameField.getText().trim();
+		String description = getDescriptionText();
+		String factoryClassName = m_factoryClassField.getText();
+		String methodSignature = m_methodSignatureField.getText();
+		CategoryInfo category = m_palette.getCategories().get(m_categoryField.getSelectionIndex());
+		return new FactoryAddCommand(id,
+				name,
+				description,
+				m_visibleField.getSelection(),
+				factoryClassName,
+				methodSignature,
+				m_forStatic,
+				category);
+	}
 }

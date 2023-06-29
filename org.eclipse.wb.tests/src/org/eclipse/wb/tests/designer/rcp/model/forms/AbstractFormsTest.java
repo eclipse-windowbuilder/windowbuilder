@@ -22,17 +22,17 @@ import junit.framework.TestCase;
  * @author scheglov_ke
  */
 public class AbstractFormsTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the <code>FormToolkit</code> instance from last parsed {@link JavaInfo}.
-   */
-  protected final InstanceFactoryInfo getToolkit() throws Exception {
-    return InstanceFactoryInfo.getFactories(
-        m_lastParseInfo,
-        m_lastLoader.loadClass("org.eclipse.ui.forms.widgets.FormToolkit")).get(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the <code>FormToolkit</code> instance from last parsed {@link JavaInfo}.
+	 */
+	protected final InstanceFactoryInfo getToolkit() throws Exception {
+		return InstanceFactoryInfo.getFactories(
+				m_lastParseInfo,
+				m_lastLoader.loadClass("org.eclipse.ui.forms.widgets.FormToolkit")).get(0);
+	}
 }

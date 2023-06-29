@@ -23,48 +23,48 @@ import org.xml.sax.Attributes;
  * @coverage swing.laf.model
  */
 public final class RenameCategoryCommand extends Command {
-  // constants
-  public static final String ID = "rename-category";
-  // fields
-  private final String m_id;
-  private final String m_name;
+	// constants
+	public static final String ID = "rename-category";
+	// fields
+	private final String m_id;
+	private final String m_name;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RenameCategoryCommand(CategoryInfo category, String name) {
-    m_id = category.getID();
-    m_name = name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RenameCategoryCommand(CategoryInfo category, String name) {
+		m_id = category.getID();
+		m_name = name;
+	}
 
-  public RenameCategoryCommand(Attributes attributes) {
-    m_id = attributes.getValue(ATTR_ID);
-    m_name = attributes.getValue(ATTR_NAME);
-  }
+	public RenameCategoryCommand(Attributes attributes) {
+		m_id = attributes.getValue(ATTR_ID);
+		m_name = attributes.getValue(ATTR_NAME);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execute
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute() {
-    CategoryInfo category = LafSupport.getCategory(m_id);
-    if (category != null) {
-      category.setName(m_name);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execute
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute() {
+		CategoryInfo category = LafSupport.getCategory(m_id);
+		if (category != null) {
+			category.setName(m_name);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Save
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes(XmlWriter writer) {
-    addAttribute(writer, ATTR_ID, m_id);
-    addAttribute(writer, ATTR_NAME, m_name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Save
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes(XmlWriter writer) {
+		addAttribute(writer, ATTR_ID, m_id);
+		addAttribute(writer, ATTR_NAME, m_name);
+	}
 }

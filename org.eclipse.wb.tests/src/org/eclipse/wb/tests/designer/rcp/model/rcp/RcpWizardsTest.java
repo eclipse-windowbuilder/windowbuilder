@@ -31,113 +31,113 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class RcpWizardsTest extends RcpModelTest {
-  private IPackageFragment m_packageFragment;
+	private IPackageFragment m_packageFragment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    m_packageFragment = m_testProject.getPackage("test");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		m_packageFragment = m_testProject.getPackage("test");
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    waitEventLoop(10);
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		waitEventLoop(10);
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ViewPart
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @DisposeProjectAfter
-  public void test_ViewPart_isPDE() throws Exception {
-    PdeProjectConversionUtils.convertToPDE(m_project, null, null);
-    animate_ViewPart();
-    {
-      String pluginFile = getFileContent("plugin.xml");
-      assertThat(pluginFile).contains("org.eclipse.ui.views");
-      assertThat(pluginFile).contains("<view");
-      assertThat(pluginFile).contains("class=\"test.MyViewPart\"");
-      assertThat(pluginFile).contains("id=\"test.MyViewPart\"");
-      assertThat(pluginFile).contains("name=\"New ViewPart\"");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ViewPart
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@DisposeProjectAfter
+	public void test_ViewPart_isPDE() throws Exception {
+		PdeProjectConversionUtils.convertToPDE(m_project, null, null);
+		animate_ViewPart();
+		{
+			String pluginFile = getFileContent("plugin.xml");
+			assertThat(pluginFile).contains("org.eclipse.ui.views");
+			assertThat(pluginFile).contains("<view");
+			assertThat(pluginFile).contains("class=\"test.MyViewPart\"");
+			assertThat(pluginFile).contains("id=\"test.MyViewPart\"");
+			assertThat(pluginFile).contains("name=\"New ViewPart\"");
+		}
+	}
 
-  @DisposeProjectAfter
-  public void test_ViewPart_notPDE() throws Exception {
-    animate_ViewPart();
-    assertFileNotExists("plugin.xml");
-  }
+	@DisposeProjectAfter
+	public void test_ViewPart_notPDE() throws Exception {
+		animate_ViewPart();
+		assertFileNotExists("plugin.xml");
+	}
 
-  private void animate_ViewPart() throws Exception {
-    new UiContext().executeAndCheck(new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        TestUtils.runWizard(new ViewPartWizard(), new StructuredSelection(m_packageFragment));
-      }
-    }, new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        context.useShell("New Eclipse RCP ViewPart");
-        context.getTextByLabel("Name:").setText("MyViewPart");
-        context.clickButton("Finish");
-      }
-    });
-  }
+	private void animate_ViewPart() throws Exception {
+		new UiContext().executeAndCheck(new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				TestUtils.runWizard(new ViewPartWizard(), new StructuredSelection(m_packageFragment));
+			}
+		}, new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				context.useShell("New Eclipse RCP ViewPart");
+				context.getTextByLabel("Name:").setText("MyViewPart");
+				context.clickButton("Finish");
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EditorPart
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @DisposeProjectAfter
-  public void test_EditorPart_isPDE() throws Exception {
-    PdeProjectConversionUtils.convertToPDE(m_project, null, null);
-    animate_EditorPart();
-    {
-      String pluginFile = getFileContent("plugin.xml");
-      assertThat(pluginFile).contains("org.eclipse.ui.editors");
-      assertThat(pluginFile).contains("<editor");
-      assertThat(pluginFile).contains("class=\"test.MyEditorPart\"");
-      assertThat(pluginFile).contains("id=\"test.MyEditorPart\"");
-      assertThat(pluginFile).contains("name=\"New EditorPart\"");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EditorPart
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@DisposeProjectAfter
+	public void test_EditorPart_isPDE() throws Exception {
+		PdeProjectConversionUtils.convertToPDE(m_project, null, null);
+		animate_EditorPart();
+		{
+			String pluginFile = getFileContent("plugin.xml");
+			assertThat(pluginFile).contains("org.eclipse.ui.editors");
+			assertThat(pluginFile).contains("<editor");
+			assertThat(pluginFile).contains("class=\"test.MyEditorPart\"");
+			assertThat(pluginFile).contains("id=\"test.MyEditorPart\"");
+			assertThat(pluginFile).contains("name=\"New EditorPart\"");
+		}
+	}
 
-  @DisposeProjectAfter
-  public void test_EditorPart_notPDE() throws Exception {
-    animate_EditorPart();
-    assertFileNotExists("plugin.xml");
-  }
+	@DisposeProjectAfter
+	public void test_EditorPart_notPDE() throws Exception {
+		animate_EditorPart();
+		assertFileNotExists("plugin.xml");
+	}
 
-  private void animate_EditorPart() throws Exception {
-    new UiContext().executeAndCheck(new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        TestUtils.runWizard(new EditorPartWizard(), new StructuredSelection(m_packageFragment));
-      }
-    }, new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        context.useShell("New Eclipse RCP EditorPart");
-        context.getTextByLabel("Name:").setText("MyEditorPart");
-        context.clickButton("Finish");
-      }
-    });
-  }
+	private void animate_EditorPart() throws Exception {
+		new UiContext().executeAndCheck(new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				TestUtils.runWizard(new EditorPartWizard(), new StructuredSelection(m_packageFragment));
+			}
+		}, new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				context.useShell("New Eclipse RCP EditorPart");
+				context.getTextByLabel("Name:").setText("MyEditorPart");
+				context.clickButton("Finish");
+			}
+		});
+	}
 }

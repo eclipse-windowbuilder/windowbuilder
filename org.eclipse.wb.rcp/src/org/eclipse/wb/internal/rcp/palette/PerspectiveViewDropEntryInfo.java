@@ -26,32 +26,32 @@ import org.eclipse.swt.graphics.Image;
  * @coverage rcp.editor.palette
  */
 public final class PerspectiveViewDropEntryInfo extends ToolEntryInfo {
-  private final ViewInfo m_view;
+	private final ViewInfo m_view;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectiveViewDropEntryInfo(ViewInfo view) {
-    m_view = view;
-    setId(view.getId());
-    setName(m_view.getName());
-    setDescription(m_view.getId() + "\n" + m_view.getClassName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectiveViewDropEntryInfo(ViewInfo view) {
+		m_view = view;
+		setId(view.getId());
+		setName(m_view.getName());
+		setDescription(m_view.getId() + "\n" + m_view.getClassName());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return m_view.getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return m_view.getIcon();
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    return new ViewDropTool(m_view);
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		return new ViewDropTool(m_view);
+	}
 }

@@ -24,80 +24,80 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage core.gef.policy.snapping
  */
 public interface IVisualDataProvider {
-  /**
-   * @param component
-   *          A component model for which baseline value is requested. May not be null. Should
-   *          return {@link #NO_BASELINE} in case if the component has no baseline.
-   * @return Baseline value.
-   */
-  int getBaseline(IAbstractComponentInfo component);
+	/**
+	 * @param component
+	 *          A component model for which baseline value is requested. May not be null. Should
+	 *          return {@link #NO_BASELINE} in case if the component has no baseline.
+	 * @return Baseline value.
+	 */
+	int getBaseline(IAbstractComponentInfo component);
 
-  /**
-   * @param component
-   *          A component model for which gap to border of parent container is returned. May not be
-   *          null.
-   * @param direction
-   *          Determines a side of parent container for which gap value is requested. Valid values
-   *          are {@link IPositionConstants#LEFT}, {@link IPositionConstants#RIGHT},
-   *          {@link IPositionConstants#TOP}, {@link IPositionConstants#BOTTOM}.
-   * @return Gap value for container.
-   */
-  int getContainerGapValue(IAbstractComponentInfo component, int direction);
+	/**
+	 * @param component
+	 *          A component model for which gap to border of parent container is returned. May not be
+	 *          null.
+	 * @param direction
+	 *          Determines a side of parent container for which gap value is requested. Valid values
+	 *          are {@link IPositionConstants#LEFT}, {@link IPositionConstants#RIGHT},
+	 *          {@link IPositionConstants#TOP}, {@link IPositionConstants#BOTTOM}.
+	 * @return Gap value for container.
+	 */
+	int getContainerGapValue(IAbstractComponentInfo component, int direction);
 
-  /**
-   * Returns gap value between two components.
-   *
-   * @param component1
-   *          First component model, may not be null.
-   * @param component2
-   *          Second component model, may not be null.
-   * @param direction
-   *          Determines a side of component1 in which gap to component2 is requested.
-   * @return Gap value between component1 and component2.
-   */
-  int getComponentGapValue(IAbstractComponentInfo component1,
-      IAbstractComponentInfo component2,
-      int direction);
+	/**
+	 * Returns gap value between two components.
+	 *
+	 * @param component1
+	 *          First component model, may not be null.
+	 * @param component2
+	 *          Second component model, may not be null.
+	 * @param direction
+	 *          Determines a side of component1 in which gap to component2 is requested.
+	 * @return Gap value between component1 and component2.
+	 */
+	int getComponentGapValue(IAbstractComponentInfo component1,
+			IAbstractComponentInfo component2,
+			int direction);
 
-  /**
-   * @return Current size of parent container.
-   */
-  Dimension getContainerSize();
+	/**
+	 * @return Current size of parent container.
+	 */
+	Dimension getContainerSize();
 
-  /**
-   * @return the top-left offset at which container's client area starts.
-   */
-  Point getClientAreaOffset();
+	/**
+	 * @return the top-left offset at which container's client area starts.
+	 */
+	Point getClientAreaOffset();
 
-  /**
-   * @param component
-   *          A component which preferred size is requested. May not be null.
-   * @return Component's preferred size or null if component preferred size cannot be retrieved.
-   */
-  Dimension getComponentPreferredSize(IAbstractComponentInfo component);
+	/**
+	 * @param component
+	 *          A component which preferred size is requested. May not be null.
+	 * @return Component's preferred size or null if component preferred size cannot be retrieved.
+	 */
+	Dimension getComponentPreferredSize(IAbstractComponentInfo component);
 
-  /**
-   * @return a X grid step value for this layout
-   */
-  int getGridStepX();
+	/**
+	 * @return a X grid step value for this layout
+	 */
+	int getGridStepX();
 
-  /**
-   * @return a Y grid step value for this layout
-   */
-  int getGridStepY();
+	/**
+	 * @return a Y grid step value for this layout
+	 */
+	int getGridStepY();
 
-  /**
-   * @return <code>true</code> if "free mode" snapping enabled for the layout
-   */
-  boolean useFreeSnapping();
+	/**
+	 * @return <code>true</code> if "free mode" snapping enabled for the layout
+	 */
+	boolean useFreeSnapping();
 
-  /**
-   * @return <code>true</code> if grid snapping enabled for the layout
-   */
-  boolean useGridSnapping();
+	/**
+	 * @return <code>true</code> if grid snapping enabled for the layout
+	 */
+	boolean useGridSnapping();
 
-  /**
-   * @return <code>true</code> when snapping should be disabled
-   */
-  boolean isSuppressingSnapping();
+	/**
+	 * @return <code>true</code> when snapping should be disabled
+	 */
+	boolean isSuppressingSnapping();
 }

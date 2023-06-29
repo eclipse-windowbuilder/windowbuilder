@@ -26,26 +26,26 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage bindings.parser
  */
 public interface ISubParser {
-  /**
-   * Informs {@link ISubParser} about {@link ClassInstanceCreation}.
-   *
-   * @return {@link AstObjectInfo} model corresponding to given {@link ClassInstanceCreation}.
-   */
-  AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      ClassInstanceCreation creation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception;
+	/**
+	 * Informs {@link ISubParser} about {@link ClassInstanceCreation}.
+	 *
+	 * @return {@link AstObjectInfo} model corresponding to given {@link ClassInstanceCreation}.
+	 */
+	AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			ClassInstanceCreation creation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception;
 
-  /**
-   * Informs {@link ISubParser} about {@link MethodInvocation}.
-   *
-   * @return {@link AstObjectInfo} model corresponding to given {@link MethodInvocation}.
-   */
-  AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver) throws Exception;
+	/**
+	 * Informs {@link ISubParser} about {@link MethodInvocation}.
+	 *
+	 * @return {@link AstObjectInfo} model corresponding to given {@link MethodInvocation}.
+	 */
+	AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver) throws Exception;
 }

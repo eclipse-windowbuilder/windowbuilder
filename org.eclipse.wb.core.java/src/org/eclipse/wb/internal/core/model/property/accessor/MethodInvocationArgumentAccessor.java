@@ -42,132 +42,132 @@ import java.util.List;
  * @coverage core.model.property.accessor
  */
 public final class MethodInvocationArgumentAccessor extends ExpressionAccessor {
-  private final Method m_method;
-  private final String m_methodSignature;
-  private final int m_index;
+	private final Method m_method;
+	private final String m_methodSignature;
+	private final int m_index;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodInvocationArgumentAccessor(Method method, int index) {
-    m_method = method;
-    m_methodSignature = ReflectionUtils.getMethodSignature(m_method);
-    m_index = index;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodInvocationArgumentAccessor(Method method, int index) {
+		m_method = method;
+		m_methodSignature = ReflectionUtils.getMethodSignature(m_method);
+		m_index = index;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionAccessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Expression getExpression(JavaInfo javaInfo) throws Exception {
-    MethodInvocation invocation = getMethodInvocation(javaInfo);
-    return getArgumentExpression(invocation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionAccessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Expression getExpression(JavaInfo javaInfo) throws Exception {
+		MethodInvocation invocation = getMethodInvocation(javaInfo);
+		return getArgumentExpression(invocation);
+	}
 
-  @Override
-  public boolean setExpression(final JavaInfo javaInfo, final String source) throws Exception {
-    final List<String> defaultArguments = getMethodDescription(javaInfo).getDefaultArguments();
-    // modify expression
-    final MethodInvocation invocation = getMethodInvocation(javaInfo);
-    if (invocation != null) {
-      final AstEditor editor = javaInfo.getEditor();
-      final Expression oldArgumentExpression = getArgumentExpression(invocation);
-      final String argumentSource = source != null ? source : defaultArguments.get(m_index);
-      if (!isSameSource(editor, oldArgumentExpression, argumentSource)) {
-        ExecutionUtils.run(javaInfo, new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            editor.replaceExpression(oldArgumentExpression, argumentSource);
-            if (isDefaultArguments(javaInfo, invocation)) {
-              editor.removeEnclosingStatement(invocation);
-            }
-          }
-        });
-      }
-    } else if (source != null) {
-      ExecutionUtils.run(javaInfo, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          String argumentsSource = getNewInvocationArguments();
-          javaInfo.addMethodInvocation(m_methodSignature, argumentsSource);
-        }
+	@Override
+	public boolean setExpression(final JavaInfo javaInfo, final String source) throws Exception {
+		final List<String> defaultArguments = getMethodDescription(javaInfo).getDefaultArguments();
+		// modify expression
+		final MethodInvocation invocation = getMethodInvocation(javaInfo);
+		if (invocation != null) {
+			final AstEditor editor = javaInfo.getEditor();
+			final Expression oldArgumentExpression = getArgumentExpression(invocation);
+			final String argumentSource = source != null ? source : defaultArguments.get(m_index);
+			if (!isSameSource(editor, oldArgumentExpression, argumentSource)) {
+				ExecutionUtils.run(javaInfo, new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						editor.replaceExpression(oldArgumentExpression, argumentSource);
+						if (isDefaultArguments(javaInfo, invocation)) {
+							editor.removeEnclosingStatement(invocation);
+						}
+					}
+				});
+			}
+		} else if (source != null) {
+			ExecutionUtils.run(javaInfo, new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					String argumentsSource = getNewInvocationArguments();
+					javaInfo.addMethodInvocation(m_methodSignature, argumentsSource);
+				}
 
-        private String getNewInvocationArguments() {
-          List<String> arguments = Lists.newArrayList(defaultArguments);
-          arguments.set(m_index, source);
-          return StringUtils.join(arguments.iterator(), ", ");
-        }
-      });
-    }
-    // success
-    return true;
-  }
+				private String getNewInvocationArguments() {
+					List<String> arguments = Lists.newArrayList(defaultArguments);
+					arguments.set(m_index, source);
+					return StringUtils.join(arguments.iterator(), ", ");
+				}
+			});
+		}
+		// success
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link MethodInvocation} of this setter for given {@link JavaInfo}.
-   */
-  private MethodInvocation getMethodInvocation(JavaInfo javaInfo) throws Exception {
-    return javaInfo.getMethodInvocation(m_methodSignature);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link MethodInvocation} of this setter for given {@link JavaInfo}.
+	 */
+	private MethodInvocation getMethodInvocation(JavaInfo javaInfo) throws Exception {
+		return javaInfo.getMethodInvocation(m_methodSignature);
+	}
 
-  /**
-   * @return the {@link Expression} of given {@link MethodInvocation}.
-   */
-  private Expression getArgumentExpression(MethodInvocation invocation) {
-    return invocation != null ? DomGenerics.arguments(invocation).get(m_index) : null;
-  }
+	/**
+	 * @return the {@link Expression} of given {@link MethodInvocation}.
+	 */
+	private Expression getArgumentExpression(MethodInvocation invocation) {
+		return invocation != null ? DomGenerics.arguments(invocation).get(m_index) : null;
+	}
 
-  private MethodDescription getMethodDescription(JavaInfo javaInfo) {
-    MethodDescription methodDescription = javaInfo.getDescription().getMethod(m_methodSignature);
-    Assert.isNotNull(
-        methodDescription,
-        "Can not find description for method with signature %s",
-        m_methodSignature);
-    return methodDescription;
-  }
+	private MethodDescription getMethodDescription(JavaInfo javaInfo) {
+		MethodDescription methodDescription = javaInfo.getDescription().getMethod(m_methodSignature);
+		Assert.isNotNull(
+				methodDescription,
+				"Can not find description for method with signature %s",
+				m_methodSignature);
+		return methodDescription;
+	}
 
-  private boolean isDefaultArguments(JavaInfo javaInfo, MethodInvocation invocation) {
-    AstEditor editor = javaInfo.getEditor();
-    boolean allDefault = true;
-    List<ParameterDescription> parameters = getMethodDescription(javaInfo).getParameters();
-    List<Expression> arguments = DomGenerics.arguments(invocation);
-    for (ParameterDescription parameter : parameters) {
-      int index = parameter.getIndex();
-      Expression argument = arguments.get(index);
-      allDefault &= isDefaultArgument(editor, argument, parameter);
-    }
-    return allDefault;
-  }
+	private boolean isDefaultArguments(JavaInfo javaInfo, MethodInvocation invocation) {
+		AstEditor editor = javaInfo.getEditor();
+		boolean allDefault = true;
+		List<ParameterDescription> parameters = getMethodDescription(javaInfo).getParameters();
+		List<Expression> arguments = DomGenerics.arguments(invocation);
+		for (ParameterDescription parameter : parameters) {
+			int index = parameter.getIndex();
+			Expression argument = arguments.get(index);
+			allDefault &= isDefaultArgument(editor, argument, parameter);
+		}
+		return allDefault;
+	}
 
-  private static boolean isDefaultArgument(AstEditor editor,
-      Expression argument,
-      ParameterDescription parameter) {
-    String defaultArgumentSource = parameter.getDefaultSource();
-    return isSameSource(editor, argument, defaultArgumentSource);
-  }
+	private static boolean isDefaultArgument(AstEditor editor,
+			Expression argument,
+			ParameterDescription parameter) {
+		String defaultArgumentSource = parameter.getDefaultSource();
+		return isSameSource(editor, argument, defaultArgumentSource);
+	}
 
-  private static boolean isSameSource(AstEditor editor, Expression expression, String expectedSource) {
-    String currentArgumentSource = getNormalizedSource(editor, expression);
-    return expectedSource.equals(currentArgumentSource);
-  }
+	private static boolean isSameSource(AstEditor editor, Expression expression, String expectedSource) {
+		String currentArgumentSource = getNormalizedSource(editor, expression);
+		return expectedSource.equals(currentArgumentSource);
+	}
 
-  private static String getNormalizedSource(AstEditor editor, Expression expression) {
-    if (expression instanceof CastExpression) {
-      CastExpression castExpression = (CastExpression) expression;
-      if (castExpression.getExpression() instanceof NullLiteral) {
-        String qualifiedTypeName = AstNodeUtils.getFullyQualifiedName(expression, false);
-        return MessageFormat.format("({0}) null", qualifiedTypeName);
-      }
-    }
-    return editor.getSource(expression);
-  }
+	private static String getNormalizedSource(AstEditor editor, Expression expression) {
+		if (expression instanceof CastExpression) {
+			CastExpression castExpression = (CastExpression) expression;
+			if (castExpression.getExpression() instanceof NullLiteral) {
+				String qualifiedTypeName = AstNodeUtils.getFullyQualifiedName(expression, false);
+				return MessageFormat.format("({0}) null", qualifiedTypeName);
+			}
+		}
+		return editor.getSource(expression);
+	}
 }

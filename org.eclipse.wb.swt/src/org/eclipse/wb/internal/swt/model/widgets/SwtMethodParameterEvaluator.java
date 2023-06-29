@@ -30,57 +30,57 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage swt.model.widgets
  */
 public final class SwtMethodParameterEvaluator implements IMethodParameterEvaluator {
-  public static final IMethodParameterEvaluator INSTANCE = new SwtMethodParameterEvaluator();
+	public static final IMethodParameterEvaluator INSTANCE = new SwtMethodParameterEvaluator();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IMethodParameterEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluateParameter(EvaluationContext context,
-      MethodDeclaration methodDeclaration,
-      String methodSignature,
-      SingleVariableDeclaration parameter,
-      int index) throws Exception {
-    ClassLoader classLoader = context.getClassLoader();
-    String parameterName = parameter.getName().getIdentifier();
-    ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(parameter);
-    // parent
-    if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Composite")) {
-      if (index == 0 || parameterName.equals("parent")) {
-        return getDefaultShell(parameter, classLoader);
-      }
-    }
-    // Display
-    if (index == 0) {
-      if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Display")) {
-        Class<?> c_Display = classLoader.loadClass("org.eclipse.swt.widgets.Display");
-        return ReflectionUtils.invokeMethod(c_Display, "getDefault()");
-      }
-    }
-    // unknown parameter
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IMethodParameterEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluateParameter(EvaluationContext context,
+			MethodDeclaration methodDeclaration,
+			String methodSignature,
+			SingleVariableDeclaration parameter,
+			int index) throws Exception {
+		ClassLoader classLoader = context.getClassLoader();
+		String parameterName = parameter.getName().getIdentifier();
+		ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(parameter);
+		// parent
+		if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Composite")) {
+			if (index == 0 || parameterName.equals("parent")) {
+				return getDefaultShell(parameter, classLoader);
+			}
+		}
+		// Display
+		if (index == 0) {
+			if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Display")) {
+				Class<?> c_Display = classLoader.loadClass("org.eclipse.swt.widgets.Display");
+				return ReflectionUtils.invokeMethod(c_Display, "getDefault()");
+			}
+		}
+		// unknown parameter
+		return AstEvaluationEngine.UNKNOWN;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  static final String SHELL_KEY =
-      "org.eclipse.wb.internal.swt.model.widgets.SWT_MethodParameterEvaluator Shell";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	static final String SHELL_KEY =
+			"org.eclipse.wb.internal.swt.model.widgets.SWT_MethodParameterEvaluator Shell";
 
-  /**
-   * @return the {@link Shell} instance for given {@link ASTNode}, existing or new.
-   */
-  public static Object getDefaultShell(ASTNode node, ClassLoader classLoader) throws Exception {
-    Object shell = node.getProperty(SHELL_KEY);
-    if (shell == null || ControlSupport.isDisposed(shell)) {
-      Class<?> c_Shell = classLoader.loadClass("org.eclipse.swt.widgets.Shell");
-      shell = c_Shell.newInstance();
-      node.setProperty(SHELL_KEY, shell);
-    }
-    return shell;
-  }
+	/**
+	 * @return the {@link Shell} instance for given {@link ASTNode}, existing or new.
+	 */
+	public static Object getDefaultShell(ASTNode node, ClassLoader classLoader) throws Exception {
+		Object shell = node.getProperty(SHELL_KEY);
+		if (shell == null || ControlSupport.isDisposed(shell)) {
+			Class<?> c_Shell = classLoader.loadClass("org.eclipse.swt.widgets.Shell");
+			shell = c_Shell.newInstance();
+			node.setProperty(SHELL_KEY, shell);
+		}
+		return shell;
+	}
 }

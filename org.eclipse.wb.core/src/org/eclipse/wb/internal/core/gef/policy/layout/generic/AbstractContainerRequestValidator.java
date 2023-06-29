@@ -30,67 +30,67 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public final class AbstractContainerRequestValidator implements ILayoutRequestValidator {
-  private final AbstractContainer m_container;
+	private final AbstractContainer m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractContainerRequestValidator(AbstractContainer container) {
-    m_container = container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractContainerRequestValidator(AbstractContainer container) {
+		m_container = container;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-    Object newObject = request.getNewObject();
-    return m_container.validateComponent(newObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+		Object newObject = request.getNewObject();
+		return m_container.validateComponent(newObject);
+	}
 
-  @Override
-  public boolean validatePasteRequest(EditPart host, final PasteRequest request) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
-        List<?> mementos = (List<?>) request.getMemento();
-        for (Object memento : mementos) {
-          Object component = GlobalState.getValidatorHelper().getPasteComponent(memento);
-          if (!m_container.validateComponent(component)) {
-            return false;
-          }
-        }
-        return true;
-      }
-    }, false);
-  }
+	@Override
+	public boolean validatePasteRequest(EditPart host, final PasteRequest request) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+			@Override
+			public Boolean runObject() throws Exception {
+				List<?> mementos = (List<?>) request.getMemento();
+				for (Object memento : mementos) {
+					Object component = GlobalState.getValidatorHelper().getPasteComponent(memento);
+					if (!m_container.validateComponent(component)) {
+						return false;
+					}
+				}
+				return true;
+			}
+		}, false);
+	}
 
-  @Override
-  public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-    return validateComponents(request);
-  }
+	@Override
+	public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+		return validateComponents(request);
+	}
 
-  @Override
-  public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-    return validateComponents(request);
-  }
+	@Override
+	public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+		return validateComponents(request);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean validateComponents(ChangeBoundsRequest request) {
-    for (EditPart editPart : request.getEditParts()) {
-      Object object = editPart.getModel();
-      if (!m_container.validateComponent(object)) {
-        return false;
-      }
-    }
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean validateComponents(ChangeBoundsRequest request) {
+		for (EditPart editPart : request.getEditParts()) {
+			Object object = editPart.getModel();
+			if (!m_container.validateComponent(object)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

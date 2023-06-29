@@ -19,23 +19,23 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
  * @author scheglov_ke
  */
 public class AbstractPaletteUiTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    System.clearProperty(DesignerPalette.FLAG_NO_PALETTE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		System.clearProperty(DesignerPalette.FLAG_NO_PALETTE);
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    if (m_paletteManager != null) {
-      m_paletteManager.commands_clear();
-      m_paletteManager.commands_write();
-    }
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		if (m_paletteManager != null) {
+			m_paletteManager.commands_clear();
+			m_paletteManager.commands_write();
+		}
+		super.tearDown();
+	}
 }

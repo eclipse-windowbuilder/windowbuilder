@@ -24,24 +24,24 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
  * @coverage rcp.swing2swt.model.layout
  */
 public final class BoxLayoutInfo extends LayoutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BoxLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BoxLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isHorizontal() throws Exception {
-    Object o = getObject();
-    return getFieldInt(o, "axis") == getFieldInt(o, "X_AXIS");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isHorizontal() throws Exception {
+		Object o = getObject();
+		return getFieldInt(o, "axis") == getFieldInt(o, "X_AXIS");
+	}
 }

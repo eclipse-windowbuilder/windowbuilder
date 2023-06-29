@@ -29,105 +29,105 @@ import javax.swing.JToolBar;
  * @coverage core.model.variable
  */
 public final class VoidInvocationVariableSupport extends AbstractNoNameVariableSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VoidInvocationVariableSupport(JavaInfo javaInfo) {
-    super(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VoidInvocationVariableSupport(JavaInfo javaInfo) {
+		super(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "void";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "void";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() throws Exception {
-    MethodInvocation invocation = getInvocation();
-    return AstNodeUtils.getMethodSignature(invocation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() throws Exception {
+		MethodInvocation invocation = getInvocation();
+		return AstNodeUtils.getMethodSignature(invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    throw new IllegalStateException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		throw new IllegalStateException();
+	}
 
-  @Override
-  public String getAccessExpression(NodeTarget target) throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public String getAccessExpression(NodeTarget target) throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public StatementTarget getStatementTarget() throws Exception {
-    throw new IllegalStateException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public StatementTarget getStatementTarget() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  @Override
-  public void ensureInstanceReadyAt(StatementTarget target) throws Exception {
-    m_javaInfo.getEditor().moveStatement(getStatement(), target);
-  }
+	@Override
+	public void ensureInstanceReadyAt(StatementTarget target) throws Exception {
+		m_javaInfo.getEditor().moveStatement(getStatement(), target);
+	}
 
-  @Override
-  public StatementTarget getAssociationTarget(StatementTarget target) throws Exception {
-    return target;
-  }
+	@Override
+	public StatementTarget getAssociationTarget(StatementTarget target) throws Exception {
+		return target;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String add_getVariableStatementSource(StatementTarget associationTarget) throws Exception {
-    NodeTarget creationTarget = new NodeTarget(associationTarget);
-    return m_javaInfo.getCreationSupport().add_getSource(creationTarget) + ";";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String add_getVariableStatementSource(StatementTarget associationTarget) throws Exception {
+		NodeTarget creationTarget = new NodeTarget(associationTarget);
+		return m_javaInfo.getCreationSupport().add_getSource(creationTarget) + ";";
+	}
 
-  @Override
-  public void add_setVariableStatement(Statement statement) throws Exception {
-    ExpressionStatement expressionStatement = (ExpressionStatement) statement;
-    m_javaInfo.getCreationSupport().add_setSourceExpression(expressionStatement.getExpression());
-  }
+	@Override
+	public void add_setVariableStatement(Statement statement) throws Exception {
+		ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+		m_javaInfo.getCreationSupport().add_setSourceExpression(expressionStatement.getExpression());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the creation {@link MethodInvocation}.
-   */
-  private MethodInvocation getInvocation() throws Exception {
-    return (MethodInvocation) m_javaInfo.getCreationSupport().getNode();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the creation {@link MethodInvocation}.
+	 */
+	private MethodInvocation getInvocation() throws Exception {
+		return (MethodInvocation) m_javaInfo.getCreationSupport().getNode();
+	}
 
-  /**
-   * @return the {@link Statement} for creation {@link MethodInvocation}.
-   */
-  private Statement getStatement() throws Exception {
-    MethodInvocation invocation = getInvocation();
-    return AstNodeUtils.getEnclosingStatement(invocation);
-  }
+	/**
+	 * @return the {@link Statement} for creation {@link MethodInvocation}.
+	 */
+	private Statement getStatement() throws Exception {
+		MethodInvocation invocation = getInvocation();
+		return AstNodeUtils.getEnclosingStatement(invocation);
+	}
 }

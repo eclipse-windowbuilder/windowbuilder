@@ -18,13 +18,13 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainer;
  * @author scheglov_ke
  */
 public class FlowContainerGefTest extends FlowContainerAbstractGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void prepareFlowPanel() throws Exception {
-    FlowContainerModelTest.prepareFlowPanel();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void prepareFlowPanel() throws Exception {
+		FlowContainerModelTest.prepareFlowPanel();
+	}
 }

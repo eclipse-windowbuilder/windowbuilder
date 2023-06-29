@@ -17,13 +17,13 @@ package org.eclipse.wb.internal.core.utils;
  * @coverage core.util
  */
 public interface IAdaptableFactory {
-  /**
-   * @param object
-   *          the {@link Object} to adapt.
-   * @param adapter
-   *          the type of adapter.
-   *
-   * @return the adapter of required type.
-   */
-  <T> T getAdapter(Object object, Class<T> adapter);
+	/**
+	 * @param object
+	 *          the {@link Object} to adapt.
+	 * @param adapter
+	 *          the type of adapter.
+	 *
+	 * @return the adapter of required type.
+	 */
+	<T> T getAdapter(Object object, Class<T> adapter);
 }

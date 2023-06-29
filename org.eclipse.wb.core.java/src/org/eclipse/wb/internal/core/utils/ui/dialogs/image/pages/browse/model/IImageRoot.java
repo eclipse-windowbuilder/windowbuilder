@@ -19,19 +19,19 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.Abstract
  * @coverage core.ui
  */
 public interface IImageRoot {
-  /**
-   * @return the top level {@link IImageElement}'s.
-   */
-  IImageElement[] elements();
+	/**
+	 * @return the top level {@link IImageElement}'s.
+	 */
+	IImageElement[] elements();
 
-  /**
-   * Allows {@link IImageRoot} dispose any resources allocated for browsing.
-   */
-  void dispose();
+	/**
+	 * Allows {@link IImageRoot} dispose any resources allocated for browsing.
+	 */
+	void dispose();
 
-  /**
-   * @return the array of models that should be expanded/selected to show object specified by given
-   *         data.
-   */
-  Object[] getSelectionPath(Object data);
+	/**
+	 * @return the array of models that should be expanded/selected to show object specified by given
+	 *         data.
+	 */
+	Object[] getSelectionPath(Object data);
 }

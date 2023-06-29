@@ -28,25 +28,25 @@ import javax.swing.JApplet;
  * @coverage swing.model
  */
 public final class AppletInfo extends ContainerInfo implements IJavaInfoRendering {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AppletInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    JavaInfoUtils.scheduleSpecialRendering(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AppletInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		JavaInfoUtils.scheduleSpecialRendering(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IJavaInfoRendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void render() throws Exception {
-    Object applet = getObject();
-    ReflectionUtils.invokeMethod(applet, "init()");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IJavaInfoRendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void render() throws Exception {
+		Object applet = getObject();
+		ReflectionUtils.invokeMethod(applet, "init()");
+	}
 }

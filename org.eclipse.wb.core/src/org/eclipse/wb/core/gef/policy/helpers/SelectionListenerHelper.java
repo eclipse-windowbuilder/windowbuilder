@@ -23,33 +23,33 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
  * @coverage core.gef.policy
  */
 public final class SelectionListenerHelper implements IEditPolicyListener {
-  private final EditPolicy m_editPolicy;
-  private final IEditPartSelectionListener m_listener;
+	private final EditPolicy m_editPolicy;
+	private final IEditPartSelectionListener m_listener;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionListenerHelper(EditPolicy editPolicy, IEditPartSelectionListener listener) {
-    m_editPolicy = editPolicy;
-    m_listener = listener;
-    m_editPolicy.addEditPolicyListener(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionListenerHelper(EditPolicy editPolicy, IEditPartSelectionListener listener) {
+		m_editPolicy = editPolicy;
+		m_listener = listener;
+		m_editPolicy.addEditPolicyListener(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPolicyListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void activatePolicy(EditPolicy policy) {
-    m_editPolicy.getHost().addSelectionListener(m_listener);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPolicyListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void activatePolicy(EditPolicy policy) {
+		m_editPolicy.getHost().addSelectionListener(m_listener);
+	}
 
-  @Override
-  public void deactivatePolicy(EditPolicy policy) {
-    m_editPolicy.getHost().removeSelectionListener(m_listener);
-    m_editPolicy.removeEditPolicyListener(this);
-  }
+	@Override
+	public void deactivatePolicy(EditPolicy policy) {
+		m_editPolicy.getHost().removeSelectionListener(m_listener);
+		m_editPolicy.removeEditPolicyListener(this);
+	}
 }

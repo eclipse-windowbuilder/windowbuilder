@@ -26,56 +26,56 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage rcp.model.rcp
  */
 public final class WorkbenchPartTopBoundsSupport extends TopBoundsSupport {
-  private final WorkbenchPartLikeInfo m_part;
+	private final WorkbenchPartLikeInfo m_part;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WorkbenchPartTopBoundsSupport(WorkbenchPartLikeInfo part) {
-    super(part);
-    m_part = part;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WorkbenchPartTopBoundsSupport(WorkbenchPartLikeInfo part) {
+		super(part);
+		m_part = part;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TopBoundsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void apply() throws Exception {
-    // set size from resource properties (or default)
-    {
-      Dimension size = getResourceSize();
-      Shell shell = m_part.getShell();
-      // "size" is size of _content_ for "shell", so calculate trim
-      Rectangle trim =
-          RectangleSupport.getRectangle(shell.computeTrim(0, 0, size.width, size.height));
-      // OK, set size from trim
-      ControlSupport.setSize(shell, trim.width, trim.height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TopBoundsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void apply() throws Exception {
+		// set size from resource properties (or default)
+		{
+			Dimension size = getResourceSize();
+			Shell shell = m_part.getShell();
+			// "size" is size of _content_ for "shell", so calculate trim
+			Rectangle trim =
+					RectangleSupport.getRectangle(shell.computeTrim(0, 0, size.width, size.height));
+			// OK, set size from trim
+			ControlSupport.setSize(shell, trim.width, trim.height);
+		}
+	}
 
-  @Override
-  public void setSize(int width, int height) throws Exception {
-    // remember size in resource properties
-    setResourceSize(width, height);
-  }
+	@Override
+	public void setSize(int width, int height) throws Exception {
+		// remember size in resource properties
+		setResourceSize(width, height);
+	}
 
-  @Override
-  protected Dimension getDefaultSize() {
-    return new Dimension(600, 500);
-  }
+	@Override
+	protected Dimension getDefaultSize() {
+		return new Dimension(600, 500);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Show
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean show() throws Exception {
-    CompositeTopBoundsSupport.show(m_part, m_part.getShell());
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Show
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean show() throws Exception {
+		CompositeTopBoundsSupport.show(m_part, m_part.getShell());
+		return true;
+	}
 }

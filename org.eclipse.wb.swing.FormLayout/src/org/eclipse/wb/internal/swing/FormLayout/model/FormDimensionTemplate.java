@@ -24,54 +24,54 @@ import com.jgoodies.forms.layout.FormSpecs;
  * @coverage swing.FormLayout.model
  */
 public final class FormDimensionTemplate {
-  private final String m_fieldName;
-  private final boolean m_component;
-  private final String m_title;
-  private final ImageDescriptor m_icon;
+	private final String m_fieldName;
+	private final boolean m_component;
+	private final String m_title;
+	private final ImageDescriptor m_icon;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormDimensionTemplate(String fieldName, boolean component, String title, String iconName) {
-    m_fieldName = fieldName;
-    m_component = component;
-    m_title = title;
-    m_icon = Activator.getImageDescriptor("templates/" + iconName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormDimensionTemplate(String fieldName, boolean component, String title, String iconName) {
+		m_fieldName = fieldName;
+		m_component = component;
+		m_title = title;
+		m_icon = Activator.getImageDescriptor("templates/" + iconName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the name of field in {@link FormSpecs}.
-   */
-  public String getFieldName() {
-    return m_fieldName;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the name of field in {@link FormSpecs}.
+	 */
+	public String getFieldName() {
+		return m_fieldName;
+	}
 
-  /**
-   * @return <code>true</code> if this template is component, or <code>false</code> if it is
-   *         constant.
-   */
-  public boolean isComponent() {
-    return m_component;
-  }
+	/**
+	 * @return <code>true</code> if this template is component, or <code>false</code> if it is
+	 *         constant.
+	 */
+	public boolean isComponent() {
+		return m_component;
+	}
 
-  /**
-   * @return the title to display.
-   */
-  public String getTitle() {
-    return m_title;
-  }
+	/**
+	 * @return the title to display.
+	 */
+	public String getTitle() {
+		return m_title;
+	}
 
-  /**
-   * @return the {@link ImageDescriptor} to display.
-   */
-  public ImageDescriptor getIcon() {
-    return m_icon;
-  }
+	/**
+	 * @return the {@link ImageDescriptor} to display.
+	 */
+	public ImageDescriptor getIcon() {
+		return m_icon;
+	}
 }

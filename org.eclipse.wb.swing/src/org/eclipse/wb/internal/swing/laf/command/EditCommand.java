@@ -26,71 +26,71 @@ import java.util.List;
  * @coverage swing.laf.model
  */
 public class EditCommand extends EditNameCommand {
-  // constants
-  public static final String ID = "edit";
-  private static final String ATTR_JAR_PATH = "jar-path";
-  private static final String ATTR_CLASS_NAME = "class-name";
-  // fields
-  protected final String m_className;
-  protected final String m_jarName;
+	// constants
+	public static final String ID = "edit";
+	private static final String ATTR_JAR_PATH = "jar-path";
+	private static final String ATTR_CLASS_NAME = "class-name";
+	// fields
+	protected final String m_className;
+	protected final String m_jarName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditCommand(String id, String name, String className, String jarName) {
-    super(id, name);
-    m_className = className;
-    m_jarName = jarName;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditCommand(String id, String name, String className, String jarName) {
+		super(id, name);
+		m_className = className;
+		m_jarName = jarName;
+	}
 
-  public EditCommand(Attributes attributes) {
-    super(attributes);
-    m_className = attributes.getValue(ATTR_CLASS_NAME);
-    m_jarName = attributes.getValue(ATTR_JAR_PATH);
-  }
+	public EditCommand(Attributes attributes) {
+		super(attributes);
+		m_className = attributes.getValue(ATTR_CLASS_NAME);
+		m_jarName = attributes.getValue(ATTR_JAR_PATH);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute() {
-    super.execute();
-    UserDefinedLafInfo lafInfo = (UserDefinedLafInfo) LafSupport.getLookAndFeel(m_id);
-    if (lafInfo != null) {
-      lafInfo.setClassName(m_className);
-      lafInfo.setJarFile(m_jarName);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute() {
+		super.execute();
+		UserDefinedLafInfo lafInfo = (UserDefinedLafInfo) LafSupport.getLookAndFeel(m_id);
+		if (lafInfo != null) {
+			lafInfo.setClassName(m_className);
+			lafInfo.setJarFile(m_jarName);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addToCommandList(List<Command> commands) {
-    // remove other edit commands for this
-    for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
-      Command command = I.next();
-      if (command instanceof EditCommand) {
-        EditCommand editCommand = (EditCommand) command;
-        if (editCommand.m_id.equals(m_id)) {
-          I.remove();
-        }
-      }
-    }
-    // do add
-    commands.add(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addToCommandList(List<Command> commands) {
+		// remove other edit commands for this
+		for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
+			Command command = I.next();
+			if (command instanceof EditCommand) {
+				EditCommand editCommand = (EditCommand) command;
+				if (editCommand.m_id.equals(m_id)) {
+					I.remove();
+				}
+			}
+		}
+		// do add
+		commands.add(this);
+	}
 
-  @Override
-  protected void addAttributes(XmlWriter writer) {
-    super.addAttributes(writer);
-    addAttribute(writer, ATTR_CLASS_NAME, m_className);
-    addAttribute(writer, ATTR_JAR_PATH, m_jarName);
-  }
+	@Override
+	protected void addAttributes(XmlWriter writer) {
+		super.addAttributes(writer);
+		addAttribute(writer, ATTR_CLASS_NAME, m_className);
+		addAttribute(writer, ATTR_JAR_PATH, m_jarName);
+	}
 }

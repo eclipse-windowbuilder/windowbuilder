@@ -24,14 +24,14 @@ import junit.framework.TestSuite;
  * @author mitin_aa
  */
 public class LayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.layout");
-    suite.addTest(createSingleSuite(ControlSelectionPropertyEditorTest.class));
-    suite.addTest(FormLayoutTests.suite());
-    suite.addTest(createSingleSuite(GridLayoutTest.class));
-    suite.addTest(createSingleSuite(StackLayoutTest.class));
-    suite.addTest(createSingleSuite(StackLayoutGefTest.class));
-    suite.addTest(createSingleSuite(AbsoluteLayoutGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.layout");
+		suite.addTest(createSingleSuite(ControlSelectionPropertyEditorTest.class));
+		suite.addTest(FormLayoutTests.suite());
+		suite.addTest(createSingleSuite(GridLayoutTest.class));
+		suite.addTest(createSingleSuite(StackLayoutTest.class));
+		suite.addTest(createSingleSuite(StackLayoutGefTest.class));
+		suite.addTest(createSingleSuite(AbsoluteLayoutGefTest.class));
+		return suite;
+	}
 }

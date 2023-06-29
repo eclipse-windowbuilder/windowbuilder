@@ -37,103 +37,103 @@ import org.eclipse.swt.graphics.Font;
  * @coverage swt.gef.GridLayout
  */
 public abstract class DimensionHeaderEditPart<C extends IControlInfo> extends GraphicalEditPart
-    implements
-      IHeaderMenuProvider {
-  protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;
-  protected static final Font DEFAULT_FONT = new Font(null, "Arial", 7, SWT.NONE);
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final IGridLayoutInfo<C> m_layout;
-  protected final GridDimensionInfo<C> m_dimension;
-  private final Figure m_containerFigure;
+implements
+IHeaderMenuProvider {
+	protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;
+	protected static final Font DEFAULT_FONT = new Font(null, "Arial", 7, SWT.NONE);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final IGridLayoutInfo<C> m_layout;
+	protected final GridDimensionInfo<C> m_dimension;
+	private final Figure m_containerFigure;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionHeaderEditPart(IGridLayoutInfo<C> layout,
-      GridDimensionInfo<C> dimension,
-      Figure containerFigure) {
-    m_layout = layout;
-    m_dimension = dimension;
-    m_containerFigure = containerFigure;
-    setModel(dimension);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionHeaderEditPart(IGridLayoutInfo<C> layout,
+			GridDimensionInfo<C> dimension,
+			Figure containerFigure) {
+		m_layout = layout;
+		m_dimension = dimension;
+		m_containerFigure = containerFigure;
+		setModel(dimension);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the host {@link IGridLayoutInfo}.
-   */
-  public final IGridLayoutInfo<C> getLayout() {
-    return m_layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the host {@link IGridLayoutInfo}.
+	 */
+	public final IGridLayoutInfo<C> getLayout() {
+		return m_layout;
+	}
 
-  /**
-   * @return the {@link GridDimensionInfo} model.
-   */
-  public final GridDimensionInfo<C> getDimension() {
-    return m_dimension;
-  }
+	/**
+	 * @return the {@link GridDimensionInfo} model.
+	 */
+	public final GridDimensionInfo<C> getDimension() {
+		return m_dimension;
+	}
 
-  /**
-   * @return the offset of {@link Figure} with headers relative to the absolute layer.
-   */
-  public final Point getOffset() {
-    Point offset = new Point(0, 0);
-    FigureUtils.translateFigureToAbsolute2(m_containerFigure, offset);
-    offset.performTranslate(m_layout.getComposite().getClientAreaInsets());
-    return offset;
-  }
+	/**
+	 * @return the offset of {@link Figure} with headers relative to the absolute layer.
+	 */
+	public final Point getOffset() {
+		Point offset = new Point(0, 0);
+		FigureUtils.translateFigureToAbsolute2(m_containerFigure, offset);
+		offset.performTranslate(m_layout.getComposite().getClientAreaInsets());
+		return offset;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dragging
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Tool getDragTrackerTool(Request request) {
-    return new ParentTargetDragEditPartTracker(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dragging
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Tool getDragTrackerTool(Request request) {
+		return new ParentTargetDragEditPartTracker(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshVisuals() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        getFigure().setToolTipText(m_dimension.getTitle());
-        getFigure().setBackground(COLOR_NORMAL);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshVisuals() {
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				getFigure().setToolTipText(m_dimension.getTitle());
+				getFigure().setBackground(COLOR_NORMAL);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Edit
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    super.performRequest(request);
-    if (request.getType() == Request.REQ_OPEN) {
-      ExecutionUtils.run(m_layout.getUnderlyingModel(), new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          m_dimension.flipGrab();
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Edit
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		super.performRequest(request);
+		if (request.getType() == Request.REQ_OPEN) {
+			ExecutionUtils.run(m_layout.getUnderlyingModel(), new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					m_dimension.flipGrab();
+				}
+			});
+		}
+	}
 }

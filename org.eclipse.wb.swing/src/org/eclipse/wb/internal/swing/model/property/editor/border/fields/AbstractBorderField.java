@@ -26,30 +26,30 @@ import javax.swing.border.Border;
  * @coverage swing.property.editor
  */
 public abstract class AbstractBorderField extends Composite {
-  private static final int LABEL_WIDTH = 23;
+	private static final int LABEL_WIDTH = 23;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractBorderField(Composite parent, int columns, String labelText) {
-    super(parent, SWT.NONE);
-    GridLayoutFactory.create(this).noMargins().columns(1 + columns);
-    {
-      Label label = new Label(this, SWT.NONE);
-      GridDataFactory.create(label).hintHC(LABEL_WIDTH);
-      label.setText(labelText);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractBorderField(Composite parent, int columns, String labelText) {
+		super(parent, SWT.NONE);
+		GridLayoutFactory.create(this).noMargins().columns(1 + columns);
+		{
+			Label label = new Label(this, SWT.NONE);
+			GridDataFactory.create(label).hintHC(LABEL_WIDTH);
+			label.setText(labelText);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the source corresponding to the made selection.
-   */
-  public abstract String getSource() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the source corresponding to the made selection.
+	 */
+	public abstract String getSource() throws Exception;
 }

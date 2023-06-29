@@ -46,90 +46,90 @@ import java.util.List;
  * @coverage core.model.description
  */
 public final class MethodPropertyRule extends AbstractDesignerRule {
-  private final IJavaProject m_javaProject;
+	private final IJavaProject m_javaProject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodPropertyRule(IJavaProject javaProject) {
-    m_javaProject = javaProject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodPropertyRule(IJavaProject javaProject) {
+		m_javaProject = javaProject;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    Class<?> componentClass = componentDescription.getComponentClass();
-    // prepare method attributes
-    String propertyTitle = getRequiredAttribute(name, attributes, "title");
-    String methodSignature = getRequiredAttribute(name, attributes, "method");
-    String propertyId = methodSignature;
-    // prepare Method
-    Method method = ReflectionUtils.getMethodBySignature(componentClass, methodSignature);
-    Assert.isNotNull(method, "Method %s in %s.", methodSignature, componentClass);
-    // prepare executable MethodDescription
-    MethodDescription methodDescription;
-    {
-      methodDescription = componentDescription.addMethod(method);
-      ComponentDescriptionHelper.ensureInitialized(m_javaProject, methodDescription);
-    }
-    // prepare accessor
-    ExpressionAccessor accessor = new MethodInvocationAccessor(method);
-    // prepare editor
-    PropertyEditor editor;
-    {
-      List<GenericPropertyDescription> descriptions = Lists.newArrayList();
-      for (ParameterDescription parameter : methodDescription.getParameters()) {
-        GenericPropertyDescription description =
-            createPropertyDescription(method, propertyId, parameter);
-        if (description != null) {
-          descriptions.add(description);
-          componentDescription.registerProperty(description);
-        }
-      }
-      editor = new MethodPropertyPropertyEditor("(properties)", descriptions);
-    }
-    // create property
-    GenericPropertyDescription propertyDescription =
-        new GenericPropertyDescription(propertyId, propertyTitle);
-    propertyDescription.addAccessor(accessor);
-    propertyDescription.setEditor(editor);
-    // add property
-    componentDescription.addProperty(propertyDescription);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		Class<?> componentClass = componentDescription.getComponentClass();
+		// prepare method attributes
+		String propertyTitle = getRequiredAttribute(name, attributes, "title");
+		String methodSignature = getRequiredAttribute(name, attributes, "method");
+		String propertyId = methodSignature;
+		// prepare Method
+		Method method = ReflectionUtils.getMethodBySignature(componentClass, methodSignature);
+		Assert.isNotNull(method, "Method %s in %s.", methodSignature, componentClass);
+		// prepare executable MethodDescription
+		MethodDescription methodDescription;
+		{
+			methodDescription = componentDescription.addMethod(method);
+			ComponentDescriptionHelper.ensureInitialized(m_javaProject, methodDescription);
+		}
+		// prepare accessor
+		ExpressionAccessor accessor = new MethodInvocationAccessor(method);
+		// prepare editor
+		PropertyEditor editor;
+		{
+			List<GenericPropertyDescription> descriptions = Lists.newArrayList();
+			for (ParameterDescription parameter : methodDescription.getParameters()) {
+				GenericPropertyDescription description =
+						createPropertyDescription(method, propertyId, parameter);
+				if (description != null) {
+					descriptions.add(description);
+					componentDescription.registerProperty(description);
+				}
+			}
+			editor = new MethodPropertyPropertyEditor("(properties)", descriptions);
+		}
+		// create property
+		GenericPropertyDescription propertyDescription =
+				new GenericPropertyDescription(propertyId, propertyTitle);
+		propertyDescription.addAccessor(accessor);
+		propertyDescription.setEditor(editor);
+		// add property
+		componentDescription.addProperty(propertyDescription);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link GenericPropertyDescription} for editing given {@link ParameterDescription},
-   *         may be <code>null</code> if it can not be edited.
-   */
-  private static GenericPropertyDescription createPropertyDescription(Method method,
-      String methodPropertyId,
-      ParameterDescription parameter) {
-    if (parameter.getEditor() != null) {
-      String propertyId = methodPropertyId + " " + parameter.getIndex();
-      String propertyTitle = parameter.getName();
-      GenericPropertyDescription propertyDescription =
-          new GenericPropertyDescription(propertyId, propertyTitle);
-      // fill GenericPropertyDescription
-      ExpressionAccessor accessor =
-          new MethodInvocationArgumentAccessor(method, parameter.getIndex());
-      propertyDescription.addAccessor(accessor);
-      propertyDescription.setConverter(parameter.getConverter());
-      propertyDescription.setEditor(parameter.getEditor());
-      // OK, we have GenericPropertyDescription
-      return propertyDescription;
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link GenericPropertyDescription} for editing given {@link ParameterDescription},
+	 *         may be <code>null</code> if it can not be edited.
+	 */
+	private static GenericPropertyDescription createPropertyDescription(Method method,
+			String methodPropertyId,
+			ParameterDescription parameter) {
+		if (parameter.getEditor() != null) {
+			String propertyId = methodPropertyId + " " + parameter.getIndex();
+			String propertyTitle = parameter.getName();
+			GenericPropertyDescription propertyDescription =
+					new GenericPropertyDescription(propertyId, propertyTitle);
+			// fill GenericPropertyDescription
+			ExpressionAccessor accessor =
+					new MethodInvocationArgumentAccessor(method, parameter.getIndex());
+			propertyDescription.addAccessor(accessor);
+			propertyDescription.setConverter(parameter.getConverter());
+			propertyDescription.setEditor(parameter.getEditor());
+			// OK, we have GenericPropertyDescription
+			return propertyDescription;
+		}
+		return null;
+	}
 }

@@ -19,33 +19,33 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.property.converter
  */
 public final class LongObjectConverter extends AbstractNumberConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new LongObjectConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new LongObjectConverter();
 
-  private LongObjectConverter() {
-  }
+	private LongObjectConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) {
-    if (value == null) {
-      return "(Long) null";
-    }
-    // has value
-    String text = ((Long) value).toString() + "L";
-    // may be use auto-boxing
-    if (isBoxingEnabled(javaInfo)) {
-      return text;
-    }
-    // use explicit boxing
-    return "Long.valueOf(" + text + ")";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) {
+		if (value == null) {
+			return "(Long) null";
+		}
+		// has value
+		String text = ((Long) value).toString() + "L";
+		// may be use auto-boxing
+		if (isBoxingEnabled(javaInfo)) {
+			return text;
+		}
+		// use explicit boxing
+		return "Long.valueOf(" + text + ")";
+	}
 }

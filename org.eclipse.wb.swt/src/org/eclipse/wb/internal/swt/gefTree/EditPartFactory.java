@@ -23,18 +23,18 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
  * @coverage swt.gefTree
  */
 public final class EditPartFactory implements IEditPartFactory {
-  private final static IEditPartFactory MATCHING_FACTORY =
-      new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.swt.model.widgets"),
-          ImmutableList.of("org.eclipse.wb.internal.swt.gefTree.part"));
+	private final static IEditPartFactory MATCHING_FACTORY =
+			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.swt.model.widgets"),
+					ImmutableList.of("org.eclipse.wb.internal.swt.gefTree.part"));
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart createEditPart(EditPart context, Object model) {
-    // most EditPart's can be created using matching
-    return MATCHING_FACTORY.createEditPart(context, model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart createEditPart(EditPart context, Object model) {
+		// most EditPart's can be created using matching
+		return MATCHING_FACTORY.createEditPart(context, model);
+	}
 }

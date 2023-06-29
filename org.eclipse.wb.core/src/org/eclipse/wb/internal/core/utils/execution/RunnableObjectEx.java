@@ -17,10 +17,10 @@ package org.eclipse.wb.internal.core.utils.execution;
  * @coverage core.util
  */
 public interface RunnableObjectEx<T> {
-  /**
-   * Executes operation that can cause {@link Exception}.
-   *
-   * @return some {@link Object} result for caller.
-   */
-  T runObject() throws Exception;
+	/**
+	 * Executes operation that can cause {@link Exception}.
+	 *
+	 * @return some {@link Object} result for caller.
+	 */
+	T runObject() throws Exception;
 }

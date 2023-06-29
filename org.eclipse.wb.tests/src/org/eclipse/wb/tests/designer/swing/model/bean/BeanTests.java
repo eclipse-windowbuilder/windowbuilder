@@ -21,11 +21,11 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class BeanTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.bean");
-    suite.addTest(createSingleSuite(ButtonGroupTest.class));
-    suite.addTest(createSingleSuite(ActionTest.class));
-    suite.addTest(createSingleSuite(ActionGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.bean");
+		suite.addTest(createSingleSuite(ButtonGroupTest.class));
+		suite.addTest(createSingleSuite(ActionTest.class));
+		suite.addTest(createSingleSuite(ActionGefTest.class));
+		return suite;
+	}
 }

@@ -25,32 +25,32 @@ import org.eclipse.swt.widgets.Shell;
  * @author scheglov_ke
  */
 public class TestActionTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test that {@link TestAction} shows {@link Shell} with valid bounds.
-   */
-  public void test_run() throws Exception {
-    openEditor("<Shell text='My Shell'/>");
-    //
-    new UiContext().executeAndCheck(new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        m_designPageActions.getTestAction().run();
-      }
-    }, new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        Shell shell = context.useShell("My Shell");
-        {
-          assertEquals(450, shell.getSize().x);
-          assertEquals(300, shell.getSize().y);
-        }
-        new EventSender(shell).keyDown(SWT.ESC);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test that {@link TestAction} shows {@link Shell} with valid bounds.
+	 */
+	public void test_run() throws Exception {
+		openEditor("<Shell text='My Shell'/>");
+		//
+		new UiContext().executeAndCheck(new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				m_designPageActions.getTestAction().run();
+			}
+		}, new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				Shell shell = context.useShell("My Shell");
+				{
+					assertEquals(450, shell.getSize().x);
+					assertEquals(300, shell.getSize().y);
+				}
+				new EventSender(shell).keyDown(SWT.ESC);
+			}
+		});
+	}
 }

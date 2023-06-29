@@ -29,102 +29,102 @@ import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
  * @coverage swing.gef.policy
  */
 public final class JTabbedPaneTabLayoutEditPolicy
-    extends
-      org.eclipse.wb.core.gef.policy.layout.flow.ObjectFlowLayoutEditPolicy<JTabbedPaneTabInfo> {
-  private final JTabbedPaneInfo m_pane;
+extends
+org.eclipse.wb.core.gef.policy.layout.flow.ObjectFlowLayoutEditPolicy<JTabbedPaneTabInfo> {
+	private final JTabbedPaneInfo m_pane;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JTabbedPaneTabLayoutEditPolicy(JTabbedPaneInfo component) {
-    super(component);
-    m_pane = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JTabbedPaneTabLayoutEditPolicy(JTabbedPaneInfo component) {
+		super(component);
+		m_pane = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return m_pane.isHorizontal();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return m_pane.isHorizontal();
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart instanceof JTabbedPaneTabEditPart;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart instanceof JTabbedPaneTabEditPart;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ILayoutRequestValidator INSTANCE =
-      LayoutRequestValidators.modelType(JTabbedPaneTabInfo.class);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ILayoutRequestValidator INSTANCE =
+			LayoutRequestValidators.modelType(JTabbedPaneTabInfo.class);
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return INSTANCE;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return INSTANCE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(Object newObject, Object referenceObject) {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(Object newObject, Object referenceObject) {
+		return null;
+	}
 
-  @Override
-  protected Command getMoveCommand(Object moveObject, Object referenceObject) {
-    return getComponent(moveObject) != null
-        ? super.getMoveCommand(moveObject, referenceObject)
-        : null;
-  }
+	@Override
+	protected Command getMoveCommand(Object moveObject, Object referenceObject) {
+		return getComponent(moveObject) != null
+				? super.getMoveCommand(moveObject, referenceObject)
+						: null;
+	}
 
-  @Override
-  protected Command getAddCommand(Object addObject, Object referenceObject) {
-    return getComponent(addObject) != null ? super.getAddCommand(addObject, referenceObject) : null;
-  }
+	@Override
+	protected Command getAddCommand(Object addObject, Object referenceObject) {
+		return getComponent(addObject) != null ? super.getAddCommand(addObject, referenceObject) : null;
+	}
 
-  @Override
-  protected void command_CREATE(JTabbedPaneTabInfo newObject, JTabbedPaneTabInfo referenceObject)
-      throws Exception {
-  }
+	@Override
+	protected void command_CREATE(JTabbedPaneTabInfo newObject, JTabbedPaneTabInfo referenceObject)
+			throws Exception {
+	}
 
-  @Override
-  protected void command_MOVE(JTabbedPaneTabInfo object, JTabbedPaneTabInfo referenceObject)
-      throws Exception {
-    ComponentInfo component = object.getComponent();
-    m_pane.command_MOVE(component, referenceObject != null ? referenceObject.getComponent() : null);
-    m_pane.setActiveComponent(component);
-  }
+	@Override
+	protected void command_MOVE(JTabbedPaneTabInfo object, JTabbedPaneTabInfo referenceObject)
+			throws Exception {
+		ComponentInfo component = object.getComponent();
+		m_pane.command_MOVE(component, referenceObject != null ? referenceObject.getComponent() : null);
+		m_pane.setActiveComponent(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected JTabbedPaneTabInfo getObjectModel(Object object) {
-    return getComponent(object);
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected JTabbedPaneTabInfo getObjectModel(Object object) {
+		return getComponent(object);
+	};
 
-  @Override
-  protected JTabbedPaneTabInfo getReferenceObjectModel(Object referenceObject) {
-    return getComponent(referenceObject);
-  }
+	@Override
+	protected JTabbedPaneTabInfo getReferenceObjectModel(Object referenceObject) {
+		return getComponent(referenceObject);
+	}
 
-  /**
-   * @return the {@link ComponentInfo} for given {@link JTabbedPaneTabInfo} object.
-   */
-  private static JTabbedPaneTabInfo getComponent(Object o) {
-    return o instanceof JTabbedPaneTabInfo ? (JTabbedPaneTabInfo) o : null;
-  }
+	/**
+	 * @return the {@link ComponentInfo} for given {@link JTabbedPaneTabInfo} object.
+	 */
+	private static JTabbedPaneTabInfo getComponent(Object o) {
+		return o instanceof JTabbedPaneTabInfo ? (JTabbedPaneTabInfo) o : null;
+	}
 }

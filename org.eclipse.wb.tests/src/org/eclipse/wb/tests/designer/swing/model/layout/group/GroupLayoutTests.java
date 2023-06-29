@@ -23,10 +23,10 @@ import javax.swing.GroupLayout;
  * @author mitin_aa
  */
 public class GroupLayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.layout.group");
-    suite.addTest(createSingleSuite(GroupLayoutTest.class));
-    suite.addTest(createSingleSuite(GroupLayoutGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.layout.group");
+		suite.addTest(createSingleSuite(GroupLayoutTest.class));
+		suite.addTest(createSingleSuite(GroupLayoutGefTest.class));
+		return suite;
+	}
 }

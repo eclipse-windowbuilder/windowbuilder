@@ -27,47 +27,47 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
  * @coverage rcp.model.forms
  */
 public final class ColumnLayoutDataAssistantPage extends AbstractAssistantPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnLayoutDataAssistantPage(Composite parent, Object selection) {
-    super(parent, selection);
-    GridLayoutFactory.create(this).columns(2);
-    // width/height hints
-    {
-      Group group =
-          addIntegerProperties(
-              this,
-              ModelMessages.ColumnLayoutDataAssistantPage_sizeGroup,
-              new String[][]{
-                  {"widthHint", ModelMessages.ColumnLayoutDataAssistantPage_widthHint},
-                  {"heightHint", ModelMessages.ColumnLayoutDataAssistantPage_heightHint}},
-              new int[]{SWT.DEFAULT, SWT.DEFAULT});
-      GridDataFactory.create(group).fillV();
-    }
-    // horizontal alignment
-    {
-      Group orientationGroup =
-          addChoiceProperty(
-              this,
-              "horizontalAlignment",
-              ModelMessages.ColumnLayoutDataAssistantPage_alignmentGroup,
-              new Object[][]{
-                  new Object[]{
-                      ModelMessages.ColumnLayoutDataAssistantPage_alignmentLeft,
-                      ColumnLayoutData.LEFT},
-                  new Object[]{
-                      ModelMessages.ColumnLayoutDataAssistantPage_alignmentCenter,
-                      ColumnLayoutData.CENTER},
-                  new Object[]{
-                      ModelMessages.ColumnLayoutDataAssistantPage_alignmentRight,
-                      ColumnLayoutData.RIGHT},
-                  new Object[]{
-                      ModelMessages.ColumnLayoutDataAssistantPage_alignmentFill,
-                      ColumnLayoutData.FILL},});
-      GridDataFactory.create(orientationGroup).fillV();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnLayoutDataAssistantPage(Composite parent, Object selection) {
+		super(parent, selection);
+		GridLayoutFactory.create(this).columns(2);
+		// width/height hints
+		{
+			Group group =
+					addIntegerProperties(
+							this,
+							ModelMessages.ColumnLayoutDataAssistantPage_sizeGroup,
+							new String[][]{
+								{"widthHint", ModelMessages.ColumnLayoutDataAssistantPage_widthHint},
+								{"heightHint", ModelMessages.ColumnLayoutDataAssistantPage_heightHint}},
+							new int[]{SWT.DEFAULT, SWT.DEFAULT});
+			GridDataFactory.create(group).fillV();
+		}
+		// horizontal alignment
+		{
+			Group orientationGroup =
+					addChoiceProperty(
+							this,
+							"horizontalAlignment",
+							ModelMessages.ColumnLayoutDataAssistantPage_alignmentGroup,
+							new Object[][]{
+								new Object[]{
+										ModelMessages.ColumnLayoutDataAssistantPage_alignmentLeft,
+										ColumnLayoutData.LEFT},
+								new Object[]{
+										ModelMessages.ColumnLayoutDataAssistantPage_alignmentCenter,
+										ColumnLayoutData.CENTER},
+								new Object[]{
+										ModelMessages.ColumnLayoutDataAssistantPage_alignmentRight,
+										ColumnLayoutData.RIGHT},
+								new Object[]{
+										ModelMessages.ColumnLayoutDataAssistantPage_alignmentFill,
+										ColumnLayoutData.FILL},});
+			GridDataFactory.create(orientationGroup).fillV();
+		}
+	}
 }

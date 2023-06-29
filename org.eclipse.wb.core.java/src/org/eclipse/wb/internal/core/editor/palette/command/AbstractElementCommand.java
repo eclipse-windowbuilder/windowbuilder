@@ -21,54 +21,54 @@ import org.xml.sax.Attributes;
  * @coverage core.editor.palette
  */
 public abstract class AbstractElementCommand extends Command {
-  protected final String m_id;
-  protected final String m_name;
-  protected final String m_description;
-  protected final boolean m_visible;
+	protected final String m_id;
+	protected final String m_name;
+	protected final String m_description;
+	protected final boolean m_visible;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractElementCommand(String id, String name, String description, boolean visible) {
-    m_id = id;
-    m_name = name;
-    m_description = description;
-    m_visible = visible;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractElementCommand(String id, String name, String description, boolean visible) {
+		m_id = id;
+		m_name = name;
+		m_description = description;
+		m_visible = visible;
+	}
 
-  public AbstractElementCommand(Attributes attributes) {
-    m_id = attributes.getValue("id");
-    m_name = attributes.getValue("name");
-    m_description = attributes.getValue("description");
-    m_visible = "true".equals(attributes.getValue("visible"));
-  }
+	public AbstractElementCommand(Attributes attributes) {
+		m_id = attributes.getValue("id");
+		m_name = attributes.getValue("name");
+		m_description = attributes.getValue("description");
+		m_visible = "true".equals(attributes.getValue("visible"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Updates given {@link AbstractElementInfo}.
-   */
-  protected void updateElement(AbstractElementInfo element) {
-    element.setName(m_name);
-    element.setDescription(m_description);
-    element.setVisible(m_visible);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Updates given {@link AbstractElementInfo}.
+	 */
+	protected void updateElement(AbstractElementInfo element) {
+		element.setName(m_name);
+		element.setDescription(m_description);
+		element.setVisible(m_visible);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    addAttribute("id", m_id);
-    addAttribute("name", m_name);
-    addAttribute("description", m_description);
-    addAttribute("visible", m_visible);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		addAttribute("id", m_id);
+		addAttribute("name", m_name);
+		addAttribute("description", m_description);
+		addAttribute("visible", m_visible);
+	}
 }

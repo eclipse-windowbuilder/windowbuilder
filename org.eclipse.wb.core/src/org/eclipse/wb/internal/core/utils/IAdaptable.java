@@ -29,11 +29,11 @@ package org.eclipse.wb.internal.core.utils;
  * @coverage core.util
  */
 public interface IAdaptable {
-  /**
-   * @param adapter
-   *          the type of adapter.
-   *
-   * @return the adapter of required type.
-   */
-  <T> T getAdapter(Class<T> adapter);
+	/**
+	 * @param adapter
+	 *          the type of adapter.
+	 *
+	 * @return the adapter of required type.
+	 */
+	<T> T getAdapter(Class<T> adapter);
 }

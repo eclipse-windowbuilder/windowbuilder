@@ -23,33 +23,33 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
  * @coverage core.gef.header
  */
 public abstract class AbstractHeaderSelectionEditPolicy extends SelectionEditPolicy {
-  private final LayoutEditPolicy m_mainPolicy;
+	private final LayoutEditPolicy m_mainPolicy;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractHeaderSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
-    m_mainPolicy = mainPolicy;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractHeaderSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
+		m_mainPolicy = mainPolicy;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback utilities
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Layer} from main {@link IEditPartViewer} with given id.
-   */
-  protected final Layer getMainLayer(String layerId) {
-    return getMainViewer().getLayer(layerId);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback utilities
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Layer} from main {@link IEditPartViewer} with given id.
+	 */
+	protected final Layer getMainLayer(String layerId) {
+		return getMainViewer().getLayer(layerId);
+	}
 
-  /**
-   * @return the main {@link IEditPartViewer}.
-   */
-  private IEditPartViewer getMainViewer() {
-    return m_mainPolicy.getHost().getViewer();
-  }
+	/**
+	 * @return the main {@link IEditPartViewer}.
+	 */
+	private IEditPartViewer getMainViewer() {
+		return m_mainPolicy.getHost().getViewer();
+	}
 }

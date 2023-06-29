@@ -33,107 +33,107 @@ import java.util.List;
  * @coverage core.gefTree.menu
  */
 public final class MenuLayoutEditPolicy extends LayoutEditPolicy {
-  private final ObjectInfo m_menuInfo;
-  private final IMenuInfo m_menuObject;
-  private final IMenuPolicy m_menuPolicy;
+	private final ObjectInfo m_menuInfo;
+	private final IMenuInfo m_menuObject;
+	private final IMenuPolicy m_menuPolicy;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuLayoutEditPolicy(ObjectInfo menuInfo, IMenuInfo menuObject) {
-    m_menuInfo = menuInfo;
-    m_menuObject = menuObject;
-    m_menuPolicy = m_menuObject.getPolicy();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuLayoutEditPolicy(ObjectInfo menuInfo, IMenuInfo menuObject) {
+		m_menuInfo = menuInfo;
+		m_menuObject = menuObject;
+		m_menuPolicy = m_menuObject.getPolicy();
+	}
 
-  /////////////////////////////////////////////////////////////////////
-  //
-  // LayoutEditPolicy
-  //
-  /////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return true;
-  }
+	/////////////////////////////////////////////////////////////////////
+	//
+	// LayoutEditPolicy
+	//
+	/////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(final Object newObject, final Object referenceObject) {
-    return new EditCommand(m_menuInfo) {
-      @Override
-      public void executeEdit() throws Exception {
-        m_menuPolicy.commandCreate(newObject, referenceObject);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(final Object newObject, final Object referenceObject) {
+		return new EditCommand(m_menuInfo) {
+			@Override
+			public void executeEdit() throws Exception {
+				m_menuPolicy.commandCreate(newObject, referenceObject);
+			}
+		};
+	}
 
-  @Override
-  protected Command getPasteCommand(final PasteRequest request, final Object referenceObject) {
-    return new EditCommand(m_menuInfo) {
-      @Override
-      public void executeEdit() throws Exception {
-        m_menuPolicy.commandPaste(request.getMemento(), referenceObject);
-      }
-    };
-  }
+	@Override
+	protected Command getPasteCommand(final PasteRequest request, final Object referenceObject) {
+		return new EditCommand(m_menuInfo) {
+			@Override
+			public void executeEdit() throws Exception {
+				m_menuPolicy.commandPaste(request.getMemento(), referenceObject);
+			}
+		};
+	}
 
-  @Override
-  protected Command getMoveCommand(final List<EditPart> moveParts, final Object referenceObject) {
-    return new EditCommand(m_menuInfo) {
-      @Override
-      public void executeEdit() throws Exception {
-        for (EditPart editPart : moveParts) {
-          m_menuPolicy.commandMove(editPart.getModel(), referenceObject);
-        }
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(final List<EditPart> moveParts, final Object referenceObject) {
+		return new EditCommand(m_menuInfo) {
+			@Override
+			public void executeEdit() throws Exception {
+				for (EditPart editPart : moveParts) {
+					m_menuPolicy.commandMove(editPart.getModel(), referenceObject);
+				}
+			}
+		};
+	}
 
-  @Override
-  protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
-    return getMoveCommand(addParts, referenceObject);
-  }
+	@Override
+	protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+		return getMoveCommand(addParts, referenceObject);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
-    @Override
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      return m_menuPolicy.validateCreate(request.getNewObject());
-    }
+	private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
+		@Override
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			return m_menuPolicy.validateCreate(request.getNewObject());
+		}
 
-    @Override
-    public boolean validatePasteRequest(EditPart host, PasteRequest request) {
-      return m_menuPolicy.validatePaste(request.getMemento());
-    }
+		@Override
+		public boolean validatePasteRequest(EditPart host, PasteRequest request) {
+			return m_menuPolicy.validatePaste(request.getMemento());
+		}
 
-    @Override
-    public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-      for (EditPart editPart : request.getEditParts()) {
-        if (!m_menuPolicy.validateMove(editPart.getModel())) {
-          return false;
-        }
-      }
-      return true;
-    }
+		@Override
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+			for (EditPart editPart : request.getEditParts()) {
+				if (!m_menuPolicy.validateMove(editPart.getModel())) {
+					return false;
+				}
+			}
+			return true;
+		}
 
-    @Override
-    public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-      return validateMoveRequest(host, request);
-    }
-  };
+		@Override
+		public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+			return validateMoveRequest(host, request);
+		}
+	};
 }

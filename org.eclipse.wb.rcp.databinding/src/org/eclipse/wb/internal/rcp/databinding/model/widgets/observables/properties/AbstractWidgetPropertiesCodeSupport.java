@@ -38,81 +38,81 @@ import java.text.MessageFormat;
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class AbstractWidgetPropertiesCodeSupport extends ObservableCodeSupport {
-  private final String m_propertyReference;
-  private final String m_signatureObserve;
-  private final String m_signatureObserveDelayed;
+	private final String m_propertyReference;
+	private final String m_signatureObserve;
+	private final String m_signatureObserveDelayed;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractWidgetPropertiesCodeSupport(String propertyReference,
-      String signatureObserve,
-      String signatureObserveDelayed) {
-    m_propertyReference = propertyReference;
-    m_signatureObserve = signatureObserve;
-    m_signatureObserveDelayed = signatureObserveDelayed;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractWidgetPropertiesCodeSupport(String propertyReference,
+			String signatureObserve,
+			String signatureObserveDelayed) {
+		m_propertyReference = propertyReference;
+		m_signatureObserve = signatureObserve;
+		m_signatureObserveDelayed = signatureObserveDelayed;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getPropertyReference() {
-    return m_propertyReference;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getPropertyReference() {
+		return m_propertyReference;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    int delayValue = 0;
-    Expression widgetExpression = null;
-    //
-    if (m_signatureObserve != null && m_signatureObserve.equals(signature)) {
-      widgetExpression = arguments[0];
-    } else if (m_signatureObserveDelayed != null && m_signatureObserveDelayed.equals(signature)) {
-      delayValue = CoreUtils.evaluate(Integer.class, editor, arguments[0]);
-      widgetExpression = arguments[1];
-    } else {
-      return null;
-    }
-    //
-    WidgetsObserveTypeContainer container =
-        (WidgetsObserveTypeContainer) DatabindingsProvider.cast(provider).getContainer(
-            ObserveType.WIDGETS);
-    // prepare widget
-    WidgetBindableInfo bindableWidget = container.getBindableWidget(widgetExpression);
-    if (bindableWidget == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.AbstractWidgetPropertiesCodeSupport_widgetArgumentNotFound,
-          widgetExpression), new Throwable());
-      return null;
-    }
-    // prepare property
-    WidgetPropertyBindableInfo bindableProperty =
-        bindableWidget.resolvePropertyReference(m_propertyReference);
-    Assert.isNotNull(bindableProperty);
-    //
-    ObservableInfo observable = createObservable(bindableWidget, bindableProperty, delayValue);
-    observable.setCodeSupport(this);
-    return observable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		int delayValue = 0;
+		Expression widgetExpression = null;
+		//
+		if (m_signatureObserve != null && m_signatureObserve.equals(signature)) {
+			widgetExpression = arguments[0];
+		} else if (m_signatureObserveDelayed != null && m_signatureObserveDelayed.equals(signature)) {
+			delayValue = CoreUtils.evaluate(Integer.class, editor, arguments[0]);
+			widgetExpression = arguments[1];
+		} else {
+			return null;
+		}
+		//
+		WidgetsObserveTypeContainer container =
+				(WidgetsObserveTypeContainer) DatabindingsProvider.cast(provider).getContainer(
+						ObserveType.WIDGETS);
+		// prepare widget
+		WidgetBindableInfo bindableWidget = container.getBindableWidget(widgetExpression);
+		if (bindableWidget == null) {
+			AbstractParser.addError(editor, MessageFormat.format(
+					Messages.AbstractWidgetPropertiesCodeSupport_widgetArgumentNotFound,
+					widgetExpression), new Throwable());
+			return null;
+		}
+		// prepare property
+		WidgetPropertyBindableInfo bindableProperty =
+				bindableWidget.resolvePropertyReference(m_propertyReference);
+		Assert.isNotNull(bindableProperty);
+		//
+		ObservableInfo observable = createObservable(bindableWidget, bindableProperty, delayValue);
+		observable.setCodeSupport(this);
+		return observable;
+	}
 
-  /**
-   * @return {@link ObservableInfo} model for given widget and property.
-   */
-  protected abstract ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
-      WidgetPropertyBindableInfo bindableProperty,
-      int delayValue) throws Exception;
+	/**
+	 * @return {@link ObservableInfo} model for given widget and property.
+	 */
+	protected abstract ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
+			WidgetPropertyBindableInfo bindableProperty,
+			int delayValue) throws Exception;
 }

@@ -25,46 +25,46 @@ import java.util.List;
  * @coverage core.model.property.editor
  */
 public class CompoundPropertyEditorPresentation extends PropertyEditorPresentation {
-  private final List<PropertyEditorPresentation> m_presentations = Lists.newArrayList();
+	private final List<PropertyEditorPresentation> m_presentations = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds child {@link PropertyEditorPresentation}.<br>
-   * Child {@link PropertyEditorPresentation}'s are displayed from right to left.
-   */
-  public void add(PropertyEditorPresentation presentation) {
-    m_presentations.add(presentation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds child {@link PropertyEditorPresentation}.<br>
+	 * Child {@link PropertyEditorPresentation}'s are displayed from right to left.
+	 */
+	public void add(PropertyEditorPresentation presentation) {
+		m_presentations.add(presentation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyEditorPresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int show(PropertyTable propertyTable,
-      Property property,
-      int x,
-      int y,
-      int width,
-      int height) {
-    int sumWidth = 0;
-    for (PropertyEditorPresentation presentation : m_presentations) {
-      int presentationWidth = presentation.show(propertyTable, property, x, y, width, height);
-      sumWidth += presentationWidth;
-      width -= presentationWidth;
-    }
-    return sumWidth;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyEditorPresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int show(PropertyTable propertyTable,
+			Property property,
+			int x,
+			int y,
+			int width,
+			int height) {
+		int sumWidth = 0;
+		for (PropertyEditorPresentation presentation : m_presentations) {
+			int presentationWidth = presentation.show(propertyTable, property, x, y, width, height);
+			sumWidth += presentationWidth;
+			width -= presentationWidth;
+		}
+		return sumWidth;
+	}
 
-  @Override
-  public void hide(PropertyTable propertyTable, Property property) {
-    for (PropertyEditorPresentation presentation : m_presentations) {
-      presentation.hide(propertyTable, property);
-    }
-  }
+	@Override
+	public void hide(PropertyTable propertyTable, Property property) {
+		for (PropertyEditorPresentation presentation : m_presentations) {
+			presentation.hide(propertyTable, property);
+		}
+	}
 }

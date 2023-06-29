@@ -23,18 +23,18 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @coverage swing.preferences.laf
  */
 public final class PreferenceInitializer extends AbstractPreferenceInitializer
-    implements
-      IPreferenceConstants {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //	Initializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initializeDefaultPreferences() {
-    IPreferenceStore preferenceStore = ToolkitProvider.DESCRIPTION.getPreferences();
-    preferenceStore.setDefault(P_APPLY_IN_MAIN, false);
-    // This system LAF is default
-    preferenceStore.setDefault(P_DEFAULT_LAF, LafSupport.getSystemDefaultLAF().getID());
-  }
+implements
+IPreferenceConstants {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//	Initializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initializeDefaultPreferences() {
+		IPreferenceStore preferenceStore = ToolkitProvider.DESCRIPTION.getPreferences();
+		preferenceStore.setDefault(P_APPLY_IN_MAIN, false);
+		// This system LAF is default
+		preferenceStore.setDefault(P_DEFAULT_LAF, LafSupport.getSystemDefaultLAF().getID());
+	}
 }

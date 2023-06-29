@@ -24,29 +24,29 @@ import org.eclipse.swt.SWT;
  * @coverage core.gef.menu
  */
 public final class MacMenuImageFigure extends MenuImageFigure {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MacMenuImageFigure(IMenuInfo menu) {
-    super(menu);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MacMenuImageFigure(IMenuInfo menu) {
+		super(menu);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Paint
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void paintClientArea(Graphics graphics) {
-    super.paintClientArea(graphics);
-    // draw border on MacOSX because the fill color of menu is the same as fill color of window client area
-    {
-      Rectangle clientArea = getClientArea();
-      graphics.setForegroundColor(IColorConstants.buttonLightest);
-      graphics.setLineStyle(SWT.LINE_DASH);
-      graphics.drawRectangle(0, 0, clientArea.width - 1, clientArea.height - 1);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Paint
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void paintClientArea(Graphics graphics) {
+		super.paintClientArea(graphics);
+		// draw border on MacOSX because the fill color of menu is the same as fill color of window client area
+		{
+			Rectangle clientArea = getClientArea();
+			graphics.setForegroundColor(IColorConstants.buttonLightest);
+			graphics.setLineStyle(SWT.LINE_DASH);
+			graphics.drawRectangle(0, 0, clientArea.width - 1, clientArea.height - 1);
+		}
+	}
 }

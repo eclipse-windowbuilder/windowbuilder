@@ -21,29 +21,29 @@ import org.osgi.framework.Bundle;
  * @coverage core.model.description
  */
 public abstract class ToolkitDescription {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the ID of toolkit.
-   */
-  public abstract String getId();
-  /**
-   * @return the name of toolkit.
-   */
-  public abstract String getName();
-  /**
-   * @return the name of toolkit.
-   */
-  public abstract String getProductName();
-  /**
-   * @return the {@link Bundle} that provides this toolkit.
-   */
-  public abstract Bundle getBundle();
-  /**
-   * @return the {@link IPreferenceStore} for this toolkit.
-   */
-  public abstract IPreferenceStore getPreferences();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the ID of toolkit.
+	 */
+	public abstract String getId();
+	/**
+	 * @return the name of toolkit.
+	 */
+	public abstract String getName();
+	/**
+	 * @return the name of toolkit.
+	 */
+	public abstract String getProductName();
+	/**
+	 * @return the {@link Bundle} that provides this toolkit.
+	 */
+	public abstract Bundle getBundle();
+	/**
+	 * @return the {@link IPreferenceStore} for this toolkit.
+	 */
+	public abstract IPreferenceStore getPreferences();
 }

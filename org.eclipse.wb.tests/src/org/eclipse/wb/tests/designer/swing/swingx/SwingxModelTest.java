@@ -19,33 +19,33 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author sablin_aa
  */
 public abstract class SwingxModelTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures created project.
-   */
-  @Override
-  protected void configureNewProject() throws Exception {
-    super.configureNewProject();
-    m_testProject.addBundleJars("org.eclipse.wb.tests.support", "/resources/Swing/SwingX");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures created project.
+	 */
+	@Override
+	protected void configureNewProject() throws Exception {
+		super.configureNewProject();
+		m_testProject.addBundleJars("org.eclipse.wb.tests.support", "/resources/Swing/SwingX");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Source
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the source for Swing.
-   */
-  @Override
-  public String getTestSource(String... lines) {
-    lines = CodeUtils.join(new String[]{// filler
-        "import org.jdesktop.swingx.*;"},
-        lines);
-    return super.getTestSource(lines);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Source
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the source for Swing.
+	 */
+	@Override
+	public String getTestSource(String... lines) {
+		lines = CodeUtils.join(new String[]{// filler
+		"import org.jdesktop.swingx.*;"},
+				lines);
+		return super.getTestSource(lines);
+	}
 }

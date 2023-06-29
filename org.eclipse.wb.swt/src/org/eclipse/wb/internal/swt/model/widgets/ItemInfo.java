@@ -31,47 +31,47 @@ import java.util.List;
  * @coverage swt.model.widgets
  */
 public class ItemInfo extends WidgetInfo implements IItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ItemInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ItemInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void addContextMenu(List<? extends ObjectInfo> objects,
-          ObjectInfo object,
-          IMenuManager manager) throws Exception {
-        if (object == ItemInfo.this) {
-          MorphingSupport.contribute("org.eclipse.swt.widgets.Item", ItemInfo.this, manager);
-        }
-      }
-    });
-    StylePropertyEditor.configureContributeActions(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void addContextMenu(List<? extends ObjectInfo> objects,
+					ObjectInfo object,
+					IMenuManager manager) throws Exception {
+				if (object == ItemInfo.this) {
+					MorphingSupport.contribute("org.eclipse.swt.widgets.Item", ItemInfo.this, manager);
+				}
+			}
+		});
+		StylePropertyEditor.configureContributeActions(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Property> getPropertyList() throws Exception {
-    List<Property> properties = super.getPropertyList();
-    StylePropertyEditor.addStyleProperties(properties);
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Property> getPropertyList() throws Exception {
+		List<Property> properties = super.getPropertyList();
+		StylePropertyEditor.addStyleProperties(properties);
+		return properties;
+	}
 }

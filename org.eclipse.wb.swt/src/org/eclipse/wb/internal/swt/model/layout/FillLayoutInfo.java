@@ -28,42 +28,42 @@ import java.util.List;
  * @coverage swt.model.layout
  */
 public final class FillLayoutInfo extends GenericFlowLayoutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FillLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    new FillLayoutAssistant(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FillLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		new FillLayoutAssistant(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Styles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isHorizontal() {
-    return FillLayoutSupport.isHorizontal(getObject());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Styles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isHorizontal() {
+		return FillLayoutSupport.isHorizontal(getObject());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void clipboardCopy_addControlCommands(ControlInfo control,
-      List<ClipboardCommand> commands) throws Exception {
-    commands.add(new LayoutClipboardCommand<FillLayoutInfo>(control) {
-      private static final long serialVersionUID = 0L;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void clipboardCopy_addControlCommands(ControlInfo control,
+			List<ClipboardCommand> commands) throws Exception {
+		commands.add(new LayoutClipboardCommand<FillLayoutInfo>(control) {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      protected void add(FillLayoutInfo layout, ControlInfo control) throws Exception {
-        layout.command_CREATE(control, null);
-      }
-    });
-  }
+			@Override
+			protected void add(FillLayoutInfo layout, ControlInfo control) throws Exception {
+				layout.command_CREATE(control, null);
+			}
+		});
+	}
 }

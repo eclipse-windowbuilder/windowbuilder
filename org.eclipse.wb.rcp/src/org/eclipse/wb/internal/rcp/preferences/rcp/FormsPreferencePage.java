@@ -29,45 +29,45 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage rcp.preferences.ui
  */
 public class FormsPreferencePage extends AbstractBindingPreferencesPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormsPreferencePage() {
-    super(RcpToolkitDescription.INSTANCE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormsPreferencePage() {
+		super(RcpToolkitDescription.INSTANCE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractBindingComposite createBindingComposite(Composite parent) {
-    return new ContentsComposite(parent, m_bindManager, m_preferences);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractBindingComposite createBindingComposite(Composite parent) {
+		return new ContentsComposite(parent, m_bindManager, m_preferences);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Contents
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private class ContentsComposite extends AbstractBindingComposite {
-    public ContentsComposite(Composite parent,
-        DataBindManager bindManager,
-        IPreferenceStore preferences) {
-      super(parent, bindManager, preferences);
-      GridLayoutFactory.create(this).noMargins().columns(1);
-      // boolean preferences
-      checkButton(
-          this,
-          PreferencesMessages.FormsPreferencePage_generatePaintBorders,
-          IPreferenceConstants.FORMS_PAINT_BORDERS);
-      checkButton(
-          this,
-          PreferencesMessages.FormsPreferencePage_generateAdapt,
-          IPreferenceConstants.FORMS_ADAPT_CONTROL);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Contents
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private class ContentsComposite extends AbstractBindingComposite {
+		public ContentsComposite(Composite parent,
+				DataBindManager bindManager,
+				IPreferenceStore preferences) {
+			super(parent, bindManager, preferences);
+			GridLayoutFactory.create(this).noMargins().columns(1);
+			// boolean preferences
+			checkButton(
+					this,
+					PreferencesMessages.FormsPreferencePage_generatePaintBorders,
+					IPreferenceConstants.FORMS_PAINT_BORDERS);
+			checkButton(
+					this,
+					PreferencesMessages.FormsPreferencePage_generateAdapt,
+					IPreferenceConstants.FORMS_ADAPT_CONTROL);
+		}
+	}
 }

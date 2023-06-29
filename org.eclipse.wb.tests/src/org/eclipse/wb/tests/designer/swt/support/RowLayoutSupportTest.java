@@ -21,46 +21,46 @@ import org.eclipse.swt.SWT;
  * @author lobas_av
  */
 public class RowLayoutSupportTest extends AbstractSupportTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_getType() throws Exception {
-    Object layout = getLayoutClass().newInstance();
-    assertEquals(SWT.HORIZONTAL, RowLayoutSupport.getType(layout));
-    ReflectionUtils.setField(layout, "type", SWT.VERTICAL);
-    assertEquals(SWT.VERTICAL, RowLayoutSupport.getType(layout));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_getType() throws Exception {
+		Object layout = getLayoutClass().newInstance();
+		assertEquals(SWT.HORIZONTAL, RowLayoutSupport.getType(layout));
+		ReflectionUtils.setField(layout, "type", SWT.VERTICAL);
+		assertEquals(SWT.VERTICAL, RowLayoutSupport.getType(layout));
+	}
 
-  public void test_isHorizontal() throws Exception {
-    Object layout = getLayoutClass().newInstance();
-    assertTrue(RowLayoutSupport.isHorizontal(layout));
-    ReflectionUtils.setField(layout, "type", SWT.VERTICAL);
-    assertFalse(RowLayoutSupport.isHorizontal(layout));
-  }
+	public void test_isHorizontal() throws Exception {
+		Object layout = getLayoutClass().newInstance();
+		assertTrue(RowLayoutSupport.isHorizontal(layout));
+		ReflectionUtils.setField(layout, "type", SWT.VERTICAL);
+		assertFalse(RowLayoutSupport.isHorizontal(layout));
+	}
 
-  public void test_createRowData() throws Exception {
-    Object data = RowLayoutSupport.createRowData();
-    assertNotNull(data);
-    assertSame(m_lastLoader.loadClass("org.eclipse.swt.layout.RowData"), data.getClass());
-  }
+	public void test_createRowData() throws Exception {
+		Object data = RowLayoutSupport.createRowData();
+		assertNotNull(data);
+		assertSame(m_lastLoader.loadClass("org.eclipse.swt.layout.RowData"), data.getClass());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Class<?> getLayoutClass() throws Exception {
-    return m_lastLoader.loadClass("org.eclipse.swt.layout.RowLayout");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Class<?> getLayoutClass() throws Exception {
+		return m_lastLoader.loadClass("org.eclipse.swt.layout.RowLayout");
+	}
 }

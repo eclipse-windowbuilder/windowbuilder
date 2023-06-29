@@ -25,40 +25,40 @@ import java.util.List;
  * @coverage bindings.swing.model.bindings
  */
 public final class ColumnBindingModelSupport extends AstModelSupport {
-  private final List<Expression> m_invocations = Lists.newArrayList();
+	private final List<Expression> m_invocations = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnBindingModelSupport(AstObjectInfo model, MethodInvocation invocation) {
-    super(model);
-    addInvocation(invocation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnBindingModelSupport(AstObjectInfo model, MethodInvocation invocation) {
+		super(model);
+		addInvocation(invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void addInvocation(MethodInvocation invocation) {
-    m_invocations.add(invocation);
-    calculateNameReference(invocation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void addInvocation(MethodInvocation invocation) {
+		m_invocations.add(invocation);
+		calculateNameReference(invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IModelSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isRepresentedBy(Expression expression) throws Exception {
-    for (Expression invocation : m_invocations) {
-      if (invocation == expression) {
-        return true;
-      }
-    }
-    return isRepresentedOverReference(expression);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IModelSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isRepresentedBy(Expression expression) throws Exception {
+		for (Expression invocation : m_invocations) {
+			if (invocation == expression) {
+				return true;
+			}
+		}
+		return isRepresentedOverReference(expression);
+	}
 }

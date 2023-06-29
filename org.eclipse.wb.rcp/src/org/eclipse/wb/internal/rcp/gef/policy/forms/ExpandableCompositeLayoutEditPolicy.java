@@ -24,39 +24,39 @@ import org.eclipse.draw2d.geometry.Insets;
  * @coverage rcp.gef.policy
  */
 public final class ExpandableCompositeLayoutEditPolicy
-    extends
-      AbstractPositionCompositeLayoutEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExpandableCompositeLayoutEditPolicy(ExpandableCompositeInfo composite) {
-    super(composite);
-  }
+extends
+AbstractPositionCompositeLayoutEditPolicy {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExpandableCompositeLayoutEditPolicy(ExpandableCompositeInfo composite) {
+		super(composite);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Positions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addFeedbacks() throws Exception {
-    addFeedback2(
-        0.8,
-        0.0,
-        1.0,
-        0.2,
-        new Insets(0, 0, 1, 0),
-        GefMessages.ExpandableCompositeLayoutEditPolicy_textClientHint,
-        "setTextClient");
-    addFeedback2(
-        0.0,
-        0.2,
-        1.0,
-        1.0,
-        new Insets(0, 0, 0, 0),
-        GefMessages.ExpandableCompositeLayoutEditPolicy_clientHint,
-        "setClient");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Positions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addFeedbacks() throws Exception {
+		addFeedback2(
+				0.8,
+				0.0,
+				1.0,
+				0.2,
+				new Insets(0, 0, 1, 0),
+				GefMessages.ExpandableCompositeLayoutEditPolicy_textClientHint,
+				"setTextClient");
+		addFeedback2(
+				0.0,
+				0.2,
+				1.0,
+				1.0,
+				new Insets(0, 0, 0, 0),
+				GefMessages.ExpandableCompositeLayoutEditPolicy_clientHint,
+				"setClient");
+	}
 }

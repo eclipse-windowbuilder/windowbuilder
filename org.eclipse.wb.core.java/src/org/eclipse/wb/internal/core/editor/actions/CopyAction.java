@@ -39,148 +39,148 @@ import java.util.List;
  * @coverage core.editor.action
  */
 public class CopyAction extends Action {
-  private final IEditPartViewer m_viewer;
+	private final IEditPartViewer m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CopyAction(IEditPartViewer viewer) {
-    m_viewer = viewer;
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      @Override
-      public void selectionChanged(SelectionChangedEvent event) {
-        firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
-      }
-    });
-    // copy presentation
-    ActionUtils.copyPresentation(this, ActionFactory.COPY);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CopyAction(IEditPartViewer viewer) {
+		m_viewer = viewer;
+		m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
+			}
+		});
+		// copy presentation
+		ActionUtils.copyPresentation(this, ActionFactory.COPY);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Action
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private List<JavaInfoMemento> m_mementos;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Action
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private List<JavaInfoMemento> m_mementos;
 
-  @Override
-  public void run() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        List<EditPart> editParts = m_viewer.getSelectedEditParts();
-        m_mementos = getMementos(editParts);
-        doCopy(m_mementos);
-      }
-    });
-  }
+	@Override
+	public void run() {
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				List<EditPart> editParts = m_viewer.getSelectedEditParts();
+				m_mementos = getMementos(editParts);
+				doCopy(m_mementos);
+			}
+		});
+	}
 
-  @Override
-  public boolean isEnabled() {
-    List<EditPart> editParts = m_viewer.getSelectedEditParts();
-    return hasMementos(editParts);
-  }
+	@Override
+	public boolean isEnabled() {
+		List<EditPart> editParts = m_viewer.getSelectedEditParts();
+		return hasMementos(editParts);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Memento
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Copies {@link JavaInfoMemento}'s into {@link Clipboard}.
-   */
-  static void doCopy(List<JavaInfoMemento> mementos) {
-    if (mementos != null) {
-      Clipboard clipboard = new Clipboard(Display.getCurrent());
-      try {
-        clipboard.setContents(
-            new Object[]{mementos},
-            new Transfer[]{JavaInfoMementoTransfer.getInstance()});
-      } finally {
-        clipboard.dispose();
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Memento
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Copies {@link JavaInfoMemento}'s into {@link Clipboard}.
+	 */
+	static void doCopy(List<JavaInfoMemento> mementos) {
+		if (mementos != null) {
+			Clipboard clipboard = new Clipboard(Display.getCurrent());
+			try {
+				clipboard.setContents(
+						new Object[]{mementos},
+						new Transfer[]{JavaInfoMementoTransfer.getInstance()});
+			} finally {
+				clipboard.dispose();
+			}
+		}
+	}
 
-  /**
-   * @return <code>true</code> if given {@link JavaInfo}'s can be copy/pasted.
-   */
-  static boolean hasMementos(final List<EditPart> editParts) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
-        // selection required
-        if (editParts.isEmpty()) {
-          return false;
-        }
-        // check that JavaInfoMemento's can be created
-        for (EditPart editPart : editParts) {
-          // prepare model
-          JavaInfo javaInfo;
-          {
-            Object model = editPart.getModel();
-            if (model instanceof JavaInfo) {
-              javaInfo = (JavaInfo) model;
-            } else {
-              return false;
-            }
-          }
-          // check for memento
-          if (!JavaInfoMemento.hasMemento(javaInfo)) {
-            return false;
-          }
-        }
-        // OK
-        return true;
-      }
-    }, false);
-  }
+	/**
+	 * @return <code>true</code> if given {@link JavaInfo}'s can be copy/pasted.
+	 */
+	static boolean hasMementos(final List<EditPart> editParts) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+			@Override
+			public Boolean runObject() throws Exception {
+				// selection required
+				if (editParts.isEmpty()) {
+					return false;
+				}
+				// check that JavaInfoMemento's can be created
+				for (EditPart editPart : editParts) {
+					// prepare model
+					JavaInfo javaInfo;
+					{
+						Object model = editPart.getModel();
+						if (model instanceof JavaInfo) {
+							javaInfo = (JavaInfo) model;
+						} else {
+							return false;
+						}
+					}
+					// check for memento
+					if (!JavaInfoMemento.hasMemento(javaInfo)) {
+						return false;
+					}
+				}
+				// OK
+				return true;
+			}
+		}, false);
+	}
 
-  /**
-   * @return the {@link JavaInfoMemento}'s with copy/paste information for given {@link JavaInfo}'s.
-   */
-  @SuppressWarnings({"unchecked", "rawtypes"})
-  static List<JavaInfoMemento> getMementos(final List<EditPart> editParts) {
-    return (List<JavaInfoMemento>) ExecutionUtils.runObjectLog(new RunnableObjectEx() {
-      @Override
-      public Object runObject() throws Exception {
-        return getMemento0(editParts);
-      }
-    }, null);
-  }
+	/**
+	 * @return the {@link JavaInfoMemento}'s with copy/paste information for given {@link JavaInfo}'s.
+	 */
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	static List<JavaInfoMemento> getMementos(final List<EditPart> editParts) {
+		return (List<JavaInfoMemento>) ExecutionUtils.runObjectLog(new RunnableObjectEx() {
+			@Override
+			public Object runObject() throws Exception {
+				return getMemento0(editParts);
+			}
+		}, null);
+	}
 
-  private static List<JavaInfoMemento> getMemento0(List<EditPart> editParts) throws Exception {
-    // prepare objects
-    List<JavaInfo> objects = Lists.newArrayList();
-    for (EditPart editPart : editParts) {
-      // prepare object
-      JavaInfo object;
-      {
-        Object model = editPart.getModel();
-        if (!(model instanceof JavaInfo)) {
-          return null;
-        }
-        object = (JavaInfo) model;
-      }
-      // add object
-      objects.add(object);
-    }
-    // don't copy child, if we copy its parent
-    for (Iterator<JavaInfo> I = objects.iterator(); I.hasNext();) {
-      JavaInfo object = I.next();
-      if (object.getParent(objects) != null) {
-        I.remove();
-      }
-    }
-    // prepare mementos
-    List<JavaInfoMemento> mementos = Lists.newArrayList();
-    for (JavaInfo object : objects) {
-      JavaInfoMemento memento = JavaInfoMemento.createMemento(object);
-      mementos.add(memento);
-    }
-    // OK, final result
-    return mementos;
-  }
+	private static List<JavaInfoMemento> getMemento0(List<EditPart> editParts) throws Exception {
+		// prepare objects
+		List<JavaInfo> objects = Lists.newArrayList();
+		for (EditPart editPart : editParts) {
+			// prepare object
+			JavaInfo object;
+			{
+				Object model = editPart.getModel();
+				if (!(model instanceof JavaInfo)) {
+					return null;
+				}
+				object = (JavaInfo) model;
+			}
+			// add object
+			objects.add(object);
+		}
+		// don't copy child, if we copy its parent
+		for (Iterator<JavaInfo> I = objects.iterator(); I.hasNext();) {
+			JavaInfo object = I.next();
+			if (object.getParent(objects) != null) {
+				I.remove();
+			}
+		}
+		// prepare mementos
+		List<JavaInfoMemento> mementos = Lists.newArrayList();
+		for (JavaInfo object : objects) {
+			JavaInfoMemento memento = JavaInfoMemento.createMemento(object);
+			mementos.add(memento);
+		}
+		// OK, final result
+		return mementos;
+	}
 }

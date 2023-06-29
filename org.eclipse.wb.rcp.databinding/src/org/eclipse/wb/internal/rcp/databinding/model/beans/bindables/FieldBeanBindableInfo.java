@@ -37,134 +37,134 @@ import java.beans.PropertyDescriptor;
  * @coverage bindings.rcp.model.beans
  */
 public final class FieldBeanBindableInfo extends BeanBindableInfo {
-  private JavaInfo m_hostJavaInfo;
-  private VariableDeclarationFragment m_fragment;
+	private JavaInfo m_hostJavaInfo;
+	private VariableDeclarationFragment m_fragment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FieldBeanBindableInfo(BeanSupport beanSupport,
-      VariableDeclarationFragment fragment,
-      Class<?> objectType,
-      JavaInfo javaInfo) throws Exception {
-    this(beanSupport, fragment, objectType, new FragmentReferenceProvider(fragment), javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FieldBeanBindableInfo(BeanSupport beanSupport,
+			VariableDeclarationFragment fragment,
+			Class<?> objectType,
+			JavaInfo javaInfo) throws Exception {
+		this(beanSupport, fragment, objectType, new FragmentReferenceProvider(fragment), javaInfo);
+	}
 
-  public FieldBeanBindableInfo(BeanSupport beanSupport,
-      VariableDeclarationFragment fragment,
-      Class<?> objectType,
-      IReferenceProvider referenceProvider,
-      JavaInfo javaInfo) throws Exception {
-    super(beanSupport, null, objectType, referenceProvider, javaInfo);
-    setBindingDecoration(SwtResourceManager.TOP_RIGHT);
-    m_hostJavaInfo = fragment == null ? javaInfo : null;
-    m_fragment = fragment;
-    m_children = Lists.newArrayList();
-    // add "getter" properties contains sub properties to children
-    for (PropertyBindableInfo property : getProperties()) {
-      if (property instanceof BeanPropertyDescriptorBindableInfo) {
-        BeanPropertyDescriptorBindableInfo descriptorProperty =
-            (BeanPropertyDescriptorBindableInfo) property;
-        PropertyDescriptor descriptor = descriptorProperty.getDescriptor();
-        //
-        if (BeanSupport.isGetter(descriptor)) {
-          String propertyName = descriptor.getReadMethod().getName() + "()";
-          MethodBeanBindableInfo newChildren =
-              new MethodBeanBindableInfo(beanSupport,
-                  this,
-                  descriptor.getPropertyType(),
-                  new CompoundReferenceProvider(getReferenceProvider(), "." + propertyName),
-                  new StringReferenceProvider(getReference() + "." + propertyName));
-          //
-          if (newChildren.getProperties().size() > 1) {
-            m_children.add(newChildren);
-          }
-        }
-      }
-    }
-  }
+	public FieldBeanBindableInfo(BeanSupport beanSupport,
+			VariableDeclarationFragment fragment,
+			Class<?> objectType,
+			IReferenceProvider referenceProvider,
+			JavaInfo javaInfo) throws Exception {
+		super(beanSupport, null, objectType, referenceProvider, javaInfo);
+		setBindingDecoration(SwtResourceManager.TOP_RIGHT);
+		m_hostJavaInfo = fragment == null ? javaInfo : null;
+		m_fragment = fragment;
+		m_children = Lists.newArrayList();
+		// add "getter" properties contains sub properties to children
+		for (PropertyBindableInfo property : getProperties()) {
+			if (property instanceof BeanPropertyDescriptorBindableInfo) {
+				BeanPropertyDescriptorBindableInfo descriptorProperty =
+						(BeanPropertyDescriptorBindableInfo) property;
+				PropertyDescriptor descriptor = descriptorProperty.getDescriptor();
+				//
+				if (BeanSupport.isGetter(descriptor)) {
+					String propertyName = descriptor.getReadMethod().getName() + "()";
+					MethodBeanBindableInfo newChildren =
+							new MethodBeanBindableInfo(beanSupport,
+									this,
+									descriptor.getPropertyType(),
+									new CompoundReferenceProvider(getReferenceProvider(), "." + propertyName),
+									new StringReferenceProvider(getReference() + "." + propertyName));
+					//
+					if (newChildren.getProperties().size() > 1) {
+						m_children.add(newChildren);
+					}
+				}
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Access to field {@link VariableDeclarationFragment}.
-   */
-  public VariableDeclarationFragment getFragment() {
-    return m_fragment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Access to field {@link VariableDeclarationFragment}.
+	 */
+	public VariableDeclarationFragment getFragment() {
+		return m_fragment;
+	}
 
-  public JavaInfo getHostJavaInfo() {
-    return m_hostJavaInfo;
-  }
+	public JavaInfo getHostJavaInfo() {
+		return m_hostJavaInfo;
+	}
 
-  public void update(BeansObserveTypeContainer container) throws Exception {
-    BeanBindablePresentation presentation = (BeanBindablePresentation) getPresentation();
-    //
-    JavaInfo oldJavaInfo = m_hostJavaInfo;
-    if (m_hostJavaInfo == null) {
-      oldJavaInfo = presentation.getJavaInfo();
-    }
-    //
-    if (oldJavaInfo != null && oldJavaInfo.isDeleted()) {
-      JavaInfo newJavaInfo =
-          container.getJavaInfoRepresentedBy(m_fragment.getName().getIdentifier());
-      if (newJavaInfo == null) {
-        return;
-      }
-      Class<?> componentClass = newJavaInfo.getDescription().getComponentClass();
-      //
-      setObjectType(componentClass);
-      //
-      presentation.setJavaInfo(newJavaInfo);
-      presentation.setObjectType(componentClass);
-      presentation.setBeanImage(getBeanSupport().getBeanImage(componentClass, newJavaInfo));
-      //
-      if (m_hostJavaInfo != null) {
-        m_hostJavaInfo = newJavaInfo;
-        FragmentReferenceProvider fragmentProvider =
-            (FragmentReferenceProvider) getReferenceProvider();
-        JavaInfoReferenceProvider javaInfoProvider =
-            (JavaInfoReferenceProvider) fragmentProvider.getProvider();
-        javaInfoProvider.setJavaInfo(newJavaInfo);
-      }
-    }
-  }
+	public void update(BeansObserveTypeContainer container) throws Exception {
+		BeanBindablePresentation presentation = (BeanBindablePresentation) getPresentation();
+		//
+		JavaInfo oldJavaInfo = m_hostJavaInfo;
+		if (m_hostJavaInfo == null) {
+			oldJavaInfo = presentation.getJavaInfo();
+		}
+		//
+		if (oldJavaInfo != null && oldJavaInfo.isDeleted()) {
+			JavaInfo newJavaInfo =
+					container.getJavaInfoRepresentedBy(m_fragment.getName().getIdentifier());
+			if (newJavaInfo == null) {
+				return;
+			}
+			Class<?> componentClass = newJavaInfo.getDescription().getComponentClass();
+			//
+			setObjectType(componentClass);
+			//
+			presentation.setJavaInfo(newJavaInfo);
+			presentation.setObjectType(componentClass);
+			presentation.setBeanImage(getBeanSupport().getBeanImage(componentClass, newJavaInfo));
+			//
+			if (m_hostJavaInfo != null) {
+				m_hostJavaInfo = newJavaInfo;
+				FragmentReferenceProvider fragmentProvider =
+						(FragmentReferenceProvider) getReferenceProvider();
+				JavaInfoReferenceProvider javaInfoProvider =
+						(JavaInfoReferenceProvider) fragmentProvider.getProvider();
+				javaInfoProvider.setJavaInfo(newJavaInfo);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createBinding(AbstractBindingInfo binding) throws Exception {
-    super.createBinding(binding);
-    // ensure convert local variable to field
-    if (m_fragment == null) {
-      // disable synchronize
-      DatabindingsProvider provider = getBeanSupport().getProvider();
-      provider.setSynchronizeObserves(false);
-      //
-      try {
-        // do convert
-        m_hostJavaInfo.getVariableSupport().convertLocalToField();
-        // prepare fragment
-        TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(m_hostJavaInfo);
-        String fieldName = m_hostJavaInfo.getVariableSupport().getName();
-        m_fragment = AstNodeUtils.getFieldFragmentByName(typeDeclaration, fieldName);
-        // configure reference
-        FragmentReferenceProvider referenceProvider =
-            (FragmentReferenceProvider) getReferenceProvider();
-        referenceProvider.setFragment(m_fragment);
-      } finally {
-        // do synchronize
-        provider.setSynchronizeObserves(true);
-        provider.synchronizeObserves();
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createBinding(AbstractBindingInfo binding) throws Exception {
+		super.createBinding(binding);
+		// ensure convert local variable to field
+		if (m_fragment == null) {
+			// disable synchronize
+			DatabindingsProvider provider = getBeanSupport().getProvider();
+			provider.setSynchronizeObserves(false);
+			//
+			try {
+				// do convert
+				m_hostJavaInfo.getVariableSupport().convertLocalToField();
+				// prepare fragment
+				TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(m_hostJavaInfo);
+				String fieldName = m_hostJavaInfo.getVariableSupport().getName();
+				m_fragment = AstNodeUtils.getFieldFragmentByName(typeDeclaration, fieldName);
+				// configure reference
+				FragmentReferenceProvider referenceProvider =
+						(FragmentReferenceProvider) getReferenceProvider();
+				referenceProvider.setFragment(m_fragment);
+			} finally {
+				// do synchronize
+				provider.setSynchronizeObserves(true);
+				provider.synchronizeObserves();
+			}
+		}
+	}
 }

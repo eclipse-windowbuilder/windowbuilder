@@ -44,333 +44,333 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public final class VirtualEditingSupportInfo {
-  private final IElementTypeProvider m_elementTypeProvider;
-  private final AbstractViewerInputBindingInfo m_viewerBinding;
-  private final WidgetBindableInfo m_viewerColumn;
-  private EditingSupportInfo m_editingSupport;
-  private String m_cellEditorClassName;
-  private String m_cellEditorProperty;
-  private String m_elementProperty;
+	private final IElementTypeProvider m_elementTypeProvider;
+	private final AbstractViewerInputBindingInfo m_viewerBinding;
+	private final WidgetBindableInfo m_viewerColumn;
+	private EditingSupportInfo m_editingSupport;
+	private String m_cellEditorClassName;
+	private String m_cellEditorProperty;
+	private String m_elementProperty;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualEditingSupportInfo(IElementTypeProvider elementTypeProvider,
-      EditingSupportInfo editingSupport) throws Exception {
-    this(elementTypeProvider, editingSupport.getViewerBinding(), editingSupport.getViewerColumn());
-    m_editingSupport = editingSupport;
-    m_cellEditorClassName = m_editingSupport.getCellEditorInfo().getClassName();
-    m_cellEditorProperty = m_editingSupport.getCellEditorProperty().getParsePropertyReference();
-    m_elementProperty = m_editingSupport.getElementProperty().getParserPropertyReference();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualEditingSupportInfo(IElementTypeProvider elementTypeProvider,
+			EditingSupportInfo editingSupport) throws Exception {
+		this(elementTypeProvider, editingSupport.getViewerBinding(), editingSupport.getViewerColumn());
+		m_editingSupport = editingSupport;
+		m_cellEditorClassName = m_editingSupport.getCellEditorInfo().getClassName();
+		m_cellEditorProperty = m_editingSupport.getCellEditorProperty().getParsePropertyReference();
+		m_elementProperty = m_editingSupport.getElementProperty().getParserPropertyReference();
+	}
 
-  public VirtualEditingSupportInfo(IElementTypeProvider elementTypeProvider,
-      AbstractViewerInputBindingInfo viewerBinding,
-      WidgetBindableInfo viewerColumn) {
-    m_elementTypeProvider = elementTypeProvider;
-    m_viewerBinding = viewerBinding;
-    m_viewerColumn = viewerColumn;
-  }
+	public VirtualEditingSupportInfo(IElementTypeProvider elementTypeProvider,
+			AbstractViewerInputBindingInfo viewerBinding,
+			WidgetBindableInfo viewerColumn) {
+		m_elementTypeProvider = elementTypeProvider;
+		m_viewerBinding = viewerBinding;
+		m_viewerColumn = viewerColumn;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WidgetBindableInfo getViewerColumn() {
-    return m_viewerColumn;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WidgetBindableInfo getViewerColumn() {
+		return m_viewerColumn;
+	}
 
-  public boolean isEmpty() {
-    return m_cellEditorClassName == null;
-  }
+	public boolean isEmpty() {
+		return m_cellEditorClassName == null;
+	}
 
-  public void delete() {
-    m_cellEditorClassName = null;
-    m_cellEditorProperty = null;
-    m_elementProperty = null;
-    m_editingSupport = null;
-  }
+	public void delete() {
+		m_cellEditorClassName = null;
+		m_cellEditorProperty = null;
+		m_elementProperty = null;
+		m_editingSupport = null;
+	}
 
-  public EditingSupportInfo createOrUpdateEditingSupport() throws Exception {
-    // configure viewer
-    m_viewerBinding.getViewer().ensureConvertToField();
-    // configure column
-    m_viewerColumn.ensureConvertToField();
-    // create new support
-    if (m_editingSupport == null) {
-      return new EditingSupportInfo(m_viewerBinding,
-          m_viewerColumn,
-          m_cellEditorClassName,
-          m_cellEditorProperty,
-          m_elementProperty);
-    }
-    // edit exist support
-    m_editingSupport.getCellEditorInfo().setClassName0(m_cellEditorClassName);
-    m_editingSupport.getCellEditorProperty().setParsePropertyReference(m_cellEditorProperty);
-    m_editingSupport.getElementProperty().setParserPropertyReference(m_elementProperty);
-    return m_editingSupport;
-  }
+	public EditingSupportInfo createOrUpdateEditingSupport() throws Exception {
+		// configure viewer
+		m_viewerBinding.getViewer().ensureConvertToField();
+		// configure column
+		m_viewerColumn.ensureConvertToField();
+		// create new support
+		if (m_editingSupport == null) {
+			return new EditingSupportInfo(m_viewerBinding,
+					m_viewerColumn,
+					m_cellEditorClassName,
+					m_cellEditorProperty,
+					m_elementProperty);
+		}
+		// edit exist support
+		m_editingSupport.getCellEditorInfo().setClassName0(m_cellEditorClassName);
+		m_editingSupport.getCellEditorProperty().setParsePropertyReference(m_cellEditorProperty);
+		m_editingSupport.getElementProperty().setParserPropertyReference(m_elementProperty);
+		return m_editingSupport;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getCellEditorPresentationText() throws Exception {
-    return isEmpty() ? "" : ClassUtils.getShortClassName(StringUtils.substringBefore(
-        m_cellEditorClassName,
-        "(")) + "." + StringUtils.remove(m_cellEditorProperty, '"');
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getCellEditorPresentationText() throws Exception {
+		return isEmpty() ? "" : ClassUtils.getShortClassName(StringUtils.substringBefore(
+				m_cellEditorClassName,
+				"(")) + "." + StringUtils.remove(m_cellEditorProperty, '"');
+	}
 
-  public String getElementPropertyPresentationText() throws Exception {
-    return isEmpty() ? "" : ClassUtils.getShortClassName(m_elementTypeProvider.getElementType())
-        + "."
-        + StringUtils.remove(m_elementProperty, '"');
-  }
+	public String getElementPropertyPresentationText() throws Exception {
+		return isEmpty() ? "" : ClassUtils.getShortClassName(m_elementTypeProvider.getElementType())
+				+ "."
+				+ StringUtils.remove(m_elementProperty, '"');
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void createContentProviders(List<IUiContentProvider> providers) throws Exception {
-    // CellEditor
-    providers.add(new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_cellEditorLabel,
-        getCellEditorPresentationText()));
-    //
-    ChooseClassAndPropertiesConfiguration cellEditorConfiguration =
-        new ChooseClassAndPropertiesConfiguration();
-    cellEditorConfiguration.setBaseClassName("org.eclipse.jface.viewers.CellEditor");
-    cellEditorConfiguration.setDialogFieldLabel(Messages.VirtualEditingSupportInfo_chooseLabel);
-    cellEditorConfiguration.setEmptyClassErrorMessage(Messages.VirtualEditingSupportInfo_chooseEmptyMessage);
-    cellEditorConfiguration.setErrorMessagePrefix(Messages.VirtualEditingSupportInfo_chooseErrorPrefix);
-    cellEditorConfiguration.setPropertiesLabel(Messages.VirtualEditingSupportInfo_choosePropertiesLabel);
-    cellEditorConfiguration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
-    cellEditorConfiguration.setPropertiesErrorMessage(Messages.VirtualEditingSupportInfo_choosePropertyMessage);
-    cellEditorConfiguration.setDefaultValues(new String[]{
-        "org.eclipse.jface.viewers.TextCellEditor",
-        "org.eclipse.jface.viewers.ComboBoxCellEditor",
-        "org.eclipse.jface.viewers.CheckboxCellEditor"});
-    //
-    providers.add(new CellEditorUiContentProvider(cellEditorConfiguration));
-    //
-    providers.add(new SeparatorUiContentProvider());
-    // Element property
-    providers.add(new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_elementProperty,
-        getElementPropertyPresentationText()));
-    //
-    ChooseClassAndPropertiesConfiguration elementConfiguration =
-        new ChooseClassAndPropertiesConfiguration();
-    elementConfiguration.setDialogFieldLabel(Messages.VirtualEditingSupportInfo_chooseBeanLabel);
-    elementConfiguration.setEmptyClassErrorMessage(Messages.VirtualEditingSupportInfo_chooseBeanEmptyMessage);
-    elementConfiguration.setErrorMessagePrefix(Messages.VirtualEditingSupportInfo_chooseBeanErrorPrefix);
-    elementConfiguration.setPropertiesLabel(Messages.VirtualEditingSupportInfo_chooseBeanPropertiesLabel);
-    elementConfiguration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
-    elementConfiguration.setPropertiesErrorMessage(Messages.VirtualEditingSupportInfo_chooseBeanPropertiesErrorMessage);
-    //
-    providers.add(new ElementPropertyUiContentProvider(elementConfiguration));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void createContentProviders(List<IUiContentProvider> providers) throws Exception {
+		// CellEditor
+		providers.add(new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_cellEditorLabel,
+				getCellEditorPresentationText()));
+		//
+		ChooseClassAndPropertiesConfiguration cellEditorConfiguration =
+				new ChooseClassAndPropertiesConfiguration();
+		cellEditorConfiguration.setBaseClassName("org.eclipse.jface.viewers.CellEditor");
+		cellEditorConfiguration.setDialogFieldLabel(Messages.VirtualEditingSupportInfo_chooseLabel);
+		cellEditorConfiguration.setEmptyClassErrorMessage(Messages.VirtualEditingSupportInfo_chooseEmptyMessage);
+		cellEditorConfiguration.setErrorMessagePrefix(Messages.VirtualEditingSupportInfo_chooseErrorPrefix);
+		cellEditorConfiguration.setPropertiesLabel(Messages.VirtualEditingSupportInfo_choosePropertiesLabel);
+		cellEditorConfiguration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
+		cellEditorConfiguration.setPropertiesErrorMessage(Messages.VirtualEditingSupportInfo_choosePropertyMessage);
+		cellEditorConfiguration.setDefaultValues(new String[]{
+				"org.eclipse.jface.viewers.TextCellEditor",
+				"org.eclipse.jface.viewers.ComboBoxCellEditor",
+		"org.eclipse.jface.viewers.CheckboxCellEditor"});
+		//
+		providers.add(new CellEditorUiContentProvider(cellEditorConfiguration));
+		//
+		providers.add(new SeparatorUiContentProvider());
+		// Element property
+		providers.add(new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_elementProperty,
+				getElementPropertyPresentationText()));
+		//
+		ChooseClassAndPropertiesConfiguration elementConfiguration =
+				new ChooseClassAndPropertiesConfiguration();
+		elementConfiguration.setDialogFieldLabel(Messages.VirtualEditingSupportInfo_chooseBeanLabel);
+		elementConfiguration.setEmptyClassErrorMessage(Messages.VirtualEditingSupportInfo_chooseBeanEmptyMessage);
+		elementConfiguration.setErrorMessagePrefix(Messages.VirtualEditingSupportInfo_chooseBeanErrorPrefix);
+		elementConfiguration.setPropertiesLabel(Messages.VirtualEditingSupportInfo_chooseBeanPropertiesLabel);
+		elementConfiguration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
+		elementConfiguration.setPropertiesErrorMessage(Messages.VirtualEditingSupportInfo_chooseBeanPropertiesErrorMessage);
+		//
+		providers.add(new ElementPropertyUiContentProvider(elementConfiguration));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ContentProviders
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private class CellEditorUiContentProvider extends ChooseClassAndTreePropertiesUiContentProvider2 {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public CellEditorUiContentProvider(ChooseClassAndPropertiesConfiguration configuration) {
-      super(configuration);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ContentProviders
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private class CellEditorUiContentProvider extends ChooseClassAndTreePropertiesUiContentProvider2 {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public CellEditorUiContentProvider(ChooseClassAndPropertiesConfiguration configuration) {
+			super(configuration);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Properties
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected Class<?> loadClass(String className) throws ClassNotFoundException {
-      int index = className.indexOf('(');
-      if (index != -1) {
-        className = className.substring(0, index);
-      }
-      return super.loadClass(className);
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Properties
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected Class<?> loadClass(String className) throws ClassNotFoundException {
+			int index = className.indexOf('(');
+			if (index != -1) {
+				className = className.substring(0, index);
+			}
+			return super.loadClass(className);
+		}
 
-    @Override
-    protected List<PropertyAdapter> getProperties(final Class<?> choosenClass) throws Exception {
-      List<PropertyAdapter> properties = super.getProperties(choosenClass);
-      int size = properties.size();
-      for (int i = 0; i < size; i++) {
-        ObservePropertyAdapter oldAdapter = (ObservePropertyAdapter) properties.get(i);
-        // configure control property
-        if ("control".equals(oldAdapter.getName())) {
-          properties.set(i, new ObservePropertyAdapter(null, oldAdapter.getProperty()) {
-            @Override
-            public List<ObservePropertyAdapter> getChildren() {
-              if (m_children == null) {
-                try {
-                  // prepare control SWT properties
-                  m_children = Lists.newArrayList();
-                  List<WidgetPropertyBindableInfo> swtProperties =
-                      getWidgetProperties(
-                          JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo()),
-                          choosenClass,
-                          m_property.getObjectType());
-                  // create adapters for all properties exclude "items"
-                  for (WidgetPropertyBindableInfo swtProperty : swtProperties) {
-                    if (!"observeItems".equals(swtProperty.getReference())) {
-                      ObservePropertyAdapter swtAdapter =
-                          new ObservePropertyAdapter(this, swtProperty);
-                      swtAdapter.setChildren(Collections.<ObservePropertyAdapter>emptyList());
-                      m_children.add(swtAdapter);
-                    }
-                  }
-                } catch (Throwable e) {
-                  m_children = Collections.emptyList();
-                }
-              }
-              return m_children;
-            }
-          });
-        }
-      }
-      return properties;
-    }
+		@Override
+		protected List<PropertyAdapter> getProperties(final Class<?> choosenClass) throws Exception {
+			List<PropertyAdapter> properties = super.getProperties(choosenClass);
+			int size = properties.size();
+			for (int i = 0; i < size; i++) {
+				ObservePropertyAdapter oldAdapter = (ObservePropertyAdapter) properties.get(i);
+				// configure control property
+				if ("control".equals(oldAdapter.getName())) {
+					properties.set(i, new ObservePropertyAdapter(null, oldAdapter.getProperty()) {
+						@Override
+						public List<ObservePropertyAdapter> getChildren() {
+							if (m_children == null) {
+								try {
+									// prepare control SWT properties
+									m_children = Lists.newArrayList();
+									List<WidgetPropertyBindableInfo> swtProperties =
+											getWidgetProperties(
+													JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo()),
+													choosenClass,
+													m_property.getObjectType());
+									// create adapters for all properties exclude "items"
+									for (WidgetPropertyBindableInfo swtProperty : swtProperties) {
+										if (!"observeItems".equals(swtProperty.getReference())) {
+											ObservePropertyAdapter swtAdapter =
+													new ObservePropertyAdapter(this, swtProperty);
+											swtAdapter.setChildren(Collections.<ObservePropertyAdapter>emptyList());
+											m_children.add(swtAdapter);
+										}
+									}
+								} catch (Throwable e) {
+									m_children = Collections.emptyList();
+								}
+							}
+							return m_children;
+						}
+					});
+				}
+			}
+			return properties;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Update
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void updateFromObject() throws Exception {
-      if (isEmpty()) {
-        calculateFinish();
-      } else {
-        Class<?> beanClass = loadClass(m_cellEditorClassName);
-        if (m_cellEditorProperty.startsWith("\"control.")) {
-          // prepare class
-          setClassName(m_cellEditorClassName);
-          // prepare properties
-          ClassLoader classLoader = JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo());
-          BeanSupport beanSupport = new BeanSupport(classLoader, null);
-          BeanBindableInfo beanObjectInfo =
-              new BeanBindableInfo(beanSupport, null, beanClass, null, (IObservePresentation) null);
-          // prepare control adapter
-          PropertyBindableInfo controlProperty =
-              beanObjectInfo.resolvePropertyReference("\"control\"");
-          ObservePropertyAdapter parent = convertPropertyToAdapter(controlProperty);
-          // prepare widget adapter
-          String swtPropertyReference =
-              StringUtils.substringBetween(m_cellEditorProperty, ".", "\"");
-          //
-          List<WidgetPropertyBindableInfo> swtProperties =
-              getWidgetProperties(classLoader, beanClass, controlProperty.getObjectType());
-          //
-          for (WidgetPropertyBindableInfo swtProperty : swtProperties) {
-            if (swtPropertyReference.equals(SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(swtProperty.getReference()))) {
-              ObservePropertyAdapter swtAdapter = new ObservePropertyAdapter(parent, swtProperty);
-              swtAdapter.setChildren(Collections.<ObservePropertyAdapter>emptyList());
-              swtAdapter.addToParent();
-              setCheckedAndExpand(new Object[]{swtAdapter});
-              break;
-            }
-          }
-          //
-          calculatePropertiesFinish();
-        } else {
-          setClassNameAndProperties(
-              beanClass,
-              m_cellEditorClassName,
-              Lists.newArrayList(m_cellEditorProperty));
-        }
-      }
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Update
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public void updateFromObject() throws Exception {
+			if (isEmpty()) {
+				calculateFinish();
+			} else {
+				Class<?> beanClass = loadClass(m_cellEditorClassName);
+				if (m_cellEditorProperty.startsWith("\"control.")) {
+					// prepare class
+					setClassName(m_cellEditorClassName);
+					// prepare properties
+					ClassLoader classLoader = JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo());
+					BeanSupport beanSupport = new BeanSupport(classLoader, null);
+					BeanBindableInfo beanObjectInfo =
+							new BeanBindableInfo(beanSupport, null, beanClass, null, (IObservePresentation) null);
+					// prepare control adapter
+					PropertyBindableInfo controlProperty =
+							beanObjectInfo.resolvePropertyReference("\"control\"");
+					ObservePropertyAdapter parent = convertPropertyToAdapter(controlProperty);
+					// prepare widget adapter
+					String swtPropertyReference =
+							StringUtils.substringBetween(m_cellEditorProperty, ".", "\"");
+					//
+					List<WidgetPropertyBindableInfo> swtProperties =
+							getWidgetProperties(classLoader, beanClass, controlProperty.getObjectType());
+					//
+					for (WidgetPropertyBindableInfo swtProperty : swtProperties) {
+						if (swtPropertyReference.equals(SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(swtProperty.getReference()))) {
+							ObservePropertyAdapter swtAdapter = new ObservePropertyAdapter(parent, swtProperty);
+							swtAdapter.setChildren(Collections.<ObservePropertyAdapter>emptyList());
+							swtAdapter.addToParent();
+							setCheckedAndExpand(new Object[]{swtAdapter});
+							break;
+						}
+					}
+					//
+					calculatePropertiesFinish();
+				} else {
+					setClassNameAndProperties(
+							beanClass,
+							m_cellEditorClassName,
+							Lists.newArrayList(m_cellEditorProperty));
+				}
+			}
+		}
 
-    @Override
-    protected void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenProperties)
-        throws Exception {
-      m_cellEditorClassName = getClassName();
-      Object[] checkedElements = m_propertiesViewer.getCheckedElements();
-      ObservePropertyAdapter adapter = (ObservePropertyAdapter) checkedElements[0];
-      if (adapter.getProperty() instanceof WidgetPropertyBindableInfo) {
-        m_cellEditorProperty =
-            "\"control."
-                + SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(adapter.getProperty().getReference())
-                + "\"";
-      } else {
-        m_cellEditorProperty = adapter.getProperty().getReference();
-      }
-      adapter.getProperty();
-    }
-  }
+		@Override
+		protected void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenProperties)
+				throws Exception {
+			m_cellEditorClassName = getClassName();
+			Object[] checkedElements = m_propertiesViewer.getCheckedElements();
+			ObservePropertyAdapter adapter = (ObservePropertyAdapter) checkedElements[0];
+			if (adapter.getProperty() instanceof WidgetPropertyBindableInfo) {
+				m_cellEditorProperty =
+						"\"control."
+								+ SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(adapter.getProperty().getReference())
+								+ "\"";
+			} else {
+				m_cellEditorProperty = adapter.getProperty().getReference();
+			}
+			adapter.getProperty();
+		}
+	}
 
-  private static List<WidgetPropertyBindableInfo> getWidgetProperties(ClassLoader classLoader,
-      Class<?> choosenClass,
-      Class<?> widgetType) throws Exception {
-    if (classLoader.loadClass("org.eclipse.jface.viewers.TextCellEditor").isAssignableFrom(
-        choosenClass)) {
-      widgetType = classLoader.loadClass("org.eclipse.swt.widgets.Text");
-    } else if (classLoader.loadClass("org.eclipse.jface.viewers.ComboBoxCellEditor").isAssignableFrom(
-        choosenClass)) {
-      widgetType = classLoader.loadClass("org.eclipse.swt.custom.CCombo");
-    }
-    return PropertiesSupport.getProperties(classLoader, widgetType);
-  }
+	private static List<WidgetPropertyBindableInfo> getWidgetProperties(ClassLoader classLoader,
+			Class<?> choosenClass,
+			Class<?> widgetType) throws Exception {
+		if (classLoader.loadClass("org.eclipse.jface.viewers.TextCellEditor").isAssignableFrom(
+				choosenClass)) {
+			widgetType = classLoader.loadClass("org.eclipse.swt.widgets.Text");
+		} else if (classLoader.loadClass("org.eclipse.jface.viewers.ComboBoxCellEditor").isAssignableFrom(
+				choosenClass)) {
+			widgetType = classLoader.loadClass("org.eclipse.swt.custom.CCombo");
+		}
+		return PropertiesSupport.getProperties(classLoader, widgetType);
+	}
 
-  private class ElementPropertyUiContentProvider
-      extends
-        ChooseClassAndTreePropertiesUiContentProvider2 {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public ElementPropertyUiContentProvider(ChooseClassAndPropertiesConfiguration configuration) {
-      super(configuration);
-    }
+	private class ElementPropertyUiContentProvider
+	extends
+	ChooseClassAndTreePropertiesUiContentProvider2 {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public ElementPropertyUiContentProvider(ChooseClassAndPropertiesConfiguration configuration) {
+			super(configuration);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Update
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void updateFromObject() throws Exception {
-      getDialogField().setEnabled(false);
-      Class<?> elementType = m_elementTypeProvider.getElementType();
-      if (isEmpty()) {
-        if (elementType == null) {
-          calculateFinish();
-        } else {
-          setClassName(CoreUtils.getClassName(elementType));
-        }
-      } else {
-        setClassNameAndProperties(elementType, null, Lists.newArrayList(m_elementProperty));
-      }
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Update
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public void updateFromObject() throws Exception {
+			getDialogField().setEnabled(false);
+			Class<?> elementType = m_elementTypeProvider.getElementType();
+			if (isEmpty()) {
+				if (elementType == null) {
+					calculateFinish();
+				} else {
+					setClassName(CoreUtils.getClassName(elementType));
+				}
+			} else {
+				setClassNameAndProperties(elementType, null, Lists.newArrayList(m_elementProperty));
+			}
+		}
 
-    @Override
-    protected void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenProperties)
-        throws Exception {
-      Object[] checkedElements = m_propertiesViewer.getCheckedElements();
-      ObservePropertyAdapter adapter = (ObservePropertyAdapter) checkedElements[0];
-      m_elementProperty = adapter.getProperty().getReference();
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ElementType
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static interface IElementTypeProvider {
-    Class<?> getElementType() throws Exception;
-  }
+		@Override
+		protected void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenProperties)
+				throws Exception {
+			Object[] checkedElements = m_propertiesViewer.getCheckedElements();
+			ObservePropertyAdapter adapter = (ObservePropertyAdapter) checkedElements[0];
+			m_elementProperty = adapter.getProperty().getReference();
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ElementType
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static interface IElementTypeProvider {
+		Class<?> getElementType() throws Exception;
+	}
 }

@@ -23,22 +23,22 @@ import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
  * @coverage swing.gef
  */
 public final class MenuLayoutRequestValidator extends AbstractModelClassLayoutRequestValidator {
-  public static final ILayoutRequestValidator INSTANCE = new MenuLayoutRequestValidator();
+	public static final ILayoutRequestValidator INSTANCE = new MenuLayoutRequestValidator();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isValidClass(Class<?> clazz) {
-    // JMenu-related things usually should not be added on "normal" layouts
-    if (JMenuBarInfo.class.isAssignableFrom(clazz)
-        || JPopupMenuInfo.class.isAssignableFrom(clazz)
-        || JMenuItemInfo.class.isAssignableFrom(clazz)) {
-      return false;
-    }
-    // OK, check by type
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isValidClass(Class<?> clazz) {
+		// JMenu-related things usually should not be added on "normal" layouts
+		if (JMenuBarInfo.class.isAssignableFrom(clazz)
+				|| JPopupMenuInfo.class.isAssignableFrom(clazz)
+				|| JMenuItemInfo.class.isAssignableFrom(clazz)) {
+			return false;
+		}
+		// OK, check by type
+		return true;
+	}
 }

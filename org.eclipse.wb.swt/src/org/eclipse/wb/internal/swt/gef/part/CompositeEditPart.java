@@ -38,63 +38,63 @@ import org.eclipse.swt.SWT;
  * @coverage swt.gef.part
  */
 public class CompositeEditPart extends ControlEditPart {
-  private final CompositeInfo m_composite;
+	private final CompositeInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompositeEditPart(CompositeInfo composite) {
-    super(composite);
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompositeEditPart(CompositeInfo composite) {
+		super(composite);
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void drawCustomBorder(Figure figure, Graphics graphics) {
-    try {
-      if (m_composite.shouldDrawDotsBorder()) {
-        graphics.setForegroundColor(IColorConstants.gray);
-        graphics.setLineStyle(SWT.LINE_DOT);
-        Rectangle area = figure.getClientArea();
-        graphics.drawRectangle(0, 0, area.width - 1, area.height - 1);
-      }
-    } catch (Throwable e) {
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void drawCustomBorder(Figure figure, Graphics graphics) {
+		try {
+			if (m_composite.shouldDrawDotsBorder()) {
+				graphics.setForegroundColor(IColorConstants.gray);
+				graphics.setLineStyle(SWT.LINE_DOT);
+				Rectangle area = figure.getClientArea();
+				graphics.drawRectangle(0, 0, area.width - 1, area.height - 1);
+			}
+		} catch (Throwable e) {
+		}
+	}
 
-  @Override
-  protected void addChildVisual(EditPart childPart, int index) {
-    super.addChildVisual(childPart, getFigure().getChildren().size() - index);
-  }
+	@Override
+	protected void addChildVisual(EditPart childPart, int index) {
+		super.addChildVisual(childPart, getFigure().getChildren().size() - index);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LayoutInfo m_currentLayout;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LayoutInfo m_currentLayout;
 
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    // support for dropping LayoutInfo's
-    if (m_composite.hasLayout()) {
-      installEditPolicy(new DropLayoutEditPolicy(m_composite));
-    }
-    // support tab ordering for children
-    installEditPolicy(
-        TabOrderContainerEditPolicy.TAB_CONTAINER_ROLE,
-        new TabOrderContainerEditPolicy());
-  }
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		// support for dropping LayoutInfo's
+		if (m_composite.hasLayout()) {
+			installEditPolicy(new DropLayoutEditPolicy(m_composite));
+		}
+		// support tab ordering for children
+		installEditPolicy(
+				TabOrderContainerEditPolicy.TAB_CONTAINER_ROLE,
+				new TabOrderContainerEditPolicy());
+	}
 
-  @Override
-  protected void refreshEditPolicies() {
+	@Override
+	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
 		// support for dropping components
 
@@ -102,17 +102,17 @@ public class CompositeEditPart extends ControlEditPart {
 			LayoutInfo layout = m_composite.getLayout();
 			if (layout != m_currentLayout) {
 				try {
-				m_currentLayout = layout;
-				if (layout.getDescription().getComponentClass() != null) {
-					if (!InstanceScope.INSTANCE.getNode(
-				              IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
-				                  layout.getDescription().getComponentClass().getName(),
-				                  true)) {
-						// Gets the default layout if the layout was originally set with a layout
-						// that is no longer available due to preference settings
+					m_currentLayout = layout;
+					if (layout.getDescription().getComponentClass() != null) {
+						if (!InstanceScope.INSTANCE.getNode(
+								IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
+										layout.getDescription().getComponentClass().getName(),
+										true)) {
+							// Gets the default layout if the layout was originally set with a layout
+							// that is no longer available due to preference settings
 							m_currentLayout = m_composite.getDefaultCompositeInfo();
 							m_composite.setLayout(m_currentLayout);
-					}
+						}
 					}
 					LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, m_currentLayout);
 					if (policy == null) {
@@ -122,8 +122,8 @@ public class CompositeEditPart extends ControlEditPart {
 
 				} catch (Exception e) {
 
-          e.printStackTrace();
-        }
+					e.printStackTrace();
+				}
 
 			} else {
 				EditPolicy policy = getEditPolicy(EditPolicy.LAYOUT_ROLE);

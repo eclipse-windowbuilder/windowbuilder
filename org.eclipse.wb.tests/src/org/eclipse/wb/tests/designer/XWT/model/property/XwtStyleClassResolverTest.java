@@ -22,32 +22,32 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
  * @author scheglov_ke
  */
 public class XwtStyleClassResolverTest extends XwtModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    XmlObjectInfo object = parse("<Shell/>");
-    Property property = object.getPropertyByTitle("enabled");
-    IStyleClassResolver resolver = XwtStyleClassResolver.INSTANCE;
-    // SWT
-    assertEquals("", resolver.resolve(property, "org.eclipse.swt.SWT"));
-    assertXML("<Shell/>");
-    // existing package
-    assertEquals("(t:Constants).", resolver.resolve(property, "test.Constants"));
-    assertXML("<Shell/>");
-    // new package
-    assertEquals("(p1:Constants).", resolver.resolve(property, "my.own.package.Constants"));
-    assertXML("<Shell xmlns:p1='clr-namespace:my.own.package'/>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		XmlObjectInfo object = parse("<Shell/>");
+		Property property = object.getPropertyByTitle("enabled");
+		IStyleClassResolver resolver = XwtStyleClassResolver.INSTANCE;
+		// SWT
+		assertEquals("", resolver.resolve(property, "org.eclipse.swt.SWT"));
+		assertXML("<Shell/>");
+		// existing package
+		assertEquals("(t:Constants).", resolver.resolve(property, "test.Constants"));
+		assertXML("<Shell/>");
+		// new package
+		assertEquals("(p1:Constants).", resolver.resolve(property, "my.own.package.Constants"));
+		assertXML("<Shell xmlns:p1='clr-namespace:my.own.package'/>");
+	}
 }

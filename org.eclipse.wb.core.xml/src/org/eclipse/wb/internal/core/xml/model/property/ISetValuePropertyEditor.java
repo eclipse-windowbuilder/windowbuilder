@@ -20,5 +20,5 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
  * @coverage XML.model.property
  */
 public interface ISetValuePropertyEditor {
-  void setValue(GenericProperty property, Object value) throws Exception;
+	void setValue(GenericProperty property, Object value) throws Exception;
 }

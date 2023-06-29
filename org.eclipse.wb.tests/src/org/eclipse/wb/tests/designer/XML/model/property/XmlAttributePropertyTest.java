@@ -24,42 +24,42 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
  * @author scheglov_ke
  */
 public class XmlAttributePropertyTest extends AbstractCoreTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    XmlObjectInfo shell = parse("<Shell/>");
-    // create XMLProperty
-    XmlProperty property =
-        new XmlAttributeProperty(shell, "title", StringPropertyEditor.INSTANCE, "attr");
-    assertEquals("title", property.getTitle());
-    assertSame(PropertyCategory.NORMAL, property.getCategory());
-    // object
-    assertSame(shell, property.getObjectInfo());
-    assertSame(shell, property.getObject());
-    // no value initially
-    assertEquals(null, property.getValue());
-    assertFalse(property.isModified());
-    // set value
-    property.setValue("abc");
-    assertXML("<Shell attr='abc'/>");
-    assertEquals("abc", property.getValue());
-    assertTrue(property.isModified());
-    // remove value
-    property.setValue(Property.UNKNOWN_VALUE);
-    assertXML("<Shell/>");
-    assertEquals(null, property.getValue());
-    assertFalse(property.isModified());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		XmlObjectInfo shell = parse("<Shell/>");
+		// create XMLProperty
+		XmlProperty property =
+				new XmlAttributeProperty(shell, "title", StringPropertyEditor.INSTANCE, "attr");
+		assertEquals("title", property.getTitle());
+		assertSame(PropertyCategory.NORMAL, property.getCategory());
+		// object
+		assertSame(shell, property.getObjectInfo());
+		assertSame(shell, property.getObject());
+		// no value initially
+		assertEquals(null, property.getValue());
+		assertFalse(property.isModified());
+		// set value
+		property.setValue("abc");
+		assertXML("<Shell attr='abc'/>");
+		assertEquals("abc", property.getValue());
+		assertTrue(property.isModified());
+		// remove value
+		property.setValue(Property.UNKNOWN_VALUE);
+		assertXML("<Shell/>");
+		assertEquals(null, property.getValue());
+		assertFalse(property.isModified());
+	}
 }

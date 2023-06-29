@@ -29,53 +29,53 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swt.editor.palette
  */
 public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = Activator.getImage("info/layout/absolute/layout.gif");
+	private static final Image ICON = Activator.getImage("info/layout/absolute/layout.gif");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbsoluteLayoutEntryInfo() {
-    setName(ModelMessages.AbsoluteLayoutEntryInfo_name);
-    setDescription(ModelMessages.AbsoluteLayoutEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbsoluteLayoutEntryInfo() {
+		setName(ModelMessages.AbsoluteLayoutEntryInfo_name);
+		setDescription(ModelMessages.AbsoluteLayoutEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ToolEntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Tool createTool() throws Exception {
-    // prepare factory
-    ICreationFactory factory = new ICreationFactory() {
-      private AbsoluteLayoutInfo m_layout;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ToolEntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Tool createTool() throws Exception {
+		// prepare factory
+		ICreationFactory factory = new ICreationFactory() {
+			private AbsoluteLayoutInfo m_layout;
 
-      @Override
-      public void activate() throws Exception {
-        ToolkitDescription toolkit = m_rootJavaInfo.getDescription().getToolkit();
-        AbsoluteLayoutCreationSupport creationSupport = new AbsoluteLayoutCreationSupport();
-        m_layout = new AbsoluteLayoutInfo(m_editor, toolkit, creationSupport);
-        m_layout.setObject(null); // force initialize
-      }
+			@Override
+			public void activate() throws Exception {
+				ToolkitDescription toolkit = m_rootJavaInfo.getDescription().getToolkit();
+				AbsoluteLayoutCreationSupport creationSupport = new AbsoluteLayoutCreationSupport();
+				m_layout = new AbsoluteLayoutInfo(m_editor, toolkit, creationSupport);
+				m_layout.setObject(null); // force initialize
+			}
 
-      @Override
-      public Object getNewObject() {
-        return m_layout;
-      }
-    };
-    // return tool
-    return new CreationTool(factory);
-  }
+			@Override
+			public Object getNewObject() {
+				return m_layout;
+			}
+		};
+		// return tool
+		return new CreationTool(factory);
+	}
 }

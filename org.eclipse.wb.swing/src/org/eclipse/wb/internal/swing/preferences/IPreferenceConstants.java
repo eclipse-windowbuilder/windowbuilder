@@ -17,11 +17,11 @@ package org.eclipse.wb.internal.swing.preferences;
  * @coverage swing.preferences
  */
 public interface IPreferenceConstants
-    extends
-      org.eclipse.wb.internal.core.preferences.IPreferenceConstants {
-  String TOOLKIT_ID = "org.eclipse.wb.swing";
-  /**
-   * The template for <code>Layout</code> variable name.
-   */
-  String P_LAYOUT_NAME_TEMPLATE = "templateLayoutName";
+extends
+org.eclipse.wb.internal.core.preferences.IPreferenceConstants {
+	String TOOLKIT_ID = "org.eclipse.wb.swing";
+	/**
+	 * The template for <code>Layout</code> variable name.
+	 */
+	String P_LAYOUT_NAME_TEMPLATE = "templateLayoutName";
 }

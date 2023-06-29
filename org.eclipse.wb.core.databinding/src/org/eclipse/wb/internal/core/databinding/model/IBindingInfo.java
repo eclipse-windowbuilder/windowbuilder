@@ -18,33 +18,33 @@ package org.eclipse.wb.internal.core.databinding.model;
  * @coverage bindings.model
  */
 public interface IBindingInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link IObserveInfo} the "target" model.
-   */
-  IObserveInfo getTarget();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link IObserveInfo} the "target" model.
+	 */
+	IObserveInfo getTarget();
 
-  /**
-   * @return {@link IObserveInfo} the "target property" model.
-   */
-  IObserveInfo getTargetProperty();
+	/**
+	 * @return {@link IObserveInfo} the "target property" model.
+	 */
+	IObserveInfo getTargetProperty();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Model
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link IObserveInfo} the "model" model.
-   */
-  IObserveInfo getModel();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Model
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link IObserveInfo} the "model" model.
+	 */
+	IObserveInfo getModel();
 
-  /**
-   * @return {@link IObserveInfo} the "model property" model.
-   */
-  IObserveInfo getModelProperty();
+	/**
+	 * @return {@link IObserveInfo} the "model property" model.
+	 */
+	IObserveInfo getModelProperty();
 }

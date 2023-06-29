@@ -26,17 +26,17 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @coverage core.model.parser
  */
 public abstract class ParseFactoryNoModel {
-  /**
-   * @return <code>true</code> if given {@link ASTNode} is not {@link JavaInfo}.
-   */
-  public boolean noModel(ASTNode node) {
-    return false;
-  }
+	/**
+	 * @return <code>true</code> if given {@link ASTNode} is not {@link JavaInfo}.
+	 */
+	public boolean noModel(ASTNode node) {
+		return false;
+	}
 
-  /**
-   * @return <code>true</code> if given {@link ClassInstanceCreation} is not {@link JavaInfo}.
-   */
-  public boolean noModel(ClassInstanceCreation creation, ITypeBinding typeBinding) {
-    return false;
-  }
+	/**
+	 * @return <code>true</code> if given {@link ClassInstanceCreation} is not {@link JavaInfo}.
+	 */
+	public boolean noModel(ClassInstanceCreation creation, ITypeBinding typeBinding) {
+		return false;
+	}
 }

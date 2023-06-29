@@ -27,46 +27,46 @@ import org.osgi.framework.Bundle;
  * @author scheglov_ke
  */
 public class AbstractFormLayoutTest extends AbstractLayoutTest {
-  protected boolean m_useFormsImports = true;
+	protected boolean m_useFormsImports = true;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    LafSupport.applySelectedLAF(LafSupport.getDefaultLAF());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		LafSupport.applySelectedLAF(LafSupport.getDefaultLAF());
+	}
 
-  @Override
-  protected void configureNewProject() throws Exception {
-    super.configureNewProject();
-    do_configureNewProject();
-  }
+	@Override
+	protected void configureNewProject() throws Exception {
+		super.configureNewProject();
+		do_configureNewProject();
+	}
 
-  static void do_configureNewProject() throws Exception {
-    Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.FormLayout.lib");
-    m_testProject.addExternalJar(FileLocator.toFileURL(
-        libBundle.getEntry("/jgoodies-common-1.8.0.jar")).getPath());
-    m_testProject.addExternalJar(FileLocator.toFileURL(
-        libBundle.getEntry("/jgoodies-forms-1.8.0.jar")).getPath());
-  }
+	static void do_configureNewProject() throws Exception {
+		Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.FormLayout.lib");
+		m_testProject.addExternalJar(FileLocator.toFileURL(
+				libBundle.getEntry("/jgoodies-common-1.8.0.jar")).getPath());
+		m_testProject.addExternalJar(FileLocator.toFileURL(
+				libBundle.getEntry("/jgoodies-forms-1.8.0.jar")).getPath());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTestSource(String... lines) {
-    if (m_useFormsImports) {
-      lines =
-          CodeUtils.join(new String[]{
-              "import com.jgoodies.forms.layout.*;",
-              "import com.jgoodies.forms.factories.*;"}, lines);
-    }
-    return super.getTestSource(lines);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTestSource(String... lines) {
+		if (m_useFormsImports) {
+			lines =
+					CodeUtils.join(new String[]{
+							"import com.jgoodies.forms.layout.*;",
+					"import com.jgoodies.forms.factories.*;"}, lines);
+		}
+		return super.getTestSource(lines);
+	}
 }

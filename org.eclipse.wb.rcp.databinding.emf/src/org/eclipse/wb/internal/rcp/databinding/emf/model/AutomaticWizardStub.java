@@ -29,50 +29,50 @@ import java.util.List;
  * @coverage bindings.rcp.emf.model
  */
 public final class AutomaticWizardStub implements IAutomaticWizardStub {
-  private final List<PropertyInfo> m_properties;
+	private final List<PropertyInfo> m_properties;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AutomaticWizardStub(IJavaProject javaProject,
-      ClassLoader classLoader,
-      Class<?> eObjectClass) throws Exception {
-    List<VariableDeclarationFragment> fragments = Collections.emptyList();
-    PropertiesSupport propertiesSupport =
-        new PropertiesSupport(javaProject, classLoader, fragments);
-    m_properties = propertiesSupport.getProperties(eObjectClass);
-    EmfObserveTypeContainer.ensureDBLibraries(
-        javaProject,
-        "org.eclipse.emf.databinding.EMFObservables",
-        "org.eclipse.emf.databinding");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AutomaticWizardStub(IJavaProject javaProject,
+			ClassLoader classLoader,
+			Class<?> eObjectClass) throws Exception {
+		List<VariableDeclarationFragment> fragments = Collections.emptyList();
+		PropertiesSupport propertiesSupport =
+				new PropertiesSupport(javaProject, classLoader, fragments);
+		m_properties = propertiesSupport.getProperties(eObjectClass);
+		EmfObserveTypeContainer.ensureDBLibraries(
+				javaProject,
+				"org.eclipse.emf.databinding.EMFObservables",
+				"org.eclipse.emf.databinding");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IAutomaticWizardStub
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addImports(Collection<String> importList) {
-    importList.add("org.eclipse.emf.databinding.EMFObservables");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IAutomaticWizardStub
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addImports(Collection<String> importList) {
+		importList.add("org.eclipse.emf.databinding.EMFObservables");
+	}
 
-  @Override
-  public String createSourceCode(String fieldName, String propertyName) {
-    for (PropertyInfo property : m_properties) {
-      if (propertyName.equals(property.name)) {
-        return "\t\tIObservableValue "
-            + propertyName
-            + "ObserveValue = EMFObservables.observeValue("
-            + fieldName
-            + ", "
-            + property.reference
-            + ");";
-      }
-    }
-    Assert.fail("Undefine property: " + propertyName);
-    return null;
-  }
+	@Override
+	public String createSourceCode(String fieldName, String propertyName) {
+		for (PropertyInfo property : m_properties) {
+			if (propertyName.equals(property.name)) {
+				return "\t\tIObservableValue "
+						+ propertyName
+						+ "ObserveValue = EMFObservables.observeValue("
+						+ fieldName
+						+ ", "
+						+ property.reference
+						+ ");";
+			}
+		}
+		Assert.fail("Undefine property: " + propertyName);
+		return null;
+	}
 }

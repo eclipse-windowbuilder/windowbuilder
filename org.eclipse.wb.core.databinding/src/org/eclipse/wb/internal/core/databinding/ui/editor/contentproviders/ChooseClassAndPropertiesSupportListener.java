@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
  * @coverage bindings.ui
  */
 public interface ChooseClassAndPropertiesSupportListener {
-  /**
-   * The content provider has finish load properties.
-   */
-  void loadProperties(boolean successful);
+	/**
+	 * The content provider has finish load properties.
+	 */
+	void loadProperties(boolean successful);
 }

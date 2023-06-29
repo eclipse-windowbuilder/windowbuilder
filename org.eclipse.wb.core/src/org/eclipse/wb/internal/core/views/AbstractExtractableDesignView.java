@@ -44,214 +44,214 @@ import java.util.Map;
  * @coverage core.views
  */
 public abstract class AbstractExtractableDesignView extends PageBookView {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void init(IViewSite site) throws PartInitException {
-    super.init(site);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void init(IViewSite site) throws PartInitException {
+		super.init(site);
+	}
 
-  @Override
-  public void createPartControl(Composite parent) {
-    super.createPartControl(parent);
-    hookIntoWorkbench();
-    // simulate activation for all opened editors,
-    // because it is possible that more than one of them are visible
-    parent.getDisplay().asyncExec(() -> {
-        IWorkbenchPage activePage = getSite().getWorkbenchWindow().getActivePage();
-        IWorkbenchPart activePart = activePage.getActivePart();
-        // show pages for all editors
-        IEditorReference[] editorReferences = activePage.getEditorReferences();
-        for (IEditorReference editorReference : editorReferences) {
-          IEditorPart editor = editorReference.getEditor(false);
-          if (isImportant(editor)) {
-            partActivated(editor);
-          }
-        }
-        // show page for original active part
-        partActivated(activePart);
-      });
-  }
+	@Override
+	public void createPartControl(Composite parent) {
+		super.createPartControl(parent);
+		hookIntoWorkbench();
+		// simulate activation for all opened editors,
+		// because it is possible that more than one of them are visible
+		parent.getDisplay().asyncExec(() -> {
+			IWorkbenchPage activePage = getSite().getWorkbenchWindow().getActivePage();
+			IWorkbenchPart activePart = activePage.getActivePart();
+			// show pages for all editors
+			IEditorReference[] editorReferences = activePage.getEditorReferences();
+			for (IEditorReference editorReference : editorReferences) {
+				IEditorPart editor = editorReference.getEditor(false);
+				if (isImportant(editor)) {
+					partActivated(editor);
+				}
+			}
+			// show page for original active part
+			partActivated(activePart);
+		});
+	}
 
-  /**
-   * Installs {@link IPerspectiveListener2} for intercepting closing this {@link ViewPart} before
-   * {@link #dispose()}. Problem with {@link #dispose()} is that at this time all {@link Control}'s
-   * are already disposed, including {@link IExtractableControl}'s, that we "borrowed" from
-   * {@link DesignComposite}. So, we need some early notification to return
-   * {@link IExtractableControl} back.
-   */
-  private void hookIntoWorkbench() {
-    final IWorkbenchPage page = getSite().getPage();
-    // track this view visible/hide events
-    final IPartListener2 partListener = new IPartListener2() {
-      @Override
-      public void partVisible(IWorkbenchPartReference partRef) {
-        // some "part" become visible, if this means that "editor" restored, do extract
-        if (!isEditorMaximized()) {
-          doExtract();
-        }
-      }
+	/**
+	 * Installs {@link IPerspectiveListener2} for intercepting closing this {@link ViewPart} before
+	 * {@link #dispose()}. Problem with {@link #dispose()} is that at this time all {@link Control}'s
+	 * are already disposed, including {@link IExtractableControl}'s, that we "borrowed" from
+	 * {@link DesignComposite}. So, we need some early notification to return
+	 * {@link IExtractableControl} back.
+	 */
+	private void hookIntoWorkbench() {
+		final IWorkbenchPage page = getSite().getPage();
+		// track this view visible/hide events
+		final IPartListener2 partListener = new IPartListener2() {
+			@Override
+			public void partVisible(IWorkbenchPartReference partRef) {
+				// some "part" become visible, if this means that "editor" restored, do extract
+				if (!isEditorMaximized()) {
+					doExtract();
+				}
+			}
 
-      @Override
-      public void partHidden(IWorkbenchPartReference partRef) {
-        // some "part" become hidden, if this means that "editor" maximized, do restore;
-        // do in async, because editor state updated after "partHidden" event
-        Display.getCurrent().asyncExec(() -> {
-            if (isEditorMaximized()) {
-              doRestore();
-            }
-          });
-      }
+			@Override
+			public void partHidden(IWorkbenchPartReference partRef) {
+				// some "part" become hidden, if this means that "editor" maximized, do restore;
+				// do in async, because editor state updated after "partHidden" event
+				Display.getCurrent().asyncExec(() -> {
+					if (isEditorMaximized()) {
+						doRestore();
+					}
+				});
+			}
 
-      @Override
-      public void partClosed(IWorkbenchPartReference partRef) {
-        // if this "part" closed, do restore
-        if (partRef.getPart(false) == AbstractExtractableDesignView.this) {
-          doRestore();
-        }
-      }
+			@Override
+			public void partClosed(IWorkbenchPartReference partRef) {
+				// if this "part" closed, do restore
+				if (partRef.getPart(false) == AbstractExtractableDesignView.this) {
+					doRestore();
+				}
+			}
 
-      ////////////////////////////////////////////////////////////////////////////
-      //
-      // Utils
-      //
-      ////////////////////////////////////////////////////////////////////////////
-      private boolean isEditorMaximized() {
-        IEditorReference[] editorReferences = page.getEditorReferences();
-        for (IEditorReference editorReference : editorReferences) {
-          if (page.getPartState(editorReference) == IWorkbenchPage.STATE_MAXIMIZED) {
-            return true;
-          }
-        }
-        return false;
-      }
+			////////////////////////////////////////////////////////////////////////////
+			//
+			// Utils
+			//
+			////////////////////////////////////////////////////////////////////////////
+			private boolean isEditorMaximized() {
+				IEditorReference[] editorReferences = page.getEditorReferences();
+				for (IEditorReference editorReference : editorReferences) {
+					if (page.getPartState(editorReference) == IWorkbenchPage.STATE_MAXIMIZED) {
+						return true;
+					}
+				}
+				return false;
+			}
 
-      ////////////////////////////////////////////////////////////////////////////
-      //
-      // Unused
-      //
-      ////////////////////////////////////////////////////////////////////////////
-      @Override
-      public void partOpened(IWorkbenchPartReference partRef) {
-      }
+			////////////////////////////////////////////////////////////////////////////
+			//
+			// Unused
+			//
+			////////////////////////////////////////////////////////////////////////////
+			@Override
+			public void partOpened(IWorkbenchPartReference partRef) {
+			}
 
-      @Override
-      public void partActivated(IWorkbenchPartReference partRef) {
-      }
+			@Override
+			public void partActivated(IWorkbenchPartReference partRef) {
+			}
 
-      @Override
-      public void partDeactivated(IWorkbenchPartReference partRef) {
-      }
+			@Override
+			public void partDeactivated(IWorkbenchPartReference partRef) {
+			}
 
-      @Override
-      public void partBroughtToTop(IWorkbenchPartReference partRef) {
-      }
+			@Override
+			public void partBroughtToTop(IWorkbenchPartReference partRef) {
+			}
 
-      @Override
-      public void partInputChanged(IWorkbenchPartReference partRef) {
-      }
-    };
-    page.addPartListener(partListener);
-    // remove perspective listener on dispose
-    getPageBook().addDisposeListener(e -> page.removePartListener(partListener));
-  }
+			@Override
+			public void partInputChanged(IWorkbenchPartReference partRef) {
+			}
+		};
+		page.addPartListener(partListener);
+		// remove perspective listener on dispose
+		getPageBook().addDisposeListener(e -> page.removePartListener(partListener));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Extract/restore
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Extract all registered {@link IExtractableControl}'s.
-   */
-  private void doExtract() {
-    for (IExtractableControl extractableControl : m_extractableControls.values()) {
-      extractableControl.extract(getPageBook());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Extract/restore
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Extract all registered {@link IExtractableControl}'s.
+	 */
+	private void doExtract() {
+		for (IExtractableControl extractableControl : m_extractableControls.values()) {
+			extractableControl.extract(getPageBook());
+		}
+	}
 
-  /**
-   * Restores all registered {@link IExtractableControl}'s.
-   */
-  private void doRestore() {
-    for (IExtractableControl extractableControl : m_extractableControls.values()) {
-      extractableControl.restore();
-    }
-  }
+	/**
+	 * Restores all registered {@link IExtractableControl}'s.
+	 */
+	private void doRestore() {
+		for (IExtractableControl extractableControl : m_extractableControls.values()) {
+			extractableControl.restore();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PageBookView
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final Map<IWorkbenchPart, IExtractableControl> m_extractableControls = new HashMap<>();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PageBookView
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final Map<IWorkbenchPart, IExtractableControl> m_extractableControls = new HashMap<>();
 
-  @Override
-  protected IPage createDefaultPage(PageBook book) {
-    MessagePage page = new MessagePage();
-    page.createControl(getPageBook());
-    initPage(page);
-    return page;
-  }
+	@Override
+	protected IPage createDefaultPage(PageBook book) {
+		MessagePage page = new MessagePage();
+		page.createControl(getPageBook());
+		initPage(page);
+		return page;
+	}
 
-  @Override
-  protected PageRec doCreatePage(final IWorkbenchPart part) {
-    // prepare extractable
-    final IExtractableControl extractableControl;
-    {
-      IDesignCompositeProvider provider = (IDesignCompositeProvider) part;
-      DesignComposite designComposite = provider.getDesignComposite();
-      extractableControl = getExtractableControl(designComposite);
-      m_extractableControls.put(part, extractableControl);
-    }
-    // create page
-    final Control extractedControl = extractableControl.getControl();
-    IPageBookViewPage page = new Page() {
-      @Override
-      public void createControl(Composite parent) {
-        extractableControl.extract(parent);
-      }
+	@Override
+	protected PageRec doCreatePage(final IWorkbenchPart part) {
+		// prepare extractable
+		final IExtractableControl extractableControl;
+		{
+			IDesignCompositeProvider provider = (IDesignCompositeProvider) part;
+			DesignComposite designComposite = provider.getDesignComposite();
+			extractableControl = getExtractableControl(designComposite);
+			m_extractableControls.put(part, extractableControl);
+		}
+		// create page
+		final Control extractedControl = extractableControl.getControl();
+		IPageBookViewPage page = new Page() {
+			@Override
+			public void createControl(Composite parent) {
+				extractableControl.extract(parent);
+			}
 
-      @Override
-      public Control getControl() {
-        return extractedControl.getParent() == getPageBook() ? extractedControl : null;
-      }
+			@Override
+			public Control getControl() {
+				return extractedControl.getParent() == getPageBook() ? extractedControl : null;
+			}
 
-      @Override
-      public void setFocus() {
-        extractedControl.setFocus();
-      }
-    };
-    initPage(page);
-    page.createControl(getPageBook());
-    return new PageRec(part, page);
-  }
+			@Override
+			public void setFocus() {
+				extractedControl.setFocus();
+			}
+		};
+		initPage(page);
+		page.createControl(getPageBook());
+		return new PageRec(part, page);
+	}
 
-  @Override
-  protected void doDestroyPage(IWorkbenchPart part, PageRec pageRecord) {
-    m_extractableControls.remove(part);
-  }
+	@Override
+	protected void doDestroyPage(IWorkbenchPart part, PageRec pageRecord) {
+		m_extractableControls.remove(part);
+	}
 
-  @Override
-  protected IWorkbenchPart getBootstrapPart() {
-    return getSite().getPage().getActiveEditor();
-  }
+	@Override
+	protected IWorkbenchPart getBootstrapPart() {
+		return getSite().getPage().getActiveEditor();
+	}
 
-  @Override
-  protected boolean isImportant(IWorkbenchPart part) {
-    return part instanceof IDesignCompositeProvider;
-  }
+	@Override
+	protected boolean isImportant(IWorkbenchPart part) {
+		return part instanceof IDesignCompositeProvider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link IExtractableControl} to extract from {@link DesignComposite}.
-   */
-  protected abstract IExtractableControl getExtractableControl(DesignComposite designComposite);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link IExtractableControl} to extract from {@link DesignComposite}.
+	 */
+	protected abstract IExtractableControl getExtractableControl(DesignComposite designComposite);
 }

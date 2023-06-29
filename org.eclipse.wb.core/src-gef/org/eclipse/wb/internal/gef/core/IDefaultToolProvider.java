@@ -19,8 +19,8 @@ import org.eclipse.wb.gef.core.tools.Tool;
  * @coverage gef.core
  */
 public interface IDefaultToolProvider {
-  /**
-   * Allow {@link IDefaultToolProvider} override default {@link Tool} loading.
-   */
-  void loadDefaultTool();
+	/**
+	 * Allow {@link IDefaultToolProvider} override default {@link Tool} loading.
+	 */
+	void loadDefaultTool();
 }

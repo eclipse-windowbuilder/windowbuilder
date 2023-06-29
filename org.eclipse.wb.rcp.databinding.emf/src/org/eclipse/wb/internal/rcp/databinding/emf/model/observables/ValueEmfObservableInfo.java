@@ -21,12 +21,12 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.BeanObser
  * @coverage bindings.rcp.emf.model
  */
 public final class ValueEmfObservableInfo extends BeanObservableInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ValueEmfObservableInfo(EObjectBindableInfo eObject, EPropertyBindableInfo eProperty) {
-    super(eObject, eProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ValueEmfObservableInfo(EObjectBindableInfo eObject, EPropertyBindableInfo eProperty) {
+		super(eObject, eProperty);
+	}
 }

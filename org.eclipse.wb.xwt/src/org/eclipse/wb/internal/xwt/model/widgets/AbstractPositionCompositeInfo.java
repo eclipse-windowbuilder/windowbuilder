@@ -40,135 +40,135 @@ import java.util.Set;
  * @coverage XWT.model.widgets
  */
 public abstract class AbstractPositionCompositeInfo extends CompositeInfo {
-  private final String[] m_properties;
-  private final AbstractPositionInfo[] m_positions;
+	private final String[] m_properties;
+	private final AbstractPositionInfo[] m_positions;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractPositionCompositeInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport,
-      String[] properties) throws Exception {
-    super(context, description, creationSupport);
-    m_properties = properties;
-    {
-      m_positions = new AbstractPositionInfo[m_properties.length];
-      for (int i = 0; i < m_properties.length; i++) {
-        String method = m_properties[i];
-        m_positions[i] = new AbstractPositionInfo(this, method);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractPositionCompositeInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport,
+			String[] properties) throws Exception {
+		super(context, description, creationSupport);
+		m_properties = properties;
+		{
+			m_positions = new AbstractPositionInfo[m_properties.length];
+			for (int i = 0; i < m_properties.length; i++) {
+				String method = m_properties[i];
+				m_positions[i] = new AbstractPositionInfo(this, method);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialization
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    // listener that adds prefix with name of position
-    addBroadcastListener(new ObjectInfoPresentationDecorateText() {
-      public void invoke(ObjectInfo object, String[] text) throws Exception {
-        if (object instanceof ControlInfo
-            && object.getParent() == AbstractPositionCompositeInfo.this) {
-          for (String method : m_properties) {
-            if (getControl(method) == object) {
-              text[0] = method + " - " + text[0];
-              break;
-            }
-          }
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialization
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		// listener that adds prefix with name of position
+		addBroadcastListener(new ObjectInfoPresentationDecorateText() {
+			public void invoke(ObjectInfo object, String[] text) throws Exception {
+				if (object instanceof ControlInfo
+						&& object.getParent() == AbstractPositionCompositeInfo.this) {
+					for (String method : m_properties) {
+						if (getControl(method) == object) {
+							text[0] = method + " - " + text[0];
+							break;
+						}
+					}
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ControlInfo} set using given <code>setXXX()</code> method.
-   */
-  public final ControlInfo getControl(String property) {
-    for (ControlInfo control : getChildrenControls()) {
-      DocumentElement controlElement = control.getCreationSupport().getElement();
-      String propertyTag = controlElement.getParent().getTag();
-      if (propertyTag.endsWith("." + property)) {
-        return control;
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ControlInfo} set using given <code>setXXX()</code> method.
+	 */
+	public final ControlInfo getControl(String property) {
+		for (ControlInfo control : getChildrenControls()) {
+			DocumentElement controlElement = control.getCreationSupport().getElement();
+			String propertyTag = controlElement.getParent().getTag();
+			if (propertyTag.endsWith("." + property)) {
+				return control;
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new XmlObjectPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenTree() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
-      Set<ControlInfo> positionedControls = Sets.newHashSet();
-      for (int i = 0; i < m_properties.length; i++) {
-        String property = m_properties[i];
-        ControlInfo control = getControl(property);
-        if (control != null && !positionedControls.contains(control)) {
-          positionedControls.add(control);
-          children.remove(control);
-          children.add(i, control);
-        } else {
-          children.add(i, m_positions[i]);
-        }
-      }
-      return children;
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new XmlObjectPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenTree() throws Exception {
+			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+			Set<ControlInfo> positionedControls = Sets.newHashSet();
+			for (int i = 0; i < m_properties.length; i++) {
+				String property = m_properties[i];
+				ControlInfo control = getControl(property);
+				if (control != null && !positionedControls.contains(control)) {
+					positionedControls.add(control);
+					children.remove(control);
+					children.add(i, control);
+				} else {
+					children.add(i, m_positions[i]);
+				}
+			}
+			return children;
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link ControlInfo} and associates it with given property.
-   */
-  public final void command_CREATE(ControlInfo control, String property) throws Exception {
-    XmlObjectUtils.add(control, Associations.property(property), this, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link ControlInfo} and associates it with given property.
+	 */
+	public final void command_CREATE(ControlInfo control, String property) throws Exception {
+		XmlObjectUtils.add(control, Associations.property(property), this, null);
+	}
 
-  /**
-   * Moves existing {@link ControlInfo} and associates it with given property.
-   */
-  public final void command_MOVE(ControlInfo control, String property) throws Exception {
-    ControlInfo nextControl = getNextControl(control, property);
-    XmlObjectUtils.move(control, Associations.property(property), this, nextControl);
-  }
+	/**
+	 * Moves existing {@link ControlInfo} and associates it with given property.
+	 */
+	public final void command_MOVE(ControlInfo control, String property) throws Exception {
+		ControlInfo nextControl = getNextControl(control, property);
+		XmlObjectUtils.move(control, Associations.property(property), this, nextControl);
+	}
 
-  /**
-   * @return the {@link ControlInfo} to use as reference when move into given position.
-   */
-  private ControlInfo getNextControl(ControlInfo movingControl, String property) {
-    int index = ArrayUtils.indexOf(m_properties, property);
-    Assert.isLegal(index >= 0, "Invalid position: " + property);
-    for (int i = index + 1; i < m_properties.length; i++) {
-      String method = m_properties[i];
-      ControlInfo propertyControl = getControl(method);
-      if (propertyControl != null && propertyControl != movingControl) {
-        return propertyControl;
-      }
-    }
-    return null;
-  }
+	/**
+	 * @return the {@link ControlInfo} to use as reference when move into given position.
+	 */
+	private ControlInfo getNextControl(ControlInfo movingControl, String property) {
+		int index = ArrayUtils.indexOf(m_properties, property);
+		Assert.isLegal(index >= 0, "Invalid position: " + property);
+		for (int i = index + 1; i < m_properties.length; i++) {
+			String method = m_properties[i];
+			ControlInfo propertyControl = getControl(method);
+			if (propertyControl != null && propertyControl != movingControl) {
+				return propertyControl;
+			}
+		}
+		return null;
+	}
 }

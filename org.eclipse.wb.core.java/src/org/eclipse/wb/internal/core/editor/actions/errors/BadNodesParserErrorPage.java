@@ -21,13 +21,13 @@ import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
  * @coverage core.editor.action.error
  */
 public final class BadNodesParserErrorPage extends BadNodesErrorPage {
-  @Override
-  public String getTitle() {
-    return Messages.BadNodesParserErrorPage_title;
-  }
+	@Override
+	public String getTitle() {
+		return Messages.BadNodesParserErrorPage_title;
+	}
 
-  @Override
-  protected BadNodesCollection getCollection(EditorState editorState) {
-    return editorState.getBadParserNodes();
-  }
+	@Override
+	protected BadNodesCollection getCollection(EditorState editorState) {
+		return editorState.getBadParserNodes();
+	}
 }

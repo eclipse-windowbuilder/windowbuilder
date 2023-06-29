@@ -33,96 +33,96 @@ import java.util.List;
  * @coverage core.ui
  */
 public final class ClasspathImageRoot implements IImageRoot {
-  private final IJavaProject m_project;
-  private final IClasspathImageContainer m_containers[];
+	private final IJavaProject m_project;
+	private final IClasspathImageContainer m_containers[];
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ClasspathImageRoot(String id, IJavaProject project) {
-    m_project = project;
-    //
-    List<IImageContainer> containers = Lists.newArrayList();
-    try {
-      IPackageFragmentRoot[] roots = m_project.getAllPackageFragmentRoots();
-      for (int i = 0; i < roots.length; i++) {
-        IPackageFragmentRoot root = roots[i];
-        try {
-          if (root.isArchive()) {
-            JarImageContainer jarContainer = new JarImageContainer(id, root);
-            String iconClasspaths = InstanceScope.INSTANCE.getNode(
-                IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).get(
-                    IEditorPreferenceConstants.WB_CLASSPATH_ICONS,
-                    null);
-            if (iconClasspaths == null || jarContainer.getName().equals(iconClasspaths)) {
-              if (!jarContainer.isEmpty()) {
-                containers.add(jarContainer);
-              }
-            }
-          } else {
-            SrcImageContainer srcContainer = new SrcImageContainer(id, root);
-            if (!srcContainer.isEmpty()) {
-              containers.add(srcContainer);
-            }
-          }
-        } catch (Throwable e) {
-        }
-      }
-    } catch (Throwable e) {
-    }
-    m_containers = containers.toArray(new IClasspathImageContainer[containers.size()]);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ClasspathImageRoot(String id, IJavaProject project) {
+		m_project = project;
+		//
+		List<IImageContainer> containers = Lists.newArrayList();
+		try {
+			IPackageFragmentRoot[] roots = m_project.getAllPackageFragmentRoots();
+			for (int i = 0; i < roots.length; i++) {
+				IPackageFragmentRoot root = roots[i];
+				try {
+					if (root.isArchive()) {
+						JarImageContainer jarContainer = new JarImageContainer(id, root);
+						String iconClasspaths = InstanceScope.INSTANCE.getNode(
+								IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).get(
+										IEditorPreferenceConstants.WB_CLASSPATH_ICONS,
+										null);
+						if (iconClasspaths == null || jarContainer.getName().equals(iconClasspaths)) {
+							if (!jarContainer.isEmpty()) {
+								containers.add(jarContainer);
+							}
+						}
+					} else {
+						SrcImageContainer srcContainer = new SrcImageContainer(id, root);
+						if (!srcContainer.isEmpty()) {
+							containers.add(srcContainer);
+						}
+					}
+				} catch (Throwable e) {
+				}
+			}
+		} catch (Throwable e) {
+		}
+		m_containers = containers.toArray(new IClasspathImageContainer[containers.size()]);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IImageRoot
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dispose() {
-    for (IClasspathImageContainer container : m_containers) {
-      container.dispose();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IImageRoot
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dispose() {
+		for (IClasspathImageContainer container : m_containers) {
+			container.dispose();
+		}
+	}
 
-  @Override
-  public IClasspathImageContainer[] elements() {
-    return m_containers;
-  }
+	@Override
+	public IClasspathImageContainer[] elements() {
+		return m_containers;
+	}
 
-  @Override
-  public Object[] getSelectionPath(Object data) {
-    if (data instanceof String) {
-      // prepare path
-      String path = (String) data;
-      if (!path.startsWith("/")) {
-        return null;
-      }
-      path = path.substring(1);
-      // prepare package and resource names
-      IPath pathObject = new Path(path);
-      String packageName = pathObject.removeLastSegments(1).toPortableString().replace('/', '.');
-      String resourceName = pathObject.lastSegment();
-      // try each root container
-      for (IClasspathImageContainer rootContainer : m_containers) {
-        // try each package container
-        IImageContainer[] packageContainers = rootContainer.elements();
-        for (IImageContainer packageContainer : packageContainers) {
-          if (packageContainer.getName().equals(packageName)) {
-            // try each resource in package
-            IImageElement[] elements = packageContainer.elements();
-            for (IImageElement element : elements) {
-              if (element.getName().equals(resourceName)) {
-                return new Object[]{rootContainer, packageContainer, element};
-              }
-            }
-          }
-        }
-      }
-    }
-    // don't know
-    return null;
-  }
+	@Override
+	public Object[] getSelectionPath(Object data) {
+		if (data instanceof String) {
+			// prepare path
+			String path = (String) data;
+			if (!path.startsWith("/")) {
+				return null;
+			}
+			path = path.substring(1);
+			// prepare package and resource names
+			IPath pathObject = new Path(path);
+			String packageName = pathObject.removeLastSegments(1).toPortableString().replace('/', '.');
+			String resourceName = pathObject.lastSegment();
+			// try each root container
+			for (IClasspathImageContainer rootContainer : m_containers) {
+				// try each package container
+				IImageContainer[] packageContainers = rootContainer.elements();
+				for (IImageContainer packageContainer : packageContainers) {
+					if (packageContainer.getName().equals(packageName)) {
+						// try each resource in package
+						IImageElement[] elements = packageContainer.elements();
+						for (IImageElement element : elements) {
+							if (element.getName().equals(resourceName)) {
+								return new Object[]{rootContainer, packageContainer, element};
+							}
+						}
+					}
+				}
+			}
+		}
+		// don't know
+		return null;
+	}
 }

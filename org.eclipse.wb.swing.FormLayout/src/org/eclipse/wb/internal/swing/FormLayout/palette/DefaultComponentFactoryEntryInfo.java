@@ -28,27 +28,27 @@ import org.osgi.framework.Bundle;
  * @coverage swing.FormLayout.model
  */
 public abstract class DefaultComponentFactoryEntryInfo extends ToolEntryInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Ensures that jar/source with {@link DefaultComponentFactory} is added to {@link IJavaProject}.
-   */
-  protected final void ensureLibrary() throws Exception {
-    if (!ProjectUtils.hasType(m_javaProject, "com.jgoodies.forms.factories.DefaultComponentFactory")) {
-      Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.FormLayout.lib");
-      ProjectUtils.addJar(
-          m_javaProject,
-          libBundle,
-          "jgoodies-common-1.8.0.jar",
-          "jgoodies-common-1.8.0-sources.jar");
-      ProjectUtils.addJar(
-          m_javaProject,
-          libBundle,
-          "jgoodies-forms-1.8.0.jar",
-          "jgoodies-forms-1.8.0-sources.jar");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Ensures that jar/source with {@link DefaultComponentFactory} is added to {@link IJavaProject}.
+	 */
+	protected final void ensureLibrary() throws Exception {
+		if (!ProjectUtils.hasType(m_javaProject, "com.jgoodies.forms.factories.DefaultComponentFactory")) {
+			Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.FormLayout.lib");
+			ProjectUtils.addJar(
+					m_javaProject,
+					libBundle,
+					"jgoodies-common-1.8.0.jar",
+					"jgoodies-common-1.8.0-sources.jar");
+			ProjectUtils.addJar(
+					m_javaProject,
+					libBundle,
+					"jgoodies-forms-1.8.0.jar",
+					"jgoodies-forms-1.8.0-sources.jar");
+		}
+	}
 }

@@ -35,65 +35,65 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class EditorPartWizardPage extends RcpPartWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditorPartWizardPage() {
-    setTitle(WizardsMessages.EditorPartWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/EditorPart/banner.gif"));
-    setDescription(WizardsMessages.EditorPartWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditorPartWizardPage() {
+		setTitle(WizardsMessages.EditorPartWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/EditorPart/banner.gif"));
+		setDescription(WizardsMessages.EditorPartWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    super.createTypeMembers(newType, imports, monitor);
-    InputStream file = Activator.getFile("templates/rcp/EditorPart.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-    if (m_pdeUtils != null) {
-      try {
-        m_pdeUtils.createEditorElement(m_newTypeClassName, getNameText(), m_newTypeClassName);
-      } catch (Throwable e) {
-        throw new CoreException(new Status(IStatus.ERROR,
-            Activator.PLUGIN_ID,
-            IStatus.OK,
-            WizardsMessages.EditorPartWizardPage_errorPluginXml,
-            e));
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		super.createTypeMembers(newType, imports, monitor);
+		InputStream file = Activator.getFile("templates/rcp/EditorPart.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+		if (m_pdeUtils != null) {
+			try {
+				m_pdeUtils.createEditorElement(m_newTypeClassName, getNameText(), m_newTypeClassName);
+			} catch (Throwable e) {
+				throw new CoreException(new Status(IStatus.ERROR,
+						Activator.PLUGIN_ID,
+						IStatus.OK,
+						WizardsMessages.EditorPartWizardPage_errorPluginXml,
+						e));
+			}
+		}
+	}
 
-  @Override
-  protected String performSubstitutions(String code, ImportsManager imports) {
-    code = super.performSubstitutions(code, imports);
-    code = StringUtils.replace(code, "%EDITOR_ID%", m_newTypeClassName);
-    return code;
-  }
+	@Override
+	protected String performSubstitutions(String code, ImportsManager imports) {
+		code = super.performSubstitutions(code, imports);
+		code = StringUtils.replace(code, "%EDITOR_ID%", m_newTypeClassName);
+		return code;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("org.eclipse.ui.part.EditorPart", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("org.eclipse.ui.part.EditorPart", true);
+	}
 
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    createLocalControls(
-        parent,
-        columns,
-        WizardsMessages.EditorPartWizardPage_editorName,
-        WizardsMessages.EditorPartWizardPage_newEditorPart);
-  }
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		createLocalControls(
+				parent,
+				columns,
+				WizardsMessages.EditorPartWizardPage_editorName,
+				WizardsMessages.EditorPartWizardPage_newEditorPart);
+	}
 }

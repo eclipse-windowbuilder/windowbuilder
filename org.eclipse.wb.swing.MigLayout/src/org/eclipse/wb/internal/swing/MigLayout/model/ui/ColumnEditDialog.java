@@ -28,50 +28,50 @@ import java.util.List;
  * @coverage swing.MigLayout.ui
  */
 public final class ColumnEditDialog extends DimensionEditDialog<MigColumnInfo, Alignment> {
-  private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = Lists.newArrayList();
-  static {
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT,
-        ModelMessages.ColumnEditDialog_alignmentDefault));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEFT,
-        ModelMessages.ColumnEditDialog_alignmentLeft));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER,
-        ModelMessages.ColumnEditDialog_alignmentCenter));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.RIGHT,
-        ModelMessages.ColumnEditDialog_alignmentRight));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL,
-        ModelMessages.ColumnEditDialog_alignmentFill));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEADING,
-        ModelMessages.ColumnEditDialog_alignmentLeading));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TRAILING,
-        ModelMessages.ColumnEditDialog_alignmentTrailing));
-  }
+	private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = Lists.newArrayList();
+	static {
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT,
+				ModelMessages.ColumnEditDialog_alignmentDefault));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEFT,
+				ModelMessages.ColumnEditDialog_alignmentLeft));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER,
+				ModelMessages.ColumnEditDialog_alignmentCenter));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.RIGHT,
+				ModelMessages.ColumnEditDialog_alignmentRight));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL,
+				ModelMessages.ColumnEditDialog_alignmentFill));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEADING,
+				ModelMessages.ColumnEditDialog_alignmentLeading));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TRAILING,
+				ModelMessages.ColumnEditDialog_alignmentTrailing));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnEditDialog(Shell parentShell, MigLayoutInfo layout, MigColumnInfo column) {
-    super(parentShell,
-        layout,
-        layout.getColumns(),
-        column,
-        ModelMessages.ColumnEditDialog_title,
-        ALIGNMENTS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnEditDialog(Shell parentShell, MigLayoutInfo layout, MigColumnInfo column) {
+		super(parentShell,
+				layout,
+				layout.getColumns(),
+				column,
+				ModelMessages.ColumnEditDialog_title,
+				ALIGNMENTS);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Alignment getAlignment(MigColumnInfo dimension) {
-    return dimension.getAlignment(false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Alignment getAlignment(MigColumnInfo dimension) {
+		return dimension.getAlignment(false);
+	}
 
-  @Override
-  protected void setAlignment(MigColumnInfo dimension, Alignment alignment) {
-    dimension.setAlignment(alignment);
-  }
+	@Override
+	protected void setAlignment(MigColumnInfo dimension, Alignment alignment) {
+		dimension.setAlignment(alignment);
+	}
 }

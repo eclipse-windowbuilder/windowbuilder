@@ -32,50 +32,50 @@ import javax.swing.JTable;
  * @coverage swing.model
  */
 public final class JTableInfo extends ContainerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JTableInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    evaluateColumnModelInvocations();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JTableInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		evaluateColumnModelInvocations();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Support for getColumnModel() invocations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void evaluateColumnModelInvocations() {
-    addBroadcastListener(new EvaluationEventListener() {
-      @Override
-      public void evaluateAfter(EvaluationContext context, ASTNode node) throws Exception {
-        if (node instanceof ExpressionStatement) {
-          ExpressionStatement expressionStatement = (ExpressionStatement) node;
-          if (AstNodeUtils.isMethodInvocation(
-              expressionStatement.getExpression(),
-              "javax.swing.JTable",
-              "setModel(javax.swing.table.TableModel)")) {
-            evaluateColumnModelInvocations(context);
-          }
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Support for getColumnModel() invocations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void evaluateColumnModelInvocations() {
+		addBroadcastListener(new EvaluationEventListener() {
+			@Override
+			public void evaluateAfter(EvaluationContext context, ASTNode node) throws Exception {
+				if (node instanceof ExpressionStatement) {
+					ExpressionStatement expressionStatement = (ExpressionStatement) node;
+					if (AstNodeUtils.isMethodInvocation(
+							expressionStatement.getExpression(),
+							"javax.swing.JTable",
+							"setModel(javax.swing.table.TableModel)")) {
+						evaluateColumnModelInvocations(context);
+					}
+				}
+			}
+		});
+	}
 
-  private void evaluateColumnModelInvocations(EvaluationContext context) throws Exception {
-    for (MethodInvocation invocationPart : getMethodInvocations("getColumnModel()")) {
-      Statement statement = AstNodeUtils.getEnclosingStatement(invocationPart);
-      if (statement instanceof ExpressionStatement) {
-        ExpressionStatement expressionStatement = (ExpressionStatement) statement;
-        if (expressionStatement.getExpression() instanceof MethodInvocation) {
-          MethodInvocation invocation = (MethodInvocation) expressionStatement.getExpression();
-          AstEvaluationEngine.evaluate(context, invocation);
-        }
-      }
-    }
-  }
+	private void evaluateColumnModelInvocations(EvaluationContext context) throws Exception {
+		for (MethodInvocation invocationPart : getMethodInvocations("getColumnModel()")) {
+			Statement statement = AstNodeUtils.getEnclosingStatement(invocationPart);
+			if (statement instanceof ExpressionStatement) {
+				ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+				if (expressionStatement.getExpression() instanceof MethodInvocation) {
+					MethodInvocation invocation = (MethodInvocation) expressionStatement.getExpression();
+					AstEvaluationEngine.evaluate(context, invocation);
+				}
+			}
+		}
+	}
 }

@@ -16,13 +16,13 @@ package org.eclipse.wb.internal.core.utils.binding;
  * @author lobas_av
  */
 public interface IDataEditor {
-  /**
-   * Returns current editor value.
-   */
-  Object getValue();
+	/**
+	 * Returns current editor value.
+	 */
+	Object getValue();
 
-  /**
-   * Sets new editor value.
-   */
-  void setValue(Object value);
+	/**
+	 * Sets new editor value.
+	 */
+	void setValue(Object value);
 }

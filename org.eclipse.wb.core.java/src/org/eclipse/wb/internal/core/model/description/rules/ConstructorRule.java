@@ -23,40 +23,40 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class ConstructorRule extends Rule {
-  private ComponentDescription componentDescription;
-  private ConstructorDescription constructorDescription;
+	private ComponentDescription componentDescription;
+	private ConstructorDescription constructorDescription;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    componentDescription = (ComponentDescription) getDigester().peek();
-    createConstructorDescription();
-    getDigester().push(constructorDescription);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		componentDescription = (ComponentDescription) getDigester().peek();
+		createConstructorDescription();
+		getDigester().push(constructorDescription);
+	}
 
-  private void createConstructorDescription() {
-    Class<?> componentClass = componentDescription.getComponentClass();
-    constructorDescription = new ConstructorDescription(componentClass);
-  }
+	private void createConstructorDescription() {
+		Class<?> componentClass = componentDescription.getComponentClass();
+		constructorDescription = new ConstructorDescription(componentClass);
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    getDigester().pop();
-    constructorDescription.postProcess();
-    // add constructor only if we are parsing final component class
-    if (componentDescription.getCurrentClass() == componentDescription.getComponentClass()) {
-      componentDescription.addConstructor(constructorDescription);
-    }
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		getDigester().pop();
+		constructorDescription.postProcess();
+		// add constructor only if we are parsing final component class
+		if (componentDescription.getCurrentClass() == componentDescription.getComponentClass()) {
+			componentDescription.addConstructor(constructorDescription);
+		}
+	}
 
-  @Override
-  public void finish() throws Exception {
-    super.finish();
-    componentDescription = null;
-    constructorDescription = null;
-  }
+	@Override
+	public void finish() throws Exception {
+		super.finish();
+		componentDescription = null;
+		constructorDescription = null;
+	}
 }

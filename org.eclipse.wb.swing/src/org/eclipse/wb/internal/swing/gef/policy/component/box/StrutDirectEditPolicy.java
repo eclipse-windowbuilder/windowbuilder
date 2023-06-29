@@ -31,64 +31,64 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage swing.gef.policy
  */
 abstract class StrutDirectEditPolicy extends DirectTextEditPolicy {
-  private final ComponentInfo m_strut;
+	private final ComponentInfo m_strut;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StrutDirectEditPolicy(ComponentInfo strut) {
-    m_strut = strut;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StrutDirectEditPolicy(ComponentInfo strut) {
+		m_strut = strut;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DirectTextEditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the source corresponding to the text, entered by user.
-   */
-  protected abstract String getSource(ComponentInfo strut, String text) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DirectTextEditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the source corresponding to the text, entered by user.
+	 */
+	protected abstract String getSource(ComponentInfo strut, String text) throws Exception;
 
-  @Override
-  protected final void setText(String text) {
-    // prepare source
-    final String source;
-    try {
-      source = getSource(m_strut, text);
-    } catch (Throwable e) {
-      return;
-    }
-    // set source
-    ExecutionUtils.run(m_strut, new RunnableEx() {
-      public void run() throws Exception {
-        BoxSupport.setStrutSize(m_strut, source);
-      }
-    });
-  }
+	@Override
+	protected final void setText(String text) {
+		// prepare source
+		final String source;
+		try {
+			source = getSource(m_strut, text);
+		} catch (Throwable e) {
+			return;
+		}
+		// set source
+		ExecutionUtils.run(m_strut, new RunnableEx() {
+			public void run() throws Exception {
+				BoxSupport.setStrutSize(m_strut, source);
+			}
+		});
+	}
 
-  @Override
-  protected final Point getTextWidgetLocation(Rectangle hostBounds, Dimension textSize) {
-    int x = hostBounds.getCenter().x - textSize.width / 2;
-    int y = hostBounds.getCenter().y - textSize.height / 2;
-    return new Point(x, y);
-  }
+	@Override
+	protected final Point getTextWidgetLocation(Rectangle hostBounds, Dimension textSize) {
+		int x = hostBounds.getCenter().x - textSize.width / 2;
+		int y = hostBounds.getCenter().y - textSize.height / 2;
+		return new Point(x, y);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void performRequest(Request request) {
-    if (request instanceof KeyRequest) {
-      KeyRequest keyRequest = (KeyRequest) request;
-      if (keyRequest.isPressed() && keyRequest.getCharacter() == ' ') {
-        beginEdit();
-      }
-    }
-    super.performRequest(request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void performRequest(Request request) {
+		if (request instanceof KeyRequest) {
+			KeyRequest keyRequest = (KeyRequest) request;
+			if (keyRequest.isPressed() && keyRequest.getCharacter() == ' ') {
+				beginEdit();
+			}
+		}
+		super.performRequest(request);
+	}
 }

@@ -29,90 +29,90 @@ import java.lang.reflect.Field;
  * @coverage core.model.variable
  */
 public final class ExposedFieldVariableSupport extends AbstractNoNameVariableSupport {
-  private final JavaInfo m_hostJavaInfo;
-  private final Field m_field;
+	private final JavaInfo m_hostJavaInfo;
+	private final Field m_field;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExposedFieldVariableSupport(JavaInfo javaInfo, JavaInfo hostJavaInfo, Field field) {
-    super(javaInfo);
-    m_hostJavaInfo = hostJavaInfo;
-    m_field = field;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExposedFieldVariableSupport(JavaInfo javaInfo, JavaInfo hostJavaInfo, Field field) {
+		super(javaInfo);
+		m_hostJavaInfo = hostJavaInfo;
+		m_field = field;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return m_field.getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return m_field.getName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isValidStatementForChild(Statement statement) {
-    return m_hostJavaInfo.getVariableSupport().isValidStatementForChild(statement);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isValidStatementForChild(Statement statement) {
+		return m_hostJavaInfo.getVariableSupport().isValidStatementForChild(statement);
+	}
 
-  @Override
-  public String getTitle() throws Exception {
-    return m_field.getName();
-  }
+	@Override
+	public String getTitle() throws Exception {
+		return m_field.getName();
+	}
 
-  @Override
-  public String getComponentName() {
-    String name = m_field.getName();
-    name =
-        new VariableUtils(m_javaInfo).stripPrefixSuffix(
-            name,
-            JavaCore.CODEASSIST_FIELD_PREFIXES,
-            JavaCore.CODEASSIST_FIELD_SUFFIXES);
-    name = StringUtils.capitalize(name);
-    return m_hostJavaInfo.getVariableSupport().getComponentName() + name;
-  }
+	@Override
+	public String getComponentName() {
+		String name = m_field.getName();
+		name =
+				new VariableUtils(m_javaInfo).stripPrefixSuffix(
+						name,
+						JavaCore.CODEASSIST_FIELD_PREFIXES,
+						JavaCore.CODEASSIST_FIELD_SUFFIXES);
+		name = StringUtils.capitalize(name);
+		return m_hostJavaInfo.getVariableSupport().getComponentName() + name;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean hasExpression(NodeTarget target) {
-    return m_hostJavaInfo.getVariableSupport().hasExpression(target);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean hasExpression(NodeTarget target) {
+		return m_hostJavaInfo.getVariableSupport().hasExpression(target);
+	}
 
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    String parentAccess = m_hostJavaInfo.getVariableSupport().getAccessExpression(target);
-    return parentAccess + m_field.getName();
-  }
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		String parentAccess = m_hostJavaInfo.getVariableSupport().getAccessExpression(target);
+		return parentAccess + m_field.getName();
+	}
 
-  @Override
-  public String getAccessExpression(NodeTarget target) throws Exception {
-    return getReferenceExpression(target) + ".";
-  }
+	@Override
+	public String getAccessExpression(NodeTarget target) throws Exception {
+		return getReferenceExpression(target) + ".";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public StatementTarget getStatementTarget() throws Exception {
-    return m_hostJavaInfo.getVariableSupport().getStatementTarget();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public StatementTarget getStatementTarget() throws Exception {
+		return m_hostJavaInfo.getVariableSupport().getStatementTarget();
+	}
 
-  @Override
-  public StatementTarget getChildTarget() throws Exception {
-    return JavaInfoUtils.getTarget(m_hostJavaInfo);
-  }
+	@Override
+	public StatementTarget getChildTarget() throws Exception {
+		return JavaInfoUtils.getTarget(m_hostJavaInfo);
+	}
 }

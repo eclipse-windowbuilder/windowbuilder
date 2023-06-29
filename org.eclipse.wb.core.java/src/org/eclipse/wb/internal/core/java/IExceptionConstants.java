@@ -19,10 +19,10 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
  * @coverage XML
  */
 public interface IExceptionConstants {
-  int DESCRIPTION_NO_DESCRIPTIONS = 5000;
-  int DESCRIPTION_LOADING = 5001;
-  int DESCRIPTION_NO_TOOLKIT = 5002;
-  int DESCRIPTION_EDITOR_STATIC_FIELD = 5003;
-  int NOT_JAVA_PROJECT = 5004;
-  int __FORCE_EXECUTION = Math.abs(0);
+	int DESCRIPTION_NO_DESCRIPTIONS = 5000;
+	int DESCRIPTION_LOADING = 5001;
+	int DESCRIPTION_NO_TOOLKIT = 5002;
+	int DESCRIPTION_EDITOR_STATIC_FIELD = 5003;
+	int NOT_JAVA_PROJECT = 5004;
+	int __FORCE_EXECUTION = Math.abs(0);
 }

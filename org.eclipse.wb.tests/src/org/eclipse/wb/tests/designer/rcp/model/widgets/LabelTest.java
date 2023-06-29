@@ -25,78 +25,78 @@ import org.eclipse.swt.widgets.Label;
  * @author scheglov_ke
  */
 public class LabelTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_setText() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    Label label = new Label(this, SWT.NONE);",
-            "    label.setText('New label');",
-            "  }",
-            "}");
-    shell.refresh();
-    ControlInfo label = shell.getChildrenControls().get(0);
-    // set "text" property
-    Property textProperty = label.getPropertyByTitle("text");
-    textProperty.setValue("New text");
-    assertEditor(
-        "public class Test extends Shell {",
-        "  public Test() {",
-        "    Label label = new Label(this, SWT.NONE);",
-        "    label.setText('New text');",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_setText() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    Label label = new Label(this, SWT.NONE);",
+						"    label.setText('New label');",
+						"  }",
+						"}");
+		shell.refresh();
+		ControlInfo label = shell.getChildrenControls().get(0);
+		// set "text" property
+		Property textProperty = label.getPropertyByTitle("text");
+		textProperty.setValue("New text");
+		assertEditor(
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"    Label label = new Label(this, SWT.NONE);",
+				"    label.setText('New text');",
+				"  }",
+				"}");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ButtonStylePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test that {@link ButtonStylePresentation} returns different icons for buttons with different
-   * styles.
-   */
-  public void test_ButtonStylePresentation() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    new Label(this, SWT.NONE);",
-            "    new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);",
-            "    new Label(this, SWT.SEPARATOR | SWT.VERTICAL);",
-            "    new Label(this, SWT.SEPARATOR);",
-            "  }",
-            "}");
-    shell.refresh();
-    // prepare Label's
-    LabelInfo labelDefault = (LabelInfo) shell.getChildrenControls().get(0);
-    LabelInfo labelSeparatorHorizontal = (LabelInfo) shell.getChildrenControls().get(1);
-    LabelInfo labelSeparatorVertical = (LabelInfo) shell.getChildrenControls().get(2);
-    LabelInfo labelSeparatorVerticalDef = (LabelInfo) shell.getChildrenControls().get(3);
-    // check icons
-    assertNotSame(
-        labelDefault.getPresentation().getIcon(),
-        labelSeparatorHorizontal.getPresentation().getIcon());
-    assertNotSame(
-        labelSeparatorHorizontal.getPresentation().getIcon(),
-        labelSeparatorVertical.getPresentation().getIcon());
-    assertSame(
-        labelSeparatorVertical.getPresentation().getIcon(),
-        labelSeparatorVerticalDef.getPresentation().getIcon());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ButtonStylePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test that {@link ButtonStylePresentation} returns different icons for buttons with different
+	 * styles.
+	 */
+	public void test_ButtonStylePresentation() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    new Label(this, SWT.NONE);",
+						"    new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);",
+						"    new Label(this, SWT.SEPARATOR | SWT.VERTICAL);",
+						"    new Label(this, SWT.SEPARATOR);",
+						"  }",
+						"}");
+		shell.refresh();
+		// prepare Label's
+		LabelInfo labelDefault = (LabelInfo) shell.getChildrenControls().get(0);
+		LabelInfo labelSeparatorHorizontal = (LabelInfo) shell.getChildrenControls().get(1);
+		LabelInfo labelSeparatorVertical = (LabelInfo) shell.getChildrenControls().get(2);
+		LabelInfo labelSeparatorVerticalDef = (LabelInfo) shell.getChildrenControls().get(3);
+		// check icons
+		assertNotSame(
+				labelDefault.getPresentation().getIcon(),
+				labelSeparatorHorizontal.getPresentation().getIcon());
+		assertNotSame(
+				labelSeparatorHorizontal.getPresentation().getIcon(),
+				labelSeparatorVertical.getPresentation().getIcon());
+		assertSame(
+				labelSeparatorVertical.getPresentation().getIcon(),
+				labelSeparatorVerticalDef.getPresentation().getIcon());
+	}
 }

@@ -20,32 +20,32 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
  * @author scheglov_ke
  */
 public class CBannerTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parse() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    CBanner banner = new CBanner(this, SWT.NONE);",
-            "  }",
-            "}");
-    shell.refresh();
-    CBannerInfo banner = (CBannerInfo) shell.getChildrenControls().get(0);
-    // no "Style" property
-    assertNull(banner.getPropertyByTitle("Style"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parse() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    setLayout(new FillLayout());",
+						"    CBanner banner = new CBanner(this, SWT.NONE);",
+						"  }",
+						"}");
+		shell.refresh();
+		CBannerInfo banner = (CBannerInfo) shell.getChildrenControls().get(0);
+		// no "Style" property
+		assertNull(banner.getPropertyByTitle("Style"));
+	}
 }

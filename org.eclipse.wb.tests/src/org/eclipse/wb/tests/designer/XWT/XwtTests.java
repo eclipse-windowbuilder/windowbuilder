@@ -27,15 +27,15 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class XwtTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt");
-    suite.addTest(createSingleSuite(ActivatorTest.class));
-    suite.addTest(GefTests.suite());
-    suite.addTest(createSingleSuite(RefactoringTest.class));
-    suite.addTest(SupportTests.suite());
-    suite.addTest(ModelTests.suite());
-    suite.addTest(WizardTests.suite());
-    suite.addTest(BindingTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt");
+		suite.addTest(createSingleSuite(ActivatorTest.class));
+		suite.addTest(GefTests.suite());
+		suite.addTest(createSingleSuite(RefactoringTest.class));
+		suite.addTest(SupportTests.suite());
+		suite.addTest(ModelTests.suite());
+		suite.addTest(WizardTests.suite());
+		suite.addTest(BindingTests.suite());
+		return suite;
+	}
 }

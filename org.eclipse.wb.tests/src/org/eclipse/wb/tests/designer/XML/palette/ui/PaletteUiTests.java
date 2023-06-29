@@ -22,9 +22,9 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class PaletteUiTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xml.palette.ui");
-    suite.addTest(createSingleSuite(PaletteUiTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xml.palette.ui");
+		suite.addTest(createSingleSuite(PaletteUiTest.class));
+		return suite;
+	}
 }

@@ -22,21 +22,21 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.model.property.events
  */
 public final class EventsPropertyUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Image constants for to display in actions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ImageDescriptor LISTENER_METHOD_IMAGE_DESCRIPTOR =
-      DesignerPlugin.getImageDescriptor("events/listener_method.gif");
-  public static final ImageDescriptor LISTENER_INTERFACE_IMAGE_DESCRIPTOR =
-      DesignerPlugin.getImageDescriptor("events/listener_interface.gif");
-  public static final Image LISTENER_CLASS_IMAGE =
-      DesignerPlugin.getImage("events/listener_class.gif");
-  public static final Image LISTENER_INTERFACE_IMAGE =
-      DesignerPlugin.getImage("events/listener_interface.gif");
-  public static final Image EXISTING_CLASS_IMAGE =
-      DesignerPlugin.getImage("events/existing_class.gif");
-  public static final Image EXISTING_INTERFACE_IMAGE =
-      DesignerPlugin.getImage("events/existing_interface.gif");
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Image constants for to display in actions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ImageDescriptor LISTENER_METHOD_IMAGE_DESCRIPTOR =
+			DesignerPlugin.getImageDescriptor("events/listener_method.gif");
+	public static final ImageDescriptor LISTENER_INTERFACE_IMAGE_DESCRIPTOR =
+			DesignerPlugin.getImageDescriptor("events/listener_interface.gif");
+	public static final Image LISTENER_CLASS_IMAGE =
+			DesignerPlugin.getImage("events/listener_class.gif");
+	public static final Image LISTENER_INTERFACE_IMAGE =
+			DesignerPlugin.getImage("events/listener_interface.gif");
+	public static final Image EXISTING_CLASS_IMAGE =
+			DesignerPlugin.getImage("events/existing_class.gif");
+	public static final Image EXISTING_INTERFACE_IMAGE =
+			DesignerPlugin.getImage("events/existing_interface.gif");
 }

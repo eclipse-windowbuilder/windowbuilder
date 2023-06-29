@@ -26,22 +26,22 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
  * @coverage XWT.gefTree
  */
 public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutEditPolicyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    if (model instanceof AbsoluteLayoutInfo) {
-      return new AbsoluteLayoutEditPolicy<ControlInfo>((AbsoluteLayoutInfo) model);
-    }
-    if (model instanceof FormLayoutInfo) {
-      return new FormLayoutEditPolicy<ControlInfo>((FormLayoutInfo) model);
-    }
-    /*if (model instanceof GenericFlowLayout_Info) {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutEditPolicyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		if (model instanceof AbsoluteLayoutInfo) {
+			return new AbsoluteLayoutEditPolicy<ControlInfo>((AbsoluteLayoutInfo) model);
+		}
+		if (model instanceof FormLayoutInfo) {
+			return new FormLayoutEditPolicy<ControlInfo>((FormLayoutInfo) model);
+		}
+		/*if (model instanceof GenericFlowLayout_Info) {
     	return new GenericFlowLayout_LayoutEditPolicy((GenericFlowLayout_Info) model);
     }*/
-    /*if (model instanceof DefaultLayout_Info) {
+		/*if (model instanceof DefaultLayout_Info) {
     	return new Default_LayoutEditPolicy(((DefaultLayout_Info) model));
     }
     if (model instanceof BorderLayout_Info) {
@@ -50,7 +50,7 @@ public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
     if (model instanceof TableLayout_Info) {
     	return new Table_LayoutEditPolicy(((TableLayout_Info) model));
     }*/
-    // not found
-    return null;
-  }
+		// not found
+		return null;
+	}
 }

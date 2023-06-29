@@ -22,25 +22,25 @@ import org.eclipse.swt.graphics.ImageData;
  * @coverage gef.core
  */
 public interface ISharedCursors extends ICursorConstants {
-  Cursor CURSOR_TREE_ADD = new Cursor(null,
-      new ImageData(ISharedCursors.class.getResourceAsStream("icons/Tree_Add_Mask.gif")),
-      new ImageData(ISharedCursors.class.getResourceAsStream("icons/Tree_Add.gif")),
-      0,
-      0);
-  Cursor CURSOR_TREE_ADD_MAC = new Cursor(null,
-      new ImageData(ISharedCursors.class.getResourceAsStream("icons/Tree_Add_Cursor2.gif")),
-      0,
-      0);
-  Cursor CURSOR_ADD = new Cursor(null,
-      new ImageData(ISharedCursors.class.getResourceAsStream("icons/add_cursor.gif")),
-      0,
-      0);
-  Cursor CURSOR_MOVE = new Cursor(null,
-      new ImageData(ISharedCursors.class.getResourceAsStream("icons/move_cursor.gif")),
-      0,
-      0);
-  Cursor CURSOR_NO = new Cursor(null,
-      new ImageData(ISharedCursors.class.getResourceAsStream("icons/no_cursor.gif")),
-      0,
-      0);
+	Cursor CURSOR_TREE_ADD = new Cursor(null,
+			new ImageData(ISharedCursors.class.getResourceAsStream("icons/Tree_Add_Mask.gif")),
+			new ImageData(ISharedCursors.class.getResourceAsStream("icons/Tree_Add.gif")),
+			0,
+			0);
+	Cursor CURSOR_TREE_ADD_MAC = new Cursor(null,
+			new ImageData(ISharedCursors.class.getResourceAsStream("icons/Tree_Add_Cursor2.gif")),
+			0,
+			0);
+	Cursor CURSOR_ADD = new Cursor(null,
+			new ImageData(ISharedCursors.class.getResourceAsStream("icons/add_cursor.gif")),
+			0,
+			0);
+	Cursor CURSOR_MOVE = new Cursor(null,
+			new ImageData(ISharedCursors.class.getResourceAsStream("icons/move_cursor.gif")),
+			0,
+			0);
+	Cursor CURSOR_NO = new Cursor(null,
+			new ImageData(ISharedCursors.class.getResourceAsStream("icons/no_cursor.gif")),
+			0,
+			0);
 }

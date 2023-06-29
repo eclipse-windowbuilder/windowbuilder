@@ -17,8 +17,8 @@ package org.eclipse.wb.core.editor;
  * @coverage core.editor
  */
 public interface DesignerEditorListener {
-  /**
-   * Notifies that reparse was performed in this {@link IDesignerEditor}.
-   */
-  void reparsed();
+	/**
+	 * Notifies that reparse was performed in this {@link IDesignerEditor}.
+	 */
+	void reparsed();
 }

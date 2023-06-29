@@ -22,5 +22,5 @@ import java.util.List;
  * @coverage core.nls
  */
 public interface INlsPropertyContributor {
-  void contributeNlsProperties(Property property, List<Property> properties) throws Exception;
+	void contributeNlsProperties(Property property, List<Property> properties) throws Exception;
 }

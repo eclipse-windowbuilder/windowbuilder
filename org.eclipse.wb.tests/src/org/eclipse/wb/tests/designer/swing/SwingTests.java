@@ -25,14 +25,14 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    LookAndFeelTest.class,
-    ConvertersTest.class,
-    CustomizeTest.class,
-    ModelTests.class,
-    AmsTests.class,
-    SwingXTests.class,
-    ApplicationFrameworkTests.class,
-//  WaitForMemoryProfilerTest.class,
+	LookAndFeelTest.class,
+	ConvertersTest.class,
+	CustomizeTest.class,
+	ModelTests.class,
+	AmsTests.class,
+	SwingXTests.class,
+	ApplicationFrameworkTests.class,
+	//  WaitForMemoryProfilerTest.class,
 })
 public class SwingTests {
 }

@@ -35,123 +35,123 @@ import java.io.InputStream;
  * @coverage rcp.util
  */
 public final class ActivatorGetImagesByteCodeProcessor implements IByteCodeProcessor {
-  private String m_activatorClassName;
-  private String m_activatorProjectPath;
+	private String m_activatorClassName;
+	private String m_activatorProjectPath;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IByteCodeProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initialize(ProjectClassLoader classLoader) {
-    createInternalImageManager(classLoader);
-    prepareActivatorInformation(classLoader.getJavaProject().getProject());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IByteCodeProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initialize(ProjectClassLoader classLoader) {
+		createInternalImageManager(classLoader);
+		prepareActivatorInformation(classLoader.getJavaProject().getProject());
+	}
 
-  @Override
-  public byte[] process(String className, byte[] bytes) {
-    if (className.equals(m_activatorClassName)) {
-      return transformActivatorClass(bytes);
-    }
-    return bytes;
-  }
+	@Override
+	public byte[] process(String className, byte[] bytes) {
+		if (className.equals(m_activatorClassName)) {
+			return transformActivatorClass(bytes);
+		}
+		return bytes;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void createInternalImageManager(ProjectClassLoader classLoader) {
-    try {
-      // prepare InternalImageManager bytes
-      ClassLoader localClassLoader = getClass().getClassLoader();
-      InputStream stream =
-          localClassLoader.getResourceAsStream("org/eclipse/wb/internal/rcp/model/util/InternalImageManager.class");
-      byte[] bytes = IOUtils.toByteArray(stream);
-      stream.close();
-      // inject InternalImageManager to project class loader
-      ReflectionUtils.invokeMethod(
-          classLoader,
-          "defineClass(java.lang.String,byte[],int,int)",
-          "org.eclipse.wb.internal.rcp.model.util.InternalImageManager",
-          bytes,
-          0,
-          bytes.length);
-    } catch (Throwable e) {
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void createInternalImageManager(ProjectClassLoader classLoader) {
+		try {
+			// prepare InternalImageManager bytes
+			ClassLoader localClassLoader = getClass().getClassLoader();
+			InputStream stream =
+					localClassLoader.getResourceAsStream("org/eclipse/wb/internal/rcp/model/util/InternalImageManager.class");
+			byte[] bytes = IOUtils.toByteArray(stream);
+			stream.close();
+			// inject InternalImageManager to project class loader
+			ReflectionUtils.invokeMethod(
+					classLoader,
+					"defineClass(java.lang.String,byte[],int,int)",
+					"org.eclipse.wb.internal.rcp.model.util.InternalImageManager",
+					bytes,
+					0,
+					bytes.length);
+		} catch (Throwable e) {
+		}
+	}
 
-  private void prepareActivatorInformation(IProject project) {
-    try {
-      m_activatorClassName = WorkspacePluginInfo.getBundleActivator(project);
-      m_activatorProjectPath = project.getLocation().toPortableString();
-    } catch (Throwable e) {
-    }
-  }
+	private void prepareActivatorInformation(IProject project) {
+		try {
+			m_activatorClassName = WorkspacePluginInfo.getBundleActivator(project);
+			m_activatorProjectPath = project.getLocation().toPortableString();
+		} catch (Throwable e) {
+		}
+	}
 
-  private byte[] transformActivatorClass(byte[] bytes) {
-    final boolean[] apply = {false};
-    ClassReader classReader = new ClassReader(bytes);
-    ToBytesClassAdapter codeRewriter = new ToBytesClassAdapter(ClassWriter.COMPUTE_FRAMES) {
-      @Override
-      public MethodVisitor visitMethod(int access,
-          String name,
-          String desc,
-          String signature,
-          String[] exceptions) {
-        final MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
-        final int pathParameterIndex = (access & ACC_STATIC) != 0 ? 0 : 1;
-        // transform Activator.getImageDescriptor()
-        if (name.equals("getImageDescriptor")
-            && desc.equals("(Ljava/lang/String;)Lorg/eclipse/jface/resource/ImageDescriptor;")) {
-          apply[0] = true;
-          return new MethodVisitor(Opcodes.ASM9, mv) {
-            @Override
-            public void visitCode() {
-              mv.visitLdcInsn(m_activatorProjectPath);
-              mv.visitVarInsn(ALOAD, pathParameterIndex);
-              mv.visitMethodInsn(
-                  INVOKESTATIC,
-                  "org/eclipse/wb/internal/rcp/model/util/InternalImageManager",
-                  "getImageDescriptor",
-                  "(Ljava/lang/String;Ljava/lang/String;)Lorg/eclipse/jface/resource/ImageDescriptor;");
-              mv.visitInsn(ARETURN);
-            }
+	private byte[] transformActivatorClass(byte[] bytes) {
+		final boolean[] apply = {false};
+		ClassReader classReader = new ClassReader(bytes);
+		ToBytesClassAdapter codeRewriter = new ToBytesClassAdapter(ClassWriter.COMPUTE_FRAMES) {
+			@Override
+			public MethodVisitor visitMethod(int access,
+					String name,
+					String desc,
+					String signature,
+					String[] exceptions) {
+				final MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
+				final int pathParameterIndex = (access & ACC_STATIC) != 0 ? 0 : 1;
+				// transform Activator.getImageDescriptor()
+				if (name.equals("getImageDescriptor")
+						&& desc.equals("(Ljava/lang/String;)Lorg/eclipse/jface/resource/ImageDescriptor;")) {
+					apply[0] = true;
+					return new MethodVisitor(Opcodes.ASM9, mv) {
+						@Override
+						public void visitCode() {
+							mv.visitLdcInsn(m_activatorProjectPath);
+							mv.visitVarInsn(ALOAD, pathParameterIndex);
+							mv.visitMethodInsn(
+									INVOKESTATIC,
+									"org/eclipse/wb/internal/rcp/model/util/InternalImageManager",
+									"getImageDescriptor",
+									"(Ljava/lang/String;Ljava/lang/String;)Lorg/eclipse/jface/resource/ImageDescriptor;");
+							mv.visitInsn(ARETURN);
+						}
 
-            @Override
-            public void visitMaxs(int maxStack, int maxLocals) {
-              mv.visitMaxs(maxStack, maxLocals);
-            }
-          };
-        }
-        // transform Activator.getImage()
-        if (name.equals("getImage")
-            && desc.equals("(Ljava/lang/String;)Lorg/eclipse/swt/graphics/Image;")) {
-          apply[0] = true;
-          return new MethodVisitor(Opcodes.ASM9, mv) {
-            @Override
-            public void visitCode() {
-              mv.visitLdcInsn(m_activatorProjectPath);
-              mv.visitVarInsn(ALOAD, pathParameterIndex);
-              mv.visitMethodInsn(
-                  INVOKESTATIC,
-                  "org/eclipse/wb/internal/rcp/model/util/InternalImageManager",
-                  "getImage",
-                  "(Ljava/lang/String;Ljava/lang/String;)Lorg/eclipse/swt/graphics/Image;");
-              mv.visitInsn(ARETURN);
-            }
+						@Override
+						public void visitMaxs(int maxStack, int maxLocals) {
+							mv.visitMaxs(maxStack, maxLocals);
+						}
+					};
+				}
+				// transform Activator.getImage()
+				if (name.equals("getImage")
+						&& desc.equals("(Ljava/lang/String;)Lorg/eclipse/swt/graphics/Image;")) {
+					apply[0] = true;
+					return new MethodVisitor(Opcodes.ASM9, mv) {
+						@Override
+						public void visitCode() {
+							mv.visitLdcInsn(m_activatorProjectPath);
+							mv.visitVarInsn(ALOAD, pathParameterIndex);
+							mv.visitMethodInsn(
+									INVOKESTATIC,
+									"org/eclipse/wb/internal/rcp/model/util/InternalImageManager",
+									"getImage",
+									"(Ljava/lang/String;Ljava/lang/String;)Lorg/eclipse/swt/graphics/Image;");
+							mv.visitInsn(ARETURN);
+						}
 
-            @Override
-            public void visitMaxs(int maxStack, int maxLocals) {
-              mv.visitMaxs(maxStack, maxLocals);
-            }
-          };
-        }
-        return mv;
-      }
-    };
-    classReader.accept(codeRewriter, 0);
-    return apply[0] ? codeRewriter.toByteArray() : bytes;
-  }
+						@Override
+						public void visitMaxs(int maxStack, int maxLocals) {
+							mv.visitMaxs(maxStack, maxLocals);
+						}
+					};
+				}
+				return mv;
+			}
+		};
+		classReader.accept(codeRewriter, 0);
+		return apply[0] ? codeRewriter.toByteArray() : bytes;
+	}
 }

@@ -22,29 +22,29 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport
  *
  */
 public class XmlElementBeanBindableInfo extends BeanBindableInfo {
-  private final boolean m_dataContext;
+	private final boolean m_dataContext;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlElementBeanBindableInfo(BeanSupport beanSupport,
-      Class<?> objectType,
-      IReferenceProvider referenceProvider,
-      XmlObjectInfo objectInfo,
-      boolean dataContext) throws Exception {
-    super(beanSupport, null, objectType, referenceProvider, objectInfo);
-    m_dataContext = dataContext;
-    setBindingDecoration(SwtResourceManager.TOP_RIGHT);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlElementBeanBindableInfo(BeanSupport beanSupport,
+			Class<?> objectType,
+			IReferenceProvider referenceProvider,
+			XmlObjectInfo objectInfo,
+			boolean dataContext) throws Exception {
+		super(beanSupport, null, objectType, referenceProvider, objectInfo);
+		m_dataContext = dataContext;
+		setBindingDecoration(SwtResourceManager.TOP_RIGHT);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isDataContext() {
-    return m_dataContext;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isDataContext() {
+		return m_dataContext;
+	}
 }

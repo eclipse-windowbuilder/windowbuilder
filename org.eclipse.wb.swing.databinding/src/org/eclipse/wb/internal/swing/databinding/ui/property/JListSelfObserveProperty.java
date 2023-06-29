@@ -24,32 +24,32 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.JListBindingInfo
  * @coverage bindings.swing.ui.properties
  */
 public class JListSelfObserveProperty extends ObserveProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JListSelfObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
-    super(context, observeProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JListSelfObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
+		super(context, observeProperty);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createBinding() throws Exception {
-    if (isModified()) {
-      for (AbstractBindingProperty property : m_bindingProperties) {
-        if (property.getBinding() instanceof JListBindingInfo) {
-          property.editBinding();
-          return;
-        }
-      }
-      Assert.fail(Messages.JListSelfObserveProperty_errNotFound);
-    } else {
-      super.createBinding();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createBinding() throws Exception {
+		if (isModified()) {
+			for (AbstractBindingProperty property : m_bindingProperties) {
+				if (property.getBinding() instanceof JListBindingInfo) {
+					property.editBinding();
+					return;
+				}
+			}
+			Assert.fail(Messages.JListSelfObserveProperty_errNotFound);
+		} else {
+			super.createBinding();
+		}
+	}
 }

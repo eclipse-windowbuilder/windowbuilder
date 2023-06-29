@@ -26,29 +26,29 @@ import org.apache.commons.lang.ObjectUtils;
  * @coverage swt.gef.GridLayout
  */
 public final class SetAlignmentAction<C extends IControlInfo> extends DimensionHeaderAction<C> {
-  private final int m_alignment;
+	private final int m_alignment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetAlignmentAction(DimensionHeaderEditPart<C> header,
-      String text,
-      ImageDescriptor imageDescriptor,
-      int alignment) {
-    super(header, text, imageDescriptor, AS_RADIO_BUTTON);
-    m_alignment = alignment;
-    setChecked(ObjectUtils.equals(header.getDimension().getAlignment(), m_alignment));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetAlignmentAction(DimensionHeaderEditPart<C> header,
+			String text,
+			ImageDescriptor imageDescriptor,
+			int alignment) {
+		super(header, text, imageDescriptor, AS_RADIO_BUTTON);
+		m_alignment = alignment;
+		setChecked(ObjectUtils.equals(header.getDimension().getAlignment(), m_alignment));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void run(GridDimensionInfo<C> dimension) throws Exception {
-    dimension.setAlignment(m_alignment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void run(GridDimensionInfo<C> dimension) throws Exception {
+		dimension.setAlignment(m_alignment);
+	}
 }

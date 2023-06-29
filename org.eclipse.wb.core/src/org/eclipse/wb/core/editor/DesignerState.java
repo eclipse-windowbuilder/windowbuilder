@@ -17,20 +17,20 @@ package org.eclipse.wb.core.editor;
  * @coverage core.editor
  */
 public enum DesignerState {
-  /**
-   * State is undefined.
-   */
-  Undefined,
-  /**
-   * Parsing time.
-   */
-  Parsing,
-  /**
-   * Parsing completed successfully.
-   */
-  Successful,
-  /**
-   * Parsing completed with error.
-   */
-  Error
+	/**
+	 * State is undefined.
+	 */
+	Undefined,
+	/**
+	 * Parsing time.
+	 */
+	Parsing,
+	/**
+	 * Parsing completed successfully.
+	 */
+	Successful,
+	/**
+	 * Parsing completed with error.
+	 */
+	Error
 }

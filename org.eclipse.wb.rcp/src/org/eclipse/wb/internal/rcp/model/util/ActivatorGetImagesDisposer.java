@@ -26,45 +26,45 @@ import java.util.List;
  * @coverage rcp.util
  */
 public final class ActivatorGetImagesDisposer implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
-    processRoot(root);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
+		processRoot(root);
+	}
 
-  private void processRoot(final JavaInfo root) {
-    root.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshDispose() throws Exception {
-        disposeResources(root);
-      }
+	private void processRoot(final JavaInfo root) {
+		root.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshDispose() throws Exception {
+				disposeResources(root);
+			}
 
-      @Override
-      public void dispose() throws Exception {
-        disposeResources(root);
-      }
-    });
-  }
+			@Override
+			public void dispose() throws Exception {
+				disposeResources(root);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dispose
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Disposes all images, loaded from {@code InternalImageManager}.
-   */
-  private static void disposeResources(JavaInfo javaInfo) {
-    try {
-      ClassLoader classLoader = JavaInfoUtils.getClassLoader(javaInfo);
-      Class<?> internalImageManager =
-          classLoader.loadClass("org.eclipse.wb.internal.rcp.model.util.InternalImageManager");
-      ReflectionUtils.invokeMethod(internalImageManager, "dispose()");
-    } catch (Throwable e) {
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dispose
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Disposes all images, loaded from {@code InternalImageManager}.
+	 */
+	private static void disposeResources(JavaInfo javaInfo) {
+		try {
+			ClassLoader classLoader = JavaInfoUtils.getClassLoader(javaInfo);
+			Class<?> internalImageManager =
+					classLoader.loadClass("org.eclipse.wb.internal.rcp.model.util.InternalImageManager");
+			ReflectionUtils.invokeMethod(internalImageManager, "dispose()");
+		} catch (Throwable e) {
+		}
+	}
 }

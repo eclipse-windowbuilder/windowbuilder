@@ -20,38 +20,38 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
  * @author mitin_aa
  */
 public class SwitchActionTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for switching to source and back to design.
-   */
-  public void DISABLE_test_1() throws Exception {
-    openContainer(
-        "// filler filler filler",
-        "public class Test extends JPanel {",
-        "	public Test() {",
-        "	}",
-        "}");
-    MultiMode multiMode = (MultiMode) m_designerEditor.getMultiMode();
-    // prepare action
-    SwitchAction switchAction;
-    {
-      switchAction = new SwitchAction();
-      switchAction.setActiveEditor(null, m_designerEditor);
-    }
-    // after "openDesign" the "Design" page is active
-    assertFalse(multiMode.getSourcePage().isActive());
-    waitEventLoop(10);
-    // switch to "Source" using action
-    switchAction.run(null);
-    waitEventLoop(10);
-    assertTrue(multiMode.getSourcePage().isActive());
-    // switch to "Design" using action
-    switchAction.run(null);
-    waitEventLoop(10);
-    assertFalse(multiMode.getSourcePage().isActive());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for switching to source and back to design.
+	 */
+	public void DISABLE_test_1() throws Exception {
+		openContainer(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"	public Test() {",
+				"	}",
+				"}");
+		MultiMode multiMode = (MultiMode) m_designerEditor.getMultiMode();
+		// prepare action
+		SwitchAction switchAction;
+		{
+			switchAction = new SwitchAction();
+			switchAction.setActiveEditor(null, m_designerEditor);
+		}
+		// after "openDesign" the "Design" page is active
+		assertFalse(multiMode.getSourcePage().isActive());
+		waitEventLoop(10);
+		// switch to "Source" using action
+		switchAction.run(null);
+		waitEventLoop(10);
+		assertTrue(multiMode.getSourcePage().isActive());
+		// switch to "Design" using action
+		switchAction.run(null);
+		waitEventLoop(10);
+		assertFalse(multiMode.getSourcePage().isActive());
+	}
 }

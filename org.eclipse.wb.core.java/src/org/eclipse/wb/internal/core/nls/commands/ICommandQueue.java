@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.nls.commands;
  * @coverage core.nls
  */
 public interface ICommandQueue {
-  /**
-   * Adds given {@link AbstractCommand} to the command queue.
-   */
-  void addCommand(AbstractCommand command);
+	/**
+	 * Adds given {@link AbstractCommand} to the command queue.
+	 */
+	void addCommand(AbstractCommand command);
 }

@@ -22,40 +22,40 @@ import org.eclipse.ui.part.ViewPart;
  * @author scheglov_ke
  */
 public class ViewPartGefTest extends RcpGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * There was bug that new {@link ViewPart} with {@link IMenuManager} can not be opened. This was
-   * caused by adding {@link IMenuManager} as popup menu, and because of other case we decided that
-   * popup should be on separate layer. So, this caused problems with count of children on content
-   * figure.
-   */
-  public void DISABLE_test_withMenuManager() throws Exception {
-    openJavaInfo(
-        "import org.eclipse.jface.action.*;",
-        "import org.eclipse.ui.*;",
-        "import org.eclipse.ui.part.*;",
-        "public class Test extends ViewPart {",
-        "  public Test() {",
-        "  }",
-        "  public void createPartControl(Composite parent) {",
-        "    Composite container = new Composite(parent, SWT.NULL);",
-        "  }",
-        "  public void setFocus() {",
-        "  }",
-        "  public void init(IViewSite site) throws PartInitException {",
-        "    super.init(site);",
-        "    createActions();",
-        "    initializeMenu();",
-        "  }",
-        "  private void createActions() {",
-        "  }",
-        "  private void initializeMenu() {",
-        "    IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * There was bug that new {@link ViewPart} with {@link IMenuManager} can not be opened. This was
+	 * caused by adding {@link IMenuManager} as popup menu, and because of other case we decided that
+	 * popup should be on separate layer. So, this caused problems with count of children on content
+	 * figure.
+	 */
+	public void DISABLE_test_withMenuManager() throws Exception {
+		openJavaInfo(
+				"import org.eclipse.jface.action.*;",
+				"import org.eclipse.ui.*;",
+				"import org.eclipse.ui.part.*;",
+				"public class Test extends ViewPart {",
+				"  public Test() {",
+				"  }",
+				"  public void createPartControl(Composite parent) {",
+				"    Composite container = new Composite(parent, SWT.NULL);",
+				"  }",
+				"  public void setFocus() {",
+				"  }",
+				"  public void init(IViewSite site) throws PartInitException {",
+				"    super.init(site);",
+				"    createActions();",
+				"    initializeMenu();",
+				"  }",
+				"  private void createActions() {",
+				"  }",
+				"  private void initializeMenu() {",
+				"    IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();",
+				"  }",
+				"}");
+	}
 }

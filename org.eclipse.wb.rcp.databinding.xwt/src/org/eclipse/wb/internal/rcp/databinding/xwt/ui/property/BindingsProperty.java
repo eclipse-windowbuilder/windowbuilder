@@ -35,59 +35,59 @@ import java.util.List;
  *
  */
 public class BindingsProperty extends AbstractBindingsProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BindingsProperty(Context context) {
-    super(context);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BindingsProperty(Context context) {
+		super(context);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Property[] createProperties() throws Exception {
-    DatabindingsProvider provider = (DatabindingsProvider) m_context.provider;
-    WidgetsObserveTypeContainer container =
-        (WidgetsObserveTypeContainer) provider.getContainer(ObserveType.WIDGETS);
-    m_context.observeObject = container.resolve((XmlObjectInfo) m_context.objectInfo);
-    //
-    Assert.isNotNull(
-        m_context.observeObject,
-        MessageFormat.format(
-            Messages.BindingsProperty_syncDoesNotWork,
-            SynchronizeManager.class.getName(),
-            m_context.objectInfo));
-    List<IObserveInfo> observes =
-        m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable);
-    //
-    Property[] properties = new Property[observes.size()];
-    for (int i = 0; i < properties.length; i++) {
-      properties[i] = new ObserveProperty(m_context, observes.get(i));
-    }
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Property[] createProperties() throws Exception {
+		DatabindingsProvider provider = (DatabindingsProvider) m_context.provider;
+		WidgetsObserveTypeContainer container =
+				(WidgetsObserveTypeContainer) provider.getContainer(ObserveType.WIDGETS);
+		m_context.observeObject = container.resolve((XmlObjectInfo) m_context.objectInfo);
+		//
+		Assert.isNotNull(
+				m_context.observeObject,
+				MessageFormat.format(
+						Messages.BindingsProperty_syncDoesNotWork,
+						SynchronizeManager.class.getName(),
+						m_context.objectInfo));
+		List<IObserveInfo> observes =
+				m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable);
+		//
+		Property[] properties = new Property[observes.size()];
+		for (int i = 0; i < properties.length; i++) {
+			properties[i] = new ObserveProperty(m_context, observes.get(i));
+		}
+		return properties;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addBindingAction(IMenuManager menu,
-      IBindingInfo binding,
-      IObserveInfo observeProperty,
-      boolean isTarget) throws Exception {
-    // TODO Auto-generated method stub
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addBindingAction(IMenuManager menu,
+			IBindingInfo binding,
+			IObserveInfo observeProperty,
+			boolean isTarget) throws Exception {
+		// TODO Auto-generated method stub
+	}
 
-  @Override
-  protected boolean checkEquals(IObserveInfo observe) throws Exception {
-    // TODO Auto-generated method stub
-    return false;
-  }
+	@Override
+	protected boolean checkEquals(IObserveInfo observe) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

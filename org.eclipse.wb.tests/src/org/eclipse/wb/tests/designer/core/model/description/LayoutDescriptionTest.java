@@ -23,54 +23,54 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class LayoutDescriptionTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_get_Swing() throws Exception {
-    ToolkitDescription toolkit = org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION;
-    List<LayoutDescription> layouts = LayoutDescriptionHelper.get(toolkit);
-    // check accessors for one layout
-    {
-      LayoutDescription layout = getLayoutById(layouts, "flowLayout");
-      assertSame(toolkit, layout.getToolkit());
-      assertEquals("flowLayout", layout.getId());
-      assertEquals("FlowLayout", layout.getName());
-      assertEquals("java.awt.FlowLayout", layout.getLayoutClassName());
-      assertEquals("new FlowLayout()", layout.getSourceSmart());
-    }
-    // check Swing layouts
-    assertNotNull(getLayoutById(layouts, "flowLayout"));
-    assertNotNull(getLayoutById(layouts, "borderLayout"));
-    assertNotNull(getLayoutById(layouts, "gridLayout"));
-    assertNotNull(getLayoutById(layouts, "cardLayout"));
-    assertNotNull(getLayoutById(layouts, "gridBagLayout"));
-    // try SWT layout
-    assertNull(getLayoutById(layouts, "rowLayout"));
-    // use get(toolkit,id) from helper
-    assertNotNull(LayoutDescriptionHelper.get(toolkit, "flowLayout"));
-    assertNull(LayoutDescriptionHelper.get(toolkit, "rowLayout"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_get_Swing() throws Exception {
+		ToolkitDescription toolkit = org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION;
+		List<LayoutDescription> layouts = LayoutDescriptionHelper.get(toolkit);
+		// check accessors for one layout
+		{
+			LayoutDescription layout = getLayoutById(layouts, "flowLayout");
+			assertSame(toolkit, layout.getToolkit());
+			assertEquals("flowLayout", layout.getId());
+			assertEquals("FlowLayout", layout.getName());
+			assertEquals("java.awt.FlowLayout", layout.getLayoutClassName());
+			assertEquals("new FlowLayout()", layout.getSourceSmart());
+		}
+		// check Swing layouts
+		assertNotNull(getLayoutById(layouts, "flowLayout"));
+		assertNotNull(getLayoutById(layouts, "borderLayout"));
+		assertNotNull(getLayoutById(layouts, "gridLayout"));
+		assertNotNull(getLayoutById(layouts, "cardLayout"));
+		assertNotNull(getLayoutById(layouts, "gridBagLayout"));
+		// try SWT layout
+		assertNull(getLayoutById(layouts, "rowLayout"));
+		// use get(toolkit,id) from helper
+		assertNotNull(LayoutDescriptionHelper.get(toolkit, "flowLayout"));
+		assertNull(LayoutDescriptionHelper.get(toolkit, "rowLayout"));
+	}
 
-  /**
-   * @return the {@link LayoutDescription} with given id, or <code>null</code> if not found.
-   */
-  private static LayoutDescription getLayoutById(List<LayoutDescription> layouts, String id) {
-    for (LayoutDescription layout : layouts) {
-      if (layout.getId().equals(id)) {
-        return layout;
-      }
-    }
-    return null;
-  }
+	/**
+	 * @return the {@link LayoutDescription} with given id, or <code>null</code> if not found.
+	 */
+	private static LayoutDescription getLayoutById(List<LayoutDescription> layouts, String id) {
+		for (LayoutDescription layout : layouts) {
+			if (layout.getId().equals(id)) {
+				return layout;
+			}
+		}
+		return null;
+	}
 }

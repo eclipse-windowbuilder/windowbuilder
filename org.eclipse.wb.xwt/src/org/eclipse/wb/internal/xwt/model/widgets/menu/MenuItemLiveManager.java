@@ -26,28 +26,28 @@ import org.eclipse.wb.internal.xwt.model.widgets.XwtLiveManager;
  * @coverage XWT.model.widgets
  */
 public class MenuItemLiveManager extends XwtLiveManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuItemLiveManager(MenuItemInfo item) {
-    super(item);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuItemLiveManager(MenuItemInfo item) {
+		super(item);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LiveComponentsManager
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addWidget(CompositeInfo shell, WidgetInfo widget) throws Exception {
-    XmlObjectInfo menu =
-        XmlObjectUtils.createObject(
-            widget.getContext(),
-            "org.eclipse.swt.widgets.Menu",
-            new ElementCreationSupport());
-    XmlObjectUtils.add(menu, Associations.property("data"), shell, null);
-    XmlObjectUtils.add(widget, Associations.direct(), menu, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LiveComponentsManager
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addWidget(CompositeInfo shell, WidgetInfo widget) throws Exception {
+		XmlObjectInfo menu =
+				XmlObjectUtils.createObject(
+						widget.getContext(),
+						"org.eclipse.swt.widgets.Menu",
+						new ElementCreationSupport());
+		XmlObjectUtils.add(menu, Associations.property("data"), shell, null);
+		XmlObjectUtils.add(widget, Associations.direct(), menu, null);
+	}
 }

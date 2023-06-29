@@ -21,49 +21,49 @@ import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.PerspectiveInfo;
  * @coverage rcp.gef.policy
  */
 public final class PerspectiveDropRequest extends AbstractCreateRequest {
-  public static final String TYPE = "drop Perspective";
-  private final PerspectiveInfo m_perspective;
+	public static final String TYPE = "drop Perspective";
+	private final PerspectiveInfo m_perspective;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectiveDropRequest(PerspectiveInfo perspective) {
-    super(TYPE);
-    m_perspective = perspective;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectiveDropRequest(PerspectiveInfo perspective) {
+		super(TYPE);
+		m_perspective = perspective;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link PerspectiveInfo} information about perspective to drop.
-   */
-  public PerspectiveInfo getPerspective() {
-    return m_perspective;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link PerspectiveInfo} information about perspective to drop.
+	 */
+	public PerspectiveInfo getPerspective() {
+		return m_perspective;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Component
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Object m_component;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Component
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Object m_component;
 
-  /**
-   * @return the component to select after drop finished.
-   */
-  public Object getComponent() {
-    return m_component;
-  }
+	/**
+	 * @return the component to select after drop finished.
+	 */
+	public Object getComponent() {
+		return m_component;
+	}
 
-  /**
-   * Sets the component to select after drop finished.
-   */
-  public void setComponent(Object component) {
-    m_component = component;
-  }
+	/**
+	 * Sets the component to select after drop finished.
+	 */
+	public void setComponent(Object component) {
+		m_component = component;
+	}
 }

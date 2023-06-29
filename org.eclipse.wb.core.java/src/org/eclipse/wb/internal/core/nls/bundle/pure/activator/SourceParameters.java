@@ -18,5 +18,5 @@ import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSourceParameters;
  *
  */
 public class SourceParameters extends AbstractBundleSourceParameters {
-  // inherit default implementation
+	// inherit default implementation
 }

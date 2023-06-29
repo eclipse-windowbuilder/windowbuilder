@@ -22,114 +22,114 @@ import org.eclipse.draw2d.geometry.Dimension;
  * @author scheglov_ke
  */
 public class CompositeTopBoundsSupportTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // setSize()
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_setSize_Composite_noSizeInvocations() throws Exception {
-    CompositeInfo composite =
-        parseComposite(
-            "public class Test extends Composite {",
-            "  public Test(Composite parent, int style) {",
-            "    super(parent, style);",
-            "  }",
-            "}");
-    composite.refresh();
-    // default size
-    assertEquals(new Dimension(450, 300), composite.getBounds().getSize());
-    // set new size
-    composite.getTopBoundsSupport().setSize(500, 400);
-    composite.refresh();
-    assertEquals(new Dimension(500, 400), composite.getBounds().getSize());
-    assertEditor(
-        "public class Test extends Composite {",
-        "  public Test(Composite parent, int style) {",
-        "    super(parent, style);",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// setSize()
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_setSize_Composite_noSizeInvocations() throws Exception {
+		CompositeInfo composite =
+				parseComposite(
+						"public class Test extends Composite {",
+						"  public Test(Composite parent, int style) {",
+						"    super(parent, style);",
+						"  }",
+						"}");
+		composite.refresh();
+		// default size
+		assertEquals(new Dimension(450, 300), composite.getBounds().getSize());
+		// set new size
+		composite.getTopBoundsSupport().setSize(500, 400);
+		composite.refresh();
+		assertEquals(new Dimension(500, 400), composite.getBounds().getSize());
+		assertEditor(
+				"public class Test extends Composite {",
+				"  public Test(Composite parent, int style) {",
+				"    super(parent, style);",
+				"  }",
+				"}");
+	}
 
-  public void test_setSize_Composite_setSize_Point() throws Exception {
-    CompositeInfo composite =
-        parseComposite(
-            "public class Test extends Composite {",
-            "  public Test(Composite parent, int style) {",
-            "    super(parent, style);",
-            "    setSize(new Point(250, 200));",
-            "  }",
-            "}");
-    composite.refresh();
-    // default size
-    assertEquals(new Dimension(250, 200), composite.getBounds().getSize());
-    // set new size
-    composite.getTopBoundsSupport().setSize(500, 400);
-    composite.refresh();
-    assertEquals(new Dimension(500, 400), composite.getBounds().getSize());
-    assertEditor(
-        "public class Test extends Composite {",
-        "  public Test(Composite parent, int style) {",
-        "    super(parent, style);",
-        "    setSize(new Point(500, 400));",
-        "  }",
-        "}");
-  }
+	public void test_setSize_Composite_setSize_Point() throws Exception {
+		CompositeInfo composite =
+				parseComposite(
+						"public class Test extends Composite {",
+						"  public Test(Composite parent, int style) {",
+						"    super(parent, style);",
+						"    setSize(new Point(250, 200));",
+						"  }",
+						"}");
+		composite.refresh();
+		// default size
+		assertEquals(new Dimension(250, 200), composite.getBounds().getSize());
+		// set new size
+		composite.getTopBoundsSupport().setSize(500, 400);
+		composite.refresh();
+		assertEquals(new Dimension(500, 400), composite.getBounds().getSize());
+		assertEditor(
+				"public class Test extends Composite {",
+				"  public Test(Composite parent, int style) {",
+				"    super(parent, style);",
+				"    setSize(new Point(500, 400));",
+				"  }",
+				"}");
+	}
 
-  public void test_setSize_Composite_setSize_ints() throws Exception {
-    CompositeInfo composite =
-        parseComposite(
-            "public class Test extends Composite {",
-            "  public Test(Composite parent, int style) {",
-            "    super(parent, style);",
-            "    setSize(250, 200);",
-            "  }",
-            "}");
-    composite.refresh();
-    // default size
-    assertEquals(new Dimension(250, 200), composite.getBounds().getSize());
-    // set new size
-    composite.getTopBoundsSupport().setSize(500, 400);
-    composite.refresh();
-    assertEquals(new Dimension(500, 400), composite.getBounds().getSize());
-    assertEditor(
-        "public class Test extends Composite {",
-        "  public Test(Composite parent, int style) {",
-        "    super(parent, style);",
-        "    setSize(500, 400);",
-        "  }",
-        "}");
-  }
+	public void test_setSize_Composite_setSize_ints() throws Exception {
+		CompositeInfo composite =
+				parseComposite(
+						"public class Test extends Composite {",
+						"  public Test(Composite parent, int style) {",
+						"    super(parent, style);",
+						"    setSize(250, 200);",
+						"  }",
+						"}");
+		composite.refresh();
+		// default size
+		assertEquals(new Dimension(250, 200), composite.getBounds().getSize());
+		// set new size
+		composite.getTopBoundsSupport().setSize(500, 400);
+		composite.refresh();
+		assertEquals(new Dimension(500, 400), composite.getBounds().getSize());
+		assertEditor(
+				"public class Test extends Composite {",
+				"  public Test(Composite parent, int style) {",
+				"    super(parent, style);",
+				"    setSize(500, 400);",
+				"  }",
+				"}");
+	}
 
-  public void test_setSize_Shell_noSizeInvocations() throws Exception {
-    CompositeInfo composite =
-        parseComposite(
-            "// filler filler filler",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "  }",
-            "}");
-    composite.refresh();
-    // default size
-    assertEquals(new Dimension(450, 300), composite.getBounds().getSize());
-    // set new size
-    composite.getTopBoundsSupport().setSize(500, 400);
-    composite.refresh();
-    assertEquals(new Dimension(500, 400), composite.getBounds().getSize());
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends Shell {",
-        "  public Test() {",
-        "    setSize(500, 400);",
-        "  }",
-        "}");
-  }
+	public void test_setSize_Shell_noSizeInvocations() throws Exception {
+		CompositeInfo composite =
+				parseComposite(
+						"// filler filler filler",
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"  }",
+						"}");
+		composite.refresh();
+		// default size
+		assertEquals(new Dimension(450, 300), composite.getBounds().getSize());
+		// set new size
+		composite.getTopBoundsSupport().setSize(500, 400);
+		composite.refresh();
+		assertEquals(new Dimension(500, 400), composite.getBounds().getSize());
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"    setSize(500, 400);",
+				"  }",
+				"}");
+	}
 }

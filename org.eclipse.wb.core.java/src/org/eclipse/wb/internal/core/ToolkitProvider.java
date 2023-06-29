@@ -20,18 +20,18 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
  * @coverage core
  */
 public final class ToolkitProvider implements IToolkitProvider {
-  public static final ToolkitDescription DESCRIPTION = CoreToolkitDescription.INSTANCE;
-  static {
-    ((CoreToolkitDescription) DESCRIPTION).initialize();
-  }
+	public static final ToolkitDescription DESCRIPTION = CoreToolkitDescription.INSTANCE;
+	static {
+		((CoreToolkitDescription) DESCRIPTION).initialize();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IToolkitProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ToolkitDescription getDescription() {
-    return DESCRIPTION;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IToolkitProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ToolkitDescription getDescription() {
+		return DESCRIPTION;
+	}
 }

@@ -24,51 +24,51 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author scheglov_ke
  */
 public class DragSourceGefTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * We should have {@link EditPart} in tree and on canvas.
-   */
-  public void test_editParts() throws Exception {
-    openEditor(
-        "<Shell xmlns:p1='clr-namespace:org.eclipse.swt.dnd'>",
-        "  <p1:DragSource wbp:name='dragSource'/>",
-        "</Shell>");
-    DragSourceInfo dragSource = getObjectByName("dragSource");
-    // in tree
-    tree.assertNotNullEditPart(dragSource);
-    // on canvas
-    {
-      GraphicalEditPart editPart = canvas.getEditPart(dragSource);
-      assertNotNull(editPart);
-      assertEquals(new Rectangle(25, 5, 16, 16), editPart.getFigure().getBounds());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * We should have {@link EditPart} in tree and on canvas.
+	 */
+	public void test_editParts() throws Exception {
+		openEditor(
+				"<Shell xmlns:p1='clr-namespace:org.eclipse.swt.dnd'>",
+				"  <p1:DragSource wbp:name='dragSource'/>",
+				"</Shell>");
+		DragSourceInfo dragSource = getObjectByName("dragSource");
+		// in tree
+		tree.assertNotNullEditPart(dragSource);
+		// on canvas
+		{
+			GraphicalEditPart editPart = canvas.getEditPart(dragSource);
+			assertNotNull(editPart);
+			assertEquals(new Rectangle(25, 5, 16, 16), editPart.getFigure().getBounds());
+		}
+	}
 
-  public void test_CREATE() throws Exception {
-    XmlObjectInfo shell = openEditor("<Shell/>");
-    //
-    DragSourceInfo dragSource = loadCreationTool("org.eclipse.swt.dnd.DragSource");
-    canvas.moveTo(shell, 0.5, 0.5);
-    canvas.assertFeedbacks(canvas.getTargetPredicate(shell));
-    canvas.click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "<Shell xmlns:p1='clr-namespace:org.eclipse.swt.dnd'>",
-        "  <p1:DragSource/>",
-        "</Shell>");
-    canvas.assertPrimarySelected(dragSource);
-  }
+	public void test_CREATE() throws Exception {
+		XmlObjectInfo shell = openEditor("<Shell/>");
+		//
+		DragSourceInfo dragSource = loadCreationTool("org.eclipse.swt.dnd.DragSource");
+		canvas.moveTo(shell, 0.5, 0.5);
+		canvas.assertFeedbacks(canvas.getTargetPredicate(shell));
+		canvas.click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"<Shell xmlns:p1='clr-namespace:org.eclipse.swt.dnd'>",
+				"  <p1:DragSource/>",
+				"</Shell>");
+		canvas.assertPrimarySelected(dragSource);
+	}
 }

@@ -19,10 +19,10 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class XmlTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.xml");
-    suite.addTest(createSingleSuite(QParserTest.class));
-    suite.addTest(createSingleSuite(XmlDocumentTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.xml");
+		suite.addTest(createSingleSuite(QParserTest.class));
+		suite.addTest(createSingleSuite(XmlDocumentTest.class));
+		return suite;
+	}
 }

@@ -37,101 +37,101 @@ import java.util.List;
  * @coverage core.gef.policy.nonvisual
  */
 final class NonVisualValidator implements ILayoutRequestValidator {
-  protected final JavaInfo m_infoForMemento;
+	protected final JavaInfo m_infoForMemento;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NonVisualValidator(JavaInfo infoForMemento) {
-    m_infoForMemento = infoForMemento;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NonVisualValidator(JavaInfo infoForMemento) {
+		m_infoForMemento = infoForMemento;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Create/Paste
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-    if (!acceptDropNonVisualBeans()) {
-      return false;
-    }
-    final Object newObject = request.getNewObject();
-    if (newObject instanceof JavaInfo) {
-      return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-        @Override
-        public Boolean runObject() throws Exception {
-          JavaInfo newInfo = (JavaInfo) newObject;
-          return validateJavaInfo(newInfo);
-        }
-      }, false);
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Create/Paste
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+		if (!acceptDropNonVisualBeans()) {
+			return false;
+		}
+		final Object newObject = request.getNewObject();
+		if (newObject instanceof JavaInfo) {
+			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+				@Override
+				public Boolean runObject() throws Exception {
+					JavaInfo newInfo = (JavaInfo) newObject;
+					return validateJavaInfo(newInfo);
+				}
+			}, false);
+		}
+		return false;
+	}
 
-  @Override
-  public boolean validatePasteRequest(EditPart host, final PasteRequest request) {
-    if (!acceptDropNonVisualBeans()) {
-      return false;
-    }
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      @Override
-      @SuppressWarnings("unchecked")
-      public Boolean runObject() throws Exception {
-        List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
-        if (mementos.size() == 1) {
-          JavaInfo newInfo = mementos.get(0).create(m_infoForMemento);
-          return validateJavaInfo(newInfo);
-        }
-        return false;
-      }
-    }, false);
-  }
+	@Override
+	public boolean validatePasteRequest(EditPart host, final PasteRequest request) {
+		if (!acceptDropNonVisualBeans()) {
+			return false;
+		}
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+			@Override
+			@SuppressWarnings("unchecked")
+			public Boolean runObject() throws Exception {
+				List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
+				if (mementos.size() == 1) {
+					JavaInfo newInfo = mementos.get(0).create(m_infoForMemento);
+					return validateJavaInfo(newInfo);
+				}
+				return false;
+			}
+		}, false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Add/Move
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-    return validateMoveRequest(host, request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Add/Move
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+		return validateMoveRequest(host, request);
+	}
 
-  @Override
-  public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-    for (EditPart part : request.getEditParts()) {
-      if (!(part instanceof NonVisualBeanEditPart)) {
-        return false;
-      }
-    }
-    return true;
-  }
+	@Override
+	public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+		for (EditPart part : request.getEditParts()) {
+			if (!(part instanceof NonVisualBeanEditPart)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected static boolean validateJavaInfo(JavaInfo newInfo) throws Exception {
-    ComponentDescription description = newInfo.getDescription();
-    // ignore special models (absolute layout and etc)
-    if (description.getComponentClass() == null) {
-      return false;
-    }
-    // ignore is disabled
-    if (JavaInfoUtils.hasTrueParameter(newInfo, "NVO.disabled")) {
-      return false;
-    }
-    // validate only java bean objects
-    String source = newInfo.getCreationSupport().add_getSource(null);
-    return !StringUtils.contains(source, "%parent%") && !StringUtils.contains(source, "%child%");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected static boolean validateJavaInfo(JavaInfo newInfo) throws Exception {
+		ComponentDescription description = newInfo.getDescription();
+		// ignore special models (absolute layout and etc)
+		if (description.getComponentClass() == null) {
+			return false;
+		}
+		// ignore is disabled
+		if (JavaInfoUtils.hasTrueParameter(newInfo, "NVO.disabled")) {
+			return false;
+		}
+		// validate only java bean objects
+		String source = newInfo.getCreationSupport().add_getSource(null);
+		return !StringUtils.contains(source, "%parent%") && !StringUtils.contains(source, "%child%");
+	}
 
-  protected static boolean acceptDropNonVisualBeans() {
-    return DesignerPlugin.getPreferences().getBoolean(
-        IPreferenceConstants.P_COMMON_ACCEPT_NON_VISUAL_BEANS);
-  }
+	protected static boolean acceptDropNonVisualBeans() {
+		return DesignerPlugin.getPreferences().getBoolean(
+				IPreferenceConstants.P_COMMON_ACCEPT_NON_VISUAL_BEANS);
+	}
 }

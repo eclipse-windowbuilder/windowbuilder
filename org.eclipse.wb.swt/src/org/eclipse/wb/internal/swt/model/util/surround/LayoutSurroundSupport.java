@@ -24,44 +24,44 @@ import java.util.List;
  * @coverage swt.model.util
  */
 public abstract class LayoutSurroundSupport extends SwtSurroundSupport {
-  private final LayoutInfo m_layout;
+	private final LayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutSurroundSupport(LayoutInfo layout) {
-    super(layout.getComposite());
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutSurroundSupport(LayoutInfo layout) {
+		super(layout.getComposite());
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isActive() {
-    return m_layout.isActive();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isActive() {
+		return m_layout.isActive();
+	}
 
-  @Override
-  protected boolean validateComponents(List<ControlInfo> components) throws Exception {
-    if (!super.validateComponents(components)) {
-      return false;
-    }
-    // perform "surround" only for "active" layout
-    if (!m_layout.isActive()) {
-      return false;
-    }
-    // don't handle implicit
-    for (ControlInfo component : components) {
-      if (component.getCreationSupport() instanceof IImplicitCreationSupport) {
-        return false;
-      }
-    }
-    // OK
-    return true;
-  }
+	@Override
+	protected boolean validateComponents(List<ControlInfo> components) throws Exception {
+		if (!super.validateComponents(components)) {
+			return false;
+		}
+		// perform "surround" only for "active" layout
+		if (!m_layout.isActive()) {
+			return false;
+		}
+		// don't handle implicit
+		for (ControlInfo component : components) {
+			if (component.getCreationSupport() instanceof IImplicitCreationSupport) {
+				return false;
+			}
+		}
+		// OK
+		return true;
+	}
 }

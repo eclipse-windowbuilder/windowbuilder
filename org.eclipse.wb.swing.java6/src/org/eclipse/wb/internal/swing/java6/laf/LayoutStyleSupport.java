@@ -31,75 +31,75 @@ import javax.swing.SwingConstants;
  * @coverage swing.laf
  */
 public final class LayoutStyleSupport implements ILayoutStyleSupport {
-  private LayoutStyle m_layoutStyle;
+	private LayoutStyle m_layoutStyle;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutStyleSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setLayoutStyle(LookAndFeel laf) {
-    Assert.isNotNull(laf);
-    m_layoutStyle = laf.getLayoutStyle();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutStyleSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setLayoutStyle(LookAndFeel laf) {
+		Assert.isNotNull(laf);
+		m_layoutStyle = laf.getLayoutStyle();
+	}
 
-  @Override
-  public int getContainerGap(JComponent component, int position, Container parent) {
-    return m_layoutStyle.getContainerGap(component, convertPositionConstants(position), parent);
-  }
+	@Override
+	public int getContainerGap(JComponent component, int position, Container parent) {
+		return m_layoutStyle.getContainerGap(component, convertPositionConstants(position), parent);
+	}
 
-  @Override
-  public int getPreferredGap(JComponent component1,
-      JComponent component2,
-      int componentPlacement,
-      int position,
-      Container parent) {
-    return m_layoutStyle.getPreferredGap(
-        component1,
-        component2,
-        convertPlacement(componentPlacement),
-        convertPositionConstants(position),
-        parent);
-  }
+	@Override
+	public int getPreferredGap(JComponent component1,
+			JComponent component2,
+			int componentPlacement,
+			int position,
+			Container parent) {
+		return m_layoutStyle.getPreferredGap(
+				component1,
+				component2,
+				convertPlacement(componentPlacement),
+				convertPositionConstants(position),
+				parent);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Converts from {@link IPositionConstants} into {@link SwingConstants}.
-   */
-  private static int convertPositionConstants(int positionConstant) {
-    switch (positionConstant) {
-      case IPositionConstants.TOP :
-        return SwingConstants.NORTH;
-      case IPositionConstants.BOTTOM :
-        return SwingConstants.SOUTH;
-      case IPositionConstants.LEFT :
-        return SwingConstants.WEST;
-      case IPositionConstants.RIGHT :
-        return SwingConstants.EAST;
-      default :
-        throw new IllegalArgumentException(MessageFormat.format(
-            Messages.LayoutStyleSupport_unsupportedPosition,
-            positionConstant));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Converts from {@link IPositionConstants} into {@link SwingConstants}.
+	 */
+	private static int convertPositionConstants(int positionConstant) {
+		switch (positionConstant) {
+		case IPositionConstants.TOP :
+			return SwingConstants.NORTH;
+		case IPositionConstants.BOTTOM :
+			return SwingConstants.SOUTH;
+		case IPositionConstants.LEFT :
+			return SwingConstants.WEST;
+		case IPositionConstants.RIGHT :
+			return SwingConstants.EAST;
+		default :
+			throw new IllegalArgumentException(MessageFormat.format(
+					Messages.LayoutStyleSupport_unsupportedPosition,
+					positionConstant));
+		}
+	}
 
-  /**
-   * Converts integer into {@link ComponentPlacement} constant.
-   */
-  private ComponentPlacement convertPlacement(int componentPlacement) {
-    ComponentPlacement[] values = ComponentPlacement.values();
-    for (ComponentPlacement placement : values) {
-      if (placement.ordinal() == componentPlacement) {
-        return placement;
-      }
-    }
-    throw new IllegalArgumentException(MessageFormat.format(
-        Messages.LayoutStyleSupport_unsupportedPlacement,
-        componentPlacement));
-  }
+	/**
+	 * Converts integer into {@link ComponentPlacement} constant.
+	 */
+	private ComponentPlacement convertPlacement(int componentPlacement) {
+		ComponentPlacement[] values = ComponentPlacement.values();
+		for (ComponentPlacement placement : values) {
+			if (placement.ordinal() == componentPlacement) {
+				return placement;
+			}
+		}
+		throw new IllegalArgumentException(MessageFormat.format(
+				Messages.LayoutStyleSupport_unsupportedPlacement,
+				componentPlacement));
+	}
 }

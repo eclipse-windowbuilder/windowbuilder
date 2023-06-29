@@ -21,14 +21,14 @@ import org.eclipse.jface.preference.IPreferenceStore;
  *
  */
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractPreferenceInitializer
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initializeDefaultPreferences() {
-    IPreferenceStore store = Activator.getStore();
-    store.setDefault(IPreferenceConstants.GENERATE_CODE_FOR_VERSION_2_5, false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractPreferenceInitializer
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initializeDefaultPreferences() {
+		IPreferenceStore store = Activator.getStore();
+		store.setDefault(IPreferenceConstants.GENERATE_CODE_FOR_VERSION_2_5, false);
+	}
 }

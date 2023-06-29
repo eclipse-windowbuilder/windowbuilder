@@ -19,12 +19,12 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
  * @coverage rcp
  */
 public interface IExceptionConstants {
-  int NO_FORM_TOOLKIT = 3000;
-  int NO_DESIGN_WIZARD = 3001;
-  int NO_DESIGN_MP_EDITOR = 3002;
-  int NO_CONTROL_IN_WIZARD_PAGE = 3003;
-  int SWT_DIALOG_NO_OPEN_METHOD = 3004;
-  int NOT_CONFIGURED_FOR_SWT = 3005;
-  int SWT_DIALOG_NO_MAIN_SHELL = 3006;
-  int NO_DESIGN_WIDGET = 3007;
+	int NO_FORM_TOOLKIT = 3000;
+	int NO_DESIGN_WIZARD = 3001;
+	int NO_DESIGN_MP_EDITOR = 3002;
+	int NO_CONTROL_IN_WIZARD_PAGE = 3003;
+	int SWT_DIALOG_NO_OPEN_METHOD = 3004;
+	int NOT_CONFIGURED_FOR_SWT = 3005;
+	int SWT_DIALOG_NO_MAIN_SHELL = 3006;
+	int NO_DESIGN_WIDGET = 3007;
 }

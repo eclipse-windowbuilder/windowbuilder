@@ -24,64 +24,64 @@ import java.util.List;
  * @author lobas_av
  */
 public class TestLogger {
-  private final List<String> m_events = Lists.newArrayList();
+	private final List<String> m_events = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Removes all logged events.
-   */
-  public void clear() {
-    m_events.clear();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Removes all logged events.
+	 */
+	public void clear() {
+		m_events.clear();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Assert
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Asserts that this {@link TestLogger} has no events.
-   */
-  public void assertEmpty() {
-    Assert.assertTrue(m_events.isEmpty());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Assert
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Asserts that this {@link TestLogger} has no events.
+	 */
+	public void assertEmpty() {
+		Assert.assertTrue(m_events.isEmpty());
+	}
 
-  /**
-   * Asserts that this {@link TestLogger} contains same events as in expected one.
-   */
-  public void assertEquals(TestLogger expectedLogger) {
-    assertEquals(expectedLogger, this);
-  }
+	/**
+	 * Asserts that this {@link TestLogger} contains same events as in expected one.
+	 */
+	public void assertEquals(TestLogger expectedLogger) {
+		assertEquals(expectedLogger, this);
+	}
 
-  /**
-   * Asserts that two objects are equal. If they are not an AssertionFailedError is thrown.
-   */
-  public static void assertEquals(TestLogger expectedLogger, TestLogger actualLoogger) {
-    Assert.assertEquals(getString(expectedLogger), getString(actualLoogger));
-    expectedLogger.clear();
-    actualLoogger.clear();
-  }
+	/**
+	 * Asserts that two objects are equal. If they are not an AssertionFailedError is thrown.
+	 */
+	public static void assertEquals(TestLogger expectedLogger, TestLogger actualLoogger) {
+		Assert.assertEquals(getString(expectedLogger), getString(actualLoogger));
+		expectedLogger.clear();
+		actualLoogger.clear();
+	}
 
-  /**
-   * @return the single {@link String} from events of given {@link TestLogger}.
-   */
-  private static String getString(TestLogger logger) {
-    return StringUtils.join(logger.m_events.iterator(), "\n");
-  }
+	/**
+	 * @return the single {@link String} from events of given {@link TestLogger}.
+	 */
+	private static String getString(TestLogger logger) {
+		return StringUtils.join(logger.m_events.iterator(), "\n");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Logging
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Logs new event.
-   */
-  public void log(String message) {
-    m_events.add(message);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Logging
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Logs new event.
+	 */
+	public void log(String message) {
+		m_events.add(message);
+	}
 }

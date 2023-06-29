@@ -23,16 +23,16 @@ import org.eclipse.swt.custom.CBanner;
  * @coverage rcp.model.widgets
  */
 public final class CBannerInfo extends AbstractPositionCompositeInfo {
-  private static final String[] POSITIONS = new String[]{"setLeft", "setRight", "setBottom"};
+	private static final String[] POSITIONS = new String[]{"setLeft", "setRight", "setBottom"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CBannerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport, POSITIONS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CBannerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport, POSITIONS);
+	}
 }

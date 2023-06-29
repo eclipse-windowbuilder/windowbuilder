@@ -25,46 +25,46 @@ import org.eclipse.jface.wizard.Wizard;
  * @coverage bindings.ui
  */
 public class BindWizard extends Wizard {
-  private final Context m_context;
-  private final ObserveElementsWizardPage m_firstPage;
-  private final BindWizardPage m_secondPage;
+	private final Context m_context;
+	private final ObserveElementsWizardPage m_firstPage;
+	private final BindWizardPage m_secondPage;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BindWizard(Context context, IObserveInfo observeProperty) {
-    m_context = context;
-    m_firstPage = new ObserveElementsWizardPage(context, observeProperty);
-    m_secondPage = new BindWizardPage(context, m_firstPage);
-    setWindowTitle(Messages.BindWizard_title);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BindWizard(Context context, IObserveInfo observeProperty) {
+		m_context = context;
+		m_firstPage = new ObserveElementsWizardPage(context, observeProperty);
+		m_secondPage = new BindWizardPage(context, m_firstPage);
+		setWindowTitle(Messages.BindWizard_title);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addPages() {
-    addPage(m_firstPage);
-    addPage(m_secondPage);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addPages() {
+		addPage(m_firstPage);
+		addPage(m_secondPage);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Wizard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean performFinish() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
-        m_context.provider.addBinding(m_secondPage.performFinish());
-        return true;
-      }
-    }, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Wizard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean performFinish() {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+			@Override
+			public Boolean runObject() throws Exception {
+				m_context.provider.addBinding(m_secondPage.performFinish());
+				return true;
+			}
+		}, true);
+	}
 }

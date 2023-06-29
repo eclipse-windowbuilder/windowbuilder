@@ -31,37 +31,37 @@ import javax.swing.JInternalFrame;
  * @coverage swing.wizards.ui
  */
 public final class NewJInternalFrameWizardPage extends SwingWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NewJInternalFrameWizardPage() {
-    setTitle(Messages.NewJInternalFrameWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/JInternalFrame/banner.gif"));
-    setDescription(Messages.NewJInternalFrameWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NewJInternalFrameWizardPage() {
+		setTitle(Messages.NewJInternalFrameWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/JInternalFrame/banner.gif"));
+		setDescription(Messages.NewJInternalFrameWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/JInternalFrame.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/JInternalFrame.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("javax.swing.JInternalFrame", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("javax.swing.JInternalFrame", true);
+	}
 }

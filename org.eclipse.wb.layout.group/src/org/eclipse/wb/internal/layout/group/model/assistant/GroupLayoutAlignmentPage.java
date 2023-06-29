@@ -39,63 +39,63 @@ import java.util.List;
  * @author mitin_aa
  */
 public final class GroupLayoutAlignmentPage extends Composite
-    implements
-      ILayoutAssistantPage,
-      LayoutConstants {
-  private final IGroupLayoutInfo m_layout;
-  private final List<ObjectInfo> m_objects;
-  private ToolBarManager m_toolBarManager;
+implements
+ILayoutAssistantPage,
+LayoutConstants {
+	private final IGroupLayoutInfo m_layout;
+	private final List<ObjectInfo> m_objects;
+	private ToolBarManager m_toolBarManager;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GroupLayoutAlignmentPage(Composite parent,
-      IGroupLayoutInfo layout,
-      List<ObjectInfo> objects) {
-    super(parent, SWT.NONE);
-    // fields
-    m_layout = layout;
-    m_objects = objects;
-    // UI
-    GridLayoutFactory.create(this).noMargins().noSpacing();
-    // put everything into a top group
-    Group topGroup = new Group(this, SWT.NONE);
-    GridDataFactory.create(topGroup).grab().fill();
-    GridLayoutFactory.create(topGroup);
-    topGroup.setText(Messages.GroupLayoutAlignmentPage_alignmentGroup);
-    {
-      m_toolBarManager = new ToolBarManager(SWT.FLAT);
-      ToolBar toolBar = m_toolBarManager.createControl(topGroup);
-      GridDataFactory.create(toolBar).alignHC();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GroupLayoutAlignmentPage(Composite parent,
+			IGroupLayoutInfo layout,
+			List<ObjectInfo> objects) {
+		super(parent, SWT.NONE);
+		// fields
+		m_layout = layout;
+		m_objects = objects;
+		// UI
+		GridLayoutFactory.create(this).noMargins().noSpacing();
+		// put everything into a top group
+		Group topGroup = new Group(this, SWT.NONE);
+		GridDataFactory.create(topGroup).grab().fill();
+		GridLayoutFactory.create(topGroup);
+		topGroup.setText(Messages.GroupLayoutAlignmentPage_alignmentGroup);
+		{
+			m_toolBarManager = new ToolBarManager(SWT.FLAT);
+			ToolBar toolBar = m_toolBarManager.createControl(topGroup);
+			GridDataFactory.create(toolBar).alignHC();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutAssistantPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updatePage() {
-    m_toolBarManager.removeAll();
-    List<ObjectInfo> sel = Lists.newArrayList();
-    List<Object> actions = Lists.newArrayList();
-    CollectionUtils.addAll(sel, m_objects.iterator());
-    new AlignmentsSupport(m_layout).addAlignmentActions(sel, actions);
-    for (Object action : actions) {
-      if (action instanceof IContributionItem) {
-        m_toolBarManager.add((IContributionItem) action);
-      } else if (action instanceof IAction) {
-        m_toolBarManager.add((IAction) action);
-      }
-    }
-    m_toolBarManager.update(true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutAssistantPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updatePage() {
+		m_toolBarManager.removeAll();
+		List<ObjectInfo> sel = Lists.newArrayList();
+		List<Object> actions = Lists.newArrayList();
+		CollectionUtils.addAll(sel, m_objects.iterator());
+		new AlignmentsSupport(m_layout).addAlignmentActions(sel, actions);
+		for (Object action : actions) {
+			if (action instanceof IContributionItem) {
+				m_toolBarManager.add((IContributionItem) action);
+			} else if (action instanceof IAction) {
+				m_toolBarManager.add((IAction) action);
+			}
+		}
+		m_toolBarManager.update(true);
+	}
 
-  @Override
-  public boolean isPageValid() {
-    return true;
-  }
+	@Override
+	public boolean isPageValid() {
+		return true;
+	}
 }

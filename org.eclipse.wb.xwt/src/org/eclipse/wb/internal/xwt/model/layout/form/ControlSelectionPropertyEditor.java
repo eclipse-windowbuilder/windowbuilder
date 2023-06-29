@@ -31,55 +31,55 @@ import java.util.List;
  * @coverage XWT.model.property.editor
  */
 public final class ControlSelectionPropertyEditor extends AbstractComboPropertyEditor {
-  private final List<ControlInfo> m_controls = Lists.newArrayList();
+	private final List<ControlInfo> m_controls = Lists.newArrayList();
 
-  @Override
-  protected void addItems(Property property, CCombo3 combo) throws Exception {
-    FormAttachmentInfo formAttachment = getAttachment(property);
-    ControlInfo thisControl = (ControlInfo) formAttachment.getParent().getParent();
-    CompositeInfo compositeInfo = (CompositeInfo) thisControl.getParent();
-    List<ControlInfo> childrenControls = compositeInfo.getChildrenControls();
-    for (ControlInfo controlInfo : childrenControls) {
-      if (controlInfo != thisControl) {
-        combo.add(controlInfo.getPresentation().getText());
-        m_controls.add(controlInfo);
-      }
-    }
-  }
+	@Override
+	protected void addItems(Property property, CCombo3 combo) throws Exception {
+		FormAttachmentInfo formAttachment = getAttachment(property);
+		ControlInfo thisControl = (ControlInfo) formAttachment.getParent().getParent();
+		CompositeInfo compositeInfo = (CompositeInfo) thisControl.getParent();
+		List<ControlInfo> childrenControls = compositeInfo.getChildrenControls();
+		for (ControlInfo controlInfo : childrenControls) {
+			if (controlInfo != thisControl) {
+				combo.add(controlInfo.getPresentation().getText());
+				m_controls.add(controlInfo);
+			}
+		}
+	}
 
-  @Override
-  protected void selectItem(Property property, CCombo3 combo) throws Exception {
-    combo.setText(getText(property));
-  }
+	@Override
+	protected void selectItem(Property property, CCombo3 combo) throws Exception {
+		combo.setText(getText(property));
+	}
 
-  @Override
-  protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
-    ControlInfo controlInfo = m_controls.get(index);
-    // set expression would further be caught in FormAttachment
-    ((GenericPropertyImpl) property).setExpression("", controlInfo);
-  }
+	@Override
+	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+		ControlInfo controlInfo = m_controls.get(index);
+		// set expression would further be caught in FormAttachment
+		((GenericPropertyImpl) property).setExpression("", controlInfo);
+	}
 
-  @Override
-  protected String getText(Property property) throws Exception {
-    Object control = property.getValue();
-    if (control != null) {
-      FormAttachmentInfo attachment = getAttachment(property);
-      XmlObjectInfo controlInfo = attachment.getRootXML().getChildByObject(control);
-      if (controlInfo != null) {
-        return controlInfo.getPresentation().getText();
-      }
-    }
-    return null;
-  }
+	@Override
+	protected String getText(Property property) throws Exception {
+		Object control = property.getValue();
+		if (control != null) {
+			FormAttachmentInfo attachment = getAttachment(property);
+			XmlObjectInfo controlInfo = attachment.getRootXML().getChildByObject(control);
+			if (controlInfo != null) {
+				return controlInfo.getPresentation().getText();
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Misc/Helpers
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private FormAttachmentInfo getAttachment(Property property) {
-    GenericProperty genericProperty = (GenericProperty) property;
-    FormAttachmentInfo formAttachment = (FormAttachmentInfo) genericProperty.getObject();
-    return formAttachment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Misc/Helpers
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private FormAttachmentInfo getAttachment(Property property) {
+		GenericProperty genericProperty = (GenericProperty) property;
+		FormAttachmentInfo formAttachment = (FormAttachmentInfo) genericProperty.getObject();
+		return formAttachment;
+	}
 }

@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.xml.model;
  * @coverage XML.model
  */
 public interface IRootProcessor {
-  /**
-   * Last step after building {@link XmlObjectInfo} tree.
-   */
-  void process(XmlObjectInfo root) throws Exception;
+	/**
+	 * Last step after building {@link XmlObjectInfo} tree.
+	 */
+	void process(XmlObjectInfo root) throws Exception;
 }

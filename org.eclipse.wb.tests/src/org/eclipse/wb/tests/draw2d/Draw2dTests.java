@@ -21,20 +21,20 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    // Border
-    MarginBorderTest.class,
-    LineBorderTest.class,
-    CompoundBorderTest.class,
-    // Figure
-    GraphicsTest.class,
-    FigureTest.class,
-    FigurePaintingTest.class,
-    LabelTest.class,
-    PolylineTest.class,
-    LayerTest.class,
-    RootFigureTest.class,
-    // events
-    FigureEventTest.class,
+	// Border
+	MarginBorderTest.class,
+	LineBorderTest.class,
+	CompoundBorderTest.class,
+	// Figure
+	GraphicsTest.class,
+	FigureTest.class,
+	FigurePaintingTest.class,
+	LabelTest.class,
+	PolylineTest.class,
+	LayerTest.class,
+	RootFigureTest.class,
+	// events
+	FigureEventTest.class,
 })
 public class Draw2dTests {
 }

@@ -24,59 +24,59 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class CategoryAddCommand extends CategoryAbstractCommand {
-  public static final String ID = "addCategory";
-  private final String m_nextCategoryId;
+	public static final String ID = "addCategory";
+	private final String m_nextCategoryId;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CategoryAddCommand(String id,
-      String name,
-      String description,
-      boolean visible,
-      boolean open,
-      String nextCategoryId) {
-    super(id, name, description, visible, open);
-    m_nextCategoryId = nextCategoryId;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CategoryAddCommand(String id,
+			String name,
+			String description,
+			boolean visible,
+			boolean open,
+			String nextCategoryId) {
+		super(id, name, description, visible, open);
+		m_nextCategoryId = nextCategoryId;
+	}
 
-  public CategoryAddCommand(Attributes attributes) {
-    super(attributes);
-    m_nextCategoryId = attributes.getValue("nextCategory");
-  }
+	public CategoryAddCommand(Attributes attributes) {
+		super(attributes);
+		m_nextCategoryId = attributes.getValue("nextCategory");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    // create category
-    CategoryInfo category = new CategoryInfo();
-    category.setId(m_id);
-    updateElement(category);
-    // add category
-    List<CategoryInfo> categories = palette.getCategories();
-    CategoryInfo nextCategory = palette.getCategory(m_nextCategoryId);
-    int index = categories.indexOf(nextCategory);
-    if (index != -1) {
-      categories.add(index, category);
-    } else {
-      categories.add(category);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		// create category
+		CategoryInfo category = new CategoryInfo();
+		category.setId(m_id);
+		updateElement(category);
+		// add category
+		List<CategoryInfo> categories = palette.getCategories();
+		CategoryInfo nextCategory = palette.getCategory(m_nextCategoryId);
+		int index = categories.indexOf(nextCategory);
+		if (index != -1) {
+			categories.add(index, category);
+		} else {
+			categories.add(category);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    super.addAttributes();
-    addAttribute("nextCategory", m_nextCategoryId);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		super.addAttributes();
+		addAttribute("nextCategory", m_nextCategoryId);
+	}
 }

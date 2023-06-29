@@ -21,26 +21,26 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewConta
  * @coverage rcp.gef.part
  */
 public final class FastViewContainerEditPart extends AbstractShortcutContainerEditPart {
-  private final FastViewContainerInfo m_container;
+	private final FastViewContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FastViewContainerEditPart(FastViewContainerInfo container) {
-    super(container);
-    m_container = container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FastViewContainerEditPart(FastViewContainerInfo container) {
+		super(container);
+		m_container = container;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(new FastViewContainerLayoutEditPolicy(m_container));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(new FastViewContainerLayoutEditPolicy(m_container));
+	}
 }

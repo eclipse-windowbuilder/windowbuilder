@@ -22,5 +22,5 @@ import org.apache.commons.digester3.Rule;
  * @coverage XML.model.description
  */
 public interface IDescriptionRulesProvider {
-  void addRules(Digester digester, EditorContext context, Class<?> componentClass);
+	void addRules(Digester digester, EditorContext context, Class<?> componentClass);
 }

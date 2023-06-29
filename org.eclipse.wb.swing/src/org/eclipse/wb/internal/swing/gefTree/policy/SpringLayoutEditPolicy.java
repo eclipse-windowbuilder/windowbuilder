@@ -26,40 +26,40 @@ import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
  * @coverage swing.gefTree.policy
  */
 public final class SpringLayoutEditPolicy extends ObjectLayoutEditPolicy<ComponentInfo> {
-  private final SpringLayoutInfo m_layout;
+	private final SpringLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SpringLayoutEditPolicy(SpringLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SpringLayoutEditPolicy(SpringLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ComponentsLayoutRequestValidator.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ComponentsLayoutRequestValidator.INSTANCE;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof ComponentInfo;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof ComponentInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_MOVE(ComponentInfo component, ComponentInfo reference) throws Exception {
-    m_layout.command_MOVE(component, reference);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_MOVE(ComponentInfo component, ComponentInfo reference) throws Exception {
+		m_layout.command_MOVE(component, reference);
+	}
 }

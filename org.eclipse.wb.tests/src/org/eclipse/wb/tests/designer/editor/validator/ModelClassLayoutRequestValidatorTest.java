@@ -21,71 +21,71 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
  * @author scheglov_ke
  */
 public class ModelClassLayoutRequestValidatorTest extends AbstractLayoutRequestValidatorTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for create/move/add.
-   */
-  public void test_CMA() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    ILayoutRequestValidator validator = new ModelClassLayoutRequestValidator(ContainerInfo.class);
-    // false: not JavaInfo
-    {
-      Object child = new Object();
-      assert_validateCMA(validator, false, panel, child);
-    }
-    // false: java.awt.Button
-    {
-      ComponentInfo child = createComponent("java.awt.Button");
-      assert_validateCMA(validator, false, panel, child);
-    }
-    // true: JPanel
-    {
-      ComponentInfo child = createComponent("javax.swing.JPanel");
-      assert_validateCMA(validator, true, panel, child);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for create/move/add.
+	 */
+	public void test_CMA() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		ILayoutRequestValidator validator = new ModelClassLayoutRequestValidator(ContainerInfo.class);
+		// false: not JavaInfo
+		{
+			Object child = new Object();
+			assert_validateCMA(validator, false, panel, child);
+		}
+		// false: java.awt.Button
+		{
+			ComponentInfo child = createComponent("java.awt.Button");
+			assert_validateCMA(validator, false, panel, child);
+		}
+		// true: JPanel
+		{
+			ComponentInfo child = createComponent("javax.swing.JPanel");
+			assert_validateCMA(validator, true, panel, child);
+		}
+	}
 
-  /**
-   * Test for paste.
-   */
-  public void test_validatePasteRequest() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new java.awt.Button());",
-            "  }",
-            "}");
-    panel.refresh();
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    // false: require ContainerInfo
-    {
-      ILayoutRequestValidator validator = new ModelClassLayoutRequestValidator(ContainerInfo.class);
-      assert_validatePasteRequest(validator, false, panel, button);
-    }
-    // true: require ComponentInfo
-    {
-      ILayoutRequestValidator validator = new ModelClassLayoutRequestValidator(ComponentInfo.class);
-      assert_validatePasteRequest(validator, true, panel, button);
-    }
-  }
+	/**
+	 * Test for paste.
+	 */
+	public void test_validatePasteRequest() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    add(new java.awt.Button());",
+						"  }",
+						"}");
+		panel.refresh();
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		// false: require ContainerInfo
+		{
+			ILayoutRequestValidator validator = new ModelClassLayoutRequestValidator(ContainerInfo.class);
+			assert_validatePasteRequest(validator, false, panel, button);
+		}
+		// true: require ComponentInfo
+		{
+			ILayoutRequestValidator validator = new ModelClassLayoutRequestValidator(ComponentInfo.class);
+			assert_validatePasteRequest(validator, true, panel, button);
+		}
+	}
 }

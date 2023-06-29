@@ -37,88 +37,88 @@ import org.apache.commons.lang.StringUtils;
  * @coverage rcp.model.jface
  */
 public final class FieldLayoutPreferencePageInfo extends PreferencePageInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FieldLayoutPreferencePageInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    // don't show FieldEditor's on design canvas (simplify layout of container Composite's)
-    addBroadcastListener(new ObjectInfoChildGraphical() {
-      @Override
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        if (object instanceof FieldEditorInfo) {
-          visible[0] = false;
-        }
-      }
-    });
-    // convert FieldEditor's into block
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void variable_emptyMaterializeBefore(EmptyVariableSupport variableSupport)
-          throws Exception {
-        if (variableSupport.getJavaInfo() instanceof FieldEditorInfo) {
-          FieldEditorInfo fieldEditor = (FieldEditorInfo) variableSupport.getJavaInfo();
-          FieldEditorPreferencePageInfo.convertStatementToBlock(fieldEditor);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FieldLayoutPreferencePageInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		// don't show FieldEditor's on design canvas (simplify layout of container Composite's)
+		addBroadcastListener(new ObjectInfoChildGraphical() {
+			@Override
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				if (object instanceof FieldEditorInfo) {
+					visible[0] = false;
+				}
+			}
+		});
+		// convert FieldEditor's into block
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void variable_emptyMaterializeBefore(EmptyVariableSupport variableSupport)
+					throws Exception {
+				if (variableSupport.getJavaInfo() instanceof FieldEditorInfo) {
+					FieldEditorInfo fieldEditor = (FieldEditorInfo) variableSupport.getJavaInfo();
+					FieldEditorPreferencePageInfo.convertStatementToBlock(fieldEditor);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * This method is invoked when we try to drop {@link FieldEditorInfo} on some container that
-   * requires {@link CompositeInfo}. So, we should return {@link CompositeInfo} that will later add
-   * {@link FieldEditorInfo} on itself.
-   *
-   * @return the {@link CompositeInfo} wrapper for {@link FieldEditorInfo}.
-   */
-  public CompositeInfo schedule_CREATE(final FieldEditorInfo editor) throws Exception {
-    CompositeInfo composite = (CompositeInfo) editor.getArbitraryValue(CompositeInfo.class);
-    if (composite == null) {
-      composite =
-          (CompositeInfo) JavaInfoUtils.createJavaInfo(
-              getEditor(),
-              ContainerSupport.getCompositeClass(),
-              new ConstructorCreationSupport());
-      composite.markNoLayout();
-      editor.putArbitraryValue(CompositeInfo.class, composite);
-      // schedule FieldEditor creation
-      final CompositeInfo wrapperComposite = composite;
-      addBroadcastListener(new JavaEventListener() {
-        @Override
-        public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
-          if (child == wrapperComposite) {
-            JavaInfoUtils.add(
-                editor,
-                new EmptyInvocationVariableSupport(editor, "addField(%child%)", 0),
-                PureFlatStatementGenerator.INSTANCE,
-                AssociationObjects.empty(),
-                wrapperComposite,
-                null);
-            removeBroadcastListener(this);
-          }
-        }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * This method is invoked when we try to drop {@link FieldEditorInfo} on some container that
+	 * requires {@link CompositeInfo}. So, we should return {@link CompositeInfo} that will later add
+	 * {@link FieldEditorInfo} on itself.
+	 *
+	 * @return the {@link CompositeInfo} wrapper for {@link FieldEditorInfo}.
+	 */
+	public CompositeInfo schedule_CREATE(final FieldEditorInfo editor) throws Exception {
+		CompositeInfo composite = (CompositeInfo) editor.getArbitraryValue(CompositeInfo.class);
+		if (composite == null) {
+			composite =
+					(CompositeInfo) JavaInfoUtils.createJavaInfo(
+							getEditor(),
+							ContainerSupport.getCompositeClass(),
+							new ConstructorCreationSupport());
+			composite.markNoLayout();
+			editor.putArbitraryValue(CompositeInfo.class, composite);
+			// schedule FieldEditor creation
+			final CompositeInfo wrapperComposite = composite;
+			addBroadcastListener(new JavaEventListener() {
+				@Override
+				public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
+					if (child == wrapperComposite) {
+						JavaInfoUtils.add(
+								editor,
+								new EmptyInvocationVariableSupport(editor, "addField(%child%)", 0),
+								PureFlatStatementGenerator.INSTANCE,
+								AssociationObjects.empty(),
+								wrapperComposite,
+								null);
+						removeBroadcastListener(this);
+					}
+				}
 
-        @Override
-        public void associationTemplate(JavaInfo component, String[] source) throws Exception {
-          if (component == editor) {
-            source[0] =
-                StringUtils.replace(
-                    source[0],
-                    "%parentComposite%",
-                    TemplateUtils.getExpression(wrapperComposite));
-          }
-        }
-      });
-    }
-    return composite;
-  }
+				@Override
+				public void associationTemplate(JavaInfo component, String[] source) throws Exception {
+					if (component == editor) {
+						source[0] =
+								StringUtils.replace(
+										source[0],
+										"%parentComposite%",
+										TemplateUtils.getExpression(wrapperComposite));
+					}
+				}
+			});
+		}
+		return composite;
+	}
 }

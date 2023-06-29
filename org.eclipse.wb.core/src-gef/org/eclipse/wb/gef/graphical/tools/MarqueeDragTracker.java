@@ -19,11 +19,11 @@ import org.eclipse.wb.gef.core.tools.Tool;
  * @coverage gef.graphical
  */
 public class MarqueeDragTracker extends MarqueeSelectionTool {
-  /**
-   * Called when the mouse button is released. Overridden to do nothing, since a drag tracker does
-   * not need to unload when finished.
-   */
-  @Override
-  protected void handleFinished() {
-  }
+	/**
+	 * Called when the mouse button is released. Overridden to do nothing, since a drag tracker does
+	 * not need to unload when finished.
+	 */
+	@Override
+	protected void handleFinished() {
+	}
 }

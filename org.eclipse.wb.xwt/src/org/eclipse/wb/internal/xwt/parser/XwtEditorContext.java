@@ -39,89 +39,89 @@ import java.util.List;
  * @coverage XWT.parser
  */
 public final class XwtEditorContext extends EditorContext {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XwtEditorContext(IFile file, IDocument document) throws Exception {
-    super(RcpToolkitDescription.INSTANCE, file, document);
-    configureDescriptionVersionsProviders();
-    addVersions(ImmutableMap.of("isXWT", "true"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XwtEditorContext(IFile file, IDocument document) throws Exception {
+		super(RcpToolkitDescription.INSTANCE, file, document);
+		configureDescriptionVersionsProviders();
+		addVersions(ImmutableMap.of("isXWT", "true"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ClassLoader
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addParentClassLoaders(final CompositeClassLoader parentClassLoader)
-      throws Exception {
-    super.addParentClassLoaders(parentClassLoader);
-    AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
-      public Object run() throws Exception {
-        addParentClassLoaders_impl(parentClassLoader);
-        return null;
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ClassLoader
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addParentClassLoaders(final CompositeClassLoader parentClassLoader)
+			throws Exception {
+		super.addParentClassLoaders(parentClassLoader);
+		AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
+			public Object run() throws Exception {
+				addParentClassLoaders_impl(parentClassLoader);
+				return null;
+			}
+		});
+	}
 
-  private static void addParentClassLoaders_impl(CompositeClassLoader parentClassLoader) {
-    parentClassLoader.add(new BundleClassLoader("org.eclipse.wb.xwt"), null);
-  }
+	private static void addParentClassLoaders_impl(CompositeClassLoader parentClassLoader) {
+		parentClassLoader.add(new BundleClassLoader("org.eclipse.wb.xwt"), null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Live support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ILiveEditorContext getLiveContext() {
-    return m_liveEditorContext;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Live support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ILiveEditorContext getLiveContext() {
+		return m_liveEditorContext;
+	}
 
-  private final ILiveEditorContext m_liveEditorContext = new ILiveEditorContext() {
-    public XmlObjectInfo parse(String[] sourceLines) throws Exception {
-      XmlObjectInfo root;
-      {
-        String source = StringUtils.join(sourceLines, "\n");
-        IDocument document = new Document(source);
-        XwtParser parser = new XwtParser(m_file, document);
-        root = parser.parse();
-      }
-      root.getContext().setLiveComponent(true);
-      return root;
-    }
+	private final ILiveEditorContext m_liveEditorContext = new ILiveEditorContext() {
+		public XmlObjectInfo parse(String[] sourceLines) throws Exception {
+			XmlObjectInfo root;
+			{
+				String source = StringUtils.join(sourceLines, "\n");
+				IDocument document = new Document(source);
+				XwtParser parser = new XwtParser(m_file, document);
+				root = parser.parse();
+			}
+			root.getContext().setLiveComponent(true);
+			return root;
+		}
 
-    public void dispose() throws Exception {
-    }
-  };
+		public void dispose() throws Exception {
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDescriptionVersionsProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Installs {@link IDescriptionVersionsProvider}'s.
-   */
-  private void configureDescriptionVersionsProviders() throws Exception {
-    List<IDescriptionVersionsProviderFactory> factories =
-        ExternalFactoriesHelper.getElementsInstances(
-            IDescriptionVersionsProviderFactory.class,
-            "org.eclipse.wb.core.descriptionVersionsProviderFactories",
-            "factory");
-    for (IDescriptionVersionsProviderFactory factory : factories) {
-      // versions
-      addVersions(factory.getVersions(m_javaProject, m_classLoader));
-      // version providers
-      {
-        IDescriptionVersionsProvider provider = factory.getProvider(m_javaProject, m_classLoader);
-        if (provider != null) {
-          addDescriptionVersionsProvider(provider);
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDescriptionVersionsProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Installs {@link IDescriptionVersionsProvider}'s.
+	 */
+	private void configureDescriptionVersionsProviders() throws Exception {
+		List<IDescriptionVersionsProviderFactory> factories =
+				ExternalFactoriesHelper.getElementsInstances(
+						IDescriptionVersionsProviderFactory.class,
+						"org.eclipse.wb.core.descriptionVersionsProviderFactories",
+						"factory");
+		for (IDescriptionVersionsProviderFactory factory : factories) {
+			// versions
+			addVersions(factory.getVersions(m_javaProject, m_classLoader));
+			// version providers
+			{
+				IDescriptionVersionsProvider provider = factory.getProvider(m_javaProject, m_classLoader);
+				if (provider != null) {
+					addDescriptionVersionsProvider(provider);
+				}
+			}
+		}
+	}
 }

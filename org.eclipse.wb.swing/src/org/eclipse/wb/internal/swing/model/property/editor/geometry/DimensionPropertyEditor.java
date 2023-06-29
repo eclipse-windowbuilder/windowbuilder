@@ -27,84 +27,84 @@ import java.awt.Dimension;
  * @coverage swing.property.editor
  */
 public final class DimensionPropertyEditor extends TextDialogPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new DimensionPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new DimensionPropertyEditor();
 
-  private DimensionPropertyEditor() {
-  }
+	private DimensionPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof Dimension) {
-      Dimension dimension = (Dimension) value;
-      return "(" + dimension.width + ", " + dimension.height + ")";
-    }
-    // unknown value
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof Dimension) {
+			Dimension dimension = (Dimension) value;
+			return "(" + dimension.width + ", " + dimension.height + ")";
+		}
+		// unknown value
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    // prepare Dimension to edit
-    Dimension dimension;
-    {
-      Object value = property.getValue();
-      if (value instanceof Dimension) {
-        dimension = new Dimension((Dimension) value);
-      } else {
-        dimension = new Dimension();
-      }
-    }
-    // prepare dialog
-    DimensionDialog dimensionDialog = new DimensionDialog(property.getTitle(), dimension);
-    // open dialog
-    int result = dimensionDialog.open();
-    if (result == IDialogConstants.IGNORE_ID) {
-      property.setValue(Property.UNKNOWN_VALUE);
-    } else if (result == IDialogConstants.OK_ID) {
-      property.setValue(dimension);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		// prepare Dimension to edit
+		Dimension dimension;
+		{
+			Object value = property.getValue();
+			if (value instanceof Dimension) {
+				dimension = new Dimension((Dimension) value);
+			} else {
+				dimension = new Dimension();
+			}
+		}
+		// prepare dialog
+		DimensionDialog dimensionDialog = new DimensionDialog(property.getTitle(), dimension);
+		// open dialog
+		int result = dimensionDialog.open();
+		if (result == IDialogConstants.IGNORE_ID) {
+			property.setValue(Property.UNKNOWN_VALUE);
+		} else if (result == IDialogConstants.OK_ID) {
+			property.setValue(dimension);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DimensionDialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final class DimensionDialog extends AbstractGeometryDialog {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public DimensionDialog(String title, Dimension dimension) {
-      super(title, dimension);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DimensionDialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final class DimensionDialog extends AbstractGeometryDialog {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public DimensionDialog(String title, Dimension dimension) {
+			super(title, dimension);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // GUI
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected void createEditors() {
-      createEditor(ModelMessages.DimensionPropertyEditor_width, "width");
-      createEditor(ModelMessages.DimensionPropertyEditor_height, "height");
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// GUI
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected void createEditors() {
+			createEditor(ModelMessages.DimensionPropertyEditor_width, "width");
+			createEditor(ModelMessages.DimensionPropertyEditor_height, "height");
+		}
+	}
 }

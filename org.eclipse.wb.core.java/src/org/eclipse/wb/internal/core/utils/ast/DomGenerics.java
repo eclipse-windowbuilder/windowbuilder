@@ -63,307 +63,307 @@ import java.util.List;
  * @coverage core.util.ast
  */
 public class DomGenerics {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private DomGenerics() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private DomGenerics() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // CompilationUnit
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<Comment> getCommentList(CompilationUnit unit) {
-    return unit.getCommentList();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// CompilationUnit
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<Comment> getCommentList(CompilationUnit unit) {
+		return unit.getCommentList();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<TagElement> tags(Javadoc javadoc) {
-    return javadoc.tags();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<TagElement> tags(Javadoc javadoc) {
+		return javadoc.tags();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<ASTNode> fragments(TagElement tagElement) {
-    return tagElement.fragments();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<ASTNode> fragments(TagElement tagElement) {
+		return tagElement.fragments();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<ImportDeclaration> imports(CompilationUnit unit) {
-    return unit.imports();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<ImportDeclaration> imports(CompilationUnit unit) {
+		return unit.imports();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<TypeDeclaration> types(CompilationUnit unit) {
-    return unit.types();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<TypeDeclaration> types(CompilationUnit unit) {
+		return unit.types();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TypeDeclaration
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<Type> superInterfaces(TypeDeclaration typeDeclaration) {
-    return typeDeclaration.superInterfaceTypes();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TypeDeclaration
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<Type> superInterfaces(TypeDeclaration typeDeclaration) {
+		return typeDeclaration.superInterfaceTypes();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<BodyDeclaration> bodyDeclarations(TypeDeclaration typeDeclaration) {
-    return typeDeclaration.bodyDeclarations();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<BodyDeclaration> bodyDeclarations(TypeDeclaration typeDeclaration) {
+		return typeDeclaration.bodyDeclarations();
+	}
 
-  /**
-   * @return {@link Initializer}'s of given {@link TypeDeclaration}.
-   */
-  public static List<Initializer> initializers(TypeDeclaration typeDeclaration, boolean aStatic) {
-    List<Initializer> initializers = Lists.newArrayList();
-    for (BodyDeclaration bodyDeclaration : bodyDeclarations(typeDeclaration)) {
-      if (bodyDeclaration instanceof Initializer) {
-        Initializer initializer = (Initializer) bodyDeclaration;
-        boolean isStatic = java.lang.reflect.Modifier.isStatic(initializer.getModifiers());
-        if (aStatic && isStatic || !aStatic && !isStatic) {
-          initializers.add(initializer);
-        }
-      }
-    }
-    return initializers;
-  }
+	/**
+	 * @return {@link Initializer}'s of given {@link TypeDeclaration}.
+	 */
+	public static List<Initializer> initializers(TypeDeclaration typeDeclaration, boolean aStatic) {
+		List<Initializer> initializers = Lists.newArrayList();
+		for (BodyDeclaration bodyDeclaration : bodyDeclarations(typeDeclaration)) {
+			if (bodyDeclaration instanceof Initializer) {
+				Initializer initializer = (Initializer) bodyDeclaration;
+				boolean isStatic = java.lang.reflect.Modifier.isStatic(initializer.getModifiers());
+				if (aStatic && isStatic || !aStatic && !isStatic) {
+					initializers.add(initializer);
+				}
+			}
+		}
+		return initializers;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MethodDeclaration
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<Name> thrownExceptions(MethodDeclaration methodDeclaration) {
-    return methodDeclaration.thrownExceptions();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MethodDeclaration
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<Name> thrownExceptions(MethodDeclaration methodDeclaration) {
+		return methodDeclaration.thrownExceptions();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AnonymousClassDeclaration
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<BodyDeclaration> bodyDeclarations(AnonymousClassDeclaration anonymousDeclaration) {
-    return anonymousDeclaration.bodyDeclarations();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AnonymousClassDeclaration
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<BodyDeclaration> bodyDeclarations(AnonymousClassDeclaration anonymousDeclaration) {
+		return anonymousDeclaration.bodyDeclarations();
+	}
 
-  public static List<MethodDeclaration> methodDeclarations(AnonymousClassDeclaration anonymousDeclaration) {
-    List<BodyDeclaration> bodyDeclarations = bodyDeclarations(anonymousDeclaration);
-    return GenericsUtils.select(bodyDeclarations, MethodDeclaration.class);
-  }
+	public static List<MethodDeclaration> methodDeclarations(AnonymousClassDeclaration anonymousDeclaration) {
+		List<BodyDeclaration> bodyDeclarations = bodyDeclarations(anonymousDeclaration);
+		return GenericsUtils.select(bodyDeclarations, MethodDeclaration.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Block
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<Statement> statements(Block block) {
-    return block.statements();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Block
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<Statement> statements(Block block) {
+		return block.statements();
+	}
 
-  public static List<Statement> statements(MethodDeclaration method) {
-    if (method == null) {
-      return ImmutableList.of();
-    }
-    Block body = method.getBody();
-    if (body == null) {
-      return ImmutableList.of();
-    }
-    return statements(body);
-  }
+	public static List<Statement> statements(MethodDeclaration method) {
+		if (method == null) {
+			return ImmutableList.of();
+		}
+		Block body = method.getBody();
+		if (body == null) {
+			return ImmutableList.of();
+		}
+		return statements(body);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Annotations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<IExtendedModifier> modifiers(BodyDeclaration bodyDeclaration) {
-    return bodyDeclaration.modifiers();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Annotations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<IExtendedModifier> modifiers(BodyDeclaration bodyDeclaration) {
+		return bodyDeclaration.modifiers();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<ASTNode> modifiersNodes(BodyDeclaration bodyDeclaration) {
-    return bodyDeclaration.modifiers();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<ASTNode> modifiersNodes(BodyDeclaration bodyDeclaration) {
+		return bodyDeclaration.modifiers();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // parameters
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<SingleVariableDeclaration> parameters(MethodDeclaration methodDeclaration) {
-    return methodDeclaration.parameters();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// parameters
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<SingleVariableDeclaration> parameters(MethodDeclaration methodDeclaration) {
+		return methodDeclaration.parameters();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<TypeParameter> typeParameters(MethodDeclaration methodDeclaration) {
-    return methodDeclaration.typeParameters();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<TypeParameter> typeParameters(MethodDeclaration methodDeclaration) {
+		return methodDeclaration.typeParameters();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // arguments
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static List<Expression> arguments(ASTNode node) {
-    if (node instanceof MethodInvocation) {
-      return arguments((MethodInvocation) node);
-    }
-    if (node instanceof SuperMethodInvocation) {
-      return arguments((SuperMethodInvocation) node);
-    }
-    if (node instanceof ClassInstanceCreation) {
-      return arguments((ClassInstanceCreation) node);
-    }
-    if (node instanceof ConstructorInvocation) {
-      return arguments((ConstructorInvocation) node);
-    }
-    if (node instanceof SuperConstructorInvocation) {
-      return arguments((SuperConstructorInvocation) node);
-    }
-    throw new IllegalArgumentException(node + " does not have arguments.");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// arguments
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static List<Expression> arguments(ASTNode node) {
+		if (node instanceof MethodInvocation) {
+			return arguments((MethodInvocation) node);
+		}
+		if (node instanceof SuperMethodInvocation) {
+			return arguments((SuperMethodInvocation) node);
+		}
+		if (node instanceof ClassInstanceCreation) {
+			return arguments((ClassInstanceCreation) node);
+		}
+		if (node instanceof ConstructorInvocation) {
+			return arguments((ConstructorInvocation) node);
+		}
+		if (node instanceof SuperConstructorInvocation) {
+			return arguments((SuperConstructorInvocation) node);
+		}
+		throw new IllegalArgumentException(node + " does not have arguments.");
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<Expression> arguments(MethodInvocation invocation) {
-    return invocation.arguments();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<Expression> arguments(MethodInvocation invocation) {
+		return invocation.arguments();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<Expression> arguments(SuperMethodInvocation invocation) {
-    return invocation.arguments();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<Expression> arguments(SuperMethodInvocation invocation) {
+		return invocation.arguments();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<Expression> arguments(ClassInstanceCreation creation) {
-    return creation.arguments();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<Expression> arguments(ClassInstanceCreation creation) {
+		return creation.arguments();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<Expression> arguments(ConstructorInvocation invocation) {
-    return invocation.arguments();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<Expression> arguments(ConstructorInvocation invocation) {
+		return invocation.arguments();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<Expression> arguments(SuperConstructorInvocation invocation) {
-    return invocation.arguments();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<Expression> arguments(SuperConstructorInvocation invocation) {
+		return invocation.arguments();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // fragments
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<VariableDeclarationFragment> fragments(FieldDeclaration fieldDeclaration) {
-    return fieldDeclaration.fragments();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// fragments
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<VariableDeclarationFragment> fragments(FieldDeclaration fieldDeclaration) {
+		return fieldDeclaration.fragments();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<VariableDeclarationFragment> fragments(VariableDeclarationStatement statement) {
-    return statement.fragments();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<VariableDeclarationFragment> fragments(VariableDeclarationStatement statement) {
+		return statement.fragments();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<Expression> expressions(ArrayInitializer arrayInitializer) {
-    return arrayInitializer.expressions();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<Expression> expressions(ArrayInitializer arrayInitializer) {
+		return arrayInitializer.expressions();
+	}
 
-  @SuppressWarnings("unchecked")
-  public static List<Expression> extendedOperands(InfixExpression infixExpression) {
-    return infixExpression.extendedOperands();
-  }
+	@SuppressWarnings("unchecked")
+	public static List<Expression> extendedOperands(InfixExpression infixExpression) {
+		return infixExpression.extendedOperands();
+	}
 
-  public static List<Expression> allOperands(InfixExpression infixExpression) {
-    List<Expression> operands = new ArrayList<Expression>();
-    operands.add(infixExpression.getLeftOperand());
-    operands.add(infixExpression.getRightOperand());
-    operands.addAll(extendedOperands(infixExpression));
-    return operands;
-  }
+	public static List<Expression> allOperands(InfixExpression infixExpression) {
+		List<Expression> operands = new ArrayList<Expression>();
+		operands.add(infixExpression.getLeftOperand());
+		operands.add(infixExpression.getRightOperand());
+		operands.addAll(extendedOperands(infixExpression));
+		return operands;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // types
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<Type> typeArguments(ParameterizedType parameterizedType) {
-    return parameterizedType.typeArguments();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// types
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<Type> typeArguments(ParameterizedType parameterizedType) {
+		return parameterizedType.typeArguments();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ArrayCreation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<Expression> dimensions(ArrayCreation arrayCreation) {
-    return arrayCreation.dimensions();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ArrayCreation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<Expression> dimensions(ArrayCreation arrayCreation) {
+		return arrayCreation.dimensions();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Enums
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the list of {@link EnumDeclaration}'s if the given {@link TypeDeclaration} has declared
-   *         enums within.
-   */
-  @SuppressWarnings("rawtypes")
-  public static List<EnumDeclaration> getEnums(TypeDeclaration typeDeclaration) {
-    List<EnumDeclaration> enumDeclarations = Lists.newArrayList();
-    List declarations = typeDeclaration.bodyDeclarations();
-    for (Object object : declarations) {
-      if (object instanceof EnumDeclaration) {
-        enumDeclarations.add((EnumDeclaration) object);
-      }
-    }
-    return enumDeclarations;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Enums
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the list of {@link EnumDeclaration}'s if the given {@link TypeDeclaration} has declared
+	 *         enums within.
+	 */
+	@SuppressWarnings("rawtypes")
+	public static List<EnumDeclaration> getEnums(TypeDeclaration typeDeclaration) {
+		List<EnumDeclaration> enumDeclarations = Lists.newArrayList();
+		List declarations = typeDeclaration.bodyDeclarations();
+		for (Object object : declarations) {
+			if (object instanceof EnumDeclaration) {
+				enumDeclarations.add((EnumDeclaration) object);
+			}
+		}
+		return enumDeclarations;
+	}
 
-  /**
-   * @return the list of enum constants.
-   */
-  @SuppressWarnings("unchecked")
-  public static List<ASTNode> getEnumConstants(EnumDeclaration enumDeclaration) {
-    return enumDeclaration.enumConstants();
-  }
+	/**
+	 * @return the list of enum constants.
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<ASTNode> getEnumConstants(EnumDeclaration enumDeclaration) {
+		return enumDeclaration.enumConstants();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TryStatement
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  public static List<CatchClause> catchClauses(TryStatement tryStatement) {
-    return tryStatement.catchClauses();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TryStatement
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public static List<CatchClause> catchClauses(TryStatement tryStatement) {
+		return tryStatement.catchClauses();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Misc
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Expression} of given {@link ExpressionStatement}.
-   */
-  public static Expression getExpression(Statement statement) {
-    return ((ExpressionStatement) statement).getExpression();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Misc
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Expression} of given {@link ExpressionStatement}.
+	 */
+	public static Expression getExpression(Statement statement) {
+		return ((ExpressionStatement) statement).getExpression();
+	}
 }

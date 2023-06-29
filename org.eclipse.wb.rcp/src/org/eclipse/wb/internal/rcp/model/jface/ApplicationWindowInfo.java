@@ -35,87 +35,87 @@ import java.util.List;
  * @coverage rcp.model.jface
  */
 public final class ApplicationWindowInfo extends WindowInfo {
-  private final ApplicationWindowInfo m_this = this;
-  private JavaInfo m_statusLineManager;
+	private final ApplicationWindowInfo m_this = this;
+	private JavaInfo m_statusLineManager;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ApplicationWindowInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    addBroadcastListener(new GenericPropertyGetValue() {
-      @Override
-      public void invoke(GenericPropertyImpl property, Object[] value) throws Exception {
-        // return status manager's 'message' property as value of ApplicationWindow.status property.
-        if (isStatusManagerMessageProperty(property)) {
-          value[0] = m_this.getPropertyByTitle("status").getValue();
-        }
-      }
-    });
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void bindComponents(List<JavaInfo> components) throws Exception {
-        // bind IContributionManager's to ApplicationWindow
-        for (JavaInfo component : components) {
-          if (component.getParent() == null
-              && ReflectionUtils.isSuccessorOf(
-                  component.getDescription().getComponentClass(),
-                  "org.eclipse.jface.action.IContributionManager")
-              && isReturnedFromMethod(component)) {
-            addChild(component);
-            component.setAssociation(new EmptyAssociation());
-            if (isStatusLineManager(component)) {
-              m_statusLineManager = component;
-            }
-          }
-        }
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ApplicationWindowInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		addBroadcastListener(new GenericPropertyGetValue() {
+			@Override
+			public void invoke(GenericPropertyImpl property, Object[] value) throws Exception {
+				// return status manager's 'message' property as value of ApplicationWindow.status property.
+				if (isStatusManagerMessageProperty(property)) {
+					value[0] = m_this.getPropertyByTitle("status").getValue();
+				}
+			}
+		});
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void bindComponents(List<JavaInfo> components) throws Exception {
+				// bind IContributionManager's to ApplicationWindow
+				for (JavaInfo component : components) {
+					if (component.getParent() == null
+							&& ReflectionUtils.isSuccessorOf(
+									component.getDescription().getComponentClass(),
+									"org.eclipse.jface.action.IContributionManager")
+							&& isReturnedFromMethod(component)) {
+						addChild(component);
+						component.setAssociation(new EmptyAssociation());
+						if (isStatusLineManager(component)) {
+							m_statusLineManager = component;
+						}
+					}
+				}
+			}
 
-      private boolean isReturnedFromMethod(JavaInfo javaInfo) {
-        for (ASTNode node : javaInfo.getRelatedNodes()) {
-          if (node.getLocationInParent() == ReturnStatement.EXPRESSION_PROPERTY) {
-            return true;
-          }
-        }
-        return false;
-      }
+			private boolean isReturnedFromMethod(JavaInfo javaInfo) {
+				for (ASTNode node : javaInfo.getRelatedNodes()) {
+					if (node.getLocationInParent() == ReturnStatement.EXPRESSION_PROPERTY) {
+						return true;
+					}
+				}
+				return false;
+			}
 
-      @Override
-      public void setPropertyExpression(GenericPropertyImpl property,
-          String[] source,
-          Object[] value,
-          boolean[] shouldSet) throws Exception {
-        // set status manager's 'message' property as value of ApplicationWindow.status property.
-        if (isStatusManagerMessageProperty(property)) {
-          m_this.getPropertyByTitle("status").setValue(value[0]);
-          shouldSet[0] = false;
-        }
-      }
-    });
-  }
+			@Override
+			public void setPropertyExpression(GenericPropertyImpl property,
+					String[] source,
+					Object[] value,
+					boolean[] shouldSet) throws Exception {
+				// set status manager's 'message' property as value of ApplicationWindow.status property.
+				if (isStatusManagerMessageProperty(property)) {
+					m_this.getPropertyByTitle("status").setValue(value[0]);
+					shouldSet[0] = false;
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StatusLineManager
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean isStatusManagerMessageProperty(GenericPropertyImpl property) {
-    JavaInfo statusLineManager = getStatusLineManager();
-    if (statusLineManager != null && statusLineManager == property.getJavaInfo()) {
-      return "message".equals(property.getTitle());
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StatusLineManager
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean isStatusManagerMessageProperty(GenericPropertyImpl property) {
+		JavaInfo statusLineManager = getStatusLineManager();
+		if (statusLineManager != null && statusLineManager == property.getJavaInfo()) {
+			return "message".equals(property.getTitle());
+		}
+		return false;
+	}
 
-  private JavaInfo getStatusLineManager() {
-    return m_statusLineManager;
-  }
+	private JavaInfo getStatusLineManager() {
+		return m_statusLineManager;
+	}
 
-  private boolean isStatusLineManager(JavaInfo javaInfo) {
-    return StatusLineManager.class.isAssignableFrom(javaInfo.getDescription().getComponentClass());
-  }
+	private boolean isStatusLineManager(JavaInfo javaInfo) {
+		return StatusLineManager.class.isAssignableFrom(javaInfo.getDescription().getComponentClass());
+	}
 }

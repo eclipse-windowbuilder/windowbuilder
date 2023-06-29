@@ -29,63 +29,63 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage swt.gefTree.policy
  */
 public final class AbsoluteLayoutEditPolicy<C extends IControlInfo>
-    extends
-      ObjectLayoutEditPolicy<C> {
-  private final IAbsoluteLayoutInfo<C> m_layout;
+extends
+ObjectLayoutEditPolicy<C> {
+	private final IAbsoluteLayoutInfo<C> m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbsoluteLayoutEditPolicy(IAbsoluteLayoutInfo<C> layout) {
-    super(layout.getUnderlyingModel());
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbsoluteLayoutEditPolicy(IAbsoluteLayoutInfo<C> layout) {
+		super(layout.getUnderlyingModel());
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    Object model = editPart.getModel();
-    return isControl(model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		Object model = editPart.getModel();
+		return isControl(model);
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ControlsLayoutRequestValidator.INSTANCE;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ControlsLayoutRequestValidator.INSTANCE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(C control, C reference) throws Exception {
-    Dimension preferredSize = control.getPreferredSize();
-    m_layout.commandCreate(control, reference);
-    m_layout.commandChangeBounds(control, new Point(0, 0), preferredSize);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(C control, C reference) throws Exception {
+		Dimension preferredSize = control.getPreferredSize();
+		m_layout.commandCreate(control, reference);
+		m_layout.commandChangeBounds(control, new Point(0, 0), preferredSize);
+	}
 
-  @Override
-  protected void command_MOVE(C control, C reference) throws Exception {
-    m_layout.commandMove(control, reference);
-    m_layout.commandChangeBounds(control, null, control.getModelBounds().getSize());
-  }
+	@Override
+	protected void command_MOVE(C control, C reference) throws Exception {
+		m_layout.commandMove(control, reference);
+		m_layout.commandChangeBounds(control, null, control.getModelBounds().getSize());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given object is {@link IControlInfo}.
-   */
-  private boolean isControl(Object model) {
-    return model instanceof IControlInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given object is {@link IControlInfo}.
+	 */
+	private boolean isControl(Object model) {
+		return model instanceof IControlInfo;
+	}
 }

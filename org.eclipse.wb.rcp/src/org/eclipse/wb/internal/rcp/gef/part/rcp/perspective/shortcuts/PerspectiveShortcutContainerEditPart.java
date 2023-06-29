@@ -21,26 +21,26 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.PerspectiveSh
  * @coverage rcp.gef.part
  */
 public final class PerspectiveShortcutContainerEditPart extends AbstractShortcutContainerEditPart {
-  private final PerspectiveShortcutContainerInfo m_container;
+	private final PerspectiveShortcutContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectiveShortcutContainerEditPart(PerspectiveShortcutContainerInfo container) {
-    super(container);
-    m_container = container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectiveShortcutContainerEditPart(PerspectiveShortcutContainerInfo container) {
+		super(container);
+		m_container = container;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(new PerspectiveShortcutContainerLayoutEditPolicy(m_container));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(new PerspectiveShortcutContainerLayoutEditPolicy(m_container));
+	}
 }

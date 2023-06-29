@@ -28,45 +28,45 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class SimpleContainerLayoutGefTest extends SimpleContainerAbstractGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final class MyLayout_Info extends LayoutInfo {
-    public MyLayout_Info(EditorContext context,
-        ComponentDescription description,
-        CreationSupport creationSupport) throws Exception {
-      super(context, description, creationSupport);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final class MyLayout_Info extends LayoutInfo {
+		public MyLayout_Info(EditorContext context,
+				ComponentDescription description,
+				CreationSupport creationSupport) throws Exception {
+			super(context, description, creationSupport);
+		}
 
-    public List<ObjectInfo> getSimpleContainerChildren() {
-      return getComposite().getChildren();
-    }
+		public List<ObjectInfo> getSimpleContainerChildren() {
+			return getComposite().getChildren();
+		}
 
-    public void command_CREATE(Object component) throws Exception {
-      XmlObjectUtils.add((XmlObjectInfo) component, Associations.direct(), getComposite(), null);
-    }
+		public void command_CREATE(Object component) throws Exception {
+			XmlObjectUtils.add((XmlObjectInfo) component, Associations.direct(), getComposite(), null);
+		}
 
-    public void command_ADD(Object component) throws Exception {
-      XmlObjectUtils.move((XmlObjectInfo) component, Associations.direct(), getComposite(), null);
-    }
-  }
+		public void command_ADD(Object component) throws Exception {
+			XmlObjectUtils.move((XmlObjectInfo) component, Associations.direct(), getComposite(), null);
+		}
+	}
 
-  @Override
-  protected void prepareSimplePanel() throws Exception {
-    SimpleContainerModelTest.prepareSimplePanel_classes();
-    setFileContentSrc(
-        "test/MyLayout.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <x-model class='" + MyLayout_Info.class.getName() + "'/>",
-            "  <parameters>",
-            "    <parameter name='simpleContainer'>true</parameter>",
-            "    <parameter name='simpleContainer.component'>org.eclipse.swt.widgets.Control</parameter>",
-            "  </parameters>",
-            "</component>"));
-    waitForAutoBuild();
-  }
+	@Override
+	protected void prepareSimplePanel() throws Exception {
+		SimpleContainerModelTest.prepareSimplePanel_classes();
+		setFileContentSrc(
+				"test/MyLayout.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <x-model class='" + MyLayout_Info.class.getName() + "'/>",
+						"  <parameters>",
+						"    <parameter name='simpleContainer'>true</parameter>",
+						"    <parameter name='simpleContainer.component'>org.eclipse.swt.widgets.Control</parameter>",
+						"  </parameters>",
+						"</component>"));
+		waitForAutoBuild();
+	}
 }

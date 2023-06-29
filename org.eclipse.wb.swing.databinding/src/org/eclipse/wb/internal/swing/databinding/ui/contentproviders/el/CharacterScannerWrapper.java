@@ -19,44 +19,44 @@ import org.eclipse.jface.text.rules.ICharacterScanner;
  * @coverage bindings.swing.ui
  */
 public final class CharacterScannerWrapper {
-  private int m_count;
-  private final ICharacterScanner m_scanner;
+	private int m_count;
+	private final ICharacterScanner m_scanner;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CharacterScannerWrapper(ICharacterScanner scanner) {
-    m_scanner = scanner;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CharacterScannerWrapper(ICharacterScanner scanner) {
+		m_scanner = scanner;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public int read() {
-    m_count++;
-    return m_scanner.read();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public int read() {
+		m_count++;
+		return m_scanner.read();
+	}
 
-  public void unread() {
-    for (int i = 0; i < m_count; i++) {
-      m_scanner.unread();
-    }
-  }
+	public void unread() {
+		for (int i = 0; i < m_count; i++) {
+			m_scanner.unread();
+		}
+	}
 
-  public boolean test(int ch) {
-    return read() == ch;
-  }
+	public boolean test(int ch) {
+		return read() == ch;
+	}
 
-  public boolean test(int[] chars) {
-    for (int ch : chars) {
-      if (read() != ch) {
-        return false;
-      }
-    }
-    return true;
-  }
+	public boolean test(int[] chars) {
+		for (int ch : chars) {
+			if (read() != ch) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

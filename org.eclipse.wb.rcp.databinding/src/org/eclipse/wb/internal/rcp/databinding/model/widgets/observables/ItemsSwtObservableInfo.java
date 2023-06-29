@@ -22,37 +22,37 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.WidgetPro
  * @coverage bindings.rcp.model.widgets
  */
 public final class ItemsSwtObservableInfo extends ObservableInfo {
-  protected final WidgetBindableInfo m_bindableWidget;
-  protected final WidgetPropertyBindableInfo m_bindableProperty;
+	protected final WidgetBindableInfo m_bindableWidget;
+	protected final WidgetPropertyBindableInfo m_bindableProperty;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ItemsSwtObservableInfo(WidgetBindableInfo bindableWidget,
-      WidgetPropertyBindableInfo bindableProperty) {
-    m_bindableWidget = bindableWidget;
-    m_bindableProperty = bindableProperty;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ItemsSwtObservableInfo(WidgetBindableInfo bindableWidget,
+			WidgetPropertyBindableInfo bindableProperty) {
+		m_bindableWidget = bindableWidget;
+		m_bindableProperty = bindableProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public BindableInfo getBindableObject() {
-    return m_bindableWidget;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public BindableInfo getBindableObject() {
+		return m_bindableWidget;
+	}
 
-  @Override
-  public BindableInfo getBindableProperty() {
-    return m_bindableProperty;
-  }
+	@Override
+	public BindableInfo getBindableProperty() {
+		return m_bindableProperty;
+	}
 
-  @Override
-  public boolean canShared() {
-    return true;
-  }
+	@Override
+	public boolean canShared() {
+		return true;
+	}
 }

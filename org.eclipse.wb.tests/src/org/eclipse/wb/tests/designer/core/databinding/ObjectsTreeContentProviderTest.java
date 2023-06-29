@@ -28,92 +28,92 @@ import java.util.List;
  * @author lobas_av
  */
 public class ObjectsTreeContentProviderTest extends DesignerTestCase {
-  public void test_input() throws Exception {
-    ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
-    //
-    assertSame(ArrayUtils.EMPTY_OBJECT_ARRAY, provider.getElements(null));
-    assertSame(ArrayUtils.EMPTY_OBJECT_ARRAY, provider.getElements("test"));
-    //
-    TestObjectInfo testObject = new TestObjectInfo("testObject");
-    //
-    Assertions.assertThat(provider.getElements(new Object[]{testObject})).containsOnly(testObject);
-    //
-    List<TestObjectInfo> input = new ArrayList<TestObjectInfo>();
-    input.add(testObject);
-    Assertions.assertThat(provider.getElements(input)).containsOnly(testObject);
-    //
-    TestObjectInfo childObject = new TestObjectInfo("childObject");
-    testObject.addChild(childObject);
-    //
-    Assertions.assertThat(provider.getElements(testObject)).containsOnly(childObject);
-    // not used
-    provider.inputChanged(null, null, null);
-    provider.dispose();
-  }
+	public void test_input() throws Exception {
+		ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
+		//
+		assertSame(ArrayUtils.EMPTY_OBJECT_ARRAY, provider.getElements(null));
+		assertSame(ArrayUtils.EMPTY_OBJECT_ARRAY, provider.getElements("test"));
+		//
+		TestObjectInfo testObject = new TestObjectInfo("testObject");
+		//
+		Assertions.assertThat(provider.getElements(new Object[]{testObject})).containsOnly(testObject);
+		//
+		List<TestObjectInfo> input = new ArrayList<TestObjectInfo>();
+		input.add(testObject);
+		Assertions.assertThat(provider.getElements(input)).containsOnly(testObject);
+		//
+		TestObjectInfo childObject = new TestObjectInfo("childObject");
+		testObject.addChild(childObject);
+		//
+		Assertions.assertThat(provider.getElements(testObject)).containsOnly(childObject);
+		// not used
+		provider.inputChanged(null, null, null);
+		provider.dispose();
+	}
 
-  public void test_getParent() throws Exception {
-    ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
-    //
-    assertNull(provider.getParent(null));
-    assertNull(provider.getParent("test"));
-    //
-    TestObjectInfo testObject = new TestObjectInfo("testObject");
-    TestObjectInfo childObject = new TestObjectInfo("childObject");
-    testObject.addChild(childObject);
-    //
-    assertNull(provider.getParent(testObject));
-    assertSame(testObject, provider.getParent(childObject));
-  }
+	public void test_getParent() throws Exception {
+		ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
+		//
+		assertNull(provider.getParent(null));
+		assertNull(provider.getParent("test"));
+		//
+		TestObjectInfo testObject = new TestObjectInfo("testObject");
+		TestObjectInfo childObject = new TestObjectInfo("childObject");
+		testObject.addChild(childObject);
+		//
+		assertNull(provider.getParent(testObject));
+		assertSame(testObject, provider.getParent(childObject));
+	}
 
-  public void test_hasChildren() throws Exception {
-    ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
-    //
-    assertFalse(provider.hasChildren(null));
-    assertFalse(provider.hasChildren("test"));
-    //
-    TestObjectInfo testObject = new TestObjectInfo("testObject");
-    //
-    assertFalse(provider.hasChildren(testObject));
-    //
-    TestObjectInfo childObject = new TestObjectInfo("childObject");
-    testObject.addChild(childObject);
-    //
-    assertTrue(provider.hasChildren(testObject));
-    //
-    TestObjectInfo testObjectPresentation = new TestObjectInfo("testObjectPresentation") {
-      @Override
-      public IObjectPresentation getPresentation() {
-        return new DefaultObjectPresentation(this) {
-          @Override
-          public String getText() throws Exception {
-            return "testObjectPresentation";
-          }
+	public void test_hasChildren() throws Exception {
+		ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
+		//
+		assertFalse(provider.hasChildren(null));
+		assertFalse(provider.hasChildren("test"));
+		//
+		TestObjectInfo testObject = new TestObjectInfo("testObject");
+		//
+		assertFalse(provider.hasChildren(testObject));
+		//
+		TestObjectInfo childObject = new TestObjectInfo("childObject");
+		testObject.addChild(childObject);
+		//
+		assertTrue(provider.hasChildren(testObject));
+		//
+		TestObjectInfo testObjectPresentation = new TestObjectInfo("testObjectPresentation") {
+			@Override
+			public IObjectPresentation getPresentation() {
+				return new DefaultObjectPresentation(this) {
+					@Override
+					public String getText() throws Exception {
+						return "testObjectPresentation";
+					}
 
-          @Override
-          public boolean isVisible() throws Exception {
-            return false;
-          }
-        };
-      }
-    };
-    testObjectPresentation.addChild(new TestObjectInfo("childObject"));
-    //
-    assertFalse(provider.hasChildren(testObjectPresentation));
-  }
+					@Override
+					public boolean isVisible() throws Exception {
+						return false;
+					}
+				};
+			}
+		};
+		testObjectPresentation.addChild(new TestObjectInfo("childObject"));
+		//
+		assertFalse(provider.hasChildren(testObjectPresentation));
+	}
 
-  public void test_getChildren() throws Exception {
-    ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
-    //
-    assertSame(ArrayUtils.EMPTY_OBJECT_ARRAY, provider.getChildren(null));
-    assertSame(ArrayUtils.EMPTY_OBJECT_ARRAY, provider.getChildren("test"));
-    //
-    TestObjectInfo testObject = new TestObjectInfo("testObject");
-    //
-    Assertions.assertThat(provider.getChildren(testObject)).isNotNull().isEmpty();
-    //
-    TestObjectInfo childObject = new TestObjectInfo("childObject");
-    testObject.addChild(childObject);
-    //
-    Assertions.assertThat(provider.getChildren(testObject)).containsOnly(childObject);
-  }
+	public void test_getChildren() throws Exception {
+		ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
+		//
+		assertSame(ArrayUtils.EMPTY_OBJECT_ARRAY, provider.getChildren(null));
+		assertSame(ArrayUtils.EMPTY_OBJECT_ARRAY, provider.getChildren("test"));
+		//
+		TestObjectInfo testObject = new TestObjectInfo("testObject");
+		//
+		Assertions.assertThat(provider.getChildren(testObject)).isNotNull().isEmpty();
+		//
+		TestObjectInfo childObject = new TestObjectInfo("childObject");
+		testObject.addChild(childObject);
+		//
+		Assertions.assertThat(provider.getChildren(testObject)).containsOnly(childObject);
+	}
 }

@@ -19,23 +19,23 @@ import org.eclipse.wb.internal.core.utils.xml.Model;
  * @author lobas_av
  */
 public class TestDocumentHandler extends AbstractDocumentHandler {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractDocumentHandler
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected DocumentElement getDocumentNode(String name, DocumentElement parent) {
-    DocumentElement element;
-    if ("special".equals(name)) {
-      element = new SpecialDocumentNode();
-    } else {
-      element = new DocumentElement();
-    }
-    //
-    if (parent == null) {
-      element.setModel(new Model());
-    }
-    return element;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractDocumentHandler
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected DocumentElement getDocumentNode(String name, DocumentElement parent) {
+		DocumentElement element;
+		if ("special".equals(name)) {
+			element = new SpecialDocumentNode();
+		} else {
+			element = new DocumentElement();
+		}
+		//
+		if (parent == null) {
+			element.setModel(new Model());
+		}
+		return element;
+	}
 }

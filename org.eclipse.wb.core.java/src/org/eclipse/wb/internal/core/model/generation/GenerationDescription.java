@@ -22,59 +22,59 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.model.generation
  */
 public abstract class GenerationDescription {
-  private final String m_id;
-  private final String m_name;
-  private final String m_description;
+	private final String m_id;
+	private final String m_name;
+	private final String m_description;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected GenerationDescription(String id, String name, String description) {
-    m_id = id;
-    m_name = name;
-    m_description = description;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected GenerationDescription(String id, String name, String description) {
+		m_id = id;
+		m_name = name;
+		m_description = description;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the id of this description.
-   */
-  public final String getId() {
-    return m_id;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the id of this description.
+	 */
+	public final String getId() {
+		return m_id;
+	}
 
-  /**
-   * @return the name of this description.
-   */
-  public final String getName() {
-    return m_name;
-  }
+	/**
+	 * @return the name of this description.
+	 */
+	public final String getName() {
+		return m_name;
+	}
 
-  /**
-   * @return the textual description to show for user.
-   */
-  public final String getDescription() {
-    return m_description;
-  }
+	/**
+	 * @return the textual description to show for user.
+	 */
+	public final String getDescription() {
+		return m_description;
+	}
 
-  /**
-   * Sets the default values for preferences.
-   */
-  public void configureDefaultPreferences(IPreferenceStore store) {
-  }
+	/**
+	 * Sets the default values for preferences.
+	 */
+	public void configureDefaultPreferences(IPreferenceStore store) {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public abstract GenerationPropertiesComposite createPropertiesComposite(Composite parent,
-      DataBindManager bindManager,
-      IPreferenceStore store);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public abstract GenerationPropertiesComposite createPropertiesComposite(Composite parent,
+			DataBindManager bindManager,
+			IPreferenceStore store);
 }

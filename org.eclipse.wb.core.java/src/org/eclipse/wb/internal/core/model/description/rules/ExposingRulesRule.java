@@ -25,26 +25,26 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class ExposingRulesRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    // prepare attributes
-    boolean include = "include".equals(name);
-    String packageName = attributes.getValue("package");
-    String methodName = attributes.getValue("method");
-    // add expose rules
-    if (packageName != null) {
-      ExposingRule rule = new ExposingPackageRule(include, packageName);
-      componentDescription.addExposingRule(rule);
-    }
-    if (methodName != null) {
-      ExposingRule rule = new ExposingMethodRule(include, methodName);
-      componentDescription.addExposingRule(rule);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		// prepare attributes
+		boolean include = "include".equals(name);
+		String packageName = attributes.getValue("package");
+		String methodName = attributes.getValue("method");
+		// add expose rules
+		if (packageName != null) {
+			ExposingRule rule = new ExposingPackageRule(include, packageName);
+			componentDescription.addExposingRule(rule);
+		}
+		if (methodName != null) {
+			ExposingRule rule = new ExposingMethodRule(include, methodName);
+			componentDescription.addExposingRule(rule);
+		}
+	}
 }

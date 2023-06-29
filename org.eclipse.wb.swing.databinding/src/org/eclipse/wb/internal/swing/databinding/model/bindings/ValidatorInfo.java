@@ -21,29 +21,29 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
  * @coverage bindings.swing.model.bindings
  */
 public final class ValidatorInfo extends GenericClassObjectInfo {
-  private final BindingInfo m_binding;
+	private final BindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ValidatorInfo(IGenericType objectType, BindingInfo binding) {
-    super("org.jdesktop.beansbinding.Validator");
-    m_binding = binding;
-    setClass(objectType);
-    if (isGeneric()) {
-      GenericUtils.assertEquals(m_binding.getModelPropertyType(), objectType.getSubType(0));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ValidatorInfo(IGenericType objectType, BindingInfo binding) {
+		super("org.jdesktop.beansbinding.Validator");
+		m_binding = binding;
+		setClass(objectType);
+		if (isGeneric()) {
+			GenericUtils.assertEquals(m_binding.getModelPropertyType(), objectType.getSubType(0));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected IGenericType[] getTypeArguments() {
-    return isGeneric() ? new IGenericType[]{m_binding.getModelPropertyType()} : null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected IGenericType[] getTypeArguments() {
+		return isGeneric() ? new IGenericType[]{m_binding.getModelPropertyType()} : null;
+	}
 }

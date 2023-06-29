@@ -26,62 +26,62 @@ import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
  * @coverage core.gefTree.policy
  */
 public abstract class DoubleClickLayoutEditPolicy extends EditPolicy
-    implements
-      IPreferenceConstants {
-  protected final JavaInfo m_javaInfo;
+implements
+IPreferenceConstants {
+	protected final JavaInfo m_javaInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DoubleClickLayoutEditPolicy(JavaInfo javaInfo) {
-    m_javaInfo = javaInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DoubleClickLayoutEditPolicy(JavaInfo javaInfo) {
+		m_javaInfo = javaInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Installing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Installs {@link EditPolicy} for handling double click request, based on settings.
-   */
-  public static void install(JavaEditPart editPart) {
-    int mode = DesignerPlugin.getPreferences().getInt(P_EDITOR_TREE_DBL_CLICK_ACTION);
-    JavaInfo javaInfo = editPart.getJavaInfo();
-    // prepare policy
-    EditPolicy editPolicy = null;
-    switch (mode) {
-      case V_EDITOR_TREE_OPEN_WIDGET_IN_EDITOR :
-        editPolicy = new OpenEditorLayoutEditPolicy(javaInfo);
-        break;
-      case V_EDITOR_TREE_CREATE_LISTENER :
-        editPolicy = new OpenListenerEditPolicy(javaInfo);
-        break;
-      case V_EDITOR_TREE_INITIATE_RENAME :
-        editPolicy = new RenameJavaInfoLayoutEditPolicy(javaInfo);
-        break;
-    }
-    // install policy
-    editPart.installEditPolicy(DoubleClickLayoutEditPolicy.class, editPolicy);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Installing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Installs {@link EditPolicy} for handling double click request, based on settings.
+	 */
+	public static void install(JavaEditPart editPart) {
+		int mode = DesignerPlugin.getPreferences().getInt(P_EDITOR_TREE_DBL_CLICK_ACTION);
+		JavaInfo javaInfo = editPart.getJavaInfo();
+		// prepare policy
+		EditPolicy editPolicy = null;
+		switch (mode) {
+		case V_EDITOR_TREE_OPEN_WIDGET_IN_EDITOR :
+			editPolicy = new OpenEditorLayoutEditPolicy(javaInfo);
+			break;
+		case V_EDITOR_TREE_CREATE_LISTENER :
+			editPolicy = new OpenListenerEditPolicy(javaInfo);
+			break;
+		case V_EDITOR_TREE_INITIATE_RENAME :
+			editPolicy = new RenameJavaInfoLayoutEditPolicy(javaInfo);
+			break;
+		}
+		// install policy
+		editPart.installEditPolicy(DoubleClickLayoutEditPolicy.class, editPolicy);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Double-click
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    if (Request.REQ_OPEN.equals(request.getType())) {
-      performDoubleClick();
-    }
-    super.performRequest(request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Double-click
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		if (Request.REQ_OPEN.equals(request.getType())) {
+			performDoubleClick();
+		}
+		super.performRequest(request);
+	}
 
-  /**
-   * Override this to do operations required when user double-clicks on widget in widgets tree.
-   */
-  protected abstract void performDoubleClick();
+	/**
+	 * Override this to do operations required when user double-clicks on widget in widgets tree.
+	 */
+	protected abstract void performDoubleClick();
 }

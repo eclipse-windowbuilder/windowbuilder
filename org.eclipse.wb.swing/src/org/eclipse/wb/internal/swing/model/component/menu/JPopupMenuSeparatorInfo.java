@@ -28,17 +28,17 @@ import javax.swing.JMenu;
  * @coverage swing.model.menu
  */
 public final class JPopupMenuSeparatorInfo extends JMenuItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JPopupMenuSeparatorInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    if (creationSupport.getNode() instanceof MethodInvocation) {
-      setVariableSupport(new VoidInvocationVariableSupport(this));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JPopupMenuSeparatorInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		if (creationSupport.getNode() instanceof MethodInvocation) {
+			setVariableSupport(new VoidInvocationVariableSupport(this));
+		}
+	}
 }

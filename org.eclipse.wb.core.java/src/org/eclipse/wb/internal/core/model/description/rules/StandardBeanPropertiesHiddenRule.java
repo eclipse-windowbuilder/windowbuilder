@@ -23,8 +23,8 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class StandardBeanPropertiesHiddenRule extends StandardBeanPropertiesFlaggedRule {
-  @Override
-  protected void configure(GenericPropertyDescription propertyDescription, Attributes attributes) {
-    propertyDescription.setCategory(PropertyCategory.HIDDEN);
-  }
+	@Override
+	protected void configure(GenericPropertyDescription propertyDescription, Attributes attributes) {
+		propertyDescription.setCategory(PropertyCategory.HIDDEN);
+	}
 }

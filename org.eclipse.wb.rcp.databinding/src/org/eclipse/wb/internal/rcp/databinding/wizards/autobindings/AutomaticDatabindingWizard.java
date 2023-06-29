@@ -21,40 +21,40 @@ import org.eclipse.wb.internal.rcp.databinding.Messages;
  * @coverage bindings.rcp.wizard.auto
  */
 public final class AutomaticDatabindingWizard
-    extends
-      org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingWizard {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AutomaticDatabindingWizard() {
-    setWindowTitle(Messages.AutomaticDatabindingWizard_windowTitle);
-  }
+extends
+org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingWizard {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AutomaticDatabindingWizard() {
+		setWindowTitle(Messages.AutomaticDatabindingWizard_windowTitle);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addPages() {
-    IAutomaticDatabindingProvider databindingProvider = SwtDatabindingProvider.create();
-    // prepare selection
-    String beanClassName = getSelectionBeanClass(getSelection());
-    // create first page: via standard "New Java Wizard"
-    AutomaticDatabindingFirstPage firstPage =
-        new AutomaticDatabindingFirstPage(databindingProvider, beanClassName);
-    firstPage.setTitle(Messages.AutomaticDatabindingWizard_firstPageTitle);
-    firstPage.setDescription(Messages.AutomaticDatabindingWizard_firstPageDescription);
-    m_mainPage = firstPage;
-    addPage(firstPage);
-    firstPage.setInitialSelection(getSelection());
-    // create second page: databindings
-    AutomaticDatabindingSecondPage secondPage =
-        new AutomaticDatabindingSecondPage(firstPage, databindingProvider, beanClassName);
-    secondPage.setTitle(Messages.AutomaticDatabindingWizard_secondPageTitle);
-    secondPage.setDescription(Messages.AutomaticDatabindingWizard_secondPageDescription);
-    addPage(secondPage);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addPages() {
+		IAutomaticDatabindingProvider databindingProvider = SwtDatabindingProvider.create();
+		// prepare selection
+		String beanClassName = getSelectionBeanClass(getSelection());
+		// create first page: via standard "New Java Wizard"
+		AutomaticDatabindingFirstPage firstPage =
+				new AutomaticDatabindingFirstPage(databindingProvider, beanClassName);
+		firstPage.setTitle(Messages.AutomaticDatabindingWizard_firstPageTitle);
+		firstPage.setDescription(Messages.AutomaticDatabindingWizard_firstPageDescription);
+		m_mainPage = firstPage;
+		addPage(firstPage);
+		firstPage.setInitialSelection(getSelection());
+		// create second page: databindings
+		AutomaticDatabindingSecondPage secondPage =
+				new AutomaticDatabindingSecondPage(firstPage, databindingProvider, beanClassName);
+		secondPage.setTitle(Messages.AutomaticDatabindingWizard_secondPageTitle);
+		secondPage.setDescription(Messages.AutomaticDatabindingWizard_secondPageDescription);
+		addPage(secondPage);
+	}
 }

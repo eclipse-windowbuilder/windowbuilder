@@ -27,46 +27,46 @@ import java.util.List;
  * @coverage swing.model.layout.ui
  */
 public final class ColumnEditDialog extends DimensionEditDialog<ColumnInfo, ColumnInfo.Alignment> {
-  private static final List<AlignmentDescription<ColumnInfo.Alignment>> ALIGNMENTS =
-      Lists.newArrayList();
-  static {
-    ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.LEFT,
-        ModelMessages.ColumnEditDialog_aLeft));
-    ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.CENTER,
-        ModelMessages.ColumnEditDialog_aCenter));
-    ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.RIGHT,
-        ModelMessages.ColumnEditDialog_aRight));
-    ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.FILL,
-        ModelMessages.ColumnEditDialog_aFill));
-  }
+	private static final List<AlignmentDescription<ColumnInfo.Alignment>> ALIGNMENTS =
+			Lists.newArrayList();
+	static {
+		ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.LEFT,
+				ModelMessages.ColumnEditDialog_aLeft));
+		ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.CENTER,
+				ModelMessages.ColumnEditDialog_aCenter));
+		ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.RIGHT,
+				ModelMessages.ColumnEditDialog_aRight));
+		ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.FILL,
+				ModelMessages.ColumnEditDialog_aFill));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnEditDialog(Shell parentShell, AbstractGridBagLayoutInfo layout, ColumnInfo column) {
-    super(parentShell,
-        layout,
-        layout.getColumns(),
-        column,
-        ModelMessages.ColumnEditDialog_title,
-        ALIGNMENTS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnEditDialog(Shell parentShell, AbstractGridBagLayoutInfo layout, ColumnInfo column) {
+		super(parentShell,
+				layout,
+				layout.getColumns(),
+				column,
+				ModelMessages.ColumnEditDialog_title,
+				ALIGNMENTS);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ColumnInfo.Alignment getAlignment(ColumnInfo dimension) {
-    return dimension.getAlignment();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ColumnInfo.Alignment getAlignment(ColumnInfo dimension) {
+		return dimension.getAlignment();
+	}
 
-  @Override
-  protected void setAlignment(ColumnInfo dimension, ColumnInfo.Alignment alignment)
-      throws Exception {
-    dimension.setAlignment(alignment);
-  }
+	@Override
+	protected void setAlignment(ColumnInfo dimension, ColumnInfo.Alignment alignment)
+			throws Exception {
+		dimension.setAlignment(alignment);
+	}
 }

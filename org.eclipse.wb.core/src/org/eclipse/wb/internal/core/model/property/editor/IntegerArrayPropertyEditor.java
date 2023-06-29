@@ -27,67 +27,67 @@ import java.text.MessageFormat;
  * @coverage core.model.property.editor
  */
 public final class IntegerArrayPropertyEditor extends AbstractTextPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IntegerArrayPropertyEditor INSTANCE = new IntegerArrayPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IntegerArrayPropertyEditor INSTANCE = new IntegerArrayPropertyEditor();
 
-  private IntegerArrayPropertyEditor() {
-  }
+	private IntegerArrayPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof int[]) {
-      int[] array = (int[]) value;
-      return StringUtils.join(ArrayUtils.toObject(array), ' ');
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof int[]) {
+			int[] array = (int[]) value;
+			return StringUtils.join(ArrayUtils.toObject(array), ' ');
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getEditorText(Property property) throws Exception {
-    return getText(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getEditorText(Property property) throws Exception {
+		return getText(property);
+	}
 
-  @Override
-  protected boolean setEditorText(Property property, String text) throws Exception {
-    text = text.trim();
-    // check for delete
-    if (text.length() == 0) {
-      property.setValue(Property.UNKNOWN_VALUE);
-      return true;
-    }
-    // prepare value
-    int[] array;
-    try {
-      String[] parts = StringUtils.split(text);
-      array = new int[parts.length];
-      for (int i = 0; i < parts.length; i++) {
-        String part = parts[i];
-        array[i] = Integer.valueOf(part);
-      }
-    } catch (Throwable e) {
-      UiUtils.openWarning(
-          DesignerPlugin.getShell(),
-          property.getTitle(),
-          MessageFormat.format(ModelMessages.IntegerPropertyEditor_notValidInt, text));
-      return false;
-    }
-    // modify property
-    property.setValue(array);
-    return true;
-  }
+	@Override
+	protected boolean setEditorText(Property property, String text) throws Exception {
+		text = text.trim();
+		// check for delete
+		if (text.length() == 0) {
+			property.setValue(Property.UNKNOWN_VALUE);
+			return true;
+		}
+		// prepare value
+		int[] array;
+		try {
+			String[] parts = StringUtils.split(text);
+			array = new int[parts.length];
+			for (int i = 0; i < parts.length; i++) {
+				String part = parts[i];
+				array[i] = Integer.valueOf(part);
+			}
+		} catch (Throwable e) {
+			UiUtils.openWarning(
+					DesignerPlugin.getShell(),
+					property.getTitle(),
+					MessageFormat.format(ModelMessages.IntegerPropertyEditor_notValidInt, text));
+			return false;
+		}
+		// modify property
+		property.setValue(array);
+		return true;
+	}
 }

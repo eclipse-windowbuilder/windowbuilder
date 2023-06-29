@@ -20,38 +20,38 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
  * @author lobas_av
  */
 public abstract class AbstractSupportTest extends RcpModelTest {
-  protected CompositeInfo m_shell;
+	protected CompositeInfo m_shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    {
-      String[] lines = getTestSource();
-      m_shell = parseComposite(lines);
-      m_shell.refresh();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		{
+			String[] lines = getTestSource();
+			m_shell = parseComposite(lines);
+			m_shell.refresh();
+		}
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    if (m_shell != null) {
-      m_shell.refresh_dispose();
-      m_shell = null;
-    }
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		if (m_shell != null) {
+			m_shell.refresh_dispose();
+			m_shell = null;
+		}
+	}
 
-  protected String[] getTestSource() {
-    return new String[]{
-        "public class Test extends Shell {",
-        "  public Test() {",
-        "  // filler",
-        "  }",
-        "}"};
-  }
+	protected String[] getTestSource() {
+		return new String[]{
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"  // filler",
+				"  }",
+		"}"};
+	}
 }

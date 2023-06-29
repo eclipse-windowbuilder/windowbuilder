@@ -24,44 +24,44 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage gef.draw2d
  */
 public abstract class Border {
-  private final Insets m_insets;
+	private final Insets m_insets;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Constructor {@link Border} with border insets.
-   */
-  public Border(Insets insets) {
-    m_insets = insets;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Constructor {@link Border} with border insets.
+	 */
+	public Border(Insets insets) {
+		m_insets = insets;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Border
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Get border insets.
-   */
-  public Insets getInsets() {
-    return m_insets;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Border
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Get border insets.
+	 */
+	public Insets getInsets() {
+		return m_insets;
+	}
 
-  /**
-   * Paint border for <code>owner</code> {@link Figure}.
-   */
-  public final void paint(Figure owner, Graphics graphics) {
-    Rectangle bounds = owner.getBounds();
-    paint(bounds.width, bounds.height, graphics);
-  }
+	/**
+	 * Paint border for <code>owner</code> {@link Figure}.
+	 */
+	public final void paint(Figure owner, Graphics graphics) {
+		Rectangle bounds = owner.getBounds();
+		paint(bounds.width, bounds.height, graphics);
+	}
 
-  /**
-   * Paint border for {@link Figure}. Coordinate (0, 0) correspond with {@link Figure} (0, 0) and
-   * <code>onwerWidth</code>, <code>ownerHeight</code> correspond with {@link Figure}
-   * <code>width</code>, <code>height</code>.
-   */
-  protected abstract void paint(int ownerWidth, int ownerHeight, Graphics graphics);
+	/**
+	 * Paint border for {@link Figure}. Coordinate (0, 0) correspond with {@link Figure} (0, 0) and
+	 * <code>onwerWidth</code>, <code>ownerHeight</code> correspond with {@link Figure}
+	 * <code>width</code>, <code>height</code>.
+	 */
+	protected abstract void paint(int ownerWidth, int ownerHeight, Graphics graphics);
 }

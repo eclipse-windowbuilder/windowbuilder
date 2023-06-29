@@ -23,40 +23,40 @@ import org.eclipse.swt.widgets.Display;
  *
  */
 public class GraphicsTest extends Draw2dFigureTestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GraphicsTest() {
-    super(Graphics.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GraphicsTest() {
+		super(Graphics.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_initState() throws Exception {
-    GC gc = new GC(Display.getDefault());
-    Graphics graphics = new Graphics(gc);
-    //
-    Color background = graphics.getBackgroundColor();
-    assertNotNull(background);
-    assertFalse(background.isDisposed());
-    //
-    Color foreground = graphics.getForegroundColor();
-    assertNotNull(foreground);
-    assertFalse(foreground.isDisposed());
-    //
-    Font font = graphics.getFont();
-    assertNotNull(font);
-    assertFalse(font.isDisposed());
-    //
-    assertNotNull(graphics.getFontMetrics());
-    assertNotNull(graphics.getClip());
-    //
-    assertEquals(1, graphics.getLineWidth());
-    assertEquals(SWT.LINE_SOLID, graphics.getLineStyle());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_initState() throws Exception {
+		GC gc = new GC(Display.getDefault());
+		Graphics graphics = new Graphics(gc);
+		//
+		Color background = graphics.getBackgroundColor();
+		assertNotNull(background);
+		assertFalse(background.isDisposed());
+		//
+		Color foreground = graphics.getForegroundColor();
+		assertNotNull(foreground);
+		assertFalse(foreground.isDisposed());
+		//
+		Font font = graphics.getFont();
+		assertNotNull(font);
+		assertFalse(font.isDisposed());
+		//
+		assertNotNull(graphics.getFontMetrics());
+		assertNotNull(graphics.getClip());
+		//
+		assertEquals(1, graphics.getLineWidth());
+		assertEquals(SWT.LINE_SOLID, graphics.getLineStyle());
+	}
 }

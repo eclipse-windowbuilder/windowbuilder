@@ -29,69 +29,69 @@ import java.util.List;
  * @coverage core.gefTree.policy
  */
 public final class ArrayObjectLayoutEditPolicy extends LayoutEditPolicy {
-  private final AbstractArrayObjectInfo m_arrayInfo;
-  private final ArrayObjectRequestValidator m_validator;
+	private final AbstractArrayObjectInfo m_arrayInfo;
+	private final ArrayObjectRequestValidator m_validator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ArrayObjectLayoutEditPolicy(AbstractArrayObjectInfo object) {
-    m_arrayInfo = object;
-    m_validator = new ArrayObjectRequestValidator(m_arrayInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ArrayObjectLayoutEditPolicy(AbstractArrayObjectInfo object) {
+		m_arrayInfo = object;
+		m_validator = new ArrayObjectRequestValidator(m_arrayInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Reference children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return m_validator.isValidModel(editPart.getModel());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Reference children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return m_validator.isValidModel(editPart.getModel());
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return m_validator;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return m_validator;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(Object newObject, Object referenceObject) {
-    final JavaInfo item = (JavaInfo) newObject;
-    final JavaInfo nextItem = (JavaInfo) referenceObject;
-    return new EditCommand(m_arrayInfo) {
-      @Override
-      protected void executeEdit() throws Exception {
-        m_arrayInfo.command_CREATE(item, nextItem);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(Object newObject, Object referenceObject) {
+		final JavaInfo item = (JavaInfo) newObject;
+		final JavaInfo nextItem = (JavaInfo) referenceObject;
+		return new EditCommand(m_arrayInfo) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_arrayInfo.command_CREATE(item, nextItem);
+			}
+		};
+	}
 
-  @Override
-  protected Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
-    CompoundEditCommand command = new CompoundEditCommand(m_arrayInfo);
-    for (EditPart editPart : moveParts) {
-      final JavaInfo item = (JavaInfo) editPart.getModel();
-      final JavaInfo nextItem = (JavaInfo) referenceObject;
-      command.add(new EditCommand(m_arrayInfo) {
-        @Override
-        protected void executeEdit() throws Exception {
-          m_arrayInfo.command_MOVE(item, nextItem);
-        }
-      });
-    }
-    return command;
-  }
+	@Override
+	protected Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
+		CompoundEditCommand command = new CompoundEditCommand(m_arrayInfo);
+		for (EditPart editPart : moveParts) {
+			final JavaInfo item = (JavaInfo) editPart.getModel();
+			final JavaInfo nextItem = (JavaInfo) referenceObject;
+			command.add(new EditCommand(m_arrayInfo) {
+				@Override
+				protected void executeEdit() throws Exception {
+					m_arrayInfo.command_MOVE(item, nextItem);
+				}
+			});
+		}
+		return command;
+	}
 
-  @Override
-  protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
-    return getMoveCommand(addParts, referenceObject);
-  }
+	@Override
+	protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+		return getMoveCommand(addParts, referenceObject);
+	}
 }

@@ -31,37 +31,37 @@ import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
  * @coverage swing.gef.policy
  */
 public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutEditPolicyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    if (model instanceof AbstractAbsoluteLayoutInfo) {
-      return new AbsoluteLayoutEditPolicy((AbstractAbsoluteLayoutInfo) model);
-    }
-    if (model instanceof BorderLayoutInfo) {
-      return new BorderLayoutEditPolicy((BorderLayoutInfo) model);
-    }
-    if (model instanceof CardLayoutInfo) {
-      return new CardLayoutEditPolicy((CardLayoutInfo) model);
-    }
-    if (model instanceof FlowLayoutInfo) {
-      return new FlowLayoutEditPolicy((FlowLayoutInfo) model);
-    }
-    if (model instanceof GridLayoutInfo) {
-      return new GridLayoutEditPolicy((GridLayoutInfo) model);
-    }
-    if (model instanceof BoxLayoutInfo) {
-      return new BoxLayoutEditPolicy((BoxLayoutInfo) model);
-    }
-    if (model instanceof AbstractGridBagLayoutInfo) {
-      return new GridBagLayoutEditPolicy((AbstractGridBagLayoutInfo) model);
-    }
-    if (model instanceof SpringLayoutInfo) {
-      return new SpringLayoutEditPolicy((SpringLayoutInfo) model);
-    }
-    // not found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutEditPolicyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		if (model instanceof AbstractAbsoluteLayoutInfo) {
+			return new AbsoluteLayoutEditPolicy((AbstractAbsoluteLayoutInfo) model);
+		}
+		if (model instanceof BorderLayoutInfo) {
+			return new BorderLayoutEditPolicy((BorderLayoutInfo) model);
+		}
+		if (model instanceof CardLayoutInfo) {
+			return new CardLayoutEditPolicy((CardLayoutInfo) model);
+		}
+		if (model instanceof FlowLayoutInfo) {
+			return new FlowLayoutEditPolicy((FlowLayoutInfo) model);
+		}
+		if (model instanceof GridLayoutInfo) {
+			return new GridLayoutEditPolicy((GridLayoutInfo) model);
+		}
+		if (model instanceof BoxLayoutInfo) {
+			return new BoxLayoutEditPolicy((BoxLayoutInfo) model);
+		}
+		if (model instanceof AbstractGridBagLayoutInfo) {
+			return new GridBagLayoutEditPolicy((AbstractGridBagLayoutInfo) model);
+		}
+		if (model instanceof SpringLayoutInfo) {
+			return new SpringLayoutEditPolicy((SpringLayoutInfo) model);
+		}
+		// not found
+		return null;
+	}
 }

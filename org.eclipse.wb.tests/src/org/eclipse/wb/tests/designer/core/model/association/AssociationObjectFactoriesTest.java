@@ -24,49 +24,49 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class AssociationObjectFactoriesTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link AssociationObjectFactories#no()}.
-   */
-  public void test_no() throws Exception {
-    AssociationObjectFactory factory = AssociationObjectFactories.no();
-    assertEquals("NO", factory.toString());
-    // check created AssociationObject
-    {
-      AssociationObject associationObject = factory.create();
-      assertEquals("NO", associationObject.toString());
-      assertNull(associationObject.getAssociation());
-      assertFalse(associationObject.isRequired());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link AssociationObjectFactories#no()}.
+	 */
+	public void test_no() throws Exception {
+		AssociationObjectFactory factory = AssociationObjectFactories.no();
+		assertEquals("NO", factory.toString());
+		// check created AssociationObject
+		{
+			AssociationObject associationObject = factory.create();
+			assertEquals("NO", associationObject.toString());
+			assertNull(associationObject.getAssociation());
+			assertFalse(associationObject.isRequired());
+		}
+	}
 
-  /**
-   * Test for {@link AssociationObjectFactories#invocationChild(String, boolean)}.
-   */
-  public void test_invocationChild() throws Exception {
-    String source = "%parent%.add(%child%)";
-    // check factory
-    AssociationObjectFactory factory = AssociationObjectFactories.invocationChild(source, false);
-    assertEquals(source, factory.toString());
-    // check created AssociationObject
-    {
-      AssociationObject associationObject = factory.create();
-      assertEquals(source, associationObject.toString());
-      assertThat(associationObject.getAssociation()).isInstanceOf(InvocationChildAssociation.class);
-      assertFalse(associationObject.isRequired());
-    }
-  }
+	/**
+	 * Test for {@link AssociationObjectFactories#invocationChild(String, boolean)}.
+	 */
+	public void test_invocationChild() throws Exception {
+		String source = "%parent%.add(%child%)";
+		// check factory
+		AssociationObjectFactory factory = AssociationObjectFactories.invocationChild(source, false);
+		assertEquals(source, factory.toString());
+		// check created AssociationObject
+		{
+			AssociationObject associationObject = factory.create();
+			assertEquals(source, associationObject.toString());
+			assertThat(associationObject.getAssociation()).isInstanceOf(InvocationChildAssociation.class);
+			assertFalse(associationObject.isRequired());
+		}
+	}
 }

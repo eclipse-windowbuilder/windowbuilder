@@ -23,9 +23,9 @@ import java.util.List;
  * @coverage core.editor.structure
  */
 public interface IPropertiesToolBarContributor {
-  String GROUP_BASE = "org.eclipse.wb.component-properties.group.";
-  String GROUP_EDIT = GROUP_BASE + "edit";
-  String GROUP_ADDITIONAL = GROUP_BASE + "additional";
+	String GROUP_BASE = "org.eclipse.wb.component-properties.group.";
+	String GROUP_EDIT = GROUP_BASE + "edit";
+	String GROUP_ADDITIONAL = GROUP_BASE + "additional";
 
-  void contributeToolBar(IToolBarManager manager, List<ObjectInfo> objects) throws Exception;
+	void contributeToolBar(IToolBarManager manager, List<ObjectInfo> objects) throws Exception;
 }

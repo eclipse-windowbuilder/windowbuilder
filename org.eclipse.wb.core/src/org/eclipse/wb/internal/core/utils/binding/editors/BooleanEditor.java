@@ -20,29 +20,29 @@ import org.eclipse.wb.internal.core.utils.dialogfields.BooleanDialogField;
  * @author scheglov_ke
  */
 public class BooleanEditor implements IDataEditor {
-  private final BooleanDialogField m_field;
+	private final BooleanDialogField m_field;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BooleanEditor(BooleanDialogField field) {
-    m_field = field;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BooleanEditor(BooleanDialogField field) {
+		m_field = field;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue() {
-    return ValueUtils.booleanToObject(m_field.getSelection());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue() {
+		return ValueUtils.booleanToObject(m_field.getSelection());
+	}
 
-  @Override
-  public void setValue(Object value) {
-    m_field.setSelection(ValueUtils.objectToBoolean(value));
-  }
+	@Override
+	public void setValue(Object value) {
+		m_field.setSelection(ValueUtils.objectToBoolean(value));
+	}
 }

@@ -31,34 +31,34 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
  * @coverage core.model.association
  */
 public final class SuperConstructorArgumentAssociation extends Association {
-  private final SuperConstructorInvocation m_invocation;
+	private final SuperConstructorInvocation m_invocation;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SuperConstructorArgumentAssociation(SuperConstructorInvocation invocation) {
-    m_invocation = invocation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SuperConstructorArgumentAssociation(SuperConstructorInvocation invocation) {
+		m_invocation = invocation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Statement getStatement() {
-    return m_invocation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Statement getStatement() {
+		return m_invocation;
+	}
 
-  @Override
-  public String getSource() {
-    return m_editor.getSource(m_invocation);
-  }
+	@Override
+	public String getSource() {
+		return m_editor.getSource(m_invocation);
+	}
 
-  @Override
-  public boolean canDelete() {
-    return false;
-  }
+	@Override
+	public boolean canDelete() {
+		return false;
+	}
 }

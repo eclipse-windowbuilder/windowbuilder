@@ -21,32 +21,32 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
  * @coverage bindings.swing.model.bindings
  */
 public class ConverterInfo extends GenericClassObjectInfo {
-  private final BindingInfo m_binding;
+	private final BindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ConverterInfo(IGenericType objectType, BindingInfo binding) {
-    super("org.jdesktop.beansbinding.Converter");
-    m_binding = binding;
-    setClass(objectType);
-    if (isGeneric()) {
-      GenericUtils.assertEquals(m_binding.getModelPropertyType(), objectType.getSubType(0));
-      GenericUtils.assertEquals(m_binding.getTargetPropertyType(), objectType.getSubType(1));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ConverterInfo(IGenericType objectType, BindingInfo binding) {
+		super("org.jdesktop.beansbinding.Converter");
+		m_binding = binding;
+		setClass(objectType);
+		if (isGeneric()) {
+			GenericUtils.assertEquals(m_binding.getModelPropertyType(), objectType.getSubType(0));
+			GenericUtils.assertEquals(m_binding.getTargetPropertyType(), objectType.getSubType(1));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected IGenericType[] getTypeArguments() {
-    return isGeneric() ? new IGenericType[]{
-        m_binding.getModelPropertyType(),
-        m_binding.getTargetPropertyType()} : null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected IGenericType[] getTypeArguments() {
+		return isGeneric() ? new IGenericType[]{
+				m_binding.getModelPropertyType(),
+				m_binding.getTargetPropertyType()} : null;
+	}
 }

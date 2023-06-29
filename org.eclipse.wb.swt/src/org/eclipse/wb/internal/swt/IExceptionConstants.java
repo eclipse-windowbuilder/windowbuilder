@@ -19,9 +19,9 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
  * @coverage swt
  */
 public interface IExceptionConstants {
-  int NO_LAYOUT_EXPECTED = 2001;
-  int NO_LAYOUT_DATA_EXPECTED = 2002;
-  int INCOMPATIBLE_LAYOUT_DATA = 2003;
-  int DOUBLE_SET_LAYOUT = 2004;
-  int NULL_PARENT = 2005;
+	int NO_LAYOUT_EXPECTED = 2001;
+	int NO_LAYOUT_DATA_EXPECTED = 2002;
+	int INCOMPATIBLE_LAYOUT_DATA = 2003;
+	int DOUBLE_SET_LAYOUT = 2004;
+	int NULL_PARENT = 2005;
 }

@@ -25,33 +25,33 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutCreateFolderI
  * @coverage rcp.gef.part
  */
 public final class PageLayoutCreateFolderEditPart extends AbstractComponentEditPart {
-  private final PageLayoutCreateFolderInfo m_folder;
+	private final PageLayoutCreateFolderInfo m_folder;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PageLayoutCreateFolderEditPart(PageLayoutCreateFolderInfo folder) {
-    super(folder);
-    m_folder = folder;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PageLayoutCreateFolderEditPart(PageLayoutCreateFolderInfo folder) {
+		super(folder);
+		m_folder = folder;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(new PageLayoutSidesLayoutEditPolicy(m_folder.getPage(), m_folder, false));
-    installEditPolicy(new PageLayoutCreateFolderLayoutEditPolicy(m_folder));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(new PageLayoutSidesLayoutEditPolicy(m_folder.getPage(), m_folder, false));
+		installEditPolicy(new PageLayoutCreateFolderLayoutEditPolicy(m_folder));
+	}
 
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new AbstractPartSelectionEditPolicy(m_folder));
-  }
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new AbstractPartSelectionEditPolicy(m_folder));
+	}
 }

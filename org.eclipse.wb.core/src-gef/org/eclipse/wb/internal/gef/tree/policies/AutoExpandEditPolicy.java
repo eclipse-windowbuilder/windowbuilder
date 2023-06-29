@@ -30,36 +30,36 @@ import org.eclipse.swt.widgets.TreeItem;
  * @coverage gef.tree
  */
 public final class AutoExpandEditPolicy extends EditPolicy {
-  @Override
-  public boolean understandsRequest(Request request) {
-    return request.getType() == Request.REQ_CREATE || request.getType() == Request.REQ_PASTE;
-  }
+	@Override
+	public boolean understandsRequest(Request request) {
+		return request.getType() == Request.REQ_CREATE || request.getType() == Request.REQ_PASTE;
+	}
 
-  @Override
-  public EditPart getTargetEditPart(Request request) {
-    // prepare host widget
-    final TreeEditPart host = (TreeEditPart) getHost();
-    final TreeItem hostWidget = host.getWidget();
-    final Tree tree = hostWidget.getParent();
-    // prepare target widget
-    TreeItem targetWidget;
-    {
-      IDropRequest dropRequest = (IDropRequest) request;
-      Point location = dropRequest.getLocation();
-      targetWidget = tree.getItem(location.getSWTPoint());
-    }
-    // if mouse cursor is above our "host", expand it
-    if (targetWidget == hostWidget && !hostWidget.getExpanded() && hostWidget.getItemCount() != 0) {
-      tree.getShell().getDisplay().asyncExec(new Runnable() {
-        @Override
-        public void run() {
-          if (!hostWidget.isDisposed()) {
-            hostWidget.setExpanded(true);
-          }
-        }
-      });
-    }
-    // we don't perform any real checks
-    return null;
-  }
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		// prepare host widget
+		final TreeEditPart host = (TreeEditPart) getHost();
+		final TreeItem hostWidget = host.getWidget();
+		final Tree tree = hostWidget.getParent();
+		// prepare target widget
+		TreeItem targetWidget;
+		{
+			IDropRequest dropRequest = (IDropRequest) request;
+			Point location = dropRequest.getLocation();
+			targetWidget = tree.getItem(location.getSWTPoint());
+		}
+		// if mouse cursor is above our "host", expand it
+		if (targetWidget == hostWidget && !hostWidget.getExpanded() && hostWidget.getItemCount() != 0) {
+			tree.getShell().getDisplay().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					if (!hostWidget.isDisposed()) {
+						hostWidget.setExpanded(true);
+					}
+				}
+			});
+		}
+		// we don't perform any real checks
+		return null;
+	}
 }

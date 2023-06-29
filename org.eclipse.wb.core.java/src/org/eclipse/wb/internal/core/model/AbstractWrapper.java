@@ -23,67 +23,67 @@ import java.util.Map.Entry;
  * Abstract utility for any Java-based wrapper object.
  */
 public abstract class AbstractWrapper implements IWrapper {
-  protected final JavaInfo m_wrapperInfo;
-  protected JavaInfo m_wrappedInfo = null;
+	protected final JavaInfo m_wrapperInfo;
+	protected JavaInfo m_wrappedInfo = null;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractWrapper(JavaInfo host) {
-    m_wrapperInfo = host;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractWrapper(JavaInfo host) {
+		m_wrapperInfo = host;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return wrapper {@link JavaInfo}.
-   */
-  @Override
-  public JavaInfo getWrapperInfo() {
-    return m_wrapperInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return wrapper {@link JavaInfo}.
+	 */
+	@Override
+	public JavaInfo getWrapperInfo() {
+		return m_wrapperInfo;
+	}
 
-  /**
-   * @return wrapped {@link JavaInfo}.
-   */
-  @Override
-  public JavaInfo getWrappedInfo() throws Exception {
-    if (m_wrappedInfo == null) {
-      m_wrappedInfo =
-          JavaInfoUtils.createJavaInfo(
-              m_wrapperInfo.getEditor(),
-              getWrappedType(),
-              newWrappedCreationSupport());
-      inheritParameters(m_wrappedInfo);
-    }
-    return m_wrappedInfo;
-  }
+	/**
+	 * @return wrapped {@link JavaInfo}.
+	 */
+	@Override
+	public JavaInfo getWrappedInfo() throws Exception {
+		if (m_wrappedInfo == null) {
+			m_wrappedInfo =
+					JavaInfoUtils.createJavaInfo(
+							m_wrapperInfo.getEditor(),
+							getWrappedType(),
+							newWrappedCreationSupport());
+			inheritParameters(m_wrappedInfo);
+		}
+		return m_wrappedInfo;
+	}
 
-  /**
-   * @return the exact type of {@link Control}.
-   */
-  public abstract Class<?> getWrappedType();
+	/**
+	 * @return the exact type of {@link Control}.
+	 */
+	public abstract Class<?> getWrappedType();
 
-  /**
-   * @return {@link CreationSupport} for new instance of wrapped model.
-   */
-  protected abstract CreationSupport newWrappedCreationSupport() throws Exception;
+	/**
+	 * @return {@link CreationSupport} for new instance of wrapped model.
+	 */
+	protected abstract CreationSupport newWrappedCreationSupport() throws Exception;
 
-  /**
-   * Inherit parameters from viewer to wrapped {@link JavaInfo}
-   */
-  protected void inheritParameters(JavaInfo javaInfo) {
-    Map<String, String> parameters = JavaInfoUtils.getParameters(m_wrapperInfo);
-    for (Entry<String, String> entry : parameters.entrySet()) {
-      String keyName = entry.getKey();
-      if (keyName.startsWith("wrapped.")) {
-        JavaInfoUtils.setParameter(javaInfo, keyName.substring(8), entry.getValue());
-      }
-    }
-  }
+	/**
+	 * Inherit parameters from viewer to wrapped {@link JavaInfo}
+	 */
+	protected void inheritParameters(JavaInfo javaInfo) {
+		Map<String, String> parameters = JavaInfoUtils.getParameters(m_wrapperInfo);
+		for (Entry<String, String> entry : parameters.entrySet()) {
+			String keyName = entry.getKey();
+			if (keyName.startsWith("wrapped.")) {
+				JavaInfoUtils.setParameter(javaInfo, keyName.substring(8), entry.getValue());
+			}
+		}
+	}
 }

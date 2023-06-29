@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.utils.state;
  * @coverage core.model
  */
 public interface IPasteComponentProcessor {
-  /**
-   * Performs some action for given component, in most case - adds it.
-   */
-  void process(Object component) throws Exception;
+	/**
+	 * Performs some action for given component, in most case - adds it.
+	 */
+	void process(Object component) throws Exception;
 }

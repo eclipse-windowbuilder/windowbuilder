@@ -23,42 +23,42 @@ import org.apache.commons.lang.StringUtils;
  * @coverage bindings.swing.wizard.auto
  */
 public final class SwingComponentDescriptor extends AbstractDescriptor {
-  private String m_componentClassName;
-  private String[] m_propertyClasses;
+	private String m_componentClassName;
+	private String[] m_propertyClasses;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getComponentClass() {
-    return m_componentClassName;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getComponentClass() {
+		return m_componentClassName;
+	}
 
-  public void setComponentClass(String className) {
-    m_componentClassName = className;
-  }
+	public void setComponentClass(String className) {
+		m_componentClassName = className;
+	}
 
-  public String getPropertyClass() {
-    return m_propertyClasses[m_propertyClasses.length - 1];
-  }
+	public String getPropertyClass() {
+		return m_propertyClasses[m_propertyClasses.length - 1];
+	}
 
-  public void setPropertyClass(String classes) {
-    m_propertyClasses = StringUtils.split(classes);
-  }
+	public void setPropertyClass(String classes) {
+		m_propertyClasses = StringUtils.split(classes);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Default
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isDefault(Object property) {
-    PropertyAdapter propertyAdapter = (PropertyAdapter) property;
-    Class<?> propertyType = propertyAdapter.getType();
-    if (propertyType != null) {
-      return ArrayUtils.contains(m_propertyClasses, propertyType.getName());
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Default
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isDefault(Object property) {
+		PropertyAdapter propertyAdapter = (PropertyAdapter) property;
+		Class<?> propertyType = propertyAdapter.getType();
+		if (propertyType != null) {
+			return ArrayUtils.contains(m_propertyClasses, propertyType.getName());
+		}
+		return false;
+	}
 }

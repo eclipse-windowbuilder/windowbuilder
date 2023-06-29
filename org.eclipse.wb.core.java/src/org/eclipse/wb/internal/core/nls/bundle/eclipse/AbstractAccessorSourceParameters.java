@@ -22,15 +22,15 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
  * @coverage core.nls
  */
 public class AbstractAccessorSourceParameters extends AbstractBundleSourceParameters {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Accessor parameters
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IPackageFragmentRoot m_accessorSourceFolder;
-  public IPackageFragment m_accessorPackage;
-  public String m_accessorPackageName;
-  public String m_accessorClassName;
-  public String m_accessorFullClassName;
-  public boolean m_accessorExists;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Accessor parameters
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IPackageFragmentRoot m_accessorSourceFolder;
+	public IPackageFragment m_accessorPackage;
+	public String m_accessorPackageName;
+	public String m_accessorClassName;
+	public String m_accessorFullClassName;
+	public boolean m_accessorExists;
 }

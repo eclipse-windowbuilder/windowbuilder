@@ -17,13 +17,13 @@ package org.eclipse.wb.internal.swing.databinding.model;
  * @coverage bindings.swing.model
  */
 public enum ObserveCreationType {
-  AutoBinding,
-  JListBinding,
-  JTableBinding,
-  JComboBoxBinding,
-  VirtualBinding,
-  SelfProperty,
-  AnyProperty,
-  ListSelfProperty,
-  ListProperty
+	AutoBinding,
+	JListBinding,
+	JTableBinding,
+	JComboBoxBinding,
+	VirtualBinding,
+	SelfProperty,
+	AnyProperty,
+	ListSelfProperty,
+	ListProperty
 }

@@ -19,27 +19,27 @@ import org.apache.commons.lang.ObjectUtils;
  *
  */
 public class StringPreferenceProvider extends AbstractPreferenceProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StringPreferenceProvider(IPreferenceStore store, String key) {
-    super(store, key);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StringPreferenceProvider(IPreferenceStore store, String key) {
+		super(store, key);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue(boolean def) {
-    return def ? m_store.getDefaultString(m_key) : m_store.getString(m_key);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue(boolean def) {
+		return def ? m_store.getDefaultString(m_key) : m_store.getString(m_key);
+	}
 
-  @Override
-  public void setValue(Object value) {
-    m_store.setValue(m_key, ObjectUtils.toString(value));
-  }
+	@Override
+	public void setValue(Object value) {
+		m_store.setValue(m_key, ObjectUtils.toString(value));
+	}
 }

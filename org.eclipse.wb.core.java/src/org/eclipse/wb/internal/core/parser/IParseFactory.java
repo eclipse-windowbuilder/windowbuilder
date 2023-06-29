@@ -28,44 +28,44 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
  * @coverage core.model.parser
  */
 public interface IParseFactory {
-  /**
-   * @return the {@link ParseRootContext} - information about root {@link JavaInfo} for given
-   *         {@link TypeDeclaration}.
-   */
-  ParseRootContext getRootContext(AstEditor editor,
-      TypeDeclaration typeDeclaration,
-      ITypeBinding typeBinding) throws Exception;
+	/**
+	 * @return the {@link ParseRootContext} - information about root {@link JavaInfo} for given
+	 *         {@link TypeDeclaration}.
+	 */
+	ParseRootContext getRootContext(AstEditor editor,
+			TypeDeclaration typeDeclaration,
+			ITypeBinding typeBinding) throws Exception;
 
-  /**
-   * Informs {@link IParseFactory} about some {@link Expression}.
-   *
-   * @return {@link JavaInfo} model corresponding to given {@link Expression}, or <code>null</code>.
-   */
-  JavaInfo create(AstEditor editor, Expression expression) throws Exception;
+	/**
+	 * Informs {@link IParseFactory} about some {@link Expression}.
+	 *
+	 * @return {@link JavaInfo} model corresponding to given {@link Expression}, or <code>null</code>.
+	 */
+	JavaInfo create(AstEditor editor, Expression expression) throws Exception;
 
-  /**
-   * Informs {@link IParseFactory} about {@link ClassInstanceCreation}.
-   *
-   * @return {@link JavaInfo} model corresponding to given {@link ClassInstanceCreation}.
-   */
-  JavaInfo create(AstEditor editor,
-      ClassInstanceCreation creation,
-      IMethodBinding methodBinding,
-      ITypeBinding typeBinding,
-      Expression arguments[],
-      JavaInfo argumentInfos[]) throws Exception;
+	/**
+	 * Informs {@link IParseFactory} about {@link ClassInstanceCreation}.
+	 *
+	 * @return {@link JavaInfo} model corresponding to given {@link ClassInstanceCreation}.
+	 */
+	JavaInfo create(AstEditor editor,
+			ClassInstanceCreation creation,
+			IMethodBinding methodBinding,
+			ITypeBinding typeBinding,
+			Expression arguments[],
+			JavaInfo argumentInfos[]) throws Exception;
 
-  /**
-   * Informs {@link IParseFactory} about {@link MethodInvocation}. Factory can create new
-   * {@link JavaInfo}, add new parent/child link, etc.
-   *
-   * @return {@link JavaInfo} model corresponding to given {@link ClassInstanceCreation}.
-   */
-  JavaInfo create(AstEditor editor,
-      MethodInvocation invocation,
-      IMethodBinding methodBinding,
-      Expression arguments[],
-      JavaInfo expressionInfo,
-      JavaInfo argumentInfos[],
-      IJavaInfoParseResolver javaInfoResolver) throws Exception;
+	/**
+	 * Informs {@link IParseFactory} about {@link MethodInvocation}. Factory can create new
+	 * {@link JavaInfo}, add new parent/child link, etc.
+	 *
+	 * @return {@link JavaInfo} model corresponding to given {@link ClassInstanceCreation}.
+	 */
+	JavaInfo create(AstEditor editor,
+			MethodInvocation invocation,
+			IMethodBinding methodBinding,
+			Expression arguments[],
+			JavaInfo expressionInfo,
+			JavaInfo argumentInfos[],
+			IJavaInfoParseResolver javaInfoResolver) throws Exception;
 }

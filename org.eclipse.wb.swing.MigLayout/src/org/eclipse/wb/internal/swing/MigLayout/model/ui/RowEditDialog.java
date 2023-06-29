@@ -28,43 +28,43 @@ import java.util.List;
  * @coverage swing.MigLayout.ui
  */
 public final class RowEditDialog extends DimensionEditDialog<MigRowInfo, Alignment> {
-  private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = Lists.newArrayList();
-  static {
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT,
-        ModelMessages.RowEditDialog_alignmentDefault));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TOP,
-        ModelMessages.RowEditDialog_alignmentTop));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER,
-        ModelMessages.RowEditDialog_alignmentCenter));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BOTTOM,
-        ModelMessages.RowEditDialog_alignmentBottom));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL,
-        ModelMessages.RowEditDialog_alignmentFill));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BASELINE,
-        ModelMessages.RowEditDialog_alignmentBaseline));
-  }
+	private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = Lists.newArrayList();
+	static {
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT,
+				ModelMessages.RowEditDialog_alignmentDefault));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TOP,
+				ModelMessages.RowEditDialog_alignmentTop));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER,
+				ModelMessages.RowEditDialog_alignmentCenter));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BOTTOM,
+				ModelMessages.RowEditDialog_alignmentBottom));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL,
+				ModelMessages.RowEditDialog_alignmentFill));
+		ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BASELINE,
+				ModelMessages.RowEditDialog_alignmentBaseline));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowEditDialog(Shell parentShell, MigLayoutInfo layout, MigRowInfo row) {
-    super(parentShell, layout, layout.getRows(), row, ModelMessages.RowEditDialog_title, ALIGNMENTS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowEditDialog(Shell parentShell, MigLayoutInfo layout, MigRowInfo row) {
+		super(parentShell, layout, layout.getRows(), row, ModelMessages.RowEditDialog_title, ALIGNMENTS);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Alignment getAlignment(MigRowInfo dimension) {
-    return dimension.getAlignment(false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Alignment getAlignment(MigRowInfo dimension) {
+		return dimension.getAlignment(false);
+	}
 
-  @Override
-  protected void setAlignment(MigRowInfo dimension, Alignment alignment) {
-    dimension.setAlignment(alignment);
-  }
+	@Override
+	protected void setAlignment(MigRowInfo dimension, Alignment alignment) {
+		dimension.setAlignment(alignment);
+	}
 }

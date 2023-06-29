@@ -47,103 +47,103 @@ import java.lang.reflect.Method;
  * @coverage rcp.model.forms
  */
 public final class FormPageInfo extends EditorPartInfo implements IThisMethodParameterEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormPageInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormPageInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IThisMethodParameterEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Object m_FormToolkit;
-  private Object m_FormEditor;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IThisMethodParameterEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Object m_FormToolkit;
+	private Object m_FormEditor;
 
-  @Override
-  public Object evaluateParameter(EvaluationContext context,
-      MethodDeclaration methodDeclaration,
-      String methodSignature,
-      SingleVariableDeclaration parameter,
-      int index) throws Exception {
-    ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(parameter);
-    if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.ui.forms.editor.FormEditor")) {
-      if (m_FormEditor == null) {
-        prepare_FormEditor(typeBinding);
-      }
-      return m_FormEditor;
-    }
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	@Override
+	public Object evaluateParameter(EvaluationContext context,
+			MethodDeclaration methodDeclaration,
+			String methodSignature,
+			SingleVariableDeclaration parameter,
+			int index) throws Exception {
+		ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(parameter);
+		if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.ui.forms.editor.FormEditor")) {
+			if (m_FormEditor == null) {
+				prepare_FormEditor(typeBinding);
+			}
+			return m_FormEditor;
+		}
+		return AstEvaluationEngine.UNKNOWN;
+	}
 
-  /**
-   * Prepares implementation of {@link FormEditor} in {@link #m_FormEditor}.
-   */
-  private void prepare_FormEditor(ITypeBinding editorBinding) throws Exception {
-    ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
-    String editorClassName = AstNodeUtils.getFullyQualifiedName(editorBinding, true);
-    Class<?> editorClass = classLoader.loadClass(editorClassName);
-    // prepare FormEditor instance
-    {
-      m_FormEditor = new ByteBuddy() //
-          .subclass(editorClass) //
-          .method(named("getActivePageInstance").and(takesNoArguments())) //
-          .intercept(FixedValue.nullValue()) //
-          .method(named("getToolkit").and(takesNoArguments())) //
-          .intercept(InvocationHandlerAdapter.of((Object proxy, Method method, Object[] args) -> {
-            prepare_FormToolkit();
-            return m_FormToolkit;
-          })) //
-          .make() //
-          .load(classLoader) //
-          .getLoaded() //
-          .getConstructor() //
-          .newInstance();
-    }
-  }
+	/**
+	 * Prepares implementation of {@link FormEditor} in {@link #m_FormEditor}.
+	 */
+	private void prepare_FormEditor(ITypeBinding editorBinding) throws Exception {
+		ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
+		String editorClassName = AstNodeUtils.getFullyQualifiedName(editorBinding, true);
+		Class<?> editorClass = classLoader.loadClass(editorClassName);
+		// prepare FormEditor instance
+		{
+			m_FormEditor = new ByteBuddy() //
+					.subclass(editorClass) //
+					.method(named("getActivePageInstance").and(takesNoArguments())) //
+					.intercept(FixedValue.nullValue()) //
+					.method(named("getToolkit").and(takesNoArguments())) //
+					.intercept(InvocationHandlerAdapter.of((Object proxy, Method method, Object[] args) -> {
+						prepare_FormToolkit();
+						return m_FormToolkit;
+					})) //
+					.make() //
+					.load(classLoader) //
+					.getLoaded() //
+					.getConstructor() //
+					.newInstance();
+		}
+	}
 
-  /**
-   * Prepares implementation of {@link FormToolkit} in {@link #m_FormToolkit}.
-   */
-  private void prepare_FormToolkit() throws Exception {
-    if (m_FormToolkit == null) {
-      ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
-      Class<?> class_FormToolkit =
-          editorLoader.loadClass("org.eclipse.ui.forms.widgets.FormToolkit");
-      //
-      Constructor<?> constructor = ReflectionUtils.getConstructor(class_FormToolkit, Display.class);
-      m_FormToolkit = constructor.newInstance(Display.getCurrent());
-    }
-  }
+	/**
+	 * Prepares implementation of {@link FormToolkit} in {@link #m_FormToolkit}.
+	 */
+	private void prepare_FormToolkit() throws Exception {
+		if (m_FormToolkit == null) {
+			ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
+			Class<?> class_FormToolkit =
+					editorLoader.loadClass("org.eclipse.ui.forms.widgets.FormToolkit");
+			//
+			Constructor<?> constructor = ReflectionUtils.getConstructor(class_FormToolkit, Display.class);
+			m_FormToolkit = constructor.newInstance(Display.getCurrent());
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configureTabItem(CTabItem tabItem) throws Exception {
-    tabItem.setImage(getDescription().getIcon());
-    tabItem.setText("FormPage");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configureTabItem(CTabItem tabItem) throws Exception {
+		tabItem.setImage(getDescription().getIcon());
+		tabItem.setText("FormPage");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_dispose() throws Exception {
-    super.refresh_dispose();
-    if (m_FormToolkit != null) {
-      ReflectionUtils.invokeMethod2(m_FormToolkit, "dispose");
-      m_FormToolkit = null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_dispose() throws Exception {
+		super.refresh_dispose();
+		if (m_FormToolkit != null) {
+			ReflectionUtils.invokeMethod2(m_FormToolkit, "dispose");
+			m_FormToolkit = null;
+		}
+	}
 }

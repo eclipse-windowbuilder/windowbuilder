@@ -38,82 +38,82 @@ import java.util.List;
  * @coverage swt.property.editor
  */
 public final class JFaceFontPage extends AbstractFontPage {
-  public static final String NAME = "JFace";
-  //
-  private final Table m_fontTable;
-  private final List<FontInfo> m_fonts;
+	public static final String NAME = "JFace";
+	//
+	private final Table m_fontTable;
+	private final List<FontInfo> m_fonts;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JFaceFontPage(Composite parent, int style, FontDialog fontDialog, JavaInfo javaInfo) {
-    super(parent, style, fontDialog);
-    GridLayoutFactory.create(this);
-    //
-    {
-      new Label(this, SWT.NONE).setText(ModelMessages.JFaceFontPage_selectFont);
-    }
-    {
-      m_fontTable = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
-      GridDataFactory.create(m_fontTable).hintVC(15).grab().fill();
-      m_fontTable.setHeaderVisible(true);
-      m_fontTable.setLinesVisible(true);
-      // create columns
-      {
-        new TableColumn(m_fontTable, SWT.NONE).setText(ModelMessages.JFaceFontPage_nameColumn);
-        new TableColumn(m_fontTable, SWT.NONE).setText(ModelMessages.JFaceFontPage_valueColumn);
-      }
-      // add items
-      List<FontInfo> fonts;
-      try {
-        fonts = JFaceSupport.getJFaceFonts();
-      } catch (Throwable e) {
-        DesignerPlugin.log(e);
-        fonts = Collections.emptyList();
-      }
-      m_fonts = fonts;
-      //
-      for (FontInfo fontInfo : m_fonts) {
-        TableItem tableItem = new TableItem(m_fontTable, SWT.NONE);
-        tableItem.setText(0, fontInfo.getName());
-        try {
-          Object fontData = FontSupport.getFontData(fontInfo.getFont());
-          tableItem.setText(
-              1,
-              "" + FontSupport.getFontName(fontData) + " " + FontSupport.getFontSize(fontData));
-        } catch (Throwable e) {
-          tableItem.setText(1, "???");
-        }
-      }
-      // pack columns
-      for (int i = 0; i < m_fontTable.getColumnCount(); i++) {
-        m_fontTable.getColumn(i).pack();
-      }
-      // add listeners
-      m_fontTable.addListener(SWT.Selection, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          FontInfo fontInfo = m_fonts.get(m_fontTable.getSelectionIndex());
-          m_fontDialog.setFontInfo(fontInfo);
-        }
-      });
-      m_fontTable.addListener(SWT.MouseDoubleClick, new Listener() {
-        @Override
-        public void handleEvent(Event event) {
-          m_fontDialog.closeOk();
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JFaceFontPage(Composite parent, int style, FontDialog fontDialog, JavaInfo javaInfo) {
+		super(parent, style, fontDialog);
+		GridLayoutFactory.create(this);
+		//
+		{
+			new Label(this, SWT.NONE).setText(ModelMessages.JFaceFontPage_selectFont);
+		}
+		{
+			m_fontTable = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
+			GridDataFactory.create(m_fontTable).hintVC(15).grab().fill();
+			m_fontTable.setHeaderVisible(true);
+			m_fontTable.setLinesVisible(true);
+			// create columns
+			{
+				new TableColumn(m_fontTable, SWT.NONE).setText(ModelMessages.JFaceFontPage_nameColumn);
+				new TableColumn(m_fontTable, SWT.NONE).setText(ModelMessages.JFaceFontPage_valueColumn);
+			}
+			// add items
+			List<FontInfo> fonts;
+			try {
+				fonts = JFaceSupport.getJFaceFonts();
+			} catch (Throwable e) {
+				DesignerPlugin.log(e);
+				fonts = Collections.emptyList();
+			}
+			m_fonts = fonts;
+			//
+			for (FontInfo fontInfo : m_fonts) {
+				TableItem tableItem = new TableItem(m_fontTable, SWT.NONE);
+				tableItem.setText(0, fontInfo.getName());
+				try {
+					Object fontData = FontSupport.getFontData(fontInfo.getFont());
+					tableItem.setText(
+							1,
+							"" + FontSupport.getFontName(fontData) + " " + FontSupport.getFontSize(fontData));
+				} catch (Throwable e) {
+					tableItem.setText(1, "???");
+				}
+			}
+			// pack columns
+			for (int i = 0; i < m_fontTable.getColumnCount(); i++) {
+				m_fontTable.getColumn(i).pack();
+			}
+			// add listeners
+			m_fontTable.addListener(SWT.Selection, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					FontInfo fontInfo = m_fonts.get(m_fontTable.getSelectionIndex());
+					m_fontDialog.setFontInfo(fontInfo);
+				}
+			});
+			m_fontTable.addListener(SWT.MouseDoubleClick, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					m_fontDialog.closeOk();
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setFont(FontInfo fontInfo) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setFont(FontInfo fontInfo) {
+	}
 }

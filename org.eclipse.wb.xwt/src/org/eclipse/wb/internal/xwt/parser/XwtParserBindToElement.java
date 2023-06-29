@@ -21,5 +21,5 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XWT.parser
  */
 public interface XwtParserBindToElement {
-  void invoke(XmlObjectInfo object, DocumentElement element);
+	void invoke(XmlObjectInfo object, DocumentElement element);
 }

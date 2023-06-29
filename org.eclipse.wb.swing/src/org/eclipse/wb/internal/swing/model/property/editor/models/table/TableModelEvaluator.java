@@ -56,95 +56,95 @@ import javax.swing.table.DefaultTableModel;
  * @coverage swing.model
  */
 public final class TableModelEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    if (expression instanceof ClassInstanceCreation) {
-      ClassInstanceCreation creation = (ClassInstanceCreation) expression;
-      if (isAnonymous_DefaultTableModel(creation)) {
-        List<Expression> arguments = DomGenerics.arguments(creation);
-        Object[][] values = (Object[][]) AstEvaluationEngine.evaluate(context, arguments.get(0));
-        Object[] columnNames = (Object[]) AstEvaluationEngine.evaluate(context, arguments.get(1));
-        final Class<?>[] columnTypes = getAnonymousColumnTypes(context, creation);
-        final boolean[] columnEditables = getAnonymousColumnEditables(context, creation);
-        return new DefaultTableModel(values, columnNames) {
-          private static final long serialVersionUID = 0L;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		if (expression instanceof ClassInstanceCreation) {
+			ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+			if (isAnonymous_DefaultTableModel(creation)) {
+				List<Expression> arguments = DomGenerics.arguments(creation);
+				Object[][] values = (Object[][]) AstEvaluationEngine.evaluate(context, arguments.get(0));
+				Object[] columnNames = (Object[]) AstEvaluationEngine.evaluate(context, arguments.get(1));
+				final Class<?>[] columnTypes = getAnonymousColumnTypes(context, creation);
+				final boolean[] columnEditables = getAnonymousColumnEditables(context, creation);
+				return new DefaultTableModel(values, columnNames) {
+					private static final long serialVersionUID = 0L;
 
-          @Override
-          public Class<?> getColumnClass(int columnIndex) {
-            if (columnTypes != null) {
-              return columnTypes[columnIndex];
-            }
-            return super.getColumnClass(columnIndex);
-          }
+					@Override
+					public Class<?> getColumnClass(int columnIndex) {
+						if (columnTypes != null) {
+							return columnTypes[columnIndex];
+						}
+						return super.getColumnClass(columnIndex);
+					}
 
-          @Override
-          public boolean isCellEditable(int row, int column) {
-            if (columnEditables != null) {
-              return columnEditables[column];
-            }
-            return super.isCellEditable(row, column);
-          }
-        };
-      }
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+					@Override
+					public boolean isCellEditable(int row, int column) {
+						if (columnEditables != null) {
+							return columnEditables[column];
+						}
+						return super.isCellEditable(row, column);
+					}
+				};
+			}
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static boolean isAnonymous_DefaultTableModel(ClassInstanceCreation creation) {
-    return creation.getAnonymousClassDeclaration() != null
-        && AstNodeUtils.isSuccessorOf(
-            AstNodeUtils.getTypeBinding(creation),
-            DefaultTableModel.class)
-        && AstNodeUtils.getCreationSignature(creation).equals(
-            "<init>(java.lang.Object[][],java.lang.Object[])");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static boolean isAnonymous_DefaultTableModel(ClassInstanceCreation creation) {
+		return creation.getAnonymousClassDeclaration() != null
+				&& AstNodeUtils.isSuccessorOf(
+						AstNodeUtils.getTypeBinding(creation),
+						DefaultTableModel.class)
+				&& AstNodeUtils.getCreationSignature(creation).equals(
+						"<init>(java.lang.Object[][],java.lang.Object[])");
+	}
 
-  private static Class<?>[] getAnonymousColumnTypes(EvaluationContext context,
-      ClassInstanceCreation creation) throws Exception {
-    return (Class<?>[]) getAnonymousFieldValue(
-        context,
-        creation,
-        "columnTypes",
-        "java.lang.Class[]");
-  }
+	private static Class<?>[] getAnonymousColumnTypes(EvaluationContext context,
+			ClassInstanceCreation creation) throws Exception {
+		return (Class<?>[]) getAnonymousFieldValue(
+				context,
+				creation,
+				"columnTypes",
+				"java.lang.Class[]");
+	}
 
-  private static boolean[] getAnonymousColumnEditables(EvaluationContext context,
-      ClassInstanceCreation creation) throws Exception {
-    return (boolean[]) getAnonymousFieldValue(context, creation, "columnEditables", "boolean[]");
-  }
+	private static boolean[] getAnonymousColumnEditables(EvaluationContext context,
+			ClassInstanceCreation creation) throws Exception {
+		return (boolean[]) getAnonymousFieldValue(context, creation, "columnEditables", "boolean[]");
+	}
 
-  private static Object getAnonymousFieldValue(EvaluationContext context,
-      ClassInstanceCreation creation,
-      String fieldName,
-      String fieldTypeName) throws Exception {
-    AnonymousClassDeclaration anonymous = creation.getAnonymousClassDeclaration();
-    List<BodyDeclaration> declarations = DomGenerics.bodyDeclarations(anonymous);
-    if (!declarations.isEmpty() && declarations.get(0) instanceof FieldDeclaration) {
-      FieldDeclaration field = (FieldDeclaration) declarations.get(0);
-      if (field.fragments().size() == 1 && hasTypeName(field, fieldTypeName)) {
-        VariableDeclaration fragment = (VariableDeclaration) field.fragments().get(0);
-        if (fragment.getName().getIdentifier().equals(fieldName)) {
-          return AstEvaluationEngine.evaluate(context, fragment.getInitializer());
-        }
-      }
-    }
-    return null;
-  }
+	private static Object getAnonymousFieldValue(EvaluationContext context,
+			ClassInstanceCreation creation,
+			String fieldName,
+			String fieldTypeName) throws Exception {
+		AnonymousClassDeclaration anonymous = creation.getAnonymousClassDeclaration();
+		List<BodyDeclaration> declarations = DomGenerics.bodyDeclarations(anonymous);
+		if (!declarations.isEmpty() && declarations.get(0) instanceof FieldDeclaration) {
+			FieldDeclaration field = (FieldDeclaration) declarations.get(0);
+			if (field.fragments().size() == 1 && hasTypeName(field, fieldTypeName)) {
+				VariableDeclaration fragment = (VariableDeclaration) field.fragments().get(0);
+				if (fragment.getName().getIdentifier().equals(fieldName)) {
+					return AstEvaluationEngine.evaluate(context, fragment.getInitializer());
+				}
+			}
+		}
+		return null;
+	}
 
-  private static boolean hasTypeName(FieldDeclaration field, String typeName) {
-    return AstNodeUtils.getFullyQualifiedName(field.getType(), false).equals(typeName);
-  }
+	private static boolean hasTypeName(FieldDeclaration field, String typeName) {
+		return AstNodeUtils.getFullyQualifiedName(field.getType(), false).equals(typeName);
+	}
 }

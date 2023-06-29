@@ -18,20 +18,20 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author scheglov_ke
  */
 public class AbstractNlsTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void tearDown() throws Exception {
-    // process UI messages (without this we have exception from Java UI)
-    waitEventLoop(1);
-    //
-    super.tearDown();
-    if (m_testProject != null) {
-      deleteFiles(m_testProject.getJavaProject().getProject().getFolder("src"));
-      waitForAutoBuild();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void tearDown() throws Exception {
+		// process UI messages (without this we have exception from Java UI)
+		waitEventLoop(1);
+		//
+		super.tearDown();
+		if (m_testProject != null) {
+			deleteFiles(m_testProject.getJavaProject().getProject().getFolder("src"));
+			waitForAutoBuild();
+		}
+	}
 }

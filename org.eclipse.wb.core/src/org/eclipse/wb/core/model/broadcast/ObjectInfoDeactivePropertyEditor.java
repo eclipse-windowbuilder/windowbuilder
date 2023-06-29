@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
  * @coverage core.model
  */
 public interface ObjectInfoDeactivePropertyEditor {
-  /**
-   * Specifies that if there is some {@link PropertyEditor} active, then it should be deactivated.
-   */
-  void invoke() throws Exception;
+	/**
+	 * Specifies that if there is some {@link PropertyEditor} active, then it should be deactivated.
+	 */
+	void invoke() throws Exception;
 }

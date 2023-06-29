@@ -29,151 +29,151 @@ import java.util.Map;
  * @coverage XML.model.description
  */
 public final class CreationDescription extends AbstractDescription {
-  private final ComponentDescription m_componentDescription;
-  private final Class<?> m_componentClass;
+	private final ComponentDescription m_componentDescription;
+	private final Class<?> m_componentClass;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CreationDescription(ComponentDescription componentDescription, String id, String name) {
-    m_componentDescription = componentDescription;
-    m_componentClass = componentDescription.getComponentClass();
-    m_id = id;
-    m_name = name != null ? name : CodeUtils.getShortClass(m_componentClass.getName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CreationDescription(ComponentDescription componentDescription, String id, String name) {
+		m_componentDescription = componentDescription;
+		m_componentClass = componentDescription.getComponentClass();
+		m_id = id;
+		m_name = name != null ? name : CodeUtils.getShortClass(m_componentClass.getName());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // id
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final String m_id;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// id
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final String m_id;
 
-  /**
-   * @return identifier of this creation.
-   */
-  public String getId() {
-    return m_id;
-  }
+	/**
+	 * @return identifier of this creation.
+	 */
+	public String getId() {
+		return m_id;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // icon
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Image m_icon;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// icon
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Image m_icon;
 
-  /**
-   * @return the icon of this creation for displaying for user.
-   */
-  public Image getIcon() {
-    return m_icon != null ? m_icon : m_componentDescription.getIcon();
-  }
+	/**
+	 * @return the icon of this creation for displaying for user.
+	 */
+	public Image getIcon() {
+		return m_icon != null ? m_icon : m_componentDescription.getIcon();
+	}
 
-  /**
-   * Sets the icon of this creation for displaying for user.
-   */
-  public void setIcon(Image icon) {
-    m_icon = icon;
-  }
+	/**
+	 * Sets the icon of this creation for displaying for user.
+	 */
+	public void setIcon(Image icon) {
+		m_icon = icon;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // name
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final String m_name;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// name
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final String m_name;
 
-  /**
-   * @return the name of this creation for displaying for user.
-   */
-  public String getName() {
-    return m_name;
-  }
+	/**
+	 * @return the name of this creation for displaying for user.
+	 */
+	public String getName() {
+		return m_name;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // description
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_description;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// description
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_description;
 
-  /**
-   * @return the description of this creation for displaying for user.
-   */
-  public String getDescription() {
-    return m_description != null ? m_description : m_componentDescription.getDescription();
-  }
+	/**
+	 * @return the description of this creation for displaying for user.
+	 */
+	public String getDescription() {
+		return m_description != null ? m_description : m_componentDescription.getDescription();
+	}
 
-  /**
-   * Sets the description of this creation for displaying for user.
-   */
-  public void setDescription(String description) {
-    m_description = description != null ? StringUtilities.normalizeWhitespaces(description) : null;
-  }
+	/**
+	 * Sets the description of this creation for displaying for user.
+	 */
+	public void setDescription(String description) {
+		m_description = description != null ? StringUtilities.normalizeWhitespaces(description) : null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Attributes
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final List<CreationAttributeDescription> m_attributes = Lists.newArrayList();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Attributes
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final List<CreationAttributeDescription> m_attributes = Lists.newArrayList();
 
-  /**
-   * @return attributes to set on creation.
-   */
-  public List<CreationAttributeDescription> getAttributes() {
-    return m_attributes;
-  }
+	/**
+	 * @return attributes to set on creation.
+	 */
+	public List<CreationAttributeDescription> getAttributes() {
+		return m_attributes;
+	}
 
-  /**
-   * Adds new {@link CreationAttributeDescription}.
-   */
-  public void addAttribute(CreationAttributeDescription attribute) {
-    m_attributes.add(attribute);
-  }
+	/**
+	 * Adds new {@link CreationAttributeDescription}.
+	 */
+	public void addAttribute(CreationAttributeDescription attribute) {
+		m_attributes.add(attribute);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Content
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_content;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Content
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_content;
 
-  /**
-   * @return the text to use as content of element on creation.
-   */
-  public String getContent() {
-    return m_content;
-  }
+	/**
+	 * @return the text to use as content of element on creation.
+	 */
+	public String getContent() {
+		return m_content;
+	}
 
-  /**
-   * Sets the text to use as content of element on creation.
-   */
-  public void setContent(String content) {
-    m_content = content;
-  }
+	/**
+	 * Sets the text to use as content of element on creation.
+	 */
+	public void setContent(String content) {
+		m_content = content;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parameters
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, String> m_parameters = Maps.newTreeMap();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parameters
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final Map<String, String> m_parameters = Maps.newTreeMap();
 
-  /**
-   * @return the {@link CreationDescription} specific parameters.
-   */
-  public Map<String, String> getParameters() {
-    return Collections.unmodifiableMap(m_parameters);
-  }
+	/**
+	 * @return the {@link CreationDescription} specific parameters.
+	 */
+	public Map<String, String> getParameters() {
+		return Collections.unmodifiableMap(m_parameters);
+	}
 
-  /**
-   * Adds new parameter.
-   */
-  public void addParameter(String name, String value) {
-    m_parameters.put(name, value);
-  }
+	/**
+	 * Adds new parameter.
+	 */
+	public void addParameter(String name, String value) {
+		m_parameters.put(name, value);
+	}
 }

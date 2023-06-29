@@ -19,35 +19,35 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
  * @coverage swing.FormLayout.ui
  */
 public final class DefaultAlignmentDescription {
-  private final DefaultAlignment m_alignment;
-  private final String m_title;
+	private final DefaultAlignment m_alignment;
+	private final String m_title;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DefaultAlignmentDescription(DefaultAlignment alignment, String title) {
-    m_alignment = alignment;
-    m_title = title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DefaultAlignmentDescription(DefaultAlignment alignment, String title) {
+		m_alignment = alignment;
+		m_title = title;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link DefaultAlignment} value.
-   */
-  public DefaultAlignment getAlignment() {
-    return m_alignment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link DefaultAlignment} value.
+	 */
+	public DefaultAlignment getAlignment() {
+		return m_alignment;
+	}
 
-  /**
-   * @return the title to display.
-   */
-  public String getTitle() {
-    return m_title;
-  }
+	/**
+	 * @return the title to display.
+	 */
+	public String getTitle() {
+		return m_title;
+	}
 }

@@ -25,42 +25,42 @@ import org.eclipse.swt.graphics.Point;
  * @coverage bindings.swing.ui
  */
 public final class ErrorCompletionProposal implements ICompletionProposal {
-  private final String m_message;
+	private final String m_message;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ErrorCompletionProposal(Throwable e) {
-    m_message = e.toString();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ErrorCompletionProposal(Throwable e) {
+		m_message = e.toString();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ICompletionProposal
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void apply(IDocument document) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ICompletionProposal
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void apply(IDocument document) {
+	}
 
-  public String getDisplayString() {
-    return m_message;
-  }
+	public String getDisplayString() {
+		return m_message;
+	}
 
-  public Image getImage() {
-    return Activator.getImage("errors.gif");
-  }
+	public Image getImage() {
+		return Activator.getImage("errors.gif");
+	}
 
-  public Point getSelection(IDocument document) {
-    return null;
-  }
+	public Point getSelection(IDocument document) {
+		return null;
+	}
 
-  public String getAdditionalProposalInfo() {
-    return null;
-  }
+	public String getAdditionalProposalInfo() {
+		return null;
+	}
 
-  public IContextInformation getContextInformation() {
-    return null;
-  }
+	public IContextInformation getContextInformation() {
+		return null;
+	}
 }

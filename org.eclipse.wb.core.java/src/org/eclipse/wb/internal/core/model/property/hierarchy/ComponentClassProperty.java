@@ -25,56 +25,56 @@ import org.eclipse.jdt.core.IJavaProject;
  * @coverage core.model.property
  */
 public final class ComponentClassProperty extends Property {
-  private static final String TITLE_TOOLTIP = ModelMessages.ComponentClassProperty_tooltip;
-  private final String m_componentClassName;
+	private static final String TITLE_TOOLTIP = ModelMessages.ComponentClassProperty_tooltip;
+	private final String m_componentClassName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComponentClassProperty(IJavaProject javaProject, Class<?> componentClass) {
-    super(new ComponentClassPropertyEditor(javaProject, componentClass));
-    setCategory(PropertyCategory.system(7));
-    m_componentClassName = componentClass.getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComponentClassProperty(IJavaProject javaProject, Class<?> componentClass) {
+		super(new ComponentClassPropertyEditor(javaProject, componentClass));
+		setCategory(PropertyCategory.system(7));
+		m_componentClassName = componentClass.getName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() {
-    return "Class";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() {
+		return "Class";
+	}
 
-  @Override
-  public Object getValue() throws Exception {
-    return m_componentClassName;
-  }
+	@Override
+	public Object getValue() throws Exception {
+		return m_componentClassName;
+	}
 
-  @Override
-  public boolean isModified() throws Exception {
-    return false;
-  }
+	@Override
+	public boolean isModified() throws Exception {
+		return false;
+	}
 
-  @Override
-  public void setValue(Object value) throws Exception {
-  }
+	@Override
+	public void setValue(Object value) throws Exception {
+	}
 
-  @Override
-  public <T> T getAdapter(Class<T> adapter) {
-    // tooltip
-    if (adapter == PropertyTooltipProvider.class) {
-      return adapter.cast(new PropertyTooltipTextProvider() {
-        @Override
-        protected String getText(Property property) throws Exception {
-          return TITLE_TOOLTIP;
-        }
-      });
-    }
-    // other
-    return super.getAdapter(adapter);
-  }
+	@Override
+	public <T> T getAdapter(Class<T> adapter) {
+		// tooltip
+		if (adapter == PropertyTooltipProvider.class) {
+			return adapter.cast(new PropertyTooltipTextProvider() {
+				@Override
+				protected String getText(Property property) throws Exception {
+					return TITLE_TOOLTIP;
+				}
+			});
+		}
+		// other
+		return super.getAdapter(adapter);
+	}
 }

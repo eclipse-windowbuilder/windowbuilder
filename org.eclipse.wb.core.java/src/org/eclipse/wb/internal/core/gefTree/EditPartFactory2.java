@@ -28,114 +28,114 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
  * @coverage core.gefTree
  */
 public final class EditPartFactory2 implements IEditPartFactory {
-  public static final IEditPartFactory INSTANCE = new EditPartFactory2();
+	public static final IEditPartFactory INSTANCE = new EditPartFactory2();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private EditPartFactory2() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private EditPartFactory2() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart createEditPart(EditPart context, Object model) {
-    if (model == null) {
-      return null;
-    }
-    // flow container group
-    if (model instanceof FlowContainerGroupInfo) {
-      FlowContainerGroupInfo groupInfo = (FlowContainerGroupInfo) model;
-      return new FlowContainerGroupEditPart(groupInfo);
-    }
-    // child array
-    if (model instanceof AbstractArrayObjectInfo) {
-      AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
-      return new ArrayObjectEditPart(arrayInfo);
-    }
-    // use default EditPart for JavaInfo and ObjectInfo
-    if (model instanceof JavaInfo) {
-      return new JavaEditPart((JavaInfo) model);
-    }
-    // no EditPart found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart createEditPart(EditPart context, Object model) {
+		if (model == null) {
+			return null;
+		}
+		// flow container group
+		if (model instanceof FlowContainerGroupInfo) {
+			FlowContainerGroupInfo groupInfo = (FlowContainerGroupInfo) model;
+			return new FlowContainerGroupEditPart(groupInfo);
+		}
+		// child array
+		if (model instanceof AbstractArrayObjectInfo) {
+			AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
+			return new ArrayObjectEditPart(arrayInfo);
+		}
+		// use default EditPart for JavaInfo and ObjectInfo
+		if (model instanceof JavaInfo) {
+			return new JavaEditPart((JavaInfo) model);
+		}
+		// no EditPart found
+		return null;
+	}
 
-  private EditPart createEditPartPure(EditPart context, Object model) {
-    // menu
-//    if (model instanceof ObjectInfo) {
-//      ObjectInfo objectInfo = (ObjectInfo) model;
-//      {
-//        IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(model);
-//        if (menuObject != null) {
-//          return new MenuEditPart(objectInfo, menuObject);
-//        }
-//      }
-//      {
-//        IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(model);
-//        if (itemObject != null) {
-//          return new MenuItemEditPart(objectInfo, itemObject);
-//        }
-//      }
-//    }
-    // check each external factory
-//    for (IEditPartFactory factory : getFactories()) {
-//      EditPart editPart = factory.createEditPart(context, model);
-//      if (editPart != null) {
-//        return editPart;
-//      }
-//    }
-    // flow container group
-    if (model instanceof FlowContainerGroupInfo) {
-      FlowContainerGroupInfo groupInfo = (FlowContainerGroupInfo) model;
-      return new FlowContainerGroupEditPart(groupInfo);
-    }
-    // child array
-    if (model instanceof AbstractArrayObjectInfo) {
-      AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
-      return new ArrayObjectEditPart(arrayInfo);
-    }
-    // use default EditPart for JavaInfo and ObjectInfo
-    if (model instanceof JavaInfo) {
-      return new JavaEditPart((JavaInfo) model);
-    }
-//    if (model instanceof ObjectInfo) {
-//      return new ObjectEditPart((ObjectInfo) model);
-//    }
-    // no EditPart found
-    return null;
-  }
-//  ////////////////////////////////////////////////////////////////////////////
-//  //
-//  // Extensions
-//  //
-//  ////////////////////////////////////////////////////////////////////////////
-//  /**
-//   * @return the instances of {@link IEditPartFactory}.
-//   */
-//  private static List<IEditPartFactory> getFactories() {
-//    return ExternalFactoriesHelper.getElementsInstances(
-//        IEditPartFactory.class,
-//        "org.eclipse.wb.core.treeEditPartFactories",
-//        "factory");
-//  }
-//
-//  /**
-//   * Configures given {@link EditPart} using externally contributed {@link IEditPartConfigurator}'s.
-//   */
-//  private static void configureEditPart(EditPart context, EditPart editPart) {
-//    List<IEditPartConfigurator> configurators =
-//        ExternalFactoriesHelper.getElementsInstances(
-//            IEditPartConfigurator.class,
-//            "org.eclipse.wb.core.treeEditPartConfigurators",
-//            "configurator");
-//    for (IEditPartConfigurator configurator : configurators) {
-//      configurator.configure(context, editPart);
-//    }
-//  }
+	private EditPart createEditPartPure(EditPart context, Object model) {
+		// menu
+		//    if (model instanceof ObjectInfo) {
+		//      ObjectInfo objectInfo = (ObjectInfo) model;
+		//      {
+		//        IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(model);
+		//        if (menuObject != null) {
+		//          return new MenuEditPart(objectInfo, menuObject);
+		//        }
+		//      }
+		//      {
+		//        IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(model);
+		//        if (itemObject != null) {
+		//          return new MenuItemEditPart(objectInfo, itemObject);
+		//        }
+		//      }
+		//    }
+		// check each external factory
+		//    for (IEditPartFactory factory : getFactories()) {
+		//      EditPart editPart = factory.createEditPart(context, model);
+		//      if (editPart != null) {
+		//        return editPart;
+		//      }
+		//    }
+		// flow container group
+		if (model instanceof FlowContainerGroupInfo) {
+			FlowContainerGroupInfo groupInfo = (FlowContainerGroupInfo) model;
+			return new FlowContainerGroupEditPart(groupInfo);
+		}
+		// child array
+		if (model instanceof AbstractArrayObjectInfo) {
+			AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
+			return new ArrayObjectEditPart(arrayInfo);
+		}
+		// use default EditPart for JavaInfo and ObjectInfo
+		if (model instanceof JavaInfo) {
+			return new JavaEditPart((JavaInfo) model);
+		}
+		//    if (model instanceof ObjectInfo) {
+		//      return new ObjectEditPart((ObjectInfo) model);
+		//    }
+		// no EditPart found
+		return null;
+	}
+	//  ////////////////////////////////////////////////////////////////////////////
+	//  //
+	//  // Extensions
+	//  //
+	//  ////////////////////////////////////////////////////////////////////////////
+	//  /**
+	//   * @return the instances of {@link IEditPartFactory}.
+	//   */
+	//  private static List<IEditPartFactory> getFactories() {
+	//    return ExternalFactoriesHelper.getElementsInstances(
+	//        IEditPartFactory.class,
+	//        "org.eclipse.wb.core.treeEditPartFactories",
+	//        "factory");
+	//  }
+	//
+	//  /**
+	//   * Configures given {@link EditPart} using externally contributed {@link IEditPartConfigurator}'s.
+	//   */
+	//  private static void configureEditPart(EditPart context, EditPart editPart) {
+	//    List<IEditPartConfigurator> configurators =
+	//        ExternalFactoriesHelper.getElementsInstances(
+	//            IEditPartConfigurator.class,
+	//            "org.eclipse.wb.core.treeEditPartConfigurators",
+	//            "configurator");
+	//    for (IEditPartConfigurator configurator : configurators) {
+	//      configurator.configure(context, editPart);
+	//    }
+	//  }
 }

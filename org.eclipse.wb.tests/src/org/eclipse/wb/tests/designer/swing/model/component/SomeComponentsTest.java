@@ -25,64 +25,64 @@ import javax.swing.JScrollPane;
  * @author scheglov_ke
  */
 public class SomeComponentsTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * {@link JEditorPane} has two methods to set "URL" property. Test that we have both.
-   */
-  public void test_JEditorPane() throws Exception {
-    ContainerInfo panel =
-        (ContainerInfo) parseSource(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "package test;",
-                "import javax.swing.*;",
-                "class Test extends JPanel {",
-                "  Test() {",
-                "    add(new JEditorPane());",
-                "  }",
-                "}"));
-    ComponentInfo editorPane = panel.getChildrenComponents().get(0);
-    // we have both properties, so String variant uses qualified title
-    assertNotNull(editorPane.getPropertyByTitle("page(java.lang.String)"));
-    // but we don't have PropertyEditor for URL, so no such property
-    assertNull(editorPane.getPropertyByTitle("page(java.net.URL)"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * {@link JEditorPane} has two methods to set "URL" property. Test that we have both.
+	 */
+	public void test_JEditorPane() throws Exception {
+		ContainerInfo panel =
+				(ContainerInfo) parseSource(
+						"test",
+						"Test.java",
+						getSourceDQ(
+								"package test;",
+								"import javax.swing.*;",
+								"class Test extends JPanel {",
+								"  Test() {",
+								"    add(new JEditorPane());",
+								"  }",
+								"}"));
+		ComponentInfo editorPane = panel.getChildrenComponents().get(0);
+		// we have both properties, so String variant uses qualified title
+		assertNotNull(editorPane.getPropertyByTitle("page(java.lang.String)"));
+		// but we don't have PropertyEditor for URL, so no such property
+		assertNull(editorPane.getPropertyByTitle("page(java.net.URL)"));
+	}
 
-  /**
-   * When we put {@link Canvas} on {@link JScrollPane} and it has empty size, this causes exception.
-   * <p>
-   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=367254
-   */
-  public void test_Canvas_JScrollPane() throws Exception {
-    parseJavaInfo(
-        "import java.awt.Canvas;",
-        "class Test extends JPanel {",
-        "  public Test() {",
-        "    setLayout(new BorderLayout());",
-        "    {",
-        "      JScrollPane scrollPane = new JScrollPane();",
-        "      add(scrollPane);",
-        "      {",
-        "        Canvas canvas = new Canvas();",
-        "        scrollPane.setRowHeaderView(canvas);",
-        "      }",
-        "    }",
-        "  }",
-        "}");
-    refresh();
-  }
+	/**
+	 * When we put {@link Canvas} on {@link JScrollPane} and it has empty size, this causes exception.
+	 * <p>
+	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=367254
+	 */
+	public void test_Canvas_JScrollPane() throws Exception {
+		parseJavaInfo(
+				"import java.awt.Canvas;",
+				"class Test extends JPanel {",
+				"  public Test() {",
+				"    setLayout(new BorderLayout());",
+				"    {",
+				"      JScrollPane scrollPane = new JScrollPane();",
+				"      add(scrollPane);",
+				"      {",
+				"        Canvas canvas = new Canvas();",
+				"        scrollPane.setRowHeaderView(canvas);",
+				"      }",
+				"    }",
+				"  }",
+				"}");
+		refresh();
+	}
 }

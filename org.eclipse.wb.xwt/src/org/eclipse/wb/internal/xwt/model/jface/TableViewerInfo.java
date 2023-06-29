@@ -32,64 +32,64 @@ import java.util.List;
  * @coverage XWT.model.jface
  */
 public class TableViewerInfo extends ViewerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TableViewerInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TableViewerInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link TableInfo} model.
-   */
-  public TableInfo getTable() {
-    return (TableInfo) getControl();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link TableInfo} model.
+	 */
+	public TableInfo getTable() {
+		return (TableInfo) getControl();
+	}
 
-  /**
-   * @return the {@link TableViewerColumnInfo} children.
-   */
-  public List<TableViewerColumnInfo> getColumns() {
-    return getChildren(TableViewerColumnInfo.class);
-  }
+	/**
+	 * @return the {@link TableViewerColumnInfo} children.
+	 */
+	public List<TableViewerColumnInfo> getColumns() {
+		return getChildren(TableViewerColumnInfo.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    // prepare metrics
-    Table table = (Table) getControl().getObject();
-    int headerHeight = TableSupport.getHeaderHeight(table);
-    // prepare columns bounds
-    int x = 0;
-    {
-      for (TableViewerColumnInfo column : getColumns()) {
-        TableColumn columnObject = ((TableViewerColumn) column.getObject()).getColumn();
-        int columnWidth = columnObject.getWidth();
-        int y = 0;
-        if (EnvironmentUtils.IS_MAC) {
-          // HACK:
-          // SWT Cocoa excludes column headers from client area, so insets.top is header height.
-          // workaround is to adjust y to header height.
-          y -= headerHeight;
-        }
-        column.setModelBounds(new Rectangle(x, y, columnWidth, headerHeight));
-        column.getBounds().performTranslate(getControl().getClientAreaInsets());
-        x += columnWidth;
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		// prepare metrics
+		Table table = (Table) getControl().getObject();
+		int headerHeight = TableSupport.getHeaderHeight(table);
+		// prepare columns bounds
+		int x = 0;
+		{
+			for (TableViewerColumnInfo column : getColumns()) {
+				TableColumn columnObject = ((TableViewerColumn) column.getObject()).getColumn();
+				int columnWidth = columnObject.getWidth();
+				int y = 0;
+				if (EnvironmentUtils.IS_MAC) {
+					// HACK:
+					// SWT Cocoa excludes column headers from client area, so insets.top is header height.
+					// workaround is to adjust y to header height.
+					y -= headerHeight;
+				}
+				column.setModelBounds(new Rectangle(x, y, columnWidth, headerHeight));
+				column.getBounds().performTranslate(getControl().getClientAreaInsets());
+				x += columnWidth;
+			}
+		}
+	}
 }

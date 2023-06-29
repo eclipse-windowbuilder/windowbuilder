@@ -19,35 +19,35 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author lobas_av
  */
 public class JFaceDatabindingsFactoryTestSwing extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_createProvider() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JList list = new JList();",
-            "    add(list);",
-            "  }",
-            "}");
-    assertNotNull(panel);
-    //
-    JFaceDatabindingsFactory factory = new JFaceDatabindingsFactory();
-    assertNull(factory.createProvider(panel.getRootJava()));
-    if (DataBindingsCodeUtils.getExtrasBundle() == null) {
-      assertNull(panel.getPropertyByTitle("bindings"));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_createProvider() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    JList list = new JList();",
+						"    add(list);",
+						"  }",
+						"}");
+		assertNotNull(panel);
+		//
+		JFaceDatabindingsFactory factory = new JFaceDatabindingsFactory();
+		assertNull(factory.createProvider(panel.getRootJava()));
+		if (DataBindingsCodeUtils.getExtrasBundle() == null) {
+			assertNull(panel.getPropertyByTitle("bindings"));
+		}
+	}
 }

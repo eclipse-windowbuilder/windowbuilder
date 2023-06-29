@@ -23,39 +23,39 @@ import java.lang.reflect.Method;
  * @coverage core.model.description
  */
 public final class ExposingPackageRule extends ExposingRule {
-  private final boolean m_include;
-  private final String m_packageName;
+	private final boolean m_include;
+	private final String m_packageName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExposingPackageRule(boolean include, String packageName) {
-    m_include = include;
-    m_packageName = packageName;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExposingPackageRule(boolean include, String packageName) {
+		m_include = include;
+		m_packageName = packageName;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Filter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Boolean filter(Method method) {
-    String packageName = CodeUtils.getPackage(method.getDeclaringClass().getName());
-    if (packageName.equals(m_packageName)) {
-      return m_include;
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Filter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Boolean filter(Method method) {
+		String packageName = CodeUtils.getPackage(method.getDeclaringClass().getName());
+		if (packageName.equals(m_packageName)) {
+			return m_include;
+		}
+		return null;
+	}
 
-  @Override
-  public Boolean filter(Field field) {
-    String packageName = CodeUtils.getPackage(field.getDeclaringClass().getName());
-    if (packageName.equals(m_packageName)) {
-      return m_include;
-    }
-    return null;
-  }
+	@Override
+	public Boolean filter(Field field) {
+		String packageName = CodeUtils.getPackage(field.getDeclaringClass().getName());
+		if (packageName.equals(m_packageName)) {
+			return m_include;
+		}
+		return null;
+	}
 }

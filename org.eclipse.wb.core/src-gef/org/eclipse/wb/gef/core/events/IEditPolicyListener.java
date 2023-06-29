@@ -19,13 +19,13 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
  * @coverage gef.core
  */
 public interface IEditPolicyListener {
-  /**
-   * Called when given {@link EditPolicy} has activate.
-   */
-  void activatePolicy(EditPolicy policy);
+	/**
+	 * Called when given {@link EditPolicy} has activate.
+	 */
+	void activatePolicy(EditPolicy policy);
 
-  /**
-   * Called when given {@link EditPolicy} has deactivate.
-   */
-  void deactivatePolicy(EditPolicy policy);
+	/**
+	 * Called when given {@link EditPolicy} has deactivate.
+	 */
+	void deactivatePolicy(EditPolicy policy);
 }

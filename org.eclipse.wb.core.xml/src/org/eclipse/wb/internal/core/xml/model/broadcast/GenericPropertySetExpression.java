@@ -24,18 +24,18 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
  * @coverage XML.model
  */
 public interface GenericPropertySetExpression {
-  /**
-   * @param property
-   *          the {@link GenericPropertyImpl} that sends this event.
-   * @param expression
-   *          the single element array with new expression.
-   * @param value
-   *          the single element array with new value, may be {@link Property#UNKNOWN_VALUE}.
-   * @param shouldSet
-   *          the single element array that specifies if expression can be set, subscriber may set
-   *          it to <code>false</code> if it did required modification itself, or thinks that value
-   *          of this property should not be modified at all.
-   */
-  void invoke(GenericPropertyImpl property, String[] expression, Object[] value, boolean[] shouldSet)
-      throws Exception;
+	/**
+	 * @param property
+	 *          the {@link GenericPropertyImpl} that sends this event.
+	 * @param expression
+	 *          the single element array with new expression.
+	 * @param value
+	 *          the single element array with new value, may be {@link Property#UNKNOWN_VALUE}.
+	 * @param shouldSet
+	 *          the single element array that specifies if expression can be set, subscriber may set
+	 *          it to <code>false</code> if it did required modification itself, or thinks that value
+	 *          of this property should not be modified at all.
+	 */
+	void invoke(GenericPropertyImpl property, String[] expression, Object[] value, boolean[] shouldSet)
+			throws Exception;
 }

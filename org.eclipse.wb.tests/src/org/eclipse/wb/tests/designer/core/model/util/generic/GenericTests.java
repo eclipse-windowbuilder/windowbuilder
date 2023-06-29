@@ -21,12 +21,12 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class GenericTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model.util.generic");
-    suite.addTest(createSingleSuite(CopyPropertyTopChildTest.class));
-    suite.addTest(createSingleSuite(CopyPropertyTopTest.class));
-    suite.addTest(createSingleSuite(ModelMethodPropertyTest.class));
-    suite.addTest(createSingleSuite(ModelMethodPropertyChildTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.util.generic");
+		suite.addTest(createSingleSuite(CopyPropertyTopChildTest.class));
+		suite.addTest(createSingleSuite(CopyPropertyTopTest.class));
+		suite.addTest(createSingleSuite(ModelMethodPropertyTest.class));
+		suite.addTest(createSingleSuite(ModelMethodPropertyChildTest.class));
+		return suite;
+	}
 }

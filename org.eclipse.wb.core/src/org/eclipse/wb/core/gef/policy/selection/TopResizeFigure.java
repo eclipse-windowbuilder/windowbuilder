@@ -29,45 +29,45 @@ import org.apache.commons.lang.StringUtils;
  * @author mitin_aa
  */
 public class TopResizeFigure extends SemiTransparentFigure {
-  private String m_sizeText;
+	private String m_sizeText;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TopResizeFigure() {
-    super(64);
-    setBackground(IColorConstants.lightGreen);
-    setForeground(IColorConstants.darkGray);
-    setBorder(new LineBorder(IColorConstants.darkBlue, 1));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TopResizeFigure() {
+		super(64);
+		setBackground(IColorConstants.lightGreen);
+		setForeground(IColorConstants.darkGray);
+		setBorder(new LineBorder(IColorConstants.darkBlue, 1));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setSizeText(String sizeText) {
-    m_sizeText = sizeText;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setSizeText(String sizeText) {
+		m_sizeText = sizeText;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Paint
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void paintClientArea(Graphics graphics) {
-    super.paintClientArea(graphics);
-    if (!StringUtils.isEmpty(m_sizeText)) {
-      Rectangle area = getClientArea();
-      Font font = SwtResourceManager.getFont("Arial", 16, SWT.NONE);
-      graphics.setFont(font);
-      Dimension textExtent = graphics.getTextExtent(m_sizeText);
-      int x = area.x + (area.width - textExtent.width) / 2;
-      int y = area.y + (area.height - textExtent.height) / 2;
-      graphics.drawString(m_sizeText, x, y);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Paint
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void paintClientArea(Graphics graphics) {
+		super.paintClientArea(graphics);
+		if (!StringUtils.isEmpty(m_sizeText)) {
+			Rectangle area = getClientArea();
+			Font font = SwtResourceManager.getFont("Arial", 16, SWT.NONE);
+			graphics.setFont(font);
+			Dimension textExtent = graphics.getTextExtent(m_sizeText);
+			int x = area.x + (area.width - textExtent.width) / 2;
+			int y = area.y + (area.height - textExtent.height) / 2;
+			graphics.drawString(m_sizeText, x, y);
+		}
+	}
 }

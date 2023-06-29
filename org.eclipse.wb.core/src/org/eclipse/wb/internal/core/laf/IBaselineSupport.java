@@ -17,17 +17,17 @@ package org.eclipse.wb.internal.core.laf;
  * @coverage core.laf
  */
 public interface IBaselineSupport {
-  /**
-   * Constant used for widgets which have no baseline or their baseline can't be determined.
-   */
-  int NO_BASELINE = -1;
+	/**
+	 * Constant used for widgets which have no baseline or their baseline can't be determined.
+	 */
+	int NO_BASELINE = -1;
 
-  /**
-   * Returns the baseline offset from top of component.
-   *
-   * @param component
-   *          the visual element of some GUI toolkit.
-   * @return the baseline offset from top of component.
-   */
-  int getBaseline(Object component);
+	/**
+	 * Returns the baseline offset from top of component.
+	 *
+	 * @param component
+	 *          the visual element of some GUI toolkit.
+	 * @return the baseline offset from top of component.
+	 */
+	int getBaseline(Object component);
 }

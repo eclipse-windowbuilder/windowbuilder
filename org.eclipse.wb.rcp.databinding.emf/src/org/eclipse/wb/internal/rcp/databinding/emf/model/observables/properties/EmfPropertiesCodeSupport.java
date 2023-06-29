@@ -36,103 +36,103 @@ import java.text.MessageFormat;
  *
  */
 public abstract class EmfPropertiesCodeSupport extends ObservableCodeSupport {
-  private final String m_observeSignature0;
-  private final String m_observeSignature1;
-  private final String m_observeDetailSignature;
-  protected String m_parserPropertyReference;
+	private final String m_observeSignature0;
+	private final String m_observeSignature1;
+	private final String m_observeDetailSignature;
+	protected String m_parserPropertyReference;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EmfPropertiesCodeSupport(String parseClass) {
-    m_observeSignature0 = parseClass + ".observe(java.lang.Object)";
-    m_observeSignature1 =
-        parseClass + ".observe(org.eclipse.core.databinding.observable.Realm,java.lang.Object)";
-    m_observeDetailSignature =
-        parseClass
-            + ".observeDetail(org.eclipse.core.databinding.observable.value.IObservableValue)";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EmfPropertiesCodeSupport(String parseClass) {
+		m_observeSignature0 = parseClass + ".observe(java.lang.Object)";
+		m_observeSignature1 =
+				parseClass + ".observe(org.eclipse.core.databinding.observable.Realm,java.lang.Object)";
+		m_observeDetailSignature =
+				parseClass
+				+ ".observeDetail(org.eclipse.core.databinding.observable.value.IObservableValue)";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final void setParserPropertyReference(String propertyReference) {
-    m_parserPropertyReference = propertyReference;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final void setParserPropertyReference(String propertyReference) {
+		m_parserPropertyReference = propertyReference;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    //
-    EmfObserveTypeContainer container =
-        (EmfObserveTypeContainer) DatabindingsProvider.cast(provider).getContainer(
-            EmfObserveTypeContainer.TYPE);
-    // extract bean expression
-    Expression beanExpression;
-    if (m_observeSignature0.equals(signature)) {
-      beanExpression = arguments[0];
-    } else if (m_observeSignature1.equals(signature)) {
-      beanExpression = arguments[1];
-    } else if (m_observeDetailSignature.equals(signature)) {
-      ObservableInfo masterObservable =
-          EmfObserveTypeContainer.getMasterObservable(editor, resolver, arguments[0]);
-      Assert.isNotNull(masterObservable);
-      //
-      return createDetailObservable(masterObservable, container.getPropertiesSupport());
-    } else {
-      return null;
-    }
-    //
-    EObjectBindableInfo eObject = container.getEObject(beanExpression);
-    if (eObject == null) {
-      AbstractParser.addError(
-          editor,
-          MessageFormat.format(Messages.EmfPropertiesCodeSupport_argumentNotFound, beanExpression),
-          new Throwable());
-      return null;
-    }
-    // create observable
-    return createObservable(editor, eObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		//
+		EmfObserveTypeContainer container =
+				(EmfObserveTypeContainer) DatabindingsProvider.cast(provider).getContainer(
+						EmfObserveTypeContainer.TYPE);
+		// extract bean expression
+		Expression beanExpression;
+		if (m_observeSignature0.equals(signature)) {
+			beanExpression = arguments[0];
+		} else if (m_observeSignature1.equals(signature)) {
+			beanExpression = arguments[1];
+		} else if (m_observeDetailSignature.equals(signature)) {
+			ObservableInfo masterObservable =
+					EmfObserveTypeContainer.getMasterObservable(editor, resolver, arguments[0]);
+			Assert.isNotNull(masterObservable);
+			//
+			return createDetailObservable(masterObservable, container.getPropertiesSupport());
+		} else {
+			return null;
+		}
+		//
+		EObjectBindableInfo eObject = container.getEObject(beanExpression);
+		if (eObject == null) {
+			AbstractParser.addError(
+					editor,
+					MessageFormat.format(Messages.EmfPropertiesCodeSupport_argumentNotFound, beanExpression),
+					new Throwable());
+			return null;
+		}
+		// create observable
+		return createObservable(editor, eObject);
+	}
 
-  protected ObservableInfo createObservable(AstEditor editor, EObjectBindableInfo eObject)
-      throws Exception {
-    EPropertyBindableInfo eProperty = eObject.resolvePropertyReference(m_parserPropertyReference);
-    if (eProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.EmfPropertiesCodeSupport_beanPropertyNotFound,
-          m_parserPropertyReference,
-          eObject.getReference()), new Throwable());
-      eProperty = new EPropertyBindableInfo(null, null, null, "", "");
-    }
-    //
-    ObservableInfo observable = createObservable(eObject, eProperty);
-    observable.setCodeSupport(this);
-    return observable;
-  }
+	protected ObservableInfo createObservable(AstEditor editor, EObjectBindableInfo eObject)
+			throws Exception {
+		EPropertyBindableInfo eProperty = eObject.resolvePropertyReference(m_parserPropertyReference);
+		if (eProperty == null) {
+			AbstractParser.addError(editor, MessageFormat.format(
+					Messages.EmfPropertiesCodeSupport_beanPropertyNotFound,
+					m_parserPropertyReference,
+					eObject.getReference()), new Throwable());
+			eProperty = new EPropertyBindableInfo(null, null, null, "", "");
+		}
+		//
+		ObservableInfo observable = createObservable(eObject, eProperty);
+		observable.setCodeSupport(this);
+		return observable;
+	}
 
-  /**
-   * @return {@link ObservableInfo} model for given object and property.
-   */
-  protected abstract ObservableInfo createObservable(EObjectBindableInfo eObject,
-      EPropertyBindableInfo eProperty);
+	/**
+	 * @return {@link ObservableInfo} model for given object and property.
+	 */
+	protected abstract ObservableInfo createObservable(EObjectBindableInfo eObject,
+			EPropertyBindableInfo eProperty);
 
-  /**
-   * @return {@link ObservableInfo} detail model for given master {@link ObservableInfo}.
-   */
-  protected abstract ObservableInfo createDetailObservable(ObservableInfo masterObservable,
-      PropertiesSupport propertiesSupport) throws Exception;
+	/**
+	 * @return {@link ObservableInfo} detail model for given master {@link ObservableInfo}.
+	 */
+	protected abstract ObservableInfo createDetailObservable(ObservableInfo masterObservable,
+			PropertiesSupport propertiesSupport) throws Exception;
 }

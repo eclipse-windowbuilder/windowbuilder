@@ -17,13 +17,13 @@ package org.eclipse.wb.internal.core.model.menu;
  * @coverage core.model.menu
  */
 public interface IMenuObjectListener {
-  /**
-   * Notifies refresh should be performed.
-   */
-  void refresh();
+	/**
+	 * Notifies refresh should be performed.
+	 */
+	void refresh();
 
-  /**
-   * Notifies that toolkit object is going to be deleted.
-   */
-  void deleting(Object toolkitModel);
+	/**
+	 * Notifies that toolkit object is going to be deleted.
+	 */
+	void deleting(Object toolkitModel);
 }

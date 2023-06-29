@@ -50,246 +50,246 @@ import java.util.List;
  * @coverage core.editor.structure
  */
 public final class ComponentsTreePage implements IPage {
-  private TreeViewer m_viewer;
-  private IEditPartViewer m_graphicalViewer;
-  private ObjectInfo m_rootObject;
+	private TreeViewer m_viewer;
+	private IEditPartViewer m_graphicalViewer;
+	private ObjectInfo m_rootObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dispose() {
-    Control control = getControl();
-    if (control != null && !control.isDisposed()) {
-      control.dispose();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dispose() {
+		Control control = getControl();
+		if (control != null && !control.isDisposed()) {
+			control.dispose();
+		}
+	}
 
-  @Override
-  public void createControl(Composite parent) {
-    m_viewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI);
-    m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
-  }
+	@Override
+	public void createControl(Composite parent) {
+		m_viewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI);
+		m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
+	}
 
-  @Override
-  public Control getControl() {
-    return m_viewer.getControl();
-  }
+	@Override
+	public Control getControl() {
+		return m_viewer.getControl();
+	}
 
-  @Override
-  public void setFocus() {
-    getControl().setFocus();
-  }
+	@Override
+	public void setFocus() {
+		getControl().setFocus();
+	}
 
-  @Override
-  public void setToolBar(IToolBarManager toolBarManager) {
-    {
-      IAction action = new Action() {
-        @Override
-        public void run() {
-          UiUtils.expandAll(m_viewer.getTree());
-        }
-      };
-      toolBarManager.add(action);
-      action.setImageDescriptor(DesignerPlugin.getImageDescriptor("expand_all.gif"));
-      action.setToolTipText(Messages.ComponentsTreePage_expandAllAction);
-    }
-    {
-      Action action = new Action() {
-        @Override
-        public void run() {
-          UiUtils.collapseAll(m_viewer.getTree());
-        }
-      };
-      toolBarManager.add(action);
-      action.setImageDescriptor(DesignerPlugin.getImageDescriptor("collapse_all.gif"));
-      action.setToolTipText(Messages.ComponentsTreePage_collapseAllAction);
-    }
-    toolBarManager.update(false);
-  }
+	@Override
+	public void setToolBar(IToolBarManager toolBarManager) {
+		{
+			IAction action = new Action() {
+				@Override
+				public void run() {
+					UiUtils.expandAll(m_viewer.getTree());
+				}
+			};
+			toolBarManager.add(action);
+			action.setImageDescriptor(DesignerPlugin.getImageDescriptor("expand_all.gif"));
+			action.setToolTipText(Messages.ComponentsTreePage_expandAllAction);
+		}
+		{
+			Action action = new Action() {
+				@Override
+				public void run() {
+					UiUtils.collapseAll(m_viewer.getTree());
+				}
+			};
+			toolBarManager.add(action);
+			action.setImageDescriptor(DesignerPlugin.getImageDescriptor("collapse_all.gif"));
+			action.setToolTipText(Messages.ComponentsTreePage_collapseAllAction);
+		}
+		toolBarManager.update(false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Selection (internal)
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Listener for selection in {@link #m_viewer}.
-   */
-  private final ISelectionChangedListener m_selectionListener_Tree =
-      new ISelectionChangedListener() {
-        @Override
-        public void selectionChanged(SelectionChangedEvent event) {
-          selectGraphicalViewer();
-        }
-      };
-  /**
-   * Listener for selection in {@link #m_graphicalViewer}.
-   */
-  private final ISelectionChangedListener m_selectionListener_Graphical =
-      new ISelectionChangedListener() {
-        @Override
-        public void selectionChanged(SelectionChangedEvent event) {
-          selectTreeViewer();
-        }
-      };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Selection (internal)
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Listener for selection in {@link #m_viewer}.
+	 */
+	private final ISelectionChangedListener m_selectionListener_Tree =
+			new ISelectionChangedListener() {
+		@Override
+		public void selectionChanged(SelectionChangedEvent event) {
+			selectGraphicalViewer();
+		}
+	};
+	/**
+	 * Listener for selection in {@link #m_graphicalViewer}.
+	 */
+	private final ISelectionChangedListener m_selectionListener_Graphical =
+			new ISelectionChangedListener() {
+		@Override
+		public void selectionChanged(SelectionChangedEvent event) {
+			selectTreeViewer();
+		}
+	};
 
-  /**
-   * Selects {@link ObjectInfo}'s in {@link #m_viewer} using selection in {@link #m_graphicalViewer}
-   * .
-   */
-  private void selectTreeViewer() {
-    List<EditPart> selectedEditParts = m_graphicalViewer.getSelectedEditParts();
-    setSelection(m_viewer, m_selectionListener_Tree, selectedEditParts);
-    showComponentDefinition(selectedEditParts);
-  }
+	/**
+	 * Selects {@link ObjectInfo}'s in {@link #m_viewer} using selection in {@link #m_graphicalViewer}
+	 * .
+	 */
+	private void selectTreeViewer() {
+		List<EditPart> selectedEditParts = m_graphicalViewer.getSelectedEditParts();
+		setSelection(m_viewer, m_selectionListener_Tree, selectedEditParts);
+		showComponentDefinition(selectedEditParts);
+	}
 
-  /**
-   * Selects {@link EditPart}'s in {@link #m_graphicalViewer} using selection in {@link #m_viewer}.
-   */
-  private void selectGraphicalViewer() {
-    final List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
-    // refresh if necessary
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        boolean[] refreshFlag = new boolean[1];
-        if (!selectedEditParts.isEmpty()) {
-          for (EditPart editPart : selectedEditParts) {
-            ObjectInfo objectInfo = (ObjectInfo) editPart.getModel();
-            objectInfo.getBroadcastObject().selecting(objectInfo, refreshFlag);
-          }
-        } else {
-          m_rootObject.getBroadcastObject().selecting(null, refreshFlag);
-        }
-        // Do refresh.
-        // We remove "graphical listener" because refresh can cause temporary selection changes,
-        // for example because of removing some graphical EditPart's. But we know, that we apply
-        // selection from "tree", it should stay as is, so no need to listen for "graphical listener".
-        if (refreshFlag[0]) {
-          m_graphicalViewer.removeSelectionChangedListener(m_selectionListener_Graphical);
-          try {
-            m_rootObject.refresh();
-          } finally {
-            m_graphicalViewer.addSelectionChangedListener(m_selectionListener_Graphical);
-          }
-        }
-      }
-    });
-    // set selection
-    setSelection(m_graphicalViewer, m_selectionListener_Graphical, selectedEditParts);
-    showComponentDefinition(selectedEditParts);
-  }
+	/**
+	 * Selects {@link EditPart}'s in {@link #m_graphicalViewer} using selection in {@link #m_viewer}.
+	 */
+	private void selectGraphicalViewer() {
+		final List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
+		// refresh if necessary
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				boolean[] refreshFlag = new boolean[1];
+				if (!selectedEditParts.isEmpty()) {
+					for (EditPart editPart : selectedEditParts) {
+						ObjectInfo objectInfo = (ObjectInfo) editPart.getModel();
+						objectInfo.getBroadcastObject().selecting(objectInfo, refreshFlag);
+					}
+				} else {
+					m_rootObject.getBroadcastObject().selecting(null, refreshFlag);
+				}
+				// Do refresh.
+				// We remove "graphical listener" because refresh can cause temporary selection changes,
+				// for example because of removing some graphical EditPart's. But we know, that we apply
+				// selection from "tree", it should stay as is, so no need to listen for "graphical listener".
+				if (refreshFlag[0]) {
+					m_graphicalViewer.removeSelectionChangedListener(m_selectionListener_Graphical);
+					try {
+						m_rootObject.refresh();
+					} finally {
+						m_graphicalViewer.addSelectionChangedListener(m_selectionListener_Graphical);
+					}
+				}
+			}
+		});
+		// set selection
+		setSelection(m_graphicalViewer, m_selectionListener_Graphical, selectedEditParts);
+		showComponentDefinition(selectedEditParts);
+	}
 
-  /**
-   * Sets selection in given {@link IEditPartViewer} using {@link List} of selected {@link EditPart}
-   * 's.
-   *
-   * @param targetViewer
-   *          the {@link IEditPartViewer} to set selection.
-   * @param selectionListener
-   *          the {@link ISelectionChangedListener} that should be temporary removed from
-   *          {@link IEditPartViewer} to avoid recursive selection even handling.
-   * @param sourceEditParts
-   *          the selected {@link EditPart}'s for which corresponding selection should be set.
-   */
-  private static void setSelection(IEditPartViewer targetViewer,
-      ISelectionChangedListener selectionListener,
-      List<EditPart> sourceEditParts) {
-    // prepare EditPart's in target viewer
-    List<EditPart> targetEditParts = Lists.newArrayList();
-    for (EditPart sourceEditPart : sourceEditParts) {
-      Object model = sourceEditPart.getModel();
-      if (model instanceof ObjectReferenceInfo) {
-        model = ((ObjectReferenceInfo) model).getObject();
-      }
-      EditPart targetEditPart = targetViewer.getEditPartByModel(model);
-      if (targetEditPart != null) {
-        targetEditParts.add(targetEditPart);
-      }
-    }
-    // set selection
-    targetViewer.removeSelectionChangedListener(selectionListener);
-    try {
-      targetViewer.setSelection(targetEditParts);
-    } finally {
-      targetViewer.addSelectionChangedListener(selectionListener);
-    }
-  }
+	/**
+	 * Sets selection in given {@link IEditPartViewer} using {@link List} of selected {@link EditPart}
+	 * 's.
+	 *
+	 * @param targetViewer
+	 *          the {@link IEditPartViewer} to set selection.
+	 * @param selectionListener
+	 *          the {@link ISelectionChangedListener} that should be temporary removed from
+	 *          {@link IEditPartViewer} to avoid recursive selection even handling.
+	 * @param sourceEditParts
+	 *          the selected {@link EditPart}'s for which corresponding selection should be set.
+	 */
+	private static void setSelection(IEditPartViewer targetViewer,
+			ISelectionChangedListener selectionListener,
+			List<EditPart> sourceEditParts) {
+		// prepare EditPart's in target viewer
+		List<EditPart> targetEditParts = Lists.newArrayList();
+		for (EditPart sourceEditPart : sourceEditParts) {
+			Object model = sourceEditPart.getModel();
+			if (model instanceof ObjectReferenceInfo) {
+				model = ((ObjectReferenceInfo) model).getObject();
+			}
+			EditPart targetEditPart = targetViewer.getEditPartByModel(model);
+			if (targetEditPart != null) {
+				targetEditParts.add(targetEditPart);
+			}
+		}
+		// set selection
+		targetViewer.removeSelectionChangedListener(selectionListener);
+		try {
+			targetViewer.setSelection(targetEditParts);
+		} finally {
+			targetViewer.addSelectionChangedListener(selectionListener);
+		}
+	}
 
-  /**
-   * Shows definition in source for primary selected {@link EditPart} with {@link ObjectInfo} model.
-   */
-  private static void showComponentDefinition(List<EditPart> sourceEditParts) {
-    IPreferenceStore preferences = DesignerPlugin.getPreferences();
-    if (preferences.getBoolean(IPreferenceConstants.P_EDITOR_GOTO_DEFINITION_ON_SELECTION)
-        && !sourceEditParts.isEmpty()) {
-      EditPart primaryEditPart = sourceEditParts.get(sourceEditParts.size() - 1);
-      if (primaryEditPart.getModel() instanceof ObjectInfo) {
-        ObjectInfo objectInfo = (ObjectInfo) primaryEditPart.getModel();
-        if (objectInfo instanceof HasSourcePosition) {
-          HasSourcePosition hasSourcePosition = (HasSourcePosition) primaryEditPart.getModel();
-          int position = hasSourcePosition.getSourcePosition();
-          IDesignPageSite.Helper.getSite(objectInfo).showSourcePosition(position);
-        }
-      }
-    }
-  }
+	/**
+	 * Shows definition in source for primary selected {@link EditPart} with {@link ObjectInfo} model.
+	 */
+	private static void showComponentDefinition(List<EditPart> sourceEditParts) {
+		IPreferenceStore preferences = DesignerPlugin.getPreferences();
+		if (preferences.getBoolean(IPreferenceConstants.P_EDITOR_GOTO_DEFINITION_ON_SELECTION)
+				&& !sourceEditParts.isEmpty()) {
+			EditPart primaryEditPart = sourceEditParts.get(sourceEditParts.size() - 1);
+			if (primaryEditPart.getModel() instanceof ObjectInfo) {
+				ObjectInfo objectInfo = (ObjectInfo) primaryEditPart.getModel();
+				if (objectInfo instanceof HasSourcePosition) {
+					HasSourcePosition hasSourcePosition = (HasSourcePosition) primaryEditPart.getModel();
+					int position = hasSourcePosition.getSourcePosition();
+					IDesignPageSite.Helper.getSite(objectInfo).showSourcePosition(position);
+				}
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link TreeViewer} used to display components tree.
-   */
-  public TreeViewer getTreeViewer() {
-    return m_viewer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link TreeViewer} used to display components tree.
+	 */
+	public TreeViewer getTreeViewer() {
+		return m_viewer;
+	}
 
-  /**
-   * Sets the {@link IEditPartViewer} and root {@link ObjectInfo} that should be bound to components
-   * tree.
-   */
-  public void setInput(IEditPartViewer editPartViewer, ObjectInfo rootObject) {
-    // set root
-    m_rootObject = rootObject;
-    // set EditPart viewer
-    {
-      if (m_graphicalViewer != null) {
-        m_graphicalViewer.removeSelectionChangedListener(m_selectionListener_Graphical);
-      }
-      m_graphicalViewer = editPartViewer;
-      m_graphicalViewer.addSelectionChangedListener(m_selectionListener_Graphical);
-    }
-    // configure Tree viewer
-    {
-      m_viewer.setEditDomain(m_graphicalViewer.getEditDomain());
-      m_viewer.setEditPartFactory(EditPartFactory.INSTANCE);
-    }
-    // set context menu
-    m_viewer.setContextMenu(m_graphicalViewer.getContextMenu());
-    // set components tree
-    if (m_rootObject != null) {
-      DesignPageSite site = DesignPageSite.Helper.getSite(m_rootObject);
-      site.setComponentsTree(new ComponentsTreeWrapper(m_viewer));
-    }
-    // refresh objects viewer
-    m_viewer.removeSelectionChangedListener(m_selectionListener_Tree);
-    try {
-      m_viewer.setInput(m_rootObject);
-    } finally {
-      m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
-    }
-  }
+	/**
+	 * Sets the {@link IEditPartViewer} and root {@link ObjectInfo} that should be bound to components
+	 * tree.
+	 */
+	public void setInput(IEditPartViewer editPartViewer, ObjectInfo rootObject) {
+		// set root
+		m_rootObject = rootObject;
+		// set EditPart viewer
+		{
+			if (m_graphicalViewer != null) {
+				m_graphicalViewer.removeSelectionChangedListener(m_selectionListener_Graphical);
+			}
+			m_graphicalViewer = editPartViewer;
+			m_graphicalViewer.addSelectionChangedListener(m_selectionListener_Graphical);
+		}
+		// configure Tree viewer
+		{
+			m_viewer.setEditDomain(m_graphicalViewer.getEditDomain());
+			m_viewer.setEditPartFactory(EditPartFactory.INSTANCE);
+		}
+		// set context menu
+		m_viewer.setContextMenu(m_graphicalViewer.getContextMenu());
+		// set components tree
+		if (m_rootObject != null) {
+			DesignPageSite site = DesignPageSite.Helper.getSite(m_rootObject);
+			site.setComponentsTree(new ComponentsTreeWrapper(m_viewer));
+		}
+		// refresh objects viewer
+		m_viewer.removeSelectionChangedListener(m_selectionListener_Tree);
+		try {
+			m_viewer.setInput(m_rootObject);
+		} finally {
+			m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
+		}
+	}
 
-  /**
-   * @return the <em>models</em> {@link ISelectionProvider} for this {@link Composite}.
-   */
-  public ISelectionProvider getSelectionProvider() {
-    return new EditPartsSelectionProvider(m_viewer);
-  }
+	/**
+	 * @return the <em>models</em> {@link ISelectionProvider} for this {@link Composite}.
+	 */
+	public ISelectionProvider getSelectionProvider() {
+		return new EditPartsSelectionProvider(m_viewer);
+	}
 }

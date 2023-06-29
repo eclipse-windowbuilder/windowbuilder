@@ -19,5 +19,5 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model
  */
 public interface JavaInfoEventOpen {
-  void invoke(JavaInfo javaInfo, String spec) throws Exception;
+	void invoke(JavaInfo javaInfo, String spec) throws Exception;
 }

@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.editor.errors.report2;
  * @coverage core.editor.errors.report2
  */
 public interface IReportEntriesProvider {
-  /**
-   * Adds entries into report.
-   */
-  void addEntries(IErrorReport report);
+	/**
+	 * Adds entries into report.
+	 */
+	void addEntries(IErrorReport report);
 }

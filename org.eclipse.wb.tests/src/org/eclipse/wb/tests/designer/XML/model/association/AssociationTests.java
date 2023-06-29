@@ -22,12 +22,12 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class AssociationTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.association");
-    suite.addTest(createSingleSuite(DirectAssociationTest.class));
-    suite.addTest(createSingleSuite(OrderAssociationTest.class));
-    suite.addTest(createSingleSuite(PropertyAssociationTest.class));
-    suite.addTest(createSingleSuite(IntermediateAssociationTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.association");
+		suite.addTest(createSingleSuite(DirectAssociationTest.class));
+		suite.addTest(createSingleSuite(OrderAssociationTest.class));
+		suite.addTest(createSingleSuite(PropertyAssociationTest.class));
+		suite.addTest(createSingleSuite(IntermediateAssociationTest.class));
+		return suite;
+	}
 }

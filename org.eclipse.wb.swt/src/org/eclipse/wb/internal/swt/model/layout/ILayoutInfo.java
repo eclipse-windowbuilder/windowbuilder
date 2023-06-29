@@ -25,35 +25,35 @@ import java.util.List;
  * @coverage swt.model.layout
  */
 public interface ILayoutInfo<C extends IControlInfo> extends IObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ICompositeInfo} that contains this {@link ILayoutInfo}.
-   */
-  ICompositeInfo getComposite();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ICompositeInfo} that contains this {@link ILayoutInfo}.
+	 */
+	ICompositeInfo getComposite();
 
-  /**
-   * @return <code>true</code> if this {@link ILayoutInfo} is active. For example implicit
-   *         {@link ILayoutInfo}'s replaced by "real" {@link ILayoutInfo} is inactive.
-   */
-  boolean isActive();
+	/**
+	 * @return <code>true</code> if this {@link ILayoutInfo} is active. For example implicit
+	 *         {@link ILayoutInfo}'s replaced by "real" {@link ILayoutInfo} is inactive.
+	 */
+	boolean isActive();
 
-  /**
-   * @return <code>true</code> if given {@link Object} is managed by this {@link ILayoutInfo}.
-   */
-  boolean isManagedObject(Object o);
+	/**
+	 * @return <code>true</code> if given {@link Object} is managed by this {@link ILayoutInfo}.
+	 */
+	boolean isManagedObject(Object o);
 
-  /**
-   * @return the {@link IControlInfo} that are managed by this {@link ILayoutInfo}. This excludes
-   *         for example indirectly exposed {@link IControlInfo}'s.
-   */
-  List<C> getControls();
+	/**
+	 * @return the {@link IControlInfo} that are managed by this {@link ILayoutInfo}. This excludes
+	 *         for example indirectly exposed {@link IControlInfo}'s.
+	 */
+	List<C> getControls();
 
-  /**
-   * @return {@link ILayoutDataInfo} associated with given {@link IControlInfo}.
-   */
-  ILayoutDataInfo getLayoutData2(IControlInfo control);
+	/**
+	 * @return {@link ILayoutDataInfo} associated with given {@link IControlInfo}.
+	 */
+	ILayoutDataInfo getLayoutData2(IControlInfo control);
 }

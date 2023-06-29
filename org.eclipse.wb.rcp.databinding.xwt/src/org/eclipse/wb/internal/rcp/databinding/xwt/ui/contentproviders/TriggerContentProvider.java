@@ -24,43 +24,43 @@ import org.eclipse.swt.SWT;
  *
  */
 public class TriggerContentProvider extends DialogFieldUiContentProvider {
-  private final ComboDialogField m_dialogField;
-  private final BindingInfo m_binding;
+	private final ComboDialogField m_dialogField;
+	private final BindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TriggerContentProvider(BindingInfo binding) {
-    m_binding = binding;
-    m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
-    m_dialogField.setLabelText(Messages.TriggerContentProvider_title);
-    m_dialogField.setItems(BindingInfo.TRIGGERS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TriggerContentProvider(BindingInfo binding) {
+		m_binding = binding;
+		m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
+		m_dialogField.setLabelText(Messages.TriggerContentProvider_title);
+		m_dialogField.setItems(BindingInfo.TRIGGERS);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractUIContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public DialogField getDialogField() {
-    return m_dialogField;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractUIContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DialogField getDialogField() {
+		return m_dialogField;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-    m_dialogField.selectItem(m_binding.getTriger());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+		m_dialogField.selectItem(m_binding.getTriger());
+	}
 
-  @Override
-  public void saveToObject() throws Exception {
-    m_binding.setTrigger(m_dialogField.getSelectionIndex());
-  }
+	@Override
+	public void saveToObject() throws Exception {
+		m_binding.setTrigger(m_dialogField.getSelectionIndex());
+	}
 }

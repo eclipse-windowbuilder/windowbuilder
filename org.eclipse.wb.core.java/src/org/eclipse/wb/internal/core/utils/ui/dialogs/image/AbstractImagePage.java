@@ -20,65 +20,65 @@ import org.eclipse.swt.widgets.Control;
  * @coverage core.ui
  */
 public abstract class AbstractImagePage extends Composite {
-  protected final AbstractImageDialog m_imageDialog;
+	protected final AbstractImageDialog m_imageDialog;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractImagePage(Composite parent, int style, AbstractImageDialog imageDialog) {
-    super(parent, style);
-    m_imageDialog = imageDialog;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractImagePage(Composite parent, int style, AbstractImageDialog imageDialog) {
+		super(parent, style);
+		m_imageDialog = imageDialog;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * This method is invoked when user activates this {@link AbstractImagePage}.
-   */
-  public abstract void activate();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * This method is invoked when user activates this {@link AbstractImagePage}.
+	 */
+	public abstract void activate();
 
-  /**
-   * Sets the initial data for page. It is expected that page will use method
-   * {@link AbstractImageDialog#setResultImageInfo(ImageInfo)} to display image corresponding to
-   * given data.
-   */
-  public abstract void setInput(Object data);
+	/**
+	 * Sets the initial data for page. It is expected that page will use method
+	 * {@link AbstractImageDialog#setResultImageInfo(ImageInfo)} to display image corresponding to
+	 * given data.
+	 */
+	public abstract void setInput(Object data);
 
-  /**
-   * XXX
-   */
-  public void init(Object data) {
-  }
+	/**
+	 * XXX
+	 */
+	public void init(Object data) {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the id of this page.
-   */
-  public abstract String getId();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the id of this page.
+	 */
+	public abstract String getId();
 
-  /**
-   * @return the title of this page.
-   */
-  public abstract String getTitle();
+	/**
+	 * @return the title of this page.
+	 */
+	public abstract String getTitle();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link Control} represented this page.
-   */
-  protected Control getPageControl() {
-    return this;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link Control} represented this page.
+	 */
+	protected Control getPageControl() {
+		return this;
+	}
 }

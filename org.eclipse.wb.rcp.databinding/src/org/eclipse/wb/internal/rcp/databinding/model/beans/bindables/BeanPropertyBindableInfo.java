@@ -39,108 +39,108 @@ import java.util.Set;
  * @coverage bindings.rcp.model.beans
  */
 public class BeanPropertyBindableInfo extends PropertyBindableInfo {
-  private final IObserveDecorator m_decorator;
+	private final IObserveDecorator m_decorator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeanPropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      String text,
-      Class<?> objectType,
-      String reference) {
-    super(beanSupport, parent, text, objectType, reference);
-    m_decorator = BeanSupport.getDecorator(objectType);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeanPropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			String text,
+			Class<?> objectType,
+			String reference) {
+		super(beanSupport, parent, text, objectType, reference);
+		m_decorator = BeanSupport.getDecorator(objectType);
+	}
 
-  public BeanPropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      Class<?> objectType,
-      String reference,
-      IObservePresentation presentation) {
-    super(beanSupport, parent, objectType, new StringReferenceProvider(reference), presentation);
-    m_decorator = BeanSupport.getDecorator(objectType);
-  }
+	public BeanPropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			Class<?> objectType,
+			String reference,
+			IObservePresentation presentation) {
+		super(beanSupport, parent, objectType, new StringReferenceProvider(reference), presentation);
+		m_decorator = BeanSupport.getDecorator(objectType);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObservableFactory m_observableFactory = new IObservableFactory() {
-    private Type m_type;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObservableFactory m_observableFactory = new IObservableFactory() {
+		private Type m_type;
 
-    @Override
-    public Type getType() throws Exception {
-      if (m_type == null) {
-        // calculate type
-        if (List.class.isAssignableFrom(getObjectType())) {
-          m_type = Type.List;
-        } else if (Set.class.isAssignableFrom(getObjectType())) {
-          m_type = Type.Set;
-        } else {
-          m_type = Type.Any;
-        }
-      }
-      return m_type;
-    }
+		@Override
+		public Type getType() throws Exception {
+			if (m_type == null) {
+				// calculate type
+				if (List.class.isAssignableFrom(getObjectType())) {
+					m_type = Type.List;
+				} else if (Set.class.isAssignableFrom(getObjectType())) {
+					m_type = Type.Set;
+				} else {
+					m_type = Type.Any;
+				}
+			}
+			return m_type;
+		}
 
-    @Override
-    public ObservableInfo createObservable(BindableInfo object,
-        BindableInfo property,
-        Type type,
-        boolean version_1_3) throws Exception {
-      Assert.isNotNull(type);
-      Assert.isTrue(property == BeanPropertyBindableInfo.this);
-      BeanBindableInfo bindableObject = (BeanBindableInfo) object;
-      // create observable
-      BeanObservableInfo observable = null;
-      switch (type) {
-        case OnlyValue :
-          observable = new ValueBeanObservableInfo(bindableObject, BeanPropertyBindableInfo.this);
-          if (version_1_3) {
-            observable.setCodeSupport(new ValuePropertyCodeSupport());
-          } else {
-            observable.setCodeSupport(new BeanObservableValueCodeSupport());
-          }
-          break;
-        case OnlyList :
-          observable = new ListBeanObservableInfo(bindableObject, BeanPropertyBindableInfo.this);
-          if (version_1_3) {
-            observable.setCodeSupport(new ListPropertyCodeSupport());
-          } else {
-            observable.setCodeSupport(new BeanObservableListCodeSupport());
-          }
-          break;
-        case OnlySet :
-          observable = new SetBeanObservableInfo(bindableObject, BeanPropertyBindableInfo.this);
-          if (version_1_3) {
-            observable.setCodeSupport(new SetPropertyCodeSupport());
-          } else {
-            observable.setCodeSupport(new BeanObservableSetCodeSupport());
-          }
-          break;
-      }
-      //
-      Assert.isNotNull(observable);
-      return observable;
-    }
-  };
+		@Override
+		public ObservableInfo createObservable(BindableInfo object,
+				BindableInfo property,
+				Type type,
+				boolean version_1_3) throws Exception {
+			Assert.isNotNull(type);
+			Assert.isTrue(property == BeanPropertyBindableInfo.this);
+			BeanBindableInfo bindableObject = (BeanBindableInfo) object;
+			// create observable
+			BeanObservableInfo observable = null;
+			switch (type) {
+			case OnlyValue :
+				observable = new ValueBeanObservableInfo(bindableObject, BeanPropertyBindableInfo.this);
+				if (version_1_3) {
+					observable.setCodeSupport(new ValuePropertyCodeSupport());
+				} else {
+					observable.setCodeSupport(new BeanObservableValueCodeSupport());
+				}
+				break;
+			case OnlyList :
+				observable = new ListBeanObservableInfo(bindableObject, BeanPropertyBindableInfo.this);
+				if (version_1_3) {
+					observable.setCodeSupport(new ListPropertyCodeSupport());
+				} else {
+					observable.setCodeSupport(new BeanObservableListCodeSupport());
+				}
+				break;
+			case OnlySet :
+				observable = new SetBeanObservableInfo(bindableObject, BeanPropertyBindableInfo.this);
+				if (version_1_3) {
+					observable.setCodeSupport(new SetPropertyCodeSupport());
+				} else {
+					observable.setCodeSupport(new BeanObservableSetCodeSupport());
+				}
+				break;
+			}
+			//
+			Assert.isNotNull(observable);
+			return observable;
+		}
+	};
 
-  @Override
-  public final IObservableFactory getObservableFactory() throws Exception {
-    return m_observableFactory;
-  }
+	@Override
+	public final IObservableFactory getObservableFactory() throws Exception {
+		return m_observableFactory;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final IObserveDecorator getDecorator() {
-    return m_decorator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final IObserveDecorator getDecorator() {
+		return m_decorator;
+	}
 }

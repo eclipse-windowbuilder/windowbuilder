@@ -28,5 +28,5 @@ import org.eclipse.wb.internal.core.model.util.live.AbstractLiveManager;
  * @coverage core.model.creation
  */
 public interface ILiveCreationSupport {
-  CreationSupport getLiveComponentCreation();
+	CreationSupport getLiveComponentCreation();
 }

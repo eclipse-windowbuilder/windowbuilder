@@ -28,44 +28,44 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
  * @coverage rcp.model.forms
  */
 public class ExpandableCompositeInfo extends AbstractPositionCompositeInfo {
-  private static final String[] POSITIONS = new String[]{"setTextClient", "setClient"};
+	private static final String[] POSITIONS = new String[]{"setTextClient", "setClient"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExpandableCompositeInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    this(editor, description, creationSupport, POSITIONS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExpandableCompositeInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		this(editor, description, creationSupport, POSITIONS);
+	}
 
-  protected ExpandableCompositeInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport,
-      String[] methods) throws Exception {
-    super(editor, description, creationSupport, methods);
-    // when ControlInfo added using setClient(), set "expanded" to true
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
-        if (child instanceof ControlInfo
-            && parent == ExpandableCompositeInfo.this
-            && getControl("setClient") == child) {
-          getPropertyByTitle("expanded").setValue(true);
-        }
-      }
+	protected ExpandableCompositeInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport,
+			String[] methods) throws Exception {
+		super(editor, description, creationSupport, methods);
+		// when ControlInfo added using setClient(), set "expanded" to true
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
+				if (child instanceof ControlInfo
+						&& parent == ExpandableCompositeInfo.this
+						&& getControl("setClient") == child) {
+					getPropertyByTitle("expanded").setValue(true);
+				}
+			}
 
-      @Override
-      public void moveAfter(JavaInfo child, ObjectInfo oldParent, JavaInfo newParent)
-          throws Exception {
-        if (child instanceof ControlInfo
-            && newParent == ExpandableCompositeInfo.this
-            && getControl("setClient") == child) {
-          getPropertyByTitle("expanded").setValue(true);
-        }
-      }
-    });
-  }
+			@Override
+			public void moveAfter(JavaInfo child, ObjectInfo oldParent, JavaInfo newParent)
+					throws Exception {
+				if (child instanceof ControlInfo
+						&& newParent == ExpandableCompositeInfo.this
+						&& getControl("setClient") == child) {
+					getPropertyByTitle("expanded").setValue(true);
+				}
+			}
+		});
+	}
 }

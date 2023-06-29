@@ -21,57 +21,57 @@ import java.util.List;
  * @coverage core.util.xml
  */
 public final class Model {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Encoding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_charset;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Encoding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_charset;
 
-  /**
-   * Sets the XML document charset.
-   */
-  public void setCharset(String charset) {
-    m_charset = charset;
-  }
+	/**
+	 * Sets the XML document charset.
+	 */
+	public void setCharset(String charset) {
+		m_charset = charset;
+	}
 
-  /**
-   * @return the XML document charset, may be <code>null</code> if unknown.
-   */
-  public String getCharset() {
-    return m_charset;
-  }
+	/**
+	 * @return the XML document charset, may be <code>null</code> if unknown.
+	 */
+	public String getCharset() {
+		return m_charset;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listeners
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final List<IModelChangedListener> m_listeners = Lists.newArrayList();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listeners
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final List<IModelChangedListener> m_listeners = Lists.newArrayList();
 
-  /**
-   * Adds the listener to the list of listeners that will be notified on model changes.
-   */
-  public void addModelChangedListener(IModelChangedListener listener) {
-    if (!m_listeners.contains(listener)) {
-      m_listeners.add(listener);
-    }
-  }
+	/**
+	 * Adds the listener to the list of listeners that will be notified on model changes.
+	 */
+	public void addModelChangedListener(IModelChangedListener listener) {
+		if (!m_listeners.contains(listener)) {
+			m_listeners.add(listener);
+		}
+	}
 
-  /**
-   * Takes the listener off the list of registered change listeners.
-   */
-  public void removeModelChangedListener(IModelChangedListener listener) {
-    m_listeners.remove(listener);
-  }
+	/**
+	 * Takes the listener off the list of registered change listeners.
+	 */
+	public void removeModelChangedListener(IModelChangedListener listener) {
+		m_listeners.remove(listener);
+	}
 
-  /**
-   * Delivers change event to all the registered listeners.
-   */
-  public void fireModelChanged(ModelChangedEvent event) {
-    List<IModelChangedListener> listeners = Lists.newArrayList(m_listeners);
-    for (IModelChangedListener listener : listeners) {
-      listener.modelChanged(event);
-    }
-  }
+	/**
+	 * Delivers change event to all the registered listeners.
+	 */
+	public void fireModelChanged(ModelChangedEvent event) {
+		List<IModelChangedListener> listeners = Lists.newArrayList(m_listeners);
+		for (IModelChangedListener listener : listeners) {
+			listener.modelChanged(event);
+		}
+	}
 }

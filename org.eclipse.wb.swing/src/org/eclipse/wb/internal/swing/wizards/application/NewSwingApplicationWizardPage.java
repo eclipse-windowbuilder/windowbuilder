@@ -29,35 +29,35 @@ import java.io.InputStream;
  * @coverage swing.wizards.ui
  */
 public final class NewSwingApplicationWizardPage extends SwingWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NewSwingApplicationWizardPage() {
-    setTitle(Messages.NewSwingApplicationWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/SwingApplication/banner.gif"));
-    setDescription(Messages.NewSwingApplicationWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NewSwingApplicationWizardPage() {
+		setTitle(Messages.NewSwingApplicationWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/SwingApplication/banner.gif"));
+		setDescription(Messages.NewSwingApplicationWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/SwingApplication.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/SwingApplication.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createDesignSuperClassControls(Composite composite, int nColumns) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createDesignSuperClassControls(Composite composite, int nColumns) {
+	}
 }

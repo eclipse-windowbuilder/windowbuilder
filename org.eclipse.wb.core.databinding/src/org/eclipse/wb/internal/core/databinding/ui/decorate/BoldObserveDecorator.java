@@ -19,13 +19,13 @@ import org.eclipse.swt.graphics.Font;
  * @coverage bindings.ui
  */
 public class BoldObserveDecorator extends ObserveDecorator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObserveDecorator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Font getFont(Font baseItalicFont, Font baseBoldFont, Font baseBoldItalicFont) {
-    return baseBoldFont;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObserveDecorator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Font getFont(Font baseItalicFont, Font baseBoldFont, Font baseBoldItalicFont) {
+		return baseBoldFont;
+	}
 }

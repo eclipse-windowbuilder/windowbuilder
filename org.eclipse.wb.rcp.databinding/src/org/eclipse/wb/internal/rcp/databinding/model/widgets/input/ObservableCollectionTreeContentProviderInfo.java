@@ -31,115 +31,115 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class ObservableCollectionTreeContentProviderInfo
-    extends
-      ObservableCollectionContentProviderInfo {
-  protected ObservableFactoryInfo m_factoryInfo;
-  protected TreeStructureAdvisorInfo m_advisorInfo;
+extends
+ObservableCollectionContentProviderInfo {
+	protected ObservableFactoryInfo m_factoryInfo;
+	protected TreeStructureAdvisorInfo m_advisorInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObservableCollectionTreeContentProviderInfo(String className,
-      ObservableFactoryInfo factoryInfo,
-      TreeStructureAdvisorInfo advisorInfo) {
-    super(className);
-    m_factoryInfo = factoryInfo;
-    m_advisorInfo = advisorInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObservableCollectionTreeContentProviderInfo(String className,
+			ObservableFactoryInfo factoryInfo,
+			TreeStructureAdvisorInfo advisorInfo) {
+		super(className);
+		m_factoryInfo = factoryInfo;
+		m_advisorInfo = advisorInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final ObservableFactoryInfo getFactoryInfo() {
-    return m_factoryInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final ObservableFactoryInfo getFactoryInfo() {
+		return m_factoryInfo;
+	}
 
-  public final void setFactoryInfo(ObservableFactoryInfo factoryInfo) {
-    m_factoryInfo = factoryInfo;
-  }
+	public final void setFactoryInfo(ObservableFactoryInfo factoryInfo) {
+		m_factoryInfo = factoryInfo;
+	}
 
-  public final TreeStructureAdvisorInfo getAdvisorInfo() {
-    return m_advisorInfo;
-  }
+	public final TreeStructureAdvisorInfo getAdvisorInfo() {
+		return m_advisorInfo;
+	}
 
-  public final void setAdvisorInfo(TreeStructureAdvisorInfo advisorInfo) {
-    m_advisorInfo = advisorInfo;
-  }
+	public final void setAdvisorInfo(TreeStructureAdvisorInfo advisorInfo) {
+		m_advisorInfo = advisorInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create {@link IUiContentProvider} content providers for edit this model.
-   */
-  public final void createContentProviders(List<IUiContentProvider> providers,
-      DatabindingsProvider provider,
-      boolean useClear) {
-    ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel(Messages.ObservableCollectionTreeContentProviderInfo_chooseLabel);
-    configure(configuration, useClear);
-    configuration.setConstructorParameters(new Class[]{
-        IObservableFactory.class,
-        TreeStructureAdvisor.class});
-    configuration.setEmptyClassErrorMessage(Messages.ObservableCollectionTreeContentProviderInfo_chooseEmptyMessage);
-    configuration.setErrorMessagePrefix(Messages.ObservableCollectionTreeContentProviderInfo_chooseMessagePrefix);
-    providers.add(new SimpleClassUiContentProvider(configuration, this));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create {@link IUiContentProvider} content providers for edit this model.
+	 */
+	public final void createContentProviders(List<IUiContentProvider> providers,
+			DatabindingsProvider provider,
+			boolean useClear) {
+		ChooseClassConfiguration configuration = new ChooseClassConfiguration();
+		configuration.setDialogFieldLabel(Messages.ObservableCollectionTreeContentProviderInfo_chooseLabel);
+		configure(configuration, useClear);
+		configuration.setConstructorParameters(new Class[]{
+				IObservableFactory.class,
+				TreeStructureAdvisor.class});
+		configuration.setEmptyClassErrorMessage(Messages.ObservableCollectionTreeContentProviderInfo_chooseEmptyMessage);
+		configuration.setErrorMessagePrefix(Messages.ObservableCollectionTreeContentProviderInfo_chooseMessagePrefix);
+		providers.add(new SimpleClassUiContentProvider(configuration, this));
+	}
 
-  /**
-   * Create configuration for edit this model.
-   */
-  protected abstract void configure(ChooseClassConfiguration configuration, boolean useClear);
+	/**
+	 * Create configuration for edit this model.
+	 */
+	protected abstract void configure(ChooseClassConfiguration configuration, boolean useClear);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final String getPresentationText() throws Exception {
-    String text = super.getPresentationText();
-    if (m_advisorInfo instanceof TreeBeanAdvisorInfo) {
-      text += "[" + m_advisorInfo.getPresentationText() + "]";
-    }
-    return text;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final String getPresentationText() throws Exception {
+		String text = super.getPresentationText();
+		if (m_advisorInfo instanceof TreeBeanAdvisorInfo) {
+			text += "[" + m_advisorInfo.getPresentationText() + "]";
+		}
+		return text;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    // prepare variable
-    if (getVariableIdentifier() == null) {
-      setVariableIdentifier(generationSupport.generateLocalName("treeContentProvider"));
-    }
-    // add factory code
-    m_factoryInfo.addSourceCode(lines, generationSupport);
-    // add advisor code
-    m_advisorInfo.addSourceCode(lines, generationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		// prepare variable
+		if (getVariableIdentifier() == null) {
+			setVariableIdentifier(generationSupport.generateLocalName("treeContentProvider"));
+		}
+		// add factory code
+		m_factoryInfo.addSourceCode(lines, generationSupport);
+		// add advisor code
+		m_advisorInfo.addSourceCode(lines, generationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Visiting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void accept(AstObjectInfoVisitor visitor) throws Exception {
-    super.accept(visitor);
-    // visit to factory
-    m_factoryInfo.accept(visitor);
-    // visit to advisor
-    m_advisorInfo.accept(visitor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Visiting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void accept(AstObjectInfoVisitor visitor) throws Exception {
+		super.accept(visitor);
+		// visit to factory
+		m_factoryInfo.accept(visitor);
+		// visit to advisor
+		m_advisorInfo.accept(visitor);
+	}
 }

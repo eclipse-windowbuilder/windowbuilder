@@ -30,81 +30,81 @@ import java.util.List;
  * @coverage rcp.gef.policy
  */
 public abstract class DimensionHeaderAction<C extends IControlInfo> extends ObjectInfoAction {
-  private final IEditPartViewer m_viewer;
+	private final IEditPartViewer m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart, String text) {
-    this(editPart, text, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart, String text) {
+		this(editPart, text, null);
+	}
 
-  public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart,
-      String text,
-      ImageDescriptor imageDescriptor) {
-    this(editPart, text, imageDescriptor, AS_PUSH_BUTTON);
-  }
+	public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart,
+			String text,
+			ImageDescriptor imageDescriptor) {
+		this(editPart, text, imageDescriptor, AS_PUSH_BUTTON);
+	}
 
-  public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart,
-      String text,
-      ImageDescriptor imageDescriptor,
-      int style) {
-    super(editPart.getLayout().getUnderlyingModel(), text, style);
-    m_viewer = editPart.getViewer();
-    setImageDescriptor(imageDescriptor);
-  }
+	public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart,
+			String text,
+			ImageDescriptor imageDescriptor,
+			int style) {
+		super(editPart.getLayout().getUnderlyingModel(), text, style);
+		m_viewer = editPart.getViewer();
+		setImageDescriptor(imageDescriptor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final int hashCode() {
-    return 0;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 
-  @Override
-  public boolean equals(Object obj) {
-    return obj != null && getClass() == obj.getClass();
-  }
+	@Override
+	public boolean equals(Object obj) {
+		return obj != null && getClass() == obj.getClass();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final void runEx() throws Exception {
-    // prepare selection
-    List<TableWrapDimensionInfo<C>> dimensions = Lists.newArrayList();
-    {
-      for (EditPart editPart : m_viewer.getSelectedEditParts()) {
-        if (editPart instanceof DimensionHeaderEditPart<?>) {
-          @SuppressWarnings("unchecked")
-          DimensionHeaderEditPart<C> headerEditPart = (DimensionHeaderEditPart<C>) editPart;
-          dimensions.add(headerEditPart.getDimension());
-        }
-      }
-    }
-    // run over them
-    run(dimensions);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final void runEx() throws Exception {
+		// prepare selection
+		List<TableWrapDimensionInfo<C>> dimensions = Lists.newArrayList();
+		{
+			for (EditPart editPart : m_viewer.getSelectedEditParts()) {
+				if (editPart instanceof DimensionHeaderEditPart<?>) {
+					@SuppressWarnings("unchecked")
+					DimensionHeaderEditPart<C> headerEditPart = (DimensionHeaderEditPart<C>) editPart;
+					dimensions.add(headerEditPart.getDimension());
+				}
+			}
+		}
+		// run over them
+		run(dimensions);
+	}
 
-  /**
-   * Does some operation on {@link List} of selected {@link TableWrapDimensionInfo}'s.
-   */
-  protected void run(List<TableWrapDimensionInfo<C>> dimensions) throws Exception {
-    for (TableWrapDimensionInfo<C> dimension : dimensions) {
-      run(dimension);
-    }
-  }
+	/**
+	 * Does some operation on {@link List} of selected {@link TableWrapDimensionInfo}'s.
+	 */
+	protected void run(List<TableWrapDimensionInfo<C>> dimensions) throws Exception {
+		for (TableWrapDimensionInfo<C> dimension : dimensions) {
+			run(dimension);
+		}
+	}
 
-  /**
-   * Does some operation on selected {@link TableWrapDimensionInfo}'s.
-   */
-  protected void run(TableWrapDimensionInfo<C> dimension) throws Exception {
-  }
+	/**
+	 * Does some operation on selected {@link TableWrapDimensionInfo}'s.
+	 */
+	protected void run(TableWrapDimensionInfo<C> dimension) throws Exception {
+	}
 }

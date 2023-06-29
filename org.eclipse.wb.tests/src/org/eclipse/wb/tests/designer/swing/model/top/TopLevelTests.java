@@ -19,10 +19,10 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class TopLevelTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.top");
-    suite.addTest(createSingleSuite(JPanelTopBoundsTest.class));
-    suite.addTest(createSingleSuite(JFrameTopBoundsTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.top");
+		suite.addTest(createSingleSuite(JPanelTopBoundsTest.class));
+		suite.addTest(createSingleSuite(JFrameTopBoundsTest.class));
+		return suite;
+	}
 }

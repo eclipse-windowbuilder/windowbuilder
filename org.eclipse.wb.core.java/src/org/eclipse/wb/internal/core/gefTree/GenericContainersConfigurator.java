@@ -36,91 +36,91 @@ import java.util.List;
  * @coverage core.gefTree
  */
 public final class GenericContainersConfigurator implements IEditPartConfigurator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartConfigurator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void configure(EditPart context, EditPart editPart) {
-    if (editPart.getModel() instanceof JavaInfo) {
-      JavaInfo component = (JavaInfo) editPart.getModel();
-      configureComponent(editPart, component);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartConfigurator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void configure(EditPart context, EditPart editPart) {
+		if (editPart.getModel() instanceof JavaInfo) {
+			JavaInfo component = (JavaInfo) editPart.getModel();
+			configureComponent(editPart, component);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Configuring
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void configureComponent(EditPart editPart, JavaInfo component) {
-    configureSimpleContainer(editPart, component);
-    configureFlowContainer(editPart, component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Configuring
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void configureComponent(EditPart editPart, JavaInfo component) {
+		configureSimpleContainer(editPart, component);
+		configureFlowContainer(editPart, component);
+	}
 
-  /**
-   * Simple containers: SimplePanel, CaptionPanel, etc.
-   */
-  private void configureSimpleContainer(EditPart editPart, JavaInfo component) {
-    List<SimpleContainer> containers = new SimpleContainerFactory(component, false).get();
-    for (SimpleContainer container : containers) {
-      EditPolicy layoutPolicy = new SimpleContainerLayoutEditPolicy(component, container);
-      editPart.installEditPolicy(container, layoutPolicy);
-    }
-  }
+	/**
+	 * Simple containers: SimplePanel, CaptionPanel, etc.
+	 */
+	private void configureSimpleContainer(EditPart editPart, JavaInfo component) {
+		List<SimpleContainer> containers = new SimpleContainerFactory(component, false).get();
+		for (SimpleContainer container : containers) {
+			EditPolicy layoutPolicy = new SimpleContainerLayoutEditPolicy(component, container);
+			editPart.installEditPolicy(container, layoutPolicy);
+		}
+	}
 
-  /**
-   * Flow containers: FlowPanel, HorizontalPanel, VerticalPanel, etc.
-   */
-  private void configureFlowContainer(EditPart editPart, JavaInfo component) {
-    List<FlowContainer> containers = new FlowContainerFactory(component, false).get();
-    for (FlowContainer container : containers) {
-      EditPolicy layoutPolicy = new FlowContainerLayoutEditPolicy(component, container);
-      editPart.installEditPolicy(container, layoutPolicy);
-      // support groups
-      if (component instanceof AbstractComponentInfo
-          && container instanceof FlowContainerConfigurable) {
-        configureGroupInfo(
-            editPart,
-            (AbstractComponentInfo) component,
-            (FlowContainerConfigurable) container);
-      }
-    }
-  }
+	/**
+	 * Flow containers: FlowPanel, HorizontalPanel, VerticalPanel, etc.
+	 */
+	private void configureFlowContainer(EditPart editPart, JavaInfo component) {
+		List<FlowContainer> containers = new FlowContainerFactory(component, false).get();
+		for (FlowContainer container : containers) {
+			EditPolicy layoutPolicy = new FlowContainerLayoutEditPolicy(component, container);
+			editPart.installEditPolicy(container, layoutPolicy);
+			// support groups
+			if (component instanceof AbstractComponentInfo
+					&& container instanceof FlowContainerConfigurable) {
+				configureGroupInfo(
+						editPart,
+						(AbstractComponentInfo) component,
+						(FlowContainerConfigurable) container);
+			}
+		}
+	}
 
-  private void configureGroupInfo(EditPart editPart,
-      JavaInfo component,
-      FlowContainerConfigurable container) {
-    String groupName = container.getGroupName();
-    if (StringUtils.isEmpty(groupName)) {
-      return;
-    }
-    // configure group
-    FlowContainerGroupInfo groupInfo = getGroupInfoByName(component, groupName);
-    if (groupInfo != null) {
-      groupInfo.addContainer(container);
-    }
-  }
+	private void configureGroupInfo(EditPart editPart,
+			JavaInfo component,
+			FlowContainerConfigurable container) {
+		String groupName = container.getGroupName();
+		if (StringUtils.isEmpty(groupName)) {
+			return;
+		}
+		// configure group
+		FlowContainerGroupInfo groupInfo = getGroupInfoByName(component, groupName);
+		if (groupInfo != null) {
+			groupInfo.addContainer(container);
+		}
+	}
 
-  private FlowContainerGroupInfo getGroupInfoByName(JavaInfo component, String groupName) {
-    // find group info
-    {
-      List<FlowContainerGroupInfo> groupInfos = component.getChildren(FlowContainerGroupInfo.class);
-      for (FlowContainerGroupInfo groupInfo : groupInfos) {
-        if (groupInfo.getCaption().equals(groupName)) {
-          return groupInfo;
-        }
-      }
-    }
-    // create group info
-    FlowContainerGroupInfo groupInfo;
-    try {
-      groupInfo = new FlowContainerGroupInfo(component.getEditor(), component, groupName);
-    } catch (Exception e) {
-      DesignerPlugin.log("FlowContainerGroupInfo creation error: " + e.getMessage(), e);
-      groupInfo = null;
-    }
-    return groupInfo;
-  }
+	private FlowContainerGroupInfo getGroupInfoByName(JavaInfo component, String groupName) {
+		// find group info
+		{
+			List<FlowContainerGroupInfo> groupInfos = component.getChildren(FlowContainerGroupInfo.class);
+			for (FlowContainerGroupInfo groupInfo : groupInfos) {
+				if (groupInfo.getCaption().equals(groupName)) {
+					return groupInfo;
+				}
+			}
+		}
+		// create group info
+		FlowContainerGroupInfo groupInfo;
+		try {
+			groupInfo = new FlowContainerGroupInfo(component.getEditor(), component, groupName);
+		} catch (Exception e) {
+			DesignerPlugin.log("FlowContainerGroupInfo creation error: " + e.getMessage(), e);
+			groupInfo = null;
+		}
+		return groupInfo;
+	}
 }

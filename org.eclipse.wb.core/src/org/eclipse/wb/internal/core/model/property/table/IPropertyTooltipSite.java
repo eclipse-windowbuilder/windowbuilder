@@ -18,13 +18,13 @@ package org.eclipse.wb.internal.core.model.property.table;
  * @coverage core.model.property.table
  */
 public interface IPropertyTooltipSite {
-  /**
-   * @return the {@link PropertyTable} of this site.
-   */
-  PropertyTable getTable();
+	/**
+	 * @return the {@link PropertyTable} of this site.
+	 */
+	PropertyTable getTable();
 
-  /**
-   * Hides current tooltip.
-   */
-  void hideTooltip();
+	/**
+	 * Hides current tooltip.
+	 */
+	void hideTooltip();
 }

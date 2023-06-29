@@ -25,61 +25,61 @@ import java.util.List;
  * @coverage core.model.generic
  */
 public final class SimpleContainerClipboardSupport implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new SimpleContainerClipboardSupport();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new SimpleContainerClipboardSupport();
 
-  private SimpleContainerClipboardSupport() {
-  }
+	private SimpleContainerClipboardSupport() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    root.addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void clipboardCopy(JavaInfo javaInfo, List<ClipboardCommand> commands)
-          throws Exception {
-        List<SimpleContainer> containers = getSimpleContainers(javaInfo);
-        for (int i = 0; i < containers.size(); i++) {
-          SimpleContainer container = containers.get(i);
-          Object child_ = container.getChild();
-          if (child_ instanceof JavaInfo) {
-            ClipboardCommand command = createCommand(i, (JavaInfo) child_);
-            commands.add(command);
-          }
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		root.addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void clipboardCopy(JavaInfo javaInfo, List<ClipboardCommand> commands)
+					throws Exception {
+				List<SimpleContainer> containers = getSimpleContainers(javaInfo);
+				for (int i = 0; i < containers.size(); i++) {
+					SimpleContainer container = containers.get(i);
+					Object child_ = container.getChild();
+					if (child_ instanceof JavaInfo) {
+						ClipboardCommand command = createCommand(i, (JavaInfo) child_);
+						commands.add(command);
+					}
+				}
+			}
+		});
+	}
 
-  private static List<SimpleContainer> getSimpleContainers(JavaInfo javaInfo) {
-    return new SimpleContainerFactory(javaInfo, true).get();
-  }
+	private static List<SimpleContainer> getSimpleContainers(JavaInfo javaInfo) {
+		return new SimpleContainerFactory(javaInfo, true).get();
+	}
 
-  /**
-   * @return the {@link ClipboardCommand} for creating given child on simple container, during
-   *         paste.
-   */
-  private static ClipboardCommand createCommand(final int containerIndex, JavaInfo child)
-      throws Exception {
-    final JavaInfoMemento memento = JavaInfoMemento.createMemento(child);
-    ClipboardCommand command = new ClipboardCommand() {
-      private static final long serialVersionUID = 0L;
+	/**
+	 * @return the {@link ClipboardCommand} for creating given child on simple container, during
+	 *         paste.
+	 */
+	private static ClipboardCommand createCommand(final int containerIndex, JavaInfo child)
+			throws Exception {
+		final JavaInfoMemento memento = JavaInfoMemento.createMemento(child);
+		ClipboardCommand command = new ClipboardCommand() {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      public void execute(JavaInfo newContainer) throws Exception {
-        JavaInfo newChild = memento.create(newContainer);
-        getSimpleContainers(newContainer).get(containerIndex).command_CREATE(newChild);
-        memento.apply();
-      }
-    };
-    return command;
-  }
+			@Override
+			public void execute(JavaInfo newContainer) throws Exception {
+				JavaInfo newChild = memento.create(newContainer);
+				getSimpleContainers(newContainer).get(containerIndex).command_CREATE(newChild);
+				memento.apply();
+			}
+		};
+		return command;
+	}
 }

@@ -20,24 +20,24 @@ import org.eclipse.jface.viewers.ViewerFilter;
  * @coverage bindings.wizard.auto
  */
 public final class PropertiesFilter extends ViewerFilter {
-  private final DescriptorContainer m_widgetContainer;
+	private final DescriptorContainer m_widgetContainer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertiesFilter(DescriptorContainer widgetContainer) {
-    m_widgetContainer = widgetContainer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertiesFilter(DescriptorContainer widgetContainer) {
+		m_widgetContainer = widgetContainer;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ViewerFilter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean select(Viewer viewer, Object parentElement, Object element) {
-    return m_widgetContainer.getDefaultDescriptor(element, false) != null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ViewerFilter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean select(Viewer viewer, Object parentElement, Object element) {
+		return m_widgetContainer.getDefaultDescriptor(element, false) != null;
+	}
 }

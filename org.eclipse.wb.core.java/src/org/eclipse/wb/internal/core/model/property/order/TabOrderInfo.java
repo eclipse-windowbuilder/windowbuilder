@@ -24,37 +24,37 @@ import java.util.List;
  * @coverage core.model.property.order
  */
 public final class TabOrderInfo {
-  private final List<AbstractComponentInfo> m_infos = Lists.newArrayList();
-  private final List<AbstractComponentInfo> m_orderedInfos = Lists.newArrayList();
-  private boolean m_isDefault;
+	private final List<AbstractComponentInfo> m_infos = Lists.newArrayList();
+	private final List<AbstractComponentInfo> m_orderedInfos = Lists.newArrayList();
+	private boolean m_isDefault;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void addOrderedInfo(AbstractComponentInfo info) throws Exception {
-    m_orderedInfos.add(info);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void addOrderedInfo(AbstractComponentInfo info) throws Exception {
+		m_orderedInfos.add(info);
+	}
 
-  void reorder() {
-    m_infos.removeAll(m_orderedInfos);
-    m_infos.addAll(0, m_orderedInfos);
-  }
+	void reorder() {
+		m_infos.removeAll(m_orderedInfos);
+		m_infos.addAll(0, m_orderedInfos);
+	}
 
-  public List<AbstractComponentInfo> getInfos() {
-    return m_infos;
-  }
+	public List<AbstractComponentInfo> getInfos() {
+		return m_infos;
+	}
 
-  public List<AbstractComponentInfo> getOrderedInfos() {
-    return m_orderedInfos;
-  }
+	public List<AbstractComponentInfo> getOrderedInfos() {
+		return m_orderedInfos;
+	}
 
-  boolean isDefault() {
-    return m_isDefault;
-  }
+	boolean isDefault() {
+		return m_isDefault;
+	}
 
-  void setDefault() {
-    m_isDefault = true;
-  }
+	void setDefault() {
+		m_isDefault = true;
+	}
 }

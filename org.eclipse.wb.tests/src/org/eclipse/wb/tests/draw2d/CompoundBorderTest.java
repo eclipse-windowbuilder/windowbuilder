@@ -21,56 +21,56 @@ import org.eclipse.draw2d.geometry.Insets;
  *
  */
 public class CompoundBorderTest extends Draw2dFigureTestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompoundBorderTest() {
-    super(CompoundBorder.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompoundBorderTest() {
+		super(CompoundBorder.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Test's
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_constructor() throws Exception {
-    CompoundBorder border = new CompoundBorder();
-    //
-    // check init state new empty border
-    assertNull(border.getInnerBorder());
-    assertNull(border.getOuterBorder());
-    assertEquals(new Insets(), border.getInsets());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Test's
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_constructor() throws Exception {
+		CompoundBorder border = new CompoundBorder();
+		//
+		// check init state new empty border
+		assertNull(border.getInnerBorder());
+		assertNull(border.getOuterBorder());
+		assertEquals(new Insets(), border.getInsets());
+	}
 
-  public void test_constructor_Border_Border() throws Exception {
-    //
-    // check work when out = LineBorder and inner = MarginBorder
-    LineBorder lineBorder = new LineBorder(7);
-    MarginBorder marginBorder = new MarginBorder(new Insets(1, 2, 3, 4));
-    CompoundBorder border = new CompoundBorder(lineBorder, marginBorder);
-    //
-    assertSame(lineBorder, border.getOuterBorder());
-    assertSame(marginBorder, border.getInnerBorder());
-    assertEquals(new Insets(8, 9, 10, 11), border.getInsets());
-    //
-    // check work when out = LineBorder and inner = null
-    border = new CompoundBorder(lineBorder, null);
-    assertSame(lineBorder, border.getOuterBorder());
-    assertNull(border.getInnerBorder());
-    assertEquals(new Insets(7), border.getInsets());
-    //
-    // check work when out = null and inner = MarginBorder
-    border = new CompoundBorder(null, marginBorder);
-    assertNull(border.getOuterBorder());
-    assertSame(marginBorder, border.getInnerBorder());
-    assertEquals(new Insets(1, 2, 3, 4), border.getInsets());
-    //
-    // check work when out = null and inner = null
-    border = new CompoundBorder(null, null);
-    assertNull(border.getInnerBorder());
-    assertNull(border.getOuterBorder());
-    assertEquals(new Insets(), border.getInsets());
-  }
+	public void test_constructor_Border_Border() throws Exception {
+		//
+		// check work when out = LineBorder and inner = MarginBorder
+		LineBorder lineBorder = new LineBorder(7);
+		MarginBorder marginBorder = new MarginBorder(new Insets(1, 2, 3, 4));
+		CompoundBorder border = new CompoundBorder(lineBorder, marginBorder);
+		//
+		assertSame(lineBorder, border.getOuterBorder());
+		assertSame(marginBorder, border.getInnerBorder());
+		assertEquals(new Insets(8, 9, 10, 11), border.getInsets());
+		//
+		// check work when out = LineBorder and inner = null
+		border = new CompoundBorder(lineBorder, null);
+		assertSame(lineBorder, border.getOuterBorder());
+		assertNull(border.getInnerBorder());
+		assertEquals(new Insets(7), border.getInsets());
+		//
+		// check work when out = null and inner = MarginBorder
+		border = new CompoundBorder(null, marginBorder);
+		assertNull(border.getOuterBorder());
+		assertSame(marginBorder, border.getInnerBorder());
+		assertEquals(new Insets(1, 2, 3, 4), border.getInsets());
+		//
+		// check work when out = null and inner = null
+		border = new CompoundBorder(null, null);
+		assertNull(border.getInnerBorder());
+		assertNull(border.getOuterBorder());
+		assertEquals(new Insets(), border.getInsets());
+	}
 }

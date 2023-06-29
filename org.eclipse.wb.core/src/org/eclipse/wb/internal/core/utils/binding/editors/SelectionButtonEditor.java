@@ -19,29 +19,29 @@ import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFiel
  *
  */
 public class SelectionButtonEditor implements IDataEditor {
-  private final SelectionButtonDialogField m_field;
+	private final SelectionButtonDialogField m_field;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionButtonEditor(SelectionButtonDialogField field) {
-    m_field = field;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionButtonEditor(SelectionButtonDialogField field) {
+		m_field = field;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue() {
-    return ValueUtils.booleanToObject(m_field.isSelected());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue() {
+		return ValueUtils.booleanToObject(m_field.isSelected());
+	}
 
-  @Override
-  public void setValue(Object value) {
-    m_field.setSelection(ValueUtils.objectToBoolean(value));
-  }
+	@Override
+	public void setValue(Object value) {
+		m_field.setSelection(ValueUtils.objectToBoolean(value));
+	}
 }

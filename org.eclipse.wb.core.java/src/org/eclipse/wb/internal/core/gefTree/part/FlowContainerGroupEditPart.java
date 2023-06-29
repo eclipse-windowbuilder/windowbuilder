@@ -25,31 +25,31 @@ import java.util.List;
  * @coverage core.gefTree
  */
 public final class FlowContainerGroupEditPart extends ObjectEditPart {
-  private final FlowContainerGroupInfo m_groupInfo;
+	private final FlowContainerGroupInfo m_groupInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FlowContainerGroupEditPart(FlowContainerGroupInfo group) {
-    super(group);
-    m_groupInfo = group;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FlowContainerGroupEditPart(FlowContainerGroupInfo group) {
+		super(group);
+		m_groupInfo = group;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    {
-      List<FlowContainerConfigurable> containers = m_groupInfo.getContainers();
-      for (FlowContainerConfigurable container : containers) {
-        installEditPolicy(new FlowContainerLayoutEditPolicy(m_groupInfo.getParent(), container));
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		{
+			List<FlowContainerConfigurable> containers = m_groupInfo.getContainers();
+			for (FlowContainerConfigurable container : containers) {
+				installEditPolicy(new FlowContainerLayoutEditPolicy(m_groupInfo.getParent(), container));
+			}
+		}
+	}
 }

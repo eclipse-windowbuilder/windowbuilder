@@ -27,96 +27,96 @@ import java.awt.Insets;
  * @coverage swing.property.editor
  */
 public final class InsetsPropertyEditor extends TextDialogPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new InsetsPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new InsetsPropertyEditor();
 
-  private InsetsPropertyEditor() {
-  }
+	private InsetsPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof Insets) {
-      Insets insets = (Insets) value;
-      return "("
-          + insets.top
-          + ", "
-          + insets.left
-          + ", "
-          + insets.bottom
-          + ", "
-          + insets.right
-          + ")";
-    }
-    // unknown value
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof Insets) {
+			Insets insets = (Insets) value;
+			return "("
+			+ insets.top
+			+ ", "
+			+ insets.left
+			+ ", "
+			+ insets.bottom
+			+ ", "
+			+ insets.right
+			+ ")";
+		}
+		// unknown value
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    // prepare Insets to edit
-    Insets insets;
-    {
-      Object value = property.getValue();
-      if (value instanceof Insets) {
-        Insets insetsValue = (Insets) value;
-        insets =
-            new Insets(insetsValue.top, insetsValue.left, insetsValue.bottom, insetsValue.right);
-      } else {
-        insets = new Insets(0, 0, 0, 0);
-      }
-    }
-    // prepare dialog
-    InsetsDialog insetsDialog = new InsetsDialog(property.getTitle(), insets);
-    // open dialog
-    int result = insetsDialog.open();
-    if (result == IDialogConstants.IGNORE_ID) {
-      property.setValue(Property.UNKNOWN_VALUE);
-    } else if (result == IDialogConstants.OK_ID) {
-      property.setValue(insets);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		// prepare Insets to edit
+		Insets insets;
+		{
+			Object value = property.getValue();
+			if (value instanceof Insets) {
+				Insets insetsValue = (Insets) value;
+				insets =
+						new Insets(insetsValue.top, insetsValue.left, insetsValue.bottom, insetsValue.right);
+			} else {
+				insets = new Insets(0, 0, 0, 0);
+			}
+		}
+		// prepare dialog
+		InsetsDialog insetsDialog = new InsetsDialog(property.getTitle(), insets);
+		// open dialog
+		int result = insetsDialog.open();
+		if (result == IDialogConstants.IGNORE_ID) {
+			property.setValue(Property.UNKNOWN_VALUE);
+		} else if (result == IDialogConstants.OK_ID) {
+			property.setValue(insets);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // InsetsDialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final class InsetsDialog extends AbstractGeometryDialog {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public InsetsDialog(String title, Insets insets) {
-      super(title, insets);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// InsetsDialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final class InsetsDialog extends AbstractGeometryDialog {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public InsetsDialog(String title, Insets insets) {
+			super(title, insets);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // GUI
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected void createEditors() {
-      createEditor(ModelMessages.InsetsPropertyEditor_top, "top");
-      createEditor(ModelMessages.InsetsPropertyEditor_left, "left");
-      createEditor(ModelMessages.InsetsPropertyEditor_bottom, "bottom");
-      createEditor(ModelMessages.InsetsPropertyEditor_right, "right");
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// GUI
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected void createEditors() {
+			createEditor(ModelMessages.InsetsPropertyEditor_top, "top");
+			createEditor(ModelMessages.InsetsPropertyEditor_left, "left");
+			createEditor(ModelMessages.InsetsPropertyEditor_bottom, "bottom");
+			createEditor(ModelMessages.InsetsPropertyEditor_right, "right");
+		}
+	}
 }

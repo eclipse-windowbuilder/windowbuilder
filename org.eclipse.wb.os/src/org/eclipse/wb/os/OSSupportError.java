@@ -17,19 +17,19 @@ package org.eclipse.wb.os;
  * @coverage os.core
  */
 public class OSSupportError extends Error {
-  private static final long serialVersionUID = 1L;
-  public static final int ERROR_CODE = 900;
+	private static final long serialVersionUID = 1L;
+	public static final int ERROR_CODE = 900;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public OSSupportError(String string, Throwable e) {
-    super(string, e);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public OSSupportError(String string, Throwable e) {
+		super(string, e);
+	}
 
-  public OSSupportError(String string) {
-    super(string);
-  }
+	public OSSupportError(String string) {
+		super(string);
+	}
 }

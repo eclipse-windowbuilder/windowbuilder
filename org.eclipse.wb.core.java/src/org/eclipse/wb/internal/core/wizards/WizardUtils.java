@@ -26,30 +26,30 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.wizards.ui
  */
 public class WizardUtils {
-  /**
-   * @return the {@link IJavaProject} of selection, may be <code>null</code>.
-   */
-  public static IJavaProject getJavaProject(IStructuredSelection selection) {
-    IJavaElement javaElement = getJavaElement(selection);
-    return javaElement == null ? null : javaElement.getJavaProject();
-  }
+	/**
+	 * @return the {@link IJavaProject} of selection, may be <code>null</code>.
+	 */
+	public static IJavaProject getJavaProject(IStructuredSelection selection) {
+		IJavaElement javaElement = getJavaElement(selection);
+		return javaElement == null ? null : javaElement.getJavaProject();
+	}
 
-  /**
-   * @return the {@link IJavaElement} of selection, may be <code>null</code>.
-   */
-  public static IJavaElement getJavaElement(IStructuredSelection selection) {
-    NewContainerWizardPage tmp = new NewContainerWizardPage("__tmp") {
-      @Override
-      public void createControl(Composite parent) {
-      }
-    };
-    try {
-      return (IJavaElement) ReflectionUtils.invokeMethodEx(
-          tmp,
-          "getInitialJavaElement(org.eclipse.jface.viewers.IStructuredSelection)",
-          selection);
-    } finally {
-      tmp.dispose();
-    }
-  }
+	/**
+	 * @return the {@link IJavaElement} of selection, may be <code>null</code>.
+	 */
+	public static IJavaElement getJavaElement(IStructuredSelection selection) {
+		NewContainerWizardPage tmp = new NewContainerWizardPage("__tmp") {
+			@Override
+			public void createControl(Composite parent) {
+			}
+		};
+		try {
+			return (IJavaElement) ReflectionUtils.invokeMethodEx(
+					tmp,
+					"getInitialJavaElement(org.eclipse.jface.viewers.IStructuredSelection)",
+					selection);
+		} finally {
+			tmp.dispose();
+		}
+	}
 }

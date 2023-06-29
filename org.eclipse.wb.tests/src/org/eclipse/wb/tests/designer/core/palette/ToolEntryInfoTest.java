@@ -26,85 +26,85 @@ import org.eclipse.swt.graphics.Image;
  * @author scheglov_ke
  */
 public class ToolEntryInfoTest extends AbstractPaletteTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Activate without tool.
-   */
-  public void test_activateNoTool() throws Exception {
-    JavaInfo panel = parseEmptyPanel();
-    IEditPartViewer editPartViewer = new EmptyEditPartViewer();
-    // prepare ToolEntryInfo
-    ToolEntryInfo toolEntry = new ToolEntryInfo() {
-      @Override
-      public Image getIcon() {
-        return null;
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Activate without tool.
+	 */
+	public void test_activateNoTool() throws Exception {
+		JavaInfo panel = parseEmptyPanel();
+		IEditPartViewer editPartViewer = new EmptyEditPartViewer();
+		// prepare ToolEntryInfo
+		ToolEntryInfo toolEntry = new ToolEntryInfo() {
+			@Override
+			public Image getIcon() {
+				return null;
+			}
 
-      @Override
-      public Tool createTool() throws Exception {
-        return null;
-      }
-    };
-    // initialize
-    assertTrue(toolEntry.initialize(editPartViewer, panel));
-    // activate
-    assertFalse(toolEntry.activate(false));
-  }
+			@Override
+			public Tool createTool() throws Exception {
+				return null;
+			}
+		};
+		// initialize
+		assertTrue(toolEntry.initialize(editPartViewer, panel));
+		// activate
+		assertFalse(toolEntry.activate(false));
+	}
 
-  /**
-   * Activate with good tool.
-   */
-  public void test_activateTool() throws Exception {
-    JavaInfo panel = parseEmptyPanel();
-    IEditPartViewer editPartViewer = new EmptyEditPartViewer();
-    // prepare ToolEntryInfo
-    ToolEntryInfo toolEntry = new ToolEntryInfo() {
-      @Override
-      public Image getIcon() {
-        return null;
-      }
+	/**
+	 * Activate with good tool.
+	 */
+	public void test_activateTool() throws Exception {
+		JavaInfo panel = parseEmptyPanel();
+		IEditPartViewer editPartViewer = new EmptyEditPartViewer();
+		// prepare ToolEntryInfo
+		ToolEntryInfo toolEntry = new ToolEntryInfo() {
+			@Override
+			public Image getIcon() {
+				return null;
+			}
 
-      @Override
-      public Tool createTool() throws Exception {
-        return new SelectionTool();
-      }
-    };
-    // initialize
-    assertTrue(toolEntry.initialize(editPartViewer, panel));
-    // activate
-    assertTrue(toolEntry.activate(false));
-  }
+			@Override
+			public Tool createTool() throws Exception {
+				return new SelectionTool();
+			}
+		};
+		// initialize
+		assertTrue(toolEntry.initialize(editPartViewer, panel));
+		// activate
+		assertTrue(toolEntry.activate(false));
+	}
 
-  /**
-   * Activate, but throw exception when create tool.
-   */
-  public void test_activateException() throws Exception {
-    JavaInfo panel = parseEmptyPanel();
-    IEditPartViewer editPartViewer = new EmptyEditPartViewer();
-    // prepare ToolEntryInfo
-    ToolEntryInfo toolEntry = new ToolEntryInfo() {
-      @Override
-      public Image getIcon() {
-        return null;
-      }
+	/**
+	 * Activate, but throw exception when create tool.
+	 */
+	public void test_activateException() throws Exception {
+		JavaInfo panel = parseEmptyPanel();
+		IEditPartViewer editPartViewer = new EmptyEditPartViewer();
+		// prepare ToolEntryInfo
+		ToolEntryInfo toolEntry = new ToolEntryInfo() {
+			@Override
+			public Image getIcon() {
+				return null;
+			}
 
-      @Override
-      public Tool createTool() throws Exception {
-        throw new Exception();
-      }
-    };
-    // initialize
-    assertTrue(toolEntry.initialize(editPartViewer, panel));
-    // activate
-    try {
-      DesignerPlugin.setDisplayExceptionOnConsole(false);
-      assertFalse(toolEntry.activate(false));
-    } finally {
-      DesignerPlugin.setDisplayExceptionOnConsole(true);
-    }
-  }
+			@Override
+			public Tool createTool() throws Exception {
+				throw new Exception();
+			}
+		};
+		// initialize
+		assertTrue(toolEntry.initialize(editPartViewer, panel));
+		// activate
+		try {
+			DesignerPlugin.setDisplayExceptionOnConsole(false);
+			assertFalse(toolEntry.activate(false));
+		} finally {
+			DesignerPlugin.setDisplayExceptionOnConsole(true);
+		}
+	}
 }

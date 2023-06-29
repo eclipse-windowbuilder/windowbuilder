@@ -29,60 +29,60 @@ import java.util.List;
  * @coverage swt.model.layout
  */
 public final class AbsoluteLayoutSurroundProcessor
-    implements
-      ISurroundProcessor<CompositeInfo, ControlInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new AbsoluteLayoutSurroundProcessor();
+implements
+ISurroundProcessor<CompositeInfo, ControlInfo> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new AbsoluteLayoutSurroundProcessor();
 
-  private AbsoluteLayoutSurroundProcessor() {
-  }
+	private AbsoluteLayoutSurroundProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ISurroundProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean filter(CompositeInfo sourceContainer, CompositeInfo targetContainer)
-      throws Exception {
-    String targetClassName = targetContainer.getDescription().getComponentClass().getName();
-    boolean isComposite = targetClassName.equals("org.eclipse.swt.widgets.Composite");
-    boolean isGroup = targetClassName.equals("org.eclipse.swt.widgets.Group");
-    return sourceContainer.hasLayout()
-        && sourceContainer.getLayout() instanceof AbsoluteLayoutInfo
-        && (isComposite || isGroup);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ISurroundProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean filter(CompositeInfo sourceContainer, CompositeInfo targetContainer)
+			throws Exception {
+		String targetClassName = targetContainer.getDescription().getComponentClass().getName();
+		boolean isComposite = targetClassName.equals("org.eclipse.swt.widgets.Composite");
+		boolean isGroup = targetClassName.equals("org.eclipse.swt.widgets.Group");
+		return sourceContainer.hasLayout()
+				&& sourceContainer.getLayout() instanceof AbsoluteLayoutInfo
+				&& (isComposite || isGroup);
+	}
 
-  @Override
-  public void move(CompositeInfo sourceContainer,
-      CompositeInfo targetContainer,
-      List<ControlInfo> components) throws Exception {
-    // prepare absolute layout for target
-    AbsoluteLayoutInfo targetLayout = (AbsoluteLayoutInfo) targetContainer.getLayout();
-    // prepare expanded bounds for "targetContainer"
-    Point locationOffset;
-    {
-      Rectangle targetBounds =
-          (Rectangle) targetContainer.getArbitraryValue(AbsoluteLayoutSurroundSupport.BOUNDS_KEY);
-      targetBounds.expand(targetContainer.getClientAreaInsets2());
-      // prepare offset for components
-      locationOffset = targetBounds.getLocation().getNegated();
-      // set for "targetContainer" expanded bounds
-      AbsoluteLayoutInfo sourceLayout = (AbsoluteLayoutInfo) sourceContainer.getLayout();
-      sourceLayout.commandChangeBounds(
-          targetContainer,
-          targetBounds.getLocation(),
-          targetBounds.getSize());
-    }
-    // move components
-    for (ControlInfo component : components) {
-      Rectangle bounds = component.getModelBounds().getTranslated(locationOffset);
-      targetLayout.command_MOVE(component, null);
-      targetLayout.commandChangeBounds(component, bounds.getLocation(), bounds.getSize());
-    }
-  }
+	@Override
+	public void move(CompositeInfo sourceContainer,
+			CompositeInfo targetContainer,
+			List<ControlInfo> components) throws Exception {
+		// prepare absolute layout for target
+		AbsoluteLayoutInfo targetLayout = (AbsoluteLayoutInfo) targetContainer.getLayout();
+		// prepare expanded bounds for "targetContainer"
+		Point locationOffset;
+		{
+			Rectangle targetBounds =
+					(Rectangle) targetContainer.getArbitraryValue(AbsoluteLayoutSurroundSupport.BOUNDS_KEY);
+			targetBounds.expand(targetContainer.getClientAreaInsets2());
+			// prepare offset for components
+			locationOffset = targetBounds.getLocation().getNegated();
+			// set for "targetContainer" expanded bounds
+			AbsoluteLayoutInfo sourceLayout = (AbsoluteLayoutInfo) sourceContainer.getLayout();
+			sourceLayout.commandChangeBounds(
+					targetContainer,
+					targetBounds.getLocation(),
+					targetBounds.getSize());
+		}
+		// move components
+		for (ControlInfo component : components) {
+			Rectangle bounds = component.getModelBounds().getTranslated(locationOffset);
+			targetLayout.command_MOVE(component, null);
+			targetLayout.commandChangeBounds(component, bounds.getLocation(), bounds.getSize());
+		}
+	}
 }

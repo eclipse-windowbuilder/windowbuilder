@@ -32,83 +32,83 @@ import java.util.List;
  * @coverage swing.FormLayout.model
  */
 public final class DefaultComponentFactoryCreationSupport extends OpaqueCreationSupport
-    implements
-      ILiveCreationSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DefaultComponentFactoryCreationSupport(Expression expression) {
-    super(expression);
-  }
+implements
+ILiveCreationSupport {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DefaultComponentFactoryCreationSupport(Expression expression) {
+		super(expression);
+	}
 
-  public DefaultComponentFactoryCreationSupport(String source) {
-    super("com.jgoodies.forms.factories.DefaultComponentFactory.getInstance()." + source);
-  }
+	public DefaultComponentFactoryCreationSupport(String source) {
+		super("com.jgoodies.forms.factories.DefaultComponentFactory.getInstance()." + source);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILiveCreationSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public CreationSupport getLiveComponentCreation() {
-    String source = add_getSource(null);
-    return new OpaqueCreationSupport(source);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILiveCreationSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public CreationSupport getLiveComponentCreation() {
+		String source = add_getSource(null);
+		return new OpaqueCreationSupport(source);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Accessors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addAccessors(GenericPropertyDescription propertyDescription,
-      List<ExpressionAccessor> accessors) throws Exception {
-    if (propertyDescription.getId().equals("setText(java.lang.String)")) {
-      String signature = getSignature();
-      if (signature.equals("createLabel(java.lang.String)")
-          || signature.equals("createTitle(java.lang.String)")) {
-        String defaultSource = StringConverter.INSTANCE.toJavaSource(m_javaInfo, "");
-        ExpressionAccessor accessor = new FactoryAccessor(0, defaultSource);
-        accessors.add(accessor);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Accessors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addAccessors(GenericPropertyDescription propertyDescription,
+			List<ExpressionAccessor> accessors) throws Exception {
+		if (propertyDescription.getId().equals("setText(java.lang.String)")) {
+			String signature = getSignature();
+			if (signature.equals("createLabel(java.lang.String)")
+					|| signature.equals("createTitle(java.lang.String)")) {
+				String defaultSource = StringConverter.INSTANCE.toJavaSource(m_javaInfo, "");
+				ExpressionAccessor accessor = new FactoryAccessor(0, defaultSource);
+				accessors.add(accessor);
+			}
+		}
+	}
 
-  private String getSignature() {
-    MethodInvocation invocation = (MethodInvocation) getNode();
-    return AstNodeUtils.getMethodSignature(invocation);
-  }
+	private String getSignature() {
+		MethodInvocation invocation = (MethodInvocation) getNode();
+		return AstNodeUtils.getMethodSignature(invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Permissions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canReorder() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Permissions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canReorder() {
+		return true;
+	}
 
-  @Override
-  public boolean canReparent() {
-    return true;
-  }
+	@Override
+	public boolean canReparent() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return true;
+	}
 
-  @Override
-  public void delete() throws Exception {
-    JavaInfoUtils.deleteJavaInfo(m_javaInfo, true);
-  }
+	@Override
+	public void delete() throws Exception {
+		JavaInfoUtils.deleteJavaInfo(m_javaInfo, true);
+	}
 }

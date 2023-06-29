@@ -35,88 +35,88 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage core.model.creation
  */
 public class WrapperMethodCreationSupport extends CreationSupport {
-  protected final WrapperByMethod m_wrapper;
-  private MethodInvocation m_invocation;
+	protected final WrapperByMethod m_wrapper;
+	private MethodInvocation m_invocation;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WrapperMethodCreationSupport(WrapperByMethod wrapper) {
-    m_wrapper = wrapper;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WrapperMethodCreationSupport(WrapperByMethod wrapper) {
+		m_wrapper = wrapper;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "method: " + ReflectionUtils.toString(m_wrapper.getControlMethod());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "method: " + ReflectionUtils.toString(m_wrapper.getControlMethod());
+	}
 
-  @Override
-  public ASTNode getNode() {
-    return m_invocation;
-  }
+	@Override
+	public ASTNode getNode() {
+		return m_invocation;
+	}
 
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    return m_invocation != null && node == m_invocation;
-  }
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		return m_invocation != null && node == m_invocation;
+	}
 
-  @Override
-  public Association getAssociation() throws Exception {
-    return new WrappedObjectAssociation(m_wrapper);
-  }
+	@Override
+	public Association getAssociation() throws Exception {
+		return new WrappedObjectAssociation(m_wrapper);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Add
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String add_getSource(NodeTarget target) throws Exception {
-    String wrapperSource = m_wrapper.getWrapperInfo().getCreationSupport().add_getSource(target);
-    String controlName = m_wrapper.getControlMethod().getName();
-    return TemplateUtils.format("{0}.{1}()", wrapperSource, controlName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Add
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String add_getSource(NodeTarget target) throws Exception {
+		String wrapperSource = m_wrapper.getWrapperInfo().getCreationSupport().add_getSource(target);
+		String controlName = m_wrapper.getControlMethod().getName();
+		return TemplateUtils.format("{0}.{1}()", wrapperSource, controlName);
+	}
 
-  @Override
-  public void add_setSourceExpression(Expression expression) throws Exception {
-    m_invocation = (MethodInvocation) expression;
-    // prepare viewer expression
-    Expression viewerCreation = m_invocation.getExpression();
-    // configure viewer
-    JavaInfo wrapperInfo = m_wrapper.getWrapperInfo();
-    wrapperInfo.getCreationSupport().add_setSourceExpression(viewerCreation);
-    wrapperInfo.addRelatedNode(viewerCreation);
-    wrapperInfo.setAssociation(wrapperInfo.getCreationSupport().getAssociation());
-    // ensure local/field variable for viewer
-    {
-      wrapperInfo.setVariableSupport(new EmptyVariableSupport(wrapperInfo, viewerCreation));
-      if (shouldUseFieldForWrapper()) {
-        wrapperInfo.getVariableSupport().convertLocalToField();
-      } else {
-        wrapperInfo.getVariableSupport().convertFieldToLocal();
-      }
-    }
-    // add viewer to control
-    m_javaInfo.addChild(wrapperInfo);
-    // configure control
-    m_javaInfo.setCreationSupport(newControlCreationSupport());
-    m_javaInfo.bindToExpression(m_invocation);
-  }
+	@Override
+	public void add_setSourceExpression(Expression expression) throws Exception {
+		m_invocation = (MethodInvocation) expression;
+		// prepare viewer expression
+		Expression viewerCreation = m_invocation.getExpression();
+		// configure viewer
+		JavaInfo wrapperInfo = m_wrapper.getWrapperInfo();
+		wrapperInfo.getCreationSupport().add_setSourceExpression(viewerCreation);
+		wrapperInfo.addRelatedNode(viewerCreation);
+		wrapperInfo.setAssociation(wrapperInfo.getCreationSupport().getAssociation());
+		// ensure local/field variable for viewer
+		{
+			wrapperInfo.setVariableSupport(new EmptyVariableSupport(wrapperInfo, viewerCreation));
+			if (shouldUseFieldForWrapper()) {
+				wrapperInfo.getVariableSupport().convertLocalToField();
+			} else {
+				wrapperInfo.getVariableSupport().convertFieldToLocal();
+			}
+		}
+		// add viewer to control
+		m_javaInfo.addChild(wrapperInfo);
+		// configure control
+		m_javaInfo.setCreationSupport(newControlCreationSupport());
+		m_javaInfo.bindToExpression(m_invocation);
+	}
 
-  private boolean shouldUseFieldForWrapper() {
-    JavaInfo wrapperInfo = m_wrapper.getWrapperInfo();
-    GenerationSettings settings = wrapperInfo.getDescription().getToolkit().getGenerationSettings();
-    return settings.getVariable(wrapperInfo) instanceof FieldUniqueVariableDescription;
-  }
+	private boolean shouldUseFieldForWrapper() {
+		JavaInfo wrapperInfo = m_wrapper.getWrapperInfo();
+		GenerationSettings settings = wrapperInfo.getDescription().getToolkit().getGenerationSettings();
+		return settings.getVariable(wrapperInfo) instanceof FieldUniqueVariableDescription;
+	}
 
-  protected CreationSupport newControlCreationSupport() {
-    return new WrapperMethodControlCreationSupport(m_wrapper);
-  }
+	protected CreationSupport newControlCreationSupport() {
+		return new WrapperMethodControlCreationSupport(m_wrapper);
+	}
 }

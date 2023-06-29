@@ -22,63 +22,63 @@ import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
  * @coverage core.model.generation.ui
  */
 public final class GenerationPreviewLocalUniqueBlock extends GenerationPreview {
-  public static final GenerationPreview INSTANCE = new GenerationPreviewLocalUniqueBlock();
+	public static final GenerationPreview INSTANCE = new GenerationPreviewLocalUniqueBlock();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private GenerationPreviewLocalUniqueBlock() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private GenerationPreviewLocalUniqueBlock() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GenerationPreview
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPreview(GenerationPropertiesComposite variableComposite,
-      GenerationPropertiesComposite statementComposite) {
-    boolean v_useFinal = variableComposite.getBoolean(LocalUniqueVariableSupport.P_DECLARE_FINAL);
-    String source = "";
-    // begin
-    source += "\t...\n";
-    // parent
-    {
-      // open block
-      source += "\t{\n";
-      // declare parent
-      source += "\t\t";
-      if (v_useFinal) {
-        source += "final ";
-      }
-      source += "JPanel panel = new JPanel();\n";
-      // properties
-      source += "\t\tpanel.setBorder(new TitledBorder(\"Management\"));\n";
-      // child
-      {
-        // open block
-        source += "\t\t{\n";
-        // variable
-        source += "\t\t\t";
-        if (v_useFinal) {
-          source += "final ";
-        }
-        source += "JButton button = new JButton();\n";
-        // properties
-        source += "\t\t\tbutton.setText(\"Add customer...\");\n";
-        source += "\t\t\tpanel.add(button);\n";
-        // close block
-        source += "\t\t}\n";
-        source += "\t\t...\n";
-      }
-      // close block
-      source += "\t}\n";
-    }
-    // end
-    source += "\t...\n";
-    // final result
-    return source;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GenerationPreview
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPreview(GenerationPropertiesComposite variableComposite,
+			GenerationPropertiesComposite statementComposite) {
+		boolean v_useFinal = variableComposite.getBoolean(LocalUniqueVariableSupport.P_DECLARE_FINAL);
+		String source = "";
+		// begin
+		source += "\t...\n";
+		// parent
+		{
+			// open block
+			source += "\t{\n";
+			// declare parent
+			source += "\t\t";
+			if (v_useFinal) {
+				source += "final ";
+			}
+			source += "JPanel panel = new JPanel();\n";
+			// properties
+			source += "\t\tpanel.setBorder(new TitledBorder(\"Management\"));\n";
+			// child
+			{
+				// open block
+				source += "\t\t{\n";
+				// variable
+				source += "\t\t\t";
+				if (v_useFinal) {
+					source += "final ";
+				}
+				source += "JButton button = new JButton();\n";
+				// properties
+				source += "\t\t\tbutton.setText(\"Add customer...\");\n";
+				source += "\t\t\tpanel.add(button);\n";
+				// close block
+				source += "\t\t}\n";
+				source += "\t\t...\n";
+			}
+			// close block
+			source += "\t}\n";
+		}
+		// end
+		source += "\t...\n";
+		// final result
+		return source;
+	}
 }

@@ -16,96 +16,96 @@ import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
  * @author scheglov_ke
  */
 public class FloatTest extends AbstractEngineTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Project creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_setUp() throws Exception {
-    do_projectCreate();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Project creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_setUp() throws Exception {
+		do_projectCreate();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // float
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_float_value1() throws Exception {
-    check_float("1F", 1F);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// float
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_float_value1() throws Exception {
+		check_float("1F", 1F);
+	}
 
-  public void test_float_value2() throws Exception {
-    check_float("2f", 2f);
-  }
+	public void test_float_value2() throws Exception {
+		check_float("2f", 2f);
+	}
 
-  public void test_float_positive_value() throws Exception {
-    check_float("+3f", +3f);
-  }
+	public void test_float_positive_value() throws Exception {
+		check_float("+3f", +3f);
+	}
 
-  public void test_float_negative_value() throws Exception {
-    check_float("-3f", -3f);
-  }
+	public void test_float_negative_value() throws Exception {
+		check_float("-3f", -3f);
+	}
 
-  public void test_float_plus() throws Exception {
-    check_float("1F + 2F", 1F + 2F);
-  }
+	public void test_float_plus() throws Exception {
+		check_float("1F + 2F", 1F + 2F);
+	}
 
-  public void test_float_plus3() throws Exception {
-    check_float("1F + 2F + 3F", 1F + 2F + 3F);
-  }
+	public void test_float_plus3() throws Exception {
+		check_float("1F + 2F + 3F", 1F + 2F + 3F);
+	}
 
-  public void test_float_minus() throws Exception {
-    check_float("5F - 1F", 5F - 1F);
-  }
+	public void test_float_minus() throws Exception {
+		check_float("5F - 1F", 5F - 1F);
+	}
 
-  public void test_float_mul() throws Exception {
-    check_float("2F * 3F", 2F * 3F);
-  }
+	public void test_float_mul() throws Exception {
+		check_float("2F * 3F", 2F * 3F);
+	}
 
-  public void test_float_div() throws Exception {
-    check_float("6F / 2F", 6F / 2F);
-  }
+	public void test_float_div() throws Exception {
+		check_float("6F / 2F", 6F / 2F);
+	}
 
-  public void test_float_div2() throws Exception {
-    check_float("5F / 2F", 5F / 2F);
-  }
+	public void test_float_div2() throws Exception {
+		check_float("5F / 2F", 5F / 2F);
+	}
 
-  public void test_float_mod() throws Exception {
-    check_float("5F % 2F", 5F % 2F);
-  }
+	public void test_float_mod() throws Exception {
+		check_float("5F % 2F", 5F % 2F);
+	}
 
-  public void test_float_mod2() throws Exception {
-    check_float("-5F % 3F", -5F % 3F);
-  }
+	public void test_float_mod2() throws Exception {
+		check_float("-5F % 3F", -5F % 3F);
+	}
 
-  public void test_float_mix_int() throws Exception {
-    check_float("1F + 2", 1F + 2);
-  }
+	public void test_float_mix_int() throws Exception {
+		check_float("1F + 2", 1F + 2);
+	}
 
-  public void test_float_mix_char() throws Exception {
-    check_float("1F + '0'", 1F + '0');
-  }
+	public void test_float_mix_char() throws Exception {
+		check_float("1F + '0'", 1F + '0');
+	}
 
-  public void test_float_cast_to() throws Exception {
-    check_float("((float)1) + 2", (float) 1 + 2);
-  }
+	public void test_float_cast_to() throws Exception {
+		check_float("((float)1) + 2", (float) 1 + 2);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void check_float(String expression, float expected) throws Exception {
-    assertEquals(expected, evaluateExpression(expression, "float"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void check_float(String expression, float expected) throws Exception {
+		assertEquals(expected, evaluateExpression(expression, "float"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Project disposing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void test_tearDown() throws Exception {
-    do_projectDispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Project disposing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void test_tearDown() throws Exception {
+		do_projectDispose();
+	}
 }

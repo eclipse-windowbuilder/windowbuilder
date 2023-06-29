@@ -27,30 +27,30 @@ import java.util.List;
  * @coverage bindings.rcp.ui.properties
  */
 public class InputObserveProperty extends SingleObserveBindingProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public InputObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
-    super(context, observeProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public InputObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
+		super(context, observeProperty);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SingleObserveBindingProperty
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected IBindingInfo getBinding() throws Exception {
-    BindableInfo observeProperty = (BindableInfo) m_observeProperty;
-    List<AbstractBindingInfo> bindings = observeProperty.getBindings();
-    return bindings.isEmpty() ? null : bindings.get(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SingleObserveBindingProperty
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected IBindingInfo getBinding() throws Exception {
+		BindableInfo observeProperty = (BindableInfo) m_observeProperty;
+		List<AbstractBindingInfo> bindings = observeProperty.getBindings();
+		return bindings.isEmpty() ? null : bindings.get(0);
+	}
 
-  @Override
-  protected String getText() throws Exception {
-    IBindingInfo binding = getBinding();
-    return binding == null ? "" : BindingLabelProvider.INSTANCE.getColumnText(binding, 2);
-  }
+	@Override
+	protected String getText() throws Exception {
+		IBindingInfo binding = getBinding();
+		return binding == null ? "" : BindingLabelProvider.INSTANCE.getColumnText(binding, 2);
+	}
 }

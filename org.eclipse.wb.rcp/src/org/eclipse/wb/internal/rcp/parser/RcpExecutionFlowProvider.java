@@ -29,63 +29,63 @@ import java.util.List;
  * @coverage rcp.parser
  */
 public class RcpExecutionFlowProvider extends ExecutionFlowProvider {
-  @Override
-  public MethodDeclaration getDefaultConstructor(TypeDeclaration typeDeclaration) {
-    ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
-    List<MethodDeclaration> constructors = AstNodeUtils.getConstructors(typeDeclaration);
-    // Forms API FormPage+ <init>(*org.eclipse.ui.forms.editor.FormEditor*)
-    if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.ui.forms.editor.FormPage")) {
-      for (MethodDeclaration constructor : constructors) {
-        if (AstNodeUtils.getMethodSignature(constructor).contains(
-            "org.eclipse.ui.forms.editor.FormEditor")) {
-          return constructor;
-        }
-      }
-    }
-    // SWT Dialog+ <init>(Shell,style)
-    if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Dialog")) {
-      for (MethodDeclaration constructor : constructors) {
-        if (AstNodeUtils.getMethodSignature(constructor).equals(
-            "<init>(org.eclipse.swt.widgets.Shell,int)")) {
-          return constructor;
-        }
-      }
-    }
-    // Shell+ <init>()
-    if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Shell")) {
-      for (MethodDeclaration constructor : constructors) {
-        if (constructor.parameters().isEmpty()) {
-          return constructor;
-        }
-      }
-    }
-    // Composite+ <init>(Composite,style)
-    if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Composite")) {
-      for (MethodDeclaration constructor : constructors) {
-        if (AstNodeUtils.getMethodSignature(constructor).equals(
-            "<init>(org.eclipse.swt.widgets.Composite,int)")) {
-          return constructor;
-        }
-      }
-    }
-    // super
-    return super.getDefaultConstructor(typeDeclaration);
-  }
+	@Override
+	public MethodDeclaration getDefaultConstructor(TypeDeclaration typeDeclaration) {
+		ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(typeDeclaration);
+		List<MethodDeclaration> constructors = AstNodeUtils.getConstructors(typeDeclaration);
+		// Forms API FormPage+ <init>(*org.eclipse.ui.forms.editor.FormEditor*)
+		if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.ui.forms.editor.FormPage")) {
+			for (MethodDeclaration constructor : constructors) {
+				if (AstNodeUtils.getMethodSignature(constructor).contains(
+						"org.eclipse.ui.forms.editor.FormEditor")) {
+					return constructor;
+				}
+			}
+		}
+		// SWT Dialog+ <init>(Shell,style)
+		if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Dialog")) {
+			for (MethodDeclaration constructor : constructors) {
+				if (AstNodeUtils.getMethodSignature(constructor).equals(
+						"<init>(org.eclipse.swt.widgets.Shell,int)")) {
+					return constructor;
+				}
+			}
+		}
+		// Shell+ <init>()
+		if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Shell")) {
+			for (MethodDeclaration constructor : constructors) {
+				if (constructor.parameters().isEmpty()) {
+					return constructor;
+				}
+			}
+		}
+		// Composite+ <init>(Composite,style)
+		if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Composite")) {
+			for (MethodDeclaration constructor : constructors) {
+				if (AstNodeUtils.getMethodSignature(constructor).equals(
+						"<init>(org.eclipse.swt.widgets.Composite,int)")) {
+					return constructor;
+				}
+			}
+		}
+		// super
+		return super.getDefaultConstructor(typeDeclaration);
+	}
 
-  @Override
-  public boolean shouldVisit(AnonymousClassDeclaration anonymous) throws Exception {
-    // Realm.runWithDefault()
-    if (AstNodeUtils.isSuccessorOf(anonymous, "java.lang.Runnable")) {
-      ClassInstanceCreation creation = (ClassInstanceCreation) anonymous.getParent();
-      if (creation.getLocationInParent() == MethodInvocation.ARGUMENTS_PROPERTY) {
-        MethodInvocation invocation = (MethodInvocation) creation.getParent();
-        return AstNodeUtils.isMethodInvocation(
-            invocation,
-            "org.eclipse.core.databinding.observable.Realm",
-            "runWithDefault(org.eclipse.core.databinding.observable.Realm,java.lang.Runnable)");
-      }
-    }
-    // unknown pattern
-    return false;
-  }
+	@Override
+	public boolean shouldVisit(AnonymousClassDeclaration anonymous) throws Exception {
+		// Realm.runWithDefault()
+		if (AstNodeUtils.isSuccessorOf(anonymous, "java.lang.Runnable")) {
+			ClassInstanceCreation creation = (ClassInstanceCreation) anonymous.getParent();
+			if (creation.getLocationInParent() == MethodInvocation.ARGUMENTS_PROPERTY) {
+				MethodInvocation invocation = (MethodInvocation) creation.getParent();
+				return AstNodeUtils.isMethodInvocation(
+						invocation,
+						"org.eclipse.core.databinding.observable.Realm",
+						"runWithDefault(org.eclipse.core.databinding.observable.Realm,java.lang.Runnable)");
+			}
+		}
+		// unknown pattern
+		return false;
+	}
 }

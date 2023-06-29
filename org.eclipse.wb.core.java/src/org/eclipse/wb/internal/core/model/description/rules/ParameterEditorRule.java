@@ -26,39 +26,39 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class ParameterEditorRule extends Rule {
-  private final EditorState m_state;
+	private final EditorState m_state;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ParameterEditorRule(EditorState state) {
-    m_state = state;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ParameterEditorRule(EditorState state) {
+		m_state = state;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    String id = attributes.getValue("id");
-    PropertyEditor editor = DescriptionPropertiesHelper.getConfigurableEditor(id);
-    getDigester().push(new PropertyEditorDescription(m_state, editor));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		String id = attributes.getValue("id");
+		PropertyEditor editor = DescriptionPropertiesHelper.getConfigurableEditor(id);
+		getDigester().push(new PropertyEditorDescription(m_state, editor));
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    // prepare editor
-    PropertyEditor editor;
-    {
-      PropertyEditorDescription editorDescription = (PropertyEditorDescription) getDigester().pop();
-      editor = editorDescription.getConfiguredEditor();
-    }
-    // set editor for current property
-    ParameterDescription propertyDescription = (ParameterDescription) getDigester().peek();
-    propertyDescription.setEditor(editor);
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		// prepare editor
+		PropertyEditor editor;
+		{
+			PropertyEditorDescription editorDescription = (PropertyEditorDescription) getDigester().pop();
+			editor = editorDescription.getConfiguredEditor();
+		}
+		// set editor for current property
+		ParameterDescription propertyDescription = (ParameterDescription) getDigester().peek();
+		propertyDescription.setEditor(editor);
+	}
 }

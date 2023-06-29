@@ -17,49 +17,49 @@ package org.eclipse.wb.core.model.association;
  * @coverage core.model.association
  */
 public final class AssociationObject {
-  private final Association m_association;
-  private final boolean m_required;
-  private final String m_title;
+	private final Association m_association;
+	private final boolean m_required;
+	private final String m_title;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AssociationObject(Association association, boolean required) {
-    this(null, association, required);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AssociationObject(Association association, boolean required) {
+		this(null, association, required);
+	}
 
-  public AssociationObject(String title, Association association, boolean required) {
-    m_association = association;
-    m_required = required;
-    m_title = title;
-  }
+	public AssociationObject(String title, Association association, boolean required) {
+		m_association = association;
+		m_required = required;
+		m_title = title;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    if (m_title != null) {
-      return m_title;
-    } else {
-      return m_association.toString();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		if (m_title != null) {
+			return m_title;
+		} else {
+			return m_association.toString();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Association getAssociation() {
-    return m_association;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Association getAssociation() {
+		return m_association;
+	}
 
-  public boolean isRequired() {
-    return m_required;
-  }
+	public boolean isRequired() {
+		return m_required;
+	}
 }

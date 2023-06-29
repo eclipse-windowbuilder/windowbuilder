@@ -31,78 +31,78 @@ import org.eclipse.swt.widgets.ToolItem;
  * @coverage XWT.model.widgets
  */
 public final class ToolItemInfo extends ItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ToolItemInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ToolItemInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new StylePresentation(this) {
-    @Override
-    protected void initImages() throws Exception {
-      addImage(SWT.CHECK, "wbp-meta/org/eclipse/swt/widgets/ToolItem_check.gif");
-      addImage(SWT.RADIO, "wbp-meta/org/eclipse/swt/widgets/ToolItem_radio.gif");
-      addImage(SWT.DROP_DOWN, "wbp-meta/org/eclipse/swt/widgets/ToolItem_dropDown.gif");
-      addImage(SWT.SEPARATOR, "wbp-meta/org/eclipse/swt/widgets/ToolItem_separator.gif");
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new StylePresentation(this) {
+		@Override
+		protected void initImages() throws Exception {
+			addImage(SWT.CHECK, "wbp-meta/org/eclipse/swt/widgets/ToolItem_check.gif");
+			addImage(SWT.RADIO, "wbp-meta/org/eclipse/swt/widgets/ToolItem_radio.gif");
+			addImage(SWT.DROP_DOWN, "wbp-meta/org/eclipse/swt/widgets/ToolItem_dropDown.gif");
+			addImage(SWT.SEPARATOR, "wbp-meta/org/eclipse/swt/widgets/ToolItem_separator.gif");
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link ToolItemInfo} is separator.
-   */
-  public boolean isSeparator() {
-    return ControlSupport.hasStyle(getWidget(), SWT.SEPARATOR);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link ToolItemInfo} is separator.
+	 */
+	public boolean isSeparator() {
+		return ControlSupport.hasStyle(getWidget(), SWT.SEPARATOR);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    {
-      Rectangle bounds = CoordinateUtils.getRectangle(((ToolItem) getObject()).getBounds());
-      setModelBounds(bounds);
-    }
-    super.refresh_fetch();
-    fixControlBounds();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		{
+			Rectangle bounds = CoordinateUtils.getRectangle(((ToolItem) getObject()).getBounds());
+			setModelBounds(bounds);
+		}
+		super.refresh_fetch();
+		fixControlBounds();
+	}
 
-  /**
-   * {@link Control} returns bounds on {@link ToolBar}, but we show it as child of {@link ToolItem},
-   * so we should tweak {@link Control} bounds.
-   */
-  private void fixControlBounds() {
-    for (ControlInfo control : getChildren(ControlInfo.class)) {
-      {
-        Point offset = getModelBounds().getLocation().getNegated();
-        control.getModelBounds().performTranslate(offset);
-      }
-      {
-        Point offset = getBounds().getLocation().getNegated();
-        control.getBounds().performTranslate(offset);
-      }
-    }
-  }
+	/**
+	 * {@link Control} returns bounds on {@link ToolBar}, but we show it as child of {@link ToolItem},
+	 * so we should tweak {@link Control} bounds.
+	 */
+	private void fixControlBounds() {
+		for (ControlInfo control : getChildren(ControlInfo.class)) {
+			{
+				Point offset = getModelBounds().getLocation().getNegated();
+				control.getModelBounds().performTranslate(offset);
+			}
+			{
+				Point offset = getBounds().getLocation().getNegated();
+				control.getBounds().performTranslate(offset);
+			}
+		}
+	}
 }

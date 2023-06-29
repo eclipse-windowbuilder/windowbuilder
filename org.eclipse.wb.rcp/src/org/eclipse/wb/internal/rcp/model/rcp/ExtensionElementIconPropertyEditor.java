@@ -33,82 +33,82 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage rcp.model.rcp
  */
 public final class ExtensionElementIconPropertyEditor extends TextDialogPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new ExtensionElementIconPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new ExtensionElementIconPropertyEditor();
 
-  private ExtensionElementIconPropertyEditor() {
-  }
+	private ExtensionElementIconPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof String) {
-      return (String) value;
-    } else {
-      return null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof String) {
+			return (String) value;
+		} else {
+			return null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  @SuppressWarnings("unchecked")
-  protected void openDialog(Property _property) throws Exception {
-    ExtensionElementProperty<String> property = (ExtensionElementProperty<String>) _property;
-    IJavaProject javaProject = JavaCore.create(property.getProject());
-    // create dialog
-    ImageDialog imageDialog = new ImageDialog(javaProject);
-    // set input for dialog
-    {
-      String text = getText(property);
-      imageDialog.setInput(SinglePluginFileImagePage.ID, text);
-    }
-    // open dialog
-    if (imageDialog.open() == Window.OK) {
-      ImageInfo imageInfo = imageDialog.getImageInfo();
-      String[] data = (String[]) imageInfo.getData();
-      property.setValue(data[1]); // image path
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	@SuppressWarnings("unchecked")
+	protected void openDialog(Property _property) throws Exception {
+		ExtensionElementProperty<String> property = (ExtensionElementProperty<String>) _property;
+		IJavaProject javaProject = JavaCore.create(property.getProject());
+		// create dialog
+		ImageDialog imageDialog = new ImageDialog(javaProject);
+		// set input for dialog
+		{
+			String text = getText(property);
+			imageDialog.setInput(SinglePluginFileImagePage.ID, text);
+		}
+		// open dialog
+		if (imageDialog.open() == Window.OK) {
+			ImageInfo imageInfo = imageDialog.getImageInfo();
+			String[] data = (String[]) imageInfo.getData();
+			property.setValue(data[1]); // image path
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ImageDialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final class ImageDialog extends AbstractImageDialog {
-    private final IJavaProject m_javaProject;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ImageDialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final class ImageDialog extends AbstractImageDialog {
+		private final IJavaProject m_javaProject;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    protected ImageDialog(IJavaProject javaProject) {
-      super(DesignerPlugin.getShell(), Activator.getDefault());
-      m_javaProject = javaProject;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		protected ImageDialog(IJavaProject javaProject) {
+			super(DesignerPlugin.getShell(), Activator.getDefault());
+			m_javaProject = javaProject;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Pages
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected void addPages(Composite parent) {
-      addPage(new SinglePluginFileImagePage(parent, SWT.NONE, this, m_javaProject.getProject()));
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Pages
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected void addPages(Composite parent) {
+			addPage(new SinglePluginFileImagePage(parent, SWT.NONE, this, m_javaProject.getProject()));
+		}
+	}
 }

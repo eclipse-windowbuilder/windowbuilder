@@ -27,16 +27,16 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class ModelTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.model");
-    suite.addTest(createSingleSuite(CoordinateUtilsTest.class));
-    suite.addTest(LayoutTests.suite());
-    suite.addTest(ComponentTests.suite());
-    suite.addTest(BeanTests.suite());
-    suite.addTest(UtilTests.suite());
-    suite.addTest(PropertiesTests.suite());
-    suite.addTest(createSingleSuite(ClipboardTest.class));
-    suite.addTest(TopLevelTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model");
+		suite.addTest(createSingleSuite(CoordinateUtilsTest.class));
+		suite.addTest(LayoutTests.suite());
+		suite.addTest(ComponentTests.suite());
+		suite.addTest(BeanTests.suite());
+		suite.addTest(UtilTests.suite());
+		suite.addTest(PropertiesTests.suite());
+		suite.addTest(createSingleSuite(ClipboardTest.class));
+		suite.addTest(TopLevelTests.suite());
+		return suite;
+	}
 }

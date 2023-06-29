@@ -28,12 +28,12 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage core.model.creation
  */
 public interface IMethodParameterEvaluator {
-  /**
-   * @return the value of given parameter or {@link AstEvaluationEngine#UNKNOWN}.
-   */
-  Object evaluateParameter(EvaluationContext context,
-      MethodDeclaration methodDeclaration,
-      String methodSignature,
-      SingleVariableDeclaration parameter,
-      int index) throws Exception;
+	/**
+	 * @return the value of given parameter or {@link AstEvaluationEngine#UNKNOWN}.
+	 */
+	Object evaluateParameter(EvaluationContext context,
+			MethodDeclaration methodDeclaration,
+			String methodSignature,
+			SingleVariableDeclaration parameter,
+			int index) throws Exception;
 }

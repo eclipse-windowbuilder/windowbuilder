@@ -370,7 +370,7 @@ public final class ComponentsPropertiesPage implements IPage {
 			}
 		};
 		m_showAdvancedPropertiesAction
-				.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/filter_advanced_properties.gif"));
+		.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/filter_advanced_properties.gif"));
 		setTexts(m_showAdvancedPropertiesAction, Messages.ComponentsPropertiesPage_showAdvancedAction);
 	}
 

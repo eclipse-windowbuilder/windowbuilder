@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage core.model.property.editor
  */
 public interface ITextValuePropertyEditor {
-  /**
-   * Sets value that corresponds given text.
-   */
-  void setText(Property property, String text) throws Exception;
+	/**
+	 * Sets value that corresponds given text.
+	 */
+	void setText(Property property, String text) throws Exception;
 }

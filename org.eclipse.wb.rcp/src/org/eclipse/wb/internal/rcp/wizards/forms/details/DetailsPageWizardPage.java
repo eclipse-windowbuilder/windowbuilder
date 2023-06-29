@@ -33,43 +33,43 @@ import java.util.List;
  * @coverage rcp.wizards.ui
  */
 public final class DetailsPageWizardPage extends RcpWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DetailsPageWizardPage() {
-    setTitle(WizardsMessages.DetailsPageWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/IDetailsPage/banner.gif"));
-    setDescription(WizardsMessages.DetailsPageWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DetailsPageWizardPage() {
+		setTitle(WizardsMessages.DetailsPageWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/IDetailsPage/banner.gif"));
+		setDescription(WizardsMessages.DetailsPageWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/forms/IDetailsPage.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/forms/IDetailsPage.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createDesignSuperClassControls(Composite composite, int nColumns) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createDesignSuperClassControls(Composite composite, int nColumns) {
+	}
 
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    List<String> interfacesNames = new ArrayList<String>();
-    interfacesNames.add("org.eclipse.ui.forms.IDetailsPage");
-    setSuperInterfaces(interfacesNames, false);
-  }
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		List<String> interfacesNames = new ArrayList<String>();
+		interfacesNames.add("org.eclipse.ui.forms.IDetailsPage");
+		setSuperInterfaces(interfacesNames, false);
+	}
 }

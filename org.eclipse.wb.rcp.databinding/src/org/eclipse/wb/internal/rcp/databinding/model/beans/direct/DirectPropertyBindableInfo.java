@@ -29,75 +29,75 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public final class DirectPropertyBindableInfo extends PropertyBindableInfo {
-  private final IObservableFactory m_observableFactory;
+	private final IObservableFactory m_observableFactory;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DirectPropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      PropertyDescriptor descriptor) {
-    super(beanSupport,
-        parent,
-        descriptor.getReadMethod().getName() + "()",
-        TypeImageProvider.OBJECT_IMAGE,
-        descriptor.getPropertyType(),
-        descriptor.getReadMethod().getName() + "()");
-    m_observableFactory = null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DirectPropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			PropertyDescriptor descriptor) {
+		super(beanSupport,
+				parent,
+				descriptor.getReadMethod().getName() + "()",
+				TypeImageProvider.OBJECT_IMAGE,
+				descriptor.getPropertyType(),
+				descriptor.getReadMethod().getName() + "()");
+		m_observableFactory = null;
+	}
 
-  public DirectPropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      PropertyDescriptor descriptor,
-      IObservableFactory observableFactory) {
-    super(beanSupport,
-        parent,
-        descriptor.getReadMethod().getName() + "()",
-        TypeImageProvider.DIRECT_IMAGE,
-        descriptor.getPropertyType(),
-        descriptor.getReadMethod().getName() + "()");
-    m_observableFactory = observableFactory;
-  }
+	public DirectPropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			PropertyDescriptor descriptor,
+			IObservableFactory observableFactory) {
+		super(beanSupport,
+				parent,
+				descriptor.getReadMethod().getName() + "()",
+				TypeImageProvider.DIRECT_IMAGE,
+				descriptor.getPropertyType(),
+				descriptor.getReadMethod().getName() + "()");
+		m_observableFactory = observableFactory;
+	}
 
-  public DirectPropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      String text,
-      Class<?> objectType,
-      IReferenceProvider referenceProvider,
-      IObservableFactory observableFactory) {
-    super(beanSupport, parent, text, TypeImageProvider.DIRECT_IMAGE, objectType, referenceProvider);
-    m_observableFactory = observableFactory;
-  }
+	public DirectPropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			String text,
+			Class<?> objectType,
+			IReferenceProvider referenceProvider,
+			IObservableFactory observableFactory) {
+		super(beanSupport, parent, text, TypeImageProvider.DIRECT_IMAGE, objectType, referenceProvider);
+		m_observableFactory = observableFactory;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public List<IObserveInfo> getChildren(ChildrenContext context) {
-    return Collections.emptyList();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public List<IObserveInfo> getChildren(ChildrenContext context) {
+		return Collections.emptyList();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObservableFactory getObservableFactory() throws Exception {
-    return m_observableFactory;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObservableFactory getObservableFactory() throws Exception {
+		return m_observableFactory;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObserveDecorator getDecorator() {
-    return IObserveDecorator.BOLD_ITALIC;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObserveDecorator getDecorator() {
+		return IObserveDecorator.BOLD_ITALIC;
+	}
 }

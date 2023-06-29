@@ -20,8 +20,8 @@ import java.util.List;
  * @coverage core.editor
  */
 public interface IEditorPageFactory {
-  /**
-   * Create {@link IEditorPage} pages for given {@link IDesignerEditor} editor.
-   */
-  void createPages(IDesignerEditor editor, List<IEditorPage> pages);
+	/**
+	 * Create {@link IEditorPage} pages for given {@link IDesignerEditor} editor.
+	 */
+	void createPages(IDesignerEditor editor, List<IEditorPage> pages);
 }

@@ -42,106 +42,106 @@ import javax.swing.JFrame;
  * @coverage swing.gef.policy
  */
 public final class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
-  private final ContainerInfo m_container;
+	private final ContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuBarDropLayoutEditPolicy(ContainerInfo container) {
-    m_container = container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuBarDropLayoutEditPolicy(ContainerInfo container) {
+		m_container = container;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Figure m_feedback;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Figure m_feedback;
 
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    if (m_feedback == null) {
-      // create figure
-      m_feedback = new Figure() {
-        @Override
-        protected void paintClientArea(Graphics graphics) {
-          // draw placeholder text
-          Rectangle bounds = getBounds();
-          graphics.setForegroundColor(IColorConstants.darkGreen);
-          String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_feedbackText;
-          Dimension textExtent = graphics.getTextExtent(menuBarText);
-          //
-          int x = bounds.width / 2 - textExtent.width / 2;
-          int y = bounds.height / 2 - textExtent.height / 2;
-          graphics.drawString(menuBarText, x, y);
-        }
-      };
-      m_feedback.setOpaque(true);
-      m_feedback.setBackground(IColorConstants.menuBackground);
-      // set figure bounds
-      Insets clientAreaInsets = m_container.getInsets();
-      Rectangle bounds = getHostFigure().getBounds().getCopy();
-      bounds.x += clientAreaInsets.left;
-      bounds.y += clientAreaInsets.top;
-      bounds.width -= clientAreaInsets.getWidth();
-      bounds.height = 27;
-      m_feedback.setBounds(bounds);
-      // add some border
-      m_feedback.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected, 1));
-      addFeedback(m_feedback);
-    }
-  }
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		if (m_feedback == null) {
+			// create figure
+			m_feedback = new Figure() {
+				@Override
+				protected void paintClientArea(Graphics graphics) {
+					// draw placeholder text
+					Rectangle bounds = getBounds();
+					graphics.setForegroundColor(IColorConstants.darkGreen);
+					String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_feedbackText;
+					Dimension textExtent = graphics.getTextExtent(menuBarText);
+					//
+					int x = bounds.width / 2 - textExtent.width / 2;
+					int y = bounds.height / 2 - textExtent.height / 2;
+					graphics.drawString(menuBarText, x, y);
+				}
+			};
+			m_feedback.setOpaque(true);
+			m_feedback.setBackground(IColorConstants.menuBackground);
+			// set figure bounds
+			Insets clientAreaInsets = m_container.getInsets();
+			Rectangle bounds = getHostFigure().getBounds().getCopy();
+			bounds.x += clientAreaInsets.left;
+			bounds.y += clientAreaInsets.top;
+			bounds.width -= clientAreaInsets.getWidth();
+			bounds.height = 27;
+			m_feedback.setBounds(bounds);
+			// add some border
+			m_feedback.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected, 1));
+			addFeedback(m_feedback);
+		}
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    if (m_feedback != null) {
-      removeFeedback(m_feedback);
-      m_feedback = null;
-    }
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		if (m_feedback != null) {
+			removeFeedback(m_feedback);
+			m_feedback = null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(CreateRequest request) {
-    final JMenuBarInfo menu = (JMenuBarInfo) request.getNewObject();
-    return new EditCommand(m_container) {
-      @Override
-      protected void executeEdit() throws Exception {
-        menu.command_CREATE(m_container);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(CreateRequest request) {
+		final JMenuBarInfo menu = (JMenuBarInfo) request.getNewObject();
+		return new EditCommand(m_container) {
+			@Override
+			protected void executeEdit() throws Exception {
+				menu.command_CREATE(m_container);
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
-    @Override
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      // only one JMenuBar_Info
-      if (!m_container.getChildren(JMenuBarInfo.class).isEmpty()) {
-        return false;
-      }
-      // check object
-      return request.getNewObject() instanceof JMenuBarInfo;
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
+		@Override
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			// only one JMenuBar_Info
+			if (!m_container.getChildren(JMenuBarInfo.class).isEmpty()) {
+				return false;
+			}
+			// check object
+			return request.getNewObject() instanceof JMenuBarInfo;
+		}
+	};
 }

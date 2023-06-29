@@ -39,107 +39,107 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public final class BorderOfChildLayoutRequestValidator implements ILayoutRequestValidator {
-  public static final ILayoutRequestValidator INSTANCE = new BorderOfChildLayoutRequestValidator();
+	public static final ILayoutRequestValidator INSTANCE = new BorderOfChildLayoutRequestValidator();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private BorderOfChildLayoutRequestValidator() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private BorderOfChildLayoutRequestValidator() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutRequestValidator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-    if (request.isEraseFeedback()) {
-      return true;
-    }
-    return isTargetingToHost_containerSelected(host, request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutRequestValidator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+		if (request.isEraseFeedback()) {
+			return true;
+		}
+		return isTargetingToHost_containerSelected(host, request);
+	}
 
-  @Override
-  public boolean validatePasteRequest(EditPart host, PasteRequest request) {
-    if (request.isEraseFeedback()) {
-      return true;
-    }
-    return isTargetingToHost_containerSelected(host, request);
-  }
+	@Override
+	public boolean validatePasteRequest(EditPart host, PasteRequest request) {
+		if (request.isEraseFeedback()) {
+			return true;
+		}
+		return isTargetingToHost_containerSelected(host, request);
+	}
 
-  @Override
-  public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-    return true;
-  }
+	@Override
+	public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+		return true;
+	}
 
-  @Override
-  public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-    if (request.isEraseFeedback()) {
-      return true;
-    }
-    // if "child" and "host" are siblings, check for borders
-    if (host instanceof GraphicalEditPart) {
-      GraphicalEditPart graphicalHost = (GraphicalEditPart) host;
-      if (request.getEditParts().get(0).getParent() == host.getParent()) {
-        return isTargeting_innerPartOfHost(graphicalHost, request);
-      }
-    }
-    return true;
-  }
+	@Override
+	public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+		if (request.isEraseFeedback()) {
+			return true;
+		}
+		// if "child" and "host" are siblings, check for borders
+		if (host instanceof GraphicalEditPart) {
+			GraphicalEditPart graphicalHost = (GraphicalEditPart) host;
+			if (request.getEditParts().get(0).getParent() == host.getParent()) {
+				return isTargeting_innerPartOfHost(graphicalHost, request);
+			}
+		}
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static boolean isTargetingToHost_containerSelected(EditPart host, IDropRequest request) {
-    if (host instanceof GraphicalEditPart) {
-      GraphicalEditPart graphicalHost = (GraphicalEditPart) host;
-      if (isTransparentOnBorders(graphicalHost)) {
-        return isTargeting_innerPartOfHost(graphicalHost, request);
-      }
-    }
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static boolean isTargetingToHost_containerSelected(EditPart host, IDropRequest request) {
+		if (host instanceof GraphicalEditPart) {
+			GraphicalEditPart graphicalHost = (GraphicalEditPart) host;
+			if (isTransparentOnBorders(graphicalHost)) {
+				return isTargeting_innerPartOfHost(graphicalHost, request);
+			}
+		}
+		return true;
+	}
 
-  private static boolean isTargeting_innerPartOfHost(GraphicalEditPart host, IDropRequest request) {
-    Figure hostFigure = host.getFigure();
-    // prepare location in host
-    Point location;
-    {
-      location = request.getLocation().getCopy();
-      FigureUtils.translateAbsoluteToFigure2(hostFigure, location);
-    }
-    // check if "location" is inside of "inner part" of host
-    Rectangle hostClientArea = hostFigure.getClientArea();
-    return hostClientArea.getExpanded(-3, -3).contains(location);
-  }
+	private static boolean isTargeting_innerPartOfHost(GraphicalEditPart host, IDropRequest request) {
+		Figure hostFigure = host.getFigure();
+		// prepare location in host
+		Point location;
+		{
+			location = request.getLocation().getCopy();
+			FigureUtils.translateAbsoluteToFigure2(hostFigure, location);
+		}
+		// check if "location" is inside of "inner part" of host
+		Rectangle hostClientArea = hostFigure.getClientArea();
+		return hostClientArea.getExpanded(-3, -3).contains(location);
+	}
 
-  private static boolean isTransparentOnBorders(GraphicalEditPart host) {
-    {
-      Object hostModel = host.getModel();
-      IParametersProvider provider = GlobalState.getParametersProvider();
-      if (provider.hasTrueParameter(hostModel, "GEF.transparentOnBorders.always")) {
-        return true;
-      }
-    }
-    return isChildOf_selectedEditPart(host);
-  }
+	private static boolean isTransparentOnBorders(GraphicalEditPart host) {
+		{
+			Object hostModel = host.getModel();
+			IParametersProvider provider = GlobalState.getParametersProvider();
+			if (provider.hasTrueParameter(hostModel, "GEF.transparentOnBorders.always")) {
+				return true;
+			}
+		}
+		return isChildOf_selectedEditPart(host);
+	}
 
-  private static boolean isChildOf_selectedEditPart(EditPart child) {
-    List<EditPart> selectedEditParts = child.getViewer().getSelectedEditParts();
-    return selectedEditParts.size() == 1 && areParentChild(selectedEditParts.get(0), child);
-  }
+	private static boolean isChildOf_selectedEditPart(EditPart child) {
+		List<EditPart> selectedEditParts = child.getViewer().getSelectedEditParts();
+		return selectedEditParts.size() == 1 && areParentChild(selectedEditParts.get(0), child);
+	}
 
-  private static boolean areParentChild(EditPart parent, EditPart child) {
-    for (EditPart part = child.getParent(); part != null; part = part.getParent()) {
-      if (part == parent) {
-        return true;
-      }
-    }
-    return false;
-  }
+	private static boolean areParentChild(EditPart parent, EditPart child) {
+		for (EditPart part = child.getParent(); part != null; part = part.getParent()) {
+			if (part == parent) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -17,42 +17,42 @@ package org.eclipse.wb.internal.core.xml.editor;
  * @coverage XML.editor
  */
 public abstract class XmlEditorPage implements IXmlEditorPage {
-  protected AbstractXmlEditor m_editor;
-  protected boolean m_active;
+	protected AbstractXmlEditor m_editor;
+	protected boolean m_active;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initialize(AbstractXmlEditor editor) {
-    m_editor = editor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initialize(AbstractXmlEditor editor) {
+		m_editor = editor;
+	}
 
-  @Override
-  public void dispose() {
-  }
+	@Override
+	public void dispose() {
+	}
 
-  @Override
-  public void setActive(boolean active) {
-    m_active = active;
-  }
+	@Override
+	public void setActive(boolean active) {
+		m_active = active;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Page
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private int m_pageIndex;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Page
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private int m_pageIndex;
 
-  @Override
-  public int getPageIndex() {
-    return m_pageIndex;
-  }
+	@Override
+	public int getPageIndex() {
+		return m_pageIndex;
+	}
 
-  @Override
-  public void setPageIndex(int index) {
-    m_pageIndex = index;
-  }
+	@Override
+	public void setPageIndex(int index) {
+		m_pageIndex = index;
+	}
 }

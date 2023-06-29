@@ -20,9 +20,9 @@ import junit.framework.TestSuite;
  *
  */
 public class BindingTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.databinding");
-    suite.addTest(createSingleSuite(DatabindingsProviderTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.databinding");
+		suite.addTest(createSingleSuite(DatabindingsProviderTest.class));
+		return suite;
+	}
 }

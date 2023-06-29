@@ -30,28 +30,28 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public class NonResizableSelectionEditPolicy extends SelectionEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    handles.add(new MoveHandle(getHost()));
-    handles.add(createHandle(IPositionConstants.SOUTH_EAST));
-    handles.add(createHandle(IPositionConstants.SOUTH_WEST));
-    handles.add(createHandle(IPositionConstants.NORTH_WEST));
-    handles.add(createHandle(IPositionConstants.NORTH_EAST));
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		handles.add(new MoveHandle(getHost()));
+		handles.add(createHandle(IPositionConstants.SOUTH_EAST));
+		handles.add(createHandle(IPositionConstants.SOUTH_WEST));
+		handles.add(createHandle(IPositionConstants.NORTH_WEST));
+		handles.add(createHandle(IPositionConstants.NORTH_EAST));
+		return handles;
+	}
 
-  /**
-   * @return the {@link ResizeHandle} for given direction.
-   */
-  private Handle createHandle(int direction) {
-    ResizeHandle handle = new ResizeHandle(getHost(), direction);
-    handle.setDragTrackerTool(new ResizeTracker(direction, null));
-    return handle;
-  }
+	/**
+	 * @return the {@link ResizeHandle} for given direction.
+	 */
+	private Handle createHandle(int direction) {
+		ResizeHandle handle = new ResizeHandle(getHost(), direction);
+		handle.setDragTrackerTool(new ResizeTracker(direction, null));
+		return handle;
+	}
 }

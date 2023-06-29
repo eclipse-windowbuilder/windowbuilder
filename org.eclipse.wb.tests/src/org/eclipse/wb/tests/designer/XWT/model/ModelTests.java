@@ -26,20 +26,20 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class ModelTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model");
-    suite.addTest(createSingleSuite(XwtDescriptionProcessorTest.class));
-    suite.addTest(createSingleSuite(XwtTagResolverTest.class));
-    suite.addTest(createSingleSuite(XwtStringArraySupportTest.class));
-    suite.addTest(createSingleSuite(XwtStaticFieldSupportTest.class));
-    suite.addTest(createSingleSuite(NameSupportTest.class));
-    suite.addTest(createSingleSuite(NamePropertySupportTest.class));
-    suite.addTest(createSingleSuite(XwtListenerPropertiesTest.class));
-    suite.addTest(PropertyTests.suite());
-    suite.addTest(WidgetTests.suite());
-    suite.addTest(LayoutTests.suite());
-    suite.addTest(JFaceTests.suite());
-    suite.addTest(FormsTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model");
+		suite.addTest(createSingleSuite(XwtDescriptionProcessorTest.class));
+		suite.addTest(createSingleSuite(XwtTagResolverTest.class));
+		suite.addTest(createSingleSuite(XwtStringArraySupportTest.class));
+		suite.addTest(createSingleSuite(XwtStaticFieldSupportTest.class));
+		suite.addTest(createSingleSuite(NameSupportTest.class));
+		suite.addTest(createSingleSuite(NamePropertySupportTest.class));
+		suite.addTest(createSingleSuite(XwtListenerPropertiesTest.class));
+		suite.addTest(PropertyTests.suite());
+		suite.addTest(WidgetTests.suite());
+		suite.addTest(LayoutTests.suite());
+		suite.addTest(JFaceTests.suite());
+		suite.addTest(FormsTests.suite());
+		return suite;
+	}
 }

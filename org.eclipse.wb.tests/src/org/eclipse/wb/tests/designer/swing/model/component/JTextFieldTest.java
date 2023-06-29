@@ -21,28 +21,28 @@ import javax.swing.text.Document;
  * @author scheglov_ke
  */
 public class JTextFieldTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test that {@link JTextField} exposes model for {@link Document} using
-   * {@link JTextField#getDocument()}.
-   * <p>
-   * Disabled by Kosta 20090512.
-   */
-  public void test_exposedDocument() throws Exception {
-    parseContainer(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    JTextField textField = new JTextField();",
-        "    add(textField);",
-        "  }",
-        "}");
-    assertHierarchy(
-        "{this: javax.swing.JPanel} {this} {/add(textField)/}",
-        "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-        "  {new: javax.swing.JTextField} {local-unique: textField} {/new JTextField()/ /add(textField)/}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test that {@link JTextField} exposes model for {@link Document} using
+	 * {@link JTextField#getDocument()}.
+	 * <p>
+	 * Disabled by Kosta 20090512.
+	 */
+	public void test_exposedDocument() throws Exception {
+		parseContainer(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    JTextField textField = new JTextField();",
+				"    add(textField);",
+				"  }",
+				"}");
+		assertHierarchy(
+				"{this: javax.swing.JPanel} {this} {/add(textField)/}",
+				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
+				"  {new: javax.swing.JTextField} {local-unique: textField} {/new JTextField()/ /add(textField)/}");
+	}
 }

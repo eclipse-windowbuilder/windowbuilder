@@ -28,122 +28,122 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class TreeObservableLabelProviderInfo extends LabelProviderInfo {
-  private static final String PROVIDER_CLASS =
-      "org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider";
-  private final KnownElementsObservableInfo m_allElementsObservable;
-  private Class<?> m_elementType;
-  private String m_textProperty;
-  private String m_imageProperty;
+	private static final String PROVIDER_CLASS =
+			"org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider";
+	private final KnownElementsObservableInfo m_allElementsObservable;
+	private Class<?> m_elementType;
+	private String m_textProperty;
+	private String m_imageProperty;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TreeObservableLabelProviderInfo(String className,
-      KnownElementsObservableInfo allElementsObservable) {
-    super(className);
-    m_allElementsObservable = allElementsObservable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TreeObservableLabelProviderInfo(String className,
+			KnownElementsObservableInfo allElementsObservable) {
+		super(className);
+		m_allElementsObservable = allElementsObservable;
+	}
 
-  public TreeObservableLabelProviderInfo(KnownElementsObservableInfo allElementsObservable) {
-    this(PROVIDER_CLASS, allElementsObservable);
-  }
+	public TreeObservableLabelProviderInfo(KnownElementsObservableInfo allElementsObservable) {
+		this(PROVIDER_CLASS, allElementsObservable);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setElementType(Class<?> elementType) {
-    m_elementType = elementType;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setElementType(Class<?> elementType) {
+		m_elementType = elementType;
+	}
 
-  public Class<?> getElementType() {
-    return m_elementType;
-  }
+	public Class<?> getElementType() {
+		return m_elementType;
+	}
 
-  public KnownElementsObservableInfo getAllElementsObservable() {
-    return m_allElementsObservable;
-  }
+	public KnownElementsObservableInfo getAllElementsObservable() {
+		return m_allElementsObservable;
+	}
 
-  public String getTextProperty() {
-    return m_textProperty;
-  }
+	public String getTextProperty() {
+		return m_textProperty;
+	}
 
-  public void setTextProperty(String textProperty) throws Exception {
-    m_textProperty = textProperty;
-  }
+	public void setTextProperty(String textProperty) throws Exception {
+		m_textProperty = textProperty;
+	}
 
-  public String getImageProperty() {
-    return m_imageProperty;
-  }
+	public String getImageProperty() {
+		return m_imageProperty;
+	}
 
-  public void setImageProperty(String imageProperty) throws Exception {
-    m_imageProperty = imageProperty;
-  }
+	public void setImageProperty(String imageProperty) throws Exception {
+		m_imageProperty = imageProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configure(ChooseClassConfiguration configuration, boolean useClear) {
-    configuration.setValueScope(PROVIDER_CLASS);
-    if (useClear) {
-      configuration.setClearValue(PROVIDER_CLASS);
-    }
-    configuration.setBaseClassName(PROVIDER_CLASS);
-    configuration.setConstructorParameters(new Class[]{
-        IObservableSet.class,
-        Class.class,
-        String.class,
-        String.class});
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configure(ChooseClassConfiguration configuration, boolean useClear) {
+		configuration.setValueScope(PROVIDER_CLASS);
+		if (useClear) {
+			configuration.setClearValue(PROVIDER_CLASS);
+		}
+		configuration.setBaseClassName(PROVIDER_CLASS);
+		configuration.setConstructorParameters(new Class[]{
+				IObservableSet.class,
+				Class.class,
+				String.class,
+				String.class});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPresentationText() throws Exception {
-    return super.getPresentationText()
-        + "["
-        + CoreUtils.joinStrings(", ", m_textProperty, m_imageProperty)
-        + "]";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPresentationText() throws Exception {
+		return super.getPresentationText()
+				+ "["
+				+ CoreUtils.joinStrings(", ", m_textProperty, m_imageProperty)
+				+ "]";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    return "new "
-        + m_className
-        + "("
-        + m_allElementsObservable.getSourceCode()
-        + ", "
-        + CoreUtils.getClassName(m_elementType)
-        + ".class, "
-        + CoreUtils.getDefaultString(m_textProperty, "\"", "null")
-        + ", "
-        + CoreUtils.getDefaultString(m_imageProperty, "\"", "null")
-        + ")";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		return "new "
+				+ m_className
+				+ "("
+				+ m_allElementsObservable.getSourceCode()
+				+ ", "
+				+ CoreUtils.getClassName(m_elementType)
+				+ ".class, "
+				+ CoreUtils.getDefaultString(m_textProperty, "\"", "null")
+				+ ", "
+				+ CoreUtils.getDefaultString(m_imageProperty, "\"", "null")
+				+ ")";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Visiting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void accept(AstObjectInfoVisitor visitor) throws Exception {
-    super.accept(visitor);
-    m_allElementsObservable.accept(visitor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Visiting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void accept(AstObjectInfoVisitor visitor) throws Exception {
+		super.accept(visitor);
+		m_allElementsObservable.accept(visitor);
+	}
 }

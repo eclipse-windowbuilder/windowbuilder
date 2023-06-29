@@ -31,37 +31,37 @@ import java.util.Map;
  * @coverage swing.property.editor
  */
 public final class DisplayedMnemonicKeyPropertyEditor extends StaticFieldPropertyEditor {
-  public static final PropertyEditor INSTANCE = new DisplayedMnemonicKeyPropertyEditor();
+	public static final PropertyEditor INSTANCE = new DisplayedMnemonicKeyPropertyEditor();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DisplayedMnemonicKeyPropertyEditor() {
-    // prepare VK_ fields
-    final List<String> fieldNames = Lists.newArrayList();
-    for (Field field : KeyEvent.class.getFields()) {
-      String fieldName = field.getName();
-      if (fieldName.startsWith("VK_")) {
-        fieldNames.add(fieldName);
-      }
-    }
-    // do configure
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      public void run() throws Exception {
-        configure(KeyEvent.class, fieldNames.toArray(new String[fieldNames.size()]));
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DisplayedMnemonicKeyPropertyEditor() {
+		// prepare VK_ fields
+		final List<String> fieldNames = Lists.newArrayList();
+		for (Field field : KeyEvent.class.getFields()) {
+			String fieldName = field.getName();
+			if (fieldName.startsWith("VK_")) {
+				fieldNames.add(fieldName);
+			}
+		}
+		// do configure
+		ExecutionUtils.runRethrow(new RunnableEx() {
+			public void run() throws Exception {
+				configure(KeyEvent.class, fieldNames.toArray(new String[fieldNames.size()]));
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IConfigurablePropertyObject
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
-    // no external configuration supported
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IConfigurablePropertyObject
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
+		// no external configuration supported
+	}
 }

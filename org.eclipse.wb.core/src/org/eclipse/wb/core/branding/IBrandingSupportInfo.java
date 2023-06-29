@@ -17,13 +17,13 @@ package org.eclipse.wb.core.branding;
  * @coverage core.util
  */
 public interface IBrandingSupportInfo {
-  /**
-   * @return the url to bug-tracking system to search and/or submit the issue.
-   */
-  String getBugtrackingUrl();
+	/**
+	 * @return the url to bug-tracking system to search and/or submit the issue.
+	 */
+	String getBugtrackingUrl();
 
-  /**
-   * @return the url to discussion forum, mailing list or any other discussion platform.
-   */
-  String getForumUrl();
+	/**
+	 * @return the url to discussion forum, mailing list or any other discussion platform.
+	 */
+	String getForumUrl();
 }

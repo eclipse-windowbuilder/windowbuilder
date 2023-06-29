@@ -25,11 +25,11 @@ import java.util.List;
  * @coverage XML.model
  */
 public interface XmlObjectClipboardCopy {
-  /**
-   * @param object
-   *          the {@link XmlObjectInfo} that is in process of copying.
-   * @param commands
-   *          the {@link List} of {@link ClipboardCommand}'s to add new commands.
-   */
-  void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception;
+	/**
+	 * @param object
+	 *          the {@link XmlObjectInfo} that is in process of copying.
+	 * @param commands
+	 *          the {@link List} of {@link ClipboardCommand}'s to add new commands.
+	 */
+	void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception;
 }

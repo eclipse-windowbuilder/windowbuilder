@@ -29,63 +29,63 @@ import javax.swing.Box;
  * @coverage swing.gef.part
  */
 public final class BoxStrutVerticalEditPart extends BoxEditPart {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BoxStrutVerticalEditPart(ComponentInfo component) {
-    super(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BoxStrutVerticalEditPart(ComponentInfo component) {
+		super(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new StrutSelectionVerticalEditPolicy(m_component));
-    installEditPolicy(new StrutDirectVerticalEditPolicy(m_component));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new StrutSelectionVerticalEditPolicy(m_component));
+		installEditPolicy(new StrutDirectVerticalEditPolicy(m_component));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        Rectangle r = getClientArea();
-        draw(graphics, r);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				Rectangle r = getClientArea();
+				draw(graphics, r);
+			}
+		};
+	}
 
-  /**
-   * Draws vertical strut in given {@link Rectangle}.
-   */
-  static void draw(Graphics graphics, Rectangle r) {
-    int x = r.getCenter().x;
-    // draw strut
-    {
-      graphics.setForegroundColor(COLOR_SPRING);
-      graphics.drawLine(x - 1, r.top(), x - 1, r.bottom());
-      graphics.drawLine(x + 1, r.top(), x + 1, r.bottom());
-    }
-    // draw borders
-    {
-      graphics.setForegroundColor(COLOR_BORDER);
-      int x1 = x - SPRING_SIZE / 2;
-      int x2 = x + SPRING_SIZE / 2;
-      graphics.drawLine(x1, r.top() + 0, x2, r.top() + 0);
-      graphics.drawLine(x1, r.top() + 1, x2, r.top() + 1);
-      graphics.drawLine(x1, r.bottom() - 1, x2, r.bottom() - 1);
-      graphics.drawLine(x1, r.bottom() - 2, x2, r.bottom() - 2);
-    }
-  }
+	/**
+	 * Draws vertical strut in given {@link Rectangle}.
+	 */
+	static void draw(Graphics graphics, Rectangle r) {
+		int x = r.getCenter().x;
+		// draw strut
+		{
+			graphics.setForegroundColor(COLOR_SPRING);
+			graphics.drawLine(x - 1, r.top(), x - 1, r.bottom());
+			graphics.drawLine(x + 1, r.top(), x + 1, r.bottom());
+		}
+		// draw borders
+		{
+			graphics.setForegroundColor(COLOR_BORDER);
+			int x1 = x - SPRING_SIZE / 2;
+			int x2 = x + SPRING_SIZE / 2;
+			graphics.drawLine(x1, r.top() + 0, x2, r.top() + 0);
+			graphics.drawLine(x1, r.top() + 1, x2, r.top() + 1);
+			graphics.drawLine(x1, r.bottom() - 1, x2, r.bottom() - 1);
+			graphics.drawLine(x1, r.bottom() - 2, x2, r.bottom() - 2);
+		}
+	}
 }

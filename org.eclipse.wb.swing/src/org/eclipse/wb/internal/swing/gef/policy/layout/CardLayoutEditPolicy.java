@@ -25,64 +25,64 @@ import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
  * @coverage swing.gef.policy
  */
 public final class CardLayoutEditPolicy extends ComponentFlowLayoutEditPolicy {
-  private final CardLayoutInfo m_layout;
+	private final CardLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CardLayoutEditPolicy(CardLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CardLayoutEditPolicy(CardLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return true;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    if (editPart.getModel() instanceof ComponentInfo) {
-      ComponentInfo component = (ComponentInfo) editPart.getModel();
-      return m_layout.isManagedObject(component);
-    }
-    return false;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		if (editPart.getModel() instanceof ComponentInfo) {
+			ComponentInfo component = (ComponentInfo) editPart.getModel();
+			return m_layout.isManagedObject(component);
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void decorateChild(EditPart child) {
-    Object model = child.getModel();
-    if (m_layout.isManagedObject(model)) {
-      EditPolicy policy = new CardLayoutSelectionEditPolicy(m_layout);
-      child.installEditPolicy(EditPolicy.SELECTION_ROLE, policy);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void decorateChild(EditPart child) {
+		Object model = child.getModel();
+		if (m_layout.isManagedObject(model)) {
+			EditPolicy policy = new CardLayoutSelectionEditPolicy(m_layout);
+			child.installEditPolicy(EditPolicy.SELECTION_ROLE, policy);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ComponentInfo newObject, ComponentInfo referenceObject)
-      throws Exception {
-    m_layout.command_CREATE(newObject, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ComponentInfo newObject, ComponentInfo referenceObject)
+			throws Exception {
+		m_layout.command_CREATE(newObject, referenceObject);
+	}
 
-  @Override
-  protected void command_MOVE(ComponentInfo object, ComponentInfo referenceObject) throws Exception {
-    m_layout.command_MOVE(object, referenceObject);
-  }
+	@Override
+	protected void command_MOVE(ComponentInfo object, ComponentInfo referenceObject) throws Exception {
+		m_layout.command_MOVE(object, referenceObject);
+	}
 }

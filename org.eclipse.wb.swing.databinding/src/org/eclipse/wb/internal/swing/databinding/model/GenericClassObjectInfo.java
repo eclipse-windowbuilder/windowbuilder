@@ -22,34 +22,34 @@ import org.apache.commons.lang.ArrayUtils;
  * @coverage bindings.swing.model
  */
 public abstract class GenericClassObjectInfo extends SimpleClassObjectInfo {
-  private boolean m_generic;
+	private boolean m_generic;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenericClassObjectInfo(String abstractClassName) {
-    super(abstractClassName, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenericClassObjectInfo(String abstractClassName) {
+		super(abstractClassName, null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected boolean isGeneric() {
-    return m_generic;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected boolean isGeneric() {
+		return m_generic;
+	}
 
-  public void setClass(IGenericType type) {
-    setClassName(CoreUtils.getClassName(type.getRawType()));
-    m_generic = !(type.isEmpty() && ArrayUtils.isEmpty(type.getRawType().getTypeParameters()));
-  }
+	public void setClass(IGenericType type) {
+		setClassName(CoreUtils.getClassName(type.getRawType()));
+		m_generic = !(type.isEmpty() && ArrayUtils.isEmpty(type.getRawType().getTypeParameters()));
+	}
 
-  /**
-   * @return the array of generic type arguments.
-   */
-  @Override
-  protected abstract IGenericType[] getTypeArguments();
+	/**
+	 * @return the array of generic type arguments.
+	 */
+	@Override
+	protected abstract IGenericType[] getTypeArguments();
 }

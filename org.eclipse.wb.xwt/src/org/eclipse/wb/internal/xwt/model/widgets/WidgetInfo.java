@@ -31,63 +31,63 @@ import java.util.List;
  * @coverage XWT.model.widgets
  */
 public class WidgetInfo extends AbstractComponentInfo {
-  private final WidgetInfo m_this = this;
+	private final WidgetInfo m_this = this;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WidgetInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-    StylePropertyEditor.addStyleProperty(this);
-    // contribute context menu
-    addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void addContextMenu(List<? extends ObjectInfo> objects,
-          ObjectInfo object,
-          IMenuManager manager) throws Exception {
-        if (object == m_this) {
-          MorphingSupport.contribute("org.eclipse.swt.widgets.Widget", m_this, manager);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WidgetInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+		StylePropertyEditor.addStyleProperty(this);
+		// contribute context menu
+		addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void addContextMenu(List<? extends ObjectInfo> objects,
+					ObjectInfo object,
+					IMenuManager manager) throws Exception {
+				if (object == m_this) {
+					MorphingSupport.contribute("org.eclipse.swt.widgets.Widget", m_this, manager);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Widget} object.
-   */
-  public final Widget getWidget() {
-    return (Widget) getObject();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Widget} object.
+	 */
+	public final Widget getWidget() {
+		return (Widget) getObject();
+	}
 
-  /**
-   * @return the style of {@link Widget} object.
-   */
-  public final int getStyle() {
-    if (getWidget() != null) {
-      return getWidget().getStyle();
-    } else {
-      return getLiveComponentsManager().getStyle();
-    }
-  }
+	/**
+	 * @return the style of {@link Widget} object.
+	 */
+	public final int getStyle() {
+		if (getWidget() != null) {
+			return getWidget().getStyle();
+		} else {
+			return getLiveComponentsManager().getStyle();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // "Live" support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the instance of {@link XwtLiveManager} to fetch "live" data.
-   */
-  protected XwtLiveManager getLiveComponentsManager() {
-    return new XwtLiveManager(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// "Live" support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the instance of {@link XwtLiveManager} to fetch "live" data.
+	 */
+	protected XwtLiveManager getLiveComponentsManager() {
+		return new XwtLiveManager(this);
+	}
 }

@@ -21,38 +21,38 @@ import org.eclipse.wb.internal.swt.model.widgets.ShellInfo;
  * @coverage swt.gef.part
  */
 public class ShellEditPart extends CompositeEditPart {
-  private final ShellInfo m_shell;
+	private final ShellInfo m_shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ShellEditPart(ShellInfo shell) {
-    super(shell);
-    m_shell = shell;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ShellEditPart(ShellInfo shell) {
+		super(shell);
+		m_shell = shell;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    // support for dropping menu bar when this EditPart is Shell
-    if (canAcceptMenuBar()) {
-      installEditPolicy(new MenuBarDropLayoutEditPolicy(m_shell));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		// support for dropping menu bar when this EditPart is Shell
+		if (canAcceptMenuBar()) {
+			installEditPolicy(new MenuBarDropLayoutEditPolicy(m_shell));
+		}
+	}
 
-  private boolean canAcceptMenuBar() {
-    // sometimes Shell is exposed as part of complex object, for example ApplicationWindow
-    if (!m_shell.isRoot()) {
-      return false;
-    }
-    // OK
-    return true;
-  }
+	private boolean canAcceptMenuBar() {
+		// sometimes Shell is exposed as part of complex object, for example ApplicationWindow
+		if (!m_shell.isRoot()) {
+			return false;
+		}
+		// OK
+		return true;
+	}
 }

@@ -25,10 +25,10 @@ import org.eclipse.jdt.core.dom.Expression;
  * @coverage core.model.property.converter
  */
 public abstract class ExpressionConverter {
-  /**
-   * @return the Java source for {@link Expression} with given value. This Java source will be used
-   *         for adding to the AST of given {@link JavaInfo}, so {@link ExpressionConverter} should
-   *         do also any additional operation, for example import required classes.
-   */
-  public abstract String toJavaSource(JavaInfo javaInfo, Object value) throws Exception;
+	/**
+	 * @return the Java source for {@link Expression} with given value. This Java source will be used
+	 *         for adding to the AST of given {@link JavaInfo}, so {@link ExpressionConverter} should
+	 *         do also any additional operation, for example import required classes.
+	 */
+	public abstract String toJavaSource(JavaInfo javaInfo, Object value) throws Exception;
 }

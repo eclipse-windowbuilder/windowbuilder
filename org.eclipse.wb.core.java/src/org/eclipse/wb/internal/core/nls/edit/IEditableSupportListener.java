@@ -20,16 +20,16 @@ package org.eclipse.wb.internal.core.nls.edit;
  * @coverage core.nls
  */
 public abstract class IEditableSupportListener {
-  /**
-   * Sent when new editable source was added.
-   */
-  public void sourceAdded(IEditableSource source) {
-  }
+	/**
+	 * Sent when new editable source was added.
+	 */
+	public void sourceAdded(IEditableSource source) {
+	}
 
-  /**
-   * Sent when set of externalized properties was changed - some property was externalized or
-   * internalized.
-   */
-  public void externalizedPropertiesChanged() {
-  }
+	/**
+	 * Sent when set of externalized properties was changed - some property was externalized or
+	 * internalized.
+	 */
+	public void externalizedPropertiesChanged() {
+	}
 }

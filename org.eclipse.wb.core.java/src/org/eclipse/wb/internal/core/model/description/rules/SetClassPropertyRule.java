@@ -24,43 +24,43 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class SetClassPropertyRule extends Rule {
-  private final ClassLoader m_classLoader;
-  private final String m_attributeName;
-  private final String m_propertyName;
+	private final ClassLoader m_classLoader;
+	private final String m_attributeName;
+	private final String m_propertyName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetClassPropertyRule(ClassLoader classLoader, String propertyName) {
-    this(classLoader, propertyName, propertyName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetClassPropertyRule(ClassLoader classLoader, String propertyName) {
+		this(classLoader, propertyName, propertyName);
+	}
 
-  public SetClassPropertyRule(ClassLoader classLoader, String attributeName, String propertyName) {
-    m_classLoader = classLoader;
-    m_attributeName = attributeName;
-    m_propertyName = propertyName;
-  }
+	public SetClassPropertyRule(ClassLoader classLoader, String attributeName, String propertyName) {
+		m_classLoader = classLoader;
+		m_attributeName = attributeName;
+		m_propertyName = propertyName;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    // prepare class
-    Class<?> clazz;
-    {
-      String className = attributes.getValue(m_attributeName);
-      Assert.isNotNull(className);
-      clazz = ReflectionUtils.getClassByName(m_classLoader, className);
-    }
-    // set property
-    BeanUtilsBean.getInstance().getPropertyUtils().setProperty(
-        getDigester().peek(),
-        m_propertyName,
-        clazz);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		// prepare class
+		Class<?> clazz;
+		{
+			String className = attributes.getValue(m_attributeName);
+			Assert.isNotNull(className);
+			clazz = ReflectionUtils.getClassByName(m_classLoader, className);
+		}
+		// set property
+		BeanUtilsBean.getInstance().getPropertyUtils().setProperty(
+				getDigester().peek(),
+				m_propertyName,
+				clazz);
+	}
 }

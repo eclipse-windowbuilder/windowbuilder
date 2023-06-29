@@ -21,11 +21,11 @@ import org.eclipse.jface.action.IMenuManager;
  * @coverage core.editor.structure
  */
 public interface IPropertiesMenuContributor {
-  String GROUP_BASE = "org.eclipse.wb.component-properties.group.";
-  String GROUP_TOP = GROUP_BASE + "top";
-  String GROUP_EDIT = GROUP_BASE + "edit";
-  String GROUP_PRIORITY = GROUP_BASE + "priority";
-  String GROUP_ADDITIONAL = GROUP_BASE + "additional";
+	String GROUP_BASE = "org.eclipse.wb.component-properties.group.";
+	String GROUP_TOP = GROUP_BASE + "top";
+	String GROUP_EDIT = GROUP_BASE + "edit";
+	String GROUP_PRIORITY = GROUP_BASE + "priority";
+	String GROUP_ADDITIONAL = GROUP_BASE + "additional";
 
-  void contributeMenu(IMenuManager manager, Property property) throws Exception;
+	void contributeMenu(IMenuManager manager, Property property) throws Exception;
 }

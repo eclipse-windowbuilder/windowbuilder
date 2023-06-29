@@ -30,59 +30,59 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public class LayoutPolicyUtils2 {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Paste
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Command} that performs generic {@link JavaInfo} paste operation.
-   */
-  public static <T extends JavaInfo> Command getPasteCommand(final JavaInfo existingHierarchyObject,
-      final PasteRequest request,
-      final Class<T> componentClass,
-      final IPasteProcessor<T> processor) {
-    @SuppressWarnings("unchecked")
-    final List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Command>() {
-      @Override
-      public Command runObject() throws Exception {
-        // prepare models
-        final List<JavaInfo> components;
-        {
-          components = Lists.newArrayList();
-          for (JavaInfoMemento memento : mementos) {
-            JavaInfo javaInfo = memento.create(existingHierarchyObject);
-            if (componentClass.isAssignableFrom(javaInfo.getClass())) {
-              components.add(javaInfo);
-            } else {
-              return null;
-            }
-          }
-          // set objects for selection
-          request.setObjects(components);
-        }
-        // create command
-        return new EditCommand(existingHierarchyObject) {
-          @Override
-          @SuppressWarnings("unchecked")
-          protected void executeEdit() throws Exception {
-            for (int i = 0; i < components.size(); i++) {
-              processor.process((T) components.get(i));
-              mementos.get(i).apply();
-            }
-          }
-        };
-      }
-    }, null);
-  }
-  /**
-   * Performs some concrete operation during {@link JavaInfo} pasting.
-   */
-  public interface IPasteProcessor<T extends JavaInfo> {
-    /**
-     * Performs some action for given {@link JavaInfo} (in most case - adds given component).
-     */
-    void process(T component) throws Exception;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Paste
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Command} that performs generic {@link JavaInfo} paste operation.
+	 */
+	public static <T extends JavaInfo> Command getPasteCommand(final JavaInfo existingHierarchyObject,
+			final PasteRequest request,
+			final Class<T> componentClass,
+			final IPasteProcessor<T> processor) {
+		@SuppressWarnings("unchecked")
+		final List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Command>() {
+			@Override
+			public Command runObject() throws Exception {
+				// prepare models
+				final List<JavaInfo> components;
+				{
+					components = Lists.newArrayList();
+					for (JavaInfoMemento memento : mementos) {
+						JavaInfo javaInfo = memento.create(existingHierarchyObject);
+						if (componentClass.isAssignableFrom(javaInfo.getClass())) {
+							components.add(javaInfo);
+						} else {
+							return null;
+						}
+					}
+					// set objects for selection
+					request.setObjects(components);
+				}
+				// create command
+				return new EditCommand(existingHierarchyObject) {
+					@Override
+					@SuppressWarnings("unchecked")
+					protected void executeEdit() throws Exception {
+						for (int i = 0; i < components.size(); i++) {
+							processor.process((T) components.get(i));
+							mementos.get(i).apply();
+						}
+					}
+				};
+			}
+		}, null);
+	}
+	/**
+	 * Performs some concrete operation during {@link JavaInfo} pasting.
+	 */
+	public interface IPasteProcessor<T extends JavaInfo> {
+		/**
+		 * Performs some action for given {@link JavaInfo} (in most case - adds given component).
+		 */
+		void process(T component) throws Exception;
+	}
 }

@@ -21,9 +21,9 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class SupportTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.support");
-    suite.addTest(createSingleSuite(CoordinateUtilsTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.support");
+		suite.addTest(createSingleSuite(CoordinateUtilsTest.class));
+		return suite;
+	}
 }

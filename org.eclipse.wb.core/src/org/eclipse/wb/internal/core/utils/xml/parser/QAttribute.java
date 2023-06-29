@@ -17,70 +17,70 @@ package org.eclipse.wb.internal.core.utils.xml.parser;
  * @coverage core.util.xml
  */
 public final class QAttribute {
-  private String m_name;
-  private int m_nameOffset;
-  private int m_nameLength;
+	private String m_name;
+	private int m_nameOffset;
+	private int m_nameLength;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Name
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getName() {
-    return m_name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Name
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getName() {
+		return m_name;
+	}
 
-  public int getNameOffset() {
-    return m_nameOffset;
-  }
+	public int getNameOffset() {
+		return m_nameOffset;
+	}
 
-  public int getNameLength() {
-    return m_nameLength;
-  }
+	public int getNameLength() {
+		return m_nameLength;
+	}
 
-  void setName(String name) {
-    m_name = name;
-  }
+	void setName(String name) {
+		m_name = name;
+	}
 
-  void setNameOffset(int nameOffset) {
-    m_nameOffset = nameOffset;
-  }
+	void setNameOffset(int nameOffset) {
+		m_nameOffset = nameOffset;
+	}
 
-  void setNameEndOffset(int endOffset) {
-    m_nameLength = endOffset - m_nameOffset;
-  }
+	void setNameEndOffset(int endOffset) {
+		m_nameLength = endOffset - m_nameOffset;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_value;
-  private int m_valueOffset;
-  private int m_valueLength;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_value;
+	private int m_valueOffset;
+	private int m_valueLength;
 
-  //
-  public String getValue() {
-    return m_value;
-  }
+	//
+	public String getValue() {
+		return m_value;
+	}
 
-  public int getValueOffset() {
-    return m_valueOffset;
-  }
+	public int getValueOffset() {
+		return m_valueOffset;
+	}
 
-  public int getValueLength() {
-    return m_valueLength;
-  }
+	public int getValueLength() {
+		return m_valueLength;
+	}
 
-  void setValue(String value) {
-    m_value = value;
-  }
+	void setValue(String value) {
+		m_value = value;
+	}
 
-  void setValueOffset(int valueOffset) {
-    m_valueOffset = valueOffset;
-  }
+	void setValueOffset(int valueOffset) {
+		m_valueOffset = valueOffset;
+	}
 
-  void setValueEndOffset(int endOffset) {
-    m_valueLength = endOffset - m_valueOffset;
-  }
+	void setValueEndOffset(int endOffset) {
+		m_valueLength = endOffset - m_valueOffset;
+	}
 }

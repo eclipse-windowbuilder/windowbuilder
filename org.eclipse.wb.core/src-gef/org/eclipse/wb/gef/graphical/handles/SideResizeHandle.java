@@ -26,68 +26,68 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage gef.graphical
  */
 public class SideResizeHandle extends Handle {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SideResizeHandle(GraphicalEditPart owner, int side, int width, boolean center) {
-    super(owner, new ResizeHandleLocator(owner.getFigure(), side, width, center));
-    if (side == IPositionConstants.LEFT || side == IPositionConstants.RIGHT) {
-      setCursor(ICursorConstants.SIZEE);
-    } else {
-      setCursor(ICursorConstants.SIZEN);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SideResizeHandle(GraphicalEditPart owner, int side, int width, boolean center) {
+		super(owner, new ResizeHandleLocator(owner.getFigure(), side, width, center));
+		if (side == IPositionConstants.LEFT || side == IPositionConstants.RIGHT) {
+			setCursor(ICursorConstants.SIZEE);
+		} else {
+			setCursor(ICursorConstants.SIZEN);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Locator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static class ResizeHandleLocator implements ILocator {
-    private final Figure m_reference;
-    private final int m_side;
-    private final int m_width;
-    private final boolean m_center;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Locator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static class ResizeHandleLocator implements ILocator {
+		private final Figure m_reference;
+		private final int m_side;
+		private final int m_width;
+		private final boolean m_center;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public ResizeHandleLocator(Figure reference, int side, int width, boolean center) {
-      m_reference = reference;
-      m_side = side;
-      m_width = width;
-      m_center = center;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public ResizeHandleLocator(Figure reference, int side, int width, boolean center) {
+			m_reference = reference;
+			m_side = side;
+			m_width = width;
+			m_center = center;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // ILocator
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void relocate(Figure target) {
-      Rectangle bounds = m_reference.getBounds().getCopy();
-      FigureUtils.translateFigureToFigure(m_reference, target, bounds);
-      //
-      int locationOffset = m_center ? m_width / 2 : m_width;
-      if (m_side == IPositionConstants.LEFT) {
-        bounds.x -= locationOffset;
-        bounds.width = m_width;
-      } else if (m_side == IPositionConstants.RIGHT) {
-        bounds.x = bounds.right() - locationOffset;
-        bounds.width = m_width;
-      } else if (m_side == IPositionConstants.TOP) {
-        bounds.y -= locationOffset;
-        bounds.height = m_width;
-      } else {
-        bounds.y = bounds.bottom() - locationOffset;
-        bounds.height = m_width;
-      }
-      target.setBounds(bounds);
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// ILocator
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public void relocate(Figure target) {
+			Rectangle bounds = m_reference.getBounds().getCopy();
+			FigureUtils.translateFigureToFigure(m_reference, target, bounds);
+			//
+			int locationOffset = m_center ? m_width / 2 : m_width;
+			if (m_side == IPositionConstants.LEFT) {
+				bounds.x -= locationOffset;
+				bounds.width = m_width;
+			} else if (m_side == IPositionConstants.RIGHT) {
+				bounds.x = bounds.right() - locationOffset;
+				bounds.width = m_width;
+			} else if (m_side == IPositionConstants.TOP) {
+				bounds.y -= locationOffset;
+				bounds.height = m_width;
+			} else {
+				bounds.y = bounds.bottom() - locationOffset;
+				bounds.height = m_width;
+			}
+			target.setBounds(bounds);
+		}
+	}
 }

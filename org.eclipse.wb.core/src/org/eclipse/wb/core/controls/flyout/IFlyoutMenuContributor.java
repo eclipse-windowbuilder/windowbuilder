@@ -19,5 +19,5 @@ import org.eclipse.jface.action.IMenuManager;
  * @coverage core.control
  */
 public interface IFlyoutMenuContributor {
-  void contribute(IMenuManager manager);
+	void contribute(IMenuManager manager);
 }

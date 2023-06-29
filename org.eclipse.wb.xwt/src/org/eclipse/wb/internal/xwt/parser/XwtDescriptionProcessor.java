@@ -37,131 +37,131 @@ import java.util.List;
  * @coverage XWT.parser
  */
 public class XwtDescriptionProcessor implements IDescriptionProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IDescriptionProcessor INSTANCE = new XwtDescriptionProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IDescriptionProcessor INSTANCE = new XwtDescriptionProcessor();
 
-  private XwtDescriptionProcessor() {
-  }
+	private XwtDescriptionProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDescriptionProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void process(EditorContext context, ComponentDescription componentDescription)
-      throws Exception {
-    if (isXWT(context)) {
-      useObjectPropertyEditor(componentDescription);
-      addProperties_TableViewerColumn(componentDescription);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDescriptionProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void process(EditorContext context, ComponentDescription componentDescription)
+			throws Exception {
+		if (isXWT(context)) {
+			useObjectPropertyEditor(componentDescription);
+			addProperties_TableViewerColumn(componentDescription);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given {@link XmlObjectInfo} is XWT.
-   */
-  public static boolean isXWT(XmlObjectInfo object) {
-    EditorContext context = object.getContext();
-    return isXWT(context);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given {@link XmlObjectInfo} is XWT.
+	 */
+	public static boolean isXWT(XmlObjectInfo object) {
+		EditorContext context = object.getContext();
+		return isXWT(context);
+	}
 
-  /**
-   * @return <code>true</code> if given {@link EditorContext} is XWT.
-   */
-  public static boolean isXWT(EditorContext context) {
-    return context.getToolkit().getId().equals("org.eclipse.wb.rcp");
-  }
+	/**
+	 * @return <code>true</code> if given {@link EditorContext} is XWT.
+	 */
+	public static boolean isXWT(EditorContext context) {
+		return context.getToolkit().getId().equals("org.eclipse.wb.rcp");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Use {@link ObjectPropertyEditor} to select {@link Widget} model.
-   */
-  private void useObjectPropertyEditor(ComponentDescription componentDescription) {
-    List<GenericPropertyDescription> properties = componentDescription.getProperties();
-    for (GenericPropertyDescription property : properties) {
-      if (property.getEditor() == null
-          && ReflectionUtils.isSuccessorOf(property.getType(), "org.eclipse.swt.widgets.Widget")) {
-        property.setEditor(ObjectPropertyEditor.INSTANCE);
-        property.setCategory(PropertyCategory.ADVANCED);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Use {@link ObjectPropertyEditor} to select {@link Widget} model.
+	 */
+	private void useObjectPropertyEditor(ComponentDescription componentDescription) {
+		List<GenericPropertyDescription> properties = componentDescription.getProperties();
+		for (GenericPropertyDescription property : properties) {
+			if (property.getEditor() == null
+					&& ReflectionUtils.isSuccessorOf(property.getType(), "org.eclipse.swt.widgets.Widget")) {
+				property.setEditor(ObjectPropertyEditor.INSTANCE);
+				property.setCategory(PropertyCategory.ADVANCED);
+			}
+		}
+	}
 
-  private void addProperties_TableViewerColumn(ComponentDescription componentDescription)
-      throws Exception {
-    if (componentDescription.getComponentClass() != TableViewerColumn.class) {
-      return;
-    }
-    // make other properties "normal"
-    for (GenericPropertyDescription property : componentDescription.getProperties()) {
-      if (property.getCategory().isPreferred()) {
-        property.setCategory(PropertyCategory.NORMAL);
-      }
-    }
-    // text
-    {
-      GenericPropertyDescription property =
-          createPropertyDescription(
-              "text",
-              "Sets the column text.",
-              String.class,
-              "object.column.text");
-      property.putTag("isText", "true");
-      property.setCategory(PropertyCategory.PREFERRED);
-      componentDescription.addProperty(property);
-    }
-    // width
-    {
-      GenericPropertyDescription property =
-          createPropertyDescription(
-              "width",
-              "Sets the column width in pixels.",
-              int.class,
-              "object.column.width");
-      property.setCategory(PropertyCategory.PREFERRED);
-      componentDescription.addProperty(property);
-    }
-  }
+	private void addProperties_TableViewerColumn(ComponentDescription componentDescription)
+			throws Exception {
+		if (componentDescription.getComponentClass() != TableViewerColumn.class) {
+			return;
+		}
+		// make other properties "normal"
+		for (GenericPropertyDescription property : componentDescription.getProperties()) {
+			if (property.getCategory().isPreferred()) {
+				property.setCategory(PropertyCategory.NORMAL);
+			}
+		}
+		// text
+		{
+			GenericPropertyDescription property =
+					createPropertyDescription(
+							"text",
+							"Sets the column text.",
+							String.class,
+							"object.column.text");
+			property.putTag("isText", "true");
+			property.setCategory(PropertyCategory.PREFERRED);
+			componentDescription.addProperty(property);
+		}
+		// width
+		{
+			GenericPropertyDescription property =
+					createPropertyDescription(
+							"width",
+							"Sets the column width in pixels.",
+							int.class,
+							"object.column.width");
+			property.setCategory(PropertyCategory.PREFERRED);
+			componentDescription.addProperty(property);
+		}
+	}
 
-  private GenericPropertyDescription createPropertyDescription(String attribute,
-      final String tooltip,
-      Class<?> type,
-      final String script) throws Exception {
-    ExpressionAccessor accessor = new ExpressionAccessor(attribute) {
-      @Override
-      public Object getDefaultValue(XmlObjectInfo object) throws Exception {
-        return ScriptUtils.evaluate(script, object);
-      }
+	private GenericPropertyDescription createPropertyDescription(String attribute,
+			final String tooltip,
+			Class<?> type,
+			final String script) throws Exception {
+		ExpressionAccessor accessor = new ExpressionAccessor(attribute) {
+			@Override
+			public Object getDefaultValue(XmlObjectInfo object) throws Exception {
+				return ScriptUtils.evaluate(script, object);
+			}
 
-      @Override
-      public <T> T getAdapter(Class<T> adapter) {
-        if (adapter == PropertyTooltipProvider.class) {
-          return adapter.cast(new PropertyTooltipTextProvider() {
-            @Override
-            protected String getText(Property property) throws Exception {
-              return tooltip;
-            }
-          });
-        }
-        return super.getAdapter(adapter);
-      }
-    };
-    GenericPropertyDescription property =
-        new GenericPropertyDescription(attribute, attribute, type, accessor);
-    property.setConverter(DescriptionPropertiesHelper.getConverterForType(type));
-    property.setEditor(DescriptionPropertiesHelper.getEditorForType(type));
-    return property;
-  }
+			@Override
+			public <T> T getAdapter(Class<T> adapter) {
+				if (adapter == PropertyTooltipProvider.class) {
+					return adapter.cast(new PropertyTooltipTextProvider() {
+						@Override
+						protected String getText(Property property) throws Exception {
+							return tooltip;
+						}
+					});
+				}
+				return super.getAdapter(adapter);
+			}
+		};
+		GenericPropertyDescription property =
+				new GenericPropertyDescription(attribute, attribute, type, accessor);
+		property.setConverter(DescriptionPropertiesHelper.getConverterForType(type));
+		property.setEditor(DescriptionPropertiesHelper.getEditorForType(type));
+		return property;
+	}
 }

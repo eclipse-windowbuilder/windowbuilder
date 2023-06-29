@@ -22,35 +22,35 @@ import org.eclipse.jdt.core.dom.Expression;
  * @coverage core.nls
  */
 public abstract class AbstractPureBundleSource extends AbstractBundleSource {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractPureBundleSource(JavaInfo root, String bundleName) throws Exception {
-    super(root, bundleName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractPureBundleSource(JavaInfo root, String bundleName) throws Exception {
+		super(root, bundleName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final String getValue(Expression expression) throws Exception {
-    // prepare key
-    BasicExpressionInfo expressionInfo = getBasicExpressionInfo(expression);
-    String key = expressionInfo.m_key;
-    // return value from bundle
-    return getValue(key);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final String getValue(Expression expression) throws Exception {
+		// prepare key
+		BasicExpressionInfo expressionInfo = getBasicExpressionInfo(expression);
+		String key = expressionInfo.m_key;
+		// return value from bundle
+		return getValue(key);
+	}
 
-  @Override
-  public final void setValue(Expression expression, String value) throws Exception {
-    // prepare key
-    BasicExpressionInfo expressionInfo = getBasicExpressionInfo(expression);
-    String key = expressionInfo.m_key;
-    // change value in bundle
-    setValueInBundle(key, value);
-  }
+	@Override
+	public final void setValue(Expression expression, String value) throws Exception {
+		// prepare key
+		BasicExpressionInfo expressionInfo = getBasicExpressionInfo(expression);
+		String key = expressionInfo.m_key;
+		// change value in bundle
+		setValueInBundle(key, value);
+	}
 }

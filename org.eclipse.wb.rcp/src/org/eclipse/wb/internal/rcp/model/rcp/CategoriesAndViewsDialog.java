@@ -72,472 +72,472 @@ import java.util.List;
  * @coverage rcp.model.rcp
  */
 public class CategoriesAndViewsDialog extends ResizableDialog {
-  private static final Object OTHER_CATEGORY = new Object();
-  private final PdeUtils m_utils;
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private TreeViewer m_viewer;
-  private ViewsContentProvider m_contentProvider;
-  private Tree m_tree;
-  private Button m_newCategoryButton;
-  private Button m_editCategoryButton;
-  private Button m_removeCategoryButton;
+	private static final Object OTHER_CATEGORY = new Object();
+	private final PdeUtils m_utils;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private TreeViewer m_viewer;
+	private ViewsContentProvider m_contentProvider;
+	private Tree m_tree;
+	private Button m_newCategoryButton;
+	private Button m_editCategoryButton;
+	private Button m_removeCategoryButton;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CategoriesAndViewsDialog(Shell parentShell, PdeUtils utils) {
-    super(parentShell, Activator.getDefault());
-    m_utils = utils;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CategoriesAndViewsDialog(Shell parentShell, PdeUtils utils) {
+		super(parentShell, Activator.getDefault());
+		m_utils = utils;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Control createDialogArea(Composite parent) {
-    Composite container = (Composite) super.createDialogArea(parent);
-    GridLayoutFactory.create(container).columns(2);
-    // title label
-    {
-      Label label = new Label(container, SWT.NONE);
-      GridDataFactory.create(label).spanH(2);
-      label.setText(ModelMessages.CategoriesAndViewsDialog_viewerTitle);
-    }
-    // viewer with categories/views
-    {
-      m_viewer = new TreeViewer(container, SWT.BORDER);
-      m_tree = m_viewer.getTree();
-      GridDataFactory.create(m_tree).grab().fill().hintC(50, 20);
-      m_contentProvider = new ViewsContentProvider();
-      m_viewer.setContentProvider(m_contentProvider);
-      m_viewer.setLabelProvider(new ViewsLabelProvider());
-      m_viewer.setComparator(new ViewerComparator());
-      setPluginElementComparer();
-      m_viewer.setInput("myInput");
-      // events
-      m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-        @Override
-        public void selectionChanged(SelectionChangedEvent event) {
-          onSelectionChanged();
-        }
-      });
-      m_viewer.addDoubleClickListener(new IDoubleClickListener() {
-        @Override
-        public void doubleClick(DoubleClickEvent event) {
-          if (m_editCategoryButton.isEnabled()) {
-            editCategory();
-          }
-        }
-      });
-      // DND
-      setupDragAndDropSupport();
-    }
-    // buttons
-    {
-      Composite buttonsComposite = new Composite(container, SWT.NONE);
-      GridDataFactory.create(buttonsComposite).alignVT();
-      GridLayoutFactory.create(buttonsComposite).noMargins();
-      {
-        m_newCategoryButton = new Button(buttonsComposite, SWT.NONE);
-        GridDataFactory.create(m_newCategoryButton).grabH().fillH();
-        m_newCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_newCategoryButton);
-        m_newCategoryButton.addListener(SWT.Selection, new Listener() {
-          @Override
-          public void handleEvent(Event event) {
-            newCategory();
-          }
-        });
-      }
-      {
-        m_editCategoryButton = new Button(buttonsComposite, SWT.NONE);
-        GridDataFactory.create(m_editCategoryButton).grabH().fillH();
-        m_editCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_editCategoryButton);
-        m_editCategoryButton.addListener(SWT.Selection, new Listener() {
-          @Override
-          public void handleEvent(Event event) {
-            editCategory();
-          }
-        });
-      }
-      {
-        m_removeCategoryButton = new Button(buttonsComposite, SWT.NONE);
-        GridDataFactory.create(m_removeCategoryButton).grabH().fillH();
-        m_removeCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_removeCategoryButton);
-        m_removeCategoryButton.addListener(SWT.Selection, new Listener() {
-          @Override
-          public void handleEvent(Event event) {
-            removeCategory();
-          }
-        });
-      }
-    }
-    // hint label
-    {
-      Label label = new Label(container, SWT.WRAP);
-      GridDataFactory.create(label).grabH().fillH().spanH(2).hintHC(60);
-      label.setText(ModelMessages.CategoriesAndViewsDialog_hintText);
-    }
-    // done
-    return container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		Composite container = (Composite) super.createDialogArea(parent);
+		GridLayoutFactory.create(container).columns(2);
+		// title label
+		{
+			Label label = new Label(container, SWT.NONE);
+			GridDataFactory.create(label).spanH(2);
+			label.setText(ModelMessages.CategoriesAndViewsDialog_viewerTitle);
+		}
+		// viewer with categories/views
+		{
+			m_viewer = new TreeViewer(container, SWT.BORDER);
+			m_tree = m_viewer.getTree();
+			GridDataFactory.create(m_tree).grab().fill().hintC(50, 20);
+			m_contentProvider = new ViewsContentProvider();
+			m_viewer.setContentProvider(m_contentProvider);
+			m_viewer.setLabelProvider(new ViewsLabelProvider());
+			m_viewer.setComparator(new ViewerComparator());
+			setPluginElementComparer();
+			m_viewer.setInput("myInput");
+			// events
+			m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+				@Override
+				public void selectionChanged(SelectionChangedEvent event) {
+					onSelectionChanged();
+				}
+			});
+			m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+				@Override
+				public void doubleClick(DoubleClickEvent event) {
+					if (m_editCategoryButton.isEnabled()) {
+						editCategory();
+					}
+				}
+			});
+			// DND
+			setupDragAndDropSupport();
+		}
+		// buttons
+		{
+			Composite buttonsComposite = new Composite(container, SWT.NONE);
+			GridDataFactory.create(buttonsComposite).alignVT();
+			GridLayoutFactory.create(buttonsComposite).noMargins();
+			{
+				m_newCategoryButton = new Button(buttonsComposite, SWT.NONE);
+				GridDataFactory.create(m_newCategoryButton).grabH().fillH();
+				m_newCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_newCategoryButton);
+				m_newCategoryButton.addListener(SWT.Selection, new Listener() {
+					@Override
+					public void handleEvent(Event event) {
+						newCategory();
+					}
+				});
+			}
+			{
+				m_editCategoryButton = new Button(buttonsComposite, SWT.NONE);
+				GridDataFactory.create(m_editCategoryButton).grabH().fillH();
+				m_editCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_editCategoryButton);
+				m_editCategoryButton.addListener(SWT.Selection, new Listener() {
+					@Override
+					public void handleEvent(Event event) {
+						editCategory();
+					}
+				});
+			}
+			{
+				m_removeCategoryButton = new Button(buttonsComposite, SWT.NONE);
+				GridDataFactory.create(m_removeCategoryButton).grabH().fillH();
+				m_removeCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_removeCategoryButton);
+				m_removeCategoryButton.addListener(SWT.Selection, new Listener() {
+					@Override
+					public void handleEvent(Event event) {
+						removeCategory();
+					}
+				});
+			}
+		}
+		// hint label
+		{
+			Label label = new Label(container, SWT.WRAP);
+			GridDataFactory.create(label).grabH().fillH().spanH(2).hintHC(60);
+			label.setText(ModelMessages.CategoriesAndViewsDialog_hintText);
+		}
+		// done
+		return container;
+	}
 
-  @Override
-  protected void configureShell(Shell newShell) {
-    super.configureShell(newShell);
-    newShell.setText(ModelMessages.CategoriesAndViewsDialog_title);
-  }
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText(ModelMessages.CategoriesAndViewsDialog_title);
+	}
 
-  @Override
-  protected void createButtonsForButtonBar(Composite parent) {
-    createButton(parent, IDialogConstants.OK_ID, IDialogConstants.CLOSE_LABEL, false);
-  }
+	@Override
+	protected void createButtonsForButtonBar(Composite parent) {
+		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.CLOSE_LABEL, false);
+	}
 
-  /**
-   * {@link IPluginElement#equals(Object)} has bug, see
-   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=259761 So we have to use our own
-   * {@link IElementComparer}.
-   */
-  private void setPluginElementComparer() {
-    m_viewer.setComparer(new IElementComparer() {
-      @Override
-      public int hashCode(Object element) {
-        return 0;
-      }
+	/**
+	 * {@link IPluginElement#equals(Object)} has bug, see
+	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=259761 So we have to use our own
+	 * {@link IElementComparer}.
+	 */
+	private void setPluginElementComparer() {
+		m_viewer.setComparer(new IElementComparer() {
+			@Override
+			public int hashCode(Object element) {
+				return 0;
+			}
 
-      @Override
-      public boolean equals(Object a, Object b) {
-        if (a instanceof IPluginElement && b instanceof IPluginElement) {
-          IPluginElement elementA = (IPluginElement) a;
-          IPluginElement elementB = (IPluginElement) b;
-          String idA = PdeUtils.getAttribute(elementA, "id");
-          String idB = PdeUtils.getAttribute(elementB, "id");
-          return ObjectUtils.equals(idA, idB);
-        }
-        return a == null ? b == null : a.equals(b);
-      }
-    });
-  }
+			@Override
+			public boolean equals(Object a, Object b) {
+				if (a instanceof IPluginElement && b instanceof IPluginElement) {
+					IPluginElement elementA = (IPluginElement) a;
+					IPluginElement elementB = (IPluginElement) b;
+					String idA = PdeUtils.getAttribute(elementA, "id");
+					String idB = PdeUtils.getAttribute(elementB, "id");
+					return ObjectUtils.equals(idA, idB);
+				}
+				return a == null ? b == null : a.equals(b);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Views drag and drop
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void setupDragAndDropSupport() {
-    final IPluginElement dragElement[] = new IPluginElement[1];
-    int ops = DND.DROP_MOVE;
-    Transfer[] transfers = new Transfer[]{EmptyTransfer.INSTANCE};
-    // drag
-    m_viewer.addDragSupport(ops, transfers, new DragSourceAdapter() {
-      @Override
-      public void dragStart(DragSourceEvent event) {
-        IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
-        if (selection.isEmpty() || !(selection.getFirstElement() instanceof IPluginElement)) {
-          event.doit = false;
-          return;
-        }
-        dragElement[0] = (IPluginElement) selection.getFirstElement();
-        event.doit = dragElement[0].getName().equals("view");
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Views drag and drop
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void setupDragAndDropSupport() {
+		final IPluginElement dragElement[] = new IPluginElement[1];
+		int ops = DND.DROP_MOVE;
+		Transfer[] transfers = new Transfer[]{EmptyTransfer.INSTANCE};
+		// drag
+		m_viewer.addDragSupport(ops, transfers, new DragSourceAdapter() {
+			@Override
+			public void dragStart(DragSourceEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
+				if (selection.isEmpty() || !(selection.getFirstElement() instanceof IPluginElement)) {
+					event.doit = false;
+					return;
+				}
+				dragElement[0] = (IPluginElement) selection.getFirstElement();
+				event.doit = dragElement[0].getName().equals("view");
+			}
 
-      @Override
-      public void dragSetData(DragSourceEvent event) {
-      }
+			@Override
+			public void dragSetData(DragSourceEvent event) {
+			}
 
-      @Override
-      public void dragFinished(DragSourceEvent event) {
-      }
-    });
-    // drop
-    ViewerDropAdapter adapter = new ViewerDropAdapter(m_viewer) {
-      private int m_location;
-      private Object m_target;
+			@Override
+			public void dragFinished(DragSourceEvent event) {
+			}
+		});
+		// drop
+		ViewerDropAdapter adapter = new ViewerDropAdapter(m_viewer) {
+			private int m_location;
+			private Object m_target;
 
-      @Override
-      protected int determineLocation(DropTargetEvent event) {
-        m_location = super.determineLocation(event);
-        if (m_location == LOCATION_AFTER || m_location == LOCATION_BEFORE) {
-          m_location = LOCATION_ON;
-        }
-        return m_location;
-      }
+			@Override
+			protected int determineLocation(DropTargetEvent event) {
+				m_location = super.determineLocation(event);
+				if (m_location == LOCATION_AFTER || m_location == LOCATION_BEFORE) {
+					m_location = LOCATION_ON;
+				}
+				return m_location;
+			}
 
-      @Override
-      public boolean validateDrop(Object target, int operation, TransferData transferType) {
-        m_target = target;
-        // check for category "other"
-        if (target == OTHER_CATEGORY) {
-          return true;
-        }
-        // check for some category
-        if (target instanceof IPluginElement) {
-          IPluginElement targetElement = (IPluginElement) target;
-          return isCategoryElement(targetElement);
-        }
-        //
-        return false;
-      }
+			@Override
+			public boolean validateDrop(Object target, int operation, TransferData transferType) {
+				m_target = target;
+				// check for category "other"
+				if (target == OTHER_CATEGORY) {
+					return true;
+				}
+				// check for some category
+				if (target instanceof IPluginElement) {
+					IPluginElement targetElement = (IPluginElement) target;
+					return isCategoryElement(targetElement);
+				}
+				//
+				return false;
+			}
 
-      @Override
-      public boolean performDrop(Object data) {
-        // update "category" attribute of moved "view"
-        ExecutionUtils.runLog(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            if (m_target == OTHER_CATEGORY) {
-              m_utils.setAttribute(dragElement[0], "category", null);
-            } else if (m_target instanceof IPluginElement) {
-              IPluginElement targetElement = (IPluginElement) m_target;
-              String categoryId = PdeUtils.getAttribute(targetElement, "id");
-              m_utils.setAttribute(dragElement[0], "category", categoryId);
-            }
-          }
-        });
-        // show and select dragged object
-        {
-          m_viewer.refresh();
-          m_viewer.setExpandedState(m_target, true);
-          m_viewer.setSelection(new StructuredSelection(dragElement[0]));
-        }
-        return true;
-      }
-    };
-    adapter.setFeedbackEnabled(true);
-    m_viewer.addDropSupport(ops | DND.DROP_DEFAULT, transfers, adapter);
-  }
+			@Override
+			public boolean performDrop(Object data) {
+				// update "category" attribute of moved "view"
+				ExecutionUtils.runLog(new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						if (m_target == OTHER_CATEGORY) {
+							m_utils.setAttribute(dragElement[0], "category", null);
+						} else if (m_target instanceof IPluginElement) {
+							IPluginElement targetElement = (IPluginElement) m_target;
+							String categoryId = PdeUtils.getAttribute(targetElement, "id");
+							m_utils.setAttribute(dragElement[0], "category", categoryId);
+						}
+					}
+				});
+				// show and select dragged object
+				{
+					m_viewer.refresh();
+					m_viewer.setExpandedState(m_target, true);
+					m_viewer.setSelection(new StructuredSelection(dragElement[0]));
+				}
+				return true;
+			}
+		};
+		adapter.setFeedbackEnabled(true);
+		m_viewer.addDropSupport(ops | DND.DROP_DEFAULT, transfers, adapter);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Events handling
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void onSelectionChanged() {
-    m_editCategoryButton.setEnabled(false);
-    m_removeCategoryButton.setEnabled(false);
-    //
-    Object selectedObject = getSelectedObject();
-    if (isCategoryObject(selectedObject)) {
-      m_editCategoryButton.setEnabled(true);
-      m_removeCategoryButton.setEnabled(!m_contentProvider.hasChildren(selectedObject));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Events handling
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void onSelectionChanged() {
+		m_editCategoryButton.setEnabled(false);
+		m_removeCategoryButton.setEnabled(false);
+		//
+		Object selectedObject = getSelectedObject();
+		if (isCategoryObject(selectedObject)) {
+			m_editCategoryButton.setEnabled(true);
+			m_removeCategoryButton.setEnabled(!m_contentProvider.hasChildren(selectedObject));
+		}
+	}
 
-  private void newCategory() {
-    InputDialog inputDialog = new InputDialog(getShell(),
-        ModelMessages.CategoriesAndViewsDialog_newCategoryTitle,
-        ModelMessages.CategoriesAndViewsDialog_newCategoryMessage,
-        "",
-        null);
-    if (inputDialog.open() != OK) {
-      return;
-    }
-    //
-    final String categoryName = inputDialog.getValue();
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        String id = m_utils.generateUniqueID(m_utils.getProject().getName() + ".category");
-        IPluginElement category = m_utils.createViewCategoryElement(id, categoryName);
-        // select created category
-        m_viewer.refresh();
-        m_viewer.setSelection(new StructuredSelection(category));
-      }
-    });
-  }
+	private void newCategory() {
+		InputDialog inputDialog = new InputDialog(getShell(),
+				ModelMessages.CategoriesAndViewsDialog_newCategoryTitle,
+				ModelMessages.CategoriesAndViewsDialog_newCategoryMessage,
+				"",
+				null);
+		if (inputDialog.open() != OK) {
+			return;
+		}
+		//
+		final String categoryName = inputDialog.getValue();
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				String id = m_utils.generateUniqueID(m_utils.getProject().getName() + ".category");
+				IPluginElement category = m_utils.createViewCategoryElement(id, categoryName);
+				// select created category
+				m_viewer.refresh();
+				m_viewer.setSelection(new StructuredSelection(category));
+			}
+		});
+	}
 
-  private void editCategory() {
-    final IPluginElement category = (IPluginElement) getSelectedObject();
-    // ask new name
-    final String newName;
-    {
-      String oldName = PdeUtils.getAttribute(category, "name");
-      InputDialog inputDialog = new InputDialog(getShell(),
-          ModelMessages.CategoriesAndViewsDialog_editCategoryTitle,
-          ModelMessages.CategoriesAndViewsDialog_editCategoryMessage,
-          oldName,
-          null);
-      if (inputDialog.open() != OK) {
-        return;
-      }
-      newName = inputDialog.getValue();
-    }
-    // update category
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        m_utils.setAttribute(category, "name", newName);
-      }
-    });
-    // show modifications
-    m_viewer.refresh();
-  }
+	private void editCategory() {
+		final IPluginElement category = (IPluginElement) getSelectedObject();
+		// ask new name
+		final String newName;
+		{
+			String oldName = PdeUtils.getAttribute(category, "name");
+			InputDialog inputDialog = new InputDialog(getShell(),
+					ModelMessages.CategoriesAndViewsDialog_editCategoryTitle,
+					ModelMessages.CategoriesAndViewsDialog_editCategoryMessage,
+					oldName,
+					null);
+			if (inputDialog.open() != OK) {
+				return;
+			}
+			newName = inputDialog.getValue();
+		}
+		// update category
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				m_utils.setAttribute(category, "name", newName);
+			}
+		});
+		// show modifications
+		m_viewer.refresh();
+	}
 
-  private void removeCategory() {
-    IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
-    final IPluginElement element = (IPluginElement) selection.getFirstElement();
-    // ask confirmation
-    {
-      String messages = MessageFormat.format(
-          ModelMessages.CategoriesAndViewsDialog_removeCategoryConfirmationMessage,
-          PdeUtils.getAttribute(element, "name"));
-      if (!MessageDialog.openConfirm(
-          getShell(),
-          ModelMessages.CategoriesAndViewsDialog_removeCategoryConfirmationText,
-          messages)) {
-        return;
-      }
-    }
-    // remove
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        m_utils.removeElement(element);
-      }
-    });
-    // refresh
-    m_viewer.refresh();
-  }
+	private void removeCategory() {
+		IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
+		final IPluginElement element = (IPluginElement) selection.getFirstElement();
+		// ask confirmation
+		{
+			String messages = MessageFormat.format(
+					ModelMessages.CategoriesAndViewsDialog_removeCategoryConfirmationMessage,
+					PdeUtils.getAttribute(element, "name"));
+			if (!MessageDialog.openConfirm(
+					getShell(),
+					ModelMessages.CategoriesAndViewsDialog_removeCategoryConfirmationText,
+					messages)) {
+				return;
+			}
+		}
+		// remove
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				m_utils.removeElement(element);
+			}
+		});
+		// refresh
+		m_viewer.refresh();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Content provider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private class ViewsContentProvider implements IStructuredContentProvider, ITreeContentProvider {
-    private List<IPluginElement> m_views;
-    private List<IPluginElement> m_categories;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Content provider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private class ViewsContentProvider implements IStructuredContentProvider, ITreeContentProvider {
+		private List<IPluginElement> m_views;
+		private List<IPluginElement> m_categories;
 
-    @Override
-    public Object[] getElements(Object inputElement) {
-      m_views = m_utils.getExtensionElements("org.eclipse.ui.views", "view");
-      m_categories = m_utils.getExtensionElements("org.eclipse.ui.views", "category");
-      return ArrayUtils.add(m_categories.toArray(), OTHER_CATEGORY);
-    }
+		@Override
+		public Object[] getElements(Object inputElement) {
+			m_views = m_utils.getExtensionElements("org.eclipse.ui.views", "view");
+			m_categories = m_utils.getExtensionElements("org.eclipse.ui.views", "category");
+			return ArrayUtils.add(m_categories.toArray(), OTHER_CATEGORY);
+		}
 
-    @Override
-    public Object[] getChildren(Object parentElement) {
-      List<IPluginElement> categoryViews = Lists.newArrayList();
-      //
-      if (parentElement == OTHER_CATEGORY) {
-        for (IPluginElement view : m_views) {
-          String viewCategoryId = PdeUtils.getAttribute(view, "category");
-          if (StringUtils.isEmpty(viewCategoryId)) {
-            categoryViews.add(view);
-          }
-        }
-      } else if (parentElement instanceof IPluginElement) {
-        IPluginElement pluginElement = (IPluginElement) parentElement;
-        if (isCategoryElement(pluginElement)) {
-          String thisCategoryId = PdeUtils.getAttribute(pluginElement, "id");
-          for (IPluginElement view : m_views) {
-            String viewCategoryId = PdeUtils.getAttribute(view, "category");
-            if (thisCategoryId.equals(viewCategoryId)) {
-              categoryViews.add(view);
-            }
-          }
-        }
-      }
-      //
-      return categoryViews.toArray();
-    }
+		@Override
+		public Object[] getChildren(Object parentElement) {
+			List<IPluginElement> categoryViews = Lists.newArrayList();
+			//
+			if (parentElement == OTHER_CATEGORY) {
+				for (IPluginElement view : m_views) {
+					String viewCategoryId = PdeUtils.getAttribute(view, "category");
+					if (StringUtils.isEmpty(viewCategoryId)) {
+						categoryViews.add(view);
+					}
+				}
+			} else if (parentElement instanceof IPluginElement) {
+				IPluginElement pluginElement = (IPluginElement) parentElement;
+				if (isCategoryElement(pluginElement)) {
+					String thisCategoryId = PdeUtils.getAttribute(pluginElement, "id");
+					for (IPluginElement view : m_views) {
+						String viewCategoryId = PdeUtils.getAttribute(view, "category");
+						if (thisCategoryId.equals(viewCategoryId)) {
+							categoryViews.add(view);
+						}
+					}
+				}
+			}
+			//
+			return categoryViews.toArray();
+		}
 
-    @Override
-    public Object getParent(Object element) {
-      if (element instanceof IPluginElement) {
-        IPluginElement view = (IPluginElement) element;
-        String viewCategoryId = PdeUtils.getAttribute(view, "category");
-        // check for category "other"
-        if (StringUtils.isEmpty(viewCategoryId)) {
-          return OTHER_CATEGORY;
-        }
-        // find category with given id
-        for (IPluginElement category : m_categories) {
-          if (ObjectUtils.equals(PdeUtils.getAttribute(category, "id"), viewCategoryId)) {
-            return category;
-          }
-        }
-      }
-      return null;
-    }
+		@Override
+		public Object getParent(Object element) {
+			if (element instanceof IPluginElement) {
+				IPluginElement view = (IPluginElement) element;
+				String viewCategoryId = PdeUtils.getAttribute(view, "category");
+				// check for category "other"
+				if (StringUtils.isEmpty(viewCategoryId)) {
+					return OTHER_CATEGORY;
+				}
+				// find category with given id
+				for (IPluginElement category : m_categories) {
+					if (ObjectUtils.equals(PdeUtils.getAttribute(category, "id"), viewCategoryId)) {
+						return category;
+					}
+				}
+			}
+			return null;
+		}
 
-    @Override
-    public boolean hasChildren(Object element) {
-      return getChildren(element).length > 0;
-    }
+		@Override
+		public boolean hasChildren(Object element) {
+			return getChildren(element).length > 0;
+		}
 
-    @Override
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-    }
+		@Override
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
 
-    @Override
-    public void dispose() {
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Label provider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private class ViewsLabelProvider extends LabelProvider {
-    @Override
-    public String getText(Object element) {
-      if (element == OTHER_CATEGORY) {
-        return "Other";
-      }
-      //
-      IPluginElement pluginElement = (IPluginElement) element;
-      if (isCategoryElement(pluginElement)) {
-        return PdeUtils.getAttribute(pluginElement, "name");
-      } else if (pluginElement.getName().equals("view")) {
-        return PdeUtils.getAttribute(pluginElement, "name");
-      }
-      return super.getText(element);
-    }
+		@Override
+		public void dispose() {
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Label provider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private class ViewsLabelProvider extends LabelProvider {
+		@Override
+		public String getText(Object element) {
+			if (element == OTHER_CATEGORY) {
+				return "Other";
+			}
+			//
+			IPluginElement pluginElement = (IPluginElement) element;
+			if (isCategoryElement(pluginElement)) {
+				return PdeUtils.getAttribute(pluginElement, "name");
+			} else if (pluginElement.getName().equals("view")) {
+				return PdeUtils.getAttribute(pluginElement, "name");
+			}
+			return super.getText(element);
+		}
 
-    @Override
-    public Image getImage(Object element) {
-      if (element == OTHER_CATEGORY) {
-        return DesignerPlugin.getImage("folder_open.gif");
-      }
-      //
-      IPluginElement pluginElement = (IPluginElement) element;
-      if (isCategoryElement(pluginElement)) {
-        return DesignerPlugin.getImage("folder_open.gif");
-      }
-      if (pluginElement.getName().equals("view")) {
-        return PdeUtils.getElementIcon(pluginElement, "icon", null);
-      }
-      return null;
-    }
-  }
+		@Override
+		public Image getImage(Object element) {
+			if (element == OTHER_CATEGORY) {
+				return DesignerPlugin.getImage("folder_open.gif");
+			}
+			//
+			IPluginElement pluginElement = (IPluginElement) element;
+			if (isCategoryElement(pluginElement)) {
+				return DesignerPlugin.getImage("folder_open.gif");
+			}
+			if (pluginElement.getName().equals("view")) {
+				return PdeUtils.getElementIcon(pluginElement, "icon", null);
+			}
+			return null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Object getSelectedObject() {
-    IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
-    return selection.getFirstElement();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Object getSelectedObject() {
+		IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
+		return selection.getFirstElement();
+	}
 
-  private static boolean isCategoryObject(Object o) {
-    if (o instanceof IPluginElement) {
-      IPluginElement element = (IPluginElement) o;
-      return element.getName().equals("category");
-    }
-    return false;
-  }
+	private static boolean isCategoryObject(Object o) {
+		if (o instanceof IPluginElement) {
+			IPluginElement element = (IPluginElement) o;
+			return element.getName().equals("category");
+		}
+		return false;
+	}
 
-  private static boolean isCategoryElement(IPluginElement element) {
-    return element.getName().equals("category");
-  }
+	private static boolean isCategoryElement(IPluginElement element) {
+		return element.getName().equals("category");
+	}
 }

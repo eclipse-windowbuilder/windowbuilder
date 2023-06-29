@@ -25,30 +25,30 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class CheckedElementsObservableCodeSupport extends ObservableCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName(
-          observable.getBindableObject().getReference(),
-          observable.getBindableProperty().getReference()));
-    }
-    CheckedElementsObservableInfo checkedObservable = (CheckedElementsObservableInfo) observable;
-    lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
-        + observable.getVariableIdentifier()
-        + " = org.eclipse.jface.databinding.viewers.ViewersObservables."
-        + observable.getBindableProperty().getReference()
-        + "("
-        + observable.getBindableObject().getReference()
-        + ", "
-        + CoreUtils.getClassName(checkedObservable.getElementType())
-        + ".class);");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName(
+					observable.getBindableObject().getReference(),
+					observable.getBindableProperty().getReference()));
+		}
+		CheckedElementsObservableInfo checkedObservable = (CheckedElementsObservableInfo) observable;
+		lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
+				+ observable.getVariableIdentifier()
+				+ " = org.eclipse.jface.databinding.viewers.ViewersObservables."
+				+ observable.getBindableProperty().getReference()
+				+ "("
+				+ observable.getBindableObject().getReference()
+				+ ", "
+				+ CoreUtils.getClassName(checkedObservable.getElementType())
+				+ ".class);");
+	}
 }

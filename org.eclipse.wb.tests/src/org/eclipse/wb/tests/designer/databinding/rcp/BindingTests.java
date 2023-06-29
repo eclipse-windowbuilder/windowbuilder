@@ -32,24 +32,24 @@ import junit.framework.TestSuite;
  *
  */
 public class BindingTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.databinding");
-    suite.addTest(createSingleSuite(AstModelSupportTest.class));
-    suite.addTest(createSingleSuite(UtilsTest.class));
-    suite.addTest(createSingleSuite(BeanBindableTest.class));
-    suite.addTest(createSingleSuite(WidgetBindableTest.class));
-    suite.addTest(createSingleSuite(BeanObservableTest.class));
-    suite.addTest(createSingleSuite(WidgetObservableTest.class));
-    suite.addTest(createSingleSuite(ViewerObservableTest.class));
-    suite.addTest(createSingleSuite(BindValueTest.class));
-    suite.addTest(createSingleSuite(BindListTest.class));
-    suite.addTest(createSingleSuite(BindSetTest.class));
-    suite.addTest(createSingleSuite(DatabindingsProviderTest.class));
-    suite.addTest(createSingleSuite(CodeGenerationTest.class));
-    suite.addTest(createSingleSuite(ViewerCodeGenerationTest.class));
-    suite.addTest(createSingleSuite(UiConfigurationTest.class));
-    suite.addTest(createSingleSuite(JFaceDatabindingsFactoryTestRcp.class));
-    suite.addTest(createSingleSuite(JFaceDatabindingsFactoryTestSwing.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.databinding");
+		suite.addTest(createSingleSuite(AstModelSupportTest.class));
+		suite.addTest(createSingleSuite(UtilsTest.class));
+		suite.addTest(createSingleSuite(BeanBindableTest.class));
+		suite.addTest(createSingleSuite(WidgetBindableTest.class));
+		suite.addTest(createSingleSuite(BeanObservableTest.class));
+		suite.addTest(createSingleSuite(WidgetObservableTest.class));
+		suite.addTest(createSingleSuite(ViewerObservableTest.class));
+		suite.addTest(createSingleSuite(BindValueTest.class));
+		suite.addTest(createSingleSuite(BindListTest.class));
+		suite.addTest(createSingleSuite(BindSetTest.class));
+		suite.addTest(createSingleSuite(DatabindingsProviderTest.class));
+		suite.addTest(createSingleSuite(CodeGenerationTest.class));
+		suite.addTest(createSingleSuite(ViewerCodeGenerationTest.class));
+		suite.addTest(createSingleSuite(UiConfigurationTest.class));
+		suite.addTest(createSingleSuite(JFaceDatabindingsFactoryTestRcp.class));
+		suite.addTest(createSingleSuite(JFaceDatabindingsFactoryTestSwing.class));
+		return suite;
+	}
 }

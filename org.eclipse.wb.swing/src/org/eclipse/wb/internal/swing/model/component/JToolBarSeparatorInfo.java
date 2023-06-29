@@ -25,15 +25,15 @@ import javax.swing.JToolBar;
  * @coverage swing.model
  */
 public final class JToolBarSeparatorInfo extends ComponentInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JToolBarSeparatorInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    setVariableSupport(new VoidInvocationVariableSupport(this));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JToolBarSeparatorInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		setVariableSupport(new VoidInvocationVariableSupport(this));
+	}
 }

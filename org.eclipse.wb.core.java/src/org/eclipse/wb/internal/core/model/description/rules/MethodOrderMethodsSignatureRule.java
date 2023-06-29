@@ -21,16 +21,16 @@ import java.util.List;
  * @coverage core.model.description
  */
 public final class MethodOrderMethodsSignatureRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  @SuppressWarnings("unchecked")
-  public void body(String namespace, String name, String text) throws Exception {
-    List<String> signatures = (List<String>) getDigester().peek();
-    String signature = text.trim();
-    signatures.add(signature);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	@SuppressWarnings("unchecked")
+	public void body(String namespace, String name, String text) throws Exception {
+		List<String> signatures = (List<String>) getDigester().peek();
+		String signature = text.trim();
+		signatures.add(signature);
+	}
 }

@@ -19,18 +19,18 @@ import java.util.Map;
  * @coverage core.model
  */
 public interface IParametersProvider {
-  /**
-   * @return the read only {@link Map} of parameters from model or description.
-   */
-  Map<String, String> getParameters(Object object);
+	/**
+	 * @return the read only {@link Map} of parameters from model or description.
+	 */
+	Map<String, String> getParameters(Object object);
 
-  /**
-   * @return the parameter value from model or description.
-   */
-  String getParameter(Object object, String name);
+	/**
+	 * @return the parameter value from model or description.
+	 */
+	String getParameter(Object object, String name);
 
-  /**
-   * Checks if object has parameter with value <code>"true"</code>.
-   */
-  boolean hasTrueParameter(Object object, String name);
+	/**
+	 * Checks if object has parameter with value <code>"true"</code>.
+	 */
+	boolean hasTrueParameter(Object object, String name);
 }

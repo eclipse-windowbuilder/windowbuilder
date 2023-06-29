@@ -26,24 +26,24 @@ import org.eclipse.jface.viewers.Viewer;
  * @coverage bindings.swing.ui
  */
 public final class HideAdvancedPropertyFilter extends PropertyFilter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public HideAdvancedPropertyFilter() {
-    super(Messages.HideAdvancedPropertyFilter_title, Activator.getImage("hide_advanced.png"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public HideAdvancedPropertyFilter() {
+		super(Messages.HideAdvancedPropertyFilter_title, Activator.getImage("hide_advanced.png"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyFilter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
-    IObserveDecoration observeDecoration = (IObserveDecoration) propertyObserve;
-    IObserveDecorator decorator = observeDecoration.getDecorator();
-    return decorator != IObserveDecorator.ITALIC && decorator != IObserveDecorator.HIDDEN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyFilter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
+		IObserveDecoration observeDecoration = (IObserveDecoration) propertyObserve;
+		IObserveDecorator decorator = observeDecoration.getDecorator();
+		return decorator != IObserveDecorator.ITALIC && decorator != IObserveDecorator.HIDDEN;
+	}
 }

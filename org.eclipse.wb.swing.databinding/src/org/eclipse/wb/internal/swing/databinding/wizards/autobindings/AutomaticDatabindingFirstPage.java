@@ -22,32 +22,32 @@ import org.eclipse.wb.internal.swing.wizards.SwingWizardPage;
  * @coverage bindings.swing.wizard.auto
  */
 public final class AutomaticDatabindingFirstPage
-    extends
-      org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingFirstPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AutomaticDatabindingFirstPage(IAutomaticDatabindingProvider databindingProvider,
-      String initialBeanClassName) {
-    super(databindingProvider, initialBeanClassName);
-  }
+extends
+org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingFirstPage {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AutomaticDatabindingFirstPage(IAutomaticDatabindingProvider databindingProvider,
+			String initialBeanClassName) {
+		super(databindingProvider, initialBeanClassName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Substitution support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String performSubstitutions(String code, ImportsManager imports) {
-    code = super.performSubstitutions(code, imports);
-    code = SwingWizardPage.doPerformSubstitutions(this, code, imports);
-    return code;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Substitution support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String performSubstitutions(String code, ImportsManager imports) {
+		code = super.performSubstitutions(code, imports);
+		code = SwingWizardPage.doPerformSubstitutions(this, code, imports);
+		return code;
+	}
 
-  @Override
-  protected ToolkitDescriptionJava getToolkitDescription() {
-    return ToolkitProvider.DESCRIPTION;
-  }
+	@Override
+	protected ToolkitDescriptionJava getToolkitDescription() {
+		return ToolkitProvider.DESCRIPTION;
+	}
 }

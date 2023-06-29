@@ -19,13 +19,13 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.creation
  */
 public interface IExposedCreationSupport {
-  /**
-   * @return the {@link JavaInfo} that exposes this {@link JavaInfo}.
-   */
-  JavaInfo getHostJavaInfo();
+	/**
+	 * @return the {@link JavaInfo} that exposes this {@link JavaInfo}.
+	 */
+	JavaInfo getHostJavaInfo();
 
-  /**
-   * @return <code>true</code> if this {@link JavaInfo} is direct child of host {@link JavaInfo}.
-   */
-  boolean isDirect();
+	/**
+	 * @return <code>true</code> if this {@link JavaInfo} is direct child of host {@link JavaInfo}.
+	 */
+	boolean isDirect();
 }

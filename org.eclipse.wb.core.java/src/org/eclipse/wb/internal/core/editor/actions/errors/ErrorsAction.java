@@ -28,75 +28,75 @@ import java.util.List;
  * @coverage core.editor.action.error
  */
 public class ErrorsAction extends Action {
-  private final List<IErrorPage> m_pages = Lists.newArrayList();
-  private ObjectInfo m_rootObject;
+	private final List<IErrorPage> m_pages = Lists.newArrayList();
+	private ObjectInfo m_rootObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ErrorsAction() {
-    setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/errors/errors.gif"));
-    setDisabledImageDescriptor(DesignerPlugin.getImageDescriptor("actions/errors/errors_disabled.gif"));
-    setToolTipText(Messages.ErrorsAction_toolTip);
-    // add pages
-    m_pages.add(new BadNodesRefreshErrorPage());
-    m_pages.add(new WarningsErrorPage());
-    m_pages.add(new BadNodesParserErrorPage());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ErrorsAction() {
+		setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/errors/errors.gif"));
+		setDisabledImageDescriptor(DesignerPlugin.getImageDescriptor("actions/errors/errors_disabled.gif"));
+		setToolTipText(Messages.ErrorsAction_toolTip);
+		// add pages
+		m_pages.add(new BadNodesRefreshErrorPage());
+		m_pages.add(new WarningsErrorPage());
+		m_pages.add(new BadNodesParserErrorPage());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the root {@link ObjectInfo}.
-   */
-  public void setRoot(ObjectInfo rootObject) {
-    m_rootObject = rootObject;
-    m_rootObject.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshed() throws Exception {
-        update();
-      }
-    });
-    update();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the root {@link ObjectInfo}.
+	 */
+	public void setRoot(ObjectInfo rootObject) {
+		m_rootObject = rootObject;
+		m_rootObject.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshed() throws Exception {
+				update();
+			}
+		});
+		update();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Action
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void run() {
-    ErrorsDialog errorsDialog = new ErrorsDialog(DesignerPlugin.getShell(), m_rootObject, m_pages);
-    errorsDialog.open();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Action
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void run() {
+		ErrorsDialog errorsDialog = new ErrorsDialog(DesignerPlugin.getShell(), m_rootObject, m_pages);
+		errorsDialog.open();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Updates state.
-   */
-  private void update() {
-    firePropertyChange(ENABLED, null, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Updates state.
+	 */
+	private void update() {
+		firePropertyChange(ENABLED, null, null);
+	}
 
-  @Override
-  public boolean isEnabled() {
-    for (IErrorPage errorPage : m_pages) {
-      errorPage.setRoot(m_rootObject);
-      if (errorPage.hasErrors()) {
-        return true;
-      }
-    }
-    //
-    return false;
-  }
+	@Override
+	public boolean isEnabled() {
+		for (IErrorPage errorPage : m_pages) {
+			errorPage.setRoot(m_rootObject);
+			if (errorPage.hasErrors()) {
+				return true;
+			}
+		}
+		//
+		return false;
+	}
 }

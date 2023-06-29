@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
  * @coverage core.editor.errors
  */
 public interface IExceptionRewriter {
-  /**
-   * @return the same or new {@link Throwable}.
-   */
-  Throwable rewrite(Throwable e);
+	/**
+	 * @return the same or new {@link Throwable}.
+	 */
+	Throwable rewrite(Throwable e);
 }

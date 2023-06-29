@@ -29,80 +29,80 @@ import org.eclipse.swt.widgets.Shell;
  * @author scheglov_ke
  */
 public class CompositeTopBoundsSupportTest extends XwtModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // show()
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_setSize() throws Exception {
-    ControlInfo shell = parse("<Shell/>");
-    shell.refresh();
-    // default size
-    assertEquals(new Dimension(450, 300), shell.getBounds().getSize());
-    // set new size
-    shell.getTopBoundsSupport().setSize(500, 400);
-    shell.refresh();
-    assertEquals(new Dimension(500, 400), shell.getBounds().getSize());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// show()
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_setSize() throws Exception {
+		ControlInfo shell = parse("<Shell/>");
+		shell.refresh();
+		// default size
+		assertEquals(new Dimension(450, 300), shell.getBounds().getSize());
+		// set new size
+		shell.getTopBoundsSupport().setSize(500, 400);
+		shell.refresh();
+		assertEquals(new Dimension(500, 400), shell.getBounds().getSize());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // show()
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_show_closeUsingESC() throws Exception {
-    final ControlInfo shell = parse("<Shell text='My Shell'/>");
-    shell.refresh();
-    // show
-    new UiContext().executeAndCheck(new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        shell.getTopBoundsSupport().show();
-      }
-    }, new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        Shell wrapperShell = context.useShell("My Shell");
-        {
-          assertEquals(450, wrapperShell.getSize().x);
-          assertEquals(300, wrapperShell.getSize().y);
-        }
-        new EventSender(wrapperShell).keyDown(SWT.ESC);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// show()
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_show_closeUsingESC() throws Exception {
+		final ControlInfo shell = parse("<Shell text='My Shell'/>");
+		shell.refresh();
+		// show
+		new UiContext().executeAndCheck(new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				shell.getTopBoundsSupport().show();
+			}
+		}, new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				Shell wrapperShell = context.useShell("My Shell");
+				{
+					assertEquals(450, wrapperShell.getSize().x);
+					assertEquals(300, wrapperShell.getSize().y);
+				}
+				new EventSender(wrapperShell).keyDown(SWT.ESC);
+			}
+		});
+	}
 
-  /**
-   * Generic {@link Composite} should be wrapped into {@link Shell} to show it.
-   */
-  public void test_show_notShell() throws Exception {
-    final CompositeInfo composite = parse("<Composite/>");
-    composite.refresh();
-    // show
-    new UiContext().executeAndCheck(new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        composite.getTopBoundsSupport().show();
-      }
-    }, new UIRunnable() {
-      @Override
-      public void run(UiContext context) throws Exception {
-        Shell wrapperShell = context.useShell("Wrapper Shell");
-        {
-          assertEquals(450, composite.getControl().getSize().x);
-          assertEquals(300, composite.getControl().getSize().y);
-        }
-        new EventSender(wrapperShell).keyDown(SWT.ESC);
-      }
-    });
-  }
+	/**
+	 * Generic {@link Composite} should be wrapped into {@link Shell} to show it.
+	 */
+	public void test_show_notShell() throws Exception {
+		final CompositeInfo composite = parse("<Composite/>");
+		composite.refresh();
+		// show
+		new UiContext().executeAndCheck(new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				composite.getTopBoundsSupport().show();
+			}
+		}, new UIRunnable() {
+			@Override
+			public void run(UiContext context) throws Exception {
+				Shell wrapperShell = context.useShell("Wrapper Shell");
+				{
+					assertEquals(450, composite.getControl().getSize().x);
+					assertEquals(300, composite.getControl().getSize().y);
+				}
+				new EventSender(wrapperShell).keyDown(SWT.ESC);
+			}
+		});
+	}
 }

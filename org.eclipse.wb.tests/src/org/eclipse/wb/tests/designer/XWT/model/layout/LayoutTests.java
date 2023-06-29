@@ -23,20 +23,20 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class LayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.layout");
-    suite.addTest(createSingleSuite(LayoutTest.class));
-    suite.addTest(createSingleSuite(AbsoluteLayoutTest.class));
-    suite.addTest(createSingleSuite(AbsoluteLayoutGefTest.class));
-    suite.addTest(createSingleSuite(RowLayoutTest.class));
-    suite.addTest(createSingleSuite(RowLayoutGefTest.class));
-    suite.addTest(createSingleSuite(FillLayoutTest.class));
-    suite.addTest(createSingleSuite(FillLayoutGefTest.class));
-    suite.addTest(createSingleSuite(StackLayoutTest.class));
-    suite.addTest(createSingleSuite(StackLayoutGefTest.class));
-    suite.addTest(createSingleSuite(FormLayoutTest.class));
-    suite.addTest(createSingleSuite(FormLayoutGefTest.class));
-    suite.addTest(GridLayoutTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.layout");
+		suite.addTest(createSingleSuite(LayoutTest.class));
+		suite.addTest(createSingleSuite(AbsoluteLayoutTest.class));
+		suite.addTest(createSingleSuite(AbsoluteLayoutGefTest.class));
+		suite.addTest(createSingleSuite(RowLayoutTest.class));
+		suite.addTest(createSingleSuite(RowLayoutGefTest.class));
+		suite.addTest(createSingleSuite(FillLayoutTest.class));
+		suite.addTest(createSingleSuite(FillLayoutGefTest.class));
+		suite.addTest(createSingleSuite(StackLayoutTest.class));
+		suite.addTest(createSingleSuite(StackLayoutGefTest.class));
+		suite.addTest(createSingleSuite(FormLayoutTest.class));
+		suite.addTest(createSingleSuite(FormLayoutGefTest.class));
+		suite.addTest(GridLayoutTests.suite());
+		return suite;
+	}
 }

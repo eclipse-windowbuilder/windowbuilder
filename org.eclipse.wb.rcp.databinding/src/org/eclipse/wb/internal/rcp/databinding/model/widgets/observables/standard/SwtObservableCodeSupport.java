@@ -24,50 +24,50 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class SwtObservableCodeSupport extends ObservableCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName(
-          observable.getBindableObject().getReference(),
-          observable.getBindableProperty().getReference(),
-          "ObserveWidget"));
-    }
-    SwtObservableInfo swtObservable = (SwtObservableInfo) observable;
-    if (swtObservable.getDelayValue() == 0) {
-      // no delay
-      lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
-          + observable.getVariableIdentifier()
-          + " = "
-          + getSourceCode(observable)
-          + ";");
-    } else {
-      // with delay
-      lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
-          + observable.getVariableIdentifier()
-          + " = org.eclipse.jface.databinding.swt.SWTObservables.observeDelayedValue("
-          + Integer.toString(swtObservable.getDelayValue())
-          + ", "
-          + getSourceCode(observable)
-          + ");");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName(
+					observable.getBindableObject().getReference(),
+					observable.getBindableProperty().getReference(),
+					"ObserveWidget"));
+		}
+		SwtObservableInfo swtObservable = (SwtObservableInfo) observable;
+		if (swtObservable.getDelayValue() == 0) {
+			// no delay
+			lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
+					+ observable.getVariableIdentifier()
+					+ " = "
+					+ getSourceCode(observable)
+					+ ";");
+		} else {
+			// with delay
+			lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
+					+ observable.getVariableIdentifier()
+					+ " = org.eclipse.jface.databinding.swt.SWTObservables.observeDelayedValue("
+					+ Integer.toString(swtObservable.getDelayValue())
+					+ ", "
+					+ getSourceCode(observable)
+					+ ");");
+		}
+	}
 
-  /**
-   * @return the source code for create this observable.
-   */
-  protected String getSourceCode(ObservableInfo observable) throws Exception {
-    return "org.eclipse.jface.databinding.swt.SWTObservables."
-        + observable.getBindableProperty().getReference()
-        + "("
-        + observable.getBindableObject().getReference()
-        + ")";
-  }
+	/**
+	 * @return the source code for create this observable.
+	 */
+	protected String getSourceCode(ObservableInfo observable) throws Exception {
+		return "org.eclipse.jface.databinding.swt.SWTObservables."
+				+ observable.getBindableProperty().getReference()
+				+ "("
+				+ observable.getBindableObject().getReference()
+				+ ")";
+	}
 }

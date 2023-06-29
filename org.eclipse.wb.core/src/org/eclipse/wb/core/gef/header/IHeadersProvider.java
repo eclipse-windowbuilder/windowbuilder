@@ -25,28 +25,28 @@ import java.util.List;
  * @coverage core.gef.header
  */
 public interface IHeadersProvider {
-  /**
-   * @return the {@link LayoutEditPolicy} for headers container.
-   */
-  LayoutEditPolicy getContainerLayoutPolicy(boolean horizontal);
+	/**
+	 * @return the {@link LayoutEditPolicy} for headers container.
+	 */
+	LayoutEditPolicy getContainerLayoutPolicy(boolean horizontal);
 
-  /**
-   * @return the {@link List} of header models.
-   */
-  List<?> getHeaders(boolean horizontal);
+	/**
+	 * @return the {@link List} of header models.
+	 */
+	List<?> getHeaders(boolean horizontal);
 
-  /**
-   * @return the {@link EditPart} for given header model.
-   */
-  EditPart createHeaderEditPart(boolean horizontal, Object model);
+	/**
+	 * @return the {@link EditPart} for given header model.
+	 */
+	EditPart createHeaderEditPart(boolean horizontal, Object model);
 
-  /**
-   * Adds menu items into given {@link IMenuManager}.
-   */
-  void buildContextMenu(IMenuManager manager, boolean horizontal);
+	/**
+	 * Adds menu items into given {@link IMenuManager}.
+	 */
+	void buildContextMenu(IMenuManager manager, boolean horizontal);
 
-  /**
-   * Invoked on double click on headers container.
-   */
-  void handleDoubleClick(boolean horizontal);
+	/**
+	 * Invoked on double click on headers container.
+	 */
+	void handleDoubleClick(boolean horizontal);
 }

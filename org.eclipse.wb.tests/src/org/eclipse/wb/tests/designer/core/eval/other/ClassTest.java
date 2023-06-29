@@ -21,45 +21,45 @@ import java.util.ArrayList;
  * @author scheglov_ke
  */
 public class ClassTest extends AbstractEngineTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Project creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_setUp() throws Exception {
-    do_projectCreate();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Project creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_setUp() throws Exception {
+		do_projectCreate();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // cast's
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_TypeLiteral_Object() throws Exception {
-    assertEquals(ArrayList.class, evaluateExpression("java.util.ArrayList.class", "Class"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// cast's
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_TypeLiteral_Object() throws Exception {
+		assertEquals(ArrayList.class, evaluateExpression("java.util.ArrayList.class", "Class"));
+	}
 
-  public void test_TypeLiteral_primitive() throws Exception {
-    assertEquals(boolean.class, evaluateExpression("boolean.class", "Class"));
-  }
+	public void test_TypeLiteral_primitive() throws Exception {
+		assertEquals(boolean.class, evaluateExpression("boolean.class", "Class"));
+	}
 
-  public void test_getClass() throws Exception {
-    Class<?> actualClass = (Class<?>) evaluateExpression("getClass()", "Class", true);
-    assertEquals("test.Test", actualClass.getName());
-  }
+	public void test_getClass() throws Exception {
+		Class<?> actualClass = (Class<?>) evaluateExpression("getClass()", "Class", true);
+		assertEquals("test.Test", actualClass.getName());
+	}
 
-  public void test_getClass_withThisQualifier() throws Exception {
-    Class<?> actualClass = (Class<?>) evaluateExpression("this.getClass()", "Class", true);
-    assertEquals("test.Test", actualClass.getName());
-  }
+	public void test_getClass_withThisQualifier() throws Exception {
+		Class<?> actualClass = (Class<?>) evaluateExpression("this.getClass()", "Class", true);
+		assertEquals("test.Test", actualClass.getName());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Project disposing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void test_tearDown() throws Exception {
-    do_projectDispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Project disposing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void test_tearDown() throws Exception {
+		do_projectDispose();
+	}
 }

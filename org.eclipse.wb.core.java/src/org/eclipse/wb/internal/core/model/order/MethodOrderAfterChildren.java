@@ -26,25 +26,25 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage core.model.description
  */
 public class MethodOrderAfterChildren extends MethodOrderChildren {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodOrderAfterChildren(String childrenTypeNames) {
-    super(childrenTypeNames);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodOrderAfterChildren(String childrenTypeNames) {
+		super(childrenTypeNames);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MethodOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
-      throws Exception {
-    JavaInfo nextChild =
-        GenericsUtils.getNextOrNull(javaInfo.getChildrenJava(), getLastChild(javaInfo));
-    return JavaInfoUtils.getTarget(javaInfo, nextChild);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MethodOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
+			throws Exception {
+		JavaInfo nextChild =
+				GenericsUtils.getNextOrNull(javaInfo.getChildrenJava(), getLastChild(javaInfo));
+		return JavaInfoUtils.getTarget(javaInfo, nextChild);
+	}
 }

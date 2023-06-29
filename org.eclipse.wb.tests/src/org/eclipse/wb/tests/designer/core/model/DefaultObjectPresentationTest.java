@@ -29,117 +29,117 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class DefaultObjectPresentationTest extends DesignerTestCase {
-  /**
-   * Test for {@link IObjectPresentation#getIcon()}.
-   */
-  public void test_getIcon() throws Exception {
-    ObjectInfo parent = new TestObjectInfo();
-    assertNull(parent.getPresentation().getIcon());
-  }
+	/**
+	 * Test for {@link IObjectPresentation#getIcon()}.
+	 */
+	public void test_getIcon() throws Exception {
+		ObjectInfo parent = new TestObjectInfo();
+		assertNull(parent.getPresentation().getIcon());
+	}
 
-  /**
-   * Test for {@link IObjectPresentation#getChildrenTree()}.
-   */
-  public void test_getChildrenTree() throws Exception {
-    ObjectInfo parent = new TestObjectInfo();
-    ObjectInfo child_1 = new TestObjectInfo("1");
-    final ObjectInfo child_2 = new TestObjectInfo("2");
-    ObjectInfo child_3 = new TestObjectInfo("3");
-    parent.addChild(child_1);
-    parent.addChild(child_2);
-    parent.addChild(child_3);
-    // filter out "child_2" from "tree children"
-    parent.addBroadcastListener(new ObjectInfoChildTree() {
-      @Override
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        if (object == child_2) {
-          visible[0] = false;
-        }
-      }
-    });
-    // check "tree children"
-    List<ObjectInfo> children = parent.getPresentation().getChildrenTree();
-    assertEquals(2, children.size());
-    assertSame(child_1, children.get(0));
-    assertSame(child_3, children.get(1));
-  }
+	/**
+	 * Test for {@link IObjectPresentation#getChildrenTree()}.
+	 */
+	public void test_getChildrenTree() throws Exception {
+		ObjectInfo parent = new TestObjectInfo();
+		ObjectInfo child_1 = new TestObjectInfo("1");
+		final ObjectInfo child_2 = new TestObjectInfo("2");
+		ObjectInfo child_3 = new TestObjectInfo("3");
+		parent.addChild(child_1);
+		parent.addChild(child_2);
+		parent.addChild(child_3);
+		// filter out "child_2" from "tree children"
+		parent.addBroadcastListener(new ObjectInfoChildTree() {
+			@Override
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				if (object == child_2) {
+					visible[0] = false;
+				}
+			}
+		});
+		// check "tree children"
+		List<ObjectInfo> children = parent.getPresentation().getChildrenTree();
+		assertEquals(2, children.size());
+		assertSame(child_1, children.get(0));
+		assertSame(child_3, children.get(1));
+	}
 
-  /**
-   * Test for {@link IObjectPresentation#getChildrenTree()}.
-   * <p>
-   * Using {@link ObjectInfoChildrenTree}.
-   */
-  public void test_getChildrenTree_childrenBroadcast() throws Exception {
-    ObjectInfo parent = new TestObjectInfo();
-    final ObjectInfo child_1 = new TestObjectInfo("1");
-    final ObjectInfo child_2 = new TestObjectInfo("2");
-    final ObjectInfo child_3 = new TestObjectInfo("3");
-    parent.addChild(child_1);
-    parent.addChild(child_2);
-    parent.addChild(child_3);
-    // move "child_1" to the end
-    parent.addBroadcastListener(new ObjectInfoChildrenTree() {
-      @Override
-      public void invoke(ObjectInfo p, List<ObjectInfo> children) throws Exception {
-        children.remove(child_1);
-        children.add(child_1);
-      }
-    });
-    // check "tree children"
-    List<ObjectInfo> children = parent.getPresentation().getChildrenTree();
-    assertThat(children).containsExactly(child_2, child_3, child_1);
-  }
+	/**
+	 * Test for {@link IObjectPresentation#getChildrenTree()}.
+	 * <p>
+	 * Using {@link ObjectInfoChildrenTree}.
+	 */
+	public void test_getChildrenTree_childrenBroadcast() throws Exception {
+		ObjectInfo parent = new TestObjectInfo();
+		final ObjectInfo child_1 = new TestObjectInfo("1");
+		final ObjectInfo child_2 = new TestObjectInfo("2");
+		final ObjectInfo child_3 = new TestObjectInfo("3");
+		parent.addChild(child_1);
+		parent.addChild(child_2);
+		parent.addChild(child_3);
+		// move "child_1" to the end
+		parent.addBroadcastListener(new ObjectInfoChildrenTree() {
+			@Override
+			public void invoke(ObjectInfo p, List<ObjectInfo> children) throws Exception {
+				children.remove(child_1);
+				children.add(child_1);
+			}
+		});
+		// check "tree children"
+		List<ObjectInfo> children = parent.getPresentation().getChildrenTree();
+		assertThat(children).containsExactly(child_2, child_3, child_1);
+	}
 
-  /**
-   * Test for {@link IObjectPresentation#getChildrenGraphical()}.
-   */
-  public void test_getChildrenGraphical() throws Exception {
-    ObjectInfo parent = new TestObjectInfo();
-    ObjectInfo child_1 = new TestObjectInfo("1");
-    final ObjectInfo child_2 = new TestObjectInfo("2");
-    ObjectInfo child_3 = new TestObjectInfo("3");
-    parent.addChild(child_1);
-    parent.addChild(child_2);
-    parent.addChild(child_3);
-    // filter out "child_2" from "graphical children"
-    parent.addBroadcastListener(new ObjectInfoChildGraphical() {
-      @Override
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        if (object == child_2) {
-          visible[0] = false;
-        }
-      }
-    });
-    // check "graphical children"
-    List<ObjectInfo> children = parent.getPresentation().getChildrenGraphical();
-    assertEquals(2, children.size());
-    assertSame(child_1, children.get(0));
-    assertSame(child_3, children.get(1));
-  }
+	/**
+	 * Test for {@link IObjectPresentation#getChildrenGraphical()}.
+	 */
+	public void test_getChildrenGraphical() throws Exception {
+		ObjectInfo parent = new TestObjectInfo();
+		ObjectInfo child_1 = new TestObjectInfo("1");
+		final ObjectInfo child_2 = new TestObjectInfo("2");
+		ObjectInfo child_3 = new TestObjectInfo("3");
+		parent.addChild(child_1);
+		parent.addChild(child_2);
+		parent.addChild(child_3);
+		// filter out "child_2" from "graphical children"
+		parent.addBroadcastListener(new ObjectInfoChildGraphical() {
+			@Override
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				if (object == child_2) {
+					visible[0] = false;
+				}
+			}
+		});
+		// check "graphical children"
+		List<ObjectInfo> children = parent.getPresentation().getChildrenGraphical();
+		assertEquals(2, children.size());
+		assertSame(child_1, children.get(0));
+		assertSame(child_3, children.get(1));
+	}
 
-  /**
-   * Test for {@link IObjectPresentation#getChildrenGraphical()}.
-   * <p>
-   * Using {@link ObjectInfoChildrenGraphical}.
-   */
-  public void test_getChildrenGraphical_childrenBroadcast() throws Exception {
-    ObjectInfo parent = new TestObjectInfo();
-    final ObjectInfo child_1 = new TestObjectInfo("1");
-    final ObjectInfo child_2 = new TestObjectInfo("2");
-    final ObjectInfo child_3 = new TestObjectInfo("3");
-    parent.addChild(child_1);
-    parent.addChild(child_2);
-    parent.addChild(child_3);
-    // move "child_1" to the end
-    parent.addBroadcastListener(new ObjectInfoChildrenGraphical() {
-      @Override
-      public void invoke(List<ObjectInfo> children) throws Exception {
-        children.remove(child_1);
-        children.add(child_1);
-      }
-    });
-    // check "graphical children"
-    List<ObjectInfo> children = parent.getPresentation().getChildrenGraphical();
-    assertThat(children).containsExactly(child_2, child_3, child_1);
-  }
+	/**
+	 * Test for {@link IObjectPresentation#getChildrenGraphical()}.
+	 * <p>
+	 * Using {@link ObjectInfoChildrenGraphical}.
+	 */
+	public void test_getChildrenGraphical_childrenBroadcast() throws Exception {
+		ObjectInfo parent = new TestObjectInfo();
+		final ObjectInfo child_1 = new TestObjectInfo("1");
+		final ObjectInfo child_2 = new TestObjectInfo("2");
+		final ObjectInfo child_3 = new TestObjectInfo("3");
+		parent.addChild(child_1);
+		parent.addChild(child_2);
+		parent.addChild(child_3);
+		// move "child_1" to the end
+		parent.addBroadcastListener(new ObjectInfoChildrenGraphical() {
+			@Override
+			public void invoke(List<ObjectInfo> children) throws Exception {
+				children.remove(child_1);
+				children.add(child_1);
+			}
+		});
+		// check "graphical children"
+		List<ObjectInfo> children = parent.getPresentation().getChildrenGraphical();
+		assertThat(children).containsExactly(child_2, child_3, child_1);
+	}
 }

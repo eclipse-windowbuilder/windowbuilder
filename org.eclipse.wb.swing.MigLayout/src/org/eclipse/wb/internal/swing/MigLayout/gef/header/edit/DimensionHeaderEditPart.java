@@ -37,95 +37,95 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swing.MigLayout.header
  */
 public abstract class DimensionHeaderEditPart<T extends MigDimensionInfo> extends GraphicalEditPart
-    implements
-      IHeaderMenuProvider {
-  private static final String DEFAULT_FONT_NAME = "Arial";
-  protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;
-  protected static final Font DEFAULT_FONT = new Font(null, DEFAULT_FONT_NAME, 7, SWT.NONE);
-  protected static final Color GROUP_COLORS[] = new Color[]{
-      new Color(null, 200, 255, 200),
-      new Color(null, 255, 210, 170),
-      new Color(null, 180, 255, 255),
-      new Color(null, 255, 255, 180),
-      new Color(null, 230, 180, 255)};
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final MigLayoutInfo m_layout;
-  protected final T m_dimension;
-  private final Figure m_containerFigure;
+implements
+IHeaderMenuProvider {
+	private static final String DEFAULT_FONT_NAME = "Arial";
+	protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;
+	protected static final Font DEFAULT_FONT = new Font(null, DEFAULT_FONT_NAME, 7, SWT.NONE);
+	protected static final Color GROUP_COLORS[] = new Color[]{
+			new Color(null, 200, 255, 200),
+			new Color(null, 255, 210, 170),
+			new Color(null, 180, 255, 255),
+			new Color(null, 255, 255, 180),
+			new Color(null, 230, 180, 255)};
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final MigLayoutInfo m_layout;
+	protected final T m_dimension;
+	private final Figure m_containerFigure;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionHeaderEditPart(MigLayoutInfo layout, T dimension, Figure containerFigure) {
-    m_layout = layout;
-    m_dimension = dimension;
-    m_containerFigure = containerFigure;
-    setModel(dimension);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionHeaderEditPart(MigLayoutInfo layout, T dimension, Figure containerFigure) {
+		m_layout = layout;
+		m_dimension = dimension;
+		m_containerFigure = containerFigure;
+		setModel(dimension);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the index of this {@link MigDimensionInfo}.
-   */
-  public abstract int getIndex();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the index of this {@link MigDimensionInfo}.
+	 */
+	public abstract int getIndex();
 
-  /**
-   * @return the host {@link MigLayoutInfo}.
-   */
-  public final MigLayoutInfo getLayout() {
-    return m_layout;
-  }
+	/**
+	 * @return the host {@link MigLayoutInfo}.
+	 */
+	public final MigLayoutInfo getLayout() {
+		return m_layout;
+	}
 
-  /**
-   * @return the {@link MigDimensionInfo} model.
-   */
-  public final T getDimension() {
-    return m_dimension;
-  }
+	/**
+	 * @return the {@link MigDimensionInfo} model.
+	 */
+	public final T getDimension() {
+		return m_dimension;
+	}
 
-  /**
-   * @return the offset of {@link Figure} with headers relative to the absolute layer.
-   */
-  public final Point getOffset() {
-    Point offset = new Point(0, 0);
-    FigureUtils.translateFigureToAbsolute2(m_containerFigure, offset);
-    return offset;
-  }
+	/**
+	 * @return the offset of {@link Figure} with headers relative to the absolute layer.
+	 */
+	public final Point getOffset() {
+		Point offset = new Point(0, 0);
+		FigureUtils.translateFigureToAbsolute2(m_containerFigure, offset);
+		return offset;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dragging
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Tool getDragTrackerTool(Request request) {
-    return new ParentTargetDragEditPartTracker(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dragging
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Tool getDragTrackerTool(Request request) {
+		return new ParentTargetDragEditPartTracker(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshVisuals() {
-    // update tooltip XXX
-    //getFigure().setToolTipText(m_dimension.getToolTip());
-    // update background
-    {
-      getFigure().setBackground(COLOR_NORMAL);
-      // XXX
-      /*if (m_dimension.isGap()) {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshVisuals() {
+		// update tooltip XXX
+		//getFigure().setToolTipText(m_dimension.getToolTip());
+		// update background
+		{
+			getFigure().setBackground(COLOR_NORMAL);
+			// XXX
+			/*if (m_dimension.isGap()) {
       	getFigure().setBackground(COLOR_GAP);
       } else {
       	int group = m_layout.getDimensionGroupIndex(m_dimension);
@@ -135,37 +135,37 @@ public abstract class DimensionHeaderEditPart<T extends MigDimensionInfo> extend
       		getFigure().setBackground(COLOR_NORMAL);
       	}
       }*/
-    }
-  }
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Images
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected Image getImage(String name) {
-    return Activator.getImage(name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Images
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected Image getImage(String name) {
+		return Activator.getImage(name);
+	}
 
-  protected ImageDescriptor getImageDescriptor(String name) {
-    return Activator.getImageDescriptor(name);
-  }
+	protected ImageDescriptor getImageDescriptor(String name) {
+		return Activator.getImageDescriptor(name);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Edit
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    super.performRequest(request);
-    if (request.getType() == Request.REQ_OPEN) {
-      editDimension();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Edit
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		super.performRequest(request);
+		if (request.getType() == Request.REQ_OPEN) {
+			editDimension();
+		}
+	}
 
-  /**
-   * Opens the {@link MigDimensionInfo} edit dialog.
-   */
-  protected abstract void editDimension();
+	/**
+	 * Opens the {@link MigDimensionInfo} edit dialog.
+	 */
+	protected abstract void editDimension();
 }

@@ -23,30 +23,30 @@ import org.eclipse.wb.internal.gef.core.CompoundCommand;
  * @coverage core.gef
  */
 public final class CompoundEditCommand extends CompoundCommand {
-  private final ObjectInfo m_object;
+	private final ObjectInfo m_object;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompoundEditCommand(ObjectInfo object) {
-    Assert.isNotNull(object);
-    m_object = object;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompoundEditCommand(ObjectInfo object) {
+		Assert.isNotNull(object);
+		m_object = object;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void execute() throws Exception {
-    ExecutionUtils.run(m_object, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        CompoundEditCommand.super.execute();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void execute() throws Exception {
+		ExecutionUtils.run(m_object, new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				CompoundEditCommand.super.execute();
+			}
+		});
+	}
 }

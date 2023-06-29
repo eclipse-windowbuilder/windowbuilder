@@ -18,55 +18,55 @@ import org.eclipse.wb.internal.swt.support.LabelSupport;
  * @author lobas_av
  */
 public class LabelSupportTest extends AbstractSupportTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String[] getTestSource() {
-    return new String[]{
-        "public class Test extends Shell {",
-        "  public Test() {",
-        "    Label label = new Label(this, SWT.NONE);",
-        "    label.setText(\"New Label\");",
-        "  }",
-        "}"};
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String[] getTestSource() {
+		return new String[]{
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"    Label label = new Label(this, SWT.NONE);",
+				"    label.setText(\"New Label\");",
+				"  }",
+		"}"};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_getLabelClass() throws Exception {
-    assertSame(
-        m_lastLoader.loadClass("org.eclipse.swt.widgets.Label"),
-        LabelSupport.getLabelClass());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_getLabelClass() throws Exception {
+		assertSame(
+				m_lastLoader.loadClass("org.eclipse.swt.widgets.Label"),
+				LabelSupport.getLabelClass());
+	}
 
-  public void test_text() throws Exception {
-    Object label = m_shell.getChildrenControls().get(0).getObject();
-    assertEquals("New Label", LabelSupport.getText(label));
-    LabelSupport.setText(label, "New My Label");
-    assertEquals("New My Label", LabelSupport.getText(label));
-  }
+	public void test_text() throws Exception {
+		Object label = m_shell.getChildrenControls().get(0).getObject();
+		assertEquals("New Label", LabelSupport.getText(label));
+		LabelSupport.setText(label, "New My Label");
+		assertEquals("New My Label", LabelSupport.getText(label));
+	}
 
-  /**
-   * Test for {@link LabelSupport#newInstance(Object)}.
-   */
-  public void test_newInstance() throws Exception {
-    Object shell = m_shell.getObject();
-    Object label = LabelSupport.newInstance(shell);
-    assertEquals("", LabelSupport.getText(label));
-  }
+	/**
+	 * Test for {@link LabelSupport#newInstance(Object)}.
+	 */
+	public void test_newInstance() throws Exception {
+		Object shell = m_shell.getObject();
+		Object label = LabelSupport.newInstance(shell);
+		assertEquals("", LabelSupport.getText(label));
+	}
 }

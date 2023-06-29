@@ -24,26 +24,26 @@ import org.eclipse.ui.actions.ActionFactory;
  * @coverage XML.editor.action
  */
 public final class RefreshAction extends DesignPageAction {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RefreshAction() {
-    // copy presentation
-    ActionUtils.copyPresentation(this, ActionFactory.REFRESH);
-    // override presentation
-    setToolTipText(Messages.RefreshAction_toolTip);
-    setImageDescriptor(DesignerPlugin.getImageDescriptor("editor_refresh.png"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RefreshAction() {
+		// copy presentation
+		ActionUtils.copyPresentation(this, ActionFactory.REFRESH);
+		// override presentation
+		setToolTipText(Messages.RefreshAction_toolTip);
+		setImageDescriptor(DesignerPlugin.getImageDescriptor("editor_refresh.png"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DesignPageAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void run(XmlDesignPage designPage) {
-    designPage.refreshGEF();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DesignPageAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void run(XmlDesignPage designPage) {
+		designPage.refreshGEF();
+	}
 }

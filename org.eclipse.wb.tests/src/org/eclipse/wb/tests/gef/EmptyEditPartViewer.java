@@ -35,166 +35,166 @@ import java.util.List;
  *
  */
 public class EmptyEditPartViewer implements IEditPartViewer {
-  private final EditDomain m_editDomain = new EditDomain();
+	private final EditDomain m_editDomain = new EditDomain();
 
-  @Override
-  public void appendSelection(EditPart part) {
-  }
+	@Override
+	public void appendSelection(EditPart part) {
+	}
 
-  @Override
-  public void deselect(EditPart part) {
-  }
+	@Override
+	public void deselect(EditPart part) {
+	}
 
-  @Override
-  public void deselect(List<EditPart> editParts) {
-  }
+	@Override
+	public void deselect(List<EditPart> editParts) {
+	}
 
-  @Override
-  public void deselectAll() {
-  }
+	@Override
+	public void deselectAll() {
+	}
 
-  @Override
-  public EditPart findTargetEditPart(int x,
-      int y,
-      Collection<EditPart> exclude,
-      IConditional conditional) {
-    return null;
-  }
+	@Override
+	public EditPart findTargetEditPart(int x,
+			int y,
+			Collection<EditPart> exclude,
+			IConditional conditional) {
+		return null;
+	}
 
-  @Override
-  public EditPart findTargetEditPart(int x,
-      int y,
-      Collection<EditPart> exclude,
-      IConditional conditional,
-      String layer) {
-    return null;
-  }
+	@Override
+	public EditPart findTargetEditPart(int x,
+			int y,
+			Collection<EditPart> exclude,
+			IConditional conditional,
+			String layer) {
+		return null;
+	}
 
-  @Override
-  public Handle findTargetHandle(Point location) {
-    return null;
-  }
+	@Override
+	public Handle findTargetHandle(Point location) {
+		return null;
+	}
 
-  @Override
-  public Handle findTargetHandle(int x, int y) {
-    return null;
-  }
+	@Override
+	public Handle findTargetHandle(int x, int y) {
+		return null;
+	}
 
-  @Override
-  public Control getControl() {
-    return null;
-  }
+	@Override
+	public Control getControl() {
+		return null;
+	}
 
-  @Override
-  public EditDomain getEditDomain() {
-    return m_editDomain;
-  }
+	@Override
+	public EditDomain getEditDomain() {
+		return m_editDomain;
+	}
 
-  @Override
-  public EditPart getEditPartByModel(Object model) {
-    return null;
-  }
+	@Override
+	public EditPart getEditPartByModel(Object model) {
+		return null;
+	}
 
-  @Override
-  public IEditPartFactory getEditPartFactory() {
-    return null;
-  }
+	@Override
+	public IEditPartFactory getEditPartFactory() {
+		return null;
+	}
 
-  @Override
-  public Layer getLayer(String name) {
-    return null;
-  }
+	@Override
+	public Layer getLayer(String name) {
+		return null;
+	}
 
-  @Override
-  public IRootContainer getRootContainer() {
-    return null;
-  }
+	@Override
+	public IRootContainer getRootContainer() {
+		return null;
+	}
 
-  @Override
-  public IRootFigure getRootFigure() {
-    return null;
-  }
+	@Override
+	public IRootFigure getRootFigure() {
+		return null;
+	}
 
-  @Override
-  public List<EditPart> getSelectedEditParts() {
-    return null;
-  }
+	@Override
+	public List<EditPart> getSelectedEditParts() {
+		return null;
+	}
 
-  @Override
-  public EditPart getSelectingEditPart() {
-    return null;
-  }
+	@Override
+	public EditPart getSelectingEditPart() {
+		return null;
+	}
 
-  @Override
-  public void registerEditPart(EditPart editPart) {
-  }
+	@Override
+	public void registerEditPart(EditPart editPart) {
+	}
 
-  @Override
-  public void select(EditPart part) {
-  }
+	@Override
+	public void select(EditPart part) {
+	}
 
-  @Override
-  public void setCursor(Cursor cursor) {
-  }
+	@Override
+	public void setCursor(Cursor cursor) {
+	}
 
-  @Override
-  public MenuManager getContextMenu() {
-    return null;
-  }
+	@Override
+	public MenuManager getContextMenu() {
+		return null;
+	}
 
-  @Override
-  public void setContextMenu(MenuManager manager) {
-  }
+	@Override
+	public void setContextMenu(MenuManager manager) {
+	}
 
-  @Override
-  public void setSelection(List<EditPart> editParts) {
-  }
+	@Override
+	public void setSelection(List<EditPart> editParts) {
+	}
 
-  @Override
-  public void unregisterEditPart(EditPart editPart) {
-  }
+	@Override
+	public void unregisterEditPart(EditPart editPart) {
+	}
 
-  @Override
-  public void addSelectionChangedListener(ISelectionChangedListener listener) {
-  }
+	@Override
+	public void addSelectionChangedListener(ISelectionChangedListener listener) {
+	}
 
-  @Override
-  public ISelection getSelection() {
-    return null;
-  }
+	@Override
+	public ISelection getSelection() {
+		return null;
+	}
 
-  @Override
-  public void removeSelectionChangedListener(ISelectionChangedListener listener) {
-  }
+	@Override
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
+	}
 
-  @Override
-  public void setSelection(ISelection selection) {
-  }
+	@Override
+	public void setSelection(ISelection selection) {
+	}
 
-  @Override
-  public int getHOffset() {
-    return 0;
-  }
+	@Override
+	public int getHOffset() {
+		return 0;
+	}
 
-  @Override
-  public int getVOffset() {
-    return 0;
-  }
+	@Override
+	public int getVOffset() {
+		return 0;
+	}
 
-  @Override
-  public EditPart getRootEditPart() {
-    return null;
-  }
+	@Override
+	public EditPart getRootEditPart() {
+		return null;
+	}
 
-  @Override
-  public void addEditPartClickListener(IEditPartClickListener listener) {
-  }
+	@Override
+	public void addEditPartClickListener(IEditPartClickListener listener) {
+	}
 
-  @Override
-  public void fireEditPartClick(EditPart editPart) {
-  }
+	@Override
+	public void fireEditPartClick(EditPart editPart) {
+	}
 
-  @Override
-  public void removeEditPartClickListener(IEditPartClickListener listener) {
-  }
+	@Override
+	public void removeEditPartClickListener(IEditPartClickListener listener) {
+	}
 }

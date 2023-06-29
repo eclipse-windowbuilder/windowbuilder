@@ -36,88 +36,88 @@ import java.util.List;
  * @coverage rcp.model.widgets
  */
 public final class CoolBarInfo extends CompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CoolBarInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CoolBarInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link CoolBarInfo} has horizontal layout.
-   */
-  public boolean isHorizontal() {
-    return ControlSupport.isStyle(getObject(), SWT.HORIZONTAL);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link CoolBarInfo} has horizontal layout.
+	 */
+	public boolean isHorizontal() {
+		return ControlSupport.isStyle(getObject(), SWT.HORIZONTAL);
+	}
 
-  /**
-   * @return the {@link CoolItemInfo} children.
-   */
-  public List<CoolItemInfo> getItems() {
-    return getChildren(CoolItemInfo.class);
-  }
+	/**
+	 * @return the {@link CoolItemInfo} children.
+	 */
+	public List<CoolItemInfo> getItems() {
+		return getChildren(CoolItemInfo.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    // ensure that each CoolItem has reasonable size
-    for (CoolItemInfo itemInfo : getItems()) {
-      CoolItem item = (CoolItem) itemInfo.getObject();
-      Control control = item.getControl();
-      if (control == null) {
-        item.setSize(20, 25);
-      } else {
-        Point control_preferredSize = control.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-        Point item_preferredSize =
-            item.computeSize(control_preferredSize.x, control_preferredSize.y);
-        item.setSize(item_preferredSize);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		// ensure that each CoolItem has reasonable size
+		for (CoolItemInfo itemInfo : getItems()) {
+			CoolItem item = (CoolItem) itemInfo.getObject();
+			Control control = item.getControl();
+			if (control == null) {
+				item.setSize(20, 25);
+			} else {
+				Point control_preferredSize = control.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+				Point item_preferredSize =
+						item.computeSize(control_preferredSize.x, control_preferredSize.y);
+				item.setSize(item_preferredSize);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenTree() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
-      removeItemControls(children);
-      return children;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenTree() throws Exception {
+			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+			removeItemControls(children);
+			return children;
+		}
 
-    @Override
-    public List<ObjectInfo> getChildrenGraphical() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenGraphical());
-      removeItemControls(children);
-      return children;
-    }
+		@Override
+		public List<ObjectInfo> getChildrenGraphical() throws Exception {
+			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenGraphical());
+			removeItemControls(children);
+			return children;
+		}
 
-    private void removeItemControls(List<ObjectInfo> children) {
-      for (CoolItemInfo item : getItems()) {
-        children.remove(item.getControl());
-      }
-    }
-  };
+		private void removeItemControls(List<ObjectInfo> children) {
+			for (CoolItemInfo item : getItems()) {
+				children.remove(item.getControl());
+			}
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 }

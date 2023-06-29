@@ -22,30 +22,30 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBea
  * @coverage bindings.rcp.ui
  */
 public final class TreeDetailUiContentProvider extends ChooseClassUiContentProvider {
-  private final DetailBeanObservableInfo m_observable;
+	private final DetailBeanObservableInfo m_observable;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TreeDetailUiContentProvider(ChooseClassConfiguration configuration,
-      DetailBeanObservableInfo observable) {
-    super(configuration);
-    m_observable = observable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TreeDetailUiContentProvider(ChooseClassConfiguration configuration,
+			DetailBeanObservableInfo observable) {
+		super(configuration);
+		m_observable = observable;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+	}
 
-  @Override
-  public void saveToObject() throws Exception {
-    m_observable.setDetailPropertyType(getChoosenClass());
-  }
+	@Override
+	public void saveToObject() throws Exception {
+		m_observable.setDetailPropertyType(getChoosenClass());
+	}
 }

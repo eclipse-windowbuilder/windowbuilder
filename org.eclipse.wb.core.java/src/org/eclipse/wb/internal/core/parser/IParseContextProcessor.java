@@ -23,6 +23,6 @@ import java.util.List;
  * @coverage core.model.parser
  */
 public interface IParseContextProcessor {
-  void process(AstEditor editor, ExecutionFlowDescription flowDescription, List<JavaInfo> components)
-      throws Exception;
+	void process(AstEditor editor, ExecutionFlowDescription flowDescription, List<JavaInfo> components)
+			throws Exception;
 }

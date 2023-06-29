@@ -45,165 +45,165 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.standar
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class ViewerObservableFactory implements IObservableFactory {
-  private final Type m_type;
+	private final Type m_type;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerObservableFactory(Type type) {
-    Assert.isTrue(type == Type.OnlyValue
-        || type == Type.OnlyList
-        || type == Type.OnlySet
-        || type == Type.Detail);
-    m_type = type;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerObservableFactory(Type type) {
+		Assert.isTrue(type == Type.OnlyValue
+				|| type == Type.OnlyList
+				|| type == Type.OnlySet
+				|| type == Type.Detail);
+		m_type = type;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObservableFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Type getType() throws Exception {
-    return m_type;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObservableFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Type getType() throws Exception {
+		return m_type;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Factories
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Factory with type {@link Type#OnlyValue} for create {@link SingleSelectionObservableInfo}.
-   */
-  public static final IObservableFactory SINGLE_SELECTION = new ViewerObservableFactory(
-      Type.OnlyValue) {
-    @Override
-    public ObservableInfo createObservable(BindableInfo object,
-        BindableInfo property,
-        Type type,
-        boolean version_1_3) throws Exception {
-      SingleSelectionObservableInfo observable = new SingleSelectionObservableInfo(object, property);
-      if (version_1_3) {
-        observable.setCodeSupport(new ViewerPropertySingleSelectionCodeSupport());
-      } else {
-        observable.setCodeSupport(new SingleSelectionObservableCodeSupport());
-      }
-      return observable;
-    }
-  };
-  /**
-   * Factory with type {@link Type#Detail} for create master-detail observable's.
-   */
-  public static final IObservableFactory DETAIL_SINGLE_SELECTION = new ViewerObservableFactory(
-      Type.Detail) {
-    @Override
-    public ObservableInfo createObservable(BindableInfo object,
-        BindableInfo property,
-        Type type,
-        boolean version_1_3) throws Exception {
-      // create master
-      SingleSelectionObservableInfo masterObservable =
-          (SingleSelectionObservableInfo) SINGLE_SELECTION.createObservable(
-              object,
-              property,
-              type,
-              version_1_3);
-      // create global detail
-      ObservableInfo detailObservable =
-          GlobalFactoryHelper.createDetailObservable(masterObservable, object, type);
-      if (detailObservable != null) {
-        return detailObservable;
-      }
-      // create detail
-      DetailBeanObservableInfo observable = null;
-      switch (type) {
-        case OnlyValue :
-          observable = new DetailValueBeanObservableInfo(masterObservable, null, null, null);
-          if (version_1_3) {
-            observable.setCodeSupport(new ValuePropertyDetailCodeSupport());
-          } else {
-            observable.setCodeSupport(new BeanObservableDetailValueCodeSupport());
-          }
-          break;
-        case OnlyList :
-          observable = new DetailListBeanObservableInfo(masterObservable, null, null, null);
-          if (version_1_3) {
-            observable.setCodeSupport(new ListPropertyDetailCodeSupport());
-          } else {
-            observable.setCodeSupport(new BeanObservableDetailListCodeSupport());
-          }
-          break;
-        case OnlySet :
-          observable = new DetailSetBeanObservableInfo(masterObservable, null, null, null);
-          if (version_1_3) {
-            observable.setCodeSupport(new SetPropertyDetailCodeSupport());
-          } else {
-            observable.setCodeSupport(new BeanObservableDetailSetCodeSupport());
-          }
-          break;
-      }
-      Assert.isNotNull(observable);
-      observable.setPojoBindable(masterObservable.isPojoBindable());
-      return observable;
-    }
-  };
-  /**
-   * Factory with type {@link Type#OnlyList} for create {@link MultiSelectionObservableInfo}.
-   */
-  public static final IObservableFactory MULTI_SELECTION = new ViewerObservableFactory(
-      Type.OnlyList) {
-    @Override
-    public ObservableInfo createObservable(BindableInfo object,
-        BindableInfo property,
-        Type type,
-        boolean version_1_3) throws Exception {
-      MultiSelectionObservableInfo observable = new MultiSelectionObservableInfo(object);
-      if (version_1_3) {
-        observable.setCodeSupport(new ViewerPropertyMultiSelectionCodeSupport());
-      } else {
-        observable.setCodeSupport(new MultiSelectionObservableCodeSupport());
-      }
-      return observable;
-    }
-  };
-  /**
-   * Factory with type {@link Type#OnlySet} for create {@link CheckedElementsObservableInfo}.
-   */
-  public static final IObservableFactory CHECKED_ELEMENTS = new ViewerObservableFactory(
-      Type.OnlySet) {
-    @Override
-    public ObservableInfo createObservable(BindableInfo object,
-        BindableInfo property,
-        Type type,
-        boolean version_1_3) throws Exception {
-      CheckedElementsObservableInfo observable = new CheckedElementsObservableInfo(object);
-      if (version_1_3) {
-        observable.setCodeSupport(new ViewerPropertyCheckedElementsCodeSupport());
-      } else {
-        observable.setCodeSupport(new CheckedElementsObservableCodeSupport());
-      }
-      return observable;
-    }
-  };
-  /**
-   * Factory with type {@link Type#OnlySet} for create {@link FiltersObservableInfo}.
-   */
-  public static final IObservableFactory FILTERS = new ViewerObservableFactory(Type.OnlySet) {
-    @Override
-    public ObservableInfo createObservable(BindableInfo object,
-        BindableInfo property,
-        Type type,
-        boolean version_1_3) throws Exception {
-      FiltersObservableInfo observable = new FiltersObservableInfo((WidgetBindableInfo) object);
-      if (version_1_3) {
-        observable.setCodeSupport(new ViewerPropertyFiltersCodeSupport());
-      } else {
-        observable.setCodeSupport(new FiltersObservableCodeSupport());
-      }
-      return observable;
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Factories
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Factory with type {@link Type#OnlyValue} for create {@link SingleSelectionObservableInfo}.
+	 */
+	public static final IObservableFactory SINGLE_SELECTION = new ViewerObservableFactory(
+			Type.OnlyValue) {
+		@Override
+		public ObservableInfo createObservable(BindableInfo object,
+				BindableInfo property,
+				Type type,
+				boolean version_1_3) throws Exception {
+			SingleSelectionObservableInfo observable = new SingleSelectionObservableInfo(object, property);
+			if (version_1_3) {
+				observable.setCodeSupport(new ViewerPropertySingleSelectionCodeSupport());
+			} else {
+				observable.setCodeSupport(new SingleSelectionObservableCodeSupport());
+			}
+			return observable;
+		}
+	};
+	/**
+	 * Factory with type {@link Type#Detail} for create master-detail observable's.
+	 */
+	public static final IObservableFactory DETAIL_SINGLE_SELECTION = new ViewerObservableFactory(
+			Type.Detail) {
+		@Override
+		public ObservableInfo createObservable(BindableInfo object,
+				BindableInfo property,
+				Type type,
+				boolean version_1_3) throws Exception {
+			// create master
+			SingleSelectionObservableInfo masterObservable =
+					(SingleSelectionObservableInfo) SINGLE_SELECTION.createObservable(
+							object,
+							property,
+							type,
+							version_1_3);
+			// create global detail
+			ObservableInfo detailObservable =
+					GlobalFactoryHelper.createDetailObservable(masterObservable, object, type);
+			if (detailObservable != null) {
+				return detailObservable;
+			}
+			// create detail
+			DetailBeanObservableInfo observable = null;
+			switch (type) {
+			case OnlyValue :
+				observable = new DetailValueBeanObservableInfo(masterObservable, null, null, null);
+				if (version_1_3) {
+					observable.setCodeSupport(new ValuePropertyDetailCodeSupport());
+				} else {
+					observable.setCodeSupport(new BeanObservableDetailValueCodeSupport());
+				}
+				break;
+			case OnlyList :
+				observable = new DetailListBeanObservableInfo(masterObservable, null, null, null);
+				if (version_1_3) {
+					observable.setCodeSupport(new ListPropertyDetailCodeSupport());
+				} else {
+					observable.setCodeSupport(new BeanObservableDetailListCodeSupport());
+				}
+				break;
+			case OnlySet :
+				observable = new DetailSetBeanObservableInfo(masterObservable, null, null, null);
+				if (version_1_3) {
+					observable.setCodeSupport(new SetPropertyDetailCodeSupport());
+				} else {
+					observable.setCodeSupport(new BeanObservableDetailSetCodeSupport());
+				}
+				break;
+			}
+			Assert.isNotNull(observable);
+			observable.setPojoBindable(masterObservable.isPojoBindable());
+			return observable;
+		}
+	};
+	/**
+	 * Factory with type {@link Type#OnlyList} for create {@link MultiSelectionObservableInfo}.
+	 */
+	public static final IObservableFactory MULTI_SELECTION = new ViewerObservableFactory(
+			Type.OnlyList) {
+		@Override
+		public ObservableInfo createObservable(BindableInfo object,
+				BindableInfo property,
+				Type type,
+				boolean version_1_3) throws Exception {
+			MultiSelectionObservableInfo observable = new MultiSelectionObservableInfo(object);
+			if (version_1_3) {
+				observable.setCodeSupport(new ViewerPropertyMultiSelectionCodeSupport());
+			} else {
+				observable.setCodeSupport(new MultiSelectionObservableCodeSupport());
+			}
+			return observable;
+		}
+	};
+	/**
+	 * Factory with type {@link Type#OnlySet} for create {@link CheckedElementsObservableInfo}.
+	 */
+	public static final IObservableFactory CHECKED_ELEMENTS = new ViewerObservableFactory(
+			Type.OnlySet) {
+		@Override
+		public ObservableInfo createObservable(BindableInfo object,
+				BindableInfo property,
+				Type type,
+				boolean version_1_3) throws Exception {
+			CheckedElementsObservableInfo observable = new CheckedElementsObservableInfo(object);
+			if (version_1_3) {
+				observable.setCodeSupport(new ViewerPropertyCheckedElementsCodeSupport());
+			} else {
+				observable.setCodeSupport(new CheckedElementsObservableCodeSupport());
+			}
+			return observable;
+		}
+	};
+	/**
+	 * Factory with type {@link Type#OnlySet} for create {@link FiltersObservableInfo}.
+	 */
+	public static final IObservableFactory FILTERS = new ViewerObservableFactory(Type.OnlySet) {
+		@Override
+		public ObservableInfo createObservable(BindableInfo object,
+				BindableInfo property,
+				Type type,
+				boolean version_1_3) throws Exception {
+			FiltersObservableInfo observable = new FiltersObservableInfo((WidgetBindableInfo) object);
+			if (version_1_3) {
+				observable.setCodeSupport(new ViewerPropertyFiltersCodeSupport());
+			} else {
+				observable.setCodeSupport(new FiltersObservableCodeSupport());
+			}
+			return observable;
+		}
+	};
 }

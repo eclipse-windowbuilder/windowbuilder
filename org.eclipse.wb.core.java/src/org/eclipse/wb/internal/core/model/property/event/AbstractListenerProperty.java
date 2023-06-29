@@ -23,28 +23,28 @@ import org.eclipse.jface.action.IMenuManager;
  * @coverage core.model.property.events
  */
 public abstract class AbstractListenerProperty extends AbstractEventProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractListenerProperty(JavaInfo javaInfo, String title, PropertyEditor propertyEditor) {
-    super(javaInfo, title, propertyEditor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractListenerProperty(JavaInfo javaInfo, String title, PropertyEditor propertyEditor) {
+		super(javaInfo, title, propertyEditor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Removes listener for this event.
-   */
-  protected abstract void removeListener() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Removes listener for this event.
+	 */
+	protected abstract void removeListener() throws Exception;
 
-  /**
-   * Contributes actions into context menu.
-   */
-  protected abstract void addListenerActions(IMenuManager manager, IMenuManager implementMenuManager)
-      throws Exception;
+	/**
+	 * Contributes actions into context menu.
+	 */
+	protected abstract void addListenerActions(IMenuManager manager, IMenuManager implementMenuManager)
+			throws Exception;
 }

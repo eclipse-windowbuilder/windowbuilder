@@ -23,31 +23,31 @@ import java.util.List;
  *
  */
 public class EmfObservableListCodeSupport extends ObservableCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableCodeSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName(
-          observable.getBindableObject().getReference(),
-          observable.getBindableProperty().getPresentation().getText(),
-          "ObserveList"));
-    }
-    // add code
-    lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
-        + observable.getVariableIdentifier()
-        + PropertiesSupport.getEMFObservablesCode(
-            observable.getBindableObject(),
-            "observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), ")
-        + observable.getBindableObject().getReference()
-        + ", "
-        + observable.getBindableProperty().getReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableCodeSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName(
+					observable.getBindableObject().getReference(),
+					observable.getBindableProperty().getPresentation().getText(),
+					"ObserveList"));
+		}
+		// add code
+		lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
+				+ observable.getVariableIdentifier()
+				+ PropertiesSupport.getEMFObservablesCode(
+						observable.getBindableObject(),
+						"observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), ")
+				+ observable.getBindableObject().getReference()
+				+ ", "
+				+ observable.getBindableProperty().getReference()
+				+ ");");
+	}
 }

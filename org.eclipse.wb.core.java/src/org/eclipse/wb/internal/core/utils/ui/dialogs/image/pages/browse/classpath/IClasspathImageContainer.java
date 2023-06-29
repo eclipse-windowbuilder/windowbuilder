@@ -19,19 +19,19 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.II
  * @coverage core.ui
  */
 interface IClasspathImageContainer extends IImageContainer {
-  /**
-   * @return the children {@link IImageContainer}'s.
-   */
-  @Override
-  IImageContainer[] elements();
+	/**
+	 * @return the children {@link IImageContainer}'s.
+	 */
+	@Override
+	IImageContainer[] elements();
 
-  /**
-   * @return <code>true</code> if this jar does not have any images.
-   */
-  boolean isEmpty();
+	/**
+	 * @return <code>true</code> if this jar does not have any images.
+	 */
+	boolean isEmpty();
 
-  /**
-   * Disposes any allocated resources.
-   */
-  void dispose();
+	/**
+	 * Disposes any allocated resources.
+	 */
+	void dispose();
 }

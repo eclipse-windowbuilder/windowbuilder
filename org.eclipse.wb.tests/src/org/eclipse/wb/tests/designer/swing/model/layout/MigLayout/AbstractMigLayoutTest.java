@@ -28,80 +28,80 @@ import org.osgi.framework.Bundle;
  * @author scheglov_ke
  */
 public class AbstractMigLayoutTest extends AbstractLayoutTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configureNewProject() throws Exception {
-    super.configureNewProject();
-    do_configureNewProject();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configureNewProject() throws Exception {
+		super.configureNewProject();
+		do_configureNewProject();
+	}
 
-  static void do_configureNewProject() throws Exception {
-    Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.MigLayout.lib");
-    String path = FileLocator.toFileURL(libBundle.getEntry("/miglayout15-swing.jar")).getPath();
-    m_testProject.addExternalJar(path);
-  }
+	static void do_configureNewProject() throws Exception {
+		Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.MigLayout.lib");
+		String path = FileLocator.toFileURL(libBundle.getEntry("/miglayout15-swing.jar")).getPath();
+		m_testProject.addExternalJar(path);
+	}
 
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    // create IConstants with C_* constants
-    setFileContentSrc(
-        "test/IConstants.java",
-        getSourceDQ(
-            "package test;",
-            "public interface IConstants {",
-            "  String C_1 = '1';",
-            "  String C_2 = '2';",
-            "  String C_3 = '3';",
-            "  String C_4 = '4';",
-            "  String C_5 = '5';",
-            "  String C_6 = '6';",
-            "  String C_7 = '7';",
-            "  String C_8 = '8';",
-            "}"));
-    waitForAutoBuild();
-  }
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		// create IConstants with C_* constants
+		setFileContentSrc(
+				"test/IConstants.java",
+				getSourceDQ(
+						"package test;",
+						"public interface IConstants {",
+						"  String C_1 = '1';",
+						"  String C_2 = '2';",
+						"  String C_3 = '3';",
+						"  String C_4 = '4';",
+						"  String C_5 = '5';",
+						"  String C_6 = '6';",
+						"  String C_7 = '7';",
+						"  String C_8 = '8';",
+						"}"));
+		waitForAutoBuild();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected boolean m_includeMigImports = true;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected boolean m_includeMigImports = true;
 
-  @Override
-  public String getTestSource(String... lines) {
-    if (m_includeMigImports) {
-      try {
-        if (m_javaProject.findType("net.miginfocom.swing.MigLayout") != null) {
-          lines =
-              CodeUtils.join(new String[]{
-                  "import net.miginfocom.layout.*;",
-                  "import net.miginfocom.swing.*;"}, lines);
-        }
-      } catch (Throwable e) {
-        throw ReflectionUtils.propagate(e);
-      }
-    }
-    return super.getTestSource(lines);
-  }
+	@Override
+	public String getTestSource(String... lines) {
+		if (m_includeMigImports) {
+			try {
+				if (m_javaProject.findType("net.miginfocom.swing.MigLayout") != null) {
+					lines =
+							CodeUtils.join(new String[]{
+									"import net.miginfocom.layout.*;",
+							"import net.miginfocom.swing.*;"}, lines);
+				}
+			} catch (Throwable e) {
+				throw ReflectionUtils.propagate(e);
+			}
+		}
+		return super.getTestSource(lines);
+	}
 
-  /**
-   * Asserts that given {@link ComponentInfo} has expected cell bounds on {@link MigLayoutInfo}.
-   */
-  protected static void assertCellBounds(ComponentInfo component,
-      int expectedX,
-      int expectedY,
-      int expectedWidth,
-      int expectedHeight) {
-    CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(component);
-    assertEquals(expectedX, constraints.getX());
-    assertEquals(expectedY, constraints.getY());
-    assertEquals(expectedWidth, constraints.getWidth());
-    assertEquals(expectedHeight, constraints.getHeight());
-  }
+	/**
+	 * Asserts that given {@link ComponentInfo} has expected cell bounds on {@link MigLayoutInfo}.
+	 */
+	protected static void assertCellBounds(ComponentInfo component,
+			int expectedX,
+			int expectedY,
+			int expectedWidth,
+			int expectedHeight) {
+		CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(component);
+		assertEquals(expectedX, constraints.getX());
+		assertEquals(expectedY, constraints.getY());
+		assertEquals(expectedWidth, constraints.getWidth());
+		assertEquals(expectedHeight, constraints.getHeight());
+	}
 }

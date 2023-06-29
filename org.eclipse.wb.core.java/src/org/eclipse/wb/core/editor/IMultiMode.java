@@ -19,23 +19,23 @@ import org.eclipse.wb.internal.core.editor.multi.DesignerEditor;
  * @coverage core.editor
  */
 public interface IMultiMode {
-  /**
-   * @return the {@link IDesignPage}.
-   */
-  IDesignPage getDesignPage();
+	/**
+	 * @return the {@link IDesignPage}.
+	 */
+	IDesignPage getDesignPage();
 
-  /**
-   * Activates "Source" page of editor.
-   */
-  void showSource();
+	/**
+	 * Activates "Source" page of editor.
+	 */
+	void showSource();
 
-  /**
-   * Activates "Design" page of editor.
-   */
-  void showDesign();
+	/**
+	 * Activates "Design" page of editor.
+	 */
+	void showDesign();
 
-  /**
-   * Switches between "Source" and "Design" pages.
-   */
-  void switchSourceDesign();
+	/**
+	 * Switches between "Source" and "Design" pages.
+	 */
+	void switchSourceDesign();
 }

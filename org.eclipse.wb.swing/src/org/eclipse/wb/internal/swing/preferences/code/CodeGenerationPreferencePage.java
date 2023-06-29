@@ -19,14 +19,14 @@ import org.eclipse.wb.internal.swing.ToolkitProvider;
  * @coverage swing.preferences.ui
  */
 public final class CodeGenerationPreferencePage
-    extends
-      org.eclipse.wb.internal.core.preferences.code.CodeGenerationPreferencePage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CodeGenerationPreferencePage() {
-    super(ToolkitProvider.DESCRIPTION);
-  }
+extends
+org.eclipse.wb.internal.core.preferences.code.CodeGenerationPreferencePage {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CodeGenerationPreferencePage() {
+		super(ToolkitProvider.DESCRIPTION);
+	}
 }

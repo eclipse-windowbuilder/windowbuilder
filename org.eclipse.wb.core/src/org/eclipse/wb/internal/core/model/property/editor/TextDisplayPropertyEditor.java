@@ -25,43 +25,43 @@ import org.eclipse.swt.graphics.GC;
  * @coverage core.model.property.editor
  */
 public abstract class TextDisplayPropertyEditor extends PropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
-    String text = getText(property);
-    if (text != null) {
-      DrawUtils.drawStringCV(gc, text, x, y, width, height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
+		String text = getText(property);
+		if (text != null) {
+			DrawUtils.drawStringCV(gc, text, x, y, width, height);
+		}
+	}
 
-  /**
-   * @return the text for displaying value of given {@link Property} or <code>null</code> if value
-   *         of {@link Property} is unknown.
-   */
-  protected abstract String getText(Property property) throws Exception;
+	/**
+	 * @return the text for displaying value of given {@link Property} or <code>null</code> if value
+	 *         of {@link Property} is unknown.
+	 */
+	protected abstract String getText(Property property) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IAdaptable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public <T> T getAdapter(Class<T> adapter) {
-    // tooltip for value text
-    if (adapter == PropertyTooltipProvider.class) {
-      return adapter.cast(createPropertyTooltipProvider());
-    }
-    return super.getAdapter(adapter);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IAdaptable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public <T> T getAdapter(Class<T> adapter) {
+		// tooltip for value text
+		if (adapter == PropertyTooltipProvider.class) {
+			return adapter.cast(createPropertyTooltipProvider());
+		}
+		return super.getAdapter(adapter);
+	}
 
-  /**
-   * @return the {@link PropertyTooltipProvider} to display value tooltip.
-   */
-  protected PropertyTooltipProvider createPropertyTooltipProvider() {
-    return null;
-  }
+	/**
+	 * @return the {@link PropertyTooltipProvider} to display value tooltip.
+	 */
+	protected PropertyTooltipProvider createPropertyTooltipProvider() {
+		return null;
+	}
 }

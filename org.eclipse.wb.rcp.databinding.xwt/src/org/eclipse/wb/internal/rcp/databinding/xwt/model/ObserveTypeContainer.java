@@ -30,72 +30,72 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
  *
  */
 public abstract class ObserveTypeContainer
-    extends
-      org.eclipse.wb.internal.core.databinding.model.ObserveTypeContainer {
-  protected DatabindingsProvider m_provider;
+extends
+org.eclipse.wb.internal.core.databinding.model.ObserveTypeContainer {
+	protected DatabindingsProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveTypeContainer(ObserveType observeType, boolean isTarget, boolean isModel) {
-    super(observeType, isTarget, isModel);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveTypeContainer(ObserveType observeType, boolean isTarget, boolean isModel) {
+		super(observeType, isTarget, isModel);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void initialize(IDatabindingsProvider provider) throws Exception {
-    m_provider = (DatabindingsProvider) provider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void initialize(IDatabindingsProvider provider) throws Exception {
+		m_provider = (DatabindingsProvider) provider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObserveInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void createObservables(JavaInfo root,
-      IModelResolver resolver,
-      AstEditor editor,
-      TypeDeclaration rootNode) throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObserveInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void createObservables(JavaInfo root,
+			IModelResolver resolver,
+			AstEditor editor,
+			TypeDeclaration rootNode) throws Exception {
+	}
 
-  @Override
-  public final void synchronizeObserves(JavaInfo root, AstEditor editor, TypeDeclaration rootNode)
-      throws Exception {
-  }
+	@Override
+	public final void synchronizeObserves(JavaInfo root, AstEditor editor, TypeDeclaration rootNode)
+			throws Exception {
+	}
 
-  public void synchronizeObserves() throws Exception {
-  }
+	public void synchronizeObserves() throws Exception {
+	}
 
-  public abstract void createObservables(XmlObjectInfo xmlObjectRoot) throws Exception;
+	public abstract void createObservables(XmlObjectInfo xmlObjectRoot) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      ClassInstanceCreation creation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			ClassInstanceCreation creation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		return null;
+	}
 
-  @Override
-  public final AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver) throws Exception {
-    return null;
-  }
+	@Override
+	public final AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver) throws Exception {
+		return null;
+	}
 }

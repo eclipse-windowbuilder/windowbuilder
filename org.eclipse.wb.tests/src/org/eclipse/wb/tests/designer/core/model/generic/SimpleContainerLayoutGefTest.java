@@ -29,50 +29,50 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class SimpleContainerLayoutGefTest extends SimpleContainerAbstractGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final class MyLayout_Info extends LayoutInfo {
-    public MyLayout_Info(AstEditor editor,
-        ComponentDescription description,
-        CreationSupport creationSupport) throws Exception {
-      super(editor, description, creationSupport);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final class MyLayout_Info extends LayoutInfo {
+		public MyLayout_Info(AstEditor editor,
+				ComponentDescription description,
+				CreationSupport creationSupport) throws Exception {
+			super(editor, description, creationSupport);
+		}
 
-    public List<ObjectInfo> getSimpleContainerChildren() {
-      return getContainer().getChildren();
-    }
+		public List<ObjectInfo> getSimpleContainerChildren() {
+			return getContainer().getChildren();
+		}
 
-    public void command_CREATE(Object component) throws Exception {
-      JavaInfoUtils.add((JavaInfo) component, getAssociationObject(), getContainer(), null);
-    }
+		public void command_CREATE(Object component) throws Exception {
+			JavaInfoUtils.add((JavaInfo) component, getAssociationObject(), getContainer(), null);
+		}
 
-    public void command_ADD(Object component) throws Exception {
-      JavaInfoUtils.move((JavaInfo) component, getAssociationObject(), getContainer(), null);
-    }
+		public void command_ADD(Object component) throws Exception {
+			JavaInfoUtils.move((JavaInfo) component, getAssociationObject(), getContainer(), null);
+		}
 
-    private AssociationObject getAssociationObject() {
-      return AssociationObjects.invocationChild("%parent%.setContent(%child%)", true);
-    }
-  }
+		private AssociationObject getAssociationObject() {
+			return AssociationObjects.invocationChild("%parent%.setContent(%child%)", true);
+		}
+	}
 
-  @Override
-  protected void prepareSimplePanel() throws Exception {
-    SimpleContainerModelTest.prepareSimplePanel_classes();
-    setFileContentSrc(
-        "test/MyLayout.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <model class='" + MyLayout_Info.class.getName() + "'/>",
-            "  <parameters>",
-            "    <parameter name='simpleContainer'>true</parameter>",
-            "    <parameter name='simpleContainer.association'>%parent%.setContent(%child%)</parameter>",
-            "    <parameter name='simpleContainer.component'>java.awt.Component</parameter>",
-            "  </parameters>",
-            "</component>"));
-    waitForAutoBuild();
-  }
+	@Override
+	protected void prepareSimplePanel() throws Exception {
+		SimpleContainerModelTest.prepareSimplePanel_classes();
+		setFileContentSrc(
+				"test/MyLayout.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <model class='" + MyLayout_Info.class.getName() + "'/>",
+						"  <parameters>",
+						"    <parameter name='simpleContainer'>true</parameter>",
+						"    <parameter name='simpleContainer.association'>%parent%.setContent(%child%)</parameter>",
+						"    <parameter name='simpleContainer.component'>java.awt.Component</parameter>",
+						"  </parameters>",
+						"</component>"));
+		waitForAutoBuild();
+	}
 }

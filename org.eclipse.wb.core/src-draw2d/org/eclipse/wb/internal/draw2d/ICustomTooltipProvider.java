@@ -23,10 +23,10 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage gef.draw2d
  */
 public interface ICustomTooltipProvider {
-  /**
-   * Create tooltip control.
-   */
-  Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure);
+	/**
+	 * Create tooltip control.
+	 */
+	Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure);
 
-  void show(Shell shell);
+	void show(Shell shell);
 }

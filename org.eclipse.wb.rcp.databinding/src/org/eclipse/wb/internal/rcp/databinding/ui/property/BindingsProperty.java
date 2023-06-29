@@ -40,80 +40,80 @@ import java.util.List;
  * @coverage bindings.rcp.ui.properties
  */
 public class BindingsProperty extends AbstractBindingsProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BindingsProperty(Context context) {
-    super(context);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BindingsProperty(Context context) {
+		super(context);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractBindingsProperty
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Property[] createProperties() throws Exception {
-    DatabindingsProvider provider = (DatabindingsProvider) m_context.provider;
-    if (m_context.objectInfo.getParent() instanceof NonVisualBeanContainerInfo) {
-      BeansObserveTypeContainer container =
-          (BeansObserveTypeContainer) provider.getContainer(ObserveType.BEANS);
-      m_context.observeObject = container.resolve(m_context.javaInfo());
-    } else {
-      WidgetsObserveTypeContainer container =
-          (WidgetsObserveTypeContainer) provider.getContainer(ObserveType.WIDGETS);
-      m_context.observeObject = container.resolve(m_context.javaInfo());
-    }
-    Assert.isNotNull(m_context.observeObject, SynchronizeManager.class.getName()
-        + " isn't work ("
-        + m_context.objectInfo
-        + ")");
-    List<IObserveInfo> observes =
-        m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable);
-    //
-    Property[] properties = new Property[observes.size()];
-    for (int i = 0; i < properties.length; i++) {
-      IObserveInfo observeProperty = observes.get(i);
-      if ("input".equals(observeProperty.getPresentation().getText())) {
-        properties[i] = new InputObserveProperty(m_context, observeProperty);
-      } else {
-        properties[i] = new ObserveProperty(m_context, observeProperty);
-      }
-    }
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractBindingsProperty
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Property[] createProperties() throws Exception {
+		DatabindingsProvider provider = (DatabindingsProvider) m_context.provider;
+		if (m_context.objectInfo.getParent() instanceof NonVisualBeanContainerInfo) {
+			BeansObserveTypeContainer container =
+					(BeansObserveTypeContainer) provider.getContainer(ObserveType.BEANS);
+			m_context.observeObject = container.resolve(m_context.javaInfo());
+		} else {
+			WidgetsObserveTypeContainer container =
+					(WidgetsObserveTypeContainer) provider.getContainer(ObserveType.WIDGETS);
+			m_context.observeObject = container.resolve(m_context.javaInfo());
+		}
+		Assert.isNotNull(m_context.observeObject, SynchronizeManager.class.getName()
+				+ " isn't work ("
+				+ m_context.objectInfo
+				+ ")");
+		List<IObserveInfo> observes =
+				m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable);
+		//
+		Property[] properties = new Property[observes.size()];
+		for (int i = 0; i < properties.length; i++) {
+			IObserveInfo observeProperty = observes.get(i);
+			if ("input".equals(observeProperty.getPresentation().getText())) {
+				properties[i] = new InputObserveProperty(m_context, observeProperty);
+			} else {
+				properties[i] = new ObserveProperty(m_context, observeProperty);
+			}
+		}
+		return properties;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean checkEquals(IObserveInfo observe) throws Exception {
-    if (observe instanceof WidgetBindableInfo) {
-      WidgetBindableInfo bindable = (WidgetBindableInfo) observe;
-      if (m_context.objectInfo == bindable.getJavaInfo()) {
-        return true;
-      }
-    }
-    //
-    String reference = JavaInfoReferenceProvider.getReference(m_context.javaInfo());
-    BindableInfo bindable = (BindableInfo) observe;
-    return reference.equals(bindable.getReference());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean checkEquals(IObserveInfo observe) throws Exception {
+		if (observe instanceof WidgetBindableInfo) {
+			WidgetBindableInfo bindable = (WidgetBindableInfo) observe;
+			if (m_context.objectInfo == bindable.getJavaInfo()) {
+				return true;
+			}
+		}
+		//
+		String reference = JavaInfoReferenceProvider.getReference(m_context.javaInfo());
+		BindableInfo bindable = (BindableInfo) observe;
+		return reference.equals(bindable.getReference());
+	}
 
-  @Override
-  protected void addBindingAction(IMenuManager menu,
-      IBindingInfo binding,
-      IObserveInfo observeProperty,
-      boolean isTarget) throws Exception {
-    BindingAction action = new BindingAction(m_context, binding);
-    action.setText(observeProperty.getPresentation().getText()
-        + ": "
-        + BindingLabelProvider.INSTANCE.getColumnText(binding, isTarget ? 2 : 1));
-    action.setIcon(BindingLabelProvider.INSTANCE.getColumnImage(binding, 0));
-    menu.add(action);
-  }
+	@Override
+	protected void addBindingAction(IMenuManager menu,
+			IBindingInfo binding,
+			IObserveInfo observeProperty,
+			boolean isTarget) throws Exception {
+		BindingAction action = new BindingAction(m_context, binding);
+		action.setText(observeProperty.getPresentation().getText()
+				+ ": "
+				+ BindingLabelProvider.INSTANCE.getColumnText(binding, isTarget ? 2 : 1));
+		action.setIcon(BindingLabelProvider.INSTANCE.getColumnImage(binding, 0));
+		menu.add(action);
+	}
 }

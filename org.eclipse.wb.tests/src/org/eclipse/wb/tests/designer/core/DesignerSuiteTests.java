@@ -22,17 +22,17 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public abstract class DesignerSuiteTests extends TestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Suite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link TestSuite} for given class with test_setUp/test_tearDown as first/last.
-   */
-  protected static TestSuite createSingleSuite(Class<?> clazz) {
-    TestSuite suite = new TestSuite(clazz);
-    TestUtils.sortTestSuiteMethods(clazz, suite);
-    return suite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Suite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link TestSuite} for given class with test_setUp/test_tearDown as first/last.
+	 */
+	protected static TestSuite createSingleSuite(Class<?> clazz) {
+		TestSuite suite = new TestSuite(clazz);
+		TestUtils.sortTestSuiteMethods(clazz, suite);
+		return suite;
+	}
 }

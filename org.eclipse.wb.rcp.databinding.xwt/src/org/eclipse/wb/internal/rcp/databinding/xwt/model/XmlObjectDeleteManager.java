@@ -26,42 +26,42 @@ import java.util.List;
  *
  */
 public class XmlObjectDeleteManager extends JavaInfoDeleteManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlObjectDeleteManager(DatabindingsProvider provider) {
-    super(provider, provider.getXmlObjectRoot());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlObjectDeleteManager(DatabindingsProvider provider) {
+		super(provider, provider.getXmlObjectRoot());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean accept(ObjectInfo object) throws Exception {
-    return object instanceof XmlObjectInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean accept(ObjectInfo object) throws Exception {
+		return object instanceof XmlObjectInfo;
+	}
 
-  @Override
-  protected void deleteBinding(IBindingInfo binding, List<IBindingInfo> bindings) throws Exception {
-    m_provider.deleteBinding(binding);
-  }
+	@Override
+	protected void deleteBinding(IBindingInfo binding, List<IBindingInfo> bindings) throws Exception {
+		m_provider.deleteBinding(binding);
+	}
 
-  @Override
-  protected boolean equals(ObjectInfo object, String javaInfoReference, IObserveInfo iobserve)
-      throws Exception {
-    if (iobserve instanceof WidgetBindableInfo) {
-      WidgetBindableInfo widget = (WidgetBindableInfo) iobserve;
-      return object == widget.getXMLObjectInfo();
-    }
-    return false;
-  }
+	@Override
+	protected boolean equals(ObjectInfo object, String javaInfoReference, IObserveInfo iobserve)
+			throws Exception {
+		if (iobserve instanceof WidgetBindableInfo) {
+			WidgetBindableInfo widget = (WidgetBindableInfo) iobserve;
+			return object == widget.getXMLObjectInfo();
+		}
+		return false;
+	}
 
-  @Override
-  protected String getReference(ObjectInfo object) throws Exception {
-    return "";
-  }
+	@Override
+	protected String getReference(ObjectInfo object) throws Exception {
+		return "";
+	}
 }

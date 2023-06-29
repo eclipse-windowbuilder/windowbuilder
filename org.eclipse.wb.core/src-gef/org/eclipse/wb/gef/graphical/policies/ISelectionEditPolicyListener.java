@@ -17,13 +17,13 @@ package org.eclipse.wb.gef.graphical.policies;
  * @coverage gef.graphical
  */
 public interface ISelectionEditPolicyListener {
-  /**
-   * Notifies that {@link SelectionEditPolicy#showSelection()} was executed.
-   */
-  void showSelection(SelectionEditPolicy policy);
+	/**
+	 * Notifies that {@link SelectionEditPolicy#showSelection()} was executed.
+	 */
+	void showSelection(SelectionEditPolicy policy);
 
-  /**
-   * Notifies that {@link SelectionEditPolicy#hideSelection()} was executed.
-   */
-  void hideSelection(SelectionEditPolicy policy);
+	/**
+	 * Notifies that {@link SelectionEditPolicy#hideSelection()} was executed.
+	 */
+	void hideSelection(SelectionEditPolicy policy);
 }

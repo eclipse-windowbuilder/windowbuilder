@@ -21,9 +21,9 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class E4Tests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.rcp");
-    suite.addTest(createSingleSuite(E4PartTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.rcp");
+		suite.addTest(createSingleSuite(E4PartTest.class));
+		return suite;
+	}
 }

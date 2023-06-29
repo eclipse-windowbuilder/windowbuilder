@@ -29,34 +29,34 @@ import org.eclipse.wb.internal.swt.support.ContainerSupport;
  * @coverage swt.model.jface
  */
 public class ViewerInfo extends WrapperInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IWrapperInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected WrapperByMethod createWrapper() {
-    return new WrapperByMethod(this, JavaInfoUtils.getParameter(this, "viewer.control.method")) {
-      @Override
-      protected void configureParameter(ParameterDescription parameter, JavaInfo parameterJavaInfo)
-          throws Exception {
-        if (parameter.isParent()
-            && parameter.getType() == ContainerSupport.getCompositeClass()
-            && parameterJavaInfo instanceof CompositeInfo) {
-          configureHierarchy(parameterJavaInfo);
-        }
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IWrapperInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected WrapperByMethod createWrapper() {
+		return new WrapperByMethod(this, JavaInfoUtils.getParameter(this, "viewer.control.method")) {
+			@Override
+			protected void configureParameter(ParameterDescription parameter, JavaInfo parameterJavaInfo)
+					throws Exception {
+				if (parameter.isParent()
+						&& parameter.getType() == ContainerSupport.getCompositeClass()
+						&& parameterJavaInfo instanceof CompositeInfo) {
+					configureHierarchy(parameterJavaInfo);
+				}
+			}
+		};
+	}
 }

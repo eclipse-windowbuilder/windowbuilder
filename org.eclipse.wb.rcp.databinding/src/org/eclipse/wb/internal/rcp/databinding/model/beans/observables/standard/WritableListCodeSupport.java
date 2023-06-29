@@ -25,27 +25,27 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public class WritableListCodeSupport extends ObservableCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName("WritableList"));
-    }
-    // add code
-    CollectionObservableInfo collectionObservable = (CollectionObservableInfo) observable;
-    lines.add("org.eclipse.core.databinding.observable.list.WritableList "
-        + observable.getVariableIdentifier()
-        + " = new org.eclipse.core.databinding.observable.list.WritableList("
-        + observable.getBindableObject().getReference()
-        + ", "
-        + CoreUtils.getClassName(collectionObservable.getElementType())
-        + ".class);");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName("WritableList"));
+		}
+		// add code
+		CollectionObservableInfo collectionObservable = (CollectionObservableInfo) observable;
+		lines.add("org.eclipse.core.databinding.observable.list.WritableList "
+				+ observable.getVariableIdentifier()
+				+ " = new org.eclipse.core.databinding.observable.list.WritableList("
+				+ observable.getBindableObject().getReference()
+				+ ", "
+				+ CoreUtils.getClassName(collectionObservable.getElementType())
+				+ ".class);");
+	}
 }

@@ -23,63 +23,63 @@ import org.eclipse.wb.internal.core.model.variable.FieldVariableSupport;
  * @coverage core.model.generation.ui
  */
 public final class GenerationPreviewFieldUniqueBlock extends GenerationPreview {
-  public static final GenerationPreview INSTANCE = new GenerationPreviewFieldUniqueBlock();
+	public static final GenerationPreview INSTANCE = new GenerationPreviewFieldUniqueBlock();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private GenerationPreviewFieldUniqueBlock() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private GenerationPreviewFieldUniqueBlock() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GenerationPreview
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPreview(GenerationPropertiesComposite variableComposite,
-      GenerationPropertiesComposite statementComposite) {
-    boolean v_useThis = variableComposite.getBoolean(FieldUniqueVariableSupport.P_PREFIX_THIS);
-    int v_modifierIndex = variableComposite.getInteger(FieldUniqueVariableSupport.P_FIELD_MODIFIER);
-    String v_modifierSource = FieldVariableSupport.V_MODIFIER_CODE[v_modifierIndex];
-    //
-    String source = "";
-    String panelRef = v_useThis ? "this.panel" : "panel";
-    String buttonRef = v_useThis ? "this.button" : "button";
-    // declare fields
-    source += "\t" + v_modifierSource + "JPanel panel;\n";
-    source += "\t" + v_modifierSource + "JButton button;\n";
-    // begin
-    source += "\t...\n";
-    // parent
-    {
-      // open block
-      source += "\t{\n";
-      // assign field
-      source += "\t\t" + panelRef + " = new JPanel();\n";
-      // properties
-      source += "\t\t" + panelRef + ".setBorder(new TitledBorder(\"Management\"));\n";
-      // child
-      {
-        // open block
-        source += "\t\t{\n";
-        // assign field
-        source += "\t\t\t" + buttonRef + " = new JButton();\n";
-        // properties
-        source += "\t\t\t" + buttonRef + ".setText(\"Add customer...\");\n";
-        source += "\t\t\t" + panelRef + ".add(" + buttonRef + ");\n";
-        // close block
-        source += "\t\t}\n";
-        source += "\t\t...\n";
-      }
-      // close block
-      source += "\t}\n";
-    }
-    // end
-    source += "\t...\n";
-    // final result
-    return source;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GenerationPreview
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPreview(GenerationPropertiesComposite variableComposite,
+			GenerationPropertiesComposite statementComposite) {
+		boolean v_useThis = variableComposite.getBoolean(FieldUniqueVariableSupport.P_PREFIX_THIS);
+		int v_modifierIndex = variableComposite.getInteger(FieldUniqueVariableSupport.P_FIELD_MODIFIER);
+		String v_modifierSource = FieldVariableSupport.V_MODIFIER_CODE[v_modifierIndex];
+		//
+		String source = "";
+		String panelRef = v_useThis ? "this.panel" : "panel";
+		String buttonRef = v_useThis ? "this.button" : "button";
+		// declare fields
+		source += "\t" + v_modifierSource + "JPanel panel;\n";
+		source += "\t" + v_modifierSource + "JButton button;\n";
+		// begin
+		source += "\t...\n";
+		// parent
+		{
+			// open block
+			source += "\t{\n";
+			// assign field
+			source += "\t\t" + panelRef + " = new JPanel();\n";
+			// properties
+			source += "\t\t" + panelRef + ".setBorder(new TitledBorder(\"Management\"));\n";
+			// child
+			{
+				// open block
+				source += "\t\t{\n";
+				// assign field
+				source += "\t\t\t" + buttonRef + " = new JButton();\n";
+				// properties
+				source += "\t\t\t" + buttonRef + ".setText(\"Add customer...\");\n";
+				source += "\t\t\t" + panelRef + ".add(" + buttonRef + ");\n";
+				// close block
+				source += "\t\t}\n";
+				source += "\t\t...\n";
+			}
+			// close block
+			source += "\t}\n";
+		}
+		// end
+		source += "\t...\n";
+		// final result
+		return source;
+	}
 }

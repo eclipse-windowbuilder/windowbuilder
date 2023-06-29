@@ -19,35 +19,35 @@ import java.util.Map;
  * @coverage XML.model.association
  */
 public final class Associations {
-  /**
-   * @return the {@link DirectAssociation}.
-   */
-  public static Association direct() {
-    return DirectAssociation.INSTANCE;
-  }
+	/**
+	 * @return the {@link DirectAssociation}.
+	 */
+	public static Association direct() {
+		return DirectAssociation.INSTANCE;
+	}
 
-  /**
-   * @return the {@link PropertyAssociation}.
-   */
-  public static Association property(String property) {
-    return new PropertyAssociation(property);
-  }
+	/**
+	 * @return the {@link PropertyAssociation}.
+	 */
+	public static Association property(String property) {
+		return new PropertyAssociation(property);
+	}
 
-  /**
-   * @return the {@link IntermediateAssociation} without attributes.
-   */
-  public static Association name(String name) {
-    return new IntermediateAssociation(name);
-  }
+	/**
+	 * @return the {@link IntermediateAssociation} without attributes.
+	 */
+	public static Association name(String name) {
+		return new IntermediateAssociation(name);
+	}
 
-  /**
-   * @return the {@link IntermediateAssociation} with attributes.
-   */
-  public static Association intermediate(String name, Map<String, String> attributes) {
-    IntermediateAssociation association = new IntermediateAssociation(name);
-    if (attributes != null && !attributes.isEmpty()) {
-      association.setAttributes(attributes);
-    }
-    return association;
-  }
+	/**
+	 * @return the {@link IntermediateAssociation} with attributes.
+	 */
+	public static Association intermediate(String name, Map<String, String> attributes) {
+		IntermediateAssociation association = new IntermediateAssociation(name);
+		if (attributes != null && !attributes.isEmpty()) {
+			association.setAttributes(attributes);
+		}
+		return association;
+	}
 }

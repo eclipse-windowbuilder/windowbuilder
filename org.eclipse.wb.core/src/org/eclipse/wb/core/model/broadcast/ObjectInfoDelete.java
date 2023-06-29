@@ -19,15 +19,15 @@ import org.eclipse.wb.core.model.ObjectInfo;
  * @coverage core.model
  */
 public abstract class ObjectInfoDelete {
-  /**
-   * Before {@link ObjectInfo} deleted from its parent.
-   */
-  public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
-  }
+	/**
+	 * Before {@link ObjectInfo} deleted from its parent.
+	 */
+	public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
+	}
 
-  /**
-   * After {@link ObjectInfo} deleted from its parent.
-   */
-  public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
-  }
+	/**
+	 * After {@link ObjectInfo} deleted from its parent.
+	 */
+	public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
+	}
 }

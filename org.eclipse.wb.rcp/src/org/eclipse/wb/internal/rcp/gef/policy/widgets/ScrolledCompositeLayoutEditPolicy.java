@@ -32,88 +32,88 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage rcp.gef.policy
  */
 public final class ScrolledCompositeLayoutEditPolicy extends LayoutEditPolicy {
-  private final ScrolledCompositeInfo m_composite;
+	private final ScrolledCompositeInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ScrolledCompositeLayoutEditPolicy(ScrolledCompositeInfo composite) {
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ScrolledCompositeLayoutEditPolicy(ScrolledCompositeInfo composite) {
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ControlsLayoutRequestValidator.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ControlsLayoutRequestValidator.INSTANCE;
+	}
 
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return super.isRequestCondition(request) && m_composite.getContent() == null;
-  }
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return super.isRequestCondition(request) && m_composite.getContent() == null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedbacks
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    PolicyUtils.showBorderTargetFeedback(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedbacks
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		PolicyUtils.showBorderTargetFeedback(this);
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    PolicyUtils.eraseBorderTargetFeedback(this);
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		PolicyUtils.eraseBorderTargetFeedback(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(CreateRequest request) {
-    final ControlInfo control = (ControlInfo) request.getNewObject();
-    return new EditCommand(m_composite) {
-      @Override
-      protected void executeEdit() throws Exception {
-        m_composite.command_CREATE(control);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(CreateRequest request) {
+		final ControlInfo control = (ControlInfo) request.getNewObject();
+		return new EditCommand(m_composite) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_composite.command_CREATE(control);
+			}
+		};
+	}
 
-  @Override
-  protected Command getPasteCommand(PasteRequest request) {
-    return LayoutPolicyUtils2.getPasteCommand(
-        m_composite,
-        request,
-        ControlInfo.class,
-        new IPasteProcessor<ControlInfo>() {
-          @Override
-          public void process(ControlInfo control) throws Exception {
-            m_composite.command_CREATE(control);
-          }
-        });
-  }
+	@Override
+	protected Command getPasteCommand(PasteRequest request) {
+		return LayoutPolicyUtils2.getPasteCommand(
+				m_composite,
+				request,
+				ControlInfo.class,
+				new IPasteProcessor<ControlInfo>() {
+					@Override
+					public void process(ControlInfo control) throws Exception {
+						m_composite.command_CREATE(control);
+					}
+				});
+	}
 
-  @Override
-  protected Command getAddCommand(ChangeBoundsRequest request) {
-    if (request.getEditParts().size() == 1) {
-      final ControlInfo control = (ControlInfo) request.getEditParts().get(0).getModel();
-      return new EditCommand(m_composite) {
-        @Override
-        protected void executeEdit() throws Exception {
-          m_composite.command_ADD(control);
-        }
-      };
-    }
-    return null;
-  }
+	@Override
+	protected Command getAddCommand(ChangeBoundsRequest request) {
+		if (request.getEditParts().size() == 1) {
+			final ControlInfo control = (ControlInfo) request.getEditParts().get(0).getModel();
+			return new EditCommand(m_composite) {
+				@Override
+				protected void executeEdit() throws Exception {
+					m_composite.command_ADD(control);
+				}
+			};
+		}
+		return null;
+	}
 }

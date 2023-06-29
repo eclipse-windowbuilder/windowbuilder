@@ -52,196 +52,196 @@ import java.util.List;
  * @coverage core.model.association
  */
 public final class InvocationChildAssociation extends InvocationAssociation {
-  private String m_source;
+	private String m_source;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public InvocationChildAssociation(String source) {
-    Assert.isTrue(
-        source == null || source.startsWith("%parent%."),
-        "Source should start with %%parent%%., but '%s' found.",
-        source);
-    m_source = source;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public InvocationChildAssociation(String source) {
+		Assert.isTrue(
+				source == null || source.startsWith("%parent%."),
+				"Source should start with %%parent%%., but '%s' found.",
+				source);
+		m_source = source;
+	}
 
-  public InvocationChildAssociation(MethodInvocation invocation) {
-    super(invocation);
-  }
+	public InvocationChildAssociation(MethodInvocation invocation) {
+		super(invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link MethodDescription} (from parent {@link JavaInfo}) used for this association.
-   */
-  public MethodDescription getDescription() {
-    String signature = AstNodeUtils.getMethodSignature(m_invocation);
-    return m_javaInfo.getParentJava().getDescription().getMethod(signature);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link MethodDescription} (from parent {@link JavaInfo}) used for this association.
+	 */
+	public MethodDescription getDescription() {
+		String signature = AstNodeUtils.getMethodSignature(m_invocation);
+		return m_javaInfo.getParentJava().getDescription().getMethod(signature);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void add(JavaInfo javaInfo, StatementTarget target, String[] leadingComments)
-      throws Exception {
-    // initialize MethodInvocation instance
-    if (m_source != null) {
-      // add new statement
-      String source = AssociationUtils.replaceTemplates(javaInfo, m_source, target);
-      List<String> lines = GenericsUtils.asList(leadingComments, source + ";");
-      ExpressionStatement statement =
-          (ExpressionStatement) javaInfo.getEditor().addStatement(lines, target);
-      m_invocation = (MethodInvocation) statement.getExpression();
-    } else {
-      // we expect that JavaInfo has EmptyVariableSupport with argument in MethodInvocation
-      EmptyVariableSupport emptyVariableSupport =
-          (EmptyVariableSupport) javaInfo.getVariableSupport();
-      m_invocation = (MethodInvocation) emptyVariableSupport.getInitializer().getParent();
-    }
-    // add related nodes
-    AbstractInsideStatementGenerator.addRelatedNodes(javaInfo, m_invocation);
-    // set association
-    setInModelNoCompound(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void add(JavaInfo javaInfo, StatementTarget target, String[] leadingComments)
+			throws Exception {
+		// initialize MethodInvocation instance
+		if (m_source != null) {
+			// add new statement
+			String source = AssociationUtils.replaceTemplates(javaInfo, m_source, target);
+			List<String> lines = GenericsUtils.asList(leadingComments, source + ";");
+			ExpressionStatement statement =
+					(ExpressionStatement) javaInfo.getEditor().addStatement(lines, target);
+			m_invocation = (MethodInvocation) statement.getExpression();
+		} else {
+			// we expect that JavaInfo has EmptyVariableSupport with argument in MethodInvocation
+			EmptyVariableSupport emptyVariableSupport =
+					(EmptyVariableSupport) javaInfo.getVariableSupport();
+			m_invocation = (MethodInvocation) emptyVariableSupport.getInitializer().getParent();
+		}
+		// add related nodes
+		AbstractInsideStatementGenerator.addRelatedNodes(javaInfo, m_invocation);
+		// set association
+		setInModelNoCompound(javaInfo);
+	}
 
-  @Override
-  public void move(StatementTarget target) throws Exception {
-    // may be move constraints (will move invocation too)
-    {
-      MethodDescription description = getDescription();
-      List<ParameterDescription> parameters = description.getParameters();
-      if (parameters.size() == 2
-          && parameters.get(0).isChild()
-          && parameters.get(0).isParent2()
-          && parameters.get(1).isChild2()) {
-        Expression constraintsExpression = DomGenerics.arguments(m_invocation).get(1);
-        JavaInfo constraints = m_javaInfo.getChildRepresentedBy(constraintsExpression);
-        if (constraints != null) {
-          constraints.getVariableSupport().ensureInstanceReadyAt(target);
-          return;
-        }
-      }
-    }
-    // no constraints, move single statement
-    {
-      Statement statement = getStatement();
-      m_editor.moveStatement(statement, target);
-    }
-  }
+	@Override
+	public void move(StatementTarget target) throws Exception {
+		// may be move constraints (will move invocation too)
+		{
+			MethodDescription description = getDescription();
+			List<ParameterDescription> parameters = description.getParameters();
+			if (parameters.size() == 2
+					&& parameters.get(0).isChild()
+					&& parameters.get(0).isParent2()
+					&& parameters.get(1).isChild2()) {
+				Expression constraintsExpression = DomGenerics.arguments(m_invocation).get(1);
+				JavaInfo constraints = m_javaInfo.getChildRepresentedBy(constraintsExpression);
+				if (constraints != null) {
+					constraints.getVariableSupport().ensureInstanceReadyAt(target);
+					return;
+				}
+			}
+		}
+		// no constraints, move single statement
+		{
+			Statement statement = getStatement();
+			m_editor.moveStatement(statement, target);
+		}
+	}
 
-  @Override
-  public boolean remove() throws Exception {
-    // ensure that "parent" is not created in Statement
-    {
-      ObjectInfo parent = m_javaInfo.getParent();
-      if (parent instanceof JavaInfo && !parent.isDeleting()) {
-        JavaInfoUtils.materializeVariable((JavaInfo) parent);
-      }
-    }
-    // remove Statement
-    m_editor.removeEnclosingStatement(m_invocation);
-    // continue
-    return super.remove();
-  }
+	@Override
+	public boolean remove() throws Exception {
+		// ensure that "parent" is not created in Statement
+		{
+			ObjectInfo parent = m_javaInfo.getParent();
+			if (parent instanceof JavaInfo && !parent.isDeleting()) {
+				JavaInfoUtils.materializeVariable((JavaInfo) parent);
+			}
+		}
+		// remove Statement
+		m_editor.removeEnclosingStatement(m_invocation);
+		// continue
+		return super.remove();
+	}
 
-  @Override
-  public Association getCopy() {
-    return new InvocationChildAssociation(m_invocation);
-  }
+	@Override
+	public Association getCopy() {
+		return new InvocationChildAssociation(m_invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_properties_oldSignature;
-  private ComplexProperty m_properties_oldProperty;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_properties_oldSignature;
+	private ComplexProperty m_properties_oldProperty;
 
-  @Override
-  public void addProperties(List<Property> properties) throws Exception {
-    Property associationProperty = getAssociationProperty();
-    if (associationProperty != null) {
-      properties.add(associationProperty);
-    }
-  }
+	@Override
+	public void addProperties(List<Property> properties) throws Exception {
+		Property associationProperty = getAssociationProperty();
+		if (associationProperty != null) {
+			properties.add(associationProperty);
+		}
+	}
 
-  /**
-   * @return the new or existing "Association" {@link Property}, may be <code>null</code> if no
-   *         sub-properties.
-   */
-  private Property getAssociationProperty() throws Exception {
-    String signature = AstNodeUtils.getMethodSignature(m_invocation);
-    if (m_properties_oldSignature != null && m_properties_oldSignature.equals(signature)) {
-      // do nothing, use cached
-    } else {
-      List<Property> associationProperties = createAssociationSubProperties(signature);
-      if (!associationProperties.isEmpty()) {
-        m_properties_oldProperty = new ComplexProperty("Association", "(Association properties)");
-        m_properties_oldProperty.setCategory(PropertyCategory.system(4));
-        m_properties_oldProperty.setModified(true);
-        m_properties_oldProperty.setProperties(associationProperties);
-      } else {
-        m_properties_oldProperty = null;
-      }
-    }
-    // return cached
-    m_properties_oldSignature = signature;
-    return m_properties_oldProperty;
-  }
+	/**
+	 * @return the new or existing "Association" {@link Property}, may be <code>null</code> if no
+	 *         sub-properties.
+	 */
+	private Property getAssociationProperty() throws Exception {
+		String signature = AstNodeUtils.getMethodSignature(m_invocation);
+		if (m_properties_oldSignature != null && m_properties_oldSignature.equals(signature)) {
+			// do nothing, use cached
+		} else {
+			List<Property> associationProperties = createAssociationSubProperties(signature);
+			if (!associationProperties.isEmpty()) {
+				m_properties_oldProperty = new ComplexProperty("Association", "(Association properties)");
+				m_properties_oldProperty.setCategory(PropertyCategory.system(4));
+				m_properties_oldProperty.setModified(true);
+				m_properties_oldProperty.setProperties(associationProperties);
+			} else {
+				m_properties_oldProperty = null;
+			}
+		}
+		// return cached
+		m_properties_oldSignature = signature;
+		return m_properties_oldProperty;
+	}
 
-  /**
-   * @return the new {@link Property}'s to edit arguments in association {@link MethodInvocation}.
-   */
-  private List<Property> createAssociationSubProperties(String signature) throws Exception {
-    // prepare description for association method
-    MethodDescription description;
-    {
-      ComponentDescription parentDescription = m_javaInfo.getParentJava().getDescription();
-      description = parentDescription.getMethod(signature);
-      ComponentDescriptionHelper.ensureInitialized(m_javaProject, description);
-    }
-    // add properties
-    List<Property> associationProperties = Lists.newArrayList();
-    for (ParameterDescription parameter : description.getParameters()) {
-      if (!parameter.isChild()) {
-        Property property = createAssociationSubProperty(parameter);
-        if (property != null) {
-          associationProperties.add(property);
-        }
-      }
-    }
-    return associationProperties;
-  }
+	/**
+	 * @return the new {@link Property}'s to edit arguments in association {@link MethodInvocation}.
+	 */
+	private List<Property> createAssociationSubProperties(String signature) throws Exception {
+		// prepare description for association method
+		MethodDescription description;
+		{
+			ComponentDescription parentDescription = m_javaInfo.getParentJava().getDescription();
+			description = parentDescription.getMethod(signature);
+			ComponentDescriptionHelper.ensureInitialized(m_javaProject, description);
+		}
+		// add properties
+		List<Property> associationProperties = Lists.newArrayList();
+		for (ParameterDescription parameter : description.getParameters()) {
+			if (!parameter.isChild()) {
+				Property property = createAssociationSubProperty(parameter);
+				if (property != null) {
+					associationProperties.add(property);
+				}
+			}
+		}
+		return associationProperties;
+	}
 
-  /**
-   * @return the new {@link Property} to edit expression of given {@link ParameterDescription} in
-   *         association {@link MethodInvocation}.
-   */
-  private Property createAssociationSubProperty(ParameterDescription parameter) throws Exception {
-    int index = parameter.getIndex();
-    String name = parameter.getName();
-    String defaultSource = parameter.getDefaultSource();
-    // prepare Property elements
-    ExpressionAccessor accessor = new InvocationChildAssociationAccessor(index, defaultSource);
-    ExpressionConverter converter = parameter.getConverter();
-    PropertyEditor editor = parameter.getEditor();
-    if (editor == null) {
-      return null;
-    }
-    // create generic Property
-    return new GenericPropertyImpl(m_javaInfo,
-        name,
-        new ExpressionAccessor[]{accessor},
-        defaultSource,
-        converter,
-        editor);
-  }
+	/**
+	 * @return the new {@link Property} to edit expression of given {@link ParameterDescription} in
+	 *         association {@link MethodInvocation}.
+	 */
+	private Property createAssociationSubProperty(ParameterDescription parameter) throws Exception {
+		int index = parameter.getIndex();
+		String name = parameter.getName();
+		String defaultSource = parameter.getDefaultSource();
+		// prepare Property elements
+		ExpressionAccessor accessor = new InvocationChildAssociationAccessor(index, defaultSource);
+		ExpressionConverter converter = parameter.getConverter();
+		PropertyEditor editor = parameter.getEditor();
+		if (editor == null) {
+			return null;
+		}
+		// create generic Property
+		return new GenericPropertyImpl(m_javaInfo,
+				name,
+				new ExpressionAccessor[]{accessor},
+				defaultSource,
+				converter,
+				editor);
+	}
 }

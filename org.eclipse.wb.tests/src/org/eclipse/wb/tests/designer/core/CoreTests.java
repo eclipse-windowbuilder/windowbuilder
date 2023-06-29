@@ -28,17 +28,17 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    BundleResourceProviderTest.class,
-    DesignerPluginTest.class,
-    EnvironmentUtilsTest.class,
-    VersionTest.class,
-    UtilTests.class,
-    AstEvaluationEngineTests.class,
-    ModelTests.class,
-    NlsTests.class,
-    PaletteTests.class,
-    CoreDbTests.class
+	BundleResourceProviderTest.class,
+	DesignerPluginTest.class,
+	EnvironmentUtilsTest.class,
+	VersionTest.class,
+	UtilTests.class,
+	AstEvaluationEngineTests.class,
+	ModelTests.class,
+	NlsTests.class,
+	PaletteTests.class,
+	CoreDbTests.class
 
-    })
+})
 public class CoreTests {
 }

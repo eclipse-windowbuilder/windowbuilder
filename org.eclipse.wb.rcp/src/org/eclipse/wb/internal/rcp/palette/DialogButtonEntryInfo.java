@@ -32,31 +32,31 @@ import javax.swing.JToolBar;
  * @coverage rcp.editor.palette
  */
 public final class DialogButtonEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = Activator.getImage("info/Dialog/button.gif");
+	private static final Image ICON = Activator.getImage("info/Dialog/button.gif");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogButtonEntryInfo() throws Exception {
-    setId(getClass().getName());
-    setName(PaletteMessages.DialogButtonEntryInfo_name);
-    setDescription(PaletteMessages.DialogButtonEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogButtonEntryInfo() throws Exception {
+		setId(getClass().getName());
+		setName(PaletteMessages.DialogButtonEntryInfo_name);
+		setDescription(PaletteMessages.DialogButtonEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    return new DialogButtonDropTool();
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		return new DialogButtonDropTool();
+	}
 }

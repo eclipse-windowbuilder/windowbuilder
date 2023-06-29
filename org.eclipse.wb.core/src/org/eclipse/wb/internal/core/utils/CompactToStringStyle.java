@@ -18,20 +18,20 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author scheglov_ke
  */
 public class CompactToStringStyle extends ToStringStyle {
-  private static final long serialVersionUID = 0L;
-  public static final ToStringStyle INSTANCE = new CompactToStringStyle();
+	private static final long serialVersionUID = 0L;
+	public static final ToStringStyle INSTANCE = new CompactToStringStyle();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private CompactToStringStyle() {
-    setUseClassName(true);
-    setUseShortClassName(true);
-    setUseIdentityHashCode(false);
-    setUseFieldNames(true);
-    setContentStart("{");
-    setContentEnd("}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private CompactToStringStyle() {
+		setUseClassName(true);
+		setUseShortClassName(true);
+		setUseIdentityHashCode(false);
+		setUseFieldNames(true);
+		setContentStart("{");
+		setContentEnd("}");
+	}
 }

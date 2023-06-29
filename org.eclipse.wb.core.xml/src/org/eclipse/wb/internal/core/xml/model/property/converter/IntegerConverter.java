@@ -19,27 +19,27 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.property
  */
 public final class IntegerConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new IntegerConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new IntegerConverter();
 
-  private IntegerConverter() {
-  }
+	private IntegerConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toSource(XmlObjectInfo object, Object value) throws Exception {
-    if (value instanceof Integer) {
-      Integer valueInteger = (Integer) value;
-      return valueInteger.toString();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toSource(XmlObjectInfo object, Object value) throws Exception {
+		if (value instanceof Integer) {
+			Integer valueInteger = (Integer) value;
+			return valueInteger.toString();
+		}
+		return null;
+	}
 }

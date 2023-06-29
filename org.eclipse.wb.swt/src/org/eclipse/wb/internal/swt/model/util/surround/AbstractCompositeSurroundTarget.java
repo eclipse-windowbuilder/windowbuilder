@@ -32,72 +32,72 @@ import java.util.List;
  * @coverage swt.model.util
  */
 public abstract class AbstractCompositeSurroundTarget
-    extends
-      ISurroundTarget<CompositeInfo, ControlInfo> {
-  private final String m_className;
+extends
+ISurroundTarget<CompositeInfo, ControlInfo> {
+	private final String m_className;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractCompositeSurroundTarget(String className) {
-    m_className = className;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractCompositeSurroundTarget(String className) {
+		m_className = className;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon(AstEditor editor) throws Exception {
-    return ComponentDescriptionHelper.getDescription(editor, m_className).getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon(AstEditor editor) throws Exception {
+		return ComponentDescriptionHelper.getDescription(editor, m_className).getIcon();
+	}
 
-  @Override
-  public String getText(AstEditor editor) throws Exception {
-    return m_className;
-  }
+	@Override
+	public String getText(AstEditor editor) throws Exception {
+		return m_className;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public CompositeInfo createContainer(AstEditor editor) throws Exception {
-    return (CompositeInfo) JavaInfoUtils.createJavaInfo(
-        editor,
-        m_className,
-        new ConstructorCreationSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public CompositeInfo createContainer(AstEditor editor) throws Exception {
+		return (CompositeInfo) JavaInfoUtils.createJavaInfo(
+				editor,
+				m_className,
+				new ConstructorCreationSupport());
+	}
 
-  @Override
-  public void beforeComponentsMove(CompositeInfo container, List<ControlInfo> components)
-      throws Exception {
-    LayoutInfo layout = createLayout(container.getEditor(), "org.eclipse.swt.layout.RowLayout");
-    container.setLayout(layout);
-  }
+	@Override
+	public void beforeComponentsMove(CompositeInfo container, List<ControlInfo> components)
+			throws Exception {
+		LayoutInfo layout = createLayout(container.getEditor(), "org.eclipse.swt.layout.RowLayout");
+		container.setLayout(layout);
+	}
 
-  @Override
-  public void move(CompositeInfo container, ControlInfo component) throws Exception {
-    RowLayoutInfo layout = (RowLayoutInfo) container.getLayout();
-    layout.command_MOVE(component, null);
-  }
+	@Override
+	public void move(CompositeInfo container, ControlInfo component) throws Exception {
+		RowLayoutInfo layout = (RowLayoutInfo) container.getLayout();
+		layout.command_MOVE(component, null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the instance of {@link LayoutInfo} by its class name.
-   */
-  private static LayoutInfo createLayout(AstEditor editor, String layoutClassName) throws Exception {
-    return (LayoutInfo) JavaInfoUtils.createJavaInfo(
-        editor,
-        layoutClassName,
-        new ConstructorCreationSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the instance of {@link LayoutInfo} by its class name.
+	 */
+	private static LayoutInfo createLayout(AstEditor editor, String layoutClassName) throws Exception {
+		return (LayoutInfo) JavaInfoUtils.createJavaInfo(
+				editor,
+				layoutClassName,
+				new ConstructorCreationSupport());
+	}
 }

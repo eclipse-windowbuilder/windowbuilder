@@ -27,50 +27,50 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  * @coverage swt.gefTree.policy
  */
 public final class DropLayoutEditPolicy extends LayoutEditPolicy {
-  private final CompositeInfo m_composite;
+	private final CompositeInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DropLayoutEditPolicy(CompositeInfo composite) {
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DropLayoutEditPolicy(CompositeInfo composite) {
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Routing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    // we understand only LayoutInfo drop
-    if (request.getType() == Request.REQ_CREATE) {
-      CreateRequest createRequest = (CreateRequest) request;
-      return createRequest.getNewObject() instanceof LayoutInfo;
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Routing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		// we understand only LayoutInfo drop
+		if (request.getType() == Request.REQ_CREATE) {
+			CreateRequest createRequest = (CreateRequest) request;
+			return createRequest.getNewObject() instanceof LayoutInfo;
+		}
+		return false;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return false;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(Object newObject, Object referenceObject) {
-    final LayoutInfo newLayout = (LayoutInfo) newObject;
-    return new EditCommand(m_composite) {
-      @Override
-      protected void executeEdit() throws Exception {
-        m_composite.setLayout(newLayout);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(Object newObject, Object referenceObject) {
+		final LayoutInfo newLayout = (LayoutInfo) newObject;
+		return new EditCommand(m_composite) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_composite.setLayout(newLayout);
+			}
+		};
+	}
 }

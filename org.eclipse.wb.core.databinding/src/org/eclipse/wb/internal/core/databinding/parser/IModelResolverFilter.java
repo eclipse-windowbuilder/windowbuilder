@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.databinding.parser;
  * @coverage bindings.parser
  */
 public interface IModelResolverFilter {
-  /**
-   * XXX
-   */
-  boolean accept(IModelSupport modelSupport) throws Exception;
+	/**
+	 * XXX
+	 */
+	boolean accept(IModelSupport modelSupport) throws Exception;
 }

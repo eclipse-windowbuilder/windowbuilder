@@ -21,38 +21,38 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class ViewerObservableInfo extends ObservableInfo {
-  protected final BindableInfo m_bindableWidget;
-  protected final BindableInfo m_bindableProperty;
+	protected final BindableInfo m_bindableWidget;
+	protected final BindableInfo m_bindableProperty;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerObservableInfo(BindableInfo bindableWidget, BindableInfo bindableProperty)
-      throws Exception {
-    Assert.isNotNull(bindableProperty);
-    m_bindableWidget = bindableWidget;
-    m_bindableProperty = bindableProperty;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerObservableInfo(BindableInfo bindableWidget, BindableInfo bindableProperty)
+			throws Exception {
+		Assert.isNotNull(bindableProperty);
+		m_bindableWidget = bindableWidget;
+		m_bindableProperty = bindableProperty;
+	}
 
-  public ViewerObservableInfo(BindableInfo bindableWidget, String propertyReference)
-      throws Exception {
-    this(bindableWidget, bindableWidget.resolvePropertyReference(propertyReference));
-  }
+	public ViewerObservableInfo(BindableInfo bindableWidget, String propertyReference)
+			throws Exception {
+		this(bindableWidget, bindableWidget.resolvePropertyReference(propertyReference));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final BindableInfo getBindableObject() {
-    return m_bindableWidget;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final BindableInfo getBindableObject() {
+		return m_bindableWidget;
+	}
 
-  @Override
-  public final BindableInfo getBindableProperty() {
-    return m_bindableProperty;
-  }
+	@Override
+	public final BindableInfo getBindableProperty() {
+		return m_bindableProperty;
+	}
 }

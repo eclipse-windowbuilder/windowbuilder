@@ -20,27 +20,27 @@ import org.eclipse.swt.widgets.Label;
  * @coverage swt.model.presentation
  */
 public final class LabelStylePresentation extends StylePresentation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LabelStylePresentation(LabelInfo label) {
-    super(label);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LabelStylePresentation(LabelInfo label) {
+		super(label);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StylePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initImages() throws Exception {
-    addImage(
-        SWT.SEPARATOR | SWT.HORIZONTAL,
-        "wbp-meta/org/eclipse/swt/widgets/Label_separatorHorizontal.gif");
-    addImage(
-        SWT.SEPARATOR | SWT.VERTICAL,
-        "wbp-meta/org/eclipse/swt/widgets/Label_separatorVertical.gif");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StylePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initImages() throws Exception {
+		addImage(
+				SWT.SEPARATOR | SWT.HORIZONTAL,
+				"wbp-meta/org/eclipse/swt/widgets/Label_separatorHorizontal.gif");
+		addImage(
+				SWT.SEPARATOR | SWT.VERTICAL,
+				"wbp-meta/org/eclipse/swt/widgets/Label_separatorVertical.gif");
+	}
 }

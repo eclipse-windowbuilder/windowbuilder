@@ -32,139 +32,139 @@ import javax.swing.JButton;
  * @author scheglov_ke
  */
 public class SwingGefTest extends DesignerEditorTestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    configureDefaults(org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION);
-    if (m_testProject == null) {
-      do_projectCreate();
-      configureNewProject();
-    }
-    configureForTest();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		configureDefaults(org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION);
+		if (m_testProject == null) {
+			do_projectCreate();
+			configureNewProject();
+		}
+		configureForTest();
+	}
 
-  /**
-   * Configures created project.
-   */
-  protected void configureNewProject() throws Exception {
-  }
+	/**
+	 * Configures created project.
+	 */
+	protected void configureNewProject() throws Exception {
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    configureDefaults();
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		configureDefaults();
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures default preferences.
-   */
-  public static void configureForTest() {
-    IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
-    preferences.setValue(
-        IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE,
-        SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures default preferences.
+	 */
+	public static void configureForTest() {
+		IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
+		preferences.setValue(
+				IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE,
+				SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT);
+	}
 
-  /**
-   * Restores default preferences.
-   */
-  public static void configureDefaults() {
-    IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
-    preferences.setToDefault(IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
-  }
+	/**
+	 * Restores default preferences.
+	 */
+	public static void configureDefaults() {
+		IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
+		preferences.setToDefault(IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected ContainerInfo openContainer(String... lines) throws Exception {
-    return openEditor(lines);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected ContainerInfo openContainer(String... lines) throws Exception {
+		return openEditor(lines);
+	}
 
-  @SuppressWarnings("unchecked")
-  protected <T extends ObjectInfo> T openEditor(String... lines) throws Exception {
-    ICompilationUnit unit = createModelCompilationUnit("test", "Test.java", getTestSource(lines));
-    openDesign(unit);
-    // prepare models
-    return (T) m_contentJavaInfo;
-  }
+	@SuppressWarnings("unchecked")
+	protected <T extends ObjectInfo> T openEditor(String... lines) throws Exception {
+		ICompilationUnit unit = createModelCompilationUnit("test", "Test.java", getTestSource(lines));
+		openDesign(unit);
+		// prepare models
+		return (T) m_contentJavaInfo;
+	}
 
-  /**
-   * Asserts that active {@link AstEditor} has expected Swing source.
-   */
-  protected void assertEditor(String... lines) {
-    AstEditor editor = EditorState.getActiveJavaInfo().getEditor();
-    assertEditor(getTestSource(lines), editor);
-  }
+	/**
+	 * Asserts that active {@link AstEditor} has expected Swing source.
+	 */
+	protected void assertEditor(String... lines) {
+		AstEditor editor = EditorState.getActiveJavaInfo().getEditor();
+		assertEditor(getTestSource(lines), editor);
+	}
 
-  /**
-   * @return the source for Swing.
-   */
-  public String getTestSource(String... lines) {
-    lines = getDoubleQuotes(lines);
-    return getSource(new String[][]{
-        new String[]{
-            "package test;",
-            "import java.awt.*;",
-            "import java.awt.event.*;",
-            "import javax.swing.*;",
-            "import javax.swing.border.*;"},
-        lines});
-  }
+	/**
+	 * @return the source for Swing.
+	 */
+	public String getTestSource(String... lines) {
+		lines = getDoubleQuotes(lines);
+		return getSource(new String[][]{
+			new String[]{
+					"package test;",
+					"import java.awt.*;",
+					"import java.awt.event.*;",
+					"import javax.swing.*;",
+			"import javax.swing.border.*;"},
+			lines});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Button for GEF
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final void prepareBox() throws Exception {
-    prepareBox(100, 50);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Button for GEF
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final void prepareBox() throws Exception {
+		prepareBox(100, 50);
+	}
 
-  protected final void prepareBox(int width, int height) throws Exception {
-    setFileContentSrc(
-        "test/Box.java",
-        getTestSource(
-            "public class Box extends JLabel {",
-            "  public Box() {",
-            "    setPreferredSize(new Dimension(" + width + ", " + height + "));",
-            "    setBackground(Color.PINK);",
-            "    setOpaque(true);",
-            "  }",
-            "  public Box(String text) {",
-            "    this();",
-            "    setText(text);",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-  }
+	protected final void prepareBox(int width, int height) throws Exception {
+		setFileContentSrc(
+				"test/Box.java",
+				getTestSource(
+						"public class Box extends JLabel {",
+						"  public Box() {",
+						"    setPreferredSize(new Dimension(" + width + ", " + height + "));",
+						"    setBackground(Color.PINK);",
+						"    setOpaque(true);",
+						"  }",
+						"  public Box(String text) {",
+						"    this();",
+						"    setText(text);",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+	}
 
-  protected final ComponentInfo loadCreationBox() throws Exception {
-    return loadCreationTool("test.Box");
-  }
+	protected final ComponentInfo loadCreationBox() throws Exception {
+		return loadCreationTool("test.Box");
+	}
 
-  /**
-   * Loads {@link CreationTool} with {@link JButton} without text.
-   */
-  protected final ComponentInfo loadButton() throws Exception {
-    return loadCreationTool("javax.swing.JButton", "empty");
-  }
+	/**
+	 * Loads {@link CreationTool} with {@link JButton} without text.
+	 */
+	protected final ComponentInfo loadButton() throws Exception {
+		return loadCreationTool("javax.swing.JButton", "empty");
+	}
 
-  /**
-   * Loads {@link CreationTool} with {@link JButton} with text.
-   */
-  protected final ComponentInfo loadButtonWithText() throws Exception {
-    return loadCreationTool("javax.swing.JButton");
-  }
+	/**
+	 * Loads {@link CreationTool} with {@link JButton} with text.
+	 */
+	protected final ComponentInfo loadButtonWithText() throws Exception {
+		return loadCreationTool("javax.swing.JButton");
+	}
 }

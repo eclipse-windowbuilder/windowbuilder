@@ -20,40 +20,40 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.WidgetPro
  * @coverage bindings.rcp.model.widgets
  */
 public final class MultiSelectionObservableInfo extends ViewerObservableInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MultiSelectionObservableInfo(BindableInfo bindableWidget) throws Exception {
-    super(bindableWidget, "observeMultiSelection");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MultiSelectionObservableInfo(BindableInfo bindableWidget) throws Exception {
+		super(bindableWidget, "observeMultiSelection");
+	}
 
-  /**
-   * Note: this constructor used only for tests.
-   */
-  public MultiSelectionObservableInfo(BindableInfo bindableWidget,
-      WidgetPropertyBindableInfo bindableProperty) throws Exception {
-    super(bindableWidget, bindableProperty);
-  }
+	/**
+	 * Note: this constructor used only for tests.
+	 */
+	public MultiSelectionObservableInfo(BindableInfo bindableWidget,
+			WidgetPropertyBindableInfo bindableProperty) throws Exception {
+		super(bindableWidget, bindableProperty);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canShared() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canShared() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPresentationText() throws Exception {
-    return getBindableObject().getPresentation().getTextForBinding() + ".multiSelection";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPresentationText() throws Exception {
+		return getBindableObject().getPresentation().getTextForBinding() + ".multiSelection";
+	}
 }

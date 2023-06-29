@@ -24,72 +24,72 @@ import org.apache.commons.lang.ClassUtils;
  * @coverage bindings.rcp.model.beans
  */
 public abstract class CollectionObservableInfo extends ObservableInfo {
-  protected final BeanBindableInfo m_bindableObject;
-  protected final CollectionPropertyBindableInfo m_bindableProperty;
-  protected Class<?> m_elementType;
+	protected final BeanBindableInfo m_bindableObject;
+	protected final CollectionPropertyBindableInfo m_bindableProperty;
+	protected Class<?> m_elementType;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CollectionObservableInfo(BeanBindableInfo bindableObject,
-      CollectionPropertyBindableInfo bindableProperty,
-      Class<?> elementType) {
-    m_bindableObject = bindableObject;
-    m_bindableProperty = bindableProperty;
-    m_elementType = elementType;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CollectionObservableInfo(BeanBindableInfo bindableObject,
+			CollectionPropertyBindableInfo bindableProperty,
+			Class<?> elementType) {
+		m_bindableObject = bindableObject;
+		m_bindableProperty = bindableProperty;
+		m_elementType = elementType;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final Class<?> getElementType() {
-    return m_elementType;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final Class<?> getElementType() {
+		return m_elementType;
+	}
 
-  public final void setElementType(Class<?> elementType) {
-    m_elementType = elementType;
-  }
+	public final void setElementType(Class<?> elementType) {
+		m_elementType = elementType;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final BindableInfo getBindableObject() {
-    return m_bindableObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final BindableInfo getBindableObject() {
+		return m_bindableObject;
+	}
 
-  @Override
-  public final BindableInfo getBindableProperty() {
-    return m_bindableProperty;
-  }
+	@Override
+	public final BindableInfo getBindableProperty() {
+		return m_bindableProperty;
+	}
 
-  @Override
-  public final boolean canShared() {
-    return true;
-  }
+	@Override
+	public final boolean canShared() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final String getPresentationText() throws Exception {
-    String elementTypeName =
-        m_elementType == null ? "?????" : ClassUtils.getShortClassName(m_elementType);
-    return getPresentationPrefix()
-        + "("
-        + getBindableObject().getPresentation().getTextForBinding()
-        + ", "
-        + elementTypeName
-        + ".class)";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final String getPresentationText() throws Exception {
+		String elementTypeName =
+				m_elementType == null ? "?????" : ClassUtils.getShortClassName(m_elementType);
+		return getPresentationPrefix()
+				+ "("
+				+ getBindableObject().getPresentation().getTextForBinding()
+				+ ", "
+				+ elementTypeName
+				+ ".class)";
+	}
 
-  protected abstract String getPresentationPrefix();
+	protected abstract String getPresentationPrefix();
 }

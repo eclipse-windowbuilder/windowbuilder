@@ -31,82 +31,82 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewInfo;
  * @coverage rcp.gef.policy
  */
 public final class FastViewContainerLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
-  private static final ILayoutRequestValidator VALIDATOR =
-      LayoutRequestValidators.modelType(FastViewInfo.class);
-  private final PageLayoutInfo m_page;
-  private final FastViewContainerInfo m_container;
+	private static final ILayoutRequestValidator VALIDATOR =
+			LayoutRequestValidators.modelType(FastViewInfo.class);
+	private final PageLayoutInfo m_page;
+	private final FastViewContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FastViewContainerLayoutEditPolicy(FastViewContainerInfo container) {
-    m_container = container;
-    m_page = container.getPage();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FastViewContainerLayoutEditPolicy(FastViewContainerInfo container) {
+		m_container = container;
+		m_page = container.getPage();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof FastViewInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof FastViewInfo;
+	}
 
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return super.isRequestCondition(request) || request instanceof ViewDropRequest;
-  }
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return super.isRequestCondition(request) || request instanceof ViewDropRequest;
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractFlowLayoutEditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractFlowLayoutEditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCommand(Request request, Object referenceObject) {
-    if (request instanceof ViewDropRequest) {
-      final ViewDropRequest viewDrop_Request = (ViewDropRequest) request;
-      final ViewInfo viewInfo = viewDrop_Request.getView();
-      final FastViewInfo reference = (FastViewInfo) referenceObject;
-      return new EditCommand(m_page) {
-        @Override
-        protected void executeEdit() throws Exception {
-          FastViewInfo newView = m_container.command_CREATE(viewInfo.getId(), reference);
-          viewDrop_Request.setComponent(newView);
-        }
-      };
-    }
-    return super.getCommand(request, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCommand(Request request, Object referenceObject) {
+		if (request instanceof ViewDropRequest) {
+			final ViewDropRequest viewDrop_Request = (ViewDropRequest) request;
+			final ViewInfo viewInfo = viewDrop_Request.getView();
+			final FastViewInfo reference = (FastViewInfo) referenceObject;
+			return new EditCommand(m_page) {
+				@Override
+				protected void executeEdit() throws Exception {
+					FastViewInfo newView = m_container.command_CREATE(viewInfo.getId(), reference);
+					viewDrop_Request.setComponent(newView);
+				}
+			};
+		}
+		return super.getCommand(request, referenceObject);
+	}
 
-  @Override
-  protected Command getMoveCommand(Object moveObject, Object referenceObject) {
-    final FastViewInfo item = (FastViewInfo) moveObject;
-    final FastViewInfo nextItem = (FastViewInfo) referenceObject;
-    return new EditCommand(m_page) {
-      @Override
-      protected void executeEdit() throws Exception {
-        m_container.command_MOVE(item, nextItem);
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(Object moveObject, Object referenceObject) {
+		final FastViewInfo item = (FastViewInfo) moveObject;
+		final FastViewInfo nextItem = (FastViewInfo) referenceObject;
+		return new EditCommand(m_page) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_container.command_MOVE(item, nextItem);
+			}
+		};
+	}
 }

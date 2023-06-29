@@ -20,35 +20,35 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.parser
  */
 public final class ParseRootContext {
-  private final JavaInfo m_root;
-  private final ExecutionFlowDescription m_flowDescription;
+	private final JavaInfo m_root;
+	private final ExecutionFlowDescription m_flowDescription;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ParseRootContext(JavaInfo root, ExecutionFlowDescription flowDescription) {
-    m_root = root;
-    m_flowDescription = flowDescription;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ParseRootContext(JavaInfo root, ExecutionFlowDescription flowDescription) {
+		m_root = root;
+		m_flowDescription = flowDescription;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the root {@link JavaInfo}.
-   */
-  public JavaInfo getRoot() {
-    return m_root;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the root {@link JavaInfo}.
+	 */
+	public JavaInfo getRoot() {
+		return m_root;
+	}
 
-  /**
-   * @return the {@link ExecutionFlowDescription} from which parsing should be started.
-   */
-  public ExecutionFlowDescription getFlowDescription() {
-    return m_flowDescription;
-  }
+	/**
+	 * @return the {@link ExecutionFlowDescription} from which parsing should be started.
+	 */
+	public ExecutionFlowDescription getFlowDescription() {
+		return m_flowDescription;
+	}
 }

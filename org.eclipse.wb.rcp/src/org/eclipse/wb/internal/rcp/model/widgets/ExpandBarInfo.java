@@ -31,71 +31,71 @@ import java.util.List;
  * @coverage rcp.model.widgets
  */
 public final class ExpandBarInfo extends CompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExpandBarInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExpandBarInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ExpandItemInfo} children.
-   */
-  public List<ExpandItemInfo> getItems() {
-    return getChildren(ExpandItemInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ExpandItemInfo} children.
+	 */
+	public List<ExpandItemInfo> getItems() {
+		return getChildren(ExpandItemInfo.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    for (ExpandItemInfo item : getItems()) {
-      item.fixControlBounds();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		for (ExpandItemInfo item : getItems()) {
+			item.fixControlBounds();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenTree() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
-      removeItemControls(children);
-      return children;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenTree() throws Exception {
+			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+			removeItemControls(children);
+			return children;
+		}
 
-    @Override
-    public List<ObjectInfo> getChildrenGraphical() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenGraphical());
-      removeItemControls(children);
-      return children;
-    }
+		@Override
+		public List<ObjectInfo> getChildrenGraphical() throws Exception {
+			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenGraphical());
+			removeItemControls(children);
+			return children;
+		}
 
-    private void removeItemControls(List<ObjectInfo> children) {
-      for (ExpandItemInfo item : getItems()) {
-        children.remove(item.getControl());
-      }
-    }
-  };
+		private void removeItemControls(List<ObjectInfo> children) {
+			for (ExpandItemInfo item : getItems()) {
+				children.remove(item.getControl());
+			}
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 }

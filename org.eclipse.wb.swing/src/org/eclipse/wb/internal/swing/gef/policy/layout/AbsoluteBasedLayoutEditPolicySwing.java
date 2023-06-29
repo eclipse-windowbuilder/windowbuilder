@@ -37,65 +37,65 @@ import java.util.List;
  * @coverage swing.gef.policy
  */
 public abstract class AbsoluteBasedLayoutEditPolicySwing
-    extends
-      AbsoluteBasedLayoutEditPolicy<ComponentInfo> {
-  private final LayoutInfo m_layout;
+extends
+AbsoluteBasedLayoutEditPolicy<ComponentInfo> {
+	private final LayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbsoluteBasedLayoutEditPolicySwing(LayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbsoluteBasedLayoutEditPolicySwing(LayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ComponentsLayoutRequestValidator.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ComponentsLayoutRequestValidator.INSTANCE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IVisualDataProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public List<ComponentInfo> getAllComponents() {
-    List<ComponentInfo> components = Lists.newArrayList();
-    components.addAll(m_layout.getContainer().getChildrenComponents());
-    return components;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IVisualDataProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public List<ComponentInfo> getAllComponents() {
+		List<ComponentInfo> components = Lists.newArrayList();
+		components.addAll(m_layout.getContainer().getChildrenComponents());
+		return components;
+	}
 
-  public int getBaseline(IAbstractComponentInfo component) {
-    return BaselineSupportHelper.getBaseline(component.getObject());
-  }
+	public int getBaseline(IAbstractComponentInfo component) {
+		return BaselineSupportHelper.getBaseline(component.getObject());
+	}
 
-  public Dimension getComponentPreferredSize(IAbstractComponentInfo component) {
-    ComponentInfo componentInfo = (ComponentInfo) component;
-    return componentInfo.getPreferredSize();
-  }
+	public Dimension getComponentPreferredSize(IAbstractComponentInfo component) {
+		ComponentInfo componentInfo = (ComponentInfo) component;
+		return componentInfo.getPreferredSize();
+	}
 
-  public Dimension getContainerSize() {
-    IAbstractComponentInfo composite = m_layout.getContainer();
-    Rectangle compositeBounds = composite.getModelBounds().getCopy();
-    Insets clientAreaInsets = composite.getClientAreaInsets();
-    return compositeBounds.crop(clientAreaInsets).getSize();
-  }
+	public Dimension getContainerSize() {
+		IAbstractComponentInfo composite = m_layout.getContainer();
+		Rectangle compositeBounds = composite.getModelBounds().getCopy();
+		Insets clientAreaInsets = composite.getClientAreaInsets();
+		return compositeBounds.crop(clientAreaInsets).getSize();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Misc
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ToolkitDescription getToolkit() {
-    return ToolkitProvider.DESCRIPTION;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Misc
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ToolkitDescription getToolkit() {
+		return ToolkitProvider.DESCRIPTION;
+	}
 }

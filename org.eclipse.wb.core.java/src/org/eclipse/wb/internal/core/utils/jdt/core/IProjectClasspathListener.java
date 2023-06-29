@@ -19,16 +19,16 @@ import org.eclipse.jdt.core.IJavaProject;
  * @coverage core.util.jdt
  */
 public interface IProjectClasspathListener {
-  /**
-   * Adding JAR with ZIP source attachment to the {@link IJavaProject}.
-   *
-   * @param javaProject
-   *          the {@link IJavaProject} to add JAR to.
-   * @param jarPathString
-   *          the JAR file name relative to project.
-   * @param srcPathString
-   *          the path to ZIP file of sources, relative to project. May be <code>null</code>.
-   */
-  void addClasspathEntry(IJavaProject javaProject, String jarPathString, String srcPathString)
-      throws Exception;
+	/**
+	 * Adding JAR with ZIP source attachment to the {@link IJavaProject}.
+	 *
+	 * @param javaProject
+	 *          the {@link IJavaProject} to add JAR to.
+	 * @param jarPathString
+	 *          the JAR file name relative to project.
+	 * @param srcPathString
+	 *          the path to ZIP file of sources, relative to project. May be <code>null</code>.
+	 */
+	void addClasspathEntry(IJavaProject javaProject, String jarPathString, String srcPathString)
+			throws Exception;
 }

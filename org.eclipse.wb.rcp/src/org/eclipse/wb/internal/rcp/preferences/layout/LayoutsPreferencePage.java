@@ -33,57 +33,57 @@ import org.eclipse.swt.widgets.Label;
  * @coverage rcp.preferences.ui
  */
 public final class LayoutsPreferencePage
-    extends
-      org.eclipse.wb.internal.core.preferences.LayoutsPreferencePage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutsPreferencePage() {
-    super(ToolkitProvider.DESCRIPTION);
-  }
+extends
+org.eclipse.wb.internal.core.preferences.LayoutsPreferencePage {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutsPreferencePage() {
+		super(ToolkitProvider.DESCRIPTION);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractBindingComposite createBindingComposite(Composite parent) {
-    return new ContentsCompositeEx(parent, m_bindManager, m_preferences);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractBindingComposite createBindingComposite(Composite parent) {
+		return new ContentsCompositeEx(parent, m_bindManager, m_preferences);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Contents
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected class ContentsCompositeEx extends ContentsComposite {
-    public ContentsCompositeEx(Composite parent,
-        DataBindManager bindManager,
-        IPreferenceStore preferences) {
-      super(parent, bindManager, preferences);
-      // layout template
-      {
-        new Label(this, SWT.NONE).setText(PreferencesMessages.LayoutsPreferencePage_layoutVariablePattern);
-        // control
-        Combo templateCombo = new Combo(this, SWT.READ_ONLY);
-        GridDataFactory.create(templateCombo).grabH().fillH();
-        templateCombo.setItems(LayoutNameSupport.TEMPLATES);
-        // bind
-        bindString(templateCombo, IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
-      }
-      // layout data template
-      {
-        new Label(this, SWT.NONE).setText(PreferencesMessages.LayoutsPreferencePage_dataVariablePattern);
-        // control
-        Combo templateCombo = new Combo(this, SWT.READ_ONLY);
-        GridDataFactory.create(templateCombo).grabH().fillH();
-        templateCombo.setItems(LayoutDataNameSupport.TEMPLATES);
-        // bind
-        bindString(templateCombo, IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Contents
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected class ContentsCompositeEx extends ContentsComposite {
+		public ContentsCompositeEx(Composite parent,
+				DataBindManager bindManager,
+				IPreferenceStore preferences) {
+			super(parent, bindManager, preferences);
+			// layout template
+			{
+				new Label(this, SWT.NONE).setText(PreferencesMessages.LayoutsPreferencePage_layoutVariablePattern);
+				// control
+				Combo templateCombo = new Combo(this, SWT.READ_ONLY);
+				GridDataFactory.create(templateCombo).grabH().fillH();
+				templateCombo.setItems(LayoutNameSupport.TEMPLATES);
+				// bind
+				bindString(templateCombo, IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
+			}
+			// layout data template
+			{
+				new Label(this, SWT.NONE).setText(PreferencesMessages.LayoutsPreferencePage_dataVariablePattern);
+				// control
+				Combo templateCombo = new Combo(this, SWT.READ_ONLY);
+				GridDataFactory.create(templateCombo).grabH().fillH();
+				templateCombo.setItems(LayoutDataNameSupport.TEMPLATES);
+				// bind
+				bindString(templateCombo, IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE);
+			}
+		}
+	}
 }

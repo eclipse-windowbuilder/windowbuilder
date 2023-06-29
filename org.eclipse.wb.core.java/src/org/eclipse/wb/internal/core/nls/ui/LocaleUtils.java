@@ -24,39 +24,39 @@ import java.util.Comparator;
  * @coverage core.nls.ui
  */
 public class LocaleUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LocaleUtils() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LocaleUtils() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the flag image for given {@link LocaleInfo}.
-   */
-  public static Image getImage(LocaleInfo localeInfo) {
-    if (localeInfo.isDefault()) {
-      return FlagImagesRepository.getEmptyFlagImage();
-    } else {
-      return FlagImagesRepository.getFlagImage(localeInfo.getLocale());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the flag image for given {@link LocaleInfo}.
+	 */
+	public static Image getImage(LocaleInfo localeInfo) {
+		if (localeInfo.isDefault()) {
+			return FlagImagesRepository.getEmptyFlagImage();
+		} else {
+			return FlagImagesRepository.getFlagImage(localeInfo.getLocale());
+		}
+	}
 
-  /**
-   * Sorts given array of {@link LocaleInfo}'s by title.
-   */
-  public static void sortByTitle(LocaleInfo locales[]) {
-    Arrays.sort(locales, new Comparator<LocaleInfo>() {
-      @Override
-      public int compare(LocaleInfo locale_1, LocaleInfo locale_2) {
-        return locale_1.getTitle().compareTo(locale_2.getTitle());
-      }
-    });
-  }
+	/**
+	 * Sorts given array of {@link LocaleInfo}'s by title.
+	 */
+	public static void sortByTitle(LocaleInfo locales[]) {
+		Arrays.sort(locales, new Comparator<LocaleInfo>() {
+			@Override
+			public int compare(LocaleInfo locale_1, LocaleInfo locale_2) {
+				return locale_1.getTitle().compareTo(locale_2.getTitle());
+			}
+		});
+	}
 }

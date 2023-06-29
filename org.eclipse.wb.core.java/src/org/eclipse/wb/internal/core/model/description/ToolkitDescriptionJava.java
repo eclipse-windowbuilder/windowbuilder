@@ -19,13 +19,13 @@ import org.eclipse.wb.internal.core.model.generation.GenerationSettings;
  * @coverage core.model.description
  */
 public abstract class ToolkitDescriptionJava extends ToolkitDescription {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link GenerationSettings}.
-   */
-  public abstract GenerationSettings getGenerationSettings();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link GenerationSettings}.
+	 */
+	public abstract GenerationSettings getGenerationSettings();
 }

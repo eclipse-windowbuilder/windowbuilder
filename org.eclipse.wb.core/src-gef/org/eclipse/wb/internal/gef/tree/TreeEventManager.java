@@ -34,146 +34,146 @@ import org.eclipse.swt.widgets.TreeItem;
  * @coverage gef.tree
  */
 final class TreeEventManager
-    implements
-      KeyListener,
-      MouseListener,
-      MouseMoveListener,
-      MouseTrackListener {
-  private final Tree m_tree;
-  private final IEditPartViewer m_viewer;
-  private EditDomain m_domain;
-  final TreeDropListener m_dropListener;
+implements
+KeyListener,
+MouseListener,
+MouseMoveListener,
+MouseTrackListener {
+	private final Tree m_tree;
+	private final IEditPartViewer m_viewer;
+	private EditDomain m_domain;
+	final TreeDropListener m_dropListener;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TreeEventManager(Tree tree, IEditPartViewer viewer) {
-    m_tree = tree;
-    m_viewer = viewer;
-    // add listeners
-    Object listener =
-        EventManager.createListenerProxy(this, new Class[]{
-            KeyListener.class,
-            MouseListener.class,
-            MouseMoveListener.class,
-            MouseTrackListener.class});
-    m_tree.addKeyListener((KeyListener) listener);
-    m_tree.addMouseListener((MouseListener) listener);
-    m_tree.addMouseMoveListener((MouseMoveListener) listener);
-    m_tree.addMouseTrackListener((MouseTrackListener) listener);
-    // add DND listeners
-    new DragSource(m_tree, DND.DROP_MOVE).setTransfer(new Transfer[]{TreeTransfer.INSTANCE});
-    m_dropListener = new TreeDropListener(m_viewer);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TreeEventManager(Tree tree, IEditPartViewer viewer) {
+		m_tree = tree;
+		m_viewer = viewer;
+		// add listeners
+		Object listener =
+				EventManager.createListenerProxy(this, new Class[]{
+						KeyListener.class,
+						MouseListener.class,
+						MouseMoveListener.class,
+						MouseTrackListener.class});
+		m_tree.addKeyListener((KeyListener) listener);
+		m_tree.addMouseListener((MouseListener) listener);
+		m_tree.addMouseMoveListener((MouseMoveListener) listener);
+		m_tree.addMouseTrackListener((MouseTrackListener) listener);
+		// add DND listeners
+		new DragSource(m_tree, DND.DROP_MOVE).setTransfer(new Transfer[]{TreeTransfer.INSTANCE});
+		m_dropListener = new TreeDropListener(m_viewer);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setDomain(EditDomain domain) {
-    m_domain = domain;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setDomain(EditDomain domain) {
+		m_domain = domain;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // KeyListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void keyPressed(KeyEvent event) {
-    if (m_domain != null) {
-      m_domain.keyPressed(event, m_viewer);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// KeyListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void keyPressed(KeyEvent event) {
+		if (m_domain != null) {
+			m_domain.keyPressed(event, m_viewer);
+		}
+	}
 
-  @Override
-  public void keyReleased(KeyEvent event) {
-    if (m_domain != null) {
-      m_domain.keyReleased(event, m_viewer);
-    }
-  }
+	@Override
+	public void keyReleased(KeyEvent event) {
+		if (m_domain != null) {
+			m_domain.keyReleased(event, m_viewer);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MouseListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void mouseDoubleClick(MouseEvent event) {
-    if (m_domain != null) {
-      m_domain.mouseDoubleClick(event, m_viewer);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MouseListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void mouseDoubleClick(MouseEvent event) {
+		if (m_domain != null) {
+			m_domain.mouseDoubleClick(event, m_viewer);
+		}
+	}
 
-  @Override
-  public void mouseDown(MouseEvent event) {
-    if (isPlusMinusClick(m_tree, event.x, event.y)) {
-      return;
-    }
-    // OK, send to domain
-    if (m_domain != null) {
-      m_domain.mouseDown(event, m_viewer);
-    }
-  }
+	@Override
+	public void mouseDown(MouseEvent event) {
+		if (isPlusMinusClick(m_tree, event.x, event.y)) {
+			return;
+		}
+		// OK, send to domain
+		if (m_domain != null) {
+			m_domain.mouseDown(event, m_viewer);
+		}
+	}
 
-  @Override
-  public void mouseUp(MouseEvent event) {
-    if (m_domain != null) {
-      m_domain.mouseUp(event, m_viewer);
-    }
-  }
+	@Override
+	public void mouseUp(MouseEvent event) {
+		if (m_domain != null) {
+			m_domain.mouseUp(event, m_viewer);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MouseMoveListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void mouseMove(MouseEvent event) {
-    if (m_domain != null) {
-      if ((event.stateMask & EventManager.ANY_BUTTON) != 0) {
-        m_domain.mouseDrag(event, m_viewer);
-      } else {
-        m_domain.mouseMove(event, m_viewer);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MouseMoveListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void mouseMove(MouseEvent event) {
+		if (m_domain != null) {
+			if ((event.stateMask & EventManager.ANY_BUTTON) != 0) {
+				m_domain.mouseDrag(event, m_viewer);
+			} else {
+				m_domain.mouseMove(event, m_viewer);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MouseTrackListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void mouseEnter(MouseEvent event) {
-    if (m_domain != null) {
-      m_domain.viewerEntered(event, m_viewer);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MouseTrackListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void mouseEnter(MouseEvent event) {
+		if (m_domain != null) {
+			m_domain.viewerEntered(event, m_viewer);
+		}
+	}
 
-  @Override
-  public void mouseExit(MouseEvent event) {
-    if (m_domain != null) {
-      m_domain.viewerExited(event, m_viewer);
-    }
-  }
+	@Override
+	public void mouseExit(MouseEvent event) {
+		if (m_domain != null) {
+			m_domain.viewerExited(event, m_viewer);
+		}
+	}
 
-  @Override
-  public void mouseHover(MouseEvent event) {
-  }
+	@Override
+	public void mouseHover(MouseEvent event) {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if pointer is over {@link TreeItem} plus/minus sign.
-   */
-  private static boolean isPlusMinusClick(Tree tree, int x, int y) {
-    return OSSupport.get().isPlusMinusTreeClick(tree, x, y);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if pointer is over {@link TreeItem} plus/minus sign.
+	 */
+	private static boolean isPlusMinusClick(Tree tree, int x, int y) {
+		return OSSupport.get().isPlusMinusTreeClick(tree, x, y);
+	}
 }

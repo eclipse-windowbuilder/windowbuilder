@@ -24,47 +24,47 @@ import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
  * @coverage nebula.model
  */
 public final class PShelfItemInfo extends ItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PShelfItemInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PShelfItemInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getComponentObject() {
-    return ReflectionUtils.getFieldObject(getObject(), "bodyParent");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getComponentObject() {
+		return ReflectionUtils.getFieldObject(getObject(), "bodyParent");
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    fixBodyBounds();
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		fixBodyBounds();
+	}
 
-  /**
-   * "Body" control is located on "bodyParent", but we consider "body" as child of this item and in
-   * {@link #fetchItemBounds()} we move bounds of item up. So, we have to move bounds of "body"
-   * down.
-   */
-  private void fixBodyBounds() {
-    int itemHeight = getItemHeight();
-    ControlInfo body = getChildren(ControlInfo.class).get(0);
-    body.getBounds().performTranslate(0, itemHeight);
-    body.getModelBounds().performTranslate(0, itemHeight);
-  }
+	/**
+	 * "Body" control is located on "bodyParent", but we consider "body" as child of this item and in
+	 * {@link #fetchItemBounds()} we move bounds of item up. So, we have to move bounds of "body"
+	 * down.
+	 */
+	private void fixBodyBounds() {
+		int itemHeight = getItemHeight();
+		ControlInfo body = getChildren(ControlInfo.class).get(0);
+		body.getBounds().performTranslate(0, itemHeight);
+		body.getModelBounds().performTranslate(0, itemHeight);
+	}
 
-  private int getItemHeight() {
-    Object shelfObject = ReflectionUtils.getFieldObject(getObject(), "parent");
-    return ReflectionUtils.getFieldInt(shelfObject, "itemHeight");
-  }
+	private int getItemHeight() {
+		Object shelfObject = ReflectionUtils.getFieldObject(getObject(), "parent");
+		return ReflectionUtils.getFieldInt(shelfObject, "itemHeight");
+	}
 }

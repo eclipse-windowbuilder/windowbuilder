@@ -21,41 +21,41 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
  * @coverage XWT.model.layout
  */
 public abstract class LayoutClipboardCommand<L extends LayoutInfo>
-    extends
-      CompositeClipboardCommand {
-  private static final long serialVersionUID = 0L;
-  private final XmlObjectMemento m_controlMemento;
+extends
+CompositeClipboardCommand {
+	private static final long serialVersionUID = 0L;
+	private final XmlObjectMemento m_controlMemento;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutClipboardCommand(ControlInfo control) throws Exception {
-    m_controlMemento = XmlObjectMemento.createMemento(control);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutClipboardCommand(ControlInfo control) throws Exception {
+		m_controlMemento = XmlObjectMemento.createMemento(control);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ClipboardCommand
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  @SuppressWarnings("unchecked")
-  protected void execute(CompositeInfo composite) throws Exception {
-    ControlInfo control = (ControlInfo) m_controlMemento.create(composite);
-    L layout = (L) composite.getLayout();
-    add(layout, control);
-    m_controlMemento.apply();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ClipboardCommand
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	@SuppressWarnings("unchecked")
+	protected void execute(CompositeInfo composite) throws Exception {
+		ControlInfo control = (ControlInfo) m_controlMemento.create(composite);
+		L layout = (L) composite.getLayout();
+		add(layout, control);
+		m_controlMemento.apply();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LayoutClipboardCommand
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds given {@link ControlInfo} to {@link CompositeInfo} using layout specific way.
-   */
-  protected abstract void add(L layout, ControlInfo control) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LayoutClipboardCommand
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds given {@link ControlInfo} to {@link CompositeInfo} using layout specific way.
+	 */
+	protected abstract void add(L layout, ControlInfo control) throws Exception;
 }

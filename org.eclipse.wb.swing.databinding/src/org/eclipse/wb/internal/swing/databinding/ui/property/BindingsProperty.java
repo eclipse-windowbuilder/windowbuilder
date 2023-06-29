@@ -43,93 +43,93 @@ import java.util.List;
  * @coverage bindings.swing.ui.properties
  */
 public class BindingsProperty extends AbstractBindingsProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BindingsProperty(Context context) {
-    super(context);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BindingsProperty(Context context) {
+		super(context);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractBindingsProperty
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Property[] createProperties() throws Exception {
-    DatabindingsProvider provider = (DatabindingsProvider) m_context.provider;
-    if (m_context.objectInfo.getParent() instanceof NonVisualBeanContainerInfo) {
-      BeansObserveTypeContainer container =
-          (BeansObserveTypeContainer) provider.getContainer(ObserveType.BEANS);
-      m_context.observeObject = container.resolve(m_context.javaInfo());
-    } else {
-      ComponentsObserveTypeContainer container =
-          (ComponentsObserveTypeContainer) provider.getContainer(ObserveType.WIDGETS);
-      m_context.observeObject = container.resolve(m_context.javaInfo());
-    }
-    if (m_context.observeObject == null) {
-      return new Property[0];
-    }
-    //
-    List<IObserveInfo> observes =
-        Lists.newArrayList(m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable));
-    for (Iterator<IObserveInfo> I = observes.iterator(); I.hasNext();) {
-      if (!includeProperty(I.next())) {
-        I.remove();
-      }
-    }
-    //
-    Property[] properties = new Property[observes.size()];
-    for (int i = 0; i < properties.length; i++) {
-      ObserveInfo observeProperty = (ObserveInfo) observes.get(i);
-      if (observeProperty.getCreationType() == ObserveCreationType.SelfProperty) {
-        switch (ComponentsObserveTypeContainer.getCreationType(m_context.javaInfo().getDescription().getComponentClass())) {
-          case JListBinding :
-            properties[i] = new JListSelfObserveProperty(m_context, observeProperty);
-            continue;
-          case JTableBinding :
-            properties[i] = new JTableSelfObserveProperty(m_context, observeProperty);
-            continue;
-          case JComboBoxBinding :
-            properties[i] = new JComboBoxSelfObserveProperty(m_context, observeProperty);
-            continue;
-        }
-      }
-      properties[i] = new ObserveProperty(m_context, observeProperty);
-    }
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractBindingsProperty
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Property[] createProperties() throws Exception {
+		DatabindingsProvider provider = (DatabindingsProvider) m_context.provider;
+		if (m_context.objectInfo.getParent() instanceof NonVisualBeanContainerInfo) {
+			BeansObserveTypeContainer container =
+					(BeansObserveTypeContainer) provider.getContainer(ObserveType.BEANS);
+			m_context.observeObject = container.resolve(m_context.javaInfo());
+		} else {
+			ComponentsObserveTypeContainer container =
+					(ComponentsObserveTypeContainer) provider.getContainer(ObserveType.WIDGETS);
+			m_context.observeObject = container.resolve(m_context.javaInfo());
+		}
+		if (m_context.observeObject == null) {
+			return new Property[0];
+		}
+		//
+		List<IObserveInfo> observes =
+				Lists.newArrayList(m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable));
+		for (Iterator<IObserveInfo> I = observes.iterator(); I.hasNext();) {
+			if (!includeProperty(I.next())) {
+				I.remove();
+			}
+		}
+		//
+		Property[] properties = new Property[observes.size()];
+		for (int i = 0; i < properties.length; i++) {
+			ObserveInfo observeProperty = (ObserveInfo) observes.get(i);
+			if (observeProperty.getCreationType() == ObserveCreationType.SelfProperty) {
+				switch (ComponentsObserveTypeContainer.getCreationType(m_context.javaInfo().getDescription().getComponentClass())) {
+				case JListBinding :
+					properties[i] = new JListSelfObserveProperty(m_context, observeProperty);
+					continue;
+				case JTableBinding :
+					properties[i] = new JTableSelfObserveProperty(m_context, observeProperty);
+					continue;
+				case JComboBoxBinding :
+					properties[i] = new JComboBoxSelfObserveProperty(m_context, observeProperty);
+					continue;
+				}
+			}
+			properties[i] = new ObserveProperty(m_context, observeProperty);
+		}
+		return properties;
+	}
 
-  private static boolean includeProperty(IObserveInfo observe) {
-    IObserveDecoration decoration = (IObserveDecoration) observe;
-    IObserveDecorator decorator = decoration.getDecorator();
-    return decorator == IObserveDecorator.BOLD || decorator == IObserveDecorator.DEFAULT;
-  }
+	private static boolean includeProperty(IObserveInfo observe) {
+		IObserveDecoration decoration = (IObserveDecoration) observe;
+		IObserveDecorator decorator = decoration.getDecorator();
+		return decorator == IObserveDecorator.BOLD || decorator == IObserveDecorator.DEFAULT;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean checkEquals(IObserveInfo iobserve) throws Exception {
-    String reference = JavaInfoReferenceProvider.getReference(m_context.javaInfo());
-    ObserveInfo observe = (ObserveInfo) iobserve;
-    return reference.equals(observe.getReference());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean checkEquals(IObserveInfo iobserve) throws Exception {
+		String reference = JavaInfoReferenceProvider.getReference(m_context.javaInfo());
+		ObserveInfo observe = (ObserveInfo) iobserve;
+		return reference.equals(observe.getReference());
+	}
 
-  @Override
-  protected void addBindingAction(IMenuManager menu,
-      IBindingInfo binding,
-      IObserveInfo observeProperty,
-      boolean isTarget) throws Exception {
-    BindingAction action = new BindingAction(m_context, binding);
-    action.setText(observeProperty.getPresentation().getText()
-        + ": "
-        + BindingLabelProvider.INSTANCE.getColumnText(binding, isTarget ? 2 : 1));
-    action.setIcon(BindingLabelProvider.INSTANCE.getColumnImage(binding, 0));
-    menu.add(action);
-  }
+	@Override
+	protected void addBindingAction(IMenuManager menu,
+			IBindingInfo binding,
+			IObserveInfo observeProperty,
+			boolean isTarget) throws Exception {
+		BindingAction action = new BindingAction(m_context, binding);
+		action.setText(observeProperty.getPresentation().getText()
+				+ ": "
+				+ BindingLabelProvider.INSTANCE.getColumnText(binding, isTarget ? 2 : 1));
+		action.setIcon(BindingLabelProvider.INSTANCE.getColumnImage(binding, 0));
+		menu.add(action);
+	}
 }

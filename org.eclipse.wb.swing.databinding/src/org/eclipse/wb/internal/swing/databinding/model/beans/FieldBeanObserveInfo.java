@@ -25,43 +25,43 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
  * @coverage bindings.swing.model.beans
  */
 public final class FieldBeanObserveInfo extends BeanObserveInfo {
-  private final VariableDeclarationFragment m_fragment;
-  private final IObservePresentation m_presentation;
+	private final VariableDeclarationFragment m_fragment;
+	private final IObservePresentation m_presentation;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FieldBeanObserveInfo(BeanSupport beanSupport,
-      VariableDeclarationFragment fragment,
-      IGenericType objectType,
-      JavaInfo javaInfo) throws Exception {
-    super(beanSupport, null, objectType, new FragmentReferenceProvider(fragment));
-    setBindingDecoration(SwtResourceManager.TOP_LEFT);
-    m_fragment = fragment;
-    m_presentation =
-        new FieldBeanObservePresentation(this, javaInfo, beanSupport.getBeanImage(
-            getObjectClass(),
-            javaInfo,
-            true));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FieldBeanObserveInfo(BeanSupport beanSupport,
+			VariableDeclarationFragment fragment,
+			IGenericType objectType,
+			JavaInfo javaInfo) throws Exception {
+		super(beanSupport, null, objectType, new FragmentReferenceProvider(fragment));
+		setBindingDecoration(SwtResourceManager.TOP_LEFT);
+		m_fragment = fragment;
+		m_presentation =
+				new FieldBeanObservePresentation(this, javaInfo, beanSupport.getBeanImage(
+						getObjectClass(),
+						javaInfo,
+						true));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VariableDeclarationFragment getFragment() {
-    return m_fragment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VariableDeclarationFragment getFragment() {
+		return m_fragment;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IObservePresentation getPresentation() {
-    return m_presentation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IObservePresentation getPresentation() {
+		return m_presentation;
+	}
 }

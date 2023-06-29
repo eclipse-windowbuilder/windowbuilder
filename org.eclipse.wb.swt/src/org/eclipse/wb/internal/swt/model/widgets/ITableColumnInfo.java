@@ -19,8 +19,8 @@ import org.eclipse.swt.widgets.TableColumn;
  * @coverage swt.model.widgets
  */
 public interface ITableColumnInfo extends IItemInfo {
-  /**
-   * Sets width in pixels.
-   */
-  public void setWidth(int width) throws Exception;
+	/**
+	 * Sets width in pixels.
+	 */
+	public void setWidth(int width) throws Exception;
 }

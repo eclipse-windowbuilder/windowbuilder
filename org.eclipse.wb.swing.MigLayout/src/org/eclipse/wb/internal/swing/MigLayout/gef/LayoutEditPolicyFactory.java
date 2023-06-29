@@ -23,19 +23,19 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
  * @coverage swing.MigLayout.policy
  */
 public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutEditPolicyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    if (model instanceof LayoutInfo) {
-      Class<?> layoutClass = model.getClass();
-      if (layoutClass == MigLayoutInfo.class) {
-        return new MigLayoutEditPolicy((MigLayoutInfo) model);
-      }
-    }
-    // not found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutEditPolicyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		if (model instanceof LayoutInfo) {
+			Class<?> layoutClass = model.getClass();
+			if (layoutClass == MigLayoutInfo.class) {
+				return new MigLayoutEditPolicy((MigLayoutInfo) model);
+			}
+		}
+		// not found
+		return null;
+	}
 }

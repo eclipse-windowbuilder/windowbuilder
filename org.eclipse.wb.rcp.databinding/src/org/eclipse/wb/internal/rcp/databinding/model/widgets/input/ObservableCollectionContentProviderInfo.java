@@ -26,30 +26,30 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class ObservableCollectionContentProviderInfo extends SimpleClassObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObservableCollectionContentProviderInfo(String className) {
-    super(className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObservableCollectionContentProviderInfo(String className) {
+		super(className);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    if ("getKnownElements".equals(invocation.getName().getIdentifier())) {
-      return new KnownElementsObservableInfo(this);
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		if ("getKnownElements".equals(invocation.getName().getIdentifier())) {
+			return new KnownElementsObservableInfo(this);
+		}
+		return null;
+	}
 }

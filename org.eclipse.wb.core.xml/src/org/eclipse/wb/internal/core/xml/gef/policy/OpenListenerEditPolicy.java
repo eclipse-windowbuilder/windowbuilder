@@ -35,41 +35,41 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
  * @coverage XML.gef.policy
  */
 public final class OpenListenerEditPolicy extends EditPolicy {
-  private static final String DOUBLE_CLICK_LISTENER = "x.double-click.listener";
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final String m_listenerName;
-  private final XmlObjectInfo m_object;
+	private static final String DOUBLE_CLICK_LISTENER = "x.double-click.listener";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final String m_listenerName;
+	private final XmlObjectInfo m_object;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public OpenListenerEditPolicy(XmlObjectInfo object) {
-    m_object = object;
-    m_listenerName = XmlObjectUtils.getParameter(object, DOUBLE_CLICK_LISTENER);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public OpenListenerEditPolicy(XmlObjectInfo object) {
+		m_object = object;
+		m_listenerName = XmlObjectUtils.getParameter(object, DOUBLE_CLICK_LISTENER);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    if (m_listenerName != null && Request.REQ_OPEN.equals(request.getType())) {
-      ExecutionUtils.run(m_object, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          EventsProperty eventsProperty = (EventsProperty) m_object.getPropertyByTitle("Events");
-          eventsProperty.openListener(m_listenerName);
-        }
-      });
-    }
-    super.performRequest(request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		if (m_listenerName != null && Request.REQ_OPEN.equals(request.getType())) {
+			ExecutionUtils.run(m_object, new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					EventsProperty eventsProperty = (EventsProperty) m_object.getPropertyByTitle("Events");
+					eventsProperty.openListener(m_listenerName);
+				}
+			});
+		}
+		super.performRequest(request);
+	}
 }

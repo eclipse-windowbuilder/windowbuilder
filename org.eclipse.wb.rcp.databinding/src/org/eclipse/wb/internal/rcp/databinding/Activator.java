@@ -27,68 +27,68 @@ import java.io.InputStream;
  * @author lobas_av
  */
 public final class Activator extends AbstractUIPlugin {
-  public static final String PLUGIN_ID = "org.eclipse.wb.rcp.databinding";
-  private static Activator m_plugin;
+	public static final String PLUGIN_ID = "org.eclipse.wb.rcp.databinding";
+	private static Activator m_plugin;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void stop(BundleContext context) throws Exception {
-    m_plugin = null;
-    super.stop(context);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		m_plugin = null;
+		super.stop(context);
+	}
 
-  @Override
-  public void start(BundleContext context) throws Exception {
-    super.start(context);
-    m_plugin = this;
-  }
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		m_plugin = this;
+	}
 
-  public static Activator getDefault() {
-    return m_plugin;
-  }
+	public static Activator getDefault() {
+		return m_plugin;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resources
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final BundleResourceProvider m_resourceProvider =
-      BundleResourceProvider.get(PLUGIN_ID);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resources
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final BundleResourceProvider m_resourceProvider =
+			BundleResourceProvider.get(PLUGIN_ID);
 
-  /**
-   * @return the {@link InputStream} for file from plugin directory.
-   */
-  public static InputStream getFile(String path) {
-    return m_resourceProvider.getFile(path);
-  }
+	/**
+	 * @return the {@link InputStream} for file from plugin directory.
+	 */
+	public static InputStream getFile(String path) {
+		return m_resourceProvider.getFile(path);
+	}
 
-  /**
-   * @return the {@link Image} from "icons" directory, with caching.
-   */
-  public static Image getImage(String path) {
-    return m_resourceProvider.getImage("icons/" + path);
-  }
+	/**
+	 * @return the {@link Image} from "icons" directory, with caching.
+	 */
+	public static Image getImage(String path) {
+		return m_resourceProvider.getImage("icons/" + path);
+	}
 
-  /**
-   * @return the {@link ImageDescriptor} from "icons" directory.
-   */
-  public static ImageDescriptor getImageDescriptor(String path) {
-    return m_resourceProvider.getImageDescriptor("icons/" + path);
-  }
+	/**
+	 * @return the {@link ImageDescriptor} from "icons" directory.
+	 */
+	public static ImageDescriptor getImageDescriptor(String path) {
+		return m_resourceProvider.getImageDescriptor("icons/" + path);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Preferences
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns preference store for DB plugin.
-   */
-  public static IPreferenceStore getStore() {
-    return m_plugin.getPreferenceStore();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Preferences
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns preference store for DB plugin.
+	 */
+	public static IPreferenceStore getStore() {
+		return m_plugin.getPreferenceStore();
+	}
 }

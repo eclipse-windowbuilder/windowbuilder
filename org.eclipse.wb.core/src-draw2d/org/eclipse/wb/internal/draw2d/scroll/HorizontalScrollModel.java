@@ -20,42 +20,42 @@ import org.eclipse.swt.widgets.Canvas;
  * @coverage gef.draw2d
  */
 public class HorizontalScrollModel extends ScrollModel {
-  private final Canvas m_canvas;
+	private final Canvas m_canvas;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public HorizontalScrollModel(Canvas canvas) {
-    super(canvas.getHorizontalBar());
-    m_canvas = canvas;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public HorizontalScrollModel(Canvas canvas) {
+		super(canvas.getHorizontalBar());
+		m_canvas = canvas;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ScrollModel
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Scroll to left part of window area.
-   */
-  @Override
-  protected void handlePositiveScrolling(int delta, int newSelection) {
-    Rectangle clientArea = m_canvas.getClientArea();
-    m_canvas.scroll(0, 0, delta, 0, clientArea.width - delta, clientArea.height, true);
-    m_selection = newSelection;
-    m_canvas.redraw(clientArea.width - delta, 0, delta, clientArea.height, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ScrollModel
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Scroll to left part of window area.
+	 */
+	@Override
+	protected void handlePositiveScrolling(int delta, int newSelection) {
+		Rectangle clientArea = m_canvas.getClientArea();
+		m_canvas.scroll(0, 0, delta, 0, clientArea.width - delta, clientArea.height, true);
+		m_selection = newSelection;
+		m_canvas.redraw(clientArea.width - delta, 0, delta, clientArea.height, true);
+	}
 
-  /**
-   * Scroll to right part of window area.
-   */
-  @Override
-  protected void handleNegativeScrolling(int delta, int newSelection) {
-    Rectangle clientArea = m_canvas.getClientArea();
-    m_canvas.scroll(delta, 0, 0, 0, clientArea.width - delta, clientArea.height, true);
-    m_selection = newSelection;
-    m_canvas.redraw(0, 0, delta, clientArea.height, true);
-  }
+	/**
+	 * Scroll to right part of window area.
+	 */
+	@Override
+	protected void handleNegativeScrolling(int delta, int newSelection) {
+		Rectangle clientArea = m_canvas.getClientArea();
+		m_canvas.scroll(delta, 0, 0, 0, clientArea.width - delta, clientArea.height, true);
+		m_selection = newSelection;
+		m_canvas.redraw(0, 0, delta, clientArea.height, true);
+	}
 }

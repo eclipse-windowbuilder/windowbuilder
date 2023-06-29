@@ -29,26 +29,26 @@ import java.util.List;
  * @author mitin_aa
  */
 public interface IGroupLayoutInfo extends IAdaptable {
-  LayoutDesigner getLayoutDesigner();
+	LayoutDesigner getLayoutDesigner();
 
-  LayoutModel getLayoutModel();
+	LayoutModel getLayoutModel();
 
-  AbstractComponentInfo getLayoutContainer();
+	AbstractComponentInfo getLayoutContainer();
 
-  Insets getContainerInsets();
+	Insets getContainerInsets();
 
-  boolean isRelatedComponent(ObjectInfo component);
+	boolean isRelatedComponent(ObjectInfo component);
 
-  LayoutComponent createLayoutComponent(AbstractComponentInfo model);
+	LayoutComponent createLayoutComponent(AbstractComponentInfo model);
 
-  void saveLayout() throws Exception;
+	void saveLayout() throws Exception;
 
-  //
-  void command_commit() throws Exception;
+	//
+	void command_commit() throws Exception;
 
-  void command_paste(List<JavaInfoMemento> mementos) throws Exception;
+	void command_paste(List<JavaInfoMemento> mementos) throws Exception;
 
-  void command_create(AbstractComponentInfo newObject) throws Exception;
+	void command_create(AbstractComponentInfo newObject) throws Exception;
 
-  void command_add(List<AbstractComponentInfo> models) throws Exception;
+	void command_add(List<AbstractComponentInfo> models) throws Exception;
 }

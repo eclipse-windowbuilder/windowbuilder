@@ -22,11 +22,11 @@ import junit.framework.TestCase;
  * @author scheglov_ke
  */
 public class WaitForMemoryProfilerTest extends DesignerTestCase {
-  public void test_waitForProfiler() throws InterruptedException {
-    EditorState.setActiveJavaInfo(null);
-    GlobalState.setActiveObject(null);
-    // wait long time...
-    System.out.println("**** Profiler ****, take snapshot!");
-    waitEventLoop(1000 * 1000 * 1000, 100);
-  }
+	public void test_waitForProfiler() throws InterruptedException {
+		EditorState.setActiveJavaInfo(null);
+		GlobalState.setActiveObject(null);
+		// wait long time...
+		System.out.println("**** Profiler ****, take snapshot!");
+		waitEventLoop(1000 * 1000 * 1000, 100);
+	}
 }

@@ -33,42 +33,42 @@ import org.eclipse.swt.widgets.Label;
  * @coverage swing.preferences.ui
  */
 public final class LayoutsPreferencePage
-    extends
-      org.eclipse.wb.internal.core.preferences.LayoutsPreferencePage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutsPreferencePage() {
-    super(ToolkitProvider.DESCRIPTION);
-  }
+extends
+org.eclipse.wb.internal.core.preferences.LayoutsPreferencePage {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutsPreferencePage() {
+		super(ToolkitProvider.DESCRIPTION);
+	}
 
-  @Override
-  protected AbstractBindingComposite createBindingComposite(Composite parent) {
-    return new ContentsCompositeEx(parent, m_bindManager, m_preferences);
-  }
+	@Override
+	protected AbstractBindingComposite createBindingComposite(Composite parent) {
+		return new ContentsCompositeEx(parent, m_bindManager, m_preferences);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Contents
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected class ContentsCompositeEx extends ContentsComposite {
-    public ContentsCompositeEx(Composite parent,
-        DataBindManager bindManager,
-        IPreferenceStore preferences) {
-      super(parent, bindManager, preferences);
-      // layout variable name template
-      {
-        new Label(this, SWT.NONE).setText(Messages.LayoutsPreferencePage_layoutNamePattern);
-        // control
-        Combo templateCombo = new Combo(this, SWT.READ_ONLY);
-        GridDataFactory.create(templateCombo).grabH().fillH();
-        templateCombo.setItems(LayoutNameSupport.TEMPLATES);
-        // bind
-        bindString(templateCombo, IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Contents
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected class ContentsCompositeEx extends ContentsComposite {
+		public ContentsCompositeEx(Composite parent,
+				DataBindManager bindManager,
+				IPreferenceStore preferences) {
+			super(parent, bindManager, preferences);
+			// layout variable name template
+			{
+				new Label(this, SWT.NONE).setText(Messages.LayoutsPreferencePage_layoutNamePattern);
+				// control
+				Combo templateCombo = new Combo(this, SWT.READ_ONLY);
+				GridDataFactory.create(templateCombo).grabH().fillH();
+				templateCombo.setItems(LayoutNameSupport.TEMPLATES);
+				// bind
+				bindString(templateCombo, IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
+			}
+		}
+	}
 }

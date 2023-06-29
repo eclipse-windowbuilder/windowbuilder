@@ -14,5 +14,5 @@ package org.eclipse.wb.internal.core.utils.dialogfields;
  * Change listener used by <code>StringButtonDialogField</code>
  */
 public interface IStringButtonAdapter {
-  void changeControlPressed(DialogField field);
+	void changeControlPressed(DialogField field);
 }

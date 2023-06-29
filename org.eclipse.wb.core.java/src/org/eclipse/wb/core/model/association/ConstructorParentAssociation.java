@@ -25,51 +25,51 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
  * @coverage core.model.association
  */
 public final class ConstructorParentAssociation extends ConstructorAssociation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ClassInstanceCreation getCreation() {
-    return getConstructorCreationSupport().getCreation();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ClassInstanceCreation getCreation() {
+		return getConstructorCreationSupport().getCreation();
+	}
 
-  /**
-   * @return the {@link ConstructorCreationSupport} for this {@link JavaInfo}.
-   */
-  private ConstructorCreationSupport getConstructorCreationSupport() {
-    return (ConstructorCreationSupport) m_javaInfo.getCreationSupport();
-  }
+	/**
+	 * @return the {@link ConstructorCreationSupport} for this {@link JavaInfo}.
+	 */
+	private ConstructorCreationSupport getConstructorCreationSupport() {
+		return (ConstructorCreationSupport) m_javaInfo.getCreationSupport();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setParent(JavaInfo parent) throws Exception {
-    // prepare description
-    ConstructorDescription description = getConstructorCreationSupport().getDescription();
-    // update association
-    AssociationUtils.updateParentAssociation(
-        description,
-        DomGenerics.arguments(getCreation()),
-        parent);
-    // in general, replacement of constructor argument can cause binding (so constructor method) change,
-    // for example "new TreeItem(Tree,style)" -> "new TreeItem(TreeItem,style)",
-    // so replace binding to reflect such change
-    m_editor.replaceInvocationBinding(getCreation());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setParent(JavaInfo parent) throws Exception {
+		// prepare description
+		ConstructorDescription description = getConstructorCreationSupport().getDescription();
+		// update association
+		AssociationUtils.updateParentAssociation(
+				description,
+				DomGenerics.arguments(getCreation()),
+				parent);
+		// in general, replacement of constructor argument can cause binding (so constructor method) change,
+		// for example "new TreeItem(Tree,style)" -> "new TreeItem(TreeItem,style)",
+		// so replace binding to reflect such change
+		m_editor.replaceInvocationBinding(getCreation());
+	}
 
-  @Override
-  public boolean remove() throws Exception {
-    // parent argument can not be removed from constructor, just do nothing
-    return false;
-  }
+	@Override
+	public boolean remove() throws Exception {
+		// parent argument can not be removed from constructor, just do nothing
+		return false;
+	}
 
-  @Override
-  public Association getCopy() {
-    return new ConstructorParentAssociation();
-  }
+	@Override
+	public Association getCopy() {
+		return new ConstructorParentAssociation();
+	}
 }

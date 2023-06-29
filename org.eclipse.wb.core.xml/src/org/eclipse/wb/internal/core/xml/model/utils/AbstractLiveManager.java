@@ -43,159 +43,159 @@ import java.util.Map;
  * @coverage XML.model.utils
  */
 public abstract class AbstractLiveManager {
-  protected final AbstractComponentInfo m_component;
-  private final EditorContext m_context;
+	protected final AbstractComponentInfo m_component;
+	private final EditorContext m_context;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractLiveManager(AbstractComponentInfo component) {
-    m_component = component;
-    m_context = component.getContext();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractLiveManager(AbstractComponentInfo component) {
+		m_component = component;
+		m_context = component.getContext();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the filled {@link ILiveCacheEntry} instance. Creates "live" component, fill cache entry
-   *         and removes "live" component.
-   */
-  protected final ILiveCacheEntry createCacheEntry() {
-    try {
-      return createCacheEntryEx();
-    } catch (Throwable e) {
-      DesignerPlugin.log(e);
-      return createComponentCacheEntryEx(e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the filled {@link ILiveCacheEntry} instance. Creates "live" component, fill cache entry
+	 *         and removes "live" component.
+	 */
+	protected final ILiveCacheEntry createCacheEntry() {
+		try {
+			return createCacheEntryEx();
+		} catch (Throwable e) {
+			DesignerPlugin.log(e);
+			return createComponentCacheEntryEx(e);
+		}
+	}
 
-  private ILiveCacheEntry createCacheEntryEx() throws Exception {
-    BroadcastSupport oldBroadcast = m_context.getBroadcastSupport();
-    XmlObjectInfo oldActiveObject = (XmlObjectInfo) GlobalState.getActiveObject();
-    oldBroadcast.getListener(DisplayEventListener.class).beforeMessagesLoop();
-    //
-    AbstractComponentInfo liveComponentInfo = null;
-    try {
-      liveComponentInfo = createLiveComponent();
-      // finish edit operation
-      liveComponentInfo.getRoot().endEdit();
-      // fill cache
-      return createComponentCacheEntry(liveComponentInfo);
-    } finally {
-      GlobalStateXml.activate(oldActiveObject);
-      // do clean up
-      cleanupLiveComponent(liveComponentInfo);
-      m_context.getLiveContext().dispose();
-      // we finished inner operation
-      oldBroadcast.getListener(DisplayEventListener.class).afterMessagesLoop();
-    }
-  }
+	private ILiveCacheEntry createCacheEntryEx() throws Exception {
+		BroadcastSupport oldBroadcast = m_context.getBroadcastSupport();
+		XmlObjectInfo oldActiveObject = (XmlObjectInfo) GlobalState.getActiveObject();
+		oldBroadcast.getListener(DisplayEventListener.class).beforeMessagesLoop();
+		//
+		AbstractComponentInfo liveComponentInfo = null;
+		try {
+			liveComponentInfo = createLiveComponent();
+			// finish edit operation
+			liveComponentInfo.getRoot().endEdit();
+			// fill cache
+			return createComponentCacheEntry(liveComponentInfo);
+		} finally {
+			GlobalStateXml.activate(oldActiveObject);
+			// do clean up
+			cleanupLiveComponent(liveComponentInfo);
+			m_context.getLiveContext().dispose();
+			// we finished inner operation
+			oldBroadcast.getListener(DisplayEventListener.class).afterMessagesLoop();
+		}
+	}
 
-  /**
-   * @return the key for {@link ILiveCacheEntry} in cache.
-   */
-  protected String getKey() {
-    return m_component.getCreationSupport().toString();
-  }
+	/**
+	 * @return the key for {@link ILiveCacheEntry} in cache.
+	 */
+	protected String getKey() {
+		return m_component.getCreationSupport().toString();
+	}
 
-  /**
-   * @return the {@link AbstractComponentInfo} of "live component" after parsing.
-   */
-  protected abstract AbstractComponentInfo createLiveComponent() throws Exception;
+	/**
+	 * @return the {@link AbstractComponentInfo} of "live component" after parsing.
+	 */
+	protected abstract AbstractComponentInfo createLiveComponent() throws Exception;
 
-  /**
-   * Does some clean up for "live" component created earlier.
-   */
-  protected void cleanupLiveComponent(AbstractComponentInfo liveComponentInfo) throws Exception {
-    if (liveComponentInfo != null) {
-      liveComponentInfo.getRoot().refresh_dispose();
-    }
-  }
+	/**
+	 * Does some clean up for "live" component created earlier.
+	 */
+	protected void cleanupLiveComponent(AbstractComponentInfo liveComponentInfo) throws Exception {
+		if (liveComponentInfo != null) {
+			liveComponentInfo.getRoot().refresh_dispose();
+		}
+	}
 
-  /**
-   * Creates {@link ILiveCacheEntry} instance and fills it with required data.
-   */
-  protected abstract ILiveCacheEntry createComponentCacheEntry(AbstractComponentInfo liveComponentInfo);
+	/**
+	 * Creates {@link ILiveCacheEntry} instance and fills it with required data.
+	 */
+	protected abstract ILiveCacheEntry createComponentCacheEntry(AbstractComponentInfo liveComponentInfo);
 
-  /**
-   * Creates {@link ILiveCacheEntry} instance when exception happens.
-   */
-  protected abstract ILiveCacheEntry createComponentCacheEntryEx(Throwable e);
+	/**
+	 * Creates {@link ILiveCacheEntry} instance when exception happens.
+	 */
+	protected abstract ILiveCacheEntry createComponentCacheEntryEx(Throwable e);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Parses given statements source in temporary type/method, but in same {@link AstEditor}, so with
-   * same {@link EditorState}, {@link ClassLoader}, etc. Ensures that new parsed
-   * {@link XmlObjectInfo} hierarchy does not interacts with "main" hierarchy.
-   *
-   * @param sourceLines
-   *          that source for {@link Statement}'s to parse.
-   *
-   * @return the root {@link XmlObjectInfo} for parsed source.
-   */
-  protected final XmlObjectInfo parse(String[] sourceLines) throws Exception {
-    XmlObjectInfo root = m_context.getLiveContext().parse(sourceLines);
-    root.startEdit();
-    return root;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Parses given statements source in temporary type/method, but in same {@link AstEditor}, so with
+	 * same {@link EditorState}, {@link ClassLoader}, etc. Ensures that new parsed
+	 * {@link XmlObjectInfo} hierarchy does not interacts with "main" hierarchy.
+	 *
+	 * @param sourceLines
+	 *          that source for {@link Statement}'s to parse.
+	 *
+	 * @return the root {@link XmlObjectInfo} for parsed source.
+	 */
+	protected final XmlObjectInfo parse(String[] sourceLines) throws Exception {
+		XmlObjectInfo root = m_context.getLiveContext().parse(sourceLines);
+		root.startEdit();
+		return root;
+	}
 
-  /**
-   * @return the {@link Image} to use as "live" for given {@link Throwable}.
-   */
-  protected static Image createImageForException(Throwable e) {
-    int width = 200;
-    int height = 50;
-    Image image = new Image(null, width, height);
-    GC gc = new GC(image);
-    try {
-      gc.setBackground(SwtResourceManager.getColor(255, 220, 220));
-      gc.fillRectangle(0, 0, width, height);
-      String text = Messages.AbstractLiveManager_errorMessage;
-      DrawUtils.drawTextWrap(gc, text, 0, 0, width, height);
-    } finally {
-      gc.dispose();
-    }
-    return image;
-  }
+	/**
+	 * @return the {@link Image} to use as "live" for given {@link Throwable}.
+	 */
+	protected static Image createImageForException(Throwable e) {
+		int width = 200;
+		int height = 50;
+		Image image = new Image(null, width, height);
+		GC gc = new GC(image);
+		try {
+			gc.setBackground(SwtResourceManager.getColor(255, 220, 220));
+			gc.fillRectangle(0, 0, width, height);
+			String text = Messages.AbstractLiveManager_errorMessage;
+			DrawUtils.drawTextWrap(gc, text, 0, 0, width, height);
+		} finally {
+			gc.dispose();
+		}
+		return image;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Cached info
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final ClassMap<Map<String, ILiveCacheEntry>> CACHE = ClassMap.create();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Cached info
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final ClassMap<Map<String, ILiveCacheEntry>> CACHE = ClassMap.create();
 
-  /**
-   * @return the cached {@link ILiveCacheEntry} for this component. If no cached entry found then it
-   *         creates one.
-   */
-  protected final ILiveCacheEntry getCachedEntry() {
-    // prepare creation-specific cache
-    Map<String, ILiveCacheEntry> cache;
-    {
-      Class<?> clazz = m_component.getDescription().getComponentClass();
-      cache = CACHE.get(clazz);
-      if (cache == null) {
-        cache = Maps.newTreeMap();
-        CACHE.put(clazz, cache);
-      }
-    }
-    // get/put entry from cache
-    String key = getKey();
-    ILiveCacheEntry entry = cache.get(key);
-    if (entry == null) {
-      entry = createCacheEntry();
-      cache.put(key, entry);
-    }
-    return entry;
-  }
+	/**
+	 * @return the cached {@link ILiveCacheEntry} for this component. If no cached entry found then it
+	 *         creates one.
+	 */
+	protected final ILiveCacheEntry getCachedEntry() {
+		// prepare creation-specific cache
+		Map<String, ILiveCacheEntry> cache;
+		{
+			Class<?> clazz = m_component.getDescription().getComponentClass();
+			cache = CACHE.get(clazz);
+			if (cache == null) {
+				cache = Maps.newTreeMap();
+				CACHE.put(clazz, cache);
+			}
+		}
+		// get/put entry from cache
+		String key = getKey();
+		ILiveCacheEntry entry = cache.get(key);
+		if (entry == null) {
+			entry = createCacheEntry();
+			cache.put(key, entry);
+		}
+		return entry;
+	}
 }

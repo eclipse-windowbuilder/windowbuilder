@@ -24,53 +24,53 @@ import org.eclipse.draw2d.geometry.Insets;
  * @coverage rcp.gef.policy
  */
 public final class ViewFormLayoutEditPolicy extends AbstractPositionCompositeLayoutEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewFormLayoutEditPolicy(ViewFormInfo composite) {
-    super(composite);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewFormLayoutEditPolicy(ViewFormInfo composite) {
+		super(composite);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Positions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addFeedbacks() throws Exception {
-    addFeedback2(
-        0.0,
-        0.0,
-        0.5,
-        0.2,
-        new Insets(0, 0, 1, 1),
-        GefMessages.ViewFormLayoutEditPolicy_posTopLeft,
-        "setTopLeft");
-    addFeedback2(
-        0.5,
-        0.0,
-        0.75,
-        0.2,
-        new Insets(0, 0, 1, 1),
-        GefMessages.ViewFormLayoutEditPolicy_posTopCenter,
-        "setTopCenter");
-    addFeedback2(
-        0.75,
-        0.0,
-        1.0,
-        0.2,
-        new Insets(0, 0, 1, 0),
-        GefMessages.ViewFormLayoutEditPolicy_posTopRight,
-        "setTopRight");
-    addFeedback2(
-        0.0,
-        0.2,
-        1.0,
-        1.0,
-        new Insets(0, 0, 0, 0),
-        GefMessages.ViewFormLayoutEditPolicy_posContent,
-        "setContent");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Positions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addFeedbacks() throws Exception {
+		addFeedback2(
+				0.0,
+				0.0,
+				0.5,
+				0.2,
+				new Insets(0, 0, 1, 1),
+				GefMessages.ViewFormLayoutEditPolicy_posTopLeft,
+				"setTopLeft");
+		addFeedback2(
+				0.5,
+				0.0,
+				0.75,
+				0.2,
+				new Insets(0, 0, 1, 1),
+				GefMessages.ViewFormLayoutEditPolicy_posTopCenter,
+				"setTopCenter");
+		addFeedback2(
+				0.75,
+				0.0,
+				1.0,
+				0.2,
+				new Insets(0, 0, 1, 0),
+				GefMessages.ViewFormLayoutEditPolicy_posTopRight,
+				"setTopRight");
+		addFeedback2(
+				0.0,
+				0.2,
+				1.0,
+				1.0,
+				new Insets(0, 0, 0, 0),
+				GefMessages.ViewFormLayoutEditPolicy_posContent,
+				"setContent");
+	}
 }

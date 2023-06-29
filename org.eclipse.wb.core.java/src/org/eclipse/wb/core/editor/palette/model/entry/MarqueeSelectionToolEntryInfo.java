@@ -25,30 +25,30 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.editor.palette
  */
 public final class MarqueeSelectionToolEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = DesignerPlugin.getImage("palette/MarqueeSelectionTool.png");
-  private final MarqueeSelectionTool m_marqueeSelectionTool = new MarqueeSelectionTool();
+	private static final Image ICON = DesignerPlugin.getImage("palette/MarqueeSelectionTool.png");
+	private final MarqueeSelectionTool m_marqueeSelectionTool = new MarqueeSelectionTool();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MarqueeSelectionToolEntryInfo() {
-    setName(Messages.MarqueeSelectionToolEntryInfo_name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MarqueeSelectionToolEntryInfo() {
+		setName(Messages.MarqueeSelectionToolEntryInfo_name);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    return m_marqueeSelectionTool;
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		return m_marqueeSelectionTool;
+	}
 }

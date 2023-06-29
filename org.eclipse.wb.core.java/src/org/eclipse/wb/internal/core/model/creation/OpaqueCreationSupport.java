@@ -27,98 +27,98 @@ import org.eclipse.jdt.core.dom.Expression;
  * @coverage core.model.creation
  */
 public class OpaqueCreationSupport extends CreationSupport {
-  private ICreationSupportPermissions m_permissions = ICreationSupportPermissions.FALSE;
-  private String m_source;
-  private Expression m_expression;
+	private ICreationSupportPermissions m_permissions = ICreationSupportPermissions.FALSE;
+	private String m_source;
+	private Expression m_expression;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public OpaqueCreationSupport(String source) {
-    m_source = source;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public OpaqueCreationSupport(String source) {
+		m_source = source;
+	}
 
-  public OpaqueCreationSupport(Expression expression) {
-    m_expression = expression;
-  }
+	public OpaqueCreationSupport(Expression expression) {
+		m_expression = expression;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "opaque";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "opaque";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the {@link ICreationSupportPermissions} to delegate operations to.
-   */
-  public void setPermissions(ICreationSupportPermissions permissions) {
-    m_permissions = permissions;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the {@link ICreationSupportPermissions} to delegate operations to.
+	 */
+	public void setPermissions(ICreationSupportPermissions permissions) {
+		m_permissions = permissions;
+	}
 
-  @Override
-  public ASTNode getNode() {
-    return m_expression;
-  }
+	@Override
+	public ASTNode getNode() {
+		return m_expression;
+	}
 
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    return node == m_expression;
-  }
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		return node == m_expression;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return m_permissions.canDelete(m_javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return m_permissions.canDelete(m_javaInfo);
+	}
 
-  @Override
-  public void delete() throws Exception {
-    m_permissions.delete(m_javaInfo);
-  }
+	@Override
+	public void delete() throws Exception {
+		m_permissions.delete(m_javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Permissions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canReorder() {
-    return m_permissions.canReorder(m_javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Permissions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canReorder() {
+		return m_permissions.canReorder(m_javaInfo);
+	}
 
-  @Override
-  public boolean canReparent() {
-    return m_permissions.canReparent(m_javaInfo);
-  }
+	@Override
+	public boolean canReparent() {
+		return m_permissions.canReparent(m_javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String add_getSource(NodeTarget target) {
-    return m_source;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String add_getSource(NodeTarget target) {
+		return m_source;
+	}
 
-  @Override
-  public void add_setSourceExpression(Expression expression) throws Exception {
-    m_expression = expression;
-    m_javaInfo.bindToExpression(expression);
-  }
+	@Override
+	public void add_setSourceExpression(Expression expression) throws Exception {
+		m_expression = expression;
+		m_javaInfo.bindToExpression(expression);
+	}
 }

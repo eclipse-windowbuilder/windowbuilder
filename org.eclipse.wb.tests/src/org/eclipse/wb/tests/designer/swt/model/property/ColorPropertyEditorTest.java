@@ -23,41 +23,41 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
  * @author scheglov_ke
  */
 public abstract class ColorPropertyEditorTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    ToolkitProvider.DESCRIPTION.getPreferences().setToDefault(
-        IPreferenceConstants.P_USE_RESOURCE_MANAGER);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		ToolkitProvider.DESCRIPTION.getPreferences().setToDefault(
+				IPreferenceConstants.P_USE_RESOURCE_MANAGER);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Checks the results of {@link ColorPropertyEditor#getText()} and
-   * {@link ColorPropertyEditor#getClipboardSource()} when color is set using given source.
-   */
-  protected final void assert_getText_getClipboardSource_forSource(String colorSource,
-      String expectedText,
-      String expectedClipboardSource) throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "// filler filler filler",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setBackground(" + colorSource + ");",
-            "  }",
-            "}");
-    shell.refresh();
-    Property property = shell.getPropertyByTitle("background");
-    assertEquals(expectedText, PropertyEditorTestUtils.getText(property));
-    assertEquals(expectedClipboardSource, PropertyEditorTestUtils.getClipboardSource(property));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Checks the results of {@link ColorPropertyEditor#getText()} and
+	 * {@link ColorPropertyEditor#getClipboardSource()} when color is set using given source.
+	 */
+	protected final void assert_getText_getClipboardSource_forSource(String colorSource,
+			String expectedText,
+			String expectedClipboardSource) throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"// filler filler filler",
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    setBackground(" + colorSource + ");",
+						"  }",
+						"}");
+		shell.refresh();
+		Property property = shell.getPropertyByTitle("background");
+		assertEquals(expectedText, PropertyEditorTestUtils.getText(property));
+		assertEquals(expectedClipboardSource, PropertyEditorTestUtils.getClipboardSource(property));
+	}
 }

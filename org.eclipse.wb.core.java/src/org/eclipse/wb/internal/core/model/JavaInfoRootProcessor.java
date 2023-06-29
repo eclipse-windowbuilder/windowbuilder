@@ -36,110 +36,110 @@ import java.util.List;
  * @coverage code.model
  */
 public final class JavaInfoRootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new JavaInfoRootProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new JavaInfoRootProcessor();
 
-  private JavaInfoRootProcessor() {
-  }
+	private JavaInfoRootProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
-    processRoot(root);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
+		processRoot(root);
+	}
 
-  private static void processRoot(final JavaInfo rootJavaInfo) throws Exception {
-    rootJavaInfo.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void dispose() throws Exception {
-        JavaInfoUtils.getState(rootJavaInfo).dispose();
-      }
-    });
-    rootJavaInfo.addBroadcastListener(new EditorActivatedListener() {
-      @Override
-      public void invoke(EditorActivatedRequest request) throws Exception {
-        if (JavaInfoUtils.isDependencyChanged(rootJavaInfo)) {
-          request.requestReparse();
-        }
-      }
-    });
-    // visibility in tree/GEF
-    rootJavaInfo.addBroadcastListener(new ObjectInfoChildTree() {
-      @Override
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        if (object instanceof JavaInfo) {
-          JavaInfo javaInfo = (JavaInfo) object;
-          String visibilityTreeString = JavaInfoUtils.getParameter(javaInfo, "visible.inTree");
-          if (visibilityTreeString != null) {
-            visible[0] = Boolean.parseBoolean(visibilityTreeString);
-          } else {
-            String visibilityString = JavaInfoUtils.getParameter(javaInfo, "visible");
-            if (visibilityString != null) {
-              visible[0] = Boolean.parseBoolean(visibilityString);
-            }
-          }
-        }
-      }
-    });
-    rootJavaInfo.addBroadcastListener(new ObjectInfoChildGraphical() {
-      @Override
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        if (object instanceof JavaInfo) {
-          JavaInfo javaInfo = (JavaInfo) object;
-          String visibilityGraphString =
-              JavaInfoUtils.getParameter(javaInfo, "visible.inGraphical");
-          if (visibilityGraphString != null) {
-            visible[0] = Boolean.parseBoolean(visibilityGraphString);
-          } else {
-            String visibilityString = JavaInfoUtils.getParameter(javaInfo, "visible");
-            if (visibilityString != null) {
-              visible[0] = Boolean.parseBoolean(visibilityString);
-            }
-          }
-        }
-      }
-    });
-    // text decoration
-    rootJavaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
-      @Override
-      public void invoke(ObjectInfo object, String[] text) throws Exception {
-        if (object instanceof JavaInfo) {
-          JavaInfo javaInfo = (JavaInfo) object;
-          IPreferenceStore preferences = javaInfo.getDescription().getToolkit().getPreferences();
-          if (preferences.getBoolean(IPreferenceConstants.P_GENERAL_TEXT_SUFFIX)) {
-            broadcast_presentation_decorateText(javaInfo, text);
-          }
-        }
-      }
-    });
-  }
+	private static void processRoot(final JavaInfo rootJavaInfo) throws Exception {
+		rootJavaInfo.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void dispose() throws Exception {
+				JavaInfoUtils.getState(rootJavaInfo).dispose();
+			}
+		});
+		rootJavaInfo.addBroadcastListener(new EditorActivatedListener() {
+			@Override
+			public void invoke(EditorActivatedRequest request) throws Exception {
+				if (JavaInfoUtils.isDependencyChanged(rootJavaInfo)) {
+					request.requestReparse();
+				}
+			}
+		});
+		// visibility in tree/GEF
+		rootJavaInfo.addBroadcastListener(new ObjectInfoChildTree() {
+			@Override
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				if (object instanceof JavaInfo) {
+					JavaInfo javaInfo = (JavaInfo) object;
+					String visibilityTreeString = JavaInfoUtils.getParameter(javaInfo, "visible.inTree");
+					if (visibilityTreeString != null) {
+						visible[0] = Boolean.parseBoolean(visibilityTreeString);
+					} else {
+						String visibilityString = JavaInfoUtils.getParameter(javaInfo, "visible");
+						if (visibilityString != null) {
+							visible[0] = Boolean.parseBoolean(visibilityString);
+						}
+					}
+				}
+			}
+		});
+		rootJavaInfo.addBroadcastListener(new ObjectInfoChildGraphical() {
+			@Override
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				if (object instanceof JavaInfo) {
+					JavaInfo javaInfo = (JavaInfo) object;
+					String visibilityGraphString =
+							JavaInfoUtils.getParameter(javaInfo, "visible.inGraphical");
+					if (visibilityGraphString != null) {
+						visible[0] = Boolean.parseBoolean(visibilityGraphString);
+					} else {
+						String visibilityString = JavaInfoUtils.getParameter(javaInfo, "visible");
+						if (visibilityString != null) {
+							visible[0] = Boolean.parseBoolean(visibilityString);
+						}
+					}
+				}
+			}
+		});
+		// text decoration
+		rootJavaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
+			@Override
+			public void invoke(ObjectInfo object, String[] text) throws Exception {
+				if (object instanceof JavaInfo) {
+					JavaInfo javaInfo = (JavaInfo) object;
+					IPreferenceStore preferences = javaInfo.getDescription().getToolkit().getPreferences();
+					if (preferences.getBoolean(IPreferenceConstants.P_GENERAL_TEXT_SUFFIX)) {
+						broadcast_presentation_decorateText(javaInfo, text);
+					}
+				}
+			}
+		});
+	}
 
-  /**
-   * Adds "text" property prefix to the given presentation text of this {@link JavaInfo}.
-   */
-  private static void broadcast_presentation_decorateText(JavaInfo javaInfo, String[] text)
-      throws Exception {
-    for (Property property : javaInfo.getProperties()) {
-      if (property instanceof GenericPropertyImpl) {
-        GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
-        GenericPropertyDescription propertyDescription = genericProperty.getDescription();
-        if (propertyDescription != null
-            && propertyDescription.hasTrueTag("isText")
-            && genericProperty.getJavaInfo() == javaInfo
-            && genericProperty.isModified()) {
-          String suffix = (String) genericProperty.getValue();
-          text[0] = text[0] + " - \"" + suffix + "\"";
-          break;
-        }
-      }
-    }
-  }
+	/**
+	 * Adds "text" property prefix to the given presentation text of this {@link JavaInfo}.
+	 */
+	private static void broadcast_presentation_decorateText(JavaInfo javaInfo, String[] text)
+			throws Exception {
+		for (Property property : javaInfo.getProperties()) {
+			if (property instanceof GenericPropertyImpl) {
+				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+				GenericPropertyDescription propertyDescription = genericProperty.getDescription();
+				if (propertyDescription != null
+						&& propertyDescription.hasTrueTag("isText")
+						&& genericProperty.getJavaInfo() == javaInfo
+						&& genericProperty.isModified()) {
+					String suffix = (String) genericProperty.getValue();
+					text[0] = text[0] + " - \"" + suffix + "\"";
+					break;
+				}
+			}
+		}
+	}
 }

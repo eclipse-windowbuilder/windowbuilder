@@ -28,58 +28,58 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage swing.gef.part
  */
 public final class JTabbedPaneTabEditPart extends GraphicalEditPart {
-  private JTabbedPaneTabInfo m_component;
+	private JTabbedPaneTabInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JTabbedPaneTabEditPart(JTabbedPaneTabInfo component) {
-    m_component = component;
-    setModel(m_component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JTabbedPaneTabEditPart(JTabbedPaneTabInfo component) {
+		m_component = component;
+		setModel(m_component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Model
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void updateModel() {
-    m_component = (JTabbedPaneTabInfo) getModel();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Model
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void updateModel() {
+		m_component = (JTabbedPaneTabInfo) getModel();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure();
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    Rectangle bounds = m_component.getBounds();
-    getFigure().setBounds(bounds);
-  }
+	@Override
+	protected void refreshVisuals() {
+		Rectangle bounds = m_component.getBounds();
+		getFigure().setBounds(bounds);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+	}
 
-  @Override
-  public void performRequest(Request request) {
-    if (request.getType() == Request.REQ_OPEN) {
-      m_component.getPane().setActiveComponent(m_component.getComponent());
-    }
-  }
+	@Override
+	public void performRequest(Request request) {
+		if (request.getType() == Request.REQ_OPEN) {
+			m_component.getPane().setActiveComponent(m_component.getComponent());
+		}
+	}
 }

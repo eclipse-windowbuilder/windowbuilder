@@ -32,51 +32,51 @@ import java.util.List;
  * @coverage bindings.swing.model.beans
  */
 public final class PropertiesObserveInfo extends BeanPropertyObserveInfo {
-  private final String[] m_properties;
+	private final String[] m_properties;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertiesObserveInfo(BeanSupport beanSupport,
-      ObserveInfo parent,
-      String text,
-      IGenericType objectType,
-      IReferenceProvider referenceProvider,
-      IObserveDecorator decorator,
-      String[] properties) throws Exception {
-    super(beanSupport, parent, text, objectType, referenceProvider, decorator);
-    setBindingDecoration(SwtResourceManager.TOP_LEFT);
-    m_properties = properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertiesObserveInfo(BeanSupport beanSupport,
+			ObserveInfo parent,
+			String text,
+			IGenericType objectType,
+			IReferenceProvider referenceProvider,
+			IObserveDecorator decorator,
+			String[] properties) throws Exception {
+		super(beanSupport, parent, text, objectType, referenceProvider, decorator);
+		setBindingDecoration(SwtResourceManager.TOP_LEFT);
+		m_properties = properties;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canShared() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canShared() {
+		return false;
+	}
 
-  @Override
-  public boolean isRepresentedBy(String reference) throws Exception {
-    return ArrayUtils.contains(m_properties, reference);
-  }
+	@Override
+	public boolean isRepresentedBy(String reference) throws Exception {
+		return ArrayUtils.contains(m_properties, reference);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createContentProviders(List<IUiContentProvider> providers,
-      ObserveInfo observeObject,
-      PropertyInfo observeAstProperty) throws Exception {
-    providers.add(new PropertiesUiContentProvider((BeanPropertyInfo) observeAstProperty,
-        m_properties));
-    providers.add(new SeparatorUiContentProvider());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createContentProviders(List<IUiContentProvider> providers,
+			ObserveInfo observeObject,
+			PropertyInfo observeAstProperty) throws Exception {
+		providers.add(new PropertiesUiContentProvider((BeanPropertyInfo) observeAstProperty,
+				m_properties));
+		providers.add(new SeparatorUiContentProvider());
+	}
 }

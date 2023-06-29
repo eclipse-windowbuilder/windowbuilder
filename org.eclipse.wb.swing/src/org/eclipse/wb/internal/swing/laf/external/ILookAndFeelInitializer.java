@@ -19,22 +19,22 @@ import javax.swing.LookAndFeel;
  * @coverage swing.laf
  */
 public interface ILookAndFeelInitializer {
-  /**
-   * Performs any initializing before using look-n-feel class, i.e., just before
-   * javax.swing.UIManager.setLookAndFeel(javax.swing.LookAndFeel).
-   *
-   * @throws Exception
-   */
-  void initialize() throws Exception;
+	/**
+	 * Performs any initializing before using look-n-feel class, i.e., just before
+	 * javax.swing.UIManager.setLookAndFeel(javax.swing.LookAndFeel).
+	 *
+	 * @throws Exception
+	 */
+	void initialize() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Default implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  final ILookAndFeelInitializer DEFAULT = new ILookAndFeelInitializer() {
-    public void initialize() throws Exception {
-      // do nothing
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Default implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	final ILookAndFeelInitializer DEFAULT = new ILookAndFeelInitializer() {
+		public void initialize() throws Exception {
+			// do nothing
+		}
+	};
 }

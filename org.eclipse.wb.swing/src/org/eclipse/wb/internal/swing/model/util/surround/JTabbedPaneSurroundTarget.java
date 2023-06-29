@@ -29,40 +29,40 @@ import javax.swing.JTabbedPane;
  * @coverage swing.model.util
  */
 public final class JTabbedPaneSurroundTarget
-    extends
-      ISurroundTarget<JTabbedPaneInfo, ComponentInfo> {
-  private static final String CLASS_NAME = "javax.swing.JTabbedPane";
+extends
+ISurroundTarget<JTabbedPaneInfo, ComponentInfo> {
+	private static final String CLASS_NAME = "javax.swing.JTabbedPane";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon(AstEditor editor) throws Exception {
-    return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon(AstEditor editor) throws Exception {
+		return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
+	}
 
-  @Override
-  public String getText(AstEditor editor) throws Exception {
-    return CLASS_NAME;
-  }
+	@Override
+	public String getText(AstEditor editor) throws Exception {
+		return CLASS_NAME;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public JTabbedPaneInfo createContainer(AstEditor editor) throws Exception {
-    return (JTabbedPaneInfo) JavaInfoUtils.createJavaInfo(
-        editor,
-        CLASS_NAME,
-        new ConstructorCreationSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public JTabbedPaneInfo createContainer(AstEditor editor) throws Exception {
+		return (JTabbedPaneInfo) JavaInfoUtils.createJavaInfo(
+				editor,
+				CLASS_NAME,
+				new ConstructorCreationSupport());
+	}
 
-  @Override
-  public void move(JTabbedPaneInfo container, ComponentInfo component) throws Exception {
-    container.command_ADD(component, null);
-  }
+	@Override
+	public void move(JTabbedPaneInfo container, ComponentInfo component) throws Exception {
+		container.command_ADD(component, null);
+	}
 }

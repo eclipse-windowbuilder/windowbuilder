@@ -20,27 +20,27 @@ import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEdit
  * @coverage bindings.ui.properties
  */
 public final class BindingPropertyEditor extends TextDialogPropertyEditor {
-  public static final BindingPropertyEditor EDITOR = new BindingPropertyEditor();
+	public static final BindingPropertyEditor EDITOR = new BindingPropertyEditor();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TextDisplayPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    AbstractBindingProperty bindingProperty = (AbstractBindingProperty) property;
-    return bindingProperty.getText();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TextDisplayPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		AbstractBindingProperty bindingProperty = (AbstractBindingProperty) property;
+		return bindingProperty.getText();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TextDialogPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    AbstractBindingProperty bindingProperty = (AbstractBindingProperty) property;
-    bindingProperty.editBinding();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TextDialogPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		AbstractBindingProperty bindingProperty = (AbstractBindingProperty) property;
+		bindingProperty.editBinding();
+	}
 }

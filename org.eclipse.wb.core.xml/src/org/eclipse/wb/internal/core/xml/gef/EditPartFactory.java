@@ -23,18 +23,18 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
  * @coverage XML.gef
  */
 public final class EditPartFactory implements IEditPartFactory {
-  private final static IEditPartFactory MATCHING_FACTORY =
-      new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.core.xml.model"),
-          ImmutableList.of("org.eclipse.wb.internal.core.xml.gef.part"));
+	private final static IEditPartFactory MATCHING_FACTORY =
+			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.core.xml.model"),
+					ImmutableList.of("org.eclipse.wb.internal.core.xml.gef.part"));
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart createEditPart(EditPart context, Object model) {
-    // most EditPart's can be created using matching
-    return MATCHING_FACTORY.createEditPart(context, model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart createEditPart(EditPart context, Object model) {
+		// most EditPart's can be created using matching
+		return MATCHING_FACTORY.createEditPart(context, model);
+	}
 }

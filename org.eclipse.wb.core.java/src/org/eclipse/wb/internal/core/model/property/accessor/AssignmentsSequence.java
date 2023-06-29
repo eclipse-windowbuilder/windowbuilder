@@ -22,29 +22,29 @@ import java.util.List;
  * @coverage core.model.property.accessor
  */
 public final class AssignmentsSequence {
-  private final List<Assignment> m_assignments;
-  private final Expression m_assignedExpression;
+	private final List<Assignment> m_assignments;
+	private final Expression m_assignedExpression;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AssignmentsSequence(List<Assignment> assignments, Expression assignedExpression) {
-    m_assignments = assignments;
-    m_assignedExpression = assignedExpression;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AssignmentsSequence(List<Assignment> assignments, Expression assignedExpression) {
+		m_assignments = assignments;
+		m_assignedExpression = assignedExpression;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public List<Assignment> getAssignments() {
-    return m_assignments;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public List<Assignment> getAssignments() {
+		return m_assignments;
+	}
 
-  public Expression getAssignedExpression() {
-    return m_assignedExpression;
-  }
+	public Expression getAssignedExpression() {
+		return m_assignedExpression;
+	}
 }

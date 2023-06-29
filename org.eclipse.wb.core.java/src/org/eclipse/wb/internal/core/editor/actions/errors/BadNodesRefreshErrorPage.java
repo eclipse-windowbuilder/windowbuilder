@@ -22,13 +22,13 @@ import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
  * @coverage core.editor.action.error
  */
 public final class BadNodesRefreshErrorPage extends BadNodesErrorPage {
-  @Override
-  public String getTitle() {
-    return Messages.BadNodesRefreshErrorPage_title;
-  }
+	@Override
+	public String getTitle() {
+		return Messages.BadNodesRefreshErrorPage_title;
+	}
 
-  @Override
-  protected BadNodesCollection getCollection(EditorState editorState) {
-    return editorState.getBadRefreshNodes();
-  }
+	@Override
+	protected BadNodesCollection getCollection(EditorState editorState) {
+		return editorState.getBadRefreshNodes();
+	}
 }

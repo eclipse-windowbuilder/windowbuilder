@@ -23,70 +23,70 @@ import java.awt.Component;
  * @coverage swing.model
  */
 public final class SwingLiveCacheEntry implements ILiveCacheEntry {
-  private Component m_component;
-  private Image m_image;
-  private int m_baseline;
+	private Component m_component;
+	private Image m_image;
+	private int m_baseline;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDisposable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void dispose() {
-    if (m_image != null && !m_image.isDisposed()) {
-      m_image.dispose();
-      m_image = null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDisposable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void dispose() {
+		if (m_image != null && !m_image.isDisposed()) {
+			m_image.dispose();
+			m_image = null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Component
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Store component to be cached.
-   */
-  public void setComponent(Component component) {
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Component
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Store component to be cached.
+	 */
+	public void setComponent(Component component) {
+		m_component = component;
+	}
 
-  /**
-   * @return the cached component.
-   */
-  public Component getComponent() {
-    return m_component;
-  }
+	/**
+	 * @return the cached component.
+	 */
+	public Component getComponent() {
+		return m_component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Image
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Store image into cache.
-   */
-  public void setImage(Image image) {
-    m_image = image;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Image
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Store image into cache.
+	 */
+	public void setImage(Image image) {
+		m_image = image;
+	}
 
-  /**
-   * @return the cached image.
-   */
-  public Image getImage() {
-    return m_image;
-  }
+	/**
+	 * @return the cached image.
+	 */
+	public Image getImage() {
+		return m_image;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Baseline
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setBaseline(int baseline) {
-    m_baseline = baseline;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Baseline
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setBaseline(int baseline) {
+		m_baseline = baseline;
+	}
 
-  public int getBaseline() {
-    return m_baseline;
-  }
+	public int getBaseline() {
+		return m_baseline;
+	}
 }

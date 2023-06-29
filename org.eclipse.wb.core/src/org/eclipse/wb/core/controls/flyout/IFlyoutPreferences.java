@@ -17,62 +17,62 @@ package org.eclipse.wb.core.controls.flyout;
  * @coverage core.control
  */
 public interface IFlyoutPreferences {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Docking constants
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  int DOCK_WEST = 1;
-  int DOCK_EAST = 2;
-  int DOCK_NORTH = 4;
-  int DOCK_SOUTH = 8;
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // State constants
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  int STATE_OPEN = 0;
-  int STATE_COLLAPSED = 1;
-  int STATE_EXPANDED = 2;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Docking constants
+	//
+	////////////////////////////////////////////////////////////////////////////
+	int DOCK_WEST = 1;
+	int DOCK_EAST = 2;
+	int DOCK_NORTH = 4;
+	int DOCK_SOUTH = 8;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// State constants
+	//
+	////////////////////////////////////////////////////////////////////////////
+	int STATE_OPEN = 0;
+	int STATE_COLLAPSED = 1;
+	int STATE_EXPANDED = 2;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the docking location - {@link #DOCK_WEST}, {@link #DOCK_EAST}, {@link #DOCK_NORTH} or
-   *         {@link #DOCK_SOUTH}.
-   */
-  int getDockLocation();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the docking location - {@link #DOCK_WEST}, {@link #DOCK_EAST}, {@link #DOCK_NORTH} or
+	 *         {@link #DOCK_SOUTH}.
+	 */
+	int getDockLocation();
 
-  /**
-   * @return the state of flyout - {@link #STATE_OPEN} or {@link #STATE_COLLAPSED}.
-   */
-  int getState();
+	/**
+	 * @return the state of flyout - {@link #STATE_OPEN} or {@link #STATE_COLLAPSED}.
+	 */
+	int getState();
 
-  /**
-   * @return the width of flyout.
-   */
-  int getWidth();
+	/**
+	 * @return the width of flyout.
+	 */
+	int getWidth();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Modification
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the docking location.
-   */
-  void setDockLocation(int location);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Modification
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the docking location.
+	 */
+	void setDockLocation(int location);
 
-  /**
-   * Sets the state of flyout - {@link #STATE_OPEN} or {@link #STATE_COLLAPSED}.
-   */
-  void setState(int state);
+	/**
+	 * Sets the state of flyout - {@link #STATE_OPEN} or {@link #STATE_COLLAPSED}.
+	 */
+	void setState(int state);
 
-  /**
-   * Sets the width of flyout.
-   */
-  void setWidth(int width);
+	/**
+	 * Sets the width of flyout.
+	 */
+	void setWidth(int width);
 }

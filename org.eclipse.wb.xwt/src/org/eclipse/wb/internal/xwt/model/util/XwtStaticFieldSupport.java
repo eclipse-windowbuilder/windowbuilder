@@ -23,20 +23,20 @@ import org.eclipse.swt.SWT;
  * @coverage XWT.model
  */
 public final class XwtStaticFieldSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XwtStaticFieldSupport(XmlObjectInfo rootObject) {
-    rootObject.addBroadcastListener(new StaticFieldPropertyEditorGetExpression() {
-      public void invoke(Class<?> clazz, String field, String[] expression) throws Exception {
-        if (clazz == SWT.class) {
-          expression[0] = field;
-        } else {
-          expression[0] = "(" + ReflectionUtils.getCanonicalName(clazz) + ")." + field;
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XwtStaticFieldSupport(XmlObjectInfo rootObject) {
+		rootObject.addBroadcastListener(new StaticFieldPropertyEditorGetExpression() {
+			public void invoke(Class<?> clazz, String field, String[] expression) throws Exception {
+				if (clazz == SWT.class) {
+					expression[0] = field;
+				} else {
+					expression[0] = "(" + ReflectionUtils.getCanonicalName(clazz) + ")." + field;
+				}
+			}
+		});
+	}
 }

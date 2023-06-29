@@ -32,100 +32,100 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage swt.model.layout
  */
 public final class ImplicitLayoutDataCreationSupport extends CreationSupport
-    implements
-      IImplicitCreationSupport {
-  private final ControlInfo m_controlInfo;
+implements
+IImplicitCreationSupport {
+	private final ControlInfo m_controlInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ImplicitLayoutDataCreationSupport(ControlInfo controlInfo) {
-    m_controlInfo = controlInfo;
-    m_controlInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
-      @Override
-      public void invoke(JavaInfo target, Object object) throws Exception {
-        if (target == m_controlInfo) {
-          m_javaInfo.setObject(ControlSupport.getLayoutData(object));
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ImplicitLayoutDataCreationSupport(ControlInfo controlInfo) {
+		m_controlInfo = controlInfo;
+		m_controlInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+			@Override
+			public void invoke(JavaInfo target, Object object) throws Exception {
+				if (target == m_controlInfo) {
+					m_javaInfo.setObject(ControlSupport.getLayoutData(object));
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    Class<?> layoutClass = getComponentClass();
-    return "implicit-layout-data: " + layoutClass.getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		Class<?> layoutClass = getComponentClass();
+		return "implicit-layout-data: " + layoutClass.getName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    if (node instanceof MethodInvocation) {
-      MethodInvocation invocation = (MethodInvocation) node;
-      return invocation.arguments().isEmpty()
-          && invocation.getName().getIdentifier().equals("getLayoutData")
-          && m_controlInfo.isRepresentedBy(invocation.getExpression());
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		if (node instanceof MethodInvocation) {
+			MethodInvocation invocation = (MethodInvocation) node;
+			return invocation.arguments().isEmpty()
+					&& invocation.getName().getIdentifier().equals("getLayoutData")
+					&& m_controlInfo.isRepresentedBy(invocation.getExpression());
+		}
+		return false;
+	}
 
-  @Override
-  public ASTNode getNode() {
-    return m_controlInfo.getCreationSupport().getNode();
-  }
+	@Override
+	public ASTNode getNode() {
+		return m_controlInfo.getCreationSupport().getNode();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Add
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String add_getSource(NodeTarget target) throws Exception {
-    String layoutClassName = m_javaInfo.getDescription().getComponentClass().getName();
-    return TemplateUtils.format("({0}) {1}.getLayoutData()", layoutClassName, m_controlInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Add
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String add_getSource(NodeTarget target) throws Exception {
+		String layoutClassName = m_javaInfo.getDescription().getComponentClass().getName();
+		return TemplateUtils.format("({0}) {1}.getLayoutData()", layoutClassName, m_controlInfo);
+	}
 
-  @Override
-  public void add_setSourceExpression(Expression expression) throws Exception {
-  }
+	@Override
+	public void add_setSourceExpression(Expression expression) throws Exception {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return true;
+	}
 
-  @Override
-  public void delete() throws Exception {
-    JavaInfoUtils.deleteJavaInfo(m_javaInfo, false);
-    // if implicit layout data was materialized, so has real variable, restore implicit variable
-    if (!(m_javaInfo.getVariableSupport() instanceof ImplicitLayoutDataVariableSupport)) {
-      m_javaInfo.setVariableSupport(new ImplicitLayoutDataVariableSupport(m_javaInfo));
-    }
-  }
+	@Override
+	public void delete() throws Exception {
+		JavaInfoUtils.deleteJavaInfo(m_javaInfo, false);
+		// if implicit layout data was materialized, so has real variable, restore implicit variable
+		if (!(m_javaInfo.getVariableSupport() instanceof ImplicitLayoutDataVariableSupport)) {
+			m_javaInfo.setVariableSupport(new ImplicitLayoutDataVariableSupport(m_javaInfo));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IClipboardImplicitCreationSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IClipboardImplicitCreationSupport getImplicitClipboard() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IClipboardImplicitCreationSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IClipboardImplicitCreationSupport getImplicitClipboard() {
+		return null;
+	}
 }

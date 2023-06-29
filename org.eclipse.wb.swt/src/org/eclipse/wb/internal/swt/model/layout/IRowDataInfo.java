@@ -19,13 +19,13 @@ import org.eclipse.swt.layout.RowData;
  * @coverage swt.model.layout
  */
 public interface IRowDataInfo extends ILayoutDataInfo {
-  /**
-   * Sets width.
-   */
-  public void setWidth(int width) throws Exception;
+	/**
+	 * Sets width.
+	 */
+	public void setWidth(int width) throws Exception;
 
-  /**
-   * Sets height.
-   */
-  public void setHeight(int height) throws Exception;
+	/**
+	 * Sets height.
+	 */
+	public void setHeight(int height) throws Exception;
 }

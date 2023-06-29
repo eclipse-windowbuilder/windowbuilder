@@ -23,56 +23,56 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
  * @coverage bindings.swing.model.properties
  */
 public abstract class PropertyInfo extends AstObjectInfo {
-  protected final IGenericType m_sourceObjectType;
-  protected IGenericType m_valueType;
+	protected final IGenericType m_sourceObjectType;
+	protected IGenericType m_valueType;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyInfo(IGenericType sourceObjectType, IGenericType valueType) {
-    m_sourceObjectType = sourceObjectType;
-    m_valueType = valueType;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyInfo(IGenericType sourceObjectType, IGenericType valueType) {
+		m_sourceObjectType = sourceObjectType;
+		m_valueType = valueType;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean canShared(PropertyInfo property) {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean canShared(PropertyInfo property) {
+		return false;
+	}
 
-  public final IGenericType getSourceObjectType() {
-    return m_sourceObjectType;
-  }
+	public final IGenericType getSourceObjectType() {
+		return m_sourceObjectType;
+	}
 
-  public final IGenericType getValueType() {
-    return m_valueType;
-  }
+	public final IGenericType getValueType() {
+		return m_valueType;
+	}
 
-  public final void setValueType(IGenericType valueType) {
-    m_valueType = valueType;
-  }
+	public final void setValueType(IGenericType valueType) {
+		m_valueType = valueType;
+	}
 
-  /**
-   * XXX
-   */
-  public abstract ObserveInfo getObserveProperty(ObserveInfo observeObject) throws Exception;
+	/**
+	 * XXX
+	 */
+	public abstract ObserveInfo getObserveProperty(ObserveInfo observeObject) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the text for visual presentation of this object.
-   */
-  public String getPresentationText(IObserveInfo observeObject,
-      IObserveInfo observeProperty,
-      boolean full) throws Exception {
-    return UiUtils.getPresentationText(observeObject, observeProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the text for visual presentation of this object.
+	 */
+	public String getPresentationText(IObserveInfo observeObject,
+			IObserveInfo observeProperty,
+			boolean full) throws Exception {
+		return UiUtils.getPresentationText(observeObject, observeProperty);
+	}
 }

@@ -20,79 +20,79 @@ import java.util.List;
  * @coverage gef.core
  */
 public class PasteRequest extends AbstractCreateRequest {
-  private final Object m_memento;
+	private final Object m_memento;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PasteRequest(Object memento) {
-    super(Request.REQ_PASTE);
-    m_memento = memento;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PasteRequest(Object memento) {
+		super(Request.REQ_PASTE);
+		m_memento = memento;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns object with paste info.
-   */
-  public Object getMemento() {
-    return m_memento;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns object with paste info.
+	 */
+	public Object getMemento() {
+		return m_memento;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Created objects
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private List<?> m_objects = Collections.emptyList();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Created objects
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private List<?> m_objects = Collections.emptyList();
 
-  /**
-   * @return the {@link List} of pasted objects.
-   */
-  public List<?> getObjects() {
-    return m_objects;
-  }
+	/**
+	 * @return the {@link List} of pasted objects.
+	 */
+	public List<?> getObjects() {
+		return m_objects;
+	}
 
-  /**
-   * Sets the {@link List} of pasted objects, these objects will be selected after paste.<br>
-   * It is expected that handler for {@link PasteRequest} will invoke this method.
-   */
-  public void setObjects(List<?> objects) {
-    m_objects = objects;
-  }
+	/**
+	 * Sets the {@link List} of pasted objects, these objects will be selected after paste.<br>
+	 * It is expected that handler for {@link PasteRequest} will invoke this method.
+	 */
+	public void setObjects(List<?> objects) {
+		m_objects = objects;
+	}
 
-  /**
-   * Shortcut for {@link #setObjects(List)} for single object.
-   */
-  public void setObject(Object object) {
-    List<Object> objects = Lists.newArrayList();
-    objects.add(object);
-    setObjects(objects);
-  }
+	/**
+	 * Shortcut for {@link #setObjects(List)} for single object.
+	 */
+	public void setObject(Object object) {
+		List<Object> objects = Lists.newArrayList();
+		objects.add(object);
+		setObjects(objects);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    StringBuffer buffer = new StringBuffer("PasteRequest(type=");
-    buffer.append(getType());
-    buffer.append(", stateMask=");
-    buffer.append(getStateMask());
-    buffer.append(", location=");
-    buffer.append(getLocation());
-    buffer.append(", size=");
-    buffer.append(getSize());
-    buffer.append(", memento=");
-    buffer.append(m_memento);
-    buffer.append(")");
-    return buffer.toString();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer("PasteRequest(type=");
+		buffer.append(getType());
+		buffer.append(", stateMask=");
+		buffer.append(getStateMask());
+		buffer.append(", location=");
+		buffer.append(getLocation());
+		buffer.append(", size=");
+		buffer.append(getSize());
+		buffer.append(", memento=");
+		buffer.append(m_memento);
+		buffer.append(")");
+		return buffer.toString();
+	}
 }

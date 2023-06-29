@@ -23,47 +23,47 @@ import java.util.Locale;
  * @coverage core.model.property.converter
  */
 public final class LocaleConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new LocaleConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new LocaleConverter();
 
-  private LocaleConverter() {
-  }
+	private LocaleConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    if (value == null) {
-      return "(java.util.Locale) null";
-    } else {
-      // find standard values
-      for (Field field : Locale.class.getFields()) {
-        int fModifiers = field.getModifiers();
-        if (Modifier.isFinal(fModifiers) && Modifier.isStatic(fModifiers)) {
-          if (field.getType() == Locale.class && value.equals(field.get(null))) {
-            return "java.util.Locale." + field.getName();
-          }
-        }
-      }
-      // convert language+country to create instance of Locale
-      Locale locale = (Locale) value;
-      StringBuilder buffer = new StringBuilder(256);
-      buffer.append("new java.util.Locale(");
-      buffer.append(StringConverter.INSTANCE.toJavaSource(javaInfo, locale.getLanguage()));
-      String country = locale.getCountry();
-      if (country.length() != 0) {
-        buffer.append(", ");
-        buffer.append(StringConverter.INSTANCE.toJavaSource(javaInfo, country));
-      }
-      buffer.append(")");
-      return buffer.toString();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		if (value == null) {
+			return "(java.util.Locale) null";
+		} else {
+			// find standard values
+			for (Field field : Locale.class.getFields()) {
+				int fModifiers = field.getModifiers();
+				if (Modifier.isFinal(fModifiers) && Modifier.isStatic(fModifiers)) {
+					if (field.getType() == Locale.class && value.equals(field.get(null))) {
+						return "java.util.Locale." + field.getName();
+					}
+				}
+			}
+			// convert language+country to create instance of Locale
+			Locale locale = (Locale) value;
+			StringBuilder buffer = new StringBuilder(256);
+			buffer.append("new java.util.Locale(");
+			buffer.append(StringConverter.INSTANCE.toJavaSource(javaInfo, locale.getLanguage()));
+			String country = locale.getCountry();
+			if (country.length() != 0) {
+				buffer.append(", ");
+				buffer.append(StringConverter.INSTANCE.toJavaSource(javaInfo, country));
+			}
+			buffer.append(")");
+			return buffer.toString();
+		}
+	}
 }

@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
  * @author scheglov_ke
  */
 public interface BuilderHandler {
-  void fullBuild(IProject project, IProgressMonitor monitor) throws CoreException;
+	void fullBuild(IProject project, IProgressMonitor monitor) throws CoreException;
 
-  void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor) throws CoreException;
+	void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor) throws CoreException;
 }

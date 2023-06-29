@@ -19,8 +19,8 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.wizard.auto
  */
 public interface IImageLoader {
-  /**
-   * Load {@link Image} with given name.
-   */
-  Image getImage(String name);
+	/**
+	 * Load {@link Image} with given name.
+	 */
+	Image getImage(String name);
 }

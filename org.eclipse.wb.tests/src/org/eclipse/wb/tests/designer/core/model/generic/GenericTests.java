@@ -21,19 +21,19 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class GenericTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model.generic");
-    suite.addTest(createSingleSuite(ContainerObjectValidatorsTest.class));
-    suite.addTest(createSingleSuite(FlowContainerModelTest.class));
-    suite.addTest(createSingleSuite(FlowContainerGefTest.class));
-    suite.addTest(createSingleSuite(FlowContainerLayoutGefTest.class));
-    suite.addTest(createSingleSuite(FlowContainerGroupGefTest.class));
-    suite.addTest(createSingleSuite(SimpleContainerModelTest.class));
-    suite.addTest(createSingleSuite(SimpleContainerGefTest.class));
-    suite.addTest(createSingleSuite(SimpleContainerLayoutGefTest.class));
-    suite.addTest(createSingleSuite(FlipBooleanPropertyGefTest.class));
-    suite.addTest(createSingleSuite(DblClickRunScriptEditPolicyTest.class));
-    suite.addTest(createSingleSuite(OpenListenerEditPolicyTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.generic");
+		suite.addTest(createSingleSuite(ContainerObjectValidatorsTest.class));
+		suite.addTest(createSingleSuite(FlowContainerModelTest.class));
+		suite.addTest(createSingleSuite(FlowContainerGefTest.class));
+		suite.addTest(createSingleSuite(FlowContainerLayoutGefTest.class));
+		suite.addTest(createSingleSuite(FlowContainerGroupGefTest.class));
+		suite.addTest(createSingleSuite(SimpleContainerModelTest.class));
+		suite.addTest(createSingleSuite(SimpleContainerGefTest.class));
+		suite.addTest(createSingleSuite(SimpleContainerLayoutGefTest.class));
+		suite.addTest(createSingleSuite(FlipBooleanPropertyGefTest.class));
+		suite.addTest(createSingleSuite(DblClickRunScriptEditPolicyTest.class));
+		suite.addTest(createSingleSuite(OpenListenerEditPolicyTest.class));
+		return suite;
+	}
 }

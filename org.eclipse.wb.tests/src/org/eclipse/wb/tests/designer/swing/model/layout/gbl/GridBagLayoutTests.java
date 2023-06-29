@@ -22,18 +22,18 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class GridBagLayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.GridBagLayout");
-    suite.addTest(createSingleSuite(GridBagLayoutTest.class));
-    suite.addTest(createSingleSuite(GridBagDimensionTest.class));
-    suite.addTest(createSingleSuite(GridBagColumnTest.class));
-    suite.addTest(createSingleSuite(GridBagRowTest.class));
-    suite.addTest(createSingleSuite(GridBagConstraintsTest.class));
-    suite.addTest(createSingleSuite(GridBagLayoutParametersTest.class));
-    suite.addTest(createSingleSuite(GridBagLayoutConverterTest.class));
-    suite.addTest(createSingleSuite(GridBagLayoutSelectionActionsTest.class));
-    suite.addTest(createSingleSuite(GridBagLayoutSurroundSupportTest.class));
-    suite.addTest(createSingleSuite(GridBagLayoutGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.GridBagLayout");
+		suite.addTest(createSingleSuite(GridBagLayoutTest.class));
+		suite.addTest(createSingleSuite(GridBagDimensionTest.class));
+		suite.addTest(createSingleSuite(GridBagColumnTest.class));
+		suite.addTest(createSingleSuite(GridBagRowTest.class));
+		suite.addTest(createSingleSuite(GridBagConstraintsTest.class));
+		suite.addTest(createSingleSuite(GridBagLayoutParametersTest.class));
+		suite.addTest(createSingleSuite(GridBagLayoutConverterTest.class));
+		suite.addTest(createSingleSuite(GridBagLayoutSelectionActionsTest.class));
+		suite.addTest(createSingleSuite(GridBagLayoutSurroundSupportTest.class));
+		suite.addTest(createSingleSuite(GridBagLayoutGefTest.class));
+		return suite;
+	}
 }

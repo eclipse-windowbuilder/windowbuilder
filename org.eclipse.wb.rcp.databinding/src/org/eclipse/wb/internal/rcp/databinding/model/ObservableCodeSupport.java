@@ -23,22 +23,22 @@ import java.util.List;
  * @coverage bindings.rcp.model
  */
 public abstract class ObservableCodeSupport extends AstObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    throw new UnsupportedOperationException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		throw new UnsupportedOperationException();
+	}
 
-  /**
-   * Generate source code association with given {@link ObservableInfo} observable and add to
-   * <code>lines</code>.
-   */
-  public abstract void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception;
+	/**
+	 * Generate source code association with given {@link ObservableInfo} observable and add to
+	 * <code>lines</code>.
+	 */
+	public abstract void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception;
 }

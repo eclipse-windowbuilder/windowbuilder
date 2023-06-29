@@ -19,25 +19,25 @@ import org.eclipse.draw2d.geometry.Insets;
  *
  */
 public class MarginBorderTest extends Draw2dFigureTestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MarginBorderTest() {
-    super(MarginBorder.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MarginBorderTest() {
+		super(MarginBorder.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Test's
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_constructor() throws Exception {
-    // check work constructor (int, int, int, int)
-    assertEquals(new Insets(1, 2, 3, 4), new MarginBorder(new Insets(1, 2, 3, 4)).getInsets());
-    //
-    // check work constructor (int)
-    assertEquals(new Insets(7, 7, 7, 7), new MarginBorder(7).getInsets());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Test's
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_constructor() throws Exception {
+		// check work constructor (int, int, int, int)
+		assertEquals(new Insets(1, 2, 3, 4), new MarginBorder(new Insets(1, 2, 3, 4)).getInsets());
+		//
+		// check work constructor (int)
+		assertEquals(new Insets(7, 7, 7, 7), new MarginBorder(7).getInsets());
+	}
 }

@@ -26,54 +26,54 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class OpenListenerEditPolicyTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    setFileContentSrc(
-        "test/Test.java",
-        getJavaSource(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class Test {",
-            "}"));
-    waitForAutoBuild();
-    // parse
-    openEditor(
-        "// filler filler filler filler filler",
-        "<Shell x:Class='test.Test'>",
-        "  <Shell.layout>",
-        "    <RowLayout/>",
-        "  </Shell.layout>",
-        "  <Button wbp:name='button'/>",
-        "</Shell>");
-    XmlObjectInfo button = getObjectByName("button");
-    // double click on "button"
-    canvas.doubleClick(button);
-    // "Java" editor is opened
-    {
-      IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
-      assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
-    }
-    // files updated
-    assertEquals(
-        getJavaSource(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class Test {",
-            "  public void onSelection(Event event) {",
-            "  }",
-            "}"),
-        getFileContentSrc("test/Test.java"));
-    assertXML(
-        "// filler filler filler filler filler",
-        "<Shell x:Class='test.Test'>",
-        "  <Shell.layout>",
-        "    <RowLayout/>",
-        "  </Shell.layout>",
-        "  <Button wbp:name='button' SelectionEvent='onSelection'/>",
-        "</Shell>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		setFileContentSrc(
+				"test/Test.java",
+				getJavaSource(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"public class Test {",
+						"}"));
+		waitForAutoBuild();
+		// parse
+		openEditor(
+				"// filler filler filler filler filler",
+				"<Shell x:Class='test.Test'>",
+				"  <Shell.layout>",
+				"    <RowLayout/>",
+				"  </Shell.layout>",
+				"  <Button wbp:name='button'/>",
+				"</Shell>");
+		XmlObjectInfo button = getObjectByName("button");
+		// double click on "button"
+		canvas.doubleClick(button);
+		// "Java" editor is opened
+		{
+			IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
+			assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
+		}
+		// files updated
+		assertEquals(
+				getJavaSource(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"public class Test {",
+						"  public void onSelection(Event event) {",
+						"  }",
+						"}"),
+				getFileContentSrc("test/Test.java"));
+		assertXML(
+				"// filler filler filler filler filler",
+				"<Shell x:Class='test.Test'>",
+				"  <Shell.layout>",
+				"    <RowLayout/>",
+				"  </Shell.layout>",
+				"  <Button wbp:name='button' SelectionEvent='onSelection'/>",
+				"</Shell>");
+	}
 }

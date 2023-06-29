@@ -32,67 +32,67 @@ import java.util.List;
  * @coverage rcp.model.util
  */
 public final class ScrolledCompositeSurroundTarget
-    extends
-      ISurroundTarget<ScrolledCompositeInfo, ControlInfo> {
-  private static final String CLASS_NAME = "org.eclipse.swt.custom.ScrolledComposite";
-  private static final CompositeSurroundTarget COMPOSITE_TARGET = CompositeSurroundTarget.INSTANCE;
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new ScrolledCompositeSurroundTarget();
+extends
+ISurroundTarget<ScrolledCompositeInfo, ControlInfo> {
+	private static final String CLASS_NAME = "org.eclipse.swt.custom.ScrolledComposite";
+	private static final CompositeSurroundTarget COMPOSITE_TARGET = CompositeSurroundTarget.INSTANCE;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new ScrolledCompositeSurroundTarget();
 
-  private ScrolledCompositeSurroundTarget() {
-  }
+	private ScrolledCompositeSurroundTarget() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon(AstEditor editor) throws Exception {
-    return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon(AstEditor editor) throws Exception {
+		return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
+	}
 
-  @Override
-  public String getText(AstEditor editor) throws Exception {
-    return CLASS_NAME;
-  }
+	@Override
+	public String getText(AstEditor editor) throws Exception {
+		return CLASS_NAME;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ScrolledCompositeInfo createContainer(AstEditor editor) throws Exception {
-    return (ScrolledCompositeInfo) JavaInfoUtils.createJavaInfo(
-        editor,
-        CLASS_NAME,
-        new ConstructorCreationSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ScrolledCompositeInfo createContainer(AstEditor editor) throws Exception {
+		return (ScrolledCompositeInfo) JavaInfoUtils.createJavaInfo(
+				editor,
+				CLASS_NAME,
+				new ConstructorCreationSupport());
+	}
 
-  @Override
-  public void beforeComponentsMove(ScrolledCompositeInfo scrolledComposite,
-      List<ControlInfo> components) throws Exception {
-    if (components.size() > 1) {
-      CompositeInfo container = COMPOSITE_TARGET.createContainer(scrolledComposite.getEditor());
-      scrolledComposite.command_CREATE(container);
-      container.getRoot().refreshLight();
-      COMPOSITE_TARGET.afterContainerAdd(container, components);
-      COMPOSITE_TARGET.beforeComponentsMove(container, components);
-    }
-  }
+	@Override
+	public void beforeComponentsMove(ScrolledCompositeInfo scrolledComposite,
+			List<ControlInfo> components) throws Exception {
+		if (components.size() > 1) {
+			CompositeInfo container = COMPOSITE_TARGET.createContainer(scrolledComposite.getEditor());
+			scrolledComposite.command_CREATE(container);
+			container.getRoot().refreshLight();
+			COMPOSITE_TARGET.afterContainerAdd(container, components);
+			COMPOSITE_TARGET.beforeComponentsMove(container, components);
+		}
+	}
 
-  @Override
-  public void move(ScrolledCompositeInfo scrolledComposite, ControlInfo component) throws Exception {
-    if (scrolledComposite.getContent() == null) {
-      scrolledComposite.command_ADD(component);
-    } else {
-      CompositeInfo container = (CompositeInfo) scrolledComposite.getContent();
-      COMPOSITE_TARGET.move(container, component);
-    }
-  }
+	@Override
+	public void move(ScrolledCompositeInfo scrolledComposite, ControlInfo component) throws Exception {
+		if (scrolledComposite.getContent() == null) {
+			scrolledComposite.command_ADD(component);
+		} else {
+			CompositeInfo container = (CompositeInfo) scrolledComposite.getContent();
+			COMPOSITE_TARGET.move(container, component);
+		}
+	}
 }

@@ -17,14 +17,14 @@ package org.eclipse.wb.core.editor;
  * @coverage core.editor
  */
 public interface IContextMenuConstants {
-  String GROUP_BASE = "org.eclipse.wb.popup.group.";
-  String GROUP_TOP = GROUP_BASE + "top";
-  String GROUP_EDIT = GROUP_BASE + "edit";
-  String GROUP_EDIT2 = GROUP_BASE + "edit2";
-  String GROUP_EVENTS = GROUP_BASE + "events";
-  String GROUP_EVENTS2 = GROUP_BASE + "events2";
-  String GROUP_LAYOUT = GROUP_BASE + "layout";
-  String GROUP_CONSTRAINTS = GROUP_BASE + "constraints";
-  String GROUP_INHERITANCE = GROUP_BASE + "inheritance";
-  String GROUP_ADDITIONAL = GROUP_BASE + "additional";
+	String GROUP_BASE = "org.eclipse.wb.popup.group.";
+	String GROUP_TOP = GROUP_BASE + "top";
+	String GROUP_EDIT = GROUP_BASE + "edit";
+	String GROUP_EDIT2 = GROUP_BASE + "edit2";
+	String GROUP_EVENTS = GROUP_BASE + "events";
+	String GROUP_EVENTS2 = GROUP_BASE + "events2";
+	String GROUP_LAYOUT = GROUP_BASE + "layout";
+	String GROUP_CONSTRAINTS = GROUP_BASE + "constraints";
+	String GROUP_INHERITANCE = GROUP_BASE + "inheritance";
+	String GROUP_ADDITIONAL = GROUP_BASE + "additional";
 }

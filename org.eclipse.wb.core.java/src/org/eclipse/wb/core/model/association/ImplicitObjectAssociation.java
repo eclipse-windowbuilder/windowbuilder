@@ -28,37 +28,37 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.association
  */
 public final class ImplicitObjectAssociation extends Association {
-  private final JavaInfo m_hostJavaInfo;
+	private final JavaInfo m_hostJavaInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ImplicitObjectAssociation(JavaInfo hostJavaInfo) {
-    m_hostJavaInfo = hostJavaInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ImplicitObjectAssociation(JavaInfo hostJavaInfo) {
+		m_hostJavaInfo = hostJavaInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Statement getStatement() {
-    // implicit components are associated by the fact of creation, so use creation Statement
-    ASTNode creationNode = m_hostJavaInfo.getCreationSupport().getNode();
-    return AstNodeUtils.getEnclosingStatement(creationNode);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Statement getStatement() {
+		// implicit components are associated by the fact of creation, so use creation Statement
+		ASTNode creationNode = m_hostJavaInfo.getCreationSupport().getNode();
+		return AstNodeUtils.getEnclosingStatement(creationNode);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean remove() throws Exception {
-    // even after delete, implicit object stays associated with its parent
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean remove() throws Exception {
+		// even after delete, implicit object stays associated with its parent
+		return false;
+	}
 }

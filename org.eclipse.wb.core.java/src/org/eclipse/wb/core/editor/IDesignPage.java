@@ -19,18 +19,18 @@ import org.eclipse.jdt.core.ICompilationUnit;
  * @coverage core.editor
  */
 public interface IDesignPage extends IEditorPage {
-  /**
-   * Specifies if synchronization of source code and model should be active or not.
-   */
-  void setSourceModelSynchronizationEnabled(boolean active);
+	/**
+	 * Specifies if synchronization of source code and model should be active or not.
+	 */
+	void setSourceModelSynchronizationEnabled(boolean active);
 
-  /**
-   * @return the {@link DesignerState} of parsing.
-   */
-  DesignerState getDesignerState();
+	/**
+	 * @return the {@link DesignerState} of parsing.
+	 */
+	DesignerState getDesignerState();
 
-  /**
-   * Parses {@link ICompilationUnit} and displays it in GEF.
-   */
-  void refreshGEF();
+	/**
+	 * Parses {@link ICompilationUnit} and displays it in GEF.
+	 */
+	void refreshGEF();
 }

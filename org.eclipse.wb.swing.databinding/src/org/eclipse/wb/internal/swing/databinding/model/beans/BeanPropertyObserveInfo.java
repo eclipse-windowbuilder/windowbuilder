@@ -33,92 +33,92 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.swing.model.beans
  */
 public class BeanPropertyObserveInfo extends BeanObserveInfo implements IObserveDecoration {
-  private final ObserveCreationType m_creationType;
-  private final IObservePresentation m_presentation;
-  private final IObserveDecorator m_decorator;
+	private final ObserveCreationType m_creationType;
+	private final IObservePresentation m_presentation;
+	private final IObserveDecorator m_decorator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeanPropertyObserveInfo(BeanSupport beanSupport,
-      ObserveInfo parent,
-      String text,
-      IGenericType objectType,
-      IReferenceProvider referenceProvider,
-      IObserveDecorator decorator) throws Exception {
-    super(beanSupport,
-        parent instanceof BeanPropertyObserveInfo ? parent : null,
-        objectType,
-        referenceProvider);
-    setBindingDecoration(SwtResourceManager.TOP_LEFT);
-    m_creationType =
-        java.util.List.class.isAssignableFrom(getObjectClass())
-            ? ObserveCreationType.ListProperty
-            : ObserveCreationType.AnyProperty;
-    Image beenImage = beanSupport.getBeanImage(getObjectClass(), null, false);
-    m_presentation =
-        new SimpleObservePresentation(text, text, beenImage == null
-            ? TypeImageProvider.getImage(getObjectClass())
-            : beenImage);
-    m_decorator = decorator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeanPropertyObserveInfo(BeanSupport beanSupport,
+			ObserveInfo parent,
+			String text,
+			IGenericType objectType,
+			IReferenceProvider referenceProvider,
+			IObserveDecorator decorator) throws Exception {
+		super(beanSupport,
+				parent instanceof BeanPropertyObserveInfo ? parent : null,
+						objectType,
+						referenceProvider);
+		setBindingDecoration(SwtResourceManager.TOP_LEFT);
+		m_creationType =
+				java.util.List.class.isAssignableFrom(getObjectClass())
+				? ObserveCreationType.ListProperty
+						: ObserveCreationType.AnyProperty;
+		Image beenImage = beanSupport.getBeanImage(getObjectClass(), null, false);
+		m_presentation =
+				new SimpleObservePresentation(text, text, beenImage == null
+				? TypeImageProvider.getImage(getObjectClass())
+						: beenImage);
+		m_decorator = decorator;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final void setHostedType(IGenericType objectType) {
-    setObjectType(objectType);
-    setProperties(null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final void setHostedType(IGenericType objectType) {
+		setObjectType(objectType);
+		setProperties(null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Type
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ObserveType getType() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Type
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ObserveType getType() {
+		return null;
+	}
 
-  @Override
-  public ObserveCreationType getCreationType() {
-    return m_creationType;
-  }
+	@Override
+	public ObserveCreationType getCreationType() {
+		return m_creationType;
+	}
 
-  @Override
-  public boolean canShared() {
-    return true;
-  }
+	@Override
+	public boolean canShared() {
+		return true;
+	}
 
-  @Override
-  public PropertyInfo createProperty(ObserveInfo observeObject) throws Exception {
-    StringBuffer reference = new StringBuffer(getReference());
-    ObserveInfo parent = (ObserveInfo) getParent();
-    while (parent != null) {
-      reference.insert(0, parent.getReference() + ".");
-      parent = (ObserveInfo) parent.getParent();
-    }
-    return new BeanPropertyInfo(observeObject.getObjectType(),
-        getObjectType(),
-        null,
-        reference.toString());
-  }
+	@Override
+	public PropertyInfo createProperty(ObserveInfo observeObject) throws Exception {
+		StringBuffer reference = new StringBuffer(getReference());
+		ObserveInfo parent = (ObserveInfo) getParent();
+		while (parent != null) {
+			reference.insert(0, parent.getReference() + ".");
+			parent = (ObserveInfo) parent.getParent();
+		}
+		return new BeanPropertyInfo(observeObject.getObjectType(),
+				getObjectType(),
+				null,
+				reference.toString());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IObservePresentation getPresentation() {
-    return m_presentation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IObservePresentation getPresentation() {
+		return m_presentation;
+	}
 
-  public final IObserveDecorator getDecorator() {
-    return m_decorator;
-  }
+	public final IObserveDecorator getDecorator() {
+		return m_decorator;
+	}
 }

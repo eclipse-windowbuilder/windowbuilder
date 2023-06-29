@@ -25,32 +25,32 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage bindings.rcp.model.beans
  */
 public final class DirectModelSupport implements IModelSupport {
-  private final ObservableInfo m_observable;
+	private final ObservableInfo m_observable;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DirectModelSupport(ObservableInfo observable) {
-    m_observable = observable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DirectModelSupport(ObservableInfo observable) {
+		m_observable = observable;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IModelSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AstObjectInfo getModel() {
-    return m_observable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IModelSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AstObjectInfo getModel() {
+		return m_observable;
+	}
 
-  @Override
-  public boolean isRepresentedBy(Expression expression) throws Exception {
-    if (expression instanceof MethodInvocation) {
-      return m_observable.getVariableIdentifier().equals(CoreUtils.getNodeReference(expression));
-    }
-    return false;
-  }
+	@Override
+	public boolean isRepresentedBy(Expression expression) throws Exception {
+		if (expression instanceof MethodInvocation) {
+			return m_observable.getVariableIdentifier().equals(CoreUtils.getNodeReference(expression));
+		}
+		return false;
+	}
 }

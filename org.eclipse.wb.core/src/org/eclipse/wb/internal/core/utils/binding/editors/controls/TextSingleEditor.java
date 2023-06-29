@@ -20,35 +20,35 @@ import org.eclipse.swt.widgets.Text;
  * @author scheglov_ke
  */
 public final class TextSingleEditor implements IDataEditor {
-  private final Text m_text;
+	private final Text m_text;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TextSingleEditor(Text text) {
-    m_text = text;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TextSingleEditor(Text text) {
+		m_text = text;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue() {
-    return m_text.getText();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue() {
+		return m_text.getText();
+	}
 
-  @Override
-  public void setValue(Object value) {
-    String text;
-    if (value instanceof String) {
-      text = (String) value;
-    } else {
-      text = value.toString();
-    }
-    m_text.setText(text);
-  }
+	@Override
+	public void setValue(Object value) {
+		String text;
+		if (value instanceof String) {
+			text = (String) value;
+		} else {
+			text = value.toString();
+		}
+		m_text.setText(text);
+	}
 }

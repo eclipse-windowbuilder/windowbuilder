@@ -18,33 +18,33 @@ import java.util.Map;
  *
  */
 public interface ISynchronizeProcessor<T, V> {
-  /**
-   * @return {@code true} if processor will work with given {@code object}.
-   */
-  boolean handleObject(V object);
+	/**
+	 * @return {@code true} if processor will work with given {@code object}.
+	 */
+	boolean handleObject(V object);
 
-  /**
-   * @return key object for given {@code object}.
-   */
-  T getKeyObject(V object);
+	/**
+	 * @return key object for given {@code object}.
+	 */
+	T getKeyObject(V object);
 
-  /**
-   * Check equal for given keys.
-   */
-  boolean equals(T key0, T key1);
+	/**
+	 * Check equal for given keys.
+	 */
+	boolean equals(T key0, T key1);
 
-  /**
-   * XXX
-   */
-  V findObject(Map<T, V> keyObjectToObject, T key) throws Exception;
+	/**
+	 * XXX
+	 */
+	V findObject(Map<T, V> keyObjectToObject, T key) throws Exception;
 
-  /**
-   * Create new object for given key.
-   */
-  V createObject(T keyObject) throws Exception;
+	/**
+	 * Create new object for given key.
+	 */
+	V createObject(T keyObject) throws Exception;
 
-  /**
-   * Update old {@link BeanBindableInfo} object.
-   */
-  void update(V object) throws Exception;
+	/**
+	 * Update old {@link BeanBindableInfo} object.
+	 */
+	void update(V object) throws Exception;
 }

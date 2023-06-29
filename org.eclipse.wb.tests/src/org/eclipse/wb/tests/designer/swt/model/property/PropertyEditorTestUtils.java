@@ -20,28 +20,28 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
  * @author lobas_av
  */
 public final class PropertyEditorTestUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the result of {@link Color/Image/Font/PropertyEditor#getText()} invocation.
-   */
-  public static String getText(Property property) throws Exception {
-    return (String) ReflectionUtils.invokeMethod(
-        property.getEditor(),
-        "getText(org.eclipse.wb.internal.core.model.property.Property)",
-        property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the result of {@link Color/Image/Font/PropertyEditor#getText()} invocation.
+	 */
+	public static String getText(Property property) throws Exception {
+		return (String) ReflectionUtils.invokeMethod(
+				property.getEditor(),
+				"getText(org.eclipse.wb.internal.core.model.property.Property)",
+				property);
+	}
 
-  /**
-   * @return the result of {@link Color/Image/Font/PropertyEditor#getClipboardSource()} invocation.
-   */
-  public static String getClipboardSource(Property property) throws Exception {
-    return (String) ReflectionUtils.invokeMethod(
-        property.getEditor(),
-        "getClipboardSource(org.eclipse.wb.internal.core.model.property.GenericProperty)",
-        property);
-  }
+	/**
+	 * @return the result of {@link Color/Image/Font/PropertyEditor#getClipboardSource()} invocation.
+	 */
+	public static String getClipboardSource(Property property) throws Exception {
+		return (String) ReflectionUtils.invokeMethod(
+				property.getEditor(),
+				"getClipboardSource(org.eclipse.wb.internal.core.model.property.GenericProperty)",
+				property);
+	}
 }

@@ -25,42 +25,42 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class SwitchPairEditorActionTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for switching to "Source" and back to "Design".
-   */
-  public void test_run() throws Exception {
-    setFileContentSrc(
-        "test/Test.java",
-        getJavaSource(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class Test {",
-            "}"));
-    openEditor("<Shell x:Class='test.Test'/>");
-    // prepare action
-    SwitchPairEditorAction switchAction;
-    {
-      switchAction = new SwitchPairEditorAction();
-      switchAction.setActiveEditor(null, m_designerEditor);
-    }
-    // initially XML editor is active
-    assertSame(m_designerEditor, DesignerPlugin.getActiveEditor());
-    // switch to Java using action
-    switchAction.run(null);
-    waitEventLoop(0);
-    {
-      IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
-      assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
-      switchAction.setActiveEditor(null, activeEditor);
-    }
-    // switch to XML using action
-    switchAction.run(null);
-    waitEventLoop(0);
-    assertSame(m_designerEditor, DesignerPlugin.getActiveEditor());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for switching to "Source" and back to "Design".
+	 */
+	public void test_run() throws Exception {
+		setFileContentSrc(
+				"test/Test.java",
+				getJavaSource(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"public class Test {",
+						"}"));
+		openEditor("<Shell x:Class='test.Test'/>");
+		// prepare action
+		SwitchPairEditorAction switchAction;
+		{
+			switchAction = new SwitchPairEditorAction();
+			switchAction.setActiveEditor(null, m_designerEditor);
+		}
+		// initially XML editor is active
+		assertSame(m_designerEditor, DesignerPlugin.getActiveEditor());
+		// switch to Java using action
+		switchAction.run(null);
+		waitEventLoop(0);
+		{
+			IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
+			assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
+			switchAction.setActiveEditor(null, activeEditor);
+		}
+		// switch to XML using action
+		switchAction.run(null);
+		waitEventLoop(0);
+		assertSame(m_designerEditor, DesignerPlugin.getActiveEditor());
+	}
 }

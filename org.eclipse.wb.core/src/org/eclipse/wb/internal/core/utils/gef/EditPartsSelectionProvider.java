@@ -33,87 +33,87 @@ import java.util.List;
  * @coverage gef.core
  */
 public final class EditPartsSelectionProvider implements ISelectionProvider {
-  private final IEditPartViewer m_viewer;
-  private final EventTable m_eventTable = new EventTable();
-  private final ISelectionChangedListener m_selectionListener = new ISelectionChangedListener() {
-    @Override
-    public void selectionChanged(SelectionChangedEvent event) {
-      fireSelectionChanged();
-    }
-  };
+	private final IEditPartViewer m_viewer;
+	private final EventTable m_eventTable = new EventTable();
+	private final ISelectionChangedListener m_selectionListener = new ISelectionChangedListener() {
+		@Override
+		public void selectionChanged(SelectionChangedEvent event) {
+			fireSelectionChanged();
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditPartsSelectionProvider(IEditPartViewer viewer) {
-    m_viewer = viewer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditPartsSelectionProvider(IEditPartViewer viewer) {
+		m_viewer = viewer;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ISelection getSelection() {
-    List<Object> models = Lists.newArrayList();
-    for (EditPart editPart : m_viewer.getSelectedEditParts()) {
-      models.add(editPart.getModel());
-    }
-    return new StructuredSelection(models);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ISelection getSelection() {
+		List<Object> models = Lists.newArrayList();
+		for (EditPart editPart : m_viewer.getSelectedEditParts()) {
+			models.add(editPart.getModel());
+		}
+		return new StructuredSelection(models);
+	}
 
-  @Override
-  public void setSelection(ISelection selection) {
-    // prepare EditPart's for model selection
-    List<EditPart> editParts = Lists.newArrayList();
-    for (Iterator<?> I = ((StructuredSelection) selection).iterator(); I.hasNext();) {
-      Object model = I.next();
-      EditPart editPart = m_viewer.getEditPartByModel(model);
-      if (editPart != null) {
-        editParts.add(editPart);
-      }
-    }
-    // set selection in viewer
-    m_viewer.setSelection(editParts);
-  }
+	@Override
+	public void setSelection(ISelection selection) {
+		// prepare EditPart's for model selection
+		List<EditPart> editParts = Lists.newArrayList();
+		for (Iterator<?> I = ((StructuredSelection) selection).iterator(); I.hasNext();) {
+			Object model = I.next();
+			EditPart editPart = m_viewer.getEditPartByModel(model);
+			if (editPart != null) {
+				editParts.add(editPart);
+			}
+		}
+		// set selection in viewer
+		m_viewer.setSelection(editParts);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listeners
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSelectionChangedListener(ISelectionChangedListener listener) {
-    m_eventTable.addListener(ISelectionChangedListener.class, listener);
-    if (m_eventTable.getListeners(ISelectionChangedListener.class).size() == 1) {
-      m_viewer.addSelectionChangedListener(m_selectionListener);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listeners
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSelectionChangedListener(ISelectionChangedListener listener) {
+		m_eventTable.addListener(ISelectionChangedListener.class, listener);
+		if (m_eventTable.getListeners(ISelectionChangedListener.class).size() == 1) {
+			m_viewer.addSelectionChangedListener(m_selectionListener);
+		}
+	}
 
-  @Override
-  public void removeSelectionChangedListener(ISelectionChangedListener listener) {
-    m_eventTable.removeListener(ISelectionChangedListener.class, listener);
-    if (m_eventTable.getListeners(ISelectionChangedListener.class).isEmpty()) {
-      m_viewer.removeSelectionChangedListener(m_selectionListener);
-    }
-  }
+	@Override
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
+		m_eventTable.removeListener(ISelectionChangedListener.class, listener);
+		if (m_eventTable.getListeners(ISelectionChangedListener.class).isEmpty()) {
+			m_viewer.removeSelectionChangedListener(m_selectionListener);
+		}
+	}
 
-  /**
-   * Notifies subscribers of this {@link ISelectionProvider}.
-   */
-  private void fireSelectionChanged() {
-    // prepare event
-    SelectionChangedEvent event;
-    {
-      ISelection selection = getSelection();
-      event = new SelectionChangedEvent(this, selection);
-    }
-    // notify subscribers
-    for (ISelectionChangedListener listener : m_eventTable.getListeners(ISelectionChangedListener.class)) {
-      listener.selectionChanged(event);
-    }
-  }
+	/**
+	 * Notifies subscribers of this {@link ISelectionProvider}.
+	 */
+	private void fireSelectionChanged() {
+		// prepare event
+		SelectionChangedEvent event;
+		{
+			ISelection selection = getSelection();
+			event = new SelectionChangedEvent(this, selection);
+		}
+		// notify subscribers
+		for (ISelectionChangedListener listener : m_eventTable.getListeners(ISelectionChangedListener.class)) {
+			listener.selectionChanged(event);
+		}
+	}
 }

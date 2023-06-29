@@ -20,30 +20,30 @@ import org.eclipse.wb.internal.core.xml.model.association.Association;
  * @coverage XML.model.generic
  */
 public class SimpleContainerConfiguration {
-  private final ContainerObjectValidator m_componentValidator;
-  private final Association m_association;
+	private final ContainerObjectValidator m_componentValidator;
+	private final Association m_association;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimpleContainerConfiguration(ContainerObjectValidator componentValidator,
-      Association association) {
-    m_componentValidator = componentValidator;
-    m_association = association;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimpleContainerConfiguration(ContainerObjectValidator componentValidator,
+			Association association) {
+		m_componentValidator = componentValidator;
+		m_association = association;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ContainerObjectValidator getComponentValidator() {
-    return m_componentValidator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ContainerObjectValidator getComponentValidator() {
+		return m_componentValidator;
+	}
 
-  public Association getAssociation() {
-    return m_association;
-  }
+	public Association getAssociation() {
+		return m_association;
+	}
 }

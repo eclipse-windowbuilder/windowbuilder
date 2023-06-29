@@ -33,44 +33,44 @@ import java.awt.Component;
  * @coverage swingx.model
  */
 public final class JXTaskPaneInfo extends JPanelInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JXTaskPaneInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JXTaskPaneInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link ComponentInfo} using {@link ActionInfo}.
-   *
-   * @return the created {@link ComponentInfo}.
-   */
-  public ComponentInfo command_CREATE(ActionInfo action, ComponentInfo nextComponent)
-      throws Exception {
-    // ensure that ActionInfo is already added
-    if (action.getParent() == null) {
-      ActionContainerInfo.add(getRootJava(), action);
-    }
-    // prepare CreationSupport
-    CreationSupport creationSupport;
-    {
-      String source = TemplateUtils.format("add({0})", action);
-      creationSupport = new ImplicitFactoryCreationSupport("add(javax.swing.Action)", source);
-    }
-    // create Component
-    ComponentInfo newComponent =
-        (ComponentInfo) JavaInfoUtils.createJavaInfo(getEditor(), Component.class, creationSupport);
-    JavaInfoUtils.add(newComponent, AssociationObjects.invocationVoid(), this, nextComponent);
-    getBroadcastObject().select(ImmutableList.of(newComponent));
-    return newComponent;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link ComponentInfo} using {@link ActionInfo}.
+	 *
+	 * @return the created {@link ComponentInfo}.
+	 */
+	public ComponentInfo command_CREATE(ActionInfo action, ComponentInfo nextComponent)
+			throws Exception {
+		// ensure that ActionInfo is already added
+		if (action.getParent() == null) {
+			ActionContainerInfo.add(getRootJava(), action);
+		}
+		// prepare CreationSupport
+		CreationSupport creationSupport;
+		{
+			String source = TemplateUtils.format("add({0})", action);
+			creationSupport = new ImplicitFactoryCreationSupport("add(javax.swing.Action)", source);
+		}
+		// create Component
+		ComponentInfo newComponent =
+				(ComponentInfo) JavaInfoUtils.createJavaInfo(getEditor(), Component.class, creationSupport);
+		JavaInfoUtils.add(newComponent, AssociationObjects.invocationVoid(), this, nextComponent);
+		getBroadcastObject().select(ImmutableList.of(newComponent));
+		return newComponent;
+	}
 }

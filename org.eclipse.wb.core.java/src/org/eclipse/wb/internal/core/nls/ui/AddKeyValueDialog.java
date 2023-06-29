@@ -29,89 +29,89 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage core.nls.ui
  */
 public final class AddKeyValueDialog extends AbstractValidationTitleAreaDialog {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AddKeyValueDialog(Shell parentShell) {
-    super(parentShell,
-        DesignerPlugin.getDefault(),
-        Messages.AddKeyValueDialog_title,
-        Messages.AddKeyValueDialog_message,
-        null,
-        null);
-    setShellStyle(SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AddKeyValueDialog(Shell parentShell) {
+		super(parentShell,
+				DesignerPlugin.getDefault(),
+				Messages.AddKeyValueDialog_title,
+				Messages.AddKeyValueDialog_message,
+				null,
+				null);
+		setShellStyle(SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private StringDialogField m_keyField;
-  private StringDialogField m_valueField;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private StringDialogField m_keyField;
+	private StringDialogField m_valueField;
 
-  @Override
-  protected void createControls(Composite container) {
-    m_fieldsContainer = container;
-    GridLayoutFactory.create(container).columns(2);
-    // key
-    {
-      m_keyField = new StringDialogField();
-      doCreateField(m_keyField, Messages.AddKeyValueDialog_keyLabel);
-    }
-    // value
-    {
-      m_valueField = new StringDialogField();
-      doCreateField(m_valueField, Messages.AddKeyValueDialog_valueLabel);
-    }
-  }
+	@Override
+	protected void createControls(Composite container) {
+		m_fieldsContainer = container;
+		GridLayoutFactory.create(container).columns(2);
+		// key
+		{
+			m_keyField = new StringDialogField();
+			doCreateField(m_keyField, Messages.AddKeyValueDialog_keyLabel);
+		}
+		// value
+		{
+			m_valueField = new StringDialogField();
+			doCreateField(m_valueField, Messages.AddKeyValueDialog_valueLabel);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final String validate() {
-    // validate key
-    {
-      String key = m_keyField.getText().trim();
-      if (key.length() == 0) {
-        return Messages.AddKeyValueDialog_validateEmptyKey;
-      }
-    }
-    // OK
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final String validate() {
+		// validate key
+		{
+			String key = m_keyField.getText().trim();
+			if (key.length() == 0) {
+				return Messages.AddKeyValueDialog_validateEmptyKey;
+			}
+		}
+		// OK
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Composite m_fieldsContainer;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Composite m_fieldsContainer;
 
-  /**
-   * Configures given {@link DialogField} for specific of this dialog.
-   */
-  protected final void doCreateField(DialogField dialogField, String labelText) {
-    dialogField.setLabelText(labelText);
-    dialogField.setDialogFieldListener(m_validateListener);
-    DialogFieldUtils.fillControls(m_fieldsContainer, dialogField, 2, 60);
-  }
+	/**
+	 * Configures given {@link DialogField} for specific of this dialog.
+	 */
+	protected final void doCreateField(DialogField dialogField, String labelText) {
+		dialogField.setLabelText(labelText);
+		dialogField.setDialogFieldListener(m_validateListener);
+		DialogFieldUtils.fillControls(m_fieldsContainer, dialogField, 2, 60);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getKey() {
-    return m_keyField.getText();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getKey() {
+		return m_keyField.getText();
+	}
 
-  public String getValue() {
-    return m_valueField.getText();
-  }
+	public String getValue() {
+		return m_valueField.getText();
+	}
 }

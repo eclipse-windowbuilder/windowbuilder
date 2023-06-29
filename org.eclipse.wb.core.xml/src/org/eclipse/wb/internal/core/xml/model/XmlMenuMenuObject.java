@@ -22,28 +22,28 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
  * @coverage XML.model
  */
 public abstract class XmlMenuMenuObject extends AbstractMenuMenuObject {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlMenuMenuObject(XmlObjectInfo component) {
-    super(component);
-    m_component.addBroadcastListener(new ObjectInfoDelete() {
-      private int m_level = 0;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlMenuMenuObject(XmlObjectInfo component) {
+		super(component);
+		m_component.addBroadcastListener(new ObjectInfoDelete() {
+			private int m_level = 0;
 
-      @Override
-      public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
-        if (m_level == 0 && isRootFor(child)) {
-          fireDeleteListeners(child);
-        }
-        m_level++;
-      }
+			@Override
+			public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
+				if (m_level == 0 && isRootFor(child)) {
+					fireDeleteListeners(child);
+				}
+				m_level++;
+			}
 
-      @Override
-      public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
-        m_level--;
-      }
-    });
-  }
+			@Override
+			public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
+				m_level--;
+			}
+		});
+	}
 }

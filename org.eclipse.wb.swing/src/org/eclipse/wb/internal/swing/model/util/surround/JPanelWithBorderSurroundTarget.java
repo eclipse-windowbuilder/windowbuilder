@@ -32,53 +32,53 @@ import javax.swing.JPanel;
  * @coverage swing.model.util
  */
 public final class JPanelWithBorderSurroundTarget
-    extends
-      ISurroundTarget<ContainerInfo, ComponentInfo> {
-  private static final String CLASS_NAME = "javax.swing.JPanel";
+extends
+ISurroundTarget<ContainerInfo, ComponentInfo> {
+	private static final String CLASS_NAME = "javax.swing.JPanel";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon(AstEditor editor) throws Exception {
-    return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon(AstEditor editor) throws Exception {
+		return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
+	}
 
-  @Override
-  public String getText(AstEditor editor) throws Exception {
-    return CLASS_NAME + " (border)";
-  }
+	@Override
+	public String getText(AstEditor editor) throws Exception {
+		return CLASS_NAME + " (border)";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ContainerInfo createContainer(AstEditor editor) throws Exception {
-    return (ContainerInfo) JavaInfoUtils.createJavaInfo(
-        editor,
-        CLASS_NAME,
-        new ConstructorCreationSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ContainerInfo createContainer(AstEditor editor) throws Exception {
+		return (ContainerInfo) JavaInfoUtils.createJavaInfo(
+				editor,
+				CLASS_NAME,
+				new ConstructorCreationSupport());
+	}
 
-  @Override
-  public void afterContainerAdd(ContainerInfo container, List<ComponentInfo> components)
-      throws Exception {
-    container.addMethodInvocation(
-        "setBorder(javax.swing.border.Border)",
-        "new javax.swing.border.TitledBorder(null, "
-            + "\"JPanel title\", "
-            + "javax.swing.border.TitledBorder.LEADING, "
-            + "javax.swing.border.TitledBorder.TOP, "
-            + "null, null)");
-  }
+	@Override
+	public void afterContainerAdd(ContainerInfo container, List<ComponentInfo> components)
+			throws Exception {
+		container.addMethodInvocation(
+				"setBorder(javax.swing.border.Border)",
+				"new javax.swing.border.TitledBorder(null, "
+						+ "\"JPanel title\", "
+						+ "javax.swing.border.TitledBorder.LEADING, "
+						+ "javax.swing.border.TitledBorder.TOP, "
+						+ "null, null)");
+	}
 
-  @Override
-  public void move(ContainerInfo container, ComponentInfo component) throws Exception {
-    FlowLayoutInfo flowLayout = (FlowLayoutInfo) container.getLayout();
-    flowLayout.move(component, null);
-  }
+	@Override
+	public void move(ContainerInfo container, ComponentInfo component) throws Exception {
+		FlowLayoutInfo flowLayout = (FlowLayoutInfo) container.getLayout();
+		flowLayout.move(component, null);
+	}
 }

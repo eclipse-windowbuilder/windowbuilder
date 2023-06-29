@@ -21,75 +21,75 @@ import org.eclipse.swt.SWT;
  * @coverage swt.model.layout
  */
 public final class GridColumnInfo<C extends IControlInfo> extends GridDimensionInfo<C> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridColumnInfo(IGridLayoutInfo<C> layout) {
-    super(layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridColumnInfo(IGridLayoutInfo<C> layout) {
+		super(layout);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Grab
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean getGrab(IGridDataInfo gridData) {
-    return gridData.getHorizontalGrab();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Grab
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean getGrab(IGridDataInfo gridData) {
+		return gridData.getHorizontalGrab();
+	}
 
-  @Override
-  protected void setGrab(IGridDataInfo gridData, boolean grab) throws Exception {
-    gridData.setHorizontalGrab(grab);
-  }
+	@Override
+	protected void setGrab(IGridDataInfo gridData, boolean grab) throws Exception {
+		gridData.setHorizontalGrab(grab);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Alignment
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getAlignmentTitle(int alignment) {
-    if (alignment == SWT.LEFT) {
-      return "left";
-    } else if (alignment == SWT.CENTER) {
-      return "center";
-    } else if (alignment == SWT.RIGHT) {
-      return "right";
-    } else {
-      return "fill";
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Alignment
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getAlignmentTitle(int alignment) {
+		if (alignment == SWT.LEFT) {
+			return "left";
+		} else if (alignment == SWT.CENTER) {
+			return "center";
+		} else if (alignment == SWT.RIGHT) {
+			return "right";
+		} else {
+			return "fill";
+		}
+	}
 
-  @Override
-  protected int getAlignment(IGridDataInfo gridData) {
-    return gridData.getHorizontalAlignment();
-  }
+	@Override
+	protected int getAlignment(IGridDataInfo gridData) {
+		return gridData.getHorizontalAlignment();
+	}
 
-  @Override
-  protected void setAlignment(IGridDataInfo gridData, int alignment) throws Exception {
-    gridData.setHorizontalAlignment(alignment);
-  }
+	@Override
+	protected void setAlignment(IGridDataInfo gridData, int alignment) throws Exception {
+		gridData.setHorizontalAlignment(alignment);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void delete() throws Exception {
-    m_layout.command_deleteColumn(m_index, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void delete() throws Exception {
+		m_layout.command_deleteColumn(m_index, true);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Processing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean shouldProcessThisControl(IGridDataInfo gridData) {
-    return gridData.getX() == m_index;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Processing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean shouldProcessThisControl(IGridDataInfo gridData) {
+		return gridData.getX() == m_index;
+	}
 }

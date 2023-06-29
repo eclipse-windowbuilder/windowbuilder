@@ -49,178 +49,178 @@ import java.util.List;
  * @coverage rcp.model.jface
  */
 public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRendering {
-  private Object m_shell;
+	private Object m_shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WindowInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    JavaInfoUtils.scheduleSpecialRendering(this);
-    fillContextMenu();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WindowInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		JavaInfoUtils.scheduleSpecialRendering(this);
+		fillContextMenu();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void fillContextMenu() throws Exception {
-    addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void addContextMenu(List<? extends ObjectInfo> objects,
-          ObjectInfo object,
-          IMenuManager manager) throws Exception {
-        if (object == WindowInfo.this) {
-          contextMenu_setMinimalSize(manager);
-          contextMenu_removeSize(manager);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void fillContextMenu() throws Exception {
+		addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void addContextMenu(List<? extends ObjectInfo> objects,
+					ObjectInfo object,
+					IMenuManager manager) throws Exception {
+				if (object == WindowInfo.this) {
+					contextMenu_setMinimalSize(manager);
+					contextMenu_removeSize(manager);
+				}
+			}
+		});
+	}
 
-  /**
-   * Adds "Set minimal size" item.
-   */
-  private void contextMenu_setMinimalSize(IMenuManager manager) throws Exception {
-    ObjectInfoAction action = new ObjectInfoAction(this) {
-      @Override
-      protected void runEx() throws Exception {
-        if (getMethod_getInitialSize() == null) {
-          TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(WindowInfo.this);
-          getEditor().addMethodDeclaration(
-              "protected org.eclipse.swt.graphics.Point getInitialSize()",
-              ImmutableList.of("return new org.eclipse.swt.graphics.Point(545, 390);"),
-              new BodyDeclarationTarget(typeDeclaration, false));
-        }
-        Dimension preferredSize = getPreferredSize();
-        getTopBoundsSupport().setSize(preferredSize.width, preferredSize.height);
-      }
-    };
-    action.setText(ModelMessages.WindowInfo_minSizeActionText);
-    manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, action);
-  }
+	/**
+	 * Adds "Set minimal size" item.
+	 */
+	private void contextMenu_setMinimalSize(IMenuManager manager) throws Exception {
+		ObjectInfoAction action = new ObjectInfoAction(this) {
+			@Override
+			protected void runEx() throws Exception {
+				if (getMethod_getInitialSize() == null) {
+					TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(WindowInfo.this);
+					getEditor().addMethodDeclaration(
+							"protected org.eclipse.swt.graphics.Point getInitialSize()",
+							ImmutableList.of("return new org.eclipse.swt.graphics.Point(545, 390);"),
+							new BodyDeclarationTarget(typeDeclaration, false));
+				}
+				Dimension preferredSize = getPreferredSize();
+				getTopBoundsSupport().setSize(preferredSize.width, preferredSize.height);
+			}
+		};
+		action.setText(ModelMessages.WindowInfo_minSizeActionText);
+		manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, action);
+	}
 
-  /**
-   * Adds "Remove getInitialSize()" item.
-   */
-  private void contextMenu_removeSize(IMenuManager manager) throws Exception {
-    ObjectInfoAction action = new ObjectInfoAction(this) {
-      @Override
-      protected void runEx() throws Exception {
-        MethodDeclaration sizeMethod = getMethod_getInitialSize();
-        if (sizeMethod != null) {
-          getEditor().removeBodyDeclaration(sizeMethod);
-        }
-      }
-    };
-    action.setText("Remove getInitialSize()");
-    manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, action);
-  }
+	/**
+	 * Adds "Remove getInitialSize()" item.
+	 */
+	private void contextMenu_removeSize(IMenuManager manager) throws Exception {
+		ObjectInfoAction action = new ObjectInfoAction(this) {
+			@Override
+			protected void runEx() throws Exception {
+				MethodDeclaration sizeMethod = getMethod_getInitialSize();
+				if (sizeMethod != null) {
+					getEditor().removeBodyDeclaration(sizeMethod);
+				}
+			}
+		};
+		action.setText("Remove getInitialSize()");
+		manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, action);
+	}
 
-  /**
-   * @return the {@link MethodDeclaration} for "getInitialSize()", may be <code>null</code>.
-   */
-  private MethodDeclaration getMethod_getInitialSize() {
-    TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(this);
-    return AstNodeUtils.getMethodBySignature(typeDeclaration, "getInitialSize()");
-  }
+	/**
+	 * @return the {@link MethodDeclaration} for "getInitialSize()", may be <code>null</code>.
+	 */
+	private MethodDeclaration getMethod_getInitialSize() {
+		TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(this);
+		return AstNodeUtils.getMethodBySignature(typeDeclaration, "getInitialSize()");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IJavaInfoRendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void render() throws Exception {
-    Object window = getObject();
-    ReflectionUtils.invokeMethod(window, "create()");
-    m_shell = ReflectionUtils.invokeMethod(window, "getShell()");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IJavaInfoRendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void render() throws Exception {
+		Object window = getObject();
+		ReflectionUtils.invokeMethod(window, "create()");
+		m_shell = ReflectionUtils.invokeMethod(window, "getShell()");
+	}
 
-  public Shell getParentShell_interceptor() throws Exception {
-    ASTNode node = getCreationSupport().getNode();
-    ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
-    return (Shell) SwtMethodParameterEvaluator.getDefaultShell(node, classLoader);
-  }
+	public Shell getParentShell_interceptor() throws Exception {
+		ASTNode node = getCreationSupport().getNode();
+		ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
+		return (Shell) SwtMethodParameterEvaluator.getDefaultShell(node, classLoader);
+	}
 
-  public Object getInitialSize_validator(Object o) {
-    if (o == null) {
-      return new org.eclipse.swt.graphics.Point(450, 300);
-    }
-    return o;
-  }
+	public Object getInitialSize_validator(Object o) {
+		if (o == null) {
+			return new org.eclipse.swt.graphics.Point(450, 300);
+		}
+		return o;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractComponentInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected TopBoundsSupport createTopBoundsSupport() {
-    return new WindowTopBoundsSupport(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractComponentInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected TopBoundsSupport createTopBoundsSupport() {
+		return new WindowTopBoundsSupport(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canBeRoot() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canBeRoot() {
+		return true;
+	}
 
-  @Override
-  public Object getComponentObject() {
-    return m_shell;
-  }
+	@Override
+	public Object getComponentObject() {
+		return m_shell;
+	}
 
-  /**
-   * @return the {@link WindowInfo}'s Shell.
-   */
-  Object getShell() {
-    return m_shell;
-  }
+	/**
+	 * @return the {@link WindowInfo}'s Shell.
+	 */
+	Object getShell() {
+		return m_shell;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_dispose() throws Exception {
-    // dispose Dialog
-    {
-      Object object = getObject();
-      if (object != null) {
-        ReflectionUtils.invokeMethod(object, "close()");
-        m_shell = null;
-      }
-    }
-    // call "super"
-    super.refresh_dispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_dispose() throws Exception {
+		// dispose Dialog
+		{
+			Object object = getObject();
+			if (object != null) {
+				ReflectionUtils.invokeMethod(object, "close()");
+				m_shell = null;
+			}
+		}
+		// call "super"
+		super.refresh_dispose();
+	}
 
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    // preferred size, should be here, because "super" applies "top bounds"
-    setPreferredSize(ControlSupport.getPreferredSize(m_shell));
-    // call "super"
-    super.refresh_afterCreate();
-  }
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		// preferred size, should be here, because "super" applies "top bounds"
+		setPreferredSize(ControlSupport.getPreferredSize(m_shell));
+		// call "super"
+		super.refresh_afterCreate();
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    ControlInfo.refresh_fetch(this, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        WindowInfo.super.refresh_fetch();
-      }
-    });
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		ControlInfo.refresh_fetch(this, new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				WindowInfo.super.refresh_fetch();
+			}
+		});
+	}
 }

@@ -21,14 +21,14 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage swt.model.util
  */
 public final class CompositeSurroundTarget extends AbstractCompositeSurroundTarget {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final CompositeSurroundTarget INSTANCE = new CompositeSurroundTarget();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final CompositeSurroundTarget INSTANCE = new CompositeSurroundTarget();
 
-  private CompositeSurroundTarget() {
-    super("org.eclipse.swt.widgets.Composite");
-  }
+	private CompositeSurroundTarget() {
+		super("org.eclipse.swt.widgets.Composite");
+	}
 }
