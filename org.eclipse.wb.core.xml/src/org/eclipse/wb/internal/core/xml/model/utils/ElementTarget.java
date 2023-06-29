@@ -19,35 +19,35 @@ import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
  * @coverage XML.model.utils
  */
 public final class ElementTarget {
-  private final DocumentElement m_element;
-  private final int m_index;
+	private final DocumentElement m_element;
+	private final int m_index;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ElementTarget(DocumentElement element, int index) {
-    m_element = element;
-    m_index = index;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ElementTarget(DocumentElement element, int index) {
+		m_element = element;
+		m_index = index;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the target (i.e. parent) {@link DocumentElement}.
-   */
-  public DocumentElement getElement() {
-    return m_element;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the target (i.e. parent) {@link DocumentElement}.
+	 */
+	public DocumentElement getElement() {
+		return m_element;
+	}
 
-  /**
-   * @return the index to add new {@link DocumentElement} at.
-   */
-  public int getIndex() {
-    return m_index;
-  }
+	/**
+	 * @return the index to add new {@link DocumentElement} at.
+	 */
+	public int getIndex() {
+		return m_index;
+	}
 }

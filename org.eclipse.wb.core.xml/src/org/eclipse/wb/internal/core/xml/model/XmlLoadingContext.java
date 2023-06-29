@@ -30,89 +30,89 @@ import java.util.Map;
  * @coverage XML.model
  */
 public final class XmlLoadingContext implements ILoadingContext {
-  private final EditorContext m_editorContext;
+	private final EditorContext m_editorContext;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlLoadingContext(EditorContext editorContext) {
-    m_editorContext = editorContext;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlLoadingContext(EditorContext editorContext) {
+		m_editorContext = editorContext;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getToolkitId() {
-    return m_editorContext.getToolkit().getId();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getToolkitId() {
+		return m_editorContext.getToolkit().getId();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resources
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public URL getResource(String name) throws Exception {
-    // try editor class loader
-    {
-      URL resource = m_editorContext.getClassLoader().getResource(name);
-      if (resource != null) {
-        return resource;
-      }
-    }
-    // try "wbp-meta" of IJavaProject
-    {
-      URL resource = getResource(m_editorContext.getJavaProject(), name);
-      if (resource != null) {
-        return resource;
-      }
-    }
-    // not found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resources
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public URL getResource(String name) throws Exception {
+		// try editor class loader
+		{
+			URL resource = m_editorContext.getClassLoader().getResource(name);
+			if (resource != null) {
+				return resource;
+			}
+		}
+		// try "wbp-meta" of IJavaProject
+		{
+			URL resource = getResource(m_editorContext.getJavaProject(), name);
+			if (resource != null) {
+				return resource;
+			}
+		}
+		// not found
+		return null;
+	}
 
-  @Override
-  public List<IDescriptionVersionsProvider> getDescriptionVersionsProviders() {
-    return m_editorContext.getDescriptionVersionsProviders();
-  }
+	@Override
+	public List<IDescriptionVersionsProvider> getDescriptionVersionsProviders() {
+		return m_editorContext.getDescriptionVersionsProviders();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Global values
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, Object> m_globalMap = Maps.newHashMap();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Global values
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final Map<String, Object> m_globalMap = Maps.newHashMap();
 
-  @Override
-  public Object getGlobalValue(String key) {
-    return m_globalMap.get(key);
-  }
+	@Override
+	public Object getGlobalValue(String key) {
+		return m_globalMap.get(key);
+	}
 
-  @Override
-  public void putGlobalValue(String key, Object value) {
-    m_globalMap.put(key, value);
-  }
+	@Override
+	public void putGlobalValue(String key, Object value) {
+		m_globalMap.put(key, value);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link URL} with <code>*.wbp-component.xml</code> file for given name, in
-   *         {@link IJavaProject} itself or any required project.
-   */
-  private static URL getResource(IJavaProject javaProject, String name) throws Exception {
-    List<IFile> files = ProjectUtils.findFiles(javaProject, "wbp-meta/" + name);
-    if (!files.isEmpty()) {
-      IFile file = files.get(0);
-      return file.getLocation().toFile().toURI().toURL();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link URL} with <code>*.wbp-component.xml</code> file for given name, in
+	 *         {@link IJavaProject} itself or any required project.
+	 */
+	private static URL getResource(IJavaProject javaProject, String name) throws Exception {
+		List<IFile> files = ProjectUtils.findFiles(javaProject, "wbp-meta/" + name);
+		if (!files.isEmpty()) {
+			IFile file = files.get(0);
+			return file.getLocation().toFile().toURI().toURL();
+		}
+		return null;
+	}
 }

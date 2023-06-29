@@ -19,42 +19,42 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage gef.core
  */
 public class LocationRequest extends Request {
-  private Point m_location;
+	private Point m_location;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Constructs an empty {@link LocationRequest}.
-   */
-  public LocationRequest() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Constructs an empty {@link LocationRequest}.
+	 */
+	public LocationRequest() {
+	}
 
-  /**
-   * Constructs a {@link LocationRequest} with the specified <i>type</i>.
-   */
-  public LocationRequest(Object type) {
-    super(type);
-  }
+	/**
+	 * Constructs a {@link LocationRequest} with the specified <i>type</i>.
+	 */
+	public LocationRequest(Object type) {
+		super(type);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the current location.
-   */
-  public Point getLocation() {
-    return m_location;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the current location.
+	 */
+	public Point getLocation() {
+		return m_location;
+	}
 
-  /**
-   * Sets the current location.
-   */
-  public void setLocation(Point location) {
-    m_location = location;
-  }
+	/**
+	 * Sets the current location.
+	 */
+	public void setLocation(Point location) {
+		m_location = location;
+	}
 }

@@ -22,45 +22,45 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.ui
  */
 public abstract class PropertyFilter {
-  private final String m_name;
-  private final Image m_image;
+	private final String m_name;
+	private final Image m_image;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyFilter(String name, Image image) {
-    m_name = name;
-    m_image = image;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyFilter(String name, Image image) {
+		m_name = name;
+		m_image = image;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the name to display for user.
-   */
-  public final String getName() {
-    return m_name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the name to display for user.
+	 */
+	public final String getName() {
+		return m_name;
+	}
 
-  /**
-   * @return the image to display for user.
-   */
-  public final Image getImage() {
-    return m_image;
-  }
+	/**
+	 * @return the image to display for user.
+	 */
+	public final Image getImage() {
+		return m_image;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Filter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns whether the given {@link IObserveInfo} element makes it through this filter.
-   */
-  public abstract boolean select(Viewer viewer, IObserveInfo propertyObserve);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Filter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns whether the given {@link IObserveInfo} element makes it through this filter.
+	 */
+	public abstract boolean select(Viewer viewer, IObserveInfo propertyObserve);
 }

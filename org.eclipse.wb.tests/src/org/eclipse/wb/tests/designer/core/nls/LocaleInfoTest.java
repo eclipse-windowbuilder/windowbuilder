@@ -21,41 +21,41 @@ import java.util.Locale;
  * @author scheglov_ke
  */
 public class LocaleInfoTest extends DesignerTestCase {
-  public void test_default() throws Exception {
-    LocaleInfo locale = LocaleInfo.DEFAULT;
-    assertNull(locale.getLocale());
-    assertTrue(locale.isDefault());
-    assertEquals("(default)", locale.getTitle());
-  }
+	public void test_default() throws Exception {
+		LocaleInfo locale = LocaleInfo.DEFAULT;
+		assertNull(locale.getLocale());
+		assertTrue(locale.isDefault());
+		assertEquals("(default)", locale.getTitle());
+	}
 
-  public void test_italian() throws Exception {
-    LocaleInfo locale = new LocaleInfo(Locale.ITALIAN);
-    assertSame(Locale.ITALIAN, locale.getLocale());
-    assertEquals("it", locale.getTitle());
-  }
+	public void test_italian() throws Exception {
+		LocaleInfo locale = new LocaleInfo(Locale.ITALIAN);
+		assertSame(Locale.ITALIAN, locale.getLocale());
+		assertEquals("it", locale.getTitle());
+	}
 
-  public void test_toString() throws Exception {
-    assertEquals("it", new LocaleInfo(Locale.ITALIAN).toString());
-  }
+	public void test_toString() throws Exception {
+		assertEquals("it", new LocaleInfo(Locale.ITALIAN).toString());
+	}
 
-  public void test_equals() throws Exception {
-    LocaleInfo locale_it = new LocaleInfo(Locale.ITALIAN);
-    LocaleInfo locale_fr = new LocaleInfo(Locale.FRENCH);
-    assertTrue(LocaleInfo.DEFAULT.equals(new LocaleInfo(null)));
-    assertTrue(locale_it.equals(locale_it));
-    assertFalse(locale_it.equals(locale_fr));
-    assertFalse(locale_it.equals(this));
-  }
+	public void test_equals() throws Exception {
+		LocaleInfo locale_it = new LocaleInfo(Locale.ITALIAN);
+		LocaleInfo locale_fr = new LocaleInfo(Locale.FRENCH);
+		assertTrue(LocaleInfo.DEFAULT.equals(new LocaleInfo(null)));
+		assertTrue(locale_it.equals(locale_it));
+		assertFalse(locale_it.equals(locale_fr));
+		assertFalse(locale_it.equals(this));
+	}
 
-  public void test_hasCode() throws Exception {
-    assertEquals(0, LocaleInfo.DEFAULT.hashCode());
-    assertTrue(new LocaleInfo(Locale.ITALIAN).hashCode() != 0);
-  }
+	public void test_hasCode() throws Exception {
+		assertEquals(0, LocaleInfo.DEFAULT.hashCode());
+		assertTrue(new LocaleInfo(Locale.ITALIAN).hashCode() != 0);
+	}
 
-  public void test_getParent() throws Exception {
-    LocaleInfo[] locales =
-        new LocaleInfo[]{new LocaleInfo(new Locale("fr", "FR")), new LocaleInfo(new Locale("ru"))};
-    assertSame(locales[1], new LocaleInfo(new Locale("ru", "RU")).getParent(locales));
-    assertSame(LocaleInfo.DEFAULT, new LocaleInfo(new Locale("ru")).getParent(locales));
-  }
+	public void test_getParent() throws Exception {
+		LocaleInfo[] locales =
+				new LocaleInfo[]{new LocaleInfo(new Locale("fr", "FR")), new LocaleInfo(new Locale("ru"))};
+		assertSame(locales[1], new LocaleInfo(new Locale("ru", "RU")).getParent(locales));
+		assertSame(LocaleInfo.DEFAULT, new LocaleInfo(new Locale("ru")).getParent(locales));
+	}
 }

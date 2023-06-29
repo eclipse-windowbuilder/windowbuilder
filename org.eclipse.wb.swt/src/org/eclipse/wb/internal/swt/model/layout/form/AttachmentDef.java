@@ -19,8 +19,8 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
  * @coverage swt.model.layout.form
  */
 public class AttachmentDef {
-  public IAbstractComponentInfo source;
-  public IAbstractComponentInfo target;
-  public int sourceSide;
-  public int targetSide;
+	public IAbstractComponentInfo source;
+	public IAbstractComponentInfo target;
+	public int sourceSide;
+	public int targetSide;
 }

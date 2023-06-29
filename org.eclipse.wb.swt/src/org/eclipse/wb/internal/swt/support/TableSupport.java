@@ -22,77 +22,77 @@ import org.eclipse.swt.widgets.Table;
  * @coverage swt.support
  */
 public class TableSupport extends AbstractSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Class
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link org.eclipse.swt.widgets.Table} {@link Class} loaded from active editor
-   *         {@link ClassLoader}.
-   */
-  public static Class<?> getTableClass() {
-    return loadClass("org.eclipse.swt.widgets.Table");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Class
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link org.eclipse.swt.widgets.Table} {@link Class} loaded from active editor
+	 *         {@link ClassLoader}.
+	 */
+	public static Class<?> getTableClass() {
+		return loadClass("org.eclipse.swt.widgets.Table");
+	}
 
-  /**
-   * @return {@link org.eclipse.swt.widgets.TableColumn} {@link Class} loaded from active editor
-   *         {@link ClassLoader}.
-   */
-  public static Class<?> getTableColumnClass() {
-    return loadClass("org.eclipse.swt.widgets.TableColumn");
-  }
+	/**
+	 * @return {@link org.eclipse.swt.widgets.TableColumn} {@link Class} loaded from active editor
+	 *         {@link ClassLoader}.
+	 */
+	public static Class<?> getTableColumnClass() {
+		return loadClass("org.eclipse.swt.widgets.TableColumn");
+	}
 
-  /**
-   * @return {@link org.eclipse.swt.widgets.TableItem} {@link Class} loaded from active editor
-   *         {@link ClassLoader}.
-   */
-  public static Class<?> getTableItemClass() {
-    return loadClass("org.eclipse.swt.widgets.TableItem");
-  }
+	/**
+	 * @return {@link org.eclipse.swt.widgets.TableItem} {@link Class} loaded from active editor
+	 *         {@link ClassLoader}.
+	 */
+	public static Class<?> getTableItemClass() {
+		return loadClass("org.eclipse.swt.widgets.TableItem");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Table
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Invoke method <code>Table.getHeaderHeight()</code> for given table.
-   */
-  public static int getHeaderHeight(Object table) throws Exception {
-    return (Integer) ReflectionUtils.invokeMethod(table, "getHeaderHeight()");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Table
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Invoke method <code>Table.getHeaderHeight()</code> for given table.
+	 */
+	public static int getHeaderHeight(Object table) throws Exception {
+		return (Integer) ReflectionUtils.invokeMethod(table, "getHeaderHeight()");
+	}
 
-  /**
-   * Invoke method <code>Table.getItemHeight()</code> for given table.
-   */
-  public static int getItemHeight(Object table) throws Exception {
-    return (Integer) ReflectionUtils.invokeMethod(table, "getItemHeight()");
-  }
+	/**
+	 * Invoke method <code>Table.getItemHeight()</code> for given table.
+	 */
+	public static int getItemHeight(Object table) throws Exception {
+		return (Integer) ReflectionUtils.invokeMethod(table, "getItemHeight()");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TableColumn
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Invoke method <code>TableColumn.getWidth()</code> for given table column.
-   */
-  public static int getColumnWidth(Object column) throws Exception {
-    return (Integer) ReflectionUtils.invokeMethod(column, "getWidth()");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TableColumn
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Invoke method <code>TableColumn.getWidth()</code> for given table column.
+	 */
+	public static int getColumnWidth(Object column) throws Exception {
+		return (Integer) ReflectionUtils.invokeMethod(column, "getWidth()");
+	}
 
-  /**
-   * @return child columns of given {@link Table} instance.
-   */
-  public static Object[] getColumns(Object object) throws Exception {
-    return (Object[]) ReflectionUtils.invokeMethod(object, "getColumns()");
-  }
+	/**
+	 * @return child columns of given {@link Table} instance.
+	 */
+	public static Object[] getColumns(Object object) throws Exception {
+		return (Object[]) ReflectionUtils.invokeMethod(object, "getColumns()");
+	}
 
-  /**
-   * @return child items of given {@link Table} instance.
-   */
-  public static Object[] getItems(Object object) throws Exception {
-    return (Object[]) ReflectionUtils.invokeMethod(object, "getItems()");
-  }
+	/**
+	 * @return child items of given {@link Table} instance.
+	 */
+	public static Object[] getItems(Object object) throws Exception {
+		return (Object[]) ReflectionUtils.invokeMethod(object, "getItems()");
+	}
 }

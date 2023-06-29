@@ -28,69 +28,69 @@ import java.util.List;
  * @coverage swt.model.layout
  */
 public final class RowLayoutInfo extends GenericFlowLayoutInfo
-    implements
-      IRowLayoutInfo<ControlInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    new RowLayoutAssistant(this);
-  }
+implements
+IRowLayoutInfo<ControlInfo> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		new RowLayoutAssistant(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Styles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isHorizontal() {
-    return RowLayoutSupport.isHorizontal(getObject());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Styles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isHorizontal() {
+		return RowLayoutSupport.isHorizontal(getObject());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Components/constraints
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Object getDefaultVirtualDataObject() throws Exception {
-    return RowLayoutSupport.createRowData();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Components/constraints
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Object getDefaultVirtualDataObject() throws Exception {
+		return RowLayoutSupport.createRowData();
+	}
 
-  /**
-   * @return {@link RowDataInfo} association with given {@link ControlInfo}.
-   */
-  public static RowDataInfo getRowData(ControlInfo control) {
-    return (RowDataInfo) getLayoutData(control);
-  }
+	/**
+	 * @return {@link RowDataInfo} association with given {@link ControlInfo}.
+	 */
+	public static RowDataInfo getRowData(ControlInfo control) {
+		return (RowDataInfo) getLayoutData(control);
+	}
 
-  @Override
-  public IRowDataInfo getRowData2(ControlInfo control) {
-    return getRowData(control);
-  }
+	@Override
+	public IRowDataInfo getRowData2(ControlInfo control) {
+		return getRowData(control);
+	}
 
-  //////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void clipboardCopy_addControlCommands(ControlInfo control,
-      List<ClipboardCommand> commands) throws Exception {
-    // command for Control
-    commands.add(new LayoutClipboardCommand<RowLayoutInfo>(control) {
-      private static final long serialVersionUID = 0L;
+	//////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void clipboardCopy_addControlCommands(ControlInfo control,
+			List<ClipboardCommand> commands) throws Exception {
+		// command for Control
+		commands.add(new LayoutClipboardCommand<RowLayoutInfo>(control) {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      protected void add(RowLayoutInfo layout, ControlInfo control) throws Exception {
-        layout.command_CREATE(control, null);
-      }
-    });
-    // command for RowData
-    commands.add(new LayoutDataClipboardCommand(this, control));
-  }
+			@Override
+			protected void add(RowLayoutInfo layout, ControlInfo control) throws Exception {
+				layout.command_CREATE(control, null);
+			}
+		});
+		// command for RowData
+		commands.add(new LayoutDataClipboardCommand(this, control));
+	}
 }

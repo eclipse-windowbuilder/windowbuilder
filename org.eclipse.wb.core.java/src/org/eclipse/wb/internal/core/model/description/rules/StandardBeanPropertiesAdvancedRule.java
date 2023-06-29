@@ -23,8 +23,8 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class StandardBeanPropertiesAdvancedRule extends StandardBeanPropertiesFlaggedRule {
-  @Override
-  protected void configure(GenericPropertyDescription propertyDescription, Attributes attributes) {
-    propertyDescription.setCategory(PropertyCategory.ADVANCED);
-  }
+	@Override
+	protected void configure(GenericPropertyDescription propertyDescription, Attributes attributes) {
+		propertyDescription.setCategory(PropertyCategory.ADVANCED);
+	}
 }

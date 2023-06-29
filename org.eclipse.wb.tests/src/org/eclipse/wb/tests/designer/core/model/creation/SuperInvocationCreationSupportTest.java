@@ -20,80 +20,80 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author scheglov_ke
  */
 public class SuperInvocationCreationSupportTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_access() throws Exception {
-    prepareMyPanel();
-    parseContainer(
-        "// filler filler filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    JButton button = super.getMyButton();",
-        "    add(button);",
-        "  }",
-        "}");
-    assertHierarchy(
-        "{this: test.MyPanel} {this} {/add(button)/}",
-        "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-        "  {superInvocation: super.getMyButton()} {local-unique: button} {/super.getMyButton()/ /add(button)/}");
-    ComponentInfo button = getJavaInfoByName("button");
-    SuperInvocationCreationSupport creationSupport =
-        (SuperInvocationCreationSupport) button.getCreationSupport();
-    // check node
-    assertEquals("super.getMyButton()", m_lastEditor.getSource(creationSupport.getNode()));
-    assertEquals("superInvocation: super.getMyButton()", creationSupport.toString());
-    assertTrue(creationSupport.isJavaInfo(creationSupport.getNode()));
-    assertFalse(creationSupport.isJavaInfo(null));
-    // operations validation
-    assertTrue(creationSupport.canReorder());
-    assertTrue(creationSupport.canReparent());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_access() throws Exception {
+		prepareMyPanel();
+		parseContainer(
+				"// filler filler filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    JButton button = super.getMyButton();",
+				"    add(button);",
+				"  }",
+				"}");
+		assertHierarchy(
+				"{this: test.MyPanel} {this} {/add(button)/}",
+				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
+				"  {superInvocation: super.getMyButton()} {local-unique: button} {/super.getMyButton()/ /add(button)/}");
+		ComponentInfo button = getJavaInfoByName("button");
+		SuperInvocationCreationSupport creationSupport =
+				(SuperInvocationCreationSupport) button.getCreationSupport();
+		// check node
+		assertEquals("super.getMyButton()", m_lastEditor.getSource(creationSupport.getNode()));
+		assertEquals("superInvocation: super.getMyButton()", creationSupport.toString());
+		assertTrue(creationSupport.isJavaInfo(creationSupport.getNode()));
+		assertFalse(creationSupport.isJavaInfo(null));
+		// operations validation
+		assertTrue(creationSupport.canReorder());
+		assertTrue(creationSupport.canReparent());
+	}
 
-  public void test_delete() throws Exception {
-    prepareMyPanel();
-    parseContainer(
-        "// filler filler filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    JButton button = super.getMyButton();",
-        "    add(button);",
-        "  }",
-        "}");
-    ComponentInfo button = getJavaInfoByName("button");
-    //
-    assertTrue(button.canDelete());
-    assertTrue(button.getCreationSupport().canDelete());
-    button.delete();
-    assertEditor(
-        "// filler filler filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "  }",
-        "}");
-  }
+	public void test_delete() throws Exception {
+		prepareMyPanel();
+		parseContainer(
+				"// filler filler filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    JButton button = super.getMyButton();",
+				"    add(button);",
+				"  }",
+				"}");
+		ComponentInfo button = getJavaInfoByName("button");
+		//
+		assertTrue(button.canDelete());
+		assertTrue(button.getCreationSupport().canDelete());
+		button.delete();
+		assertEditor(
+				"// filler filler filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"  }",
+				"}");
+	}
 
-  private void prepareMyPanel() throws Exception {
-    setFileContentSrc(
-        "test/MyPanel.java",
-        getTestSource(
-            "public class MyPanel extends JPanel {",
-            "  private JButton myButton = new JButton();",
-            "  public JButton getMyButton() {",
-            "    return myButton;",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-  }
+	private void prepareMyPanel() throws Exception {
+		setFileContentSrc(
+				"test/MyPanel.java",
+				getTestSource(
+						"public class MyPanel extends JPanel {",
+						"  private JButton myButton = new JButton();",
+						"  public JButton getMyButton() {",
+						"    return myButton;",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+	}
 }

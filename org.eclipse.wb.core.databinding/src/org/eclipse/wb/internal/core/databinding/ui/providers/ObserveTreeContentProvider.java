@@ -27,74 +27,74 @@ import java.util.List;
  * @coverage bindings.ui
  */
 public class ObserveTreeContentProvider implements ITreeContentProvider {
-  private final ChildrenContext m_context;
+	private final ChildrenContext m_context;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveTreeContentProvider(ChildrenContext context) {
-    m_context = context;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveTreeContentProvider(ChildrenContext context) {
+		m_context = context;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Input
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object[] getElements(Object input) {
-    // case array
-    if (input instanceof Object[]) {
-      return (Object[]) input;
-    }
-    // case collection
-    if (input instanceof List<?>) {
-      List<?> listInput = (List<?>) input;
-      return listInput.toArray();
-    }
-    // case direct object
-    if (input instanceof IObserveInfo) {
-      return getChildren(input);
-    }
-    // no input
-    return ArrayUtils.EMPTY_OBJECT_ARRAY;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Input
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object[] getElements(Object input) {
+		// case array
+		if (input instanceof Object[]) {
+			return (Object[]) input;
+		}
+		// case collection
+		if (input instanceof List<?>) {
+			List<?> listInput = (List<?>) input;
+			return listInput.toArray();
+		}
+		// case direct object
+		if (input instanceof IObserveInfo) {
+			return getChildren(input);
+		}
+		// no input
+		return ArrayUtils.EMPTY_OBJECT_ARRAY;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parent/Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean hasChildren(Object element) {
-    IObserveInfo observe = (IObserveInfo) element;
-    return !observe.getChildren(m_context).isEmpty();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parent/Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean hasChildren(Object element) {
+		IObserveInfo observe = (IObserveInfo) element;
+		return !observe.getChildren(m_context).isEmpty();
+	}
 
-  @Override
-  public Object[] getChildren(Object element) {
-    IObserveInfo observe = (IObserveInfo) element;
-    return observe.getChildren(m_context).toArray();
-  }
+	@Override
+	public Object[] getChildren(Object element) {
+		IObserveInfo observe = (IObserveInfo) element;
+		return observe.getChildren(m_context).toArray();
+	}
 
-  @Override
-  public Object getParent(Object element) {
-    IObserveInfo observe = (IObserveInfo) element;
-    return observe.getParent();
-  }
+	@Override
+	public Object getParent(Object element) {
+		IObserveInfo observe = (IObserveInfo) element;
+		return observe.getParent();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ITreeContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dispose() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ITreeContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dispose() {
+	}
 
-  @Override
-  public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-  }
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+	}
 }

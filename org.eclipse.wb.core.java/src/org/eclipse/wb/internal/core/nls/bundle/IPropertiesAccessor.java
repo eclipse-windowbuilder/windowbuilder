@@ -25,14 +25,14 @@ import java.util.Properties;
  * @coverage core.nls
  */
 public interface IPropertiesAccessor {
-  /**
-   * @return {@link Map} loaded from given stream (based on *.properties file)
-   */
-  Map<String, String> load(InputStream is, String charset) throws Exception;
+	/**
+	 * @return {@link Map} loaded from given stream (based on *.properties file)
+	 */
+	Map<String, String> load(InputStream is, String charset) throws Exception;
 
-  /**
-   * Saves given map and comments into given stream.
-   */
-  void save(OutputStream os, String charset, Map<String, String> map, String comments)
-      throws Exception;
+	/**
+	 * Saves given map and comments into given stream.
+	 */
+	void save(OutputStream os, String charset, Map<String, String> map, String comments)
+			throws Exception;
 }

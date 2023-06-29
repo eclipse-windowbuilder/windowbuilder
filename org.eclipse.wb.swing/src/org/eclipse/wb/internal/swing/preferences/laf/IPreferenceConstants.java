@@ -17,6 +17,6 @@ package org.eclipse.wb.internal.swing.preferences.laf;
  * @coverage swing.preferences.laf
  */
 public interface IPreferenceConstants {
-  String P_DEFAULT_LAF = "P_DEFAULT_LAF";
-  String P_APPLY_IN_MAIN = "P_APPLY_IN_MAIN";
+	String P_DEFAULT_LAF = "P_DEFAULT_LAF";
+	String P_APPLY_IN_MAIN = "P_APPLY_IN_MAIN";
 }

@@ -28,62 +28,62 @@ import java.lang.reflect.Method;
  * @coverage core.util.ast
  */
 public class AnonymousTypeDeclaration {
-  private static final String KEY = "AnonymousTypeDeclaration";
-  private static Class<?> m_class;
+	private static final String KEY = "AnonymousTypeDeclaration";
+	private static Class<?> m_class;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private AnonymousTypeDeclaration() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private AnonymousTypeDeclaration() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static boolean is(TypeDeclaration node) {
-    return node != null && node.getClass().getName().endsWith("AnonymousTypeDeclaration2");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static boolean is(TypeDeclaration node) {
+		return node != null && node.getClass().getName().endsWith("AnonymousTypeDeclaration2");
+	}
 
-  public static TypeDeclaration get(ASTNode node) {
-    return (TypeDeclaration) node.getProperty(KEY);
-  }
+	public static TypeDeclaration get(ASTNode node) {
+		return (TypeDeclaration) node.getProperty(KEY);
+	}
 
-  public static TypeDeclaration create(AnonymousClassDeclaration acd) {
-    ensureClass();
-    try {
-      Constructor<?> constructor = m_class.getConstructor(AnonymousClassDeclaration.class);
-      return (TypeDeclaration) constructor.newInstance(acd);
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	public static TypeDeclaration create(AnonymousClassDeclaration acd) {
+		ensureClass();
+		try {
+			Constructor<?> constructor = m_class.getConstructor(AnonymousClassDeclaration.class);
+			return (TypeDeclaration) constructor.newInstance(acd);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  private static void ensureClass() {
-    try {
-      if (m_class == null) {
-        Method defineMethod =
-            ClassLoader.class.getDeclaredMethod("defineClass", new Class[]{
-                String.class,
-                byte[].class,
-                int.class,
-                int.class});
-        defineMethod.setAccessible(true);
-        InputStream stream =
-            AnonymousTypeDeclaration.class.getResourceAsStream("AnonymousTypeDeclaration2.clazz");
-        byte[] bytes = IOUtils2.readBytes(stream);
-        m_class =
-            (Class<?>) defineMethod.invoke(TypeDeclaration.class.getClassLoader(), new Object[]{
-                "org.eclipse.jdt.core.dom.AnonymousTypeDeclaration2",
-                bytes,
-                0,
-                bytes.length});
-      }
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	private static void ensureClass() {
+		try {
+			if (m_class == null) {
+				Method defineMethod =
+						ClassLoader.class.getDeclaredMethod("defineClass", new Class[]{
+								String.class,
+								byte[].class,
+								int.class,
+								int.class});
+				defineMethod.setAccessible(true);
+				InputStream stream =
+						AnonymousTypeDeclaration.class.getResourceAsStream("AnonymousTypeDeclaration2.clazz");
+				byte[] bytes = IOUtils2.readBytes(stream);
+				m_class =
+						(Class<?>) defineMethod.invoke(TypeDeclaration.class.getClassLoader(), new Object[]{
+								"org.eclipse.jdt.core.dom.AnonymousTypeDeclaration2",
+								bytes,
+								0,
+								bytes.length});
+			}
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 }

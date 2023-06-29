@@ -23,30 +23,30 @@ import org.eclipse.jface.text.rules.Token;
  * @coverage bindings.swing.ui
  */
 public final class NumbersRule implements IRule {
-  private final IToken m_token;
+	private final IToken m_token;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NumbersRule(ElPropertyUiConfiguration configuration) {
-    m_token = new Token(new TextAttribute(configuration.getNumbersColor()));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NumbersRule(ElPropertyUiConfiguration configuration) {
+		m_token = new Token(new TextAttribute(configuration.getNumbersColor()));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IToken evaluate(ICharacterScanner scanner) {
-    if (Character.isDigit(scanner.read())) {
-      while (Character.isDigit(scanner.read())) {
-      }
-      scanner.unread();
-      return m_token;
-    }
-    scanner.unread();
-    return Token.UNDEFINED;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IToken evaluate(ICharacterScanner scanner) {
+		if (Character.isDigit(scanner.read())) {
+			while (Character.isDigit(scanner.read())) {
+			}
+			scanner.unread();
+			return m_token;
+		}
+		scanner.unread();
+		return Token.UNDEFINED;
+	}
 }

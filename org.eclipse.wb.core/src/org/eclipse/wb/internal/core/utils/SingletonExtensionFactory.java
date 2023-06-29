@@ -33,43 +33,43 @@ import java.util.Map;
  * @coverage core.util
  */
 public final class SingletonExtensionFactory
-    implements
-      IExecutableExtension,
-      IExecutableExtensionFactory {
-  private Class<?> m_objectClass;
+implements
+IExecutableExtension,
+IExecutableExtensionFactory {
+	private Class<?> m_objectClass;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExecutableExtension
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  @SuppressWarnings("unchecked")
-  public void setInitializationData(final IConfigurationElement config,
-      final String propertyName,
-      final Object data) throws CoreException {
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        Bundle extensionBundle = ExternalFactoriesHelper.getExtensionBundle(config);
-        String objectClassName = ((Map<String, String>) data).get("class");
-        m_objectClass = extensionBundle.loadClass(objectClassName);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExecutableExtension
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	@SuppressWarnings("unchecked")
+	public void setInitializationData(final IConfigurationElement config,
+			final String propertyName,
+			final Object data) throws CoreException {
+		ExecutionUtils.runRethrow(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				Bundle extensionBundle = ExternalFactoriesHelper.getExtensionBundle(config);
+				String objectClassName = ((Map<String, String>) data).get("class");
+				m_objectClass = extensionBundle.loadClass(objectClassName);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExecutableExtensionFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object create() throws CoreException {
-    return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-      @Override
-      public Object runObject() throws Exception {
-        return ReflectionUtils.getFieldObject(m_objectClass, "INSTANCE");
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExecutableExtensionFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object create() throws CoreException {
+		return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+			@Override
+			public Object runObject() throws Exception {
+				return ReflectionUtils.getFieldObject(m_objectClass, "INSTANCE");
+			}
+		});
+	}
 }

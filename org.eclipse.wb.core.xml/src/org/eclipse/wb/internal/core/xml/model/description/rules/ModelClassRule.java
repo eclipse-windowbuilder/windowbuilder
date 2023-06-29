@@ -24,32 +24,32 @@ import org.xml.sax.Attributes;
  * @coverage XML.model.description
  */
 public final class ModelClassRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    // prepare model Class
-    String className = attributes.getValue("class");
-    Class<?> modelClass = DescriptionHelper.loadModelClass(className);
-    // set model Class
-    {
-      ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-      // check, may be this is "secondary" model
-      {
-        UseModelIfNotAlready annotation = modelClass.getAnnotation(UseModelIfNotAlready.class);
-        if (annotation != null) {
-          Class<?> currentModelClass = componentDescription.getModelClass();
-          Class<?> baseModelClass = annotation.value();
-          if (baseModelClass.isAssignableFrom(currentModelClass)) {
-            return;
-          }
-        }
-      }
-      // OK, do set
-      componentDescription.setModelClass(modelClass);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		// prepare model Class
+		String className = attributes.getValue("class");
+		Class<?> modelClass = DescriptionHelper.loadModelClass(className);
+		// set model Class
+		{
+			ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+			// check, may be this is "secondary" model
+			{
+				UseModelIfNotAlready annotation = modelClass.getAnnotation(UseModelIfNotAlready.class);
+				if (annotation != null) {
+					Class<?> currentModelClass = componentDescription.getModelClass();
+					Class<?> baseModelClass = annotation.value();
+					if (baseModelClass.isAssignableFrom(currentModelClass)) {
+						return;
+					}
+				}
+			}
+			// OK, do set
+			componentDescription.setModelClass(modelClass);
+		}
+	}
 }

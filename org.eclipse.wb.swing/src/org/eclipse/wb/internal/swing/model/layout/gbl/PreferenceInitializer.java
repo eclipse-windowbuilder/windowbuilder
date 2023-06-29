@@ -22,24 +22,24 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @coverage swing.preferences.layout
  */
 public final class PreferenceInitializer extends AbstractPreferenceInitializer
-    implements
-      IPreferenceConstants {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //	Initializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initializeDefaultPreferences() {
-    IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
-    preferenceStore.setDefault(P_ENABLE_GRAB, true);
-    preferenceStore.setDefault(P_ENABLE_RIGHT_ALIGNMENT, true);
-    preferenceStore.setDefault(P_GBC_LONG, false);
-    preferenceStore.setDefault(P_CHANGE_INSETS_FOR_GAPS, true);
-    preferenceStore.setDefault(P_GAP_COLUMN, 5);
-    preferenceStore.setDefault(P_GAP_ROW, 5);
-    preferenceStore.setDefault(
-        P_CONSTRAINTS_NAME_TEMPLATE,
-        "${constraintsAcronym}_${componentName}");
-  }
+implements
+IPreferenceConstants {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//	Initializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initializeDefaultPreferences() {
+		IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
+		preferenceStore.setDefault(P_ENABLE_GRAB, true);
+		preferenceStore.setDefault(P_ENABLE_RIGHT_ALIGNMENT, true);
+		preferenceStore.setDefault(P_GBC_LONG, false);
+		preferenceStore.setDefault(P_CHANGE_INSETS_FOR_GAPS, true);
+		preferenceStore.setDefault(P_GAP_COLUMN, 5);
+		preferenceStore.setDefault(P_GAP_ROW, 5);
+		preferenceStore.setDefault(
+				P_CONSTRAINTS_NAME_TEMPLATE,
+				"${constraintsAcronym}_${componentName}");
+	}
 }

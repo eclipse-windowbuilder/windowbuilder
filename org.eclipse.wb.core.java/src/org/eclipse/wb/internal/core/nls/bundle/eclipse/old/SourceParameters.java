@@ -19,5 +19,5 @@ import org.eclipse.wb.internal.core.nls.bundle.eclipse.AbstractAccessorSourcePar
  * @coverage core.nls
  */
 public class SourceParameters extends AbstractAccessorSourceParameters {
-  public boolean m_withDefaultValue;
+	public boolean m_withDefaultValue;
 }

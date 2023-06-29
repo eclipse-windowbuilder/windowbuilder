@@ -21,31 +21,31 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
  * @coverage core.model.description
  */
 public final class PropertyEditorDescription extends AbstractConfigurableDescription {
-  private final EditorState m_state;
-  private final PropertyEditor m_editor;
+	private final EditorState m_state;
+	private final PropertyEditor m_editor;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyEditorDescription(EditorState state, PropertyEditor editor) {
-    m_state = state;
-    m_editor = editor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyEditorDescription(EditorState state, PropertyEditor editor) {
+		m_state = state;
+		m_editor = editor;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return configured {@link PropertyEditor}.
-   */
-  public PropertyEditor getConfiguredEditor() throws Exception {
-    if (m_editor instanceof IConfigurablePropertyObject) {
-      configure(m_state, (IConfigurablePropertyObject) m_editor);
-    }
-    return m_editor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return configured {@link PropertyEditor}.
+	 */
+	public PropertyEditor getConfiguredEditor() throws Exception {
+		if (m_editor instanceof IConfigurablePropertyObject) {
+			configure(m_state, (IConfigurablePropertyObject) m_editor);
+		}
+		return m_editor;
+	}
 }

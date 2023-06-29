@@ -24,10 +24,10 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class StandardBeanPropertiesNoDefaultValueRule
-    extends
-      StandardBeanPropertiesFlaggedRule {
-  @Override
-  protected void configure(GenericPropertyDescription propertyDescription, Attributes attributes) {
-    propertyDescription.putTag(ExpressionAccessor.NO_DEFAULT_VALUE_TAG, "true");
-  }
+extends
+StandardBeanPropertiesFlaggedRule {
+	@Override
+	protected void configure(GenericPropertyDescription propertyDescription, Attributes attributes) {
+		propertyDescription.putTag(ExpressionAccessor.NO_DEFAULT_VALUE_TAG, "true");
+	}
 }

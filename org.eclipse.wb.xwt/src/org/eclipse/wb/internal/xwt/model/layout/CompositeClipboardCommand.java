@@ -21,23 +21,23 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
  * @coverage XWT.model.layout
  */
 public abstract class CompositeClipboardCommand extends ClipboardCommand {
-  private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execute
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void execute(XmlObjectInfo object) throws Exception {
-    if (object instanceof CompositeInfo) {
-      CompositeInfo composite = (CompositeInfo) object;
-      execute(composite);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execute
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void execute(XmlObjectInfo object) throws Exception {
+		if (object instanceof CompositeInfo) {
+			CompositeInfo composite = (CompositeInfo) object;
+			execute(composite);
+		}
+	}
 
-  /**
-   * Implementation of {@link #execute(XmlObjectInfo)} for {@link CompositeInfo}.
-   */
-  protected abstract void execute(CompositeInfo composite) throws Exception;
+	/**
+	 * Implementation of {@link #execute(XmlObjectInfo)} for {@link CompositeInfo}.
+	 */
+	protected abstract void execute(CompositeInfo composite) throws Exception;
 }

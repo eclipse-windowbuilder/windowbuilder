@@ -25,63 +25,63 @@ import org.eclipse.draw2d.geometry.Insets;
  * @coverage rcp.swing2swt.gef
  */
 public final class BorderLayoutEditPolicy extends ControlPositionLayoutEditPolicy<String> {
-  private final BorderLayoutInfo m_layout;
+	private final BorderLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BorderLayoutEditPolicy(BorderLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BorderLayoutEditPolicy(BorderLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedbacks
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addFeedbacks() throws Exception {
-    addFeedback(0, 0, 1, 0.25, new Insets(0, 0, 1, 0), Messages.BorderLayout_north, "NORTH");
-    addFeedback(0, 0.75, 1, 1, new Insets(1, 0, 0, 0), Messages.BorderLayout_south, "SOUTH");
-    addFeedback(0, 0.25, 0.25, 0.75, new Insets(1, 0, 1, 1), Messages.BorderLayout_west, "WEST");
-    addFeedback(0.75, 0.25, 1, 0.75, new Insets(1, 1, 1, 0), Messages.BorderLayout_east, "EAST");
-    addFeedback(
-        0.25,
-        0.25,
-        0.75,
-        0.75,
-        new Insets(1, 1, 1, 1),
-        Messages.BorderLayout_center,
-        "CENTER");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedbacks
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addFeedbacks() throws Exception {
+		addFeedback(0, 0, 1, 0.25, new Insets(0, 0, 1, 0), Messages.BorderLayout_north, "NORTH");
+		addFeedback(0, 0.75, 1, 1, new Insets(1, 0, 0, 0), Messages.BorderLayout_south, "SOUTH");
+		addFeedback(0, 0.25, 0.25, 0.75, new Insets(1, 0, 1, 1), Messages.BorderLayout_west, "WEST");
+		addFeedback(0.75, 0.25, 1, 0.75, new Insets(1, 1, 1, 0), Messages.BorderLayout_east, "EAST");
+		addFeedback(
+				0.25,
+				0.25,
+				0.75,
+				0.75,
+				new Insets(1, 1, 1, 1),
+				Messages.BorderLayout_center,
+				"CENTER");
+	}
 
-  private void addFeedback(double px1,
-      double py1,
-      double px2,
-      double py2,
-      Insets insets,
-      String hint,
-      String region) throws Exception {
-    if (m_layout.getControl(region) == null) {
-      super.addFeedback(px1, py1, px2, py2, insets, hint, region);
-    }
-  }
+	private void addFeedback(double px1,
+			double py1,
+			double px2,
+			double py2,
+			Insets insets,
+			String hint,
+			String region) throws Exception {
+		if (m_layout.getControl(region) == null) {
+			super.addFeedback(px1, py1, px2, py2, insets, hint, region);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation of commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ControlInfo component, String data) throws Exception {
-    m_layout.command_CREATE(component, data);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation of commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ControlInfo component, String data) throws Exception {
+		m_layout.command_CREATE(component, data);
+	}
 
-  @Override
-  protected void command_MOVE(ControlInfo component, String data) throws Exception {
-    m_layout.command_MOVE(component, data);
-  }
+	@Override
+	protected void command_MOVE(ControlInfo component, String data) throws Exception {
+		m_layout.command_MOVE(component, data);
+	}
 }

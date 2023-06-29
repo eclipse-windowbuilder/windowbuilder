@@ -23,51 +23,51 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
  * @author scheglov_ke
  */
 public class FormTextTest extends AbstractFormsTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for using {@link FormToolkit#createFormText(Composite, boolean)}.
-   * <p>
-   * Problem is that it requires "com.ibm.icu" plugin, that is not included into list.
-   */
-  public void test_create() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  private final FormToolkit m_toolkit = new FormToolkit(Display.getDefault());",
-            "  public Test() {",
-            "    setLayout(new RowLayout());",
-            "    FormText formText = m_toolkit.createFormText(this, true);",
-            "    formText.setText('abc', false, false);",
-            "  }",
-            "}");
-    shell.refresh();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for using {@link FormToolkit#createFormText(Composite, boolean)}.
+	 * <p>
+	 * Problem is that it requires "com.ibm.icu" plugin, that is not included into list.
+	 */
+	public void test_create() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  private final FormToolkit m_toolkit = new FormToolkit(Display.getDefault());",
+						"  public Test() {",
+						"    setLayout(new RowLayout());",
+						"    FormText formText = m_toolkit.createFormText(this, true);",
+						"    formText.setText('abc', false, false);",
+						"  }",
+						"}");
+		shell.refresh();
+	}
 
-  /**
-   * {@link FormText} creates {@link Image} with its size, so throws exception when it is zero.
-   */
-  public void test_zeroSize() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    FormText formText = new FormText(this, SWT.NONE);",
-            "  }",
-            "}");
-    shell.refresh();
-    assertNoErrors(shell);
-  }
+	/**
+	 * {@link FormText} creates {@link Image} with its size, so throws exception when it is zero.
+	 */
+	public void test_zeroSize() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    FormText formText = new FormText(this, SWT.NONE);",
+						"  }",
+						"}");
+		shell.refresh();
+		assertNoErrors(shell);
+	}
 }

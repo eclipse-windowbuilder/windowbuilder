@@ -23,42 +23,42 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public class LayoutPolicyUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LayoutEditPolicy creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link LayoutEditPolicy} for given model.
-   */
-  public static LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    // try to create policy
-    List<ILayoutEditPolicyFactory> factories =
-        ExternalFactoriesHelper.getElementsInstances(
-            ILayoutEditPolicyFactory.class,
-            "org.eclipse.wb.core.editPolicyFactories",
-            "factory");
-    for (ILayoutEditPolicyFactory factory : factories) {
-      LayoutEditPolicy layoutEditPolicy = factory.createLayoutEditPolicy(context, model);
-      if (layoutEditPolicy != null) {
-        return layoutEditPolicy;
-      }
-    }
-    // not found
-    return null;
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Side figures utilities
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Checks that selection edit policy should display side figures for given edit part.
-   */
-  public static boolean shouldShowSideFigures(String figuresMode, EditPart part) {
-    return part.getSelected() == EditPart.SELECTED_PRIMARY;
-    // TODO implement full check
-    /*boolean showFiguresAll = IDesignerPrefConstants.V_ALIGNMENT_FIGURES_ALL.equals(figuresMode);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LayoutEditPolicy creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link LayoutEditPolicy} for given model.
+	 */
+	public static LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		// try to create policy
+		List<ILayoutEditPolicyFactory> factories =
+				ExternalFactoriesHelper.getElementsInstances(
+						ILayoutEditPolicyFactory.class,
+						"org.eclipse.wb.core.editPolicyFactories",
+						"factory");
+		for (ILayoutEditPolicyFactory factory : factories) {
+			LayoutEditPolicy layoutEditPolicy = factory.createLayoutEditPolicy(context, model);
+			if (layoutEditPolicy != null) {
+				return layoutEditPolicy;
+			}
+		}
+		// not found
+		return null;
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Side figures utilities
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Checks that selection edit policy should display side figures for given edit part.
+	 */
+	public static boolean shouldShowSideFigures(String figuresMode, EditPart part) {
+		return part.getSelected() == EditPart.SELECTED_PRIMARY;
+		// TODO implement full check
+		/*boolean showFiguresAll = IDesignerPrefConstants.V_ALIGNMENT_FIGURES_ALL.equals(figuresMode);
     if (showFiguresAll) {
     	return true;
     }
@@ -68,5 +68,5 @@ public class LayoutPolicyUtils {
     boolean showFiguresSelected = IDesignerPrefConstants.V_ALIGNMENT_FIGURES_SELECTED.equals(figuresMode);
     boolean showFiguresPrimarySelected = IDesignerPrefConstants.V_ALIGNMENT_FIGURES_PRIMARY_SELECTED.equals(figuresMode);
     return (showFiguresSelected && isSelected) || (showFiguresPrimarySelected && isPrimarySelected);*/
-  }
+	}
 }

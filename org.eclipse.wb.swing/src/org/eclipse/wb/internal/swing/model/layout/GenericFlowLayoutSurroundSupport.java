@@ -25,39 +25,39 @@ import java.util.List;
  * @coverage swing.model.layout
  */
 public final class GenericFlowLayoutSurroundSupport extends LayoutSurroundSupport {
-  private final GenericFlowLayoutInfo m_layout;
+	private final GenericFlowLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenericFlowLayoutSurroundSupport(GenericFlowLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenericFlowLayoutSurroundSupport(GenericFlowLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean validateComponents(List<ComponentInfo> components) throws Exception {
-    // check that components are adjacent
-    {
-      List<ComponentInfo> allComponents = m_layout.getContainer().getChildrenComponents();
-      if (!GenericsUtils.areAdjacent(allComponents, components)) {
-        return false;
-      }
-    }
-    // continue
-    return super.validateComponents(components);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean validateComponents(List<ComponentInfo> components) throws Exception {
+		// check that components are adjacent
+		{
+			List<ComponentInfo> allComponents = m_layout.getContainer().getChildrenComponents();
+			if (!GenericsUtils.areAdjacent(allComponents, components)) {
+				return false;
+			}
+		}
+		// continue
+		return super.validateComponents(components);
+	}
 
-  @Override
-  protected void addContainer(ContainerInfo container, List<ComponentInfo> components)
-      throws Exception {
-    m_layout.add(container, components.get(0));
-  }
+	@Override
+	protected void addContainer(ContainerInfo container, List<ComponentInfo> components)
+			throws Exception {
+		m_layout.add(container, components.get(0));
+	}
 }

@@ -26,32 +26,32 @@ import org.eclipse.swt.graphics.Image;
  * @coverage rcp.editor.palette
  */
 public final class PerspectivePerspectiveDropEntryInfo extends ToolEntryInfo {
-  private final PerspectiveInfo m_perspective;
+	private final PerspectiveInfo m_perspective;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectivePerspectiveDropEntryInfo(PerspectiveInfo perspective) {
-    m_perspective = perspective;
-    setId(perspective.getId());
-    setName(m_perspective.getName());
-    setDescription(m_perspective.getId() + "\n" + m_perspective.getClassName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectivePerspectiveDropEntryInfo(PerspectiveInfo perspective) {
+		m_perspective = perspective;
+		setId(perspective.getId());
+		setName(m_perspective.getName());
+		setDescription(m_perspective.getId() + "\n" + m_perspective.getClassName());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return m_perspective.getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return m_perspective.getIcon();
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    return new PerspectiveDropTool(m_perspective);
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		return new PerspectiveDropTool(m_perspective);
+	}
 }

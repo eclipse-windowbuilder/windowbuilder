@@ -25,92 +25,92 @@ import java.util.List;
  * @coverage gef.draw2d
  */
 public class AncestorEventTable implements IFigureListener {
-  private final Figure m_figure;
-  private List<IAncestorListener> m_listeners;
+	private final Figure m_figure;
+	private List<IAncestorListener> m_listeners;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AncestorEventTable(Figure figure) {
-    m_figure = figure;
-    hookFigure(m_figure);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AncestorEventTable(Figure figure) {
+		m_figure = figure;
+		hookFigure(m_figure);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IFigureListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void figureMoved(Figure source) {
-    for (IAncestorListener listener : m_listeners) {
-      listener.ancestorMoved(source);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IFigureListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void figureMoved(Figure source) {
+		for (IAncestorListener listener : m_listeners) {
+			listener.ancestorMoved(source);
+		}
+	}
 
-  @Override
-  public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
-    if (oldParent != null) {
-      unhookFigure(oldParent);
-    }
-    if (newParent != null) {
-      hookFigure(newParent);
-    }
-  }
+	@Override
+	public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
+		if (oldParent != null) {
+			unhookFigure(oldParent);
+		}
+		if (newParent != null) {
+			hookFigure(newParent);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Ancestor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void hookFigure(Figure figure) {
-    for (Figure ancestor = figure; ancestor != null; ancestor = ancestor.getParent()) {
-      ancestor.addFigureListener(this);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Ancestor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void hookFigure(Figure figure) {
+		for (Figure ancestor = figure; ancestor != null; ancestor = ancestor.getParent()) {
+			ancestor.addFigureListener(this);
+		}
+	}
 
-  private void unhookFigure(Figure figure) {
-    for (Figure ancestor = figure; ancestor != null; ancestor = ancestor.getParent()) {
-      ancestor.removeFigureListener(this);
-    }
-  }
+	private void unhookFigure(Figure figure) {
+		for (Figure ancestor = figure; ancestor != null; ancestor = ancestor.getParent()) {
+			ancestor.removeFigureListener(this);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Unregisters figure listeners, so that this class will no longer receive notification of
-   * ancestor events.
-   */
-  public void unhookFigure() {
-    unhookFigure(m_figure);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Unregisters figure listeners, so that this class will no longer receive notification of
+	 * ancestor events.
+	 */
+	public void unhookFigure() {
+		unhookFigure(m_figure);
+	}
 
-  /**
-   * Return <code>true</code> if this event table contains no listeners.
-   */
-  public boolean isEmpty() {
-    return m_listeners.isEmpty();
-  }
+	/**
+	 * Return <code>true</code> if this event table contains no listeners.
+	 */
+	public boolean isEmpty() {
+		return m_listeners.isEmpty();
+	}
 
-  /**
-   * Add {@link IAncestorListener} listener.
-   */
-  public void addAncestorListener(IAncestorListener listener) {
-    if (m_listeners == null) {
-      m_listeners = Lists.newArrayList();
-    }
-    m_listeners.add(listener);
-  }
+	/**
+	 * Add {@link IAncestorListener} listener.
+	 */
+	public void addAncestorListener(IAncestorListener listener) {
+		if (m_listeners == null) {
+			m_listeners = Lists.newArrayList();
+		}
+		m_listeners.add(listener);
+	}
 
-  /**
-   * Remove {@link IAncestorListener} listener.
-   */
-  public void removeAncestorListener(IAncestorListener listener) {
-    m_listeners.remove(listener);
-  }
+	/**
+	 * Remove {@link IAncestorListener} listener.
+	 */
+	public void removeAncestorListener(IAncestorListener listener) {
+		m_listeners.remove(listener);
+	}
 }

@@ -23,102 +23,102 @@ import org.eclipse.wb.internal.draw2d.events.EventTable;
  * @coverage core.model.menu
  */
 public abstract class AbstractMenuObject implements IMenuObjectInfo {
-  protected final ObjectInfo m_component;
+	protected final ObjectInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractMenuObject(ObjectInfo component) {
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractMenuObject(ObjectInfo component) {
+		m_component = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Model
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getToolkitModel() {
-    return m_component;
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final EventTable m_eventTable = new EventTable();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Model
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getToolkitModel() {
+		return m_component;
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final EventTable m_eventTable = new EventTable();
 
-  @Override
-  public final void addListener(IMenuObjectListener listener) {
-    m_eventTable.addListener(IMenuObjectListener.class, listener);
-  }
+	@Override
+	public final void addListener(IMenuObjectListener listener) {
+		m_eventTable.addListener(IMenuObjectListener.class, listener);
+	}
 
-  @Override
-  public final void removeListener(IMenuObjectListener listener) {
-    m_eventTable.removeListener(IMenuObjectListener.class, listener);
-  }
+	@Override
+	public final void removeListener(IMenuObjectListener listener) {
+		m_eventTable.removeListener(IMenuObjectListener.class, listener);
+	}
 
-  /**
-   * Notifies {@link IMenuObjectListener#refresh()}'s.
-   */
-  protected final void fireRefreshListeners() {
-    for (IMenuObjectListener listener : m_eventTable.getListeners(IMenuObjectListener.class)) {
-      listener.refresh();
-    }
-  }
+	/**
+	 * Notifies {@link IMenuObjectListener#refresh()}'s.
+	 */
+	protected final void fireRefreshListeners() {
+		for (IMenuObjectListener listener : m_eventTable.getListeners(IMenuObjectListener.class)) {
+			listener.refresh();
+		}
+	}
 
-  /**
-   * Notifies {@link IMenuObjectListener#deleting(Object)}.
-   */
-  protected final void fireDeleteListeners(Object toolkitModel) {
-    for (IMenuObjectListener listener : m_eventTable.getListeners(IMenuObjectListener.class)) {
-      listener.deleting(toolkitModel);
-    }
-  }
+	/**
+	 * Notifies {@link IMenuObjectListener#deleting(Object)}.
+	 */
+	protected final void fireDeleteListeners(Object toolkitModel) {
+		for (IMenuObjectListener listener : m_eventTable.getListeners(IMenuObjectListener.class)) {
+			listener.deleting(toolkitModel);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void executeEdit(RunnableEx runnable) {
-    ExecutionUtils.run(m_component, runnable);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void executeEdit(RunnableEx runnable) {
+		ExecutionUtils.run(m_component, runnable);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final boolean canMove() {
-    return GlobalState.getValidatorHelper().canReorder(m_component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final boolean canMove() {
+		return GlobalState.getValidatorHelper().canReorder(m_component);
+	}
 
-  @Override
-  public final boolean canReparent() {
-    return GlobalState.getValidatorHelper().canReparent(m_component);
-  }
+	@Override
+	public final boolean canReparent() {
+		return GlobalState.getValidatorHelper().canReparent(m_component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link JavaMenuMenuObject} is root of menu hierarchy.
-   */
-  protected final boolean isRoot() {
-    return MenuObjectInfoUtils.getMenuInfo(m_component.getParent()) == null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link JavaMenuMenuObject} is root of menu hierarchy.
+	 */
+	protected final boolean isRoot() {
+		return MenuObjectInfoUtils.getMenuInfo(m_component.getParent()) == null;
+	}
 
-  /**
-   * @return <code>true</code> if given <code>child</code> belong our menu hierarchy.
-   */
-  protected final boolean isRootFor(ObjectInfo child) {
-    return isRoot() && child != null && m_component.isItOrParentOf(child);
-  }
+	/**
+	 * @return <code>true</code> if given <code>child</code> belong our menu hierarchy.
+	 */
+	protected final boolean isRootFor(ObjectInfo child) {
+		return isRoot() && child != null && m_component.isItOrParentOf(child);
+	}
 }

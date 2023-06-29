@@ -19,63 +19,63 @@ import org.apache.commons.lang.ObjectUtils;
  * @coverage core.util
  */
 public final class Pair<L, R> {
-  private final L left;
-  private final R right;
+	private final L left;
+	private final R right;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Pair(L left, R right) {
-    this.left = left;
-    this.right = right;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Pair(L left, R right) {
+		this.left = left;
+		this.right = right;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean equals(Object o) {
-    if (o == this) {
-      return true;
-    }
-    if (!(o instanceof Pair<?, ?>)) {
-      return false;
-    }
-    Pair<?, ?> other = (Pair<?, ?>) o;
-    return ObjectUtils.equals(getLeft(), other.getLeft())
-        && ObjectUtils.equals(getRight(), other.getRight());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof Pair<?, ?>)) {
+			return false;
+		}
+		Pair<?, ?> other = (Pair<?, ?>) o;
+		return ObjectUtils.equals(getLeft(), other.getLeft())
+				&& ObjectUtils.equals(getRight(), other.getRight());
+	}
 
-  @Override
-  public int hashCode() {
-    int hLeft = getLeft() == null ? 0 : getLeft().hashCode();
-    int hRight = getRight() == null ? 0 : getRight().hashCode();
-    return hLeft + 37 * hRight;
-  }
+	@Override
+	public int hashCode() {
+		int hLeft = getLeft() == null ? 0 : getLeft().hashCode();
+		int hRight = getRight() == null ? 0 : getRight().hashCode();
+		return hLeft + 37 * hRight;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public L getLeft() {
-    return left;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public L getLeft() {
+		return left;
+	}
 
-  public R getRight() {
-    return right;
-  }
+	public R getRight() {
+		return right;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Factory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static <L, R> Pair<L, R> create(L left, R right) {
-    return new Pair<L, R>(left, right);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Factory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static <L, R> Pair<L, R> create(L left, R right) {
+		return new Pair<L, R>(left, right);
+	}
 }

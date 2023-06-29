@@ -26,18 +26,18 @@ import javax.swing.AbstractAction;
  * @coverage swing.model
  */
 public interface IActionSupport {
-  /**
-   * @return the {@link ASTNode} of action.
-   */
-  ASTNode getCreation();
+	/**
+	 * @return the {@link ASTNode} of action.
+	 */
+	ASTNode getCreation();
 
-  /**
-   * @return list {@link Block} containing initialization source code.
-   */
-  List<Block> getInitializationBlocks() throws Exception;
+	/**
+	 * @return list {@link Block} containing initialization source code.
+	 */
+	List<Block> getInitializationBlocks() throws Exception;
 
-  /**
-   * @return {@link ConstructorDescription} for action instance creation.
-   */
-  ConstructorDescription getConstructorDescription() throws Exception;
+	/**
+	 * @return {@link ConstructorDescription} for action instance creation.
+	 */
+	ConstructorDescription getConstructorDescription() throws Exception;
 }

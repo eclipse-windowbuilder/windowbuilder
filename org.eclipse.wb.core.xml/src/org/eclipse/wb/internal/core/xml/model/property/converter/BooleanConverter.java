@@ -19,27 +19,27 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.property
  */
 public final class BooleanConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new BooleanConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new BooleanConverter();
 
-  private BooleanConverter() {
-  }
+	private BooleanConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toSource(XmlObjectInfo object, Object value) throws Exception {
-    if (value instanceof Boolean) {
-      Boolean valueBoolean = (Boolean) value;
-      return valueBoolean.toString();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toSource(XmlObjectInfo object, Object value) throws Exception {
+		if (value instanceof Boolean) {
+			Boolean valueBoolean = (Boolean) value;
+			return valueBoolean.toString();
+		}
+		return null;
+	}
 }

@@ -24,8 +24,8 @@ import org.xml.sax.Attributes;
  * @coverage XML.model.description
  */
 public final class PropertiesNoDefaultValueRule extends PropertiesFlagRule {
-  @Override
-  protected void configure(GenericPropertyDescription propertyDescription, Attributes attributes) {
-    propertyDescription.putTag(ExpressionAccessor.NO_DEFAULT_VALUE_TAG, "true");
-  }
+	@Override
+	protected void configure(GenericPropertyDescription propertyDescription, Attributes attributes) {
+		propertyDescription.putTag(ExpressionAccessor.NO_DEFAULT_VALUE_TAG, "true");
+	}
 }

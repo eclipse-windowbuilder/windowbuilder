@@ -25,65 +25,65 @@ import org.eclipse.swt.layout.FormAttachment;
  * @coverage swt.model.layout.form
  */
 public final class VirtualFormAttachmentCreationSupport extends CreationSupport {
-  private final FormDataInfo m_formDataInfo;
-  private final Object m_attachmentObject;
+	private final FormDataInfo m_formDataInfo;
+	private final Object m_attachmentObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualFormAttachmentCreationSupport(FormDataInfo formDataInfo, Object attachmentObject) {
-    m_formDataInfo = formDataInfo;
-    m_attachmentObject = attachmentObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualFormAttachmentCreationSupport(FormDataInfo formDataInfo, Object attachmentObject) {
+		m_formDataInfo = formDataInfo;
+		m_attachmentObject = attachmentObject;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ASTNode getNode() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ASTNode getNode() {
+		return null;
+	}
 
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    return false;
-  }
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		return false;
+	}
 
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    m_javaInfo.setObject(m_attachmentObject);
-    m_formDataInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
-      @Override
-      public void invoke(JavaInfo target, Object object) throws Exception {
-        // check if this CreationSupport no more needed
-        if (m_javaInfo.getCreationSupport() != VirtualFormAttachmentCreationSupport.this) {
-          m_formDataInfo.removeBroadcastListener(this);
-          return;
-        }
-        if (target == m_formDataInfo) {
-          m_javaInfo.setObject(m_attachmentObject);
-        }
-      }
-    });
-  }
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		m_javaInfo.setObject(m_attachmentObject);
+		m_formDataInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+			@Override
+			public void invoke(JavaInfo target, Object object) throws Exception {
+				// check if this CreationSupport no more needed
+				if (m_javaInfo.getCreationSupport() != VirtualFormAttachmentCreationSupport.this) {
+					m_formDataInfo.removeBroadcastListener(this);
+					return;
+				}
+				if (target == m_formDataInfo) {
+					m_javaInfo.setObject(m_attachmentObject);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return true;
+	}
 
-  @Override
-  public void delete() throws Exception {
-    JavaInfoUtils.deleteJavaInfo(m_javaInfo, false);
-  }
+	@Override
+	public void delete() throws Exception {
+		JavaInfoUtils.deleteJavaInfo(m_javaInfo, false);
+	}
 }

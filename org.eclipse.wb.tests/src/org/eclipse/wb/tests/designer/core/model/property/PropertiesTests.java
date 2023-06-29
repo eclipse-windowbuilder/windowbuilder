@@ -22,20 +22,20 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class PropertiesTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model.property");
-    suite.addTest(createSingleSuite(StandardConvertersTest.class));
-    suite.addTest(createSingleSuite(PropertyCategoryTest.class));
-    suite.addTest(createSingleSuite(PropertyTest.class));
-    suite.addTest(createSingleSuite(PropertyManagerTest.class));
-    suite.addTest(createSingleSuite(EmptyPropertyTest.class));
-    suite.addTest(createSingleSuite(EventsPropertyTest.class));
-    suite.addTest(createSingleSuite(ComponentClassPropertyTest.class));
-    suite.addTest(createSingleSuite(TabOrderPropertyTest.class));
-    suite.addTest(createSingleSuite(ExposePropertySupportTest.class));
-    suite.addTest(AccessorsTests.suite());
-    suite.addTest(PropertyEditorsTests.suite());
-    suite.addTest(PropertyTableTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.property");
+		suite.addTest(createSingleSuite(StandardConvertersTest.class));
+		suite.addTest(createSingleSuite(PropertyCategoryTest.class));
+		suite.addTest(createSingleSuite(PropertyTest.class));
+		suite.addTest(createSingleSuite(PropertyManagerTest.class));
+		suite.addTest(createSingleSuite(EmptyPropertyTest.class));
+		suite.addTest(createSingleSuite(EventsPropertyTest.class));
+		suite.addTest(createSingleSuite(ComponentClassPropertyTest.class));
+		suite.addTest(createSingleSuite(TabOrderPropertyTest.class));
+		suite.addTest(createSingleSuite(ExposePropertySupportTest.class));
+		suite.addTest(AccessorsTests.suite());
+		suite.addTest(PropertyEditorsTests.suite());
+		suite.addTest(PropertyTableTests.suite());
+		return suite;
+	}
 }

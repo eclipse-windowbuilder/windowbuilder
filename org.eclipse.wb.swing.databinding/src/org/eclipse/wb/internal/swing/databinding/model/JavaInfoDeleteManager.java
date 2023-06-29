@@ -31,43 +31,43 @@ import java.util.List;
  * @coverage bindings.swing.model
  */
 public final class JavaInfoDeleteManager
-    extends
-      org.eclipse.wb.internal.core.databinding.model.JavaInfoDeleteManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoDeleteManager(DatabindingsProvider provider) {
-    super(provider, provider.getJavaInfoRoot());
-  }
+extends
+org.eclipse.wb.internal.core.databinding.model.JavaInfoDeleteManager {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoDeleteManager(DatabindingsProvider provider) {
+		super(provider, provider.getJavaInfoRoot());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void deleteBinding(IBindingInfo ibinding, List<IBindingInfo> bindings) throws Exception {
-    BindingInfo binding = (BindingInfo) ibinding;
-    binding.delete(CoreUtils.<BindingInfo>cast(bindings));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void deleteBinding(IBindingInfo ibinding, List<IBindingInfo> bindings) throws Exception {
+		BindingInfo binding = (BindingInfo) ibinding;
+		binding.delete(CoreUtils.<BindingInfo>cast(bindings));
+	}
 
-  @Override
-  protected boolean accept(ObjectInfo javaInfo) throws Exception {
-    return javaInfo instanceof AbstractComponentInfo
-        || javaInfo.getParent() instanceof NonVisualBeanContainerInfo;
-  }
+	@Override
+	protected boolean accept(ObjectInfo javaInfo) throws Exception {
+		return javaInfo instanceof AbstractComponentInfo
+				|| javaInfo.getParent() instanceof NonVisualBeanContainerInfo;
+	}
 
-  @Override
-  protected String getReference(ObjectInfo javaInfo) throws Exception {
-    return JavaInfoReferenceProvider.getReference((JavaInfo) javaInfo);
-  }
+	@Override
+	protected String getReference(ObjectInfo javaInfo) throws Exception {
+		return JavaInfoReferenceProvider.getReference((JavaInfo) javaInfo);
+	}
 
-  @Override
-  protected boolean equals(ObjectInfo javaInfo, String javaInfoReference, IObserveInfo iobserve)
-      throws Exception {
-    ObserveInfo observe = (ObserveInfo) iobserve;
-    return javaInfoReference.equals(observe.getReference());
-  }
+	@Override
+	protected boolean equals(ObjectInfo javaInfo, String javaInfoReference, IObserveInfo iobserve)
+			throws Exception {
+		ObserveInfo observe = (ObserveInfo) iobserve;
+		return javaInfoReference.equals(observe.getReference());
+	}
 }

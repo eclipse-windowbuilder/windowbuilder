@@ -27,51 +27,51 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class ComponentEditCommand extends ComponentAbstractCommand {
-  public static final String ID = "editComponent";
+	public static final String ID = "editComponent";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComponentEditCommand(String id,
-      String name,
-      String description,
-      boolean visible,
-      String className) {
-    super(id, name, description, visible, className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComponentEditCommand(String id,
+			String name,
+			String description,
+			boolean visible,
+			String className) {
+		super(id, name, description, visible, className);
+	}
 
-  public ComponentEditCommand(Attributes attributes) {
-    super(attributes);
-  }
+	public ComponentEditCommand(Attributes attributes) {
+		super(attributes);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    EntryInfo entry = palette.getEntry(m_id);
-    if (entry instanceof ComponentEntryInfo) {
-      updateElement(entry);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		EntryInfo entry = palette.getEntry(m_id);
+		if (entry instanceof ComponentEntryInfo) {
+			updateElement(entry);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addToCommandList(final List<Command> commands) {
-    ExecutionUtils.runIgnore(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        removeCommands(commands, ComponentEditCommand.class, m_id);
-      }
-    });
-    commands.add(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addToCommandList(final List<Command> commands) {
+		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				removeCommands(commands, ComponentEditCommand.class, m_id);
+			}
+		});
+		commands.add(this);
+	}
 }

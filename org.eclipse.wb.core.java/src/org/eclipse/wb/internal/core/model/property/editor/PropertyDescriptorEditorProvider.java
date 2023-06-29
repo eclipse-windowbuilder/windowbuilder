@@ -20,54 +20,54 @@ import java.beans.PropertyDescriptor;
  * @coverage core.model.property.editor
  */
 public final class PropertyDescriptorEditorProvider extends PropertyEditorProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyEditorProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public PropertyEditor getEditorForPropertyDescriptor(PropertyDescriptor descriptor)
-      throws Exception {
-    {
-      Object attributeValue = descriptor.getValue("enumerationValues");
-      if (isEnumerationProperty(descriptor)) {
-        return new EnumerationValuesPropertyEditor(attributeValue);
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyEditorProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public PropertyEditor getEditorForPropertyDescriptor(PropertyDescriptor descriptor)
+			throws Exception {
+		{
+			Object attributeValue = descriptor.getValue("enumerationValues");
+			if (isEnumerationProperty(descriptor)) {
+				return new EnumerationValuesPropertyEditor(attributeValue);
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given {@link PropertyDescriptor} has attribute "enumerationValues"
-   *         with valid value structure.
-   */
-  private static boolean isEnumerationProperty(PropertyDescriptor descriptor) {
-    Object attributeValue = descriptor.getValue("enumerationValues");
-    // should be Object[]
-    if (!(attributeValue instanceof Object[])) {
-      return false;
-    }
-    Object[] enumElements = (Object[]) attributeValue;
-    // should be multiple 3
-    if (enumElements.length == 0 || enumElements.length % 3 != 0) {
-      return false;
-    }
-    // elements should be sequence of [String,Object,String]
-    for (int i = 0; i < enumElements.length; i++) {
-      Object element = enumElements[i];
-      if (i % 3 == 0 && !(element instanceof String)) {
-        return false;
-      }
-      if (i % 3 == 2 && !(element instanceof String)) {
-        return false;
-      }
-    }
-    // OK
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given {@link PropertyDescriptor} has attribute "enumerationValues"
+	 *         with valid value structure.
+	 */
+	private static boolean isEnumerationProperty(PropertyDescriptor descriptor) {
+		Object attributeValue = descriptor.getValue("enumerationValues");
+		// should be Object[]
+		if (!(attributeValue instanceof Object[])) {
+			return false;
+		}
+		Object[] enumElements = (Object[]) attributeValue;
+		// should be multiple 3
+		if (enumElements.length == 0 || enumElements.length % 3 != 0) {
+			return false;
+		}
+		// elements should be sequence of [String,Object,String]
+		for (int i = 0; i < enumElements.length; i++) {
+			Object element = enumElements[i];
+			if (i % 3 == 0 && !(element instanceof String)) {
+				return false;
+			}
+			if (i % 3 == 2 && !(element instanceof String)) {
+				return false;
+			}
+		}
+		// OK
+		return true;
+	}
 }

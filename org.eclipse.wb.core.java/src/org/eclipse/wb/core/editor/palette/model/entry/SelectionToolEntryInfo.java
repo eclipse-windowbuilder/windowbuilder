@@ -26,30 +26,30 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.editor.palette
  */
 public class SelectionToolEntryInfo extends ToolEntryInfo implements IDefaultEntryInfo {
-  private static final Image ICON = DesignerPlugin.getImage("palette/SelectionTool.gif");
-  private final SelectionTool m_selectionTool = new SelectionTool();
+	private static final Image ICON = DesignerPlugin.getImage("palette/SelectionTool.gif");
+	private final SelectionTool m_selectionTool = new SelectionTool();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionToolEntryInfo() {
-    setName(Messages.SelectionToolEntryInfo_name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionToolEntryInfo() {
+		setName(Messages.SelectionToolEntryInfo_name);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    return m_selectionTool;
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		return m_selectionTool;
+	}
 }

@@ -24,42 +24,42 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class SingleSelectionObservableCodeSupport extends ObservableCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName(
-          observable.getBindableObject().getReference(),
-          observable.getBindableProperty().getReference()));
-    }
-    SingleSelectionObservableInfo selectionObservable = (SingleSelectionObservableInfo) observable;
-    if (selectionObservable.getDelayValue() == 0) {
-      // no delay
-      lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
-          + observable.getVariableIdentifier()
-          + " = org.eclipse.jface.databinding.viewers.ViewersObservables."
-          + observable.getBindableProperty().getReference()
-          + "("
-          + observable.getBindableObject().getReference()
-          + ");");
-    } else {
-      // with delay
-      lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
-          + observable.getVariableIdentifier()
-          + " = org.eclipse.jface.databinding.viewers.ViewersObservables.observeDelayedValue("
-          + Integer.toString(selectionObservable.getDelayValue())
-          + ", org.eclipse.jface.databinding.viewers.ViewersObservables."
-          + observable.getBindableProperty().getReference()
-          + "("
-          + observable.getBindableObject().getReference()
-          + "));");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName(
+					observable.getBindableObject().getReference(),
+					observable.getBindableProperty().getReference()));
+		}
+		SingleSelectionObservableInfo selectionObservable = (SingleSelectionObservableInfo) observable;
+		if (selectionObservable.getDelayValue() == 0) {
+			// no delay
+			lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
+					+ observable.getVariableIdentifier()
+					+ " = org.eclipse.jface.databinding.viewers.ViewersObservables."
+					+ observable.getBindableProperty().getReference()
+					+ "("
+					+ observable.getBindableObject().getReference()
+					+ ");");
+		} else {
+			// with delay
+			lines.add("org.eclipse.core.databinding.observable.value.IObservableValue "
+					+ observable.getVariableIdentifier()
+					+ " = org.eclipse.jface.databinding.viewers.ViewersObservables.observeDelayedValue("
+					+ Integer.toString(selectionObservable.getDelayValue())
+					+ ", org.eclipse.jface.databinding.viewers.ViewersObservables."
+					+ observable.getBindableProperty().getReference()
+					+ "("
+					+ observable.getBindableObject().getReference()
+					+ "));");
+		}
+	}
 }

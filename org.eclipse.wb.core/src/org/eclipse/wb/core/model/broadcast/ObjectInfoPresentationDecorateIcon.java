@@ -21,13 +21,13 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.model
  */
 public interface ObjectInfoPresentationDecorateIcon {
-  /**
-   * This method is used to support external decoration of "default" object icon.
-   *
-   * @param object
-   *          the {@link ObjectInfo} to decorate icon.
-   * @param icon
-   *          the array with single {@link Image}, listener can replace this image
-   */
-  void invoke(ObjectInfo object, Image[] icon) throws Exception;
+	/**
+	 * This method is used to support external decoration of "default" object icon.
+	 *
+	 * @param object
+	 *          the {@link ObjectInfo} to decorate icon.
+	 * @param icon
+	 *          the array with single {@link Image}, listener can replace this image
+	 */
+	void invoke(ObjectInfo object, Image[] icon) throws Exception;
 }

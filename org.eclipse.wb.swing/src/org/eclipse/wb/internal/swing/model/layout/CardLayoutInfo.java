@@ -37,162 +37,162 @@ import java.util.List;
  * @coverage swing.model.layout
  */
 public final class CardLayoutInfo extends LayoutInfo {
-  private final StackContainerSupport<ComponentInfo> m_stackContainer =
-      new StackContainerSupport<ComponentInfo>(this) {
-        @Override
-        protected boolean isActive() {
-          return CardLayoutInfo.this.isActive();
-        }
+	private final StackContainerSupport<ComponentInfo> m_stackContainer =
+			new StackContainerSupport<ComponentInfo>(this) {
+		@Override
+		protected boolean isActive() {
+			return CardLayoutInfo.this.isActive();
+		}
 
-        @Override
-        protected ObjectInfo getContainer() {
-          return CardLayoutInfo.this.getContainer();
-        }
+		@Override
+		protected ObjectInfo getContainer() {
+			return CardLayoutInfo.this.getContainer();
+		}
 
-        @Override
-        protected List<ComponentInfo> getChildren() {
-          return getComponents();
-        }
-      };
+		@Override
+		protected List<ComponentInfo> getChildren() {
+			return getComponents();
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CardLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CardLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // CardLayout
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the AWT {@link CardLayout} object for this model.
-   */
-  private CardLayout getLayout() {
-    return (CardLayout) getObject();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// CardLayout
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the AWT {@link CardLayout} object for this model.
+	 */
+	private CardLayout getLayout() {
+		return (CardLayout) getObject();
+	}
 
-  public ComponentInfo getCurrentComponent() {
-    return m_stackContainer.getActive();
-  }
+	public ComponentInfo getCurrentComponent() {
+		return m_stackContainer.getActive();
+	}
 
-  public ComponentInfo getPrevComponent() {
-    return m_stackContainer.getPrev();
-  }
+	public ComponentInfo getPrevComponent() {
+		return m_stackContainer.getPrev();
+	}
 
-  public ComponentInfo getNextComponent() {
-    return m_stackContainer.getNext();
-  }
+	public ComponentInfo getNextComponent() {
+		return m_stackContainer.getNext();
+	}
 
-  /**
-   * Shows {@link ComponentInfo}, performs "refresh".
-   */
-  public void show(ComponentInfo component) {
-    m_stackContainer.setActive(component);
-  }
+	/**
+	 * Shows {@link ComponentInfo}, performs "refresh".
+	 */
+	public void show(ComponentInfo component) {
+		m_stackContainer.setActive(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Events
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    addBroadcastListener(new ObjectInfoChildGraphical() {
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        // show only current component on design canvas
-        if (isManagedObject(object)) {
-          ComponentInfo component = (ComponentInfo) object;
-          if (isManagedObject(component) && component != getCurrentComponent()) {
-            visible[0] = false;
-          }
-        }
-      }
-    });
-    new LayoutAssistantSupport(this) {
-      @Override
-      protected AbstractAssistantPage createLayoutPage(Composite parent) {
-        return new CardLayoutAssistantPage(parent, m_layout);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Events
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		addBroadcastListener(new ObjectInfoChildGraphical() {
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				// show only current component on design canvas
+				if (isManagedObject(object)) {
+					ComponentInfo component = (ComponentInfo) object;
+					if (isManagedObject(component) && component != getCurrentComponent()) {
+						visible[0] = false;
+					}
+				}
+			}
+		});
+		new LayoutAssistantSupport(this) {
+			@Override
+			protected AbstractAssistantPage createLayoutPage(Composite parent) {
+				return new CardLayoutAssistantPage(parent, m_layout);
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    ComponentInfo currentComponent = getCurrentComponent();
-    if (currentComponent != null) {
-      // prepare swing objects
-      CardLayout layout = getLayout();
-      Component component = currentComponent.getComponent();
-      Container container = component.getParent();
-      // show current component
-      while (!component.isVisible()) {
-        layout.next(container);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		ComponentInfo currentComponent = getCurrentComponent();
+		if (currentComponent != null) {
+			// prepare swing objects
+			CardLayout layout = getLayout();
+			Component component = currentComponent.getComponent();
+			Container container = component.getParent();
+			// show current component
+			while (!component.isVisible()) {
+				layout.next(container);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Conversion
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void onSet() throws Exception {
-    for (ComponentInfo component : getContainer().getChildrenComponents()) {
-      Association association = component.getAssociation();
-      if (association instanceof InvocationAssociation) {
-        MethodInvocation invocation = ((InvocationAssociation) association).getInvocation();
-        if (invocation.arguments().size() == 1) {
-          getEditor().addInvocationArgument(invocation, 1, getComponentConstraints());
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Conversion
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void onSet() throws Exception {
+		for (ComponentInfo component : getContainer().getChildrenComponents()) {
+			Association association = component.getAssociation();
+			if (association instanceof InvocationAssociation) {
+				MethodInvocation invocation = ((InvocationAssociation) association).getInvocation();
+				if (invocation.arguments().size() == 1) {
+					getEditor().addInvocationArgument(invocation, 1, getComponentConstraints());
+				}
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds {@link ComponentInfo} to this {@link ContainerInfo}.
-   */
-  public void command_CREATE(ComponentInfo component, ComponentInfo nextComponent) throws Exception {
-    add(component, getComponentConstraints(), nextComponent);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds {@link ComponentInfo} to this {@link ContainerInfo}.
+	 */
+	public void command_CREATE(ComponentInfo component, ComponentInfo nextComponent) throws Exception {
+		add(component, getComponentConstraints(), nextComponent);
+	}
 
-  /**
-   * Moves {@link ComponentInfo} to this {@link ContainerInfo}.
-   */
-  public void command_MOVE(ComponentInfo component, ComponentInfo nextComponent) throws Exception {
-    move(component, getComponentConstraints(), nextComponent);
-  }
+	/**
+	 * Moves {@link ComponentInfo} to this {@link ContainerInfo}.
+	 */
+	public void command_MOVE(ComponentInfo component, ComponentInfo nextComponent) throws Exception {
+		move(component, getComponentConstraints(), nextComponent);
+	}
 
-  /**
-   * @return unique source of name for {@link CardLayout} constraints.
-   */
-  private static final String getComponentConstraints() {
-    return '"' + getUniqueString() + '"';
-  }
+	/**
+	 * @return unique source of name for {@link CardLayout} constraints.
+	 */
+	private static final String getComponentConstraints() {
+		return '"' + getUniqueString() + '"';
+	}
 
-  /**
-   * @return the unique {@link String} to use as name.
-   */
-  private static String getUniqueString() {
-    return "name_" + System.nanoTime();
-  }
+	/**
+	 * @return the unique {@link String} to use as name.
+	 */
+	private static String getUniqueString() {
+		return "name_" + System.nanoTime();
+	}
 }

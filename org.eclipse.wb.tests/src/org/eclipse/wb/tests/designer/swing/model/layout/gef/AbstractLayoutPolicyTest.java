@@ -19,30 +19,30 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
  * @author scheglov_ke
  */
 public class AbstractLayoutPolicyTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Layout testing utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Check for drop given layout on root container.
-   */
-  protected final void check_setLayout(String[] source,
-      String layoutClassName,
-      String[] source2,
-      int clickOffsetX,
-      int clickOffsetY) throws Exception {
-    openContainer(source);
-    //
-    loadCreationTool(layoutClassName);
-    canvas.moveTo(m_contentEditPart, clickOffsetX, clickOffsetY);
-    canvas.assertFeedbackFigures(1);
-    waitEventLoop(10);
-    //
-    canvas.click();
-    canvas.assertNoFeedbackFigures();
-    waitEventLoop(10);
-    //
-    assertEditor(source2);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Layout testing utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Check for drop given layout on root container.
+	 */
+	protected final void check_setLayout(String[] source,
+			String layoutClassName,
+			String[] source2,
+			int clickOffsetX,
+			int clickOffsetY) throws Exception {
+		openContainer(source);
+		//
+		loadCreationTool(layoutClassName);
+		canvas.moveTo(m_contentEditPart, clickOffsetX, clickOffsetY);
+		canvas.assertFeedbackFigures(1);
+		waitEventLoop(10);
+		//
+		canvas.click();
+		canvas.assertNoFeedbackFigures();
+		waitEventLoop(10);
+		//
+		assertEditor(source2);
+	}
 }

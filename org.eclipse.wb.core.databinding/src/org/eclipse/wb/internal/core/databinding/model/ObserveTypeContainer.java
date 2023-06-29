@@ -28,114 +28,114 @@ import java.util.List;
  * @coverage bindings.model
  */
 public abstract class ObserveTypeContainer implements ISubParser {
-  private final ObserveType m_observeType;
-  private final boolean m_isTarget;
-  private final boolean m_isModel;
+	private final ObserveType m_observeType;
+	private final boolean m_isTarget;
+	private final boolean m_isModel;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveTypeContainer(ObserveType observeType, boolean isTarget, boolean isModel) {
-    m_observeType = observeType;
-    m_isTarget = isTarget;
-    m_isModel = isModel;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveTypeContainer(ObserveType observeType, boolean isTarget, boolean isModel) {
+		m_observeType = observeType;
+		m_isTarget = isTarget;
+		m_isModel = isModel;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void initialize(IDatabindingsProvider provider) throws Exception {
-    // No actions necessary
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void initialize(IDatabindingsProvider provider) throws Exception {
+		// No actions necessary
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Accept
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this container can work with given {@link JavaInfo}.
-   */
-  public boolean accept(JavaInfo javaInfoRoot) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Accept
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this container can work with given {@link JavaInfo}.
+	 */
+	public boolean accept(JavaInfo javaInfoRoot) {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObserveType
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link ObserveType} association with this container.
-   */
-  public final ObserveType getObserveType() {
-    return m_observeType;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObserveType
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link ObserveType} association with this container.
+	 */
+	public final ObserveType getObserveType() {
+		return m_observeType;
+	}
 
-  /**
-   * @return <code>true</code> if page for hosted {@link ObserveType} is started on "target" mode.
-   */
-  public final boolean isTargetStartType() {
-    return m_isTarget;
-  }
+	/**
+	 * @return <code>true</code> if page for hosted {@link ObserveType} is started on "target" mode.
+	 */
+	public final boolean isTargetStartType() {
+		return m_isTarget;
+	}
 
-  /**
-   * @return <code>true</code> if page for hosted {@link ObserveType} is started on "model" mode.
-   */
-  public final boolean isModelStartType() {
-    return m_isModel;
-  }
+	/**
+	 * @return <code>true</code> if page for hosted {@link ObserveType} is started on "model" mode.
+	 */
+	public final boolean isModelStartType() {
+		return m_isModel;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parse
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Parse current compilation unit for create {@link IObserveInfo}'s.
-   */
-  public abstract void createObservables(JavaInfo root,
-      IModelResolver resolver,
-      AstEditor editor,
-      TypeDeclaration rootNode) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parse
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Parse current compilation unit for create {@link IObserveInfo}'s.
+	 */
+	public abstract void createObservables(JavaInfo root,
+			IModelResolver resolver,
+			AstEditor editor,
+			TypeDeclaration rootNode) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObserveInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return all {@link IObserveInfo}'s with hosted {@link ObserveType} contains into current
-   *         compilation unit.
-   */
-  public abstract List<IObserveInfo> getObservables();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObserveInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return all {@link IObserveInfo}'s with hosted {@link ObserveType} contains into current
+	 *         compilation unit.
+	 */
+	public abstract List<IObserveInfo> getObservables();
 
-  /**
-   * Update all observes (fields, JavaInfo, etc.) maybe more elements is added or removed.
-   */
-  public abstract void synchronizeObserves(JavaInfo root, AstEditor editor, TypeDeclaration rootNode)
-      throws Exception;
+	/**
+	 * Update all observes (fields, JavaInfo, etc.) maybe more elements is added or removed.
+	 */
+	public abstract void synchronizeObserves(JavaInfo root, AstEditor editor, TypeDeclaration rootNode)
+			throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Classpath
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configure given {@link IJavaProject} classpath and copy to project support classes or
-   * libraries.
-   */
-  public boolean ensureDBLibraries(IJavaProject javaProject) throws Exception {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Classpath
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configure given {@link IJavaProject} classpath and copy to project support classes or
+	 * libraries.
+	 */
+	public boolean ensureDBLibraries(IJavaProject javaProject) throws Exception {
+		return false;
+	}
 
-  /**
-   * Copy to {@link IJavaProject} internal helper classes.
-   */
-  public void ensureDesignerResources(IJavaProject javaProject) throws Exception {
-  }
+	/**
+	 * Copy to {@link IJavaProject} internal helper classes.
+	 */
+	public void ensureDesignerResources(IJavaProject javaProject) throws Exception {
+	}
 }

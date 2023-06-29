@@ -23,121 +23,121 @@ import java.util.List;
  * @author lobas_av
  */
 public final class DataBindManager {
-  private final List<Binding> m_bindings = new ArrayList<>();
+	private final List<Binding> m_bindings = new ArrayList<>();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Binding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Bind data editor to data source.
-   */
-  public void bind(IDataEditor editor, IDataProvider provider) {
-    bind(editor, provider, false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Binding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Bind data editor to data source.
+	 */
+	public void bind(IDataEditor editor, IDataProvider provider) {
+		bind(editor, provider, false);
+	}
 
-  /**
-   * Bind data editor to data source.
-   */
-  public void bind(IDataEditor editor, IDataProvider provider, boolean setValue) {
-    m_bindings.add(new Binding(editor, provider));
-    // set value
-    if (setValue) {
-      editor.setValue(provider.getValue(false));
-    }
-  }
+	/**
+	 * Bind data editor to data source.
+	 */
+	public void bind(IDataEditor editor, IDataProvider provider, boolean setValue) {
+		m_bindings.add(new Binding(editor, provider));
+		// set value
+		if (setValue) {
+			editor.setValue(provider.getValue(false));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final List<Runnable> m_updateRunnables = new ArrayList<>();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final List<Runnable> m_updateRunnables = new ArrayList<>();
 
-  /**
-   * Adds {@link Runnable} that should be run after values modifications, for example during
-   * {@link #performUpdate()} and {@link #performDefault()} or on event in {@link Widget}.
-   */
-  public void addUpdateRunnable(Runnable runnable) {
-    m_updateRunnables.add(runnable);
-  }
+	/**
+	 * Adds {@link Runnable} that should be run after values modifications, for example during
+	 * {@link #performUpdate()} and {@link #performDefault()} or on event in {@link Widget}.
+	 */
+	public void addUpdateRunnable(Runnable runnable) {
+		m_updateRunnables.add(runnable);
+	}
 
-  /**
-   * Specifies that registered update {@link Runnable}'s should be executed after event with given
-   * type in {@link Widget}.
-   */
-  public void addUpdateEvent(Widget widget, int eventType) {
-    widget.addListener(eventType, event -> runUpdateRunnables());
-  }
+	/**
+	 * Specifies that registered update {@link Runnable}'s should be executed after event with given
+	 * type in {@link Widget}.
+	 */
+	public void addUpdateEvent(Widget widget, int eventType) {
+		widget.addListener(eventType, event -> runUpdateRunnables());
+	}
 
-  /**
-   * Runs {@link Runnable}'s.
-   */
-  private void runUpdateRunnables() {
-    for (Runnable runnable : m_updateRunnables) {
-      runnable.run();
-    }
-  }
+	/**
+	 * Runs {@link Runnable}'s.
+	 */
+	private void runUpdateRunnables() {
+		for (Runnable runnable : m_updateRunnables) {
+			runnable.run();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Update all editors of current data values.
-   */
-  public void performUpdate() {
-    updateEditors(false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Update all editors of current data values.
+	 */
+	public void performUpdate() {
+		updateEditors(false);
+	}
 
-  /**
-   * Update all editors of default data values.
-   */
-  public void performDefault() {
-    updateEditors(true);
-  }
+	/**
+	 * Update all editors of default data values.
+	 */
+	public void performDefault() {
+		updateEditors(true);
+	}
 
-  /**
-   * Save all editor values into providers.
-   */
-  public void performCommit() {
-    updateProviders();
-  }
+	/**
+	 * Save all editor values into providers.
+	 */
+	public void performCommit() {
+		updateProviders();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void updateProviders() {
-    MultiStatus multiStatus = BindingStatus.ok();
-    for (Binding binding : m_bindings) {
-      IStatus status = binding.updateProvider();
-      if (!mergeStatus(multiStatus, status)) {
-        return;
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void updateProviders() {
+		MultiStatus multiStatus = BindingStatus.ok();
+		for (Binding binding : m_bindings) {
+			IStatus status = binding.updateProvider();
+			if (!mergeStatus(multiStatus, status)) {
+				return;
+			}
+		}
+	}
 
-  private void updateEditors(boolean def) {
-    for (Binding binding : m_bindings) {
-      binding.updateEditor(def);
-    }
-    runUpdateRunnables();
-  }
+	private void updateEditors(boolean def) {
+		for (Binding binding : m_bindings) {
+			binding.updateEditor(def);
+		}
+		runUpdateRunnables();
+	}
 
-  /**
-   * Incorporates the provided <code>newStatus</code> into the <code>multiStatus</code>.
-   *
-   * @return <code>true</code> if the update should proceed.
-   */
-  private boolean mergeStatus(MultiStatus multiStatus, IStatus newStatus) {
-    if (!newStatus.isOK()) {
-      multiStatus.add(newStatus);
-      return multiStatus.getSeverity() < IStatus.ERROR;
-    }
-    return true;
-  }
+	/**
+	 * Incorporates the provided <code>newStatus</code> into the <code>multiStatus</code>.
+	 *
+	 * @return <code>true</code> if the update should proceed.
+	 */
+	private boolean mergeStatus(MultiStatus multiStatus, IStatus newStatus) {
+		if (!newStatus.isOK()) {
+			multiStatus.add(newStatus);
+			return multiStatus.getSeverity() < IStatus.ERROR;
+		}
+		return true;
+	}
 }

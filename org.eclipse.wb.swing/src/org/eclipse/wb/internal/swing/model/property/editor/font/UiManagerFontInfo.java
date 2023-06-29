@@ -23,55 +23,55 @@ import javax.swing.UIManager;
  * @coverage swing.property.editor
  */
 public final class UiManagerFontInfo extends FontInfo {
-  private final String m_key;
-  private final Font m_font;
+	private final String m_key;
+	private final Font m_font;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UiManagerFontInfo(String key, Font font) {
-    m_key = key;
-    m_font = font;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UiManagerFontInfo(String key, Font font) {
+		m_key = key;
+		m_font = font;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the key value of font in {@link UIManager}.
-   */
-  public String getKey() {
-    return m_key;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the key value of font in {@link UIManager}.
+	 */
+	public String getKey() {
+		return m_key;
+	}
 
-  /**
-   * @return the only value text, without key in contrast to {@link #getText()}.
-   */
-  public String getValueText() {
-    return getText(m_font);
-  }
+	/**
+	 * @return the only value text, without key in contrast to {@link #getText()}.
+	 */
+	public String getValueText() {
+		return getText(m_font);
+	}
 
-  /**
-   * @return the inner {@link Font}.
-   */
-  @Override
-  public Font getFont() {
-    return m_font;
-  }
+	/**
+	 * @return the inner {@link Font}.
+	 */
+	@Override
+	public Font getFont() {
+		return m_font;
+	}
 
-  @Override
-  public String getText() {
-    return m_key + ", " + getText(m_font);
-  }
+	@Override
+	public String getText() {
+		return m_key + ", " + getText(m_font);
+	}
 
-  @Override
-  public String getSource() throws Exception {
-    return "javax.swing.UIManager.getFont("
-        + StringConverter.INSTANCE.toJavaSource(null, m_key)
-        + ")";
-  }
+	@Override
+	public String getSource() throws Exception {
+		return "javax.swing.UIManager.getFont("
+				+ StringConverter.INSTANCE.toJavaSource(null, m_key)
+				+ ")";
+	}
 }

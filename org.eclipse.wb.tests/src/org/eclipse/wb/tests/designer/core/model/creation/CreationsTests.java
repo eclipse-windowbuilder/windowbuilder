@@ -22,25 +22,25 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class CreationsTests extends DesignerSuiteTests {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Suite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model.creation");
-    // creations
-    suite.addTest(createSingleSuite(ThisCreationSupportTest.class));
-    suite.addTest(createSingleSuite(ConstructorCreationSupportTest.class));
-    suite.addTest(createSingleSuite(ExposedPropertyCreationSupportTest.class));
-    suite.addTest(createSingleSuite(ExposedFieldCreationSupportTest.class));
-    suite.addTest(createSingleSuite(SuperInvocationCreationSupportTest.class));
-    // factories
-    suite.addTest(FactoriesTests.suite());
-    // other
-    suite.addTest(createSingleSuite(InvocationChainCreationSupportTest.class));
-    suite.addTest(createSingleSuite(ICreationSupportPermissionsTest.class));
-    suite.addTest(createSingleSuite(OpaqueCreationSupportTest.class));
-    return suite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Suite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.creation");
+		// creations
+		suite.addTest(createSingleSuite(ThisCreationSupportTest.class));
+		suite.addTest(createSingleSuite(ConstructorCreationSupportTest.class));
+		suite.addTest(createSingleSuite(ExposedPropertyCreationSupportTest.class));
+		suite.addTest(createSingleSuite(ExposedFieldCreationSupportTest.class));
+		suite.addTest(createSingleSuite(SuperInvocationCreationSupportTest.class));
+		// factories
+		suite.addTest(FactoriesTests.suite());
+		// other
+		suite.addTest(createSingleSuite(InvocationChainCreationSupportTest.class));
+		suite.addTest(createSingleSuite(ICreationSupportPermissionsTest.class));
+		suite.addTest(createSingleSuite(OpaqueCreationSupportTest.class));
+		return suite;
+	}
 }

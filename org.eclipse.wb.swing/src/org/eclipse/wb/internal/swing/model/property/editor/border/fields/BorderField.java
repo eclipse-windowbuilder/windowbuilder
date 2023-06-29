@@ -47,144 +47,144 @@ import javax.swing.border.Border;
  * @coverage swing.property.editor
  */
 public final class BorderField extends AbstractBorderField {
-  private AstEditor m_editor;
-  private Text m_text;
-  private Border m_border;
+	private AstEditor m_editor;
+	private Text m_text;
+	private Border m_border;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BorderField(Composite parent, String labelText, String buttonText) {
-    super(parent, 2, labelText);
-    {
-      m_text = new Text(this, SWT.BORDER | SWT.READ_ONLY);
-      GridDataFactory.create(m_text).hintHC(35);
-    }
-    {
-      Button button = new Button(this, SWT.NONE);
-      GridDataFactory.create(button).hintHC(10);
-      button.setText(buttonText);
-      button.addListener(SWT.Selection, new Listener() {
-        public void handleEvent(Event e) {
-          BorderDialog borderDialog = new BorderDialog(getShell(), m_editor);
-          borderDialog.setBorderModified(m_border != null);
-          borderDialog.setBorder(m_border);
-          if (borderDialog.open() == Window.OK) {
-            m_border = borderDialog.getBorder();
-            showBorder();
-            notifyListeners(SWT.Selection, new Event());
-          }
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BorderField(Composite parent, String labelText, String buttonText) {
+		super(parent, 2, labelText);
+		{
+			m_text = new Text(this, SWT.BORDER | SWT.READ_ONLY);
+			GridDataFactory.create(m_text).hintHC(35);
+		}
+		{
+			Button button = new Button(this, SWT.NONE);
+			GridDataFactory.create(button).hintHC(10);
+			button.setText(buttonText);
+			button.addListener(SWT.Selection, new Listener() {
+				public void handleEvent(Event e) {
+					BorderDialog borderDialog = new BorderDialog(getShell(), m_editor);
+					borderDialog.setBorderModified(m_border != null);
+					borderDialog.setBorder(m_border);
+					if (borderDialog.open() == Window.OK) {
+						m_border = borderDialog.getBorder();
+						showBorder();
+						notifyListeners(SWT.Selection, new Event());
+					}
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the {@link AstEditor} to use with {@link BorderDialog}.
-   */
-  public void setEditor(AstEditor editor) {
-    m_editor = editor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the {@link AstEditor} to use with {@link BorderDialog}.
+	 */
+	public void setEditor(AstEditor editor) {
+		m_editor = editor;
+	}
 
-  /**
-   * @return current {@link Border}.
-   */
-  public Border getBorder() {
-    return m_border;
-  }
+	/**
+	 * @return current {@link Border}.
+	 */
+	public Border getBorder() {
+		return m_border;
+	}
 
-  /**
-   * Sets the {@link Border} value.
-   */
-  public void setBorder(Border border) throws Exception {
-    m_border = border;
-    showBorder();
-  }
+	/**
+	 * Sets the {@link Border} value.
+	 */
+	public void setBorder(Border border) throws Exception {
+		m_border = border;
+		showBorder();
+	}
 
-  @Override
-  public String getSource() throws Exception {
-    // try to use AbstractBorderComposite's to convert Border into source
-    if (m_border != null) {
-      for (Class<?> compositeClass : COMPOSITE_CLASSES) {
-        AbstractBorderComposite borderComposite = getBorderComposite(compositeClass);
-        try {
-          if (borderComposite.setBorder(m_border)) {
-            return borderComposite.getSource();
-          }
-        } finally {
-          returnBorderComposite(borderComposite);
-        }
-      }
-    }
-    // no, we don't understand this Border
-    return null;
-  }
+	@Override
+	public String getSource() throws Exception {
+		// try to use AbstractBorderComposite's to convert Border into source
+		if (m_border != null) {
+			for (Class<?> compositeClass : COMPOSITE_CLASSES) {
+				AbstractBorderComposite borderComposite = getBorderComposite(compositeClass);
+				try {
+					if (borderComposite.setBorder(m_border)) {
+						return borderComposite.getSource();
+					}
+				} finally {
+					returnBorderComposite(borderComposite);
+				}
+			}
+		}
+		// no, we don't understand this Border
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Borders
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final Shell INVISIBLE_SHELL = new Shell();
-  private static final Class<?>[] COMPOSITE_CLASSES = {
-      BevelBorderComposite.class,
-      CompoundBorderComposite.class,
-      EmptyBorderComposite.class,
-      EtchedBorderComposite.class,
-      LineBorderComposite.class,
-      MatteBorderComposite.class,
-      SoftBevelBorderComposite.class,
-      TitledBorderComposite.class,
-      SwingBorderComposite.class,};
-  private static final List<AbstractBorderComposite> m_borderComposites = Lists.newLinkedList();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Borders
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final Shell INVISIBLE_SHELL = new Shell();
+	private static final Class<?>[] COMPOSITE_CLASSES = {
+			BevelBorderComposite.class,
+			CompoundBorderComposite.class,
+			EmptyBorderComposite.class,
+			EtchedBorderComposite.class,
+			LineBorderComposite.class,
+			MatteBorderComposite.class,
+			SoftBevelBorderComposite.class,
+			TitledBorderComposite.class,
+			SwingBorderComposite.class,};
+	private static final List<AbstractBorderComposite> m_borderComposites = Lists.newLinkedList();
 
-  /**
-   * Note, that we can not reuse {@link AbstractBorderComposite}'s, so when we get some
-   * {@link AbstractBorderComposite}, we should return it back, else new instance will be created.
-   *
-   * @return the instance free of {@link AbstractBorderComposite}.
-   */
-  private static final AbstractBorderComposite getBorderComposite(Class<?> compositeClass)
-      throws Exception {
-    for (Iterator<AbstractBorderComposite> I = m_borderComposites.iterator(); I.hasNext();) {
-      AbstractBorderComposite borderComposite = I.next();
-      if (borderComposite.getClass() == compositeClass) {
-        I.remove();
-        return borderComposite;
-      }
-    }
-    // create new instance
-    return (AbstractBorderComposite) compositeClass.getConstructor(Composite.class).newInstance(
-        INVISIBLE_SHELL);
-  }
+	/**
+	 * Note, that we can not reuse {@link AbstractBorderComposite}'s, so when we get some
+	 * {@link AbstractBorderComposite}, we should return it back, else new instance will be created.
+	 *
+	 * @return the instance free of {@link AbstractBorderComposite}.
+	 */
+	private static final AbstractBorderComposite getBorderComposite(Class<?> compositeClass)
+			throws Exception {
+		for (Iterator<AbstractBorderComposite> I = m_borderComposites.iterator(); I.hasNext();) {
+			AbstractBorderComposite borderComposite = I.next();
+			if (borderComposite.getClass() == compositeClass) {
+				I.remove();
+				return borderComposite;
+			}
+		}
+		// create new instance
+		return (AbstractBorderComposite) compositeClass.getConstructor(Composite.class).newInstance(
+				INVISIBLE_SHELL);
+	}
 
-  /**
-   * Returns given {@link AbstractBorderComposite} to the list of available.
-   */
-  private static final void returnBorderComposite(AbstractBorderComposite borderComposite) {
-    m_borderComposites.add(borderComposite);
-  }
+	/**
+	 * Returns given {@link AbstractBorderComposite} to the list of available.
+	 */
+	private static final void returnBorderComposite(AbstractBorderComposite borderComposite) {
+		m_borderComposites.add(borderComposite);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Shows current value of {@link #m_border}.
-   */
-  private void showBorder() {
-    if (m_border != null) {
-      m_text.setText(m_border.getClass().getName());
-    } else {
-      m_text.setText("");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Shows current value of {@link #m_border}.
+	 */
+	private void showBorder() {
+		if (m_border != null) {
+			m_text.setText(m_border.getClass().getName());
+		} else {
+			m_text.setText("");
+		}
+	}
 }

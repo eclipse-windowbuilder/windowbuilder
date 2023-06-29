@@ -29,64 +29,64 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class TreeStructureAdvisorInfo extends SimpleClassObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TreeStructureAdvisorInfo(String className) {
-    super(className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TreeStructureAdvisorInfo(String className) {
+		super(className);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create {@link IUiContentProvider} content providers for edit this model.
-   */
-  public final void createContentProviders(List<IUiContentProvider> providers,
-      DatabindingsProvider provider) {
-    ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel(Messages.TreeStructureAdvisorInfo_label);
-    configure(configuration);
-    configuration.setEmptyClassErrorMessage(Messages.TreeStructureAdvisorInfo_errorMessage);
-    configuration.setErrorMessagePrefix(Messages.TreeStructureAdvisorInfo_errorMessagePrefix);
-    providers.add(new SimpleClassUiContentProvider(configuration, this));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create {@link IUiContentProvider} content providers for edit this model.
+	 */
+	public final void createContentProviders(List<IUiContentProvider> providers,
+			DatabindingsProvider provider) {
+		ChooseClassConfiguration configuration = new ChooseClassConfiguration();
+		configuration.setDialogFieldLabel(Messages.TreeStructureAdvisorInfo_label);
+		configure(configuration);
+		configuration.setEmptyClassErrorMessage(Messages.TreeStructureAdvisorInfo_errorMessage);
+		configuration.setErrorMessagePrefix(Messages.TreeStructureAdvisorInfo_errorMessagePrefix);
+		providers.add(new SimpleClassUiContentProvider(configuration, this));
+	}
 
-  /**
-   * Create configuration for edit this advisor.
-   */
-  protected void configure(ChooseClassConfiguration configuration) {
-    configuration.setValueScope("org.eclipse.jface.databinding.viewers.TreeStructureAdvisor");
-    configuration.setBaseClassName("org.eclipse.jface.databinding.viewers.TreeStructureAdvisor");
-    configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-  }
+	/**
+	 * Create configuration for edit this advisor.
+	 */
+	protected void configure(ChooseClassConfiguration configuration) {
+		configuration.setValueScope("org.eclipse.jface.databinding.viewers.TreeStructureAdvisor");
+		configuration.setBaseClassName("org.eclipse.jface.databinding.viewers.TreeStructureAdvisor");
+		configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    if (getVariableIdentifier() == null) {
-      setVariableIdentifier(generationSupport.generateLocalName("treeAdvisor"));
-    }
-    addSourceCode(lines);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		if (getVariableIdentifier() == null) {
+			setVariableIdentifier(generationSupport.generateLocalName("treeAdvisor"));
+		}
+		addSourceCode(lines);
+	}
 
-  /**
-   * Generate source code association with this object.
-   */
-  protected void addSourceCode(List<String> lines) throws Exception {
-    lines.add("org.eclipse.jface.databinding.viewers.TreeStructureAdvisor "
-        + getVariableIdentifier()
-        + " = new "
-        + m_className
-        + "();");
-  }
+	/**
+	 * Generate source code association with this object.
+	 */
+	protected void addSourceCode(List<String> lines) throws Exception {
+		lines.add("org.eclipse.jface.databinding.viewers.TreeStructureAdvisor "
+				+ getVariableIdentifier()
+				+ " = new "
+				+ m_className
+				+ "();");
+	}
 }

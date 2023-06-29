@@ -27,25 +27,25 @@ import org.eclipse.ui.forms.widgets.Form;
  * @coverage XWT.model.forms
  */
 public final class FormInfo extends AbstractPositionCompositeInfo {
-  private static final String[] POSITIONS = {"headClient"};
+	private static final String[] POSITIONS = {"headClient"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport, POSITIONS);
-    // add "body"
-    if (!XmlObjectUtils.isImplicit(this)) {
-      CompositeInfo body =
-          (CompositeInfo) XmlObjectUtils.createObject(
-              context,
-              Composite.class,
-              new ExposedPropertyCreationSupport(this, "body"));
-      addChild(body);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport, POSITIONS);
+		// add "body"
+		if (!XmlObjectUtils.isImplicit(this)) {
+			CompositeInfo body =
+					(CompositeInfo) XmlObjectUtils.createObject(
+							context,
+							Composite.class,
+							new ExposedPropertyCreationSupport(this, "body"));
+			addChild(body);
+		}
+	}
 }

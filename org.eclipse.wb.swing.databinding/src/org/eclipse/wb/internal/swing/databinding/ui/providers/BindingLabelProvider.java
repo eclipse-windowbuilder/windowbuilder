@@ -37,107 +37,107 @@ import org.apache.commons.lang.StringUtils;
  * @coverage bindings.swing.ui
  */
 public final class BindingLabelProvider extends LabelProvider
-    implements
-      ITableLabelProvider,
-      IColorProvider {
-  private static final Image AUTO_BINDING_IMAGE = Activator.getImage("autobinding2.png");
-  private static final Image JLIST_BINDING_IMAGE = Activator.getImage("JList.gif");
-  private static final Image JLIST_DETAIL_BINDING_IMAGE = Activator.getImage("JListDetail2.png");
-  private static final Image JCOMBO_BOX_BINDING_IMAGE = Activator.getImage("JComboBox.gif");
-  private static final Image JTABLE_BINDING_IMAGE = Activator.getImage("JTable.gif");
-  private static final Image JTABLE_COLUMN_BINDING_IMAGE =
-      Activator.getImage("JTableColumnBinding.png");
-  public static final BindingLabelProvider INSTANCE = new BindingLabelProvider();
+implements
+ITableLabelProvider,
+IColorProvider {
+	private static final Image AUTO_BINDING_IMAGE = Activator.getImage("autobinding2.png");
+	private static final Image JLIST_BINDING_IMAGE = Activator.getImage("JList.gif");
+	private static final Image JLIST_DETAIL_BINDING_IMAGE = Activator.getImage("JListDetail2.png");
+	private static final Image JCOMBO_BOX_BINDING_IMAGE = Activator.getImage("JComboBox.gif");
+	private static final Image JTABLE_BINDING_IMAGE = Activator.getImage("JTable.gif");
+	private static final Image JTABLE_COLUMN_BINDING_IMAGE =
+			Activator.getImage("JTableColumnBinding.png");
+	public static final BindingLabelProvider INSTANCE = new BindingLabelProvider();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ITableLabelProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getColumnText(final Object element, final int column) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-      public String runObject() throws Exception {
-        BindingInfo binding = (BindingInfo) element;
-        switch (column) {
-          case 1 :
-            // target
-            return binding.getTargetPresentationText(true);
-          case 2 :
-            // model
-            return binding.getModelPresentationText(true);
-          case 3 :
-            // strategy
-            if (binding instanceof AutoBindingInfo) {
-              AutoBindingInfo autoBinding = (AutoBindingInfo) binding;
-              return autoBinding.getStrategyInfo().getStrategyValue();
-            }
-            return null;
-          case 4 :
-            // binding
-          {
-            String variable = binding.getVariableIdentifier();
-            if (variable != null) {
-              String name = binding.getName();
-              if (StringUtils.isEmpty(name)) {
-                return variable;
-              }
-              return variable + " - " + name;
-            }
-          }
-        }
-        return null;
-      }
-    }, "<exception, see log>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ITableLabelProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getColumnText(final Object element, final int column) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+			public String runObject() throws Exception {
+				BindingInfo binding = (BindingInfo) element;
+				switch (column) {
+				case 1 :
+					// target
+					return binding.getTargetPresentationText(true);
+				case 2 :
+					// model
+					return binding.getModelPresentationText(true);
+				case 3 :
+					// strategy
+					if (binding instanceof AutoBindingInfo) {
+						AutoBindingInfo autoBinding = (AutoBindingInfo) binding;
+						return autoBinding.getStrategyInfo().getStrategyValue();
+					}
+					return null;
+				case 4 :
+					// binding
+				{
+					String variable = binding.getVariableIdentifier();
+					if (variable != null) {
+						String name = binding.getName();
+						if (StringUtils.isEmpty(name)) {
+							return variable;
+						}
+						return variable + " - " + name;
+					}
+				}
+				}
+				return null;
+			}
+		}, "<exception, see log>");
+	}
 
-  public Image getColumnImage(Object element, int column) {
-    if (column == 0) {
-      if (element instanceof JListBindingInfo) {
-        return JLIST_BINDING_IMAGE;
-      }
-      if (element instanceof DetailBindingInfo) {
-        return JLIST_DETAIL_BINDING_IMAGE;
-      }
-      if (element instanceof JComboBoxBindingInfo) {
-        return JCOMBO_BOX_BINDING_IMAGE;
-      }
-      if (element instanceof JTableBindingInfo) {
-        return JTABLE_BINDING_IMAGE;
-      }
-      if (element instanceof ColumnBindingInfo) {
-        return JTABLE_COLUMN_BINDING_IMAGE;
-      }
-      if (element instanceof AutoBindingInfo) {
-        return AUTO_BINDING_IMAGE;
-      }
-      if (element instanceof VirtualBindingInfo) {
-        VirtualBindingInfo binding = (VirtualBindingInfo) element;
-        switch (binding.getSwingType()) {
-          case JListBinding :
-            return JLIST_BINDING_IMAGE;
-          case JTableBinding :
-            return JTABLE_BINDING_IMAGE;
-          case JComboBoxBinding :
-            return JCOMBO_BOX_BINDING_IMAGE;
-        }
-      }
-    }
-    return null;
-  }
+	public Image getColumnImage(Object element, int column) {
+		if (column == 0) {
+			if (element instanceof JListBindingInfo) {
+				return JLIST_BINDING_IMAGE;
+			}
+			if (element instanceof DetailBindingInfo) {
+				return JLIST_DETAIL_BINDING_IMAGE;
+			}
+			if (element instanceof JComboBoxBindingInfo) {
+				return JCOMBO_BOX_BINDING_IMAGE;
+			}
+			if (element instanceof JTableBindingInfo) {
+				return JTABLE_BINDING_IMAGE;
+			}
+			if (element instanceof ColumnBindingInfo) {
+				return JTABLE_COLUMN_BINDING_IMAGE;
+			}
+			if (element instanceof AutoBindingInfo) {
+				return AUTO_BINDING_IMAGE;
+			}
+			if (element instanceof VirtualBindingInfo) {
+				VirtualBindingInfo binding = (VirtualBindingInfo) element;
+				switch (binding.getSwingType()) {
+				case JListBinding :
+					return JLIST_BINDING_IMAGE;
+				case JTableBinding :
+					return JTABLE_BINDING_IMAGE;
+				case JComboBoxBinding :
+					return JCOMBO_BOX_BINDING_IMAGE;
+				}
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IColorProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Color getForeground(Object element) {
-    if (element instanceof VirtualBindingInfo) {
-      return Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IColorProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Color getForeground(Object element) {
+		if (element instanceof VirtualBindingInfo) {
+			return Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
+		}
+		return null;
+	}
 
-  public Color getBackground(Object element) {
-    return null;
-  }
+	public Color getBackground(Object element) {
+		return null;
+	}
 }

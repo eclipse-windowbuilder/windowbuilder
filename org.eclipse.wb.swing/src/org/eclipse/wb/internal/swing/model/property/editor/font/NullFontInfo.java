@@ -19,23 +19,23 @@ import java.awt.Font;
  * @coverage swing.property.editor
  */
 public final class NullFontInfo extends FontInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Font getFont() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Font getFont() {
+		return null;
+	}
 
-  @Override
-  public String getText() {
-    return null;
-  }
+	@Override
+	public String getText() {
+		return null;
+	}
 
-  @Override
-  public String getSource() throws Exception {
-    return "null";
-  }
+	@Override
+	public String getSource() throws Exception {
+		return "null";
+	}
 }

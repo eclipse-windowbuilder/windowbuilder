@@ -20,70 +20,70 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author sablin_aa
  */
 public class SwingDatabindingsFactoryTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    do_projectDispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		do_projectDispose();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_noProvider() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JList list = new JList();",
-            "    add(list);",
-            "  }",
-            "}");
-    assertNotNull(panel);
-    //
-    if (DataBindingsCodeUtils.getExtrasBundle() == null) {
-      assertFalse(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
-      SwingDatabindingFactory factory = new SwingDatabindingFactory();
-      assertNotNull(factory.createProvider(panel.getRootJava()));
-      assertNull(panel.getPropertyByTitle("bindings"));
-    } else {
-      assertTrue(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
-      SwingDatabindingFactory factory = new SwingDatabindingFactory();
-      assertNotNull(factory.createProvider(panel.getRootJava()));
-      assertNotNull(panel.getPropertyByTitle("bindings"));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_noProvider() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    JList list = new JList();",
+						"    add(list);",
+						"  }",
+						"}");
+		assertNotNull(panel);
+		//
+		if (DataBindingsCodeUtils.getExtrasBundle() == null) {
+			assertFalse(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
+			SwingDatabindingFactory factory = new SwingDatabindingFactory();
+			assertNotNull(factory.createProvider(panel.getRootJava()));
+			assertNull(panel.getPropertyByTitle("bindings"));
+		} else {
+			assertTrue(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
+			SwingDatabindingFactory factory = new SwingDatabindingFactory();
+			assertNotNull(factory.createProvider(panel.getRootJava()));
+			assertNotNull(panel.getPropertyByTitle("bindings"));
+		}
+	}
 
-  public void test_Provider() throws Exception {
-    DatabindingTestUtils.configure(m_testProject);
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JList list = new JList();",
-            "    add(list);",
-            "  }",
-            "}");
-    assertNotNull(panel);
-    //
-    assertTrue(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
-    SwingDatabindingFactory factory = new SwingDatabindingFactory();
-    assertNotNull(factory.createProvider(panel.getRootJava()));
-    assertNotNull(panel.getPropertyByTitle("bindings"));
-  }
+	public void test_Provider() throws Exception {
+		DatabindingTestUtils.configure(m_testProject);
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    JList list = new JList();",
+						"    add(list);",
+						"  }",
+						"}");
+		assertNotNull(panel);
+		//
+		assertTrue(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
+		SwingDatabindingFactory factory = new SwingDatabindingFactory();
+		assertNotNull(factory.createProvider(panel.getRootJava()));
+		assertNotNull(panel.getPropertyByTitle("bindings"));
+	}
 }

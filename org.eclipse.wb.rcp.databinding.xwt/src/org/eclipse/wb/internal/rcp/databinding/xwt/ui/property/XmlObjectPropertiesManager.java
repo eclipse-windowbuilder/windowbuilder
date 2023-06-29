@@ -27,33 +27,33 @@ import org.eclipse.wb.internal.xwt.model.jface.ViewerInfo;
  *
  */
 public class XmlObjectPropertiesManager extends AbstracXmlObjectPropertiesManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlObjectPropertiesManager(DatabindingsProvider provider) {
-    super(provider, provider.getXmlObjectRoot());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlObjectPropertiesManager(DatabindingsProvider provider) {
+		super(provider, provider.getXmlObjectRoot());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractJavaInfoPropertiesManager
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isCreateProperty(ObjectInfo objectInfo) throws Exception {
-    // temporary disabled bindings property for Layout_Info, LayoutData_Info & etc.
-    // FIXME if (objectInfo instanceof XMLObject_Info) {
-    if (objectInfo instanceof AbstractComponentInfo || objectInfo instanceof ViewerInfo) {
-      XmlObjectInfo xmlObjectInfo = (XmlObjectInfo) objectInfo;
-      return !XmlObjectUtils.hasTrueParameter(xmlObjectInfo, "databinding.disable");
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractJavaInfoPropertiesManager
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isCreateProperty(ObjectInfo objectInfo) throws Exception {
+		// temporary disabled bindings property for Layout_Info, LayoutData_Info & etc.
+		// FIXME if (objectInfo instanceof XMLObject_Info) {
+		if (objectInfo instanceof AbstractComponentInfo || objectInfo instanceof ViewerInfo) {
+			XmlObjectInfo xmlObjectInfo = (XmlObjectInfo) objectInfo;
+			return !XmlObjectUtils.hasTrueParameter(xmlObjectInfo, "databinding.disable");
+		}
+		return false;
+	}
 
-  @Override
-  protected AbstractBindingsProperty createProperty(ObjectInfo objectInfo) throws Exception {
-    return new BindingsProperty(new Context(Activator.getDefault(), m_provider, objectInfo));
-  }
+	@Override
+	protected AbstractBindingsProperty createProperty(ObjectInfo objectInfo) throws Exception {
+		return new BindingsProperty(new Context(Activator.getDefault(), m_provider, objectInfo));
+	}
 }

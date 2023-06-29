@@ -19,33 +19,33 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.property.converter
  */
 public final class ShortObjectConverter extends AbstractNumberConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new ShortObjectConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new ShortObjectConverter();
 
-  private ShortObjectConverter() {
-  }
+	private ShortObjectConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) {
-    if (value == null) {
-      return "(Short) null";
-    }
-    // has value
-    String text = "(short) " + ((Short) value).toString();
-    // may be use auto-boxing
-    if (isBoxingEnabled(javaInfo)) {
-      return text;
-    }
-    // use explicit boxing
-    return "Short.valueOf(" + text + ")";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) {
+		if (value == null) {
+			return "(Short) null";
+		}
+		// has value
+		String text = "(short) " + ((Short) value).toString();
+		// may be use auto-boxing
+		if (isBoxingEnabled(javaInfo)) {
+			return text;
+		}
+		// use explicit boxing
+		return "Short.valueOf(" + text + ")";
+	}
 }

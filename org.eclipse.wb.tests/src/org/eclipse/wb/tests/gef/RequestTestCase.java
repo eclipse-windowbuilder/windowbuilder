@@ -23,78 +23,78 @@ import org.eclipse.swt.widgets.Shell;
  *
  */
 public class RequestTestCase extends GefTestCase {
-  protected Shell m_shell;
-  protected EditDomain m_domain;
-  protected GraphicalViewer m_viewer;
-  protected EventSender m_sender;
+	protected Shell m_shell;
+	protected EditDomain m_domain;
+	protected GraphicalViewer m_viewer;
+	protected EventSender m_sender;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RequestTestCase(Class<?> _class) {
-    super(_class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RequestTestCase(Class<?> _class) {
+		super(_class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SetUp
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    //
-    m_shell = new Shell();
-    // create domain
-    m_domain = new EditDomain() {
-      @Override
-      public Tool getDefaultTool() {
-        return null;
-      }
-    };
-    // create viewer
-    m_viewer = new GraphicalViewer(m_shell);
-    m_viewer.getControl().setSize(500, 400);
-    m_viewer.setEditDomain(m_domain);
-    // create sender
-    m_sender = new EventSender(m_viewer.getControl());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SetUp
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		//
+		m_shell = new Shell();
+		// create domain
+		m_domain = new EditDomain() {
+			@Override
+			public Tool getDefaultTool() {
+				return null;
+			}
+		};
+		// create viewer
+		m_viewer = new GraphicalViewer(m_shell);
+		m_viewer.getControl().setSize(500, 400);
+		m_viewer.setEditDomain(m_domain);
+		// create sender
+		m_sender = new EventSender(m_viewer.getControl());
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    m_shell.dispose();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		m_shell.dispose();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return new {@link EditPart} added as child of given <code>parentEditPart</code>.
-   */
-  protected static final RequestTestCaseEditPart addEditPart(EditPart parentEditPart,
-      String name,
-      RequestsLogger actualLogger,
-      int x,
-      int y,
-      int w,
-      int h) throws Exception {
-    RequestTestCaseEditPart editPart = new RequestTestCaseEditPart(name, actualLogger);
-    editPart.getFigure().setBounds(new Rectangle(x, y, w, h));
-    addChildEditPart(parentEditPart, editPart);
-    return editPart;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return new {@link EditPart} added as child of given <code>parentEditPart</code>.
+	 */
+	protected static final RequestTestCaseEditPart addEditPart(EditPart parentEditPart,
+			String name,
+			RequestsLogger actualLogger,
+			int x,
+			int y,
+			int w,
+			int h) throws Exception {
+		RequestTestCaseEditPart editPart = new RequestTestCaseEditPart(name, actualLogger);
+		editPart.getFigure().setBounds(new Rectangle(x, y, w, h));
+		addChildEditPart(parentEditPart, editPart);
+		return editPart;
+	}
 
-  /**
-   * Asserts that given {@link RequestsLogger}'s contain same sequence of events.
-   */
-  protected static final void assertLoggers(RequestsLogger expectedLogger,
-      RequestsLogger actualLogger) {
-    actualLogger.assertEquals(expectedLogger);
-    actualLogger.clear();
-    expectedLogger.clear();
-  }
+	/**
+	 * Asserts that given {@link RequestsLogger}'s contain same sequence of events.
+	 */
+	protected static final void assertLoggers(RequestsLogger expectedLogger,
+			RequestsLogger actualLogger) {
+		actualLogger.assertEquals(expectedLogger);
+		actualLogger.clear();
+		expectedLogger.clear();
+	}
 }

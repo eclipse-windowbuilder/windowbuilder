@@ -20,43 +20,43 @@ import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyE
  * @author scheglov_ke
  */
 public class PropertyWithTitle extends Property {
-  private final String m_title;
+	private final String m_title;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyWithTitle(String title) {
-    this(StringPropertyEditor.INSTANCE, title);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyWithTitle(String title) {
+		this(StringPropertyEditor.INSTANCE, title);
+	}
 
-  public PropertyWithTitle(PropertyEditor propertyEditor, String title) {
-    super(propertyEditor);
-    m_title = title;
-  }
+	public PropertyWithTitle(PropertyEditor propertyEditor, String title) {
+		super(propertyEditor);
+		m_title = title;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() {
-    return m_title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() {
+		return m_title;
+	}
 
-  @Override
-  public boolean isModified() throws Exception {
-    return false;
-  }
+	@Override
+	public boolean isModified() throws Exception {
+		return false;
+	}
 
-  @Override
-  public Object getValue() throws Exception {
-    return UNKNOWN_VALUE;
-  }
+	@Override
+	public Object getValue() throws Exception {
+		return UNKNOWN_VALUE;
+	}
 
-  @Override
-  public void setValue(Object value) throws Exception {
-  }
+	@Override
+	public void setValue(Object value) throws Exception {
+	}
 }

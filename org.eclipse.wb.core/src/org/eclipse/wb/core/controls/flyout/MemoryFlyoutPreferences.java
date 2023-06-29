@@ -17,53 +17,53 @@ package org.eclipse.wb.core.controls.flyout;
  * @coverage core.control
  */
 public final class MemoryFlyoutPreferences implements IFlyoutPreferences {
-  private int m_dockLocation;
-  private int m_state;
-  private int m_width;
+	private int m_dockLocation;
+	private int m_state;
+	private int m_width;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MemoryFlyoutPreferences(int dockLocation, int state, int width) {
-    m_dockLocation = dockLocation;
-    m_state = state;
-    m_width = width;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MemoryFlyoutPreferences(int dockLocation, int state, int width) {
+		m_dockLocation = dockLocation;
+		m_state = state;
+		m_width = width;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IFlyoutPreferences
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int getDockLocation() {
-    return m_dockLocation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IFlyoutPreferences
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int getDockLocation() {
+		return m_dockLocation;
+	}
 
-  @Override
-  public int getState() {
-    return m_state;
-  }
+	@Override
+	public int getState() {
+		return m_state;
+	}
 
-  @Override
-  public int getWidth() {
-    return m_width;
-  }
+	@Override
+	public int getWidth() {
+		return m_width;
+	}
 
-  @Override
-  public void setDockLocation(int location) {
-    m_dockLocation = location;
-  }
+	@Override
+	public void setDockLocation(int location) {
+		m_dockLocation = location;
+	}
 
-  @Override
-  public void setState(int state) {
-    m_state = state;
-  }
+	@Override
+	public void setState(int state) {
+		m_state = state;
+	}
 
-  @Override
-  public void setWidth(int width) {
-    m_width = width;
-  }
+	@Override
+	public void setWidth(int width) {
+		m_width = width;
+	}
 }

@@ -36,131 +36,131 @@ import java.util.List;
  * @coverage XWT.model.widgets
  */
 public final class TabFolderInfo extends CompositeInfo {
-  private final StackContainerSupport<TabItemInfo> m_stackContainer =
-      new StackContainerSupport<TabItemInfo>(this) {
-        @Override
-        protected List<TabItemInfo> getChildren() {
-          return getItems();
-        }
-      };
+	private final StackContainerSupport<TabItemInfo> m_stackContainer =
+			new StackContainerSupport<TabItemInfo>(this) {
+		@Override
+		protected List<TabItemInfo> getChildren() {
+			return getItems();
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TabFolderInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TabFolderInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link TabItemInfo} children.
-   */
-  public List<TabItemInfo> getItems() {
-    return getChildren(TabItemInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link TabItemInfo} children.
+	 */
+	public List<TabItemInfo> getItems() {
+		return getChildren(TabItemInfo.class);
+	}
 
-  /**
-   * @return the selected {@link TabItemInfo}.
-   */
-  public TabItemInfo getSelectedItem() {
-    return m_stackContainer.getActive();
-  }
+	/**
+	 * @return the selected {@link TabItemInfo}.
+	 */
+	public TabItemInfo getSelectedItem() {
+		return m_stackContainer.getActive();
+	}
 
-  /**
-   * Sets the selected {@link TabItemInfo}.
-   */
-  public void setSelectedItem(TabItemInfo item) {
-    m_stackContainer.setActive(item);
-  }
+	/**
+	 * Sets the selected {@link TabItemInfo}.
+	 */
+	public void setSelectedItem(TabItemInfo item) {
+		m_stackContainer.setActive(item);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new XmlObjectPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenGraphical() throws Exception {
-      List<ObjectInfo> children = super.getChildrenGraphical();
-      // add Control of selected TabItem
-      {
-        TabItemInfo selectedItem = getSelectedItem();
-        if (selectedItem != null) {
-          ControlInfo control = selectedItem.getControl();
-          if (control != null) {
-            children.add(control);
-          }
-        }
-      }
-      // OK, show these children
-      return children;
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new XmlObjectPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenGraphical() throws Exception {
+			List<ObjectInfo> children = super.getChildrenGraphical();
+			// add Control of selected TabItem
+			{
+				TabItemInfo selectedItem = getSelectedItem();
+				if (selectedItem != null) {
+					ControlInfo control = selectedItem.getControl();
+					if (control != null) {
+						children.add(control);
+					}
+				}
+			}
+			// OK, show these children
+			return children;
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    // select item
-    {
-      TabItemInfo item = getSelectedItem();
-      if (item != null) {
-        ((TabFolder) getObject()).setSelection((TabItem) item.getObject());
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		// select item
+		{
+			TabItemInfo item = getSelectedItem();
+			if (item != null) {
+				((TabFolder) getObject()).setSelection((TabItem) item.getObject());
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds new {@link ControlInfo}.
-   */
-  public void command_CREATE(ControlInfo control, TabItemInfo nextItem) throws Exception {
-    TabItemInfo newItem = createNewItem(nextItem);
-    SimpleContainer simpleContainer = new SimpleContainerFactory(newItem, true).get().get(0);
-    simpleContainer.command_CREATE(control);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds new {@link ControlInfo}.
+	 */
+	public void command_CREATE(ControlInfo control, TabItemInfo nextItem) throws Exception {
+		TabItemInfo newItem = createNewItem(nextItem);
+		SimpleContainer simpleContainer = new SimpleContainerFactory(newItem, true).get().get(0);
+		simpleContainer.command_CREATE(control);
+	}
 
-  /**
-   * Move existing {@link ControlInfo} on this {@link TabFolderInfo}.
-   */
-  public void command_MOVE(ControlInfo control, TabItemInfo nextItem) throws Exception {
-    TabItemInfo newItem = createNewItem(nextItem);
-    SimpleContainer simpleContainer = new SimpleContainerFactory(newItem, true).get().get(0);
-    simpleContainer.command_ADD(control);
-  }
+	/**
+	 * Move existing {@link ControlInfo} on this {@link TabFolderInfo}.
+	 */
+	public void command_MOVE(ControlInfo control, TabItemInfo nextItem) throws Exception {
+		TabItemInfo newItem = createNewItem(nextItem);
+		SimpleContainer simpleContainer = new SimpleContainerFactory(newItem, true).get().get(0);
+		simpleContainer.command_ADD(control);
+	}
 
-  /**
-   * Creates new {@link TabItem}.
-   */
-  private TabItemInfo createNewItem(TabItemInfo nextItem) throws Exception {
-    TabItemInfo newItem =
-        (TabItemInfo) XmlObjectUtils.createObject(
-            getContext(),
-            "org.eclipse.swt.widgets.TabItem",
-            new ElementCreationSupport());
-    FlowContainer flowContainer = new FlowContainerFactory(this, true).get().get(0);
-    flowContainer.command_CREATE(newItem, nextItem);
-    return newItem;
-  }
+	/**
+	 * Creates new {@link TabItem}.
+	 */
+	private TabItemInfo createNewItem(TabItemInfo nextItem) throws Exception {
+		TabItemInfo newItem =
+				(TabItemInfo) XmlObjectUtils.createObject(
+						getContext(),
+						"org.eclipse.swt.widgets.TabItem",
+						new ElementCreationSupport());
+		FlowContainer flowContainer = new FlowContainerFactory(this, true).get().get(0);
+		flowContainer.command_CREATE(newItem, nextItem);
+		return newItem;
+	}
 }

@@ -21,17 +21,17 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
  * @coverage swing
  */
 public final class ToolkitProvider implements IToolkitProvider {
-  public static final ToolkitDescriptionJava DESCRIPTION = SwingToolkitDescription.INSTANCE;
-  static {
-    ((SwingToolkitDescription) DESCRIPTION).initialize();
-  }
+	public static final ToolkitDescriptionJava DESCRIPTION = SwingToolkitDescription.INSTANCE;
+	static {
+		((SwingToolkitDescription) DESCRIPTION).initialize();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IToolkitProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ToolkitDescription getDescription() {
-    return DESCRIPTION;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IToolkitProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ToolkitDescription getDescription() {
+		return DESCRIPTION;
+	}
 }

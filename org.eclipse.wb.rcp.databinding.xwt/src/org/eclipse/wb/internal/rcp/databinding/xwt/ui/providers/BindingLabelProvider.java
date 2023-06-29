@@ -25,57 +25,57 @@ import org.eclipse.swt.graphics.Image;
  *
  */
 public class BindingLabelProvider extends LabelProvider implements ITableLabelProvider {
-  public static final BindingLabelProvider INSTANCE = new BindingLabelProvider();
+	public static final BindingLabelProvider INSTANCE = new BindingLabelProvider();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ITableLabelProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getColumnText(final Object element, final int column) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-      @Override
-      public String runObject() throws Exception {
-        BindingInfo binding = (BindingInfo) element;
-        switch (column) {
-          case 1 :
-            // target
-            return binding.getTargetPresentationText();
-          case 2 :
-            // model
-            return binding.getModelPresentationText();
-          case 3 :
-            // mode
-            return BindingInfo.MODES[binding.getMode()];
-          default :
-            return null;
-        }
-      }
-    }, "<exception, see log>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ITableLabelProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getColumnText(final Object element, final int column) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+			@Override
+			public String runObject() throws Exception {
+				BindingInfo binding = (BindingInfo) element;
+				switch (column) {
+				case 1 :
+					// target
+					return binding.getTargetPresentationText();
+				case 2 :
+					// model
+					return binding.getModelPresentationText();
+				case 3 :
+					// mode
+					return BindingInfo.MODES[binding.getMode()];
+				default :
+					return null;
+				}
+			}
+		}, "<exception, see log>");
+	}
 
-  @Override
-  public Image getColumnImage(Object element, int column) {
-    Image image = null;
-    if (column == 0) {
-      // binding
-      image =
-          org.eclipse.wb.internal.rcp.databinding.ui.providers.BindingLabelProvider.BIND_VALUE_IMAGE;
-      // delay
-      if (isDelayBinding(element)) {
-        image =
-            SwtResourceManager.decorateImage(
-                image,
-                org.eclipse.wb.internal.rcp.databinding.ui.providers.BindingLabelProvider.CLOCK_DECORATION_IMAGE,
-                SwtResourceManager.BOTTOM_RIGHT);
-      }
-    }
-    return image;
-  }
+	@Override
+	public Image getColumnImage(Object element, int column) {
+		Image image = null;
+		if (column == 0) {
+			// binding
+			image =
+					org.eclipse.wb.internal.rcp.databinding.ui.providers.BindingLabelProvider.BIND_VALUE_IMAGE;
+			// delay
+			if (isDelayBinding(element)) {
+				image =
+						SwtResourceManager.decorateImage(
+								image,
+								org.eclipse.wb.internal.rcp.databinding.ui.providers.BindingLabelProvider.CLOCK_DECORATION_IMAGE,
+								SwtResourceManager.BOTTOM_RIGHT);
+			}
+		}
+		return image;
+	}
 
-  private static boolean isDelayBinding(Object element) {
-    // XXX
-    return false;
-  }
+	private static boolean isDelayBinding(Object element) {
+		// XXX
+		return false;
+	}
 }

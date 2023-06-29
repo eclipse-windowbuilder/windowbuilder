@@ -23,16 +23,16 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
  * @coverage nebula.model
  */
 public class AbstractFormatterInfo extends JavaInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractFormatterInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    // listener for setting property to default
-    InstanceObjectPropertyEditor.installListenerForProperty(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractFormatterInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		// listener for setting property to default
+		InstanceObjectPropertyEditor.installListenerForProperty(this);
+	}
 }

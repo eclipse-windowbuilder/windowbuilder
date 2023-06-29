@@ -33,77 +33,77 @@ import java.util.List;
  * @coverage XWT.model.widgets
  */
 public class TabItemInfo extends ItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TabItemInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TabItemInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ControlInfo}, may be <code>null</code>.
-   */
-  public ControlInfo getControl() {
-    return GenericsUtils.getFirstOrNull(getChildren(ControlInfo.class));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ControlInfo}, may be <code>null</code>.
+	 */
+	public ControlInfo getControl() {
+		return GenericsUtils.getFirstOrNull(getChildren(ControlInfo.class));
+	}
 
-  /**
-   * Makes this item selected.
-   */
-  public void doSelect() {
-    ((TabFolderInfo) getParent()).setSelectedItem(this);
-  }
+	/**
+	 * Makes this item selected.
+	 */
+	public void doSelect() {
+		((TabFolderInfo) getParent()).setSelectedItem(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new XmlObjectPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenGraphical() throws Exception {
-      return ImmutableList.of();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new XmlObjectPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenGraphical() throws Exception {
+			return ImmutableList.of();
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    // set bounds
-    {
-      Rectangle bounds = new Rectangle(OSSupport.get().getTabItemBounds(getObject()));
-      setModelBounds(bounds);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		// set bounds
+		{
+			Rectangle bounds = new Rectangle(OSSupport.get().getTabItemBounds(getObject()));
+			setModelBounds(bounds);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Notification that this {@link TabItemInfo} was used as target of CREATE or ADD operation.
-   */
-  public void command_TARGET_after(ControlInfo control) throws Exception {
-    doSelect();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Notification that this {@link TabItemInfo} was used as target of CREATE or ADD operation.
+	 */
+	public void command_TARGET_after(ControlInfo control) throws Exception {
+		doSelect();
+	}
 }

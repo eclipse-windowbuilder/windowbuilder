@@ -18,9 +18,9 @@ package org.eclipse.wb.internal.core.utils;
  * @coverage core.model
  */
 public interface IDisposable {
-  /**
-   * Disposes the object.<br>
-   * The implementors are responsible to check this object instance for to be already disposed.
-   */
-  void dispose();
+	/**
+	 * Disposes the object.<br>
+	 * The implementors are responsible to check this object instance for to be already disposed.
+	 */
+	void dispose();
 }

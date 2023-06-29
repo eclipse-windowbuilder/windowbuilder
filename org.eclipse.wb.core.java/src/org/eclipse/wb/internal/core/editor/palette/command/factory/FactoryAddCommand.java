@@ -26,61 +26,61 @@ import org.xml.sax.Attributes;
  * @coverage core.editor.palette
  */
 public final class FactoryAddCommand extends FactoryAbstractCommand {
-  public static final String ID = "addFactory";
-  private final String m_categoryId;
+	public static final String ID = "addFactory";
+	private final String m_categoryId;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FactoryAddCommand(String id,
-      String name,
-      String description,
-      boolean visible,
-      String factoryClassName,
-      String methodSignature,
-      boolean forStatic,
-      CategoryInfo category) {
-    super(id, name, description, visible, factoryClassName, methodSignature, forStatic);
-    m_categoryId = category.getId();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FactoryAddCommand(String id,
+			String name,
+			String description,
+			boolean visible,
+			String factoryClassName,
+			String methodSignature,
+			boolean forStatic,
+			CategoryInfo category) {
+		super(id, name, description, visible, factoryClassName, methodSignature, forStatic);
+		m_categoryId = category.getId();
+	}
 
-  public FactoryAddCommand(Attributes attributes) {
-    super(attributes);
-    m_categoryId = attributes.getValue("category");
-  }
+	public FactoryAddCommand(Attributes attributes) {
+		super(attributes);
+		m_categoryId = attributes.getValue("category");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    // create entry
-    FactoryEntryInfo entry;
-    if (m_forStatic) {
-      entry = new StaticFactoryEntryInfo();
-    } else {
-      entry = new InstanceFactoryEntryInfo();
-    }
-    // update entry
-    entry.setId(m_id);
-    updateElement(entry);
-    // prepare category
-    CategoryInfo category = palette.getCategory(m_categoryId);
-    category.addEntry(entry);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		// create entry
+		FactoryEntryInfo entry;
+		if (m_forStatic) {
+			entry = new StaticFactoryEntryInfo();
+		} else {
+			entry = new InstanceFactoryEntryInfo();
+		}
+		// update entry
+		entry.setId(m_id);
+		updateElement(entry);
+		// prepare category
+		CategoryInfo category = palette.getCategory(m_categoryId);
+		category.addEntry(entry);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    super.addAttributes();
-    addAttribute("category", m_categoryId);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		super.addAttributes();
+		addAttribute("category", m_categoryId);
+	}
 }

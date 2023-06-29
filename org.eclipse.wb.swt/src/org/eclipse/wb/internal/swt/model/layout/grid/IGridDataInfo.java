@@ -24,128 +24,128 @@ import org.eclipse.swt.layout.GridData;
  * @coverage swt.model.layout
  */
 public interface IGridDataInfo extends IObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Location
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return x/column.
-   */
-  int getX();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Location
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return x/column.
+	 */
+	int getX();
 
-  /**
-   * Sets x/column.
-   */
-  void setX(int x);
+	/**
+	 * Sets x/column.
+	 */
+	void setX(int x);
 
-  /**
-   * @return y/row.
-   */
-  int getY();
+	/**
+	 * @return y/row.
+	 */
+	int getY();
 
-  /**
-   * Sets y/row.
-   */
-  void setY(int y);
+	/**
+	 * Sets y/row.
+	 */
+	void setY(int y);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Span
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the horizontal span.
-   */
-  void setHorizontalSpan(int width) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Span
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the horizontal span.
+	 */
+	void setHorizontalSpan(int width) throws Exception;
 
-  /**
-   * Sets the vertical span.
-   */
-  void setVerticalSpan(int height) throws Exception;
+	/**
+	 * Sets the vertical span.
+	 */
+	void setVerticalSpan(int height) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Grab
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return value of <code>grabExcessHorizontalSpace</code> property.
-   */
-  boolean getHorizontalGrab();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Grab
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return value of <code>grabExcessHorizontalSpace</code> property.
+	 */
+	boolean getHorizontalGrab();
 
-  /**
-   * Sets the value of <code>grabExcessHorizontalSpace</code> property.
-   */
-  void setHorizontalGrab(boolean grab) throws Exception;
+	/**
+	 * Sets the value of <code>grabExcessHorizontalSpace</code> property.
+	 */
+	void setHorizontalGrab(boolean grab) throws Exception;
 
-  /**
-   * @return value of <code>grabExcessVerticalSpace</code> property.
-   */
-  boolean getVerticalGrab();
+	/**
+	 * @return value of <code>grabExcessVerticalSpace</code> property.
+	 */
+	boolean getVerticalGrab();
 
-  /**
-   * Sets the value of <code>grabExcessVerticalSpace</code> property.
-   */
-  void setVerticalGrab(boolean grab) throws Exception;
+	/**
+	 * Sets the value of <code>grabExcessVerticalSpace</code> property.
+	 */
+	void setVerticalGrab(boolean grab) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Alignment
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return value of <code>horizontalAlignment</code> property.
-   */
-  int getHorizontalAlignment();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Alignment
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return value of <code>horizontalAlignment</code> property.
+	 */
+	int getHorizontalAlignment();
 
-  /**
-   * Sets value of <code>horizontalAlignment</code> property.
-   */
-  void setHorizontalAlignment(int alignment) throws Exception;
+	/**
+	 * Sets value of <code>horizontalAlignment</code> property.
+	 */
+	void setHorizontalAlignment(int alignment) throws Exception;
 
-  /**
-   * @return value of <code>verticalAlignment</code> property.
-   */
-  int getVerticalAlignment();
+	/**
+	 * @return value of <code>verticalAlignment</code> property.
+	 */
+	int getVerticalAlignment();
 
-  /**
-   * Sets of <code>verticalAlignment</code> property.
-   */
-  void setVerticalAlignment(int alignment) throws Exception;
+	/**
+	 * Sets of <code>verticalAlignment</code> property.
+	 */
+	void setVerticalAlignment(int alignment) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hint
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the value of <code>widthHint</code> property.
-   */
-  void setWidthHint(int widthHint) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hint
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the value of <code>widthHint</code> property.
+	 */
+	void setWidthHint(int widthHint) throws Exception;
 
-  /**
-   * Sets the value of <code>heightHint</code> property.
-   */
-  void setHeightHint(int heightHint) throws Exception;
+	/**
+	 * Sets the value of <code>heightHint</code> property.
+	 */
+	void setHeightHint(int heightHint) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Context menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the small {@link Image} that represents horizontal/vertical alignment.
-   */
-  Image getSmallAlignmentImage(boolean horizontal);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Context menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the small {@link Image} that represents horizontal/vertical alignment.
+	 */
+	Image getSmallAlignmentImage(boolean horizontal);
 
-  /**
-   * Adds the horizontal alignment {@link Action}'s.
-   */
-  void fillHorizontalAlignmentMenu(IMenuManager manager);
+	/**
+	 * Adds the horizontal alignment {@link Action}'s.
+	 */
+	void fillHorizontalAlignmentMenu(IMenuManager manager);
 
-  /**
-   * Adds the vertical alignment {@link Action}'s.
-   */
-  void fillVerticalAlignmentMenu(IMenuManager manager);
+	/**
+	 * Adds the vertical alignment {@link Action}'s.
+	 */
+	void fillVerticalAlignmentMenu(IMenuManager manager);
 }

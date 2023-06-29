@@ -22,44 +22,44 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
  * @coverage core.model.property.editor
  */
 public abstract class SubStyleAction extends ObjectInfoAction {
-  private final Property m_property;
-  private final SubStylePropertyImpl m_propertyImpl;
+	private final Property m_property;
+	private final SubStylePropertyImpl m_propertyImpl;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SubStyleAction(Property property,
-      SubStylePropertyImpl propertyImpl,
-      String title,
-      int style) {
-    super(getHostInfo(property), title, style);
-    m_property = property;
-    m_propertyImpl = propertyImpl;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SubStyleAction(Property property,
+			SubStylePropertyImpl propertyImpl,
+			String title,
+			int style) {
+		super(getHostInfo(property), title, style);
+		m_property = property;
+		m_propertyImpl = propertyImpl;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObjectInfoAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    m_propertyImpl.setValue(m_property, getActionValue());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObjectInfoAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		m_propertyImpl.setValue(m_property, getActionValue());
+	}
 
-  /**
-   * @return the new "action" value.
-   */
-  protected abstract Object getActionValue();
+	/**
+	 * @return the new "action" value.
+	 */
+	protected abstract Object getActionValue();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static ObjectInfo getHostInfo(Property property) {
-    return property.getAdapter(ObjectInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static ObjectInfo getHostInfo(Property property) {
+		return property.getAdapter(ObjectInfo.class);
+	}
 }

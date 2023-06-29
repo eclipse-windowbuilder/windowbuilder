@@ -28,68 +28,68 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage rcp.gef.part
  */
 public final class ControlDecorationEditPart extends AbstractComponentEditPart {
-  private final ControlDecorationInfo m_decoration;
+	private final ControlDecorationInfo m_decoration;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ControlDecorationEditPart(ControlDecorationInfo decoration) {
-    super(decoration);
-    m_decoration = decoration;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ControlDecorationEditPart(ControlDecorationInfo decoration) {
+		super(decoration);
+		m_decoration = decoration;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Figure m_originalControlFigure;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Figure m_originalControlFigure;
 
-  @Override
-  protected void refreshVisuals() {
-    Figure figure = getFigure();
-    Figure controlFigure = getControlFigure();
-    Figure controlParentFigure = controlFigure.getParent();
-    // ensure that decoration is located on _parent_ of Control
-    if (figure.getParent() != controlParentFigure) {
-      m_originalControlFigure = controlFigure;
-      FigureUtils.removeFigure(figure);
-      int controlIndex = controlParentFigure.getChildren().indexOf(controlFigure);
-      controlParentFigure.add(figure, controlIndex + 1);
-    }
-    // set decoration bounds
-    {
-      Point controlLocation = controlFigure.getLocation();
-      Rectangle boundsInParent = m_decoration.getModelBounds().getTranslated(controlLocation);
-      boundsInParent.performTranslate(1, 1); // not sure why, but required to center selection visually
-      figure.setBounds(boundsInParent);
-    }
-  }
+	@Override
+	protected void refreshVisuals() {
+		Figure figure = getFigure();
+		Figure controlFigure = getControlFigure();
+		Figure controlParentFigure = controlFigure.getParent();
+		// ensure that decoration is located on _parent_ of Control
+		if (figure.getParent() != controlParentFigure) {
+			m_originalControlFigure = controlFigure;
+			FigureUtils.removeFigure(figure);
+			int controlIndex = controlParentFigure.getChildren().indexOf(controlFigure);
+			controlParentFigure.add(figure, controlIndex + 1);
+		}
+		// set decoration bounds
+		{
+			Point controlLocation = controlFigure.getLocation();
+			Rectangle boundsInParent = m_decoration.getModelBounds().getTranslated(controlLocation);
+			boundsInParent.performTranslate(1, 1); // not sure why, but required to center selection visually
+			figure.setBounds(boundsInParent);
+		}
+	}
 
-  @Override
-  public void removeNotify() {
-    // move decoration figure back to Control figure
-    {
-      Figure figure = getFigure();
-      FigureUtils.removeFigure(figure);
-      m_originalControlFigure.add(figure);
-    }
-    // continue
-    super.removeNotify();
-  }
+	@Override
+	public void removeNotify() {
+		// move decoration figure back to Control figure
+		{
+			Figure figure = getFigure();
+			FigureUtils.removeFigure(figure);
+			m_originalControlFigure.add(figure);
+		}
+		// continue
+		super.removeNotify();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Figure} of decorated {@link ControlInfo}.
-   */
-  private Figure getControlFigure() {
-    EditPart controlEditPart = getViewer().getEditPartByModel(m_decoration.getControl());
-    return ((GraphicalEditPart) controlEditPart).getFigure();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Figure} of decorated {@link ControlInfo}.
+	 */
+	private Figure getControlFigure() {
+		EditPart controlEditPart = getViewer().getEditPartByModel(m_decoration.getControl());
+		return ((GraphicalEditPart) controlEditPart).getFigure();
+	}
 }

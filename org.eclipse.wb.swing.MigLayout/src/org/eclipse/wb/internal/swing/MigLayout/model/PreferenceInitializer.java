@@ -22,17 +22,17 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @coverage swing.MigLayout.model
  */
 public final class PreferenceInitializer extends AbstractPreferenceInitializer
-    implements
-      IPreferenceConstants {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //	Initializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initializeDefaultPreferences() {
-    IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
-    preferenceStore.setDefault(P_ENABLE_GRAB, true);
-    preferenceStore.setDefault(P_ENABLE_RIGHT_ALIGNMENT, true);
-  }
+implements
+IPreferenceConstants {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//	Initializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initializeDefaultPreferences() {
+		IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
+		preferenceStore.setDefault(P_ENABLE_GRAB, true);
+		preferenceStore.setDefault(P_ENABLE_RIGHT_ALIGNMENT, true);
+	}
 }

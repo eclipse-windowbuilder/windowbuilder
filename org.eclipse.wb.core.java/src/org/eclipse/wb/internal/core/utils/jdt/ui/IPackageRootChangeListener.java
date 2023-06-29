@@ -19,5 +19,5 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
  * @coverage core.util.jdt.ui
  */
 public interface IPackageRootChangeListener {
-  void rootChanged(IPackageFragmentRoot newRoot);
+	void rootChanged(IPackageFragmentRoot newRoot);
 }

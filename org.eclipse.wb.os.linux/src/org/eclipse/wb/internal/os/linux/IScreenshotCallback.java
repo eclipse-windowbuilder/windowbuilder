@@ -18,13 +18,13 @@ package org.eclipse.wb.internal.os.linux;
  * @coverage os.linux
  */
 public interface IScreenshotCallback<H extends Number> {
-  /**
-   * Called from native code when the <code>pixmap</code> available for <code>handle</code>.
-   *
-   * @param handle
-   *          the handle of widget (GtkWidget*).
-   * @param pixmap
-   *          the pixmap (GdkPixmap*).
-   */
-  void storeImage(H handle, H pixmap);
+	/**
+	 * Called from native code when the <code>pixmap</code> available for <code>handle</code>.
+	 *
+	 * @param handle
+	 *          the handle of widget (GtkWidget*).
+	 * @param pixmap
+	 *          the pixmap (GdkPixmap*).
+	 */
+	void storeImage(H handle, H pixmap);
 }

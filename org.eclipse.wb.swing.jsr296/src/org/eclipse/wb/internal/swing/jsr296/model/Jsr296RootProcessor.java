@@ -36,86 +36,86 @@ import java.util.List;
  * @coverage swing.jsr296
  */
 public final class Jsr296RootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new Jsr296RootProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new Jsr296RootProcessor();
 
-  private Jsr296RootProcessor() {
-  }
+	private Jsr296RootProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    // evaluation <code>ResourceMap.injectComponents(Component)</code>
-    root.addBroadcastListener(new EvaluationEventListener() {
-      private boolean evaluating = false;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		// evaluation <code>ResourceMap.injectComponents(Component)</code>
+		root.addBroadcastListener(new EvaluationEventListener() {
+			private boolean evaluating = false;
 
-      @Override
-      public void evaluateAfter(EvaluationContext context, ASTNode node) throws Exception {
-        if (!evaluating && isInjectComponentsNode(node)) {
-          try {
-            evaluating = true;
-            AstEvaluationEngine.evaluate(context, (MethodInvocation) node);
-            //
-            Expression javaInfoExpression = DomGenerics.arguments(node).get(0);
-            JavaInfo javaInfo = root.getChildRepresentedBy(javaInfoExpression);
-            if (javaInfo != null) {
-              reNewJavaInfoPropertyDefaults(javaInfo);
-            } else {
-              reNewJavaInfoPropertyDefaults(root);
-            }
-          } finally {
-            evaluating = false;
-          }
-        }
-      }
+			@Override
+			public void evaluateAfter(EvaluationContext context, ASTNode node) throws Exception {
+				if (!evaluating && isInjectComponentsNode(node)) {
+					try {
+						evaluating = true;
+						AstEvaluationEngine.evaluate(context, (MethodInvocation) node);
+						//
+						Expression javaInfoExpression = DomGenerics.arguments(node).get(0);
+						JavaInfo javaInfo = root.getChildRepresentedBy(javaInfoExpression);
+						if (javaInfo != null) {
+							reNewJavaInfoPropertyDefaults(javaInfo);
+						} else {
+							reNewJavaInfoPropertyDefaults(root);
+						}
+					} finally {
+						evaluating = false;
+					}
+				}
+			}
 
-      /**
-       * Process renew properties values.
-       *
-       * @param the
-       *          {@link JavaInfo}.
-       */
-      private void reNewJavaInfoPropertyDefaults(JavaInfo javaInfo) throws Exception {
-        if (javaInfo.isObjectReady()) {
-          javaInfo.getDescription().visit(javaInfo, AbstractDescription.STATE_OBJECT_READY);
-        }
-        for (JavaInfo childJava : javaInfo.getChildrenJava()) {
-          reNewJavaInfoPropertyDefaults(childJava);
-        }
-      }
-    });
-    // <code>ResourceMap.injectComponents(Component)</code> invocation is terminal for children
-    root.addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void target_isTerminalStatement(JavaInfo parent,
-          JavaInfo child,
-          Statement statement,
-          boolean[] terminal) {
-        if (statement instanceof ExpressionStatement) {
-          Expression expression = ((ExpressionStatement) statement).getExpression();
-          if (isInjectComponentsNode(expression)) {
-            Expression javaInfoExpression = DomGenerics.arguments(expression).get(0);
-            JavaInfo javaInfo = root.getChildRepresentedBy(javaInfoExpression);
-            if (javaInfo != null && javaInfo.isItOrParentOf(parent)) {
-              terminal[0] = true;
-            }
-          }
-        }
-      }
-    });
-  }
+			/**
+			 * Process renew properties values.
+			 *
+			 * @param the
+			 *          {@link JavaInfo}.
+			 */
+			private void reNewJavaInfoPropertyDefaults(JavaInfo javaInfo) throws Exception {
+				if (javaInfo.isObjectReady()) {
+					javaInfo.getDescription().visit(javaInfo, AbstractDescription.STATE_OBJECT_READY);
+				}
+				for (JavaInfo childJava : javaInfo.getChildrenJava()) {
+					reNewJavaInfoPropertyDefaults(childJava);
+				}
+			}
+		});
+		// <code>ResourceMap.injectComponents(Component)</code> invocation is terminal for children
+		root.addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void target_isTerminalStatement(JavaInfo parent,
+					JavaInfo child,
+					Statement statement,
+					boolean[] terminal) {
+				if (statement instanceof ExpressionStatement) {
+					Expression expression = ((ExpressionStatement) statement).getExpression();
+					if (isInjectComponentsNode(expression)) {
+						Expression javaInfoExpression = DomGenerics.arguments(expression).get(0);
+						JavaInfo javaInfo = root.getChildRepresentedBy(javaInfoExpression);
+						if (javaInfo != null && javaInfo.isItOrParentOf(parent)) {
+							terminal[0] = true;
+						}
+					}
+				}
+			}
+		});
+	}
 
-  private boolean isInjectComponentsNode(ASTNode node) {
-    return AstNodeUtils.isMethodInvocation(
-        node,
-        "org.jdesktop.application.ResourceMap",
-        "injectComponents(java.awt.Component)");
-  }
+	private boolean isInjectComponentsNode(ASTNode node) {
+		return AstNodeUtils.isMethodInvocation(
+				node,
+				"org.jdesktop.application.ResourceMap",
+				"injectComponents(java.awt.Component)");
+	}
 }

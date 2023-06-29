@@ -31,116 +31,116 @@ import org.eclipse.wb.internal.gef.core.IRootContainer;
  * @coverage gef.graphical
  */
 class RootEditPart extends GraphicalEditPart implements IRootContainer {
-  private final IEditPartViewer m_viewer;
-  private final IRootFigure m_rootFigure;
-  private EditPart m_contentEditPart;
+	private final IEditPartViewer m_viewer;
+	private final IRootFigure m_rootFigure;
+	private EditPart m_contentEditPart;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RootEditPart(IEditPartViewer viewer, IRootFigure rootFigure) {
-    m_viewer = viewer;
-    m_rootFigure = rootFigure;
-    createLayers();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RootEditPart(IEditPartViewer viewer, IRootFigure rootFigure) {
+		m_viewer = viewer;
+		m_rootFigure = rootFigure;
+		createLayers();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Layer's
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void createLayers() {
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER_SUB_1));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_1));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_2));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_STATIC));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_1));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_2));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_ABV_1));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.CLICKABLE_LAYER));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_PRIMARY_LAYER));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER_STATIC));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_FEEDBACK_LAYER));
-    m_rootFigure.addLayer(new Layer(IEditPartViewer.TOP_LAYER));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Layer's
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void createLayers() {
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER_SUB_1));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_1));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_2));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_STATIC));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_1));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_2));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_ABV_1));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.CLICKABLE_LAYER));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_PRIMARY_LAYER));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER_STATIC));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_FEEDBACK_LAYER));
+		m_rootFigure.addLayer(new Layer(IEditPartViewer.TOP_LAYER));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EditPart
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the root's {@link EditPartViewer}.
-   */
-  @Override
-  public IEditPartViewer getViewer() {
-    return m_viewer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EditPart
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the root's {@link EditPartViewer}.
+	 */
+	@Override
+	public IEditPartViewer getViewer() {
+		return m_viewer;
+	}
 
-  /**
-   * Return root {@link Figure} for all {@link EditPart} {@link Figure}'s.
-   */
-  @Override
-  public Figure getContentPane() {
-    return m_rootFigure.getLayer(IEditPartViewer.PRIMARY_LAYER);
-  }
+	/**
+	 * Return root {@link Figure} for all {@link EditPart} {@link Figure}'s.
+	 */
+	@Override
+	public Figure getContentPane() {
+		return m_rootFigure.getLayer(IEditPartViewer.PRIMARY_LAYER);
+	}
 
-  /**
-   * This {@link EditPart} not contains itself {@link Figure}.
-   */
-  @Override
-  protected Figure createFigure() {
-    return null;
-  }
+	/**
+	 * This {@link EditPart} not contains itself {@link Figure}.
+	 */
+	@Override
+	protected Figure createFigure() {
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootEditPart
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the <i>content</i> {@link EditPart}.
-   */
-  @Override
-  public EditPart getContent() {
-    return m_contentEditPart;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootEditPart
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the <i>content</i> {@link EditPart}.
+	 */
+	@Override
+	public EditPart getContent() {
+		return m_contentEditPart;
+	}
 
-  /**
-   * Sets the <i>content</i> {@link EditPart}. A RootEditPart only has a single child, called its
-   * <i>contents</i>.
-   */
-  @Override
-  public void setContent(EditPart contentEditPart) {
-    if (m_contentEditPart != null) {
-      // remove content
-      removeChild(m_contentEditPart);
-      // clear all layers
-      for (Layer layer : m_rootFigure.getLayers()) {
-        layer.removeAll();
-      }
-    }
-    //
-    m_contentEditPart = contentEditPart;
-    //
-    if (m_contentEditPart != null) {
-      addChild(m_contentEditPart, -1);
-    }
-  }
+	/**
+	 * Sets the <i>content</i> {@link EditPart}. A RootEditPart only has a single child, called its
+	 * <i>contents</i>.
+	 */
+	@Override
+	public void setContent(EditPart contentEditPart) {
+		if (m_contentEditPart != null) {
+			// remove content
+			removeChild(m_contentEditPart);
+			// clear all layers
+			for (Layer layer : m_rootFigure.getLayers()) {
+				layer.removeAll();
+			}
+		}
+		//
+		m_contentEditPart = contentEditPart;
+		//
+		if (m_contentEditPart != null) {
+			addChild(m_contentEditPart, -1);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DragTracking
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Tool getDragTrackerTool(Request request) {
-    return new MarqueeSelectionTool();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DragTracking
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Tool getDragTrackerTool(Request request) {
+		return new MarqueeSelectionTool();
+	}
 }

@@ -20,14 +20,14 @@ import junit.framework.TestCase;
  *
  */
 public class ReferenceProvidersTest extends TestCase {
-  public void test_StringReferenceProvider() throws Exception {
-    StringReferenceProvider referenceProvider = new StringReferenceProvider("test");
-    assertEquals("test", referenceProvider.getReference());
-  }
+	public void test_StringReferenceProvider() throws Exception {
+		StringReferenceProvider referenceProvider = new StringReferenceProvider("test");
+		assertEquals("test", referenceProvider.getReference());
+	}
 
-  public void test_CompoundReferenceProvider() throws Exception {
-    CompoundReferenceProvider referenceProvider =
-        new CompoundReferenceProvider(new StringReferenceProvider("test"), ".test");
-    assertEquals("test.test", referenceProvider.getReference());
-  }
+	public void test_CompoundReferenceProvider() throws Exception {
+		CompoundReferenceProvider referenceProvider =
+				new CompoundReferenceProvider(new StringReferenceProvider("test"), ".test");
+		assertEquals("test.test", referenceProvider.getReference());
+	}
 }

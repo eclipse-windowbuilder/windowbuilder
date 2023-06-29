@@ -25,56 +25,56 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class ViewerPropertyFiltersCodeSupport extends ViewerObservableCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerPropertyFiltersCodeSupport() {
-    super("observeFilters",
-        "org.eclipse.jface.databinding.viewers.IViewerSetProperty.observe(org.eclipse.jface.viewers.Viewer)",
-        null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerPropertyFiltersCodeSupport() {
+		super("observeFilters",
+				"org.eclipse.jface.databinding.viewers.IViewerSetProperty.observe(org.eclipse.jface.viewers.Viewer)",
+				null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
-      WidgetPropertyBindableInfo bindableProperty,
-      int delayValue) throws Exception {
-    return new FiltersObservableInfo(bindableWidget);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
+			WidgetPropertyBindableInfo bindableProperty,
+			int delayValue) throws Exception {
+		return new FiltersObservableInfo(bindableWidget);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    super.addSourceCode(observable, lines, generationSupport);
-    String sourceCode = "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.filters()";
-    if (getVariableIdentifier() != null) {
-      if (generationSupport.addModel(this)) {
-        lines.add("org.eclipse.jface.databinding.viewers.IViewerSetProperty "
-            + getVariableIdentifier()
-            + " = "
-            + sourceCode
-            + ";");
-      }
-      sourceCode = getVariableIdentifier();
-    }
-    lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
-        + observable.getVariableIdentifier()
-        + " = "
-        + sourceCode
-        + ".observe("
-        + observable.getBindableObject().getReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		super.addSourceCode(observable, lines, generationSupport);
+		String sourceCode = "org.eclipse.jface.databinding.viewers.typed.ViewerProperties.filters()";
+		if (getVariableIdentifier() != null) {
+			if (generationSupport.addModel(this)) {
+				lines.add("org.eclipse.jface.databinding.viewers.IViewerSetProperty "
+						+ getVariableIdentifier()
+						+ " = "
+						+ sourceCode
+						+ ";");
+			}
+			sourceCode = getVariableIdentifier();
+		}
+		lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
+				+ observable.getVariableIdentifier()
+				+ " = "
+				+ sourceCode
+				+ ".observe("
+				+ observable.getBindableObject().getReference()
+				+ ");");
+	}
 }

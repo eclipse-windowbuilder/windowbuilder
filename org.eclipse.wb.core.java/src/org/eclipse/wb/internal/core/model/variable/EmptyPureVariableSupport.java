@@ -34,29 +34,29 @@ import javax.swing.JButton;
  * @coverage core.model.variable
  */
 public final class EmptyPureVariableSupport extends EmptyVariableSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EmptyPureVariableSupport(JavaInfo javaInfo) {
-    super(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EmptyPureVariableSupport(JavaInfo javaInfo) {
+		super(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String add_getVariableStatementSource(StatementTarget associationTarget) throws Exception {
-    NodeTarget creationTarget = new NodeTarget(associationTarget);
-    return m_javaInfo.getCreationSupport().add_getSource(creationTarget) + ";";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String add_getVariableStatementSource(StatementTarget associationTarget) throws Exception {
+		NodeTarget creationTarget = new NodeTarget(associationTarget);
+		return m_javaInfo.getCreationSupport().add_getSource(creationTarget) + ";";
+	}
 
-  @Override
-  public void add_setVariableStatement(Statement statement) throws Exception {
-    Expression initializer = ((ExpressionStatement) statement).getExpression();
-    add_setInitializer(initializer);
-  }
+	@Override
+	public void add_setVariableStatement(Statement statement) throws Exception {
+		Expression initializer = ((ExpressionStatement) statement).getExpression();
+		add_setInitializer(initializer);
+	}
 }

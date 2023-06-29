@@ -32,107 +32,107 @@ import java.lang.reflect.Constructor;
  * @coverage rcp.model.jface
  */
 public class PreferencePageInfo extends DialogPageInfo implements IJavaInfoRendering {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PreferencePageInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    JavaInfoUtils.scheduleSpecialRendering(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PreferencePageInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		JavaInfoUtils.scheduleSpecialRendering(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  Object getShell() {
-    if (m_shell == null) {
-      return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-        @Override
-        public Object runObject() throws Exception {
-          return ReflectionUtils.invokeMethod(m_preferenceDialog, "getShell()");
-        }
-      });
-    }
-    return super.getShell();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	Object getShell() {
+		if (m_shell == null) {
+			return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+				@Override
+				public Object runObject() throws Exception {
+					return ReflectionUtils.invokeMethod(m_preferenceDialog, "getShell()");
+				}
+			});
+		}
+		return super.getShell();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static Object m_parentShell;
-  private Object m_preferenceDialog;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static Object m_parentShell;
+	private Object m_preferenceDialog;
 
-  @Override
-  public void render() throws Exception {
-    ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
-    // prepare PreferenceNode
-    Object preferenceNode;
-    {
-      Class<?> clazz = editorLoader.loadClass("org.eclipse.jface.preference.PreferenceNode");
-      Constructor<?> constructor =
-          ReflectionUtils.getConstructorBySignature(
-              clazz,
-              "<init>(java.lang.String,org.eclipse.jface.preference.IPreferencePage)");
-      preferenceNode = constructor.newInstance("__wbp", getObject());
-    }
-    // prepare PreferenceManager
-    Object preferenceManager;
-    {
-      Class<?> clazz = editorLoader.loadClass("org.eclipse.jface.preference.PreferenceManager");
-      preferenceManager = clazz.newInstance();
-    }
-    // add this PreferencePage
-    ReflectionUtils.invokeMethod(
-        preferenceManager,
-        "addToRoot(org.eclipse.jface.preference.IPreferenceNode)",
-        preferenceNode);
-    // prepare parent Shell for PreferenceDialog
-    if (m_parentShell == null) {
-      m_parentShell = ContainerSupport.createShell();
-    }
-    // create PreferenceDialog
-    {
-      Class<?> preferenceDialogClass =
-          editorLoader.loadClass("org.eclipse.jface.preference.PreferenceDialog");
-      Constructor<?> constructor =
-          ReflectionUtils.getConstructorBySignature(
-              preferenceDialogClass,
-              "<init>(org.eclipse.swt.widgets.Shell,org.eclipse.jface.preference.PreferenceManager)");
-      m_preferenceDialog = constructor.newInstance(m_parentShell, preferenceManager);
-    }
-    // open PreferenceDialog, so perform PreferencePage GUI creation
-    ReflectionUtils.invokeMethod(m_preferenceDialog, "create()");
-    m_shell = ReflectionUtils.invokeMethod(m_preferenceDialog, "getShell()");
-    configureShell();
-  }
+	@Override
+	public void render() throws Exception {
+		ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
+		// prepare PreferenceNode
+		Object preferenceNode;
+		{
+			Class<?> clazz = editorLoader.loadClass("org.eclipse.jface.preference.PreferenceNode");
+			Constructor<?> constructor =
+					ReflectionUtils.getConstructorBySignature(
+							clazz,
+							"<init>(java.lang.String,org.eclipse.jface.preference.IPreferencePage)");
+			preferenceNode = constructor.newInstance("__wbp", getObject());
+		}
+		// prepare PreferenceManager
+		Object preferenceManager;
+		{
+			Class<?> clazz = editorLoader.loadClass("org.eclipse.jface.preference.PreferenceManager");
+			preferenceManager = clazz.newInstance();
+		}
+		// add this PreferencePage
+		ReflectionUtils.invokeMethod(
+				preferenceManager,
+				"addToRoot(org.eclipse.jface.preference.IPreferenceNode)",
+				preferenceNode);
+		// prepare parent Shell for PreferenceDialog
+		if (m_parentShell == null) {
+			m_parentShell = ContainerSupport.createShell();
+		}
+		// create PreferenceDialog
+		{
+			Class<?> preferenceDialogClass =
+					editorLoader.loadClass("org.eclipse.jface.preference.PreferenceDialog");
+			Constructor<?> constructor =
+					ReflectionUtils.getConstructorBySignature(
+							preferenceDialogClass,
+							"<init>(org.eclipse.swt.widgets.Shell,org.eclipse.jface.preference.PreferenceManager)");
+			m_preferenceDialog = constructor.newInstance(m_parentShell, preferenceManager);
+		}
+		// open PreferenceDialog, so perform PreferencePage GUI creation
+		ReflectionUtils.invokeMethod(m_preferenceDialog, "create()");
+		m_shell = ReflectionUtils.invokeMethod(m_preferenceDialog, "getShell()");
+		configureShell();
+	}
 
-  /**
-   * Allows configuring {@link #m_shell} after opening {@link PreferenceDialog}.
-   */
-  protected void configureShell() throws Exception {
-  }
+	/**
+	 * Allows configuring {@link #m_shell} after opening {@link PreferenceDialog}.
+	 */
+	protected void configureShell() throws Exception {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_dispose() throws Exception {
-    // dispose PreferenceDialog
-    if (m_preferenceDialog != null) {
-      ReflectionUtils.invokeMethod(m_preferenceDialog, "close()");
-      m_shell = null;
-    }
-    // call "super"
-    super.refresh_dispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_dispose() throws Exception {
+		// dispose PreferenceDialog
+		if (m_preferenceDialog != null) {
+			ReflectionUtils.invokeMethod(m_preferenceDialog, "close()");
+			m_shell = null;
+		}
+		// call "super"
+		super.refresh_dispose();
+	}
 }

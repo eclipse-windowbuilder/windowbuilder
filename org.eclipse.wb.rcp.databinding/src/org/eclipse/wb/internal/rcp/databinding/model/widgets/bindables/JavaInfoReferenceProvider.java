@@ -34,92 +34,92 @@ import org.eclipse.jdt.core.dom.ASTNode;
  * @coverage bindings.rcp.model.widgets
  */
 public final class JavaInfoReferenceProvider implements IReferenceProvider {
-  private final DatabindingsProvider m_provider;
-  private JavaInfo m_javaInfo;
-  private String m_controllerReference;
-  private boolean m_isControllerReference;
+	private final DatabindingsProvider m_provider;
+	private JavaInfo m_javaInfo;
+	private String m_controllerReference;
+	private boolean m_isControllerReference;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoReferenceProvider(JavaInfo javaInfo, DatabindingsProvider provider)
-      throws Exception {
-    m_provider = provider;
-    setJavaInfo(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoReferenceProvider(JavaInfo javaInfo, DatabindingsProvider provider)
+			throws Exception {
+		m_provider = provider;
+		setJavaInfo(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    m_javaInfo = javaInfo;
-    //
-    m_isControllerReference = m_provider.isController();
-    m_controllerReference =
-        m_isControllerReference ? ControllerSupport.getReference(m_provider, m_javaInfo) : null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		m_javaInfo = javaInfo;
+		//
+		m_isControllerReference = m_provider.isController();
+		m_controllerReference =
+				m_isControllerReference ? ControllerSupport.getReference(m_provider, m_javaInfo) : null;
+	}
 
-  public String getControllerReference() {
-    return m_controllerReference;
-  }
+	public String getControllerReference() {
+		return m_controllerReference;
+	}
 
-  public void ensureControllerReference() throws Exception {
-    if (m_isControllerReference && m_controllerReference == null) {
-      m_controllerReference =
-          ControllerSupport.ensureControllerReference(m_provider, m_javaInfo, true);
-    }
-  }
+	public void ensureControllerReference() throws Exception {
+		if (m_isControllerReference && m_controllerReference == null) {
+			m_controllerReference =
+					ControllerSupport.ensureControllerReference(m_provider, m_javaInfo, true);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IReferenceProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReference() throws Exception {
-    return m_isControllerReference && m_controllerReference != null
-        ? m_controllerReference
-        : getReference(m_javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IReferenceProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReference() throws Exception {
+		return m_isControllerReference && m_controllerReference != null
+				? m_controllerReference
+						: getReference(m_javaInfo);
+	}
 
-  public static String getReference(JavaInfo javaInfo) throws Exception {
-    VariableSupport variableSupport = javaInfo.getVariableSupport();
-    // handle this
-    if (variableSupport instanceof ThisVariableSupport) {
-      return "this";
-    }
-    // handle named variable
-    if (variableSupport instanceof AbstractSimpleVariableSupport && variableSupport.hasName()) {
-      return variableSupport.getName();
-    }
-    // handle exposed
-    if (variableSupport instanceof ExposedPropertyVariableSupport
-        || variableSupport instanceof ExposedFieldVariableSupport) {
-      try {
-        for (ASTNode node : javaInfo.getRelatedNodes()) {
-          if (AstNodeUtils.isVariable(node)) {
-            return CoreUtils.getNodeReference(node);
-          }
-        }
-      } catch (Throwable e) {
-      }
-      ObjectInfo parent = javaInfo.getParent();
-      if (parent instanceof JavaInfo) {
-        JavaInfo parentJava = (JavaInfo) parent;
-        if (javaInfo instanceof ViewerInfo
-            && parentJava.getVariableSupport() instanceof WrapperMethodControlVariableSupport) {
-          parentJava = parentJava.getParentJava();
-        }
-        String reference = getReference(parentJava);
-        if (reference != null) {
-          return reference + "." + variableSupport.getTitle();
-        }
-      }
-    }
-    return null;
-  }
+	public static String getReference(JavaInfo javaInfo) throws Exception {
+		VariableSupport variableSupport = javaInfo.getVariableSupport();
+		// handle this
+		if (variableSupport instanceof ThisVariableSupport) {
+			return "this";
+		}
+		// handle named variable
+		if (variableSupport instanceof AbstractSimpleVariableSupport && variableSupport.hasName()) {
+			return variableSupport.getName();
+		}
+		// handle exposed
+		if (variableSupport instanceof ExposedPropertyVariableSupport
+				|| variableSupport instanceof ExposedFieldVariableSupport) {
+			try {
+				for (ASTNode node : javaInfo.getRelatedNodes()) {
+					if (AstNodeUtils.isVariable(node)) {
+						return CoreUtils.getNodeReference(node);
+					}
+				}
+			} catch (Throwable e) {
+			}
+			ObjectInfo parent = javaInfo.getParent();
+			if (parent instanceof JavaInfo) {
+				JavaInfo parentJava = (JavaInfo) parent;
+				if (javaInfo instanceof ViewerInfo
+						&& parentJava.getVariableSupport() instanceof WrapperMethodControlVariableSupport) {
+					parentJava = parentJava.getParentJava();
+				}
+				String reference = getReference(parentJava);
+				if (reference != null) {
+					return reference + "." + variableSupport.getTitle();
+				}
+			}
+		}
+		return null;
+	}
 }

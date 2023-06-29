@@ -27,62 +27,62 @@ import java.util.List;
  * @coverage core.model.nonvisual
  */
 public class ItemCollectorObjectInfo extends CollectorObjectInfo {
-  private final ItemCollectorObjectInfo m_this = this;
-  protected final LinkedList<ObjectInfo> m_items = Lists.newLinkedList();
+	private final ItemCollectorObjectInfo m_this = this;
+	protected final LinkedList<ObjectInfo> m_items = Lists.newLinkedList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ItemCollectorObjectInfo(AstEditor editor, String caption) throws Exception {
-    super(editor, caption);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ItemCollectorObjectInfo(AstEditor editor, String caption) throws Exception {
+		super(editor, caption);
+	}
 
-  @Override
-  protected void installListeners() {
-    super.installListeners();
-    addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void childRemoveAfter(ObjectInfo parent, ObjectInfo child) throws Exception {
-        m_this.removeItem(child);
-      }
-    });
-  }
+	@Override
+	protected void installListeners() {
+		super.installListeners();
+		addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void childRemoveAfter(ObjectInfo parent, ObjectInfo child) throws Exception {
+				m_this.removeItem(child);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Items
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public List<ObjectInfo> getItems() {
-    List<ObjectInfo> list = Lists.newArrayList();
-    list.addAll(m_items);
-    return Collections.unmodifiableList(list);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Items
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public List<ObjectInfo> getItems() {
+		List<ObjectInfo> list = Lists.newArrayList();
+		list.addAll(m_items);
+		return Collections.unmodifiableList(list);
+	}
 
-  @Override
-  public void addItem(ObjectInfo item) throws Exception {
-    addItem(m_items.size(), item);
-  }
+	@Override
+	public void addItem(ObjectInfo item) throws Exception {
+		addItem(m_items.size(), item);
+	}
 
-  @Override
-  protected void addItem(int index, ObjectInfo item) throws Exception {
-    if (item != null && !m_items.contains(item)) {
-      m_items.add(index, item);
-      item.putArbitraryValue(COLLECTOR_ARBITRARY_KEY, this);
-    }
-  }
+	@Override
+	protected void addItem(int index, ObjectInfo item) throws Exception {
+		if (item != null && !m_items.contains(item)) {
+			m_items.add(index, item);
+			item.putArbitraryValue(COLLECTOR_ARBITRARY_KEY, this);
+		}
+	}
 
-  @Override
-  protected void removeItem(ObjectInfo item) throws Exception {
-    boolean removed = m_items.remove(item);
-    if (m_this.equals(item.getArbitraryValue(COLLECTOR_ARBITRARY_KEY))) {
-      item.removeArbitraryValue(COLLECTOR_ARBITRARY_KEY);
-    }
-    if (isRemoveOnEmpty() && m_items.isEmpty() && removed) {
-      getParent().removeChild(m_this);
-    }
-  }
+	@Override
+	protected void removeItem(ObjectInfo item) throws Exception {
+		boolean removed = m_items.remove(item);
+		if (m_this.equals(item.getArbitraryValue(COLLECTOR_ARBITRARY_KEY))) {
+			item.removeArbitraryValue(COLLECTOR_ARBITRARY_KEY);
+		}
+		if (isRemoveOnEmpty() && m_items.isEmpty() && removed) {
+			getParent().removeChild(m_this);
+		}
+	}
 }

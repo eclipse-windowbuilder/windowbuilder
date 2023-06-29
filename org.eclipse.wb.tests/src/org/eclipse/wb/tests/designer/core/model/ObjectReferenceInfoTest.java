@@ -20,25 +20,25 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
  * @author scheglov_ke
  */
 public class ObjectReferenceInfoTest extends DesignerTestCase {
-  /**
-   * Can not create {@link ObjectReferenceInfo} for <code>null</code> {@link ObjectInfo}.
-   */
-  public void test_notNull() throws Exception {
-    try {
-      new TestObjectInfo(null);
-      fail();
-    } catch (Throwable e) {
-    }
-  }
+	/**
+	 * Can not create {@link ObjectReferenceInfo} for <code>null</code> {@link ObjectInfo}.
+	 */
+	public void test_notNull() throws Exception {
+		try {
+			new TestObjectInfo(null);
+			fail();
+		} catch (Throwable e) {
+		}
+	}
 
-  /**
-   * {@link ObjectReferenceInfo} redirects invocations to {@link ObjectInfo}.
-   */
-  public void test_redirect() throws Exception {
-    TestObjectInfo object = new TestObjectInfo();
-    ObjectReferenceInfo reference = new ObjectReferenceInfo(object);
-    assertSame(object, reference.getObject());
-    assertSame(object.getBroadcastSupport(), reference.getBroadcastSupport());
-    assertSame(object.getPresentation(), reference.getPresentation());
-  }
+	/**
+	 * {@link ObjectReferenceInfo} redirects invocations to {@link ObjectInfo}.
+	 */
+	public void test_redirect() throws Exception {
+		TestObjectInfo object = new TestObjectInfo();
+		ObjectReferenceInfo reference = new ObjectReferenceInfo(object);
+		assertSame(object, reference.getObject());
+		assertSame(object.getBroadcastSupport(), reference.getBroadcastSupport());
+		assertSame(object.getPresentation(), reference.getPresentation());
+	}
 }

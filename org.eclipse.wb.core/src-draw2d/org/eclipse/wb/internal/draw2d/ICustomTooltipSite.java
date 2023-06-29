@@ -20,13 +20,13 @@ import org.eclipse.swt.widgets.Listener;
  * @coverage gef.draw2d
  */
 public interface ICustomTooltipSite {
-  /**
-   * Hides current tooltip.
-   */
-  void hideTooltip();
+	/**
+	 * Hides current tooltip.
+	 */
+	void hideTooltip();
 
-  /**
-   * @return {@link Listener} that hides tooltip on mouse exit or click.
-   */
-  Listener getHideListener();
+	/**
+	 * @return {@link Listener} that hides tooltip on mouse exit or click.
+	 */
+	Listener getHideListener();
 }

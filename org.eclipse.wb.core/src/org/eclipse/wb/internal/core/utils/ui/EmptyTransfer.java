@@ -24,39 +24,39 @@ import org.apache.commons.lang.ArrayUtils;
  * @coverage core.ui
  */
 public final class EmptyTransfer extends ByteArrayTransfer {
-  public static EmptyTransfer INSTANCE = new EmptyTransfer();
-  private static final String TYPE_NAME = "WindowBuilder empty transfer";
-  private static final int TYPE_ID = registerType(TYPE_NAME);
+	public static EmptyTransfer INSTANCE = new EmptyTransfer();
+	private static final String TYPE_NAME = "WindowBuilder empty transfer";
+	private static final int TYPE_ID = registerType(TYPE_NAME);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private EmptyTransfer() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private EmptyTransfer() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Transfer
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected int[] getTypeIds() {
-    return new int[]{TYPE_ID};
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Transfer
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected int[] getTypeIds() {
+		return new int[]{TYPE_ID};
+	}
 
-  @Override
-  protected String[] getTypeNames() {
-    return new String[]{TYPE_NAME};
-  }
+	@Override
+	protected String[] getTypeNames() {
+		return new String[]{TYPE_NAME};
+	}
 
-  @Override
-  protected void javaToNative(Object object, TransferData transferData) {
-  }
+	@Override
+	protected void javaToNative(Object object, TransferData transferData) {
+	}
 
-  @Override
-  protected Object nativeToJava(TransferData transferData) {
-    return ArrayUtils.EMPTY_BYTE_ARRAY;
-  }
+	@Override
+	protected Object nativeToJava(TransferData transferData) {
+		return ArrayUtils.EMPTY_BYTE_ARRAY;
+	}
 }

@@ -30,102 +30,102 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage XML.editor.palette.ui
  */
 public final class PalettePreferencesDialog extends AbstractPaletteDialog {
-  private final PluginPalettePreferences m_preferences;
+	private final PluginPalettePreferences m_preferences;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PalettePreferencesDialog(Shell parentShell, PluginPalettePreferences preferences) {
-    super(parentShell,
-        Messages.PalettePreferencesDialog_shellTitle,
-        Messages.PalettePreferencesDialog_title,
-        null,
-        Messages.PalettePreferencesDialog_message);
-    m_preferences = preferences;
-    setShellStyle(SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PalettePreferencesDialog(Shell parentShell, PluginPalettePreferences preferences) {
+		super(parentShell,
+				Messages.PalettePreferencesDialog_shellTitle,
+				Messages.PalettePreferencesDialog_title,
+				null,
+				Messages.PalettePreferencesDialog_message);
+		m_preferences = preferences;
+		setShellStyle(SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Commits settings from dialog to the preferences.
-   */
-  public void commit() {
-    m_preferences.setOnlyIcons(m_onlyIconsField.getSelection());
-    m_preferences.setMinColumns(1 + m_minColumnsField.getSelection()[0]);
-    m_preferences.setCategoryFont(m_categoryFontField.getFontDataArray());
-    m_preferences.setEntryFont(m_entryFontField.getFontDataArray());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Commits settings from dialog to the preferences.
+	 */
+	public void commit() {
+		m_preferences.setOnlyIcons(m_onlyIconsField.getSelection());
+		m_preferences.setMinColumns(1 + m_minColumnsField.getSelection()[0]);
+		m_preferences.setCategoryFont(m_categoryFontField.getFontDataArray());
+		m_preferences.setEntryFont(m_entryFontField.getFontDataArray());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private BooleanDialogField m_onlyIconsField;
-  private SelectionButtonDialogFieldGroup m_minColumnsField;
-  private FontDialogField m_categoryFontField;
-  private FontDialogField m_entryFontField;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private BooleanDialogField m_onlyIconsField;
+	private SelectionButtonDialogFieldGroup m_minColumnsField;
+	private FontDialogField m_categoryFontField;
+	private FontDialogField m_entryFontField;
 
-  @Override
-  protected void createControls(Composite container) {
-    m_fieldsContainer = container;
-    GridLayoutFactory.create(container).columns(2);
-    // only icons
-    {
-      m_onlyIconsField = new BooleanDialogField();
-      doCreateField(m_onlyIconsField, Messages.PalettePreferencesDialog_onlyIcons);
-    }
-    // min columns
-    {
-      m_minColumnsField =
-          new SelectionButtonDialogFieldGroup(SWT.RADIO, new String[]{
-              "1 (one)",
-              "2 (two)",
-              "3 (three)",
-              "4 (four)",
-              "5 (five)"}, 5, SWT.SHADOW_ETCHED_IN);
-      doCreateField(m_minColumnsField, Messages.PalettePreferencesDialog_minColumnsNumber);
-    }
-    // category font
-    {
-      m_categoryFontField = new FontDialogField();
-      doCreateField(m_categoryFontField, Messages.PalettePreferencesDialog_categoryFont);
-      m_categoryFontField.setChooseButtonText(Messages.PalettePreferencesDialog_categoryFontChoose);
-      m_categoryFontField.setDefaultButtonText(Messages.PalettePreferencesDialog_categoryFontSystem);
-    }
-    // entry font
-    {
-      m_entryFontField = new FontDialogField();
-      doCreateField(m_entryFontField, Messages.PalettePreferencesDialog_entryFont);
-      m_entryFontField.setChooseButtonText(Messages.PalettePreferencesDialog_entryFontChoose);
-      m_entryFontField.setDefaultButtonText(Messages.PalettePreferencesDialog_entryFontSystem);
-    }
-    // initialize fields
-    m_onlyIconsField.setSelection(m_preferences.isOnlyIcons());
-    m_minColumnsField.setSelection(new int[]{m_preferences.getMinColumns() - 1});
-    m_categoryFontField.setFontDataArray(m_preferences.getCategoryFontDescriptor().getFontData());
-    m_entryFontField.setFontDataArray(m_preferences.getEntryFontDescriptor().getFontData());
-  }
+	@Override
+	protected void createControls(Composite container) {
+		m_fieldsContainer = container;
+		GridLayoutFactory.create(container).columns(2);
+		// only icons
+		{
+			m_onlyIconsField = new BooleanDialogField();
+			doCreateField(m_onlyIconsField, Messages.PalettePreferencesDialog_onlyIcons);
+		}
+		// min columns
+		{
+			m_minColumnsField =
+					new SelectionButtonDialogFieldGroup(SWT.RADIO, new String[]{
+							"1 (one)",
+							"2 (two)",
+							"3 (three)",
+							"4 (four)",
+					"5 (five)"}, 5, SWT.SHADOW_ETCHED_IN);
+			doCreateField(m_minColumnsField, Messages.PalettePreferencesDialog_minColumnsNumber);
+		}
+		// category font
+		{
+			m_categoryFontField = new FontDialogField();
+			doCreateField(m_categoryFontField, Messages.PalettePreferencesDialog_categoryFont);
+			m_categoryFontField.setChooseButtonText(Messages.PalettePreferencesDialog_categoryFontChoose);
+			m_categoryFontField.setDefaultButtonText(Messages.PalettePreferencesDialog_categoryFontSystem);
+		}
+		// entry font
+		{
+			m_entryFontField = new FontDialogField();
+			doCreateField(m_entryFontField, Messages.PalettePreferencesDialog_entryFont);
+			m_entryFontField.setChooseButtonText(Messages.PalettePreferencesDialog_entryFontChoose);
+			m_entryFontField.setDefaultButtonText(Messages.PalettePreferencesDialog_entryFontSystem);
+		}
+		// initialize fields
+		m_onlyIconsField.setSelection(m_preferences.isOnlyIcons());
+		m_minColumnsField.setSelection(new int[]{m_preferences.getMinColumns() - 1});
+		m_categoryFontField.setFontDataArray(m_preferences.getCategoryFontDescriptor().getFontData());
+		m_entryFontField.setFontDataArray(m_preferences.getEntryFontDescriptor().getFontData());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Composite m_fieldsContainer;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Composite m_fieldsContainer;
 
-  /**
-   * Configures given {@link DialogField} for specific of this dialog.
-   */
-  protected final void doCreateField(DialogField dialogField, String labelText) {
-    dialogField.setLabelText(labelText);
-    dialogField.setDialogFieldListener(m_validateListener);
-    DialogFieldUtils.fillControls(m_fieldsContainer, dialogField, 2, 60);
-  }
+	/**
+	 * Configures given {@link DialogField} for specific of this dialog.
+	 */
+	protected final void doCreateField(DialogField dialogField, String labelText) {
+		dialogField.setLabelText(labelText);
+		dialogField.setDialogFieldListener(m_validateListener);
+		DialogFieldUtils.fillControls(m_fieldsContainer, dialogField, 2, 60);
+	}
 }

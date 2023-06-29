@@ -26,82 +26,82 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class WidgetPropertyTextCodeSupport extends WidgetPropertiesCodeSupport {
-  private final int[] m_parseEvents;
+	private final int[] m_parseEvents;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WidgetPropertyTextCodeSupport() {
-    this(null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WidgetPropertyTextCodeSupport() {
+		this(null);
+	}
 
-  public WidgetPropertyTextCodeSupport(int[] events) {
-    super("observeText");
-    m_parseEvents = events;
-  }
+	public WidgetPropertyTextCodeSupport(int[] events) {
+		super("observeText");
+		m_parseEvents = events;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
-      WidgetPropertyBindableInfo bindableProperty,
-      int delayValue) throws Exception {
-    Assert.isNotNull(m_parseEvents);
-    TextSwtObservableInfo observable =
-        new TextSwtObservableInfo(bindableWidget, bindableProperty, m_parseEvents);
-    observable.setDelayValue(delayValue);
-    return observable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ObservableInfo createObservable(WidgetBindableInfo bindableWidget,
+			WidgetPropertyBindableInfo bindableProperty,
+			int delayValue) throws Exception {
+		Assert.isNotNull(m_parseEvents);
+		TextSwtObservableInfo observable =
+				new TextSwtObservableInfo(bindableWidget, bindableProperty, m_parseEvents);
+		observable.setDelayValue(delayValue);
+		return observable;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getSourceCode(ObservableInfo observable) throws Exception {
-    TextSwtObservableInfo textObservable = (TextSwtObservableInfo) observable;
-    List<String> updateEvents = textObservable.getUpdateEvents();
-    //
-    if (updateEvents.size() == 0) {
-      return super.getSourceCode(observable);
-    }
-    return "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text("
-        + getEventsSourceCode(updateEvents)
-        + ")";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getSourceCode(ObservableInfo observable) throws Exception {
+		TextSwtObservableInfo textObservable = (TextSwtObservableInfo) observable;
+		List<String> updateEvents = textObservable.getUpdateEvents();
+		//
+		if (updateEvents.size() == 0) {
+			return super.getSourceCode(observable);
+		}
+		return "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text("
+		+ getEventsSourceCode(updateEvents)
+		+ ")";
+	}
 
-  @Override
-  public String getSourceCode() throws Exception {
-    if (m_parseEvents.length == 0) {
-      return super.getSourceCode();
-    }
-    List<String> updateEvents = TextSwtObservableInfo.getEventsSources(m_parseEvents);
-    return "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text("
-        + getEventsSourceCode(updateEvents)
-        + ")";
-  }
+	@Override
+	public String getSourceCode() throws Exception {
+		if (m_parseEvents.length == 0) {
+			return super.getSourceCode();
+		}
+		List<String> updateEvents = TextSwtObservableInfo.getEventsSources(m_parseEvents);
+		return "org.eclipse.jface.databinding.swt.typed.WidgetProperties.text("
+		+ getEventsSourceCode(updateEvents)
+		+ ")";
+	}
 
-  private String getEventsSourceCode(List<String> updateEvents) {
-    int size = updateEvents.size();
-    StringBuffer events = new StringBuffer();
-    if (size == 1) {
-      events.append("org.eclipse.swt." + updateEvents.get(0));
-    } else {
-      events.append("new int[]{");
-      for (Iterator<String> I = updateEvents.iterator(); I.hasNext();) {
-        events.append("org.eclipse.swt." + I.next());
-        if (I.hasNext()) {
-          events.append(", ");
-        }
-      }
-      events.append("}");
-    }
-    return events.toString();
-  }
+	private String getEventsSourceCode(List<String> updateEvents) {
+		int size = updateEvents.size();
+		StringBuffer events = new StringBuffer();
+		if (size == 1) {
+			events.append("org.eclipse.swt." + updateEvents.get(0));
+		} else {
+			events.append("new int[]{");
+			for (Iterator<String> I = updateEvents.iterator(); I.hasNext();) {
+				events.append("org.eclipse.swt." + I.next());
+				if (I.hasNext()) {
+					events.append(", ");
+				}
+			}
+			events.append("}");
+		}
+		return events.toString();
+	}
 }

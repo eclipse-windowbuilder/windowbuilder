@@ -20,15 +20,15 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation
  * @coverage core.model
  */
 public interface ObjectInfoChildGraphical {
-  /**
-   * This method is invoked from {@link DefaultObjectPresentation#getChildrenGraphical()} to check
-   * if given {@link ObjectInfo} can be displayed on design canvas.
-   *
-   * @param object
-   *          the {@link ObjectInfo} to check.
-   * @param visible
-   *          the array with single boolean flag, with initial <code>true</code> value, any can
-   *          listener set it to <code>false</code>.
-   */
-  void invoke(ObjectInfo object, boolean[] visible) throws Exception;
+	/**
+	 * This method is invoked from {@link DefaultObjectPresentation#getChildrenGraphical()} to check
+	 * if given {@link ObjectInfo} can be displayed on design canvas.
+	 *
+	 * @param object
+	 *          the {@link ObjectInfo} to check.
+	 * @param visible
+	 *          the array with single boolean flag, with initial <code>true</code> value, any can
+	 *          listener set it to <code>false</code>.
+	 */
+	void invoke(ObjectInfo object, boolean[] visible) throws Exception;
 }

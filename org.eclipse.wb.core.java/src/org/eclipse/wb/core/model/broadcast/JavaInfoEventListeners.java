@@ -22,5 +22,5 @@ import java.util.List;
  * @coverage core.model
  */
 public interface JavaInfoEventListeners {
-  void invoke(JavaInfo javaInfo, List<AbstractListenerProperty> properties) throws Exception;
+	void invoke(JavaInfo javaInfo, List<AbstractListenerProperty> properties) throws Exception;
 }

@@ -22,30 +22,30 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage core.model.util
  */
 public final class PropertyUtils2 {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private PropertyUtils2() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private PropertyUtils2() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Create
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static GenericPropertyImpl createGenericPropertyImpl(JavaInfo javaInfo,
-      GenericPropertyDescription description) {
-    GenericPropertyImpl property =
-        new GenericPropertyImpl(javaInfo,
-            description.getTitle(),
-            description.getAccessorsArray(),
-            description.getDefaultValue(),
-            description.getConverter(),
-            description.getEditor());
-    property.setDescription(description);
-    property.setCategory(description.getCategory());
-    return property;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Create
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static GenericPropertyImpl createGenericPropertyImpl(JavaInfo javaInfo,
+			GenericPropertyDescription description) {
+		GenericPropertyImpl property =
+				new GenericPropertyImpl(javaInfo,
+						description.getTitle(),
+						description.getAccessorsArray(),
+						description.getDefaultValue(),
+						description.getConverter(),
+						description.getEditor());
+		property.setDescription(description);
+		property.setCategory(description.getCategory());
+		return property;
+	}
 }

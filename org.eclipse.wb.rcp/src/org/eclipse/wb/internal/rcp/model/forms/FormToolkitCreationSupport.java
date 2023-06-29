@@ -23,41 +23,41 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
  * @coverage rcp.model.forms
  */
 public final class FormToolkitCreationSupport extends CreationSupport {
-  private final JavaInfo m_hostJavaInfo;
-  private final FormToolkitAccess m_toolkitAccess;
+	private final JavaInfo m_hostJavaInfo;
+	private final FormToolkitAccess m_toolkitAccess;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormToolkitCreationSupport(JavaInfo hostJavaInfo, FormToolkitAccess toolkitAccess) {
-    m_hostJavaInfo = hostJavaInfo;
-    m_toolkitAccess = toolkitAccess;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormToolkitCreationSupport(JavaInfo hostJavaInfo, FormToolkitAccess toolkitAccess) {
+		m_hostJavaInfo = hostJavaInfo;
+		m_toolkitAccess = toolkitAccess;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "toolkitAccess: " + m_toolkitAccess.getReferenceExpression();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "toolkitAccess: " + m_toolkitAccess.getReferenceExpression();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ASTNode getNode() {
-    return m_hostJavaInfo.getCreationSupport().getNode();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ASTNode getNode() {
+		return m_hostJavaInfo.getCreationSupport().getNode();
+	}
 
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    return m_toolkitAccess.isToolkit(node);
-  }
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		return m_toolkitAccess.isToolkit(node);
+	}
 }

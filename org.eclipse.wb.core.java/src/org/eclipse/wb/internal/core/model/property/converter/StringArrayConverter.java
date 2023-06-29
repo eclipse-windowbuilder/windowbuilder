@@ -19,40 +19,40 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.property.converter
  */
 public final class StringArrayConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new StringArrayConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new StringArrayConverter();
 
-  private StringArrayConverter() {
-  }
+	private StringArrayConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    if (value == null) {
-      return "(String[]) null";
-    } else {
-      StringBuilder buffer = new StringBuilder();
-      buffer.append("new String[] {");
-      // add items
-      String[] items = (String[]) value;
-      for (int i = 0; i < items.length; i++) {
-        String item = items[i];
-        if (i != 0) {
-          buffer.append(", ");
-        }
-        buffer.append(StringConverter.INSTANCE.toJavaSource(javaInfo, item));
-      }
-      //
-      buffer.append("}");
-      return buffer.toString();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		if (value == null) {
+			return "(String[]) null";
+		} else {
+			StringBuilder buffer = new StringBuilder();
+			buffer.append("new String[] {");
+			// add items
+			String[] items = (String[]) value;
+			for (int i = 0; i < items.length; i++) {
+				String item = items[i];
+				if (i != 0) {
+					buffer.append(", ");
+				}
+				buffer.append(StringConverter.INSTANCE.toJavaSource(javaInfo, item));
+			}
+			//
+			buffer.append("}");
+			return buffer.toString();
+		}
+	}
 }

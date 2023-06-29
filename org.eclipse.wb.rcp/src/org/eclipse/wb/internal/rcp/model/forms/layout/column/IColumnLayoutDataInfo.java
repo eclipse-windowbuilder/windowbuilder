@@ -21,33 +21,33 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
  * @coverage rcp.model.forms
  */
 public interface IColumnLayoutDataInfo extends ILayoutDataInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hint
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the value of <code>widthHint</code> property.
-   */
-  void setWidthHint(int widthHint) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hint
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the value of <code>widthHint</code> property.
+	 */
+	void setWidthHint(int widthHint) throws Exception;
 
-  /**
-   * Sets the value of <code>heightHint</code> property.
-   */
-  void setHeightHint(int heightHint) throws Exception;
+	/**
+	 * Sets the value of <code>heightHint</code> property.
+	 */
+	void setHeightHint(int heightHint) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Alignment
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the value for {@link ColumnLayoutData#horizontalAlignment} property.
-   */
-  int getHorizontalAlignment() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Alignment
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the value for {@link ColumnLayoutData#horizontalAlignment} property.
+	 */
+	int getHorizontalAlignment() throws Exception;
 
-  /**
-   * Sets value for {@link ColumnLayoutData#horizontalAlignment} property.
-   */
-  void setHorizontalAlignment(int horizontalAlignment) throws Exception;
+	/**
+	 * Sets value for {@link ColumnLayoutData#horizontalAlignment} property.
+	 */
+	void setHorizontalAlignment(int horizontalAlignment) throws Exception;
 }

@@ -22,24 +22,24 @@ import org.eclipse.swt.graphics.Font;
  * @coverage bindings.ui
  */
 public interface IObserveDecorator {
-  IObserveDecorator DEFAULT = new ObserveDecorator();
-  IObserveDecorator ITALIC = new ItalicObserveDecorator();
-  IObserveDecorator BOLD = new BoldObserveDecorator();
-  IObserveDecorator BOLD_ITALIC = new BoldItalicObserveDecorator();
-  IObserveDecorator HIDDEN = new GrayColorObserveDecorator();
+	IObserveDecorator DEFAULT = new ObserveDecorator();
+	IObserveDecorator ITALIC = new ItalicObserveDecorator();
+	IObserveDecorator BOLD = new BoldObserveDecorator();
+	IObserveDecorator BOLD_ITALIC = new BoldItalicObserveDecorator();
+	IObserveDecorator HIDDEN = new GrayColorObserveDecorator();
 
-  /**
-   * @return the foreground Color for decorate host {@link IObserveInfo} or <code>null</code>.
-   */
-  Color getForeground();
+	/**
+	 * @return the foreground Color for decorate host {@link IObserveInfo} or <code>null</code>.
+	 */
+	Color getForeground();
 
-  /**
-   * @return the background Color for decorate host {@link IObserveInfo} or <code>null</code>.
-   */
-  Color getBackground();
+	/**
+	 * @return the background Color for decorate host {@link IObserveInfo} or <code>null</code>.
+	 */
+	Color getBackground();
 
-  /**
-   * @return the Font for decorate host {@link IObserveInfo} or <code>null</code>.
-   */
-  Font getFont(Font baseItalicFont, Font baseBoldFont, Font baseBoldItalicFont);
+	/**
+	 * @return the Font for decorate host {@link IObserveInfo} or <code>null</code>.
+	 */
+	Font getFont(Font baseItalicFont, Font baseBoldFont, Font baseBoldItalicFont);
 }

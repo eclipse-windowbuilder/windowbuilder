@@ -20,12 +20,12 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ActionContributionItemInfo
  * @coverage rcp.gef.part
  */
 public final class ActionContributionItemEditPart extends ContributionItemEditPart {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionContributionItemEditPart(ActionContributionItemInfo item) {
-    super(item);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionContributionItemEditPart(ActionContributionItemInfo item) {
+		super(item);
+	}
 }

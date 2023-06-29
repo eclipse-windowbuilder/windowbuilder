@@ -22,42 +22,42 @@ import org.xml.sax.Attributes;
  * @coverage XML.editor.palette
  */
 public final class CategoryRemoveCommand extends Command {
-  public static final String ID = "removeCategory";
-  private final String m_id;
+	public static final String ID = "removeCategory";
+	private final String m_id;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CategoryRemoveCommand(CategoryInfo category) {
-    m_id = category.getId();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CategoryRemoveCommand(CategoryInfo category) {
+		m_id = category.getId();
+	}
 
-  public CategoryRemoveCommand(Attributes attributes) {
-    m_id = attributes.getValue("id");
-  }
+	public CategoryRemoveCommand(Attributes attributes) {
+		m_id = attributes.getValue("id");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    CategoryInfo category = palette.getCategory(m_id);
-    if (category != null) {
-      palette.getCategories().remove(category);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		CategoryInfo category = palette.getCategory(m_id);
+		if (category != null) {
+			palette.getCategories().remove(category);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    addAttribute("id", m_id);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		addAttribute("id", m_id);
+	}
 }

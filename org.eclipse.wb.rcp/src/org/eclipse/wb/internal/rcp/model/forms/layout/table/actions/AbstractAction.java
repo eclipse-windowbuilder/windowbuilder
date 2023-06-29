@@ -23,26 +23,26 @@ import org.eclipse.jface.action.Action;
  * @coverage rcp.model.forms
  */
 abstract class AbstractAction extends ObjectInfoAction {
-  protected final ITableWrapDataInfo m_layoutData;
-  protected final boolean m_horizontal;
+	protected final ITableWrapDataInfo m_layoutData;
+	protected final boolean m_horizontal;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractAction(ITableWrapDataInfo layoutData,
-      String text,
-      int style,
-      String iconPath,
-      boolean horizontal) {
-    super(layoutData.getUnderlyingModel(), text, style);
-    m_layoutData = layoutData;
-    m_horizontal = horizontal;
-    // set image
-    if (iconPath != null) {
-      String path = "info/layout/TableWrapLayout/" + (horizontal ? "h" : "v") + "/menu/" + iconPath;
-      setImageDescriptor(Activator.getImageDescriptor(path));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractAction(ITableWrapDataInfo layoutData,
+			String text,
+			int style,
+			String iconPath,
+			boolean horizontal) {
+		super(layoutData.getUnderlyingModel(), text, style);
+		m_layoutData = layoutData;
+		m_horizontal = horizontal;
+		// set image
+		if (iconPath != null) {
+			String path = "info/layout/TableWrapLayout/" + (horizontal ? "h" : "v") + "/menu/" + iconPath;
+			setImageDescriptor(Activator.getImageDescriptor(path));
+		}
+	}
 }

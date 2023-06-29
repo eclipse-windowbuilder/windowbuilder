@@ -33,12 +33,12 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	WidgetTests.class,
 	UtilTests.class,
-    ResourceTests.class,
-    LayoutTests.class,
-    JFaceTests.class,
-    FormsTests.class, 
-    TheRcpTests.class, 
-    E4Tests.class,
+	ResourceTests.class,
+	LayoutTests.class,
+	JFaceTests.class,
+	FormsTests.class, 
+	TheRcpTests.class, 
+	E4Tests.class,
 
 })
 public class ModelTests {

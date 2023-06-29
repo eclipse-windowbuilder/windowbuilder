@@ -36,68 +36,68 @@ import java.util.List;
  * @coverage bindings.rcp.parser
  */
 public final class DatabindingParser extends AbstractParser {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parse
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static void parse(DatabindingsProvider provider) throws Exception {
-    new DatabindingParser(provider.getJavaInfoRoot(), provider);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parse
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static void parse(DatabindingsProvider provider) throws Exception {
+		new DatabindingParser(provider.getJavaInfoRoot(), provider);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private DatabindingParser(JavaInfo root, DatabindingsProvider provider) throws Exception {
-    super(provider.getAstEditor(), provider);
-    // prepare root node
-    TypeDeclaration rootNode = provider.getRootNode();
-    // prepare parsers
-    for (ObserveTypeContainer container : provider.getContainers()) {
-      container.createObservables(root, this, m_editor, rootNode);
-      m_subParsers.add(container);
-    }
-    //
-    final DataBindingsRootInfo rootInfo = provider.getRootInfo();
-    m_subParsers.add(rootInfo);
-    m_subParsers.add(new ViewerInputParser(rootInfo.getContextInfo(), provider));
-    //
-    if (rootNode != null) {
-      // find method initDataBindings()
-      MethodDeclaration initDataBindings =
-          AstNodeUtils.getMethodBySignature(rootNode, "initDataBindings()");
-      if (initDataBindings != null) {
-        rootInfo.setInitDataBindings(initDataBindings);
-        // parse method initDataBindings()
-        parseMethod(initDataBindings);
-        initDataBindings.accept(new ASTVisitor() {
-          @Override
-          public void endVisit(TryStatement statement) {
-            StringBuffer userTryCatchBlock = new StringBuffer();
-            userTryCatchBlock.append("}");
-            //
-            List<CatchClause> catchClauses = CoreUtils.cast(statement.catchClauses());
-            for (CatchClause catchClause : catchClauses) {
-              userTryCatchBlock.append(" ");
-              userTryCatchBlock.append(m_editor.getSource(catchClause));
-            }
-            //
-            Block finallyBlock = statement.getFinally();
-            if (finallyBlock != null) {
-              userTryCatchBlock.append(" finally ");
-              userTryCatchBlock.append(m_editor.getSource(finallyBlock));
-            }
-            //
-            rootInfo.getContextInfo().setUserTryCatchBlock(userTryCatchBlock.toString());
-          }
-        });
-        // after parsing post processing for all bindings
-        for (AbstractBindingInfo binding : provider.getBindings0()) {
-          binding.postParse();
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private DatabindingParser(JavaInfo root, DatabindingsProvider provider) throws Exception {
+		super(provider.getAstEditor(), provider);
+		// prepare root node
+		TypeDeclaration rootNode = provider.getRootNode();
+		// prepare parsers
+		for (ObserveTypeContainer container : provider.getContainers()) {
+			container.createObservables(root, this, m_editor, rootNode);
+			m_subParsers.add(container);
+		}
+		//
+		final DataBindingsRootInfo rootInfo = provider.getRootInfo();
+		m_subParsers.add(rootInfo);
+		m_subParsers.add(new ViewerInputParser(rootInfo.getContextInfo(), provider));
+		//
+		if (rootNode != null) {
+			// find method initDataBindings()
+			MethodDeclaration initDataBindings =
+					AstNodeUtils.getMethodBySignature(rootNode, "initDataBindings()");
+			if (initDataBindings != null) {
+				rootInfo.setInitDataBindings(initDataBindings);
+				// parse method initDataBindings()
+				parseMethod(initDataBindings);
+				initDataBindings.accept(new ASTVisitor() {
+					@Override
+					public void endVisit(TryStatement statement) {
+						StringBuffer userTryCatchBlock = new StringBuffer();
+						userTryCatchBlock.append("}");
+						//
+						List<CatchClause> catchClauses = CoreUtils.cast(statement.catchClauses());
+						for (CatchClause catchClause : catchClauses) {
+							userTryCatchBlock.append(" ");
+							userTryCatchBlock.append(m_editor.getSource(catchClause));
+						}
+						//
+						Block finallyBlock = statement.getFinally();
+						if (finallyBlock != null) {
+							userTryCatchBlock.append(" finally ");
+							userTryCatchBlock.append(m_editor.getSource(finallyBlock));
+						}
+						//
+						rootInfo.getContextInfo().setUserTryCatchBlock(userTryCatchBlock.toString());
+					}
+				});
+				// after parsing post processing for all bindings
+				for (AbstractBindingInfo binding : provider.getBindings0()) {
+					binding.postParse();
+				}
+			}
+		}
+	}
 }

@@ -26,43 +26,43 @@ import javax.swing.JPanel;
  * @coverage swing.model.top
  */
 public final class JPanelTopBoundsSupport extends SwingTopBoundsSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JPanelTopBoundsSupport(ContainerInfo container) {
-    super(container);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JPanelTopBoundsSupport(ContainerInfo container) {
+		super(container);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TopBoundsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void apply() throws Exception {
-    // check for: setPreferredSize(java.awt.Dimension)void and use it for setSize()
-    {
-      MethodInvocation invocation =
-          m_component.getMethodInvocation("setPreferredSize(java.awt.Dimension)");
-      if (invocation != null) {
-        Component component = (Component) m_component.getObject();
-        component.setSize(component.getPreferredSize());
-        return;
-      }
-    }
-    //
-    super.apply();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TopBoundsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void apply() throws Exception {
+		// check for: setPreferredSize(java.awt.Dimension)void and use it for setSize()
+		{
+			MethodInvocation invocation =
+					m_component.getMethodInvocation("setPreferredSize(java.awt.Dimension)");
+			if (invocation != null) {
+				Component component = (Component) m_component.getObject();
+				component.setSize(component.getPreferredSize());
+				return;
+			}
+		}
+		//
+		super.apply();
+	}
 
-  @Override
-  public void setSize(int width, int height) throws Exception {
-    // check for: setPreferredSize(java.awt.Dimension)void
-    if (setSizeDimension("setPreferredSize", width, height)) {
-      return;
-    }
-    //
-    super.setSize(width, height);
-  }
+	@Override
+	public void setSize(int width, int height) throws Exception {
+		// check for: setPreferredSize(java.awt.Dimension)void
+		if (setSizeDimension("setPreferredSize", width, height)) {
+			return;
+		}
+		//
+		super.setSize(width, height);
+	}
 }

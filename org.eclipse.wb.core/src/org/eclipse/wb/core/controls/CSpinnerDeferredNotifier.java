@@ -23,50 +23,50 @@ import org.eclipse.swt.widgets.Listener;
  * @coverage core.control
  */
 public final class CSpinnerDeferredNotifier {
-  private final CSpinner m_spinner;
-  private final Display m_display;
-  private final int m_timeout;
-  private final Listener m_listener;
+	private final CSpinner m_spinner;
+	private final Display m_display;
+	private final int m_timeout;
+	private final Listener m_listener;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CSpinnerDeferredNotifier(CSpinner spinner, int timeout, Listener listener) {
-    m_spinner = spinner;
-    m_display = m_spinner.getDisplay();
-    m_timeout = timeout;
-    m_listener = listener;
-    addListener();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CSpinnerDeferredNotifier(CSpinner spinner, int timeout, Listener listener) {
+		m_spinner = spinner;
+		m_display = m_spinner.getDisplay();
+		m_timeout = timeout;
+		m_listener = listener;
+		addListener();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final int[] m_eventId = new int[1];
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final int[] m_eventId = new int[1];
 
-  /**
-   * Handler for single {@link SWT#Selection} event.
-   */
-  private void addListener() {
-    m_spinner.addListener(SWT.Selection, new Listener() {
-      @Override
-      public void handleEvent(final Event event) {
-        m_eventId[0]++;
-        m_display.timerExec(m_timeout, new Runnable() {
-          int m_id = m_eventId[0];
+	/**
+	 * Handler for single {@link SWT#Selection} event.
+	 */
+	private void addListener() {
+		m_spinner.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(final Event event) {
+				m_eventId[0]++;
+				m_display.timerExec(m_timeout, new Runnable() {
+					int m_id = m_eventId[0];
 
-          @Override
-          public void run() {
-            if (m_id == m_eventId[0]) {
-              m_listener.handleEvent(event);
-            }
-          }
-        });
-      }
-    });
-  }
+					@Override
+					public void run() {
+						if (m_id == m_eventId[0]) {
+							m_listener.handleEvent(event);
+						}
+					}
+				});
+			}
+		});
+	}
 }

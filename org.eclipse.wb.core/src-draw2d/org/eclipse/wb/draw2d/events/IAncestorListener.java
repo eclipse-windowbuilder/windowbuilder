@@ -20,8 +20,8 @@ import org.eclipse.wb.draw2d.Figure;
  * @coverage gef.draw2d
  */
 public interface IAncestorListener {
-  /**
-   * Called when an ancestor has moved to a new location.
-   */
-  void ancestorMoved(Figure ancestor);
+	/**
+	 * Called when an ancestor has moved to a new location.
+	 */
+	void ancestorMoved(Figure ancestor);
 }

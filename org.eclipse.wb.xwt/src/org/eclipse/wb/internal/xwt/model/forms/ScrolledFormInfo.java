@@ -30,49 +30,49 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
  * @coverage XWT.model.forms
  */
 public final class ScrolledFormInfo extends CompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ScrolledFormInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-    setFormText_afterCreate();
-    // add "form"
-    {
-      CompositeInfo form =
-          (CompositeInfo) XmlObjectUtils.createObject(
-              context,
-              Form.class,
-              new ExposedPropertyCreationSupport(this, "form"));
-      addChild(form);
-    }
-    // add "body"
-    {
-      CompositeInfo body =
-          (CompositeInfo) XmlObjectUtils.createObject(
-              context,
-              Composite.class,
-              new ExposedPropertyCreationSupport(this, "body"));
-      addChild(body);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ScrolledFormInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+		setFormText_afterCreate();
+		// add "form"
+		{
+			CompositeInfo form =
+					(CompositeInfo) XmlObjectUtils.createObject(
+							context,
+							Form.class,
+							new ExposedPropertyCreationSupport(this, "form"));
+			addChild(form);
+		}
+		// add "body"
+		{
+			CompositeInfo body =
+					(CompositeInfo) XmlObjectUtils.createObject(
+							context,
+							Composite.class,
+							new ExposedPropertyCreationSupport(this, "body"));
+			addChild(body);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Broadcasts
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void setFormText_afterCreate() {
-    addBroadcastListener(new XmlObjectAdd() {
-      @Override
-      public void after(ObjectInfo parent, XmlObjectInfo child) throws Exception {
-        if (child == ScrolledFormInfo.this) {
-          getChildrenXML().get(0).getPropertyByTitle("text").setValue("New ScrolledForm");
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Broadcasts
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void setFormText_afterCreate() {
+		addBroadcastListener(new XmlObjectAdd() {
+			@Override
+			public void after(ObjectInfo parent, XmlObjectInfo child) throws Exception {
+				if (child == ScrolledFormInfo.this) {
+					getChildrenXML().get(0).getPropertyByTitle("text").setValue("New ScrolledForm");
+				}
+			}
+		});
+	}
 }

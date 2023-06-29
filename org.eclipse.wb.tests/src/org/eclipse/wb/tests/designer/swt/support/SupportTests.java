@@ -21,21 +21,21 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class SupportTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swt.support");
-    suite.addTest(createSingleSuite(CoordinateUtilsTest.class));
-    suite.addTest(createSingleSuite(ColorSupportTest.class));
-    suite.addTest(createSingleSuite(FontSupportTest.class));
-    suite.addTest(createSingleSuite(ImageSupportTest.class));
-    suite.addTest(createSingleSuite(DisplaySupportTest.class));
-    suite.addTest(createSingleSuite(FillLayoutSupportTest.class));
-    suite.addTest(createSingleSuite(RowLayoutSupportTest.class));
-    suite.addTest(createSingleSuite(ControlSupportTest.class));
-    suite.addTest(createSingleSuite(ContainerSupportTest.class));
-    suite.addTest(createSingleSuite(PointSupportTest.class));
-    suite.addTest(createSingleSuite(RectangleSupportTest.class));
-    suite.addTest(createSingleSuite(LabelSupportTest.class));
-    suite.addTest(createSingleSuite(TableSupportTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swt.support");
+		suite.addTest(createSingleSuite(CoordinateUtilsTest.class));
+		suite.addTest(createSingleSuite(ColorSupportTest.class));
+		suite.addTest(createSingleSuite(FontSupportTest.class));
+		suite.addTest(createSingleSuite(ImageSupportTest.class));
+		suite.addTest(createSingleSuite(DisplaySupportTest.class));
+		suite.addTest(createSingleSuite(FillLayoutSupportTest.class));
+		suite.addTest(createSingleSuite(RowLayoutSupportTest.class));
+		suite.addTest(createSingleSuite(ControlSupportTest.class));
+		suite.addTest(createSingleSuite(ContainerSupportTest.class));
+		suite.addTest(createSingleSuite(PointSupportTest.class));
+		suite.addTest(createSingleSuite(RectangleSupportTest.class));
+		suite.addTest(createSingleSuite(LabelSupportTest.class));
+		suite.addTest(createSingleSuite(TableSupportTest.class));
+		return suite;
+	}
 }

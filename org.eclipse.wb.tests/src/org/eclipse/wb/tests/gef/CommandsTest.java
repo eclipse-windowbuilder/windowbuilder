@@ -20,54 +20,54 @@ import junit.framework.TestCase;
  *
  */
 public class CommandsTest extends TestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_CompoundCommand() throws Exception {
-    CompoundCommand command = new CompoundCommand();
-    //
-    // check new CompoundCommand
-    assertNotNull(command.getCommands());
-    assertTrue(command.getCommands().isEmpty());
-    assertTrue(command.isEmpty());
-    assertEquals(0, command.size());
-    assertNull(command.unwrap());
-    //
-    // check add 'null' command
-    command.add(null);
-    assertEquals(0, command.size());
-    assertTrue(command.isEmpty());
-    //
-    // check add command
-    command.add(Command.EMPTY);
-    assertEquals(1, command.size());
-    assertFalse(command.isEmpty());
-    assertSame(Command.EMPTY, command.unwrap());
-    //
-    // again check add command
-    command.add(Command.EMPTY);
-    assertEquals(2, command.size());
-    assertFalse(command.isEmpty());
-    assertSame(command, command.unwrap());
-    //
-    // check execute commands
-    command = new CompoundCommand();
-    final int[] counter = new int[1];
-    command.add(new Command() {
-      @Override
-      public void execute() {
-        counter[0]++;
-      }
-    });
-    command.add(new Command() {
-      @Override
-      public void execute() {
-        counter[0]++;
-      }
-    });
-    command.execute();
-    assertEquals(2, counter[0]);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_CompoundCommand() throws Exception {
+		CompoundCommand command = new CompoundCommand();
+		//
+		// check new CompoundCommand
+		assertNotNull(command.getCommands());
+		assertTrue(command.getCommands().isEmpty());
+		assertTrue(command.isEmpty());
+		assertEquals(0, command.size());
+		assertNull(command.unwrap());
+		//
+		// check add 'null' command
+		command.add(null);
+		assertEquals(0, command.size());
+		assertTrue(command.isEmpty());
+		//
+		// check add command
+		command.add(Command.EMPTY);
+		assertEquals(1, command.size());
+		assertFalse(command.isEmpty());
+		assertSame(Command.EMPTY, command.unwrap());
+		//
+		// again check add command
+		command.add(Command.EMPTY);
+		assertEquals(2, command.size());
+		assertFalse(command.isEmpty());
+		assertSame(command, command.unwrap());
+		//
+		// check execute commands
+		command = new CompoundCommand();
+		final int[] counter = new int[1];
+		command.add(new Command() {
+			@Override
+			public void execute() {
+				counter[0]++;
+			}
+		});
+		command.add(new Command() {
+			@Override
+			public void execute() {
+				counter[0]++;
+			}
+		});
+		command.execute();
+		assertEquals(2, counter[0]);
+	}
 }

@@ -19,57 +19,57 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 
 public class CarbonBaseline extends Baseline {
-  @Override
-  protected boolean centerAlignedText(Class<?> clazz, int style) {
-    return Button.class.isAssignableFrom(clazz)
-        || datetimeClass != null
-        && datetimeClass.isAssignableFrom(clazz);
-  }
+	@Override
+	protected boolean centerAlignedText(Class<?> clazz, int style) {
+		return Button.class.isAssignableFrom(clazz)
+				|| datetimeClass != null
+				&& datetimeClass.isAssignableFrom(clazz);
+	}
 
-  @Override
-  protected boolean topAlignedText(Class<?> clazz, int style) {
-    return Label.class.isAssignableFrom(clazz)
-        || Combo.class.isAssignableFrom(clazz)
-        || Text.class.isAssignableFrom(clazz)
-        || List.class.isAssignableFrom(clazz)
-        || spinnerClass != null
-        && spinnerClass.isAssignableFrom(clazz);
-  }
+	@Override
+	protected boolean topAlignedText(Class<?> clazz, int style) {
+		return Label.class.isAssignableFrom(clazz)
+				|| Combo.class.isAssignableFrom(clazz)
+				|| Text.class.isAssignableFrom(clazz)
+				|| List.class.isAssignableFrom(clazz)
+				|| spinnerClass != null
+				&& spinnerClass.isAssignableFrom(clazz);
+	}
 
-  @Override
-  protected int adjustBaseline(Control control, int baseline) {
-    int style = control.getStyle();
-    boolean hasBorder = (style & SWT.BORDER) != 0;
-    int borderWidth = control.getBorderWidth();
-    Class<?> controlClass = control.getClass();
-    boolean isSpinner = spinnerClass != null && spinnerClass.isAssignableFrom(controlClass);
-    boolean isDateTime = datetimeClass != null && datetimeClass.isAssignableFrom(controlClass);
-    if (Button.class.isAssignableFrom(controlClass)) {
-      if ((style & SWT.CHECK) == 0 && (style & SWT.RADIO) == 0) {
-        baseline -= 1;
-      }
-    } else if (Combo.class.isAssignableFrom(controlClass)) {
-      if ((style & SWT.READ_ONLY) != 0) {
-        baseline += 6;
-      } else {
-        baseline += 7;
-      }
-    } else if (List.class.isAssignableFrom(controlClass) || isSpinner) {
-      baseline += 5;
-    } else if (isDateTime) {
-      if ((style & 1 << 10 /*SWT.CALENDAR*/) != 0) { // SWT.CALENDAR is Eclipse 3.3 and above
-        return NO_BASELINE;
-      }
-    } else if (Text.class.isAssignableFrom(controlClass)) {
-      if (hasBorder) {
-        baseline += borderWidth + 5;
-      } else {
-        baseline += 1;
-      }
-    }
-    return baseline;
-  }
-  /*int fetchBaseline2(Control control, int width, int height) {
+	@Override
+	protected int adjustBaseline(Control control, int baseline) {
+		int style = control.getStyle();
+		boolean hasBorder = (style & SWT.BORDER) != 0;
+		int borderWidth = control.getBorderWidth();
+		Class<?> controlClass = control.getClass();
+		boolean isSpinner = spinnerClass != null && spinnerClass.isAssignableFrom(controlClass);
+		boolean isDateTime = datetimeClass != null && datetimeClass.isAssignableFrom(controlClass);
+		if (Button.class.isAssignableFrom(controlClass)) {
+			if ((style & SWT.CHECK) == 0 && (style & SWT.RADIO) == 0) {
+				baseline -= 1;
+			}
+		} else if (Combo.class.isAssignableFrom(controlClass)) {
+			if ((style & SWT.READ_ONLY) != 0) {
+				baseline += 6;
+			} else {
+				baseline += 7;
+			}
+		} else if (List.class.isAssignableFrom(controlClass) || isSpinner) {
+			baseline += 5;
+		} else if (isDateTime) {
+			if ((style & 1 << 10 /*SWT.CALENDAR*/) != 0) { // SWT.CALENDAR is Eclipse 3.3 and above
+				return NO_BASELINE;
+			}
+		} else if (Text.class.isAssignableFrom(controlClass)) {
+			if (hasBorder) {
+				baseline += borderWidth + 5;
+			} else {
+				baseline += 1;
+			}
+		}
+		return baseline;
+	}
+	/*int fetchBaseline2(Control control, int width, int height) {
    try {
    Method method = Control.class.getDeclaredMethod("defaultThemeFont", new Class[]{});
    method.setAccessible(true);

@@ -20,33 +20,33 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.property.accessor
  */
 public interface IExposableExpressionAccessor {
-  /**
-   * @param javaInfo
-   *          the {@link JavaInfo} that has property with this {@link ExpressionAccessor}.
-   *
-   * @return the {@link Class} of property value.
-   */
-  Class<?> getValueClass(JavaInfo javaInfo);
+	/**
+	 * @param javaInfo
+	 *          the {@link JavaInfo} that has property with this {@link ExpressionAccessor}.
+	 *
+	 * @return the {@link Class} of property value.
+	 */
+	Class<?> getValueClass(JavaInfo javaInfo);
 
-  /**
-   * @param javaInfo
-   *          the {@link JavaInfo} that has property with this {@link ExpressionAccessor}.
-   *
-   * @return the code that should be used to access this property. For example for property "text"
-   *         it will return "${componentAccessExpression}getText()". Note that it does not prepends
-   *         this code with component accessing code, this is up to caller.
-   */
-  String getGetterCode(JavaInfo javaInfo) throws Exception;
+	/**
+	 * @param javaInfo
+	 *          the {@link JavaInfo} that has property with this {@link ExpressionAccessor}.
+	 *
+	 * @return the code that should be used to access this property. For example for property "text"
+	 *         it will return "${componentAccessExpression}getText()". Note that it does not prepends
+	 *         this code with component accessing code, this is up to caller.
+	 */
+	String getGetterCode(JavaInfo javaInfo) throws Exception;
 
-  /**
-   * @param javaInfo
-   *          the {@link JavaInfo} that has property with this {@link ExpressionAccessor}.
-   * @param source
-   *          the source of value to assign.
-   *
-   * @return the code that should be used to change this property to given value. For example for
-   *         property "text" and parameter "text" in will return "setText(text)". Note that it does
-   *         not prepends this code with component accessing code, this is up to caller.
-   */
-  String getSetterCode(JavaInfo javaInfo, String source) throws Exception;
+	/**
+	 * @param javaInfo
+	 *          the {@link JavaInfo} that has property with this {@link ExpressionAccessor}.
+	 * @param source
+	 *          the source of value to assign.
+	 *
+	 * @return the code that should be used to change this property to given value. For example for
+	 *         property "text" and parameter "text" in will return "setText(text)". Note that it does
+	 *         not prepends this code with component accessing code, this is up to caller.
+	 */
+	String getSetterCode(JavaInfo javaInfo, String source) throws Exception;
 }

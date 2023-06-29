@@ -22,33 +22,33 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
  * @coverage swt.support
  */
 public class AbstractSupport {
-  /**
-   * @return <code>this</code> if active editor contains SWT (eRCP or RCP) GUI.
-   */
-  public static boolean is_SWT() {
-    String toolkitId = EditorState.getActiveJavaInfo().getDescription().getToolkit().getId();
-    return toolkitId.equals("org.eclipse.wb.ercp") || toolkitId.equals("org.eclipse.wb.rcp");
-  }
+	/**
+	 * @return <code>this</code> if active editor contains SWT (eRCP or RCP) GUI.
+	 */
+	public static boolean is_SWT() {
+		String toolkitId = EditorState.getActiveJavaInfo().getDescription().getToolkit().getId();
+		return toolkitId.equals("org.eclipse.wb.ercp") || toolkitId.equals("org.eclipse.wb.rcp");
+	}
 
-  /**
-   * @return <code>this</code> if active editor contains RCP GUI and <code>false</code> if eRCP.
-   */
-  public static boolean is_RCP() {
-    String toolkitId = GlobalState.getToolkit().getId();
-    return toolkitId.equals("org.eclipse.wb.rcp");
-  }
+	/**
+	 * @return <code>this</code> if active editor contains RCP GUI and <code>false</code> if eRCP.
+	 */
+	public static boolean is_RCP() {
+		String toolkitId = GlobalState.getToolkit().getId();
+		return toolkitId.equals("org.eclipse.wb.rcp");
+	}
 
-  /**
-   * Loads the {@link Class} that should always be successful, so it re-throws any exception.
-   *
-   * @return the {@link Class} with given name loaded from active editor {@link ClassLoader}.
-   */
-  protected static Class<?> loadClass(final String name) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<Class<?>>() {
-      @Override
-      public Class<?> runObject() throws Exception {
-        return GlobalState.getClassLoader().loadClass(name);
-      }
-    });
-  }
+	/**
+	 * Loads the {@link Class} that should always be successful, so it re-throws any exception.
+	 *
+	 * @return the {@link Class} with given name loaded from active editor {@link ClassLoader}.
+	 */
+	protected static Class<?> loadClass(final String name) {
+		return ExecutionUtils.runObject(new RunnableObjectEx<Class<?>>() {
+			@Override
+			public Class<?> runObject() throws Exception {
+				return GlobalState.getClassLoader().loadClass(name);
+			}
+		});
+	}
 }

@@ -19,33 +19,33 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
  * @author scheglov_ke
  */
 public class NoOpProgressMonitorTest extends DesignerTestCase {
-  /**
-   * We just call all methods, implementation should just do nothing.
-   */
-  public void test_1() throws Exception {
-    NoOpProgressMonitor monitor = new NoOpProgressMonitor();
-    // task methods
-    {
-      monitor.beginTask(null, 0);
-      monitor.done();
-      monitor.setTaskName(null);
-      monitor.subTask(null);
-    }
-    // canceled
-    {
-      // not canceled initially
-      assertFalse(monitor.isCanceled());
-      // mark as canceled
-      monitor.setCanceled(true);
-      assertTrue(monitor.isCanceled());
-      // mark as not canceled
-      monitor.setCanceled(false);
-      assertFalse(monitor.isCanceled());
-    }
-    // worked
-    {
-      monitor.worked(0);
-      monitor.internalWorked(0);
-    }
-  }
+	/**
+	 * We just call all methods, implementation should just do nothing.
+	 */
+	public void test_1() throws Exception {
+		NoOpProgressMonitor monitor = new NoOpProgressMonitor();
+		// task methods
+		{
+			monitor.beginTask(null, 0);
+			monitor.done();
+			monitor.setTaskName(null);
+			monitor.subTask(null);
+		}
+		// canceled
+		{
+			// not canceled initially
+			assertFalse(monitor.isCanceled());
+			// mark as canceled
+			monitor.setCanceled(true);
+			assertTrue(monitor.isCanceled());
+			// mark as not canceled
+			monitor.setCanceled(false);
+			assertFalse(monitor.isCanceled());
+		}
+		// worked
+		{
+			monitor.worked(0);
+			monitor.internalWorked(0);
+		}
+	}
 }

@@ -23,17 +23,17 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
  * @coverage rcp.model.forms
  */
 public final class TableWrapLayoutImages {
-  /**
-   * @return the {@link Image} for {@link ITableWrapLayoutInfo}.
-   */
-  public static Image getImage(String path) {
-    return Activator.getImage("info/layout/TableWrapLayout/" + path);
-  }
+	/**
+	 * @return the {@link Image} for {@link ITableWrapLayoutInfo}.
+	 */
+	public static Image getImage(String path) {
+		return Activator.getImage("info/layout/TableWrapLayout/" + path);
+	}
 
-  /**
-   * @return the {@link ImageDescriptor} for {@link ITableWrapLayoutInfo}.
-   */
-  public static ImageDescriptor getImageDescriptor(String path) {
-    return Activator.getImageDescriptor("info/layout/TableWrapLayout/" + path);
-  }
+	/**
+	 * @return the {@link ImageDescriptor} for {@link ITableWrapLayoutInfo}.
+	 */
+	public static ImageDescriptor getImageDescriptor(String path) {
+		return Activator.getImageDescriptor("info/layout/TableWrapLayout/" + path);
+	}
 }

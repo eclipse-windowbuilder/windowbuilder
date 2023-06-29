@@ -26,89 +26,89 @@ import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
  * @coverage core.gef.policy
  */
 public abstract class ObjectFlowLayoutEditPolicy<C> extends AbstractFlowLayoutEditPolicy {
-  private final ObjectInfo m_host;
+	private final ObjectInfo m_host;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObjectFlowLayoutEditPolicy(IObjectInfo host) {
-    this(host.getUnderlyingModel());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObjectFlowLayoutEditPolicy(IObjectInfo host) {
+		this(host.getUnderlyingModel());
+	}
 
-  public ObjectFlowLayoutEditPolicy(ObjectInfo host) {
-    m_host = host;
-  }
+	public ObjectFlowLayoutEditPolicy(ObjectInfo host) {
+		m_host = host;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(final Object newObject, final Object referenceObject) {
-    return new EditCommand(m_host) {
-      @Override
-      protected void executeEdit() throws Exception {
-        command_CREATE(getObjectModel(newObject), getReferenceObjectModel(referenceObject));
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(final Object newObject, final Object referenceObject) {
+		return new EditCommand(m_host) {
+			@Override
+			protected void executeEdit() throws Exception {
+				command_CREATE(getObjectModel(newObject), getReferenceObjectModel(referenceObject));
+			}
+		};
+	}
 
-  @Override
-  protected Command getPasteCommand(PasteRequest request, Object referenceObject) {
-    final C referenceModel = getReferenceObjectModel(referenceObject);
-    return GlobalState.getPasteRequestProcessor().getPasteCommand(
-        request,
-        new IPasteComponentProcessor() {
-          @Override
-          public void process(Object component) throws Exception {
-            command_CREATE(getObjectModel(component), referenceModel);
-          }
-        });
-  }
+	@Override
+	protected Command getPasteCommand(PasteRequest request, Object referenceObject) {
+		final C referenceModel = getReferenceObjectModel(referenceObject);
+		return GlobalState.getPasteRequestProcessor().getPasteCommand(
+				request,
+				new IPasteComponentProcessor() {
+					@Override
+					public void process(Object component) throws Exception {
+						command_CREATE(getObjectModel(component), referenceModel);
+					}
+				});
+	}
 
-  @Override
-  protected Command getMoveCommand(final Object moveObject, final Object referenceObject) {
-    return new EditCommand(m_host) {
-      @Override
-      protected void executeEdit() throws Exception {
-        command_MOVE(getObjectModel(moveObject), getReferenceObjectModel(referenceObject));
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(final Object moveObject, final Object referenceObject) {
+		return new EditCommand(m_host) {
+			@Override
+			protected void executeEdit() throws Exception {
+				command_MOVE(getObjectModel(moveObject), getReferenceObjectModel(referenceObject));
+			}
+		};
+	}
 
-  @Override
-  protected Command getAddCommand(final Object addObject, final Object referenceObject) {
-    return new EditCommand(m_host) {
-      @Override
-      protected void executeEdit() throws Exception {
-        command_ADD(getObjectModel(addObject), getReferenceObjectModel(referenceObject));
-      }
-    };
-  }
+	@Override
+	protected Command getAddCommand(final Object addObject, final Object referenceObject) {
+		return new EditCommand(m_host) {
+			@Override
+			protected void executeEdit() throws Exception {
+				command_ADD(getObjectModel(addObject), getReferenceObjectModel(referenceObject));
+			}
+		};
+	}
 
-  @SuppressWarnings("unchecked")
-  protected C getObjectModel(Object object) {
-    return (C) object;
-  }
+	@SuppressWarnings("unchecked")
+	protected C getObjectModel(Object object) {
+		return (C) object;
+	}
 
-  @SuppressWarnings("unchecked")
-  protected C getReferenceObjectModel(Object referenceObject) {
-    return (C) referenceObject;
-  }
+	@SuppressWarnings("unchecked")
+	protected C getReferenceObjectModel(Object referenceObject) {
+		return (C) referenceObject;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation of commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected abstract void command_CREATE(C component, C referenceComponent) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation of commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected abstract void command_CREATE(C component, C referenceComponent) throws Exception;
 
-  protected abstract void command_MOVE(C component, C referenceComponent) throws Exception;
+	protected abstract void command_MOVE(C component, C referenceComponent) throws Exception;
 
-  protected void command_ADD(C component, C referenceComponent) throws Exception {
-    command_MOVE(component, referenceComponent);
-  }
+	protected void command_ADD(C component, C referenceComponent) throws Exception {
+		command_MOVE(component, referenceComponent);
+	}
 }

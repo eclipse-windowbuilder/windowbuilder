@@ -25,40 +25,40 @@ import org.eclipse.swt.graphics.Point;
  * @coverage core.model.property.editor
  */
 public final class DisplayExpressionPropertyEditor extends TextDisplayPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new DisplayExpressionPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new DisplayExpressionPropertyEditor();
 
-  private DisplayExpressionPropertyEditor() {
-  }
+	private DisplayExpressionPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    GenericProperty genericProperty = (GenericProperty) property;
-    Expression expression = genericProperty.getExpression();
-    if (expression != null) {
-      AstEditor editor = genericProperty.getJavaInfo().getEditor();
-      return editor.getSource(expression);
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		GenericProperty genericProperty = (GenericProperty) property;
+		Expression expression = genericProperty.getExpression();
+		if (expression != null) {
+			AstEditor editor = genericProperty.getJavaInfo().getEditor();
+			return editor.getSource(expression);
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean activate(PropertyTable propertyTable, Property property, Point location)
-      throws Exception {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean activate(PropertyTable propertyTable, Property property, Point location)
+			throws Exception {
+		return false;
+	}
 }

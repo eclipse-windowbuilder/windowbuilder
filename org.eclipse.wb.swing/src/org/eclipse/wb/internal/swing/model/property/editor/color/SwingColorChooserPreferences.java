@@ -70,8 +70,8 @@ public class SwingColorChooserPreferences extends ColorChooserPreferences {
 	protected void setPersistedPreferencesToUI() {
 		super.setPersistedPreferencesToUI();
 		cbxIncludeSwingColors
-				.setSelection(prefs.getBoolean(prefPrefix + IColorChooserPreferenceConstants.P_SWING_COLORS,
-						defaultPreferences.get(prefPrefix + IColorChooserPreferenceConstants.P_SWING_COLORS)));
+		.setSelection(prefs.getBoolean(prefPrefix + IColorChooserPreferenceConstants.P_SWING_COLORS,
+				defaultPreferences.get(prefPrefix + IColorChooserPreferenceConstants.P_SWING_COLORS)));
 		cbxIncludeAwtColors.setSelection(prefs.getBoolean(prefPrefix + IColorChooserPreferenceConstants.P_AWT_COLORS,
 				defaultPreferences.get(prefPrefix + IColorChooserPreferenceConstants.P_AWT_COLORS)));
 
@@ -102,9 +102,9 @@ public class SwingColorChooserPreferences extends ColorChooserPreferences {
 	protected void performDefaults() {
 		super.performDefaults();
 		cbxIncludeSwingColors
-				.setSelection(defaultPreferences.get(prefPrefix + IColorChooserPreferenceConstants.P_SWING_COLORS));
+		.setSelection(defaultPreferences.get(prefPrefix + IColorChooserPreferenceConstants.P_SWING_COLORS));
 		cbxIncludeAwtColors
-				.setSelection(defaultPreferences.get(prefPrefix + IColorChooserPreferenceConstants.P_AWT_COLORS));
+		.setSelection(defaultPreferences.get(prefPrefix + IColorChooserPreferenceConstants.P_AWT_COLORS));
 
 		// Update the preferences to the default values
 		setPreferenceDefaults();

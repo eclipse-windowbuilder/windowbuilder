@@ -31,68 +31,68 @@ import org.eclipse.swt.widgets.Display;
  * @coverage core.gef
  */
 public class AbstractWrapperEditPart extends GraphicalEditPart {
-  private final IWrapper m_wrapper;
+	private final IWrapper m_wrapper;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractWrapperEditPart(IWrapper wrapper) {
-    setModel(wrapper.getWrapperInfo());
-    m_wrapper = wrapper;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractWrapperEditPart(IWrapper wrapper) {
+		setModel(wrapper.getWrapperInfo());
+		m_wrapper = wrapper;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Edit Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new LineSelectionEditPolicy(IColorConstants.black));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Edit Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new LineSelectionEditPolicy(IColorConstants.black));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        graphics.drawImage(m_wrapper.getWrapperInfo().getDescription().getIcon(), 0, 0);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				graphics.drawImage(m_wrapper.getWrapperInfo().getDescription().getIcon(), 0, 0);
+			}
+		};
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    Display.getCurrent().asyncExec(new Runnable() {
-      @Override
-      public void run() {
-        refreshVisuals0();
-      }
-    });
-  }
+	@Override
+	protected void refreshVisuals() {
+		Display.getCurrent().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				refreshVisuals0();
+			}
+		});
+	}
 
-  /**
-   * {@link EditPart} refreshes children and then visuals. So, we should wait for parent visuals
-   * refresh.
-   */
-  private void refreshVisuals0() {
-    org.eclipse.swt.graphics.Rectangle imageBounds =
-        m_wrapper.getWrapperInfo().getDescription().getIcon().getBounds();
-    int width = imageBounds.width;
-    int height = imageBounds.height;
-    Rectangle parentClientArea = ((GraphicalEditPart) getParent()).getFigure().getClientArea();
-    Point location = parentClientArea.getBottomRight().getTranslated(-width, -height);
-    location.performTranslate(-3, -3);
-    Rectangle bounds = new Rectangle(location.x, location.y, width, height);
-    // no animation
-    getFigure().setBounds(bounds);
-  }
+	/**
+	 * {@link EditPart} refreshes children and then visuals. So, we should wait for parent visuals
+	 * refresh.
+	 */
+	private void refreshVisuals0() {
+		org.eclipse.swt.graphics.Rectangle imageBounds =
+				m_wrapper.getWrapperInfo().getDescription().getIcon().getBounds();
+		int width = imageBounds.width;
+		int height = imageBounds.height;
+		Rectangle parentClientArea = ((GraphicalEditPart) getParent()).getFigure().getClientArea();
+		Point location = parentClientArea.getBottomRight().getTranslated(-width, -height);
+		location.performTranslate(-3, -3);
+		Rectangle bounds = new Rectangle(location.x, location.y, width, height);
+		// no animation
+		getFigure().setBounds(bounds);
+	}
 }

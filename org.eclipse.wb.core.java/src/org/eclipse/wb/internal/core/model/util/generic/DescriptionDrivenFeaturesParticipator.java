@@ -21,18 +21,18 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.util
  */
 public final class DescriptionDrivenFeaturesParticipator
-    implements
-      IJavaInfoInitializationParticipator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IJavaInfoInitializationParticipator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(JavaInfo javaInfo) throws Exception {
-    CopyPropertyTopSupport.install(javaInfo);
-    CopyPropertyTopChildSupport.install(javaInfo);
-    ModelMethodPropertySupport.install(javaInfo, "modelMethodProperty ");
-    ModelMethodPropertyChildSupport.install(javaInfo, "modelMethodChildProperty ");
-  }
+implements
+IJavaInfoInitializationParticipator {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IJavaInfoInitializationParticipator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(JavaInfo javaInfo) throws Exception {
+		CopyPropertyTopSupport.install(javaInfo);
+		CopyPropertyTopChildSupport.install(javaInfo);
+		ModelMethodPropertySupport.install(javaInfo, "modelMethodProperty ");
+		ModelMethodPropertyChildSupport.install(javaInfo, "modelMethodChildProperty ");
+	}
 }

@@ -66,260 +66,260 @@ import java.util.Map;
  * @coverage core.model.property.editor
  */
 public final class InstanceObjectPropertyEditor extends TextDialogPropertyEditor
-    implements
-      IComplexPropertyEditor,
-      IConfigurablePropertyObject {
-  private static final String INSTANCE_JAVA_INFO_KEY = "Instance JavaInfo";
-  private String m_className;
-  private String m_sourceNewClass;
+implements
+IComplexPropertyEditor,
+IConfigurablePropertyObject {
+	private static final String INSTANCE_JAVA_INFO_KEY = "Instance JavaInfo";
+	private String m_className;
+	private String m_sourceNewClass;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    // by Instance
-    JavaInfo instanceInfo = getInstanceInfo(property);
-    if (instanceInfo != null) {
-      return instanceInfo.getDescription().getComponentClass().getName();
-    }
-    // by Expression
-    Expression expression = getInstanceExpression(property);
-    if (expression != null) {
-      if (expression instanceof ClassInstanceCreation) {
-        ClassInstanceCreation creation = (ClassInstanceCreation) expression;
-        if (creation.getAnonymousClassDeclaration() != null) {
-          return "<anonymous>";
-        }
-        return AstNodeUtils.getFullyQualifiedName(expression, false);
-      }
-      return "<unknown>";
-    }
-    // by Value
-    Object value = property.getValue();
-    if (value != null && value != Property.UNKNOWN_VALUE) {
-      return value.getClass().getName();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		// by Instance
+		JavaInfo instanceInfo = getInstanceInfo(property);
+		if (instanceInfo != null) {
+			return instanceInfo.getDescription().getComponentClass().getName();
+		}
+		// by Expression
+		Expression expression = getInstanceExpression(property);
+		if (expression != null) {
+			if (expression instanceof ClassInstanceCreation) {
+				ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+				if (creation.getAnonymousClassDeclaration() != null) {
+					return "<anonymous>";
+				}
+				return AstNodeUtils.getFullyQualifiedName(expression, false);
+			}
+			return "<unknown>";
+		}
+		// by Value
+		Object value = property.getValue();
+		if (value != null && value != Property.UNKNOWN_VALUE) {
+			return value.getClass().getName();
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean activate(PropertyTable propertyTable, Property property, Point location)
-      throws Exception {
-    // activate using keyboard
-    if (location == null) {
-      openClass(property);
-    }
-    // don't activate
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean activate(PropertyTable propertyTable, Property property, Point location)
+			throws Exception {
+		// activate using keyboard
+		if (location == null) {
+			openClass(property);
+		}
+		// don't activate
+		return false;
+	}
 
-  @Override
-  public void deactivate(PropertyTable propertyTable, Property property, boolean save) {
-    super.deactivate(propertyTable, property, save);
-  }
+	@Override
+	public void deactivate(PropertyTable propertyTable, Property property, boolean save) {
+		super.deactivate(propertyTable, property, save);
+	}
 
-  @Override
-  public void doubleClick(Property property, Point location) throws Exception {
-    if (!StringUtils.isEmpty(m_sourceNewClass)) {
-      openClass(property);
-    }
-  }
+	@Override
+	public void doubleClick(Property property, Point location) throws Exception {
+		if (!StringUtils.isEmpty(m_sourceNewClass)) {
+			openClass(property);
+		}
+	}
 
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    GenericProperty genericProperty = (GenericProperty) property;
-    // prepare scope
-    IJavaSearchScope scope;
-    {
-      IJavaProject project = genericProperty.getJavaInfo().getEditor().getJavaProject();
-      IType classType = project.findType(m_className);
-      scope = SearchEngine.createHierarchyScope(classType);
-    }
-    // prepare dialog
-    SelectionDialog dialog;
-    {
-      Shell shell = DesignerPlugin.getShell();
-      ProgressMonitorDialog context = new ProgressMonitorDialog(shell);
-      dialog =
-          JavaUI.createTypeDialog(
-              shell,
-              context,
-              scope,
-              IJavaElementSearchConstants.CONSIDER_CLASSES,
-              false);
-      dialog.setTitle(ModelMessages.InstanceObjectPropertyEditor_chooseTitle);
-      dialog.setMessage(ModelMessages.InstanceObjectPropertyEditor_chooseMessage);
-    }
-    // open dialog
-    if (dialog.open() == Window.OK) {
-      IType instanceType = (IType) dialog.getResult()[0];
-      String instanceTypeName = instanceType.getFullyQualifiedName();//.replace('$', '.');
-      ComponentDescription instanceComponentDescription =
-          ComponentDescriptionHelper.getDescription(
-              genericProperty.getJavaInfo().getEditor(),
-              instanceTypeName);
-      CreationDescription creation = instanceComponentDescription.getCreation(null);
-      setValueSource(genericProperty, creation.getSource().replace('$', '.'));
-    }
-  }
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		GenericProperty genericProperty = (GenericProperty) property;
+		// prepare scope
+		IJavaSearchScope scope;
+		{
+			IJavaProject project = genericProperty.getJavaInfo().getEditor().getJavaProject();
+			IType classType = project.findType(m_className);
+			scope = SearchEngine.createHierarchyScope(classType);
+		}
+		// prepare dialog
+		SelectionDialog dialog;
+		{
+			Shell shell = DesignerPlugin.getShell();
+			ProgressMonitorDialog context = new ProgressMonitorDialog(shell);
+			dialog =
+					JavaUI.createTypeDialog(
+							shell,
+							context,
+							scope,
+							IJavaElementSearchConstants.CONSIDER_CLASSES,
+							false);
+			dialog.setTitle(ModelMessages.InstanceObjectPropertyEditor_chooseTitle);
+			dialog.setMessage(ModelMessages.InstanceObjectPropertyEditor_chooseMessage);
+		}
+		// open dialog
+		if (dialog.open() == Window.OK) {
+			IType instanceType = (IType) dialog.getResult()[0];
+			String instanceTypeName = instanceType.getFullyQualifiedName();//.replace('$', '.');
+			ComponentDescription instanceComponentDescription =
+					ComponentDescriptionHelper.getDescription(
+							genericProperty.getJavaInfo().getEditor(),
+							instanceTypeName);
+			CreationDescription creation = instanceComponentDescription.getCreation(null);
+			setValueSource(genericProperty, creation.getSource().replace('$', '.'));
+		}
+	}
 
-  /**
-   * If there is class, open it, else create new anonymous class and open.
-   */
-  private void openClass(Property property) throws Exception {
-    GenericProperty genericProperty = (GenericProperty) property;
-    Expression expression = genericProperty.getExpression();
-    if (expression != null) {
-      IDesignPageSite site = IDesignPageSite.Helper.getSite(genericProperty.getJavaInfo());
-      if (site != null) {
-        site.openSourcePosition(expression.getStartPosition());
-      }
-    } else {
-      // generate new class
-      generateNewClass(genericProperty);
-      openClass(property);
-    }
-  }
+	/**
+	 * If there is class, open it, else create new anonymous class and open.
+	 */
+	private void openClass(Property property) throws Exception {
+		GenericProperty genericProperty = (GenericProperty) property;
+		Expression expression = genericProperty.getExpression();
+		if (expression != null) {
+			IDesignPageSite site = IDesignPageSite.Helper.getSite(genericProperty.getJavaInfo());
+			if (site != null) {
+				site.openSourcePosition(expression.getStartPosition());
+			}
+		} else {
+			// generate new class
+			generateNewClass(genericProperty);
+			openClass(property);
+		}
+	}
 
-  /**
-   * Uses anonymous class as {@link GenericProperty} expression.
-   */
-  private void generateNewClass(GenericProperty property) throws Exception {
-    setValueSource(property, m_sourceNewClass);
-  }
+	/**
+	 * Uses anonymous class as {@link GenericProperty} expression.
+	 */
+	private void generateNewClass(GenericProperty property) throws Exception {
+		setValueSource(property, m_sourceNewClass);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IComplexPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Property[] getProperties(Property property) throws Exception {
-    JavaInfo instanceInfo = getInstanceInfo(property);
-    if (instanceInfo != null) {
-      List<Property> propertyList =
-          PropertyUtils.getProperties_excludeByParameter(
-              instanceInfo,
-              "instanceProperty.exclude-properties");
-      Property[] properties = propertyList.toArray(new Property[propertyList.size()]);
-      return properties;
-    }
-    return new Property[0];
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IComplexPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Property[] getProperties(Property property) throws Exception {
+		JavaInfo instanceInfo = getInstanceInfo(property);
+		if (instanceInfo != null) {
+			List<Property> propertyList =
+					PropertyUtils.getProperties_excludeByParameter(
+							instanceInfo,
+							"instanceProperty.exclude-properties");
+			Property[] properties = propertyList.toArray(new Property[propertyList.size()]);
+			return properties;
+		}
+		return new Property[0];
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IConfigurablePropertyObject
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
-    // class
-    {
-      m_className = (String) parameters.get("class");
-      Assert.isNotNull(m_className, "'class' attribute required.");
-    }
-    // source
-    {
-      m_sourceNewClass = (String) parameters.get("source");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IConfigurablePropertyObject
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
+		// class
+		{
+			m_className = (String) parameters.get("class");
+			Assert.isNotNull(m_className, "'class' attribute required.");
+		}
+		// source
+		{
+			m_sourceNewClass = (String) parameters.get("source");
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Expression getInstanceExpression(Property property) throws Exception {
-    GenericProperty genericProperty = (GenericProperty) property;
-    return genericProperty.getExpression();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Expression getInstanceExpression(Property property) throws Exception {
+		GenericProperty genericProperty = (GenericProperty) property;
+		return genericProperty.getExpression();
+	}
 
-  public JavaInfo getInstanceInfo(Property property) throws Exception {
-    GenericProperty genericProperty = (GenericProperty) property;
-    Expression expression = genericProperty.getExpression();
-    if (expression != null) {
-      JavaInfo instanceInfo = genericProperty.getJavaInfo().getChildRepresentedBy(expression);
-      property.putArbitraryValue(INSTANCE_JAVA_INFO_KEY, instanceInfo);
-      return instanceInfo;
-    }
-    return null;
-  }
+	public JavaInfo getInstanceInfo(Property property) throws Exception {
+		GenericProperty genericProperty = (GenericProperty) property;
+		Expression expression = genericProperty.getExpression();
+		if (expression != null) {
+			JavaInfo instanceInfo = genericProperty.getJavaInfo().getChildRepresentedBy(expression);
+			property.putArbitraryValue(INSTANCE_JAVA_INFO_KEY, instanceInfo);
+			return instanceInfo;
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Processing set new source for {@link GenericProperty} expression.
-   */
-  private void setValueSource(final GenericProperty property, final String source) throws Exception {
-    final JavaInfo javaInfo = property.getJavaInfo();
-    ExecutionUtils.run(javaInfo, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        // remove old instance info
-        {
-          JavaInfo oldInstanceInfo = getInstanceInfo(property);
-          if (oldInstanceInfo != null) {
-            oldInstanceInfo.delete();
-            property.removeArbitraryValue(INSTANCE_JAVA_INFO_KEY);
-          }
-        }
-        // evaluate new expression
-        String evaluateSource =
-            TemplateUtils.evaluate(source, javaInfo, ImmutableMap.<String, String>of());
-        property.setExpression(evaluateSource, Property.UNKNOWN_VALUE);
-        // create new instance info
-        {
-          Expression expression = getInstanceExpression(property);
-          Assert.isNotNull(expression, "setting expression failed.");
-          if (expression instanceof ClassInstanceCreation) {
-            ClassInstanceCreation creation = (ClassInstanceCreation) expression;
-            if (creation.getAnonymousClassDeclaration() == null) {
-              JavaInfo newInstanceInfo =
-                  JavaInfoUtils.createJavaInfo(
-                      javaInfo.getEditor(),
-                      AstNodeUtils.getFullyQualifiedName(expression, true),
-                      new ConstructorCreationSupport(creation));
-              newInstanceInfo.bindToExpression(expression);
-              newInstanceInfo.setVariableSupport(new EmptyVariableSupport(newInstanceInfo, creation));
-              newInstanceInfo.setAssociation(new InvocationChildAssociation((MethodInvocation) creation.getParent()));
-              javaInfo.addChild(newInstanceInfo);
-            }
-          }
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Processing set new source for {@link GenericProperty} expression.
+	 */
+	private void setValueSource(final GenericProperty property, final String source) throws Exception {
+		final JavaInfo javaInfo = property.getJavaInfo();
+		ExecutionUtils.run(javaInfo, new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				// remove old instance info
+				{
+					JavaInfo oldInstanceInfo = getInstanceInfo(property);
+					if (oldInstanceInfo != null) {
+						oldInstanceInfo.delete();
+						property.removeArbitraryValue(INSTANCE_JAVA_INFO_KEY);
+					}
+				}
+				// evaluate new expression
+				String evaluateSource =
+						TemplateUtils.evaluate(source, javaInfo, ImmutableMap.<String, String>of());
+				property.setExpression(evaluateSource, Property.UNKNOWN_VALUE);
+				// create new instance info
+				{
+					Expression expression = getInstanceExpression(property);
+					Assert.isNotNull(expression, "setting expression failed.");
+					if (expression instanceof ClassInstanceCreation) {
+						ClassInstanceCreation creation = (ClassInstanceCreation) expression;
+						if (creation.getAnonymousClassDeclaration() == null) {
+							JavaInfo newInstanceInfo =
+									JavaInfoUtils.createJavaInfo(
+											javaInfo.getEditor(),
+											AstNodeUtils.getFullyQualifiedName(expression, true),
+											new ConstructorCreationSupport(creation));
+							newInstanceInfo.bindToExpression(expression);
+							newInstanceInfo.setVariableSupport(new EmptyVariableSupport(newInstanceInfo, creation));
+							newInstanceInfo.setAssociation(new InvocationChildAssociation((MethodInvocation) creation.getParent()));
+							javaInfo.addChild(newInstanceInfo);
+						}
+					}
+				}
+			}
+		});
+	}
 
-  /**
-   * Installing listeners for correct processing "Reset to default" action.
-   */
-  public static void installListenerForProperty(final JavaInfo instanceInfo) {
-    instanceInfo.addBroadcastListener(new JavaEventListener() {
-      final JavaInfo m_instanceInfo = instanceInfo;
+	/**
+	 * Installing listeners for correct processing "Reset to default" action.
+	 */
+	public static void installListenerForProperty(final JavaInfo instanceInfo) {
+		instanceInfo.addBroadcastListener(new JavaEventListener() {
+			final JavaInfo m_instanceInfo = instanceInfo;
 
-      @Override
-      public void propertyValueWasSet(GenericPropertyImpl property) throws Exception {
-        if (property.getEditor() instanceof InstanceObjectPropertyEditor
-            && m_instanceInfo == property.getArbitraryValue(INSTANCE_JAVA_INFO_KEY)) {
-          InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
-          if (editor.getInstanceInfo(property) != m_instanceInfo) {
-            m_instanceInfo.delete();
-            property.removeArbitraryValue(INSTANCE_JAVA_INFO_KEY);
-          }
-        }
-      }
-    });
-  }
+			@Override
+			public void propertyValueWasSet(GenericPropertyImpl property) throws Exception {
+				if (property.getEditor() instanceof InstanceObjectPropertyEditor
+						&& m_instanceInfo == property.getArbitraryValue(INSTANCE_JAVA_INFO_KEY)) {
+					InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
+					if (editor.getInstanceInfo(property) != m_instanceInfo) {
+						m_instanceInfo.delete();
+						property.removeArbitraryValue(INSTANCE_JAVA_INFO_KEY);
+					}
+				}
+			}
+		});
+	}
 }

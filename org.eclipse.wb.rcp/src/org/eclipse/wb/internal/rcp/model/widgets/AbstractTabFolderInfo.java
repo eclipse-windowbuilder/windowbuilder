@@ -37,136 +37,136 @@ import java.util.List;
  * @coverage rcp.model.widgets
  */
 public abstract class AbstractTabFolderInfo extends CompositeInfo {
-  AbstractTabItemInfo m_selectedItem;
+	AbstractTabItemInfo m_selectedItem;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractTabFolderInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractTabFolderInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the selected {@link AbstractTabItemInfo}, may be <code>null</code>, if no items at all.
-   */
-  public AbstractTabItemInfo getSelectedItem() {
-    if (m_selectedItem != null) {
-      return m_selectedItem;
-    }
-    List<AbstractTabItemInfo> items = getItems();
-    return GenericsUtils.getFirstOrNull(items);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the selected {@link AbstractTabItemInfo}, may be <code>null</code>, if no items at all.
+	 */
+	public AbstractTabItemInfo getSelectedItem() {
+		if (m_selectedItem != null) {
+			return m_selectedItem;
+		}
+		List<AbstractTabItemInfo> items = getItems();
+		return GenericsUtils.getFirstOrNull(items);
+	}
 
-  /**
-   * @return the {@link AbstractTabItemInfo} children.
-   */
-  public List<AbstractTabItemInfo> getItems() {
-    return getChildren(AbstractTabItemInfo.class);
-  }
+	/**
+	 * @return the {@link AbstractTabItemInfo} children.
+	 */
+	public List<AbstractTabItemInfo> getItems() {
+		return getChildren(AbstractTabItemInfo.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenTree() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
-      // don't show in tree any Control's
-      for (Iterator<ObjectInfo> I = children.iterator(); I.hasNext();) {
-        ObjectInfo child = I.next();
-        if (child instanceof ControlInfo) {
-          I.remove();
-        }
-      }
-      // OK, show these children
-      return children;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenTree() throws Exception {
+			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+			// don't show in tree any Control's
+			for (Iterator<ObjectInfo> I = children.iterator(); I.hasNext();) {
+				ObjectInfo child = I.next();
+				if (child instanceof ControlInfo) {
+					I.remove();
+				}
+			}
+			// OK, show these children
+			return children;
+		}
 
-    @Override
-    public List<ObjectInfo> getChildrenGraphical() throws Exception {
-      List<ObjectInfo> children = super.getChildrenGraphical();
-      // prepare Control of selected TabItem
-      ControlInfo selectedItemControl;
-      {
-        AbstractTabItemInfo selectedItem = getSelectedItem();
-        selectedItemControl = selectedItem != null ? selectedItem.getControl() : null;
-      }
-      // remove all Control's except of selected
-      for (Iterator<ObjectInfo> I = children.iterator(); I.hasNext();) {
-        ObjectInfo child = I.next();
-        if (child instanceof ControlInfo && child != selectedItemControl) {
-          I.remove();
-        }
-      }
-      // OK, show these children
-      return children;
-    }
-  };
+		@Override
+		public List<ObjectInfo> getChildrenGraphical() throws Exception {
+			List<ObjectInfo> children = super.getChildrenGraphical();
+			// prepare Control of selected TabItem
+			ControlInfo selectedItemControl;
+			{
+				AbstractTabItemInfo selectedItem = getSelectedItem();
+				selectedItemControl = selectedItem != null ? selectedItem.getControl() : null;
+			}
+			// remove all Control's except of selected
+			for (Iterator<ObjectInfo> I = children.iterator(); I.hasNext();) {
+				ObjectInfo child = I.next();
+				if (child instanceof ControlInfo && child != selectedItemControl) {
+					I.remove();
+				}
+			}
+			// OK, show these children
+			return children;
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link AbstractTabItemInfo}.
-   */
-  public void command_CREATE(AbstractTabItemInfo item, AbstractTabItemInfo nextItem)
-      throws Exception {
-    JavaInfoUtils.add(item, null, this, nextItem);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link AbstractTabItemInfo}.
+	 */
+	public void command_CREATE(AbstractTabItemInfo item, AbstractTabItemInfo nextItem)
+			throws Exception {
+		JavaInfoUtils.add(item, null, this, nextItem);
+	}
 
-  /**
-   * Moves {@link AbstractTabItemInfo}.
-   */
-  public void command_MOVE(AbstractTabItemInfo item, AbstractTabItemInfo nextItem) throws Exception {
-    JavaInfoUtils.move(item, null, this, nextItem);
-  }
+	/**
+	 * Moves {@link AbstractTabItemInfo}.
+	 */
+	public void command_MOVE(AbstractTabItemInfo item, AbstractTabItemInfo nextItem) throws Exception {
+		JavaInfoUtils.move(item, null, this, nextItem);
+	}
 
-  /**
-   * Creates new {@link ControlInfo}.
-   */
-  public void command_CREATE(ControlInfo control, AbstractTabItemInfo nextItem) throws Exception {
-    AbstractTabItemInfo item = createItem(nextItem);
-    item.command_CREATE(control);
-  }
+	/**
+	 * Creates new {@link ControlInfo}.
+	 */
+	public void command_CREATE(ControlInfo control, AbstractTabItemInfo nextItem) throws Exception {
+		AbstractTabItemInfo item = createItem(nextItem);
+		item.command_CREATE(control);
+	}
 
-  /**
-   * Moves {@link ControlInfo}.
-   */
-  public void command_MOVE(ControlInfo control, AbstractTabItemInfo nextItem) throws Exception {
-    AbstractTabItemInfo item = createItem(nextItem);
-    item.command_ADD(control);
-  }
+	/**
+	 * Moves {@link ControlInfo}.
+	 */
+	public void command_MOVE(ControlInfo control, AbstractTabItemInfo nextItem) throws Exception {
+		AbstractTabItemInfo item = createItem(nextItem);
+		item.command_ADD(control);
+	}
 
-  /**
-   * Adds new {@link AbstractTabItemInfo} to this {@link AbstractTabFolderInfo}.
-   */
-  private AbstractTabItemInfo createItem(AbstractTabItemInfo nextItem) throws Exception {
-    AbstractTabItemInfo item =
-        (AbstractTabItemInfo) JavaInfoUtils.createJavaInfo(
-            getEditor(),
-            getItemClassName(),
-            new ConstructorCreationSupport());
-    command_CREATE(item, nextItem);
-    return item;
-  }
+	/**
+	 * Adds new {@link AbstractTabItemInfo} to this {@link AbstractTabFolderInfo}.
+	 */
+	private AbstractTabItemInfo createItem(AbstractTabItemInfo nextItem) throws Exception {
+		AbstractTabItemInfo item =
+				(AbstractTabItemInfo) JavaInfoUtils.createJavaInfo(
+						getEditor(),
+						getItemClassName(),
+						new ConstructorCreationSupport());
+		command_CREATE(item, nextItem);
+		return item;
+	}
 
-  protected abstract String getItemClassName();
+	protected abstract String getItemClassName();
 }

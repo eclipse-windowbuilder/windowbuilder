@@ -26,35 +26,35 @@ import javax.swing.Box;
  * @coverage swing.gef.part
  */
 abstract class BoxEditPart extends ComponentEditPart {
-  protected static final Color COLOR_BORDER = new Color(null, 45, 90, 150);
-  protected static final Color COLOR_SPRING = new Color(null, 40, 110, 200);
-  protected static final int SPRING_SIZE = 12;
-  protected final ComponentInfo m_component;
+	protected static final Color COLOR_BORDER = new Color(null, 45, 90, 150);
+	protected static final Color COLOR_SPRING = new Color(null, 40, 110, 200);
+	protected static final int SPRING_SIZE = 12;
+	protected final ComponentInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BoxEditPart(ComponentInfo component) {
-    super(component);
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BoxEditPart(ComponentInfo component) {
+		super(component);
+		m_component = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshVisuals() {
-    Rectangle bounds = m_component.getBounds();
-    if (bounds.width != 0 && bounds.height == 0) {
-      bounds.height = 12;
-    }
-    if (bounds.height != 0 && bounds.width == 0) {
-      bounds.width = 12;
-    }
-    getFigure().setBounds(bounds);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshVisuals() {
+		Rectangle bounds = m_component.getBounds();
+		if (bounds.width != 0 && bounds.height == 0) {
+			bounds.height = 12;
+		}
+		if (bounds.height != 0 && bounds.width == 0) {
+			bounds.width = 12;
+		}
+		getFigure().setBounds(bounds);
+	}
 }

@@ -17,14 +17,14 @@ package org.eclipse.wb.internal.core.xml.model;
  * @coverage XML.model
  */
 public interface ILiveEditorContext {
-  /**
-   * Parses given source.
-   */
-  XmlObjectInfo parse(String[] sourceLines) throws Exception;
+	/**
+	 * Parses given source.
+	 */
+	XmlObjectInfo parse(String[] sourceLines) throws Exception;
 
-  /**
-   * Performs clean up of {@link EditorContext} back to the state which was before
-   * {@link #parse(String[])}.
-   */
-  void dispose() throws Exception;
+	/**
+	 * Performs clean up of {@link EditorContext} back to the state which was before
+	 * {@link #parse(String[])}.
+	 */
+	void dispose() throws Exception;
 }

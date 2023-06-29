@@ -32,69 +32,69 @@ import java.util.List;
  * @coverage bindings.swing.ui
  */
 public class JListDetailContainerUiContentProvider extends TabContainerUiContentProvider {
-  private final JListBindingInfo m_binding;
-  private final List<BindingInfo> m_bindings;
-  private final DatabindingsProvider m_provider;
+	private final JListBindingInfo m_binding;
+	private final List<BindingInfo> m_bindings;
+	private final DatabindingsProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JListDetailContainerUiContentProvider(TabContainerConfiguration configuration,
-      JListBindingInfo binding,
-      List<BindingInfo> bindings,
-      DatabindingsProvider provider) {
-    super(configuration);
-    m_binding = binding;
-    m_bindings = bindings;
-    m_provider = provider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JListDetailContainerUiContentProvider(TabContainerConfiguration configuration,
+			JListBindingInfo binding,
+			List<BindingInfo> bindings,
+			DatabindingsProvider provider) {
+		super(configuration);
+		m_binding = binding;
+		m_bindings = bindings;
+		m_provider = provider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected IUiContentProvider createNewPageContentProvider() throws Exception {
-    return new UIContentContainer<DetailBindingInfo>(m_binding.createDefaultDetailBinding(),
-        m_bindings,
-        Messages.JListDetailContainerUiContentProvider_detail1,
-        m_provider);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected IUiContentProvider createNewPageContentProvider() throws Exception {
+		return new UIContentContainer<DetailBindingInfo>(m_binding.createDefaultDetailBinding(),
+				m_bindings,
+				Messages.JListDetailContainerUiContentProvider_detail1,
+				m_provider);
+	}
 
-  @Override
-  protected void configute(CTabItem tabItem, int index, IUiContentProvider provider) {
-    tabItem.setText(Messages.JListDetailContainerUiContentProvider_detail);
-  }
+	@Override
+	protected void configute(CTabItem tabItem, int index, IUiContentProvider provider) {
+		tabItem.setText(Messages.JListDetailContainerUiContentProvider_detail);
+	}
 
-  @Override
-  protected void postDelete() throws Exception {
-    createPage(-1, createNewPageContentProvider(), true);
-    configure();
-    m_listener.calculateFinish();
-  }
+	@Override
+	protected void postDelete() throws Exception {
+		createPage(-1, createNewPageContentProvider(), true);
+		configure();
+		m_listener.calculateFinish();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    List<IUiContentProvider> providers = Lists.newArrayList();
-    providers.add(new UIContentContainer<DetailBindingInfo>(m_binding.getDetailBinding(),
-        m_bindings,
-        Messages.JListDetailContainerUiContentProvider_detail2,
-        m_provider));
-    updateFromObject(providers);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		List<IUiContentProvider> providers = Lists.newArrayList();
+		providers.add(new UIContentContainer<DetailBindingInfo>(m_binding.getDetailBinding(),
+				m_bindings,
+				Messages.JListDetailContainerUiContentProvider_detail2,
+				m_provider));
+		updateFromObject(providers);
+	}
 
-  @Override
-  @SuppressWarnings("unchecked")
-  protected void saveToObject(List<IUiContentProvider> providers) throws Exception {
-    UIContentContainer<DetailBindingInfo> container =
-        (UIContentContainer<DetailBindingInfo>) providers.get(0);
-    m_binding.setDetailBinding(container.getBinding(), m_bindings);
-  }
+	@Override
+	@SuppressWarnings("unchecked")
+	protected void saveToObject(List<IUiContentProvider> providers) throws Exception {
+		UIContentContainer<DetailBindingInfo> container =
+				(UIContentContainer<DetailBindingInfo>) providers.get(0);
+		m_binding.setDetailBinding(container.getBinding(), m_bindings);
+	}
 }

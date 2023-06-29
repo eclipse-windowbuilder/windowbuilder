@@ -20,48 +20,48 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
  * @author scheglov_ke
  */
 public class FrameViewGefTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    m_testProject.addBundleJars("org.eclipse.wb.tests.support", "/resources/Swing/jsr296");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		m_testProject.addBundleJars("org.eclipse.wb.tests.support", "/resources/Swing/jsr296");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Canvas
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void DISABLE_test_0() throws Exception {
-    FrameViewInfo view =
-        openEditor(
-            "import org.jdesktop.application.*;",
-            "public class Test extends FrameView {",
-            "  public Test(Application application, boolean enabled) {",
-            "    super(application);",
-            "    {",
-            "      JPanel component = new JPanel();",
-            "      setComponent(component);",
-            "      component.setEnabled(enabled);",
-            "    }",
-            "  }",
-            "}");
-    ComponentInfo component = getJavaInfoByName("component");
-    //
-    canvas.assertNotNullEditPart(view);
-    canvas.assertNotNullEditPart(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Canvas
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void DISABLE_test_0() throws Exception {
+		FrameViewInfo view =
+				openEditor(
+						"import org.jdesktop.application.*;",
+						"public class Test extends FrameView {",
+						"  public Test(Application application, boolean enabled) {",
+						"    super(application);",
+						"    {",
+						"      JPanel component = new JPanel();",
+						"      setComponent(component);",
+						"      component.setEnabled(enabled);",
+						"    }",
+						"  }",
+						"}");
+		ComponentInfo component = getJavaInfoByName("component");
+		//
+		canvas.assertNotNullEditPart(view);
+		canvas.assertNotNullEditPart(component);
+	}
 }

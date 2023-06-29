@@ -47,173 +47,173 @@ import java.util.List;
  * @author mitin_aa
  */
 public class WidgetSelectDialog<C extends IAbstractComponentInfo> extends ResizableDialog {
-  private final List<C> m_widgets;
-  private final String m_dialogTitle;
-  private final String m_listTitle;
-  private final String m_columnTitle;
-  private TableViewer m_viewer;
-  private C m_defaultSelectedWidget;
-  private C m_selectedWidget;
+	private final List<C> m_widgets;
+	private final String m_dialogTitle;
+	private final String m_listTitle;
+	private final String m_columnTitle;
+	private TableViewer m_viewer;
+	private C m_defaultSelectedWidget;
+	private C m_selectedWidget;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WidgetSelectDialog(Shell parentShell,
-      List<C> widgets,
-      String dialogTitle,
-      String listTitle,
-      String columnTitle) {
-    super(parentShell, Activator.getDefault());
-    m_widgets = widgets;
-    m_dialogTitle = dialogTitle;
-    m_listTitle = listTitle;
-    m_columnTitle = columnTitle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WidgetSelectDialog(Shell parentShell,
+			List<C> widgets,
+			String dialogTitle,
+			String listTitle,
+			String columnTitle) {
+		super(parentShell, Activator.getDefault());
+		m_widgets = widgets;
+		m_dialogTitle = dialogTitle;
+		m_listTitle = listTitle;
+		m_columnTitle = columnTitle;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Control createDialogArea(Composite parent) {
-    getShell().forceFocus();
-    Composite area = (Composite) super.createDialogArea(parent);
-    GridLayoutFactory.create(area).spacingV(2);
-    {
-      Label titleLabel = new Label(area, SWT.NONE);
-      titleLabel.setText(m_listTitle);
-      GridDataFactory.create(titleLabel).grabH().fillH();
-    }
-    {
-      m_viewer = new TableViewer(area, SWT.BORDER | SWT.FULL_SELECTION);
-      m_viewer.setContentProvider(new ControlContentProvider());
-      m_viewer.setLabelProvider(new ControlLabelProvider());
-      final Table table = m_viewer.getTable();
-      table.setLinesVisible(true);
-      table.setHeaderVisible(true);
-      GridDataFactory.create(table).grab().fill();
-      {
-        final TableColumn tableColumn = new TableColumn(table, SWT.NONE);
-        tableColumn.setWidth(400);
-        tableColumn.setText(m_columnTitle);
-      }
-      m_viewer.setInput(new Object());
-      m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-        @Override
-        public void selectionChanged(SelectionChangedEvent event) {
-          updateButtons();
-        }
-      });
-      m_viewer.addDoubleClickListener(new IDoubleClickListener() {
-        @Override
-        public void doubleClick(DoubleClickEvent event) {
-          okPressed();
-        }
-      });
-      table.setFocus();
-      table.select(0);
-    }
-    return area;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		getShell().forceFocus();
+		Composite area = (Composite) super.createDialogArea(parent);
+		GridLayoutFactory.create(area).spacingV(2);
+		{
+			Label titleLabel = new Label(area, SWT.NONE);
+			titleLabel.setText(m_listTitle);
+			GridDataFactory.create(titleLabel).grabH().fillH();
+		}
+		{
+			m_viewer = new TableViewer(area, SWT.BORDER | SWT.FULL_SELECTION);
+			m_viewer.setContentProvider(new ControlContentProvider());
+			m_viewer.setLabelProvider(new ControlLabelProvider());
+			final Table table = m_viewer.getTable();
+			table.setLinesVisible(true);
+			table.setHeaderVisible(true);
+			GridDataFactory.create(table).grab().fill();
+			{
+				final TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+				tableColumn.setWidth(400);
+				tableColumn.setText(m_columnTitle);
+			}
+			m_viewer.setInput(new Object());
+			m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+				@Override
+				public void selectionChanged(SelectionChangedEvent event) {
+					updateButtons();
+				}
+			});
+			m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+				@Override
+				public void doubleClick(DoubleClickEvent event) {
+					okPressed();
+				}
+			});
+			table.setFocus();
+			table.select(0);
+		}
+		return area;
+	}
 
-  @Override
-  protected Control createContents(Composite parent) {
-    Control dialogContents = super.createContents(parent);
-    // set selection here, because only here "Ok" button is created
-    if (m_defaultSelectedWidget != null) {
-      m_viewer.setSelection(new StructuredSelection(m_defaultSelectedWidget));
-    }
-    //
-    return dialogContents;
-  }
+	@Override
+	protected Control createContents(Composite parent) {
+		Control dialogContents = super.createContents(parent);
+		// set selection here, because only here "Ok" button is created
+		if (m_defaultSelectedWidget != null) {
+			m_viewer.setSelection(new StructuredSelection(m_defaultSelectedWidget));
+		}
+		//
+		return dialogContents;
+	}
 
-  @Override
-  protected void configureShell(Shell newShell) {
-    super.configureShell(newShell);
-    newShell.setText(m_dialogTitle);
-  }
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText(m_dialogTitle);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Events handling
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  @Override
-  protected void okPressed() {
-    m_selectedWidget = (C) getViewerSelection().getFirstElement();
-    super.okPressed();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Events handling
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void okPressed() {
+		m_selectedWidget = (C) getViewerSelection().getFirstElement();
+		super.okPressed();
+	}
 
-  private void updateButtons() {
-    getButton(IDialogConstants.OK_ID).setEnabled(!getViewerSelection().isEmpty());
-  }
+	private void updateButtons() {
+		getButton(IDialogConstants.OK_ID).setEnabled(!getViewerSelection().isEmpty());
+	}
 
-  private IStructuredSelection getViewerSelection() {
-    return (IStructuredSelection) m_viewer.getSelection();
-  }
+	private IStructuredSelection getViewerSelection() {
+		return (IStructuredSelection) m_viewer.getSelection();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setDefaultSelectedWidget(C defaultSelectedWidget) {
-    m_defaultSelectedWidget = defaultSelectedWidget;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setDefaultSelectedWidget(C defaultSelectedWidget) {
+		m_defaultSelectedWidget = defaultSelectedWidget;
+	}
 
-  public C getSelectedWidget() {
-    return m_selectedWidget;
-  }
+	public C getSelectedWidget() {
+		return m_selectedWidget;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Content provider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private class ControlContentProvider implements IStructuredContentProvider {
-    @Override
-    public Object[] getElements(Object inputElement) {
-      return m_widgets.toArray();
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Content provider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private class ControlContentProvider implements IStructuredContentProvider {
+		@Override
+		public Object[] getElements(Object inputElement) {
+			return m_widgets.toArray();
+		}
 
-    @Override
-    public void dispose() {
-    }
+		@Override
+		public void dispose() {
+		}
 
-    @Override
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Label provider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private class ControlLabelProvider extends LabelProvider implements ITableLabelProvider {
-    @Override
-    @SuppressWarnings("unchecked")
-    public String getColumnText(Object element, int columnIndex) {
-      C info = (C) element;
-      try {
-        return info.getPresentation().getText();
-      } catch (Throwable e) {
-        throw ReflectionUtils.propagate(e);
-      }
-    }
+		@Override
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Label provider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private class ControlLabelProvider extends LabelProvider implements ITableLabelProvider {
+		@Override
+		@SuppressWarnings("unchecked")
+		public String getColumnText(Object element, int columnIndex) {
+			C info = (C) element;
+			try {
+				return info.getPresentation().getText();
+			} catch (Throwable e) {
+				throw ReflectionUtils.propagate(e);
+			}
+		}
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public Image getColumnImage(Object element, int columnIndex) {
-      C info = (C) element;
-      try {
-        return info.getPresentation().getIcon();
-      } catch (Throwable e) {
-        throw ReflectionUtils.propagate(e);
-      }
-    }
-  }
+		@Override
+		@SuppressWarnings("unchecked")
+		public Image getColumnImage(Object element, int columnIndex) {
+			C info = (C) element;
+			try {
+				return info.getPresentation().getIcon();
+			} catch (Throwable e) {
+				throw ReflectionUtils.propagate(e);
+			}
+		}
+	}
 }

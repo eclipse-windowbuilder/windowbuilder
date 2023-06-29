@@ -28,84 +28,84 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage nebula.gef
  */
 public final class CollapsibleButtonsLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
-  private final CollapsibleButtonsInfo m_collButtons;
+	private final CollapsibleButtonsInfo m_collButtons;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CollapsibleButtonsLayoutEditPolicy(CollapsibleButtonsInfo collButtons) {
-    m_collButtons = collButtons;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CollapsibleButtonsLayoutEditPolicy(CollapsibleButtonsInfo collButtons) {
+		m_collButtons = collButtons;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return false;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof ControlInfo;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof ControlInfo;
+	}
 
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return super.isRequestCondition(request) || request instanceof CollapsibleButtonDropRequest;
-  }
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return super.isRequestCondition(request) || request instanceof CollapsibleButtonDropRequest;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
-    @Override
-    public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-      return true;
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
+		@Override
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+			return true;
+		}
+	};
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCommand(Request request, Object referenceObject) {
-    if (request instanceof CollapsibleButtonDropRequest) {
-      final CollapsibleButtonDropRequest buttonRequest = (CollapsibleButtonDropRequest) request;
-      final ControlInfo reference = (ControlInfo) referenceObject;
-      return new EditCommand(m_collButtons) {
-        @Override
-        protected void executeEdit() throws Exception {
-          ControlInfo newButton = CollapsibleButtonsInfo.createButton(m_collButtons, reference);
-          buttonRequest.setButton(newButton);
-        }
-      };
-    }
-    return super.getCommand(request, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCommand(Request request, Object referenceObject) {
+		if (request instanceof CollapsibleButtonDropRequest) {
+			final CollapsibleButtonDropRequest buttonRequest = (CollapsibleButtonDropRequest) request;
+			final ControlInfo reference = (ControlInfo) referenceObject;
+			return new EditCommand(m_collButtons) {
+				@Override
+				protected void executeEdit() throws Exception {
+					ControlInfo newButton = CollapsibleButtonsInfo.createButton(m_collButtons, reference);
+					buttonRequest.setButton(newButton);
+				}
+			};
+		}
+		return super.getCommand(request, referenceObject);
+	}
 
-  @Override
-  protected Command getMoveCommand(Object moveObject, Object referenceObject) {
-    final ControlInfo button = (ControlInfo) moveObject;
-    final ControlInfo reference = (ControlInfo) referenceObject;
-    return new EditCommand(m_collButtons) {
-      @Override
-      protected void executeEdit() throws Exception {
-        CollapsibleButtonsInfo.moveButton(button, reference);
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(Object moveObject, Object referenceObject) {
+		final ControlInfo button = (ControlInfo) moveObject;
+		final ControlInfo reference = (ControlInfo) referenceObject;
+		return new EditCommand(m_collButtons) {
+			@Override
+			protected void executeEdit() throws Exception {
+				CollapsibleButtonsInfo.moveButton(button, reference);
+			}
+		};
+	}
 }

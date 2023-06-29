@@ -21,117 +21,117 @@ import java.util.List;
  * @coverage core.model.menu
  */
 public interface IMenuPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @param newObject
-   *          the new object to add.
-   *
-   * @return <code>true</code> if new object can be added.
-   */
-  boolean validateCreate(Object newObject);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @param newObject
+	 *          the new object to add.
+	 *
+	 * @return <code>true</code> if new object can be added.
+	 */
+	boolean validateCreate(Object newObject);
 
-  /**
-   * @param mementoObject
-   *          some object that contains information about pasting.
-   *
-   * @return <code>true</code> paste operation can be performed.
-   */
-  boolean validatePaste(Object mementoObject);
+	/**
+	 * @param mementoObject
+	 *          some object that contains information about pasting.
+	 *
+	 * @return <code>true</code> paste operation can be performed.
+	 */
+	boolean validatePaste(Object mementoObject);
 
-  /**
-   * @param object
-   *          the object that should be moved.
-   *
-   * @return <code>true</code> move operation can be performed.
-   */
-  boolean validateMove(Object object);
+	/**
+	 * @param object
+	 *          the object that should be moved.
+	 *
+	 * @return <code>true</code> move operation can be performed.
+	 */
+	boolean validateMove(Object object);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds new object.
-   *
-   * @param newObject
-   *          the new object to add.
-   * @param nextObject
-   *          the item to add new item before.
-   */
-  void commandCreate(Object newObject, Object nextObject) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds new object.
+	 *
+	 * @param newObject
+	 *          the new object to add.
+	 * @param nextObject
+	 *          the item to add new item before.
+	 */
+	void commandCreate(Object newObject, Object nextObject) throws Exception;
 
-  /**
-   * Performs paste.
-   *
-   * @param mementoObject
-   *          some object that contains information about pasting.
-   * @param nextObject
-   *          the existing object to paste object before.
-   *
-   * @return the {@link List} of pasted objects that should be selected after paste.
-   */
-  List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception;
+	/**
+	 * Performs paste.
+	 *
+	 * @param mementoObject
+	 *          some object that contains information about pasting.
+	 * @param nextObject
+	 *          the existing object to paste object before.
+	 *
+	 * @return the {@link List} of pasted objects that should be selected after paste.
+	 */
+	List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception;
 
-  /**
-   * Performs move of one "object" before other "object".
-   *
-   * @param object
-   *          the toolkit object that should be moved.
-   * @param nextObject
-   *          the object to move object before.
-   */
-  void commandMove(Object object, Object nextObject) throws Exception;
+	/**
+	 * Performs move of one "object" before other "object".
+	 *
+	 * @param object
+	 *          the toolkit object that should be moved.
+	 * @param nextObject
+	 *          the object to move object before.
+	 */
+	void commandMove(Object object, Object nextObject) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Default implementations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link IMenuPolicy} that does nothing.
-   */
-  IMenuPolicy NOOP = new IMenuPolicy() {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Validation
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public boolean validateCreate(Object newObject) {
-      return false;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Default implementations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link IMenuPolicy} that does nothing.
+	 */
+	IMenuPolicy NOOP = new IMenuPolicy() {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Validation
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public boolean validateCreate(Object newObject) {
+			return false;
+		}
 
-    @Override
-    public boolean validatePaste(Object mementoObject) {
-      return false;
-    }
+		@Override
+		public boolean validatePaste(Object mementoObject) {
+			return false;
+		}
 
-    @Override
-    public boolean validateMove(Object object) {
-      return false;
-    }
+		@Override
+		public boolean validateMove(Object object) {
+			return false;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Operations
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void commandCreate(Object newObject, Object nextObject) throws Exception {
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Operations
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public void commandCreate(Object newObject, Object nextObject) throws Exception {
+		}
 
-    @Override
-    public void commandMove(Object object, Object nextObject) throws Exception {
-    }
+		@Override
+		public void commandMove(Object object, Object nextObject) throws Exception {
+		}
 
-    @Override
-    public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
-      return ImmutableList.of();
-    }
-  };
+		@Override
+		public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
+			return ImmutableList.of();
+		}
+	};
 }

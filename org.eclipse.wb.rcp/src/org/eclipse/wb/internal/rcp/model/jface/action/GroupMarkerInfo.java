@@ -27,55 +27,55 @@ import net.bytebuddy.ByteBuddy;
  * @coverage rcp.model.jface
  */
 public final class GroupMarkerInfo extends ContributionItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GroupMarkerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GroupMarkerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate0() throws Exception {
-    super.refresh_afterCreate0();
-    {
-      String id = (String) ReflectionUtils.invokeMethod(getObject(), "getId()");
-      Object item = createContributionItem_withText(id);
-      // insert item
-      ContributionManagerInfo manager = (ContributionManagerInfo) getParent();
-      manager.low_insertContributionItem(manager.low_getIndex(getObject()), item);
-      manager.low_update();
-      // use this item instead
-      setObject(item);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate0() throws Exception {
+		super.refresh_afterCreate0();
+		{
+			String id = (String) ReflectionUtils.invokeMethod(getObject(), "getId()");
+			Object item = createContributionItem_withText(id);
+			// insert item
+			ContributionManagerInfo manager = (ContributionManagerInfo) getParent();
+			manager.low_insertContributionItem(manager.low_getIndex(getObject()), item);
+			manager.low_update();
+			// use this item instead
+			setObject(item);
+		}
+	}
 
-  private Object createContributionItem_withText(String text) throws Exception {
-    ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
-    Class<?> classAction = classLoader.loadClass("org.eclipse.jface.action.Action");
-    Class<?> classItem = classLoader.loadClass("org.eclipse.jface.action.ActionContributionItem");
-    // create Action
-    Object action;
-    {
-      action = new ByteBuddy() //
-          .subclass(classAction) //
-          .make() //
-          .load(classLoader) //
-          .getLoaded() //
-          .getConstructor(String.class) //
-          .newInstance(text);
-    }
-    // wrap Action with item
-    return ReflectionUtils.getConstructorBySignature(
-        classItem,
-        "<init>(org.eclipse.jface.action.IAction)").newInstance(action);
-  }
+	private Object createContributionItem_withText(String text) throws Exception {
+		ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
+		Class<?> classAction = classLoader.loadClass("org.eclipse.jface.action.Action");
+		Class<?> classItem = classLoader.loadClass("org.eclipse.jface.action.ActionContributionItem");
+		// create Action
+		Object action;
+		{
+			action = new ByteBuddy() //
+					.subclass(classAction) //
+					.make() //
+					.load(classLoader) //
+					.getLoaded() //
+					.getConstructor(String.class) //
+					.newInstance(text);
+		}
+		// wrap Action with item
+		return ReflectionUtils.getConstructorBySignature(
+				classItem,
+				"<init>(org.eclipse.jface.action.IAction)").newInstance(action);
+	}
 }

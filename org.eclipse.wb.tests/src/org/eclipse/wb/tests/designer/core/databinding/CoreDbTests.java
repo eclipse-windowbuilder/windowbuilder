@@ -18,11 +18,11 @@ import junit.framework.TestSuite;
  * @author lobas_av
  */
 public class CoreDbTests extends TestCase {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.databinding");
-    //$JUnit-BEGIN$
-    suite.addTestSuite(ObjectsTreeContentProviderTest.class);
-    //$JUnit-END$
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.databinding");
+		//$JUnit-BEGIN$
+		suite.addTestSuite(ObjectsTreeContentProviderTest.class);
+		//$JUnit-END$
+		return suite;
+	}
 }

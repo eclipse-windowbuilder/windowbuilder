@@ -24,32 +24,32 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class PropertyCategoryRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    // prepare category
-    PropertyCategory category;
-    {
-      String categoryTitle = attributes.getValue("value");
-      if ("preferred".equals(categoryTitle)) {
-        category = PropertyCategory.PREFERRED;
-      } else if ("normal".equals(categoryTitle)) {
-        category = PropertyCategory.NORMAL;
-      } else if ("advanced".equals(categoryTitle)) {
-        category = PropertyCategory.ADVANCED;
-      } else if ("hidden".equals(categoryTitle)) {
-        category = PropertyCategory.HIDDEN;
-      } else {
-        throw new IllegalArgumentException("Unknown category " + categoryTitle);
-      }
-    }
-    // set category
-    GenericPropertyDescription propertyDescription =
-        (GenericPropertyDescription) getDigester().peek();
-    propertyDescription.setCategory(category);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		// prepare category
+		PropertyCategory category;
+		{
+			String categoryTitle = attributes.getValue("value");
+			if ("preferred".equals(categoryTitle)) {
+				category = PropertyCategory.PREFERRED;
+			} else if ("normal".equals(categoryTitle)) {
+				category = PropertyCategory.NORMAL;
+			} else if ("advanced".equals(categoryTitle)) {
+				category = PropertyCategory.ADVANCED;
+			} else if ("hidden".equals(categoryTitle)) {
+				category = PropertyCategory.HIDDEN;
+			} else {
+				throw new IllegalArgumentException("Unknown category " + categoryTitle);
+			}
+		}
+		// set category
+		GenericPropertyDescription propertyDescription =
+				(GenericPropertyDescription) getDigester().peek();
+		propertyDescription.setCategory(category);
+	}
 }

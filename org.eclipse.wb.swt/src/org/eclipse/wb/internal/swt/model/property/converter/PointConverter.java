@@ -23,28 +23,28 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage swt.property.converter
  */
 public final class PointConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new PointConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new PointConverter();
 
-  private PointConverter() {
-  }
+	private PointConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    if (value == null) {
-      return "(org.eclipse.swt.graphics.Point) null";
-    } else {
-      Point point = PointSupport.getPoint(value);
-      return "new org.eclipse.swt.graphics.Point(" + point.x + ", " + point.y + ")";
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		if (value == null) {
+			return "(org.eclipse.swt.graphics.Point) null";
+		} else {
+			Point point = PointSupport.getPoint(value);
+			return "new org.eclipse.swt.graphics.Point(" + point.x + ", " + point.y + ")";
+		}
+	}
 }

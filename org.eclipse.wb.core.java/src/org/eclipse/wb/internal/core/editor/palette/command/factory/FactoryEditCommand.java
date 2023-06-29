@@ -28,53 +28,53 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class FactoryEditCommand extends FactoryAbstractCommand {
-  public static final String ID = "editFactory";
+	public static final String ID = "editFactory";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FactoryEditCommand(String id,
-      String name,
-      String description,
-      boolean visible,
-      String factoryClassName,
-      String methodSignature,
-      boolean forStatic) {
-    super(id, name, description, visible, factoryClassName, methodSignature, forStatic);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FactoryEditCommand(String id,
+			String name,
+			String description,
+			boolean visible,
+			String factoryClassName,
+			String methodSignature,
+			boolean forStatic) {
+		super(id, name, description, visible, factoryClassName, methodSignature, forStatic);
+	}
 
-  public FactoryEditCommand(Attributes attributes) {
-    super(attributes);
-  }
+	public FactoryEditCommand(Attributes attributes) {
+		super(attributes);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    EntryInfo entry = palette.getEntry(m_id);
-    if (entry instanceof FactoryEntryInfo) {
-      updateElement(entry);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		EntryInfo entry = palette.getEntry(m_id);
+		if (entry instanceof FactoryEntryInfo) {
+			updateElement(entry);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addToCommandList(final List<Command> commands) {
-    ExecutionUtils.runIgnore(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        removeCommands(commands, FactoryEditCommand.class, m_id);
-      }
-    });
-    commands.add(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addToCommandList(final List<Command> commands) {
+		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				removeCommands(commands, FactoryEditCommand.class, m_id);
+			}
+		});
+		commands.add(this);
+	}
 }

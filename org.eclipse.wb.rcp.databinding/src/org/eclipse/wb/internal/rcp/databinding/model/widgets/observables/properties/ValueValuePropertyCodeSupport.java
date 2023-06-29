@@ -21,33 +21,33 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.propertie
  * @coverage bindings.rcp.model.widgets
  */
 public class ValueValuePropertyCodeSupport extends DetailPropertyCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ValueValuePropertyCodeSupport(ViewerPropertySingleSelectionCodeSupport selectionProperty,
-      ValuePropertyCodeSupport detailProperty) {
-    super("org.eclipse.core.databinding.property.value.IValueProperty",
-        "org.eclipse.core.databinding.observable.value.IObservableValue",
-        "value",
-        selectionProperty,
-        detailProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ValueValuePropertyCodeSupport(ViewerPropertySingleSelectionCodeSupport selectionProperty,
+			ValuePropertyCodeSupport detailProperty) {
+		super("org.eclipse.core.databinding.property.value.IValueProperty",
+				"org.eclipse.core.databinding.observable.value.IObservableValue",
+				"value",
+				selectionProperty,
+				detailProperty);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected DetailBeanObservableInfo createDetailObservable() {
-    DetailValueBeanObservableInfo detailObservable =
-        new DetailValueBeanObservableInfo(m_masterObservable,
-            null,
-            m_detailProperty.getParserPropertyReference(),
-            m_detailProperty.getParserPropertyType());
-    detailObservable.setPojoBindable(m_masterObservable.isPojoBindable());
-    return detailObservable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected DetailBeanObservableInfo createDetailObservable() {
+		DetailValueBeanObservableInfo detailObservable =
+				new DetailValueBeanObservableInfo(m_masterObservable,
+						null,
+						m_detailProperty.getParserPropertyReference(),
+						m_detailProperty.getParserPropertyType());
+		detailObservable.setPojoBindable(m_masterObservable.isPojoBindable());
+		return detailObservable;
+	}
 }

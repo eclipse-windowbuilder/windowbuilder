@@ -20,52 +20,52 @@ import java.util.List;
  *
  */
 public class MultiTargetRunnable implements Runnable {
-  private final ChooseClassUiContentProvider m_source;
-  private final List<ChooseClassUiContentProvider> m_targets = Lists.newArrayList();
+	private final ChooseClassUiContentProvider m_source;
+	private final List<ChooseClassUiContentProvider> m_targets = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MultiTargetRunnable(ChooseClassUiContentProvider source) {
-    m_source = source;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MultiTargetRunnable(ChooseClassUiContentProvider source) {
+		m_source = source;
+	}
 
-  public MultiTargetRunnable(ChooseClassUiContentProvider source,
-      ChooseClassUiContentProvider[] targets) {
-    this(source);
-    for (ChooseClassUiContentProvider target : targets) {
-      addTarget(target, false);
-    }
-  }
+	public MultiTargetRunnable(ChooseClassUiContentProvider source,
+			ChooseClassUiContentProvider[] targets) {
+		this(source);
+		for (ChooseClassUiContentProvider target : targets) {
+			addTarget(target, false);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void addTarget(ChooseClassUiContentProvider target, boolean update) {
-    m_targets.add(target);
-    target.getDialogField().setEnabled(false);
-    if (update) {
-      target.setClassName(m_source.getClassName());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void addTarget(ChooseClassUiContentProvider target, boolean update) {
+		m_targets.add(target);
+		target.getDialogField().setEnabled(false);
+		if (update) {
+			target.setClassName(m_source.getClassName());
+		}
+	}
 
-  public void removeTarget(ChooseClassUiContentProvider target) {
-    m_targets.remove(target);
-  }
+	public void removeTarget(ChooseClassUiContentProvider target) {
+		m_targets.remove(target);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Runnable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void run() {
-    for (ChooseClassUiContentProvider target : m_targets) {
-      target.setClassName(m_source.getClassName());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Runnable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void run() {
+		for (ChooseClassUiContentProvider target : m_targets) {
+			target.setClassName(m_source.getClassName());
+		}
+	}
 }

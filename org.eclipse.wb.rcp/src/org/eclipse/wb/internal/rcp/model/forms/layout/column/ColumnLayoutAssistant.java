@@ -28,28 +28,28 @@ import java.util.List;
  * @coverage rcp.model.forms
  */
 public final class ColumnLayoutAssistant extends LayoutAssistantSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnLayoutAssistant(ILayoutInfo<?> layout) {
-    super(layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnLayoutAssistant(ILayoutInfo<?> layout) {
+		super(layout);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractAssistantPage createLayoutPage(Composite parent) {
-    return new ColumnLayoutAssistantPage(parent, m_layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractAssistantPage createLayoutPage(Composite parent) {
+		return new ColumnLayoutAssistantPage(parent, m_layout);
+	}
 
-  @Override
-  protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
-    List<ILayoutDataInfo> dataList = getDataList(objects);
-    return new ColumnLayoutDataAssistantPage(parent, dataList);
-  }
+	@Override
+	protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
+		List<ILayoutDataInfo> dataList = getDataList(objects);
+		return new ColumnLayoutDataAssistantPage(parent, dataList);
+	}
 }

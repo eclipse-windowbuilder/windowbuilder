@@ -18,13 +18,13 @@ package org.eclipse.wb.internal.core.model.order;
  * @coverage core.model.description
  */
 public final class ComponentOrderDefault extends ComponentOrder {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ComponentOrder INSTANCE = new ComponentOrderDefault();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ComponentOrder INSTANCE = new ComponentOrderDefault();
 
-  private ComponentOrderDefault() {
-  }
+	private ComponentOrderDefault() {
+	}
 }

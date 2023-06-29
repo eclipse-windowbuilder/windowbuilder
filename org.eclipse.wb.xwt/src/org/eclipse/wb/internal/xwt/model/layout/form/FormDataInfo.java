@@ -48,208 +48,208 @@ import java.util.List;
  * @coverage XWT.model.layout
  */
 public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<ControlInfo> {
-  private ComplexProperty m_propertyLeft;
-  private ComplexProperty m_propertyRight;
-  private ComplexProperty m_propertyTop;
-  private ComplexProperty m_propertyBottom;
+	private ComplexProperty m_propertyLeft;
+	private ComplexProperty m_propertyRight;
+	private ComplexProperty m_propertyTop;
+	private ComplexProperty m_propertyBottom;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormDataInfo(EditorContext editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    // after parsing bind this registry into hierarchy
-    addBroadcastListener(new ObjectInfoTreeComplete() {
-      public void invoke() throws Exception {
-        removeBroadcastListener(this);
-        // find and assign FormAttachments
-        ControlInfo parentControl = (ControlInfo) getParent();
-        initAttachments(parentControl);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormDataInfo(EditorContext editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		// after parsing bind this registry into hierarchy
+		addBroadcastListener(new ObjectInfoTreeComplete() {
+			public void invoke() throws Exception {
+				removeBroadcastListener(this);
+				// find and assign FormAttachments
+				ControlInfo parentControl = (ControlInfo) getParent();
+				initAttachments(parentControl);
+			}
+		});
+	}
 
-  /**
-   * Initializes {@link FormAttachmentInfo} instances for all possible sides. Performs search for
-   * existing and creates virtual new if found nothing.
-   *
-   * @param parentControl
-   *          the control for which attachments would be searched.
-   */
-  private void initAttachments(ControlInfo parentControl) throws Exception {
-    initAttachment(FormSide.LEFT, parentControl);
-    initAttachment(FormSide.RIGHT, parentControl);
-    initAttachment(FormSide.TOP, parentControl);
-    initAttachment(FormSide.BOTTOM, parentControl);
-  }
+	/**
+	 * Initializes {@link FormAttachmentInfo} instances for all possible sides. Performs search for
+	 * existing and creates virtual new if found nothing.
+	 *
+	 * @param parentControl
+	 *          the control for which attachments would be searched.
+	 */
+	private void initAttachments(ControlInfo parentControl) throws Exception {
+		initAttachment(FormSide.LEFT, parentControl);
+		initAttachment(FormSide.RIGHT, parentControl);
+		initAttachment(FormSide.TOP, parentControl);
+		initAttachment(FormSide.BOTTOM, parentControl);
+	}
 
-  /**
-   * Initializes {@link FormAttachmentInfo} instance for <code>fieldName</code>. Performs search for
-   * existing and creates virtual new if found nothing.
-   *
-   * @param side
-   *          the {@link FormSide} that describes field of {@link FormData} in which this attachment
-   *          may already assigned.
-   * @param parentControl
-   *          the control which attachment initialized.
-   */
-  private void initAttachment(FormSide side, ControlInfo parentControl) throws Exception {
-    String sideFieldName = side.getField();
-    DocumentElement attachmentElement = getAttachmentElement(sideFieldName);
-    if (attachmentElement != null) {
-      List<FormAttachmentInfo> atts = getChildren(FormAttachmentInfo.class);
-      for (FormAttachmentInfo attachment : atts) {
-        if (getAttachmentSideName(attachment).equals(sideFieldName)) {
-          attachment.setSide(side);
-          return;
-        }
-      }
-    } else {
-      // virtual
-      addVirtualAttachment(side);
-    }
-  }
+	/**
+	 * Initializes {@link FormAttachmentInfo} instance for <code>fieldName</code>. Performs search for
+	 * existing and creates virtual new if found nothing.
+	 *
+	 * @param side
+	 *          the {@link FormSide} that describes field of {@link FormData} in which this attachment
+	 *          may already assigned.
+	 * @param parentControl
+	 *          the control which attachment initialized.
+	 */
+	private void initAttachment(FormSide side, ControlInfo parentControl) throws Exception {
+		String sideFieldName = side.getField();
+		DocumentElement attachmentElement = getAttachmentElement(sideFieldName);
+		if (attachmentElement != null) {
+			List<FormAttachmentInfo> atts = getChildren(FormAttachmentInfo.class);
+			for (FormAttachmentInfo attachment : atts) {
+				if (getAttachmentSideName(attachment).equals(sideFieldName)) {
+					attachment.setSide(side);
+					return;
+				}
+			}
+		} else {
+			// virtual
+			addVirtualAttachment(side);
+		}
+	}
 
-  private static String getAttachmentSideName(FormAttachmentInfo attachment) {
-    String property = attachment.getElement().getParent().getTag();
-    return StringUtils.removeStart(property, "FormData.");
-  }
+	private static String getAttachmentSideName(FormAttachmentInfo attachment) {
+		String property = attachment.getElement().getParent().getTag();
+		return StringUtils.removeStart(property, "FormData.");
+	}
 
-  private DocumentElement getAttachmentElement(String field) {
-    DocumentElement thisElement = getCreationSupport().getElement();
-    DocumentElement attachmentParentElement = thisElement.getChild("FormData." + field, false);
-    if (attachmentParentElement != null) {
-      return attachmentParentElement.getChildAt(0);
-    }
-    return null;
-  }
+	private DocumentElement getAttachmentElement(String field) {
+		DocumentElement thisElement = getCreationSupport().getElement();
+		DocumentElement attachmentParentElement = thisElement.getChild("FormData." + field, false);
+		if (attachmentParentElement != null) {
+			return attachmentParentElement.getChildAt(0);
+		}
+		return null;
+	}
 
-  private FormAttachmentInfo addVirtualAttachment(FormSide side) throws Exception {
-    CreationSupport creationSupport =
-        new VirtualFormAttachmentCreationSupport(this,
-            FormLayoutSupport.createFormAttachment(),
-            side);
-    FormAttachmentInfo attachment =
-        (FormAttachmentInfo) XmlObjectUtils.createObject(
-            getContext(),
-            FormAttachment.class,
-            creationSupport);
-    attachment.setSide(side);
-    addChild(attachment);
-    return attachment;
-  }
+	private FormAttachmentInfo addVirtualAttachment(FormSide side) throws Exception {
+		CreationSupport creationSupport =
+				new VirtualFormAttachmentCreationSupport(this,
+						FormLayoutSupport.createFormAttachment(),
+						side);
+		FormAttachmentInfo attachment =
+				(FormAttachmentInfo) XmlObjectUtils.createObject(
+						getContext(),
+						FormAttachment.class,
+						creationSupport);
+		attachment.setSide(side);
+		addChild(attachment);
+		return attachment;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @param side
-   *          can be either of IPositionConstants.LEFT, IPositionConstants.RIGHT,
-   *          IPositionConstants.TOP, IPositionConstants.BOTTOM
-   */
-  public FormAttachmentInfo getAttachment(int sideInt) throws Exception {
-    FormSide side = FormSide.get(sideInt);
-    for (ObjectInfo child : getChildren()) {
-      if (child instanceof FormAttachmentInfo) {
-        FormAttachmentInfo attachment = (FormAttachmentInfo) child;
-        if (attachment.getSide() == side) {
-          return attachment;
-        }
-      }
-    }
-    return addVirtualAttachment(side);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @param side
+	 *          can be either of IPositionConstants.LEFT, IPositionConstants.RIGHT,
+	 *          IPositionConstants.TOP, IPositionConstants.BOTTOM
+	 */
+	public FormAttachmentInfo getAttachment(int sideInt) throws Exception {
+		FormSide side = FormSide.get(sideInt);
+		for (ObjectInfo child : getChildren()) {
+			if (child instanceof FormAttachmentInfo) {
+				FormAttachmentInfo attachment = (FormAttachmentInfo) child;
+				if (attachment.getSide() == side) {
+					return attachment;
+				}
+			}
+		}
+		return addVirtualAttachment(side);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Width/height
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setWidth(int value) throws Exception {
-    getPropertyByTitle("width").setValue(value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Width/height
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setWidth(int value) throws Exception {
+		getPropertyByTitle("width").setValue(value);
+	}
 
-  public void setHeight(int value) throws Exception {
-    getPropertyByTitle("height").setValue(value);
-  }
+	public void setHeight(int value) throws Exception {
+		getPropertyByTitle("height").setValue(value);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Attachment properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_finish() throws Exception {
-    super.refresh_finish();
-    ensureAttachmentProperties();
-    updateAttachmentPropertyText(IPositionConstants.LEFT, m_propertyLeft);
-    updateAttachmentPropertyText(IPositionConstants.RIGHT, m_propertyRight);
-    updateAttachmentPropertyText(IPositionConstants.TOP, m_propertyTop);
-    updateAttachmentPropertyText(IPositionConstants.BOTTOM, m_propertyBottom);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Attachment properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_finish() throws Exception {
+		super.refresh_finish();
+		ensureAttachmentProperties();
+		updateAttachmentPropertyText(IPositionConstants.LEFT, m_propertyLeft);
+		updateAttachmentPropertyText(IPositionConstants.RIGHT, m_propertyRight);
+		updateAttachmentPropertyText(IPositionConstants.TOP, m_propertyTop);
+		updateAttachmentPropertyText(IPositionConstants.BOTTOM, m_propertyBottom);
+	}
 
-  @Override
-  protected List<Property> getPropertyList() throws Exception {
-    ensureAttachmentProperties();
-    return super.getPropertyList();
-  }
+	@Override
+	protected List<Property> getPropertyList() throws Exception {
+		ensureAttachmentProperties();
+		return super.getPropertyList();
+	}
 
-  private void updateAttachmentPropertyText(int side, ComplexProperty property) throws Exception {
-    FormAttachmentInfo attachment = getAttachment(side);
-    property.setText(attachment.toString());
-  }
+	private void updateAttachmentPropertyText(int side, ComplexProperty property) throws Exception {
+		FormAttachmentInfo attachment = getAttachment(side);
+		property.setText(attachment.toString());
+	}
 
-  private void ensureAttachmentProperties() throws Exception {
-    if (m_propertyLeft == null) {
-      m_propertyLeft = createAttachmentProperty(IPositionConstants.LEFT, "left");
-      m_propertyRight = createAttachmentProperty(IPositionConstants.RIGHT, "right");
-      m_propertyTop = createAttachmentProperty(IPositionConstants.TOP, "top");
-      m_propertyBottom = createAttachmentProperty(IPositionConstants.BOTTOM, "bottom");
-    }
-  }
+	private void ensureAttachmentProperties() throws Exception {
+		if (m_propertyLeft == null) {
+			m_propertyLeft = createAttachmentProperty(IPositionConstants.LEFT, "left");
+			m_propertyRight = createAttachmentProperty(IPositionConstants.RIGHT, "right");
+			m_propertyTop = createAttachmentProperty(IPositionConstants.TOP, "top");
+			m_propertyBottom = createAttachmentProperty(IPositionConstants.BOTTOM, "bottom");
+		}
+	}
 
-  @Override
-  protected void sortPropertyList(List<Property> properties) {
-    List<Property> sorted = Lists.newArrayList();
-    sorted.add(m_propertyLeft);
-    sorted.add(m_propertyRight);
-    sorted.add(m_propertyTop);
-    sorted.add(m_propertyBottom);
-    sorted.add(PropertyUtils.getByTitle(properties, "width"));
-    sorted.add(PropertyUtils.getByTitle(properties, "height"));
-    properties.clear();
-    properties.addAll(sorted);
-  }
+	@Override
+	protected void sortPropertyList(List<Property> properties) {
+		List<Property> sorted = Lists.newArrayList();
+		sorted.add(m_propertyLeft);
+		sorted.add(m_propertyRight);
+		sorted.add(m_propertyTop);
+		sorted.add(m_propertyBottom);
+		sorted.add(PropertyUtils.getByTitle(properties, "width"));
+		sorted.add(PropertyUtils.getByTitle(properties, "height"));
+		properties.clear();
+		properties.addAll(sorted);
+	}
 
-  /**
-   * Creates the {@link ComplexProperty} for {@link FormAttachmentInfo} by attachment's property
-   * name.
-   */
-  private ComplexProperty createAttachmentProperty(int side, String title) throws Exception {
-    final FormAttachmentInfo attachment = getAttachment(side);
-    ComplexProperty attachmentProperty = new ComplexProperty(title, attachment.toString()) {
-      @Override
-      public void setValue(Object value) throws Exception {
-        if (value == Property.UNKNOWN_VALUE) {
-          attachment.delete();
-        }
-      }
-    };
-    Collection<?> selectedProperties =
-        CollectionUtils.select(Arrays.asList(attachment.getProperties()), new Predicate() {
-          public boolean evaluate(Object object) {
-            Property property = (Property) object;
-            return !property.getTitle().equals("Class")
-                && !property.getTitle().equals("Constructor");
-          }
-        });
-    attachmentProperty.setProperties(selectedProperties.toArray(new Property[selectedProperties.size()]));
-    return attachmentProperty;
-  }
+	/**
+	 * Creates the {@link ComplexProperty} for {@link FormAttachmentInfo} by attachment's property
+	 * name.
+	 */
+	private ComplexProperty createAttachmentProperty(int side, String title) throws Exception {
+		final FormAttachmentInfo attachment = getAttachment(side);
+		ComplexProperty attachmentProperty = new ComplexProperty(title, attachment.toString()) {
+			@Override
+			public void setValue(Object value) throws Exception {
+				if (value == Property.UNKNOWN_VALUE) {
+					attachment.delete();
+				}
+			}
+		};
+		Collection<?> selectedProperties =
+				CollectionUtils.select(Arrays.asList(attachment.getProperties()), new Predicate() {
+					public boolean evaluate(Object object) {
+						Property property = (Property) object;
+						return !property.getTitle().equals("Class")
+								&& !property.getTitle().equals("Constructor");
+					}
+				});
+		attachmentProperty.setProperties(selectedProperties.toArray(new Property[selectedProperties.size()]));
+		return attachmentProperty;
+	}
 }

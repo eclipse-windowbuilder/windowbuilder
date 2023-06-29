@@ -21,16 +21,16 @@ import org.eclipse.ui.IEditorPart;
  */
 @SuppressWarnings("restriction")
 public class DesignerEditorContributor extends CompilationUnitEditorActionContributor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setActiveEditor(IEditorPart part) {
-    super.setActiveEditor(part);
-    if (part != null) {
-      ((DesignerEditor) part).activated();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setActiveEditor(IEditorPart part) {
+		super.setActiveEditor(part);
+		if (part != null) {
+			((DesignerEditor) part).activated();
+		}
+	}
 }

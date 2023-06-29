@@ -27,113 +27,113 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class AbstractFactoryInfo extends BeansObservableFactoryInfo {
-  private final String m_method;
-  protected boolean m_isPojoBindable;
-  private boolean m_cancel;
+	private final String m_method;
+	protected boolean m_isPojoBindable;
+	private boolean m_cancel;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractFactoryInfo(String method) {
-    super(null);
-    m_method = method;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractFactoryInfo(String method) {
+		super(null);
+		m_method = method;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setPojoBindable(boolean isPojoBindable) {
-    m_isPojoBindable = isPojoBindable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setPojoBindable(boolean isPojoBindable) {
+		m_isPojoBindable = isPojoBindable;
+	}
 
-  @Override
-  public boolean isDesignerMode() {
-    return false;
-  }
+	@Override
+	public boolean isDesignerMode() {
+		return false;
+	}
 
-  public String getOriginalClassName() {
-    return m_className;
-  }
+	public String getOriginalClassName() {
+		return m_className;
+	}
 
-  @Override
-  public String getClassName() {
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("(");
-    if (m_propertyName == null) {
-      buffer.append("?????, ");
-    } else {
-      buffer.append(m_propertyName + ", ");
-    }
-    if (m_elementType == null) {
-      buffer.append("?????");
-    } else {
-      buffer.append(ClassUtils.getShortClassName(m_elementType));
-    }
-    buffer.append(".class)");
-    return m_method + buffer.toString();
-  }
+	@Override
+	public String getClassName() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("(");
+		if (m_propertyName == null) {
+			buffer.append("?????, ");
+		} else {
+			buffer.append(m_propertyName + ", ");
+		}
+		if (m_elementType == null) {
+			buffer.append("?????");
+		} else {
+			buffer.append(ClassUtils.getShortClassName(m_elementType));
+		}
+		buffer.append(".class)");
+		return m_method + buffer.toString();
+	}
 
-  @Override
-  public void setClassName(String className) {
-    if (!className.startsWith(m_method)) {
-      m_cancel = true;
-      super.setClassName(className);
-    }
-  }
+	@Override
+	public void setClassName(String className) {
+		if (!className.startsWith(m_method)) {
+			m_cancel = true;
+			super.setClassName(className);
+		}
+	}
 
-  public boolean isCancel() {
-    return m_cancel;
-  }
+	public boolean isCancel() {
+		return m_cancel;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPresentationText() throws Exception {
-    return getClassName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPresentationText() throws Exception {
+		return getClassName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configure(ChooseClassConfiguration configuration) {
-    configuration.setValueScope(m_method);
-    configuration.addDefaultStart(getClassName());
-    configuration.setBaseClassName("org.eclipse.core.databinding.observable.masterdetail.IObservableFactory");
-    configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configure(ChooseClassConfiguration configuration) {
+		configuration.setValueScope(m_method);
+		configuration.addDefaultStart(getClassName());
+		configuration.setBaseClassName("org.eclipse.core.databinding.observable.masterdetail.IObservableFactory");
+		configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addSourceCode(List<String> lines) throws Exception {
-    String beansClassName =
-        m_isPojoBindable
-            ? DataBindingsCodeUtils.getPojoObservablesClass()
-            : "org.eclipse.core.databinding.beans.BeansObservables";
-    lines.add("org.eclipse.core.databinding.observable.masterdetail.IObservableFactory "
-        + getVariableIdentifier()
-        + " = "
-        + beansClassName
-        + "."
-        + m_method
-        + "(org.eclipse.core.databinding.observable.Realm.getDefault(), "
-        + m_propertyName
-        + ", "
-        + CoreUtils.getClassName(m_elementType)
-        + ".class"
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addSourceCode(List<String> lines) throws Exception {
+		String beansClassName =
+				m_isPojoBindable
+				? DataBindingsCodeUtils.getPojoObservablesClass()
+						: "org.eclipse.core.databinding.beans.BeansObservables";
+		lines.add("org.eclipse.core.databinding.observable.masterdetail.IObservableFactory "
+				+ getVariableIdentifier()
+				+ " = "
+				+ beansClassName
+				+ "."
+				+ m_method
+				+ "(org.eclipse.core.databinding.observable.Realm.getDefault(), "
+				+ m_propertyName
+				+ ", "
+				+ CoreUtils.getClassName(m_elementType)
+				+ ".class"
+				+ ");");
+	}
 }

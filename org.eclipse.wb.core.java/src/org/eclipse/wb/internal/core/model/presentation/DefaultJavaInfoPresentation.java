@@ -22,40 +22,40 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.model.presentation
  */
 public class DefaultJavaInfoPresentation extends DefaultObjectPresentation {
-  protected final JavaInfo m_javaInfo;
+	protected final JavaInfo m_javaInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DefaultJavaInfoPresentation(JavaInfo javaInfo) {
-    super(javaInfo);
-    m_javaInfo = javaInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DefaultJavaInfoPresentation(JavaInfo javaInfo) {
+		super(javaInfo);
+		m_javaInfo = javaInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObjectPresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() throws Exception {
-    // for factory try to get "factory method" specific icon
-    if (m_javaInfo.getCreationSupport() instanceof AbstractExplicitFactoryCreationSupport) {
-      AbstractExplicitFactoryCreationSupport factoryCreationSupport =
-          (AbstractExplicitFactoryCreationSupport) m_javaInfo.getCreationSupport();
-      Image icon = factoryCreationSupport.getDescription().getIcon();
-      if (icon != null) {
-        return icon;
-      }
-    }
-    // by default use "component type" specific icon
-    return m_javaInfo.getDescription().getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObjectPresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() throws Exception {
+		// for factory try to get "factory method" specific icon
+		if (m_javaInfo.getCreationSupport() instanceof AbstractExplicitFactoryCreationSupport) {
+			AbstractExplicitFactoryCreationSupport factoryCreationSupport =
+					(AbstractExplicitFactoryCreationSupport) m_javaInfo.getCreationSupport();
+			Image icon = factoryCreationSupport.getDescription().getIcon();
+			if (icon != null) {
+				return icon;
+			}
+		}
+		// by default use "component type" specific icon
+		return m_javaInfo.getDescription().getIcon();
+	}
 
-  @Override
-  public String getText() throws Exception {
-    return m_javaInfo.getVariableSupport().getTitle();
-  }
+	@Override
+	public String getText() throws Exception {
+		return m_javaInfo.getVariableSupport().getTitle();
+	}
 }

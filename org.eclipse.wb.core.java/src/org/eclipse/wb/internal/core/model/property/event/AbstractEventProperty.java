@@ -21,26 +21,26 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
  * @coverage core.model.property.events
  */
 abstract class AbstractEventProperty extends JavaProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractEventProperty(JavaInfo javaInfo, String title, PropertyEditor propertyEditor) {
-    super(javaInfo, title, propertyEditor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractEventProperty(JavaInfo javaInfo, String title, PropertyEditor propertyEditor) {
+		super(javaInfo, title, propertyEditor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Object getValue() throws Exception {
-    return UNKNOWN_VALUE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Object getValue() throws Exception {
+		return UNKNOWN_VALUE;
+	}
 
-  @Override
-  public void setValue(Object value) throws Exception {
-  }
+	@Override
+	public void setValue(Object value) throws Exception {
+	}
 }

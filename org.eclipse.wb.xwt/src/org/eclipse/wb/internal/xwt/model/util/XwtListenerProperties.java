@@ -31,60 +31,60 @@ import java.util.List;
  * @coverage XWT.model
  */
 public final class XwtListenerProperties {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XwtListenerProperties(XmlObjectInfo rootObject) {
-    rootObject.addBroadcastListener(new XmlObjectEventListeners() {
-      public void invoke(XmlObjectInfo object, List<AbstractListenerProperty> properties)
-          throws Exception {
-        addListeners(object, properties);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XwtListenerProperties(XmlObjectInfo rootObject) {
+		rootObject.addBroadcastListener(new XmlObjectEventListeners() {
+			public void invoke(XmlObjectInfo object, List<AbstractListenerProperty> properties)
+					throws Exception {
+				addListeners(object, properties);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final ClassMap<List<String>> m_widgetEvents = ClassMap.create();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final ClassMap<List<String>> m_widgetEvents = ClassMap.create();
 
-  /**
-   * Adds listeners for events supported by given widget.
-   */
-  private void addListeners(XmlObjectInfo object, List<AbstractListenerProperty> properties)
-      throws Exception {
-    List<String> events = getWidgetEvents(object);
-    for (String eventName : events) {
-      properties.add(new XwtListenerProperty(object, eventName));
-    }
-  }
+	/**
+	 * Adds listeners for events supported by given widget.
+	 */
+	private void addListeners(XmlObjectInfo object, List<AbstractListenerProperty> properties)
+			throws Exception {
+		List<String> events = getWidgetEvents(object);
+		for (String eventName : events) {
+			properties.add(new XwtListenerProperty(object, eventName));
+		}
+	}
 
-  /**
-   * @return the {@link List} of SWT events which are supported by given widget.
-   */
-  private static List<String> getWidgetEvents(XmlObjectInfo widget) {
-    Class<?> componentClass = widget.getDescription().getComponentClass();
-    List<String> events = m_widgetEvents.get(componentClass);
-    if (events == null) {
-      events = Lists.newArrayList();
-      m_widgetEvents.put(componentClass, events);
-      while (componentClass != null) {
-        {
-          String parameterName = "RCP.untyped.events: " + componentClass.getName();
-          String namesString = XmlObjectUtils.getParameter(widget, parameterName);
-          if (namesString != null) {
-            String[] names = StringUtils.split(namesString);
-            Collections.addAll(events, names);
-          }
-        }
-        componentClass = componentClass.getSuperclass();
-      }
-      Collections.sort(events);
-    }
-    return events;
-  }
+	/**
+	 * @return the {@link List} of SWT events which are supported by given widget.
+	 */
+	private static List<String> getWidgetEvents(XmlObjectInfo widget) {
+		Class<?> componentClass = widget.getDescription().getComponentClass();
+		List<String> events = m_widgetEvents.get(componentClass);
+		if (events == null) {
+			events = Lists.newArrayList();
+			m_widgetEvents.put(componentClass, events);
+			while (componentClass != null) {
+				{
+					String parameterName = "RCP.untyped.events: " + componentClass.getName();
+					String namesString = XmlObjectUtils.getParameter(widget, parameterName);
+					if (namesString != null) {
+						String[] names = StringUtils.split(namesString);
+						Collections.addAll(events, names);
+					}
+				}
+				componentClass = componentClass.getSuperclass();
+			}
+			Collections.sort(events);
+		}
+		return events;
+	}
 }

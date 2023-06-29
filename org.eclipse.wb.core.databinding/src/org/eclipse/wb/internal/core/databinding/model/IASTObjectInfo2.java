@@ -18,11 +18,11 @@ import org.eclipse.wb.core.model.JavaInfo;
  *
  */
 public interface IASTObjectInfo2 {
-  boolean isField();
+	boolean isField();
 
-  void setField();
+	void setField();
 
-  String getVariableIdentifier() throws Exception;
+	String getVariableIdentifier() throws Exception;
 
-  void setVariableIdentifier(JavaInfo javaInfoRoot, String variable, boolean field);
+	void setVariableIdentifier(JavaInfo javaInfoRoot, String variable, boolean field);
 }

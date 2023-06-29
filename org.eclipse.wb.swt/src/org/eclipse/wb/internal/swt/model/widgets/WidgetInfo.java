@@ -42,131 +42,131 @@ import java.util.List;
  * @coverage swt.model.widgets
  */
 public abstract class WidgetInfo extends AbstractComponentInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WidgetInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    rememberVariableNameAsNameData();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WidgetInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		rememberVariableNameAsNameData();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void rememberVariableNameAsNameData() {
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void variable_setName(AbstractNamedVariableSupport variableSupport,
-          String oldName,
-          String newName) throws Exception {
-        if (variableSupport.getJavaInfo() == WidgetInfo.this) {
-          setVariableNameAsNameData(newName);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void rememberVariableNameAsNameData() {
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void variable_setName(AbstractNamedVariableSupport variableSupport,
+					String oldName,
+					String newName) throws Exception {
+				if (variableSupport.getJavaInfo() == WidgetInfo.this) {
+					setVariableNameAsNameData(newName);
+				}
+			}
+		});
+	}
 
-  @Override
-  public void createExposedChildren() throws Exception {
-    super.createExposedChildren();
-    createExposedChildren(this);
-  }
+	@Override
+	public void createExposedChildren() throws Exception {
+		super.createExposedChildren();
+		createExposedChildren(this);
+	}
 
-  /**
-   * Creates exposed children for given SWT {@link JavaInfo}.
-   */
-  public static void createExposedChildren(JavaInfo host) throws Exception {
-    final List<Class<?>> classList = Lists.newArrayList();
-    final ClassLoader classLoader = JavaInfoUtils.getClassLoader(host);
-    ExecutionUtils.runIgnore(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        Class<?> clazz = classLoader.loadClass("org.eclipse.swt.widgets.Widget");
-        classList.add(clazz);
-      }
-    });
-    ExecutionUtils.runIgnore(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        Class<?> clazz = classLoader.loadClass("org.eclipse.jface.viewers.Viewer");
-        classList.add(clazz);
-      }
-    });
-    Class<?>[] classes = classList.toArray(new Class[classList.size()]);
-    JavaInfoUtils.addExposedChildren(host, classes);
-  }
+	/**
+	 * Creates exposed children for given SWT {@link JavaInfo}.
+	 */
+	public static void createExposedChildren(JavaInfo host) throws Exception {
+		final List<Class<?>> classList = Lists.newArrayList();
+		final ClassLoader classLoader = JavaInfoUtils.getClassLoader(host);
+		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				Class<?> clazz = classLoader.loadClass("org.eclipse.swt.widgets.Widget");
+				classList.add(clazz);
+			}
+		});
+		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				Class<?> clazz = classLoader.loadClass("org.eclipse.jface.viewers.Viewer");
+				classList.add(clazz);
+			}
+		});
+		Class<?>[] classes = classList.toArray(new Class[classList.size()]);
+		JavaInfoUtils.addExposedChildren(host, classes);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rename
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds/modifies {@link Widget#setData(String, Object)} with key "name" and value - new variable
-   * name.
-   *
-   * @param newName
-   *          the new variable name
-   */
-  private void setVariableNameAsNameData(String newName) throws Exception {
-    if (getDescription().getToolkit().getPreferences().getBoolean(
-        IPreferenceConstants.P_VARIABLE_IN_COMPONENT)) {
-      String valueSource = StringConverter.INSTANCE.toJavaSource(this, newName);
-      // try to find existing setData("name", value);
-      {
-        List<MethodInvocation> invocations =
-            getMethodInvocations("setData(java.lang.String,java.lang.Object)");
-        for (MethodInvocation invocation : invocations) {
-          Expression keyExpression = (Expression) invocation.arguments().get(0);
-          Expression valueExpression = (Expression) invocation.arguments().get(1);
-          //
-          String key = (String) JavaInfoEvaluationHelper.getValue(keyExpression);
-          if ("name".equals(key)) {
-            getEditor().replaceExpression(valueExpression, valueSource);
-            return;
-          }
-        }
-      }
-      // add new setData("name", value);
-      {
-        String nameSource = StringConverter.INSTANCE.toJavaSource(this, "name");
-        String arguments = nameSource + ", " + valueSource;
-        addMethodInvocation("setData(java.lang.String,java.lang.Object)", arguments);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rename
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds/modifies {@link Widget#setData(String, Object)} with key "name" and value - new variable
+	 * name.
+	 *
+	 * @param newName
+	 *          the new variable name
+	 */
+	private void setVariableNameAsNameData(String newName) throws Exception {
+		if (getDescription().getToolkit().getPreferences().getBoolean(
+				IPreferenceConstants.P_VARIABLE_IN_COMPONENT)) {
+			String valueSource = StringConverter.INSTANCE.toJavaSource(this, newName);
+			// try to find existing setData("name", value);
+			{
+				List<MethodInvocation> invocations =
+						getMethodInvocations("setData(java.lang.String,java.lang.Object)");
+				for (MethodInvocation invocation : invocations) {
+					Expression keyExpression = (Expression) invocation.arguments().get(0);
+					Expression valueExpression = (Expression) invocation.arguments().get(1);
+					//
+					String key = (String) JavaInfoEvaluationHelper.getValue(keyExpression);
+					if ("name".equals(key)) {
+						getEditor().replaceExpression(valueExpression, valueSource);
+						return;
+					}
+				}
+			}
+			// add new setData("name", value);
+			{
+				String nameSource = StringConverter.INSTANCE.toJavaSource(this, "name");
+				String arguments = nameSource + ", " + valueSource;
+				addMethodInvocation("setData(java.lang.String,java.lang.Object)", arguments);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // "Live" support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the instance of {@link SwtLiveManager} to fetch "live" data.
-   */
-  protected SwtLiveManager getLiveComponentsManager() {
-    return new SwtLiveManager(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// "Live" support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the instance of {@link SwtLiveManager} to fetch "live" data.
+	 */
+	protected SwtLiveManager getLiveComponentsManager() {
+		return new SwtLiveManager(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Style
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the style of this {@link WidgetInfo}, for existing {@link Object} or "live".
-   */
-  public final int getStyle() {
-    if (getObject() != null) {
-      return ControlSupport.getStyle(getObject());
-    } else {
-      return getLiveComponentsManager().getStyle();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Style
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the style of this {@link WidgetInfo}, for existing {@link Object} or "live".
+	 */
+	public final int getStyle() {
+		if (getObject() != null) {
+			return ControlSupport.getStyle(getObject());
+		} else {
+			return getLiveComponentsManager().getStyle();
+		}
+	}
 }

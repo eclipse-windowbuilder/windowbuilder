@@ -10,16 +10,16 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  * Model for {@link HorizontalSpinner}.
  */
 public class HorizontalSpinnerInfo extends CompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public HorizontalSpinnerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    // listener for setting property to default
-    InstanceObjectPropertyEditor.installListenerForProperty(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public HorizontalSpinnerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		// listener for setting property to default
+		InstanceObjectPropertyEditor.installListenerForProperty(this);
+	}
 }

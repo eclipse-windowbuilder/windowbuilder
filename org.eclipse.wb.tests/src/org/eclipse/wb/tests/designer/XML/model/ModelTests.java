@@ -25,23 +25,23 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class ModelTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xml.model");
-    suite.addTest(DescriptionTests.suite());
-    suite.addTest(createSingleSuite(EditorWarningTest.class));
-    suite.addTest(createSingleSuite(XmlObjectTest.class));
-    suite.addTest(createSingleSuite(NamespacesHelperTest.class));
-    suite.addTest(createSingleSuite(XmlObjectUtilsTest.class));
-    suite.addTest(createSingleSuite(ElementCreationSupportTest.class));
-    suite.addTest(createSingleSuite(TagCreationSupportTest.class));
-    suite.addTest(AssociationTests.suite());
-    suite.addTest(PropertyTests.suite());
-    suite.addTest(createSingleSuite(XmlObjectRootProcessorTest.class));
-    suite.addTest(createSingleSuite(TopBoundsSupportTest.class));
-    suite.addTest(createSingleSuite(ClipboardTest.class));
-    suite.addTest(createSingleSuite(AbstractComponentTest.class));
-    suite.addTest(GenericTests.suite());
-    suite.addTest(createSingleSuite(MorphingSupportTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model");
+		suite.addTest(DescriptionTests.suite());
+		suite.addTest(createSingleSuite(EditorWarningTest.class));
+		suite.addTest(createSingleSuite(XmlObjectTest.class));
+		suite.addTest(createSingleSuite(NamespacesHelperTest.class));
+		suite.addTest(createSingleSuite(XmlObjectUtilsTest.class));
+		suite.addTest(createSingleSuite(ElementCreationSupportTest.class));
+		suite.addTest(createSingleSuite(TagCreationSupportTest.class));
+		suite.addTest(AssociationTests.suite());
+		suite.addTest(PropertyTests.suite());
+		suite.addTest(createSingleSuite(XmlObjectRootProcessorTest.class));
+		suite.addTest(createSingleSuite(TopBoundsSupportTest.class));
+		suite.addTest(createSingleSuite(ClipboardTest.class));
+		suite.addTest(createSingleSuite(AbstractComponentTest.class));
+		suite.addTest(GenericTests.suite());
+		suite.addTest(createSingleSuite(MorphingSupportTest.class));
+		return suite;
+	}
 }

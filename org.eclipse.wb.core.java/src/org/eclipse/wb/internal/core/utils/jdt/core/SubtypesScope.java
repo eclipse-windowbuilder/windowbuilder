@@ -31,83 +31,83 @@ import java.util.Set;
  * @coverage core.util.jdt
  */
 public final class SubtypesScope implements IJavaSearchScope {
-  private final IType[] m_subtypes;
-  private final IJavaSearchScope m_hierarchyScope;
-  private final Set<String> m_enclosingResourcePaths = Sets.newHashSet();
+	private final IType[] m_subtypes;
+	private final IJavaSearchScope m_hierarchyScope;
+	private final Set<String> m_enclosingResourcePaths = Sets.newHashSet();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SubtypesScope(IType type) throws JavaModelException {
-    m_hierarchyScope = SearchEngine.createHierarchyScope(type);
-    m_subtypes = type.newTypeHierarchy(null).getAllSubtypes(type);
-    for (IType subType : m_subtypes) {
-      IResource resource = subType.getUnderlyingResource();
-      if (resource != null) {
-        m_enclosingResourcePaths.add(resource.getFullPath().toString());
-      } else {
-        m_enclosingResourcePaths.add(subType.getFullyQualifiedName().replace('.', '/') + ".class");
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SubtypesScope(IType type) throws JavaModelException {
+		m_hierarchyScope = SearchEngine.createHierarchyScope(type);
+		m_subtypes = type.newTypeHierarchy(null).getAllSubtypes(type);
+		for (IType subType : m_subtypes) {
+			IResource resource = subType.getUnderlyingResource();
+			if (resource != null) {
+				m_enclosingResourcePaths.add(resource.getFullPath().toString());
+			} else {
+				m_enclosingResourcePaths.add(subType.getFullyQualifiedName().replace('.', '/') + ".class");
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Enclosing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean encloses(String resourcePath) {
-    // prepare name of class, without leading "jar" path
-    String classPath = resourcePath;
-    {
-      int index = classPath.indexOf("|");
-      if (index != -1) {
-        classPath = classPath.substring(index + 1);
-      }
-    }
-    // check in prepared resource
-    return m_enclosingResourcePaths.contains(classPath);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Enclosing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean encloses(String resourcePath) {
+		// prepare name of class, without leading "jar" path
+		String classPath = resourcePath;
+		{
+			int index = classPath.indexOf("|");
+			if (index != -1) {
+				classPath = classPath.substring(index + 1);
+			}
+		}
+		// check in prepared resource
+		return m_enclosingResourcePaths.contains(classPath);
+	}
 
-  @Override
-  public boolean encloses(IJavaElement element) {
-    IType type = (IType) element.getAncestor(IJavaElement.TYPE);
-    if (type != null) {
-      return ArrayUtils.contains(m_subtypes, type);
-    }
-    return false;
-  }
+	@Override
+	public boolean encloses(IJavaElement element) {
+		IType type = (IType) element.getAncestor(IJavaElement.TYPE);
+		if (type != null) {
+			return ArrayUtils.contains(m_subtypes, type);
+		}
+		return false;
+	}
 
-  @Override
-  public IPath[] enclosingProjectsAndJars() {
-    return m_hierarchyScope.enclosingProjectsAndJars();
-  }
+	@Override
+	public IPath[] enclosingProjectsAndJars() {
+		return m_hierarchyScope.enclosingProjectsAndJars();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Unused methods
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean includesBinaries() {
-    return m_hierarchyScope.includesBinaries();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Unused methods
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean includesBinaries() {
+		return m_hierarchyScope.includesBinaries();
+	}
 
-  @Override
-  public boolean includesClasspaths() {
-    return m_hierarchyScope.includesClasspaths();
-  }
+	@Override
+	public boolean includesClasspaths() {
+		return m_hierarchyScope.includesClasspaths();
+	}
 
-  @Override
-  public void setIncludesBinaries(boolean includesBinaries) {
-    m_hierarchyScope.setIncludesBinaries(includesBinaries);
-  }
+	@Override
+	public void setIncludesBinaries(boolean includesBinaries) {
+		m_hierarchyScope.setIncludesBinaries(includesBinaries);
+	}
 
-  @Override
-  public void setIncludesClasspaths(boolean includesClasspaths) {
-    m_hierarchyScope.setIncludesClasspaths(includesClasspaths);
-  }
+	@Override
+	public void setIncludesClasspaths(boolean includesClasspaths) {
+		m_hierarchyScope.setIncludesClasspaths(includesClasspaths);
+	}
 }

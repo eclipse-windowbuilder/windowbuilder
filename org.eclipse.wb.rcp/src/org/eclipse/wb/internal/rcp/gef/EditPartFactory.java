@@ -35,67 +35,67 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  * @coverage rcp.gef
  */
 public final class EditPartFactory implements IEditPartFactory {
-  private final static IEditPartFactory MATCHING_FACTORY =
-      new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.rcp.model"),
-          ImmutableList.of("org.eclipse.wb.internal.rcp.gef.part"));
+	private final static IEditPartFactory MATCHING_FACTORY =
+			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.rcp.model"),
+					ImmutableList.of("org.eclipse.wb.internal.rcp.gef.part"));
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart createEditPart(EditPart context, Object model) {
-    // special Composite's
-    if (model instanceof CompositeInfo) {
-      CompositeInfo composite = (CompositeInfo) model;
-      // Form.getHead()
-      if (composite.getParent() instanceof FormInfo) {
-        FormInfo form = (FormInfo) composite.getParent();
-        if (form.getHead() == composite) {
-          return new FormHeadEditPart(form);
-        }
-      }
-      // Dialog.createButtonsForButtonBar(parent)
-      if (DialogInfo.isButtonBar(composite)) {
-        return new DialogButtonBarEditPart(composite);
-      }
-    }
-    // MenuManagerInfo
-    {
-      if (model instanceof MenuManagerInfo) {
-        MenuManagerInfo menuManager = (MenuManagerInfo) model;
-        if (menuManager.getParent() instanceof MenuManagerInfo) {
-          IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(menuManager);
-          return MenuEditPartFactory.createMenuItem(menuManager, itemObject);
-        } else {
-          return createMenuEditPart(menuManager, MenuObjectInfoUtils.getMenuInfo(model));
-        }
-      }
-      if (model instanceof IMenuInfo) {
-        IMenuInfo menu = (IMenuInfo) model;
-        return createMenuEditPart(model, menu);
-      }
-      if (model instanceof AbstractComponentInfo) {
-        AbstractComponentInfo item = (AbstractComponentInfo) model;
-        if (((AbstractComponentInfo) model).getParent() instanceof MenuManagerInfo) {
-          IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(item);
-          return MenuEditPartFactory.createMenuItem(item, itemObject);
-        }
-      }
-    }
-    // most EditPart's can be created using matching
-    return MATCHING_FACTORY.createEditPart(context, model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart createEditPart(EditPart context, Object model) {
+		// special Composite's
+		if (model instanceof CompositeInfo) {
+			CompositeInfo composite = (CompositeInfo) model;
+			// Form.getHead()
+			if (composite.getParent() instanceof FormInfo) {
+				FormInfo form = (FormInfo) composite.getParent();
+				if (form.getHead() == composite) {
+					return new FormHeadEditPart(form);
+				}
+			}
+			// Dialog.createButtonsForButtonBar(parent)
+			if (DialogInfo.isButtonBar(composite)) {
+				return new DialogButtonBarEditPart(composite);
+			}
+		}
+		// MenuManagerInfo
+		{
+			if (model instanceof MenuManagerInfo) {
+				MenuManagerInfo menuManager = (MenuManagerInfo) model;
+				if (menuManager.getParent() instanceof MenuManagerInfo) {
+					IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(menuManager);
+					return MenuEditPartFactory.createMenuItem(menuManager, itemObject);
+				} else {
+					return createMenuEditPart(menuManager, MenuObjectInfoUtils.getMenuInfo(model));
+				}
+			}
+			if (model instanceof IMenuInfo) {
+				IMenuInfo menu = (IMenuInfo) model;
+				return createMenuEditPart(model, menu);
+			}
+			if (model instanceof AbstractComponentInfo) {
+				AbstractComponentInfo item = (AbstractComponentInfo) model;
+				if (((AbstractComponentInfo) model).getParent() instanceof MenuManagerInfo) {
+					IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(item);
+					return MenuEditPartFactory.createMenuItem(item, itemObject);
+				}
+			}
+		}
+		// most EditPart's can be created using matching
+		return MATCHING_FACTORY.createEditPart(context, model);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static EditPart createMenuEditPart(Object model, IMenuInfo menuInfo) {
-    return EnvironmentUtils.IS_MAC
-        ? MenuEditPartFactory.createMenuMac(model, menuInfo)
-        : MenuEditPartFactory.createMenu(model, menuInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static EditPart createMenuEditPart(Object model, IMenuInfo menuInfo) {
+		return EnvironmentUtils.IS_MAC
+				? MenuEditPartFactory.createMenuMac(model, menuInfo)
+						: MenuEditPartFactory.createMenu(model, menuInfo);
+	}
 }

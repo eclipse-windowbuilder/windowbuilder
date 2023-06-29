@@ -32,162 +32,162 @@ import javax.swing.JButton;
  * @author scheglov_ke
  */
 public class AddTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test that we don't leave block with <b>local</b> panel, because in other case it will become
-   * invisible.
-   */
-  public void test_localInnerPanel() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public final class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JPanel innerPanel = new JPanel();",
-            "      add(innerPanel);",
-            "    }",
-            "  }",
-            "}");
-    // prepare innerPanel
-    assertEquals(1, panel.getChildrenComponents().size());
-    ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(0);
-    // prepare FlowLayout
-    assertEquals(0, innerPanel.getChildrenComponents().size());
-    FlowLayoutInfo flowLayout = (FlowLayoutInfo) innerPanel.getLayout();
-    // prepare new JButton
-    ComponentInfo newButton;
-    {
-      ConstructorCreationSupport creationSupport = new ConstructorCreationSupport();
-      newButton =
-          (ComponentInfo) JavaInfoUtils.createJavaInfo(m_lastEditor, JButton.class, creationSupport);
-    }
-    // add JButton
-    SwingTestUtils.setGenerations(
-        LocalUniqueVariableDescription.INSTANCE,
-        BlockStatementGeneratorDescription.INSTANCE);
-    flowLayout.add(newButton, null);
-    // check
-    assertEquals(1, innerPanel.getChildrenComponents().size());
-    assertEditor(
-        "public final class Test extends JPanel {",
-        "  public Test() {",
-        "    {",
-        "      JPanel innerPanel = new JPanel();",
-        "      add(innerPanel);",
-        "      {",
-        "        JButton button = new JButton('New button');",
-        "        innerPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test that we don't leave block with <b>local</b> panel, because in other case it will become
+	 * invisible.
+	 */
+	public void test_localInnerPanel() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public final class Test extends JPanel {",
+						"  public Test() {",
+						"    {",
+						"      JPanel innerPanel = new JPanel();",
+						"      add(innerPanel);",
+						"    }",
+						"  }",
+						"}");
+		// prepare innerPanel
+		assertEquals(1, panel.getChildrenComponents().size());
+		ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(0);
+		// prepare FlowLayout
+		assertEquals(0, innerPanel.getChildrenComponents().size());
+		FlowLayoutInfo flowLayout = (FlowLayoutInfo) innerPanel.getLayout();
+		// prepare new JButton
+		ComponentInfo newButton;
+		{
+			ConstructorCreationSupport creationSupport = new ConstructorCreationSupport();
+			newButton =
+					(ComponentInfo) JavaInfoUtils.createJavaInfo(m_lastEditor, JButton.class, creationSupport);
+		}
+		// add JButton
+		SwingTestUtils.setGenerations(
+				LocalUniqueVariableDescription.INSTANCE,
+				BlockStatementGeneratorDescription.INSTANCE);
+		flowLayout.add(newButton, null);
+		// check
+		assertEquals(1, innerPanel.getChildrenComponents().size());
+		assertEditor(
+				"public final class Test extends JPanel {",
+				"  public Test() {",
+				"    {",
+				"      JPanel innerPanel = new JPanel();",
+				"      add(innerPanel);",
+				"      {",
+				"        JButton button = new JButton('New button');",
+				"        innerPanel.add(button);",
+				"      }",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Test that we don't leave block with <b>field</b> panel, even if field mean that panel will stay
-   * visible.
-   */
-  public void test_fieldInnerPanel() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public final class Test extends JPanel {",
-            "  private JPanel innerPanel;",
-            "  public Test() {",
-            "    {",
-            "      innerPanel = new JPanel();",
-            "      add(innerPanel);",
-            "    }",
-            "  }",
-            "}");
-    // prepare innerPanel
-    assertEquals(1, panel.getChildrenComponents().size());
-    ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(0);
-    // prepare FlowLayout
-    assertEquals(0, innerPanel.getChildrenComponents().size());
-    FlowLayoutInfo flowLayout = (FlowLayoutInfo) innerPanel.getLayout();
-    // prepare new JButton
-    ComponentInfo newButton;
-    {
-      ConstructorCreationSupport creationSupport = new ConstructorCreationSupport();
-      newButton =
-          (ComponentInfo) JavaInfoUtils.createJavaInfo(m_lastEditor, JButton.class, creationSupport);
-    }
-    // add JButton
-    SwingTestUtils.setGenerations(
-        LocalUniqueVariableDescription.INSTANCE,
-        BlockStatementGeneratorDescription.INSTANCE);
-    flowLayout.add(newButton, null);
-    // check
-    assertEquals(1, innerPanel.getChildrenComponents().size());
-    assertEditor(
-        "public final class Test extends JPanel {",
-        "  private JPanel innerPanel;",
-        "  public Test() {",
-        "    {",
-        "      innerPanel = new JPanel();",
-        "      add(innerPanel);",
-        "      {",
-        "        JButton button = new JButton('New button');",
-        "        innerPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test that we don't leave block with <b>field</b> panel, even if field mean that panel will stay
+	 * visible.
+	 */
+	public void test_fieldInnerPanel() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public final class Test extends JPanel {",
+						"  private JPanel innerPanel;",
+						"  public Test() {",
+						"    {",
+						"      innerPanel = new JPanel();",
+						"      add(innerPanel);",
+						"    }",
+						"  }",
+						"}");
+		// prepare innerPanel
+		assertEquals(1, panel.getChildrenComponents().size());
+		ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(0);
+		// prepare FlowLayout
+		assertEquals(0, innerPanel.getChildrenComponents().size());
+		FlowLayoutInfo flowLayout = (FlowLayoutInfo) innerPanel.getLayout();
+		// prepare new JButton
+		ComponentInfo newButton;
+		{
+			ConstructorCreationSupport creationSupport = new ConstructorCreationSupport();
+			newButton =
+					(ComponentInfo) JavaInfoUtils.createJavaInfo(m_lastEditor, JButton.class, creationSupport);
+		}
+		// add JButton
+		SwingTestUtils.setGenerations(
+				LocalUniqueVariableDescription.INSTANCE,
+				BlockStatementGeneratorDescription.INSTANCE);
+		flowLayout.add(newButton, null);
+		// check
+		assertEquals(1, innerPanel.getChildrenComponents().size());
+		assertEditor(
+				"public final class Test extends JPanel {",
+				"  private JPanel innerPanel;",
+				"  public Test() {",
+				"    {",
+				"      innerPanel = new JPanel();",
+				"      add(innerPanel);",
+				"      {",
+				"        JButton button = new JButton('New button');",
+				"        innerPanel.add(button);",
+				"      }",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Test for {@link JavaEventListener#associationTemplate(JavaInfo, String[])}.
-   */
-  public void test_associationTemplateListener() throws Exception {
-    setFileContentSrc(
-        "test/MyButton.java",
-        getTestSource(
-            "public class MyButton extends JButton {",
-            "  public MyButton(int value) {",
-            "  }",
-            "}"));
-    setFileContentSrc(
-        "test/MyButton.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <creation>",
-            "    <source><![CDATA[new test.MyButton(%theValue%)]]></source>",
-            "  </creation>",
-            "</component>"));
-    waitForAutoBuild();
-    // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public final class Test extends JPanel {",
-            "  private JPanel innerPanel;",
-            "  public Test() {",
-            "  }",
-            "}");
-    FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
-    // add new MyButton
-    ComponentInfo newButton = createJavaInfo("test.MyButton");
-    newButton.addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void associationTemplate(JavaInfo component, String[] source) throws Exception {
-        assertNotNull(component.getParent());
-        source[0] = StringUtils.replace(source[0], "%theValue%", "555");
-      }
-    });
-    flowLayout.add(newButton, null);
-    assertEditor(
-        "public final class Test extends JPanel {",
-        "  private JPanel innerPanel;",
-        "  public Test() {",
-        "    {",
-        "      MyButton myButton = new MyButton(555);",
-        "      add(myButton);",
-        "    }",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for {@link JavaEventListener#associationTemplate(JavaInfo, String[])}.
+	 */
+	public void test_associationTemplateListener() throws Exception {
+		setFileContentSrc(
+				"test/MyButton.java",
+				getTestSource(
+						"public class MyButton extends JButton {",
+						"  public MyButton(int value) {",
+						"  }",
+						"}"));
+		setFileContentSrc(
+				"test/MyButton.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <creation>",
+						"    <source><![CDATA[new test.MyButton(%theValue%)]]></source>",
+						"  </creation>",
+						"</component>"));
+		waitForAutoBuild();
+		// parse
+		ContainerInfo panel =
+				parseContainer(
+						"public final class Test extends JPanel {",
+						"  private JPanel innerPanel;",
+						"  public Test() {",
+						"  }",
+						"}");
+		FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
+		// add new MyButton
+		ComponentInfo newButton = createJavaInfo("test.MyButton");
+		newButton.addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void associationTemplate(JavaInfo component, String[] source) throws Exception {
+				assertNotNull(component.getParent());
+				source[0] = StringUtils.replace(source[0], "%theValue%", "555");
+			}
+		});
+		flowLayout.add(newButton, null);
+		assertEditor(
+				"public final class Test extends JPanel {",
+				"  private JPanel innerPanel;",
+				"  public Test() {",
+				"    {",
+				"      MyButton myButton = new MyButton(555);",
+				"      add(myButton);",
+				"    }",
+				"  }",
+				"}");
+	}
 }

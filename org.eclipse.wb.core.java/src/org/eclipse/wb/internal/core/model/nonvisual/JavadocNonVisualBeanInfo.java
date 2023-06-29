@@ -32,110 +32,110 @@ import java.util.List;
  * @coverage core.model.nonvisual
  */
 final class JavadocNonVisualBeanInfo extends NonVisualBeanInfo {
-  private static final String NON_VISUAL_TAG = "@wbp.nonvisual";
-  private static final String LOCATION_PREFIX = "location=";
-  //
-  private final BodyDeclaration m_bodyDeclaration;
+	private static final String NON_VISUAL_TAG = "@wbp.nonvisual";
+	private static final String LOCATION_PREFIX = "location=";
+	//
+	private final BodyDeclaration m_bodyDeclaration;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  JavadocNonVisualBeanInfo(BodyDeclaration bodyDeclaration) {
-    m_location = new Point();
-    m_bodyDeclaration = bodyDeclaration;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	JavadocNonVisualBeanInfo(BodyDeclaration bodyDeclaration) {
+		m_location = new Point();
+		m_bodyDeclaration = bodyDeclaration;
+	}
 
-  private JavadocNonVisualBeanInfo(BodyDeclaration bodyDeclaration, Point location) {
-    this(bodyDeclaration);
-    m_location.setLocation(location);
-  }
+	private JavadocNonVisualBeanInfo(BodyDeclaration bodyDeclaration, Point location) {
+		this(bodyDeclaration);
+		m_location.setLocation(location);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link NonVisualBeanInfo} if given {@link BodyDeclaration} contains special non-visual
-   *         comment or <code>null</code>.
-   */
-  static NonVisualBeanInfo getNonVisualBeanInfo(BodyDeclaration bodyDeclaration) {
-    Javadoc javadoc = bodyDeclaration.getJavadoc();
-    if (javadoc != null) {
-      // try to find non-visual tag
-      for (TagElement tagElement : DomGenerics.tags(javadoc)) {
-        if (NON_VISUAL_TAG.equals(tagElement.getTagName())) {
-          // prepare fragments
-          List<ASTNode> fragments = DomGenerics.fragments(tagElement);
-          Assert.isTrueException(
-              !fragments.isEmpty(),
-              ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
-              tagElement);
-          // extract location element
-          ASTNode fragment = fragments.get(0);
-          Assert.isTrueException(
-              fragment instanceof TextElement,
-              ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
-              tagElement);
-          //
-          TextElement textElement = (TextElement) fragment;
-          String text = textElement.getText().trim();
-          Assert.isTrueException(
-              text.startsWith(LOCATION_PREFIX),
-              ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
-              tagElement);
-          // prepare location
-          String[] locationParts = StringUtils.split(text.substring(LOCATION_PREFIX.length()), ',');
-          Assert.isTrueException(
-              locationParts.length == 2,
-              ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
-              tagElement);
-          Point location = new Point();
-          try {
-            location.x = Integer.parseInt(locationParts[0].trim());
-            location.y = Integer.parseInt(locationParts[1].trim());
-          } catch (NumberFormatException e) {
-            Assert.isTrueException(
-                false,
-                ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
-                tagElement);
-          }
-          // create model
-          return new JavadocNonVisualBeanInfo(bodyDeclaration, location);
-        }
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link NonVisualBeanInfo} if given {@link BodyDeclaration} contains special non-visual
+	 *         comment or <code>null</code>.
+	 */
+	static NonVisualBeanInfo getNonVisualBeanInfo(BodyDeclaration bodyDeclaration) {
+		Javadoc javadoc = bodyDeclaration.getJavadoc();
+		if (javadoc != null) {
+			// try to find non-visual tag
+			for (TagElement tagElement : DomGenerics.tags(javadoc)) {
+				if (NON_VISUAL_TAG.equals(tagElement.getTagName())) {
+					// prepare fragments
+					List<ASTNode> fragments = DomGenerics.fragments(tagElement);
+					Assert.isTrueException(
+							!fragments.isEmpty(),
+							ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
+							tagElement);
+					// extract location element
+					ASTNode fragment = fragments.get(0);
+					Assert.isTrueException(
+							fragment instanceof TextElement,
+							ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
+							tagElement);
+					//
+					TextElement textElement = (TextElement) fragment;
+					String text = textElement.getText().trim();
+					Assert.isTrueException(
+							text.startsWith(LOCATION_PREFIX),
+							ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
+							tagElement);
+					// prepare location
+					String[] locationParts = StringUtils.split(text.substring(LOCATION_PREFIX.length()), ',');
+					Assert.isTrueException(
+							locationParts.length == 2,
+							ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
+							tagElement);
+					Point location = new Point();
+					try {
+						location.x = Integer.parseInt(locationParts[0].trim());
+						location.y = Integer.parseInt(locationParts[1].trim());
+					} catch (NumberFormatException e) {
+						Assert.isTrueException(
+								false,
+								ICoreExceptionConstants.PARSER_WRONG_NON_VISUAL_COMMENT,
+								tagElement);
+					}
+					// create model
+					return new JavadocNonVisualBeanInfo(bodyDeclaration, location);
+				}
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Location
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void moveLocation(Point moveDelta) throws Exception {
-    m_location.performTranslate(moveDelta);
-    m_javaInfo.getEditor().setJavadocTagText(
-        m_bodyDeclaration,
-        NON_VISUAL_TAG,
-        " "
-            + LOCATION_PREFIX
-            + Integer.toString(m_location.x)
-            + ","
-            + Integer.toString(m_location.y));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Location
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void moveLocation(Point moveDelta) throws Exception {
+		m_location.performTranslate(moveDelta);
+		m_javaInfo.getEditor().setJavadocTagText(
+				m_bodyDeclaration,
+				NON_VISUAL_TAG,
+				" "
+						+ LOCATION_PREFIX
+						+ Integer.toString(m_location.x)
+						+ ","
+						+ Integer.toString(m_location.y));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Remove
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void remove() throws Exception {
-    m_javaInfo.getEditor().setJavadocTagText(m_bodyDeclaration, NON_VISUAL_TAG, null);
-    super.remove();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Remove
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void remove() throws Exception {
+		m_javaInfo.getEditor().setJavadocTagText(m_bodyDeclaration, NON_VISUAL_TAG, null);
+		super.remove();
+	}
 }

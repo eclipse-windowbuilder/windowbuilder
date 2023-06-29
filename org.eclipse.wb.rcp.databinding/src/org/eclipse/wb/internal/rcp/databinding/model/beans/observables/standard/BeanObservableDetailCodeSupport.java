@@ -24,35 +24,35 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public abstract class BeanObservableDetailCodeSupport extends ObservableCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    DetailBeanObservableInfo detailObservable = (DetailBeanObservableInfo) observable;
-    ObservableInfo masterObservable = detailObservable.getMasterObservable();
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName(
-          observable.getBindableObject().getReference(),
-          detailObservable.getDetailPropertyReference(),
-          "ObserveDetail" + detailObservable.getPresentationPrefix()));
-    }
-    // add master observable code
-    generationSupport.addSourceCode(masterObservable, lines);
-    // add code
-    addDetailSourceCode(lines, generationSupport, detailObservable, masterObservable);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		DetailBeanObservableInfo detailObservable = (DetailBeanObservableInfo) observable;
+		ObservableInfo masterObservable = detailObservable.getMasterObservable();
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName(
+					observable.getBindableObject().getReference(),
+					detailObservable.getDetailPropertyReference(),
+					"ObserveDetail" + detailObservable.getPresentationPrefix()));
+		}
+		// add master observable code
+		generationSupport.addSourceCode(masterObservable, lines);
+		// add code
+		addDetailSourceCode(lines, generationSupport, detailObservable, masterObservable);
+	}
 
-  /**
-   * @return the source code for create this observable.
-   */
-  protected abstract void addDetailSourceCode(List<String> lines,
-      CodeGenerationSupport generationSupport,
-      DetailBeanObservableInfo observable,
-      ObservableInfo masterObservable) throws Exception;
+	/**
+	 * @return the source code for create this observable.
+	 */
+	protected abstract void addDetailSourceCode(List<String> lines,
+			CodeGenerationSupport generationSupport,
+			DetailBeanObservableInfo observable,
+			ObservableInfo masterObservable) throws Exception;
 }

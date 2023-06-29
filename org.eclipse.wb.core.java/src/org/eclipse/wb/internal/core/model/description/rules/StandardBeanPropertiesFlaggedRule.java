@@ -24,88 +24,88 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public abstract class StandardBeanPropertiesFlaggedRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void begin(String namespace, String tagName, Attributes attributes)
-      throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    // prepare names
-    String[] names;
-    {
-      String namesString = getRequiredAttribute(tagName, attributes, "names");
-      names = StringUtils.split(namesString);
-    }
-    // check names
-    for (String name : names) {
-      for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
-        String id = propertyDescription.getId();
-        if (matchPropertyId(id, name)) {
-          configure(propertyDescription, attributes);
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void begin(String namespace, String tagName, Attributes attributes)
+			throws Exception {
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		// prepare names
+		String[] names;
+		{
+			String namesString = getRequiredAttribute(tagName, attributes, "names");
+			names = StringUtils.split(namesString);
+		}
+		// check names
+		for (String name : names) {
+			for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
+				String id = propertyDescription.getId();
+				if (matchPropertyId(id, name)) {
+					configure(propertyDescription, attributes);
+				}
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Configuring
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures given {@link GenericPropertyDescription}.
-   */
-  protected abstract void configure(GenericPropertyDescription propertyDescription,
-      Attributes attributes);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Configuring
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures given {@link GenericPropertyDescription}.
+	 */
+	protected abstract void configure(GenericPropertyDescription propertyDescription,
+			Attributes attributes);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Match
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static boolean matchPropertyId(String id, String name) {
-    // check for explicit method name
-    if (name.startsWith("m:")) {
-      String signaturePrefix = "set" + StringUtils.capitalize(name.substring(2)) + "(";
-      return matchAsSetter(id, signaturePrefix);
-    }
-    // check for explicit field name
-    if (name.startsWith("f:")) {
-      String fieldName = name.substring(2);
-      return matchAsField(id, fieldName);
-    }
-    // check for full method signature
-    if (name.indexOf('(') != -1) {
-      return matchAsSetter(id, name);
-    }
-    // check for template
-    if (name.endsWith("*")) {
-      String signaturePrefix = "set" + StringUtils.capitalize(name.substring(0, name.length() - 1));
-      return matchAsSetter(id, signaturePrefix);
-    }
-    // try setter
-    {
-      String signaturePrefix = "set" + StringUtils.capitalize(name) + "(";
-      if (matchAsSetter(id, signaturePrefix)) {
-        return true;
-      }
-    }
-    // try field name
-    if (matchAsField(id, name)) {
-      return true;
-    }
-    // no
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Match
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static boolean matchPropertyId(String id, String name) {
+		// check for explicit method name
+		if (name.startsWith("m:")) {
+			String signaturePrefix = "set" + StringUtils.capitalize(name.substring(2)) + "(";
+			return matchAsSetter(id, signaturePrefix);
+		}
+		// check for explicit field name
+		if (name.startsWith("f:")) {
+			String fieldName = name.substring(2);
+			return matchAsField(id, fieldName);
+		}
+		// check for full method signature
+		if (name.indexOf('(') != -1) {
+			return matchAsSetter(id, name);
+		}
+		// check for template
+		if (name.endsWith("*")) {
+			String signaturePrefix = "set" + StringUtils.capitalize(name.substring(0, name.length() - 1));
+			return matchAsSetter(id, signaturePrefix);
+		}
+		// try setter
+		{
+			String signaturePrefix = "set" + StringUtils.capitalize(name) + "(";
+			if (matchAsSetter(id, signaturePrefix)) {
+				return true;
+			}
+		}
+		// try field name
+		if (matchAsField(id, name)) {
+			return true;
+		}
+		// no
+		return false;
+	}
 
-  private static boolean matchAsSetter(String id, String signaturePrefix) {
-    return id.startsWith(signaturePrefix);
-  }
+	private static boolean matchAsSetter(String id, String signaturePrefix) {
+		return id.startsWith(signaturePrefix);
+	}
 
-  private static boolean matchAsField(String id, String fieldName) {
-    return id.equals(fieldName);
-  }
+	private static boolean matchAsField(String id, String fieldName) {
+		return id.equals(fieldName);
+	}
 }

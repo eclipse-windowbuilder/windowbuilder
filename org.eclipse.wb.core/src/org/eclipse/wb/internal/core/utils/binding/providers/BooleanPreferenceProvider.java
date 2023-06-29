@@ -19,28 +19,28 @@ import org.eclipse.jface.preference.IPreferenceStore;
  *
  */
 public class BooleanPreferenceProvider extends AbstractPreferenceProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BooleanPreferenceProvider(IPreferenceStore store, String key) {
-    super(store, key);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BooleanPreferenceProvider(IPreferenceStore store, String key) {
+		super(store, key);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue(boolean def) {
-    boolean value = def ? m_store.getDefaultBoolean(m_key) : m_store.getBoolean(m_key);
-    return ValueUtils.booleanToObject(value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue(boolean def) {
+		boolean value = def ? m_store.getDefaultBoolean(m_key) : m_store.getBoolean(m_key);
+		return ValueUtils.booleanToObject(value);
+	}
 
-  @Override
-  public void setValue(Object value) {
-    m_store.setValue(m_key, ValueUtils.objectToBoolean(value));
-  }
+	@Override
+	public void setValue(Object value) {
+		m_store.setValue(m_key, ValueUtils.objectToBoolean(value));
+	}
 }

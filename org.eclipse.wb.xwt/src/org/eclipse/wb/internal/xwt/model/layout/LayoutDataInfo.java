@@ -33,111 +33,111 @@ import java.util.List;
  * @coverage XWT.model.layout
  */
 public class LayoutDataInfo extends XmlObjectInfo implements ILayoutDataInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutDataInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-    contributeLayoutDataProperty_toControl();
-    deleteIfDefault();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutDataInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+		contributeLayoutDataProperty_toControl();
+		deleteIfDefault();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean isVirtual() {
-    return getCreationSupport() instanceof VirtualLayoutDataCreationSupport;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean isVirtual() {
+		return getCreationSupport() instanceof VirtualLayoutDataCreationSupport;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final IObjectPresentation getPresentation() {
-    return new LayoutDataPresentation(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final IObjectPresentation getPresentation() {
+		return new LayoutDataPresentation(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Broadcast events
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Contribute "LayoutData" complex property to parent {@link ControlInfo}.
-   */
-  private void contributeLayoutDataProperty_toControl() {
-    addBroadcastListener(new XmlObjectAddProperties() {
-      public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
-        if (isActiveForControl(object)) {
-          addLayoutDataProperty(properties);
-        }
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Broadcast events
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Contribute "LayoutData" complex property to parent {@link ControlInfo}.
+	 */
+	private void contributeLayoutDataProperty_toControl() {
+		addBroadcastListener(new XmlObjectAddProperties() {
+			public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
+				if (isActiveForControl(object)) {
+					addLayoutDataProperty(properties);
+				}
+			}
 
-      private boolean isActiveForControl(XmlObjectInfo control) {
-        return control.getChildren().contains(LayoutDataInfo.this);
-      }
-    });
-  }
+			private boolean isActiveForControl(XmlObjectInfo control) {
+				return control.getChildren().contains(LayoutDataInfo.this);
+			}
+		});
+	}
 
-  private void deleteIfDefault() {
-    addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void endEdit_aboutToRefresh() throws Exception {
-        if (!isDeleted()
-            && getCreationSupport() instanceof ElementCreationSupport
-            && getElement().getDocumentAttributes().isEmpty()
-            && getElement().getChildren().isEmpty()) {
-          delete();
-        }
-      }
-    });
-  }
+	private void deleteIfDefault() {
+		addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void endEdit_aboutToRefresh() throws Exception {
+				if (!isDeleted()
+						&& getCreationSupport() instanceof ElementCreationSupport
+						&& getElement().getDocumentAttributes().isEmpty()
+						&& getElement().getChildren().isEmpty()) {
+					delete();
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // "LayoutData" property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ComplexProperty m_property;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// "LayoutData" property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ComplexProperty m_property;
 
-  /**
-   * Adds properties of this {@link LayoutDataInfo} to the properties of its {@link ControlInfo}.
-   */
-  private void addLayoutDataProperty(List<Property> properties) throws Exception {
-    // prepare complex property
-    if (m_property == null) {
-      String text;
-      {
-        Class<?> componentClass = getDescription().getComponentClass();
-        text = "(" + componentClass.getName() + ")";
-      }
-      // prepare ComplexProperty
-      m_property = new ComplexProperty("LayoutData", text) {
-        @Override
-        public boolean isModified() throws Exception {
-          return !isVirtual();
-        }
+	/**
+	 * Adds properties of this {@link LayoutDataInfo} to the properties of its {@link ControlInfo}.
+	 */
+	private void addLayoutDataProperty(List<Property> properties) throws Exception {
+		// prepare complex property
+		if (m_property == null) {
+			String text;
+			{
+				Class<?> componentClass = getDescription().getComponentClass();
+				text = "(" + componentClass.getName() + ")";
+			}
+			// prepare ComplexProperty
+			m_property = new ComplexProperty("LayoutData", text) {
+				@Override
+				public boolean isModified() throws Exception {
+					return !isVirtual();
+				}
 
-        @Override
-        public void setValue(Object value) throws Exception {
-          if (value == UNKNOWN_VALUE) {
-            delete();
-          }
-        }
-      };
-      m_property.setCategory(PropertyCategory.system(5));
-      // set sub-properties
-      m_property.setProperties(getProperties());
-    }
-    // add property
-    properties.add(m_property);
-  }
+				@Override
+				public void setValue(Object value) throws Exception {
+					if (value == UNKNOWN_VALUE) {
+						delete();
+					}
+				}
+			};
+			m_property.setCategory(PropertyCategory.system(5));
+			// set sub-properties
+			m_property.setProperties(getProperties());
+		}
+		// add property
+		properties.add(m_property);
+	}
 }

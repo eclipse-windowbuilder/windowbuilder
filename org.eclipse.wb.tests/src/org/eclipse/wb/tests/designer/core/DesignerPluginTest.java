@@ -26,76 +26,76 @@ import javax.swing.WindowConstants;
  * @author scheglov_ke
  */
 public class DesignerPluginTest extends DesignerTestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_getDefault() {
-    assertNotNull(DesignerPlugin.getDefault());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_getDefault() {
+		assertNotNull(DesignerPlugin.getDefault());
+	}
 
-  public void test_log_message() {
-    final String message = "Information message";
-    ILog log = DesignerPlugin.getDefault().getLog();
-    ILogListener logListener = new ILogListener() {
-      @Override
-      public void logging(IStatus status, String plugin) {
-        assertEquals(IStatus.INFO, status.getSeverity());
-        assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
-        assertEquals(IStatus.INFO, status.getCode());
-        assertEquals(message, status.getMessage());
-        assertNull(status.getException());
-      }
-    };
-    //
-    try {
-      log.addLogListener(logListener);
-      DesignerPlugin.log(message);
-    } finally {
-      log.removeLogListener(logListener);
-    }
-  }
+	public void test_log_message() {
+		final String message = "Information message";
+		ILog log = DesignerPlugin.getDefault().getLog();
+		ILogListener logListener = new ILogListener() {
+			@Override
+			public void logging(IStatus status, String plugin) {
+				assertEquals(IStatus.INFO, status.getSeverity());
+				assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
+				assertEquals(IStatus.INFO, status.getCode());
+				assertEquals(message, status.getMessage());
+				assertNull(status.getException());
+			}
+		};
+		//
+		try {
+			log.addLogListener(logListener);
+			DesignerPlugin.log(message);
+		} finally {
+			log.removeLogListener(logListener);
+		}
+	}
 
-  public void test_log_Exception() {
-    final Exception exception = new Exception();
-    ILog log = DesignerPlugin.getDefault().getLog();
-    ILogListener logListener = new ILogListener() {
-      @Override
-      public void logging(IStatus status, String plugin) {
-        assertEquals(IStatus.ERROR, status.getSeverity());
-        assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
-        assertEquals(IStatus.ERROR, status.getCode());
-        assertSame(exception, status.getException());
-      }
-    };
-    //
-    try {
-      log.addLogListener(logListener);
-      DesignerPlugin.setDisplayExceptionOnConsole(false);
-      DesignerPlugin.log(exception);
-    } finally {
-      log.removeLogListener(logListener);
-      DesignerPlugin.setDisplayExceptionOnConsole(true);
-    }
-  }
+	public void test_log_Exception() {
+		final Exception exception = new Exception();
+		ILog log = DesignerPlugin.getDefault().getLog();
+		ILogListener logListener = new ILogListener() {
+			@Override
+			public void logging(IStatus status, String plugin) {
+				assertEquals(IStatus.ERROR, status.getSeverity());
+				assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
+				assertEquals(IStatus.ERROR, status.getCode());
+				assertSame(exception, status.getException());
+			}
+		};
+		//
+		try {
+			log.addLogListener(logListener);
+			DesignerPlugin.setDisplayExceptionOnConsole(false);
+			DesignerPlugin.log(exception);
+		} finally {
+			log.removeLogListener(logListener);
+			DesignerPlugin.setDisplayExceptionOnConsole(true);
+		}
+	}
 
-  /**
-   * However we should allow {@link JFrame#setDefaultCloseOperation(int)} with
-   * {@link JFrame#EXIT_ON_CLOSE}.
-   */
-  public void test_preventExit_JFrame() {
-    JFrame frame = new JFrame();
-    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-  }
+	/**
+	 * However we should allow {@link JFrame#setDefaultCloseOperation(int)} with
+	 * {@link JFrame#EXIT_ON_CLOSE}.
+	 */
+	public void test_preventExit_JFrame() {
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	}
 }

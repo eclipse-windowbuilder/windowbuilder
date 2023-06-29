@@ -35,78 +35,78 @@ import java.util.List;
  * @coverage bindings.rcp.ui
  */
 public final class InputElementUiContentProvider
-    extends
-      ChooseClassAndTreePropertiesUiContentProvider {
-  private final ViewerInputBindingInfo m_viewerBinding;
+extends
+ChooseClassAndTreePropertiesUiContentProvider {
+	private final ViewerInputBindingInfo m_viewerBinding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public InputElementUiContentProvider(ChooseClassAndPropertiesConfiguration configuration,
-      ViewerInputBindingInfo viewerBinding) {
-    super(configuration);
-    m_viewerBinding = viewerBinding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public InputElementUiContentProvider(ChooseClassAndPropertiesConfiguration configuration,
+			ViewerInputBindingInfo viewerBinding) {
+		super(configuration);
+		m_viewerBinding = viewerBinding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-    // prepare input element type
-    Class<?> elementType = m_viewerBinding.getElementType();
-    if (elementType == null) {
-      calculateFinish();
-    } else {
-      // prepare initial properties
-      MapsBeanObservableInfo mapsObservable =
-          m_viewerBinding.getLabelProvider().getMapsObservable();
-      String[] properties = mapsObservable.getProperties();
-      if (properties == null) {
-        setClassName(CoreUtils.getClassName(elementType));
-      } else {
-        List<String> checkedProperties = Lists.newArrayList();
-        for (int i = 0; i < properties.length; i++) {
-          checkedProperties.add("\"" + properties[i] + "\"");
-        }
-        setClassNameAndProperties(elementType, null, checkedProperties);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+		// prepare input element type
+		Class<?> elementType = m_viewerBinding.getElementType();
+		if (elementType == null) {
+			calculateFinish();
+		} else {
+			// prepare initial properties
+			MapsBeanObservableInfo mapsObservable =
+					m_viewerBinding.getLabelProvider().getMapsObservable();
+			String[] properties = mapsObservable.getProperties();
+			if (properties == null) {
+				setClassName(CoreUtils.getClassName(elementType));
+			} else {
+				List<String> checkedProperties = Lists.newArrayList();
+				for (int i = 0; i < properties.length; i++) {
+					checkedProperties.add("\"" + properties[i] + "\"");
+				}
+				setClassNameAndProperties(elementType, null, checkedProperties);
+			}
+		}
+	}
 
-  @Override
-  protected void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenProperties)
-      throws Exception {
-    // sets label provider element type
-    MapsBeanObservableInfo mapsObservable = m_viewerBinding.getLabelProvider().getMapsObservable();
-    mapsObservable.setElementType(choosenClass);
-    // sets label provider element properties
-    String[] properties = new String[choosenProperties.size()];
-    for (int i = 0; i < properties.length; i++) {
-      ObservePropertyAdapter adapter = (ObservePropertyAdapter) choosenProperties.get(i);
-      properties[i] = StringUtils.remove(adapter.getProperty().getReference(), '"');
-    }
-    mapsObservable.setProperties(properties);
-    // set input element type
-    setElementTypeToInput(m_viewerBinding, choosenClass);
-  }
+	@Override
+	protected void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenProperties)
+			throws Exception {
+		// sets label provider element type
+		MapsBeanObservableInfo mapsObservable = m_viewerBinding.getLabelProvider().getMapsObservable();
+		mapsObservable.setElementType(choosenClass);
+		// sets label provider element properties
+		String[] properties = new String[choosenProperties.size()];
+		for (int i = 0; i < properties.length; i++) {
+			ObservePropertyAdapter adapter = (ObservePropertyAdapter) choosenProperties.get(i);
+			properties[i] = StringUtils.remove(adapter.getProperty().getReference(), '"');
+		}
+		mapsObservable.setProperties(properties);
+		// set input element type
+		setElementTypeToInput(m_viewerBinding, choosenClass);
+	}
 
-  public static void setElementTypeToInput(AbstractViewerInputBindingInfo viewerBinding,
-      Class<?> choosenClass) {
-    ObservableInfo observable = viewerBinding.getInputObservable();
-    if (observable instanceof DetailBeanObservableInfo) {
-      DetailBeanObservableInfo inputObservable = (DetailBeanObservableInfo) observable;
-      inputObservable.setDetailPropertyType(choosenClass);
-    } else if (observable instanceof CheckedElementsObservableInfo) {
-      CheckedElementsObservableInfo inputObservable = (CheckedElementsObservableInfo) observable;
-      inputObservable.setElementType(choosenClass);
-    } else if (observable instanceof CollectionObservableInfo) {
-      CollectionObservableInfo inputObservable = (CollectionObservableInfo) observable;
-      inputObservable.setElementType(choosenClass);
-    }
-  }
+	public static void setElementTypeToInput(AbstractViewerInputBindingInfo viewerBinding,
+			Class<?> choosenClass) {
+		ObservableInfo observable = viewerBinding.getInputObservable();
+		if (observable instanceof DetailBeanObservableInfo) {
+			DetailBeanObservableInfo inputObservable = (DetailBeanObservableInfo) observable;
+			inputObservable.setDetailPropertyType(choosenClass);
+		} else if (observable instanceof CheckedElementsObservableInfo) {
+			CheckedElementsObservableInfo inputObservable = (CheckedElementsObservableInfo) observable;
+			inputObservable.setElementType(choosenClass);
+		} else if (observable instanceof CollectionObservableInfo) {
+			CollectionObservableInfo inputObservable = (CollectionObservableInfo) observable;
+			inputObservable.setElementType(choosenClass);
+		}
+	}
 }

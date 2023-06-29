@@ -21,39 +21,39 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
  * @coverage core.nls
  */
 public final class ExternalizePropertyCommand extends AbstractCommand {
-  private final JavaInfo m_component;
-  private final GenericProperty m_property;
-  private final String m_key;
+	private final JavaInfo m_component;
+	private final GenericProperty m_property;
+	private final String m_key;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExternalizePropertyCommand(IEditableSource editableSource,
-      JavaInfo component,
-      GenericProperty property,
-      String key) {
-    super(editableSource);
-    m_component = component;
-    m_property = property;
-    m_key = key;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExternalizePropertyCommand(IEditableSource editableSource,
+			JavaInfo component,
+			GenericProperty property,
+			String key) {
+		super(editableSource);
+		m_component = component;
+		m_property = property;
+		m_key = key;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfo getComponent() {
-    return m_component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfo getComponent() {
+		return m_component;
+	}
 
-  public GenericProperty getProperty() {
-    return m_property;
-  }
+	public GenericProperty getProperty() {
+		return m_property;
+	}
 
-  public String getKey() {
-    return m_key;
-  }
+	public String getKey() {
+		return m_key;
+	}
 }

@@ -22,27 +22,27 @@ import org.eclipse.wb.internal.xwt.model.forms.FormInfo;
  * @coverage XWT.gef.part
  */
 public final class FormEditPart extends CompositeEditPart {
-  private final FormInfo m_composite;
+	private final FormInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormEditPart(FormInfo composite) {
-    super(composite);
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormEditPart(FormInfo composite) {
+		super(composite);
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(new FormLayoutEditPolicy(m_composite));
-    installEditPolicy(new TerminatorLayoutEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(new FormLayoutEditPolicy(m_composite));
+		installEditPolicy(new TerminatorLayoutEditPolicy());
+	}
 }

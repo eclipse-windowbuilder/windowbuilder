@@ -19,55 +19,55 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
  * @author scheglov_ke
  */
 public class DblClickRunScriptEditPolicyTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_doFlip() throws Exception {
-    setFileContentSrc(
-        "test/MyPanel.java",
-        getTestSource(
-            "// filler filler filler filler filler",
-            "public class MyPanel extends JPanel {",
-            "}"));
-    setFileContentSrc(
-        "test/MyPanel.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <parameters>",
-            "    <parameter name='double-click.runScript'>getPropertyByTitle('enabled').setValue(false)</parameter>",
-            "  </parameters>",
-            "</component>"));
-    waitForAutoBuild();
-    // open editor
-    ContainerInfo panel =
-        openContainer(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    // double click
-    canvas.doubleClick(panel);
-    assertEditor(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "public class Test extends MyPanel {",
-        "  public Test() {",
-        "    setEnabled(false);",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_doFlip() throws Exception {
+		setFileContentSrc(
+				"test/MyPanel.java",
+				getTestSource(
+						"// filler filler filler filler filler",
+						"public class MyPanel extends JPanel {",
+						"}"));
+		setFileContentSrc(
+				"test/MyPanel.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <parameters>",
+						"    <parameter name='double-click.runScript'>getPropertyByTitle('enabled').setValue(false)</parameter>",
+						"  </parameters>",
+						"</component>"));
+		waitForAutoBuild();
+		// open editor
+		ContainerInfo panel =
+				openContainer(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"public class Test extends MyPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		// double click
+		canvas.doubleClick(panel);
+		assertEditor(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    setEnabled(false);",
+				"  }",
+				"}");
+	}
 }

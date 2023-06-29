@@ -41,148 +41,148 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swing.FormLayout.header
  */
 public abstract class DimensionHeaderEditPart<T extends FormDimensionInfo>
-    extends
-      GraphicalEditPart implements IHeaderMenuProvider {
-  protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;
-  protected static final Color COLOR_GAP = DrawUtils.getShiftedColor(COLOR_NORMAL, -32);
-  protected static final Font DEFAULT_FONT = new Font(null, "Arial", 7, SWT.NONE);
-  protected static final Color GROUP_COLORS[] = new Color[]{
-      new Color(null, 200, 255, 200),
-      new Color(null, 255, 210, 170),
-      new Color(null, 180, 255, 255),
-      new Color(null, 255, 255, 180),
-      new Color(null, 230, 180, 255)};
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final FormLayoutInfo m_layout;
-  protected final T m_dimension;
-  private final Figure m_containerFigure;
+extends
+GraphicalEditPart implements IHeaderMenuProvider {
+	protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;
+	protected static final Color COLOR_GAP = DrawUtils.getShiftedColor(COLOR_NORMAL, -32);
+	protected static final Font DEFAULT_FONT = new Font(null, "Arial", 7, SWT.NONE);
+	protected static final Color GROUP_COLORS[] = new Color[]{
+			new Color(null, 200, 255, 200),
+			new Color(null, 255, 210, 170),
+			new Color(null, 180, 255, 255),
+			new Color(null, 255, 255, 180),
+			new Color(null, 230, 180, 255)};
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final FormLayoutInfo m_layout;
+	protected final T m_dimension;
+	private final Figure m_containerFigure;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionHeaderEditPart(FormLayoutInfo layout, T dimension, Figure containerFigure) {
-    m_layout = layout;
-    m_dimension = dimension;
-    m_containerFigure = containerFigure;
-    setModel(dimension);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionHeaderEditPart(FormLayoutInfo layout, T dimension, Figure containerFigure) {
+		m_layout = layout;
+		m_dimension = dimension;
+		m_containerFigure = containerFigure;
+		setModel(dimension);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the index of this {@link FormDimensionInfo}.
-   */
-  public abstract int getIndex();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the index of this {@link FormDimensionInfo}.
+	 */
+	public abstract int getIndex();
 
-  /**
-   * @return the host {@link FormLayoutInfo}.
-   */
-  public final FormLayoutInfo getLayout() {
-    return m_layout;
-  }
+	/**
+	 * @return the host {@link FormLayoutInfo}.
+	 */
+	public final FormLayoutInfo getLayout() {
+		return m_layout;
+	}
 
-  /**
-   * @return the {@link FormDimensionInfo} model.
-   */
-  public final T getDimension() {
-    return m_dimension;
-  }
+	/**
+	 * @return the {@link FormDimensionInfo} model.
+	 */
+	public final T getDimension() {
+		return m_dimension;
+	}
 
-  /**
-   * @return the offset of {@link Figure} with headers relative to the absolute layer.
-   */
-  public final Point getOffset() {
-    Point offset = new Point(0, 0);
-    FigureUtils.translateFigureToAbsolute2(m_containerFigure, offset);
-    return offset;
-  }
+	/**
+	 * @return the offset of {@link Figure} with headers relative to the absolute layer.
+	 */
+	public final Point getOffset() {
+		Point offset = new Point(0, 0);
+		FigureUtils.translateFigureToAbsolute2(m_containerFigure, offset);
+		return offset;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dragging
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Tool getDragTrackerTool(Request request) {
-    return new ParentTargetDragEditPartTracker(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dragging
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Tool getDragTrackerTool(Request request) {
+		return new ParentTargetDragEditPartTracker(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshVisuals() {
-    // update tooltip
-    getFigure().setToolTipText(m_dimension.getToolTip());
-    // update background
-    {
-      if (m_dimension.isGap()) {
-        getFigure().setBackground(COLOR_GAP);
-      } else {
-        int group = m_layout.getDimensionGroupIndex(m_dimension);
-        if (group != -1) {
-          getFigure().setBackground(GROUP_COLORS[group % GROUP_COLORS.length]);
-        } else {
-          getFigure().setBackground(COLOR_NORMAL);
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshVisuals() {
+		// update tooltip
+		getFigure().setToolTipText(m_dimension.getToolTip());
+		// update background
+		{
+			if (m_dimension.isGap()) {
+				getFigure().setBackground(COLOR_GAP);
+			} else {
+				int group = m_layout.getDimensionGroupIndex(m_dimension);
+				if (group != -1) {
+					getFigure().setBackground(GROUP_COLORS[group % GROUP_COLORS.length]);
+				} else {
+					getFigure().setBackground(COLOR_NORMAL);
+				}
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Images
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected Image getImage(String name) {
-    return Activator.getImage(name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Images
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected Image getImage(String name) {
+		return Activator.getImage(name);
+	}
 
-  protected ImageDescriptor getImageDescriptor(String name) {
-    return Activator.getImageDescriptor(name);
-  }
+	protected ImageDescriptor getImageDescriptor(String name) {
+		return Activator.getImageDescriptor(name);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Context menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds template actions to the given {@link IMenuManager}.
-   */
-  protected final void addTemplateActions(IMenuManager manager, FormDimensionTemplate[] templates) {
-    for (int i = 0; i < templates.length; i++) {
-      FormDimensionTemplate template = templates[i];
-      manager.add(new SetTemplateAction<T>(this, template));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Context menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds template actions to the given {@link IMenuManager}.
+	 */
+	protected final void addTemplateActions(IMenuManager manager, FormDimensionTemplate[] templates) {
+		for (int i = 0; i < templates.length; i++) {
+			FormDimensionTemplate template = templates[i];
+			manager.add(new SetTemplateAction<T>(this, template));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Edit
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    super.performRequest(request);
-    if (request.getType() == Request.REQ_OPEN) {
-      editDimension();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Edit
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		super.performRequest(request);
+		if (request.getType() == Request.REQ_OPEN) {
+			editDimension();
+		}
+	}
 
-  /**
-   * Opens the {@link FormDimensionInfo} edit dialog.
-   */
-  protected abstract void editDimension();
+	/**
+	 * Opens the {@link FormDimensionInfo} edit dialog.
+	 */
+	protected abstract void editDimension();
 }

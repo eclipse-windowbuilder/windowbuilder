@@ -24,86 +24,86 @@ import java.text.MessageFormat;
  * @coverage swt.model.layout.form
  */
 public final class FormLayoutUtils {
-  /**
-   * @return the constant which represents 'opposite' side in one dimension, i.e. for LEFT it
-   *         returns RIGHT.
-   */
-  public static int getOppositeSide(int side) {
-    switch (side) {
-      case SWT.LEFT :
-        return SWT.RIGHT;
-      case SWT.RIGHT :
-        return SWT.LEFT;
-      case SWT.TOP :
-        return SWT.BOTTOM;
-      case SWT.BOTTOM :
-        return SWT.TOP;
-      default :
-        throw new IllegalArgumentException(MessageFormat.format(
-            ModelMessages.FormLayoutUtils_invalidSide,
-            side));
-    }
-  }
+	/**
+	 * @return the constant which represents 'opposite' side in one dimension, i.e. for LEFT it
+	 *         returns RIGHT.
+	 */
+	public static int getOppositeSide(int side) {
+		switch (side) {
+		case SWT.LEFT :
+			return SWT.RIGHT;
+		case SWT.RIGHT :
+			return SWT.LEFT;
+		case SWT.TOP :
+			return SWT.BOTTOM;
+		case SWT.BOTTOM :
+			return SWT.TOP;
+		default :
+			throw new IllegalArgumentException(MessageFormat.format(
+					ModelMessages.FormLayoutUtils_invalidSide,
+					side));
+		}
+	}
 
-  /**
-   * @return converted SWT constant (LEFT, RIGHT, TOP, BOTTOM) into appropriate constants from
-   *         IPositionConstants.
-   */
-  public static int convertSwtAlignment(int alignment) {
-    switch (alignment) {
-      case SWT.LEFT :
-        return IPositionConstants.LEFT;
-      case SWT.RIGHT :
-        return IPositionConstants.RIGHT;
-      case SWT.TOP :
-        return IPositionConstants.TOP;
-      case SWT.BOTTOM :
-        return IPositionConstants.BOTTOM;
-      case SWT.CENTER :
-        return IPositionConstants.CENTER;
-      default :
-        throw new IllegalArgumentException(MessageFormat.format(
-            ModelMessages.FormLayoutUtils_invalidAlignment,
-            alignment));
-    }
-  }
+	/**
+	 * @return converted SWT constant (LEFT, RIGHT, TOP, BOTTOM) into appropriate constants from
+	 *         IPositionConstants.
+	 */
+	public static int convertSwtAlignment(int alignment) {
+		switch (alignment) {
+		case SWT.LEFT :
+			return IPositionConstants.LEFT;
+		case SWT.RIGHT :
+			return IPositionConstants.RIGHT;
+		case SWT.TOP :
+			return IPositionConstants.TOP;
+		case SWT.BOTTOM :
+			return IPositionConstants.BOTTOM;
+		case SWT.CENTER :
+			return IPositionConstants.CENTER;
+		default :
+			throw new IllegalArgumentException(MessageFormat.format(
+					ModelMessages.FormLayoutUtils_invalidAlignment,
+					alignment));
+		}
+	}
 
-  /**
-   * @return converted IPositionConstants constant (LEFT, RIGHT, TOP, BOTTOM) into appropriate
-   *         constants from SWT.
-   */
-  public static int convertGefSide(int side) {
-    switch (side) {
-      case IPositionConstants.LEFT :
-        return SWT.LEFT;
-      case IPositionConstants.RIGHT :
-        return SWT.RIGHT;
-      case IPositionConstants.TOP :
-        return SWT.TOP;
-      case IPositionConstants.BOTTOM :
-        return SWT.BOTTOM;
-      default :
-        throw new IllegalArgumentException(MessageFormat.format(
-            ModelMessages.FormLayoutUtils_invalidSide,
-            side));
-    }
-  }
+	/**
+	 * @return converted IPositionConstants constant (LEFT, RIGHT, TOP, BOTTOM) into appropriate
+	 *         constants from SWT.
+	 */
+	public static int convertGefSide(int side) {
+		switch (side) {
+		case IPositionConstants.LEFT :
+			return SWT.LEFT;
+		case IPositionConstants.RIGHT :
+			return SWT.RIGHT;
+		case IPositionConstants.TOP :
+			return SWT.TOP;
+		case IPositionConstants.BOTTOM :
+			return SWT.BOTTOM;
+		default :
+			throw new IllegalArgumentException(MessageFormat.format(
+					ModelMessages.FormLayoutUtils_invalidSide,
+					side));
+		}
+	}
 
-  /**
-   * @return the source string for SWT.LEFT, RIGHT, TOP, BOTTOM.
-   */
-  public static String getAlignmentSource(int alignment) {
-    switch (alignment) {
-      case SWT.LEFT :
-        return "org.eclipse.swt.SWT.LEFT";
-      case SWT.RIGHT :
-        return "org.eclipse.swt.SWT.RIGHT";
-      case SWT.TOP :
-        return "org.eclipse.swt.SWT.TOP";
-      case SWT.BOTTOM :
-        return "org.eclipse.swt.SWT.BOTTOM";
-      default :
-        return "org.eclipse.swt.SWT.DEFAULT";
-    }
-  }
+	/**
+	 * @return the source string for SWT.LEFT, RIGHT, TOP, BOTTOM.
+	 */
+	public static String getAlignmentSource(int alignment) {
+		switch (alignment) {
+		case SWT.LEFT :
+			return "org.eclipse.swt.SWT.LEFT";
+		case SWT.RIGHT :
+			return "org.eclipse.swt.SWT.RIGHT";
+		case SWT.TOP :
+			return "org.eclipse.swt.SWT.TOP";
+		case SWT.BOTTOM :
+			return "org.eclipse.swt.SWT.BOTTOM";
+		default :
+			return "org.eclipse.swt.SWT.DEFAULT";
+		}
+	}
 }

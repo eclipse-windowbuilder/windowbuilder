@@ -29,69 +29,69 @@ import java.util.List;
  * @coverage swing.gefTree.policy
  */
 public final class BorderLayoutEditPolicy extends ObjectLayoutEditPolicy<ComponentInfo> {
-  private final BorderLayoutInfo m_layout;
+	private final BorderLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BorderLayoutEditPolicy(BorderLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BorderLayoutEditPolicy(BorderLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof ComponentInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof ComponentInfo;
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ComponentsLayoutRequestValidator.INSTANCE;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ComponentsLayoutRequestValidator.INSTANCE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(Object newObject, Object referenceObject) {
-    if (m_layout.getEmptyRegion() == null) {
-      return null;
-    }
-    return super.getCreateCommand(newObject, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(Object newObject, Object referenceObject) {
+		if (m_layout.getEmptyRegion() == null) {
+			return null;
+		}
+		return super.getCreateCommand(newObject, referenceObject);
+	}
 
-  @Override
-  protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
-    if (m_layout.getEmptyRegion() == null) {
-      return null;
-    }
-    return super.getAddCommand(addParts, referenceObject);
-  }
+	@Override
+	protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+		if (m_layout.getEmptyRegion() == null) {
+			return null;
+		}
+		return super.getAddCommand(addParts, referenceObject);
+	}
 
-  @Override
-  protected void command_CREATE(ComponentInfo component, ComponentInfo reference) throws Exception {
-    String region = m_layout.getEmptyRegion();
-    m_layout.command_CREATE(component, region, reference);
-  }
+	@Override
+	protected void command_CREATE(ComponentInfo component, ComponentInfo reference) throws Exception {
+		String region = m_layout.getEmptyRegion();
+		m_layout.command_CREATE(component, region, reference);
+	}
 
-  @Override
-  protected void command_MOVE(ComponentInfo component, ComponentInfo reference) throws Exception {
-    m_layout.command_MOVE(component, reference);
-  }
+	@Override
+	protected void command_MOVE(ComponentInfo component, ComponentInfo reference) throws Exception {
+		m_layout.command_MOVE(component, reference);
+	}
 
-  @Override
-  protected void command_ADD(ComponentInfo component, ComponentInfo reference) throws Exception {
-    String region = m_layout.getEmptyRegion();
-    m_layout.command_MOVE(component, reference);
-    m_layout.command_REGION(component, region);
-  }
+	@Override
+	protected void command_ADD(ComponentInfo component, ComponentInfo reference) throws Exception {
+		String region = m_layout.getEmptyRegion();
+		m_layout.command_MOVE(component, reference);
+		m_layout.command_REGION(component, region);
+	}
 }

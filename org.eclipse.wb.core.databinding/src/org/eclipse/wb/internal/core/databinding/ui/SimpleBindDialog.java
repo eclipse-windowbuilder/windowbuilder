@@ -34,91 +34,91 @@ import java.util.List;
  * @coverage bindings.ui
  */
 public final class SimpleBindDialog extends ResizableTitleAreaDialog implements IPageListener {
-  private final List<IUiContentProvider> m_providers;
-  private final String m_dialogTitle;
-  private UiContentProviderComposite m_providerComposite;
-  private final String m_title;
-  private final String m_message;
+	private final List<IUiContentProvider> m_providers;
+	private final String m_dialogTitle;
+	private UiContentProviderComposite m_providerComposite;
+	private final String m_title;
+	private final String m_message;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimpleBindDialog(Shell parentShell,
-      AbstractUIPlugin plugin,
-      List<IUiContentProvider> providers,
-      String dialogTitle,
-      String title,
-      String message) {
-    super(parentShell, plugin);
-    m_providers = providers;
-    m_dialogTitle = dialogTitle;
-    m_title = title;
-    m_message = message;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimpleBindDialog(Shell parentShell,
+			AbstractUIPlugin plugin,
+			List<IUiContentProvider> providers,
+			String dialogTitle,
+			String title,
+			String message) {
+		super(parentShell, plugin);
+		m_providers = providers;
+		m_dialogTitle = dialogTitle;
+		m_title = title;
+		m_message = message;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Control createDialogArea(Composite parent) {
-    // dialog area
-    Composite container = (Composite) super.createDialogArea(parent);
-    //
-    m_providerComposite = new UiContentProviderComposite(this, m_providers, container, SWT.NONE);
-    GridDataFactory.create(m_providerComposite).fill().grab();
-    //
-    if (m_title != null) {
-      setTitle(m_title);
-    }
-    if (m_message != null) {
-      setMessage(m_message);
-    }
-    //
-    return container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		// dialog area
+		Composite container = (Composite) super.createDialogArea(parent);
+		//
+		m_providerComposite = new UiContentProviderComposite(this, m_providers, container, SWT.NONE);
+		GridDataFactory.create(m_providerComposite).fill().grab();
+		//
+		if (m_title != null) {
+			setTitle(m_title);
+		}
+		if (m_message != null) {
+			setMessage(m_message);
+		}
+		//
+		return container;
+	}
 
-  @Override
-  protected void createButtonsForButtonBar(Composite parent) {
-    super.createButtonsForButtonBar(parent);
-    // initial state
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        m_providerComposite.performInitialize();
-      }
-    });
-  }
+	@Override
+	protected void createButtonsForButtonBar(Composite parent) {
+		super.createButtonsForButtonBar(parent);
+		// initial state
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				m_providerComposite.performInitialize();
+			}
+		});
+	}
 
-  @Override
-  protected void configureShell(Shell newShell) {
-    // set title
-    newShell.setText(m_dialogTitle);
-    super.configureShell(newShell);
-  }
+	@Override
+	protected void configureShell(Shell newShell) {
+		// set title
+		newShell.setText(m_dialogTitle);
+		super.configureShell(newShell);
+	}
 
-  @Override
-  protected void okPressed() {
-    // handle finish
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        m_providerComposite.performFinish();
-      }
-    });
-    super.okPressed();
-  }
+	@Override
+	protected void okPressed() {
+		// handle finish
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				m_providerComposite.performFinish();
+			}
+		});
+		super.okPressed();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IPageListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setPageComplete(boolean complete) {
-    getButton(IDialogConstants.OK_ID).setEnabled(complete);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IPageListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setPageComplete(boolean complete) {
+		getButton(IDialogConstants.OK_ID).setEnabled(complete);
+	}
 }

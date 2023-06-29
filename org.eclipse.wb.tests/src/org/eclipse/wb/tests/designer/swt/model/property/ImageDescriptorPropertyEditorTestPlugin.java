@@ -26,113 +26,113 @@ import org.eclipse.core.resources.IFile;
  * @author scheglov_ke
  */
 public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorPropertyEditorTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configureNewProject() throws Exception {
-    super.configureNewProject();
-    PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-    {
-      IFile file = getFile("icons", "1.png");
-      setFileContent(file, org.eclipse.wb.tests.designer.tests.Activator.getFile("icons/test.png"));
-    }
-    setFileContentSrc(
-        "testplugin/Activator.java",
-        getSourceDQ(
-            "package testplugin;",
-            "import org.eclipse.ui.plugin.AbstractUIPlugin;",
-            "public class Activator extends AbstractUIPlugin {",
-            "  public Activator() {",
-            "  }",
-            "  public static Activator getDefault() {",
-            "    return null;",
-            "  }",
-            "}"));
-    forgetCreatedResources();
-    waitForAutoBuild();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configureNewProject() throws Exception {
+		super.configureNewProject();
+		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
+		{
+			IFile file = getFile("icons", "1.png");
+			setFileContent(file, org.eclipse.wb.tests.designer.tests.Activator.getFile("icons/test.png"));
+		}
+		setFileContentSrc(
+				"testplugin/Activator.java",
+				getSourceDQ(
+						"package testplugin;",
+						"import org.eclipse.ui.plugin.AbstractUIPlugin;",
+						"public class Activator extends AbstractUIPlugin {",
+						"  public Activator() {",
+						"  }",
+						"  public static Activator getDefault() {",
+						"    return null;",
+						"  }",
+						"}"));
+		forgetCreatedResources();
+		waitForAutoBuild();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_ThisPluginImage_OLD() throws Exception {
-    ensureManagers();
-    // now we have ResourceManager, so use it for image
-    assert_getText_getClipboardSource_forSource(
-        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(testplugin.Activator.getDefault(), \"icons/1.png\")",
-        "Plugin: TestProject icons/1.png",
-        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_ThisPluginImage_OLD() throws Exception {
+		ensureManagers();
+		// now we have ResourceManager, so use it for image
+		assert_getText_getClipboardSource_forSource(
+				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(testplugin.Activator.getDefault(), \"icons/1.png\")",
+				"Plugin: TestProject icons/1.png",
+				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")");
+	}
 
-  public void test_ThisPluginImage_NEW_workspace() throws Exception {
-    ensureManagers();
-    // now we have ResourceManager, so use it for image
-    assert_getText_getClipboardSource_forSource(
-        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")",
-        "Plugin: TestProject icons/1.png",
-        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")");
-  }
+	public void test_ThisPluginImage_NEW_workspace() throws Exception {
+		ensureManagers();
+		// now we have ResourceManager, so use it for image
+		assert_getText_getClipboardSource_forSource(
+				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")",
+				"Plugin: TestProject icons/1.png",
+				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")");
+	}
 
-  public void test_PluginImage_NEW() throws Exception {
-    ensureManagers();
-    // now we have ResourceManager, so use it for image
-    assert_getText_getClipboardSource_forSource(
-        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")",
-        "Plugin: org.eclipse.jdt.ui /icons/full/elcl16/ch_cancel.png",
-        "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
-  }
+	public void test_PluginImage_NEW() throws Exception {
+		ensureManagers();
+		// now we have ResourceManager, so use it for image
+		assert_getText_getClipboardSource_forSource(
+				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")",
+				"Plugin: org.eclipse.jdt.ui /icons/full/elcl16/ch_cancel.png",
+				"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
+	}
 
-  public void test_ThisPlugin_Value() throws Exception {
-    ensureManagers();
-    GenericProperty property =
-        createImageDescriptorPropertyForSource("org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")");
-    assertNotNull(property);
-    assertNotNull(property.getValue());
-    //
-    String[] values = ImageEvaluator.getPluginImageValue(property);
-    assertNotNull(values);
-    assertEquals(2, values.length);
-    assertEquals("TestProject", values[0]);
-    assertEquals("icons/1.png", values[1]);
-  }
+	public void test_ThisPlugin_Value() throws Exception {
+		ensureManagers();
+		GenericProperty property =
+				createImageDescriptorPropertyForSource("org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"TestProject\", \"icons/1.png\")");
+		assertNotNull(property);
+		assertNotNull(property.getValue());
+		//
+		String[] values = ImageEvaluator.getPluginImageValue(property);
+		assertNotNull(values);
+		assertEquals(2, values.length);
+		assertEquals("TestProject", values[0]);
+		assertEquals("icons/1.png", values[1]);
+	}
 
-  public void test_Plugin_Value() throws Exception {
-    ensureManagers();
-    GenericProperty property =
-        createImageDescriptorPropertyForSource(
-            "org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
-    assertNotNull(property);
-    assertNotNull(property.getValue());
-    //
-    String[] values = ImageEvaluator.getPluginImageValue(property);
-    assertNotNull(values);
-    assertEquals(2, values.length);
-    assertEquals("org.eclipse.jdt.ui", values[0]);
-    assertEquals("/icons/full/elcl16/ch_cancel.png", values[1]);
-  }
+	public void test_Plugin_Value() throws Exception {
+		ensureManagers();
+		GenericProperty property =
+				createImageDescriptorPropertyForSource(
+						"org.eclipse.wb.swt.ResourceManager.getPluginImageDescriptor(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
+		assertNotNull(property);
+		assertNotNull(property.getValue());
+		//
+		String[] values = ImageEvaluator.getPluginImageValue(property);
+		assertNotNull(values);
+		assertEquals(2, values.length);
+		assertEquals("org.eclipse.jdt.ui", values[0]);
+		assertEquals("/icons/full/elcl16/ch_cancel.png", values[1]);
+	}
 
-  private void ensureManagers() throws Exception {
-    ProjectUtils.ensureResourceType(
-        m_testProject.getJavaProject(),
-        Activator.getDefault().getBundle(),
-        "org.eclipse.wb.swt.SWTResourceManager");
-    ProjectUtils.ensureResourceType(
-        m_testProject.getJavaProject(),
-        Activator.getDefault().getBundle(),
-        "org.eclipse.wb.swt.ResourceManager");
-  }
+	private void ensureManagers() throws Exception {
+		ProjectUtils.ensureResourceType(
+				m_testProject.getJavaProject(),
+				Activator.getDefault().getBundle(),
+				"org.eclipse.wb.swt.SWTResourceManager");
+		ProjectUtils.ensureResourceType(
+				m_testProject.getJavaProject(),
+				Activator.getDefault().getBundle(),
+				"org.eclipse.wb.swt.ResourceManager");
+	}
 }

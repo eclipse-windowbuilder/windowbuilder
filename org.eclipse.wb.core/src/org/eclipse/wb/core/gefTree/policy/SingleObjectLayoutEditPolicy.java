@@ -25,67 +25,67 @@ import java.util.List;
  * @coverage core.gefTree.policy
  */
 public abstract class SingleObjectLayoutEditPolicy<C> extends ObjectLayoutEditPolicy<C> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SingleObjectLayoutEditPolicy(ObjectInfo host) {
-    super(host);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SingleObjectLayoutEditPolicy(ObjectInfo host) {
+		super(host);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Routing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Routing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return false;
+	}
 
-  /**
-   * @return <code>true</code> if this container is empty, so we can drop new component.
-   */
-  protected abstract boolean isEmpty();
+	/**
+	 * @return <code>true</code> if this container is empty, so we can drop new component.
+	 */
+	protected abstract boolean isEmpty();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Command getCommand(Request request) {
-    if (!isEmpty()) {
-      return null;
-    }
-    return super.getCommand(request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Command getCommand(Request request) {
+		if (!isEmpty()) {
+			return null;
+		}
+		return super.getCommand(request);
+	}
 
-  @Override
-  protected final Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
-    return null;
-  }
+	@Override
+	protected final Command getMoveCommand(List<EditPart> moveParts, Object referenceObject) {
+		return null;
+	}
 
-  @Override
-  protected final Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
-    if (addParts.size() != 1) {
-      return null;
-    }
-    return super.getAddCommand(addParts, referenceObject);
-  }
+	@Override
+	protected final Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+		if (addParts.size() != 1) {
+			return null;
+		}
+		return super.getAddCommand(addParts, referenceObject);
+	}
 
-  @Override
-  protected final void command_CREATE(C component, C reference) throws Exception {
-    command_CREATE(component);
-  }
+	@Override
+	protected final void command_CREATE(C component, C reference) throws Exception {
+		command_CREATE(component);
+	}
 
-  @Override
-  protected final void command_ADD(C component, C reference) throws Exception {
-    command_ADD(component);
-  }
+	@Override
+	protected final void command_ADD(C component, C reference) throws Exception {
+		command_ADD(component);
+	}
 
-  protected abstract void command_CREATE(C component) throws Exception;
+	protected abstract void command_CREATE(C component) throws Exception;
 
-  protected abstract void command_ADD(C component) throws Exception;
+	protected abstract void command_ADD(C component) throws Exception;
 }

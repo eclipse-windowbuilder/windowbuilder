@@ -24,19 +24,19 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
  * @coverage swing.gefTree
  */
 public final class EditPartFactory implements IEditPartFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditPart createEditPart(EditPart context, Object model) {
-    // components
-    if (model instanceof ContainerInfo) {
-      return new ContainerEditPart((ContainerInfo) model);
-    } else if (model instanceof ComponentInfo) {
-      return new ComponentEditPart((ComponentInfo) model);
-    }
-    // unknown
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditPart createEditPart(EditPart context, Object model) {
+		// components
+		if (model instanceof ContainerInfo) {
+			return new ContainerEditPart((ContainerInfo) model);
+		} else if (model instanceof ComponentInfo) {
+			return new ComponentEditPart((ComponentInfo) model);
+		}
+		// unknown
+		return null;
+	}
 }

@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
  * @coverage core.gef.menu
  */
 public interface IMenuObjectEditPart {
-  /**
-   * @return the {@link IMenuObjectInfo} of this model.
-   */
-  IMenuObjectInfo getMenuModel();
+	/**
+	 * @return the {@link IMenuObjectInfo} of this model.
+	 */
+	IMenuObjectInfo getMenuModel();
 }

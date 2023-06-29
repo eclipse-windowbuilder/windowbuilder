@@ -25,15 +25,15 @@ import java.awt.CardLayout;
  * @coverage swing.assistant
  */
 public final class CardLayoutAssistantPage extends AbstractAssistantPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CardLayoutAssistantPage(Composite parent, Object selection) {
-    super(parent, selection);
-    GridLayoutFactory.create(this).columns(2);
-    addIntegerProperty(this, "hgap", ModelMessages.CardLayoutAssistantPage_horizontalGap);
-    addIntegerProperty(this, "vgap", ModelMessages.CardLayoutAssistantPage_verticalGap);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CardLayoutAssistantPage(Composite parent, Object selection) {
+		super(parent, selection);
+		GridLayoutFactory.create(this).columns(2);
+		addIntegerProperty(this, "hgap", ModelMessages.CardLayoutAssistantPage_horizontalGap);
+		addIntegerProperty(this, "vgap", ModelMessages.CardLayoutAssistantPage_verticalGap);
+	}
 }

@@ -26,25 +26,25 @@ import org.eclipse.swt.layout.FillLayout;
  * @coverage XWT.model.layout
  */
 public final class FillLayoutInfo extends GenericFlowLayoutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FillLayoutInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-    new FillLayoutAssistant(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FillLayoutInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+		new FillLayoutAssistant(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isHorizontal() {
-    return ReflectionUtils.getFieldInt(getObject(), "type") == SWT.HORIZONTAL;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isHorizontal() {
+		return ReflectionUtils.getFieldInt(getObject(), "type") == SWT.HORIZONTAL;
+	}
 }

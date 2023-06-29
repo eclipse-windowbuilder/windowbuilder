@@ -19,6 +19,6 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
  * @coverage XWT
  */
 public interface IExceptionConstants {
-  int DONT_OPEN_JAVA = 3501;
-  int NO_LAYOUT_EXPECTED = 3502;
+	int DONT_OPEN_JAVA = 3501;
+	int NO_LAYOUT_EXPECTED = 3502;
 }

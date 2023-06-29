@@ -22,14 +22,14 @@ import java.util.List;
  * @coverage core.model
  */
 public interface ObjectInfoChildrenTree {
-  /**
-   * This method is invoked from {@link DefaultObjectPresentation#getChildrenTree()} to allow
-   * processing all prepared children. Subscribers may, for example, reorder children.
-   *
-   * @param parent
-   *          the {@link ObjectInfo} which children are processed.
-   * @param children
-   *          the {@link ObjectInfo} children to process.
-   */
-  void invoke(ObjectInfo parent, List<ObjectInfo> children) throws Exception;
+	/**
+	 * This method is invoked from {@link DefaultObjectPresentation#getChildrenTree()} to allow
+	 * processing all prepared children. Subscribers may, for example, reorder children.
+	 *
+	 * @param parent
+	 *          the {@link ObjectInfo} which children are processed.
+	 * @param children
+	 *          the {@link ObjectInfo} children to process.
+	 */
+	void invoke(ObjectInfo parent, List<ObjectInfo> children) throws Exception;
 }

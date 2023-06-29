@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
  * @coverage bindings.model
  */
 public interface IObserveDecoration {
-  /**
-   * @return {@link IObserveDecorator} for visual decorate this object.
-   */
-  IObserveDecorator getDecorator();
+	/**
+	 * @return {@link IObserveDecorator} for visual decorate this object.
+	 */
+	IObserveDecorator getDecorator();
 }

@@ -22,40 +22,40 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.model
  */
 public abstract class ObservePresentation
-    implements
-      IObservePresentation,
-      IObservePresentationDecorator {
-  private Image m_decorateImage;
+implements
+IObservePresentation,
+IObservePresentationDecorator {
+	private Image m_decorateImage;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObservePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Image getImage() throws Exception {
-    return m_decorateImage == null ? getInternalImage() : m_decorateImage;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObservePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Image getImage() throws Exception {
+		return m_decorateImage == null ? getInternalImage() : m_decorateImage;
+	}
 
-  /**
-   * @return {@link Image} for displaying and decorate.
-   */
-  protected abstract Image getInternalImage() throws Exception;
+	/**
+	 * @return {@link Image} for displaying and decorate.
+	 */
+	protected abstract Image getInternalImage() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObservePresentationDecorator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void setBindingDecorator(int corner) throws Exception {
-    if (corner != 0) {
-      Image image = getInternalImage();
-      if (image != null) {
-        m_decorateImage = SwtResourceManager.decorateImage(image, JavaInfoDecorator.IMAGE, corner);
-      }
-    } else {
-      m_decorateImage = null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObservePresentationDecorator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void setBindingDecorator(int corner) throws Exception {
+		if (corner != 0) {
+			Image image = getInternalImage();
+			if (image != null) {
+				m_decorateImage = SwtResourceManager.decorateImage(image, JavaInfoDecorator.IMAGE, corner);
+			}
+		} else {
+			m_decorateImage = null;
+		}
+	}
 }

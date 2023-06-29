@@ -30,61 +30,61 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class SwtObservableInfo extends ObservableInfo implements IDelayValueProvider {
-  protected final WidgetBindableInfo m_bindableWidget;
-  protected final WidgetPropertyBindableInfo m_bindableProperty;
-  private int m_delayValue;
+	protected final WidgetBindableInfo m_bindableWidget;
+	protected final WidgetPropertyBindableInfo m_bindableProperty;
+	private int m_delayValue;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SwtObservableInfo(WidgetBindableInfo bindableWidget,
-      WidgetPropertyBindableInfo bindableProperty) {
-    m_bindableWidget = bindableWidget;
-    m_bindableProperty = bindableProperty;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SwtObservableInfo(WidgetBindableInfo bindableWidget,
+			WidgetPropertyBindableInfo bindableProperty) {
+		m_bindableWidget = bindableWidget;
+		m_bindableProperty = bindableProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final BindableInfo getBindableObject() {
-    return m_bindableWidget;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final BindableInfo getBindableObject() {
+		return m_bindableWidget;
+	}
 
-  @Override
-  public final BindableInfo getBindableProperty() {
-    return m_bindableProperty;
-  }
+	@Override
+	public final BindableInfo getBindableProperty() {
+		return m_bindableProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DelayValue
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final int getDelayValue() {
-    return m_delayValue;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DelayValue
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final int getDelayValue() {
+		return m_delayValue;
+	}
 
-  @Override
-  public final void setDelayValue(int delayValue) {
-    Assert.isTrue(delayValue >= 0);
-    m_delayValue = delayValue;
-  }
+	@Override
+	public final void setDelayValue(int delayValue) {
+		Assert.isTrue(delayValue >= 0);
+		m_delayValue = delayValue;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createContentProviders(List<IUiContentProvider> providers,
-      BindingUiContentProviderContext context,
-      DatabindingsProvider provider) throws Exception {
-    providers.add(new SwtDelayUiContentProvider(this, Messages.SwtObservableInfo_swtDelay));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createContentProviders(List<IUiContentProvider> providers,
+			BindingUiContentProviderContext context,
+			DatabindingsProvider provider) throws Exception {
+		providers.add(new SwtDelayUiContentProvider(this, Messages.SwtObservableInfo_swtDelay));
+	}
 }

@@ -30,32 +30,32 @@ import javax.swing.Action;
  * @coverage rcp.editor.palette
  */
 public final class ActionNewEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = Activator.getImage("info/Action/action_new.gif");
+	private static final Image ICON = Activator.getImage("info/Action/action_new.gif");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionNewEntryInfo(String id) {
-    setId(id);
-    setName(PaletteMessages.ActionNewEntryInfo_name);
-    setDescription(PaletteMessages.ActionNewEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionNewEntryInfo(String id) {
+		setId(id);
+		setName(PaletteMessages.ActionNewEntryInfo_name);
+		setDescription(PaletteMessages.ActionNewEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    ActionInfo action = ActionContainerInfo.createNew(m_rootJavaInfo);
-    return new ActionDropTool(action);
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		ActionInfo action = ActionContainerInfo.createNew(m_rootJavaInfo);
+		return new ActionDropTool(action);
+	}
 }

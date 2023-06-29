@@ -33,114 +33,114 @@ import java.lang.reflect.Modifier;
  * @coverage core.model.property.accessor
  */
 public class AccessorUtils {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private AccessorUtils() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private AccessorUtils() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IAccessibleExpressionAccessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the implementation of {@link IAccessibleExpressionAccessor} for reflection
-   *         {@link Method}.
-   */
-  public static IAccessibleExpressionAccessor IAccessibleExpressionAccessor_forMethod(final Method method) {
-    return new IAccessibleExpressionAccessor() {
-      @Override
-      public boolean isAccessible(JavaInfo javaInfo) {
-        return Modifier.isPublic(method.getModifiers())
-            || javaInfo.getCreationSupport() instanceof ThisCreationSupport;
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IAccessibleExpressionAccessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the implementation of {@link IAccessibleExpressionAccessor} for reflection
+	 *         {@link Method}.
+	 */
+	public static IAccessibleExpressionAccessor IAccessibleExpressionAccessor_forMethod(final Method method) {
+		return new IAccessibleExpressionAccessor() {
+			@Override
+			public boolean isAccessible(JavaInfo javaInfo) {
+				return Modifier.isPublic(method.getModifiers())
+						|| javaInfo.getCreationSupport() instanceof ThisCreationSupport;
+			}
+		};
+	}
 
-  /**
-   * @return the implementation of {@link IAccessibleExpressionAccessor} for reflection
-   *         {@link Field}.
-   */
-  public static IAccessibleExpressionAccessor IAccessibleExpressionAccessor_forField(final Field field) {
-    return new IAccessibleExpressionAccessor() {
-      @Override
-      public boolean isAccessible(JavaInfo javaInfo) {
-        return Modifier.isPublic(field.getModifiers())
-            || javaInfo.getCreationSupport() instanceof ThisCreationSupport;
-      }
-    };
-  }
+	/**
+	 * @return the implementation of {@link IAccessibleExpressionAccessor} for reflection
+	 *         {@link Field}.
+	 */
+	public static IAccessibleExpressionAccessor IAccessibleExpressionAccessor_forField(final Field field) {
+		return new IAccessibleExpressionAccessor() {
+			@Override
+			public boolean isAccessible(JavaInfo javaInfo) {
+				return Modifier.isPublic(field.getModifiers())
+						|| javaInfo.getCreationSupport() instanceof ThisCreationSupport;
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExposableExpressionAccessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link IExposableExpressionAccessor}, may be <code>null</code>.
-   */
-  public static IExposableExpressionAccessor getExposableExpressionAccessor(Property property)
-      throws Exception {
-    if (property instanceof GenericPropertyImpl) {
-      GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
-      for (ExpressionAccessor accessor : genericProperty.getAccessors()) {
-        IExposableExpressionAccessor exposableAccessor =
-            accessor.getAdapter(IExposableExpressionAccessor.class);
-        if (exposableAccessor != null) {
-          return exposableAccessor;
-        }
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExposableExpressionAccessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link IExposableExpressionAccessor}, may be <code>null</code>.
+	 */
+	public static IExposableExpressionAccessor getExposableExpressionAccessor(Property property)
+			throws Exception {
+		if (property instanceof GenericPropertyImpl) {
+			GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+			for (ExpressionAccessor accessor : genericProperty.getAccessors()) {
+				IExposableExpressionAccessor exposableAccessor =
+						accessor.getAdapter(IExposableExpressionAccessor.class);
+				if (exposableAccessor != null) {
+					return exposableAccessor;
+				}
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyTooltipProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the implementation of {@link PropertyTooltipProvider} for reflection {@link Method}.
-   */
-  public static PropertyTooltipProvider PropertyTooltipProvider_forMethod(final Method method) {
-    final String methodSignature = ReflectionUtils.getMethodSignature(method);
-    return new PropertyTooltipTextProvider() {
-      @Override
-      protected String getText(Property property) throws Exception {
-        IJavaProject javaProject = property.getAdapter(IJavaProject.class);
-        String javaDocText =
-            JavaDocUtils.getTooltip(
-                javaProject,
-                method.getDeclaringClass().getName(),
-                methodSignature);
-        if (javaDocText == null) {
-          return property.getTitle();
-        }
-        return javaDocText;
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyTooltipProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the implementation of {@link PropertyTooltipProvider} for reflection {@link Method}.
+	 */
+	public static PropertyTooltipProvider PropertyTooltipProvider_forMethod(final Method method) {
+		final String methodSignature = ReflectionUtils.getMethodSignature(method);
+		return new PropertyTooltipTextProvider() {
+			@Override
+			protected String getText(Property property) throws Exception {
+				IJavaProject javaProject = property.getAdapter(IJavaProject.class);
+				String javaDocText =
+						JavaDocUtils.getTooltip(
+								javaProject,
+								method.getDeclaringClass().getName(),
+								methodSignature);
+				if (javaDocText == null) {
+					return property.getTitle();
+				}
+				return javaDocText;
+			}
+		};
+	}
 
-  /**
-   * @return the implementation of {@link PropertyTooltipProvider} for reflection {@link Field}.
-   */
-  public static PropertyTooltipProvider PropertyTooltipProvider_forField(final Field field) {
-    return new PropertyTooltipTextProvider() {
-      @Override
-      protected String getText(Property property) throws Exception {
-        // prepare property type
-        IJavaProject javaProject = property.getAdapter(IJavaProject.class);
-        IType findType = javaProject.findType(field.getDeclaringClass().getName());
-        // prepare java doc
-        String javaDocText = JavaDocUtils.getTooltip(findType.getField(field.getName()));
-        if (javaDocText == null) {
-          return property.getTitle();
-        }
-        return javaDocText;
-      }
-    };
-  }
+	/**
+	 * @return the implementation of {@link PropertyTooltipProvider} for reflection {@link Field}.
+	 */
+	public static PropertyTooltipProvider PropertyTooltipProvider_forField(final Field field) {
+		return new PropertyTooltipTextProvider() {
+			@Override
+			protected String getText(Property property) throws Exception {
+				// prepare property type
+				IJavaProject javaProject = property.getAdapter(IJavaProject.class);
+				IType findType = javaProject.findType(field.getDeclaringClass().getName());
+				// prepare java doc
+				String javaDocText = JavaDocUtils.getTooltip(findType.getField(field.getName()));
+				if (javaDocText == null) {
+					return property.getTitle();
+				}
+				return javaDocText;
+			}
+		};
+	}
 }

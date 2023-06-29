@@ -28,69 +28,69 @@ import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
  * @coverage swt.gefTree.policy.menu
  */
 public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
-  private final CompositeInfo m_shell;
+	private final CompositeInfo m_shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuBarDropLayoutEditPolicy(CompositeInfo shell) {
-    m_shell = shell;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuBarDropLayoutEditPolicy(CompositeInfo shell) {
+		m_shell = shell;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy/Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy/Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return false;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(final Object newObject, Object referenceObject) {
-    final MenuInfo menu = (MenuInfo) newObject;
-    return new EditCommand(m_shell) {
-      @Override
-      protected void executeEdit() throws Exception {
-        menu.command_CREATE(m_shell);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(final Object newObject, Object referenceObject) {
+		final MenuInfo menu = (MenuInfo) newObject;
+		return new EditCommand(m_shell) {
+			@Override
+			protected void executeEdit() throws Exception {
+				menu.command_CREATE(m_shell);
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
-    @Override
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      // only one "bar"
-      for (MenuInfo menuInfo : m_shell.getChildren(MenuInfo.class)) {
-        if (menuInfo.isBar()) {
-          return false;
-        }
-      }
-      // check object
-      Object newObject = request.getNewObject();
-      if (newObject instanceof MenuInfo) {
-        return ((MenuInfo) newObject).isBar();
-      }
-      // unknown object
-      return false;
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
+		@Override
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			// only one "bar"
+			for (MenuInfo menuInfo : m_shell.getChildren(MenuInfo.class)) {
+				if (menuInfo.isBar()) {
+					return false;
+				}
+			}
+			// check object
+			Object newObject = request.getNewObject();
+			if (newObject instanceof MenuInfo) {
+				return ((MenuInfo) newObject).isBar();
+			}
+			// unknown object
+			return false;
+		}
+	};
 }

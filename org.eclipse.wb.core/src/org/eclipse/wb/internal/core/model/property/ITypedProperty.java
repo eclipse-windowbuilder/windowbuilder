@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.model.property;
  * @coverage core.model.property
  */
 public interface ITypedProperty {
-  /**
-   * @return the type of this property, may be <code>null</code> if type is unknown.
-   */
-  Class<?> getType();
+	/**
+	 * @return the type of this property, may be <code>null</code> if type is unknown.
+	 */
+	Class<?> getType();
 }

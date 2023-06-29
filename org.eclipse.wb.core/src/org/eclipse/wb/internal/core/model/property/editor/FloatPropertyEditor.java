@@ -24,60 +24,60 @@ import java.text.MessageFormat;
  * @coverage core.model.property.editor
  */
 public class FloatPropertyEditor extends AbstractTextPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new FloatPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new FloatPropertyEditor();
 
-  protected FloatPropertyEditor() {
-  }
+	protected FloatPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof Float) {
-      return value.toString();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof Float) {
+			return value.toString();
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getEditorText(Property property) throws Exception {
-    return getText(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getEditorText(Property property) throws Exception {
+		return getText(property);
+	}
 
-  @Override
-  protected boolean setEditorText(Property property, String text) throws Exception {
-    text = text.trim();
-    // check for delete
-    if (text.length() == 0) {
-      property.setValue(Property.UNKNOWN_VALUE);
-    }
-    // prepare value
-    Float value;
-    try {
-      value = Float.valueOf(text);
-    } catch (Throwable e) {
-      UiUtils.openWarning(
-          DesignerPlugin.getShell(),
-          property.getTitle(),
-          MessageFormat.format(ModelMessages.FloatPropertyEditor_notValidFloat, text));
-      return false;
-    }
-    // modify property
-    property.setValue(value);
-    return true;
-  }
+	@Override
+	protected boolean setEditorText(Property property, String text) throws Exception {
+		text = text.trim();
+		// check for delete
+		if (text.length() == 0) {
+			property.setValue(Property.UNKNOWN_VALUE);
+		}
+		// prepare value
+		Float value;
+		try {
+			value = Float.valueOf(text);
+		} catch (Throwable e) {
+			UiUtils.openWarning(
+					DesignerPlugin.getShell(),
+					property.getTitle(),
+					MessageFormat.format(ModelMessages.FloatPropertyEditor_notValidFloat, text));
+			return false;
+		}
+		// modify property
+		property.setValue(value);
+		return true;
+	}
 }

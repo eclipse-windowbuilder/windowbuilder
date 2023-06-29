@@ -36,84 +36,84 @@ import java.util.Map;
  * @coverage swt.model.widgets.presentation
  */
 public abstract class StylePresentation extends DefaultJavaInfoPresentation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StylePresentation(WidgetInfo widget) {
-    super(widget);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StylePresentation(WidgetInfo widget) {
+		super(widget);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Icon
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() throws Exception {
-    // try to get by style
-    int style = ControlSupport.getStyle(m_javaInfo.getObject());
-    for (Map.Entry<Integer, Image> entry : getImages().entrySet()) {
-      int keyStyle = entry.getKey();
-      if ((style & keyStyle) == keyStyle) {
-        return entry.getValue();
-      }
-    }
-    // use default
-    return super.getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Icon
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() throws Exception {
+		// try to get by style
+		int style = ControlSupport.getStyle(m_javaInfo.getObject());
+		for (Map.Entry<Integer, Image> entry : getImages().entrySet()) {
+			int keyStyle = entry.getKey();
+			if ((style & keyStyle) == keyStyle) {
+				return entry.getValue();
+			}
+		}
+		// use default
+		return super.getIcon();
+	}
 
-  /**
-   * Fills static map of images using {@link #addImage(int, String)}.
-   */
-  protected abstract void initImages() throws Exception;
+	/**
+	 * Fills static map of images using {@link #addImage(int, String)}.
+	 */
+	protected abstract void initImages() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final ClassMap<Map<Integer, Image>> m_images = ClassMap.create();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final ClassMap<Map<Integer, Image>> m_images = ClassMap.create();
 
-  /**
-   * @return the "style to image" map corresponding to this {@link StylePresentation}.
-   */
-  private Map<Integer, Image> getImages() throws Exception {
-    Map<Integer, Image> images = m_images.get(getClass());
-    if (images == null) {
-      images = Maps.newHashMap();
-      m_images.put(getClass(), images);
-      initImages();
-    }
-    return images;
-  }
+	/**
+	 * @return the "style to image" map corresponding to this {@link StylePresentation}.
+	 */
+	private Map<Integer, Image> getImages() throws Exception {
+		Map<Integer, Image> images = m_images.get(getClass());
+		if (images == null) {
+			images = Maps.newHashMap();
+			m_images.put(getClass(), images);
+			initImages();
+		}
+		return images;
+	}
 
-  /**
-   * Add an image into image map representing given <code>style</code> by given
-   * <code>imagePath</code>. See {@link StylePresentation#addImage(int, String)}.
-   *
-   * @param style
-   *          the SWT style value.
-   * @param imagePath
-   *          the path relative to current toolkit support bundle.
-   */
-  protected final void addImage(int style, String imagePath) throws Exception {
-    // load image
-    Image image;
-    {
-      Bundle bundle = m_javaInfo.getDescription().getToolkit().getBundle();
-      URL imageURL = bundle.getEntry(imagePath);
-      Assert.isNotNull(
-          imageURL,
-          MessageFormat.format(
-              ModelMessages.StylePresentation_canNotFindImage,
-              imagePath,
-              bundle.getSymbolicName()));
-      image = new Image(Display.getDefault(), imageURL.openStream());
-    }
-    // remember image
-    getImages().put(style, image);
-    ImageDisposer.add(getClass(), imagePath, image);
-  }
+	/**
+	 * Add an image into image map representing given <code>style</code> by given
+	 * <code>imagePath</code>. See {@link StylePresentation#addImage(int, String)}.
+	 *
+	 * @param style
+	 *          the SWT style value.
+	 * @param imagePath
+	 *          the path relative to current toolkit support bundle.
+	 */
+	protected final void addImage(int style, String imagePath) throws Exception {
+		// load image
+		Image image;
+		{
+			Bundle bundle = m_javaInfo.getDescription().getToolkit().getBundle();
+			URL imageURL = bundle.getEntry(imagePath);
+			Assert.isNotNull(
+					imageURL,
+					MessageFormat.format(
+							ModelMessages.StylePresentation_canNotFindImage,
+							imagePath,
+							bundle.getSymbolicName()));
+			image = new Image(Display.getDefault(), imageURL.openStream());
+		}
+		// remember image
+		getImages().put(style, image);
+		ImageDisposer.add(getClass(), imagePath, image);
+	}
 }

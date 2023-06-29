@@ -22,8 +22,8 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model
  */
 public interface JavaInfoSetObjectAfter {
-  /**
-   * After object of {@link JavaInfo} set using {@link JavaInfo#setObject(Object)}.
-   */
-  void invoke(JavaInfo target, Object o) throws Exception;
+	/**
+	 * After object of {@link JavaInfo} set using {@link JavaInfo#setObject(Object)}.
+	 */
+	void invoke(JavaInfo target, Object o) throws Exception;
 }

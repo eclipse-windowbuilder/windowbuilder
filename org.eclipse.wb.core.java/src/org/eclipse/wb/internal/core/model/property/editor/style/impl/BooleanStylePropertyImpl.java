@@ -27,98 +27,98 @@ import org.eclipse.jface.action.IMenuManager;
  * @coverage core.model.property.editor
  */
 public final class BooleanStylePropertyImpl extends SubStylePropertyImpl {
-  private final String m_sFlag;
-  private final long m_flag;
+	private final String m_sFlag;
+	private final long m_flag;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BooleanStylePropertyImpl(AbstractStylePropertyEditor editor,
-      String title,
-      String sFlag,
-      long flag) {
-    super(editor, title);
-    m_sFlag = sFlag;
-    m_flag = flag;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BooleanStylePropertyImpl(AbstractStylePropertyEditor editor,
+			String title,
+			String sFlag,
+			long flag) {
+		super(editor, title);
+		m_sFlag = sFlag;
+		m_flag = flag;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // As string
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void getAsString(StringBuilder builder) {
-    builder.append(getTitle());
-    builder.append(" boolean: ");
-    builder.append(m_sFlag);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// As string
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void getAsString(StringBuilder builder) {
+		builder.append(getTitle());
+		builder.append(" boolean: ");
+		builder.append(m_sFlag);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public PropertyEditor createEditor() {
-    return BooleanPropertyEditor.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public PropertyEditor createEditor() {
+		return BooleanPropertyEditor.INSTANCE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Style
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public long getFlag(String sFlag) {
-    return m_flag;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Style
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public long getFlag(String sFlag) {
+		return m_flag;
+	}
 
-  @Override
-  public String getFlagValue(Property property) throws Exception {
-    return isSet(property) ? m_sFlag : null;
-  }
+	@Override
+	public String getFlagValue(Property property) throws Exception {
+		return isSet(property) ? m_sFlag : null;
+	}
 
-  private boolean isSet(Property property) throws Exception {
-    return (getStyleValue(property) & m_flag) != 0;
-  }
+	private boolean isSet(Property property) throws Exception {
+		return (getStyleValue(property) & m_flag) != 0;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue(Property property) throws Exception {
-    return isSet(property) ? Boolean.TRUE : Boolean.FALSE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue(Property property) throws Exception {
+		return isSet(property) ? Boolean.TRUE : Boolean.FALSE;
+	}
 
-  @Override
-  public void setValue(Property property, Object value) throws Exception {
-    boolean setValue = value != Property.UNKNOWN_VALUE && (Boolean) value;
-    long style = getStyleValue(property);
-    if (setValue) {
-      style |= m_flag;
-    } else {
-      style ^= m_flag;
-    }
-    setStyleValue(property, style);
-  }
+	@Override
+	public void setValue(Property property, Object value) throws Exception {
+		boolean setValue = value != Property.UNKNOWN_VALUE && (Boolean) value;
+		long style = getStyleValue(property);
+		if (setValue) {
+			style |= m_flag;
+		} else {
+			style ^= m_flag;
+		}
+		setStyleValue(property, style);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Popup menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void contributeActions(Property property, IMenuManager manager) throws Exception {
-    // create
-    IAction action = new BooleanStyleAction(property, this);
-    // configure
-    action.setChecked(isSet(property));
-    // add to menu
-    manager.add(action);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Popup menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void contributeActions(Property property, IMenuManager manager) throws Exception {
+		// create
+		IAction action = new BooleanStyleAction(property, this);
+		// configure
+		action.setChecked(isSet(property));
+		// add to menu
+		manager.add(action);
+	}
 }

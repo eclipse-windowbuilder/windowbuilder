@@ -22,41 +22,41 @@ import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
  * @coverage gef.core
  */
 public class TargetEditPartFindVisitor extends TargetFigureFindVisitor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TargetEditPartFindVisitor(FigureCanvas canvas, int x, int y) {
-    super(canvas, x, y);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TargetEditPartFindVisitor(FigureCanvas canvas, int x, int y) {
+		super(canvas, x, y);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Return mouse target {@link EditPart}.
-   */
-  public EditPart getTargetEditPart() {
-    return extractEditPart(getTargetFigure());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Return mouse target {@link EditPart}.
+	 */
+	public EditPart getTargetEditPart() {
+		return extractEditPart(getTargetFigure());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Extract {@link EditPart} from given {@link Figure}.
-   */
-  protected static EditPart extractEditPart(Figure figure) {
-    EditPart editPart = null;
-    while (editPart == null && figure != null) {
-      editPart = (EditPart) figure.getData();
-      figure = figure.getParent();
-    }
-    return editPart;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Extract {@link EditPart} from given {@link Figure}.
+	 */
+	protected static EditPart extractEditPart(Figure figure) {
+		EditPart editPart = null;
+		while (editPart == null && figure != null) {
+			editPart = (EditPart) figure.getData();
+			figure = figure.getParent();
+		}
+		return editPart;
+	}
 }

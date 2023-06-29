@@ -20,29 +20,29 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
  * @coverage bindings.swing.model
  */
 public final class TypeObjectInfo extends AstObjectInfo {
-  private final IGenericType m_objectType;
-  private final String m_parameters;
+	private final IGenericType m_objectType;
+	private final String m_parameters;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TypeObjectInfo(IGenericType objectType, String parameters) {
-    m_objectType = objectType;
-    m_parameters = parameters;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TypeObjectInfo(IGenericType objectType, String parameters) {
+		m_objectType = objectType;
+		m_parameters = parameters;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IGenericType getObjectType() {
-    return m_objectType;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IGenericType getObjectType() {
+		return m_objectType;
+	}
 
-  public String getParameters() {
-    return m_parameters;
-  }
+	public String getParameters() {
+		return m_parameters;
+	}
 }

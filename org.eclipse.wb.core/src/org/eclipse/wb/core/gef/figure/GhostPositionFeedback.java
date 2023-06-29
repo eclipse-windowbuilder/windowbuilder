@@ -25,38 +25,38 @@ import org.eclipse.swt.graphics.Color;
  * @coverage core.gef.figure
  */
 public final class GhostPositionFeedback extends AbstractPositionFeedback {
-  private static final Color m_fillColor = new Color(null, 0, 255, 0);
-  private static final Color m_activeColor = new Color(null, 255, 255, 0);
-  private static final Color m_borderColor = new Color(null, 0, 192, 0);
+	private static final Color m_fillColor = new Color(null, 0, 255, 0);
+	private static final Color m_activeColor = new Color(null, 255, 255, 0);
+	private static final Color m_borderColor = new Color(null, 0, 192, 0);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GhostPositionFeedback(Layer layer, Rectangle bounds, String hint) {
-    super(layer, bounds, hint);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GhostPositionFeedback(Layer layer, Rectangle bounds, String hint) {
+		super(layer, bounds, hint);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure methods
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    Figure figure = new SemiTransparentFigure(50);
-    figure.setBackground(m_fillColor);
-    figure.setBorder(new LineBorder(m_borderColor));
-    return figure;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure methods
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		Figure figure = new SemiTransparentFigure(50);
+		figure.setBackground(m_fillColor);
+		figure.setBorder(new LineBorder(m_borderColor));
+		return figure;
+	}
 
-  @Override
-  public void update(boolean contains) {
-    if (contains) {
-      m_figure.setBackground(m_activeColor);
-    } else {
-      m_figure.setBackground(m_fillColor);
-    }
-  }
+	@Override
+	public void update(boolean contains) {
+		if (contains) {
+			m_figure.setBackground(m_activeColor);
+		} else {
+			m_figure.setBackground(m_fillColor);
+		}
+	}
 }

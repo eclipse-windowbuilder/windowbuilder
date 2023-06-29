@@ -25,22 +25,22 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @coverage core.evaluation
  */
 public final class CharEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    // character literal
-    if (expression instanceof CharacterLiteral) {
-      CharacterLiteral literal = (CharacterLiteral) expression;
-      return literal.charValue();
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		// character literal
+		if (expression instanceof CharacterLiteral) {
+			CharacterLiteral literal = (CharacterLiteral) expression;
+			return literal.charValue();
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

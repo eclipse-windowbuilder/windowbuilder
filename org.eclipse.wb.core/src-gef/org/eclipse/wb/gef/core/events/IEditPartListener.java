@@ -19,13 +19,13 @@ import org.eclipse.wb.gef.core.EditPart;
  * @coverage gef.core
  */
 public interface IEditPartListener {
-  /**
-   * Called after a child {@link EditPart} has been added to its parent.
-   */
-  void childAdded(EditPart child, int index);
+	/**
+	 * Called after a child {@link EditPart} has been added to its parent.
+	 */
+	void childAdded(EditPart child, int index);
 
-  /**
-   * Called before a child {@link EditPart} is removed from its parent.
-   */
-  void removingChild(EditPart child, int index);
+	/**
+	 * Called before a child {@link EditPart} is removed from its parent.
+	 */
+	void removingChild(EditPart child, int index);
 }

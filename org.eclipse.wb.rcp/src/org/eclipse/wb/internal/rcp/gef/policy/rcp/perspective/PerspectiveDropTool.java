@@ -24,37 +24,37 @@ import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.PerspectiveInfo;
  * @coverage rcp.gef.policy
  */
 public final class PerspectiveDropTool extends AbstractCreationTool {
-  private final PerspectiveInfo m_perspective;
+	private final PerspectiveInfo m_perspective;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectiveDropTool(PerspectiveInfo perspective) {
-    m_perspective = perspective;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectiveDropTool(PerspectiveInfo perspective) {
+		m_perspective = perspective;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractCreationTool
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Request createTargetRequest() {
-    return new PerspectiveDropRequest(m_perspective);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractCreationTool
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Request createTargetRequest() {
+		return new PerspectiveDropRequest(m_perspective);
+	}
 
-  @Override
-  protected void selectAddedObjects() {
-    PerspectiveDropRequest request = (PerspectiveDropRequest) getTargetRequest();
-    Object component = request.getComponent();
-    if (component != null) {
-      IEditPartViewer viewer = getViewer();
-      EditPart editPart = viewer.getEditPartByModel(component);
-      if (editPart != null) {
-        viewer.select(editPart);
-      }
-    }
-  }
+	@Override
+	protected void selectAddedObjects() {
+		PerspectiveDropRequest request = (PerspectiveDropRequest) getTargetRequest();
+		Object component = request.getComponent();
+		if (component != null) {
+			IEditPartViewer viewer = getViewer();
+			EditPart editPart = viewer.getEditPartByModel(component);
+			if (editPart != null) {
+				viewer.select(editPart);
+			}
+		}
+	}
 }

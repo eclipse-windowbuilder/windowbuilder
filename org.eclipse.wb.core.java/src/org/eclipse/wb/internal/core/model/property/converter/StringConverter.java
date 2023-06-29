@@ -24,56 +24,56 @@ import org.eclipse.core.resources.IFile;
  * @coverage core.model.property.converter
  */
 public final class StringConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new StringConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new StringConverter();
 
-  private StringConverter() {
-  }
+	private StringConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) {
-    if (value == null) {
-      return "(String) null";
-    } else {
-      String valueString = (String) value;
-      String[] result = new String[]{null};
-      // may be plain can be used
-      if (result[0] == null) {
-        result[0] = toJavaSource_UTF(javaInfo, valueString);
-      }
-      // escape required
-      if (result[0] == null) {
-        String escaped = StringUtilities.escapeJava(valueString);
-        result[0] = '"' + escaped + '"';
-      }
-      // done
-      return result[0];
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) {
+		if (value == null) {
+			return "(String) null";
+		} else {
+			String valueString = (String) value;
+			String[] result = new String[]{null};
+			// may be plain can be used
+			if (result[0] == null) {
+				result[0] = toJavaSource_UTF(javaInfo, valueString);
+			}
+			// escape required
+			if (result[0] == null) {
+				String escaped = StringUtilities.escapeJava(valueString);
+				result[0] = '"' + escaped + '"';
+			}
+			// done
+			return result[0];
+		}
+	}
 
-  private static String toJavaSource_UTF(final JavaInfo javaInfo, final String valueString) {
-    return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
-      @Override
-      public String runObject() throws Exception {
-        if (javaInfo != null) {
-          IFile file = (IFile) javaInfo.getEditor().getModelUnit().getUnderlyingResource();
-          String charset = file.getCharset();
-          if (charset.equals("UTF-8") || charset.equals("UTF-16")) {
-            String escaped = StringUtilities.escapeForJavaSource(valueString);
-            return '"' + escaped + '"';
-          }
-        }
-        return null;
-      }
-    }, null);
-  }
+	private static String toJavaSource_UTF(final JavaInfo javaInfo, final String valueString) {
+		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
+			@Override
+			public String runObject() throws Exception {
+				if (javaInfo != null) {
+					IFile file = (IFile) javaInfo.getEditor().getModelUnit().getUnderlyingResource();
+					String charset = file.getCharset();
+					if (charset.equals("UTF-8") || charset.equals("UTF-16")) {
+						String escaped = StringUtilities.escapeForJavaSource(valueString);
+						return '"' + escaped + '"';
+					}
+				}
+				return null;
+			}
+		}, null);
+	}
 }

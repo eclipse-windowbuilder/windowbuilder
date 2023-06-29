@@ -45,147 +45,147 @@ import java.util.List;
  * @coverage rcp.model.forms
  */
 public class ColumnLayoutInfo extends GenericFlowLayoutInfo
-    implements
-      IColumnLayoutInfo<ControlInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    new ColumnLayoutAssistant(this);
-    new ColumnLayoutSelectionActionsSupport<ControlInfo>(this);
-  }
+implements
+IColumnLayoutInfo<ControlInfo> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		new ColumnLayoutAssistant(this);
+		new ColumnLayoutSelectionActionsSupport<ControlInfo>(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Events
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void onSet() throws Exception {
-    super.onSet();
-    // restore general layout datas
-    for (ControlInfo control : getComposite().getChildrenControls()) {
-      LayoutDataInfo layoutData = getLayoutData(control);
-      if (layoutData != null) {
-        restoreLayoutData(control, layoutData);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Events
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void onSet() throws Exception {
+		super.onSet();
+		// restore general layout datas
+		for (ControlInfo control : getComposite().getChildrenControls()) {
+			LayoutDataInfo layoutData = getLayoutData(control);
+			if (layoutData != null) {
+				restoreLayoutData(control, layoutData);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Components/constraints
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Object getDefaultVirtualDataObject() throws Exception {
-    ClassLoader editorLoader = GlobalState.getClassLoader();
-    return editorLoader.loadClass("org.eclipse.ui.forms.widgets.ColumnLayoutData").newInstance();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Components/constraints
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Object getDefaultVirtualDataObject() throws Exception {
+		ClassLoader editorLoader = GlobalState.getClassLoader();
+		return editorLoader.loadClass("org.eclipse.ui.forms.widgets.ColumnLayoutData").newInstance();
+	}
 
-  @Override
-  public IColumnLayoutDataInfo getColumnData2(ControlInfo control) {
-    return getColumnData(control);
-  }
+	@Override
+	public IColumnLayoutDataInfo getColumnData2(ControlInfo control) {
+		return getColumnData(control);
+	}
 
-  /**
-   * @return {@link ColumnLayoutDataInfo} associated with given {@link ControlInfo}.
-   */
-  public static ColumnLayoutDataInfo getColumnData(ControlInfo control) {
-    return (ColumnLayoutDataInfo) getLayoutData(control);
-  }
+	/**
+	 * @return {@link ColumnLayoutDataInfo} associated with given {@link ControlInfo}.
+	 */
+	public static ColumnLayoutDataInfo getColumnData(ControlInfo control) {
+		return (ColumnLayoutDataInfo) getLayoutData(control);
+	}
 
-  //////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void clipboardCopy_addControlCommands(ControlInfo control,
-      List<ClipboardCommand> commands) throws Exception {
-    // command for adding child
-    commands.add(new LayoutClipboardCommand<ColumnLayoutInfo>(control) {
-      private static final long serialVersionUID = 0L;
+	//////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void clipboardCopy_addControlCommands(ControlInfo control,
+			List<ClipboardCommand> commands) throws Exception {
+		// command for adding child
+		commands.add(new LayoutClipboardCommand<ColumnLayoutInfo>(control) {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      protected void add(ColumnLayoutInfo layout, ControlInfo control) throws Exception {
-        layout.command_CREATE(control, null);
-      }
-    });
-    // command for ColumnLayoutData
-    ColumnLayoutDataInfo columnDataInfo = getColumnData(control);
-    if (!(columnDataInfo.getCreationSupport() instanceof IImplicitCreationSupport)) {
-      final int index = getComposite().getChildrenControls().indexOf(control);
-      final JavaInfoMemento dataMemento = JavaInfoMemento.createMemento(columnDataInfo);
-      commands.add(new ComponentClipboardCommand<CompositeInfo>() {
-        private static final long serialVersionUID = 0L;
+			@Override
+			protected void add(ColumnLayoutInfo layout, ControlInfo control) throws Exception {
+				layout.command_CREATE(control, null);
+			}
+		});
+		// command for ColumnLayoutData
+		ColumnLayoutDataInfo columnDataInfo = getColumnData(control);
+		if (!(columnDataInfo.getCreationSupport() instanceof IImplicitCreationSupport)) {
+			final int index = getComposite().getChildrenControls().indexOf(control);
+			final JavaInfoMemento dataMemento = JavaInfoMemento.createMemento(columnDataInfo);
+			commands.add(new ComponentClipboardCommand<CompositeInfo>() {
+				private static final long serialVersionUID = 0L;
 
-        @Override
-        public void execute(CompositeInfo composite) throws Exception {
-          ControlInfo control = composite.getChildrenControls().get(index);
-          // remove existing (virtual) LayoutData
-          control.removeChild(getLayoutData(control));
-          // add new LayoutData
-          JavaInfo columnData = dataMemento.create(composite);
-          JavaInfoUtils.add(
-              columnData,
-              new EmptyInvocationVariableSupport(columnData, "%parent%.setLayoutData(%child%)", 0),
-              BlockStatementGenerator.INSTANCE,
-              AssociationObjects.invocationChildNull(),
-              control,
-              null);
-          // apply properties
-          dataMemento.apply();
-        }
-      });
-    }
-  }
+				@Override
+				public void execute(CompositeInfo composite) throws Exception {
+					ControlInfo control = composite.getChildrenControls().get(index);
+					// remove existing (virtual) LayoutData
+					control.removeChild(getLayoutData(control));
+					// add new LayoutData
+					JavaInfo columnData = dataMemento.create(composite);
+					JavaInfoUtils.add(
+							columnData,
+							new EmptyInvocationVariableSupport(columnData, "%parent%.setLayoutData(%child%)", 0),
+							BlockStatementGenerator.INSTANCE,
+							AssociationObjects.invocationChildNull(),
+							control,
+							null);
+					// apply properties
+					dataMemento.apply();
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Manage general layout data.
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =
-      ImmutableBiMap.of(
-          GeneralLayoutData.HorizontalAlignment.LEFT,
-          ColumnLayoutData.LEFT,
-          GeneralLayoutData.HorizontalAlignment.CENTER,
-          ColumnLayoutData.CENTER,
-          GeneralLayoutData.HorizontalAlignment.RIGHT,
-          ColumnLayoutData.RIGHT,
-          GeneralLayoutData.HorizontalAlignment.FILL,
-          ColumnLayoutData.FILL,
-          GeneralLayoutData.HorizontalAlignment.NONE,
-          0);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Manage general layout data.
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =
+			ImmutableBiMap.of(
+					GeneralLayoutData.HorizontalAlignment.LEFT,
+					ColumnLayoutData.LEFT,
+					GeneralLayoutData.HorizontalAlignment.CENTER,
+					ColumnLayoutData.CENTER,
+					GeneralLayoutData.HorizontalAlignment.RIGHT,
+					ColumnLayoutData.RIGHT,
+					GeneralLayoutData.HorizontalAlignment.FILL,
+					ColumnLayoutData.FILL,
+					GeneralLayoutData.HorizontalAlignment.NONE,
+					0);
 
-  @Override
-  protected void storeLayoutData(ControlInfo control, LayoutDataInfo layoutData) throws Exception {
-    GeneralLayoutData generalLayoutData = new GeneralLayoutData();
-    ColumnLayoutDataInfo columnLayoutData = (ColumnLayoutDataInfo) layoutData;
-    generalLayoutData.horizontalAlignment =
-        GeneralLayoutData.getGeneralValue(
-            m_horizontalAlignmentMap,
-            (Integer) GeneralLayoutData.getLayoutPropertyValue(
-                columnLayoutData,
-                "horizontalAlignment"));
-    generalLayoutData.putToInfo(control);
-  }
+	@Override
+	protected void storeLayoutData(ControlInfo control, LayoutDataInfo layoutData) throws Exception {
+		GeneralLayoutData generalLayoutData = new GeneralLayoutData();
+		ColumnLayoutDataInfo columnLayoutData = (ColumnLayoutDataInfo) layoutData;
+		generalLayoutData.horizontalAlignment =
+				GeneralLayoutData.getGeneralValue(
+						m_horizontalAlignmentMap,
+						(Integer) GeneralLayoutData.getLayoutPropertyValue(
+								columnLayoutData,
+								"horizontalAlignment"));
+		generalLayoutData.putToInfo(control);
+	}
 
-  protected void restoreLayoutData(ControlInfo control, LayoutDataInfo layoutData) throws Exception {
-    ColumnLayoutDataInfo columnLayoutData = (ColumnLayoutDataInfo) layoutData;
-    GeneralLayoutData generalLayoutData = GeneralLayoutData.getFromInfoEx(control);
-    Integer horizontalAlignmentValue =
-        GeneralLayoutData.getRealValue(
-            m_horizontalAlignmentMap,
-            generalLayoutData.horizontalAlignment);
-    if (horizontalAlignmentValue != null) {
-      columnLayoutData.setHorizontalAlignment(horizontalAlignmentValue);
-    }
-  }
+	protected void restoreLayoutData(ControlInfo control, LayoutDataInfo layoutData) throws Exception {
+		ColumnLayoutDataInfo columnLayoutData = (ColumnLayoutDataInfo) layoutData;
+		GeneralLayoutData generalLayoutData = GeneralLayoutData.getFromInfoEx(control);
+		Integer horizontalAlignmentValue =
+				GeneralLayoutData.getRealValue(
+						m_horizontalAlignmentMap,
+						generalLayoutData.horizontalAlignment);
+		if (horizontalAlignmentValue != null) {
+			columnLayoutData.setHorizontalAlignment(horizontalAlignmentValue);
+		}
+	}
 }

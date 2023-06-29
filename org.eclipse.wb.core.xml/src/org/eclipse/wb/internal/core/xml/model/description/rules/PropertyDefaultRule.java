@@ -23,30 +23,30 @@ import org.xml.sax.Attributes;
  * @coverage XML.model.description
  */
 public final class PropertyDefaultRule extends Rule {
-  private final ClassLoader m_classLoader;
+	private final ClassLoader m_classLoader;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyDefaultRule(ClassLoader classLoader) {
-    m_classLoader = classLoader;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyDefaultRule(ClassLoader classLoader) {
+		m_classLoader = classLoader;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    GenericPropertyDescription propertyDescription =
-        (GenericPropertyDescription) getDigester().peek();
-    if (propertyDescription != null) {
-      String text = attributes.getValue("value");
-      Object value = ScriptUtils.evaluate(m_classLoader, text);
-      propertyDescription.setDefaultValue(value);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		GenericPropertyDescription propertyDescription =
+				(GenericPropertyDescription) getDigester().peek();
+		if (propertyDescription != null) {
+			String text = attributes.getValue("value");
+			Object value = ScriptUtils.evaluate(m_classLoader, text);
+			propertyDescription.setDefaultValue(value);
+		}
+	}
 }

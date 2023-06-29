@@ -24,14 +24,14 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * @coverage bindings.xml.model
  */
 public interface IDatabindingFactory {
-  /**
-   * @return {@link IDatabindingsProvider} for given root {@link XmlObjectInfo} or <code>null</code>
-   *         if operation for given root not supported.
-   */
-  IDatabindingsProvider createProvider(XmlObjectInfo xmlObjectRoot) throws Exception;
+	/**
+	 * @return {@link IDatabindingsProvider} for given root {@link XmlObjectInfo} or <code>null</code>
+	 *         if operation for given root not supported.
+	 */
+	IDatabindingsProvider createProvider(XmlObjectInfo xmlObjectRoot) throws Exception;
 
-  /**
-   * @return {@link AbstractUIPlugin} host for this factory.
-   */
-  AbstractUIPlugin getPlugin();
+	/**
+	 * @return {@link AbstractUIPlugin} host for this factory.
+	 */
+	AbstractUIPlugin getPlugin();
 }

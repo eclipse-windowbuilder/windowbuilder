@@ -21,37 +21,37 @@ import org.eclipse.jface.action.Action;
  * @coverage swt.model.layout
  */
 public final class SetAlignmentAction extends AbstractAction {
-  private final int m_alignment;
+	private final int m_alignment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetAlignmentAction(IGridDataInfo gridData,
-      String text,
-      String iconPath,
-      boolean horizontal,
-      int alignment) {
-    super(gridData, text, AS_RADIO_BUTTON, iconPath, horizontal);
-    m_alignment = alignment;
-    // set check for current alignment
-    int currentAlignment =
-        horizontal ? gridData.getHorizontalAlignment() : gridData.getVerticalAlignment();
-    setChecked(currentAlignment == alignment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetAlignmentAction(IGridDataInfo gridData,
+			String text,
+			String iconPath,
+			boolean horizontal,
+			int alignment) {
+		super(gridData, text, AS_RADIO_BUTTON, iconPath, horizontal);
+		m_alignment = alignment;
+		// set check for current alignment
+		int currentAlignment =
+				horizontal ? gridData.getHorizontalAlignment() : gridData.getVerticalAlignment();
+		setChecked(currentAlignment == alignment);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    if (m_horizontal) {
-      m_gridData.setHorizontalAlignment(m_alignment);
-    } else {
-      m_gridData.setVerticalAlignment(m_alignment);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		if (m_horizontal) {
+			m_gridData.setHorizontalAlignment(m_alignment);
+		} else {
+			m_gridData.setVerticalAlignment(m_alignment);
+		}
+	}
 }

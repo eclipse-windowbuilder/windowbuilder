@@ -19,18 +19,18 @@ import org.eclipse.wb.draw2d.Figure;
  * @coverage gef.draw2d
  */
 public interface IMouseTrackListener {
-  /**
-   * Sent when a mouse enters this {@link Figure}.
-   */
-  void mouseEnter(MouseEvent event);
+	/**
+	 * Sent when a mouse enters this {@link Figure}.
+	 */
+	void mouseEnter(MouseEvent event);
 
-  /**
-   * Sent when a mouse exists this {@link Figure}.
-   */
-  void mouseExit(MouseEvent event);
+	/**
+	 * Sent when a mouse exists this {@link Figure}.
+	 */
+	void mouseExit(MouseEvent event);
 
-  /**
-   * Sent when a mouse hovers this {@link Figure}.
-   */
-  void mouseHover(MouseEvent event);
+	/**
+	 * Sent when a mouse hovers this {@link Figure}.
+	 */
+	void mouseHover(MouseEvent event);
 }

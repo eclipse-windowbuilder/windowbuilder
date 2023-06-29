@@ -20,57 +20,57 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.variable
  */
 public abstract class AbstractNoNameVariableSupport extends VariableSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractNoNameVariableSupport(JavaInfo javaInfo) {
-    super(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractNoNameVariableSupport(JavaInfo javaInfo) {
+		super(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Name
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final boolean hasName() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Name
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final boolean hasName() {
+		return false;
+	}
 
-  @Override
-  public final String getName() {
-    throw new IllegalStateException();
-  }
+	@Override
+	public final String getName() {
+		throw new IllegalStateException();
+	}
 
-  @Override
-  public final void setName(String newName) throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public final void setName(String newName) throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Conversion
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final boolean canConvertLocalToField() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Conversion
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final boolean canConvertLocalToField() {
+		return false;
+	}
 
-  @Override
-  public final void convertLocalToField() throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public final void convertLocalToField() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  @Override
-  public final boolean canConvertFieldToLocal() {
-    return false;
-  }
+	@Override
+	public final boolean canConvertFieldToLocal() {
+		return false;
+	}
 
-  @Override
-  public final void convertFieldToLocal() throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public final void convertFieldToLocal() throws Exception {
+		throw new IllegalStateException();
+	}
 }

@@ -25,22 +25,22 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @coverage core.evaluation
  */
 public final class AssignmentEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    if (expression instanceof Assignment) {
-      Assignment assignment = (Assignment) expression;
-      // evaluate right side
-      return AstEvaluationEngine.evaluate(context, assignment.getRightHandSide());
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		if (expression instanceof Assignment) {
+			Assignment assignment = (Assignment) expression;
+			// evaluate right side
+			return AstEvaluationEngine.evaluate(context, assignment.getRightHandSide());
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

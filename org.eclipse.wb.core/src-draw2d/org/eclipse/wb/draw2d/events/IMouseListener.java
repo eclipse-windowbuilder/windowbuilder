@@ -17,18 +17,18 @@ package org.eclipse.wb.draw2d.events;
  * @coverage gef.draw2d
  */
 public interface IMouseListener {
-  /**
-   * Sent when a mouse button is pressed.
-   */
-  void mouseDown(MouseEvent event);
+	/**
+	 * Sent when a mouse button is pressed.
+	 */
+	void mouseDown(MouseEvent event);
 
-  /**
-   * Sent when a mouse button is released.
-   */
-  void mouseUp(MouseEvent event);
+	/**
+	 * Sent when a mouse button is released.
+	 */
+	void mouseUp(MouseEvent event);
 
-  /**
-   * Called when a mouse button has been double clicked.
-   */
-  void mouseDoubleClick(MouseEvent event);
+	/**
+	 * Called when a mouse button has been double clicked.
+	 */
+	void mouseDoubleClick(MouseEvent event);
 }

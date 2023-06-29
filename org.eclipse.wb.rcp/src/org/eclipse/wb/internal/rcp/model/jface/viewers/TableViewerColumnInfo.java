@@ -32,63 +32,63 @@ import java.util.List;
  * @coverage rcp.model.jface.viewers
  */
 public final class TableViewerColumnInfo extends ViewerColumnInfo {
-  private final TableViewerColumnInfo m_this = this;
+	private final TableViewerColumnInfo m_this = this;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TableViewerColumnInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TableViewerColumnInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Property> getPropertyList() throws Exception {
-    List<Property> properties = super.getPropertyList();
-    properties.add(createSorterProperty());
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Property> getPropertyList() throws Exception {
+		List<Property> properties = super.getPropertyList();
+		properties.add(createSorterProperty());
+		return properties;
+	}
 
-  private JavaProperty createSorterProperty() {
-    return new JavaProperty(this, "sorter", TableViewerColumnSorterPropertyEditor.INSTANCE) {
-      @Override
-      public boolean isModified() throws Exception {
-        return getValue() != null;
-      }
+	private JavaProperty createSorterProperty() {
+		return new JavaProperty(this, "sorter", TableViewerColumnSorterPropertyEditor.INSTANCE) {
+			@Override
+			public boolean isModified() throws Exception {
+				return getValue() != null;
+			}
 
-      @Override
-      public Object getValue() throws Exception {
-        for (ASTNode node : getRelatedNodes()) {
-          if (node.getLocationInParent() == ClassInstanceCreation.ARGUMENTS_PROPERTY) {
-            ClassInstanceCreation creation = (ClassInstanceCreation) node.getParent();
-            if (AstNodeUtils.isSuccessorOf(creation, "org.eclipse.wb.swt.TableViewerColumnSorter")) {
-              return creation;
-            }
-          }
-        }
-        return null;
-      }
+			@Override
+			public Object getValue() throws Exception {
+				for (ASTNode node : getRelatedNodes()) {
+					if (node.getLocationInParent() == ClassInstanceCreation.ARGUMENTS_PROPERTY) {
+						ClassInstanceCreation creation = (ClassInstanceCreation) node.getParent();
+						if (AstNodeUtils.isSuccessorOf(creation, "org.eclipse.wb.swt.TableViewerColumnSorter")) {
+							return creation;
+						}
+					}
+				}
+				return null;
+			}
 
-      @Override
-      public void setValue(Object value) throws Exception {
-        final ASTNode node = (ASTNode) getValue();
-        if (node != null) {
-          ExecutionUtils.run(m_this, new RunnableEx() {
-            @Override
-            public void run() throws Exception {
-              m_this.getEditor().removeEnclosingStatement(node);
-            }
-          });
-        }
-      }
-    };
-  }
+			@Override
+			public void setValue(Object value) throws Exception {
+				final ASTNode node = (ASTNode) getValue();
+				if (node != null) {
+					ExecutionUtils.run(m_this, new RunnableEx() {
+						@Override
+						public void run() throws Exception {
+							m_this.getEditor().removeEnclosingStatement(node);
+						}
+					});
+				}
+			}
+		};
+	}
 }

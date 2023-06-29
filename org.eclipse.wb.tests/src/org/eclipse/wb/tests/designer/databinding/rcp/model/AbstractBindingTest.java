@@ -22,27 +22,27 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
  *
  */
 public class AbstractBindingTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configureNewProject() throws Exception {
-    super.configureNewProject();
-    DatabindingTestUtils.configure(m_testProject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configureNewProject() throws Exception {
+		super.configureNewProject();
+		DatabindingTestUtils.configure(m_testProject);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final DatabindingsProvider getDatabindingsProvider() throws Exception {
-    ParseState parseState = DatabindingRootProcessor.STATES.get(m_lastEditor.getModelUnit());
-    assertNotNull(parseState);
-    assertNotNull(parseState.databindingsProvider);
-    assertInstanceOf(DatabindingsProvider.class, parseState.databindingsProvider);
-    return (DatabindingsProvider) parseState.databindingsProvider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final DatabindingsProvider getDatabindingsProvider() throws Exception {
+		ParseState parseState = DatabindingRootProcessor.STATES.get(m_lastEditor.getModelUnit());
+		assertNotNull(parseState);
+		assertNotNull(parseState.databindingsProvider);
+		assertInstanceOf(DatabindingsProvider.class, parseState.databindingsProvider);
+		return (DatabindingsProvider) parseState.databindingsProvider;
+	}
 }

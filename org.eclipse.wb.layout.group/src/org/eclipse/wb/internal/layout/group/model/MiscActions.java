@@ -25,58 +25,58 @@ import org.eclipse.jface.action.IMenuManager;
  * @author mitin_aa
  */
 public class MiscActions {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Private Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private MiscActions() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Private Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private MiscActions() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static void fillContextMenu(IGroupLayoutInfo layout,
-      AbstractComponentInfo component,
-      IMenuManager manager) {
-    manager.appendToGroup(
-        IContextMenuConstants.GROUP_CONSTRAINTS,
-        new SetDefaultSizeAction(layout, component));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static void fillContextMenu(IGroupLayoutInfo layout,
+			AbstractComponentInfo component,
+			IMenuManager manager) {
+		manager.appendToGroup(
+				IContextMenuConstants.GROUP_CONSTRAINTS,
+				new SetDefaultSizeAction(layout, component));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Impl
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static void action_setComponentDefaultSize(IGroupLayoutInfo layout, JavaInfo component)
-      throws Exception {
-    String id = ObjectInfoUtils.getId(component);
-    layout.getLayoutDesigner().setDefaultSize(id);
-    layout.saveLayout();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Impl
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static void action_setComponentDefaultSize(IGroupLayoutInfo layout, JavaInfo component)
+			throws Exception {
+		String id = ObjectInfoUtils.getId(component);
+		layout.getLayoutDesigner().setDefaultSize(id);
+		layout.saveLayout();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Action
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final static class SetDefaultSizeAction extends ObjectInfoAction {
-    private final AbstractComponentInfo m_component;
-    private final IGroupLayoutInfo m_layout;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Action
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final static class SetDefaultSizeAction extends ObjectInfoAction {
+		private final AbstractComponentInfo m_component;
+		private final IGroupLayoutInfo m_layout;
 
-    private SetDefaultSizeAction(IGroupLayoutInfo layout, AbstractComponentInfo component) {
-      super(component, Messages.MiscActions_setDefaultSize);
-      m_layout = layout;
-      m_component = component;
-      setEnabled(component != null);
-    }
+		private SetDefaultSizeAction(IGroupLayoutInfo layout, AbstractComponentInfo component) {
+			super(component, Messages.MiscActions_setDefaultSize);
+			m_layout = layout;
+			m_component = component;
+			setEnabled(component != null);
+		}
 
-    @Override
-    protected void runEx() throws Exception {
-      action_setComponentDefaultSize(m_layout, m_component);
-    }
-  }
+		@Override
+		protected void runEx() throws Exception {
+			action_setComponentDefaultSize(m_layout, m_component);
+		}
+	}
 }

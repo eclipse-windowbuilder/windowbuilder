@@ -17,18 +17,18 @@ package org.eclipse.wb.internal.core.utils.exception;
  * @coverage core.util
  */
 public class FatalDesignerException extends DesignerException {
-  private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FatalDesignerException(int code, String... parameters) {
-    super(code, parameters);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FatalDesignerException(int code, String... parameters) {
+		super(code, parameters);
+	}
 
-  public FatalDesignerException(int code, Throwable cause, String... parameters) {
-    super(code, cause, parameters);
-  }
+	public FatalDesignerException(int code, Throwable cause, String... parameters) {
+		super(code, cause, parameters);
+	}
 }

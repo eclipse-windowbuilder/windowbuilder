@@ -19,16 +19,16 @@ import org.eclipse.wb.draw2d.Figure;
  * @coverage gef.draw2d
  */
 public class FigureVisitor {
-  /**
-   * This method is invoked to check if given {@link Figure} and its children should be visited.
-   */
-  public boolean visit(Figure figure) {
-    return true;
-  }
+	/**
+	 * This method is invoked to check if given {@link Figure} and its children should be visited.
+	 */
+	public boolean visit(Figure figure) {
+		return true;
+	}
 
-  /**
-   * This method is invoked when all children of given {@link Figure} were visited.
-   */
-  public void endVisit(Figure figure) {
-  }
+	/**
+	 * This method is invoked when all children of given {@link Figure} were visited.
+	 */
+	public void endVisit(Figure figure) {
+	}
 }

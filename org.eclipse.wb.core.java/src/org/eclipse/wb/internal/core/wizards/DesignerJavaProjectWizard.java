@@ -32,98 +32,98 @@ import java.lang.reflect.InvocationTargetException;
  * @coverage core.wizards.ui
  */
 public class DesignerJavaProjectWizard extends DesignerNewElementWizard
-    implements
-      IExecutableExtension {
-  private NewJavaProjectWizardPageOne fFirstPage;
-  private NewJavaProjectWizardPageTwo fSecondPage;
-  private IConfigurationElement fConfigElement;
+implements
+IExecutableExtension {
+	private NewJavaProjectWizardPageOne fFirstPage;
+	private NewJavaProjectWizardPageTwo fSecondPage;
+	private IConfigurationElement fConfigElement;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DesignerJavaProjectWizard() {
-    setDialogSettings(DesignerPlugin.getDefault().getDialogSettings());
-    setWindowTitle(Messages.DesignerJavaProjectWizard_title);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DesignerJavaProjectWizard() {
+		setDialogSettings(DesignerPlugin.getDefault().getDialogSettings());
+		setWindowTitle(Messages.DesignerJavaProjectWizard_title);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addPages() {
-    {
-      fFirstPage = new NewJavaProjectWizardPageOne();
-      addPage(fFirstPage);
-    }
-    {
-      fSecondPage = new NewJavaProjectWizardPageTwo(fFirstPage);
-      addPage(fSecondPage);
-    }
-    fFirstPage.init(getSelection(), getActivePart());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addPages() {
+		{
+			fFirstPage = new NewJavaProjectWizardPageOne();
+			addPage(fFirstPage);
+		}
+		{
+			fSecondPage = new NewJavaProjectWizardPageTwo(fFirstPage);
+			addPage(fSecondPage);
+		}
+		fFirstPage.init(getSelection(), getActivePart());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DesignerNewElementWizard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void finishPage(IProgressMonitor monitor) throws InterruptedException, CoreException {
-    fSecondPage.performFinish(monitor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DesignerNewElementWizard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void finishPage(IProgressMonitor monitor) throws InterruptedException, CoreException {
+		fSecondPage.performFinish(monitor);
+	}
 
-  @Override
-  public boolean performFinish() {
-    boolean res = super.performFinish();
-    if (res) {
-      {
-        org.eclipse.ui.IWorkingSet[] workingSets = fFirstPage.getWorkingSets();
-        if (workingSets.length > 0) {
-          IJavaProject newElement = getCreatedElement();
-          org.eclipse.ui.PlatformUI.getWorkbench().getWorkingSetManager().addToWorkingSets(
-              newElement,
-              workingSets);
-        }
-      }
-      BasicNewProjectResourceWizard.updatePerspective(fConfigElement);
-      BasicNewResourceWizard.selectAndReveal(
-          fSecondPage.getJavaProject().getProject(),
-          DesignerPlugin.getActiveWorkbenchWindow());
-    }
-    return res;
-  }
+	@Override
+	public boolean performFinish() {
+		boolean res = super.performFinish();
+		if (res) {
+			{
+				org.eclipse.ui.IWorkingSet[] workingSets = fFirstPage.getWorkingSets();
+				if (workingSets.length > 0) {
+					IJavaProject newElement = getCreatedElement();
+					org.eclipse.ui.PlatformUI.getWorkbench().getWorkingSetManager().addToWorkingSets(
+							newElement,
+							workingSets);
+				}
+			}
+			BasicNewProjectResourceWizard.updatePerspective(fConfigElement);
+			BasicNewResourceWizard.selectAndReveal(
+					fSecondPage.getJavaProject().getProject(),
+					DesignerPlugin.getActiveWorkbenchWindow());
+		}
+		return res;
+	}
 
-  private org.eclipse.ui.IWorkbenchPart getActivePart() {
-    org.eclipse.ui.IWorkbenchPage activePage = DesignerPlugin.getActivePage();
-    if (activePage != null) {
-      return activePage.getActivePart();
-    }
-    return null;
-  }
+	private org.eclipse.ui.IWorkbenchPart getActivePart() {
+		org.eclipse.ui.IWorkbenchPage activePage = DesignerPlugin.getActivePage();
+		if (activePage != null) {
+			return activePage.getActivePart();
+		}
+		return null;
+	}
 
-  @Override
-  protected void handleFinishException(Shell shell, InvocationTargetException e) {
-    String title = Messages.DesignerJavaProjectWizard_errorTitle;
-    String message = Messages.DesignerJavaProjectWizard_errorMessage;
-    ExceptionHandler.perform(e, getShell(), title, message);
-  }
+	@Override
+	protected void handleFinishException(Shell shell, InvocationTargetException e) {
+		String title = Messages.DesignerJavaProjectWizard_errorTitle;
+		String message = Messages.DesignerJavaProjectWizard_errorMessage;
+		ExceptionHandler.perform(e, getShell(), title, message);
+	}
 
-  @Override
-  public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
-    fConfigElement = cfig;
-  }
+	@Override
+	public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
+		fConfigElement = cfig;
+	}
 
-  @Override
-  public boolean performCancel() {
-    fSecondPage.performCancel();
-    return super.performCancel();
-  }
+	@Override
+	public boolean performCancel() {
+		fSecondPage.performCancel();
+		return super.performCancel();
+	}
 
-  public IJavaProject getCreatedElement() {
-    return fSecondPage.getJavaProject();
-  }
+	public IJavaProject getCreatedElement() {
+		return fSecondPage.getJavaProject();
+	}
 }

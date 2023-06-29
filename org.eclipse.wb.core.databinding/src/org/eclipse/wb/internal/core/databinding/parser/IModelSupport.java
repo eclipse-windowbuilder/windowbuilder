@@ -21,13 +21,13 @@ import org.eclipse.jdt.core.dom.Expression;
  * @coverage bindings.parser
  */
 public interface IModelSupport {
-  /**
-   * @return {@link AstObjectInfo} host model.
-   */
-  AstObjectInfo getModel();
+	/**
+	 * @return {@link AstObjectInfo} host model.
+	 */
+	AstObjectInfo getModel();
 
-  /**
-   * @return <code>true</code> if given {@link Expression} represented host model.
-   */
-  boolean isRepresentedBy(Expression expression) throws Exception;
+	/**
+	 * @return <code>true</code> if given {@link Expression} represented host model.
+	 */
+	boolean isRepresentedBy(Expression expression) throws Exception;
 }

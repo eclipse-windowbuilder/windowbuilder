@@ -26,15 +26,15 @@ import java.awt.EventQueue;
  * @coverage core.evaluation
  */
 public class ExecutionFlowProvider {
-  /**
-   * @return the constructor to start execution flow from, may be <code>null</code> if no any
-   *         constructor or just none of constructors can be chosen as default.
-   */
-  public MethodDeclaration getDefaultConstructor(TypeDeclaration typeDeclaration) {
-    return null;
-  }
+	/**
+	 * @return the constructor to start execution flow from, may be <code>null</code> if no any
+	 *         constructor or just none of constructors can be chosen as default.
+	 */
+	public MethodDeclaration getDefaultConstructor(TypeDeclaration typeDeclaration) {
+		return null;
+	}
 
-  public boolean shouldVisit(AnonymousClassDeclaration anonymous) throws Exception {
-    return false;
-  }
+	public boolean shouldVisit(AnonymousClassDeclaration anonymous) throws Exception {
+		return false;
+	}
 }

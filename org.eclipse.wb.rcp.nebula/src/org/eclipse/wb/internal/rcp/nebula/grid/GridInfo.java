@@ -29,58 +29,58 @@ import java.util.List;
  * @coverage nebula.model
  */
 public final class GridInfo extends CompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final GridInfo m_this = this;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final GridInfo m_this = this;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    addBroadcastListener_forTarget();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		addBroadcastListener_forTarget();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listeners
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Ensures that all children are added before association {@link Statement}.
-   */
-  private void addBroadcastListener_forTarget() {
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void target_isTerminalStatement(JavaInfo parent,
-          JavaInfo child,
-          Statement statement,
-          boolean[] terminal) {
-        if (parent == m_this
-            && (child instanceof GridColumnInfo || child instanceof GridColumnGroupInfo)) {
-          List<GridItemInfo> items = getChildren(GridItemInfo.class);
-          for (GridItemInfo item : items) {
-            List<ASTNode> itemNodes = item.getRelatedNodes();
-            for (ASTNode node : itemNodes) {
-              ASTNode current = node;
-              do {
-                if (statement.equals(current)) {
-                  terminal[0] = true;
-                  return;
-                }
-                current = current.getParent();
-              } while (current != null);
-            }
-          }
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listeners
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Ensures that all children are added before association {@link Statement}.
+	 */
+	private void addBroadcastListener_forTarget() {
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void target_isTerminalStatement(JavaInfo parent,
+					JavaInfo child,
+					Statement statement,
+					boolean[] terminal) {
+				if (parent == m_this
+						&& (child instanceof GridColumnInfo || child instanceof GridColumnGroupInfo)) {
+					List<GridItemInfo> items = getChildren(GridItemInfo.class);
+					for (GridItemInfo item : items) {
+						List<ASTNode> itemNodes = item.getRelatedNodes();
+						for (ASTNode node : itemNodes) {
+							ASTNode current = node;
+							do {
+								if (statement.equals(current)) {
+									terminal[0] = true;
+									return;
+								}
+								current = current.getParent();
+							} while (current != null);
+						}
+					}
+				}
+			}
+		});
+	}
 }

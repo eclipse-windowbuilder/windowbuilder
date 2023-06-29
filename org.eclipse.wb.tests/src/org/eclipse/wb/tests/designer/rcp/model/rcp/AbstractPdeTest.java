@@ -31,104 +31,104 @@ import java.io.ByteArrayInputStream;
  * @author scheglov_ke
  */
 public abstract class AbstractPdeTest extends RcpModelTest {
-  protected PdeUtils m_utils;
+	protected PdeUtils m_utils;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-    setFileContentSrc(
-        "testplugin/Activator.java",
-        getSourceDQ(
-            "package testplugin;",
-            "import org.eclipse.ui.plugin.AbstractUIPlugin;",
-            "public class Activator extends AbstractUIPlugin {",
-            "  public Activator() {",
-            "  }",
-            "  public static Activator getDefault() {",
-            "    return null;",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-    // prepare PDEUtils
-    m_utils = PdeUtils.get(m_project);
-    m_utils.ensureSingleton();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
+		setFileContentSrc(
+				"testplugin/Activator.java",
+				getSourceDQ(
+						"package testplugin;",
+						"import org.eclipse.ui.plugin.AbstractUIPlugin;",
+						"public class Activator extends AbstractUIPlugin {",
+						"  public Activator() {",
+						"  }",
+						"  public static Activator getDefault() {",
+						"    return null;",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+		// prepare PDEUtils
+		m_utils = PdeUtils.get(m_project);
+		m_utils.ensureSingleton();
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    m_project = null;
-    m_utils = null;
-    do_projectDispose();
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		m_project = null;
+		m_utils = null;
+		do_projectDispose();
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Public utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the content of <code>MANIFEST.MF</code> file.
-   */
-  public static String getManifest() throws Exception {
-    return AbstractJavaProjectTest.getFileContent("META-INF/MANIFEST.MF");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Public utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the content of <code>MANIFEST.MF</code> file.
+	 */
+	public static String getManifest() throws Exception {
+		return AbstractJavaProjectTest.getFileContent("META-INF/MANIFEST.MF");
+	}
 
-  /**
-   * Sets the content of <code>MANIFEST.MF</code> file.
-   */
-  public static void setManifest(String content) throws Exception {
-    IFile resource = AbstractJavaProjectTest.getFile("META-INF/MANIFEST.MF");
-    IOUtils2.setFileContents(resource, new ByteArrayInputStream(content.getBytes()));
-  }
+	/**
+	 * Sets the content of <code>MANIFEST.MF</code> file.
+	 */
+	public static void setManifest(String content) throws Exception {
+		IFile resource = AbstractJavaProjectTest.getFile("META-INF/MANIFEST.MF");
+		IOUtils2.setFileContents(resource, new ByteArrayInputStream(content.getBytes()));
+	}
 
-  /**
-   * @return the content of <code>plugin.xml</code> file.
-   */
-  public static String getPluginXML() throws Exception {
-    return AbstractJavaProjectTest.getFileContent("plugin.xml");
-  }
+	/**
+	 * @return the content of <code>plugin.xml</code> file.
+	 */
+	public static String getPluginXML() throws Exception {
+		return AbstractJavaProjectTest.getFileContent("plugin.xml");
+	}
 
-  /**
-   * Creates <code>plugin.xml</code> file in current {@link IProject}.
-   */
-  public static void createPluginXML(String... lines) throws Exception {
-    PdeUtils.get(m_project).ensureSingleton();
-    AbstractJavaProjectTest.setFileContent("plugin.xml", getPluginSource(lines));
-    TestProject.waitForAutoBuild();
-  }
+	/**
+	 * Creates <code>plugin.xml</code> file in current {@link IProject}.
+	 */
+	public static void createPluginXML(String... lines) throws Exception {
+		PdeUtils.get(m_project).ensureSingleton();
+		AbstractJavaProjectTest.setFileContent("plugin.xml", getPluginSource(lines));
+		TestProject.waitForAutoBuild();
+	}
 
-  /**
-   * Asserts that <code>plugin.xml</code> is same as expected lines.
-   */
-  public static void assertPluginXML(String[] expectedLines) throws Exception {
-    assertEquals(getPluginSource(expectedLines), getPluginXML());
-  }
+	/**
+	 * Asserts that <code>plugin.xml</code> is same as expected lines.
+	 */
+	public static void assertPluginXML(String[] expectedLines) throws Exception {
+		assertEquals(getPluginSource(expectedLines), getPluginXML());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Protected utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link String} that is good for using as text for <code>plugin.xml</code>.
-   */
-  private static String getPluginSource(String[] lines) {
-    String source = getSource(lines);
-    source = source.replace('\'', '"');
-    return source;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Protected utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link String} that is good for using as text for <code>plugin.xml</code>.
+	 */
+	private static String getPluginSource(String[] lines) {
+		String source = getSource(lines);
+		source = source.replace('\'', '"');
+		return source;
+	}
 
-  /**
-   * Asserts that given {@link IPluginElement} has expected ID attribute value.
-   */
-  public static void assertId(String expectedId, IPluginElement element) {
-    assertEquals(expectedId, element.getAttribute("id").getValue());
-  }
+	/**
+	 * Asserts that given {@link IPluginElement} has expected ID attribute value.
+	 */
+	public static void assertId(String expectedId, IPluginElement element) {
+		assertEquals(expectedId, element.getAttribute("id").getValue());
+	}
 }

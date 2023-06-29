@@ -24,13 +24,13 @@ import org.eclipse.jdt.core.dom.Expression;
  * @coverage bindings.rcp.model.beans
  */
 public interface IModelCreator<T> {
-  /**
-   * @return {@link AstObjectInfo} for AST <code>MethodInvocation</code> or
-   *         <code>ClassInstanceCreation</code> with {@link Expression} arument's.
-   */
-  AstObjectInfo create(T container,
-      AstEditor editor,
-      Expression[] arguments,
-      IModelResolver resolver,
-      ModelCreator<T> modelCreator) throws Exception;
+	/**
+	 * @return {@link AstObjectInfo} for AST <code>MethodInvocation</code> or
+	 *         <code>ClassInstanceCreation</code> with {@link Expression} arument's.
+	 */
+	AstObjectInfo create(T container,
+			AstEditor editor,
+			Expression[] arguments,
+			IModelResolver resolver,
+			ModelCreator<T> modelCreator) throws Exception;
 }

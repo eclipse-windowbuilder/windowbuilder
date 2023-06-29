@@ -22,27 +22,27 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class AssociationTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model.association");
-    // constructor
-    suite.addTest(createSingleSuite(ConstructorParentAssociationTest.class));
-    suite.addTest(createSingleSuite(ConstructorChildAssociationTest.class));
-    // invocation
-    suite.addTest(createSingleSuite(InvocationChildAssociationTest.class));
-    suite.addTest(createSingleSuite(InvocationVoidAssociationTest.class));
-    suite.addTest(createSingleSuite(InvocationSecondaryAssociationTest.class));
-    suite.addTest(createSingleSuite(FactoryParentAssociationTest.class));
-    // other
-    suite.addTest(createSingleSuite(RootAssociationTest.class));
-    suite.addTest(createSingleSuite(EmptyAssociationTest.class));
-    suite.addTest(createSingleSuite(UnknownAssociationTest.class));
-    suite.addTest(createSingleSuite(SuperConstructorArgumentAssociationTest.class));
-    suite.addTest(createSingleSuite(ImplicitObjectAssociationTest.class));
-    suite.addTest(createSingleSuite(ImplicitFactoryArgumentAssociationTest.class));
-    suite.addTest(createSingleSuite(CompoundAssociationTest.class));
-    // object/factory
-    suite.addTest(createSingleSuite(AssociationObjectsTest.class));
-    suite.addTest(createSingleSuite(AssociationObjectFactoriesTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.association");
+		// constructor
+		suite.addTest(createSingleSuite(ConstructorParentAssociationTest.class));
+		suite.addTest(createSingleSuite(ConstructorChildAssociationTest.class));
+		// invocation
+		suite.addTest(createSingleSuite(InvocationChildAssociationTest.class));
+		suite.addTest(createSingleSuite(InvocationVoidAssociationTest.class));
+		suite.addTest(createSingleSuite(InvocationSecondaryAssociationTest.class));
+		suite.addTest(createSingleSuite(FactoryParentAssociationTest.class));
+		// other
+		suite.addTest(createSingleSuite(RootAssociationTest.class));
+		suite.addTest(createSingleSuite(EmptyAssociationTest.class));
+		suite.addTest(createSingleSuite(UnknownAssociationTest.class));
+		suite.addTest(createSingleSuite(SuperConstructorArgumentAssociationTest.class));
+		suite.addTest(createSingleSuite(ImplicitObjectAssociationTest.class));
+		suite.addTest(createSingleSuite(ImplicitFactoryArgumentAssociationTest.class));
+		suite.addTest(createSingleSuite(CompoundAssociationTest.class));
+		// object/factory
+		suite.addTest(createSingleSuite(AssociationObjectsTest.class));
+		suite.addTest(createSingleSuite(AssociationObjectFactoriesTest.class));
+		return suite;
+	}
 }

@@ -21,27 +21,27 @@ import org.eclipse.jface.action.Action;
  * @coverage swt.model.layout
  */
 public final class SetGrabAction extends AbstractAction {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetGrabAction(IGridDataInfo gridData, String text, String iconPath, boolean horizontal) {
-    super(gridData, text, AS_CHECK_BOX, iconPath, horizontal);
-    setChecked(horizontal ? gridData.getHorizontalGrab() : gridData.getVerticalGrab());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetGrabAction(IGridDataInfo gridData, String text, String iconPath, boolean horizontal) {
+		super(gridData, text, AS_CHECK_BOX, iconPath, horizontal);
+		setChecked(horizontal ? gridData.getHorizontalGrab() : gridData.getVerticalGrab());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    if (m_horizontal) {
-      m_gridData.setHorizontalGrab(!m_gridData.getHorizontalGrab());
-    } else {
-      m_gridData.setVerticalGrab(!m_gridData.getVerticalGrab());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		if (m_horizontal) {
+			m_gridData.setHorizontalGrab(!m_gridData.getHorizontalGrab());
+		} else {
+			m_gridData.setVerticalGrab(!m_gridData.getVerticalGrab());
+		}
+	}
 }

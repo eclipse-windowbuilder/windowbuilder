@@ -23,27 +23,27 @@ import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
  * @coverage rcp.gef.part
  */
 public final class CBannerEditPart extends CompositeEditPart {
-  private final CBannerInfo m_composite;
+	private final CBannerInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CBannerEditPart(CBannerInfo composite) {
-    super(composite);
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CBannerEditPart(CBannerInfo composite) {
+		super(composite);
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(new CBannerLayoutEditPolicy(m_composite));
-    installEditPolicy(new TerminatorLayoutEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(new CBannerLayoutEditPolicy(m_composite));
+		installEditPolicy(new TerminatorLayoutEditPolicy());
+	}
 }

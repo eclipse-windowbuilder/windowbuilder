@@ -79,285 +79,285 @@ import java.util.List;
  * @coverage bindings.rcp.emf.model
  */
 public final class GlobalObservableFactory implements IGlobalObservableFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IGlobalObservableFactory: Observable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ObservableInfo createDetailObservable(SingleSelectionObservableInfo masterObservable,
-      BindableInfo object,
-      Type type) throws Exception {
-    if (masterObservable.isViewer()) {
-      // prepare input
-      ObservableInfo inputObservable = null;
-      BindableInfo property = object.resolvePropertyReference("setInput");
-      for (AbstractBindingInfo binding : object.getBindings()) {
-        if (binding.getTargetProperty() == property) {
-          AbstractViewerInputBindingInfo viewerBinding = (AbstractViewerInputBindingInfo) binding;
-          inputObservable = viewerBinding.getInputObservable();
-          break;
-        }
-      }
-      // create detail observable
-      if (inputObservable instanceof ListEmfObservableInfo) {
-        PropertiesSupport propertiesSupport = getPropertiesSupport(inputObservable);
-        boolean version_2_5 = propertiesSupport.isEMFProperties();
-        ObservableInfo observable = null;
-        //
-        if (type == Type.OnlyValue) {
-          observable = new DetailValueEmfObservableInfo(masterObservable, propertiesSupport);
-          //
-          if (version_2_5) {
-            observable.setCodeSupport(new EmfValuePropertyDetailCodeSupport());
-          } else {
-            observable.setCodeSupport(new EmfObservableDetailValueCodeSupport());
-          }
-        } else if (type == Type.OnlyList) {
-          observable = new DetailListEmfObservableInfo(masterObservable, propertiesSupport);
-          //
-          if (version_2_5) {
-            observable.setCodeSupport(new EmfListPropertyDetailCodeSupport());
-          } else {
-            observable.setCodeSupport(new EmfObservableDetailListCodeSupport());
-          }
-        }
-        return observable;
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IGlobalObservableFactory: Observable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ObservableInfo createDetailObservable(SingleSelectionObservableInfo masterObservable,
+			BindableInfo object,
+			Type type) throws Exception {
+		if (masterObservable.isViewer()) {
+			// prepare input
+			ObservableInfo inputObservable = null;
+			BindableInfo property = object.resolvePropertyReference("setInput");
+			for (AbstractBindingInfo binding : object.getBindings()) {
+				if (binding.getTargetProperty() == property) {
+					AbstractViewerInputBindingInfo viewerBinding = (AbstractViewerInputBindingInfo) binding;
+					inputObservable = viewerBinding.getInputObservable();
+					break;
+				}
+			}
+			// create detail observable
+			if (inputObservable instanceof ListEmfObservableInfo) {
+				PropertiesSupport propertiesSupport = getPropertiesSupport(inputObservable);
+				boolean version_2_5 = propertiesSupport.isEMFProperties();
+				ObservableInfo observable = null;
+				//
+				if (type == Type.OnlyValue) {
+					observable = new DetailValueEmfObservableInfo(masterObservable, propertiesSupport);
+					//
+					if (version_2_5) {
+						observable.setCodeSupport(new EmfValuePropertyDetailCodeSupport());
+					} else {
+						observable.setCodeSupport(new EmfObservableDetailValueCodeSupport());
+					}
+				} else if (type == Type.OnlyList) {
+					observable = new DetailListEmfObservableInfo(masterObservable, propertiesSupport);
+					//
+					if (version_2_5) {
+						observable.setCodeSupport(new EmfListPropertyDetailCodeSupport());
+					} else {
+						observable.setCodeSupport(new EmfObservableDetailListCodeSupport());
+					}
+				}
+				return observable;
+			}
+		}
+		return null;
+	}
 
-  @Override
-  public MapsBeanObservableInfo createObserveMaps(ObservableInfo inputObservable,
-      ObservableInfo domainObservable,
-      Class<?> elementType,
-      boolean[] useViewerSupport) throws Exception {
-    if (inputObservable instanceof ListEmfObservableInfo
-        || inputObservable instanceof DetailListEmfObservableInfo) {
-      useViewerSupport[0] = false;
-      MapsEmfObservableInfo observeMaps =
-          new MapsEmfObservableInfo(domainObservable, getPropertiesSupport(inputObservable));
-      observeMaps.setElementType(elementType);
-      return observeMaps;
-    }
-    return null;
-  }
+	@Override
+	public MapsBeanObservableInfo createObserveMaps(ObservableInfo inputObservable,
+			ObservableInfo domainObservable,
+			Class<?> elementType,
+			boolean[] useViewerSupport) throws Exception {
+		if (inputObservable instanceof ListEmfObservableInfo
+				|| inputObservable instanceof DetailListEmfObservableInfo) {
+			useViewerSupport[0] = false;
+			MapsEmfObservableInfo observeMaps =
+					new MapsEmfObservableInfo(domainObservable, getPropertiesSupport(inputObservable));
+			observeMaps.setElementType(elementType);
+			return observeMaps;
+		}
+		return null;
+	}
 
-  @Override
-  public BeansObservableFactoryInfo createTreeObservableFactory(ObservableInfo inputObservable,
-      boolean asList) throws Exception {
-    if (asList
-        && (inputObservable instanceof ListEmfObservableInfo || inputObservable instanceof DetailListEmfObservableInfo)) {
-      return EmfBeansObservableFactoryInfo.create(null, getPropertiesSupport(inputObservable));
-    }
-    return null;
-  }
+	@Override
+	public BeansObservableFactoryInfo createTreeObservableFactory(ObservableInfo inputObservable,
+			boolean asList) throws Exception {
+		if (asList
+				&& (inputObservable instanceof ListEmfObservableInfo || inputObservable instanceof DetailListEmfObservableInfo)) {
+			return EmfBeansObservableFactoryInfo.create(null, getPropertiesSupport(inputObservable));
+		}
+		return null;
+	}
 
-  @Override
-  public TreeBeanAdvisorInfo createTreeBeanAdvisor(ObservableInfo inputObservable) throws Exception {
-    if (inputObservable instanceof ListEmfObservableInfo
-        || inputObservable instanceof DetailListEmfObservableInfo) {
-      return new EmfTreeBeanAdvisorInfo(getPropertiesSupport(inputObservable));
-    }
-    return null;
-  }
+	@Override
+	public TreeBeanAdvisorInfo createTreeBeanAdvisor(ObservableInfo inputObservable) throws Exception {
+		if (inputObservable instanceof ListEmfObservableInfo
+				|| inputObservable instanceof DetailListEmfObservableInfo) {
+			return new EmfTreeBeanAdvisorInfo(getPropertiesSupport(inputObservable));
+		}
+		return null;
+	}
 
-  @Override
-  public TreeObservableLabelProviderInfo createTreeLabelProvider(ObservableInfo inputObservable,
-      KnownElementsObservableInfo allElementsObservable) throws Exception {
-    if (inputObservable instanceof ListEmfObservableInfo
-        || inputObservable instanceof DetailListEmfObservableInfo) {
-      return new EmfTreeObservableLabelProviderInfo(allElementsObservable,
-          getPropertiesSupport(inputObservable));
-    }
-    return null;
-  }
+	@Override
+	public TreeObservableLabelProviderInfo createTreeLabelProvider(ObservableInfo inputObservable,
+			KnownElementsObservableInfo allElementsObservable) throws Exception {
+		if (inputObservable instanceof ListEmfObservableInfo
+				|| inputObservable instanceof DetailListEmfObservableInfo) {
+			return new EmfTreeObservableLabelProviderInfo(allElementsObservable,
+					getPropertiesSupport(inputObservable));
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IGlobalObservableFactory: UI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void configureChooseElementForViewerInput(ObservableInfo inputObservable,
-      ChooseClassAndPropertiesConfiguration configuration) throws Exception {
-    if (inputObservable instanceof ListEmfObservableInfo
-        || inputObservable instanceof DetailListEmfObservableInfo) {
-      final PropertiesSupport propertiesSupport = getPropertiesSupport(inputObservable);
-      configuration.setBaseClassName("org.eclipse.emf.ecore.EObject");
-      configuration.addPropertiesFilter(new IPropertiesFilter() {
-        @Override
-        public List<PropertyAdapter> filterProperties(Class<?> choosenClass,
-            List<PropertyAdapter> properties) throws Exception {
-          properties = Lists.newArrayList();
-          for (PropertyInfo emfPropertyInfo : propertiesSupport.getProperties(choosenClass)) {
-            properties.add(new ChooseClassAndTreePropertiesUiContentProvider.ObservePropertyAdapter(null,
-                new EPropertyBindableInfo(propertiesSupport,
-                    null,
-                    emfPropertyInfo.type,
-                    emfPropertyInfo.name,
-                    "\"" + emfPropertyInfo.name + "\"")));
-          }
-          return properties;
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IGlobalObservableFactory: UI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void configureChooseElementForViewerInput(ObservableInfo inputObservable,
+			ChooseClassAndPropertiesConfiguration configuration) throws Exception {
+		if (inputObservable instanceof ListEmfObservableInfo
+				|| inputObservable instanceof DetailListEmfObservableInfo) {
+			final PropertiesSupport propertiesSupport = getPropertiesSupport(inputObservable);
+			configuration.setBaseClassName("org.eclipse.emf.ecore.EObject");
+			configuration.addPropertiesFilter(new IPropertiesFilter() {
+				@Override
+				public List<PropertyAdapter> filterProperties(Class<?> choosenClass,
+						List<PropertyAdapter> properties) throws Exception {
+					properties = Lists.newArrayList();
+					for (PropertyInfo emfPropertyInfo : propertiesSupport.getProperties(choosenClass)) {
+						properties.add(new ChooseClassAndTreePropertiesUiContentProvider.ObservePropertyAdapter(null,
+								new EPropertyBindableInfo(propertiesSupport,
+										null,
+										emfPropertyInfo.type,
+										emfPropertyInfo.name,
+										"\"" + emfPropertyInfo.name + "\"")));
+					}
+					return properties;
+				}
+			});
+		}
+	}
 
-  @Override
-  public void configureChooseElementForTreeViewerInput(ObservableInfo inputObservable,
-      ChooseClassConfiguration configuration) throws Exception {
-    if (inputObservable instanceof ListEmfObservableInfo
-        || inputObservable instanceof DetailListEmfObservableInfo) {
-      configuration.setBaseClassName("org.eclipse.emf.ecore.EObject");
-    }
-  }
+	@Override
+	public void configureChooseElementForTreeViewerInput(ObservableInfo inputObservable,
+			ChooseClassConfiguration configuration) throws Exception {
+		if (inputObservable instanceof ListEmfObservableInfo
+				|| inputObservable instanceof DetailListEmfObservableInfo) {
+			configuration.setBaseClassName("org.eclipse.emf.ecore.EObject");
+		}
+	}
 
-  @Override
-  public void filterElementPropertiesForTreeViewerInput(ObservableInfo inputObservable,
-      Class<?> elementType,
-      List<PropertyDescriptor> descriptors) throws Exception {
-    if (inputObservable instanceof ListEmfObservableInfo
-        || inputObservable instanceof DetailListEmfObservableInfo) {
-      descriptors.clear();
-      PropertiesSupport propertiesSupport = getPropertiesSupport(inputObservable);
-      for (PropertyInfo emfProperty : propertiesSupport.getProperties(elementType)) {
-        descriptors.add(createProperty(emfProperty.name, emfProperty.type));
-      }
-    }
-  }
+	@Override
+	public void filterElementPropertiesForTreeViewerInput(ObservableInfo inputObservable,
+			Class<?> elementType,
+			List<PropertyDescriptor> descriptors) throws Exception {
+		if (inputObservable instanceof ListEmfObservableInfo
+				|| inputObservable instanceof DetailListEmfObservableInfo) {
+			descriptors.clear();
+			PropertiesSupport propertiesSupport = getPropertiesSupport(inputObservable);
+			for (PropertyInfo emfProperty : propertiesSupport.getProperties(elementType)) {
+				descriptors.add(createProperty(emfProperty.name, emfProperty.type));
+			}
+		}
+	}
 
-  private static Method m_setPropertyType;
+	private static Method m_setPropertyType;
 
-  public static PropertyDescriptor createProperty(String name, Class<?> type) throws Exception {
-    // create property
-    PropertyDescriptor property = new PropertyDescriptor(name, (Method) null, (Method) null) {
-      @Override
-      public int hashCode() {
-        return System.identityHashCode(this);
-      }
+	public static PropertyDescriptor createProperty(String name, Class<?> type) throws Exception {
+		// create property
+		PropertyDescriptor property = new PropertyDescriptor(name, (Method) null, (Method) null) {
+			@Override
+			public int hashCode() {
+				return System.identityHashCode(this);
+			}
 
-      @Override
-      public boolean equals(Object object) {
-        return this == object;
-      }
-    };
-    // prepare internal setter setPropertyType()
-    if (m_setPropertyType == null) {
-      m_setPropertyType =
-          PropertyDescriptor.class.getDeclaredMethod("setPropertyType", new Class[]{Class.class});
-      m_setPropertyType.setAccessible(true);
-    }
-    // configure property
-    m_setPropertyType.invoke(property, new Object[]{type});
-    return property;
-  }
+			@Override
+			public boolean equals(Object object) {
+				return this == object;
+			}
+		};
+		// prepare internal setter setPropertyType()
+		if (m_setPropertyType == null) {
+			m_setPropertyType =
+					PropertyDescriptor.class.getDeclaredMethod("setPropertyType", new Class[]{Class.class});
+			m_setPropertyType.setAccessible(true);
+		}
+		// configure property
+		m_setPropertyType.invoke(property, new Object[]{type});
+		return property;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static PropertiesSupport getPropertiesSupport(ObservableInfo observable) {
-    if (observable instanceof DetailEmfObservableInfo) {
-      DetailEmfObservableInfo detailObservable = (DetailEmfObservableInfo) observable;
-      return detailObservable.getPropertiesSupport();
-    }
-    EObjectBindableInfo eObject = (EObjectBindableInfo) observable.getBindableObject();
-    return eObject.getPropertiesSupport();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static PropertiesSupport getPropertiesSupport(ObservableInfo observable) {
+		if (observable instanceof DetailEmfObservableInfo) {
+			DetailEmfObservableInfo detailObservable = (DetailEmfObservableInfo) observable;
+			return detailObservable.getPropertiesSupport();
+		}
+		EObjectBindableInfo eObject = (EObjectBindableInfo) observable.getBindableObject();
+		return eObject.getPropertiesSupport();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Automatic Wizard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void automaticWizardConfigure(ChooseClassAndPropertiesConfiguration configuration) {
-    configuration.setBaseClassName("org.eclipse.emf.ecore.EObject");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Automatic Wizard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void automaticWizardConfigure(ChooseClassAndPropertiesConfiguration configuration) {
+		configuration.setBaseClassName("org.eclipse.emf.ecore.EObject");
+	}
 
-  @Override
-  public List<PropertyAdapter> automaticWizardGetProperties(IJavaProject javaProject,
-      ClassLoader classLoader,
-      Class<?> eObjectClass) throws Exception {
-    if (isEMFObject(classLoader, eObjectClass)) {
-      List<PropertyAdapter> properties = Lists.newArrayList();
-      List<VariableDeclarationFragment> fragments = Collections.emptyList();
-      PropertiesSupport propertiesSupport =
-          new PropertiesSupport(javaProject, classLoader, fragments);
-      //
-      for (PropertyInfo emfPropertyInfo : propertiesSupport.getProperties(eObjectClass)) {
-        properties.add(new PropertyAdapter(emfPropertyInfo.name, emfPropertyInfo.type));
-      }
-      return properties;
-    }
-    return null;
-  }
+	@Override
+	public List<PropertyAdapter> automaticWizardGetProperties(IJavaProject javaProject,
+			ClassLoader classLoader,
+			Class<?> eObjectClass) throws Exception {
+		if (isEMFObject(classLoader, eObjectClass)) {
+			List<PropertyAdapter> properties = Lists.newArrayList();
+			List<VariableDeclarationFragment> fragments = Collections.emptyList();
+			PropertiesSupport propertiesSupport =
+					new PropertiesSupport(javaProject, classLoader, fragments);
+			//
+			for (PropertyInfo emfPropertyInfo : propertiesSupport.getProperties(eObjectClass)) {
+				properties.add(new PropertyAdapter(emfPropertyInfo.name, emfPropertyInfo.type));
+			}
+			return properties;
+		}
+		return null;
+	}
 
-  @Override
-  public IAutomaticWizardStub automaticWizardCreateStub(IJavaProject javaProject,
-      ClassLoader classLoader,
-      Class<?> eObjectClass) throws Exception {
-    if (isEMFObject(classLoader, eObjectClass)) {
-      return new AutomaticWizardStub(javaProject, classLoader, eObjectClass);
-    }
-    return null;
-  }
+	@Override
+	public IAutomaticWizardStub automaticWizardCreateStub(IJavaProject javaProject,
+			ClassLoader classLoader,
+			Class<?> eObjectClass) throws Exception {
+		if (isEMFObject(classLoader, eObjectClass)) {
+			return new AutomaticWizardStub(javaProject, classLoader, eObjectClass);
+		}
+		return null;
+	}
 
-  private static boolean isEMFObject(ClassLoader classLoader, Class<?> eObjectClass) {
-    try {
-      Class<?> EObjectClass = classLoader.loadClass("org.eclipse.emf.ecore.EObject");
-      return eObjectClass.isInterface() && EObjectClass.isAssignableFrom(eObjectClass);
-    } catch (Throwable e) {
-      return false;
-    }
-  }
+	private static boolean isEMFObject(ClassLoader classLoader, Class<?> eObjectClass) {
+		try {
+			Class<?> EObjectClass = classLoader.loadClass("org.eclipse.emf.ecore.EObject");
+			return eObjectClass.isInterface() && EObjectClass.isAssignableFrom(eObjectClass);
+		} catch (Throwable e) {
+			return false;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Controller
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean moveBean(IObserveInfo observe,
-      AstEditor controllerEditor,
-      TypeDeclaration controllerRootNode) throws Exception {
-    if (observe instanceof EObjectBindableInfo) {
-      EObjectBindableInfo eObject = (EObjectBindableInfo) observe;
-      VariableDeclarationFragment fragment = eObject.getFragment();
-      FieldDeclaration fieldDeclaration = AstNodeUtils.getEnclosingFieldDeclaration(fragment);
-      String modifier =
-          Modifier.ModifierKeyword.fromFlagValue(fieldDeclaration.getModifiers()).toString();
-      //
-      controllerEditor.addFieldDeclaration(modifier
-          + " "
-          + eObject.getObjectType().getName()
-          + " "
-          + fragment.getName().getIdentifier()
-          + ";", new BodyDeclarationTarget(controllerRootNode, true));
-      //
-      return true;
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Controller
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean moveBean(IObserveInfo observe,
+			AstEditor controllerEditor,
+			TypeDeclaration controllerRootNode) throws Exception {
+		if (observe instanceof EObjectBindableInfo) {
+			EObjectBindableInfo eObject = (EObjectBindableInfo) observe;
+			VariableDeclarationFragment fragment = eObject.getFragment();
+			FieldDeclaration fieldDeclaration = AstNodeUtils.getEnclosingFieldDeclaration(fragment);
+			String modifier =
+					Modifier.ModifierKeyword.fromFlagValue(fieldDeclaration.getModifiers()).toString();
+			//
+			controllerEditor.addFieldDeclaration(modifier
+					+ " "
+					+ eObject.getObjectType().getName()
+					+ " "
+					+ fragment.getName().getIdentifier()
+					+ ";", new BodyDeclarationTarget(controllerRootNode, true));
+			//
+			return true;
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Preferences
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void confgureCodeGenerationPreferencePage(Composite parent, DataBindManager bindManager)
-      throws Exception {
-    Button generateCodeFor25Button = new Button(parent, SWT.CHECK);
-    GridDataFactory.create(generateCodeFor25Button).fillH().grabH();
-    generateCodeFor25Button.setText(Messages.GlobalObservableFactory_for25Button);
-    //
-    bindManager.bind(
-        new CheckButtonEditor(generateCodeFor25Button),
-        new BooleanPreferenceProvider(Activator.getStore(),
-            IPreferenceConstants.GENERATE_CODE_FOR_VERSION_2_5));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Preferences
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void confgureCodeGenerationPreferencePage(Composite parent, DataBindManager bindManager)
+			throws Exception {
+		Button generateCodeFor25Button = new Button(parent, SWT.CHECK);
+		GridDataFactory.create(generateCodeFor25Button).fillH().grabH();
+		generateCodeFor25Button.setText(Messages.GlobalObservableFactory_for25Button);
+		//
+		bindManager.bind(
+				new CheckButtonEditor(generateCodeFor25Button),
+				new BooleanPreferenceProvider(Activator.getStore(),
+						IPreferenceConstants.GENERATE_CODE_FOR_VERSION_2_5));
+	}
 }

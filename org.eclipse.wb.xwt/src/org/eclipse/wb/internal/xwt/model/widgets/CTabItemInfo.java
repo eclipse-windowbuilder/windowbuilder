@@ -32,78 +32,78 @@ import java.util.List;
  * @coverage XWT.model.widgets
  */
 public class CTabItemInfo extends ItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CTabItemInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CTabItemInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ControlInfo}, may be <code>null</code>.
-   */
-  public ControlInfo getControl() {
-    return GenericsUtils.getFirstOrNull(getChildren(ControlInfo.class));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ControlInfo}, may be <code>null</code>.
+	 */
+	public ControlInfo getControl() {
+		return GenericsUtils.getFirstOrNull(getChildren(ControlInfo.class));
+	}
 
-  /**
-   * Makes this item selected.
-   */
-  public void doSelect() {
-    ((CTabFolderInfo) getParent()).setSelectedItem(this);
-  }
+	/**
+	 * Makes this item selected.
+	 */
+	public void doSelect() {
+		((CTabFolderInfo) getParent()).setSelectedItem(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new XmlObjectPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenGraphical() throws Exception {
-      return ImmutableList.of();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new XmlObjectPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenGraphical() throws Exception {
+			return ImmutableList.of();
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    // set bounds
-    {
-      CTabItem item = (CTabItem) getObject();
-      Rectangle bounds = new Rectangle(item.getBounds());
-      setModelBounds(bounds);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		// set bounds
+		{
+			CTabItem item = (CTabItem) getObject();
+			Rectangle bounds = new Rectangle(item.getBounds());
+			setModelBounds(bounds);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Notification that this {@link CTabItemInfo} was used as target of CREATE or ADD operation.
-   */
-  public void command_TARGET_after(ControlInfo control) throws Exception {
-    doSelect();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Notification that this {@link CTabItemInfo} was used as target of CREATE or ADD operation.
+	 */
+	public void command_TARGET_after(ControlInfo control) throws Exception {
+		doSelect();
+	}
 }

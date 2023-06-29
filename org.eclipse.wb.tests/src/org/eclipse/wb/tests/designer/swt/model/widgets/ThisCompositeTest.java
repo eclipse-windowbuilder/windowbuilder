@@ -26,67 +26,67 @@ import java.util.List;
  * @author lobas_av
  */
 public class ThisCompositeTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for parsing "this" Composite. This tests that implementation of
-   * {@link IThisMethodParameterEvaluator} for SWT is correct.
-   */
-  public void test_create() throws Exception {
-    CompositeInfo compositeInfo =
-        parseComposite(
-            "class Test extends Composite {",
-            "  public Test(Composite parent, int style) {",
-            "    super(parent, style);",
-            "    setLayout(new FillLayout());",
-            "    Button button = new Button(this, SWT.NONE);",
-            "    button.setText('push');",
-            "  }",
-            "}");
-    //
-    List<ControlInfo> children = compositeInfo.getChildrenControls();
-    assertEquals(1, children.size());
-    //
-    ControlInfo buttonInfo = children.get(0);
-    Property buttonProperty = buttonInfo.getPropertyByTitle("text");
-    assertNotNull(buttonProperty);
-    assertEquals("push", buttonProperty.getValue());
-    assertInstanceOf(StringPropertyEditor.class, buttonProperty.getEditor());
-    //
-    compositeInfo.refresh();
-    //
-    assertNotNull(compositeInfo.getImage());
-    assertEquals(
-        new org.eclipse.swt.graphics.Rectangle(0, 0, 450, 300),
-        compositeInfo.getImage().getBounds());
-    assertNotNull(compositeInfo.getClientAreaInsets());
-    assertEquals(new Dimension(450, 300), compositeInfo.getBounds().getSize());
-    //
-    assertNotNull(buttonInfo.getImage());
-    assertNotNull(buttonInfo.getClientAreaInsets());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for parsing "this" Composite. This tests that implementation of
+	 * {@link IThisMethodParameterEvaluator} for SWT is correct.
+	 */
+	public void test_create() throws Exception {
+		CompositeInfo compositeInfo =
+				parseComposite(
+						"class Test extends Composite {",
+						"  public Test(Composite parent, int style) {",
+						"    super(parent, style);",
+						"    setLayout(new FillLayout());",
+						"    Button button = new Button(this, SWT.NONE);",
+						"    button.setText('push');",
+						"  }",
+						"}");
+		//
+		List<ControlInfo> children = compositeInfo.getChildrenControls();
+		assertEquals(1, children.size());
+		//
+		ControlInfo buttonInfo = children.get(0);
+		Property buttonProperty = buttonInfo.getPropertyByTitle("text");
+		assertNotNull(buttonProperty);
+		assertEquals("push", buttonProperty.getValue());
+		assertInstanceOf(StringPropertyEditor.class, buttonProperty.getEditor());
+		//
+		compositeInfo.refresh();
+		//
+		assertNotNull(compositeInfo.getImage());
+		assertEquals(
+				new org.eclipse.swt.graphics.Rectangle(0, 0, 450, 300),
+				compositeInfo.getImage().getBounds());
+		assertNotNull(compositeInfo.getClientAreaInsets());
+		assertEquals(new Dimension(450, 300), compositeInfo.getBounds().getSize());
+		//
+		assertNotNull(buttonInfo.getImage());
+		assertNotNull(buttonInfo.getClientAreaInsets());
+	}
 
-  /**
-   * Test for using {@link Shell#Shell(org.eclipse.swt.widgets.Display, int)} constructor.
-   */
-  public void test_Shell_Display() throws Exception {
-    parseComposite(
-        "class Test extends Shell {",
-        "  public Test(Display display, int style) {",
-        "    super(display, style);",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for using {@link Shell#Shell(org.eclipse.swt.widgets.Display, int)} constructor.
+	 */
+	public void test_Shell_Display() throws Exception {
+		parseComposite(
+				"class Test extends Shell {",
+				"  public Test(Display display, int style) {",
+				"    super(display, style);",
+				"  }",
+				"}");
+	}
 }

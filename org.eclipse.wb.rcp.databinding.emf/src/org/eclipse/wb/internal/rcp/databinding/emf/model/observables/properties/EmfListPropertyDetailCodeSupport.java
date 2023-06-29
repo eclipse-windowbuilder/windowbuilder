@@ -25,35 +25,35 @@ import java.util.List;
  *
  */
 public class EmfListPropertyDetailCodeSupport extends BeanObservableDetailCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addDetailSourceCode(List<String> lines,
-      CodeGenerationSupport generationSupport,
-      DetailBeanObservableInfo observable,
-      ObservableInfo masterObservable) throws Exception {
-    DetailEmfObservableInfo emfObservable = (DetailEmfObservableInfo) observable;
-    //
-    String sourceCode =
-        emfObservable.getPropertiesSupport().getEMFPropertiesCode("list(")
-            + emfObservable.getDetailPropertyReference()
-            + ")";
-    if (getVariableIdentifier() != null) {
-      lines.add("org.eclipse.core.databinding.beans.IBeanListProperty "
-          + getVariableIdentifier()
-          + sourceCode
-          + ";");
-      sourceCode = " = " + getVariableIdentifier();
-    }
-    // add code
-    lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
-        + observable.getVariableIdentifier()
-        + sourceCode
-        + ".observeDetail("
-        + masterObservable.getVariableIdentifier()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addDetailSourceCode(List<String> lines,
+			CodeGenerationSupport generationSupport,
+			DetailBeanObservableInfo observable,
+			ObservableInfo masterObservable) throws Exception {
+		DetailEmfObservableInfo emfObservable = (DetailEmfObservableInfo) observable;
+		//
+		String sourceCode =
+				emfObservable.getPropertiesSupport().getEMFPropertiesCode("list(")
+				+ emfObservable.getDetailPropertyReference()
+				+ ")";
+		if (getVariableIdentifier() != null) {
+			lines.add("org.eclipse.core.databinding.beans.IBeanListProperty "
+					+ getVariableIdentifier()
+					+ sourceCode
+					+ ";");
+			sourceCode = " = " + getVariableIdentifier();
+		}
+		// add code
+		lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
+				+ observable.getVariableIdentifier()
+				+ sourceCode
+				+ ".observeDetail("
+				+ masterObservable.getVariableIdentifier()
+				+ ");");
+	}
 }

@@ -28,134 +28,134 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
  * @coverage core.util.ast
  */
 public class AstVisitorEx extends ASTVisitor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Methods to wrap
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void preVisit(ASTNode node) {
-    try {
-      preVisitEx(node);
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Methods to wrap
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void preVisit(ASTNode node) {
+		try {
+			preVisitEx(node);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  @Override
-  public final void postVisit(ASTNode node) {
-    try {
-      postVisitEx(node);
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	@Override
+	public final void postVisit(ASTNode node) {
+		try {
+			postVisitEx(node);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  @Override
-  public final boolean visit(QualifiedName node) {
-    try {
-      return visitEx(node);
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	@Override
+	public final boolean visit(QualifiedName node) {
+		try {
+			return visitEx(node);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  @Override
-  public final void endVisit(QualifiedName node) {
-    try {
-      endVisitEx(node);
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	@Override
+	public final void endVisit(QualifiedName node) {
+		try {
+			endVisitEx(node);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  @Override
-  public final void endVisit(MethodInvocation node) {
-    try {
-      endVisitEx(node);
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	@Override
+	public final void endVisit(MethodInvocation node) {
+		try {
+			endVisitEx(node);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  @Override
-  public final void endVisit(SuperMethodInvocation node) {
-    try {
-      endVisitEx(node);
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	@Override
+	public final void endVisit(SuperMethodInvocation node) {
+		try {
+			endVisitEx(node);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  @Override
-  public final void endVisit(TypeDeclaration node) {
-    try {
-      endVisitEx(node);
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	@Override
+	public final void endVisit(TypeDeclaration node) {
+		try {
+			endVisitEx(node);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  @Override
-  public final void endVisit(TryStatement node) {
-    try {
-      endVisitEx(node);
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	@Override
+	public final void endVisit(TryStatement node) {
+		try {
+			endVisitEx(node);
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Methods to implement
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link #preVisit(ASTNode)}.
-   */
-  public void preVisitEx(ASTNode node) throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Methods to implement
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link #preVisit(ASTNode)}.
+	 */
+	public void preVisitEx(ASTNode node) throws Exception {
+	}
 
-  /**
-   * Implementation of {@link #postVisit(ASTNode)}.
-   */
-  public void postVisitEx(ASTNode node) throws Exception {
-  }
+	/**
+	 * Implementation of {@link #postVisit(ASTNode)}.
+	 */
+	public void postVisitEx(ASTNode node) throws Exception {
+	}
 
-  /**
-   * Implementation of {@link #visit(QualifiedName)}.
-   */
-  public boolean visitEx(QualifiedName node) throws Exception {
-    return true;
-  }
+	/**
+	 * Implementation of {@link #visit(QualifiedName)}.
+	 */
+	public boolean visitEx(QualifiedName node) throws Exception {
+		return true;
+	}
 
-  /**
-   * Implementation of {@link #endVisit(QualifiedName)}.
-   */
-  public void endVisitEx(QualifiedName node) throws Exception {
-  }
+	/**
+	 * Implementation of {@link #endVisit(QualifiedName)}.
+	 */
+	public void endVisitEx(QualifiedName node) throws Exception {
+	}
 
-  /**
-   * Implementation of {@link #endVisit(MethodInvocation)}.
-   */
-  public void endVisitEx(MethodInvocation node) throws Exception {
-  }
+	/**
+	 * Implementation of {@link #endVisit(MethodInvocation)}.
+	 */
+	public void endVisitEx(MethodInvocation node) throws Exception {
+	}
 
-  /**
-   * Implementation of {@link #endVisit(SuperMethodInvocation)}.
-   */
-  public void endVisitEx(SuperMethodInvocation node) throws Exception {
-  }
+	/**
+	 * Implementation of {@link #endVisit(SuperMethodInvocation)}.
+	 */
+	public void endVisitEx(SuperMethodInvocation node) throws Exception {
+	}
 
-  /**
-   * Implementation of {@link #endVisit(TypeDeclaration)}.
-   */
-  public void endVisitEx(TypeDeclaration node) throws Exception {
-  }
+	/**
+	 * Implementation of {@link #endVisit(TypeDeclaration)}.
+	 */
+	public void endVisitEx(TypeDeclaration node) throws Exception {
+	}
 
-  /**
-   * Implementation of {@link #endVisit(TryStatement)}.
-   */
-  public void endVisitEx(TryStatement node) throws Exception {
-  }
+	/**
+	 * Implementation of {@link #endVisit(TryStatement)}.
+	 */
+	public void endVisitEx(TryStatement node) throws Exception {
+	}
 }

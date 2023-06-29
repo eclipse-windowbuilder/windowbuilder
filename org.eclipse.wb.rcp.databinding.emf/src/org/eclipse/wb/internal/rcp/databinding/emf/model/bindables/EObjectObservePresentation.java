@@ -24,42 +24,42 @@ import org.apache.commons.lang.ClassUtils;
  * @coverage bindings.rcp.emf.model
  */
 public final class EObjectObservePresentation extends ObservePresentation {
-  private static final Image IMAGE = Activator.getImage("EObject.gif");
-  private final EObjectBindableInfo m_eObject;
+	private static final Image IMAGE = Activator.getImage("EObject.gif");
+	private final EObjectBindableInfo m_eObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EObjectObservePresentation(EObjectBindableInfo eObject) {
-    m_eObject = eObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EObjectObservePresentation(EObjectBindableInfo eObject) {
+		m_eObject = eObject;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Image getInternalImage() throws Exception {
-    return IMAGE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Image getInternalImage() throws Exception {
+		return IMAGE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObservePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText() throws Exception {
-    return m_eObject.getReference()
-        + " - "
-        + ClassUtils.getShortClassName(m_eObject.getObjectType());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObservePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText() throws Exception {
+		return m_eObject.getReference()
+				+ " - "
+				+ ClassUtils.getShortClassName(m_eObject.getObjectType());
+	}
 
-  @Override
-  public String getTextForBinding() throws Exception {
-    return m_eObject.getReference();
-  }
+	@Override
+	public String getTextForBinding() throws Exception {
+		return m_eObject.getReference();
+	}
 }

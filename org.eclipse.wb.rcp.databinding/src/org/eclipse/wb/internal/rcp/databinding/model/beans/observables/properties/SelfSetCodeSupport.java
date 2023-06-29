@@ -30,74 +30,74 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public class SelfSetCodeSupport extends BeanPropertiesCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getObservableType() {
-    return "org.eclipse.core.databinding.property.set.ISetProperty";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getObservableType() {
+		return "org.eclipse.core.databinding.property.set.ISetProperty";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ObservableInfo createObservable(AstEditor editor, BeanBindableInfo bindableObject)
-      throws Exception {
-    CollectionPropertyBindableInfo bindableProperty =
-        (CollectionPropertyBindableInfo) bindableObject.resolvePropertyReference(bindableObject.getReference());
-    Assert.isNotNull(bindableProperty);
-    WritableSetBeanObservableInfo observable =
-        new WritableSetBeanObservableInfo(bindableObject, bindableProperty, m_parserPropertyType);
-    observable.setCodeSupport(this);
-    return observable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ObservableInfo createObservable(AstEditor editor, BeanBindableInfo bindableObject)
+			throws Exception {
+		CollectionPropertyBindableInfo bindableProperty =
+				(CollectionPropertyBindableInfo) bindableObject.resolvePropertyReference(bindableObject.getReference());
+		Assert.isNotNull(bindableProperty);
+		WritableSetBeanObservableInfo observable =
+				new WritableSetBeanObservableInfo(bindableObject, bindableProperty, m_parserPropertyType);
+		observable.setCodeSupport(this);
+		return observable;
+	}
 
-  @Override
-  protected ObservableInfo createObservable(BeanBindableInfo bindableObject,
-      BeanPropertyBindableInfo bindableProperty) throws Exception {
-    throw new UnsupportedOperationException();
-  }
+	@Override
+	protected ObservableInfo createObservable(BeanBindableInfo bindableObject,
+			BeanPropertyBindableInfo bindableProperty) throws Exception {
+		throw new UnsupportedOperationException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName("SelfSet"));
-    }
-    // add code
-    CollectionObservableInfo collectionObservable = (CollectionObservableInfo) observable;
-    String sourceCode =
-        "org.eclipse.core.databinding.property.Properties.selfSet("
-            + CoreUtils.getClassName(collectionObservable.getElementType())
-            + ".class)";
-    if (getVariableIdentifier() != null) {
-      if (generationSupport.addModel(this)) {
-        lines.add("org.eclipse.core.databinding.property.set.ISetProperty "
-            + getVariableIdentifier()
-            + " = "
-            + sourceCode
-            + ";");
-      }
-      sourceCode = getVariableIdentifier();
-    }
-    lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
-        + observable.getVariableIdentifier()
-        + " = "
-        + sourceCode
-        + ".observe("
-        + observable.getBindableObject().getReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName("SelfSet"));
+		}
+		// add code
+		CollectionObservableInfo collectionObservable = (CollectionObservableInfo) observable;
+		String sourceCode =
+				"org.eclipse.core.databinding.property.Properties.selfSet("
+						+ CoreUtils.getClassName(collectionObservable.getElementType())
+						+ ".class)";
+		if (getVariableIdentifier() != null) {
+			if (generationSupport.addModel(this)) {
+				lines.add("org.eclipse.core.databinding.property.set.ISetProperty "
+						+ getVariableIdentifier()
+						+ " = "
+						+ sourceCode
+						+ ";");
+			}
+			sourceCode = getVariableIdentifier();
+		}
+		lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
+				+ observable.getVariableIdentifier()
+				+ " = "
+				+ sourceCode
+				+ ".observe("
+				+ observable.getBindableObject().getReference()
+				+ ");");
+	}
 }

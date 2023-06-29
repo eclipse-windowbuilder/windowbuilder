@@ -23,52 +23,52 @@ import java.util.List;
  * @coverage gef.core
  */
 public class GroupRequest extends Request {
-  private List<EditPart> m_editParts;
+	private List<EditPart> m_editParts;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Constructs an empty {@link GroupRequest}.
-   */
-  public GroupRequest() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Constructs an empty {@link GroupRequest}.
+	 */
+	public GroupRequest() {
+	}
 
-  /**
-   * Constructs a {@link GroupRequest} with the specified <i>type</i>.
-   */
-  public GroupRequest(Object type) {
-    super(type);
-  }
+	/**
+	 * Constructs a {@link GroupRequest} with the specified <i>type</i>.
+	 */
+	public GroupRequest(Object type) {
+		super(type);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns all {@link EditPart}s making this {@link Request}.
-   */
-  public List<EditPart> getEditParts() {
-    return m_editParts;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns all {@link EditPart}s making this {@link Request}.
+	 */
+	public List<EditPart> getEditParts() {
+		return m_editParts;
+	}
 
-  /**
-   * Sets the {@link EditPart}s making this {@link Request}.
-   */
-  public void setEditParts(List<EditPart> editParts) {
-    m_editParts = editParts;
-  }
+	/**
+	 * Sets the {@link EditPart}s making this {@link Request}.
+	 */
+	public void setEditParts(List<EditPart> editParts) {
+		m_editParts = editParts;
+	}
 
-  /**
-   * Add {@link EditPart} to this {@link Request}.
-   */
-  public void addEditPart(EditPart editPart) {
-    if (m_editParts == null) {
-      m_editParts = Lists.newArrayList();
-    }
-    m_editParts.add(editPart);
-  }
+	/**
+	 * Add {@link EditPart} to this {@link Request}.
+	 */
+	public void addEditPart(EditPart editPart) {
+		if (m_editParts == null) {
+			m_editParts = Lists.newArrayList();
+		}
+		m_editParts.add(editPart);
+	}
 }

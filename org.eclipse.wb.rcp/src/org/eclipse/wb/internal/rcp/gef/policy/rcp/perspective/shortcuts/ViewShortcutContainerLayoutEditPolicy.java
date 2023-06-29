@@ -31,82 +31,82 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutI
  * @coverage rcp.gef.policy
  */
 public final class ViewShortcutContainerLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
-  private static final ILayoutRequestValidator VALIDATOR =
-      LayoutRequestValidators.modelType(ViewShortcutInfo.class);
-  private final PageLayoutInfo m_page;
-  private final ViewShortcutContainerInfo m_container;
+	private static final ILayoutRequestValidator VALIDATOR =
+			LayoutRequestValidators.modelType(ViewShortcutInfo.class);
+	private final PageLayoutInfo m_page;
+	private final ViewShortcutContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewShortcutContainerLayoutEditPolicy(ViewShortcutContainerInfo container) {
-    m_container = container;
-    m_page = container.getPage();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewShortcutContainerLayoutEditPolicy(ViewShortcutContainerInfo container) {
+		m_container = container;
+		m_page = container.getPage();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof ViewShortcutInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof ViewShortcutInfo;
+	}
 
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return super.isRequestCondition(request) || request instanceof ViewDropRequest;
-  }
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return super.isRequestCondition(request) || request instanceof ViewDropRequest;
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractFlowLayoutEditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractFlowLayoutEditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCommand(Request request, Object referenceObject) {
-    if (request instanceof ViewDropRequest) {
-      final ViewDropRequest viewDrop_Request = (ViewDropRequest) request;
-      final ViewInfo viewInfo = viewDrop_Request.getView();
-      final ViewShortcutInfo reference = (ViewShortcutInfo) referenceObject;
-      return new EditCommand(m_page) {
-        @Override
-        protected void executeEdit() throws Exception {
-          ViewShortcutInfo newView = m_container.command_CREATE(viewInfo.getId(), reference);
-          viewDrop_Request.setComponent(newView);
-        }
-      };
-    }
-    return super.getCommand(request, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCommand(Request request, Object referenceObject) {
+		if (request instanceof ViewDropRequest) {
+			final ViewDropRequest viewDrop_Request = (ViewDropRequest) request;
+			final ViewInfo viewInfo = viewDrop_Request.getView();
+			final ViewShortcutInfo reference = (ViewShortcutInfo) referenceObject;
+			return new EditCommand(m_page) {
+				@Override
+				protected void executeEdit() throws Exception {
+					ViewShortcutInfo newView = m_container.command_CREATE(viewInfo.getId(), reference);
+					viewDrop_Request.setComponent(newView);
+				}
+			};
+		}
+		return super.getCommand(request, referenceObject);
+	}
 
-  @Override
-  protected Command getMoveCommand(Object moveObject, Object referenceObject) {
-    final ViewShortcutInfo item = (ViewShortcutInfo) moveObject;
-    final ViewShortcutInfo nextItem = (ViewShortcutInfo) referenceObject;
-    return new EditCommand(m_page) {
-      @Override
-      protected void executeEdit() throws Exception {
-        m_container.command_MOVE(item, nextItem);
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(Object moveObject, Object referenceObject) {
+		final ViewShortcutInfo item = (ViewShortcutInfo) moveObject;
+		final ViewShortcutInfo nextItem = (ViewShortcutInfo) referenceObject;
+		return new EditCommand(m_page) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_container.command_MOVE(item, nextItem);
+			}
+		};
+	}
 }

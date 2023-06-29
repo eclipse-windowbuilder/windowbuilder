@@ -35,98 +35,98 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public final class SimpleContainerLayoutEditPolicy extends LayoutEditPolicy {
-  private final ObjectInfo m_model;
-  private final SimpleContainer m_container;
-  private final ILayoutRequestValidator m_requestValidator;
+	private final ObjectInfo m_model;
+	private final SimpleContainer m_container;
+	private final ILayoutRequestValidator m_requestValidator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimpleContainerLayoutEditPolicy(ObjectInfo model, SimpleContainer container) {
-    m_model = model;
-    m_container = container;
-    {
-      ILayoutRequestValidator validator = new AbstractContainerRequestValidator(container);
-      validator = LayoutRequestValidators.cache(validator);
-      m_requestValidator = validator;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimpleContainerLayoutEditPolicy(ObjectInfo model, SimpleContainer container) {
+		m_model = model;
+		m_container = container;
+		{
+			ILayoutRequestValidator validator = new AbstractContainerRequestValidator(container);
+			validator = LayoutRequestValidators.cache(validator);
+			m_requestValidator = validator;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return m_requestValidator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return m_requestValidator;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedbacks
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    PolicyUtils.showBorderTargetFeedback(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedbacks
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		PolicyUtils.showBorderTargetFeedback(this);
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    PolicyUtils.eraseBorderTargetFeedback(this);
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		PolicyUtils.eraseBorderTargetFeedback(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Command getCommand(Request request) {
-    if (!m_container.isEmpty()) {
-      return null;
-    }
-    return super.getCommand(request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Command getCommand(Request request) {
+		if (!m_container.isEmpty()) {
+			return null;
+		}
+		return super.getCommand(request);
+	}
 
-  @Override
-  protected Command getCreateCommand(final CreateRequest request) {
-    final Object newObject = request.getNewObject();
-    return new EditCommand(m_model) {
-      @Override
-      protected void executeEdit() throws Exception {
-        m_container.command_CREATE(newObject);
-      }
-    };
-  }
+	@Override
+	protected Command getCreateCommand(final CreateRequest request) {
+		final Object newObject = request.getNewObject();
+		return new EditCommand(m_model) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_container.command_CREATE(newObject);
+			}
+		};
+	}
 
-  @Override
-  protected Command getPasteCommand(PasteRequest request) {
-    return GlobalState.getPasteRequestProcessor().getPasteCommand(
-        request,
-        new IPasteComponentProcessor() {
-          @Override
-          public void process(Object component) throws Exception {
-            m_container.command_CREATE(component);
-          }
-        });
-  }
+	@Override
+	protected Command getPasteCommand(PasteRequest request) {
+		return GlobalState.getPasteRequestProcessor().getPasteCommand(
+				request,
+				new IPasteComponentProcessor() {
+					@Override
+					public void process(Object component) throws Exception {
+						m_container.command_CREATE(component);
+					}
+				});
+	}
 
-  @Override
-  protected Command getAddCommand(ChangeBoundsRequest request) {
-    final List<EditPart> parts = request.getEditParts();
-    if (parts.size() == 1) {
-      return new EditCommand(m_model) {
-        @Override
-        protected void executeEdit() throws Exception {
-          Object object = parts.get(0).getModel();
-          m_container.command_ADD(object);
-        }
-      };
-    }
-    return null;
-  }
+	@Override
+	protected Command getAddCommand(ChangeBoundsRequest request) {
+		final List<EditPart> parts = request.getEditParts();
+		if (parts.size() == 1) {
+			return new EditCommand(m_model) {
+				@Override
+				protected void executeEdit() throws Exception {
+					Object object = parts.get(0).getModel();
+					m_container.command_ADD(object);
+				}
+			};
+		}
+		return null;
+	}
 }

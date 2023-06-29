@@ -24,54 +24,54 @@ import java.awt.Color;
  * @coverage swing.property.converter
  */
 public class ColorConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new ColorConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new ColorConverter();
 
-  private ColorConverter() {
-  }
+	private ColorConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    // handle "null" value
-    if (value == null) {
-      return "(java.awt.Color) null";
-    }
-    // find constant value
-    for (ColorInfo colorInfo : AwtColors.getColors_System()) {
-      if (value == colorInfo.getToolkitColor()) {
-        return (String) colorInfo.getData();
-      }
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		// handle "null" value
+		if (value == null) {
+			return "(java.awt.Color) null";
+		}
+		// find constant value
+		for (ColorInfo colorInfo : AwtColors.getColors_System()) {
+			if (value == colorInfo.getToolkitColor()) {
+				return (String) colorInfo.getData();
+			}
+		}
 
-    for (ColorInfo[] colorInfos : new ColorInfo[][]{
-        AwtColors.getColors_AWT(),
-        AwtColors.getColors_Swing(),}) {
-      for (ColorInfo colorInfo : colorInfos) {
-        if (value.equals(colorInfo.getToolkitColor())) {
-          return (String) colorInfo.getData();
-        }
-      }
-    }
-    // Color constructor
-    Color color = (Color) value;
-    int alpha = color.getAlpha();
-    String alphaParameter = alpha == 255 ? "" : ", " + Integer.toString(alpha);
-    return "new java.awt.Color("
-        + Integer.toString(color.getRed())
-        + ", "
-        + Integer.toString(color.getGreen())
-        + ", "
-        + Integer.toString(color.getBlue())
-        + alphaParameter
-        + ")";
-  }
+		for (ColorInfo[] colorInfos : new ColorInfo[][]{
+			AwtColors.getColors_AWT(),
+			AwtColors.getColors_Swing(),}) {
+			for (ColorInfo colorInfo : colorInfos) {
+				if (value.equals(colorInfo.getToolkitColor())) {
+					return (String) colorInfo.getData();
+				}
+			}
+		}
+		// Color constructor
+		Color color = (Color) value;
+		int alpha = color.getAlpha();
+		String alphaParameter = alpha == 255 ? "" : ", " + Integer.toString(alpha);
+		return "new java.awt.Color("
+		+ Integer.toString(color.getRed())
+		+ ", "
+		+ Integer.toString(color.getGreen())
+		+ ", "
+		+ Integer.toString(color.getBlue())
+		+ alphaParameter
+		+ ")";
+	}
 }

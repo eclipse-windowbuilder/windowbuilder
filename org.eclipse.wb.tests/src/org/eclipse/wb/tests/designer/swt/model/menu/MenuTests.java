@@ -23,17 +23,17 @@ import junit.framework.TestSuite;
  * @author mitin_aa
  */
 public class MenuTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swt.model.menu");
-    suite.addTest(createSingleSuite(AbstractMenuObjectTest.class));
-    suite.addTest(createSingleSuite(MenuSupportTest.class));
-    suite.addTest(createSingleSuite(MenuItemTest.class));
-    suite.addTest(createSingleSuite(MenuTest.class));
-    suite.addTest(createSingleSuite(MenuObjectInfoUtilsTest.class));
-    suite.addTest(createSingleSuite(MenuPopupSimpleTest.class));
-    suite.addTest(createSingleSuite(MenuComplexTest.class));
-    suite.addTest(createSingleSuite(MenuBarPopupTest.class));
-    suite.addTest(createSingleSuite(MenuProblemsTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swt.model.menu");
+		suite.addTest(createSingleSuite(AbstractMenuObjectTest.class));
+		suite.addTest(createSingleSuite(MenuSupportTest.class));
+		suite.addTest(createSingleSuite(MenuItemTest.class));
+		suite.addTest(createSingleSuite(MenuTest.class));
+		suite.addTest(createSingleSuite(MenuObjectInfoUtilsTest.class));
+		suite.addTest(createSingleSuite(MenuPopupSimpleTest.class));
+		suite.addTest(createSingleSuite(MenuComplexTest.class));
+		suite.addTest(createSingleSuite(MenuBarPopupTest.class));
+		suite.addTest(createSingleSuite(MenuProblemsTest.class));
+		return suite;
+	}
 }

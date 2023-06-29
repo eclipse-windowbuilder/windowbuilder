@@ -28,49 +28,49 @@ import org.apache.commons.lang.StringUtils;
  * @coverage core.gef
  */
 public final class CoreEditPartConfigurator implements IEditPartConfigurator {
-  @Override
-  public void configure(EditPart context, EditPart editPart) {
-    Object model = editPart.getModel();
-    // double click
-    if (GlobalState.isComponent(model)) {
-      ObjectInfo component = (ObjectInfo) model;
-      configureFlipBooleanProperty(editPart, component);
-      configure_onDoubleClick_runScript(editPart, component);
-    }
-    // direct edit
-    if (model instanceof AbstractComponentInfo) {
-      AbstractComponentInfo item = (AbstractComponentInfo) model;
-      DirectTextPropertyEditPolicy.install(editPart, item);
-    }
-  }
+	@Override
+	public void configure(EditPart context, EditPart editPart) {
+		Object model = editPart.getModel();
+		// double click
+		if (GlobalState.isComponent(model)) {
+			ObjectInfo component = (ObjectInfo) model;
+			configureFlipBooleanProperty(editPart, component);
+			configure_onDoubleClick_runScript(editPart, component);
+		}
+		// direct edit
+		if (model instanceof AbstractComponentInfo) {
+			AbstractComponentInfo item = (AbstractComponentInfo) model;
+			DirectTextPropertyEditPolicy.install(editPart, item);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Allows to use <code>double-click.flipBooleanProperty</code> parameter to flip some boolean
-   * property between <code>true/false</code> states, for example "expanded" property.
-   */
-  private void configureFlipBooleanProperty(EditPart editPart, ObjectInfo component) {
-    String propertyPath =
-        GlobalState.getParametersProvider().getParameter(
-            component,
-            "double-click.flipBooleanProperty");
-    if (!StringUtils.isEmpty(propertyPath)) {
-      editPart.installEditPolicy(new FlipBooleanPropertyEditPolicy(component, propertyPath));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Allows to use <code>double-click.flipBooleanProperty</code> parameter to flip some boolean
+	 * property between <code>true/false</code> states, for example "expanded" property.
+	 */
+	private void configureFlipBooleanProperty(EditPart editPart, ObjectInfo component) {
+		String propertyPath =
+				GlobalState.getParametersProvider().getParameter(
+						component,
+						"double-click.flipBooleanProperty");
+		if (!StringUtils.isEmpty(propertyPath)) {
+			editPart.installEditPolicy(new FlipBooleanPropertyEditPolicy(component, propertyPath));
+		}
+	}
 
-  /**
-   * If has "double-click.runScript", then run this MVEL script with component as context.
-   */
-  private void configure_onDoubleClick_runScript(EditPart editPart, ObjectInfo component) {
-    String propertyPath =
-        GlobalState.getParametersProvider().getParameter(component, "double-click.runScript");
-    if (!StringUtils.isEmpty(propertyPath)) {
-      editPart.installEditPolicy(new DblClickRunScriptEditPolicy(component, propertyPath));
-    }
-  }
+	/**
+	 * If has "double-click.runScript", then run this MVEL script with component as context.
+	 */
+	private void configure_onDoubleClick_runScript(EditPart editPart, ObjectInfo component) {
+		String propertyPath =
+				GlobalState.getParametersProvider().getParameter(component, "double-click.runScript");
+		if (!StringUtils.isEmpty(propertyPath)) {
+			editPart.installEditPolicy(new DblClickRunScriptEditPolicy(component, propertyPath));
+		}
+	}
 }

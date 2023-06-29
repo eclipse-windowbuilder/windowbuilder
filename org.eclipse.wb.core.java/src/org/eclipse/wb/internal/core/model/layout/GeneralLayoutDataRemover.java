@@ -25,42 +25,42 @@ import java.util.List;
  * @coverage core.model.layout
  */
 public final class GeneralLayoutDataRemover implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new GeneralLayoutDataRemover();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new GeneralLayoutDataRemover();
 
-  private GeneralLayoutDataRemover() {
-  }
+	private GeneralLayoutDataRemover() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    root.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshed() throws Exception {
-        clearHierarachy(root);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		root.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshed() throws Exception {
+				clearHierarachy(root);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static void clearHierarachy(JavaInfo root) throws Exception {
-    root.accept0(new ObjectInfoVisitor() {
-      @Override
-      public void endVisit(ObjectInfo objectInfo) throws Exception {
-        GeneralLayoutData.clearForInfo(objectInfo);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static void clearHierarachy(JavaInfo root) throws Exception {
+		root.accept0(new ObjectInfoVisitor() {
+			@Override
+			public void endVisit(ObjectInfo objectInfo) throws Exception {
+				GeneralLayoutData.clearForInfo(objectInfo);
+			}
+		});
+	}
 }

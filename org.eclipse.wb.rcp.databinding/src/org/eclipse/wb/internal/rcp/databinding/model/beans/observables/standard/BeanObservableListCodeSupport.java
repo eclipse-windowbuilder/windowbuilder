@@ -24,36 +24,36 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public class BeanObservableListCodeSupport extends ObservableCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName(
-          observable.getBindableObject().getReference(),
-          observable.getBindableProperty().getReference(),
-          "ObserveList"));
-    }
-    // calculate observable method
-    String observeMethod =
-        observable.isPojoBindable()
-            ? " = "
-                + DataBindingsCodeUtils.getPojoObservablesClass()
-                + ".observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), "
-            : " = org.eclipse.core.databinding.beans.BeansObservables.observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), ";
-    // add code
-    lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
-        + observable.getVariableIdentifier()
-        + observeMethod
-        + observable.getBindableObject().getReference()
-        + ", "
-        + observable.getBindableProperty().getReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName(
+					observable.getBindableObject().getReference(),
+					observable.getBindableProperty().getReference(),
+					"ObserveList"));
+		}
+		// calculate observable method
+		String observeMethod =
+				observable.isPojoBindable()
+				? " = "
+				+ DataBindingsCodeUtils.getPojoObservablesClass()
+				+ ".observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), "
+				: " = org.eclipse.core.databinding.beans.BeansObservables.observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), ";
+		// add code
+		lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
+				+ observable.getVariableIdentifier()
+				+ observeMethod
+				+ observable.getBindableObject().getReference()
+				+ ", "
+				+ observable.getBindableProperty().getReference()
+				+ ");");
+	}
 }

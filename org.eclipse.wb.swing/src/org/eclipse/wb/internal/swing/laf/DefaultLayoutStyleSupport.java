@@ -22,28 +22,28 @@ import javax.swing.LookAndFeel;
  * @coverage swing.laf
  */
 public final class DefaultLayoutStyleSupport implements ILayoutStyleSupport {
-  // constants
-  public static final int DEFAULT_PREFERRED_GAP = 6;
-  public static final int DEFAULT_CONTAINER_GAP = 10;
+	// constants
+	public static final int DEFAULT_PREFERRED_GAP = 6;
+	public static final int DEFAULT_CONTAINER_GAP = 10;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutStyleSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setLayoutStyle(LookAndFeel laf) {
-    // do nothing
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutStyleSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setLayoutStyle(LookAndFeel laf) {
+		// do nothing
+	}
 
-  public int getContainerGap(JComponent component, int position, Container parent) {
-    return DEFAULT_CONTAINER_GAP;
-  }
+	public int getContainerGap(JComponent component, int position, Container parent) {
+		return DEFAULT_CONTAINER_GAP;
+	}
 
-  public int getPreferredGap(JComponent component1,
-      JComponent component2,
-      int componentPlacement,
-      int position,
-      Container parent) {
-    return DEFAULT_PREFERRED_GAP;
-  }
+	public int getPreferredGap(JComponent component1,
+			JComponent component2,
+			int componentPlacement,
+			int position,
+			Container parent) {
+		return DEFAULT_PREFERRED_GAP;
+	}
 }

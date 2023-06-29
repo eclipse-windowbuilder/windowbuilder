@@ -25,44 +25,44 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage XML.editor.palette.ui
  */
 public final class CategoryEditDialog extends CategoryAbstractDialog {
-  private final CategoryInfo m_category;
+	private final CategoryInfo m_category;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CategoryEditDialog(Shell parentShell, CategoryInfo category) {
-    super(parentShell, Messages.CategoryEditDialog_title, Messages.CategoryEditDialog_description);
-    m_category = category;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CategoryEditDialog(Shell parentShell, CategoryInfo category) {
+		super(parentShell, Messages.CategoryEditDialog_title, Messages.CategoryEditDialog_description);
+		m_category = category;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createControls(Composite container) {
-    super.createControls(container);
-    m_idField.setText(m_category.getId());
-    m_nameField.setText(m_category.getName());
-    m_descriptionField.setText(m_category.getDescription());
-    m_stateField.setSelection(0, m_category.isVisible());
-    m_stateField.setSelection(1, m_category.isOpen());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createControls(Composite container) {
+		super.createControls(container);
+		m_idField.setText(m_category.getId());
+		m_nameField.setText(m_category.getName());
+		m_descriptionField.setText(m_category.getDescription());
+		m_stateField.setSelection(0, m_category.isVisible());
+		m_stateField.setSelection(1, m_category.isOpen());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command createCommand() {
-    String name = m_nameField.getText();
-    String description = m_descriptionField.getText();
-    boolean hidden = m_stateField.isSelected(0);
-    boolean open = m_stateField.isSelected(1);
-    return new CategoryEditCommand(m_category.getId(), name, description, hidden, open);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command createCommand() {
+		String name = m_nameField.getText();
+		String description = m_descriptionField.getText();
+		boolean hidden = m_stateField.isSelected(0);
+		boolean open = m_stateField.isSelected(1);
+		return new CategoryEditCommand(m_category.getId(), name, description, hidden, open);
+	}
 }

@@ -30,42 +30,42 @@ import java.lang.reflect.Modifier;
  * @coverage core.model.description
  */
 public final class PublicFieldPropertiesRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    Class<?> componentClass = componentDescription.getComponentClass();
-    for (Field field : componentClass.getFields()) {
-      int modifiers = field.getModifiers();
-      if (!Modifier.isStatic(modifiers) && !Modifier.isFinal(modifiers)) {
-        addSingleProperty(componentDescription, field);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		Class<?> componentClass = componentDescription.getComponentClass();
+		for (Field field : componentClass.getFields()) {
+			int modifiers = field.getModifiers();
+			if (!Modifier.isStatic(modifiers) && !Modifier.isFinal(modifiers)) {
+				addSingleProperty(componentDescription, field);
+			}
+		}
+	}
 
-  /**
-   * Adds single {@link GenericPropertyDescription} for given field.
-   */
-  private static void addSingleProperty(ComponentDescription componentDescription, Field field)
-      throws Exception {
-    String title = field.getName();
-    String id = title;
-    Class<?> type = field.getType();
-    // prepare property parts
-    PropertyEditor editor = DescriptionPropertiesHelper.getEditorForType(type);
-    ExpressionConverter converter = DescriptionPropertiesHelper.getConverterForType(type);
-    FieldAccessor accessor = new FieldAccessor(field);
-    // create property
-    GenericPropertyDescription propertyDescription =
-        new GenericPropertyDescription(id, title, type);
-    propertyDescription.addAccessor(accessor);
-    propertyDescription.setConverter(converter);
-    propertyDescription.setEditor(editor);
-    // add property
-    componentDescription.addProperty(propertyDescription);
-  }
+	/**
+	 * Adds single {@link GenericPropertyDescription} for given field.
+	 */
+	private static void addSingleProperty(ComponentDescription componentDescription, Field field)
+			throws Exception {
+		String title = field.getName();
+		String id = title;
+		Class<?> type = field.getType();
+		// prepare property parts
+		PropertyEditor editor = DescriptionPropertiesHelper.getEditorForType(type);
+		ExpressionConverter converter = DescriptionPropertiesHelper.getConverterForType(type);
+		FieldAccessor accessor = new FieldAccessor(field);
+		// create property
+		GenericPropertyDescription propertyDescription =
+				new GenericPropertyDescription(id, title, type);
+		propertyDescription.addAccessor(accessor);
+		propertyDescription.setConverter(converter);
+		propertyDescription.setEditor(editor);
+		// add property
+		componentDescription.addProperty(propertyDescription);
+	}
 }

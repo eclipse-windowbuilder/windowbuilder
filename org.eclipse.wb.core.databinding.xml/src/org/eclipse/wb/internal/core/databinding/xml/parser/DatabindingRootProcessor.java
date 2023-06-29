@@ -32,42 +32,42 @@ import java.util.Map;
  * @coverage bindings.xml.parser
  */
 public final class DatabindingRootProcessor implements IRootProcessor {
-  public static final IRootProcessor INSTANCE = new DatabindingRootProcessor();
-  public static final Map<IDocument, ParseState> STATES = Maps.newHashMap();
-  private List<IDatabindingFactory> m_factories;
+	public static final IRootProcessor INSTANCE = new DatabindingRootProcessor();
+	public static final Map<IDocument, ParseState> STATES = Maps.newHashMap();
+	private List<IDatabindingFactory> m_factories;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final XmlObjectInfo root) throws Exception {
-    // prepare factories
-    if (m_factories == null) {
-      m_factories =
-          ExternalFactoriesHelper.getElementsInstances(
-              IDatabindingFactory.class,
-              "org.eclipse.wb.core.databinding.xml.databindingFactories",
-              "factory");
-    }
-    // handle providers
-    for (IDatabindingFactory factory : m_factories) {
-      IDatabindingsProvider databindingsProvider = factory.createProvider(root);
-      if (databindingsProvider != null) {
-        // store current provider
-        STATES.put(
-            root.getContext().getDocument(),
-            new ParseState(databindingsProvider, factory.getPlugin()));
-        // add remove listener
-        root.addBroadcastListener(new ObjectEventListener() {
-          @Override
-          public void dispose() throws Exception {
-            STATES.remove(root.getContext().getDocument());
-          }
-        });
-        return;
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final XmlObjectInfo root) throws Exception {
+		// prepare factories
+		if (m_factories == null) {
+			m_factories =
+					ExternalFactoriesHelper.getElementsInstances(
+							IDatabindingFactory.class,
+							"org.eclipse.wb.core.databinding.xml.databindingFactories",
+							"factory");
+		}
+		// handle providers
+		for (IDatabindingFactory factory : m_factories) {
+			IDatabindingsProvider databindingsProvider = factory.createProvider(root);
+			if (databindingsProvider != null) {
+				// store current provider
+				STATES.put(
+						root.getContext().getDocument(),
+						new ParseState(databindingsProvider, factory.getPlugin()));
+				// add remove listener
+				root.addBroadcastListener(new ObjectEventListener() {
+					@Override
+					public void dispose() throws Exception {
+						STATES.remove(root.getContext().getDocument());
+					}
+				});
+				return;
+			}
+		}
+	}
 }

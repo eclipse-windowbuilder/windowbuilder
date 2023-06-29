@@ -30,112 +30,112 @@ import org.eclipse.swt.widgets.Layout;
  * @coverage XWT.model.layout
  */
 public final class ImplicitLayoutCreationSupport extends CreationSupport
-    implements
-      IImplicitCreationSupport {
-  private final CompositeInfo m_composite;
+implements
+IImplicitCreationSupport {
+	private final CompositeInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ImplicitLayoutCreationSupport(CompositeInfo composite) {
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ImplicitLayoutCreationSupport(CompositeInfo composite) {
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    Class<?> layoutClass = m_object.getDescription().getComponentClass();
-    // check for absolute layout
-    if (layoutClass == null) {
-      return "implicit-layout: absolute";
-    }
-    // "real" layout
-    return "implicit-layout: " + layoutClass.getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		Class<?> layoutClass = m_object.getDescription().getComponentClass();
+		// check for absolute layout
+		if (layoutClass == null) {
+			return "implicit-layout: absolute";
+		}
+		// "real" layout
+		return "implicit-layout: " + layoutClass.getName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public DocumentElement getElement() {
-    return m_composite.getCreationSupport().getElement();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DocumentElement getElement() {
+		return m_composite.getCreationSupport().getElement();
+	}
 
-  @Override
-  public String getTitle() {
-    return toString();
-  }
+	@Override
+	public String getTitle() {
+		return toString();
+	}
 
-  @Override
-  public void setObject(XmlObjectInfo object) throws Exception {
-    super.setObject(object);
-    m_composite.addBroadcastListener(m_objectListener1);
-    m_composite.addBroadcastListener(m_objectListener2);
-    m_composite.addBroadcastListener(m_objectListener3);
-  }
+	@Override
+	public void setObject(XmlObjectInfo object) throws Exception {
+		super.setObject(object);
+		m_composite.addBroadcastListener(m_objectListener1);
+		m_composite.addBroadcastListener(m_objectListener2);
+		m_composite.addBroadcastListener(m_objectListener3);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void delete() throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void delete() throws Exception {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listeners
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final Object m_objectListener1 = new ObjectInfoChildAddBefore() {
-    public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
-        throws Exception {
-      if (isAddLayout(parent, child) && parent.getChildren().contains(m_object)) {
-        if (nextChild[0] == m_object) {
-          nextChild[0] = GenericsUtils.getNextOrNull(parent.getChildren(), m_object);
-        }
-        parent.removeChild(m_object);
-      }
-    }
-  };
-  private final Object m_objectListener2 = new ObjectEventListener() {
-    @Override
-    public void childRemoveAfter(ObjectInfo parent, ObjectInfo child) throws Exception {
-      if (canAddImplicitLayout() && isAddLayout(parent, child)) {
-        parent.addChild(m_object);
-      }
-    }
-  };
-  private final Object m_objectListener3 = new XmlObjectSetObjectAfter() {
-    public void invoke(XmlObjectInfo target, Object o) throws Exception {
-      if (target == m_composite) {
-        Layout layout = m_composite.getComposite().getLayout();
-        m_object.setObject(layout);
-      }
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listeners
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final Object m_objectListener1 = new ObjectInfoChildAddBefore() {
+		public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
+				throws Exception {
+			if (isAddLayout(parent, child) && parent.getChildren().contains(m_object)) {
+				if (nextChild[0] == m_object) {
+					nextChild[0] = GenericsUtils.getNextOrNull(parent.getChildren(), m_object);
+				}
+				parent.removeChild(m_object);
+			}
+		}
+	};
+	private final Object m_objectListener2 = new ObjectEventListener() {
+		@Override
+		public void childRemoveAfter(ObjectInfo parent, ObjectInfo child) throws Exception {
+			if (canAddImplicitLayout() && isAddLayout(parent, child)) {
+				parent.addChild(m_object);
+			}
+		}
+	};
+	private final Object m_objectListener3 = new XmlObjectSetObjectAfter() {
+		public void invoke(XmlObjectInfo target, Object o) throws Exception {
+			if (target == m_composite) {
+				Layout layout = m_composite.getComposite().getLayout();
+				m_object.setObject(layout);
+			}
+		}
+	};
 
-  /**
-   * @return <code>true</code> if implicit layout should be added.
-   */
-  private boolean canAddImplicitLayout() {
-    return m_composite.getArbitraryValue(CompositeInfo.KEY_LAYOUT_REPLACING) != Boolean.TRUE;
-  }
+	/**
+	 * @return <code>true</code> if implicit layout should be added.
+	 */
+	private boolean canAddImplicitLayout() {
+		return m_composite.getArbitraryValue(CompositeInfo.KEY_LAYOUT_REPLACING) != Boolean.TRUE;
+	}
 
-  /**
-   * @return <code>true</code> if given combination of parent/child is adding new {@link LayoutInfo}
-   *         on our {@link LayoutContainer_Info}.
-   */
-  private boolean isAddLayout(ObjectInfo parent, ObjectInfo child) {
-    return parent == m_composite && child instanceof LayoutInfo && child != m_object;
-  }
+	/**
+	 * @return <code>true</code> if given combination of parent/child is adding new {@link LayoutInfo}
+	 *         on our {@link LayoutContainer_Info}.
+	 */
+	private boolean isAddLayout(ObjectInfo parent, ObjectInfo child) {
+		return parent == m_composite && child instanceof LayoutInfo && child != m_object;
+	}
 }

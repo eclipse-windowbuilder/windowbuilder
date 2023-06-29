@@ -34,57 +34,57 @@ import java.text.MessageFormat;
  * @coverage core.util.refactoring
  */
 /* package */class UndoCompilationUnitChange extends UndoTextFileChange {
-  private final ICompilationUnit fCUnit;
+	private final ICompilationUnit fCUnit;
 
-  public UndoCompilationUnitChange(String name,
-      ICompilationUnit unit,
-      UndoEdit undo,
-      ContentStamp stampToRestore,
-      int saveMode) throws CoreException {
-    super(name, getFile(unit), undo, stampToRestore, saveMode);
-    fCUnit = unit;
-  }
+	public UndoCompilationUnitChange(String name,
+			ICompilationUnit unit,
+			UndoEdit undo,
+			ContentStamp stampToRestore,
+			int saveMode) throws CoreException {
+		super(name, getFile(unit), undo, stampToRestore, saveMode);
+		fCUnit = unit;
+	}
 
-  private static IFile getFile(ICompilationUnit cunit) throws CoreException {
-    IFile file = (IFile) cunit.getResource();
-    if (file == null) {
-      throw new CoreException(new Status(IStatus.ERROR,
-          DesignerPlugin.PLUGIN_ID,
-          IStatus.OK,
-          MessageFormat.format(Messages.UndoCompilationUnitChange_noFile, cunit.getElementName()),
-          null));
-    }
-    return file;
-  }
+	private static IFile getFile(ICompilationUnit cunit) throws CoreException {
+		IFile file = (IFile) cunit.getResource();
+		if (file == null) {
+			throw new CoreException(new Status(IStatus.ERROR,
+					DesignerPlugin.PLUGIN_ID,
+					IStatus.OK,
+					MessageFormat.format(Messages.UndoCompilationUnitChange_noFile, cunit.getElementName()),
+					null));
+		}
+		return file;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Object getModifiedElement() {
-    return fCUnit;
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Object getModifiedElement() {
+		return fCUnit;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  protected Change createUndoChange(UndoEdit edit, ContentStamp stampToRestore)
-      throws CoreException {
-    return new UndoCompilationUnitChange(getName(), fCUnit, edit, stampToRestore, getSaveMode());
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected Change createUndoChange(UndoEdit edit, ContentStamp stampToRestore)
+			throws CoreException {
+		return new UndoCompilationUnitChange(getName(), fCUnit, edit, stampToRestore, getSaveMode());
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Change perform(IProgressMonitor pm) throws CoreException {
-    pm.beginTask("", 2); //$NON-NLS-1$
-    fCUnit.becomeWorkingCopy(null, new SubProgressMonitor(pm, 1));
-    try {
-      return super.perform(new SubProgressMonitor(pm, 1));
-    } finally {
-      fCUnit.discardWorkingCopy();
-    }
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Change perform(IProgressMonitor pm) throws CoreException {
+		pm.beginTask("", 2); //$NON-NLS-1$
+		fCUnit.becomeWorkingCopy(null, new SubProgressMonitor(pm, 1));
+		try {
+			return super.perform(new SubProgressMonitor(pm, 1));
+		} finally {
+			fCUnit.discardWorkingCopy();
+		}
+	}
 }

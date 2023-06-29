@@ -22,18 +22,18 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class MigLayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.MigLayout");
-    suite.addTest(createSingleSuite(MigColumnTest.class));
-    suite.addTest(createSingleSuite(MigRowTest.class));
-    suite.addTest(createSingleSuite(MigLayoutConstraintsTest.class));
-    suite.addTest(createSingleSuite(MigLayoutConstraintsPropertiesTest.class));
-    suite.addTest(createSingleSuite(MigLayoutTest.class));
-    suite.addTest(createSingleSuite(MigLayoutAutoAlignmentTest.class));
-    suite.addTest(createSingleSuite(MigLayoutConverterTest.class));
-    suite.addTest(createSingleSuite(MigLayoutSurroundSupportTest.class));
-    suite.addTest(createSingleSuite(MigLayoutSelectionActionsTest.class));
-    suite.addTest(createSingleSuite(MigLayoutGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.MigLayout");
+		suite.addTest(createSingleSuite(MigColumnTest.class));
+		suite.addTest(createSingleSuite(MigRowTest.class));
+		suite.addTest(createSingleSuite(MigLayoutConstraintsTest.class));
+		suite.addTest(createSingleSuite(MigLayoutConstraintsPropertiesTest.class));
+		suite.addTest(createSingleSuite(MigLayoutTest.class));
+		suite.addTest(createSingleSuite(MigLayoutAutoAlignmentTest.class));
+		suite.addTest(createSingleSuite(MigLayoutConverterTest.class));
+		suite.addTest(createSingleSuite(MigLayoutSurroundSupportTest.class));
+		suite.addTest(createSingleSuite(MigLayoutSelectionActionsTest.class));
+		suite.addTest(createSingleSuite(MigLayoutGefTest.class));
+		return suite;
+	}
 }

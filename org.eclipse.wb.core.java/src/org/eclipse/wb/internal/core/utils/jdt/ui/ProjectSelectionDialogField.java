@@ -38,167 +38,167 @@ import org.eclipse.ui.dialogs.ListDialog;
  * @coverage core.util.jdt.ui
  */
 public final class ProjectSelectionDialogField extends StringButtonDialogField
-    implements
-      IDialogFieldListener {
-  private IJavaProject m_project;
-  private IDialogFieldListener m_updateListener;
+implements
+IDialogFieldListener {
+	private IJavaProject m_project;
+	private IDialogFieldListener m_updateListener;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link ProjectSelectionDialogField}.
-   */
-  public static ProjectSelectionDialogField create() {
-    ButtonAdapter adapter = new ButtonAdapter();
-    ProjectSelectionDialogField field = new ProjectSelectionDialogField(adapter);
-    adapter.setReceiver(field);
-    return field;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link ProjectSelectionDialogField}.
+	 */
+	public static ProjectSelectionDialogField create() {
+		ButtonAdapter adapter = new ButtonAdapter();
+		ProjectSelectionDialogField field = new ProjectSelectionDialogField(adapter);
+		adapter.setReceiver(field);
+		return field;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ProjectSelectionDialogField(IStringButtonAdapter adapter) {
-    super(adapter);
-    setDialogFieldListener(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ProjectSelectionDialogField(IStringButtonAdapter adapter) {
+		super(adapter);
+		setDialogFieldListener(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the selected {@link IJavaProject}.
-   */
-  public IJavaProject getProject() {
-    return m_project;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the selected {@link IJavaProject}.
+	 */
+	public IJavaProject getProject() {
+		return m_project;
+	}
 
-  /**
-   * Sets the selected {@link IJavaProject}.
-   */
-  public void setProject(IJavaProject project) {
-    m_project = project;
-    if (m_project != null) {
-      String newText = getProjectString(m_project);
-      if (!getText().equals(newText)) {
-        setText(newText);
-      }
-    }
-    // notify listener
-    if (m_updateListener != null) {
-      m_updateListener.dialogFieldChanged(this);
-    }
-  }
+	/**
+	 * Sets the selected {@link IJavaProject}.
+	 */
+	public void setProject(IJavaProject project) {
+		m_project = project;
+		if (m_project != null) {
+			String newText = getProjectString(m_project);
+			if (!getText().equals(newText)) {
+				setText(newText);
+			}
+		}
+		// notify listener
+		if (m_updateListener != null) {
+			m_updateListener.dialogFieldChanged(this);
+		}
+	}
 
-  /**
-   * Sets the {@link IDialogFieldListener} to listen for {@link IJavaProject} updates in this field.
-   */
-  public void setUpdateListener(IDialogFieldListener updateListener) {
-    m_updateListener = updateListener;
-    setDialogFieldListener(this);
-  }
+	/**
+	 * Sets the {@link IDialogFieldListener} to listen for {@link IJavaProject} updates in this field.
+	 */
+	public void setUpdateListener(IDialogFieldListener updateListener) {
+		m_updateListener = updateListener;
+		setDialogFieldListener(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDialogFieldListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dialogFieldChanged(DialogField field) {
-    setProject(getProjectFromString(getText()));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDialogFieldListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dialogFieldChanged(DialogField field) {
+		setProject(getProjectFromString(getText()));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return string presentation of {@link IJavaProject}..
-   */
-  private static String getProjectString(IJavaProject project) {
-    return project == null ? "" : project.getPath().makeRelative().toString();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return string presentation of {@link IJavaProject}..
+	 */
+	private static String getProjectString(IJavaProject project) {
+		return project == null ? "" : project.getPath().makeRelative().toString();
+	}
 
-  /**
-   * @return the {@link IJavaProject} for a string.
-   */
-  private static IJavaProject getProjectFromString(String projectString) {
-    if (projectString.length() == 0) {
-      return null;
-    }
-    // check project
-    IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-    IProject project = workspaceRoot.getProject(projectString);
-    IJavaProject javaProject = JavaCore.create(project);
-    return javaProject.exists() ? javaProject : null;
-  }
+	/**
+	 * @return the {@link IJavaProject} for a string.
+	 */
+	private static IJavaProject getProjectFromString(String projectString) {
+		if (projectString.length() == 0) {
+			return null;
+		}
+		// check project
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		IProject project = workspaceRoot.getProject(projectString);
+		IJavaProject javaProject = JavaCore.create(project);
+		return javaProject.exists() ? javaProject : null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Button adapter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static class ButtonAdapter implements IStringButtonAdapter {
-    private ProjectSelectionDialogField m_receiver;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Button adapter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static class ButtonAdapter implements IStringButtonAdapter {
+		private ProjectSelectionDialogField m_receiver;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Access
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public void setReceiver(ProjectSelectionDialogField receiver) {
-      m_receiver = receiver;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Access
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public void setReceiver(ProjectSelectionDialogField receiver) {
+			m_receiver = receiver;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // IStringButtonAdapter
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void changeControlPressed(DialogField field) {
-      IJavaProject project = selectProject(m_receiver.m_project);
-      if (project != null) {
-        m_receiver.setProject(project);
-      }
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// IStringButtonAdapter
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public void changeControlPressed(DialogField field) {
+			IJavaProject project = selectProject(m_receiver.m_project);
+			if (project != null) {
+				m_receiver.setProject(project);
+			}
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Selection
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    private IJavaProject selectProject(IJavaProject initialSelection) {
-      Shell shell = Display.getCurrent().getActiveShell();
-      ILabelProvider labelProvider =
-          new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
-      ITreeContentProvider contentProvider = new StandardJavaElementContentProvider();
-      // prepare dialog
-      ListDialog dialog = new ListDialog(shell);
-      dialog.setContentProvider(contentProvider);
-      dialog.setLabelProvider(labelProvider);
-      dialog.setTitle(Messages.ProjectSelectionDialogField_dialogTitle);
-      dialog.setMessage(Messages.ProjectSelectionDialogField_dialogMessage);
-      // show projects
-      dialog.setInput(JavaCore.create(ResourcesPlugin.getWorkspace().getRoot()));
-      dialog.setInitialSelections(new Object[]{initialSelection});
-      // select project
-      if (dialog.open() == Window.OK) {
-        Object[] objects = dialog.getResult();
-        if (objects != null && objects.length == 1) {
-          return (IJavaProject) objects[0];
-        }
-      }
-      // no project selected
-      return null;
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Selection
+		//
+		////////////////////////////////////////////////////////////////////////////
+		private IJavaProject selectProject(IJavaProject initialSelection) {
+			Shell shell = Display.getCurrent().getActiveShell();
+			ILabelProvider labelProvider =
+					new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
+			ITreeContentProvider contentProvider = new StandardJavaElementContentProvider();
+			// prepare dialog
+			ListDialog dialog = new ListDialog(shell);
+			dialog.setContentProvider(contentProvider);
+			dialog.setLabelProvider(labelProvider);
+			dialog.setTitle(Messages.ProjectSelectionDialogField_dialogTitle);
+			dialog.setMessage(Messages.ProjectSelectionDialogField_dialogMessage);
+			// show projects
+			dialog.setInput(JavaCore.create(ResourcesPlugin.getWorkspace().getRoot()));
+			dialog.setInitialSelections(new Object[]{initialSelection});
+			// select project
+			if (dialog.open() == Window.OK) {
+				Object[] objects = dialog.getResult();
+				if (objects != null && objects.length == 1) {
+					return (IJavaProject) objects[0];
+				}
+			}
+			// no project selected
+			return null;
+		}
+	}
 }

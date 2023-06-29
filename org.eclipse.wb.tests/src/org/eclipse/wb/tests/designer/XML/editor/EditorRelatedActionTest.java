@@ -19,16 +19,16 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
  * @author scheglov_ke
  */
 public class EditorRelatedActionTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_run() throws Exception {
-    // no editor
-    assertSame(null, EditorRelatedAction.getActiveEditor());
-    // now we have AbstractXMLEditor
-    openEditor("<Shell/>");
-    assertSame(m_designerEditor, EditorRelatedAction.getActiveEditor());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_run() throws Exception {
+		// no editor
+		assertSame(null, EditorRelatedAction.getActiveEditor());
+		// now we have AbstractXMLEditor
+		openEditor("<Shell/>");
+		assertSame(m_designerEditor, EditorRelatedAction.getActiveEditor());
+	}
 }

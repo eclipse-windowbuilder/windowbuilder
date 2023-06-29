@@ -19,35 +19,35 @@ import com.jgoodies.forms.layout.ConstantSize.Unit;
  * @coverage swing.FormLayout.ui
  */
 public final class UnitDescription {
-  private final Unit m_unit;
-  private final String m_title;
+	private final Unit m_unit;
+	private final String m_title;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UnitDescription(Unit unit, String title) {
-    m_unit = unit;
-    m_title = title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UnitDescription(Unit unit, String title) {
+		m_unit = unit;
+		m_title = title;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Unit} value.
-   */
-  public Unit getUnit() {
-    return m_unit;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Unit} value.
+	 */
+	public Unit getUnit() {
+		return m_unit;
+	}
 
-  /**
-   * @return the title to display.
-   */
-  public String getTitle() {
-    return m_title;
-  }
+	/**
+	 * @return the title to display.
+	 */
+	public String getTitle() {
+		return m_title;
+	}
 }

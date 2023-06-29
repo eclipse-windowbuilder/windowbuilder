@@ -24,61 +24,61 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import java.awt.LayoutManager;
 
 public class AbstractLayoutTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    configureForTest();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		configureForTest();
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    configureDefaults();
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		configureDefaults();
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures default preferences.
-   */
-  public static void configureForTest() {
-    IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
-    preferences.setValue(
-        IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE,
-        SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures default preferences.
+	 */
+	public static void configureForTest() {
+		IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
+		preferences.setValue(
+				IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE,
+				SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT);
+	}
 
-  /**
-   * Restores default preferences.
-   */
-  public static void configureDefaults() {
-    IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
-    preferences.setToDefault(IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
-  }
+	/**
+	 * Restores default preferences.
+	 */
+	public static void configureDefaults() {
+		IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
+		preferences.setToDefault(IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utilities
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the {@link LayoutInfo} with given class.
-   */
-  protected static void setLayout(ContainerInfo container,
-      Class<? extends LayoutManager> layoutClass) throws Exception {
-    LayoutInfo newLayout =
-        (LayoutInfo) JavaInfoUtils.createJavaInfo(
-            container.getEditor(),
-            layoutClass,
-            new ConstructorCreationSupport());
-    container.setLayout(newLayout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utilities
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the {@link LayoutInfo} with given class.
+	 */
+	protected static void setLayout(ContainerInfo container,
+			Class<? extends LayoutManager> layoutClass) throws Exception {
+		LayoutInfo newLayout =
+				(LayoutInfo) JavaInfoUtils.createJavaInfo(
+						container.getEditor(),
+						layoutClass,
+						new ConstructorCreationSupport());
+		container.setLayout(newLayout);
+	}
 }

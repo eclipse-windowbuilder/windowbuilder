@@ -34,72 +34,72 @@ import javax.swing.Action;
  * @coverage swing.model
  */
 public final class ActionAnonymousCreationSupport extends ActionAbstractCreationSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionAnonymousCreationSupport() throws Exception {
-    super();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionAnonymousCreationSupport() throws Exception {
+		super();
+	}
 
-  public ActionAnonymousCreationSupport(ClassInstanceCreation creation) throws Exception {
-    super(creation);
-  }
+	public ActionAnonymousCreationSupport(ClassInstanceCreation creation) throws Exception {
+		super(creation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "anonymousAction";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "anonymousAction";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // State
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setCreationEx() {
-    super.setCreationEx();
-    m_typeDeclaration = AnonymousTypeDeclaration.create(m_creation.getAnonymousClassDeclaration());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// State
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setCreationEx() {
+		super.setCreationEx();
+		m_typeDeclaration = AnonymousTypeDeclaration.create(m_creation.getAnonymousClassDeclaration());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Evaluation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractAction create_createObject(EvaluationContext context) throws Exception {
-    return (AbstractAction) AstEvaluationEngine.createClassInstanceCreationDirectly(
-        context,
-        m_creation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Evaluation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractAction create_createObject(EvaluationContext context) throws Exception {
+		return (AbstractAction) AstEvaluationEngine.createClassInstanceCreationDirectly(
+				context,
+				m_creation);
+	}
 
-  @Override
-  protected void create_evaluateInitialization(EvaluationContext context, AbstractAction action)
-      throws Exception {
-    {
-      ConstructorDescription constructor = getConstructorDescription();
-      if (constructor != null) {
-        List<Expression> arguments = DomGenerics.arguments(m_creation);
-        evaluateConstructorArguments(context, action, constructor, arguments);
-      }
-    }
-    super.create_evaluateInitialization(context, action);
-  }
+	@Override
+	protected void create_evaluateInitialization(EvaluationContext context, AbstractAction action)
+			throws Exception {
+		{
+			ConstructorDescription constructor = getConstructorDescription();
+			if (constructor != null) {
+				List<Expression> arguments = DomGenerics.arguments(m_creation);
+				evaluateConstructorArguments(context, action, constructor, arguments);
+			}
+		}
+		super.create_evaluateInitialization(context, action);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IActionSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ConstructorDescription getConstructorDescription() {
-    IMethodBinding binding = AstNodeUtils.getCreationBinding(m_creation);
-    return m_typeDescription.getConstructor(binding);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IActionSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ConstructorDescription getConstructorDescription() {
+		IMethodBinding binding = AstNodeUtils.getCreationBinding(m_creation);
+		return m_typeDescription.getConstructor(binding);
+	}
 }

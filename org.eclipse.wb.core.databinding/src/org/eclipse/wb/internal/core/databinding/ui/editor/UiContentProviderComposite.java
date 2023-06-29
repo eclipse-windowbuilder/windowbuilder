@@ -23,73 +23,73 @@ import java.util.List;
  * @coverage bindings.ui
  */
 public class UiContentProviderComposite extends Composite implements ICompleteListener {
-  private final IPageListener m_listener;
-  private final List<IUiContentProvider> m_providers;
+	private final IPageListener m_listener;
+	private final List<IUiContentProvider> m_providers;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UiContentProviderComposite(IPageListener listener,
-      List<IUiContentProvider> providers,
-      Composite parent,
-      int style) {
-    super(parent, style);
-    m_listener = listener;
-    m_providers = providers;
-    // calculate columns
-    int columns = 0;
-    for (IUiContentProvider provider : m_providers) {
-      columns = Math.max(columns, provider.getNumberOfControls());
-    }
-    // create controls and fill composite
-    GridLayoutFactory.create(this).columns(columns);
-    for (IUiContentProvider provider : m_providers) {
-      provider.setCompleteListener(this);
-      provider.createContent(this, columns);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UiContentProviderComposite(IPageListener listener,
+			List<IUiContentProvider> providers,
+			Composite parent,
+			int style) {
+		super(parent, style);
+		m_listener = listener;
+		m_providers = providers;
+		// calculate columns
+		int columns = 0;
+		for (IUiContentProvider provider : m_providers) {
+			columns = Math.max(columns, provider.getNumberOfControls());
+		}
+		// create controls and fill composite
+		GridLayoutFactory.create(this).columns(columns);
+		for (IUiContentProvider provider : m_providers) {
+			provider.setCompleteListener(this);
+			provider.createContent(this, columns);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ICompleteListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void calculateFinish() {
-    for (IUiContentProvider provider : m_providers) {
-      String errorMessage = provider.getErrorMessage();
-      // handle provider error
-      if (errorMessage != null) {
-        m_listener.setErrorMessage(errorMessage);
-        m_listener.setPageComplete(false);
-        return;
-      }
-    }
-    // no errors
-    m_listener.setErrorMessage(null);
-    m_listener.setPageComplete(true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ICompleteListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void calculateFinish() {
+		for (IUiContentProvider provider : m_providers) {
+			String errorMessage = provider.getErrorMessage();
+			// handle provider error
+			if (errorMessage != null) {
+				m_listener.setErrorMessage(errorMessage);
+				m_listener.setPageComplete(false);
+				return;
+			}
+		}
+		// no errors
+		m_listener.setErrorMessage(null);
+		m_listener.setPageComplete(true);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize/Finish
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void performInitialize() throws Exception {
-    for (IUiContentProvider provider : m_providers) {
-      provider.updateFromObject();
-    }
-    calculateFinish();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize/Finish
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void performInitialize() throws Exception {
+		for (IUiContentProvider provider : m_providers) {
+			provider.updateFromObject();
+		}
+		calculateFinish();
+	}
 
-  /**
-   * Invoke for save changes for all content providers.
-   */
-  public void performFinish() throws Exception {
-    for (IUiContentProvider provider : m_providers) {
-      provider.saveToObject();
-    }
-  }
+	/**
+	 * Invoke for save changes for all content providers.
+	 */
+	public void performFinish() throws Exception {
+		for (IUiContentProvider provider : m_providers) {
+			provider.saveToObject();
+		}
+	}
 }

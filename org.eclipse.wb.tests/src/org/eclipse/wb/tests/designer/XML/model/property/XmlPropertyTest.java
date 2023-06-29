@@ -25,42 +25,42 @@ import org.eclipse.jdt.core.IJavaProject;
  * @author scheglov_ke
  */
 public class XmlPropertyTest extends AbstractCoreTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_access() throws Exception {
-    XmlObjectInfo shell = parse("<Shell/>");
-    // create XMLProperty
-    XmlProperty property = new EmptyXmlProperty(shell);
-    assertSame(null, property.getTitle());
-    assertSame(PropertyCategory.NORMAL, property.getCategory());
-    // object
-    assertSame(shell, property.getObjectInfo());
-    assertSame(shell, property.getObject());
-    assertSame(shell, property.getAdapter(ObjectInfo.class));
-    // adapter
-    assertEquals(null, property.getAdapter(null));
-    assertEquals(m_javaProject, property.getAdapter(IJavaProject.class));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_access() throws Exception {
+		XmlObjectInfo shell = parse("<Shell/>");
+		// create XMLProperty
+		XmlProperty property = new EmptyXmlProperty(shell);
+		assertSame(null, property.getTitle());
+		assertSame(PropertyCategory.NORMAL, property.getCategory());
+		// object
+		assertSame(shell, property.getObjectInfo());
+		assertSame(shell, property.getObject());
+		assertSame(shell, property.getAdapter(ObjectInfo.class));
+		// adapter
+		assertEquals(null, property.getAdapter(null));
+		assertEquals(m_javaProject, property.getAdapter(IJavaProject.class));
+	}
 
-  /**
-   * Test for constructor with {@link PropertyCategory}.
-   */
-  public void test_constructorWithCategory() throws Exception {
-    XmlObjectInfo shell = parse("<Shell/>");
-    // create XMLProperty
-    XmlProperty property = new EmptyXmlProperty(shell, PropertyCategory.system(6));
-    assertTrue(property.getCategory().isSystem());
-  }
+	/**
+	 * Test for constructor with {@link PropertyCategory}.
+	 */
+	public void test_constructorWithCategory() throws Exception {
+		XmlObjectInfo shell = parse("<Shell/>");
+		// create XMLProperty
+		XmlProperty property = new EmptyXmlProperty(shell, PropertyCategory.system(6));
+		assertTrue(property.getCategory().isSystem());
+	}
 }

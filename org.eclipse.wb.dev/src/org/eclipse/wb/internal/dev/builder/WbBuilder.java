@@ -27,51 +27,51 @@ import java.util.Map;
  * @author scheglov_ke
  */
 public final class WbBuilder extends IncrementalProjectBuilder {
-  public static final String ID = "org.eclipse.wb.dev.wbBuilder";
-  private final List<BuilderHandler> m_handlers = new ArrayList<BuilderHandler>();
+	public static final String ID = "org.eclipse.wb.dev.wbBuilder";
+	private final List<BuilderHandler> m_handlers = new ArrayList<BuilderHandler>();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WbBuilder() {
-    m_handlers.add(new ComponentDescriptionValidatorHandler());
-    m_handlers.add(new MetaDataModificationHandler());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WbBuilder() {
+		m_handlers.add(new ComponentDescriptionValidatorHandler());
+		m_handlers.add(new MetaDataModificationHandler());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Builder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  @SuppressWarnings("rawtypes")
-  protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
-    if (kind == FULL_BUILD) {
-      fullBuild(monitor);
-    } else {
-      IResourceDelta delta = getDelta(getProject());
-      if (delta == null) {
-        fullBuild(monitor);
-      } else {
-        incrementalBuild(delta, monitor);
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Builder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	@SuppressWarnings("rawtypes")
+	protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
+		if (kind == FULL_BUILD) {
+			fullBuild(monitor);
+		} else {
+			IResourceDelta delta = getDelta(getProject());
+			if (delta == null) {
+				fullBuild(monitor);
+			} else {
+				incrementalBuild(delta, monitor);
+			}
+		}
+		return null;
+	}
 
-  private void fullBuild(IProgressMonitor monitor) throws CoreException {
-    IProject project = getProject();
-    for (BuilderHandler handler : m_handlers) {
-      handler.fullBuild(project, monitor);
-    }
-  }
+	private void fullBuild(IProgressMonitor monitor) throws CoreException {
+		IProject project = getProject();
+		for (BuilderHandler handler : m_handlers) {
+			handler.fullBuild(project, monitor);
+		}
+	}
 
-  private void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor)
-      throws CoreException {
-    for (BuilderHandler handler : m_handlers) {
-      handler.incrementalBuild(delta, monitor);
-    }
-  }
+	private void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor)
+			throws CoreException {
+		for (BuilderHandler handler : m_handlers) {
+			handler.incrementalBuild(delta, monitor);
+		}
+	}
 }

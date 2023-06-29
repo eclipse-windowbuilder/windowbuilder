@@ -23,26 +23,26 @@ import org.eclipse.ui.actions.ActionFactory;
  * @coverage core.editor.action
  */
 public final class RefreshAction extends DesignPageAction {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RefreshAction() {
-    // copy presentation
-    ActionUtils.copyPresentation(this, ActionFactory.REFRESH);
-    // override presentation
-    setToolTipText("Reparse the source and refresh the design page");
-    setImageDescriptor(DesignerPlugin.getImageDescriptor("editor_refresh.png"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RefreshAction() {
+		// copy presentation
+		ActionUtils.copyPresentation(this, ActionFactory.REFRESH);
+		// override presentation
+		setToolTipText("Reparse the source and refresh the design page");
+		setImageDescriptor(DesignerPlugin.getImageDescriptor("editor_refresh.png"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DesignPageAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void run(IDesignPage designPage) {
-    designPage.refreshGEF();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DesignPageAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void run(IDesignPage designPage) {
+		designPage.refreshGEF();
+	}
 }

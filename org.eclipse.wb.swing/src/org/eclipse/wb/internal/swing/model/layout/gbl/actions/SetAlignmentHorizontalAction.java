@@ -22,30 +22,30 @@ import org.eclipse.jface.action.Action;
  * @coverage swing.model.layout
  */
 public final class SetAlignmentHorizontalAction extends AbstractAction {
-  private final ColumnInfo.Alignment m_alignment;
+	private final ColumnInfo.Alignment m_alignment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetAlignmentHorizontalAction(AbstractGridBagConstraintsInfo constraints,
-      String text,
-      String iconPath,
-      ColumnInfo.Alignment alignment) {
-    super(constraints, text, AS_RADIO_BUTTON, iconPath, true);
-    m_alignment = alignment;
-    // set check for current alignment
-    setChecked(constraints.getHorizontalAlignment() == m_alignment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetAlignmentHorizontalAction(AbstractGridBagConstraintsInfo constraints,
+			String text,
+			String iconPath,
+			ColumnInfo.Alignment alignment) {
+		super(constraints, text, AS_RADIO_BUTTON, iconPath, true);
+		m_alignment = alignment;
+		// set check for current alignment
+		setChecked(constraints.getHorizontalAlignment() == m_alignment);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    m_constraints.setHorizontalAlignment(m_alignment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		m_constraints.setHorizontalAlignment(m_alignment);
+	}
 }

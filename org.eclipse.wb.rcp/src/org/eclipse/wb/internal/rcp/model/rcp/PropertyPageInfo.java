@@ -25,25 +25,25 @@ import org.eclipse.ui.dialogs.PropertyPage;
  * @coverage rcp.model.rcp
  */
 public class PropertyPageInfo extends PreferencePageInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertyPageInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertyPageInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configureShell() throws Exception {
-    super.configureShell();
-    ReflectionUtils.invokeMethod(m_shell, "setText(java.lang.String)", "Properties");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configureShell() throws Exception {
+		super.configureShell();
+		ReflectionUtils.invokeMethod(m_shell, "setText(java.lang.String)", "Properties");
+	}
 }

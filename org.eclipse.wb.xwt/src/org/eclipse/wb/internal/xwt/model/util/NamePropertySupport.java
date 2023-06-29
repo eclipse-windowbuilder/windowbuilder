@@ -28,51 +28,51 @@ import java.util.List;
  * @coverage XWT.model
  */
 public final class NamePropertySupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NamePropertySupport(XmlObjectInfo rootObject) {
-    rootObject.addBroadcastListener(new XmlObjectAddProperties() {
-      public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
-        if (object instanceof WidgetInfo || object instanceof ViewerInfo) {
-          Property property = getNameProperty(object);
-          properties.add(property);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NamePropertySupport(XmlObjectInfo rootObject) {
+		rootObject.addBroadcastListener(new XmlObjectAddProperties() {
+			public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
+				if (object instanceof WidgetInfo || object instanceof ViewerInfo) {
+					Property property = getNameProperty(object);
+					properties.add(property);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Property getNameProperty(XmlObjectInfo object) {
-    Property property = (Property) object.getArbitraryValue(this);
-    if (property == null) {
-      property = new XmlProperty(object, "Name", StringPropertyEditor.INSTANCE) {
-        @Override
-        public boolean isModified() throws Exception {
-          return getValue() != Property.UNKNOWN_VALUE;
-        }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Property getNameProperty(XmlObjectInfo object) {
+		Property property = (Property) object.getArbitraryValue(this);
+		if (property == null) {
+			property = new XmlProperty(object, "Name", StringPropertyEditor.INSTANCE) {
+				@Override
+				public boolean isModified() throws Exception {
+					return getValue() != Property.UNKNOWN_VALUE;
+				}
 
-        @Override
-        public Object getValue() throws Exception {
-          String name = NameSupport.getName(m_object);
-          return name != null ? name : Property.UNKNOWN_VALUE;
-        }
+				@Override
+				public Object getValue() throws Exception {
+					String name = NameSupport.getName(m_object);
+					return name != null ? name : Property.UNKNOWN_VALUE;
+				}
 
-        @Override
-        protected void setValueEx(Object value) throws Exception {
-          String name = value instanceof String ? (String) value : null;
-          NameSupport.setName(m_object, name);
-        }
-      };
-      property.setCategory(PropertyCategory.system(4));
-      object.putArbitraryValue(this, property);
-    }
-    return property;
-  }
+				@Override
+				protected void setValueEx(Object value) throws Exception {
+					String name = value instanceof String ? (String) value : null;
+					NameSupport.setName(m_object, name);
+				}
+			};
+			property.setCategory(PropertyCategory.system(4));
+			object.putArbitraryValue(this, property);
+		}
+		return property;
+	}
 }

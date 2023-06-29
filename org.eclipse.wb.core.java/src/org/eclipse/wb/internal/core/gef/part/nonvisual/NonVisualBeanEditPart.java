@@ -28,52 +28,52 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.gef.nonvisual
  */
 public final class NonVisualBeanEditPart extends GraphicalEditPart {
-  private final NonVisualBeanInfo m_beanInfo;
+	private final NonVisualBeanInfo m_beanInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NonVisualBeanEditPart(JavaInfo javaInfo) {
-    m_beanInfo = NonVisualBeanInfo.getNonVisualInfo(javaInfo);
-    setModel(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NonVisualBeanEditPart(JavaInfo javaInfo) {
+		m_beanInfo = NonVisualBeanInfo.getNonVisualInfo(javaInfo);
+		setModel(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NonVisualBeanInfo getNonVisualInfo() {
-    return m_beanInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NonVisualBeanInfo getNonVisualInfo() {
+		return m_beanInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    Image image = ObjectsLabelProvider.INSTANCE.getImage(m_beanInfo.getJavaInfo());
-    return new BeanFigure(image);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		Image image = ObjectsLabelProvider.INSTANCE.getImage(m_beanInfo.getJavaInfo());
+		return new BeanFigure(image);
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    String text = ObjectsLabelProvider.INSTANCE.getText(m_beanInfo.getJavaInfo());
-    BeanFigure figure = (BeanFigure) getFigure();
-    figure.update(text, m_beanInfo.getLocation());
-  }
+	@Override
+	protected void refreshVisuals() {
+		String text = ObjectsLabelProvider.INSTANCE.getText(m_beanInfo.getJavaInfo());
+		BeanFigure figure = (BeanFigure) getFigure();
+		figure.update(text, m_beanInfo.getLocation());
+	}
 }

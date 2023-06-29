@@ -20,22 +20,22 @@ import java.util.List;
  * @author mitin_aa
  */
 public interface ISnapPointsProvider {
-  /**
-   * Return list of the snap points for <code>target</code> component. Called for every component
-   * provided in <code>allComponents</code> argument in the SnapPoints constructor.
-   *
-   * @param target
-   *          the component for which returned snap points are related.
-   * @param isHorizontal
-   *          by vertical or horizontal dimension.
-   */
-  List<SnapPoint> forComponent(IAbstractComponentInfo target, boolean isHorizontal);
+	/**
+	 * Return list of the snap points for <code>target</code> component. Called for every component
+	 * provided in <code>allComponents</code> argument in the SnapPoints constructor.
+	 *
+	 * @param target
+	 *          the component for which returned snap points are related.
+	 * @param isHorizontal
+	 *          by vertical or horizontal dimension.
+	 */
+	List<SnapPoint> forComponent(IAbstractComponentInfo target, boolean isHorizontal);
 
-  /**
-   * Return list of the snap points for container of the components.
-   *
-   * @param isHorizontal
-   *          by vertical or horizontal dimension.
-   */
-  List<SnapPoint> forContainer(boolean isHorizontal);
+	/**
+	 * Return list of the snap points for container of the components.
+	 *
+	 * @param isHorizontal
+	 *          by vertical or horizontal dimension.
+	 */
+	List<SnapPoint> forContainer(boolean isHorizontal);
 }

@@ -19,46 +19,46 @@ import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFiel
  *
  */
 public class SelectionButtonGroupEditor implements IDataEditor {
-  private final SelectionButtonDialogFieldGroup m_field;
-  private final int m_buttonCount;
+	private final SelectionButtonDialogFieldGroup m_field;
+	private final int m_buttonCount;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionButtonGroupEditor(SelectionButtonDialogFieldGroup field, int buttonCount) {
-    m_field = field;
-    m_buttonCount = buttonCount;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionButtonGroupEditor(SelectionButtonDialogFieldGroup field, int buttonCount) {
+		m_field = field;
+		m_buttonCount = buttonCount;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue() {
-    boolean[] values = new boolean[m_buttonCount];
-    for (int i = 0; i < m_buttonCount; i++) {
-      values[i] = m_field.isSelected(i);
-    }
-    return values;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue() {
+		boolean[] values = new boolean[m_buttonCount];
+		for (int i = 0; i < m_buttonCount; i++) {
+			values[i] = m_field.isSelected(i);
+		}
+		return values;
+	}
 
-  @Override
-  public void setValue(Object value) {
-    // prepare boolean array
-    boolean[] values = ValueUtils.objectToBooleanArray(value);
-    // set values
-    if (values != null && values.length == m_buttonCount) {
-      for (int i = 0; i < m_buttonCount; i++) {
-        m_field.setSelection(i, values[i]);
-      }
-    } else {
-      for (int i = 0; i < m_buttonCount; i++) {
-        m_field.setSelection(i, false);
-      }
-    }
-  }
+	@Override
+	public void setValue(Object value) {
+		// prepare boolean array
+		boolean[] values = ValueUtils.objectToBooleanArray(value);
+		// set values
+		if (values != null && values.length == m_buttonCount) {
+			for (int i = 0; i < m_buttonCount; i++) {
+				m_field.setSelection(i, values[i]);
+			}
+		} else {
+			for (int i = 0; i < m_buttonCount; i++) {
+				m_field.setSelection(i, false);
+			}
+		}
+	}
 }

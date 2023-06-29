@@ -19,16 +19,16 @@ import org.eclipse.jface.preference.IPreferenceStore;
  *
  */
 public abstract class AbstractPreferenceProvider implements IDataProvider {
-  protected final IPreferenceStore m_store;
-  protected final String m_key;
+	protected final IPreferenceStore m_store;
+	protected final String m_key;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractPreferenceProvider(IPreferenceStore store, String key) {
-    m_store = store;
-    m_key = key;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractPreferenceProvider(IPreferenceStore store, String key) {
+		m_store = store;
+		m_key = key;
+	}
 }

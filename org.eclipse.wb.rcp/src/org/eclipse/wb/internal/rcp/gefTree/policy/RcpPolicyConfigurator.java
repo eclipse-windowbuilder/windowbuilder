@@ -24,16 +24,16 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage rcp.gefTree.policy
  */
 public final class RcpPolicyConfigurator implements IEditPartConfigurator {
-  @Override
-  public void configure(EditPart context, EditPart editPart) {
-    // allow drop Action on MenuManager
-    if (editPart.getModel() instanceof MenuManagerInfo) {
-      editPart.addRequestProcessor(ActionDropRequestProcessor.INSTANCE);
-    }
-    // allow drop ControlDecoration on ControlInfo
-    if (editPart.getModel() instanceof ControlInfo) {
-      ControlInfo control = (ControlInfo) editPart.getModel();
-      editPart.installEditPolicy(new ControlDecorationDropLayoutEditPolicy(control));
-    }
-  }
+	@Override
+	public void configure(EditPart context, EditPart editPart) {
+		// allow drop Action on MenuManager
+		if (editPart.getModel() instanceof MenuManagerInfo) {
+			editPart.addRequestProcessor(ActionDropRequestProcessor.INSTANCE);
+		}
+		// allow drop ControlDecoration on ControlInfo
+		if (editPart.getModel() instanceof ControlInfo) {
+			ControlInfo control = (ControlInfo) editPart.getModel();
+			editPart.installEditPolicy(new ControlDecorationDropLayoutEditPolicy(control));
+		}
+	}
 }

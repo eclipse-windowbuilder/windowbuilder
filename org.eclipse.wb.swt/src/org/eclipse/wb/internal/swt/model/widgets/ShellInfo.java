@@ -34,74 +34,74 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage swt.model.widgets
  */
 public final class ShellInfo extends CompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ShellInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ShellInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setObject(Object object) throws Exception {
-    super.setObject(object);
-    // In RCP the Section performs setRedraw(false/true) for all parents, including Shell.
-    // So, even through we don't open Shell, setRedraw(true) causes repaint for area under Shell.
-    // So, we have to move Shell outside the view area ASAP.
-    if (object != null) {
-      ReflectionUtils.invokeMethod(object, "setLocation(int,int)", 10000, 10000);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setObject(Object object) throws Exception {
+		super.setObject(object);
+		// In RCP the Section performs setRedraw(false/true) for all parents, including Shell.
+		// So, even through we don't open Shell, setRedraw(true) causes repaint for area under Shell.
+		// So, we have to move Shell outside the view area ASAP.
+		if (object != null) {
+			ReflectionUtils.invokeMethod(object, "setLocation(int,int)", 10000, 10000);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IThisMethodParameterEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluateParameter(EvaluationContext context,
-      MethodDeclaration methodDeclaration,
-      String methodSignature,
-      SingleVariableDeclaration parameter,
-      int index) throws Exception {
-    if (index == 1) {
-      return SWT.SHELL_TRIM;
-    }
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IThisMethodParameterEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluateParameter(EvaluationContext context,
+			MethodDeclaration methodDeclaration,
+			String methodSignature,
+			SingleVariableDeclaration parameter,
+			int index) throws Exception {
+		if (index == 1) {
+			return SWT.SHELL_TRIM;
+		}
+		return AstEvaluationEngine.UNKNOWN;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Context menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void fillContextMenu(IMenuManager manager) throws Exception {
-    super.fillContextMenu(manager);
-    contextMenu_removeSize(manager);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Context menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void fillContextMenu(IMenuManager manager) throws Exception {
+		super.fillContextMenu(manager);
+		contextMenu_removeSize(manager);
+	}
 
-  /**
-   * Adds "Remove setSize()" item.
-   */
-  private void contextMenu_removeSize(IMenuManager manager) throws Exception {
-    if (isRoot() || JavaInfoUtils.hasTrueParameter(this, "SWT.isRoot")) {
-      ObjectInfoAction action = new ObjectInfoAction(this) {
-        @Override
-        protected void runEx() throws Exception {
-          removeMethodInvocations("setSize(int,int)");
-        }
-      };
-      action.setText(ModelMessages.ShellInfo_removeSetSize);
-      manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, action);
-    }
-  }
+	/**
+	 * Adds "Remove setSize()" item.
+	 */
+	private void contextMenu_removeSize(IMenuManager manager) throws Exception {
+		if (isRoot() || JavaInfoUtils.hasTrueParameter(this, "SWT.isRoot")) {
+			ObjectInfoAction action = new ObjectInfoAction(this) {
+				@Override
+				protected void runEx() throws Exception {
+					removeMethodInvocations("setSize(int,int)");
+				}
+			};
+			action.setText(ModelMessages.ShellInfo_removeSetSize);
+			manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, action);
+		}
+	}
 }

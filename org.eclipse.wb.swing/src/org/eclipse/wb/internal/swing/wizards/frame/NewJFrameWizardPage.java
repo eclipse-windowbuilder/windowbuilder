@@ -38,78 +38,78 @@ import javax.swing.JFrame;
  * @coverage swing.wizards.ui
  */
 public final class NewJFrameWizardPage extends SwingWizardPage {
-  private CheckDialogField m_advancedField;
+	private CheckDialogField m_advancedField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NewJFrameWizardPage() {
-    setTitle(Messages.NewJFrameWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/JFrame/banner.gif"));
-    setDescription(Messages.NewJFrameWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NewJFrameWizardPage() {
+		setTitle(Messages.NewJFrameWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/JFrame/banner.gif"));
+		setDescription(Messages.NewJFrameWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file =
-        Activator.getFile(m_advancedField.getSelection()
-            ? "templates/JFrame_advanced.jvt"
-            : "templates/JFrame.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file =
+				Activator.getFile(m_advancedField.getSelection()
+						? "templates/JFrame_advanced.jvt"
+								: "templates/JFrame.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("javax.swing.JFrame", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("javax.swing.JFrame", true);
+	}
 
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    Composite composite = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.create(composite).noMargins();
-    GridDataFactory.create(composite).fillH().grabH().spanH(columns);
-    //
-    m_advancedField = new CheckDialogField();
-    m_advancedField.setLabelText(Messages.NewJFrameWizardPage_useAdvancedTemplate);
-    m_advancedField.setSelection(true);
-    m_advancedField.doFillIntoGrid(composite, 1);
-    // I always use same names during tests
-    if (EnvironmentUtils.DEVELOPER_HOST) {
-      setTypeName("JFrame_1", true);
-    }
-  }
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridLayoutFactory.create(composite).noMargins();
+		GridDataFactory.create(composite).fillH().grabH().spanH(columns);
+		//
+		m_advancedField = new CheckDialogField();
+		m_advancedField.setLabelText(Messages.NewJFrameWizardPage_useAdvancedTemplate);
+		m_advancedField.setSelection(true);
+		m_advancedField.doFillIntoGrid(composite, 1);
+		// I always use same names during tests
+		if (EnvironmentUtils.DEVELOPER_HOST) {
+			setTypeName("JFrame_1", true);
+		}
+	}
 
-  @Override
-  protected void updateStatus(IStatus status) {
-    super.updateStatus(status);
-    if (isDirectlyJFrame()) {
-      m_advancedField.setEnabled(true);
-      m_advancedField.setSelection(true);
-    } else {
-      m_advancedField.setEnabled(false);
-      m_advancedField.setSelection(false);
-    }
-    // I don't like advanced template anymore :-(
-    if (EnvironmentUtils.DEVELOPER_HOST) {
-      m_advancedField.setSelection(false);
-    }
-  }
+	@Override
+	protected void updateStatus(IStatus status) {
+		super.updateStatus(status);
+		if (isDirectlyJFrame()) {
+			m_advancedField.setEnabled(true);
+			m_advancedField.setSelection(true);
+		} else {
+			m_advancedField.setEnabled(false);
+			m_advancedField.setSelection(false);
+		}
+		// I don't like advanced template anymore :-(
+		if (EnvironmentUtils.DEVELOPER_HOST) {
+			m_advancedField.setSelection(false);
+		}
+	}
 
-  private boolean isDirectlyJFrame() {
-    return "javax.swing.JFrame".equals(getSuperClass());
-  }
+	private boolean isDirectlyJFrame() {
+		return "javax.swing.JFrame".equals(getSuperClass());
+	}
 }

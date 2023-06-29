@@ -22,34 +22,34 @@ import org.eclipse.jface.wizard.WizardPage;
  * @author scheglov_ke
  */
 public interface IMessageContainer {
-  void setErrorMessage(String message);
+	void setErrorMessage(String message);
 
-  /**
-   * Helper class for creating {@link IMessageContainer} for standard GUI objects.
-   */
-  public static class Util {
-    /**
-     * Creates {@link IMessageContainer} for {@link WizardPage}.
-     */
-    public static IMessageContainer forWizardPage(final WizardPage wizardPage) {
-      return new IMessageContainer() {
-        @Override
-        public void setErrorMessage(String message) {
-          wizardPage.setErrorMessage(message);
-        }
-      };
-    }
+	/**
+	 * Helper class for creating {@link IMessageContainer} for standard GUI objects.
+	 */
+	public static class Util {
+		/**
+		 * Creates {@link IMessageContainer} for {@link WizardPage}.
+		 */
+		public static IMessageContainer forWizardPage(final WizardPage wizardPage) {
+			return new IMessageContainer() {
+				@Override
+				public void setErrorMessage(String message) {
+					wizardPage.setErrorMessage(message);
+				}
+			};
+		}
 
-    /**
-     * Creates {@link IMessageContainer} for {@link TitleAreaDialog}.
-     */
-    public static IMessageContainer forTitleAreaDialog(final TitleAreaDialog titleAreaDialog) {
-      return new IMessageContainer() {
-        @Override
-        public void setErrorMessage(String message) {
-          titleAreaDialog.setErrorMessage(message);
-        }
-      };
-    }
-  }
+		/**
+		 * Creates {@link IMessageContainer} for {@link TitleAreaDialog}.
+		 */
+		public static IMessageContainer forTitleAreaDialog(final TitleAreaDialog titleAreaDialog) {
+			return new IMessageContainer() {
+				@Override
+				public void setErrorMessage(String message) {
+					titleAreaDialog.setErrorMessage(message);
+				}
+			};
+		}
+	}
 }

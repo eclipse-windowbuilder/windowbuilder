@@ -20,27 +20,27 @@ import org.eclipse.jface.resource.FontDescriptor;
  * @coverage core.control.palette
  */
 public final class DefaultPalettePreferences implements IPalettePreferences {
-  @Override
-  public FontDescriptor getCategoryFontDescriptor() {
-    return null;
-  }
+	@Override
+	public FontDescriptor getCategoryFontDescriptor() {
+		return null;
+	}
 
-  @Override
-  public FontDescriptor getEntryFontDescriptor() {
-    return null;
-  }
+	@Override
+	public FontDescriptor getEntryFontDescriptor() {
+		return null;
+	}
 
-  @Override
-  public boolean isOnlyIcons() {
-    return false;
-  }
+	@Override
+	public boolean isOnlyIcons() {
+		return false;
+	}
 
-  @Override
-  public int getMinColumns() {
-    return 1;
-  }
+	@Override
+	public int getMinColumns() {
+		return 1;
+	}
 
-  public int getLayoutType() {
-    return 0;
-  }
+	public int getLayoutType() {
+		return 0;
+	}
 }

@@ -19,60 +19,60 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
  * @author mitin_aa
  */
 public class ControlSelectionPropertyEditorTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    // prepare testing object
-    setFileContentSrc(
-        "test/MyTestObject.java",
-        getTestSource(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class MyTestObject {",
-            "  public Control control;",
-            "}"));
-    setFileContentSrc(
-        "test/MyTestObject.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <property id='control'>",
-            "    <editor id='controlSelection'/>",
-            "  </property>",
-            "</component>"));
-    waitForAutoBuild();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		// prepare testing object
+		setFileContentSrc(
+				"test/MyTestObject.java",
+				getTestSource(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"public class MyTestObject {",
+						"  public Control control;",
+						"}"));
+		setFileContentSrc(
+				"test/MyTestObject.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <property id='control'>",
+						"    <editor id='controlSelection'/>",
+						"  </property>",
+						"</component>"));
+		waitForAutoBuild();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // getText()
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for <code>getText()</code>.
-   */
-  public void test_getText_0() throws Exception {
-    // TODO
-    /*CompositeInfo shell =
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// getText()
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for <code>getText()</code>.
+	 */
+	public void test_getText_0() throws Exception {
+		// TODO
+		/*CompositeInfo shell =
     		parseComposite(
     				"public class Test extends Shell {",
     				"  public Test() {",
     				"  }",
     				"}");
     JavaInfo newInfo = createJavaInfo(m_lastEditor, "test.MyTestObject");*/
-  }
+	}
 }

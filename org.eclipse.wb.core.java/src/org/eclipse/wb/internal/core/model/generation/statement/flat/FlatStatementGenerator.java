@@ -28,41 +28,41 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @coverage core.model.generation
  */
 public final class FlatStatementGenerator extends AbstractInsideStatementGenerator {
-  public static final FlatStatementGenerator INSTANCE = new FlatStatementGenerator();
+	public static final FlatStatementGenerator INSTANCE = new FlatStatementGenerator();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private FlatStatementGenerator() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private FlatStatementGenerator() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Preferences
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final String BASE = "statement.flat.";
-  public static final String P_USE_PREFIX = BASE + "usePrefix";
-  public static final String P_PREFIX_TEXT = BASE + "prefixText";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Preferences
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final String BASE = "statement.flat.";
+	public static final String P_USE_PREFIX = BASE + "usePrefix";
+	public static final String P_PREFIX_TEXT = BASE + "prefixText";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StatementGenerator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void add(JavaInfo child, StatementTarget target, Association association) throws Exception {
-    // prepare comments
-    String[] leadingComments = null;
-    {
-      IPreferenceStore preferences = getPreferences(child);
-      if (preferences.getBoolean(P_USE_PREFIX)) {
-        leadingComments = new String[]{preferences.getString(P_PREFIX_TEXT)};
-      }
-    }
-    // add
-    add(child, target, leadingComments, association);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StatementGenerator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void add(JavaInfo child, StatementTarget target, Association association) throws Exception {
+		// prepare comments
+		String[] leadingComments = null;
+		{
+			IPreferenceStore preferences = getPreferences(child);
+			if (preferences.getBoolean(P_USE_PREFIX)) {
+				leadingComments = new String[]{preferences.getString(P_PREFIX_TEXT)};
+			}
+		}
+		// add
+		add(child, target, leadingComments, association);
+	}
 }

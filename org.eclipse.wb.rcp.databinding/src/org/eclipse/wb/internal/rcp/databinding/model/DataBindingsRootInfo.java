@@ -53,177 +53,177 @@ import java.util.List;
  * @coverage bindings.rcp.model
  */
 public final class DataBindingsRootInfo implements ISubParser {
-  public static final String INIT_DATA_BINDINGS_METHOD_NAME = "initDataBindings";
-  public static final String[] ACCESS_VALUES = {"public ", "protected ", "private ", ""};
-  private MethodDeclaration m_initDataBindings;
-  private final DataBindingContextInfo m_contextInfo = new DataBindingContextInfo();
+	public static final String INIT_DATA_BINDINGS_METHOD_NAME = "initDataBindings";
+	public static final String[] ACCESS_VALUES = {"public ", "protected ", "private ", ""};
+	private MethodDeclaration m_initDataBindings;
+	private final DataBindingContextInfo m_contextInfo = new DataBindingContextInfo();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodDeclaration getInitDataBindings() {
-    return m_initDataBindings;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodDeclaration getInitDataBindings() {
+		return m_initDataBindings;
+	}
 
-  public void setInitDataBindings(MethodDeclaration initDataBindings) {
-    m_initDataBindings = initDataBindings;
-  }
+	public void setInitDataBindings(MethodDeclaration initDataBindings) {
+		m_initDataBindings = initDataBindings;
+	}
 
-  public DataBindingContextInfo getContextInfo() {
-    return m_contextInfo;
-  }
+	public DataBindingContextInfo getContextInfo() {
+		return m_contextInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      ClassInstanceCreation creation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    ITypeBinding binding = AstNodeUtils.getTypeBinding(creation);
-    if (binding == null) {
-      return null;
-    }
-    // context
-    if ("org.eclipse.core.databinding.DataBindingContext.<init>()".equals(signature)) {
-      return m_contextInfo;
-    }
-    // value strategy
-    if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.UpdateValueStrategy")) {
-      UpdateValueStrategyInfo strategy = new UpdateValueStrategyInfo(creation, arguments);
-      resolver.addModelSupport(new StrategyModelSupport(strategy, creation));
-      return null;
-    }
-    // list strategy
-    if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.UpdateListStrategy")) {
-      UpdateListStrategyInfo strategy = new UpdateListStrategyInfo(creation, arguments);
-      resolver.addModelSupport(new StrategyModelSupport(strategy, creation));
-      return null;
-    }
-    // set strategy
-    if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.UpdateSetStrategy")) {
-      UpdateSetStrategyInfo strategy = new UpdateSetStrategyInfo(creation, arguments);
-      resolver.addModelSupport(new StrategyModelSupport(strategy, creation));
-      return null;
-    }
-    // validator
-    if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.validation.IValidator")) {
-      return new ValidatorInfo(editor, creation);
-    }
-    // converter
-    if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.conversion.IConverter")) {
-      return new ConverterInfo(editor, creation);
-    }
-    //
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			ClassInstanceCreation creation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		ITypeBinding binding = AstNodeUtils.getTypeBinding(creation);
+		if (binding == null) {
+			return null;
+		}
+		// context
+		if ("org.eclipse.core.databinding.DataBindingContext.<init>()".equals(signature)) {
+			return m_contextInfo;
+		}
+		// value strategy
+		if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.UpdateValueStrategy")) {
+			UpdateValueStrategyInfo strategy = new UpdateValueStrategyInfo(creation, arguments);
+			resolver.addModelSupport(new StrategyModelSupport(strategy, creation));
+			return null;
+		}
+		// list strategy
+		if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.UpdateListStrategy")) {
+			UpdateListStrategyInfo strategy = new UpdateListStrategyInfo(creation, arguments);
+			resolver.addModelSupport(new StrategyModelSupport(strategy, creation));
+			return null;
+		}
+		// set strategy
+		if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.UpdateSetStrategy")) {
+			UpdateSetStrategyInfo strategy = new UpdateSetStrategyInfo(creation, arguments);
+			resolver.addModelSupport(new StrategyModelSupport(strategy, creation));
+			return null;
+		}
+		// validator
+		if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.validation.IValidator")) {
+			return new ValidatorInfo(editor, creation);
+		}
+		// converter
+		if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.core.databinding.conversion.IConverter")) {
+			return new ConverterInfo(editor, creation);
+		}
+		//
+		return null;
+	}
 
-  @Override
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver) throws Exception {
-    if (signature.endsWith("initializeContext(org.eclipse.core.databinding.DataBindingContext)")
-        && AstNodeUtils.getLocalMethodDeclaration(invocation) != null) {
-      Assert.isNotNull(m_contextInfo);
-      m_contextInfo.addInitializeContext(true);
-    }
-    return null;
-  }
+	@Override
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver) throws Exception {
+		if (signature.endsWith("initializeContext(org.eclipse.core.databinding.DataBindingContext)")
+				&& AstNodeUtils.getLocalMethodDeclaration(invocation) != null) {
+			Assert.isNotNull(m_contextInfo);
+			m_contextInfo.addInitializeContext(true);
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Save model changes to source code.
-   */
-  public boolean commit(AstEditor editor,
-      TypeDeclaration typeDeclaration,
-      JavaInfo rootJavaInfo,
-      List<ObserveTypeContainer> containers,
-      boolean controller) throws Exception {
-    IJavaProject javaProject = editor.getJavaProject();
-    CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, m_contextInfo);
-    //
-    boolean reparse = DataBindingsCodeUtils.ensureDBLibraries(javaProject);
-    for (ObserveTypeContainer container : containers) {
-      reparse |= container.ensureDBLibraries(javaProject);
-    }
-    //
-    if (ensureDesignerResources()) {
-      DataBindingsCodeUtils.ensureDesignerResources(javaProject);
-      for (ObserveTypeContainer container : containers) {
-        container.ensureDesignerResources(javaProject);
-      }
-    }
-    // remove old method
-    if (m_initDataBindings != null) {
-      editor.removeBodyDeclaration(m_initDataBindings);
-    }
-    // prepare source code
-    List<String> methodLines = Lists.newArrayList();
-    m_contextInfo.addSourceCode(editor, methodLines, generationSupport);
-    //
-    BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, false);
-    //
-    MethodDeclaration lastInfoMethod =
-        controller
-            ? AstNodeUtils.getConstructors(typeDeclaration).get(0)
-            : DataBindingsCodeUtils.getLastInfoDeclaration(m_initDataBindings, rootJavaInfo);
-    // create new method
-    m_initDataBindings =
-        editor.addMethodDeclaration(createMethodHeader(lastInfoMethod), methodLines, target);
-    // check call initDataBindings() after creation all widgets
-    DataBindingsCodeUtils.ensureInvokeInitDataBindings(
-        controller ? null : rootJavaInfo,
-        editor,
-        typeDeclaration,
-        lastInfoMethod);
-    // check work application main method over Realm
-    DataBindingsCodeUtils.ensureEnclosingRealmOfMain(rootJavaInfo.getEditor());
-    //
-    if (controller) {
-      ControllerSupport.doSave(editor, rootJavaInfo);
-    }
-    //
-    return reparse;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Save model changes to source code.
+	 */
+	public boolean commit(AstEditor editor,
+			TypeDeclaration typeDeclaration,
+			JavaInfo rootJavaInfo,
+			List<ObserveTypeContainer> containers,
+			boolean controller) throws Exception {
+		IJavaProject javaProject = editor.getJavaProject();
+		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, m_contextInfo);
+		//
+		boolean reparse = DataBindingsCodeUtils.ensureDBLibraries(javaProject);
+		for (ObserveTypeContainer container : containers) {
+			reparse |= container.ensureDBLibraries(javaProject);
+		}
+		//
+		if (ensureDesignerResources()) {
+			DataBindingsCodeUtils.ensureDesignerResources(javaProject);
+			for (ObserveTypeContainer container : containers) {
+				container.ensureDesignerResources(javaProject);
+			}
+		}
+		// remove old method
+		if (m_initDataBindings != null) {
+			editor.removeBodyDeclaration(m_initDataBindings);
+		}
+		// prepare source code
+		List<String> methodLines = Lists.newArrayList();
+		m_contextInfo.addSourceCode(editor, methodLines, generationSupport);
+		//
+		BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, false);
+		//
+		MethodDeclaration lastInfoMethod =
+				controller
+				? AstNodeUtils.getConstructors(typeDeclaration).get(0)
+						: DataBindingsCodeUtils.getLastInfoDeclaration(m_initDataBindings, rootJavaInfo);
+		// create new method
+		m_initDataBindings =
+				editor.addMethodDeclaration(createMethodHeader(lastInfoMethod), methodLines, target);
+		// check call initDataBindings() after creation all widgets
+		DataBindingsCodeUtils.ensureInvokeInitDataBindings(
+				controller ? null : rootJavaInfo,
+						editor,
+						typeDeclaration,
+						lastInfoMethod);
+		// check work application main method over Realm
+		DataBindingsCodeUtils.ensureEnclosingRealmOfMain(rootJavaInfo.getEditor());
+		//
+		if (controller) {
+			ControllerSupport.doSave(editor, rootJavaInfo);
+		}
+		//
+		return reparse;
+	}
 
-  private boolean ensureDesignerResources() {
-    for (AbstractBindingInfo binding : m_contextInfo.getBindings()) {
-      if (binding instanceof TreeViewerInputBindingInfo) {
-        TreeViewerInputBindingInfo treeBinding = (TreeViewerInputBindingInfo) binding;
-        if (treeBinding.isDesignerMode()) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+	private boolean ensureDesignerResources() {
+		for (AbstractBindingInfo binding : m_contextInfo.getBindings()) {
+			if (binding instanceof TreeViewerInputBindingInfo) {
+				TreeViewerInputBindingInfo treeBinding = (TreeViewerInputBindingInfo) binding;
+				if (treeBinding.isDesignerMode()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
-  private static String createMethodHeader(MethodDeclaration lastInfoMethod) throws Exception {
-    int access = Activator.getStore().getInt(IPreferenceConstants.INITDB_GENERATE_ACCESS);
-    // check static
-    if (Modifier.isStatic(lastInfoMethod.getModifiers())) {
-      return ACCESS_VALUES[access]
-          + "static org.eclipse.core.databinding.DataBindingContext "
-          + INIT_DATA_BINDINGS_METHOD_NAME
-          + "()";
-    }
-    // normal
-    return ACCESS_VALUES[access]
-        + "org.eclipse.core.databinding.DataBindingContext "
-        + INIT_DATA_BINDINGS_METHOD_NAME
-        + "()";
-  }
+	private static String createMethodHeader(MethodDeclaration lastInfoMethod) throws Exception {
+		int access = Activator.getStore().getInt(IPreferenceConstants.INITDB_GENERATE_ACCESS);
+		// check static
+		if (Modifier.isStatic(lastInfoMethod.getModifiers())) {
+			return ACCESS_VALUES[access]
+					+ "static org.eclipse.core.databinding.DataBindingContext "
+					+ INIT_DATA_BINDINGS_METHOD_NAME
+					+ "()";
+		}
+		// normal
+		return ACCESS_VALUES[access]
+				+ "org.eclipse.core.databinding.DataBindingContext "
+				+ INIT_DATA_BINDINGS_METHOD_NAME
+				+ "()";
+	}
 }

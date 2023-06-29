@@ -26,40 +26,40 @@ import org.eclipse.swt.widgets.Scrollable;
  * @coverage swt.model.widgets
  */
 public class ScrollableInfo extends ControlInfo implements IScrollableInfo {
-  private Rectangle m_clientArea;
+	private Rectangle m_clientArea;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ScrollableInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ScrollableInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    m_clientArea = ContainerSupport.getClientArea(getObject());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		m_clientArea = ContainerSupport.getClientArea(getObject());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Rectangle}, same as {@link Scrollable#getClientArea()}.
-   */
-  @Override
-  public Rectangle getClientArea() {
-    return m_clientArea;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Rectangle}, same as {@link Scrollable#getClientArea()}.
+	 */
+	@Override
+	public Rectangle getClientArea() {
+		return m_clientArea;
+	}
 }

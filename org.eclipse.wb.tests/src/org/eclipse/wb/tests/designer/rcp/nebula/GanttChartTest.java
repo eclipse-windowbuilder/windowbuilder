@@ -22,44 +22,44 @@ import org.eclipse.nebula.widgets.ganttchart.GanttChart;
  * @author sablin_aa
  */
 public class GanttChartTest extends AbstractNebulaTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * General test {@link GanttGroupInfo} & {@link GanttGroupEditPart}
-   */
-  public void test_General() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "import org.eclipse.nebula.widgets.ganttchart.*;",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    GanttChart chart = new GanttChart(this, SWT.NONE);",
-            "    {",
-            "      GanttGroup group = new GanttGroup(chart);",
-            "    }",
-            "  }",
-            "}");
-    // refresh() also should be successful
-    shell.refresh();
-    // info
-    CompositeInfo gantt = shell.getChildren(CompositeInfo.class).get(0);
-    // inner composite info
-    CompositeInfo composite = gantt.getChildren(CompositeInfo.class).get(0);
-    assertNotNull(composite);
-    // group
-    // [failed cause no model in wbp-meta] GanttGroup_Info group = table.getChildren(GanttGroup_Info.class).get(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * General test {@link GanttGroupInfo} & {@link GanttGroupEditPart}
+	 */
+	public void test_General() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"import org.eclipse.nebula.widgets.ganttchart.*;",
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    setLayout(new FillLayout());",
+						"    GanttChart chart = new GanttChart(this, SWT.NONE);",
+						"    {",
+						"      GanttGroup group = new GanttGroup(chart);",
+						"    }",
+						"  }",
+						"}");
+		// refresh() also should be successful
+		shell.refresh();
+		// info
+		CompositeInfo gantt = shell.getChildren(CompositeInfo.class).get(0);
+		// inner composite info
+		CompositeInfo composite = gantt.getChildren(CompositeInfo.class).get(0);
+		assertNotNull(composite);
+		// group
+		// [failed cause no model in wbp-meta] GanttGroup_Info group = table.getChildren(GanttGroup_Info.class).get(0);
+	}
 }

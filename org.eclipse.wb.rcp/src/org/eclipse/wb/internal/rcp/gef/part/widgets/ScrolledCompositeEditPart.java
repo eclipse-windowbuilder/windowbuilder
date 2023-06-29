@@ -29,46 +29,46 @@ import org.eclipse.draw2d.geometry.Dimension;
  * @coverage rcp.gef.part
  */
 public final class ScrolledCompositeEditPart extends CompositeEditPart {
-  private final ScrolledCompositeInfo m_composite;
+	private final ScrolledCompositeInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ScrolledCompositeEditPart(ScrolledCompositeInfo composite) {
-    super(composite);
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ScrolledCompositeEditPart(ScrolledCompositeInfo composite) {
+		super(composite);
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void drawCustomBorder(Figure figure, Graphics graphics) {
-    super.drawCustomBorder(figure, graphics);
-    if (!m_composite.hasRequired_setContent()) {
-      String message = GefMessages.ScrolledCompositeEditPart_setContentWarning;
-      Dimension extent = graphics.getTextExtent(message);
-      graphics.setForegroundColor(IColorConstants.red);
-      graphics.drawText(
-          message,
-          (figure.getSize().width - extent.width) / 2,
-          (figure.getSize().height - extent.height) / 2);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void drawCustomBorder(Figure figure, Graphics graphics) {
+		super.drawCustomBorder(figure, graphics);
+		if (!m_composite.hasRequired_setContent()) {
+			String message = GefMessages.ScrolledCompositeEditPart_setContentWarning;
+			Dimension extent = graphics.getTextExtent(message);
+			graphics.setForegroundColor(IColorConstants.red);
+			graphics.drawText(
+					message,
+					(figure.getSize().width - extent.width) / 2,
+					(figure.getSize().height - extent.height) / 2);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(new ScrolledCompositeLayoutEditPolicy(m_composite));
-    installEditPolicy(new TerminatorLayoutEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(new ScrolledCompositeLayoutEditPolicy(m_composite));
+		installEditPolicy(new TerminatorLayoutEditPolicy());
+	}
 }

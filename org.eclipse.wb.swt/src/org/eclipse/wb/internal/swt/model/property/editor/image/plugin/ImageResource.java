@@ -23,14 +23,14 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swt.property.editor.plugin
  */
 public abstract class ImageResource implements IImageResource, IDisposable {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IImageElement
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Image getImage() {
-    ImageInfo imageInfo = getImageInfo();
-    return imageInfo != null ? imageInfo.getImage() : null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IImageElement
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Image getImage() {
+		ImageInfo imageInfo = getImageInfo();
+		return imageInfo != null ? imageInfo.getImage() : null;
+	}
 }

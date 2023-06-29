@@ -22,23 +22,23 @@ import org.eclipse.swt.widgets.Control;
  * @coverage core.editor.action.error
  */
 public interface IErrorPage {
-  /**
-   * Sets the root {@link ObjectInfo}.
-   */
-  void setRoot(ObjectInfo rootObject);
+	/**
+	 * Sets the root {@link ObjectInfo}.
+	 */
+	void setRoot(ObjectInfo rootObject);
 
-  /**
-   * @return <code>true</code> if page has errors.
-   */
-  boolean hasErrors();
+	/**
+	 * @return <code>true</code> if page has errors.
+	 */
+	boolean hasErrors();
 
-  /**
-   * @return the title of this page.
-   */
-  String getTitle();
+	/**
+	 * @return the title of this page.
+	 */
+	String getTitle();
 
-  /**
-   * Creates {@link Control} on given parent.
-   */
-  Control create(Composite parent);
+	/**
+	 * Creates {@link Control} on given parent.
+	 */
+	Control create(Composite parent);
 }

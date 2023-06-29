@@ -26,50 +26,50 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @coverage core.evaluation
  */
 public final class CastEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    if (expression instanceof CastExpression) {
-      CastExpression castExpression = (CastExpression) expression;
-      // prepare value to cast
-      Object value = AstEvaluationEngine.evaluate(context, castExpression.getExpression());
-      // do cast for primities
-      if (castExpression.getType().isPrimitiveType()) {
-        Number number = (Number) value;
-        String name = AstNodeUtils.getFullyQualifiedName(castExpression.getType(), true);
-        if ("byte".equals(name)) {
-          return number.byteValue();
-        }
-        if ("short".equals(name)) {
-          return number.shortValue();
-        }
-        if ("char".equals(name)) {
-          return (char) number.intValue();
-        }
-        if ("int".equals(name)) {
-          return number.intValue();
-        }
-        if ("long".equals(name)) {
-          return number.longValue();
-        }
-        if ("float".equals(name)) {
-          return number.floatValue();
-        }
-        if ("double".equals(name)) {
-          return number.doubleValue();
-        }
-      }
-      // don't need cast for objects
-      return value;
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		if (expression instanceof CastExpression) {
+			CastExpression castExpression = (CastExpression) expression;
+			// prepare value to cast
+			Object value = AstEvaluationEngine.evaluate(context, castExpression.getExpression());
+			// do cast for primities
+			if (castExpression.getType().isPrimitiveType()) {
+				Number number = (Number) value;
+				String name = AstNodeUtils.getFullyQualifiedName(castExpression.getType(), true);
+				if ("byte".equals(name)) {
+					return number.byteValue();
+				}
+				if ("short".equals(name)) {
+					return number.shortValue();
+				}
+				if ("char".equals(name)) {
+					return (char) number.intValue();
+				}
+				if ("int".equals(name)) {
+					return number.intValue();
+				}
+				if ("long".equals(name)) {
+					return number.longValue();
+				}
+				if ("float".equals(name)) {
+					return number.floatValue();
+				}
+				if ("double".equals(name)) {
+					return number.doubleValue();
+				}
+			}
+			// don't need cast for objects
+			return value;
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

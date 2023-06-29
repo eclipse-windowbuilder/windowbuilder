@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage core.model.property.events
  */
 public interface IListenerMethodProperty {
-  /**
-   * Opens stub method (or listener method if there are no stub method).
-   */
-  void openStubMethod() throws Exception;
+	/**
+	 * Opens stub method (or listener method if there are no stub method).
+	 */
+	void openStubMethod() throws Exception;
 }

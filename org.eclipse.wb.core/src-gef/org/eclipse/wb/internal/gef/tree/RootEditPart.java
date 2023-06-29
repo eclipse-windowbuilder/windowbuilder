@@ -25,68 +25,68 @@ import org.eclipse.swt.widgets.TreeItem;
  * @coverage gef.tree
  */
 class RootEditPart extends TreeEditPart implements IRootContainer {
-  private final IEditPartViewer m_viewer;
-  private TreeEditPart m_contentEditPart;
+	private final IEditPartViewer m_viewer;
+	private TreeEditPart m_contentEditPart;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RootEditPart(IEditPartViewer viewer) {
-    m_viewer = viewer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RootEditPart(IEditPartViewer viewer) {
+		m_viewer = viewer;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EditPart
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the root's {@link EditPartViewer}.
-   */
-  @Override
-  public IEditPartViewer getViewer() {
-    return m_viewer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EditPart
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the root's {@link EditPartViewer}.
+	 */
+	@Override
+	public IEditPartViewer getViewer() {
+		return m_viewer;
+	}
 
-  @Override
-  protected void addChildVisual(EditPart childPart, int index) {
-    m_contentEditPart.setWidget(new TreeItem(getTreeControl(), SWT.NONE));
-  }
+	@Override
+	protected void addChildVisual(EditPart childPart, int index) {
+		m_contentEditPart.setWidget(new TreeItem(getTreeControl(), SWT.NONE));
+	}
 
-  private Tree getTreeControl() {
-    return (Tree) m_viewer.getControl();
-  }
+	private Tree getTreeControl() {
+		return (Tree) m_viewer.getControl();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootEditPart
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the <i>content</i> {@link EditPart}.
-   */
-  @Override
-  public EditPart getContent() {
-    return m_contentEditPart;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootEditPart
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the <i>content</i> {@link EditPart}.
+	 */
+	@Override
+	public EditPart getContent() {
+		return m_contentEditPart;
+	}
 
-  /**
-   * Sets the <i>content</i> {@link EditPart}. A IRootEditPart only has a single child, called its
-   * <i>contents</i>.
-   */
-  @Override
-  public void setContent(EditPart contentEditPart) {
-    if (m_contentEditPart != null) {
-      // remove content
-      removeChild(m_contentEditPart);
-    }
-    //
-    m_contentEditPart = (TreeEditPart) contentEditPart;
-    //
-    if (m_contentEditPart != null) {
-      addChild(m_contentEditPart, -1);
-    }
-  }
+	/**
+	 * Sets the <i>content</i> {@link EditPart}. A IRootEditPart only has a single child, called its
+	 * <i>contents</i>.
+	 */
+	@Override
+	public void setContent(EditPart contentEditPart) {
+		if (m_contentEditPart != null) {
+			// remove content
+			removeChild(m_contentEditPart);
+		}
+		//
+		m_contentEditPart = (TreeEditPart) contentEditPart;
+		//
+		if (m_contentEditPart != null) {
+			addChild(m_contentEditPart, -1);
+		}
+	}
 }

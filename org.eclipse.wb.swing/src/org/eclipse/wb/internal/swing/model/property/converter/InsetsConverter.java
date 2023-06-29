@@ -22,36 +22,36 @@ import java.awt.Insets;
  * @coverage swing.property.converter
  */
 public final class InsetsConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new InsetsConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new InsetsConverter();
 
-  private InsetsConverter() {
-  }
+	private InsetsConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    if (value == null) {
-      return "(java.awt.Insets) null";
-    } else {
-      Insets insets = (Insets) value;
-      return "new java.awt.Insets("
-          + insets.top
-          + ", "
-          + insets.left
-          + ", "
-          + insets.bottom
-          + ", "
-          + insets.right
-          + ")";
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		if (value == null) {
+			return "(java.awt.Insets) null";
+		} else {
+			Insets insets = (Insets) value;
+			return "new java.awt.Insets("
+			+ insets.top
+			+ ", "
+			+ insets.left
+			+ ", "
+			+ insets.bottom
+			+ ", "
+			+ insets.right
+			+ ")";
+		}
+	}
 }

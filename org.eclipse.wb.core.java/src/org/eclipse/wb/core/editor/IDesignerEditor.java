@@ -22,35 +22,35 @@ import org.eclipse.jdt.core.ICompilationUnit;
  * @coverage core.editor
  */
 public interface IDesignerEditor extends IDesignCompositeProvider {
-  String ID = "org.eclipse.wb.core.guiEditor";
+	String ID = "org.eclipse.wb.core.guiEditor";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link IMultiMode}.
-   */
-  IMultiMode getMultiMode();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link IMultiMode}.
+	 */
+	IMultiMode getMultiMode();
 
-  /**
-   * @return the {@link ICompilationUnit} opened in this editor.
-   */
-  ICompilationUnit getCompilationUnit();
+	/**
+	 * @return the {@link ICompilationUnit} opened in this editor.
+	 */
+	ICompilationUnit getCompilationUnit();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listeners
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds {@link DesignerEditorListener} for this editor.
-   */
-  void addDesignPageListener(DesignerEditorListener listener);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listeners
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds {@link DesignerEditorListener} for this editor.
+	 */
+	void addDesignPageListener(DesignerEditorListener listener);
 
-  /**
-   * Removes {@link DesignerEditorListener} for this editor.
-   */
-  void removeDesignPageListener(DesignerEditorListener listener);
+	/**
+	 * Removes {@link DesignerEditorListener} for this editor.
+	 */
+	void removeDesignPageListener(DesignerEditorListener listener);
 }

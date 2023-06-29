@@ -29,84 +29,84 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ToolBarManagerInfo;
  * @coverage rcp.gef.policy
  */
 public final class ToolBarManagerLayoutEditPolicy
-    extends
-      ObjectFlowLayoutEditPolicy<ContributionItemInfo> {
-  private final ToolBarManagerInfo m_manager;
+extends
+ObjectFlowLayoutEditPolicy<ContributionItemInfo> {
+	private final ToolBarManagerInfo m_manager;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ToolBarManagerLayoutEditPolicy(ToolBarManagerInfo composite) {
-    super(composite);
-    m_manager = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ToolBarManagerLayoutEditPolicy(ToolBarManagerInfo composite) {
+		super(composite);
+		m_manager = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return true;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof ContributionItemInfo;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof ContributionItemInfo;
+	}
 
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return super.isRequestCondition(request) || request instanceof ActionDropRequest;
-  }
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return super.isRequestCondition(request) || request instanceof ActionDropRequest;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final ILayoutRequestValidator VALIDATOR =
-      LayoutRequestValidators.modelType(ContributionItemInfo.class);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final ILayoutRequestValidator VALIDATOR =
+			LayoutRequestValidators.modelType(ContributionItemInfo.class);
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCommand(Request request, Object referenceObject) {
-    if (request instanceof ActionDropRequest) {
-      final ActionDropRequest actionRequest = (ActionDropRequest) request;
-      final ContributionItemInfo reference = (ContributionItemInfo) referenceObject;
-      return new EditCommand(m_manager) {
-        @Override
-        protected void executeEdit() throws Exception {
-          ActionContributionItemInfo newItem =
-              m_manager.command_CREATE(actionRequest.getAction(), reference);
-          actionRequest.setItem(newItem);
-        }
-      };
-    }
-    return super.getCommand(request, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCommand(Request request, Object referenceObject) {
+		if (request instanceof ActionDropRequest) {
+			final ActionDropRequest actionRequest = (ActionDropRequest) request;
+			final ContributionItemInfo reference = (ContributionItemInfo) referenceObject;
+			return new EditCommand(m_manager) {
+				@Override
+				protected void executeEdit() throws Exception {
+					ActionContributionItemInfo newItem =
+							m_manager.command_CREATE(actionRequest.getAction(), reference);
+					actionRequest.setItem(newItem);
+				}
+			};
+		}
+		return super.getCommand(request, referenceObject);
+	}
 
-  @Override
-  protected void command_CREATE(ContributionItemInfo newObject, ContributionItemInfo referenceObject)
-      throws Exception {
-    m_manager.command_CREATE(newObject, referenceObject);
-  }
+	@Override
+	protected void command_CREATE(ContributionItemInfo newObject, ContributionItemInfo referenceObject)
+			throws Exception {
+		m_manager.command_CREATE(newObject, referenceObject);
+	}
 
-  @Override
-  protected void command_MOVE(ContributionItemInfo object, ContributionItemInfo referenceObject)
-      throws Exception {
-    m_manager.command_MOVE(object, referenceObject);
-  }
+	@Override
+	protected void command_MOVE(ContributionItemInfo object, ContributionItemInfo referenceObject)
+			throws Exception {
+		m_manager.command_MOVE(object, referenceObject);
+	}
 }

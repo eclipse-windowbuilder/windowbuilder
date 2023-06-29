@@ -29,60 +29,60 @@ import org.eclipse.wb.internal.swt.model.jface.viewer.ViewerInfo;
  * @coverage rcp.model.jface.viewers
  */
 public class ViewerColumnInfo extends WrapperInfo {
-  private ViewerInfo m_viewerInfo;
+	private ViewerInfo m_viewerInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerColumnInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerColumnInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IWrapperInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected WrapperByMethod createWrapper() {
-    return new WrapperByMethod(this, JavaInfoUtils.getParameter(this, "ViewerColumn.method")) {
-      @Override
-      protected CreationSupport newWrappedCreationSupport() throws Exception {
-        return new ViewerColumnCreationSupport(ViewerColumnInfo.this);
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IWrapperInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected WrapperByMethod createWrapper() {
+		return new WrapperByMethod(this, JavaInfoUtils.getParameter(this, "ViewerColumn.method")) {
+			@Override
+			protected CreationSupport newWrappedCreationSupport() throws Exception {
+				return new ViewerColumnCreationSupport(ViewerColumnInfo.this);
+			}
 
-      @Override
-      protected void configureParameter(ParameterDescription parameter, JavaInfo parameterJavaInfo)
-          throws Exception {
-        if (parameterJavaInfo instanceof ViewerInfo) {
-          m_viewerInfo = (ViewerInfo) parameterJavaInfo;
-        }
-        if (parameter.isParent()
-            && (parameter.getType() == getWrappedType() || parameterJavaInfo instanceof ViewerInfo)
-            && m_viewerInfo != null) {
-          configureHierarchy(m_viewerInfo);
-        }
-      }
+			@Override
+			protected void configureParameter(ParameterDescription parameter, JavaInfo parameterJavaInfo)
+					throws Exception {
+				if (parameterJavaInfo instanceof ViewerInfo) {
+					m_viewerInfo = (ViewerInfo) parameterJavaInfo;
+				}
+				if (parameter.isParent()
+						&& (parameter.getType() == getWrappedType() || parameterJavaInfo instanceof ViewerInfo)
+						&& m_viewerInfo != null) {
+					configureHierarchy(m_viewerInfo);
+				}
+			}
 
-      @Override
-      protected CreationSupport newControlCreationSupport() {
-        return new ViewerColumnWidgetCreationSupport(ViewerColumnInfo.this);
-      }
+			@Override
+			protected CreationSupport newControlCreationSupport() {
+				return new ViewerColumnWidgetCreationSupport(ViewerColumnInfo.this);
+			}
 
-      @Override
-      protected Association newControlAssociation() {
-        return new ViewerColumnWidgetAssociation(ViewerColumnInfo.this);
-      }
+			@Override
+			protected Association newControlAssociation() {
+				return new ViewerColumnWidgetAssociation(ViewerColumnInfo.this);
+			}
 
-      @Override
-      protected void configureHierarchy(JavaInfo parent, JavaInfo control) throws Exception {
-        softAddChild(parent.getParent(), control);
-        softAddChild(control, ViewerColumnInfo.this);
-      }
-    };
-  }
+			@Override
+			protected void configureHierarchy(JavaInfo parent, JavaInfo control) throws Exception {
+				softAddChild(parent.getParent(), control);
+				softAddChild(control, ViewerColumnInfo.this);
+			}
+		};
+	}
 }

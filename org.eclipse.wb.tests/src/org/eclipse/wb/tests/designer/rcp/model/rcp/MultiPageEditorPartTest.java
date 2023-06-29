@@ -21,42 +21,42 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
  * @author scheglov_ke
  */
 public class MultiPageEditorPartTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parsingException() throws Exception {
-    try {
-      parseJavaInfo(
-          "import org.eclipse.core.runtime.IProgressMonitor;",
-          "import org.eclipse.ui.part.MultiPageEditorPart;",
-          "public abstract class Test extends MultiPageEditorPart {",
-          "  public Test() {",
-          "  }",
-          "  protected void createPages() {",
-          "  }",
-          "  public boolean isSaveAsAllowed() {",
-          "    return false;",
-          "  }",
-          "  public void doSave(IProgressMonitor monitor) {",
-          "  }",
-          "  public void doSaveAs() {	",
-          "  }",
-          "}");
-      fail();
-    } catch (DesignerException e) {
-      assertEquals(IExceptionConstants.NO_DESIGN_MP_EDITOR, e.getCode());
-      assertTrue(DesignerExceptionUtils.isWarning(e));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parsingException() throws Exception {
+		try {
+			parseJavaInfo(
+					"import org.eclipse.core.runtime.IProgressMonitor;",
+					"import org.eclipse.ui.part.MultiPageEditorPart;",
+					"public abstract class Test extends MultiPageEditorPart {",
+					"  public Test() {",
+					"  }",
+					"  protected void createPages() {",
+					"  }",
+					"  public boolean isSaveAsAllowed() {",
+					"    return false;",
+					"  }",
+					"  public void doSave(IProgressMonitor monitor) {",
+					"  }",
+					"  public void doSaveAs() {	",
+					"  }",
+					"}");
+			fail();
+		} catch (DesignerException e) {
+			assertEquals(IExceptionConstants.NO_DESIGN_MP_EDITOR, e.getCode());
+			assertTrue(DesignerExceptionUtils.isWarning(e));
+		}
+	}
 }

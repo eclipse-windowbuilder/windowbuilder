@@ -27,73 +27,73 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.nls.ui
  */
 public final class ActivatorSourceNewComposite extends AbstractBundleSourceNewComposite {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActivatorSourceNewComposite(Composite parent, int style, JavaInfo root) {
-    super(parent, style, root);
-    // create GUI controls
-    createPropertyGroup();
-    // initialize fields
-    initializePropertyGroupActivator();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActivatorSourceNewComposite(Composite parent, int style, JavaInfo root) {
+		super(parent, style, root);
+		// create GUI controls
+		createPropertyGroup();
+		// initialize fields
+		initializePropertyGroupActivator();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Display
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static String getTitle() {
-    return Messages.ActivatorSourceNewComposite_title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Display
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static String getTitle() {
+		return Messages.ActivatorSourceNewComposite_title;
+	}
 
-  @Override
-  public String getSample() {
-    return "button.setText( Activator.getPluginBundle().getString(\"some.key\") );\r\n"
-        + "\r\n"
-        + "public class Activator { // extends AbstractUIPlugin \r\n"
-        + "   private static ResourceBundle pluginBundle = ResourceBundle.getBundle(\"plugin\");\r\n"
-        + "   public static ResourceBundle getPluginBundle() {\r\n"
-        + "      return pluginBundle;\r\n"
-        + "   }\r\n"
-        + "}";
-  }
+	@Override
+	public String getSample() {
+		return "button.setText( Activator.getPluginBundle().getString(\"some.key\") );\r\n"
+				+ "\r\n"
+				+ "public class Activator { // extends AbstractUIPlugin \r\n"
+				+ "   private static ResourceBundle pluginBundle = ResourceBundle.getBundle(\"plugin\");\r\n"
+				+ "   public static ResourceBundle getPluginBundle() {\r\n"
+				+ "      return pluginBundle;\r\n"
+				+ "   }\r\n"
+				+ "}";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creating
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IEditableSource createEditableSource(Object o) {
-    SourceParameters parameters = (SourceParameters) o;
-    try {
-      // create editable source
-      IEditableSource editableSource;
-      {
-        // check, may be we already have such property file
-        if (parameters.m_propertyFileExists) {
-          // use existing property file
-          ActivatorSource source = new ActivatorSource(m_root, parameters.m_propertyBundleName);
-          editableSource = source.getEditable();
-        } else {
-          editableSource = createEmptyEditable(parameters.m_propertyBundleName);
-        }
-      }
-      // configure editable source and return
-      editableSource.setKeyGeneratorStrategy(AbstractBundleSource.KEY_GENERATOR);
-      return editableSource;
-    } catch (Exception e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creating
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IEditableSource createEditableSource(Object o) {
+		SourceParameters parameters = (SourceParameters) o;
+		try {
+			// create editable source
+			IEditableSource editableSource;
+			{
+				// check, may be we already have such property file
+				if (parameters.m_propertyFileExists) {
+					// use existing property file
+					ActivatorSource source = new ActivatorSource(m_root, parameters.m_propertyBundleName);
+					editableSource = source.getEditable();
+				} else {
+					editableSource = createEmptyEditable(parameters.m_propertyBundleName);
+				}
+			}
+			// configure editable source and return
+			editableSource.setKeyGeneratorStrategy(AbstractBundleSource.KEY_GENERATOR);
+			return editableSource;
+		} catch (Exception e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  @Override
-  public Object createParametersObject() throws Exception {
-    SourceParameters parameters = new SourceParameters();
-    fillPropertyParameters(parameters);
-    return parameters;
-  }
+	@Override
+	public Object createParametersObject() throws Exception {
+		SourceParameters parameters = new SourceParameters();
+		fillPropertyParameters(parameters);
+		return parameters;
+	}
 }

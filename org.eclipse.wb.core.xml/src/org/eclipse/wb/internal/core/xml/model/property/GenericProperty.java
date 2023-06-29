@@ -23,39 +23,39 @@ import org.eclipse.wb.internal.core.xml.model.description.GenericPropertyDescrip
  * @coverage XML.model.property
  */
 public abstract class GenericProperty extends XmlProperty implements ITypedProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenericProperty(XmlObjectInfo object, String title, PropertyEditor propertyEditor) {
-    super(object, title, propertyEditor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenericProperty(XmlObjectInfo object, String title, PropertyEditor propertyEditor) {
+		super(object, title, propertyEditor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link GenericProperty} has given tag with value
-   *         <code>"true"</code>.
-   */
-  public abstract boolean hasTrueTag(String tag);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link GenericProperty} has given tag with value
+	 *         <code>"true"</code>.
+	 */
+	public abstract boolean hasTrueTag(String tag);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expression
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the attribute {@link String} expression, may be <code>null</code>.
-   */
-  public abstract String getExpression();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expression
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the attribute {@link String} expression, may be <code>null</code>.
+	 */
+	public abstract String getExpression();
 
-  /**
-   * Updates attribute of {@link XmlObjectInfo} to have given string expression. If given value
-   * equals default, then attribute will be removed.
-   */
-  public abstract void setExpression(String expression, Object value) throws Exception;
+	/**
+	 * Updates attribute of {@link XmlObjectInfo} to have given string expression. If given value
+	 * equals default, then attribute will be removed.
+	 */
+	public abstract void setExpression(String expression, Object value) throws Exception;
 }

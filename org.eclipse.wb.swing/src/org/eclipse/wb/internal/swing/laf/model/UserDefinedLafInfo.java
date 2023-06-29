@@ -23,44 +23,44 @@ import javax.swing.LookAndFeel;
  * @coverage swing.laf.model
  */
 public class UserDefinedLafInfo extends AbstractCustomLafInfo {
-  private Class<?> m_lafClass;
+	private Class<?> m_lafClass;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UserDefinedLafInfo(String name, String className, String jarFile) {
-    this("laf_" + System.currentTimeMillis(), name, className, jarFile);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UserDefinedLafInfo(String name, String className, String jarFile) {
+		this("laf_" + System.currentTimeMillis(), name, className, jarFile);
+	}
 
-  public UserDefinedLafInfo(String id, String name, String className, String jarFile) {
-    super(id, name, className, jarFile);
-  }
+	public UserDefinedLafInfo(String id, String name, String className, String jarFile) {
+		super(id, name, className, jarFile);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public LookAndFeel getLookAndFeelInstance() throws Exception {
-    if (m_lafClass == null) {
-      ClassLoader classLoader = getClassLoader();
-      m_lafClass = classLoader.loadClass(getClassName());
-    }
-    return (LookAndFeel) m_lafClass.newInstance();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public LookAndFeel getLookAndFeelInstance() throws Exception {
+		if (m_lafClass == null) {
+			ClassLoader classLoader = getClassLoader();
+			m_lafClass = classLoader.loadClass(getClassName());
+		}
+		return (LookAndFeel) m_lafClass.newInstance();
+	}
 
-  private ClassLoader getClassLoader() throws Exception {
-    File jarFile = new File(getJarFile());
-    URL jarURL = jarFile.toURI().toURL();
-    // special hack for Substance
-    if (jarFile.getName().equals("substance.jar")) {
-      URL secondaryJarURL = new File(jarFile.getParentFile(), "trident.jar").toURI().toURL();
-      return new URLClassLoader(new URL[]{jarURL, secondaryJarURL});
-    }
-    // single jar
-    return new URLClassLoader(new URL[]{jarURL});
-  }
+	private ClassLoader getClassLoader() throws Exception {
+		File jarFile = new File(getJarFile());
+		URL jarURL = jarFile.toURI().toURL();
+		// special hack for Substance
+		if (jarFile.getName().equals("substance.jar")) {
+			URL secondaryJarURL = new File(jarFile.getParentFile(), "trident.jar").toURI().toURL();
+			return new URLClassLoader(new URL[]{jarURL, secondaryJarURL});
+		}
+		// single jar
+		return new URLClassLoader(new URL[]{jarURL});
+	}
 }

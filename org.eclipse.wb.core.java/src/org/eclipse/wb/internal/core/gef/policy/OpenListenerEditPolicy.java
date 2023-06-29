@@ -37,41 +37,41 @@ import org.apache.commons.lang.StringUtils;
  * @coverage core.gef.policy
  */
 public final class OpenListenerEditPolicy extends EditPolicy {
-  private static final String DOUBLE_CLICK_LISTENER = "double-click.listener";
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final String m_listenerName;
-  private final JavaInfo m_javaInfo;
+	private static final String DOUBLE_CLICK_LISTENER = "double-click.listener";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final String m_listenerName;
+	private final JavaInfo m_javaInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public OpenListenerEditPolicy(JavaInfo javaInfo) {
-    m_javaInfo = javaInfo;
-    m_listenerName = JavaInfoUtils.getParameter(javaInfo, DOUBLE_CLICK_LISTENER);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public OpenListenerEditPolicy(JavaInfo javaInfo) {
+		m_javaInfo = javaInfo;
+		m_listenerName = JavaInfoUtils.getParameter(javaInfo, DOUBLE_CLICK_LISTENER);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    if (!StringUtils.isEmpty(m_listenerName) && Request.REQ_OPEN.equals(request.getType())) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          EventsProperty eventsProperty = (EventsProperty) m_javaInfo.getPropertyByTitle("Events");
-          eventsProperty.openStubMethod(m_listenerName);
-        }
-      });
-    }
-    super.performRequest(request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		if (!StringUtils.isEmpty(m_listenerName) && Request.REQ_OPEN.equals(request.getType())) {
+			ExecutionUtils.runLog(new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					EventsProperty eventsProperty = (EventsProperty) m_javaInfo.getPropertyByTitle("Events");
+					eventsProperty.openStubMethod(m_listenerName);
+				}
+			});
+		}
+		super.performRequest(request);
+	}
 }

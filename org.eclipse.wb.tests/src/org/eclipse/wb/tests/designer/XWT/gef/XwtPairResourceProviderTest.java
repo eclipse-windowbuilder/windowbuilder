@@ -21,83 +21,83 @@ import org.eclipse.core.resources.IFile;
  * @author scheglov_ke
  */
 public class XwtPairResourceProviderTest extends XwtModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_unknownExtension() throws Exception {
-    IFile file = setFileContentSrc("test/Test.foo", "");
-    assertEquals(null, getPair(file));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_unknownExtension() throws Exception {
+		IFile file = setFileContentSrc("test/Test.foo", "");
+		assertEquals(null, getPair(file));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // XWT -> Java
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_toJava_javaClassAttribute() throws Exception {
-    IFile javaFile = setFileContentSrc("foo/Bar.java", "");
-    IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell x:Class='foo.Bar'/>"));
-    //
-    assertEquals(javaFile, getPair(xwtFile));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// XWT -> Java
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_toJava_javaClassAttribute() throws Exception {
+		IFile javaFile = setFileContentSrc("foo/Bar.java", "");
+		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell x:Class='foo.Bar'/>"));
+		//
+		assertEquals(javaFile, getPair(xwtFile));
+	}
 
-  public void test_toJava_sameName() throws Exception {
-    IFile javaFile = setFileContentSrc("test/Test.java", "");
-    IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell/>"));
-    //
-    assertEquals(javaFile, getPair(xwtFile));
-  }
+	public void test_toJava_sameName() throws Exception {
+		IFile javaFile = setFileContentSrc("test/Test.java", "");
+		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell/>"));
+		//
+		assertEquals(javaFile, getPair(xwtFile));
+	}
 
-  public void test_toJava_no() throws Exception {
-    setFileContentSrc("foo/Test.java", "");
-    IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell/>"));
-    //
-    assertEquals(null, getPair(xwtFile));
-  }
+	public void test_toJava_no() throws Exception {
+		setFileContentSrc("foo/Test.java", "");
+		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell/>"));
+		//
+		assertEquals(null, getPair(xwtFile));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Java -> XWT
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_toXWT_javaClassAttribute_samePackage() throws Exception {
-    IFile javaFile = setFileContentSrc("test/Bar.java", "");
-    IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell x:Class='test.Bar'/>"));
-    //
-    assertEquals(xwtFile, getPair(javaFile));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Java -> XWT
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_toXWT_javaClassAttribute_samePackage() throws Exception {
+		IFile javaFile = setFileContentSrc("test/Bar.java", "");
+		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell x:Class='test.Bar'/>"));
+		//
+		assertEquals(xwtFile, getPair(javaFile));
+	}
 
-  public void test_toXWT_sameName() throws Exception {
-    IFile javaFile = setFileContentSrc("test/Test.java", "");
-    IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell/>"));
-    //
-    assertEquals(xwtFile, getPair(javaFile));
-  }
+	public void test_toXWT_sameName() throws Exception {
+		IFile javaFile = setFileContentSrc("test/Test.java", "");
+		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell/>"));
+		//
+		assertEquals(xwtFile, getPair(javaFile));
+	}
 
-  public void test_toXWT_no() throws Exception {
-    IFile javaFile = setFileContentSrc("test/Test.java", "");
-    setFileContentSrc("foo/Test.xwt", getSource("<Shell/>"));
-    //
-    assertEquals(null, getPair(javaFile));
-  }
+	public void test_toXWT_no() throws Exception {
+		IFile javaFile = setFileContentSrc("test/Test.java", "");
+		setFileContentSrc("foo/Test.xwt", getSource("<Shell/>"));
+		//
+		assertEquals(null, getPair(javaFile));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static IFile getPair(IFile file) {
-    return XwtPairResourceProvider.INSTANCE.getPair(file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static IFile getPair(IFile file) {
+		return XwtPairResourceProvider.INSTANCE.getPair(file);
+	}
 }

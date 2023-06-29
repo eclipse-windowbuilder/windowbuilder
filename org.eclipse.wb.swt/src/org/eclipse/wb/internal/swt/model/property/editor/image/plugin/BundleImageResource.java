@@ -29,83 +29,83 @@ import java.net.URL;
  * @coverage swt.property.editor.plugin
  */
 public final class BundleImageResource extends ImageResource {
-  private final URL m_url;
-  private final String m_symbolicName;
-  private final String m_imagePath;
-  private final String m_name;
-  private ImageInfo m_imageInfo;
+	private final URL m_url;
+	private final String m_symbolicName;
+	private final String m_imagePath;
+	private final String m_name;
+	private ImageInfo m_imageInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BundleImageResource(URL url, String symbolicName) {
-    m_url = url;
-    m_symbolicName = symbolicName;
-    m_imagePath = m_url.getFile();
-    m_name = StringUtils.substringAfterLast(m_imagePath, "/");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BundleImageResource(URL url, String symbolicName) {
+		m_url = url;
+		m_symbolicName = symbolicName;
+		m_imagePath = m_url.getFile();
+		m_name = StringUtils.substringAfterLast(m_imagePath, "/");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IImageResource
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ImageInfo getImageInfo() {
-    if (m_imageInfo == null) {
-      // load image
-      Image image;
-      try {
-        InputStream stream = m_url.openStream();
-        try {
-          image = new Image(Display.getCurrent(), stream);
-        } finally {
-          stream.close();
-        }
-      } catch (Throwable e) {
-        return null;
-      }
-      // add to cache
-      m_imageInfo =
-          new ImageInfo(PluginFileImagePage.ID,
-              new String[]{m_symbolicName, m_imagePath},
-              image,
-              -1);
-    }
-    return m_imageInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IImageResource
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ImageInfo getImageInfo() {
+		if (m_imageInfo == null) {
+			// load image
+			Image image;
+			try {
+				InputStream stream = m_url.openStream();
+				try {
+					image = new Image(Display.getCurrent(), stream);
+				} finally {
+					stream.close();
+				}
+			} catch (Throwable e) {
+				return null;
+			}
+			// add to cache
+			m_imageInfo =
+					new ImageInfo(PluginFileImagePage.ID,
+							new String[]{m_symbolicName, m_imagePath},
+							image,
+							-1);
+		}
+		return m_imageInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IImageElement
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getName() {
-    return m_name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IImageElement
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getName() {
+		return m_name;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return resource image path.
-   */
-  public String getPath() {
-    return m_imagePath;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return resource image path.
+	 */
+	public String getPath() {
+		return m_imagePath;
+	}
 
-  /**
-   * Disposes {@link Image} in {@link ImageInfo}.
-   */
-  @Override
-  public void dispose() {
-    if (m_imageInfo != null) {
-      m_imageInfo.getImage().dispose();
-    }
-  }
+	/**
+	 * Disposes {@link Image} in {@link ImageInfo}.
+	 */
+	@Override
+	public void dispose() {
+		if (m_imageInfo != null) {
+			m_imageInfo.getImage().dispose();
+		}
+	}
 }

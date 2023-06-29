@@ -26,51 +26,51 @@ import org.eclipse.wb.internal.xwt.model.layout.LayoutInfo;
  * @author scheglov_ke
  */
 public class FlowContainerLayoutGefTest extends FlowContainerAbstractGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final class MyLayout_Info extends LayoutInfo {
-    public MyLayout_Info(EditorContext context,
-        ComponentDescription description,
-        CreationSupport creationSupport) throws Exception {
-      super(context, description, creationSupport);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final class MyLayout_Info extends LayoutInfo {
+		public MyLayout_Info(EditorContext context,
+				ComponentDescription description,
+				CreationSupport creationSupport) throws Exception {
+			super(context, description, creationSupport);
+		}
 
-    public void command_CREATE(Object component, Object nextComponent) throws Exception {
-      XmlObjectUtils.add(
-          (XmlObjectInfo) component,
-          Associations.direct(),
-          getComposite(),
-          (XmlObjectInfo) nextComponent);
-    }
+		public void command_CREATE(Object component, Object nextComponent) throws Exception {
+			XmlObjectUtils.add(
+					(XmlObjectInfo) component,
+					Associations.direct(),
+					getComposite(),
+					(XmlObjectInfo) nextComponent);
+		}
 
-    public void command_MOVE(Object component, Object nextComponent) throws Exception {
-      XmlObjectUtils.move(
-          (XmlObjectInfo) component,
-          Associations.direct(),
-          getComposite(),
-          (XmlObjectInfo) nextComponent);
-    }
-  }
+		public void command_MOVE(Object component, Object nextComponent) throws Exception {
+			XmlObjectUtils.move(
+					(XmlObjectInfo) component,
+					Associations.direct(),
+					getComposite(),
+					(XmlObjectInfo) nextComponent);
+		}
+	}
 
-  @Override
-  protected void prepareFlowPanel() throws Exception {
-    FlowContainerModelTest.prepareFlowPanel_classes();
-    setFileContentSrc(
-        "test/MyLayout.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <model class='" + MyLayout_Info.class.getName() + "'/>",
-            "  <parameters>",
-            "    <parameter name='flowContainer'>true</parameter>",
-            "    <parameter name='flowContainer.horizontal'>true</parameter>",
-            "    <parameter name='flowContainer.component'>org.eclipse.swt.widgets.Control</parameter>",
-            "    <parameter name='flowContainer.reference'>org.eclipse.swt.widgets.Control</parameter>",
-            "  </parameters>",
-            "</component>"));
-    waitForAutoBuild();
-  }
+	@Override
+	protected void prepareFlowPanel() throws Exception {
+		FlowContainerModelTest.prepareFlowPanel_classes();
+		setFileContentSrc(
+				"test/MyLayout.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <model class='" + MyLayout_Info.class.getName() + "'/>",
+						"  <parameters>",
+						"    <parameter name='flowContainer'>true</parameter>",
+						"    <parameter name='flowContainer.horizontal'>true</parameter>",
+						"    <parameter name='flowContainer.component'>org.eclipse.swt.widgets.Control</parameter>",
+						"    <parameter name='flowContainer.reference'>org.eclipse.swt.widgets.Control</parameter>",
+						"  </parameters>",
+						"</component>"));
+		waitForAutoBuild();
+	}
 }

@@ -20,5 +20,5 @@ package org.eclipse.wb.gef.core.policies;
  * @coverage gef.core
  */
 public interface IRefreshableEditPolicy {
-  void refreshEditPolicy();
+	void refreshEditPolicy();
 }

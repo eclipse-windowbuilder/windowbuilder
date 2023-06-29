@@ -27,44 +27,44 @@ import java.util.List;
  *
  */
 public final class DesignPageFactory implements IXmlEditorPageFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IXMLEditorPageFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createPages(AbstractXmlEditor editor, List<IXmlEditorPage> pages) {
-    if (isXWT(editor)) {
-      BindingXmlPage.addPage(pages);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IXMLEditorPageFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createPages(AbstractXmlEditor editor, List<IXmlEditorPage> pages) {
+		if (isXWT(editor)) {
+			BindingXmlPage.addPage(pages);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static boolean isXWT(AbstractXmlEditor editor) {
-    try {
-      IDocument document = editor.getDocument();
-      FindReplaceDocumentAdapter finder = new FindReplaceDocumentAdapter(document);
-      IRegion region = finder.find(0, "xmlns", true, false, false, false);
-      if (region != null) {
-        int start = region.getOffset() + region.getLength();
-        region =
-            finder.find(
-                start,
-                "\"http://www.eclipse.org/xwt/presentation\"",
-                true,
-                false,
-                false,
-                false);
-        if (region != null) {
-          return "=".equals(document.get(start, region.getOffset() - start).trim());
-        }
-      }
-    } catch (Throwable e) {
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static boolean isXWT(AbstractXmlEditor editor) {
+		try {
+			IDocument document = editor.getDocument();
+			FindReplaceDocumentAdapter finder = new FindReplaceDocumentAdapter(document);
+			IRegion region = finder.find(0, "xmlns", true, false, false, false);
+			if (region != null) {
+				int start = region.getOffset() + region.getLength();
+				region =
+						finder.find(
+								start,
+								"\"http://www.eclipse.org/xwt/presentation\"",
+								true,
+								false,
+								false,
+								false);
+				if (region != null) {
+					return "=".equals(document.get(start, region.getOffset() - start).trim());
+				}
+			}
+		} catch (Throwable e) {
+		}
+		return false;
+	}
 }

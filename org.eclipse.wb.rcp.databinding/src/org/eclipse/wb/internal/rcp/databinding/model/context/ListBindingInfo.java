@@ -20,31 +20,31 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateLi
  * @coverage bindings.rcp.model.context
  */
 public final class ListBindingInfo extends BindingInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ListBindingInfo(ObservableInfo target, ObservableInfo model) {
-    this(target, model, null, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ListBindingInfo(ObservableInfo target, ObservableInfo model) {
+		this(target, model, null, null);
+	}
 
-  public ListBindingInfo(ObservableInfo target,
-      ObservableInfo model,
-      UpdateListStrategyInfo targetStrategy,
-      UpdateListStrategyInfo modelStrategy) {
-    super(target, model);
-    m_targetStrategy = targetStrategy == null ? new UpdateListStrategyInfo() : targetStrategy;
-    m_modelStrategy = modelStrategy == null ? new UpdateListStrategyInfo() : modelStrategy;
-  }
+	public ListBindingInfo(ObservableInfo target,
+			ObservableInfo model,
+			UpdateListStrategyInfo targetStrategy,
+			UpdateListStrategyInfo modelStrategy) {
+		super(target, model);
+		m_targetStrategy = targetStrategy == null ? new UpdateListStrategyInfo() : targetStrategy;
+		m_modelStrategy = modelStrategy == null ? new UpdateListStrategyInfo() : modelStrategy;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getBindingMethod() {
-    return "bindList";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getBindingMethod() {
+		return "bindList";
+	}
 }

@@ -25,40 +25,40 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
  * @coverage XWT.model.forms
  */
 public final class ColumnLayoutDataInfo extends LayoutDataInfo implements IColumnLayoutDataInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnLayoutDataInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnLayoutDataInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Size
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setWidthHint(int widthHint) throws Exception {
-    getPropertyByTitle("widthHint").setValue(widthHint);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Size
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setWidthHint(int widthHint) throws Exception {
+		getPropertyByTitle("widthHint").setValue(widthHint);
+	}
 
-  public void setHeightHint(int heightHint) throws Exception {
-    getPropertyByTitle("heightHint").setValue(heightHint);
-  }
+	public void setHeightHint(int heightHint) throws Exception {
+		getPropertyByTitle("heightHint").setValue(heightHint);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Alignment
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public int getHorizontalAlignment() throws Exception {
-    return (Integer) getPropertyByTitle("horizontalAlignment").getValue();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Alignment
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public int getHorizontalAlignment() throws Exception {
+		return (Integer) getPropertyByTitle("horizontalAlignment").getValue();
+	}
 
-  public void setHorizontalAlignment(int horizontalAlignment) throws Exception {
-    getPropertyByTitle("horizontalAlignment").setValue(horizontalAlignment);
-  }
+	public void setHorizontalAlignment(int horizontalAlignment) throws Exception {
+		getPropertyByTitle("horizontalAlignment").setValue(horizontalAlignment);
+	}
 }

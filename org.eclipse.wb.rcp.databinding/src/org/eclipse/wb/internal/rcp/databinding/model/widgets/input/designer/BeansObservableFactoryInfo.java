@@ -22,59 +22,59 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class BeansObservableFactoryInfo extends ObservableFactoryInfo {
-  protected Class<?> m_elementType;
-  protected String m_propertyName;
+	protected Class<?> m_elementType;
+	protected String m_propertyName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeansObservableFactoryInfo(String className) {
-    super(className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeansObservableFactoryInfo(String className) {
+		super(className);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final Class<?> getElementType() {
-    return m_elementType;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final Class<?> getElementType() {
+		return m_elementType;
+	}
 
-  public final void setElementType(Class<?> elementType) {
-    m_elementType = elementType;
-  }
+	public final void setElementType(Class<?> elementType) {
+		m_elementType = elementType;
+	}
 
-  public final String getPropertyName() {
-    return m_propertyName;
-  }
+	public final String getPropertyName() {
+		return m_propertyName;
+	}
 
-  public void setPropertyName(String propertyName) throws Exception {
-    m_propertyName = propertyName;
-  }
+	public void setPropertyName(String propertyName) throws Exception {
+		m_propertyName = propertyName;
+	}
 
-  public boolean isDesignerMode() {
-    return true;
-  }
+	public boolean isDesignerMode() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addSourceCode(List<String> lines) throws Exception {
-    lines.add(m_className
-        + " "
-        + getVariableIdentifier()
-        + " = new "
-        + m_className
-        + "("
-        + CoreUtils.getClassName(m_elementType)
-        + ".class, "
-        + CoreUtils.getDefaultString(m_propertyName, "\"", "null")
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addSourceCode(List<String> lines) throws Exception {
+		lines.add(m_className
+				+ " "
+				+ getVariableIdentifier()
+				+ " = new "
+				+ m_className
+				+ "("
+				+ CoreUtils.getClassName(m_elementType)
+				+ ".class, "
+				+ CoreUtils.getDefaultString(m_propertyName, "\"", "null")
+				+ ");");
+	}
 }

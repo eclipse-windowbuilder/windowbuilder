@@ -22,10 +22,10 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class AllXmlTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("All XML");
-    suite.addTest(XmlTests.suite());
-    suite.addTest(XwtTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("All XML");
+		suite.addTest(XmlTests.suite());
+		suite.addTest(XwtTests.suite());
+		return suite;
+	}
 }

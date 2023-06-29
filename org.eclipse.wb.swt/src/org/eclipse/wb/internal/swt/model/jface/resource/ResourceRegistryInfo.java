@@ -32,59 +32,59 @@ import java.util.List;
  * @coverage swt.model.jface
  */
 public class ResourceRegistryInfo extends JavaInfo {
-  private final List<KeyFieldInfo> m_fields;
+	private final List<KeyFieldInfo> m_fields;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ResourceRegistryInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    // Color/FontRegistry need initialized display
-    {
-      Class<?> displayClass =
-          EditorState.get(editor).getEditorLoader().loadClass("org.eclipse.swt.widgets.Display");
-      ReflectionUtils.invokeMethod(displayClass, "getDefault()");
-    }
-    // prepare key's information
-    m_fields = getKeyFields(getDescription().getComponentClass());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ResourceRegistryInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		// Color/FontRegistry need initialized display
+		{
+			Class<?> displayClass =
+					EditorState.get(editor).getEditorLoader().loadClass("org.eclipse.swt.widgets.Display");
+			ReflectionUtils.invokeMethod(displayClass, "getDefault()");
+		}
+		// prepare key's information
+		m_fields = getKeyFields(getDescription().getComponentClass());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final List<KeyFieldInfo> getKeyFields() {
-    return m_fields;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final List<KeyFieldInfo> getKeyFields() {
+		return m_fields;
+	}
 
-  /**
-   * Extract all <code>public static</code> field's with type {@link String} for given {@link Class}
-   * .
-   */
-  private static List<KeyFieldInfo> getKeyFields(Class<?> registryClass) throws Exception {
-    List<KeyFieldInfo> fields = Lists.newArrayList();
-    // extract all fields
-    for (Field field : registryClass.getFields()) {
-      if (Modifier.isStatic(field.getModifiers()) && field.getType() == String.class) {
-        Class<?> declaringClass = field.getDeclaringClass();
-        String keyName = field.getName();
-        String keyValue = (String) field.get(null);
-        fields.add(new KeyFieldInfo(declaringClass, keyName, keyValue));
-      }
-    }
-    // sort all fields
-    Collections.sort(fields, new Comparator<KeyFieldInfo>() {
-      @Override
-      public int compare(KeyFieldInfo info1, KeyFieldInfo info2) {
-        return info1.keyName.compareTo(info2.keyName);
-      }
-    });
-    //
-    return fields;
-  }
+	/**
+	 * Extract all <code>public static</code> field's with type {@link String} for given {@link Class}
+	 * .
+	 */
+	private static List<KeyFieldInfo> getKeyFields(Class<?> registryClass) throws Exception {
+		List<KeyFieldInfo> fields = Lists.newArrayList();
+		// extract all fields
+		for (Field field : registryClass.getFields()) {
+			if (Modifier.isStatic(field.getModifiers()) && field.getType() == String.class) {
+				Class<?> declaringClass = field.getDeclaringClass();
+				String keyName = field.getName();
+				String keyValue = (String) field.get(null);
+				fields.add(new KeyFieldInfo(declaringClass, keyName, keyValue));
+			}
+		}
+		// sort all fields
+		Collections.sort(fields, new Comparator<KeyFieldInfo>() {
+			@Override
+			public int compare(KeyFieldInfo info1, KeyFieldInfo info2) {
+				return info1.keyName.compareTo(info2.keyName);
+			}
+		});
+		//
+		return fields;
+	}
 }

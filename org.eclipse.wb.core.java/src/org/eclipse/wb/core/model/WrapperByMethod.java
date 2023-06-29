@@ -37,136 +37,136 @@ import java.lang.reflect.Method;
  * @coverage core.model
  */
 public class WrapperByMethod extends AbstractWrapper {
-  protected Method m_method;
+	protected Method m_method;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WrapperByMethod(JavaInfo host, String methodName) {
-    super(host);
-    setControlMethodName(methodName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WrapperByMethod(JavaInfo host, String methodName) {
+		super(host);
+		setControlMethodName(methodName);
+	}
 
-  public WrapperByMethod(JavaInfo host) {
-    this(host, JavaInfoUtils.getParameter(host, "Wrapper.method"));
-  }
+	public WrapperByMethod(JavaInfo host) {
+		this(host, JavaInfoUtils.getParameter(host, "Wrapper.method"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Prepares {@link #m_method} used to access {@link Control}.
-   */
-  public final void setControlMethodName(String methodName) {
-    Class<?> componentClass = m_wrapperInfo.getDescription().getComponentClass();
-    m_method = ReflectionUtils.getMethodBySignature(componentClass, methodName + "()");
-    Assert.isNotNull(m_method, "Viewer control access method \""
-        + methodName
-        + "\" not found for viewer class "
-        + ReflectionUtils.getFullyQualifiedName(componentClass, false));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Prepares {@link #m_method} used to access {@link Control}.
+	 */
+	public final void setControlMethodName(String methodName) {
+		Class<?> componentClass = m_wrapperInfo.getDescription().getComponentClass();
+		m_method = ReflectionUtils.getMethodBySignature(componentClass, methodName + "()");
+		Assert.isNotNull(m_method, "Viewer control access method \""
+				+ methodName
+				+ "\" not found for viewer class "
+				+ ReflectionUtils.getFullyQualifiedName(componentClass, false));
+	}
 
-  /**
-   * @return the {@link Method} to use for accessing {@link Control}.
-   */
-  public Method getControlMethod() {
-    return m_method;
-  }
+	/**
+	 * @return the {@link Method} to use for accessing {@link Control}.
+	 */
+	public Method getControlMethod() {
+		return m_method;
+	}
 
-  @Override
-  public Class<?> getWrappedType() {
-    return getControlMethod().getReturnType();
-  }
+	@Override
+	public Class<?> getWrappedType() {
+		return getControlMethod().getReturnType();
+	}
 
-  @Override
-  protected CreationSupport newWrappedCreationSupport() throws Exception {
-    return new WrapperMethodLiveCreationSupport(this);
-  }
+	@Override
+	protected CreationSupport newWrappedCreationSupport() throws Exception {
+		return new WrapperMethodLiveCreationSupport(this);
+	}
 
-  @Override
-  public boolean isWrappedInfo(ASTNode node) {
-    if (node instanceof MethodInvocation) {
-      MethodInvocation invocation = (MethodInvocation) node;
-      return invocation.arguments().isEmpty()
-          && invocation.getName().getIdentifier().equals(m_method.getName())
-          && m_wrapperInfo.isRepresentedBy(invocation.getExpression());
-    }
-    return false;
-  }
+	@Override
+	public boolean isWrappedInfo(ASTNode node) {
+		if (node instanceof MethodInvocation) {
+			MethodInvocation invocation = (MethodInvocation) node;
+			return invocation.arguments().isEmpty()
+					&& invocation.getName().getIdentifier().equals(m_method.getName())
+					&& m_wrapperInfo.isRepresentedBy(invocation.getExpression());
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parent/child utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures parent/child links for given {@link WrapperByMethod}, its parent and control.
-   */
-  public void configureWrapper(AbstractInvocationDescription methodDescription,
-      JavaInfo argumentInfos[]) throws Exception {
-    for (ParameterDescription parameter : methodDescription.getParameters()) {
-      JavaInfo parameterJavaInfo = argumentInfos[parameter.getIndex()];
-      if (parameter.isParent() && isParameterWithWrapped(parameter)) {
-        m_wrappedInfo = parameterJavaInfo;
-      }
-      configureParameter(parameter, parameterJavaInfo);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parent/child utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures parent/child links for given {@link WrapperByMethod}, its parent and control.
+	 */
+	public void configureWrapper(AbstractInvocationDescription methodDescription,
+			JavaInfo argumentInfos[]) throws Exception {
+		for (ParameterDescription parameter : methodDescription.getParameters()) {
+			JavaInfo parameterJavaInfo = argumentInfos[parameter.getIndex()];
+			if (parameter.isParent() && isParameterWithWrapped(parameter)) {
+				m_wrappedInfo = parameterJavaInfo;
+			}
+			configureParameter(parameter, parameterJavaInfo);
+		}
+	}
 
-  protected void configureParameter(ParameterDescription parameter, JavaInfo parameterJavaInfo)
-      throws Exception {
-    if (parameter.isParent() && !isParameterWithWrapped(parameter)) {
-      configureHierarchy(parameterJavaInfo);
-    }
-  }
+	protected void configureParameter(ParameterDescription parameter, JavaInfo parameterJavaInfo)
+			throws Exception {
+		if (parameter.isParent() && !isParameterWithWrapped(parameter)) {
+			configureHierarchy(parameterJavaInfo);
+		}
+	}
 
-  private boolean isParameterWithWrapped(ParameterDescription parameter) {
-    return parameter.hasTrueTag("Wrapper.wrapped");
-  }
+	private boolean isParameterWithWrapped(ParameterDescription parameter) {
+		return parameter.hasTrueTag("Wrapper.wrapped");
+	}
 
-  /**
-   * Configures parent/child links.
-   */
-  public void configureHierarchy(JavaInfo parent) throws Exception {
-    if (m_wrappedInfo == null) {
-      // create control info
-      m_wrappedInfo =
-          JavaInfoUtils.createJavaInfo(
-              m_wrapperInfo.getEditor(),
-              getWrappedType(),
-              newControlCreationSupport());
-      // tune control
-      m_wrappedInfo.setVariableSupport(newControlVariableSupport(m_wrappedInfo));
-      m_wrappedInfo.setAssociation(newControlAssociation());
-    }
-    // add control/viewer
-    configureHierarchy(parent, m_wrappedInfo);
-  }
+	/**
+	 * Configures parent/child links.
+	 */
+	public void configureHierarchy(JavaInfo parent) throws Exception {
+		if (m_wrappedInfo == null) {
+			// create control info
+			m_wrappedInfo =
+					JavaInfoUtils.createJavaInfo(
+							m_wrapperInfo.getEditor(),
+							getWrappedType(),
+							newControlCreationSupport());
+			// tune control
+			m_wrappedInfo.setVariableSupport(newControlVariableSupport(m_wrappedInfo));
+			m_wrappedInfo.setAssociation(newControlAssociation());
+		}
+		// add control/viewer
+		configureHierarchy(parent, m_wrappedInfo);
+	}
 
-  protected CreationSupport newControlCreationSupport() {
-    return new WrapperMethodControlCreationSupport(this);
-  }
+	protected CreationSupport newControlCreationSupport() {
+		return new WrapperMethodControlCreationSupport(this);
+	}
 
-  protected VariableSupport newControlVariableSupport(JavaInfo control) {
-    return new WrapperMethodControlVariableSupport(control, this);
-  }
+	protected VariableSupport newControlVariableSupport(JavaInfo control) {
+		return new WrapperMethodControlVariableSupport(control, this);
+	}
 
-  protected Association newControlAssociation() {
-    return new WrappedObjectAssociation(this);
-  }
+	protected Association newControlAssociation() {
+		return new WrappedObjectAssociation(this);
+	}
 
-  protected void configureHierarchy(JavaInfo parent, JavaInfo control) throws Exception {
-    softAddChild(parent, control);
-    softAddChild(control, m_wrapperInfo);
-  }
+	protected void configureHierarchy(JavaInfo parent, JavaInfo control) throws Exception {
+		softAddChild(parent, control);
+		softAddChild(control, m_wrapperInfo);
+	}
 
-  protected final static void softAddChild(ObjectInfo parent, ObjectInfo child) throws Exception {
-    if (!parent.getChildren().contains(child)) {
-      parent.addChild(child);
-    }
-  }
+	protected final static void softAddChild(ObjectInfo parent, ObjectInfo child) throws Exception {
+		if (!parent.getChildren().contains(child)) {
+			parent.addChild(child);
+		}
+	}
 }

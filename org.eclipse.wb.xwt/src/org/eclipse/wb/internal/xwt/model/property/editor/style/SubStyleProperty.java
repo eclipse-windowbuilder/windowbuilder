@@ -19,47 +19,47 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage XWT.model.property.editor
  */
 final class SubStyleProperty extends Property {
-  private final Property m_mainProperty;
-  private final SubStylePropertyImpl m_propertyImpl;
+	private final Property m_mainProperty;
+	private final SubStylePropertyImpl m_propertyImpl;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SubStyleProperty(Property mainProperty, SubStylePropertyImpl propertyImpl) {
-    super(propertyImpl.createEditor());
-    m_mainProperty = mainProperty;
-    m_propertyImpl = propertyImpl;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SubStyleProperty(Property mainProperty, SubStylePropertyImpl propertyImpl) {
+		super(propertyImpl.createEditor());
+		m_mainProperty = mainProperty;
+		m_propertyImpl = propertyImpl;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() {
-    return m_propertyImpl.getTitle();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() {
+		return m_propertyImpl.getTitle();
+	}
 
-  @Override
-  public boolean isModified() throws Exception {
-    return true;
-  }
+	@Override
+	public boolean isModified() throws Exception {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue() throws Exception {
-    return m_propertyImpl.getValue(m_mainProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue() throws Exception {
+		return m_propertyImpl.getValue(m_mainProperty);
+	}
 
-  @Override
-  public void setValue(Object value) throws Exception {
-    m_propertyImpl.setValue(m_mainProperty, value);
-  }
+	@Override
+	public void setValue(Object value) throws Exception {
+		m_propertyImpl.setValue(m_mainProperty, value);
+	}
 }

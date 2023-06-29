@@ -49,159 +49,159 @@ import java.util.List;
  * @coverage rcp.model.jface
  */
 public class DialogInfo extends WindowInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    // move properties "id", "text" and "default" for Button on top level
-    addBroadcastListener(new JavaInfoAddProperties() {
-      @Override
-      public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        configureButtonBarProperties(javaInfo, properties);
-      }
-    });
-    // add Button to palette
-    addBroadcastListener(new PaletteEventListener() {
-      @Override
-      public void entries(CategoryInfo category, List<EntryInfo> entries) throws Exception {
-        if (category.getId().equals("org.eclipse.wb.rcp.jface")) {
-          entries.add(new DialogButtonEntryInfo());
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		// move properties "id", "text" and "default" for Button on top level
+		addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
+			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
+				configureButtonBarProperties(javaInfo, properties);
+			}
+		});
+		// add Button to palette
+		addBroadcastListener(new PaletteEventListener() {
+			@Override
+			public void entries(CategoryInfo category, List<EntryInfo> entries) throws Exception {
+				if (category.getId().equals("org.eclipse.wb.rcp.jface")) {
+					entries.add(new DialogButtonEntryInfo());
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Button bar support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the "button bar" {@link CompositeInfo}, or <code>null</code> if not found.
-   */
-  public CompositeInfo getButtonBar() {
-    final CompositeInfo[] buttonBar = new CompositeInfo[1];
-    accept(new ObjectInfoVisitor() {
-      @Override
-      public void endVisit(ObjectInfo objectInfo) throws Exception {
-        if (buttonBar[0] == null && objectInfo instanceof CompositeInfo) {
-          CompositeInfo composite = (CompositeInfo) objectInfo;
-          if (isButtonBar(composite)) {
-            buttonBar[0] = composite;
-          }
-        }
-      }
-    });
-    return buttonBar[0];
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Button bar support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the "button bar" {@link CompositeInfo}, or <code>null</code> if not found.
+	 */
+	public CompositeInfo getButtonBar() {
+		final CompositeInfo[] buttonBar = new CompositeInfo[1];
+		accept(new ObjectInfoVisitor() {
+			@Override
+			public void endVisit(ObjectInfo objectInfo) throws Exception {
+				if (buttonBar[0] == null && objectInfo instanceof CompositeInfo) {
+					CompositeInfo composite = (CompositeInfo) objectInfo;
+					if (isButtonBar(composite)) {
+						buttonBar[0] = composite;
+					}
+				}
+			}
+		});
+		return buttonBar[0];
+	}
 
-  /**
-   * Moves "id/title/default" {@link Property}'s of "button" on "button bar".
-   */
-  private void configureButtonBarProperties(JavaInfo javaInfo, List<Property> properties)
-      throws Exception {
-    if (javaInfo instanceof ControlInfo
-        && javaInfo.getDescription().getComponentClass().getName().equals(
-            "org.eclipse.swt.widgets.Button")
-        && javaInfo.getParent() == getButtonBar()) {
-      for (Property property : properties) {
-        if (property.getTitle().equals("Factory")) {
-          IComplexPropertyEditor factoryEditor = (IComplexPropertyEditor) property.getEditor();
-          Property[] factoryProperties = factoryEditor.getProperties(property);
-          for (Property factoryProperty : factoryProperties) {
-            if (factoryProperty.getTitle().equals("id")) {
-              GenericPropertyImpl idProperty = getCopy(factoryProperty, "ID", -3);
-              properties.add(0, idProperty);
-            }
-            if (factoryProperty.getTitle().equals("text")) {
-              GenericPropertyImpl titleProperty = getCopy(factoryProperty, "Text", -2);
-              properties.add(1, titleProperty);
-            }
-            if (factoryProperty.getTitle().equals("default")) {
-              GenericPropertyImpl defaultProperty = getCopy(factoryProperty, "Default", -1);
-              properties.add(2, defaultProperty);
-            }
-          }
-          // OK, we've changes properties
-          break;
-        }
-      }
-    }
-  }
+	/**
+	 * Moves "id/title/default" {@link Property}'s of "button" on "button bar".
+	 */
+	private void configureButtonBarProperties(JavaInfo javaInfo, List<Property> properties)
+			throws Exception {
+		if (javaInfo instanceof ControlInfo
+				&& javaInfo.getDescription().getComponentClass().getName().equals(
+						"org.eclipse.swt.widgets.Button")
+				&& javaInfo.getParent() == getButtonBar()) {
+			for (Property property : properties) {
+				if (property.getTitle().equals("Factory")) {
+					IComplexPropertyEditor factoryEditor = (IComplexPropertyEditor) property.getEditor();
+					Property[] factoryProperties = factoryEditor.getProperties(property);
+					for (Property factoryProperty : factoryProperties) {
+						if (factoryProperty.getTitle().equals("id")) {
+							GenericPropertyImpl idProperty = getCopy(factoryProperty, "ID", -3);
+							properties.add(0, idProperty);
+						}
+						if (factoryProperty.getTitle().equals("text")) {
+							GenericPropertyImpl titleProperty = getCopy(factoryProperty, "Text", -2);
+							properties.add(1, titleProperty);
+						}
+						if (factoryProperty.getTitle().equals("default")) {
+							GenericPropertyImpl defaultProperty = getCopy(factoryProperty, "Default", -1);
+							properties.add(2, defaultProperty);
+						}
+					}
+					// OK, we've changes properties
+					break;
+				}
+			}
+		}
+	}
 
-  /**
-   * @return the copy of given {@link GenericPropertyImpl} with new title/category.
-   */
-  private GenericPropertyImpl getCopy(Property property, String newTitle, int newCategory)
-      throws Exception {
-    GenericPropertyImpl newProperty = (GenericPropertyImpl) getArbitraryValue(property);
-    if (newProperty == null) {
-      newProperty = new GenericPropertyImpl((GenericPropertyImpl) property, newTitle);
-      newProperty.setCategory(PropertyCategory.system(newCategory));
-      putArbitraryValue(property, newProperty);
-    }
-    return newProperty;
-  }
+	/**
+	 * @return the copy of given {@link GenericPropertyImpl} with new title/category.
+	 */
+	private GenericPropertyImpl getCopy(Property property, String newTitle, int newCategory)
+			throws Exception {
+		GenericPropertyImpl newProperty = (GenericPropertyImpl) getArbitraryValue(property);
+		if (newProperty == null) {
+			newProperty = new GenericPropertyImpl((GenericPropertyImpl) property, newTitle);
+			newProperty.setCategory(PropertyCategory.system(newCategory));
+			putArbitraryValue(property, newProperty);
+		}
+		return newProperty;
+	}
 
-  /**
-   * @return <code>true</code> if given {@link CompositeInfo} if "parent" in
-   *         {@link Dialog#createButtonsForButtonBar(Composite)}.
-   */
-  public static boolean isButtonBar(CompositeInfo composite) {
-    if (composite.getRoot() instanceof DialogInfo
-        && composite.getCreationSupport() instanceof MethodParameterCreationSupport) {
-      SingleVariableDeclaration parameter =
-          (SingleVariableDeclaration) composite.getCreationSupport().getNode();
-      MethodDeclaration methodDeclaration = (MethodDeclaration) parameter.getParent();
-      String methodSignature = AstNodeUtils.getMethodSignature(methodDeclaration);
-      return methodSignature.equals("createButtonsForButtonBar(org.eclipse.swt.widgets.Composite)");
-    }
-    return false;
-  }
+	/**
+	 * @return <code>true</code> if given {@link CompositeInfo} if "parent" in
+	 *         {@link Dialog#createButtonsForButtonBar(Composite)}.
+	 */
+	public static boolean isButtonBar(CompositeInfo composite) {
+		if (composite.getRoot() instanceof DialogInfo
+				&& composite.getCreationSupport() instanceof MethodParameterCreationSupport) {
+			SingleVariableDeclaration parameter =
+					(SingleVariableDeclaration) composite.getCreationSupport().getNode();
+			MethodDeclaration methodDeclaration = (MethodDeclaration) parameter.getParent();
+			String methodSignature = AstNodeUtils.getMethodSignature(methodDeclaration);
+			return methodSignature.equals("createButtonsForButtonBar(org.eclipse.swt.widgets.Composite)");
+		}
+		return false;
+	}
 
-  /**
-   * Adds new "button" on "button bar".
-   *
-   * @return the added button {@link ControlInfo}.
-   */
-  public static ControlInfo createButtonOnButtonBar(CompositeInfo buttonBar, ControlInfo nextButton)
-      throws Exception {
-    AstEditor editor = buttonBar.getEditor();
-    // prepare CreationSupport
-    CreationSupport creationSupport;
-    {
-      DialogInfo dialog = (DialogInfo) buttonBar.getRootJava();
-      String signature =
-          "createButton(org.eclipse.swt.widgets.Composite,int,java.lang.String,boolean)";
-      String source = "createButton(%parent%, 0, \"New button\", false)";
-      creationSupport = new ImplicitFactoryCreationSupport(dialog, signature, source);
-    }
-    // do add
-    ControlInfo button =
-        (ControlInfo) JavaInfoUtils.createJavaInfo(
-            editor,
-            "org.eclipse.swt.widgets.Button",
-            creationSupport);
-    JavaInfoUtils.add(
-        button,
-        new EmptyPureVariableSupport(button),
-        PureFlatStatementGenerator.INSTANCE,
-        AssociationObjects.factoryParent(),
-        buttonBar,
-        nextButton);
-    return button;
-  }
+	/**
+	 * Adds new "button" on "button bar".
+	 *
+	 * @return the added button {@link ControlInfo}.
+	 */
+	public static ControlInfo createButtonOnButtonBar(CompositeInfo buttonBar, ControlInfo nextButton)
+			throws Exception {
+		AstEditor editor = buttonBar.getEditor();
+		// prepare CreationSupport
+		CreationSupport creationSupport;
+		{
+			DialogInfo dialog = (DialogInfo) buttonBar.getRootJava();
+			String signature =
+					"createButton(org.eclipse.swt.widgets.Composite,int,java.lang.String,boolean)";
+			String source = "createButton(%parent%, 0, \"New button\", false)";
+			creationSupport = new ImplicitFactoryCreationSupport(dialog, signature, source);
+		}
+		// do add
+		ControlInfo button =
+				(ControlInfo) JavaInfoUtils.createJavaInfo(
+						editor,
+						"org.eclipse.swt.widgets.Button",
+						creationSupport);
+		JavaInfoUtils.add(
+				button,
+				new EmptyPureVariableSupport(button),
+				PureFlatStatementGenerator.INSTANCE,
+				AssociationObjects.factoryParent(),
+				buttonBar,
+				nextButton);
+		return button;
+	}
 
-  /**
-   * Moves "button" on "buttonBar".
-   */
-  public static void moveButtonOnButtonBar(ControlInfo button, ControlInfo nextButton)
-      throws Exception {
-    JavaInfoUtils.move(button, null, button.getParentJava(), nextButton);
-  }
+	/**
+	 * Moves "button" on "buttonBar".
+	 */
+	public static void moveButtonOnButtonBar(ControlInfo button, ControlInfo nextButton)
+			throws Exception {
+		JavaInfoUtils.move(button, null, button.getParentJava(), nextButton);
+	}
 }

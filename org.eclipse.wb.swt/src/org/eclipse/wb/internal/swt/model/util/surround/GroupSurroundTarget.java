@@ -21,14 +21,14 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage swt.model.util
  */
 public final class GroupSurroundTarget extends AbstractCompositeSurroundTarget {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new GroupSurroundTarget();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new GroupSurroundTarget();
 
-  private GroupSurroundTarget() {
-    super("org.eclipse.swt.widgets.Group");
-  }
+	private GroupSurroundTarget() {
+		super("org.eclipse.swt.widgets.Group");
+	}
 }

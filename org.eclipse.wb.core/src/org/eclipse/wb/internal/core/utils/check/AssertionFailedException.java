@@ -18,20 +18,20 @@ package org.eclipse.wb.internal.core.utils.check;
  * @coverage core.util
  */
 public final class AssertionFailedException extends RuntimeException {
-  private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Constructs a new exception with the given message.
-   *
-   * @param detail
-   *          the message
-   */
-  public AssertionFailedException(String detail) {
-    super(detail);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Constructs a new exception with the given message.
+	 *
+	 * @param detail
+	 *          the message
+	 */
+	public AssertionFailedException(String detail) {
+		super(detail);
+	}
 }

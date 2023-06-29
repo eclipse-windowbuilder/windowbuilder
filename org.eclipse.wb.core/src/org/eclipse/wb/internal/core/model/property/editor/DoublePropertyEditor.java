@@ -24,61 +24,61 @@ import java.text.MessageFormat;
  * @coverage core.model.property.editor
  */
 public final class DoublePropertyEditor extends AbstractTextPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new DoublePropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new DoublePropertyEditor();
 
-  private DoublePropertyEditor() {
-  }
+	private DoublePropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof Number) {
-      double doubleValue = ((Number) value).doubleValue();
-      return Double.toString(doubleValue);
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof Number) {
+			double doubleValue = ((Number) value).doubleValue();
+			return Double.toString(doubleValue);
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getEditorText(Property property) throws Exception {
-    return getText(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getEditorText(Property property) throws Exception {
+		return getText(property);
+	}
 
-  @Override
-  protected boolean setEditorText(Property property, String text) throws Exception {
-    text = text.trim();
-    // check for delete
-    if (text.length() == 0) {
-      property.setValue(Property.UNKNOWN_VALUE);
-    }
-    // prepare value
-    Double value;
-    try {
-      value = Double.valueOf(text);
-    } catch (Throwable e) {
-      UiUtils.openWarning(
-          DesignerPlugin.getShell(),
-          property.getTitle(),
-          MessageFormat.format(ModelMessages.DoublePropertyEditor_notValidDouble, text));
-      return false;
-    }
-    // modify property
-    property.setValue(value);
-    return true;
-  }
+	@Override
+	protected boolean setEditorText(Property property, String text) throws Exception {
+		text = text.trim();
+		// check for delete
+		if (text.length() == 0) {
+			property.setValue(Property.UNKNOWN_VALUE);
+		}
+		// prepare value
+		Double value;
+		try {
+			value = Double.valueOf(text);
+		} catch (Throwable e) {
+			UiUtils.openWarning(
+					DesignerPlugin.getShell(),
+					property.getTitle(),
+					MessageFormat.format(ModelMessages.DoublePropertyEditor_notValidDouble, text));
+			return false;
+		}
+		// modify property
+		property.setValue(value);
+		return true;
+	}
 }

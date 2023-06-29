@@ -30,152 +30,152 @@ import java.util.List;
  * @coverage bindings.rcp.model
  */
 public abstract class BindableInfo implements IObserveInfo {
-  private Class<?> m_objectType;
-  private IReferenceProvider m_referenceProvider;
-  private int m_bindingDecorationCorner;
+	private Class<?> m_objectType;
+	private IReferenceProvider m_referenceProvider;
+	private int m_bindingDecorationCorner;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BindableInfo(Class<?> objectType, String reference) {
-    this(objectType, new StringReferenceProvider(reference));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BindableInfo(Class<?> objectType, String reference) {
+		this(objectType, new StringReferenceProvider(reference));
+	}
 
-  public BindableInfo(Class<?> objectType, IReferenceProvider referenceProvider) {
-    m_objectType = objectType;
-    m_referenceProvider = referenceProvider;
-  }
+	public BindableInfo(Class<?> objectType, IReferenceProvider referenceProvider) {
+		m_objectType = objectType;
+		m_referenceProvider = referenceProvider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link Class} type of bindable object or property.
-   */
-  public final Class<?> getObjectType() {
-    return m_objectType;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link Class} type of bindable object or property.
+	 */
+	public final Class<?> getObjectType() {
+		return m_objectType;
+	}
 
-  /**
-   * Sets {@link Class} type of bindable object or property.
-   */
-  protected final void setObjectType(Class<?> objectType) {
-    m_objectType = objectType;
-  }
+	/**
+	 * Sets {@link Class} type of bindable object or property.
+	 */
+	protected final void setObjectType(Class<?> objectType) {
+		m_objectType = objectType;
+	}
 
-  /**
-   * @return {@link IReferenceProvider} reference provider on bindable object or property.
-   */
-  public final IReferenceProvider getReferenceProvider() {
-    return m_referenceProvider;
-  }
+	/**
+	 * @return {@link IReferenceProvider} reference provider on bindable object or property.
+	 */
+	public final IReferenceProvider getReferenceProvider() {
+		return m_referenceProvider;
+	}
 
-  /**
-   * Sets {@link IReferenceProvider} reference provider on bindable object or property.
-   */
-  public final void setReferenceProvider(IReferenceProvider referenceProvider) {
-    m_referenceProvider = referenceProvider;
-  }
+	/**
+	 * Sets {@link IReferenceProvider} reference provider on bindable object or property.
+	 */
+	public final void setReferenceProvider(IReferenceProvider referenceProvider) {
+		m_referenceProvider = referenceProvider;
+	}
 
-  /**
-   * @return the reference on bindable object or property.
-   */
-  public final String getReference() throws Exception {
-    return m_referenceProvider.getReference();
-  }
+	/**
+	 * @return the reference on bindable object or property.
+	 */
+	public final String getReference() throws Exception {
+		return m_referenceProvider.getReference();
+	}
 
-  /**
-   * @return {@link BindableInfo} object that represented given reference or <code>null</code>.
-   */
-  public final BindableInfo resolveReference(String reference) throws Exception {
-    if (reference.equals(getReference())) {
-      return this;
-    }
-    for (BindableInfo child : getChildren()) {
-      BindableInfo result = child.resolveReference(reference);
-      if (result != null) {
-        return result;
-      }
-    }
-    return null;
-  }
+	/**
+	 * @return {@link BindableInfo} object that represented given reference or <code>null</code>.
+	 */
+	public final BindableInfo resolveReference(String reference) throws Exception {
+		if (reference.equals(getReference())) {
+			return this;
+		}
+		for (BindableInfo child : getChildren()) {
+			BindableInfo result = child.resolveReference(reference);
+			if (result != null) {
+				return result;
+			}
+		}
+		return null;
+	}
 
-  /**
-   * @return {@link BindableInfo} property that association with given reference or
-   *         <code>null</code>.
-   */
-  public BindableInfo resolvePropertyReference(String reference) throws Exception {
-    throw new UnsupportedOperationException();
-  }
+	/**
+	 * @return {@link BindableInfo} property that association with given reference or
+	 *         <code>null</code>.
+	 */
+	public BindableInfo resolvePropertyReference(String reference) throws Exception {
+		throw new UnsupportedOperationException();
+	}
 
-  /**
-   * @return {@link BindableInfo} collection with sub models.
-   */
-  protected abstract List<BindableInfo> getChildren();
+	/**
+	 * @return {@link BindableInfo} collection with sub models.
+	 */
+	protected abstract List<BindableInfo> getChildren();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link IObservableFactory} for create observable.
-   */
-  public IObservableFactory getObservableFactory() throws Exception {
-    throw new UnsupportedOperationException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link IObservableFactory} for create observable.
+	 */
+	public IObservableFactory getObservableFactory() throws Exception {
+		throw new UnsupportedOperationException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private List<AbstractBindingInfo> m_bindings;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private List<AbstractBindingInfo> m_bindings;
 
-  /**
-   * This method is invoked as last step of create new observable.
-   */
-  public void createBinding(AbstractBindingInfo binding) throws Exception {
-    if (m_bindings == null) {
-      m_bindings = Lists.newArrayList();
-    }
-    m_bindings.add(binding);
-    updateBindingDecoration();
-  }
+	/**
+	 * This method is invoked as last step of create new observable.
+	 */
+	public void createBinding(AbstractBindingInfo binding) throws Exception {
+		if (m_bindings == null) {
+			m_bindings = Lists.newArrayList();
+		}
+		m_bindings.add(binding);
+		updateBindingDecoration();
+	}
 
-  public void deleteBinding(AbstractBindingInfo binding) throws Exception {
-    m_bindings.remove(binding);
-    if (m_bindings.isEmpty()) {
-      m_bindings = null;
-    }
-    updateBindingDecoration();
-  }
+	public void deleteBinding(AbstractBindingInfo binding) throws Exception {
+		m_bindings.remove(binding);
+		if (m_bindings.isEmpty()) {
+			m_bindings = null;
+		}
+		updateBindingDecoration();
+	}
 
-  public List<AbstractBindingInfo> getBindings() {
-    if (m_bindings == null) {
-      return Collections.emptyList();
-    }
-    return m_bindings;
-  }
+	public List<AbstractBindingInfo> getBindings() {
+		if (m_bindings == null) {
+			return Collections.emptyList();
+		}
+		return m_bindings;
+	}
 
-  protected final void setBindingDecoration(int decorationCorner) {
-    m_bindingDecorationCorner = decorationCorner;
-  }
+	protected final void setBindingDecoration(int decorationCorner) {
+		m_bindingDecorationCorner = decorationCorner;
+	}
 
-  private void updateBindingDecoration() throws Exception {
-    if (m_bindingDecorationCorner != 0) {
-      IObservePresentation presentation = getPresentation();
-      if (presentation instanceof IObservePresentationDecorator) {
-        IObservePresentationDecorator presentationDecorator =
-            (IObservePresentationDecorator) presentation;
-        presentationDecorator.setBindingDecorator(CollectionUtils.isEmpty(m_bindings)
-            ? 0
-            : m_bindingDecorationCorner);
-      }
-    }
-  }
+	private void updateBindingDecoration() throws Exception {
+		if (m_bindingDecorationCorner != 0) {
+			IObservePresentation presentation = getPresentation();
+			if (presentation instanceof IObservePresentationDecorator) {
+				IObservePresentationDecorator presentationDecorator =
+						(IObservePresentationDecorator) presentation;
+				presentationDecorator.setBindingDecorator(CollectionUtils.isEmpty(m_bindings)
+						? 0
+								: m_bindingDecorationCorner);
+			}
+		}
+	}
 }

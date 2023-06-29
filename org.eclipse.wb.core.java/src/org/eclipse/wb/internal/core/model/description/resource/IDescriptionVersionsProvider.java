@@ -26,9 +26,9 @@ import java.util.List;
  * @coverage core.model.description
  */
 public interface IDescriptionVersionsProvider {
-  /**
-   * @return the {@link List} of versions, or sub-folders in "wbp-meta" where component description
-   *         may be found, may be empty {@link List}, but not <code>null</code>.
-   */
-  List<String> getVersions(Class<?> componentClass) throws Exception;
+	/**
+	 * @return the {@link List} of versions, or sub-folders in "wbp-meta" where component description
+	 *         may be found, may be empty {@link List}, but not <code>null</code>.
+	 */
+	List<String> getVersions(Class<?> componentClass) throws Exception;
 }

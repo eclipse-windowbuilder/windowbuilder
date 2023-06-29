@@ -18,34 +18,34 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @author scheglov_ke
  */
 public final class IntegerPreferenceProvider extends AbstractPreferenceProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IntegerPreferenceProvider(IPreferenceStore store, String key) {
-    super(store, key);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IntegerPreferenceProvider(IPreferenceStore store, String key) {
+		super(store, key);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue(boolean def) {
-    int value = def ? m_store.getDefaultInt(m_key) : m_store.getInt(m_key);
-    return new Integer(value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue(boolean def) {
+		int value = def ? m_store.getDefaultInt(m_key) : m_store.getInt(m_key);
+		return new Integer(value);
+	}
 
-  @Override
-  public void setValue(Object value) {
-    int intValue;
-    if (value instanceof Integer) {
-      intValue = ((Integer) value).intValue();
-    } else {
-      intValue = Integer.parseInt(value.toString());
-    }
-    m_store.setValue(m_key, intValue);
-  }
+	@Override
+	public void setValue(Object value) {
+		int intValue;
+		if (value instanceof Integer) {
+			intValue = ((Integer) value).intValue();
+		} else {
+			intValue = Integer.parseInt(value.toString());
+		}
+		m_store.setValue(m_key, intValue);
+	}
 }

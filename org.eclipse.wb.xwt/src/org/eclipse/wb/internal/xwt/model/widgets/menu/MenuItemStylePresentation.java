@@ -23,37 +23,37 @@ import org.eclipse.swt.SWT;
  * @coverage XWT.model.widgets
  */
 public final class MenuItemStylePresentation extends StylePresentation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuItemStylePresentation(MenuItemInfo item) {
-    super(item);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuItemStylePresentation(MenuItemInfo item) {
+		super(item);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Custom text for separator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText() throws Exception {
-    if (ControlSupport.isStyle(m_widget.getObject(), SWT.SEPARATOR)) {
-      return "<separator>";
-    }
-    return super.getText();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Custom text for separator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText() throws Exception {
+		if (ControlSupport.isStyle(m_widget.getObject(), SWT.SEPARATOR)) {
+			return "<separator>";
+		}
+		return super.getText();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StylePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initImages() throws Exception {
-    addImage(SWT.CHECK, "wbp-meta/org/eclipse/swt/widgets/MenuItem_check.gif");
-    addImage(SWT.RADIO, "wbp-meta/org/eclipse/swt/widgets/MenuItem_radio.gif");
-    addImage(SWT.SEPARATOR, "wbp-meta/org/eclipse/swt/widgets/MenuItem_separator.gif");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StylePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initImages() throws Exception {
+		addImage(SWT.CHECK, "wbp-meta/org/eclipse/swt/widgets/MenuItem_check.gif");
+		addImage(SWT.RADIO, "wbp-meta/org/eclipse/swt/widgets/MenuItem_radio.gif");
+		addImage(SWT.SEPARATOR, "wbp-meta/org/eclipse/swt/widgets/MenuItem_separator.gif");
+	}
 }

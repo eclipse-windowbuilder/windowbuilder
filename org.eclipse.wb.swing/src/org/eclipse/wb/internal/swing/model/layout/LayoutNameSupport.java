@@ -27,48 +27,48 @@ import java.util.Map;
  * @coverage swing.model.layout
  */
 public final class LayoutNameSupport
-    extends
-      org.eclipse.wb.internal.core.model.layout.LayoutNameSupport<LayoutInfo> {
-  public final static String[] TEMPLATES = new String[]{
-      "${layoutAcronym}_${containerName}",
-      "${layoutAcronym}${containerName-cap}",
-      "${containerName}${layoutClassName}",
-      "${defaultName}"};
+extends
+org.eclipse.wb.internal.core.model.layout.LayoutNameSupport<LayoutInfo> {
+	public final static String[] TEMPLATES = new String[]{
+			"${layoutAcronym}_${containerName}",
+			"${layoutAcronym}${containerName-cap}",
+			"${containerName}${layoutClassName}",
+	"${defaultName}"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutNameSupport(LayoutInfo layout) {
-    super(layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutNameSupport(LayoutInfo layout) {
+		super(layout);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utilities
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getTemplate() {
-    IPreferenceStore preferences = m_childInfo.getDescription().getToolkit().getPreferences();
-    String template = preferences.getString(IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
-    if (!isValidTemplate(TEMPLATES, template)) {
-      template = getTemplateForDefault();
-    }
-    return template;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utilities
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getTemplate() {
+		IPreferenceStore preferences = m_childInfo.getDescription().getToolkit().getPreferences();
+		String template = preferences.getString(IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
+		if (!isValidTemplate(TEMPLATES, template)) {
+			template = getTemplateForDefault();
+		}
+		return template;
+	}
 
-  @Override
-  protected Map<String, String> getValueMap() {
-    // prepare variables
-    Map<String, String> valueMap = Maps.newTreeMap();
-    {
-      valueMap.put("layoutAcronym", getAcronym());
-      valueMap.put("layoutClassName", getClassName());
-      valueMap.put("containerName", getParentName());
-      valueMap.put("containerName-cap", getParentNameCap());
-    }
-    return valueMap;
-  }
+	@Override
+	protected Map<String, String> getValueMap() {
+		// prepare variables
+		Map<String, String> valueMap = Maps.newTreeMap();
+		{
+			valueMap.put("layoutAcronym", getAcronym());
+			valueMap.put("layoutClassName", getClassName());
+			valueMap.put("containerName", getParentName());
+			valueMap.put("containerName-cap", getParentNameCap());
+		}
+		return valueMap;
+	}
 }

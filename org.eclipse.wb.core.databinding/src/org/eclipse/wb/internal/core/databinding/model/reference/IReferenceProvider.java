@@ -18,8 +18,8 @@ package org.eclipse.wb.internal.core.databinding.model.reference;
  * @coverage bindings.model
  */
 public interface IReferenceProvider {
-  /**
-   * @return string reference on hosted object.
-   */
-  String getReference() throws Exception;
+	/**
+	 * @return string reference on hosted object.
+	 */
+	String getReference() throws Exception;
 }

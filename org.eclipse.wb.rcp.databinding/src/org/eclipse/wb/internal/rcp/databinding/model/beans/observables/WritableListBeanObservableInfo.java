@@ -20,24 +20,24 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.CollectionP
  * @coverage bindings.rcp.model.beans
  */
 public final class WritableListBeanObservableInfo extends CollectionObservableInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WritableListBeanObservableInfo(BeanBindableInfo bindableObject,
-      CollectionPropertyBindableInfo bindableProperty,
-      Class<?> elementType) {
-    super(bindableObject, bindableProperty, elementType);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WritableListBeanObservableInfo(BeanBindableInfo bindableObject,
+			CollectionPropertyBindableInfo bindableProperty,
+			Class<?> elementType) {
+		super(bindableObject, bindableProperty, elementType);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getPresentationPrefix() {
-    return "WritableList";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getPresentationPrefix() {
+		return "WritableList";
+	}
 }

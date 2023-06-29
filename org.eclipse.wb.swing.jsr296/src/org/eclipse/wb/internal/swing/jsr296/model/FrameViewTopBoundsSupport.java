@@ -24,47 +24,47 @@ import javax.swing.JFrame;
  * @coverage swing.jsr296
  */
 public class FrameViewTopBoundsSupport extends TopBoundsSupport {
-  private final FrameViewInfo m_view;
+	private final FrameViewInfo m_view;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FrameViewTopBoundsSupport(FrameViewInfo view) {
-    super(view);
-    m_view = view;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FrameViewTopBoundsSupport(FrameViewInfo view) {
+		super(view);
+		m_view = view;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TopBoundsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void apply() throws Exception {
-    // set size from resource properties (or default)
-    {
-      Dimension size = getResourceSize();
-      m_view.getFrame().setSize(size.width, size.height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TopBoundsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void apply() throws Exception {
+		// set size from resource properties (or default)
+		{
+			Dimension size = getResourceSize();
+			m_view.getFrame().setSize(size.width, size.height);
+		}
+	}
 
-  @Override
-  public void setSize(int width, int height) throws Exception {
-    // remember size in resource properties
-    setResourceSize(width, height);
-  }
+	@Override
+	public void setSize(int width, int height) throws Exception {
+		// remember size in resource properties
+		setResourceSize(width, height);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Show
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean show() throws Exception {
-    JFrame frame = m_view.getFrame();
-    SwingTopBoundsSupport.show(frame);
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Show
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean show() throws Exception {
+		JFrame frame = m_view.getFrame();
+		SwingTopBoundsSupport.show(frame);
+		return false;
+	}
 }

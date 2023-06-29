@@ -24,31 +24,31 @@ import org.eclipse.wb.internal.rcp.model.widgets.DialogInfo;
  * @coverage rcp.gef.part
  */
 public class DialogEditPart extends AbstractComponentEditPart {
-  private final DialogInfo m_dialog;
+	private final DialogInfo m_dialog;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogEditPart(DialogInfo dialog) {
-    super(dialog);
-    m_dialog = dialog;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogEditPart(DialogInfo dialog) {
+		super(dialog);
+		m_dialog = dialog;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    // injecting into main {@link ShellEditPart} a {@link TopSelectionEditPolicy}.
-    for (EditPart child : getChildren()) {
-      if (child.getModel() == m_dialog.getShellInfo()) {
-        child.installEditPolicy(EditPolicy.SELECTION_ROLE, new TopSelectionEditPolicy(m_dialog));
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		// injecting into main {@link ShellEditPart} a {@link TopSelectionEditPolicy}.
+		for (EditPart child : getChildren()) {
+			if (child.getModel() == m_dialog.getShellInfo()) {
+				child.installEditPolicy(EditPolicy.SELECTION_ROLE, new TopSelectionEditPolicy(m_dialog));
+			}
+		}
+	}
 }

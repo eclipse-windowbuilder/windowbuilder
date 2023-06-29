@@ -28,46 +28,46 @@ import org.eclipse.swt.widgets.CoolItem;
  * @coverage XWT.model.widgets
  */
 public final class CoolItemInfo extends ItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CoolItemInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CoolItemInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    {
-      Rectangle bounds = CoordinateUtils.getRectangle(((CoolItem) getObject()).getBounds());
-      setModelBounds(bounds);
-    }
-    super.refresh_fetch();
-    fixControlBounds();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		{
+			Rectangle bounds = CoordinateUtils.getRectangle(((CoolItem) getObject()).getBounds());
+			setModelBounds(bounds);
+		}
+		super.refresh_fetch();
+		fixControlBounds();
+	}
 
-  /**
-   * {@link Control} returns bounds on {@link CoolBar}, but we show it as child of {@link CoolItem},
-   * so we should tweak {@link Control} bounds.
-   */
-  private void fixControlBounds() {
-    for (ControlInfo control : getChildren(ControlInfo.class)) {
-      {
-        Point offset = getModelBounds().getLocation().getNegated();
-        control.getModelBounds().performTranslate(offset);
-      }
-      {
-        Point offset = getBounds().getLocation().getNegated();
-        control.getBounds().performTranslate(offset);
-      }
-    }
-  }
+	/**
+	 * {@link Control} returns bounds on {@link CoolBar}, but we show it as child of {@link CoolItem},
+	 * so we should tweak {@link Control} bounds.
+	 */
+	private void fixControlBounds() {
+		for (ControlInfo control : getChildren(ControlInfo.class)) {
+			{
+				Point offset = getModelBounds().getLocation().getNegated();
+				control.getModelBounds().performTranslate(offset);
+			}
+			{
+				Point offset = getBounds().getLocation().getNegated();
+				control.getBounds().performTranslate(offset);
+			}
+		}
+	}
 }

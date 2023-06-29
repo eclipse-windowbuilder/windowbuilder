@@ -35,90 +35,90 @@ import java.util.Map;
  * @coverage os.linux
  */
 public class Activator extends AbstractUIPlugin {
-  public static final String PLUGIN_ID = "org.eclipse.wb.os.linux";
-  //
-  private static Activator m_plugin;
+	public static final String PLUGIN_ID = "org.eclipse.wb.os.linux";
+	//
+	private static Activator m_plugin;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void start(BundleContext context) throws Exception {
-    super.start(context);
-    m_plugin = this;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		m_plugin = this;
+	}
 
-  @Override
-  public void stop(BundleContext context) throws Exception {
-    m_plugin = null;
-    super.stop(context);
-  }
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		m_plugin = null;
+		super.stop(context);
+	}
 
-  /**
-   * Returns the shared instance.
-   */
-  public static Activator getDefault() {
-    return m_plugin;
-  }
+	/**
+	 * Returns the shared instance.
+	 */
+	public static Activator getDefault() {
+		return m_plugin;
+	}
 
-  public static void logError(String text, Throwable error) {
-    getDefault().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, text, error));
-  }
+	public static void logError(String text, Throwable error) {
+		getDefault().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, text, error));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Files
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link InputStream} for file from plugin directory.
-   */
-  public static InputStream getFile(String path) {
-    try {
-      URL url = new URL(getInstallURL(), path);
-      return url.openStream();
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Files
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link InputStream} for file from plugin directory.
+	 */
+	public static InputStream getFile(String path) {
+		try {
+			URL url = new URL(getInstallURL(), path);
+			return url.openStream();
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 
-  /**
-   * @return the install {@link URL} for this {@link Plugin}.
-   */
-  public static URL getInstallURL() {
-    return getInstallUrl(getDefault());
-  }
+	/**
+	 * @return the install {@link URL} for this {@link Plugin}.
+	 */
+	public static URL getInstallURL() {
+		return getInstallUrl(getDefault());
+	}
 
-  /**
-   * @return the install {@link URL} for given {@link Plugin}.
-   */
-  private static URL getInstallUrl(Plugin plugin) {
-    return plugin.getBundle().getEntry("/");
-  }
+	/**
+	 * @return the install {@link URL} for given {@link Plugin}.
+	 */
+	private static URL getInstallUrl(Plugin plugin) {
+		return plugin.getBundle().getEntry("/");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Images
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final Map<String, Image> m_nameToIconMap = Maps.newHashMap();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Images
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final Map<String, Image> m_nameToIconMap = Maps.newHashMap();
 
-  /**
-   * @return the {@link Image} from "icons" directory.
-   */
-  public static Image getImage(String path) {
-    Image image = m_nameToIconMap.get(path);
-    if (image == null) {
-      InputStream is = getFile("icons/" + path);
-      try {
-        image = new Image(Display.getCurrent(), is);
-        m_nameToIconMap.put(path, image);
-      } finally {
-        IOUtils.closeQuietly(is);
-      }
-    }
-    return image;
-  }
+	/**
+	 * @return the {@link Image} from "icons" directory.
+	 */
+	public static Image getImage(String path) {
+		Image image = m_nameToIconMap.get(path);
+		if (image == null) {
+			InputStream is = getFile("icons/" + path);
+			try {
+				image = new Image(Display.getCurrent(), is);
+				m_nameToIconMap.put(path, image);
+			} finally {
+				IOUtils.closeQuietly(is);
+			}
+		}
+		return image;
+	}
 }

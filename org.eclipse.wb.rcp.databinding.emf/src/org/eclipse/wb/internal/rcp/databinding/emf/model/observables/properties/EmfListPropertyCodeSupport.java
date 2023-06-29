@@ -27,77 +27,77 @@ import java.util.List;
  *
  */
 public class EmfListPropertyCodeSupport extends EmfPropertiesCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EmfListPropertyCodeSupport() {
-    super("org.eclipse.core.databinding.property.list.IListProperty");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EmfListPropertyCodeSupport() {
+		super("org.eclipse.core.databinding.property.list.IListProperty");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ObservableInfo createObservable(EObjectBindableInfo eObject,
-      EPropertyBindableInfo eProperty) {
-    return new ListEmfObservableInfo(eObject, eProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ObservableInfo createObservable(EObjectBindableInfo eObject,
+			EPropertyBindableInfo eProperty) {
+		return new ListEmfObservableInfo(eObject, eProperty);
+	}
 
-  @Override
-  protected ObservableInfo createDetailObservable(ObservableInfo masterObservable,
-      PropertiesSupport propertiesSupport) throws Exception {
-    Assert.isNotNull(m_parserPropertyReference);
-    //
-    DetailListEmfObservableInfo observeDetailList =
-        new DetailListEmfObservableInfo(masterObservable, propertiesSupport);
-    observeDetailList.setDetailPropertyReference(null, m_parserPropertyReference);
-    observeDetailList.setCodeSupport(new EmfListPropertyDetailCodeSupport());
-    //
-    return observeDetailList;
-  }
+	@Override
+	protected ObservableInfo createDetailObservable(ObservableInfo masterObservable,
+			PropertiesSupport propertiesSupport) throws Exception {
+		Assert.isNotNull(m_parserPropertyReference);
+		//
+		DetailListEmfObservableInfo observeDetailList =
+				new DetailListEmfObservableInfo(masterObservable, propertiesSupport);
+		observeDetailList.setDetailPropertyReference(null, m_parserPropertyReference);
+		observeDetailList.setCodeSupport(new EmfListPropertyDetailCodeSupport());
+		//
+		return observeDetailList;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName(
-          observable.getBindableObject().getReference(),
-          observable.getBindableProperty().getPresentation().getText(),
-          "ObserveList"));
-    }
-    //
-    String sourceCode =
-        PropertiesSupport.getEMFPropertiesCode(observable.getBindableObject(), "list(")
-            + observable.getBindableProperty().getReference()
-            + ")";
-    if (getVariableIdentifier() != null) {
-      if (generationSupport.addModel(this)) {
-        if (generationSupport.addModel(this)) {
-          lines.add("org.eclipse.core.databinding.beans.IBeanListProperty "
-              + getVariableIdentifier()
-              + sourceCode
-              + ";");
-        }
-      }
-      sourceCode = getVariableIdentifier();
-    }
-    // add code
-    lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
-        + observable.getVariableIdentifier()
-        + sourceCode
-        + ".observe("
-        + observable.getBindableObject().getReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName(
+					observable.getBindableObject().getReference(),
+					observable.getBindableProperty().getPresentation().getText(),
+					"ObserveList"));
+		}
+		//
+		String sourceCode =
+				PropertiesSupport.getEMFPropertiesCode(observable.getBindableObject(), "list(")
+				+ observable.getBindableProperty().getReference()
+				+ ")";
+		if (getVariableIdentifier() != null) {
+			if (generationSupport.addModel(this)) {
+				if (generationSupport.addModel(this)) {
+					lines.add("org.eclipse.core.databinding.beans.IBeanListProperty "
+							+ getVariableIdentifier()
+							+ sourceCode
+							+ ";");
+				}
+			}
+			sourceCode = getVariableIdentifier();
+		}
+		// add code
+		lines.add("org.eclipse.core.databinding.observable.list.IObservableList "
+				+ observable.getVariableIdentifier()
+				+ sourceCode
+				+ ".observe("
+				+ observable.getBindableObject().getReference()
+				+ ");");
+	}
 }

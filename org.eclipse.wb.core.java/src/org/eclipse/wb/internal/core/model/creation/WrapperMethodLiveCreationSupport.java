@@ -26,70 +26,70 @@ import org.eclipse.jdt.core.dom.Expression;
  * @coverage core.model.creation
  */
 public class WrapperMethodLiveCreationSupport extends WrapperMethodCreationSupport
-    implements
-      ILiveCreationSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WrapperMethodLiveCreationSupport(WrapperByMethod viewer) {
-    super(viewer);
-  }
+implements
+ILiveCreationSupport {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WrapperMethodLiveCreationSupport(WrapperByMethod viewer) {
+		super(viewer);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public CreationSupport getLiveComponentCreation() {
-    return new LiveCreationSupport();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public CreationSupport getLiveComponentCreation() {
+		return new LiveCreationSupport();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LiveCreationSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private class LiveCreationSupport extends CreationSupport {
-    private Expression m_expression;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LiveCreationSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private class LiveCreationSupport extends CreationSupport {
+		private Expression m_expression;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Access
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public ASTNode getNode() {
-      return m_expression;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Access
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public ASTNode getNode() {
+			return m_expression;
+		}
 
-    @Override
-    public boolean isJavaInfo(ASTNode node) {
-      return node == m_expression;
-    }
+		@Override
+		public boolean isJavaInfo(ASTNode node) {
+			return node == m_expression;
+		}
 
-    @Override
-    public Association getAssociation() throws Exception {
-      return new WrappedObjectAssociation(m_wrapper);
-    }
+		@Override
+		public Association getAssociation() throws Exception {
+			return new WrappedObjectAssociation(m_wrapper);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Add
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public String add_getSource(NodeTarget target) throws Exception {
-      String controlSource = "." + m_wrapper.getControlMethod().getName() + "()";
-      return m_wrapper.getWrapperInfo().getCreationSupport().add_getSource(target) + controlSource;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Add
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public String add_getSource(NodeTarget target) throws Exception {
+			String controlSource = "." + m_wrapper.getControlMethod().getName() + "()";
+			return m_wrapper.getWrapperInfo().getCreationSupport().add_getSource(target) + controlSource;
+		}
 
-    @Override
-    public void add_setSourceExpression(Expression expression) throws Exception {
-      m_expression = expression;
-      m_javaInfo.bindToExpression(expression);
-    }
-  }
+		@Override
+		public void add_setSourceExpression(Expression expression) throws Exception {
+			m_expression = expression;
+			m_javaInfo.bindToExpression(expression);
+		}
+	}
 }

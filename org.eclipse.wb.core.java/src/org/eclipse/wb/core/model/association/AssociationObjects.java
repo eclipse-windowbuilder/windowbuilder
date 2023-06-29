@@ -19,37 +19,37 @@ import org.eclipse.wb.internal.core.model.nonvisual.NonVisualAssociation;
  * @coverage core.model.association
  */
 public final class AssociationObjects {
-  public static AssociationObject no() {
-    return new AssociationObject("NO", null, false);
-  }
+	public static AssociationObject no() {
+		return new AssociationObject("NO", null, false);
+	}
 
-  public static AssociationObject empty() {
-    return new AssociationObject("empty", new EmptyAssociation(), false);
-  }
+	public static AssociationObject empty() {
+		return new AssociationObject("empty", new EmptyAssociation(), false);
+	}
 
-  public static AssociationObject nonVisual() {
-    return new AssociationObject("nonVisual", new NonVisualAssociation(), false);
-  }
+	public static AssociationObject nonVisual() {
+		return new AssociationObject("nonVisual", new NonVisualAssociation(), false);
+	}
 
-  public static AssociationObject constructorChild() {
-    return new AssociationObject("constructorChild", new ConstructorChildAssociation(), false);
-  }
+	public static AssociationObject constructorChild() {
+		return new AssociationObject("constructorChild", new ConstructorChildAssociation(), false);
+	}
 
-  public static AssociationObject factoryParent() {
-    return new AssociationObject("factoryParent", new FactoryParentAssociation(), false);
-  }
+	public static AssociationObject factoryParent() {
+		return new AssociationObject("factoryParent", new FactoryParentAssociation(), false);
+	}
 
-  public static AssociationObject invocationVoid() {
-    return new AssociationObject("invocationVoid", new InvocationVoidAssociation(), false);
-  }
+	public static AssociationObject invocationVoid() {
+		return new AssociationObject("invocationVoid", new InvocationVoidAssociation(), false);
+	}
 
-  public static AssociationObject invocationChildNull() {
-    return new AssociationObject("invocationChildNull",
-        new InvocationChildAssociation((String) null),
-        false);
-  }
+	public static AssociationObject invocationChildNull() {
+		return new AssociationObject("invocationChildNull",
+				new InvocationChildAssociation((String) null),
+				false);
+	}
 
-  public static AssociationObject invocationChild(String source, boolean required) {
-    return new AssociationObject(source, new InvocationChildAssociation(source), required);
-  }
+	public static AssociationObject invocationChild(String source, boolean required) {
+		return new AssociationObject(source, new InvocationChildAssociation(source), required);
+	}
 }

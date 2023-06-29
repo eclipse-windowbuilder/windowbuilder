@@ -23,36 +23,36 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
  * @coverage bindings.swing.ui
  */
 public class ColumnClassUiContentProvider extends ChooseClassUiContentProvider {
-  private final ColumnBindingInfo m_binding;
+	private final ColumnBindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnClassUiContentProvider(ChooseClassConfiguration configuration,
-      ColumnBindingInfo binding) {
-    super(configuration);
-    m_binding = binding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnClassUiContentProvider(ChooseClassConfiguration configuration,
+			ColumnBindingInfo binding) {
+		super(configuration);
+		m_binding = binding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    IGenericType columnType = m_binding.getColumnType();
-    setClassName(columnType == null ? "N/S" : columnType.getFullTypeName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		IGenericType columnType = m_binding.getColumnType();
+		setClassName(columnType == null ? "N/S" : columnType.getFullTypeName());
+	}
 
-  public void saveToObject() throws Exception {
-    String className = getClassName();
-    // check set or clear value
-    if ("N/S".equals(className)) {
-      m_binding.setColumnType(null);
-    } else {
-      m_binding.setColumnType(new ClassGenericType(null, className, "???"));
-    }
-  }
+	public void saveToObject() throws Exception {
+		String className = getClassName();
+		// check set or clear value
+		if ("N/S".equals(className)) {
+			m_binding.setColumnType(null);
+		} else {
+			m_binding.setColumnType(new ClassGenericType(null, className, "???"));
+		}
+	}
 }

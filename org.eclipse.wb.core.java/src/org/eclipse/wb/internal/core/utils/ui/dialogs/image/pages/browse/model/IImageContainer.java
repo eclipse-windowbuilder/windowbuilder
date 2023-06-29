@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model;
  * @coverage core.ui
  */
 public interface IImageContainer extends IImageElement {
-  /**
-   * @return the children {@link IImageElement}'s.
-   */
-  IImageElement[] elements();
+	/**
+	 * @return the children {@link IImageElement}'s.
+	 */
+	IImageElement[] elements();
 }

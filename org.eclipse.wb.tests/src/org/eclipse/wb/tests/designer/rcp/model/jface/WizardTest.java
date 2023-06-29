@@ -23,37 +23,37 @@ import org.eclipse.jface.wizard.Wizard;
  * @author scheglov_ke
  */
 public class WizardTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parsingException() throws Exception {
-    try {
-      parseJavaInfo(
-          "import org.eclipse.jface.wizard.*;",
-          "public class Test extends Wizard {",
-          "  public Test() {",
-          "  }",
-          "  public void addPages() {",
-          "  }",
-          "  public boolean performFinish() {",
-          "    return true;",
-          "  }",
-          "}");
-      fail();
-    } catch (DesignerException e) {
-      assertEquals(IExceptionConstants.NO_DESIGN_WIZARD, e.getCode());
-      assertTrue(DesignerExceptionUtils.isWarning(e));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parsingException() throws Exception {
+		try {
+			parseJavaInfo(
+					"import org.eclipse.jface.wizard.*;",
+					"public class Test extends Wizard {",
+					"  public Test() {",
+					"  }",
+					"  public void addPages() {",
+					"  }",
+					"  public boolean performFinish() {",
+					"    return true;",
+					"  }",
+					"}");
+			fail();
+		} catch (DesignerException e) {
+			assertEquals(IExceptionConstants.NO_DESIGN_WIZARD, e.getCode());
+			assertTrue(DesignerExceptionUtils.isWarning(e));
+		}
+	}
 }

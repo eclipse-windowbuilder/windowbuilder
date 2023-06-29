@@ -23,24 +23,24 @@ import org.eclipse.draw2d.geometry.Insets;
  * @coverage XWT.gef.policy
  */
 public final class CBannerLayoutEditPolicy extends AbstractPositionCompositeLayoutEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CBannerLayoutEditPolicy(CBannerInfo composite) {
-    super(composite);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CBannerLayoutEditPolicy(CBannerInfo composite) {
+		super(composite);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Positions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addFeedbacks() throws Exception {
-    addFeedback2(0.0, 0.0, 0.5, 0.4, new Insets(0, 0, 1, 1), "Left", "left");
-    addFeedback2(0.5, 0.0, 1.0, 0.4, new Insets(0, 0, 1, 0), "Right", "right");
-    addFeedback2(0.0, 0.4, 1.0, 1.0, new Insets(0, 0, 0, 0), "Bottom", "bottom");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Positions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addFeedbacks() throws Exception {
+		addFeedback2(0.0, 0.0, 0.5, 0.4, new Insets(0, 0, 1, 1), "Left", "left");
+		addFeedback2(0.5, 0.0, 1.0, 0.4, new Insets(0, 0, 1, 0), "Right", "right");
+		addFeedback2(0.0, 0.4, 1.0, 1.0, new Insets(0, 0, 0, 0), "Bottom", "bottom");
+	}
 }

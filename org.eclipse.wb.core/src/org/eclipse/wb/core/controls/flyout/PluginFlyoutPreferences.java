@@ -19,69 +19,69 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @coverage core.control
  */
 public final class PluginFlyoutPreferences implements IFlyoutPreferences {
-  private final IPreferenceStore m_store;
-  private final String m_dockLocationKey;
-  private final String m_stateKey;
-  private final String m_widthKey;
+	private final IPreferenceStore m_store;
+	private final String m_dockLocationKey;
+	private final String m_stateKey;
+	private final String m_widthKey;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PluginFlyoutPreferences(IPreferenceStore store, String prefix) {
-    m_store = store;
-    m_dockLocationKey = prefix + ".flyout.dockLocation";
-    m_stateKey = prefix + ".flyout.state";
-    m_widthKey = prefix + ".flyout.width";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PluginFlyoutPreferences(IPreferenceStore store, String prefix) {
+		m_store = store;
+		m_dockLocationKey = prefix + ".flyout.dockLocation";
+		m_stateKey = prefix + ".flyout.state";
+		m_widthKey = prefix + ".flyout.width";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Initializes defaults using given values.
-   */
-  public void initializeDefaults(int location, int state, int width) {
-    m_store.setDefault(m_dockLocationKey, location);
-    m_store.setDefault(m_stateKey, state);
-    m_store.setDefault(m_widthKey, width);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Initializes defaults using given values.
+	 */
+	public void initializeDefaults(int location, int state, int width) {
+		m_store.setDefault(m_dockLocationKey, location);
+		m_store.setDefault(m_stateKey, state);
+		m_store.setDefault(m_widthKey, width);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IFlyoutPreferences
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int getDockLocation() {
-    return m_store.getInt(m_dockLocationKey);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IFlyoutPreferences
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int getDockLocation() {
+		return m_store.getInt(m_dockLocationKey);
+	}
 
-  @Override
-  public int getState() {
-    return m_store.getInt(m_stateKey);
-  }
+	@Override
+	public int getState() {
+		return m_store.getInt(m_stateKey);
+	}
 
-  @Override
-  public int getWidth() {
-    return m_store.getInt(m_widthKey);
-  }
+	@Override
+	public int getWidth() {
+		return m_store.getInt(m_widthKey);
+	}
 
-  @Override
-  public void setDockLocation(int location) {
-    m_store.setValue(m_dockLocationKey, location);
-  }
+	@Override
+	public void setDockLocation(int location) {
+		m_store.setValue(m_dockLocationKey, location);
+	}
 
-  @Override
-  public void setState(int state) {
-    m_store.setValue(m_stateKey, state);
-  }
+	@Override
+	public void setState(int state) {
+		m_store.setValue(m_stateKey, state);
+	}
 
-  @Override
-  public void setWidth(int width) {
-    m_store.setValue(m_widthKey, width);
-  }
+	@Override
+	public void setWidth(int width) {
+		m_store.setValue(m_widthKey, width);
+	}
 }

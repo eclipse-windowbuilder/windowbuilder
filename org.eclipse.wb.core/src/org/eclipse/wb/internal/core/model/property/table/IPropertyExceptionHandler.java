@@ -21,5 +21,5 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
  * @coverage core.model.property.table
  */
 public interface IPropertyExceptionHandler {
-  void handle(Throwable e);
+	void handle(Throwable e);
 }

@@ -489,11 +489,11 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 				@SuppressWarnings("unchecked")
 				List<AbstractComponentInfo> models = (List<AbstractComponentInfo>) CollectionUtils.collect(editParts,
 						new Transformer() {
-							@Override
-							public Object transform(Object input) {
-								return ((EditPart) input).getModel();
-							}
-						});
+					@Override
+					public Object transform(Object input) {
+						return ((EditPart) input).getModel();
+					}
+				});
 				m_layout.command_add(models);
 			}
 		};

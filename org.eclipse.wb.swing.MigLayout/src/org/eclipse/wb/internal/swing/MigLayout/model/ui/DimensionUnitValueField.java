@@ -34,128 +34,128 @@ import java.text.MessageFormat;
  * @coverage swing.MigLayout.ui
  */
 public final class DimensionUnitValueField {
-  private final String m_propertyName;
-  private final Listener m_listener;
-  private MigDimensionInfo m_dimension;
-  // UI
-  private final Button m_checkButton;
-  private final ErrorMessageTextField m_field;
-  private final Text m_textWidget;
-  // listener
-  private boolean m_updatingDimension;
-  private final Listener m_modifyListener = new Listener() {
-    public void handleEvent(Event e) {
-      toDimension(m_textWidget.getText());
-    }
-  };
+	private final String m_propertyName;
+	private final Listener m_listener;
+	private MigDimensionInfo m_dimension;
+	// UI
+	private final Button m_checkButton;
+	private final ErrorMessageTextField m_field;
+	private final Text m_textWidget;
+	// listener
+	private boolean m_updatingDimension;
+	private final Listener m_modifyListener = new Listener() {
+		public void handleEvent(Event e) {
+			toDimension(m_textWidget.getText());
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionUnitValueField(Composite parent,
-      String labelText,
-      String propertyName,
-      Listener listener) {
-    m_propertyName = StringUtils.capitalize(propertyName);
-    m_listener = listener;
-    {
-      m_checkButton = new Button(parent, SWT.CHECK);
-      m_checkButton.setText(labelText);
-      m_checkButton.addListener(SWT.Selection, new Listener() {
-        public void handleEvent(Event event) {
-          if (m_checkButton.getSelection()) {
-            m_textWidget.setEnabled(true);
-            setText("100px");
-            toDimension(m_textWidget.getText());
-          } else {
-            m_textWidget.setEnabled(false);
-            setText("");
-            toDimension(null);
-          }
-        }
-      });
-    }
-    // prepare field/widget
-    m_field = new ErrorMessageTextField(parent, SWT.BORDER);
-    GridDataFactory.create(m_field.getLayoutControl()).grabH().fillH();
-    m_textWidget = (Text) m_field.getControl();
-    // listen for modification
-    m_textWidget.addListener(SWT.Modify, m_modifyListener);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionUnitValueField(Composite parent,
+			String labelText,
+			String propertyName,
+			Listener listener) {
+		m_propertyName = StringUtils.capitalize(propertyName);
+		m_listener = listener;
+		{
+			m_checkButton = new Button(parent, SWT.CHECK);
+			m_checkButton.setText(labelText);
+			m_checkButton.addListener(SWT.Selection, new Listener() {
+				public void handleEvent(Event event) {
+					if (m_checkButton.getSelection()) {
+						m_textWidget.setEnabled(true);
+						setText("100px");
+						toDimension(m_textWidget.getText());
+					} else {
+						m_textWidget.setEnabled(false);
+						setText("");
+						toDimension(null);
+					}
+				}
+			});
+		}
+		// prepare field/widget
+		m_field = new ErrorMessageTextField(parent, SWT.BORDER);
+		GridDataFactory.create(m_field.getLayoutControl()).grabH().fillH();
+		m_textWidget = (Text) m_field.getControl();
+		// listen for modification
+		m_textWidget.addListener(SWT.Modify, m_modifyListener);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Updates this field from {@link MigDimensionInfo}.
-   */
-  public void fromDimension(MigDimensionInfo dimension) {
-    if (!m_updatingDimension) {
-      m_dimension = dimension;
-      try {
-        String methodName = MessageFormat.format("get{0}", m_propertyName);
-        UnitValue value = (UnitValue) ReflectionUtils.invokeMethod2(m_dimension, methodName);
-        if (value == null) {
-          m_checkButton.setSelection(false);
-          m_textWidget.setEnabled(false);
-          setText("");
-        } else {
-          m_checkButton.setSelection(true);
-          m_textWidget.setEnabled(true);
-          // update text
-          String text = m_dimension.getString(value);
-          if (!m_textWidget.getText().equals(text)) {
-            setText(text);
-          }
-        }
-      } catch (Throwable e) {
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Updates this field from {@link MigDimensionInfo}.
+	 */
+	public void fromDimension(MigDimensionInfo dimension) {
+		if (!m_updatingDimension) {
+			m_dimension = dimension;
+			try {
+				String methodName = MessageFormat.format("get{0}", m_propertyName);
+				UnitValue value = (UnitValue) ReflectionUtils.invokeMethod2(m_dimension, methodName);
+				if (value == null) {
+					m_checkButton.setSelection(false);
+					m_textWidget.setEnabled(false);
+					setText("");
+				} else {
+					m_checkButton.setSelection(true);
+					m_textWidget.setEnabled(true);
+					// update text
+					String text = m_dimension.getString(value);
+					if (!m_textWidget.getText().equals(text)) {
+						setText(text);
+					}
+				}
+			} catch (Throwable e) {
+			}
+		}
+	}
 
-  /**
-   * Uses text from {@link #m_textWidget} to update {@link MigDimensionInfo}.
-   */
-  private void toDimension(String s) {
-    m_updatingDimension = true;
-    try {
-      String methodName = MessageFormat.format("set{0}", m_propertyName);
-      ReflectionUtils.invokeMethod2(m_dimension, methodName, String.class, s);
-      notifyModified(true);
-      m_field.setErrorMessage(null);
-    } catch (Throwable e) {
-      notifyModified(false);
-      m_field.setErrorMessage(e.getMessage());
-    } finally {
-      m_updatingDimension = false;
-    }
-  }
+	/**
+	 * Uses text from {@link #m_textWidget} to update {@link MigDimensionInfo}.
+	 */
+	private void toDimension(String s) {
+		m_updatingDimension = true;
+		try {
+			String methodName = MessageFormat.format("set{0}", m_propertyName);
+			ReflectionUtils.invokeMethod2(m_dimension, methodName, String.class, s);
+			notifyModified(true);
+			m_field.setErrorMessage(null);
+		} catch (Throwable e) {
+			notifyModified(false);
+			m_field.setErrorMessage(e.getMessage());
+		} finally {
+			m_updatingDimension = false;
+		}
+	}
 
-  /**
-   * Notifies {@link #m_listener} that this field was updated, with given valid state.
-   */
-  private void notifyModified(boolean valid) {
-    Event event = new Event();
-    event.doit = valid;
-    m_listener.handleEvent(event);
-  }
+	/**
+	 * Notifies {@link #m_listener} that this field was updated, with given valid state.
+	 */
+	private void notifyModified(boolean valid) {
+		Event event = new Event();
+		event.doit = valid;
+		m_listener.handleEvent(event);
+	}
 
-  /**
-   * Sets text to {@link #m_textWidget}.
-   */
-  private void setText(String text) {
-    if (!m_textWidget.getText().equals(text)) {
-      m_textWidget.removeListener(SWT.Modify, m_modifyListener);
-      try {
-        m_textWidget.setText(text);
-        m_field.setErrorMessage(null);
-      } finally {
-        m_textWidget.addListener(SWT.Modify, m_modifyListener);
-      }
-    }
-  }
+	/**
+	 * Sets text to {@link #m_textWidget}.
+	 */
+	private void setText(String text) {
+		if (!m_textWidget.getText().equals(text)) {
+			m_textWidget.removeListener(SWT.Modify, m_modifyListener);
+			try {
+				m_textWidget.setText(text);
+				m_field.setErrorMessage(null);
+			} finally {
+				m_textWidget.addListener(SWT.Modify, m_modifyListener);
+			}
+		}
+	}
 }

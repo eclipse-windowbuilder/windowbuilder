@@ -33,81 +33,81 @@ import java.util.UUID;
  *
  */
 public class XmlObjectReferenceProvider implements IReferenceProvider {
-  private final XmlObjectInfo m_objectInfo;
-  private final String m_defaultReference;
+	private final XmlObjectInfo m_objectInfo;
+	private final String m_defaultReference;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlObjectReferenceProvider(XmlObjectInfo objectInfo) {
-    m_objectInfo = objectInfo;
-    m_defaultReference = UUID.randomUUID().toString();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlObjectReferenceProvider(XmlObjectInfo objectInfo) {
+		m_objectInfo = objectInfo;
+		m_defaultReference = UUID.randomUUID().toString();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IReferenceProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReference() throws Exception {
-    return StringUtils.defaultString(getName(m_objectInfo), m_defaultReference);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IReferenceProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReference() throws Exception {
+		return StringUtils.defaultString(getName(m_objectInfo), m_defaultReference);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static String getName(ObjectInfo objectInfo) throws Exception {
-    Property property = objectInfo.getPropertyByTitle("Name");
-    if (property == null) {
-      return null;
-    }
-    Object value = property.getValue();
-    return value == Property.UNKNOWN_VALUE ? null : (String) value;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static String getName(ObjectInfo objectInfo) throws Exception {
+		Property property = objectInfo.getPropertyByTitle("Name");
+		if (property == null) {
+			return null;
+		}
+		Object value = property.getValue();
+		return value == Property.UNKNOWN_VALUE ? null : (String) value;
+	}
 
-  public static void generateName(XmlObjectInfo objectInfo) throws Exception {
-    if (getName(objectInfo) == null) {
-      final Set<String> variables = Sets.newHashSet();
-      //
-      DocumentElement rootElement = objectInfo.getElement().getRoot();
-      final String[] xName = new String[1];
-      //
-      for (DocumentAttribute attribute : rootElement.getDocumentAttributes()) {
-        String name = attribute.getName();
-        String value = attribute.getValue();
-        if (name.startsWith(BeansObserveTypeContainer.NAMESPACE_KEY)) {
-          if (value.equals("http://www.eclipse.org/xwt")) {
-            xName[0] = name.substring(BeansObserveTypeContainer.NAMESPACE_KEY.length()) + ":Name";
-            break;
-          }
-        }
-      }
-      //
-      rootElement.accept(new DocumentModelVisitor() {
-        @Override
-        public void visit(DocumentAttribute attribute) {
-          if (attribute.getName().equalsIgnoreCase(xName[0])) {
-            variables.add(attribute.getValue());
-          }
-        }
-      });
-      //
-      String baseVariable =
-          StringUtils.uncapitalize(ClassUtils.getShortClassName(objectInfo.getDescription().getComponentClass()));
-      String variable = baseVariable;
-      int variableIndex = 1;
-      // ensure unique
-      while (variables.contains(variable)) {
-        variable = baseVariable + "_" + Integer.toString(variableIndex++);
-      }
-      //
-      Property property = objectInfo.getPropertyByTitle("Name");
-      property.setValue(variable);
-    }
-  }
+	public static void generateName(XmlObjectInfo objectInfo) throws Exception {
+		if (getName(objectInfo) == null) {
+			final Set<String> variables = Sets.newHashSet();
+			//
+			DocumentElement rootElement = objectInfo.getElement().getRoot();
+			final String[] xName = new String[1];
+			//
+			for (DocumentAttribute attribute : rootElement.getDocumentAttributes()) {
+				String name = attribute.getName();
+				String value = attribute.getValue();
+				if (name.startsWith(BeansObserveTypeContainer.NAMESPACE_KEY)) {
+					if (value.equals("http://www.eclipse.org/xwt")) {
+						xName[0] = name.substring(BeansObserveTypeContainer.NAMESPACE_KEY.length()) + ":Name";
+						break;
+					}
+				}
+			}
+			//
+			rootElement.accept(new DocumentModelVisitor() {
+				@Override
+				public void visit(DocumentAttribute attribute) {
+					if (attribute.getName().equalsIgnoreCase(xName[0])) {
+						variables.add(attribute.getValue());
+					}
+				}
+			});
+			//
+			String baseVariable =
+					StringUtils.uncapitalize(ClassUtils.getShortClassName(objectInfo.getDescription().getComponentClass()));
+			String variable = baseVariable;
+			int variableIndex = 1;
+			// ensure unique
+			while (variables.contains(variable)) {
+				variable = baseVariable + "_" + Integer.toString(variableIndex++);
+			}
+			//
+			Property property = objectInfo.getPropertyByTitle("Name");
+			property.setValue(variable);
+		}
+	}
 }

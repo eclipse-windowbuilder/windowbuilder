@@ -23,24 +23,24 @@ import org.eclipse.swt.SWT;
  * @coverage XWT.model.widgets
  */
 public final class MenuStylePresentation extends StylePresentation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuStylePresentation(MenuInfo menu) {
-    super(menu);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuStylePresentation(MenuInfo menu) {
+		super(menu);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StylePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initImages() throws Exception {
-    addImage(SWT.BAR, "wbp-meta/org/eclipse/swt/widgets/Menu_bar.gif");
-    addImage(SWT.POP_UP, "wbp-meta/org/eclipse/swt/widgets/Menu.gif");
-    addImage(SWT.DROP_DOWN, "wbp-meta/org/eclipse/swt/widgets/Menu_dropdown.gif");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StylePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initImages() throws Exception {
+		addImage(SWT.BAR, "wbp-meta/org/eclipse/swt/widgets/Menu_bar.gif");
+		addImage(SWT.POP_UP, "wbp-meta/org/eclipse/swt/widgets/Menu.gif");
+		addImage(SWT.DROP_DOWN, "wbp-meta/org/eclipse/swt/widgets/Menu_dropdown.gif");
+	}
 }

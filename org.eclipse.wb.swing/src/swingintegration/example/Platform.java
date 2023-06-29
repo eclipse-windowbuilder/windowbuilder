@@ -10,17 +10,17 @@ package swingintegration.example;
 import org.eclipse.swt.SWT;
 
 class Platform {
-  private static String platformString = SWT.getPlatform();
+	private static String platformString = SWT.getPlatform();
 
-  // prevent instantiation
-  private Platform() {
-  }
+	// prevent instantiation
+	private Platform() {
+	}
 
-  public static boolean isWin32() {
-    return "win32".equals(platformString); //$NON-NLS-1$
-  }
+	public static boolean isWin32() {
+		return "win32".equals(platformString); //$NON-NLS-1$
+	}
 
-  public static boolean isGtk() {
-    return "gtk".equals(platformString); //$NON-NLS-1$
-  }
+	public static boolean isGtk() {
+		return "gtk".equals(platformString); //$NON-NLS-1$
+	}
 }

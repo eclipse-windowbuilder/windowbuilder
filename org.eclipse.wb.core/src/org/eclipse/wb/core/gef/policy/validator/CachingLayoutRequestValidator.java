@@ -27,81 +27,81 @@ import java.util.Map;
  * @coverage core.gef.policy
  */
 public final class CachingLayoutRequestValidator implements ILayoutRequestValidator {
-  private final ILayoutRequestValidator m_validator;
+	private final ILayoutRequestValidator m_validator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CachingLayoutRequestValidator(ILayoutRequestValidator validator) {
-    m_validator = validator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CachingLayoutRequestValidator(ILayoutRequestValidator validator) {
+		m_validator = validator;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutRequestValidator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-    Map<EditPart, Boolean> cache = getCache(request);
-    Boolean cachedResult = cache.get(host);
-    if (cachedResult == null) {
-      cachedResult = m_validator.validateCreateRequest(host, request);
-      cache.put(host, cachedResult);
-    }
-    return cachedResult;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutRequestValidator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+		Map<EditPart, Boolean> cache = getCache(request);
+		Boolean cachedResult = cache.get(host);
+		if (cachedResult == null) {
+			cachedResult = m_validator.validateCreateRequest(host, request);
+			cache.put(host, cachedResult);
+		}
+		return cachedResult;
+	}
 
-  @Override
-  public boolean validatePasteRequest(final EditPart host, final PasteRequest request) {
-    Map<EditPart, Boolean> cache = getCache(request);
-    Boolean cachedResult = cache.get(host);
-    if (cachedResult == null) {
-      cachedResult = m_validator.validatePasteRequest(host, request);
-      cache.put(host, cachedResult);
-    }
-    return cachedResult;
-  }
+	@Override
+	public boolean validatePasteRequest(final EditPart host, final PasteRequest request) {
+		Map<EditPart, Boolean> cache = getCache(request);
+		Boolean cachedResult = cache.get(host);
+		if (cachedResult == null) {
+			cachedResult = m_validator.validatePasteRequest(host, request);
+			cache.put(host, cachedResult);
+		}
+		return cachedResult;
+	}
 
-  @Override
-  public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-    Map<EditPart, Boolean> cache = getCache(request);
-    Boolean cachedResult = cache.get(host);
-    if (cachedResult == null) {
-      cachedResult = m_validator.validateMoveRequest(host, request);
-      cache.put(host, cachedResult);
-    }
-    return cachedResult;
-  }
+	@Override
+	public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+		Map<EditPart, Boolean> cache = getCache(request);
+		Boolean cachedResult = cache.get(host);
+		if (cachedResult == null) {
+			cachedResult = m_validator.validateMoveRequest(host, request);
+			cache.put(host, cachedResult);
+		}
+		return cachedResult;
+	}
 
-  @Override
-  public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-    Map<EditPart, Boolean> cache = getCache(request);
-    Boolean cachedResult = cache.get(host);
-    if (cachedResult == null) {
-      cachedResult = m_validator.validateAddRequest(host, request);
-      cache.put(host, cachedResult);
-    }
-    return cachedResult;
-  }
+	@Override
+	public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+		Map<EditPart, Boolean> cache = getCache(request);
+		Boolean cachedResult = cache.get(host);
+		if (cachedResult == null) {
+			cachedResult = m_validator.validateAddRequest(host, request);
+			cache.put(host, cachedResult);
+		}
+		return cachedResult;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the cache for validation results.
-   */
-  @SuppressWarnings("unchecked")
-  private Map<EditPart, Boolean> getCache(Request request) {
-    Map<EditPart, Boolean> cache = (Map<EditPart, Boolean>) request.getArbitraryValue(this);
-    if (cache == null) {
-      cache = new HashMap<>();
-      request.putArbitraryValue(this, cache);
-    }
-    return cache;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the cache for validation results.
+	 */
+	@SuppressWarnings("unchecked")
+	private Map<EditPart, Boolean> getCache(Request request) {
+		Map<EditPart, Boolean> cache = (Map<EditPart, Boolean>) request.getArbitraryValue(this);
+		if (cache == null) {
+			cache = new HashMap<>();
+			request.putArbitraryValue(this, cache);
+		}
+		return cache;
+	}
 }

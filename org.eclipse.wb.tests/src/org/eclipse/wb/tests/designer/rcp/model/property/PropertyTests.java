@@ -22,11 +22,11 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class PropertyTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.property");
-    suite.addTest(createSingleSuite(AcceleratorPropertyEditorTest.class));
-    suite.addTest(createSingleSuite(ImagePropertyEditorTestPlugin.class));
-    suite.addTest(createSingleSuite(CursorPropertyEditorWithManagerTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.property");
+		suite.addTest(createSingleSuite(AcceleratorPropertyEditorTest.class));
+		suite.addTest(createSingleSuite(ImagePropertyEditorTestPlugin.class));
+		suite.addTest(createSingleSuite(CursorPropertyEditorWithManagerTest.class));
+		return suite;
+	}
 }

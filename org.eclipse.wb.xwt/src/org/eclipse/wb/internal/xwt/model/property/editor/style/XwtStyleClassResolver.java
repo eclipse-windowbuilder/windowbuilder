@@ -25,35 +25,35 @@ import org.apache.commons.lang.StringUtils;
  * @coverage XWT.model.property.editor
  */
 public final class XwtStyleClassResolver implements IStyleClassResolver {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IStyleClassResolver INSTANCE = new XwtStyleClassResolver();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IStyleClassResolver INSTANCE = new XwtStyleClassResolver();
 
-  private XwtStyleClassResolver() {
-  }
+	private XwtStyleClassResolver() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IStyleClassResolver
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String resolve(Property property, String className) {
-    if (className.equals("org.eclipse.swt.SWT")) {
-      return "";
-    }
-    //
-    String packageName = StringUtils.substringBeforeLast(className, ".");
-    String namespace = getPackageNamespace(property, packageName);
-    String shortClassName = StringUtils.substringAfterLast(className, ".");
-    return "(" + namespace + ":" + shortClassName + ").";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IStyleClassResolver
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String resolve(Property property, String className) {
+		if (className.equals("org.eclipse.swt.SWT")) {
+			return "";
+		}
+		//
+		String packageName = StringUtils.substringBeforeLast(className, ".");
+		String namespace = getPackageNamespace(property, packageName);
+		String shortClassName = StringUtils.substringAfterLast(className, ".");
+		return "(" + namespace + ":" + shortClassName + ").";
+	}
 
-  private static String getPackageNamespace(Property property, String packageName) {
-    XmlObjectInfo object = ((XmlProperty) property).getObject();
-    DocumentElement element = object.getCreationSupport().getElement();
-    return NamespacesHelper.ensureName(element, "clr-namespace:" + packageName, "p");
-  }
+	private static String getPackageNamespace(Property property, String packageName) {
+		XmlObjectInfo object = ((XmlProperty) property).getObject();
+		DocumentElement element = object.getCreationSupport().getElement();
+		return NamespacesHelper.ensureName(element, "clr-namespace:" + packageName, "p");
+	}
 }

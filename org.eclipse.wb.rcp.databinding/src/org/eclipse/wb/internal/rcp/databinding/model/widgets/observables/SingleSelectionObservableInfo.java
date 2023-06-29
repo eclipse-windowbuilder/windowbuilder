@@ -33,109 +33,109 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public final class SingleSelectionObservableInfo extends ViewerObservableInfo
-    implements
-      IMasterDetailProvider,
-      IDelayValueProvider {
-  private final boolean m_isViewer;
-  private int m_delayValue;
+implements
+IMasterDetailProvider,
+IDelayValueProvider {
+	private final boolean m_isViewer;
+	private int m_delayValue;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SingleSelectionObservableInfo(BindableInfo bindableWidget, BindableInfo bindableProperty)
-      throws Exception {
-    super(bindableWidget, bindableProperty);
-    m_isViewer = isViewer(m_bindableWidget);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SingleSelectionObservableInfo(BindableInfo bindableWidget, BindableInfo bindableProperty)
+			throws Exception {
+		super(bindableWidget, bindableProperty);
+		m_isViewer = isViewer(m_bindableWidget);
+	}
 
-  public SingleSelectionObservableInfo(BindableInfo bindableWidget) throws Exception {
-    super(bindableWidget, "observeSingleSelection");
-    m_isViewer = isViewer(m_bindableWidget);
-  }
+	public SingleSelectionObservableInfo(BindableInfo bindableWidget) throws Exception {
+		super(bindableWidget, "observeSingleSelection");
+		m_isViewer = isViewer(m_bindableWidget);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isViewer() {
-    return m_isViewer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isViewer() {
+		return m_isViewer;
+	}
 
-  private static final boolean isViewer(BindableInfo bindableObject) throws Exception {
-    if (bindableObject instanceof WidgetBindableInfo) {
-      WidgetBindableInfo bindableWidget = (WidgetBindableInfo) bindableObject;
-      return bindableWidget.getClassLoader().loadClass("org.eclipse.jface.viewers.Viewer").isAssignableFrom(
-          bindableWidget.getObjectType());
-    }
-    return false;
-  }
+	private static final boolean isViewer(BindableInfo bindableObject) throws Exception {
+		if (bindableObject instanceof WidgetBindableInfo) {
+			WidgetBindableInfo bindableWidget = (WidgetBindableInfo) bindableObject;
+			return bindableWidget.getClassLoader().loadClass("org.eclipse.jface.viewers.Viewer").isAssignableFrom(
+					bindableWidget.getObjectType());
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IMasterDetailProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ObservableInfo getMasterObservable() throws Exception {
-    BindableInfo bindableObject = getBindableObject();
-    //
-    for (IObserveInfo property : bindableObject.getChildren(ChildrenContext.ChildrenForPropertiesTable)) {
-      if (PropertiesSupport.DETAIL_SINGLE_SELECTION_NAME.equals(property.getPresentation().getText())) {
-        SingleSelectionObservableInfo observableInfo =
-            new SingleSelectionObservableInfo(bindableObject, (BindableInfo) property);
-        observableInfo.setDelayValue(m_delayValue);
-        if (m_codeSupport != null) {
-          observableInfo.setCodeSupport(m_codeSupport);
-        }
-        return observableInfo;
-      }
-    }
-    //
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IMasterDetailProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ObservableInfo getMasterObservable() throws Exception {
+		BindableInfo bindableObject = getBindableObject();
+		//
+		for (IObserveInfo property : bindableObject.getChildren(ChildrenContext.ChildrenForPropertiesTable)) {
+			if (PropertiesSupport.DETAIL_SINGLE_SELECTION_NAME.equals(property.getPresentation().getText())) {
+				SingleSelectionObservableInfo observableInfo =
+						new SingleSelectionObservableInfo(bindableObject, (BindableInfo) property);
+				observableInfo.setDelayValue(m_delayValue);
+				if (m_codeSupport != null) {
+					observableInfo.setCodeSupport(m_codeSupport);
+				}
+				return observableInfo;
+			}
+		}
+		//
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DelayValue
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final int getDelayValue() {
-    return m_delayValue;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DelayValue
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final int getDelayValue() {
+		return m_delayValue;
+	}
 
-  @Override
-  public final void setDelayValue(int delayValue) {
-    Assert.isTrue(delayValue >= 0);
-    m_delayValue = delayValue;
-  }
+	@Override
+	public final void setDelayValue(int delayValue) {
+		Assert.isTrue(delayValue >= 0);
+		m_delayValue = delayValue;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createContentProviders(List<IUiContentProvider> providers,
-      BindingUiContentProviderContext context,
-      DatabindingsProvider provider) throws Exception {
-    super.createContentProviders(providers, context, provider);
-    if (m_isViewer) {
-      providers.add(new SwtDelayUiContentProvider(this,
-          Messages.SingleSelectionObservableInfo_viewerDelay));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createContentProviders(List<IUiContentProvider> providers,
+			BindingUiContentProviderContext context,
+			DatabindingsProvider provider) throws Exception {
+		super.createContentProviders(providers, context, provider);
+		if (m_isViewer) {
+			providers.add(new SwtDelayUiContentProvider(this,
+					Messages.SingleSelectionObservableInfo_viewerDelay));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPresentationText() throws Exception {
-    return getBindableObject().getPresentation().getTextForBinding() + ".selection";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPresentationText() throws Exception {
+		return getBindableObject().getPresentation().getTextForBinding() + ".selection";
+	}
 }

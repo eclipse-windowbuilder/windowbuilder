@@ -33,90 +33,90 @@ import java.util.List;
  * @coverage rcp.gefTree.policy
  */
 public final class PerspectiveShortcutContainerLayoutEditPolicy extends LayoutEditPolicy {
-  private static final ILayoutRequestValidator VALIDATOR =
-      LayoutRequestValidators.modelType(PerspectiveShortcutInfo.class);
-  private final PageLayoutInfo m_page;
-  private final PerspectiveShortcutContainerInfo m_container;
+	private static final ILayoutRequestValidator VALIDATOR =
+			LayoutRequestValidators.modelType(PerspectiveShortcutInfo.class);
+	private final PageLayoutInfo m_page;
+	private final PerspectiveShortcutContainerInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectiveShortcutContainerLayoutEditPolicy(PerspectiveShortcutContainerInfo container) {
-    m_container = container;
-    m_page = container.getPage();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectiveShortcutContainerLayoutEditPolicy(PerspectiveShortcutContainerInfo container) {
+		m_container = container;
+		m_page = container.getPage();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof PerspectiveShortcutInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof PerspectiveShortcutInfo;
+	}
 
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return super.isRequestCondition(request) || request instanceof PerspectiveDropRequest;
-  }
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return super.isRequestCondition(request) || request instanceof PerspectiveDropRequest;
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCommand(Request request, Object referenceObject) {
-    if (request instanceof PerspectiveDropRequest) {
-      final PerspectiveDropRequest perspectiveDrop_Request = (PerspectiveDropRequest) request;
-      final PerspectiveInfo perspectiveInfo = perspectiveDrop_Request.getPerspective();
-      final PerspectiveShortcutInfo reference = (PerspectiveShortcutInfo) referenceObject;
-      return new EditCommand(m_page) {
-        @Override
-        protected void executeEdit() throws Exception {
-          PerspectiveShortcutInfo newPerspective =
-              m_container.command_CREATE(perspectiveInfo.getId(), reference);
-          perspectiveDrop_Request.setComponent(newPerspective);
-        }
-      };
-    }
-    return super.getCommand(request, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCommand(Request request, Object referenceObject) {
+		if (request instanceof PerspectiveDropRequest) {
+			final PerspectiveDropRequest perspectiveDrop_Request = (PerspectiveDropRequest) request;
+			final PerspectiveInfo perspectiveInfo = perspectiveDrop_Request.getPerspective();
+			final PerspectiveShortcutInfo reference = (PerspectiveShortcutInfo) referenceObject;
+			return new EditCommand(m_page) {
+				@Override
+				protected void executeEdit() throws Exception {
+					PerspectiveShortcutInfo newPerspective =
+							m_container.command_CREATE(perspectiveInfo.getId(), reference);
+					perspectiveDrop_Request.setComponent(newPerspective);
+				}
+			};
+		}
+		return super.getCommand(request, referenceObject);
+	}
 
-  @Override
-  protected Command getCreateCommand(Object newObject, Object referenceObject) {
-    return null;
-  }
+	@Override
+	protected Command getCreateCommand(Object newObject, Object referenceObject) {
+		return null;
+	}
 
-  @Override
-  protected Command getPasteCommand(PasteRequest request, Object referenceObject) {
-    return null;
-  }
+	@Override
+	protected Command getPasteCommand(PasteRequest request, Object referenceObject) {
+		return null;
+	}
 
-  @Override
-  protected Command getMoveCommand(final List<EditPart> moveParts, Object referenceObject) {
-    final PerspectiveShortcutInfo nextItem = (PerspectiveShortcutInfo) referenceObject;
-    return new EditCommand(m_page) {
-      @Override
-      protected void executeEdit() throws Exception {
-        for (EditPart movePart : moveParts) {
-          PerspectiveShortcutInfo item = (PerspectiveShortcutInfo) movePart.getModel();
-          m_container.command_MOVE(item, nextItem);
-        }
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(final List<EditPart> moveParts, Object referenceObject) {
+		final PerspectiveShortcutInfo nextItem = (PerspectiveShortcutInfo) referenceObject;
+		return new EditCommand(m_page) {
+			@Override
+			protected void executeEdit() throws Exception {
+				for (EditPart movePart : moveParts) {
+					PerspectiveShortcutInfo item = (PerspectiveShortcutInfo) movePart.getModel();
+					m_container.command_MOVE(item, nextItem);
+				}
+			}
+		};
+	}
 
-  @Override
-  protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
-    return getMoveCommand(addParts, referenceObject);
-  }
+	@Override
+	protected Command getAddCommand(List<EditPart> addParts, Object referenceObject) {
+		return getMoveCommand(addParts, referenceObject);
+	}
 }

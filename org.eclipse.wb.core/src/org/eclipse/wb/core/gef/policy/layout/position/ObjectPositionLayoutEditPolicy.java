@@ -25,78 +25,78 @@ import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
  * @coverage core.gef.policy
  */
 public abstract class ObjectPositionLayoutEditPolicy<C, D> extends AbstractPositionLayoutEditPolicy {
-  private final ObjectInfo m_host;
+	private final ObjectInfo m_host;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObjectPositionLayoutEditPolicy(ObjectInfo host) {
-    m_host = host;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObjectPositionLayoutEditPolicy(ObjectInfo host) {
+		m_host = host;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(final Object newObject, final Object data) {
-    return new EditCommand(m_host) {
-      @Override
-      @SuppressWarnings("unchecked")
-      protected void executeEdit() throws Exception {
-        command_CREATE((C) newObject, (D) data);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(final Object newObject, final Object data) {
+		return new EditCommand(m_host) {
+			@Override
+			@SuppressWarnings("unchecked")
+			protected void executeEdit() throws Exception {
+				command_CREATE((C) newObject, (D) data);
+			}
+		};
+	}
 
-  @Override
-  protected Command getPasteCommand(PasteRequest request, final Object data) {
-    return GlobalState.getPasteRequestProcessor().getPasteCommand(
-        request,
-        new IPasteComponentProcessor() {
-          @Override
-          @SuppressWarnings("unchecked")
-          public void process(Object component) throws Exception {
-            command_CREATE((C) component, (D) data);
-          }
-        });
-  }
+	@Override
+	protected Command getPasteCommand(PasteRequest request, final Object data) {
+		return GlobalState.getPasteRequestProcessor().getPasteCommand(
+				request,
+				new IPasteComponentProcessor() {
+					@Override
+					@SuppressWarnings("unchecked")
+					public void process(Object component) throws Exception {
+						command_CREATE((C) component, (D) data);
+					}
+				});
+	}
 
-  @Override
-  protected Command getMoveCommand(final Object moveObject, final Object data) {
-    return new EditCommand(m_host) {
-      @Override
-      @SuppressWarnings("unchecked")
-      protected void executeEdit() throws Exception {
-        command_MOVE((C) moveObject, (D) data);
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(final Object moveObject, final Object data) {
+		return new EditCommand(m_host) {
+			@Override
+			@SuppressWarnings("unchecked")
+			protected void executeEdit() throws Exception {
+				command_MOVE((C) moveObject, (D) data);
+			}
+		};
+	}
 
-  @Override
-  protected Command getAddCommand(final Object addObject, final Object data) {
-    return new EditCommand(m_host) {
-      @Override
-      @SuppressWarnings("unchecked")
-      protected void executeEdit() throws Exception {
-        command_ADD((C) addObject, (D) data);
-      }
-    };
-  }
+	@Override
+	protected Command getAddCommand(final Object addObject, final Object data) {
+		return new EditCommand(m_host) {
+			@Override
+			@SuppressWarnings("unchecked")
+			protected void executeEdit() throws Exception {
+				command_ADD((C) addObject, (D) data);
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation of commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected abstract void command_CREATE(C component, D data) throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation of commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected abstract void command_CREATE(C component, D data) throws Exception;
 
-  protected abstract void command_MOVE(C component, D data) throws Exception;
+	protected abstract void command_MOVE(C component, D data) throws Exception;
 
-  protected void command_ADD(C component, D data) throws Exception {
-    command_MOVE(component, data);
-  }
+	protected void command_ADD(C component, D data) throws Exception {
+		command_MOVE(component, data);
+	}
 }

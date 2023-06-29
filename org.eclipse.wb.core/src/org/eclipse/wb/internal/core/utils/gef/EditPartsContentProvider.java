@@ -29,70 +29,70 @@ import java.util.List;
  * @coverage gef.core
  */
 public final class EditPartsContentProvider implements ITreeContentProvider {
-  private final IEditPartViewer m_viewer;
+	private final IEditPartViewer m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditPartsContentProvider(IEditPartViewer viewer) {
-    m_viewer = viewer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditPartsContentProvider(IEditPartViewer viewer) {
+		m_viewer = viewer;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IStructuredContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object[] getElements(Object inputElement) {
-    Object input = m_viewer.getRootContainer().getContent().getModel();
-    return new Object[]{input};
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IStructuredContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object[] getElements(Object inputElement) {
+		Object input = m_viewer.getRootContainer().getContent().getModel();
+		return new Object[]{input};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ITreeContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean hasChildren(Object parentElement) {
-    return getChildren(parentElement).length != 0;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ITreeContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean hasChildren(Object parentElement) {
+		return getChildren(parentElement).length != 0;
+	}
 
-  @Override
-  public Object[] getChildren(Object parentElement) {
-    EditPart parentEditPart = m_viewer.getEditPartByModel(parentElement);
-    if (parentEditPart != null) {
-      List<Object> children = Lists.newArrayList();
-      for (EditPart editPart : parentEditPart.getChildren()) {
-        children.add(editPart.getModel());
-      }
-      return children.toArray();
-    }
-    return ArrayUtils.EMPTY_OBJECT_ARRAY;
-  }
+	@Override
+	public Object[] getChildren(Object parentElement) {
+		EditPart parentEditPart = m_viewer.getEditPartByModel(parentElement);
+		if (parentEditPart != null) {
+			List<Object> children = Lists.newArrayList();
+			for (EditPart editPart : parentEditPart.getChildren()) {
+				children.add(editPart.getModel());
+			}
+			return children.toArray();
+		}
+		return ArrayUtils.EMPTY_OBJECT_ARRAY;
+	}
 
-  @Override
-  public Object getParent(Object element) {
-    EditPart editPart = m_viewer.getEditPartByModel(element);
-    if (editPart != null) {
-      return editPart.getParent().getModel();
-    }
-    return null;
-  }
+	@Override
+	public Object getParent(Object element) {
+		EditPart editPart = m_viewer.getEditPartByModel(element);
+		if (editPart != null) {
+			return editPart.getParent().getModel();
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dispose() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dispose() {
+	}
 
-  @Override
-  public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-  }
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+	}
 }

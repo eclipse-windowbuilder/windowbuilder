@@ -19,8 +19,8 @@ import org.eclipse.jface.action.IMenuManager;
  * @coverage core.gef.header
  */
 public interface IHeaderMenuProvider {
-  /**
-   * Adds menu items into given {@link IMenuManager}.
-   */
-  void buildContextMenu(IMenuManager manager);
+	/**
+	 * Adds menu items into given {@link IMenuManager}.
+	 */
+	void buildContextMenu(IMenuManager manager);
 }

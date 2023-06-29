@@ -25,42 +25,42 @@ import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuInfo;
  * @coverage XWT.gefTree.policy
  */
 public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
-  private final ShellInfo m_shell;
-  private final ILayoutRequestValidator m_validator;
+	private final ShellInfo m_shell;
+	private final ILayoutRequestValidator m_validator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuBarDropLayoutEditPolicy(ShellInfo shell) {
-    m_shell = shell;
-    m_validator = new MenuBarDrop_Validator(shell);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuBarDropLayoutEditPolicy(ShellInfo shell) {
+		m_shell = shell;
+		m_validator = new MenuBarDrop_Validator(shell);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy/Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return m_validator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy/Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return m_validator;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(final Object newObject, Object referenceObject) {
-    final MenuInfo menu = (MenuInfo) newObject;
-    return new EditCommand(m_shell) {
-      @Override
-      protected void executeEdit() throws Exception {
-        menu.commandCreate(m_shell);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(final Object newObject, Object referenceObject) {
+		final MenuInfo menu = (MenuInfo) newObject;
+		return new EditCommand(m_shell) {
+			@Override
+			protected void executeEdit() throws Exception {
+				menu.commandCreate(m_shell);
+			}
+		};
+	}
 }

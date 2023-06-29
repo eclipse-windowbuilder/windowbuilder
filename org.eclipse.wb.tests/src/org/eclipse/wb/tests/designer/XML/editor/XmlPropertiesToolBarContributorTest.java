@@ -27,68 +27,68 @@ import org.eclipse.swt.widgets.ToolItem;
  * @author scheglov_ke
  */
 public class XmlPropertiesToolBarContributorTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void tearDown() throws Exception {
-    DesignerExceptionUtils.flushErrorEntriesCache();
-    DesignerPlugin.setDisplayExceptionOnConsole(true);
-    EnvironmentUtils.setTestingTime(true);
-    super.tearDown();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void tearDown() throws Exception {
+		DesignerExceptionUtils.flushErrorEntriesCache();
+		DesignerPlugin.setDisplayExceptionOnConsole(true);
+		EnvironmentUtils.setTestingTime(true);
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Test
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for "Goto definition" action.
-   */
-  public void test_gotoDefinition() throws Exception {
-    openEditor(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<Shell>",
-        "  <Shell.layout>",
-        "    <RowLayout/>",
-        "  </Shell.layout>",
-        "  <Button wbp:name='button'/>",
-        "</Shell>");
-    XmlObjectInfo button = getObjectByName("button");
-    // prepare UiContext
-    UiContext context = new UiContext();
-    // no selection initially, so no action
-    {
-      ToolItem toolItem = context.getToolItem("Goto definition");
-      assertNull(toolItem);
-    }
-    // select "button", show actions
-    canvas.select(button);
-    // use action
-    {
-      ToolItem toolItem = context.getToolItem("Goto definition");
-      assertNotNull(toolItem);
-      context.click(toolItem, SWT.NONE);
-      waitEventLoop(0);
-    }
-    // assert that position in XML source was opened
-    {
-      int expectedPosition = button.getElement().getOffset();
-      assertXMLSelection(expectedPosition, 0);
-      assertEquals(0, m_designerEditor.getActivePage());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Test
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for "Goto definition" action.
+	 */
+	public void test_gotoDefinition() throws Exception {
+		openEditor(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<Shell>",
+				"  <Shell.layout>",
+				"    <RowLayout/>",
+				"  </Shell.layout>",
+				"  <Button wbp:name='button'/>",
+				"</Shell>");
+		XmlObjectInfo button = getObjectByName("button");
+		// prepare UiContext
+		UiContext context = new UiContext();
+		// no selection initially, so no action
+		{
+			ToolItem toolItem = context.getToolItem("Goto definition");
+			assertNull(toolItem);
+		}
+		// select "button", show actions
+		canvas.select(button);
+		// use action
+		{
+			ToolItem toolItem = context.getToolItem("Goto definition");
+			assertNotNull(toolItem);
+			context.click(toolItem, SWT.NONE);
+			waitEventLoop(0);
+		}
+		// assert that position in XML source was opened
+		{
+			int expectedPosition = button.getElement().getOffset();
+			assertXMLSelection(expectedPosition, 0);
+			assertEquals(0, m_designerEditor.getActivePage());
+		}
+	}
 }

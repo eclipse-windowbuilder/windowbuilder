@@ -23,21 +23,21 @@ import org.xml.sax.Attributes;
  * @coverage XML.model.description
  */
 public final class PropertyAccessRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    String id = attributes.getValue("id");
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    GenericPropertyDescription propertyDescription = componentDescription.getProperty(id);
-    getDigester().push(propertyDescription);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		String id = attributes.getValue("id");
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		GenericPropertyDescription propertyDescription = componentDescription.getProperty(id);
+		getDigester().push(propertyDescription);
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    getDigester().pop();
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		getDigester().pop();
+	}
 }

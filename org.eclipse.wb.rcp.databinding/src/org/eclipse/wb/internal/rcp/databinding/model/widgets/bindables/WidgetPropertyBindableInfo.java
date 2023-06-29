@@ -35,125 +35,125 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public final class WidgetPropertyBindableInfo extends BindableInfo implements IObserveDecoration {
-  private final IObservableFactory m_observableFactory;
-  private final IObservePresentation m_presentation;
-  private final IObserveDecorator m_decorator;
+	private final IObservableFactory m_observableFactory;
+	private final IObservePresentation m_presentation;
+	private final IObserveDecorator m_decorator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WidgetPropertyBindableInfo(Class<?> objectType,
-      IReferenceProvider referenceProvider,
-      IObservableFactory observableFactory,
-      IObservePresentation presentation,
-      IObserveDecorator decorator) {
-    super(objectType, referenceProvider);
-    setBindingDecoration(SwtResourceManager.TOP_LEFT);
-    m_observableFactory = observableFactory;
-    m_presentation = presentation;
-    m_decorator = decorator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WidgetPropertyBindableInfo(Class<?> objectType,
+			IReferenceProvider referenceProvider,
+			IObservableFactory observableFactory,
+			IObservePresentation presentation,
+			IObserveDecorator decorator) {
+		super(objectType, referenceProvider);
+		setBindingDecoration(SwtResourceManager.TOP_LEFT);
+		m_observableFactory = observableFactory;
+		m_presentation = presentation;
+		m_decorator = decorator;
+	}
 
-  public WidgetPropertyBindableInfo(String text,
-      Image image,
-      Class<?> objectType,
-      String reference,
-      IObservableFactory observableFactory,
-      IObserveDecorator decorator) {
-    this(objectType,
-        new StringReferenceProvider(reference),
-        observableFactory,
-        new SimpleObservePresentation(text, image),
-        decorator);
-  }
+	public WidgetPropertyBindableInfo(String text,
+			Image image,
+			Class<?> objectType,
+			String reference,
+			IObservableFactory observableFactory,
+			IObserveDecorator decorator) {
+		this(objectType,
+				new StringReferenceProvider(reference),
+				observableFactory,
+				new SimpleObservePresentation(text, image),
+				decorator);
+	}
 
-  public WidgetPropertyBindableInfo(String text,
-      Class<?> objectType,
-      String reference,
-      IObservableFactory observableFactory,
-      IObserveDecorator decorator) {
-    this(text,
-        TypeImageProvider.getImage(objectType),
-        objectType,
-        reference,
-        observableFactory,
-        decorator);
-  }
+	public WidgetPropertyBindableInfo(String text,
+			Class<?> objectType,
+			String reference,
+			IObservableFactory observableFactory,
+			IObserveDecorator decorator) {
+		this(text,
+				TypeImageProvider.getImage(objectType),
+				objectType,
+				reference,
+				observableFactory,
+				decorator);
+	}
 
-  public WidgetPropertyBindableInfo(String text,
-      Class<?> objectType,
-      String reference,
-      IObserveDecorator decorator) {
-    this(text, objectType, reference, SwtObservableFactory.SWT, decorator);
-  }
+	public WidgetPropertyBindableInfo(String text,
+			Class<?> objectType,
+			String reference,
+			IObserveDecorator decorator) {
+		this(text, objectType, reference, SwtObservableFactory.SWT, decorator);
+	}
 
-  public WidgetPropertyBindableInfo(WidgetPropertyBindableInfo bindable) {
-    this(bindable.getObjectType(),
-        bindable.getReferenceProvider(),
-        bindable.m_observableFactory,
-        bindable.m_presentation,
-        bindable.m_decorator);
-  }
+	public WidgetPropertyBindableInfo(WidgetPropertyBindableInfo bindable) {
+		this(bindable.getObjectType(),
+				bindable.getReferenceProvider(),
+				bindable.m_observableFactory,
+				bindable.m_presentation,
+				bindable.m_decorator);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // BindableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<BindableInfo> getChildren() {
-    return Collections.emptyList();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// BindableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<BindableInfo> getChildren() {
+		return Collections.emptyList();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObserveInfo getParent() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObserveInfo getParent() {
+		return null;
+	}
 
-  @Override
-  public List<IObserveInfo> getChildren(ChildrenContext context) {
-    return Collections.emptyList();
-  }
+	@Override
+	public List<IObserveInfo> getChildren(ChildrenContext context) {
+		return Collections.emptyList();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObservePresentation getPresentation() {
-    return m_presentation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObservePresentation getPresentation() {
+		return m_presentation;
+	}
 
-  @Override
-  public IObserveDecorator getDecorator() {
-    return m_decorator;
-  }
+	@Override
+	public IObserveDecorator getDecorator() {
+		return m_decorator;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObservableFactory getObservableFactory() throws Exception {
-    return m_observableFactory;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObservableFactory getObservableFactory() throws Exception {
+		return m_observableFactory;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObserveType
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ObserveType getType() {
-    return ObserveType.WIDGETS;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObserveType
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ObserveType getType() {
+		return ObserveType.WIDGETS;
+	}
 }

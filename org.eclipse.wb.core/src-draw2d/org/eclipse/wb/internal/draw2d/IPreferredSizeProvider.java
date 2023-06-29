@@ -19,8 +19,8 @@ import org.eclipse.draw2d.geometry.Dimension;
  * @coverage gef.draw2d
  */
 public interface IPreferredSizeProvider {
-  /**
-   * Calculate new preferred size use original preferred size.
-   */
-  Dimension getPreferredSize(Dimension originalPreferredSize);
+	/**
+	 * Calculate new preferred size use original preferred size.
+	 */
+	Dimension getPreferredSize(Dimension originalPreferredSize);
 }

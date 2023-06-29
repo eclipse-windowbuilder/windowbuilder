@@ -20,31 +20,31 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateSe
  * @coverage bindings.rcp.model.context
  */
 public final class SetBindingInfo extends BindingInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetBindingInfo(ObservableInfo target, ObservableInfo model) {
-    this(target, model, null, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetBindingInfo(ObservableInfo target, ObservableInfo model) {
+		this(target, model, null, null);
+	}
 
-  public SetBindingInfo(ObservableInfo target,
-      ObservableInfo model,
-      UpdateSetStrategyInfo targetStrategy,
-      UpdateSetStrategyInfo modelStrategy) {
-    super(target, model);
-    m_targetStrategy = targetStrategy == null ? new UpdateSetStrategyInfo() : targetStrategy;
-    m_modelStrategy = modelStrategy == null ? new UpdateSetStrategyInfo() : modelStrategy;
-  }
+	public SetBindingInfo(ObservableInfo target,
+			ObservableInfo model,
+			UpdateSetStrategyInfo targetStrategy,
+			UpdateSetStrategyInfo modelStrategy) {
+		super(target, model);
+		m_targetStrategy = targetStrategy == null ? new UpdateSetStrategyInfo() : targetStrategy;
+		m_modelStrategy = modelStrategy == null ? new UpdateSetStrategyInfo() : modelStrategy;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getBindingMethod() {
-    return "bindSet";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getBindingMethod() {
+		return "bindSet";
+	}
 }

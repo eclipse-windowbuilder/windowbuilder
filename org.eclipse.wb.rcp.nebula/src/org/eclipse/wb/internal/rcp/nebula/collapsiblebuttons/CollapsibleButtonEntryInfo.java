@@ -29,44 +29,44 @@ import org.eclipse.swt.graphics.Image;
  * @coverage nebula.palette
  */
 public final class CollapsibleButtonEntryInfo extends ToolEntryInfo {
-  private static final Image ICON =
-      Activator.getImage("wbp-meta/org/eclipse/nebula/widgets/collapsiblebuttons/CustomButton.png");
+	private static final Image ICON =
+			Activator.getImage("wbp-meta/org/eclipse/nebula/widgets/collapsiblebuttons/CustomButton.png");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CollapsibleButtonEntryInfo() throws Exception {
-    setName(Messages.CollapsibleButtonEntryInfo_name);
-    setDescription(Messages.CollapsibleButtonEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CollapsibleButtonEntryInfo() throws Exception {
+		setName(Messages.CollapsibleButtonEntryInfo_name);
+		setDescription(Messages.CollapsibleButtonEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  @Override
-  public boolean initialize(IEditPartViewer editPartViewer, JavaInfo rootJavaInfo) {
-    super.initialize(editPartViewer, rootJavaInfo);
-    return ProjectUtils.hasType(
-        m_javaProject,
-        "org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons");
-  }
+	@Override
+	public boolean initialize(IEditPartViewer editPartViewer, JavaInfo rootJavaInfo) {
+		super.initialize(editPartViewer, rootJavaInfo);
+		return ProjectUtils.hasType(
+				m_javaProject,
+				"org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ToolEntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Tool createTool() throws Exception {
-    return new CollapsibleButtonDropTool();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ToolEntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Tool createTool() throws Exception {
+		return new CollapsibleButtonDropTool();
+	}
 }

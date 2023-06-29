@@ -26,22 +26,22 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.description
  */
 public final class MethodOrderLast extends MethodOrder {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MethodOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canReference(JavaInfo javaInfo) {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MethodOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canReference(JavaInfo javaInfo) {
+		return false;
+	}
 
-  @Override
-  protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
-      throws Exception {
-    if (javaInfo instanceof IWrapperInfo) {
-      javaInfo = javaInfo.getParentJava();
-    }
-    return JavaInfoUtils.getTarget(javaInfo);
-  }
+	@Override
+	protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
+			throws Exception {
+		if (javaInfo instanceof IWrapperInfo) {
+			javaInfo = javaInfo.getParentJava();
+		}
+		return JavaInfoUtils.getTarget(javaInfo);
+	}
 }

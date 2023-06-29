@@ -24,5 +24,5 @@ import org.eclipse.ui.actions.ActionFactory;
  * @coverage rcp.model.jface
  */
 public interface IActionIconProvider {
-  Image getActionIcon();
+	Image getActionIcon();
 }

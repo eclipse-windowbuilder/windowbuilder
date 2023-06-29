@@ -20,56 +20,56 @@ import java.util.Map;
  * @coverage core.util
  */
 public final class ClassMap<V> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new instance of {@link ClassMap}.
-   */
-  public static <V> ClassMap<V> create() {
-    return new ClassMap<V>();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new instance of {@link ClassMap}.
+	 */
+	public static <V> ClassMap<V> create() {
+		return new ClassMap<V>();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Map
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void put(Class<?> key, V value) {
-    getMap(key).put(key, value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Map
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void put(Class<?> key, V value) {
+		getMap(key).put(key, value);
+	}
 
-  public V get(Class<?> key) {
-    return getMap(key).get(key);
-  }
+	public V get(Class<?> key) {
+		return getMap(key).get(key);
+	}
 
-  public void remove(Class<?> key) {
-    getMap(key).remove(key);
-  }
+	public void remove(Class<?> key) {
+		getMap(key).remove(key);
+	}
 
-  public void clear(ClassLoader classLoader) {
-    getMap(classLoader).clear();
-  }
+	public void clear(ClassLoader classLoader) {
+		getMap(classLoader).clear();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Map<Class<?>, V> getMap(Class<?> key) {
-    ClassLoader classLoader = key.getClassLoader();
-    return getMap(classLoader);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Map<Class<?>, V> getMap(Class<?> key) {
+		ClassLoader classLoader = key.getClassLoader();
+		return getMap(classLoader);
+	}
 
-  @SuppressWarnings("unchecked")
-  private Map<Class<?>, V> getMap(ClassLoader classLoader) {
-    Object map = ClassLoaderLocalMap.get(classLoader, this);
-    if (map == null) {
-      map = new HashMap<Class<?>, V>();
-      ClassLoaderLocalMap.put(classLoader, this, map);
-    }
-    return (Map<Class<?>, V>) map;
-  }
+	@SuppressWarnings("unchecked")
+	private Map<Class<?>, V> getMap(ClassLoader classLoader) {
+		Object map = ClassLoaderLocalMap.get(classLoader, this);
+		if (map == null) {
+			map = new HashMap<Class<?>, V>();
+			ClassLoaderLocalMap.put(classLoader, this, map);
+		}
+		return (Map<Class<?>, V>) map;
+	}
 }

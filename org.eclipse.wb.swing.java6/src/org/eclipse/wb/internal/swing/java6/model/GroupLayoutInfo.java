@@ -41,182 +41,182 @@ import javax.swing.GroupLayout;
  * @coverage swing.model.layout.group
  */
 public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayoutCommands {
-  // constants
-  private static final String GROUP_LAYOUT_CLASS_NAME = "javax.swing.GroupLayout";
-  static final String GROUP_LAYOUT_GROUP_CLASS_NAME = GROUP_LAYOUT_CLASS_NAME + ".Group";
-  static final String PROPERTY_NAME_GROUP = "group";
-  public static final String IDENTIFIER_CREATE_PARALLEL_GROUP = "createParallelGroup";
-  static final String IDENTIFIER_CREATE_SEQUENTIAL_GROUP = "createSequentialGroup";
-  public static final String IDENTIFIER_CREATE_BASELINE_GROUP = "createBaselineGroup";
-  static final String IDENTIFIER_ADD_CONTAINER_GAP = "addContainerGap";
-  static final String IDENTIFIER_ADD_PREFERRED_GAP = "addPreferredGap";
-  static final String IDENTIFIER_ADD_GAP = "addGap";
-  static final String IDENTIFIER_ADD_COMPONENT = "addComponent";
-  static final String IDENTIFIER_ADD_GROUP = "addGroup";
-  private static final String SIGNATURE_SET_HORIZONTAL_GROUP =
-      "setHorizontalGroup(javax.swing.GroupLayout.Group)";
-  private static final String SIGNATURE_SET_VERTICAL_GROUP =
-      "setVerticalGroup(javax.swing.GroupLayout.Group)";
-  // fields
-  private final SpringInfo[] m_rootGroups = new SpringInfo[2];
-  private final Map[] m_widgetMaps = new Map[2];
+	// constants
+	private static final String GROUP_LAYOUT_CLASS_NAME = "javax.swing.GroupLayout";
+	static final String GROUP_LAYOUT_GROUP_CLASS_NAME = GROUP_LAYOUT_CLASS_NAME + ".Group";
+	static final String PROPERTY_NAME_GROUP = "group";
+	public static final String IDENTIFIER_CREATE_PARALLEL_GROUP = "createParallelGroup";
+	static final String IDENTIFIER_CREATE_SEQUENTIAL_GROUP = "createSequentialGroup";
+	public static final String IDENTIFIER_CREATE_BASELINE_GROUP = "createBaselineGroup";
+	static final String IDENTIFIER_ADD_CONTAINER_GAP = "addContainerGap";
+	static final String IDENTIFIER_ADD_PREFERRED_GAP = "addPreferredGap";
+	static final String IDENTIFIER_ADD_GAP = "addGap";
+	static final String IDENTIFIER_ADD_COMPONENT = "addComponent";
+	static final String IDENTIFIER_ADD_GROUP = "addGroup";
+	private static final String SIGNATURE_SET_HORIZONTAL_GROUP =
+			"setHorizontalGroup(javax.swing.GroupLayout.Group)";
+	private static final String SIGNATURE_SET_VERTICAL_GROUP =
+			"setVerticalGroup(javax.swing.GroupLayout.Group)";
+	// fields
+	private final SpringInfo[] m_rootGroups = new SpringInfo[2];
+	private final Map[] m_widgetMaps = new Map[2];
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GroupLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    m_widgetMaps[0] = Maps.newHashMap();
-    m_widgetMaps[1] = Maps.newHashMap();
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void bindComponents(List<JavaInfo> components) throws Exception {
-        parse();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GroupLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		m_widgetMaps[0] = Maps.newHashMap();
+		m_widgetMaps[1] = Maps.newHashMap();
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void bindComponents(List<JavaInfo> components) throws Exception {
+				parse();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Layout manipulation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void adjustAttachmentOffset(IAbstractComponentInfo widget, int side, int moveDelta)
-      throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Layout manipulation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void adjustAttachmentOffset(IAbstractComponentInfo widget, int side, int moveDelta)
+			throws Exception {
+	}
 
-  @Override
-  public void attachAbsolute(IAbstractComponentInfo widget, int side, int distance)
-      throws Exception {
-    // TODO: for testing
-    save();
-  }
+	@Override
+	public void attachAbsolute(IAbstractComponentInfo widget, int side, int distance)
+			throws Exception {
+		// TODO: for testing
+		save();
+	}
 
-  @Override
-  public void attachWidgetParallelly(IAbstractComponentInfo widget,
-      IAbstractComponentInfo attachToWidget,
-      int side,
-      int distance) throws Exception {
-  }
+	@Override
+	public void attachWidgetParallelly(IAbstractComponentInfo widget,
+			IAbstractComponentInfo attachToWidget,
+			int side,
+			int distance) throws Exception {
+	}
 
-  @Override
-  public void attachWidgetSequientially(IAbstractComponentInfo widget,
-      IAbstractComponentInfo attachToWidget,
-      int side,
-      int distance) throws Exception {
-  }
+	@Override
+	public void attachWidgetSequientially(IAbstractComponentInfo widget,
+			IAbstractComponentInfo attachToWidget,
+			int side,
+			int distance) throws Exception {
+	}
 
-  @Override
-  public void detach(IAbstractComponentInfo widget, int side) throws Exception {
-  }
+	@Override
+	public void detach(IAbstractComponentInfo widget, int side) throws Exception {
+	}
 
-  @Override
-  public IAbstractComponentInfo getAttachedToWidget(IAbstractComponentInfo widget, int side)
-      throws Exception {
-    return null;
-  }
+	@Override
+	public IAbstractComponentInfo getAttachedToWidget(IAbstractComponentInfo widget, int side)
+			throws Exception {
+		return null;
+	}
 
-  @Override
-  public boolean isAttached(IAbstractComponentInfo widget, int side) throws Exception {
-    return false;
-  }
+	@Override
+	public boolean isAttached(IAbstractComponentInfo widget, int side) throws Exception {
+		return false;
+	}
 
-  @Override
-  public void performAction(int actionId) {
-  }
+	@Override
+	public void performAction(int actionId) {
+	}
 
-  @Override
-  public void setExplicitSize(IAbstractComponentInfo widget,
-      int side,
-      int draggingSide,
-      int resizeDelta) throws Exception {
-  }
+	@Override
+	public void setExplicitSize(IAbstractComponentInfo widget,
+			int side,
+			int draggingSide,
+			int resizeDelta) throws Exception {
+	}
 
-  public ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
-      int side) {
-    return null;
-  }
+	public ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
+			int side) {
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final void command_CREATE(ComponentInfo component, ComponentInfo nextComponent)
-      throws Exception {
-    add(component, null, nextComponent);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final void command_CREATE(ComponentInfo component, ComponentInfo nextComponent)
+			throws Exception {
+		add(component, null, nextComponent);
+	}
 
-  public final void command_MOVE(ComponentInfo component, ComponentInfo nextComponent)
-      throws Exception {
-    move(component, null, nextComponent);
-  }
+	public final void command_MOVE(ComponentInfo component, ComponentInfo nextComponent)
+			throws Exception {
+		move(component, null, nextComponent);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Misc
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static Image getImage(String imageName) {
-    return Activator.getImage("info/layout/groupLayout/" + imageName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Misc
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static Image getImage(String imageName) {
+		return Activator.getImage("info/layout/groupLayout/" + imageName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Save layout code
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void save() throws Exception {
-    saveGroup(SIGNATURE_SET_HORIZONTAL_GROUP, m_rootGroups[0]);
-    saveGroup(SIGNATURE_SET_VERTICAL_GROUP, m_rootGroups[1]);
-    // TODO: link size
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Save layout code
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void save() throws Exception {
+		saveGroup(SIGNATURE_SET_HORIZONTAL_GROUP, m_rootGroups[0]);
+		saveGroup(SIGNATURE_SET_VERTICAL_GROUP, m_rootGroups[1]);
+		// TODO: link size
+	}
 
-  private void saveGroup(String methodName, SpringInfo rootGroup) throws Exception {
-    /*List<ComponentInfo> childrenComponents = getContainer().getChildrenComponents();
+	private void saveGroup(String methodName, SpringInfo rootGroup) throws Exception {
+		/*List<ComponentInfo> childrenComponents = getContainer().getChildrenComponents();
     StatementTarget statementTarget =
     		JavaInfoUtils.getStatementTarget_whenAllCreated(ImmutableList.copyOf(childrenComponents));
     String referenceExpression =
     		getVariableSupport().getReferenceExpression(new NodeTarget(statementTarget));*/
-    MethodInvocation invocation = getMethodInvocation(methodName);
-    String groupCode = rootGroup.getCode();
-    getEditor().replaceInvocationArguments(invocation, ImmutableList.of(groupCode));
-  }
+		MethodInvocation invocation = getMethodInvocation(methodName);
+		String groupCode = rootGroup.getCode();
+		getEditor().replaceInvocationArguments(invocation, ImmutableList.of(groupCode));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parse
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  protected void parse() {
-    try {
-      m_rootGroups[0] = parseGroup(SIGNATURE_SET_HORIZONTAL_GROUP, m_widgetMaps[0]);
-      m_rootGroups[1] = parseGroup(SIGNATURE_SET_VERTICAL_GROUP, m_widgetMaps[1]);
-    } catch (Throwable e) {
-      throw new DesignerException(1100, e);
-    }
-    if (m_rootGroups[0] == null || m_rootGroups[1] == null) {
-      throw new DesignerException(1100);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parse
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	protected void parse() {
+		try {
+			m_rootGroups[0] = parseGroup(SIGNATURE_SET_HORIZONTAL_GROUP, m_widgetMaps[0]);
+			m_rootGroups[1] = parseGroup(SIGNATURE_SET_VERTICAL_GROUP, m_widgetMaps[1]);
+		} catch (Throwable e) {
+			throw new DesignerException(1100, e);
+		}
+		if (m_rootGroups[0] == null || m_rootGroups[1] == null) {
+			throw new DesignerException(1100);
+		}
+	}
 
-  protected SpringInfo parseGroup(String methodName,
-      Map<IAbstractComponentInfo, WidgetSpringInfo> widgetMaps) {
-    MethodInvocation invocation = getMethodInvocation(methodName);
-    GroupLayoutParserVisitor parser =
-        new GroupLayoutParserVisitor(widgetMaps, methodName, getContainer());
-    invocation.accept(parser);
-    return parser.getRootGroup();
-  }
+	protected SpringInfo parseGroup(String methodName,
+			Map<IAbstractComponentInfo, WidgetSpringInfo> widgetMaps) {
+		MethodInvocation invocation = getMethodInvocation(methodName);
+		GroupLayoutParserVisitor parser =
+				new GroupLayoutParserVisitor(widgetMaps, methodName, getContainer());
+		invocation.accept(parser);
+		return parser.getRootGroup();
+	}
 
-  @Override
-  public void attachWidgetBaseline(IAbstractComponentInfo widget,
-      IAbstractComponentInfo attachedToWidget) throws Exception {
-  }
+	@Override
+	public void attachWidgetBaseline(IAbstractComponentInfo widget,
+			IAbstractComponentInfo attachedToWidget) throws Exception {
+	}
 }

@@ -27,83 +27,83 @@ import java.util.List;
  * @coverage bindings.rcp.model.context
  */
 public abstract class StrategyPropertyInfo extends SimpleClassObjectInfo {
-  private boolean m_anonymous = false;
-  private String m_anonymousSource;
+	private boolean m_anonymous = false;
+	private String m_anonymousSource;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StrategyPropertyInfo(String className) {
-    super(className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StrategyPropertyInfo(String className) {
+		super(className);
+	}
 
-  public StrategyPropertyInfo(AstEditor editor, ClassInstanceCreation creation) {
-    String className = AstNodeUtils.getFullyQualifiedName(creation, false);
-    if (creation.arguments().isEmpty()) {
-      ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(creation);
-      if (typeBinding.isAnonymous()) {
-        m_anonymous = true;
-        m_anonymousSource = editor.getSource(creation);
-        className += " <<Anonymous>>";
-      }
-    } else {
-      String source = editor.getSource(creation);
-      int index = source.indexOf('(');
-      className += source.substring(index);
-    }
-    setClassName(className);
-  }
+	public StrategyPropertyInfo(AstEditor editor, ClassInstanceCreation creation) {
+		String className = AstNodeUtils.getFullyQualifiedName(creation, false);
+		if (creation.arguments().isEmpty()) {
+			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(creation);
+			if (typeBinding.isAnonymous()) {
+				m_anonymous = true;
+				m_anonymousSource = editor.getSource(creation);
+				className += " <<Anonymous>>";
+			}
+		} else {
+			String source = editor.getSource(creation);
+			int index = source.indexOf('(');
+			className += source.substring(index);
+		}
+		setClassName(className);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isAnonymous() {
-    return m_anonymous;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isAnonymous() {
+		return m_anonymous;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final String getSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    String variable = getVariableIdentifier();
-    // check anonymous
-    if (m_anonymous) {
-      // check variable
-      if (variable == null) {
-        // no variable
-        return m_anonymousSource;
-      }
-      // variable mode
-      lines.add(getBaseClassName() + " " + variable + " = " + m_anonymousSource + ";");
-      return variable;
-    }
-    // normal
-    String defaultCostructor = m_className.indexOf('(') == -1 ? "()" : "";
-    // check variable
-    if (variable == null) {
-      // no variable
-      return "new " + m_className + defaultCostructor;
-    }
-    // variable mode
-    lines.add(getBaseClassName()
-        + " "
-        + variable
-        + " = new "
-        + m_className
-        + defaultCostructor
-        + ";");
-    return variable;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final String getSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		String variable = getVariableIdentifier();
+		// check anonymous
+		if (m_anonymous) {
+			// check variable
+			if (variable == null) {
+				// no variable
+				return m_anonymousSource;
+			}
+			// variable mode
+			lines.add(getBaseClassName() + " " + variable + " = " + m_anonymousSource + ";");
+			return variable;
+		}
+		// normal
+		String defaultCostructor = m_className.indexOf('(') == -1 ? "()" : "";
+		// check variable
+		if (variable == null) {
+			// no variable
+			return "new " + m_className + defaultCostructor;
+		}
+		// variable mode
+		lines.add(getBaseClassName()
+				+ " "
+				+ variable
+				+ " = new "
+				+ m_className
+				+ defaultCostructor
+				+ ";");
+		return variable;
+	}
 
-  /**
-   * @return the model class name.
-   */
-  protected abstract String getBaseClassName();
+	/**
+	 * @return the model class name.
+	 */
+	protected abstract String getBaseClassName();
 }

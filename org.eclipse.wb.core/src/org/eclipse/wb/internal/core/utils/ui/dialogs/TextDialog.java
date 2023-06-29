@@ -30,90 +30,90 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * @coverage core.ui
  */
 public class TextDialog extends ResizableDialog {
-  private final String m_titleText;
-  private final String m_headerText;
-  private final String m_footerText;
+	private final String m_titleText;
+	private final String m_headerText;
+	private final String m_footerText;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TextDialog(Shell parentShell,
-      AbstractUIPlugin plugin,
-      String titleText,
-      String headerText,
-      String footerText) {
-    super(parentShell, plugin);
-    m_titleText = titleText;
-    m_headerText = headerText;
-    m_footerText = footerText;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TextDialog(Shell parentShell,
+			AbstractUIPlugin plugin,
+			String titleText,
+			String headerText,
+			String footerText) {
+		super(parentShell, plugin);
+		m_titleText = titleText;
+		m_headerText = headerText;
+		m_footerText = footerText;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Text
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_text;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Text
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String m_text;
 
-  /**
-   * Sets the text to edit.
-   */
-  public final void setText(String text) {
-    m_text = text;
-  }
+	/**
+	 * Sets the text to edit.
+	 */
+	public final void setText(String text) {
+		m_text = text;
+	}
 
-  /**
-   * @return the edited text.
-   */
-  public final String getText() {
-    return m_text;
-  }
+	/**
+	 * @return the edited text.
+	 */
+	public final String getText() {
+		return m_text;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected Text m_textWidget;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected Text m_textWidget;
 
-  @Override
-  protected Control createDialogArea(Composite parent) {
-    Composite area = (Composite) super.createDialogArea(parent);
-    GridLayoutFactory.create(area);
-    // header
-    new Label(area, SWT.NONE).setText(m_headerText);
-    // Text widget
-    {
-      m_textWidget = new Text(area, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-      GridDataFactory.create(m_textWidget).grab().fill().hintVC(10);
-      m_textWidget.setText(m_text);
-      // handle Ctrl+Enter as OK
-      m_textWidget.addKeyListener(new KeyAdapter() {
-        @Override
-        public void keyPressed(KeyEvent e) {
-          if (e.stateMask == SWT.CTRL && e.keyCode == SWT.CR) {
-            okPressed();
-          }
-        }
-      });
-    }
-    // footer
-    new Label(area, SWT.NONE).setText(m_footerText);
-    //
-    return area;
-  }
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		Composite area = (Composite) super.createDialogArea(parent);
+		GridLayoutFactory.create(area);
+		// header
+		new Label(area, SWT.NONE).setText(m_headerText);
+		// Text widget
+		{
+			m_textWidget = new Text(area, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+			GridDataFactory.create(m_textWidget).grab().fill().hintVC(10);
+			m_textWidget.setText(m_text);
+			// handle Ctrl+Enter as OK
+			m_textWidget.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if (e.stateMask == SWT.CTRL && e.keyCode == SWT.CR) {
+						okPressed();
+					}
+				}
+			});
+		}
+		// footer
+		new Label(area, SWT.NONE).setText(m_footerText);
+		//
+		return area;
+	}
 
-  @Override
-  protected void configureShell(Shell newShell) {
-    super.configureShell(newShell);
-    newShell.setText(m_titleText);
-  }
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText(m_titleText);
+	}
 
-  @Override
-  protected void okPressed() {
-    m_text = m_textWidget.getText();
-    super.okPressed();
-  }
+	@Override
+	protected void okPressed() {
+		m_text = m_textWidget.getText();
+		super.okPressed();
+	}
 }

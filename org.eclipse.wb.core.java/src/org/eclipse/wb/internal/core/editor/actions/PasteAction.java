@@ -31,56 +31,56 @@ import java.util.List;
  * @coverage core.editor.action
  */
 public class PasteAction extends Action {
-  private final IEditPartViewer m_viewer;
+	private final IEditPartViewer m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PasteAction(IEditPartViewer viewer) {
-    m_viewer = viewer;
-    // copy presentation
-    ActionUtils.copyPresentation(this, ActionFactory.PASTE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PasteAction(IEditPartViewer viewer) {
+		m_viewer = viewer;
+		// copy presentation
+		ActionUtils.copyPresentation(this, ActionFactory.PASTE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Action
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void run() {
-    // check for SWT paste
-    {
-      Control focusControl = Display.getCurrent().getFocusControl();
-      if (focusControl instanceof Text) {
-        ((Text) focusControl).paste();
-        return;
-      }
-    }
-    // do JavaInfo paste
-    List<JavaInfoMemento> mementos = getMementos();
-    if (mementos != null) {
-      m_viewer.getEditDomain().setActiveTool(new PasteTool(mementos));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Action
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void run() {
+		// check for SWT paste
+		{
+			Control focusControl = Display.getCurrent().getFocusControl();
+			if (focusControl instanceof Text) {
+				((Text) focusControl).paste();
+				return;
+			}
+		}
+		// do JavaInfo paste
+		List<JavaInfoMemento> mementos = getMementos();
+		if (mementos != null) {
+			m_viewer.getEditDomain().setActiveTool(new PasteTool(mementos));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the array of {@link JavaInfoMemento} in {@link Clipboard}.
-   */
-  @SuppressWarnings("unchecked")
-  private static List<JavaInfoMemento> getMementos() {
-    Clipboard clipboard = new Clipboard(Display.getCurrent());
-    try {
-      return (List<JavaInfoMemento>) clipboard.getContents(JavaInfoMementoTransfer.getInstance());
-    } finally {
-      clipboard.dispose();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the array of {@link JavaInfoMemento} in {@link Clipboard}.
+	 */
+	@SuppressWarnings("unchecked")
+	private static List<JavaInfoMemento> getMementos() {
+		Clipboard clipboard = new Clipboard(Display.getCurrent());
+		try {
+			return (List<JavaInfoMemento>) clipboard.getContents(JavaInfoMementoTransfer.getInstance());
+		} finally {
+			clipboard.dispose();
+		}
+	}
 }

@@ -21,43 +21,43 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.property
  */
 public class XmlAttributeProperty extends XmlProperty {
-  private final String m_attribute;
+	private final String m_attribute;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlAttributeProperty(XmlObjectInfo object,
-      String title,
-      PropertyEditor propertyEditor,
-      String attribute) {
-    super(object, title, propertyEditor);
-    m_attribute = attribute;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlAttributeProperty(XmlObjectInfo object,
+			String title,
+			PropertyEditor propertyEditor,
+			String attribute) {
+		super(object, title, propertyEditor);
+		m_attribute = attribute;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isModified() throws Exception {
-    return getValue() != null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isModified() throws Exception {
+		return getValue() != null;
+	}
 
-  @Override
-  public Object getValue() throws Exception {
-    return m_object.getAttribute(m_attribute);
-  }
+	@Override
+	public Object getValue() throws Exception {
+		return m_object.getAttribute(m_attribute);
+	}
 
-  @Override
-  protected void setValueEx(Object value) throws Exception {
-    if (value == UNKNOWN_VALUE) {
-      m_object.removeAttribute(m_attribute);
-    }
-    if (value instanceof String) {
-      m_object.setAttribute(m_attribute, (String) value);
-    }
-  }
+	@Override
+	protected void setValueEx(Object value) throws Exception {
+		if (value == UNKNOWN_VALUE) {
+			m_object.removeAttribute(m_attribute);
+		}
+		if (value instanceof String) {
+			m_object.setAttribute(m_attribute, (String) value);
+		}
+	}
 }

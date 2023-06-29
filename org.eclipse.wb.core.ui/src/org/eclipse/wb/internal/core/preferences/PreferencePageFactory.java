@@ -32,44 +32,44 @@ import java.lang.reflect.Constructor;
  * @coverage core.preferences.ui
  */
 public final class PreferencePageFactory
-    implements
-      IExecutableExtension,
-      IExecutableExtensionFactory {
-  private String m_pageClassName;
-  private String m_toolkitId;
+implements
+IExecutableExtension,
+IExecutableExtensionFactory {
+	private String m_pageClassName;
+	private String m_toolkitId;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExecutableExtension
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setInitializationData(IConfigurationElement config, String propertyName, Object data)
-      throws CoreException {
-    try {
-      String[] parameters = StringUtils.split((String) data);
-      m_pageClassName = parameters[0];
-      m_toolkitId = parameters[1];
-    } catch (Throwable e) {
-      throw new CoreException(StatusUtils.createError(e.getMessage()));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExecutableExtension
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setInitializationData(IConfigurationElement config, String propertyName, Object data)
+			throws CoreException {
+		try {
+			String[] parameters = StringUtils.split((String) data);
+			m_pageClassName = parameters[0];
+			m_toolkitId = parameters[1];
+		} catch (Throwable e) {
+			throw new CoreException(StatusUtils.createError(e.getMessage()));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExecutableExtensionFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object create() throws CoreException {
-    try {
-      Class<?> pageClass = Class.forName(m_pageClassName);
-      Constructor<?> constructor = pageClass.getConstructor(ToolkitDescription.class);
-      //
-      ToolkitDescription toolkit = DescriptionHelper.getToolkit(m_toolkitId);
-      return constructor.newInstance(toolkit);
-    } catch (Throwable e) {
-      throw new CoreException(StatusUtils.createError(e.getMessage()));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExecutableExtensionFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object create() throws CoreException {
+		try {
+			Class<?> pageClass = Class.forName(m_pageClassName);
+			Constructor<?> constructor = pageClass.getConstructor(ToolkitDescription.class);
+			//
+			ToolkitDescription toolkit = DescriptionHelper.getToolkit(m_toolkitId);
+			return constructor.newInstance(toolkit);
+		} catch (Throwable e) {
+			throw new CoreException(StatusUtils.createError(e.getMessage()));
+		}
+	}
 }

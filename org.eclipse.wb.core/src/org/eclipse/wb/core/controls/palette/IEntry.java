@@ -19,43 +19,43 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.control.palette
  */
 public interface IEntry {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sometimes we want to show entry, but don't allow to select it.
-   */
-  boolean isEnabled();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sometimes we want to show entry, but don't allow to select it.
+	 */
+	boolean isEnabled();
 
-  /**
-   * @return the icon of {@link IEntry}.
-   */
-  Image getIcon();
+	/**
+	 * @return the icon of {@link IEntry}.
+	 */
+	Image getIcon();
 
-  /**
-   * @return the title text of {@link IEntry}.
-   */
-  String getText();
+	/**
+	 * @return the title text of {@link IEntry}.
+	 */
+	String getText();
 
-  /**
-   * @return the tooltip text of {@link IEntry}.
-   */
-  String getToolTipText();
+	/**
+	 * @return the tooltip text of {@link IEntry}.
+	 */
+	String getToolTipText();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Activation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Activates this {@link IEntry}.
-   *
-   * @param reload
-   *          is <code>true</code> if entry should be automatically reloaded after successful using.
-   *
-   * @return <code>true</code> if {@link IEntry} was successfully activated.
-   */
-  boolean activate(boolean reload);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Activation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Activates this {@link IEntry}.
+	 *
+	 * @param reload
+	 *          is <code>true</code> if entry should be automatically reloaded after successful using.
+	 *
+	 * @return <code>true</code> if {@link IEntry} was successfully activated.
+	 */
+	boolean activate(boolean reload);
 }

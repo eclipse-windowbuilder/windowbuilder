@@ -25,5 +25,5 @@ import java.util.List;
  * @coverage core.model
  */
 public interface ObjectInfoAllProperties {
-  void invoke(ObjectInfo object, List<Property> properties) throws Exception;
+	void invoke(ObjectInfo object, List<Property> properties) throws Exception;
 }

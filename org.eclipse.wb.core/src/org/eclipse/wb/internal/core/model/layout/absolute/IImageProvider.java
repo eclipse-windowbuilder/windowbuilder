@@ -18,8 +18,8 @@ import org.eclipse.swt.graphics.Image;
  * @author mitin_aa
  */
 public interface IImageProvider {
-  /**
-   * @return the Image instance by given path.
-   */
-  Image getImage(String path);
+	/**
+	 * @return the Image instance by given path.
+	 */
+	Image getImage(String path);
 }

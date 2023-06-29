@@ -20,8 +20,8 @@ import java.util.List;
  * @coverage XML.editor
  */
 public interface IXmlEditorPageFactory {
-  /**
-   * Create {@link IXmlEditorPage} pages for given {@link AbstractXmlEditor} editor.
-   */
-  void createPages(AbstractXmlEditor editor, List<IXmlEditorPage> pages);
+	/**
+	 * Create {@link IXmlEditorPage} pages for given {@link AbstractXmlEditor} editor.
+	 */
+	void createPages(AbstractXmlEditor editor, List<IXmlEditorPage> pages);
 }

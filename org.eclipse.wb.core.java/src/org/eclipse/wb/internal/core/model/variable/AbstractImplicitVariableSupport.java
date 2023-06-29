@@ -28,100 +28,100 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.variable
  */
 public abstract class AbstractImplicitVariableSupport extends AbstractNoNameVariableSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractImplicitVariableSupport(JavaInfo javaInfo) {
-    super(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractImplicitVariableSupport(JavaInfo javaInfo) {
+		super(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean hasExpression(NodeTarget target) {
-    // we materialize using LocalUniqueVariableSupport, so will have expression
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean hasExpression(NodeTarget target) {
+		// we materialize using LocalUniqueVariableSupport, so will have expression
+		return true;
+	}
 
-  @Override
-  public final String getReferenceExpression(NodeTarget target) throws Exception {
-    VariableSupport localVariable = ensureLocalVariable();
-    updateTarget_ifWasAfterParentStatement(target);
-    return localVariable.getReferenceExpression(target);
-  }
+	@Override
+	public final String getReferenceExpression(NodeTarget target) throws Exception {
+		VariableSupport localVariable = ensureLocalVariable();
+		updateTarget_ifWasAfterParentStatement(target);
+		return localVariable.getReferenceExpression(target);
+	}
 
-  @Override
-  public final String getAccessExpression(NodeTarget target) throws Exception {
-    return getReferenceExpression(target) + ".";
-  }
+	@Override
+	public final String getAccessExpression(NodeTarget target) throws Exception {
+		return getReferenceExpression(target) + ".";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final StatementTarget getStatementTarget() throws Exception {
-    return ensureLocalVariable().getStatementTarget();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final StatementTarget getStatementTarget() throws Exception {
+		return ensureLocalVariable().getStatementTarget();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Materializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the parent {@link JavaInfo} for this {@link JavaInfo} child.
-   */
-  protected abstract JavaInfo getParent();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Materializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the parent {@link JavaInfo} for this {@link JavaInfo} child.
+	 */
+	protected abstract JavaInfo getParent();
 
-  /**
-   * @return the materialized {@link VariableSupport}.
-   */
-  private VariableSupport ensureLocalVariable() throws Exception {
-    JavaInfo parent = getParent();
-    // generate local variable
-    VariableSupport variableSupport = new LocalUniqueVariableSupport(m_javaInfo);
-    m_javaInfo.setVariableSupport(variableSupport);
-    // add statement
-    StatementTarget target = parent.getVariableSupport().getStatementTarget();
-    ImplicitObjectAssociation association = new ImplicitObjectAssociation(parent);
-    PureFlatStatementGenerator.INSTANCE.add(m_javaInfo, target, association);
-    // return variable
-    return variableSupport;
-  }
+	/**
+	 * @return the materialized {@link VariableSupport}.
+	 */
+	private VariableSupport ensureLocalVariable() throws Exception {
+		JavaInfo parent = getParent();
+		// generate local variable
+		VariableSupport variableSupport = new LocalUniqueVariableSupport(m_javaInfo);
+		m_javaInfo.setVariableSupport(variableSupport);
+		// add statement
+		StatementTarget target = parent.getVariableSupport().getStatementTarget();
+		ImplicitObjectAssociation association = new ImplicitObjectAssociation(parent);
+		PureFlatStatementGenerator.INSTANCE.add(m_javaInfo, target, association);
+		// return variable
+		return variableSupport;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils for updating NodeTarget
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * If parent Statement was used as target, update target to use new "local variable" Statement.
-   */
-  private void updateTarget_ifWasAfterParentStatement(NodeTarget target) throws Exception {
-    StatementTarget statementTarget = target.getStatementTarget();
-    if (statementTarget != null) {
-      Statement oldStatement = updateTarget_getParentStatement();
-      if (statementTarget.isAfter() && statementTarget.getStatement() == oldStatement) {
-        Statement newStatement = updateTarget_getNewVariableStatement();
-        statementTarget.setStatement(newStatement);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils for updating NodeTarget
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * If parent Statement was used as target, update target to use new "local variable" Statement.
+	 */
+	private void updateTarget_ifWasAfterParentStatement(NodeTarget target) throws Exception {
+		StatementTarget statementTarget = target.getStatementTarget();
+		if (statementTarget != null) {
+			Statement oldStatement = updateTarget_getParentStatement();
+			if (statementTarget.isAfter() && statementTarget.getStatement() == oldStatement) {
+				Statement newStatement = updateTarget_getNewVariableStatement();
+				statementTarget.setStatement(newStatement);
+			}
+		}
+	}
 
-  private Statement updateTarget_getParentStatement() throws Exception {
-    return getParent().getVariableSupport().getStatementTarget().getStatement();
-  }
+	private Statement updateTarget_getParentStatement() throws Exception {
+		return getParent().getVariableSupport().getStatementTarget().getStatement();
+	}
 
-  private Statement updateTarget_getNewVariableStatement() {
-    Expression variableExpression =
-        ((LocalUniqueVariableSupport) m_javaInfo.getVariableSupport()).m_variable;
-    return AstNodeUtils.getEnclosingStatement(variableExpression);
-  }
+	private Statement updateTarget_getNewVariableStatement() {
+		Expression variableExpression =
+				((LocalUniqueVariableSupport) m_javaInfo.getVariableSupport()).m_variable;
+		return AstNodeUtils.getEnclosingStatement(variableExpression);
+	}
 }

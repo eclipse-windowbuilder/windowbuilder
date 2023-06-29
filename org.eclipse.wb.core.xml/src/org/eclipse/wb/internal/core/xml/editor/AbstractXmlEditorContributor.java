@@ -28,73 +28,73 @@ import org.eclipse.ui.texteditor.ITextEditorActionConstants;
  * @coverage XML.editor
  */
 public class AbstractXmlEditorContributor extends MultiPageEditorActionBarContributor {
-  private IEditorPart m_activeEditor;
-  private AbstractXmlEditor m_designerEditor;
+	private IEditorPart m_activeEditor;
+	private AbstractXmlEditor m_designerEditor;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MultiPageEditorActionBarContributor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setActiveEditor(IEditorPart part) {
-    if (part instanceof MultiPageEditorPart) {
-      m_designerEditor = (AbstractXmlEditor) part;
-    }
-    super.setActiveEditor(part);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MultiPageEditorActionBarContributor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setActiveEditor(IEditorPart part) {
+		if (part instanceof MultiPageEditorPart) {
+			m_designerEditor = (AbstractXmlEditor) part;
+		}
+		super.setActiveEditor(part);
+	}
 
-  @Override
-  public void setActivePage(IEditorPart part) {
-    if (m_activeEditor == part) {
-      return;
-    }
-    m_activeEditor = part;
-    // update IActionBars
-    IActionBars actionBars = getActionBars();
-    if (actionBars != null) {
-      redirectTextActions(actionBars);
-    }
-  }
+	@Override
+	public void setActivePage(IEditorPart part) {
+		if (m_activeEditor == part) {
+			return;
+		}
+		m_activeEditor = part;
+		// update IActionBars
+		IActionBars actionBars = getActionBars();
+		if (actionBars != null) {
+			redirectTextActions(actionBars);
+		}
+	}
 
-  /**
-   * Configures {@link IActionBars} to use global action handlers from {@link ITextEditor}.
-   */
-  private void redirectTextActions(IActionBars actionBars) {
-    ITextEditor editor =
-        m_activeEditor instanceof ITextEditor ? (ITextEditor) m_activeEditor : null;
-    redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE);
-    redirectTextAction(actionBars, editor, ITextEditorActionConstants.CUT);
-    redirectTextAction(actionBars, editor, ITextEditorActionConstants.COPY);
-    redirectTextAction(actionBars, editor, ITextEditorActionConstants.PASTE);
-    redirectTextAction(actionBars, editor, ITextEditorActionConstants.SELECT_ALL);
-    redirectTextAction(actionBars, editor, ITextEditorActionConstants.FIND);
-    redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE_LINE);
-    //redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE_LINE_TO_BEGINNING);
-    //redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE_LINE_TO_END);
-    redirectTextAction(actionBars, editor, IDEActionFactory.BOOKMARK.getId());
-    // UNDO and REDO should be handled by XML editor
-    if (m_activeEditor == null && m_designerEditor != null) {
-      ITextEditor xmlEditor = m_designerEditor.getSourcePage().getXmlEditor();
-      redirectTextAction(actionBars, xmlEditor, ITextEditorActionConstants.UNDO);
-      redirectTextAction(actionBars, xmlEditor, ITextEditorActionConstants.REDO);
-    }
-    // update
-    actionBars.updateActionBars();
-  }
+	/**
+	 * Configures {@link IActionBars} to use global action handlers from {@link ITextEditor}.
+	 */
+	private void redirectTextActions(IActionBars actionBars) {
+		ITextEditor editor =
+				m_activeEditor instanceof ITextEditor ? (ITextEditor) m_activeEditor : null;
+		redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE);
+		redirectTextAction(actionBars, editor, ITextEditorActionConstants.CUT);
+		redirectTextAction(actionBars, editor, ITextEditorActionConstants.COPY);
+		redirectTextAction(actionBars, editor, ITextEditorActionConstants.PASTE);
+		redirectTextAction(actionBars, editor, ITextEditorActionConstants.SELECT_ALL);
+		redirectTextAction(actionBars, editor, ITextEditorActionConstants.FIND);
+		redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE_LINE);
+		//redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE_LINE_TO_BEGINNING);
+		//redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE_LINE_TO_END);
+		redirectTextAction(actionBars, editor, IDEActionFactory.BOOKMARK.getId());
+		// UNDO and REDO should be handled by XML editor
+		if (m_activeEditor == null && m_designerEditor != null) {
+			ITextEditor xmlEditor = m_designerEditor.getSourcePage().getXmlEditor();
+			redirectTextAction(actionBars, xmlEditor, ITextEditorActionConstants.UNDO);
+			redirectTextAction(actionBars, xmlEditor, ITextEditorActionConstants.REDO);
+		}
+		// update
+		actionBars.updateActionBars();
+	}
 
-  /**
-   * Configures {@link IActionBars} to use global action handler from {@link ITextEditor}.
-   */
-  private static void redirectTextAction(IActionBars actionBars, ITextEditor editor, String id) {
-    actionBars.setGlobalActionHandler(id, getTextAction(editor, id));
-  }
+	/**
+	 * Configures {@link IActionBars} to use global action handler from {@link ITextEditor}.
+	 */
+	private static void redirectTextAction(IActionBars actionBars, ITextEditor editor, String id) {
+		actionBars.setGlobalActionHandler(id, getTextAction(editor, id));
+	}
 
-  /**
-   * @return the {@link IAction} registered with the given text {@link ITextEditor}, may be
-   *         <code>null</code>.
-   */
-  private static IAction getTextAction(ITextEditor editor, String actionID) {
-    return editor == null ? null : editor.getAction(actionID);
-  }
+	/**
+	 * @return the {@link IAction} registered with the given text {@link ITextEditor}, may be
+	 *         <code>null</code>.
+	 */
+	private static IAction getTextAction(ITextEditor editor, String actionID) {
+		return editor == null ? null : editor.getAction(actionID);
+	}
 }

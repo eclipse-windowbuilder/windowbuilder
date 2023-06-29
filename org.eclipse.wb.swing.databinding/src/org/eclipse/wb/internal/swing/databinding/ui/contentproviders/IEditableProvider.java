@@ -17,13 +17,13 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
  * @coverage bindings.swing.ui
  */
 public interface IEditableProvider {
-  /**
-   * @return <code>true</code> if {@code editable} attribute is sets.
-   */
-  boolean isEditable();
+	/**
+	 * @return <code>true</code> if {@code editable} attribute is sets.
+	 */
+	boolean isEditable();
 
-  /**
-   * Sets value for {@code editable} attribute.
-   */
-  void setEditable(boolean editable);
+	/**
+	 * Sets value for {@code editable} attribute.
+	 */
+	void setEditable(boolean editable);
 }

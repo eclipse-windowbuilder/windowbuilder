@@ -20,72 +20,72 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
  * @author scheglov_ke
  */
 public class FormGefTest extends XwtGefTest {
-  private FormInfo composite;
+	private FormInfo composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Canvas, CREATE
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_canvas_CREATE_headClient() throws Exception {
-    prepare_CREATE();
-    // use canvas
-    canvas.target(composite).in(-10, 10).move();
-    canvas.click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<!-- Forms API -->",
-        "<Form text='My Form'>",
-        "  <Form.body/>",
-        "  <Form.headClient>",
-        "    <Button/>",
-        "  </Form.headClient>",
-        "</Form>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Canvas, CREATE
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_canvas_CREATE_headClient() throws Exception {
+		prepare_CREATE();
+		// use canvas
+		canvas.target(composite).in(-10, 10).move();
+		canvas.click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<!-- Forms API -->",
+				"<Form text='My Form'>",
+				"  <Form.body/>",
+				"  <Form.headClient>",
+				"    <Button/>",
+				"  </Form.headClient>",
+				"</Form>");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tree
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_tree_CREATE_headClient() throws Exception {
-    prepare_CREATE();
-    // use tree
-    EditPart position = tree.getEditPart(composite).getChildren().get(0);
-    tree.moveOn(position).click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<!-- Forms API -->",
-        "<Form text='My Form'>",
-        "  <Form.body/>",
-        "  <Form.headClient>",
-        "    <Button/>",
-        "  </Form.headClient>",
-        "</Form>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tree
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_tree_CREATE_headClient() throws Exception {
+		prepare_CREATE();
+		// use tree
+		EditPart position = tree.getEditPart(composite).getChildren().get(0);
+		tree.moveOn(position).click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<!-- Forms API -->",
+				"<Form text='My Form'>",
+				"  <Form.body/>",
+				"  <Form.headClient>",
+				"    <Button/>",
+				"  </Form.headClient>",
+				"</Form>");
+	}
 
-  private FormInfo prepare_CREATE() throws Exception {
-    composite =
-        openEditor(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "<!-- Forms API -->",
-            "<Form text='My Form'/>");
-    // create Button
-    loadButton();
-    canvas.create(0, 0);
-    // use this Form_Info
-    return composite;
-  }
+	private FormInfo prepare_CREATE() throws Exception {
+		composite =
+				openEditor(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"<!-- Forms API -->",
+						"<Form text='My Form'/>");
+		// create Button
+		loadButton();
+		canvas.create(0, 0);
+		// use this Form_Info
+		return composite;
+	}
 }

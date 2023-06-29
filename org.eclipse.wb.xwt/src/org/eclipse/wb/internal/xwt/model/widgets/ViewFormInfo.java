@@ -23,16 +23,16 @@ import org.eclipse.swt.custom.ViewForm;
  * @coverage XWT.model.widgets
  */
 public final class ViewFormInfo extends AbstractPositionCompositeInfo {
-  private static final String[] POSITIONS = {"topLeft", "topCenter", "topRight", "content"};
+	private static final String[] POSITIONS = {"topLeft", "topCenter", "topRight", "content"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewFormInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport, POSITIONS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewFormInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport, POSITIONS);
+	}
 }

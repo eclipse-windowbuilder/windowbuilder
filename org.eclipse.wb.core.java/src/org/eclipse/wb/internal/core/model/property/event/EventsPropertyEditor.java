@@ -32,99 +32,99 @@ import java.util.List;
  * @coverage core.model.property.events
  */
 final class EventsPropertyEditor extends AbstractComplexEventPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final EventsPropertyEditor INSTANCE = new EventsPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final EventsPropertyEditor INSTANCE = new EventsPropertyEditor();
 
-  private EventsPropertyEditor() {
-  }
+	private EventsPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IComplexPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AbstractListenerProperty[] getProperties(Property property) throws Exception {
-    EventsProperty eventsProperty = (EventsProperty) property;
-    JavaInfo javaInfo = eventsProperty.getJavaInfo();
-    // get from cache or create
-    AbstractListenerProperty[] properties =
-        (AbstractListenerProperty[]) javaInfo.getArbitraryValue(eventsProperty);
-    if (properties == null) {
-      properties = createProperties(javaInfo);
-      javaInfo.putArbitraryValue(eventsProperty, properties);
-    }
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IComplexPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AbstractListenerProperty[] getProperties(Property property) throws Exception {
+		EventsProperty eventsProperty = (EventsProperty) property;
+		JavaInfo javaInfo = eventsProperty.getJavaInfo();
+		// get from cache or create
+		AbstractListenerProperty[] properties =
+				(AbstractListenerProperty[]) javaInfo.getArbitraryValue(eventsProperty);
+		if (properties == null) {
+			properties = createProperties(javaInfo);
+			javaInfo.putArbitraryValue(eventsProperty, properties);
+		}
+		return properties;
+	}
 
-  private AbstractListenerProperty[] createProperties(JavaInfo javaInfo) throws Exception {
-    List<AbstractListenerProperty> properties = Lists.newArrayList();
-    // standard: add*[Listener,Handler]
-    for (ListenerInfo listener : getListeners(javaInfo)) {
-      properties.add(new ListenerProperty(javaInfo, listener));
-    }
-    // use broadcast
-    javaInfo.getBroadcast(JavaInfoEventListeners.class).invoke(javaInfo, properties);
-    // return as array
-    return properties.toArray(new AbstractListenerProperty[properties.size()]);
-  }
+	private AbstractListenerProperty[] createProperties(JavaInfo javaInfo) throws Exception {
+		List<AbstractListenerProperty> properties = Lists.newArrayList();
+		// standard: add*[Listener,Handler]
+		for (ListenerInfo listener : getListeners(javaInfo)) {
+			properties.add(new ListenerProperty(javaInfo, listener));
+		}
+		// use broadcast
+		javaInfo.getBroadcast(JavaInfoEventListeners.class).invoke(javaInfo, properties);
+		// return as array
+		return properties.toArray(new AbstractListenerProperty[properties.size()]);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listeners access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final ClassMap<List<ListenerInfo>> m_listenersCache = ClassMap.create();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listeners access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final ClassMap<List<ListenerInfo>> m_listenersCache = ClassMap.create();
 
-  /**
-   * @return the {@link ListenerInfo} for each listener in component class.
-   */
-  private static List<ListenerInfo> getListeners(JavaInfo javaInfo) throws Exception {
-    Class<?> componentClass = javaInfo.getDescription().getComponentClass();
-    List<ListenerInfo> listeners = m_listenersCache.get(componentClass);
-    if (listeners == null) {
-      GenericTypeResolver externalResolver = new GenericTypeResolverJavaInfo(javaInfo);
-      listeners = getListeners(componentClass, externalResolver);
-      m_listenersCache.put(componentClass, listeners);
-    }
-    return listeners;
-  }
+	/**
+	 * @return the {@link ListenerInfo} for each listener in component class.
+	 */
+	private static List<ListenerInfo> getListeners(JavaInfo javaInfo) throws Exception {
+		Class<?> componentClass = javaInfo.getDescription().getComponentClass();
+		List<ListenerInfo> listeners = m_listenersCache.get(componentClass);
+		if (listeners == null) {
+			GenericTypeResolver externalResolver = new GenericTypeResolverJavaInfo(javaInfo);
+			listeners = getListeners(componentClass, externalResolver);
+			m_listenersCache.put(componentClass, listeners);
+		}
+		return listeners;
+	}
 
-  private static List<ListenerInfo> getListeners(Class<?> componentClass,
-      GenericTypeResolver externalResolver) {
-    // prepare methods
-    List<Method> methods = get_addListener_methods(componentClass);
-    // fill list of listeners
-    List<ListenerInfo> listeners = Lists.newArrayList();
-    for (Method method : methods) {
-      listeners.add(new ListenerInfo(method, componentClass, externalResolver));
-    }
-    // use simple names
-    ListenerInfo.useSimpleNamesWherePossible(listeners);
-    // sort listeners by name
-    Collections.sort(listeners, new Comparator<ListenerInfo>() {
-      @Override
-      public int compare(ListenerInfo listener_1, ListenerInfo listener_2) {
-        return listener_1.getName().compareTo(listener_2.getName());
-      }
-    });
-    return listeners;
-  }
+	private static List<ListenerInfo> getListeners(Class<?> componentClass,
+			GenericTypeResolver externalResolver) {
+		// prepare methods
+		List<Method> methods = get_addListener_methods(componentClass);
+		// fill list of listeners
+		List<ListenerInfo> listeners = Lists.newArrayList();
+		for (Method method : methods) {
+			listeners.add(new ListenerInfo(method, componentClass, externalResolver));
+		}
+		// use simple names
+		ListenerInfo.useSimpleNamesWherePossible(listeners);
+		// sort listeners by name
+		Collections.sort(listeners, new Comparator<ListenerInfo>() {
+			@Override
+			public int compare(ListenerInfo listener_1, ListenerInfo listener_2) {
+				return listener_1.getName().compareTo(listener_2.getName());
+			}
+		});
+		return listeners;
+	}
 
-  /**
-   * @return the <code>addXXXListener(listener)</code> {@link Method}'s.
-   */
-  private static List<Method> get_addListener_methods(Class<?> clazz) {
-    List<Method> listenerMethods = Lists.newArrayList();
-    for (Method method : clazz.getMethods()) {
-      if (ListenerInfo.isAddListenerMethod(method)) {
-        listenerMethods.add(method);
-      }
-    }
-    return listenerMethods;
-  }
+	/**
+	 * @return the <code>addXXXListener(listener)</code> {@link Method}'s.
+	 */
+	private static List<Method> get_addListener_methods(Class<?> clazz) {
+		List<Method> listenerMethods = Lists.newArrayList();
+		for (Method method : clazz.getMethods()) {
+			if (ListenerInfo.isAddListenerMethod(method)) {
+				listenerMethods.add(method);
+			}
+		}
+		return listenerMethods;
+	}
 }

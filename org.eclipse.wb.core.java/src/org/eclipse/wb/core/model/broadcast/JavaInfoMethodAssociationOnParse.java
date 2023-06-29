@@ -22,6 +22,6 @@ import org.eclipse.wb.internal.core.model.description.MethodDescription;
  * @coverage core.model
  */
 public interface JavaInfoMethodAssociationOnParse {
-  void invoke(JavaInfo parent, JavaInfo child, MethodDescription methodDescription)
-      throws Exception;
+	void invoke(JavaInfo parent, JavaInfo child, MethodDescription methodDescription)
+			throws Exception;
 }

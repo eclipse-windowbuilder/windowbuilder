@@ -18,32 +18,32 @@ import org.eclipse.wb.internal.swt.support.ImageSupport;
  * @author lobas_av
  */
 public class ImageSupportTest extends AbstractSupportTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_createImage() throws Exception {
-    Object image =
-        ImageSupport.createImage(getClass().getResourceAsStream(
-            "/icons/true.gif"));
-    assertNotNull(image);
-    assertSame(m_lastLoader.loadClass("org.eclipse.swt.graphics.Image"), image.getClass());
-    ImageSupport.dispose(image);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_createImage() throws Exception {
+		Object image =
+				ImageSupport.createImage(getClass().getResourceAsStream(
+						"/icons/true.gif"));
+		assertNotNull(image);
+		assertSame(m_lastLoader.loadClass("org.eclipse.swt.graphics.Image"), image.getClass());
+		ImageSupport.dispose(image);
+	}
 
-  public void test_getImageClass() throws Exception {
-    assertSame(
-        m_lastLoader.loadClass("org.eclipse.swt.graphics.Image"),
-        ImageSupport.getImageClass());
-  }
+	public void test_getImageClass() throws Exception {
+		assertSame(
+				m_lastLoader.loadClass("org.eclipse.swt.graphics.Image"),
+				ImageSupport.getImageClass());
+	}
 }

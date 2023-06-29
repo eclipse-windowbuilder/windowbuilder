@@ -29,107 +29,107 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public class SetPropertyCodeSupport extends BeanPropertiesCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getObservableType() {
-    return "org.eclipse.core.databinding.property.set.ISetProperty";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getObservableType() {
+		return "org.eclipse.core.databinding.property.set.ISetProperty";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ObservableInfo createObservable(BeanBindableInfo bindableObject,
-      BeanPropertyBindableInfo bindableProperty) throws Exception {
-    return new SetBeanObservableInfo(bindableObject, bindableProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ObservableInfo createObservable(BeanBindableInfo bindableObject,
+			BeanPropertyBindableInfo bindableProperty) throws Exception {
+		return new SetBeanObservableInfo(bindableObject, bindableProperty);
+	}
 
-  @Override
-  protected ObservableInfo createDetailObservable(ObservableInfo masterObservable) throws Exception {
-    Assert.isNotNull(m_parserPropertyReference);
-    Assert.isNotNull(m_parserPropertyType);
-    DetailSetBeanObservableInfo observable =
-        new DetailSetBeanObservableInfo(masterObservable,
-            m_parserBeanType,
-            m_parserPropertyReference,
-            m_parserPropertyType);
-    observable.setPojoBindable(parserIsPojo());
-    observable.setCodeSupport(new SetPropertyDetailCodeSupport());
-    return observable;
-  }
+	@Override
+	protected ObservableInfo createDetailObservable(ObservableInfo masterObservable) throws Exception {
+		Assert.isNotNull(m_parserPropertyReference);
+		Assert.isNotNull(m_parserPropertyType);
+		DetailSetBeanObservableInfo observable =
+				new DetailSetBeanObservableInfo(masterObservable,
+						m_parserBeanType,
+						m_parserPropertyReference,
+						m_parserPropertyType);
+		observable.setPojoBindable(parserIsPojo());
+		observable.setCodeSupport(new SetPropertyDetailCodeSupport());
+		return observable;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      observable.setVariableIdentifier(generationSupport.generateLocalName(
-          observable.getBindableProperty().getReference(),
-          observable.getBindableObject().getReference(),
-          "ObserveSet"));
-    }
-    //
-    String sourceCode =
-        observable.isPojoBindable()
-            ? "org.eclipse.core.databinding.beans.typed.PojoProperties"
-            : "org.eclipse.core.databinding.beans.typed.BeanProperties";
-    sourceCode += ".set(" + observable.getBindableProperty().getReference() + ")";
-    if (getVariableIdentifier() != null) {
-      if (generationSupport.addModel(this)) {
-        lines.add("org.eclipse.core.databinding.beans.IBeanSetProperty "
-            + getVariableIdentifier()
-            + " = "
-            + sourceCode
-            + ";");
-      }
-      sourceCode = getVariableIdentifier();
-    }
-    // add code
-    lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
-        + observable.getVariableIdentifier()
-        + " = "
-        + sourceCode
-        + ".observe("
-        + observable.getBindableObject().getReference()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			observable.setVariableIdentifier(generationSupport.generateLocalName(
+					observable.getBindableProperty().getReference(),
+					observable.getBindableObject().getReference(),
+					"ObserveSet"));
+		}
+		//
+		String sourceCode =
+				observable.isPojoBindable()
+				? "org.eclipse.core.databinding.beans.typed.PojoProperties"
+						: "org.eclipse.core.databinding.beans.typed.BeanProperties";
+		sourceCode += ".set(" + observable.getBindableProperty().getReference() + ")";
+		if (getVariableIdentifier() != null) {
+			if (generationSupport.addModel(this)) {
+				lines.add("org.eclipse.core.databinding.beans.IBeanSetProperty "
+						+ getVariableIdentifier()
+						+ " = "
+						+ sourceCode
+						+ ";");
+			}
+			sourceCode = getVariableIdentifier();
+		}
+		// add code
+		lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
+				+ observable.getVariableIdentifier()
+				+ " = "
+				+ sourceCode
+				+ ".observe("
+				+ observable.getBindableObject().getReference()
+				+ ");");
+	}
 
-  @Override
-  public String getDetailSourceCode(DetailBeanObservableInfo detailObservable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    String sourceCode =
-        m_parserIsPojo
-            ? "org.eclipse.core.databinding.beans.typed.PojoProperties"
-            : "org.eclipse.core.databinding.beans.typed.BeanProperties";
-    sourceCode +=
-        ".set("
-            + detailObservable.getDetailPropertyReference()
-            + ", "
-            + CoreUtils.getClassName(detailObservable.getDetailPropertyType())
-            + ".class)";
-    if (getVariableIdentifier() == null) {
-      return sourceCode;
-    }
-    if (generationSupport.addModel(this)) {
-      lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
-          + getVariableIdentifier()
-          + " = "
-          + sourceCode
-          + ";");
-    }
-    return getVariableIdentifier();
-  }
+	@Override
+	public String getDetailSourceCode(DetailBeanObservableInfo detailObservable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		String sourceCode =
+				m_parserIsPojo
+				? "org.eclipse.core.databinding.beans.typed.PojoProperties"
+						: "org.eclipse.core.databinding.beans.typed.BeanProperties";
+		sourceCode +=
+				".set("
+						+ detailObservable.getDetailPropertyReference()
+						+ ", "
+						+ CoreUtils.getClassName(detailObservable.getDetailPropertyType())
+						+ ".class)";
+		if (getVariableIdentifier() == null) {
+			return sourceCode;
+		}
+		if (generationSupport.addModel(this)) {
+			lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
+					+ getVariableIdentifier()
+					+ " = "
+					+ sourceCode
+					+ ";");
+		}
+		return getVariableIdentifier();
+	}
 }

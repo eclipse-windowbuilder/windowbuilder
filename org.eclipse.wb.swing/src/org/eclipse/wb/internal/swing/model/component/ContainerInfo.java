@@ -82,538 +82,538 @@ import javax.swing.JComponent;
  * @coverage swing.model
  */
 public class ContainerInfo extends ComponentInfo {
-  /**
-   * We set this key during {@link #setLayout(LayoutInfo)} to prevent implicit {@link LayoutInfo}
-   * activation during layout replacement.
-   */
-  public static final String KEY_DONT_SET_IMPLICIT_LAYOUT = "KEY_DONT_SET_IMPLICIT_LAYOUT";
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final ContainerInfo m_this = this;
-  private Insets m_insets;
+	/**
+	 * We set this key during {@link #setLayout(LayoutInfo)} to prevent implicit {@link LayoutInfo}
+	 * activation during layout replacement.
+	 */
+	public static final String KEY_DONT_SET_IMPLICIT_LAYOUT = "KEY_DONT_SET_IMPLICIT_LAYOUT";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final ContainerInfo m_this = this;
+	private Insets m_insets;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ContainerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    m_tabOrderProperty = new TabOrderProperty(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ContainerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		m_tabOrderProperty = new TabOrderProperty(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initializing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    addBroadcastListener(new ObjectInfoTreeComplete() {
-      public void invoke() throws Exception {
-        initialize_createAbsoluteLayout();
-      }
-    });
-    addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void addContextMenu(List<? extends ObjectInfo> objects,
-          ObjectInfo object,
-          IMenuManager manager) throws Exception {
-        if (object == m_this) {
-          contextMenu_setLayout(manager);
-        }
-      }
-    });
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void clipboardCopy(JavaInfo javaInfo, List<ClipboardCommand> commands)
-          throws Exception {
-        if (javaInfo == m_this) {
-          clipboardCopy_addCommands(commands);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initializing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		addBroadcastListener(new ObjectInfoTreeComplete() {
+			public void invoke() throws Exception {
+				initialize_createAbsoluteLayout();
+			}
+		});
+		addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void addContextMenu(List<? extends ObjectInfo> objects,
+					ObjectInfo object,
+					IMenuManager manager) throws Exception {
+				if (object == m_this) {
+					contextMenu_setLayout(manager);
+				}
+			}
+		});
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void clipboardCopy(JavaInfo javaInfo, List<ClipboardCommand> commands)
+					throws Exception {
+				if (javaInfo == m_this) {
+					clipboardCopy_addCommands(commands);
+				}
+			}
+		});
+	}
 
-  @Override
-  public void createExposedChildren() throws Exception {
-    super.createExposedChildren();
-    initialize_createImplicitLayout();
-  }
+	@Override
+	public void createExposedChildren() throws Exception {
+		super.createExposedChildren();
+		initialize_createImplicitLayout();
+	}
 
-  /**
-   * Adds "Set Layout" sub-menu for setting new {@link LayoutInfo} on this {@link CompositeInfo}.
-   */
-  private void contextMenu_setLayout(IMenuManager manager) throws Exception {
-    // check if we have layout at all
-    if (!canSetLayout()) {
-      return;
-    }
-    // OK, add "Set layout"
-    IMenuManager layoutsManager = new MenuManager(ModelMessages.ContainerInfo_setLayout);
-    manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, layoutsManager);
-    fillLayoutsManager(layoutsManager);
-  }
-
-  /**
-   * Fills given {@link IMenuManager} with {@link IAction}s for setting new {@link LayoutInfo} on
-   * this {@link CompositeInfo}.
-   */
-  public void fillLayoutsManager(IMenuManager layoutsManager)
-      throws ClassNotFoundException, Exception {
-    // add "absolute"
-    {
-      ObjectInfoAction action = new ObjectInfoAction(this) {
-        @Override
-        protected void runEx() throws Exception {
-          AbsoluteLayoutInfo layout = AbsoluteLayoutInfo.createExplicit(getEditor());
-          setLayout(layout);
-        }
-      };
-      action.setText(ModelMessages.ContainerInfo_setLayoutAbsolute);
-      action.setImageDescriptor(Activator.getImageDescriptor("info/layout/absolute/layout.gif"));
-      layoutsManager.add(action);
-    }
-    // add layout items
-    final AstEditor editor = getEditor();
-    ClassLoader editorLoader = EditorState.get(editor).getEditorLoader();
-    List<LayoutDescription> descriptions =
-        LayoutDescriptionHelper.get(getDescription().getToolkit());
-    for (final LayoutDescription description : descriptions) {
-      if (InstanceScope.INSTANCE.getNode(
-          IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
-              description.getLayoutClassName(),
-              true)) {
-        final Class<?> layoutClass = editorLoader.loadClass(description.getLayoutClassName());
-        final String creationId = description.getCreationId();
-        ComponentDescription layoutComponentDescription =
-            ComponentDescriptionHelper.getDescription(editor, layoutClass);
-        ObjectInfoAction action = new ObjectInfoAction(this) {
-          @Override
-          protected void runEx() throws Exception {
-            description.ensureLibraries(editor.getJavaProject());
-            LayoutInfo layout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
-                editor,
-                layoutClass,
-                new ConstructorCreationSupport(creationId, true));
-            setLayout(layout);
-          }
-        };
-        action.setText(description.getName());
-        action.setImageDescriptor(new ImageImageDescriptor(layoutComponentDescription.getIcon()));
-        layoutsManager.add(action);
-      }
-    }
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final TabOrderProperty m_tabOrderProperty;
-
-  @Override
-  protected List<Property> getPropertyList() throws Exception {
-    List<Property> properties = super.getPropertyList();
-    if (!isRoot() && !hasLayout()) {
-      m_tabOrderProperty.setCategory(PropertyCategory.ADVANCED);
-    }
-    properties.add(m_tabOrderProperty);
-    return properties;
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_dispose() throws Exception {
-    // remember Container instance, we need it for clearSwingTree(), but "super" set object to "null"
-    Container container = (Container) getObject();
-    // inherit parent layout, if it is valid at all and valid time
-    processInitialLayout();
-    // call "super"
-    super.refresh_dispose();
-    if (isSwingRoot()) {
-      SwingUtils.clearSwingTree(container);
-    }
-  }
-
-  @Override
-  protected void refresh_fetch() throws Exception {
-    // fetch insets
-    if (getContainer() != null) {
-      java.awt.Insets insets = getContainer().getInsets();
-      m_insets = CoordinateUtils.get(insets);
-    }
-    // continue in super()
-    super.refresh_fetch();
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Layout
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final String KEY_LAYOUT_HAS = "layout.has";
-  private static final String KEY_LAYOUT_ALREADY_PROCESSED =
-      "default/parent layout already processed";
-
-  /**
-   * Prepares {@link LayoutInfo} for any layout existing by default for this container.
-   */
-  private void initialize_createImplicitLayout() throws Exception {
-    if (hasLayout()) {
-      if (initialize_hasExplicitLayout()) {
-        return;
-      }
-      // prepare for creation
-      AstEditor editor = getEditor();
-      Container container = (Container) getObject();
-      LayoutManager layout = container.getLayout();
-      // check if same implicit already exists
-      if (initialize_removeImplicitLayout(layout)) {
-        return;
-      }
-      // create implicit layout model
-      LayoutInfo implicitLayout;
-      CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
-      if (layout == null) {
-        implicitLayout = new AbsoluteLayoutInfo(editor, creationSupport);
-      } else {
-        Class<?> layoutClass = layout.getClass();
-		// The root pane should not have it's layout changed. During creation of the
-		// implicit layouts the JRootPane
-		// is also processed. In this case the checkLayoutPreferences should not be
-		// performed
-		if (!isLayout(layoutClass)) {
-			implicitLayout = checkLayoutPreferences(layoutClass, editor,
-				creationSupport);
-	} else {
-		// Initialize implicit layout to the specified layout
-		implicitLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(editor, layoutClass, creationSupport);
+	/**
+	 * Adds "Set Layout" sub-menu for setting new {@link LayoutInfo} on this {@link CompositeInfo}.
+	 */
+	private void contextMenu_setLayout(IMenuManager manager) throws Exception {
+		// check if we have layout at all
+		if (!canSetLayout()) {
+			return;
 		}
-      }
-      // initialize layout model
-      {
-        // set variable support
-        {
-			VariableSupport variableSupport = new ImplicitLayoutVariableSupport(implicitLayout);
-			implicitLayout.setVariableSupport(variableSupport);
-        }
-        // set association
-        implicitLayout.setAssociation(new ImplicitObjectAssociation(this));
-        // add as child
-        addChildFirst(implicitLayout);
-      }
-    }
-  }
+		// OK, add "Set layout"
+		IMenuManager layoutsManager = new MenuManager(ModelMessages.ContainerInfo_setLayout);
+		manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, layoutsManager);
+		fillLayoutsManager(layoutsManager);
+	}
 
-  /**
-   * @return <code>true</code> if explicit layout was already set, so we should not try to find
-   *         implicit layout anymore.
-   */
-  private boolean initialize_hasExplicitLayout() {
-    List<LayoutInfo> layouts = getChildren(LayoutInfo.class);
-    return !layouts.isEmpty()
-        && !(layouts.get(0).getCreationSupport() instanceof ImplicitLayoutCreationSupport);
-  }
+	/**
+	 * Fills given {@link IMenuManager} with {@link IAction}s for setting new {@link LayoutInfo} on
+	 * this {@link CompositeInfo}.
+	 */
+	public void fillLayoutsManager(IMenuManager layoutsManager)
+			throws ClassNotFoundException, Exception {
+		// add "absolute"
+		{
+			ObjectInfoAction action = new ObjectInfoAction(this) {
+				@Override
+				protected void runEx() throws Exception {
+					AbsoluteLayoutInfo layout = AbsoluteLayoutInfo.createExplicit(getEditor());
+					setLayout(layout);
+				}
+			};
+			action.setText(ModelMessages.ContainerInfo_setLayoutAbsolute);
+			action.setImageDescriptor(Activator.getImageDescriptor("info/layout/absolute/layout.gif"));
+			layoutsManager.add(action);
+		}
+		// add layout items
+		final AstEditor editor = getEditor();
+		ClassLoader editorLoader = EditorState.get(editor).getEditorLoader();
+		List<LayoutDescription> descriptions =
+				LayoutDescriptionHelper.get(getDescription().getToolkit());
+		for (final LayoutDescription description : descriptions) {
+			if (InstanceScope.INSTANCE.getNode(
+					IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
+							description.getLayoutClassName(),
+							true)) {
+				final Class<?> layoutClass = editorLoader.loadClass(description.getLayoutClassName());
+				final String creationId = description.getCreationId();
+				ComponentDescription layoutComponentDescription =
+						ComponentDescriptionHelper.getDescription(editor, layoutClass);
+				ObjectInfoAction action = new ObjectInfoAction(this) {
+					@Override
+					protected void runEx() throws Exception {
+						description.ensureLibraries(editor.getJavaProject());
+						LayoutInfo layout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+								editor,
+								layoutClass,
+								new ConstructorCreationSupport(creationId, true));
+						setLayout(layout);
+					}
+				};
+				action.setText(description.getName());
+				action.setImageDescriptor(new ImageImageDescriptor(layoutComponentDescription.getIcon()));
+				layoutsManager.add(action);
+			}
+		}
+	}
 
-  /**
-   * We may call {@link #initialize_createImplicitLayout()} many times, may be after each
-   * {@link Statement}, so before adding new implicit layout we should remove existing one.
-   *
-   * @return <code>true</code> if {@link LayoutInfo} with same object already exists, so it was not
-   *         removed and no need for creating new implicit {@link LayoutInfo}.
-   */
-  private boolean initialize_removeImplicitLayout(Object layoutObject) throws Exception {
-    for (JavaInfo child : getChildrenJava()) {
-      if (child.getCreationSupport() instanceof ImplicitLayoutCreationSupport) {
-        if (child.getObject() == layoutObject) {
-          return true;
-        }
-        ImplicitLayoutCreationSupport creationSupport =
-            (ImplicitLayoutCreationSupport) child.getCreationSupport();
-        creationSupport.removeForever();
-        break;
-      }
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final TabOrderProperty m_tabOrderProperty;
 
-  /**
-   * Adds {@link AbsoluteLayoutInfo} model, if {@link Container#setLayout(LayoutManager)} is invoked
-   * with {@link NullLiteral}.
-   */
-  private void initialize_createAbsoluteLayout() throws Exception {
-    if (hasLayout()) {
-      MethodInvocation setLayoutInvocation =
-          getMethodInvocation("setLayout(java.awt.LayoutManager)");
-      if (setLayoutInvocation != null
-          && setLayoutInvocation.arguments().get(0) instanceof NullLiteral) {
-        addExplicitAbsoluteLayoutChild(setLayoutInvocation);
-      }
-    }
-  }
+	@Override
+	protected List<Property> getPropertyList() throws Exception {
+		List<Property> properties = super.getPropertyList();
+		if (!isRoot() && !hasLayout()) {
+			m_tabOrderProperty.setCategory(PropertyCategory.ADVANCED);
+		}
+		properties.add(m_tabOrderProperty);
+		return properties;
+	}
 
-  private void addExplicitAbsoluteLayoutChild(MethodInvocation setLayoutInvocation)
-      throws Exception {
-    AstEditor editor = getEditor();
-    CreationSupport creationSupport = new AbsoluteLayoutCreationSupport(setLayoutInvocation);
-    AbsoluteLayoutInfo absoluteLayoutInfo = new AbsoluteLayoutInfo(editor, creationSupport);
-    absoluteLayoutInfo.setAssociation(new InvocationChildAssociation(setLayoutInvocation));
-    absoluteLayoutInfo.setObject(null);
-    addChild(absoluteLayoutInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_dispose() throws Exception {
+		// remember Container instance, we need it for clearSwingTree(), but "super" set object to "null"
+		Container container = (Container) getObject();
+		// inherit parent layout, if it is valid at all and valid time
+		processInitialLayout();
+		// call "super"
+		super.refresh_dispose();
+		if (isSwingRoot()) {
+			SwingUtils.clearSwingTree(container);
+		}
+	}
 
-  /**
-   * @return <code>true</code> if this {@link ContainerInfo} can have {@link LayoutInfo}.
-   */
-  public final boolean hasLayout() {
-    if (isPlaceholder()) {
-      return false;
-    }
-    return JavaInfoUtils.hasTrueParameter(this, KEY_LAYOUT_HAS);
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		// fetch insets
+		if (getContainer() != null) {
+			java.awt.Insets insets = getContainer().getInsets();
+			m_insets = CoordinateUtils.get(insets);
+		}
+		// continue in super()
+		super.refresh_fetch();
+	}
 
-  /**
-   * @return <code>true</code> if it is possible to set new {@link LayoutInfo} for this
-   *         {@link ContainerInfo}. Note difference between "has" and "can set".
-   */
-  public final boolean canSetLayout() {
-    if (!hasLayout()) {
-      return false;
-    }
-    MethodDescription setLayoutMethod =
-        getDescription().getMethod("setLayout(java.awt.LayoutManager)");
-    return setLayoutMethod != null && setLayoutMethod.isExecutable();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Layout
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final String KEY_LAYOUT_HAS = "layout.has";
+	private static final String KEY_LAYOUT_ALREADY_PROCESSED =
+			"default/parent layout already processed";
 
-  /**
-   * @return the current {@link LayoutInfo} for this container.
-   */
-  public final LayoutInfo getLayout() {
-    Assert.isTrue(hasLayout());
-    // try to find layout
-    for (ObjectInfo child : getChildren()) {
-      if (child instanceof LayoutInfo) {
-        return (LayoutInfo) child;
-      }
-    }
-    // container that has layout, should always have some layout model
-    throw new IllegalStateException(ModelMessages.ContainerInfo_containerShouldHaveLayout);
-  }
+	/**
+	 * Prepares {@link LayoutInfo} for any layout existing by default for this container.
+	 */
+	private void initialize_createImplicitLayout() throws Exception {
+		if (hasLayout()) {
+			if (initialize_hasExplicitLayout()) {
+				return;
+			}
+			// prepare for creation
+			AstEditor editor = getEditor();
+			Container container = (Container) getObject();
+			LayoutManager layout = container.getLayout();
+			// check if same implicit already exists
+			if (initialize_removeImplicitLayout(layout)) {
+				return;
+			}
+			// create implicit layout model
+			LayoutInfo implicitLayout;
+			CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
+			if (layout == null) {
+				implicitLayout = new AbsoluteLayoutInfo(editor, creationSupport);
+			} else {
+				Class<?> layoutClass = layout.getClass();
+				// The root pane should not have it's layout changed. During creation of the
+				// implicit layouts the JRootPane
+				// is also processed. In this case the checkLayoutPreferences should not be
+				// performed
+				if (!isLayout(layoutClass)) {
+					implicitLayout = checkLayoutPreferences(layoutClass, editor,
+							creationSupport);
+				} else {
+					// Initialize implicit layout to the specified layout
+					implicitLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(editor, layoutClass, creationSupport);
+				}
+			}
+			// initialize layout model
+			{
+				// set variable support
+				{
+					VariableSupport variableSupport = new ImplicitLayoutVariableSupport(implicitLayout);
+					implicitLayout.setVariableSupport(variableSupport);
+				}
+				// set association
+				implicitLayout.setAssociation(new ImplicitObjectAssociation(this));
+				// add as child
+				addChildFirst(implicitLayout);
+			}
+		}
+	}
 
-  /**
-   * Sets new {@link LayoutInfo}.
-   */
-  public final void setLayout(LayoutInfo newLayout) throws Exception {
-    putArbitraryValue(KEY_DONT_SET_IMPLICIT_LAYOUT, Boolean.TRUE);
-    startEdit();
-    try {
-      // remove old layout
-      {
-        LayoutInfo oldLayout = getLayout();
-        oldLayout.delete();
-      }
-      // set new layout
-      VariableSupport variableSupport =
-          new EmptyInvocationVariableSupport(newLayout, "%parent%.setLayout(%child%)", 0);
-      JavaInfoUtils.add(
-          newLayout,
-          variableSupport,
-          PureFlatStatementGenerator.INSTANCE,
-          AssociationObjects.invocationChildNull(),
-          this,
-          null);
-      newLayout.onSet();
-    } finally {
-      endEdit();
-      putArbitraryValue(KEY_DONT_SET_IMPLICIT_LAYOUT, Boolean.FALSE);
-    }
-  }
+	/**
+	 * @return <code>true</code> if explicit layout was already set, so we should not try to find
+	 *         implicit layout anymore.
+	 */
+	private boolean initialize_hasExplicitLayout() {
+		List<LayoutInfo> layouts = getChildren(LayoutInfo.class);
+		return !layouts.isEmpty()
+				&& !(layouts.get(0).getCreationSupport() instanceof ImplicitLayoutCreationSupport);
+	}
 
-  /**
-   * Sets default {@link LayoutInfo} or inherits {@link LayoutInfo} of parent {@link CompositeInfo}.
-   */
-  private void processInitialLayout() throws Exception {
-    IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
-    // check if processing required
-    {
-      boolean shouldBeProcessed = hasLayout()
-          && getArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT) == Boolean.TRUE
-          && getArbitraryValue(KEY_LAYOUT_ALREADY_PROCESSED) == null;
-      if (!shouldBeProcessed) {
-        return;
-      }
-      // this is first, and last time when we should do processing
-      putArbitraryValue(KEY_LAYOUT_ALREADY_PROCESSED, Boolean.TRUE);
-    }
-    // check for inheritance from parent
-    if (preferences.getBoolean(IPreferenceConstants.P_LAYOUT_OF_PARENT)
-        && getParent() instanceof ContainerInfo) {
-      ContainerInfo parentComposite = (ContainerInfo) getParent();
-      if (parentComposite.hasLayout()) {
-        final LayoutInfo thisLayout;
-        {
-          LayoutInfo parentLayout = parentComposite.getLayout();
-          Class<?> layoutClass = parentLayout.getDescription().getComponentClass();
-          if (layoutClass == null) {
-            thisLayout = AbsoluteLayoutInfo.createExplicit(getEditor());
-          } else {
-            thisLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
-                getEditor(),
-                layoutClass,
-                new ConstructorCreationSupport());
-          }
-        }
-        // we are in process of refresh(), set inherited layout later
-        ExecutionUtils.runLater(this, new RunnableEx() {
-          public void run() throws Exception {
-            setLayout(thisLayout);
-          }
-        });
-      }
-      // OK, stop here
-      return;
-    }
-    // check for default layout
-    {
-      String layoutId = preferences.getString(IPreferenceConstants.P_LAYOUT_DEFAULT);
-      LayoutDescription layoutDescription =
-          LayoutDescriptionHelper.get(getDescription().getToolkit(), layoutId);
-      if (layoutDescription != null) {
-        final LayoutInfo thisLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
-            getEditor(),
-            layoutDescription.getLayoutClassName(),
-            new ConstructorCreationSupport());
-        // we are in process of refresh(), set inherited layout later
-        ExecutionUtils.runLater(this, new RunnableEx() {
-          public void run() throws Exception {
-            setLayout(thisLayout);
-          }
-        });
-      }
-    }
-  }
+	/**
+	 * We may call {@link #initialize_createImplicitLayout()} many times, may be after each
+	 * {@link Statement}, so before adding new implicit layout we should remove existing one.
+	 *
+	 * @return <code>true</code> if {@link LayoutInfo} with same object already exists, so it was not
+	 *         removed and no need for creating new implicit {@link LayoutInfo}.
+	 */
+	private boolean initialize_removeImplicitLayout(Object layoutObject) throws Exception {
+		for (JavaInfo child : getChildrenJava()) {
+			if (child.getCreationSupport() instanceof ImplicitLayoutCreationSupport) {
+				if (child.getObject() == layoutObject) {
+					return true;
+				}
+				ImplicitLayoutCreationSupport creationSupport =
+						(ImplicitLayoutCreationSupport) child.getCreationSupport();
+				creationSupport.removeForever();
+				break;
+			}
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canBeRoot() {
-    return true;
-  }
+	/**
+	 * Adds {@link AbsoluteLayoutInfo} model, if {@link Container#setLayout(LayoutManager)} is invoked
+	 * with {@link NullLiteral}.
+	 */
+	private void initialize_createAbsoluteLayout() throws Exception {
+		if (hasLayout()) {
+			MethodInvocation setLayoutInvocation =
+					getMethodInvocation("setLayout(java.awt.LayoutManager)");
+			if (setLayoutInvocation != null
+					&& setLayoutInvocation.arguments().get(0) instanceof NullLiteral) {
+				addExplicitAbsoluteLayoutChild(setLayoutInvocation);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the {@link Insets} for this AWT {@link Container}. Note, that this method is different
-   * from {@link #getClientAreaInsets()}, because in AWT/Swing insets means that it is preferred to
-   * place children {@link Component}'s inside of area after cropping by insets, but (0,0) is point
-   * on insets, not inside of insets.
-   *
-   * @return the {@link Insets} for this AWT {@link Container}.
-   */
-  public final Insets getInsets() {
-    return m_insets;
-  }
+	private void addExplicitAbsoluteLayoutChild(MethodInvocation setLayoutInvocation)
+			throws Exception {
+		AstEditor editor = getEditor();
+		CreationSupport creationSupport = new AbsoluteLayoutCreationSupport(setLayoutInvocation);
+		AbsoluteLayoutInfo absoluteLayoutInfo = new AbsoluteLayoutInfo(editor, creationSupport);
+		absoluteLayoutInfo.setAssociation(new InvocationChildAssociation(setLayoutInvocation));
+		absoluteLayoutInfo.setObject(null);
+		addChild(absoluteLayoutInfo);
+	}
 
-  /**
-   * @return the AWT {@link Container} object for this model.
-   */
-  public final Container getContainer() {
-    return (Container) getObject();
-  }
+	/**
+	 * @return <code>true</code> if this {@link ContainerInfo} can have {@link LayoutInfo}.
+	 */
+	public final boolean hasLayout() {
+		if (isPlaceholder()) {
+			return false;
+		}
+		return JavaInfoUtils.hasTrueParameter(this, KEY_LAYOUT_HAS);
+	}
 
-  /**
-   * @return the collection of {@link ComponentInfo} children.
-   */
-  public final List<ComponentInfo> getChildrenComponents() {
-    return getChildren(ComponentInfo.class);
-  }
+	/**
+	 * @return <code>true</code> if it is possible to set new {@link LayoutInfo} for this
+	 *         {@link ContainerInfo}. Note difference between "has" and "can set".
+	 */
+	public final boolean canSetLayout() {
+		if (!hasLayout()) {
+			return false;
+		}
+		MethodDescription setLayoutMethod =
+				getDescription().getMethod("setLayout(java.awt.LayoutManager)");
+		return setLayoutMethod != null && setLayoutMethod.isExecutable();
+	}
 
-  @Override
-  public boolean isRTL() {
-    return !getComponent().getComponentOrientation().isLeftToRight();
-  }
+	/**
+	 * @return the current {@link LayoutInfo} for this container.
+	 */
+	public final LayoutInfo getLayout() {
+		Assert.isTrue(hasLayout());
+		// try to find layout
+		for (ObjectInfo child : getChildren()) {
+			if (child instanceof LayoutInfo) {
+				return (LayoutInfo) child;
+			}
+		}
+		// container that has layout, should always have some layout model
+		throw new IllegalStateException(ModelMessages.ContainerInfo_containerShouldHaveLayout);
+	}
 
-  /**
-   * @return <code>true</code> if need draw dots border for this {@link ContainerInfo}.
-   */
-  public final boolean shouldDrawDotsBorder() {
-    IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
-    if (preferences.getBoolean(IPreferenceConstants.P_GENERAL_HIGHLIGHT_CONTAINERS)) {
-      // no border for "this"
-      if (getCreationSupport() instanceof ThisCreationSupport) {
-        return false;
-      }
-      // only if "normal" container, not complex one
-      Container container = getContainer();
-      if (hasLayout()) {
-        // check for existing Swing border
-        if (container instanceof JComponent) {
-          return ((JComponent) container).getBorder() == null;
-        }
-        // OK, probably need border
-        return true;
-      }
-    }
-    return false;
-  }
+	/**
+	 * Sets new {@link LayoutInfo}.
+	 */
+	public final void setLayout(LayoutInfo newLayout) throws Exception {
+		putArbitraryValue(KEY_DONT_SET_IMPLICIT_LAYOUT, Boolean.TRUE);
+		startEdit();
+		try {
+			// remove old layout
+			{
+				LayoutInfo oldLayout = getLayout();
+				oldLayout.delete();
+			}
+			// set new layout
+			VariableSupport variableSupport =
+					new EmptyInvocationVariableSupport(newLayout, "%parent%.setLayout(%child%)", 0);
+			JavaInfoUtils.add(
+					newLayout,
+					variableSupport,
+					PureFlatStatementGenerator.INSTANCE,
+					AssociationObjects.invocationChildNull(),
+					this,
+					null);
+			newLayout.onSet();
+		} finally {
+			endEdit();
+			putArbitraryValue(KEY_DONT_SET_IMPLICIT_LAYOUT, Boolean.FALSE);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds commands for coping this {@link ContainerInfo}.
-   */
-  protected void clipboardCopy_addCommands(List<ClipboardCommand> commands) throws Exception {
-    if (hasLayout()) {
-      LayoutInfo layout = getLayout();
-      if (layout.getCreationSupport() instanceof IImplicitCreationSupport) {
-        // no need to set implicit layout
-      } else if (layout instanceof AbsoluteLayoutInfo) {
-        commands.add(new ComponentClipboardCommand<ContainerInfo>() {
-          private static final long serialVersionUID = 0L;
+	/**
+	 * Sets default {@link LayoutInfo} or inherits {@link LayoutInfo} of parent {@link CompositeInfo}.
+	 */
+	private void processInitialLayout() throws Exception {
+		IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
+		// check if processing required
+		{
+			boolean shouldBeProcessed = hasLayout()
+					&& getArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT) == Boolean.TRUE
+					&& getArbitraryValue(KEY_LAYOUT_ALREADY_PROCESSED) == null;
+			if (!shouldBeProcessed) {
+				return;
+			}
+			// this is first, and last time when we should do processing
+			putArbitraryValue(KEY_LAYOUT_ALREADY_PROCESSED, Boolean.TRUE);
+		}
+		// check for inheritance from parent
+		if (preferences.getBoolean(IPreferenceConstants.P_LAYOUT_OF_PARENT)
+				&& getParent() instanceof ContainerInfo) {
+			ContainerInfo parentComposite = (ContainerInfo) getParent();
+			if (parentComposite.hasLayout()) {
+				final LayoutInfo thisLayout;
+				{
+					LayoutInfo parentLayout = parentComposite.getLayout();
+					Class<?> layoutClass = parentLayout.getDescription().getComponentClass();
+					if (layoutClass == null) {
+						thisLayout = AbsoluteLayoutInfo.createExplicit(getEditor());
+					} else {
+						thisLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+								getEditor(),
+								layoutClass,
+								new ConstructorCreationSupport());
+					}
+				}
+				// we are in process of refresh(), set inherited layout later
+				ExecutionUtils.runLater(this, new RunnableEx() {
+					public void run() throws Exception {
+						setLayout(thisLayout);
+					}
+				});
+			}
+			// OK, stop here
+			return;
+		}
+		// check for default layout
+		{
+			String layoutId = preferences.getString(IPreferenceConstants.P_LAYOUT_DEFAULT);
+			LayoutDescription layoutDescription =
+					LayoutDescriptionHelper.get(getDescription().getToolkit(), layoutId);
+			if (layoutDescription != null) {
+				final LayoutInfo thisLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+						getEditor(),
+						layoutDescription.getLayoutClassName(),
+						new ConstructorCreationSupport());
+				// we are in process of refresh(), set inherited layout later
+				ExecutionUtils.runLater(this, new RunnableEx() {
+					public void run() throws Exception {
+						setLayout(thisLayout);
+					}
+				});
+			}
+		}
+	}
 
-          @Override
-          protected void execute(ContainerInfo container) throws Exception {
-            MethodInvocation setLayoutInvocation =
-                container.addMethodInvocation("setLayout(java.awt.LayoutManager)", "null");
-            container.addExplicitAbsoluteLayoutChild(setLayoutInvocation);
-          }
-        });
-      } else {
-        final JavaInfoMemento layoutMemento = JavaInfoMemento.createMemento(layout);
-        commands.add(new ComponentClipboardCommand<ContainerInfo>() {
-          private static final long serialVersionUID = 0L;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canBeRoot() {
+		return true;
+	}
 
-          @Override
-          protected void execute(ContainerInfo container) throws Exception {
-            LayoutInfo newLayout = (LayoutInfo) layoutMemento.create(container);
-            container.setLayout(newLayout);
-            layoutMemento.apply();
-          }
-        });
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the {@link Insets} for this AWT {@link Container}. Note, that this method is different
+	 * from {@link #getClientAreaInsets()}, because in AWT/Swing insets means that it is preferred to
+	 * place children {@link Component}'s inside of area after cropping by insets, but (0,0) is point
+	 * on insets, not inside of insets.
+	 *
+	 * @return the {@link Insets} for this AWT {@link Container}.
+	 */
+	public final Insets getInsets() {
+		return m_insets;
+	}
+
+	/**
+	 * @return the AWT {@link Container} object for this model.
+	 */
+	public final Container getContainer() {
+		return (Container) getObject();
+	}
+
+	/**
+	 * @return the collection of {@link ComponentInfo} children.
+	 */
+	public final List<ComponentInfo> getChildrenComponents() {
+		return getChildren(ComponentInfo.class);
+	}
+
+	@Override
+	public boolean isRTL() {
+		return !getComponent().getComponentOrientation().isLeftToRight();
+	}
+
+	/**
+	 * @return <code>true</code> if need draw dots border for this {@link ContainerInfo}.
+	 */
+	public final boolean shouldDrawDotsBorder() {
+		IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
+		if (preferences.getBoolean(IPreferenceConstants.P_GENERAL_HIGHLIGHT_CONTAINERS)) {
+			// no border for "this"
+			if (getCreationSupport() instanceof ThisCreationSupport) {
+				return false;
+			}
+			// only if "normal" container, not complex one
+			Container container = getContainer();
+			if (hasLayout()) {
+				// check for existing Swing border
+				if (container instanceof JComponent) {
+					return ((JComponent) container).getBorder() == null;
+				}
+				// OK, probably need border
+				return true;
+			}
+		}
+		return false;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds commands for coping this {@link ContainerInfo}.
+	 */
+	protected void clipboardCopy_addCommands(List<ClipboardCommand> commands) throws Exception {
+		if (hasLayout()) {
+			LayoutInfo layout = getLayout();
+			if (layout.getCreationSupport() instanceof IImplicitCreationSupport) {
+				// no need to set implicit layout
+			} else if (layout instanceof AbsoluteLayoutInfo) {
+				commands.add(new ComponentClipboardCommand<ContainerInfo>() {
+					private static final long serialVersionUID = 0L;
+
+					@Override
+					protected void execute(ContainerInfo container) throws Exception {
+						MethodInvocation setLayoutInvocation =
+								container.addMethodInvocation("setLayout(java.awt.LayoutManager)", "null");
+						container.addExplicitAbsoluteLayoutChild(setLayoutInvocation);
+					}
+				});
+			} else {
+				final JavaInfoMemento layoutMemento = JavaInfoMemento.createMemento(layout);
+				commands.add(new ComponentClipboardCommand<ContainerInfo>() {
+					private static final long serialVersionUID = 0L;
+
+					@Override
+					protected void execute(ContainerInfo container) throws Exception {
+						LayoutInfo newLayout = (LayoutInfo) layoutMemento.create(container);
+						container.setLayout(newLayout);
+						layoutMemento.apply();
+					}
+				});
+			}
+		}
+	}
 
 	/**
 	 * Returns the default layout specified in the preferences.
@@ -670,13 +670,13 @@ public class ContainerInfo extends ComponentInfo {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			}
+		}
 		return null;
 	}
 
 	private boolean isLayout(Class<?> layoutInf) {
 		List<LayoutDescription> descriptions =
-		        LayoutDescriptionHelper.get(getDescription().getToolkit());
+				LayoutDescriptionHelper.get(getDescription().getToolkit());
 		for(LayoutDescription description : descriptions) {
 			if (description.getLayoutClassName().equals(layoutInf.getCanonicalName())) {
 				return true;

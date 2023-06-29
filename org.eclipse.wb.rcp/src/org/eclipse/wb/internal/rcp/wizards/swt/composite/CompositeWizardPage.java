@@ -37,74 +37,74 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class CompositeWizardPage extends RcpWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompositeWizardPage() {
-    setTitle(WizardsMessages.CompositeWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/Composite/banner.gif"));
-    setDescription(WizardsMessages.CompositeWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompositeWizardPage() {
+		setTitle(WizardsMessages.CompositeWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/Composite/banner.gif"));
+		setDescription(WizardsMessages.CompositeWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/swt/Composite.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/swt/Composite.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("org.eclipse.swt.widgets.Composite", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("org.eclipse.swt.widgets.Composite", true);
+	}
 
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    Composite superClassComposite = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.create(superClassComposite).margins(0);
-    GridDataFactory.create(superClassComposite).fillH().spanH(columns);
-    //
-    Label label = new Label(superClassComposite, SWT.NONE);
-    label.setText(WizardsMessages.CompositeWizardPage_superClass);
-    //
-    final Button compositeButton = new Button(superClassComposite, SWT.RADIO);
-    compositeButton.setText("org.eclipse.swt.widgets.&Composite");
-    compositeButton.setSelection(true);
-    GridDataFactory.create(compositeButton).indentH(24);
-    compositeButton.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        if (compositeButton.getSelection()) {
-          setSuperClass("org.eclipse.swt.widgets.Composite", true);
-        }
-      }
-    });
-    //
-    final Button groupButton = new Button(superClassComposite, SWT.RADIO);
-    groupButton.setText("org.eclipse.swt.widgets.&Group");
-    GridDataFactory.create(groupButton).indentH(24);
-    groupButton.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        if (groupButton.getSelection()) {
-          setSuperClass("org.eclipse.swt.widgets.Group", true);
-        }
-      }
-    });
-    //
-    createSeparator(parent, columns);
-  }
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		Composite superClassComposite = new Composite(parent, SWT.NONE);
+		GridLayoutFactory.create(superClassComposite).margins(0);
+		GridDataFactory.create(superClassComposite).fillH().spanH(columns);
+		//
+		Label label = new Label(superClassComposite, SWT.NONE);
+		label.setText(WizardsMessages.CompositeWizardPage_superClass);
+		//
+		final Button compositeButton = new Button(superClassComposite, SWT.RADIO);
+		compositeButton.setText("org.eclipse.swt.widgets.&Composite");
+		compositeButton.setSelection(true);
+		GridDataFactory.create(compositeButton).indentH(24);
+		compositeButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (compositeButton.getSelection()) {
+					setSuperClass("org.eclipse.swt.widgets.Composite", true);
+				}
+			}
+		});
+		//
+		final Button groupButton = new Button(superClassComposite, SWT.RADIO);
+		groupButton.setText("org.eclipse.swt.widgets.&Group");
+		GridDataFactory.create(groupButton).indentH(24);
+		groupButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (groupButton.getSelection()) {
+					setSuperClass("org.eclipse.swt.widgets.Group", true);
+				}
+			}
+		});
+		//
+		createSeparator(parent, columns);
+	}
 }

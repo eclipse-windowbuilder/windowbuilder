@@ -27,29 +27,29 @@ import org.assertj.core.api.Assertions;
  * @author scheglov_ke
  */
 public class ObjectsTreeContentProviderTest extends DesignerTestCase {
-  public void test() throws Exception {
-    final TestObjectInfo parent = new TestObjectInfo("parent");
-    final TestObjectInfo child_1 = new TestObjectInfo("child_1");
-    final TestObjectInfo child_2 = new TestObjectInfo("child_2");
-    parent.addChild(child_1);
-    parent.addChild(child_2);
-    // prepare ITreeContentProvider
-    Predicate<ObjectInfo> predicate = new Predicate<ObjectInfo>() {
-      @Override
-      public boolean apply(ObjectInfo t) {
-        return t != child_2;
-      }
-    };
-    ITreeContentProvider contentProvider = new ObjectsTreeContentProvider(predicate);
-    // check ITreeContentProvider
-    Assertions.assertThat(contentProvider.getElements(new Object[]{parent})).containsOnly(parent);
-    Assertions.assertThat(contentProvider.getElements(parent)).containsOnly(child_1);
-    assertTrue(contentProvider.hasChildren(parent));
-    assertFalse(contentProvider.hasChildren(child_1));
-    Assertions.assertThat(contentProvider.getChildren(parent)).containsOnly(child_1);
-    assertSame(parent, contentProvider.getParent(child_1));
-    // no implementation
-    contentProvider.inputChanged(null, null, parent);
-    contentProvider.dispose();
-  }
+	public void test() throws Exception {
+		final TestObjectInfo parent = new TestObjectInfo("parent");
+		final TestObjectInfo child_1 = new TestObjectInfo("child_1");
+		final TestObjectInfo child_2 = new TestObjectInfo("child_2");
+		parent.addChild(child_1);
+		parent.addChild(child_2);
+		// prepare ITreeContentProvider
+		Predicate<ObjectInfo> predicate = new Predicate<ObjectInfo>() {
+			@Override
+			public boolean apply(ObjectInfo t) {
+				return t != child_2;
+			}
+		};
+		ITreeContentProvider contentProvider = new ObjectsTreeContentProvider(predicate);
+		// check ITreeContentProvider
+		Assertions.assertThat(contentProvider.getElements(new Object[]{parent})).containsOnly(parent);
+		Assertions.assertThat(contentProvider.getElements(parent)).containsOnly(child_1);
+		assertTrue(contentProvider.hasChildren(parent));
+		assertFalse(contentProvider.hasChildren(child_1));
+		Assertions.assertThat(contentProvider.getChildren(parent)).containsOnly(child_1);
+		assertSame(parent, contentProvider.getParent(child_1));
+		// no implementation
+		contentProvider.inputChanged(null, null, parent);
+		contentProvider.dispose();
+	}
 }

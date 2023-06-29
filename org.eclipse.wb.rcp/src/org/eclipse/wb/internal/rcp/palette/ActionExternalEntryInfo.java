@@ -34,47 +34,47 @@ import javax.swing.Action;
  * @coverage rcp.editor.palette
  */
 public final class ActionExternalEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = Activator.getImage("info/Action/action_open.gif");
+	private static final Image ICON = Activator.getImage("info/Action/action_open.gif");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionExternalEntryInfo(String id) {
-    setId(id);
-    setName(PaletteMessages.ActionExternalEntryInfo_name);
-    setDescription(PaletteMessages.ActionExternalEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionExternalEntryInfo(String id) {
+		setId(id);
+		setName(PaletteMessages.ActionExternalEntryInfo_name);
+		setDescription(PaletteMessages.ActionExternalEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    IType selectedActionType =
-        JdtUiUtils.selectSubType(
-            getSite().getShell(),
-            m_javaProject,
-            "org.eclipse.jface.action.IAction");
-    if (selectedActionType != null) {
-      ClassLoader editorLoader = m_state.getEditorLoader();
-      Class<?> selectedActionClass =
-          editorLoader.loadClass(selectedActionType.getFullyQualifiedName());
-      ActionInfo actionInfo =
-          (ActionInfo) JavaInfoUtils.createJavaInfo(
-              m_editor,
-              selectedActionClass,
-              new ConstructorCreationSupport());
-      return new ActionDropTool(actionInfo);
-    }
-    return null;
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		IType selectedActionType =
+				JdtUiUtils.selectSubType(
+						getSite().getShell(),
+						m_javaProject,
+						"org.eclipse.jface.action.IAction");
+		if (selectedActionType != null) {
+			ClassLoader editorLoader = m_state.getEditorLoader();
+			Class<?> selectedActionClass =
+					editorLoader.loadClass(selectedActionType.getFullyQualifiedName());
+			ActionInfo actionInfo =
+					(ActionInfo) JavaInfoUtils.createJavaInfo(
+							m_editor,
+							selectedActionClass,
+							new ConstructorCreationSupport());
+			return new ActionDropTool(actionInfo);
+		}
+		return null;
+	}
 }

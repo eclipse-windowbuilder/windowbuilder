@@ -27,38 +27,38 @@ import javax.swing.JViewport;
  * @coverage swing.model
  */
 public final class JScrollPaneInfo extends AbstractPositionContainerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JScrollPaneInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JScrollPaneInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if position is empty.
-   */
-  public boolean isEmptyPosition(String methodName) {
-    try {
-      Object container = getObject();
-      Method method = container.getClass().getMethod(methodName);
-      JViewport viewport = (JViewport) method.invoke(container);
-      if (viewport == null) {
-        return true;
-      }
-      //
-      Component component = viewport.getView();
-      return getChildByObject(component) == null;
-    } catch (Throwable e) {
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if position is empty.
+	 */
+	public boolean isEmptyPosition(String methodName) {
+		try {
+			Object container = getObject();
+			Method method = container.getClass().getMethod(methodName);
+			JViewport viewport = (JViewport) method.invoke(container);
+			if (viewport == null) {
+				return true;
+			}
+			//
+			Component component = viewport.getView();
+			return getChildByObject(component) == null;
+		} catch (Throwable e) {
+		}
+		return false;
+	}
 }

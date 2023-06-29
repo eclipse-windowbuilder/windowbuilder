@@ -23,5 +23,5 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
  * @coverage core.model
  */
 public interface ExecutionFlowEnterFrame {
-  void invoke(ASTNode node) throws Exception;
+	void invoke(ASTNode node) throws Exception;
 }

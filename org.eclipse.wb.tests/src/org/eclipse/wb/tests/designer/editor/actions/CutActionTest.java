@@ -23,94 +23,94 @@ import org.eclipse.jface.action.IAction;
  * @author scheglov_ke
  */
 public class CutActionTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * "Cut" action is disabled if no selection.
-   */
-  public void test_noSelection() throws Exception {
-    openContainer(
-        "// filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "  }",
-        "}");
-    // prepare "Cut" action
-    IAction cutAction = getCutAction();
-    // no selection - disabled action
-    canvas.select();
-    assertFalse(cutAction.isEnabled());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * "Cut" action is disabled if no selection.
+	 */
+	public void test_noSelection() throws Exception {
+		openContainer(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"  }",
+				"}");
+		// prepare "Cut" action
+		IAction cutAction = getCutAction();
+		// no selection - disabled action
+		canvas.select();
+		assertFalse(cutAction.isEnabled());
+	}
 
-  /**
-   * "This" component can not be copied or deleted.
-   */
-  public void test_thisSelection() throws Exception {
-    ContainerInfo panel =
-        openContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    // prepare "Cut" action
-    IAction cutAction = getCutAction();
-    // "this" selected - disabled action
-    canvas.select(panel);
-    assertFalse(cutAction.isEnabled());
-  }
+	/**
+	 * "This" component can not be copied or deleted.
+	 */
+	public void test_thisSelection() throws Exception {
+		ContainerInfo panel =
+				openContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		// prepare "Cut" action
+		IAction cutAction = getCutAction();
+		// "this" selected - disabled action
+		canvas.select(panel);
+		assertFalse(cutAction.isEnabled());
+	}
 
-  /**
-   * Test for cut/paste single component.
-   */
-  public void test_cutSingle() throws Exception {
-    ContainerInfo panel =
-        openContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton('0');",
-            "    add(button);",
-            "  }",
-            "}");
-    // select "button"
-    {
-      ComponentInfo button = panel.getChildrenComponents().get(0);
-      canvas.select(button);
-    }
-    // cut
-    {
-      IAction cutAction = getCutAction();
-      assertTrue(cutAction.isEnabled());
-      cutAction.run();
-      assertEditor(
-          "// filler filler filler",
-          "public class Test extends JPanel {",
-          "  public Test() {",
-          "  }",
-          "}");
-    }
-    // paste
-    {
-      IAction pasteAction = getPasteAction();
-      assertTrue(pasteAction.isEnabled());
-      pasteAction.run();
-      // do paste
-      canvas.moveTo(panel, 10, 10);
-      canvas.click();
-      assertEditor(
-          "// filler filler filler",
-          "public class Test extends JPanel {",
-          "  public Test() {",
-          "    {",
-          "      JButton button = new JButton('0');",
-          "      add(button);",
-          "    }",
-          "  }",
-          "}");
-    }
-  }
+	/**
+	 * Test for cut/paste single component.
+	 */
+	public void test_cutSingle() throws Exception {
+		ContainerInfo panel =
+				openContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    JButton button = new JButton('0');",
+						"    add(button);",
+						"  }",
+						"}");
+		// select "button"
+		{
+			ComponentInfo button = panel.getChildrenComponents().get(0);
+			canvas.select(button);
+		}
+		// cut
+		{
+			IAction cutAction = getCutAction();
+			assertTrue(cutAction.isEnabled());
+			cutAction.run();
+			assertEditor(
+					"// filler filler filler",
+					"public class Test extends JPanel {",
+					"  public Test() {",
+					"  }",
+					"}");
+		}
+		// paste
+		{
+			IAction pasteAction = getPasteAction();
+			assertTrue(pasteAction.isEnabled());
+			pasteAction.run();
+			// do paste
+			canvas.moveTo(panel, 10, 10);
+			canvas.click();
+			assertEditor(
+					"// filler filler filler",
+					"public class Test extends JPanel {",
+					"  public Test() {",
+					"    {",
+					"      JButton button = new JButton('0');",
+					"      add(button);",
+					"    }",
+					"  }",
+					"}");
+		}
+	}
 }

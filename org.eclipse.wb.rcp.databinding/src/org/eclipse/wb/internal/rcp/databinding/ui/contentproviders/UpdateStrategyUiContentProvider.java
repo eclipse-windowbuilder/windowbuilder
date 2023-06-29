@@ -22,31 +22,31 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateSt
  * @coverage bindings.rcp.ui
  */
 public final class UpdateStrategyUiContentProvider extends ChooseClassUiContentProvider {
-  private final UpdateStrategyInfo m_strategy;
+	private final UpdateStrategyInfo m_strategy;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UpdateStrategyUiContentProvider(ChooseClassConfiguration configuration,
-      UpdateStrategyInfo strategy) {
-    super(configuration);
-    m_strategy = strategy;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UpdateStrategyUiContentProvider(ChooseClassConfiguration configuration,
+			UpdateStrategyInfo strategy) {
+		super(configuration);
+		m_strategy = strategy;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() {
-    setClassName(m_strategy.getStringValue());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() {
+		setClassName(m_strategy.getStringValue());
+	}
 
-  @Override
-  public void saveToObject() {
-    m_strategy.setStringValue(getClassName());
-  }
+	@Override
+	public void saveToObject() {
+		m_strategy.setStringValue(getClassName());
+	}
 }

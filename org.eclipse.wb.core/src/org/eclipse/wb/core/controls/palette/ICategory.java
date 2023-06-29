@@ -19,28 +19,28 @@ import java.util.List;
  * @coverage core.control.palette
  */
 public interface ICategory {
-  /**
-   * @return the title text of category.
-   */
-  String getText();
+	/**
+	 * @return the title text of category.
+	 */
+	String getText();
 
-  /**
-   * @return the tooltip text of {@link ICategory}.
-   */
-  String getToolTipText();
+	/**
+	 * @return the tooltip text of {@link ICategory}.
+	 */
+	String getToolTipText();
 
-  /**
-   * @return <code>true</code> if this category is open.
-   */
-  boolean isOpen();
+	/**
+	 * @return <code>true</code> if this category is open.
+	 */
+	boolean isOpen();
 
-  /**
-   * Sets if this category is open.
-   */
-  void setOpen(boolean b);
+	/**
+	 * Sets if this category is open.
+	 */
+	void setOpen(boolean b);
 
-  /**
-   * @return the {@link List} of {@link IEntry}'s.
-   */
-  List<IEntry> getEntries();
+	/**
+	 * @return the {@link List} of {@link IEntry}'s.
+	 */
+	List<IEntry> getEntries();
 }

@@ -19,16 +19,16 @@ import org.eclipse.wb.gef.core.EditPart;
  * @coverage gef.core
  */
 public class EditPartVisitor {
-  /**
-   * This method is invoked to check if given {@link EditPart} and its children should be visited.
-   */
-  public boolean visit(EditPart editPart) {
-    return true;
-  }
+	/**
+	 * This method is invoked to check if given {@link EditPart} and its children should be visited.
+	 */
+	public boolean visit(EditPart editPart) {
+		return true;
+	}
 
-  /**
-   * This method is invoked when all children of given {@link EditPart} were visited.
-   */
-  public void endVisit(EditPart editPart) {
-  }
+	/**
+	 * This method is invoked when all children of given {@link EditPart} were visited.
+	 */
+	public void endVisit(EditPart editPart) {
+	}
 }

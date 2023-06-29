@@ -26,128 +26,128 @@ import java.util.List;
  * @coverage core.model.generic
  */
 public final class SimpleContainerConfigurable implements SimpleContainer {
-  private final JavaInfo m_container;
-  private final SimpleContainerConfiguration m_configuration;
+	private final JavaInfo m_container;
+	private final SimpleContainerConfiguration m_configuration;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimpleContainerConfigurable(JavaInfo container, SimpleContainerConfiguration configuration) {
-    m_container = container;
-    m_configuration = configuration;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimpleContainerConfigurable(JavaInfo container, SimpleContainerConfiguration configuration) {
+		m_container = container;
+		m_configuration = configuration;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isEmpty() {
-    return getChild() == null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isEmpty() {
+		return getChild() == null;
+	}
 
-  @Override
-  public Object getChild() {
-    for (ObjectInfo child : getContainerChildren()) {
-      if (validateComponent(child)) {
-        return child;
-      }
-    }
-    return null;
-  }
+	@Override
+	public Object getChild() {
+		for (ObjectInfo child : getContainerChildren()) {
+			if (validateComponent(child)) {
+				return child;
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validateComponent(Object component) {
-    return m_configuration.getComponentValidator().validate(m_container, component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validateComponent(Object component) {
+		return m_configuration.getComponentValidator().validate(m_container, component);
+	}
 
-  @SuppressWarnings("unchecked")
-  private List<ObjectInfo> getContainerChildren() {
-    {
-      String signature = "getSimpleContainerChildren()";
-      Method method = ReflectionUtils.getMethodBySignature(m_container.getClass(), signature);
-      if (method != null) {
-        return (List<ObjectInfo>) ReflectionUtils.invokeMethodEx(m_container, signature);
-      }
-    }
-    return m_container.getChildren();
-  }
+	@SuppressWarnings("unchecked")
+	private List<ObjectInfo> getContainerChildren() {
+		{
+			String signature = "getSimpleContainerChildren()";
+			Method method = ReflectionUtils.getMethodBySignature(m_container.getClass(), signature);
+			if (method != null) {
+				return (List<ObjectInfo>) ReflectionUtils.invokeMethodEx(m_container, signature);
+			}
+		}
+		return m_container.getChildren();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void command_CREATE(Object newObject) throws Exception {
-    if (!tryDuckTyping("command_CREATE", newObject)) {
-      command_CREATE_default(newObject);
-    }
-    tryDuckTyping("command_CREATE_after", newObject);
-    tryDuckTyping("command_TARGET_after", newObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void command_CREATE(Object newObject) throws Exception {
+		if (!tryDuckTyping("command_CREATE", newObject)) {
+			command_CREATE_default(newObject);
+		}
+		tryDuckTyping("command_CREATE_after", newObject);
+		tryDuckTyping("command_TARGET_after", newObject);
+	}
 
-  @Override
-  public void command_ADD(Object moveObject) throws Exception {
-    if (!tryDuckTyping("command_ADD", moveObject)) {
-      command_ADD_default(moveObject);
-    }
-    tryDuckTyping("command_ADD_after", moveObject);
-    tryDuckTyping("command_TARGET_after", moveObject);
-  }
+	@Override
+	public void command_ADD(Object moveObject) throws Exception {
+		if (!tryDuckTyping("command_ADD", moveObject)) {
+			command_ADD_default(moveObject);
+		}
+		tryDuckTyping("command_ADD_after", moveObject);
+		tryDuckTyping("command_TARGET_after", moveObject);
+	}
 
-  private void command_CREATE_default(Object newObject) throws Exception {
-    JavaInfo component = (JavaInfo) newObject;
-    AssociationObject associationObject = createAssociationObject();
-    JavaInfoUtils.add(component, associationObject, m_container, null);
-  }
+	private void command_CREATE_default(Object newObject) throws Exception {
+		JavaInfo component = (JavaInfo) newObject;
+		AssociationObject associationObject = createAssociationObject();
+		JavaInfoUtils.add(component, associationObject, m_container, null);
+	}
 
-  private void command_ADD_default(Object moveObject) throws Exception {
-    JavaInfo component = (JavaInfo) moveObject;
-    AssociationObject associationObject = createAssociationObject();
-    JavaInfoUtils.move(component, associationObject, m_container, null);
-  }
+	private void command_ADD_default(Object moveObject) throws Exception {
+		JavaInfo component = (JavaInfo) moveObject;
+		AssociationObject associationObject = createAssociationObject();
+		JavaInfoUtils.move(component, associationObject, m_container, null);
+	}
 
-  private AssociationObject createAssociationObject() {
-    return m_configuration.getAssociationObjectFactory().create();
-  }
+	private AssociationObject createAssociationObject() {
+		return m_configuration.getAssociationObjectFactory().create();
+	}
 
-  private boolean tryDuckTyping(String methodName, Object object) throws Exception {
-    Method method = getCommandMethod(methodName, object);
-    if (method != null) {
-      method.invoke(m_container, object);
-      return true;
-    }
-    return false;
-  }
+	private boolean tryDuckTyping(String methodName, Object object) throws Exception {
+		Method method = getCommandMethod(methodName, object);
+		if (method != null) {
+			method.invoke(m_container, object);
+			return true;
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Method} with given name that can be invoked with given parameter object.
-   */
-  private Method getCommandMethod(String methodName, Object object) {
-    for (Method method : m_container.getClass().getMethods()) {
-      if (method.getName().equals(methodName)) {
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        if (parameterTypes.length == 1) {
-          if (ReflectionUtils.isAssignableFrom(parameterTypes[0], object)) {
-            return method;
-          }
-        }
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Method} with given name that can be invoked with given parameter object.
+	 */
+	private Method getCommandMethod(String methodName, Object object) {
+		for (Method method : m_container.getClass().getMethods()) {
+			if (method.getName().equals(methodName)) {
+				Class<?>[] parameterTypes = method.getParameterTypes();
+				if (parameterTypes.length == 1) {
+					if (ReflectionUtils.isAssignableFrom(parameterTypes[0], object)) {
+						return method;
+					}
+				}
+			}
+		}
+		return null;
+	}
 }

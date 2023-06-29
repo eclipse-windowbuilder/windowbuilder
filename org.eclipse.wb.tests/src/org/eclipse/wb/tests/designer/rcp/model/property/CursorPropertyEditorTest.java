@@ -28,60 +28,60 @@ import org.eclipse.swt.widgets.Shell;
  * @author scheglov_ke
  */
 public abstract class CursorPropertyEditorTest extends RcpModelTest {
-  protected Shell m_shell;
+	protected Shell m_shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    if (m_shell == null) {
-      m_shell = new Shell();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		if (m_shell == null) {
+			m_shell = new Shell();
+		}
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    ToolkitProvider.DESCRIPTION.getPreferences().setToDefault(
-        IPreferenceConstants.P_USE_RESOURCE_MANAGER);
-    if (m_shell != null) {
-      m_shell.dispose();
-      m_shell = null;
-    }
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		ToolkitProvider.DESCRIPTION.getPreferences().setToDefault(
+				IPreferenceConstants.P_USE_RESOURCE_MANAGER);
+		if (m_shell != null) {
+			m_shell.dispose();
+			m_shell = null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Checks the "text" and "clipboard source" from {@link CursorPropertyEditor}, when {@link Cursor}
-   * is set using given source.
-   */
-  protected final void assert_getText_getClipboardSource_forSource(String cursorSource,
-      String expectedText,
-      String expectedClipboardSource) throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "// filler filler filler",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "  }",
-            "}");
-    // add SWTResourceManager
-    ManagerUtils.ensure_SWTResourceManager(shell);
-    // set "cursor" property
-    shell.addMethodInvocation("setCursor(org.eclipse.swt.graphics.Cursor)", cursorSource);
-    shell.refresh();
-    // validate
-    Property property = shell.getPropertyByTitle("cursor");
-    assertNotNull(property);
-    assertEquals(expectedText, PropertyEditorTestUtils.getText(property));
-    assertEquals(expectedClipboardSource, PropertyEditorTestUtils.getClipboardSource(property));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Checks the "text" and "clipboard source" from {@link CursorPropertyEditor}, when {@link Cursor}
+	 * is set using given source.
+	 */
+	protected final void assert_getText_getClipboardSource_forSource(String cursorSource,
+			String expectedText,
+			String expectedClipboardSource) throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"// filler filler filler",
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"  }",
+						"}");
+		// add SWTResourceManager
+		ManagerUtils.ensure_SWTResourceManager(shell);
+		// set "cursor" property
+		shell.addMethodInvocation("setCursor(org.eclipse.swt.graphics.Cursor)", cursorSource);
+		shell.refresh();
+		// validate
+		Property property = shell.getPropertyByTitle("cursor");
+		assertNotNull(property);
+		assertEquals(expectedText, PropertyEditorTestUtils.getText(property));
+		assertEquals(expectedClipboardSource, PropertyEditorTestUtils.getClipboardSource(property));
+	}
 }

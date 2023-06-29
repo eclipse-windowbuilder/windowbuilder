@@ -19,40 +19,40 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.property.converter
  */
 public final class IntegerArrayConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new IntegerArrayConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new IntegerArrayConverter();
 
-  private IntegerArrayConverter() {
-  }
+	private IntegerArrayConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    if (value == null) {
-      return "(int[]) null";
-    } else {
-      StringBuilder buffer = new StringBuilder();
-      buffer.append("new int[] {");
-      // add items
-      int[] items = (int[]) value;
-      for (int i = 0; i < items.length; i++) {
-        int item = items[i];
-        if (i != 0) {
-          buffer.append(", ");
-        }
-        buffer.append(IntegerConverter.INSTANCE.toJavaSource(javaInfo, item));
-      }
-      //
-      buffer.append("}");
-      return buffer.toString();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		if (value == null) {
+			return "(int[]) null";
+		} else {
+			StringBuilder buffer = new StringBuilder();
+			buffer.append("new int[] {");
+			// add items
+			int[] items = (int[]) value;
+			for (int i = 0; i < items.length; i++) {
+				int item = items[i];
+				if (i != 0) {
+					buffer.append(", ");
+				}
+				buffer.append(IntegerConverter.INSTANCE.toJavaSource(javaInfo, item));
+			}
+			//
+			buffer.append("}");
+			return buffer.toString();
+		}
+	}
 }

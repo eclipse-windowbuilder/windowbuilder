@@ -30,50 +30,50 @@ import java.text.MessageFormat;
  * @coverage core.util.refactoring
  */
 public class DeleteFileChange extends Change {
-  private final IFile m_file;
+	private final IFile m_file;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DeleteFileChange(IFile file) {
-    m_file = file;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DeleteFileChange(IFile file) {
+		m_file = file;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Change
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getModifiedElement() {
-    return m_file;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Change
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getModifiedElement() {
+		return m_file;
+	}
 
-  @Override
-  public String getName() {
-    return MessageFormat.format(Messages.DeleteFileChange_name, m_file.getLocation().lastSegment());
-  }
+	@Override
+	public String getName() {
+		return MessageFormat.format(Messages.DeleteFileChange_name, m_file.getLocation().lastSegment());
+	}
 
-  @Override
-  public void initializeValidationData(IProgressMonitor pm) {
-  }
+	@Override
+	public void initializeValidationData(IProgressMonitor pm) {
+	}
 
-  @Override
-  public RefactoringStatus isValid(IProgressMonitor pm) throws CoreException {
-    RefactoringStatus status = new RefactoringStatus();
-    if (!m_file.exists()) {
-      status.addError(MessageFormat.format(
-          Messages.DeleteFileChange_errNoFile,
-          m_file.getLocation().lastSegment()));
-    }
-    return status;
-  }
+	@Override
+	public RefactoringStatus isValid(IProgressMonitor pm) throws CoreException {
+		RefactoringStatus status = new RefactoringStatus();
+		if (!m_file.exists()) {
+			status.addError(MessageFormat.format(
+					Messages.DeleteFileChange_errNoFile,
+					m_file.getLocation().lastSegment()));
+		}
+		return status;
+	}
 
-  @Override
-  public Change perform(IProgressMonitor pm) throws CoreException {
-    m_file.delete(false, pm);
-    return null;
-  }
+	@Override
+	public Change perform(IProgressMonitor pm) throws CoreException {
+		m_file.delete(false, pm);
+		return null;
+	}
 }

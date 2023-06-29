@@ -27,56 +27,56 @@ import org.eclipse.swt.widgets.Control;
  */
 @SuppressWarnings("deprecation")
 public class ErrorMessageTextField extends org.eclipse.jface.fieldassist.DecoratedField {
-  private final FieldDecoration m_fieldDecoration;
+	private final FieldDecoration m_fieldDecoration;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ErrorMessageTextField(Composite parent, int style) {
-    super(parent, style, new org.eclipse.jface.fieldassist.TextControlCreator());
-    // prepare decoration
-    {
-      FieldDecoration standardDecoration =
-          FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_ERROR);
-      m_fieldDecoration = new FieldDecoration(standardDecoration.getImage(), "");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ErrorMessageTextField(Composite parent, int style) {
+		super(parent, style, new org.eclipse.jface.fieldassist.TextControlCreator());
+		// prepare decoration
+		{
+			FieldDecoration standardDecoration =
+					FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_ERROR);
+			m_fieldDecoration = new FieldDecoration(standardDecoration.getImage(), "");
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Control getLayoutControl() {
-    return super.getLayoutControl();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Control getLayoutControl() {
+		return super.getLayoutControl();
+	}
 
-  @Override
-  public Control getControl() {
-    return super.getControl();
-  }
+	@Override
+	public Control getControl() {
+		return super.getControl();
+	}
 
-  /**
-   * Shows error message.
-   *
-   * @param message
-   *          the message to show as decorator, or <code>null</code> to hide error message.
-   */
-  public void setErrorMessage(String message) {
-    if (message != null) {
-      addFieldDecoration(m_fieldDecoration, SWT.TOP | SWT.RIGHT, false);
-      m_fieldDecoration.setDescription(message);
-    } else {
-      hideDecoration(m_fieldDecoration);
-      // note, that we use knowledge about implementation of DecoratedField (that it uses FormLayout)
-      {
-        FormData data = (FormData) getControl().getLayoutData();
-        data.right = new FormAttachment(100, 0);
-      }
-      getControl().getParent().layout();
-    }
-  }
+	/**
+	 * Shows error message.
+	 *
+	 * @param message
+	 *          the message to show as decorator, or <code>null</code> to hide error message.
+	 */
+	public void setErrorMessage(String message) {
+		if (message != null) {
+			addFieldDecoration(m_fieldDecoration, SWT.TOP | SWT.RIGHT, false);
+			m_fieldDecoration.setDescription(message);
+		} else {
+			hideDecoration(m_fieldDecoration);
+			// note, that we use knowledge about implementation of DecoratedField (that it uses FormLayout)
+			{
+				FormData data = (FormData) getControl().getLayoutData();
+				data.right = new FormAttachment(100, 0);
+			}
+			getControl().getParent().layout();
+		}
+	}
 }

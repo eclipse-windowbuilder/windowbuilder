@@ -23,26 +23,26 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
  * @author scheglov_ke
  */
 public class SuperConstructorArgumentAssociationTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    super(new BorderLayout());",
-            "  }",
-            "}");
-    panel.refresh();
-    // BorderLayout expected
-    BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
-    SuperConstructorArgumentAssociation association =
-        (SuperConstructorArgumentAssociation) layout.getAssociation();
-    assertFalse(association.canDelete());
-    assertInstanceOf(SuperConstructorInvocation.class, association.getStatement());
-    assertEquals("super(new BorderLayout());", association.getSource());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    super(new BorderLayout());",
+						"  }",
+						"}");
+		panel.refresh();
+		// BorderLayout expected
+		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
+		SuperConstructorArgumentAssociation association =
+				(SuperConstructorArgumentAssociation) layout.getAssociation();
+		assertFalse(association.canDelete());
+		assertInstanceOf(SuperConstructorInvocation.class, association.getStatement());
+		assertEquals("super(new BorderLayout());", association.getSource());
+	}
 }

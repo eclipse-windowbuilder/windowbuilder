@@ -25,32 +25,32 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @coverage core.evaluation
  */
 public final class ConditionalExpressionEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    if (expression instanceof ConditionalExpression) {
-      ConditionalExpression conditionalExpression = (ConditionalExpression) expression;
-      // evaluate condition
-      Expression conditionExpression = conditionalExpression.getExpression();
-      boolean condition = (Boolean) AstEvaluationEngine.evaluate(context, conditionExpression);
-      // prepare Expression to evaluate
-      Expression resultExpression;
-      if (condition) {
-        resultExpression = conditionalExpression.getThenExpression();
-      } else {
-        resultExpression = conditionalExpression.getElseExpression();
-      }
-      // evaluate result
-      return AstEvaluationEngine.evaluate(context, resultExpression);
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		if (expression instanceof ConditionalExpression) {
+			ConditionalExpression conditionalExpression = (ConditionalExpression) expression;
+			// evaluate condition
+			Expression conditionExpression = conditionalExpression.getExpression();
+			boolean condition = (Boolean) AstEvaluationEngine.evaluate(context, conditionExpression);
+			// prepare Expression to evaluate
+			Expression resultExpression;
+			if (condition) {
+				resultExpression = conditionalExpression.getThenExpression();
+			} else {
+				resultExpression = conditionalExpression.getElseExpression();
+			}
+			// evaluate result
+			return AstEvaluationEngine.evaluate(context, resultExpression);
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

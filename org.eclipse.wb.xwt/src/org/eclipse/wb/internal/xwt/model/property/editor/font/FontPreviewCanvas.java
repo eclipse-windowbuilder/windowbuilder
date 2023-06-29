@@ -32,79 +32,79 @@ import org.eclipse.swt.widgets.Listener;
  * @coverage XWT.model.property.editor
  */
 public final class FontPreviewCanvas extends Canvas {
-  private Image m_image;
+	private Image m_image;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FontPreviewCanvas(Composite parent, int style) {
-    super(parent, style);
-    addListener(SWT.Paint, new Listener() {
-      public void handleEvent(Event event) {
-        onPaint(event.gc);
-      }
-    });
-    addListener(SWT.Dispose, new Listener() {
-      public void handleEvent(Event event) {
-        if (m_image != null) {
-          m_image.dispose();
-          m_image = null;
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FontPreviewCanvas(Composite parent, int style) {
+		super(parent, style);
+		addListener(SWT.Paint, new Listener() {
+			public void handleEvent(Event event) {
+				onPaint(event.gc);
+			}
+		});
+		addListener(SWT.Dispose, new Listener() {
+			public void handleEvent(Event event) {
+				if (m_image != null) {
+					m_image.dispose();
+					m_image = null;
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Painting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Point computeSize(int wHint, int hHint, boolean changed) {
-    int width = 450;
-    int height = 50;
-    return new Point(width, height);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Painting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Point computeSize(int wHint, int hHint, boolean changed) {
+		int width = 450;
+		int height = 50;
+		return new Point(width, height);
+	}
 
-  /**
-   * Handler for {@link SWT#Paint}.
-   */
-  protected final void onPaint(GC gc) {
-    if (m_image != null) {
-      // draw image
-      Rectangle clientArea = getClientArea();
-      DrawUtils.drawImageCHCV(
-          gc,
-          m_image,
-          clientArea.x,
-          clientArea.y,
-          clientArea.width,
-          clientArea.height);
-    }
-  }
+	/**
+	 * Handler for {@link SWT#Paint}.
+	 */
+	protected final void onPaint(GC gc) {
+		if (m_image != null) {
+			// draw image
+			Rectangle clientArea = getClientArea();
+			DrawUtils.drawImageCHCV(
+					gc,
+					m_image,
+					clientArea.x,
+					clientArea.y,
+					clientArea.width,
+					clientArea.height);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the {@link Font} to display.
-   */
-  public void setFontInfo(final FontInfo fontInfo) {
-    if (m_image != null) {
-      m_image.dispose();
-      m_image = null;
-    }
-    if (fontInfo != null) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        public void run() throws Exception {
-          m_image = FontSupport.getFontPreview(fontInfo.getFont());
-        }
-      });
-    }
-    redraw();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the {@link Font} to display.
+	 */
+	public void setFontInfo(final FontInfo fontInfo) {
+		if (m_image != null) {
+			m_image.dispose();
+			m_image = null;
+		}
+		if (fontInfo != null) {
+			ExecutionUtils.runLog(new RunnableEx() {
+				public void run() throws Exception {
+					m_image = FontSupport.getFontPreview(fontInfo.getFont());
+				}
+			});
+		}
+		redraw();
+	}
 }

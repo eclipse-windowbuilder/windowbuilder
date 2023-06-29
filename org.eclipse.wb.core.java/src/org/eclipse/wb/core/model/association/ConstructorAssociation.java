@@ -22,31 +22,31 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.association
  */
 public abstract class ConstructorAssociation extends Association {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  ConstructorAssociation() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	ConstructorAssociation() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the underlying {@link ClassInstanceCreation}.
-   */
-  public abstract ClassInstanceCreation getCreation();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the underlying {@link ClassInstanceCreation}.
+	 */
+	public abstract ClassInstanceCreation getCreation();
 
-  @Override
-  public final Statement getStatement() {
-    return AstNodeUtils.getEnclosingStatement(getCreation());
-  }
+	@Override
+	public final Statement getStatement() {
+		return AstNodeUtils.getEnclosingStatement(getCreation());
+	}
 
-  @Override
-  public final String getSource() {
-    return m_editor.getSource(getCreation());
-  }
+	@Override
+	public final String getSource() {
+		return m_editor.getSource(getCreation());
+	}
 }

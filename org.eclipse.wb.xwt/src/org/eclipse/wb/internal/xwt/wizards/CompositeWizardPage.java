@@ -24,53 +24,53 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage XWT.wizards
  */
 public final class CompositeWizardPage extends XwtWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompositeWizardPage() {
-    setTitle("Create XWT Composite");
-    setImageDescriptor(Activator.getImageDescriptor("wizard/Composite/banner.png"));
-    setDescription("Create a XWT Composite.");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompositeWizardPage() {
+		setTitle("Create XWT Composite");
+		setImageDescriptor(Activator.getImageDescriptor("wizard/Composite/banner.png"));
+		setDescription("Create a XWT Composite.");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Configuration
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("org.eclipse.swt.widgets.Composite", false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Configuration
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("org.eclipse.swt.widgets.Composite", false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Create
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getTemplatePath_Java() {
-    return "templates/Composite.jvt";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Create
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getTemplatePath_Java() {
+		return "templates/Composite.jvt";
+	}
 
-  @Override
-  protected String getTemplatePath_XWT() {
-    return "templates/Composite.xwt";
-  }
+	@Override
+	protected String getTemplatePath_XWT() {
+		return "templates/Composite.xwt";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    // I always use same names during tests
-    if (EnvironmentUtils.DEVELOPER_HOST) {
-      setTypeName("Composite_1", true);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		// I always use same names during tests
+		if (EnvironmentUtils.DEVELOPER_HOST) {
+			setTypeName("Composite_1", true);
+		}
+	}
 }

@@ -26,71 +26,71 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage rcp.model.e4
  */
 public class E4PartInfo extends CompositeInfo {
-  private Shell m_shell;
+	private Shell m_shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public E4PartInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    //JavaInfoUtils.scheduleSpecialRendering(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public E4PartInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		//JavaInfoUtils.scheduleSpecialRendering(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractComponentInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /*@Override
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractComponentInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/*@Override
   protected TopBoundsSupport createTopBoundsSupport() {
     return new E4PartTopBoundsSupport(this);
   }*/
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getComponentObject() {
-    return m_shell;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getComponentObject() {
+		return m_shell;
+	}
 
-  /**
-   * @return the top level {@link Shell}.
-   */
-  public Shell getShell() {
-    return m_shell;
-  }
+	/**
+	 * @return the top level {@link Shell}.
+	 */
+	public Shell getShell() {
+		return m_shell;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_create() throws Exception {
-    m_shell = new Shell(SWT.NONE);
-    m_shell.setLayout(new FillLayout());
-    setObject(m_shell);
-    super.refresh_create();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_create() throws Exception {
+		m_shell = new Shell(SWT.NONE);
+		m_shell.setLayout(new FillLayout());
+		setObject(m_shell);
+		super.refresh_create();
+	}
 
-  @Override
-  public void refresh_dispose() throws Exception {
-    if (m_shell != null) {
-      m_shell.dispose();
-      m_shell = null;
-    }
-    super.refresh_dispose();
-  }
+	@Override
+	public void refresh_dispose() throws Exception {
+		if (m_shell != null) {
+			m_shell.dispose();
+			m_shell = null;
+		}
+		super.refresh_dispose();
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    // TODO Auto-generated method stub
-    super.refresh_fetch();
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		// TODO Auto-generated method stub
+		super.refresh_fetch();
+	}
 }

@@ -20,10 +20,10 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
  * @author scheglov_ke
  */
 public class MarqueeSelectionToolEntryInfoTest extends DesignerTestCase {
-  public void test() throws Exception {
-    MarqueeSelectionToolEntryInfo entry = new MarqueeSelectionToolEntryInfo();
-    assertEquals("Marquee", entry.getName());
-    assertNotNull(entry.getIcon());
-    assertInstanceOf(MarqueeSelectionTool.class, entry.createTool());
-  }
+	public void test() throws Exception {
+		MarqueeSelectionToolEntryInfo entry = new MarqueeSelectionToolEntryInfo();
+		assertEquals("Marquee", entry.getName());
+		assertNotNull(entry.getIcon());
+		assertInstanceOf(MarqueeSelectionTool.class, entry.createTool());
+	}
 }

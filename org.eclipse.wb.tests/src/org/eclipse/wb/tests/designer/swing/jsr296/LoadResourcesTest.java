@@ -23,101 +23,101 @@ import javax.swing.JLabel;
  * @author sablin_aa
  */
 public class LoadResourcesTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    m_testProject.addBundleJars("org.eclipse.wb.tests.support", "/resources/Swing/jsr296");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		m_testProject.addBundleJars("org.eclipse.wb.tests.support", "/resources/Swing/jsr296");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void DISABLE_test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void DISABLE_test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Tests that <code>ResourceMap.injectComponents(Component)</code> is invoked.
-   */
-  public void DISABLE_test_parse() throws Exception {
-    setFileContentSrc("test/resources/Test.properties", "label.text = TestLabel");
-    m_waitForAutoBuild = true;
-    JPanelInfo panel =
-        parseJavaInfo(
-            "import org.jdesktop.application.*;",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JLabel label = new JLabel();",
-            "      label.setName('label');",
-            "      add(label);",
-            "    }",
-            "    Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);",
-            "  }",
-            "}");
-    refresh();
-    assertNoErrors(panel);
-    // check "label"
-    {
-      ComponentInfo label = getJavaInfoByName("label");
-      // "text" property has default value
-      assertEquals("TestLabel", label.getPropertyByTitle("text").getValue());
-      // "text" is applied to JLabel instance
-      assertEquals("TestLabel", ((JLabel) label.getObject()).getText());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Tests that <code>ResourceMap.injectComponents(Component)</code> is invoked.
+	 */
+	public void DISABLE_test_parse() throws Exception {
+		setFileContentSrc("test/resources/Test.properties", "label.text = TestLabel");
+		m_waitForAutoBuild = true;
+		JPanelInfo panel =
+				parseJavaInfo(
+						"import org.jdesktop.application.*;",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    {",
+						"      JLabel label = new JLabel();",
+						"      label.setName('label');",
+						"      add(label);",
+						"    }",
+						"    Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);",
+						"  }",
+						"}");
+		refresh();
+		assertNoErrors(panel);
+		// check "label"
+		{
+			ComponentInfo label = getJavaInfoByName("label");
+			// "text" property has default value
+			assertEquals("TestLabel", label.getPropertyByTitle("text").getValue());
+			// "text" is applied to JLabel instance
+			assertEquals("TestLabel", ((JLabel) label.getObject()).getText());
+		}
+	}
 
-  /**
-   * Tests that <code>ResourceMap.injectComponents(Component)</code> is terminate statement for
-   * children.
-   */
-  public void DISABLE_test_CREATE() throws Exception {
-    m_waitForAutoBuild = true;
-    JPanelInfo panel =
-        parseJavaInfo(
-            "import org.jdesktop.application.*;",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JLabel label = new JLabel();",
-            "      add(label);",
-            "    }",
-            "    Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);",
-            "  }",
-            "}");
-    refresh();
-    //
-    {
-      ComponentInfo newButton = createComponent("javax.swing.JButton");
-      FlowLayoutInfo layout = (FlowLayoutInfo) panel.getLayout();
-      layout.add(newButton, null);
-    }
-    assertEditor(
-        "import org.jdesktop.application.*;",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    {",
-        "      JLabel label = new JLabel();",
-        "      add(label);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton('New button');",
-        "      add(button);",
-        "    }",
-        "    Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);",
-        "  }",
-        "}");
-  }
+	/**
+	 * Tests that <code>ResourceMap.injectComponents(Component)</code> is terminate statement for
+	 * children.
+	 */
+	public void DISABLE_test_CREATE() throws Exception {
+		m_waitForAutoBuild = true;
+		JPanelInfo panel =
+				parseJavaInfo(
+						"import org.jdesktop.application.*;",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    {",
+						"      JLabel label = new JLabel();",
+						"      add(label);",
+						"    }",
+						"    Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);",
+						"  }",
+						"}");
+		refresh();
+		//
+		{
+			ComponentInfo newButton = createComponent("javax.swing.JButton");
+			FlowLayoutInfo layout = (FlowLayoutInfo) panel.getLayout();
+			layout.add(newButton, null);
+		}
+		assertEditor(
+				"import org.jdesktop.application.*;",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    {",
+				"      JLabel label = new JLabel();",
+				"      add(label);",
+				"    }",
+				"    {",
+				"      JButton button = new JButton('New button');",
+				"      add(button);",
+				"    }",
+				"    Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);",
+				"  }",
+				"}");
+	}
 }

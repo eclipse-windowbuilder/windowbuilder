@@ -24,36 +24,36 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.gef.policy
  */
 public final class OutlineImageFigure extends Figure {
-  private final Image m_image;
+	private final Image m_image;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public OutlineImageFigure() {
-    this(null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public OutlineImageFigure() {
+		this(null);
+	}
 
-  public OutlineImageFigure(Image image) {
-    this(image, IColorConstants.orange);
-  }
+	public OutlineImageFigure(Image image) {
+		this(image, IColorConstants.orange);
+	}
 
-  public OutlineImageFigure(Image image, Color borderColor) {
-    m_image = image;
-    setForeground(borderColor);
-  }
+	public OutlineImageFigure(Image image, Color borderColor) {
+		m_image = image;
+		setForeground(borderColor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Paint
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void paintClientArea(Graphics graphics) {
-    if (m_image != null) {
-      graphics.drawImage(m_image, 0, 0);
-    }
-    graphics.drawRectangle(getClientArea().getResized(-1, -1));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Paint
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void paintClientArea(Graphics graphics) {
+		if (m_image != null) {
+			graphics.drawImage(m_image, 0, 0);
+		}
+		graphics.drawRectangle(getClientArea().getResized(-1, -1));
+	}
 }

@@ -26,39 +26,39 @@ import java.util.Map;
  * @coverage bindings.rcp.model.context
  */
 public final class BindingUiContentProviderContext {
-  private final Map<String, Object> m_values = Maps.newHashMap();
-  private String m_direction;
+	private final Map<String, Object> m_values = Maps.newHashMap();
+	private String m_direction;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the direction for current state.
-   */
-  public String getDirection() {
-    return m_direction;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the direction for current state.
+	 */
+	public String getDirection() {
+		return m_direction;
+	}
 
-  /**
-   * Sets current direction (target, model and etc.).
-   */
-  public void setDirection(String direction) {
-    m_direction = direction;
-  }
+	/**
+	 * Sets current direction (target, model and etc.).
+	 */
+	public void setDirection(String direction) {
+		m_direction = direction;
+	}
 
-  /**
-   * @return the value for given name.
-   */
-  public Object getValue(String name) {
-    return m_values.get(name);
-  }
+	/**
+	 * @return the value for given name.
+	 */
+	public Object getValue(String name) {
+		return m_values.get(name);
+	}
 
-  /**
-   * Sets value for given name.
-   */
-  public void setValue(String name, Object value) {
-    m_values.put(name, value);
-  }
+	/**
+	 * Sets value for given name.
+	 */
+	public void setValue(String name, Object value) {
+		m_values.put(name, value);
+	}
 }

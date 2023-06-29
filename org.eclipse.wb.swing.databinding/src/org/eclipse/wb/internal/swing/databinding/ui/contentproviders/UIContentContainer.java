@@ -24,18 +24,18 @@ import java.util.List;
  * @coverage bindings.swing.ui
  */
 public class UIContentContainer<T extends BindingInfo>
-    extends
-      org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.UIContentContainer<T> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UIContentContainer(T binding,
-      List<BindingInfo> bindings,
-      String errorPrefix,
-      DatabindingsProvider provider) throws Exception {
-    super(binding, errorPrefix);
-    m_binding.createContentProviders(bindings, m_providers, EmptyPageListener.INSTANCE, provider);
-  }
+extends
+org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.UIContentContainer<T> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UIContentContainer(T binding,
+			List<BindingInfo> bindings,
+			String errorPrefix,
+			DatabindingsProvider provider) throws Exception {
+		super(binding, errorPrefix);
+		m_binding.createContentProviders(bindings, m_providers, EmptyPageListener.INSTANCE, provider);
+	}
 }

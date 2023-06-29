@@ -42,115 +42,115 @@ import org.eclipse.swt.events.KeyEvent;
  * @coverage bindings.swing.ui
  */
 public final class EvalutionLanguageConfiguration extends SourceViewerConfiguration {
-  private static final String EXPRESSION_TYPE = "__expression_type_";
-  private final ElPropertyUiConfiguration m_configuration;
-  private final IBeanPropertiesSupport m_propertiesSupport;
+	private static final String EXPRESSION_TYPE = "__expression_type_";
+	private final ElPropertyUiConfiguration m_configuration;
+	private final IBeanPropertiesSupport m_propertiesSupport;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EvalutionLanguageConfiguration(SourceViewer sourceViewer,
-      IDocument document,
-      ElPropertyUiConfiguration configuration,
-      IBeanPropertiesSupport propertiesSupport) {
-    m_configuration = configuration;
-    m_propertiesSupport = propertiesSupport;
-    sourceViewer.configure(this);
-    configureDocument(document);
-    sourceViewer.setDocument(document);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EvalutionLanguageConfiguration(SourceViewer sourceViewer,
+			IDocument document,
+			ElPropertyUiConfiguration configuration,
+			IBeanPropertiesSupport propertiesSupport) {
+		m_configuration = configuration;
+		m_propertiesSupport = propertiesSupport;
+		sourceViewer.configure(this);
+		configureDocument(document);
+		sourceViewer.setDocument(document);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Document
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static void configureDocument(IDocument document) {
-    // token
-    IToken token = new Token(EXPRESSION_TYPE);
-    IPredicateRule[] rules = new IPredicateRule[2];
-    rules[0] = new MultiLineRule("${", "}", token);
-    rules[1] = new MultiLineRule("#{", "}", token);
-    // scanner
-    RuleBasedPartitionScanner partitionScanner = new RuleBasedPartitionScanner();
-    partitionScanner.setPredicateRules(rules);
-    IDocumentPartitioner partitioner =
-        new FastPartitioner(partitionScanner, new String[]{EXPRESSION_TYPE});
-    // configure document
-    partitioner.connect(document);
-    document.setDocumentPartitioner(partitioner);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Document
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static void configureDocument(IDocument document) {
+		// token
+		IToken token = new Token(EXPRESSION_TYPE);
+		IPredicateRule[] rules = new IPredicateRule[2];
+		rules[0] = new MultiLineRule("${", "}", token);
+		rules[1] = new MultiLineRule("#{", "}", token);
+		// scanner
+		RuleBasedPartitionScanner partitionScanner = new RuleBasedPartitionScanner();
+		partitionScanner.setPredicateRules(rules);
+		IDocumentPartitioner partitioner =
+				new FastPartitioner(partitionScanner, new String[]{EXPRESSION_TYPE});
+		// configure document
+		partitioner.connect(document);
+		document.setDocumentPartitioner(partitioner);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SourceViewerConfiguration
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
-    return new String[]{IDocument.DEFAULT_CONTENT_TYPE, EXPRESSION_TYPE};
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SourceViewerConfiguration
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
+		return new String[]{IDocument.DEFAULT_CONTENT_TYPE, EXPRESSION_TYPE};
+	}
 
-  @Override
-  public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
-    PresentationReconciler reconciler = new PresentationReconciler();
-    // EL language rules
-    configureExpressionType(reconciler, sourceViewer);
-    // text rules
-    configureDefaultType(reconciler);
-    return reconciler;
-  }
+	@Override
+	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
+		PresentationReconciler reconciler = new PresentationReconciler();
+		// EL language rules
+		configureExpressionType(reconciler, sourceViewer);
+		// text rules
+		configureDefaultType(reconciler);
+		return reconciler;
+	}
 
-  private void configureExpressionType(PresentationReconciler reconciler, ISourceViewer sourceViewer) {
-    RuleBasedScanner scanner = new RuleBasedScanner();
-    scanner.setDefaultReturnToken(new Token(new TextAttribute(m_configuration.getPropertiesColor())));
-    // EL language rules
-    IRule keywordsRule = new KeywordsRule(sourceViewer, m_configuration);
-    IRule operatorsRule = new OperatorsRule(m_configuration);
-    IRule numbersRule = new NumbersRule(m_configuration);
-    scanner.setRules(new IRule[]{keywordsRule, operatorsRule, numbersRule});
-    // repairer
-    DefaultDamagerRepairer repairer = new DefaultDamagerRepairer(scanner);
-    reconciler.setDamager(repairer, EXPRESSION_TYPE);
-    reconciler.setRepairer(repairer, EXPRESSION_TYPE);
-  }
+	private void configureExpressionType(PresentationReconciler reconciler, ISourceViewer sourceViewer) {
+		RuleBasedScanner scanner = new RuleBasedScanner();
+		scanner.setDefaultReturnToken(new Token(new TextAttribute(m_configuration.getPropertiesColor())));
+		// EL language rules
+		IRule keywordsRule = new KeywordsRule(sourceViewer, m_configuration);
+		IRule operatorsRule = new OperatorsRule(m_configuration);
+		IRule numbersRule = new NumbersRule(m_configuration);
+		scanner.setRules(new IRule[]{keywordsRule, operatorsRule, numbersRule});
+		// repairer
+		DefaultDamagerRepairer repairer = new DefaultDamagerRepairer(scanner);
+		reconciler.setDamager(repairer, EXPRESSION_TYPE);
+		reconciler.setRepairer(repairer, EXPRESSION_TYPE);
+	}
 
-  private void configureDefaultType(PresentationReconciler reconciler) {
-    // scanner
-    RuleBasedScanner scanner = new RuleBasedScanner();
-    scanner.setDefaultReturnToken(new Token(new TextAttribute(m_configuration.getStringsColor())));
-    // repairer
-    DefaultDamagerRepairer repairer = new DefaultDamagerRepairer(scanner);
-    reconciler.setDamager(repairer, IDocument.DEFAULT_CONTENT_TYPE);
-    reconciler.setRepairer(repairer, IDocument.DEFAULT_CONTENT_TYPE);
-  }
+	private void configureDefaultType(PresentationReconciler reconciler) {
+		// scanner
+		RuleBasedScanner scanner = new RuleBasedScanner();
+		scanner.setDefaultReturnToken(new Token(new TextAttribute(m_configuration.getStringsColor())));
+		// repairer
+		DefaultDamagerRepairer repairer = new DefaultDamagerRepairer(scanner);
+		reconciler.setDamager(repairer, IDocument.DEFAULT_CONTENT_TYPE);
+		reconciler.setRepairer(repairer, IDocument.DEFAULT_CONTENT_TYPE);
+	}
 
-  @Override
-  public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
-    final ContentAssistant contentAssistant = new ContentAssistant();
-    // sets processors
-    contentAssistant.setContentAssistProcessor(
-        new ContentAssistProcessor(m_propertiesSupport, true),
-        IDocument.DEFAULT_CONTENT_TYPE);
-    contentAssistant.setContentAssistProcessor(new ContentAssistProcessor(m_propertiesSupport,
-        false), EXPRESSION_TYPE);
-    // configure
-    contentAssistant.enableAutoActivation(true);
-    contentAssistant.enableAutoInsert(true);
-    contentAssistant.setAutoActivationDelay(200);
-    contentAssistant.setStatusLineVisible(true);
-    contentAssistant.setStatusMessage(Messages.EvalutionLanguageConfiguration_contentAssistMessage);
-    // CTRL + SPACE completion
-    sourceViewer.getTextWidget().addKeyListener(new KeyAdapter() {
-      @Override
-      public void keyPressed(KeyEvent e) {
-        if (e.character == ' ' && (e.stateMask & SWT.CTRL) != 0) {
-          contentAssistant.showPossibleCompletions();
-        }
-      }
-    });
-    return contentAssistant;
-  }
+	@Override
+	public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
+		final ContentAssistant contentAssistant = new ContentAssistant();
+		// sets processors
+		contentAssistant.setContentAssistProcessor(
+				new ContentAssistProcessor(m_propertiesSupport, true),
+				IDocument.DEFAULT_CONTENT_TYPE);
+		contentAssistant.setContentAssistProcessor(new ContentAssistProcessor(m_propertiesSupport,
+				false), EXPRESSION_TYPE);
+		// configure
+		contentAssistant.enableAutoActivation(true);
+		contentAssistant.enableAutoInsert(true);
+		contentAssistant.setAutoActivationDelay(200);
+		contentAssistant.setStatusLineVisible(true);
+		contentAssistant.setStatusMessage(Messages.EvalutionLanguageConfiguration_contentAssistMessage);
+		// CTRL + SPACE completion
+		sourceViewer.getTextWidget().addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.character == ' ' && (e.stateMask & SWT.CTRL) != 0) {
+					contentAssistant.showPossibleCompletions();
+				}
+			}
+		});
+		return contentAssistant;
+	}
 }

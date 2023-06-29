@@ -23,17 +23,17 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
  * @coverage nebula.gef
  */
 public final class EditPartFactory implements IEditPartFactory {
-  private final static IEditPartFactory MATCHING_FACTORY =
-      new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.rcp.nebula"),
-          ImmutableList.of("org.eclipse.wb.internal.rcp.nebula"));
+	private final static IEditPartFactory MATCHING_FACTORY =
+			new MatchingEditPartFactory(ImmutableList.of("org.eclipse.wb.internal.rcp.nebula"),
+					ImmutableList.of("org.eclipse.wb.internal.rcp.nebula"));
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditPartFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart createEditPart(EditPart context, Object model) {
-    return MATCHING_FACTORY.createEditPart(context, model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditPartFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart createEditPart(EditPart context, Object model) {
+		return MATCHING_FACTORY.createEditPart(context, model);
+	}
 }

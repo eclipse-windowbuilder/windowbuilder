@@ -30,31 +30,31 @@ import java.util.List;
  * @coverage core.gef
  */
 public final class GenericContainersLayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutEditPolicyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    if (model instanceof JavaInfo) {
-      JavaInfo layout = (JavaInfo) model;
-      // simple containers
-      {
-        List<SimpleContainer> containers = new SimpleContainerFactory(layout, true).get();
-        for (SimpleContainer container : containers) {
-          return new SimpleContainerLayoutEditPolicy(layout, container);
-        }
-      }
-      // flow containers
-      {
-        List<FlowContainer> containers = new FlowContainerFactory(layout, true).get();
-        for (FlowContainer container : containers) {
-          return new FlowContainerLayoutEditPolicy(layout, container);
-        }
-      }
-    }
-    // not found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutEditPolicyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		if (model instanceof JavaInfo) {
+			JavaInfo layout = (JavaInfo) model;
+			// simple containers
+			{
+				List<SimpleContainer> containers = new SimpleContainerFactory(layout, true).get();
+				for (SimpleContainer container : containers) {
+					return new SimpleContainerLayoutEditPolicy(layout, container);
+				}
+			}
+			// flow containers
+			{
+				List<FlowContainer> containers = new FlowContainerFactory(layout, true).get();
+				for (FlowContainer container : containers) {
+					return new FlowContainerLayoutEditPolicy(layout, container);
+				}
+			}
+		}
+		// not found
+		return null;
+	}
 }

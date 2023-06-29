@@ -24,19 +24,19 @@ import org.apache.commons.lang.ArrayUtils;
  * @coverage swt.model.widgets
  */
 public final class ControlsHierarchyProvider extends HierarchyProvider {
-  @Override
-  public Object getParentObject(Object object) throws Exception {
-    if (ControlSupport.isControl(object) || MenuSupport.isMenu(object)) {
-      return ControlSupport.getParent(object);
-    }
-    return null;
-  }
+	@Override
+	public Object getParentObject(Object object) throws Exception {
+		if (ControlSupport.isControl(object) || MenuSupport.isMenu(object)) {
+			return ControlSupport.getParent(object);
+		}
+		return null;
+	}
 
-  @Override
-  public Object[] getChildrenObjects(Object object) throws Exception {
-    if (ContainerSupport.isComposite(object)) {
-      return ContainerSupport.getChildren(object);
-    }
-    return ArrayUtils.EMPTY_OBJECT_ARRAY;
-  }
+	@Override
+	public Object[] getChildrenObjects(Object object) throws Exception {
+		if (ContainerSupport.isComposite(object)) {
+			return ContainerSupport.getChildren(object);
+		}
+		return ArrayUtils.EMPTY_OBJECT_ARRAY;
+	}
 }

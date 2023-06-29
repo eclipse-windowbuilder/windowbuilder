@@ -24,38 +24,38 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage swing.property.editor
  */
 public final class TitledComposite extends Composite {
-  private final Composite m_content;
+	private final Composite m_content;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TitledComposite(Composite parent, int style, String text) {
-    super(parent, style);
-    GridLayoutFactory.create(this).noMargins();
-    // separator
-    {
-      Separator separator = new Separator(this, SWT.NONE);
-      separator.setText(text);
-      GridDataFactory.create(separator).grabH().fillH();
-    }
-    // content container
-    {
-      m_content = new Composite(this, SWT.NONE);
-      GridDataFactory.create(m_content).indentHC(2).grab().fill();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TitledComposite(Composite parent, int style, String text) {
+		super(parent, style);
+		GridLayoutFactory.create(this).noMargins();
+		// separator
+		{
+			Separator separator = new Separator(this, SWT.NONE);
+			separator.setText(text);
+			GridDataFactory.create(separator).grabH().fillH();
+		}
+		// content container
+		{
+			m_content = new Composite(this, SWT.NONE);
+			GridDataFactory.create(m_content).indentHC(2).grab().fill();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Composite} to use as parent for creating content.
-   */
-  public Composite getContent() {
-    return m_content;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Composite} to use as parent for creating content.
+	 */
+	public Composite getContent() {
+		return m_content;
+	}
 }

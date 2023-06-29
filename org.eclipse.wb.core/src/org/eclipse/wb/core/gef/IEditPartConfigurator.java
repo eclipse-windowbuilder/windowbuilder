@@ -30,8 +30,8 @@ import org.eclipse.wb.internal.core.gef.EditPartFactory;
  * @coverage core.gef
  */
 public interface IEditPartConfigurator {
-  /**
-   * Configures given {@link EditPart}.
-   */
-  void configure(EditPart context, EditPart editPart);
+	/**
+	 * Configures given {@link EditPart}.
+	 */
+	void configure(EditPart context, EditPart editPart);
 }

@@ -19,49 +19,49 @@ import org.eclipse.draw2d.geometry.Insets;
  *
  */
 public class LineBorderTest extends Draw2dFigureTestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LineBorderTest() {
-    super(LineBorder.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LineBorderTest() {
+		super(LineBorder.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LineBorder test's
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_constructor() throws Exception {
-    LineBorder border = new LineBorder();
-    // check init state properties for new border
-    assertNull(border.getColor());
-    assertEquals(1, border.getWidth());
-    assertEquals(new Insets(1), border.getInsets());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LineBorder test's
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_constructor() throws Exception {
+		LineBorder border = new LineBorder();
+		// check init state properties for new border
+		assertNull(border.getColor());
+		assertEquals(1, border.getWidth());
+		assertEquals(new Insets(1), border.getInsets());
+	}
 
-  public void test_constructor_int() throws Exception {
-    LineBorder border = new LineBorder(3);
-    // check init state properties for border constructor(int)
-    assertNull(border.getColor());
-    assertEquals(3, border.getWidth());
-    assertEquals(new Insets(3), border.getInsets());
-  }
+	public void test_constructor_int() throws Exception {
+		LineBorder border = new LineBorder(3);
+		// check init state properties for border constructor(int)
+		assertNull(border.getColor());
+		assertEquals(3, border.getWidth());
+		assertEquals(new Insets(3), border.getInsets());
+	}
 
-  public void test_constructor_Color() throws Exception {
-    LineBorder border = new LineBorder(red);
-    // check init state properties for border constructor(Color)
-    assertSame(red, border.getColor());
-    assertEquals(1, border.getWidth());
-    assertEquals(new Insets(1), border.getInsets());
-  }
+	public void test_constructor_Color() throws Exception {
+		LineBorder border = new LineBorder(red);
+		// check init state properties for border constructor(Color)
+		assertSame(red, border.getColor());
+		assertEquals(1, border.getWidth());
+		assertEquals(new Insets(1), border.getInsets());
+	}
 
-  public void test_constructor_Color_int() throws Exception {
-    // check init state properties for border constructor(int, Color)
-    LineBorder border = new LineBorder(blue, 7);
-    assertSame(blue, border.getColor());
-    assertEquals(7, border.getWidth());
-    assertEquals(new Insets(7), border.getInsets());
-  }
+	public void test_constructor_Color_int() throws Exception {
+		// check init state properties for border constructor(int, Color)
+		LineBorder border = new LineBorder(blue, 7);
+		assertSame(blue, border.getColor());
+		assertEquals(7, border.getWidth());
+		assertEquals(new Insets(7), border.getInsets());
+	}
 }

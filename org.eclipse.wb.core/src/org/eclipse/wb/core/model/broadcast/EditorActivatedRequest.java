@@ -17,38 +17,38 @@ package org.eclipse.wb.core.model.broadcast;
  * @coverage core.model
  */
 public final class EditorActivatedRequest {
-  private boolean m_reparseRequested;
-  private boolean m_refreshRequested;
+	private boolean m_reparseRequested;
+	private boolean m_refreshRequested;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isReparseRequested() {
-    return m_reparseRequested;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isReparseRequested() {
+		return m_reparseRequested;
+	}
 
-  public boolean isRefreshRequested() {
-    return m_refreshRequested;
-  }
+	public boolean isRefreshRequested() {
+		return m_refreshRequested;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requesting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Specifies that reparse should be performed.
-   */
-  public void requestReparse() {
-    m_reparseRequested = true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requesting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Specifies that reparse should be performed.
+	 */
+	public void requestReparse() {
+		m_reparseRequested = true;
+	}
 
-  /**
-   * Specifies that refresh should be performed.
-   */
-  public void requestRefresh() {
-    m_refreshRequested = true;
-  }
+	/**
+	 * Specifies that refresh should be performed.
+	 */
+	public void requestRefresh() {
+		m_refreshRequested = true;
+	}
 }

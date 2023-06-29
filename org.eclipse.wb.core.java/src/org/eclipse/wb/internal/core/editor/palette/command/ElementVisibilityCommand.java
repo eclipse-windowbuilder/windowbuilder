@@ -28,67 +28,67 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class ElementVisibilityCommand extends Command {
-  public static final String ID = "visibleElement";
-  private final String m_id;
-  private final boolean m_visible;
+	public static final String ID = "visibleElement";
+	private final String m_id;
+	private final boolean m_visible;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ElementVisibilityCommand(AbstractElementInfo element, boolean visible) {
-    m_id = element.getId();
-    m_visible = visible;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ElementVisibilityCommand(AbstractElementInfo element, boolean visible) {
+		m_id = element.getId();
+		m_visible = visible;
+	}
 
-  public ElementVisibilityCommand(Attributes attributes) {
-    m_id = attributes.getValue("id");
-    m_visible = "true".equals(attributes.getValue("visible"));
-  }
+	public ElementVisibilityCommand(Attributes attributes) {
+		m_id = attributes.getValue("id");
+		m_visible = "true".equals(attributes.getValue("visible"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(PaletteInfo palette) {
-    // try category
-    {
-      CategoryInfo category = palette.getCategory(m_id);
-      if (category != null) {
-        category.setVisible(m_visible);
-      }
-    }
-    // try entry
-    {
-      EntryInfo entry = palette.getEntry(m_id);
-      if (entry != null) {
-        entry.setVisible(m_visible);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(PaletteInfo palette) {
+		// try category
+		{
+			CategoryInfo category = palette.getCategory(m_id);
+			if (category != null) {
+				category.setVisible(m_visible);
+			}
+		}
+		// try entry
+		{
+			EntryInfo entry = palette.getEntry(m_id);
+			if (entry != null) {
+				entry.setVisible(m_visible);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    addAttribute("id", m_id);
-    addAttribute("visible", m_visible);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		addAttribute("id", m_id);
+		addAttribute("visible", m_visible);
+	}
 
-  @Override
-  public void addToCommandList(final List<Command> commands) {
-    ExecutionUtils.runIgnore(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        removeCommands(commands, ElementVisibilityCommand.class, m_id);
-      }
-    });
-    commands.add(this);
-  }
+	@Override
+	public void addToCommandList(final List<Command> commands) {
+		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				removeCommands(commands, ElementVisibilityCommand.class, m_id);
+			}
+		});
+		commands.add(this);
+	}
 }

@@ -35,194 +35,194 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class ControlTest extends XwtModelTest {
-  private static final int SHELL_BORDER = 8;
-  private static final int SHELL_HEADER = 30;
-  public static final int BUTTON_ON_ROW_WIDTH = 68;
-  public static final int BUTTON_ON_ROW_HEIGHT = 25;
+	private static final int SHELL_BORDER = 8;
+	private static final int SHELL_HEADER = 30;
+	public static final int BUTTON_ON_ROW_WIDTH = 68;
+	public static final int BUTTON_ON_ROW_HEIGHT = 25;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parse() throws Exception {
-    ControlInfo shell =
-        parse(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "<Shell text='Hello!'>",
-            "  <Shell.layout>",
-            "    <RowLayout/>",
-            "  </Shell.layout>",
-            "  <Button wbp:name='button' text='My button'/>",
-            "</Shell>");
-    shell.refresh();
-    // shell
-    {
-      // has Image
-      {
-        Image image = shell.getImage();
-        assertNotNull(image);
-        assertEquals(450, image.getBounds().width);
-        assertEquals(300, image.getBounds().height);
-      }
-      // has "model" bounds
-      {
-        Rectangle bounds = shell.getModelBounds();
-        assertEquals(450, bounds.width);
-        assertEquals(300, bounds.height);
-      }
-      // has "parent" bounds
-      {
-        Rectangle bounds = shell.getBounds();
-        assertEquals(450, bounds.width);
-        assertEquals(300, bounds.height);
-      }
-      // has "absolute" bounds
-      {
-        Rectangle bounds = shell.getAbsoluteBounds();
-        assertEquals(450, bounds.width);
-        assertEquals(300, bounds.height);
-      }
-      // client area insets
-      {
-        Insets expected = new Insets(SHELL_HEADER, SHELL_BORDER, SHELL_BORDER, SHELL_BORDER);
-        assertEquals(expected, shell.getClientAreaInsets());
-      }
-    }
-    // button
-    {
-      ControlInfo button = getObjectByName("button");
-      int expectedWidth = BUTTON_ON_ROW_WIDTH;
-      int expectedHeight = BUTTON_ON_ROW_HEIGHT;
-      // has Image
-      {
-        Image image = button.getImage();
-        assertNotNull(image);
-        assertEquals(expectedWidth, image.getBounds().width);
-        assertEquals(expectedHeight, image.getBounds().height);
-      }
-      // has "model" bounds
-      {
-        Rectangle bounds = button.getModelBounds();
-        assertEquals(new Rectangle(3, 3, expectedWidth, expectedHeight), bounds);
-      }
-      // has "parent" bounds
-      {
-        Rectangle bounds = button.getBounds();
-        assertEquals(new Rectangle(SHELL_BORDER + 3,
-            SHELL_HEADER + 3,
-            expectedWidth,
-            expectedHeight), bounds);
-      }
-      // has "absolute" bounds
-      {
-        Rectangle bounds = button.getAbsoluteBounds();
-        assertEquals(new Rectangle(SHELL_BORDER + 3,
-            SHELL_HEADER + 3,
-            expectedWidth,
-            expectedHeight), bounds);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parse() throws Exception {
+		ControlInfo shell =
+				parse(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"<Shell text='Hello!'>",
+						"  <Shell.layout>",
+						"    <RowLayout/>",
+						"  </Shell.layout>",
+						"  <Button wbp:name='button' text='My button'/>",
+						"</Shell>");
+		shell.refresh();
+		// shell
+		{
+			// has Image
+			{
+				Image image = shell.getImage();
+				assertNotNull(image);
+				assertEquals(450, image.getBounds().width);
+				assertEquals(300, image.getBounds().height);
+			}
+			// has "model" bounds
+			{
+				Rectangle bounds = shell.getModelBounds();
+				assertEquals(450, bounds.width);
+				assertEquals(300, bounds.height);
+			}
+			// has "parent" bounds
+			{
+				Rectangle bounds = shell.getBounds();
+				assertEquals(450, bounds.width);
+				assertEquals(300, bounds.height);
+			}
+			// has "absolute" bounds
+			{
+				Rectangle bounds = shell.getAbsoluteBounds();
+				assertEquals(450, bounds.width);
+				assertEquals(300, bounds.height);
+			}
+			// client area insets
+			{
+				Insets expected = new Insets(SHELL_HEADER, SHELL_BORDER, SHELL_BORDER, SHELL_BORDER);
+				assertEquals(expected, shell.getClientAreaInsets());
+			}
+		}
+		// button
+		{
+			ControlInfo button = getObjectByName("button");
+			int expectedWidth = BUTTON_ON_ROW_WIDTH;
+			int expectedHeight = BUTTON_ON_ROW_HEIGHT;
+			// has Image
+			{
+				Image image = button.getImage();
+				assertNotNull(image);
+				assertEquals(expectedWidth, image.getBounds().width);
+				assertEquals(expectedHeight, image.getBounds().height);
+			}
+			// has "model" bounds
+			{
+				Rectangle bounds = button.getModelBounds();
+				assertEquals(new Rectangle(3, 3, expectedWidth, expectedHeight), bounds);
+			}
+			// has "parent" bounds
+			{
+				Rectangle bounds = button.getBounds();
+				assertEquals(new Rectangle(SHELL_BORDER + 3,
+						SHELL_HEADER + 3,
+						expectedWidth,
+						expectedHeight), bounds);
+			}
+			// has "absolute" bounds
+			{
+				Rectangle bounds = button.getAbsoluteBounds();
+				assertEquals(new Rectangle(SHELL_BORDER + 3,
+						SHELL_HEADER + 3,
+						expectedWidth,
+						expectedHeight), bounds);
+			}
+		}
+	}
 
-  /**
-   * Test that {@link ControlInfo} has "Style" property.
-   */
-  public void test_hasStyleProperty() throws Exception {
-    ControlInfo shell = parse("<Shell/>");
-    refresh();
-    // has "Style" property
-    Property property = shell.getPropertyByTitle("Style");
-    assertNotNull(property);
-    assertThat(property.getEditor()).isInstanceOf(StylePropertyEditor.class);
-    assertEquals(true, property.getCategory().isSystem());
-    // no default value
-    assertEquals(0, property.getValue());
-  }
+	/**
+	 * Test that {@link ControlInfo} has "Style" property.
+	 */
+	public void test_hasStyleProperty() throws Exception {
+		ControlInfo shell = parse("<Shell/>");
+		refresh();
+		// has "Style" property
+		Property property = shell.getPropertyByTitle("Style");
+		assertNotNull(property);
+		assertThat(property.getEditor()).isInstanceOf(StylePropertyEditor.class);
+		assertEquals(true, property.getCategory().isSystem());
+		// no default value
+		assertEquals(0, property.getValue());
+	}
 
-  /**
-   * Test that custom component can be rendered as "root".
-   */
-  public void test_renderMyComponent() throws Exception {
-    prepareMyComponent("public int myValue = 123;");
-    ControlInfo model = parse("<t:MyComponent/>");
-    refresh();
-    // it should be really MyComponent, with default property value
-    assertEquals("test.MyComponent", model.getObject().getClass().getName());
-    assertEquals(123, model.getPropertyByTitle("myValue").getValue());
-  }
+	/**
+	 * Test that custom component can be rendered as "root".
+	 */
+	public void test_renderMyComponent() throws Exception {
+		prepareMyComponent("public int myValue = 123;");
+		ControlInfo model = parse("<t:MyComponent/>");
+		refresh();
+		// it should be really MyComponent, with default property value
+		assertEquals("test.MyComponent", model.getObject().getClass().getName());
+		assertEquals(123, model.getPropertyByTitle("myValue").getValue());
+	}
 
-  /**
-   * Support for creating {@link Control} which is described in XWT file.
-   * <p>
-   * May be use normal {@link Composite} if XWT will support this.
-   * <p>
-   * http://www.eclipse.org/forums/index.php?t=msg&th=167978&start=0&
-   */
-  public void test_parse_nestedXWT() throws Exception {
-    setFileContentSrc(
-        "test/MyComposite.java",
-        getSource(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "package test;",
-            "public class MyComposite {",
-            "}"));
-    setFileContentSrc(
-        "test/MyComposite.xwt",
-        getTestSource(
-            "// filler filler filler filler filler",
-            "<Composite enabled='false'>",
-            "  <Composite.layout>",
-            "    <FillLayout/>",
-            "  </Composite.layout>",
-            "  <Button/>",
-            "</Composite>"));
-    waitForAutoBuild();
-    // parse
-    parse(
-        "<Shell>",
-        "  <Shell.layout>",
-        "    <RowLayout/>",
-        "  </Shell.layout>",
-        "  <t:MyComposite wbp:name='composite'/>",
-        "</Shell>");
-    assertHierarchy(
-        "// filler filler filler filler filler",
-        "<Shell>",
-        "  <RowLayout>",
-        "  <t:MyComposite wbp:name='composite'>",
-        "    implicit-layout: org.eclipse.swt.layout.FillLayout",
-        "    virtual-LayoutData: org.eclipse.swt.layout.RowData");
-    // check that "enabled" applied
-    refresh();
-    CompositeInfo composite = getObjectByName("composite");
-    assertFalse(composite.getControl().isEnabled());
-  }
+	/**
+	 * Support for creating {@link Control} which is described in XWT file.
+	 * <p>
+	 * May be use normal {@link Composite} if XWT will support this.
+	 * <p>
+	 * http://www.eclipse.org/forums/index.php?t=msg&th=167978&start=0&
+	 */
+	public void test_parse_nestedXWT() throws Exception {
+		setFileContentSrc(
+				"test/MyComposite.java",
+				getSource(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"package test;",
+						"public class MyComposite {",
+						"}"));
+		setFileContentSrc(
+				"test/MyComposite.xwt",
+				getTestSource(
+						"// filler filler filler filler filler",
+						"<Composite enabled='false'>",
+						"  <Composite.layout>",
+						"    <FillLayout/>",
+						"  </Composite.layout>",
+						"  <Button/>",
+						"</Composite>"));
+		waitForAutoBuild();
+		// parse
+		parse(
+				"<Shell>",
+				"  <Shell.layout>",
+				"    <RowLayout/>",
+				"  </Shell.layout>",
+				"  <t:MyComposite wbp:name='composite'/>",
+				"</Shell>");
+		assertHierarchy(
+				"// filler filler filler filler filler",
+				"<Shell>",
+				"  <RowLayout>",
+				"  <t:MyComposite wbp:name='composite'>",
+				"    implicit-layout: org.eclipse.swt.layout.FillLayout",
+				"    virtual-LayoutData: org.eclipse.swt.layout.RowData");
+		// check that "enabled" applied
+		refresh();
+		CompositeInfo composite = getObjectByName("composite");
+		assertFalse(composite.getControl().isEnabled());
+	}
 
-  /**
-   * Some stupid user attempts to use XWT in not Java project. This is bad by itself, because there
-   * are no classpath, types, etc. But would be good to show good warning instead of just failure.
-   */
-  @DisposeProjectAfter
-  public void test_parse_notJavaProject() throws Exception {
-    ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
-    // parse
-    try {
-      parse("<Shell/>");
-      fail();
-    } catch (DesignerException e) {
-      assertEquals(IExceptionConstants.NOT_JAVA_PROJECT, e.getCode());
-    }
-  }
+	/**
+	 * Some stupid user attempts to use XWT in not Java project. This is bad by itself, because there
+	 * are no classpath, types, etc. But would be good to show good warning instead of just failure.
+	 */
+	@DisposeProjectAfter
+	public void test_parse_notJavaProject() throws Exception {
+		ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
+		// parse
+		try {
+			parse("<Shell/>");
+			fail();
+		} catch (DesignerException e) {
+			assertEquals(IExceptionConstants.NOT_JAVA_PROJECT, e.getCode());
+		}
+	}
 }

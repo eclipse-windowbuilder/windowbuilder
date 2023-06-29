@@ -28,44 +28,44 @@ import org.eclipse.swt.widgets.TableItem;
  * @coverage rcp.model.jface.layout
  */
 public final class TableColumnLayoutInfo extends AbstractColumnLayoutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TableColumnLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TableColumnLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate0() throws Exception {
-    ensureTable();
-    super.refresh_afterCreate0();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate0() throws Exception {
+		ensureTable();
+		super.refresh_afterCreate0();
+	}
 
-  /**
-   * Users often try to drop {@link TableColumnLayout} on {@link Composite} and see exception. So,
-   * we should automatically create {@link Table} and say that this is not good. :-)
-   */
-  private void ensureTable() {
-    Composite composite = (Composite) getComposite().getObject();
-    if (composite.getChildren().length == 0) {
-      Table table = new Table(composite, SWT.BORDER);
-      {
-        TableItem item = new TableItem(table, SWT.NONE);
-        item.setText(ModelMessages.TableColumnLayoutInfo_errLine1);
-      }
-      {
-        TableItem item = new TableItem(table, SWT.NONE);
-        item.setText(ModelMessages.TableColumnLayoutInfo_errLine2);
-      }
-    }
-  }
+	/**
+	 * Users often try to drop {@link TableColumnLayout} on {@link Composite} and see exception. So,
+	 * we should automatically create {@link Table} and say that this is not good. :-)
+	 */
+	private void ensureTable() {
+		Composite composite = (Composite) getComposite().getObject();
+		if (composite.getChildren().length == 0) {
+			Table table = new Table(composite, SWT.BORDER);
+			{
+				TableItem item = new TableItem(table, SWT.NONE);
+				item.setText(ModelMessages.TableColumnLayoutInfo_errLine1);
+			}
+			{
+				TableItem item = new TableItem(table, SWT.NONE);
+				item.setText(ModelMessages.TableColumnLayoutInfo_errLine2);
+			}
+		}
+	}
 }

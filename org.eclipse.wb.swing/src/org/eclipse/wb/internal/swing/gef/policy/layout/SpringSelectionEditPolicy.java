@@ -26,40 +26,40 @@ import org.eclipse.swt.layout.FormLayout;
  * @coverage swing.gef.policy
  */
 public final class SpringSelectionEditPolicy extends AbsoluteComplexSelectionEditPolicy {
-  private final SpringLayoutInfo m_layout;
+	private final SpringLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SpringSelectionEditPolicy(SpringLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SpringSelectionEditPolicy(SpringLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Overrides
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Image getActionImage(String imageName) {
-    return SpringLayoutInfo.getImage(imageName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Overrides
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Image getActionImage(String imageName) {
+		return SpringLayoutInfo.getImage(imageName);
+	}
 
-  @Override
-  protected ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
-      int side) throws Exception {
-    return m_layout.getComponentAttachmentInfo(widget, side);
-  }
+	@Override
+	protected ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
+			int side) throws Exception {
+		return m_layout.getComponentAttachmentInfo(widget, side);
+	}
 
-  @Override
-  protected void showSelection() {
-    super.showSelection();
-  }
+	@Override
+	protected void showSelection() {
+		super.showSelection();
+	}
 
-  @Override
-  protected void hideSelection() {
-    super.hideSelection();
-  }
+	@Override
+	protected void hideSelection() {
+		super.hideSelection();
+	}
 }

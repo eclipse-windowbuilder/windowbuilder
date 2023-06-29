@@ -26,72 +26,72 @@ import org.apache.commons.lang.ClassUtils;
  * @coverage bindings.rcp.model.beans
  */
 public final class BeanBindablePresentation extends ObservePresentation {
-  private Class<?> m_objectType;
-  private final IReferenceProvider m_presentation;
-  private ObjectInfo m_javaInfo;
-  private Image m_beanImage;
+	private Class<?> m_objectType;
+	private final IReferenceProvider m_presentation;
+	private ObjectInfo m_javaInfo;
+	private Image m_beanImage;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeanBindablePresentation(Class<?> objectType,
-      IReferenceProvider presentation,
-      ObjectInfo javaInfo,
-      Image beanImage) {
-    m_objectType = objectType;
-    m_presentation = presentation;
-    m_javaInfo = javaInfo;
-    m_beanImage = beanImage;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeanBindablePresentation(Class<?> objectType,
+			IReferenceProvider presentation,
+			ObjectInfo javaInfo,
+			Image beanImage) {
+		m_objectType = objectType;
+		m_presentation = presentation;
+		m_javaInfo = javaInfo;
+		m_beanImage = beanImage;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfo getJavaInfo() {
-    return (JavaInfo) m_javaInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfo getJavaInfo() {
+		return (JavaInfo) m_javaInfo;
+	}
 
-  public void setJavaInfo(JavaInfo javaInfo) {
-    m_javaInfo = javaInfo;
-  }
+	public void setJavaInfo(JavaInfo javaInfo) {
+		m_javaInfo = javaInfo;
+	}
 
-  public void setObjectType(Class<?> objectType) {
-    m_objectType = objectType;
-  }
+	public void setObjectType(Class<?> objectType) {
+		m_objectType = objectType;
+	}
 
-  public void setBeanImage(Image beanImage) {
-    m_beanImage = beanImage;
-  }
+	public void setBeanImage(Image beanImage) {
+		m_beanImage = beanImage;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Image getInternalImage() throws Exception {
-    if (m_beanImage == null && m_javaInfo == null) {
-      return null;
-    }
-    return m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : m_beanImage;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Image getInternalImage() throws Exception {
+		if (m_beanImage == null && m_javaInfo == null) {
+			return null;
+		}
+		return m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : m_beanImage;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObservePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText() throws Exception {
-    return m_presentation.getReference() + " - " + ClassUtils.getShortClassName(m_objectType);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObservePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText() throws Exception {
+		return m_presentation.getReference() + " - " + ClassUtils.getShortClassName(m_objectType);
+	}
 
-  @Override
-  public String getTextForBinding() throws Exception {
-    return m_presentation.getReference();
-  }
+	@Override
+	public String getTextForBinding() throws Exception {
+		return m_presentation.getReference();
+	}
 }

@@ -26,67 +26,67 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage core.gef.menu
  */
 public final class MacMenuEditPart extends MenuEditPart {
-  private final IMenuInfo m_menu;
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MacMenuEditPart(Object toolkitModel, IMenuInfo menu) {
-    super(toolkitModel, menu);
-    m_menu = menu;
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Figure createFigure() {
-    return new MacMenuImageFigure(m_menu);
-  }
-  @Override
-  protected void refreshVisuals() {
-    if (!isSubMenu()) {
-      Rectangle bounds = m_menu.getBounds();
-      getFigure().setBounds(
-          new Rectangle(TOP_LOCATION.x,
-              MenuEditPartFactory.MENU_Y_LOCATION,
-              bounds.width,
-              bounds.height));
-    } else {
-      super.refreshVisuals();
-    }
-  }
-  private boolean m_addedSelf = false;
-  private Figure m_fakeFigure;
-  @Override
-  protected boolean addSelfVisual(int index) {
-    if (!isSubMenu()) {
-      getViewer().getLayer(IEditPartViewer.PRIMARY_LAYER).add(getFigure());
-      m_addedSelf = true;
-      // add invisible fake figure to the content pane to keep index right
-      GraphicalEditPart parent = (GraphicalEditPart) getParent();
-      parent.getContentPane().add(getFakeFigure(), index);
-      return true;
-    }
-    return false;
-  }
-  @Override
-  protected boolean removeSelfVisual() {
-    if (m_addedSelf) {
-      getViewer().getLayer(IEditPartViewer.PRIMARY_LAYER).remove(getFigure());
-      FigureUtils.removeFigure(getFakeFigure());
-      m_addedSelf = false;
-      return true;
-    }
-    return false;
-  }
-  private Figure getFakeFigure() {
-    if (m_fakeFigure == null) {
-      m_fakeFigure = new Figure();
-      m_fakeFigure.setVisible(false);
-    }
-    return m_fakeFigure;
-  }
+	private final IMenuInfo m_menu;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MacMenuEditPart(Object toolkitModel, IMenuInfo menu) {
+		super(toolkitModel, menu);
+		m_menu = menu;
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Figure createFigure() {
+		return new MacMenuImageFigure(m_menu);
+	}
+	@Override
+	protected void refreshVisuals() {
+		if (!isSubMenu()) {
+			Rectangle bounds = m_menu.getBounds();
+			getFigure().setBounds(
+					new Rectangle(TOP_LOCATION.x,
+							MenuEditPartFactory.MENU_Y_LOCATION,
+							bounds.width,
+							bounds.height));
+		} else {
+			super.refreshVisuals();
+		}
+	}
+	private boolean m_addedSelf = false;
+	private Figure m_fakeFigure;
+	@Override
+	protected boolean addSelfVisual(int index) {
+		if (!isSubMenu()) {
+			getViewer().getLayer(IEditPartViewer.PRIMARY_LAYER).add(getFigure());
+			m_addedSelf = true;
+			// add invisible fake figure to the content pane to keep index right
+			GraphicalEditPart parent = (GraphicalEditPart) getParent();
+			parent.getContentPane().add(getFakeFigure(), index);
+			return true;
+		}
+		return false;
+	}
+	@Override
+	protected boolean removeSelfVisual() {
+		if (m_addedSelf) {
+			getViewer().getLayer(IEditPartViewer.PRIMARY_LAYER).remove(getFigure());
+			FigureUtils.removeFigure(getFakeFigure());
+			m_addedSelf = false;
+			return true;
+		}
+		return false;
+	}
+	private Figure getFakeFigure() {
+		if (m_fakeFigure == null) {
+			m_fakeFigure = new Figure();
+			m_fakeFigure.setVisible(false);
+		}
+		return m_fakeFigure;
+	}
 }

@@ -26,155 +26,155 @@ import org.eclipse.jface.action.MenuManager;
  * @author scheglov_ke
  */
 public class ExposeComponentSupportTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * No "expose" action, because not supported {@link VariableSupport} type.
-   */
-  public void test_1_unsupportedVariable() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    IAction exposeAction = getExposeAction(panel);
-    assertNull(exposeAction);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * No "expose" action, because not supported {@link VariableSupport} type.
+	 */
+	public void test_1_unsupportedVariable() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		IAction exposeAction = getExposeAction(panel);
+		assertNull(exposeAction);
+	}
 
-  /**
-   * No "expose" action, because component is already exposed.
-   */
-  public void test_2_alreadyExposed() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private final JButton button = new JButton();",
-            "  public Test() {",
-            "    add(button);",
-            "  }",
-            "  public JButton getButton() {",
-            "    return button;",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    // already exposed, no action
-    IAction exposeAction = getExposeAction(button);
-    assertNull(exposeAction);
-  }
+	/**
+	 * No "expose" action, because component is already exposed.
+	 */
+	public void test_2_alreadyExposed() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  private final JButton button = new JButton();",
+						"  public Test() {",
+						"    add(button);",
+						"  }",
+						"  public JButton getButton() {",
+						"    return button;",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		// already exposed, no action
+		IAction exposeAction = getExposeAction(button);
+		assertNull(exposeAction);
+	}
 
-  /**
-   * Method with "return;", i.e. without expression should not cause problems.
-   */
-  public void test_returnWithoutExpression() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private final JButton button = new JButton();",
-            "  public Test() {",
-            "    add(button);",
-            "  }",
-            "  public void foo() {",
-            "    return;",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    // no exception
-    IAction exposeAction = getExposeAction(button);
-    assertNotNull(exposeAction);
-  }
+	/**
+	 * Method with "return;", i.e. without expression should not cause problems.
+	 */
+	public void test_returnWithoutExpression() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  private final JButton button = new JButton();",
+						"  public Test() {",
+						"    add(button);",
+						"  }",
+						"  public void foo() {",
+						"    return;",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		// no exception
+		IAction exposeAction = getExposeAction(button);
+		assertNotNull(exposeAction);
+	}
 
-  /**
-   * Method without body should not cause problems.
-   */
-  public void test_abstractMethod() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public abstract class Test extends JPanel {",
-            "  private final JButton button = new JButton();",
-            "  public Test() {",
-            "    add(button);",
-            "  }",
-            "  public abstract void foo();",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    // no exception
-    IAction exposeAction = getExposeAction(button);
-    assertNotNull(exposeAction);
-  }
+	/**
+	 * Method without body should not cause problems.
+	 */
+	public void test_abstractMethod() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public abstract class Test extends JPanel {",
+						"  private final JButton button = new JButton();",
+						"  public Test() {",
+						"    add(button);",
+						"  }",
+						"  public abstract void foo();",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		// no exception
+		IAction exposeAction = getExposeAction(button);
+		assertNotNull(exposeAction);
+	}
 
-  /**
-   * Has "expose" action, can be exposed.
-   */
-  public void test_3_hasAction() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    IAction exposeAction = getExposeAction(button);
-    assertNotNull(exposeAction);
-  }
+	/**
+	 * Has "expose" action, can be exposed.
+	 */
+	public void test_3_hasAction() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    JButton button = new JButton();",
+						"    add(button);",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		IAction exposeAction = getExposeAction(button);
+		assertNotNull(exposeAction);
+	}
 
-  /**
-   * Do expose.
-   */
-  public void test_expose() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    ReflectionUtils.invokeMethod(
-        ExposeComponentSupport.class,
-        "expose(org.eclipse.wb.core.model.JavaInfo,java.lang.String,java.lang.String)",
-        button,
-        "getButton",
-        "public");
-    assertEditor(
-        "public class Test extends JPanel {",
-        "  private JButton button;",
-        "  public Test() {",
-        "    button = new JButton();",
-        "    add(button);",
-        "  }",
-        "  public JButton getButton() {",
-        "    return button;",
-        "  }",
-        "}");
-  }
+	/**
+	 * Do expose.
+	 */
+	public void test_expose() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    JButton button = new JButton();",
+						"    add(button);",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		ReflectionUtils.invokeMethod(
+				ExposeComponentSupport.class,
+				"expose(org.eclipse.wb.core.model.JavaInfo,java.lang.String,java.lang.String)",
+				button,
+				"getButton",
+				"public");
+		assertEditor(
+				"public class Test extends JPanel {",
+				"  private JButton button;",
+				"  public Test() {",
+				"    button = new JButton();",
+				"    add(button);",
+				"  }",
+				"  public JButton getButton() {",
+				"    return button;",
+				"  }",
+				"}");
+	}
 
-  /**
-   * @return the {@link IAction} for exposing given component, may be <code>null</code> if component
-   *         can not be exposed.
-   */
-  private static IAction getExposeAction(ComponentInfo button) {
-    // prepare manager
-    MenuManager menuManager = getDesignerMenuManager();
-    // add action
-    String text = "Expose component...";
-    ExposeComponentSupport.contribute(button, menuManager, text);
-    return findChildAction(menuManager, text);
-  }
+	/**
+	 * @return the {@link IAction} for exposing given component, may be <code>null</code> if component
+	 *         can not be exposed.
+	 */
+	private static IAction getExposeAction(ComponentInfo button) {
+		// prepare manager
+		MenuManager menuManager = getDesignerMenuManager();
+		// add action
+		String text = "Expose component...";
+		ExposeComponentSupport.contribute(button, menuManager, text);
+		return findChildAction(menuManager, text);
+	}
 }

@@ -21,68 +21,68 @@ import org.eclipse.swt.widgets.Control;
  * @coverage XML.editor
  */
 public interface IXmlEditorPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Initialize this page for given {@link AbstractXmlEditor}.
-   */
-  void initialize(AbstractXmlEditor editor);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Initialize this page for given {@link AbstractXmlEditor}.
+	 */
+	void initialize(AbstractXmlEditor editor);
 
-  /**
-   * Disposes this page.
-   */
-  void dispose();
+	/**
+	 * Disposes this page.
+	 */
+	void dispose();
 
-  /**
-   * Notifies when this page become active or inactive.
-   */
-  void setActive(boolean active);
+	/**
+	 * Notifies when this page become active or inactive.
+	 */
+	void setActive(boolean active);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Page
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the index of this page into multi-page editor.
-   */
-  int getPageIndex();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Page
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the index of this page into multi-page editor.
+	 */
+	int getPageIndex();
 
-  /**
-   * Sets index of this page into multi-page editor.
-   */
-  void setPageIndex(int index);
+	/**
+	 * Sets index of this page into multi-page editor.
+	 */
+	void setPageIndex(int index);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates the {@link Control} for this page.
-   */
-  Control createControl(Composite parent);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates the {@link Control} for this page.
+	 */
+	Control createControl(Composite parent);
 
-  /**
-   * @return the {@link Control} of this page.
-   */
-  Control getControl();
+	/**
+	 * @return the {@link Control} of this page.
+	 */
+	Control getControl();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the display name for this page.
-   */
-  String getName();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the display name for this page.
+	 */
+	String getName();
 
-  /**
-   * @return the display {@link Image} image for this page.
-   */
-  Image getImage();
+	/**
+	 * @return the display {@link Image} image for this page.
+	 */
+	Image getImage();
 }

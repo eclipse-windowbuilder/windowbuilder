@@ -28,40 +28,40 @@ import java.util.List;
  * @coverage swing.gef.policy
  */
 public final class StrutSelectionVerticalEditPolicy extends StrutSelectionEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StrutSelectionVerticalEditPolicy(ComponentInfo strut) {
-    super(strut);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StrutSelectionVerticalEditPolicy(ComponentInfo strut) {
+		super(strut);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createStaticHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    handles.add(createResizeHandle(IPositionConstants.TOP, IPositionConstants.NORTH));
-    handles.add(createResizeHandle(IPositionConstants.BOTTOM, IPositionConstants.SOUTH));
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createStaticHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		handles.add(createResizeHandle(IPositionConstants.TOP, IPositionConstants.NORTH));
+		handles.add(createResizeHandle(IPositionConstants.BOTTOM, IPositionConstants.SOUTH));
+		return handles;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getTooltip(int width, int height) {
-    return Integer.toString(height);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getTooltip(int width, int height) {
+		return Integer.toString(height);
+	}
 
-  @Override
-  protected String getSource(ComponentInfo strut, int width, int height) throws Exception {
-    return IntegerConverter.INSTANCE.toJavaSource(strut, height);
-  }
+	@Override
+	protected String getSource(ComponentInfo strut, int width, int height) throws Exception {
+		return IntegerConverter.INSTANCE.toJavaSource(strut, height);
+	}
 }

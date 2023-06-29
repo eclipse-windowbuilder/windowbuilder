@@ -21,12 +21,12 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
  * @coverage swing.model.util
  */
 public abstract class SwingSurroundSupport extends SurroundSupport<ContainerInfo, ComponentInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SwingSurroundSupport(ContainerInfo sourceContainer) {
-    super(sourceContainer, ComponentInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SwingSurroundSupport(ContainerInfo sourceContainer) {
+		super(sourceContainer, ComponentInfo.class);
+	}
 }

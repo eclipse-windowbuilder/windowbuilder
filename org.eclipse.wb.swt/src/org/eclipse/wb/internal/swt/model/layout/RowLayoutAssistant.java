@@ -25,28 +25,28 @@ import java.util.List;
  * @coverage swt.model.layout
  */
 public final class RowLayoutAssistant extends LayoutAssistantSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowLayoutAssistant(ILayoutInfo<?> layout) {
-    super(layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowLayoutAssistant(ILayoutInfo<?> layout) {
+		super(layout);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractAssistantPage createLayoutPage(Composite parent) {
-    return new RowLayoutAssistantPage(parent, m_layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractAssistantPage createLayoutPage(Composite parent) {
+		return new RowLayoutAssistantPage(parent, m_layout);
+	}
 
-  @Override
-  protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
-    List<ILayoutDataInfo> dataList = getDataList(objects);
-    return new RowLayoutDataAssistantPage(parent, dataList);
-  }
+	@Override
+	protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
+		List<ILayoutDataInfo> dataList = getDataList(objects);
+		return new RowLayoutDataAssistantPage(parent, dataList);
+	}
 }

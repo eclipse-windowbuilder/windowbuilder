@@ -30,115 +30,115 @@ import org.eclipse.ui.IPageLayout;
  * @coverage rcp.model.rcp
  */
 public final class EditorAreaInfo extends ObjectInfo implements IPageLayoutTopLevelInfo {
-  private final PageLayoutInfo m_page;
+	private final PageLayoutInfo m_page;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditorAreaInfo(PageLayoutInfo page) throws Exception {
-    m_page = page;
-    m_page.addChild(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditorAreaInfo(PageLayoutInfo page) throws Exception {
+		m_page = page;
+		m_page.addChild(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "(editor area)";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "(editor area)";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObjectPresentation getPresentation() {
-    return new DefaultObjectPresentation(this) {
-      @Override
-      public Image getIcon() throws Exception {
-        return Activator.getImage("info/perspective/editor.gif");
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObjectPresentation getPresentation() {
+		return new DefaultObjectPresentation(this) {
+			@Override
+			public Image getIcon() throws Exception {
+				return Activator.getImage("info/perspective/editor.gif");
+			}
 
-      @Override
-      public String getText() throws Exception {
-        return "(editor area)";
-      }
-    };
-  }
+			@Override
+			public String getText() throws Exception {
+				return "(editor area)";
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private CTabFolder m_folder;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private CTabFolder m_folder;
 
-  /**
-   * Renders {@link EditorAreaInfo} by creating its {@link Control}.
-   */
-  void render(Composite parent) throws Exception {
-    m_folder = PageLayoutInfo.createPartFolder(parent);
-  }
+	/**
+	 * Renders {@link EditorAreaInfo} by creating its {@link Control}.
+	 */
+	void render(Composite parent) throws Exception {
+		m_folder = PageLayoutInfo.createPartFolder(parent);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Rectangle m_bounds;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Rectangle m_bounds;
 
-  /**
-   * @return the {@link PageLayoutInfo}, i.e. just casted parent.
-   */
-  public PageLayoutInfo getPage() {
-    return m_page;
-  }
+	/**
+	 * @return the {@link PageLayoutInfo}, i.e. just casted parent.
+	 */
+	public PageLayoutInfo getPage() {
+		return m_page;
+	}
 
-  @Override
-  public String getId() {
-    return IPageLayout.ID_EDITOR_AREA;
-  }
+	@Override
+	public String getId() {
+		return IPageLayout.ID_EDITOR_AREA;
+	}
 
-  @Override
-  public String getIdSource() {
-    return "org.eclipse.ui.IPageLayout.ID_EDITOR_AREA";
-  }
+	@Override
+	public String getIdSource() {
+		return "org.eclipse.ui.IPageLayout.ID_EDITOR_AREA";
+	}
 
-  /**
-   * @return the {@link Control} that represents this {@link EditorAreaInfo}.
-   */
-  public Control getControl() {
-    return m_folder;
-  }
+	/**
+	 * @return the {@link Control} that represents this {@link EditorAreaInfo}.
+	 */
+	public Control getControl() {
+		return m_folder;
+	}
 
-  /**
-   * @return the bounds of {@link EditorAreaInfo} relative to {@link PageLayoutInfo}.
-   */
-  public Rectangle getBounds() {
-    return m_bounds;
-  }
+	/**
+	 * @return the bounds of {@link EditorAreaInfo} relative to {@link PageLayoutInfo}.
+	 */
+	public Rectangle getBounds() {
+		return m_bounds;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_dispose() throws Exception {
-    m_folder = null;
-    m_bounds = null;
-    super.refresh_dispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_dispose() throws Exception {
+		m_folder = null;
+		m_bounds = null;
+		super.refresh_dispose();
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    m_bounds = CoordinateUtils.getBounds(m_page.getComposite(), m_folder);
-    super.refresh_fetch();
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		m_bounds = CoordinateUtils.getBounds(m_page.getComposite(), m_folder);
+		super.refresh_fetch();
+	}
 }

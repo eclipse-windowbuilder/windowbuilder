@@ -25,53 +25,53 @@ import java.util.List;
  * @coverage swing.laf.model
  */
 public class EditNameCommand extends LookAndFeelCommand {
-  // constants
-  public static final String ID = "edit-name";
+	// constants
+	public static final String ID = "edit-name";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditNameCommand(String id, String name) {
-    super(id, name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditNameCommand(String id, String name) {
+		super(id, name);
+	}
 
-  public EditNameCommand(Attributes attributes) {
-    super(attributes);
-  }
+	public EditNameCommand(Attributes attributes) {
+		super(attributes);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute() {
-    LafInfo lafInfo = LafSupport.getLookAndFeel(m_id);
-    if (lafInfo != null) {
-      lafInfo.setName(m_name);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute() {
+		LafInfo lafInfo = LafSupport.getLookAndFeel(m_id);
+		if (lafInfo != null) {
+			lafInfo.setName(m_name);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addToCommandList(List<Command> commands) {
-    // remove other edit commands for this
-    for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
-      Command command = I.next();
-      if (command instanceof EditNameCommand) {
-        EditNameCommand editCommand = (EditNameCommand) command;
-        if (editCommand.m_id.equals(m_id)) {
-          I.remove();
-        }
-      }
-    }
-    // do add
-    commands.add(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addToCommandList(List<Command> commands) {
+		// remove other edit commands for this
+		for (Iterator<Command> I = commands.iterator(); I.hasNext();) {
+			Command command = I.next();
+			if (command instanceof EditNameCommand) {
+				EditNameCommand editCommand = (EditNameCommand) command;
+				if (editCommand.m_id.equals(m_id)) {
+					I.remove();
+				}
+			}
+		}
+		// do add
+		commands.add(this);
+	}
 }

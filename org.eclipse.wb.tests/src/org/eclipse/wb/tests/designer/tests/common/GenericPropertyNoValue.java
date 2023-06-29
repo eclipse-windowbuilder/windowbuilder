@@ -22,55 +22,55 @@ import org.eclipse.jdt.core.dom.Expression;
  * @author scheglov_ke
  */
 public class GenericPropertyNoValue extends GenericProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenericPropertyNoValue(JavaInfo javaInfo, String title, PropertyEditor propertyEditor) {
-    super(javaInfo, title, propertyEditor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenericPropertyNoValue(JavaInfo javaInfo, String title, PropertyEditor propertyEditor) {
+		super(javaInfo, title, propertyEditor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isModified() throws Exception {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isModified() throws Exception {
+		return false;
+	}
 
-  @Override
-  public Object getValue() throws Exception {
-    return UNKNOWN_VALUE;
-  }
+	@Override
+	public Object getValue() throws Exception {
+		return UNKNOWN_VALUE;
+	}
 
-  @Override
-  public Object getDefaultValue() throws Exception {
-    return UNKNOWN_VALUE;
-  }
+	@Override
+	public Object getDefaultValue() throws Exception {
+		return UNKNOWN_VALUE;
+	}
 
-  @Override
-  public void setValue(Object value) throws Exception {
-  }
+	@Override
+	public void setValue(Object value) throws Exception {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GenericProperty
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Class<?> getType() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GenericProperty
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Class<?> getType() {
+		return null;
+	}
 
-  @Override
-  public Expression getExpression() throws Exception {
-    return null;
-  }
+	@Override
+	public Expression getExpression() throws Exception {
+		return null;
+	}
 
-  @Override
-  public void setExpression(String source, Object value) throws Exception {
-  }
+	@Override
+	public void setExpression(String source, Object value) throws Exception {
+	}
 }

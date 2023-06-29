@@ -34,38 +34,38 @@ import org.apache.commons.lang.ObjectUtils;
  * @coverage rcp.editor.palette
  */
 public final class ActionUseEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = Activator.getImage("info/Action/action.gif");
-  private final ActionInfo m_action;
+	private static final Image ICON = Activator.getImage("info/Action/action.gif");
+	private final ActionInfo m_action;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionUseEntryInfo(ActionInfo action) throws Exception {
-    m_action = action;
-    setId(ObjectUtils.identityToString(action));
-    setName(action.getVariableSupport().getComponentName());
-    setDescription(PaletteMessages.ActionUseEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionUseEntryInfo(ActionInfo action) throws Exception {
+		m_action = action;
+		setId(ObjectUtils.identityToString(action));
+		setName(action.getVariableSupport().getComponentName());
+		setDescription(PaletteMessages.ActionUseEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-      @Override
-      public Image runObject() throws Exception {
-        return m_action.getPresentation().getIcon();
-      }
-    }, ICON);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+			@Override
+			public Image runObject() throws Exception {
+				return m_action.getPresentation().getIcon();
+			}
+		}, ICON);
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    return new ActionDropTool(m_action);
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		return new ActionDropTool(m_action);
+	}
 }

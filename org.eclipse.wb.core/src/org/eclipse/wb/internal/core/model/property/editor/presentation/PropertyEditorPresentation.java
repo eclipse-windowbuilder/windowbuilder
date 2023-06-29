@@ -22,20 +22,20 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
  * @coverage core.model.property.editor
  */
 public abstract class PropertyEditorPresentation {
-  /**
-   * Shows presentation for given {@link Property}.
-   *
-   * @return the width that this presentation occupies on the right of given rectangle.
-   */
-  public abstract int show(PropertyTable propertyTable,
-      Property property,
-      int x,
-      int y,
-      int width,
-      int height);
+	/**
+	 * Shows presentation for given {@link Property}.
+	 *
+	 * @return the width that this presentation occupies on the right of given rectangle.
+	 */
+	public abstract int show(PropertyTable propertyTable,
+			Property property,
+			int x,
+			int y,
+			int width,
+			int height);
 
-  /**
-   * Hides presentation.
-   */
-  public abstract void hide(PropertyTable propertyTable, Property property);
+	/**
+	 * Hides presentation.
+	 */
+	public abstract void hide(PropertyTable propertyTable, Property property);
 }

@@ -22,54 +22,54 @@ import org.eclipse.swt.widgets.MenuItem;
  * @coverage core.ui
  */
 public class MenuManagerEx extends MenuManager {
-  private Image m_image;
+	private Image m_image;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuManagerEx() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuManagerEx() {
+	}
 
-  public MenuManagerEx(String text) {
-    super(text);
-  }
+	public MenuManagerEx(String text) {
+		super(text);
+	}
 
-  public MenuManagerEx(String text, String id) {
-    super(text, id);
-  }
+	public MenuManagerEx(String text, String id) {
+		super(text, id);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Image} for this {@link MenuItem}.
-   */
-  public Image getImage() {
-    return m_image;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Image} for this {@link MenuItem}.
+	 */
+	public Image getImage() {
+		return m_image;
+	}
 
-  /**
-   * Sets the {@link Image} for this {@link MenuItem}.
-   */
-  public void setImage(Image image) {
-    m_image = image;
-  }
+	/**
+	 * Sets the {@link Image} for this {@link MenuItem}.
+	 */
+	public void setImage(Image image) {
+		m_image = image;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Fill
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void fill(Menu parent, int index) {
-    super.fill(parent, index);
-    // set image for menu manager's item
-    index = parent.getItemCount() - 1;
-    MenuItem menuItem = parent.getItem(index);
-    menuItem.setImage(m_image);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Fill
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void fill(Menu parent, int index) {
+		super.fill(parent, index);
+		// set image for menu manager's item
+		index = parent.getItemCount() - 1;
+		MenuItem menuItem = parent.getItem(index);
+		menuItem.setImage(m_image);
+	}
 }

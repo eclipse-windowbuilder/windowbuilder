@@ -23,30 +23,30 @@ import java.util.Map;
  * @coverage XML.editor.palette
  */
 public final class AttributesProviders {
-  public static AttributesProvider get(final IConfigurationElement element) {
-    return new AttributesProvider() {
-      @Override
-      public String getAttribute(String name) {
-        return element.getAttribute(name);
-      }
-    };
-  }
+	public static AttributesProvider get(final IConfigurationElement element) {
+		return new AttributesProvider() {
+			@Override
+			public String getAttribute(String name) {
+				return element.getAttribute(name);
+			}
+		};
+	}
 
-  public static AttributesProvider get(final Attributes attributes) {
-    return new AttributesProvider() {
-      @Override
-      public String getAttribute(String name) {
-        return attributes.getValue(name);
-      }
-    };
-  }
+	public static AttributesProvider get(final Attributes attributes) {
+		return new AttributesProvider() {
+			@Override
+			public String getAttribute(String name) {
+				return attributes.getValue(name);
+			}
+		};
+	}
 
-  public static AttributesProvider get(final Map<String, String> attributes) {
-    return new AttributesProvider() {
-      @Override
-      public String getAttribute(String name) {
-        return attributes.get(name);
-      }
-    };
-  }
+	public static AttributesProvider get(final Map<String, String> attributes) {
+		return new AttributesProvider() {
+			@Override
+			public String getAttribute(String name) {
+				return attributes.get(name);
+			}
+		};
+	}
 }

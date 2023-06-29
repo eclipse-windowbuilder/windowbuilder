@@ -19,15 +19,15 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.ui
  */
 public abstract class AbstractColorsComposite extends Composite {
-  protected final AbstractColorDialog m_colorDialog;
+	protected final AbstractColorDialog m_colorDialog;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractColorsComposite(Composite parent, int style, AbstractColorDialog colorDialog) {
-    super(parent, style);
-    m_colorDialog = colorDialog;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractColorsComposite(Composite parent, int style, AbstractColorDialog colorDialog) {
+		super(parent, style);
+		m_colorDialog = colorDialog;
+	}
 }

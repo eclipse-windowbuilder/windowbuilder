@@ -23,41 +23,41 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
  * @coverage core.gef.policy
  */
 public class ComponentClassLayoutRequestValidator extends AbstractLayoutRequestValidator {
-  private final String m_requiredClass;
+	private final String m_requiredClass;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComponentClassLayoutRequestValidator(String requiredClass) {
-    m_requiredClass = requiredClass;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComponentClassLayoutRequestValidator(String requiredClass) {
+		m_requiredClass = requiredClass;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean validate(EditPart host, Object child) {
-    IComponentDescription description = GlobalState.getDescriptionHelper().getDescription(child);
-    if (description != null) {
-      return validateDescription(host, description);
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean validate(EditPart host, Object child) {
+		IComponentDescription description = GlobalState.getDescriptionHelper().getDescription(child);
+		if (description != null) {
+			return validateDescription(host, description);
+		}
+		return false;
+	}
 
-  @Override
-  protected boolean validateDescription(EditPart host, IComponentDescription childDescription) {
-    Class<?> componentClass = childDescription.getComponentClass();
-    return isValidClass(componentClass);
-  }
+	@Override
+	protected boolean validateDescription(EditPart host, IComponentDescription childDescription) {
+		Class<?> componentClass = childDescription.getComponentClass();
+		return isValidClass(componentClass);
+	}
 
-  /**
-   * @return <code>true</code> if given type is valid.
-   */
-  protected boolean isValidClass(Class<?> componentClass) {
-    return ReflectionUtils.isSuccessorOf(componentClass, m_requiredClass);
-  }
+	/**
+	 * @return <code>true</code> if given type is valid.
+	 */
+	protected boolean isValidClass(Class<?> componentClass) {
+		return ReflectionUtils.isSuccessorOf(componentClass, m_requiredClass);
+	}
 }

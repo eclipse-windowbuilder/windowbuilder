@@ -26,30 +26,30 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.swing.ui
  */
 public final class TypesPropertyFilter
-    extends
-      org.eclipse.wb.internal.core.databinding.ui.filter.TypesPropertyFilter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TypesPropertyFilter(String name, Image image, Class<?>... types) {
-    super(name, image, types);
-  }
+extends
+org.eclipse.wb.internal.core.databinding.ui.filter.TypesPropertyFilter {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TypesPropertyFilter(String name, Image image, Class<?>... types) {
+		super(name, image, types);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyFilter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
-    ObserveInfo observe = (ObserveInfo) propertyObserve;
-    if (observe.getParent() instanceof BeanPropertyObserveInfo) {
-      return true;
-    }
-    return observe instanceof ObjectPropertyObserveInfo
-        || observe instanceof ElPropertyObserveInfo
-        || select(observe.getObjectClass());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyFilter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
+		ObserveInfo observe = (ObserveInfo) propertyObserve;
+		if (observe.getParent() instanceof BeanPropertyObserveInfo) {
+			return true;
+		}
+		return observe instanceof ObjectPropertyObserveInfo
+				|| observe instanceof ElPropertyObserveInfo
+				|| select(observe.getObjectClass());
+	}
 }

@@ -26,55 +26,55 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage core.model.layout.absolute
  */
 public abstract class BoundsProperty<C extends IAbstractComponentInfo> extends Property {
-  protected final C m_component;
-  private final String m_title;
+	protected final C m_component;
+	private final String m_title;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BoundsProperty(C component, String title) {
-    super(IntegerPropertyEditor.INSTANCE);
-    m_component = component;
-    m_title = title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BoundsProperty(C component, String title) {
+		super(IntegerPropertyEditor.INSTANCE);
+		m_component = component;
+		m_title = title;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() {
-    return m_title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() {
+		return m_title;
+	}
 
-  @Override
-  public boolean isModified() throws Exception {
-    return true;
-  }
+	@Override
+	public boolean isModified() throws Exception {
+		return true;
+	}
 
-  @Override
-  public Object getValue() throws Exception {
-    return ScriptUtils.evaluate(m_title, m_component.getModelBounds());
-  }
+	@Override
+	public Object getValue() throws Exception {
+		return ScriptUtils.evaluate(m_title, m_component.getModelBounds());
+	}
 
-  @Override
-  public final void setValue(final Object value) throws Exception {
-    if (value != UNKNOWN_VALUE) {
-      ExecutionUtils.run(m_component.getUnderlyingModel(), new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          setValue2((Integer) value, m_component.getModelBounds());
-        }
-      });
-    }
-  }
+	@Override
+	public final void setValue(final Object value) throws Exception {
+		if (value != UNKNOWN_VALUE) {
+			ExecutionUtils.run(m_component.getUnderlyingModel(), new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					setValue2((Integer) value, m_component.getModelBounds());
+				}
+			});
+		}
+	}
 
-  /**
-   * Utility method to be called from {@link BoundsProperty#setValue(Object)}, bounds updating is
-   * here.
-   */
-  public abstract void setValue2(int value, Rectangle modelBounds) throws Exception;
+	/**
+	 * Utility method to be called from {@link BoundsProperty#setValue(Object)}, bounds updating is
+	 * here.
+	 */
+	public abstract void setValue2(int value, Rectangle modelBounds) throws Exception;
 }

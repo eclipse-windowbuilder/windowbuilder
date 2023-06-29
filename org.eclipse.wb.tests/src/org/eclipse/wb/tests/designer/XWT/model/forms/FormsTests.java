@@ -22,16 +22,16 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class FormsTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.forms");
-    suite.addTest(createSingleSuite(FormsTest.class));
-    suite.addTest(createSingleSuite(FormTest.class));
-    suite.addTest(createSingleSuite(FormGefTest.class));
-    suite.addTest(createSingleSuite(ScrolledFormTest.class));
-    suite.addTest(createSingleSuite(ExpandableCompositeTest.class));
-    suite.addTest(createSingleSuite(ExpandableCompositeGefTest.class));
-    suite.addTest(createSingleSuite(ColumnLayoutTest.class));
-    suite.addTest(TableWrapLayoutTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.forms");
+		suite.addTest(createSingleSuite(FormsTest.class));
+		suite.addTest(createSingleSuite(FormTest.class));
+		suite.addTest(createSingleSuite(FormGefTest.class));
+		suite.addTest(createSingleSuite(ScrolledFormTest.class));
+		suite.addTest(createSingleSuite(ExpandableCompositeTest.class));
+		suite.addTest(createSingleSuite(ExpandableCompositeGefTest.class));
+		suite.addTest(createSingleSuite(ColumnLayoutTest.class));
+		suite.addTest(TableWrapLayoutTests.suite());
+		return suite;
+	}
 }

@@ -32,101 +32,101 @@ import java.util.List;
  * @coverage XWT.model.layout
  */
 public final class StackLayoutInfo extends GenericFlowLayoutInfo
-    implements
-      IStackLayoutInfo<ControlInfo> {
-  private final StackContainerSupport<ControlInfo> m_stackContainer =
-      new StackContainerSupport<ControlInfo>(this) {
-        @Override
-        protected boolean isActive() {
-          return StackLayoutInfo.this.isActive();
-        }
+implements
+IStackLayoutInfo<ControlInfo> {
+	private final StackContainerSupport<ControlInfo> m_stackContainer =
+			new StackContainerSupport<ControlInfo>(this) {
+		@Override
+		protected boolean isActive() {
+			return StackLayoutInfo.this.isActive();
+		}
 
-        @Override
-        protected ObjectInfo getContainer() {
-          return getComposite();
-        }
+		@Override
+		protected ObjectInfo getContainer() {
+			return getComposite();
+		}
 
-        @Override
-        protected List<ControlInfo> getChildren() {
-          return getControls();
-        }
-      };
+		@Override
+		protected List<ControlInfo> getChildren() {
+			return getControls();
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StackLayoutInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-    new StackLayoutAssistant(this);
-    showOnlyTopControl_graphicalChild();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StackLayoutInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+		new StackLayoutAssistant(this);
+		showOnlyTopControl_graphicalChild();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Broadcasts
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void showOnlyTopControl_graphicalChild() {
-    addBroadcastListener(new ObjectInfoChildGraphical() {
-      public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-        if (isManagedObject(object)) {
-          ControlInfo control = (ControlInfo) object;
-          if (control != getActiveControl()) {
-            visible[0] = false;
-          }
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Broadcasts
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void showOnlyTopControl_graphicalChild() {
+		addBroadcastListener(new ObjectInfoChildGraphical() {
+			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
+				if (isManagedObject(object)) {
+					ControlInfo control = (ControlInfo) object;
+					if (control != getActiveControl()) {
+						visible[0] = false;
+					}
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isHorizontal() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isHorizontal() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    {
-      ControlInfo topControl = getActiveControl();
-      if (topControl != null) {
-        ReflectionUtils.setField(getObject(), "topControl", topControl.getObject());
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		{
+			ControlInfo topControl = getActiveControl();
+			if (topControl != null) {
+				ReflectionUtils.setField(getObject(), "topControl", topControl.getObject());
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ControlInfo getActiveControl() {
-    return m_stackContainer.getActive();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ControlInfo getActiveControl() {
+		return m_stackContainer.getActive();
+	}
 
-  public ControlInfo getPrevControl() {
-    return m_stackContainer.getPrev();
-  }
+	public ControlInfo getPrevControl() {
+		return m_stackContainer.getPrev();
+	}
 
-  public ControlInfo getNextControl() {
-    return m_stackContainer.getNext();
-  }
+	public ControlInfo getNextControl() {
+		return m_stackContainer.getNext();
+	}
 
-  public void show(ControlInfo control) {
-    m_stackContainer.setActive(control);
-  }
+	public void show(ControlInfo control) {
+		m_stackContainer.setActive(control);
+	}
 }

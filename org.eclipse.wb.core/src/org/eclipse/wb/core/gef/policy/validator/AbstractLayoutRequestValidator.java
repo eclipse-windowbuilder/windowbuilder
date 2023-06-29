@@ -31,64 +31,64 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public abstract class AbstractLayoutRequestValidator implements ILayoutRequestValidator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutRequestValidator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-    return validate(host, request.getNewObject());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutRequestValidator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+		return validate(host, request.getNewObject());
+	}
 
-  @Override
-  public boolean validatePasteRequest(final EditPart host, final PasteRequest request) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      @Override
-      public Boolean runObject() throws Exception {
-        ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
-        List<?> mementos = (List<?>) request.getMemento();
-        for (Object memento : mementos) {
-          IComponentDescription description = validatorHelper.getPasteComponentDescription(memento);
-          if (!validateDescription(host, description)) {
-            return false;
-          }
-        }
-        // OK, all pasted components are valid
-        return true;
-      }
-    },
-        false);
-  }
+	@Override
+	public boolean validatePasteRequest(final EditPart host, final PasteRequest request) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+			@Override
+			public Boolean runObject() throws Exception {
+				ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
+				List<?> mementos = (List<?>) request.getMemento();
+				for (Object memento : mementos) {
+					IComponentDescription description = validatorHelper.getPasteComponentDescription(memento);
+					if (!validateDescription(host, description)) {
+						return false;
+					}
+				}
+				// OK, all pasted components are valid
+				return true;
+			}
+		},
+				false);
+	}
 
-  @Override
-  public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-    for (EditPart editPart : request.getEditParts()) {
-      if (!validate(host, editPart.getModel())) {
-        return false;
-      }
-    }
-    return true;
-  }
+	@Override
+	public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+		for (EditPart editPart : request.getEditParts()) {
+			if (!validate(host, editPart.getModel())) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-  @Override
-  public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-    return validateMoveRequest(host, request);
-  }
+	@Override
+	public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+		return validateMoveRequest(host, request);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given "parent" and "child" are valid.
-   */
-  protected abstract boolean validate(EditPart host, Object child);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given "parent" and "child" are valid.
+	 */
+	protected abstract boolean validate(EditPart host, Object child);
 
-  /**
-   * @return <code>true</code> if given "parent" and "child" are valid.
-   */
-  protected abstract boolean validateDescription(EditPart host,
-      IComponentDescription childDescription);
+	/**
+	 * @return <code>true</code> if given "parent" and "child" are valid.
+	 */
+	protected abstract boolean validateDescription(EditPart host,
+			IComponentDescription childDescription);
 }

@@ -41,89 +41,89 @@ import org.eclipse.swt.widgets.Control;
  * @coverage swt.model.layout
  */
 public final class VirtualLayoutDataVariableSupport extends AbstractNoNameVariableSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualLayoutDataVariableSupport(JavaInfo javaInfo) {
-    super(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualLayoutDataVariableSupport(JavaInfo javaInfo) {
+		super(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isDefault() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isDefault() {
+		return true;
+	}
 
-  @Override
-  public String getTitle() throws Exception {
-    return "(virtual layout data)";
-  }
+	@Override
+	public String getTitle() throws Exception {
+		return "(virtual layout data)";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    return materialize().getReferenceExpression(target);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		return materialize().getReferenceExpression(target);
+	}
 
-  @Override
-  public String getAccessExpression(NodeTarget target) throws Exception {
-    return getReferenceExpression(target) + ".";
-  }
+	@Override
+	public String getAccessExpression(NodeTarget target) throws Exception {
+		return getReferenceExpression(target) + ".";
+	}
 
-  /**
-   * Ensures that this {@link LayoutDataInfo} has {@link LocalUniqueVariableSupport}.
-   */
-  VariableSupport materialize() throws Exception {
-    ControlInfo control = (ControlInfo) m_javaInfo.getParent();
-    //
-    MethodInvocation invocation;
-    Expression expression;
-    {
-      String source = m_javaInfo.getDescription().getCreation(null).getSource();
-      invocation = control.addMethodInvocation("setLayoutData(java.lang.Object)", source);
-      expression = DomGenerics.arguments(invocation).get(0);
-    }
-    // set CreationSupport
-    {
-      m_javaInfo.setCreationSupport(new ConstructorCreationSupport((ClassInstanceCreation) expression));
-      m_javaInfo.bindToExpression(expression);
-      m_javaInfo.addRelatedNode(expression);
-    }
-    // set Association
-    m_javaInfo.setAssociation(new InvocationChildAssociation(invocation));
-    // set VariableSupport
-    VariableSupport variableSupport = new EmptyVariableSupport(m_javaInfo, expression);
-    m_javaInfo.setVariableSupport(variableSupport);
-    return variableSupport;
-  }
+	/**
+	 * Ensures that this {@link LayoutDataInfo} has {@link LocalUniqueVariableSupport}.
+	 */
+	VariableSupport materialize() throws Exception {
+		ControlInfo control = (ControlInfo) m_javaInfo.getParent();
+		//
+		MethodInvocation invocation;
+		Expression expression;
+		{
+			String source = m_javaInfo.getDescription().getCreation(null).getSource();
+			invocation = control.addMethodInvocation("setLayoutData(java.lang.Object)", source);
+			expression = DomGenerics.arguments(invocation).get(0);
+		}
+		// set CreationSupport
+		{
+			m_javaInfo.setCreationSupport(new ConstructorCreationSupport((ClassInstanceCreation) expression));
+			m_javaInfo.bindToExpression(expression);
+			m_javaInfo.addRelatedNode(expression);
+		}
+		// set Association
+		m_javaInfo.setAssociation(new InvocationChildAssociation(invocation));
+		// set VariableSupport
+		VariableSupport variableSupport = new EmptyVariableSupport(m_javaInfo, expression);
+		m_javaInfo.setVariableSupport(variableSupport);
+		return variableSupport;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public StatementTarget getStatementTarget() throws Exception {
-    throw new IllegalStateException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public StatementTarget getStatementTarget() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "virtual-layout-data";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "virtual-layout-data";
+	}
 }

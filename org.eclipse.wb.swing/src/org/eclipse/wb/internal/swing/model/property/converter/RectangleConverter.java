@@ -22,36 +22,36 @@ import java.awt.Rectangle;
  * @coverage swing.property.converter
  */
 public final class RectangleConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new RectangleConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new RectangleConverter();
 
-  private RectangleConverter() {
-  }
+	private RectangleConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    if (value == null) {
-      return "(java.awt.Rectangle) null";
-    } else {
-      Rectangle rectangle = (Rectangle) value;
-      return "new java.awt.Rectangle("
-          + rectangle.x
-          + ", "
-          + rectangle.y
-          + ", "
-          + rectangle.width
-          + ", "
-          + rectangle.height
-          + ")";
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		if (value == null) {
+			return "(java.awt.Rectangle) null";
+		} else {
+			Rectangle rectangle = (Rectangle) value;
+			return "new java.awt.Rectangle("
+			+ rectangle.x
+			+ ", "
+			+ rectangle.y
+			+ ", "
+			+ rectangle.width
+			+ ", "
+			+ rectangle.height
+			+ ")";
+		}
+	}
 }

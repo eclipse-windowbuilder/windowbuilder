@@ -21,38 +21,38 @@ import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexProper
  * @coverage bindings.ui.properties
  */
 public final class BindingsPropertyEditor extends TextDisplayPropertyEditor
-    implements
-      IComplexPropertyEditor {
-  public static final BindingsPropertyEditor EDITOR = new BindingsPropertyEditor();
+implements
+IComplexPropertyEditor {
+	public static final BindingsPropertyEditor EDITOR = new BindingsPropertyEditor();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IComplexPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Property[] getProperties(Property property) throws Exception {
-    AbstractBindingsProperty bindingsProperty = (AbstractBindingsProperty) property;
-    return bindingsProperty.getProperties();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IComplexPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Property[] getProperties(Property property) throws Exception {
+		AbstractBindingsProperty bindingsProperty = (AbstractBindingsProperty) property;
+		return bindingsProperty.getProperties();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TextDisplayPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    StringBuffer text = new StringBuffer("[");
-    for (Property subProperty : getProperties(property)) {
-      if (subProperty.isModified()) {
-        if (text.length() > 1) {
-          text.append(", ");
-        }
-        text.append(subProperty.getTitle());
-      }
-    }
-    text.append("]");
-    return text.toString();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TextDisplayPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		StringBuffer text = new StringBuffer("[");
+		for (Property subProperty : getProperties(property)) {
+			if (subProperty.isModified()) {
+				if (text.length() > 1) {
+					text.append(", ");
+				}
+				text.append(subProperty.getTitle());
+			}
+		}
+		text.append("]");
+		return text.toString();
+	}
 }

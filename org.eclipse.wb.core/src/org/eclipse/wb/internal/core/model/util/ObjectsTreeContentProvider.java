@@ -27,63 +27,63 @@ import java.util.List;
  * @coverage core.model.util
  */
 public final class ObjectsTreeContentProvider implements ITreeContentProvider {
-  private final Predicate<ObjectInfo> m_predicate;
+	private final Predicate<ObjectInfo> m_predicate;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObjectsTreeContentProvider(Predicate<ObjectInfo> predicate) {
-    m_predicate = predicate;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObjectsTreeContentProvider(Predicate<ObjectInfo> predicate) {
+		m_predicate = predicate;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Input
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object[] getElements(Object inputElement) {
-    if (inputElement instanceof Object[]) {
-      return (Object[]) inputElement;
-    } else {
-      return getChildren(inputElement);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Input
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object[] getElements(Object inputElement) {
+		if (inputElement instanceof Object[]) {
+			return (Object[]) inputElement;
+		} else {
+			return getChildren(inputElement);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object[] getChildren(Object parentElement) {
-    List<ObjectInfo> children = ((ObjectInfo) parentElement).getChildren();
-    Iterable<ObjectInfo> filtered = Iterables.filter(children, m_predicate);
-    return Iterables.toArray(filtered, ObjectInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object[] getChildren(Object parentElement) {
+		List<ObjectInfo> children = ((ObjectInfo) parentElement).getChildren();
+		Iterable<ObjectInfo> filtered = Iterables.filter(children, m_predicate);
+		return Iterables.toArray(filtered, ObjectInfo.class);
+	}
 
-  @Override
-  public boolean hasChildren(Object element) {
-    return getChildren(element).length != 0;
-  }
+	@Override
+	public boolean hasChildren(Object element) {
+		return getChildren(element).length != 0;
+	}
 
-  @Override
-  public Object getParent(Object element) {
-    return ((ObjectInfo) element).getParent();
-  }
+	@Override
+	public Object getParent(Object element) {
+		return ((ObjectInfo) element).getParent();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+	}
 
-  @Override
-  public void dispose() {
-  }
+	@Override
+	public void dispose() {
+	}
 }

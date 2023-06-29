@@ -36,81 +36,81 @@ import net.bytebuddy.matcher.ElementMatchers;
  * @coverage rcp.model.rcp
  */
 public final class PageLayoutCreationSupport extends CreationSupport {
-  private final SingleVariableDeclaration m_parameter;
+	private final SingleVariableDeclaration m_parameter;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PageLayoutCreationSupport(SingleVariableDeclaration parameter) {
-    m_parameter = parameter;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PageLayoutCreationSupport(SingleVariableDeclaration parameter) {
+		m_parameter = parameter;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "parameter: " + m_parameter.getName().getIdentifier();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "parameter: " + m_parameter.getName().getIdentifier();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ASTNode getNode() {
-    return m_parameter;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ASTNode getNode() {
+		return m_parameter;
+	}
 
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    return node == m_parameter;
-  }
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		return node == m_parameter;
+	}
 
-  @Override
-  public boolean canBeEvaluated() {
-    return false;
-  }
+	@Override
+	public boolean canBeEvaluated() {
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object create(EvaluationContext context, ExecutionFlowFrameVisitor visitor)
-      throws Exception {
-    ((PageLayoutInfo) m_javaInfo).render();
-    //
-    return new ByteBuddy() //
-        .subclass(m_javaInfo.getDescription().getComponentClass()) //
-        .method(ElementMatchers.any()) //
-        .intercept(StubMethod.INSTANCE) //
-        .method(named("getEditorArea").and(takesNoArguments())) //
-        .intercept(FixedValue.value(IPageLayout.ID_EDITOR_AREA)) //
-        .method(named("isEditorAreaVisible").and(takesNoArguments())) //
-        .intercept(FixedValue.value(true)) //
-        .method(named("isFixed").and(takesNoArguments())) //
-        .intercept(FixedValue.value(false)) //
-        .make() //
-        .load(JavaInfoUtils.getClassLoader(m_javaInfo)) //
-        .getLoaded() //
-        .getConstructor() //
-        .newInstance();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object create(EvaluationContext context, ExecutionFlowFrameVisitor visitor)
+			throws Exception {
+		((PageLayoutInfo) m_javaInfo).render();
+		//
+		return new ByteBuddy() //
+				.subclass(m_javaInfo.getDescription().getComponentClass()) //
+				.method(ElementMatchers.any()) //
+				.intercept(StubMethod.INSTANCE) //
+				.method(named("getEditorArea").and(takesNoArguments())) //
+				.intercept(FixedValue.value(IPageLayout.ID_EDITOR_AREA)) //
+				.method(named("isEditorAreaVisible").and(takesNoArguments())) //
+				.intercept(FixedValue.value(true)) //
+				.method(named("isFixed").and(takesNoArguments())) //
+				.intercept(FixedValue.value(false)) //
+				.make() //
+				.load(JavaInfoUtils.getClassLoader(m_javaInfo)) //
+				.getLoaded() //
+				.getConstructor() //
+				.newInstance();
+	}
 }

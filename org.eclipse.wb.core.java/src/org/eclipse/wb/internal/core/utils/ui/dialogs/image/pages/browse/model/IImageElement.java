@@ -19,13 +19,13 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.ui
  */
 public interface IImageElement {
-  /**
-   * @return the image to display.
-   */
-  Image getImage();
+	/**
+	 * @return the image to display.
+	 */
+	Image getImage();
 
-  /**
-   * @return the text to display.
-   */
-  String getName();
+	/**
+	 * @return the text to display.
+	 */
+	String getName();
 }

@@ -28,42 +28,42 @@ import javax.swing.Box;
  * @coverage swing.gef.part
  */
 public final class BoxGlueEditPart extends BoxEditPart {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BoxGlueEditPart(ComponentInfo component) {
-    super(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BoxGlueEditPart(ComponentInfo component) {
+		super(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new GlueSelectionEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new GlueSelectionEditPolicy());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        Rectangle r = getClientArea();
-        int x = (r.width - SPRING_SIZE) / 2;
-        int y = (r.height - SPRING_SIZE) / 2;
-        BoxGlueHorizontalEditPart.draw(graphics, new Rectangle(0, y, r.width, SPRING_SIZE));
-        BoxGlueVerticalEditPart.draw(graphics, new Rectangle(x, 0, SPRING_SIZE, r.height));
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				Rectangle r = getClientArea();
+				int x = (r.width - SPRING_SIZE) / 2;
+				int y = (r.height - SPRING_SIZE) / 2;
+				BoxGlueHorizontalEditPart.draw(graphics, new Rectangle(0, y, r.width, SPRING_SIZE));
+				BoxGlueVerticalEditPart.draw(graphics, new Rectangle(x, 0, SPRING_SIZE, r.height));
+			}
+		};
+	}
 }

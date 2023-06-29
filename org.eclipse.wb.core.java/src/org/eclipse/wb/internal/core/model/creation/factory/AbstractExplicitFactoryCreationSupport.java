@@ -34,170 +34,170 @@ import java.text.MessageFormat;
  * @coverage core.model.creation
  */
 public abstract class AbstractExplicitFactoryCreationSupport extends AbstractFactoryCreationSupport
-    implements
-      ILiveCreationSupport {
-  protected String m_addArguments;
+implements
+ILiveCreationSupport {
+	protected String m_addArguments;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractExplicitFactoryCreationSupport(FactoryMethodDescription description) {
-    super(description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractExplicitFactoryCreationSupport(FactoryMethodDescription description) {
+		super(description);
+	}
 
-  public AbstractExplicitFactoryCreationSupport(FactoryMethodDescription description,
-      MethodInvocation invocation) {
-    super(description, invocation);
-  }
+	public AbstractExplicitFactoryCreationSupport(FactoryMethodDescription description,
+			MethodInvocation invocation) {
+		super(description, invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link FactoryMethodDescription} for this factory method.
-   */
-  @Override
-  public final FactoryMethodDescription getDescription() {
-    return (FactoryMethodDescription) m_description;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link FactoryMethodDescription} for this factory method.
+	 */
+	@Override
+	public final FactoryMethodDescription getDescription() {
+		return (FactoryMethodDescription) m_description;
+	}
 
-  @Override
-  public final Association getAssociation() throws Exception {
-    if (add_getSource(null).indexOf("%parent%") != -1) {
-      return new FactoryParentAssociation();
-    }
-    return null;
-  }
+	@Override
+	public final Association getAssociation() throws Exception {
+		if (add_getSource(null).indexOf("%parent%") != -1) {
+			return new FactoryParentAssociation();
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canUseParent(JavaInfo parent) throws Exception {
-    // check that if constructor has "parent" parameter, it is compatible with given "parent"
-    for (ParameterDescription parameter : m_description.getParameters()) {
-      if (parameter.isParent()) {
-        Class<?> requiredType = parameter.getType();
-        Class<?> parentType = parent.getDescription().getComponentClass();
-        if (!requiredType.isAssignableFrom(parentType)) {
-          return false;
-        }
-      }
-    }
-    // continue
-    return super.canUseParent(parent);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canUseParent(JavaInfo parent) throws Exception {
+		// check that if constructor has "parent" parameter, it is compatible with given "parent"
+		for (ParameterDescription parameter : m_description.getParameters()) {
+			if (parameter.isParent()) {
+				Class<?> requiredType = parameter.getType();
+				Class<?> parentType = parent.getDescription().getComponentClass();
+				if (!requiredType.isAssignableFrom(parentType)) {
+					return false;
+				}
+			}
+		}
+		// continue
+		return super.canUseParent(parent);
+	}
 
-  @Override
-  public final boolean canReorder() {
-    return true;
-  }
+	@Override
+	public final boolean canReorder() {
+		return true;
+	}
 
-  @Override
-  public final boolean canReparent() {
-    return true;
-  }
+	@Override
+	public final boolean canReparent() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final String add_getSource(NodeTarget target) throws Exception {
-    String argumentsSource;
-    if (m_addArguments != null) {
-      argumentsSource = m_addArguments;
-    } else {
-      argumentsSource = "";
-      for (ParameterDescription parameter : m_description.getParameters()) {
-        // comma
-        if (argumentsSource.length() != 0) {
-          argumentsSource += ", ";
-        }
-        // source
-        if (parameter.isParent()) {
-          argumentsSource += "%parent%";
-        } else {
-          Assert.isNotNull(parameter.getDefaultSource());
-          argumentsSource += parameter.getDefaultSource();
-        }
-      }
-    }
-    //
-    return MessageFormat.format(
-        "{0}{1}({2})",
-        add_getSource_invocationExpression(target),
-        m_description.getName(),
-        argumentsSource);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final String add_getSource(NodeTarget target) throws Exception {
+		String argumentsSource;
+		if (m_addArguments != null) {
+			argumentsSource = m_addArguments;
+		} else {
+			argumentsSource = "";
+			for (ParameterDescription parameter : m_description.getParameters()) {
+				// comma
+				if (argumentsSource.length() != 0) {
+					argumentsSource += ", ";
+				}
+				// source
+				if (parameter.isParent()) {
+					argumentsSource += "%parent%";
+				} else {
+					Assert.isNotNull(parameter.getDefaultSource());
+					argumentsSource += parameter.getDefaultSource();
+				}
+			}
+		}
+		//
+		return MessageFormat.format(
+				"{0}{1}({2})",
+				add_getSource_invocationExpression(target),
+				m_description.getName(),
+				argumentsSource);
+	}
 
-  /**
-   * @return the source for expression part of {@link MethodInvocation}, name of class for static
-   *         method or access expression for instance method.
-   */
-  protected abstract String add_getSource_invocationExpression(NodeTarget target) throws Exception;
+	/**
+	 * @return the source for expression part of {@link MethodInvocation}, name of class for static
+	 *         method or access expression for instance method.
+	 */
+	protected abstract String add_getSource_invocationExpression(NodeTarget target) throws Exception;
 
-  @Override
-  public final void add_setSourceExpression(Expression expression) throws Exception {
-    m_invocation = (MethodInvocation) expression;
-    m_javaInfo.bindToExpression(m_invocation);
-    // add invocations
-    for (CreationInvocationDescription invocation : getDescription().getInvocations()) {
-      m_javaInfo.addMethodInvocation(invocation.getSignature(), invocation.getArguments());
-    }
-  }
+	@Override
+	public final void add_setSourceExpression(Expression expression) throws Exception {
+		m_invocation = (MethodInvocation) expression;
+		m_javaInfo.bindToExpression(m_invocation);
+		// add invocations
+		for (CreationInvocationDescription invocation : getDescription().getInvocations()) {
+			m_javaInfo.addMethodInvocation(invocation.getSignature(), invocation.getArguments());
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the source of arguments for copy/paste.
-   */
-  protected final String getClipboardArguments() throws Exception {
-    // prepare source for arguments
-    String argumentsSource = "";
-    for (ParameterDescription parameter : m_description.getParameters()) {
-      // append separator
-      if (argumentsSource.length() != 0) {
-        argumentsSource += ", ";
-      }
-      // append argument
-      if (parameter.isParent()) {
-        argumentsSource += "%parent%";
-      } else {
-        String argumentSource = null;
-        // ask property
-        {
-          GenericPropertyImpl argumentProperty =
-              (GenericPropertyImpl) getGenericProperty(parameter);
-          if (argumentProperty != null) {
-            argumentSource = argumentProperty.getClipboardSource();
-          }
-        }
-        // use default source for parameter
-        if (argumentSource == null) {
-          if (Object.class.isAssignableFrom(parameter.getType())) {
-            argumentSource = parameter.getDefaultSource();
-          }
-        }
-        // do append argument
-        Assert.isNotNull(argumentSource, "No source for "
-            + parameter.getIndex()
-            + "-th argument of "
-            + m_invocation);
-        argumentsSource += argumentSource;
-      }
-    }
-    // return source of arguments
-    return argumentsSource;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the source of arguments for copy/paste.
+	 */
+	protected final String getClipboardArguments() throws Exception {
+		// prepare source for arguments
+		String argumentsSource = "";
+		for (ParameterDescription parameter : m_description.getParameters()) {
+			// append separator
+			if (argumentsSource.length() != 0) {
+				argumentsSource += ", ";
+			}
+			// append argument
+			if (parameter.isParent()) {
+				argumentsSource += "%parent%";
+			} else {
+				String argumentSource = null;
+				// ask property
+				{
+					GenericPropertyImpl argumentProperty =
+							(GenericPropertyImpl) getGenericProperty(parameter);
+					if (argumentProperty != null) {
+						argumentSource = argumentProperty.getClipboardSource();
+					}
+				}
+				// use default source for parameter
+				if (argumentSource == null) {
+					if (Object.class.isAssignableFrom(parameter.getType())) {
+						argumentSource = parameter.getDefaultSource();
+					}
+				}
+				// do append argument
+				Assert.isNotNull(argumentSource, "No source for "
+						+ parameter.getIndex()
+						+ "-th argument of "
+						+ m_invocation);
+				argumentsSource += argumentSource;
+			}
+		}
+		// return source of arguments
+		return argumentsSource;
+	}
 }

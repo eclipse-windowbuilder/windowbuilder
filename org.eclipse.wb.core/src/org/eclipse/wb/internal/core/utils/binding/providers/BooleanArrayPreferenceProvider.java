@@ -20,50 +20,50 @@ import org.eclipse.jface.preference.IPreferenceStore;
  *
  */
 public class BooleanArrayPreferenceProvider implements IDataProvider {
-  private final IPreferenceStore m_store;
-  private final String[] m_keys;
+	private final IPreferenceStore m_store;
+	private final String[] m_keys;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BooleanArrayPreferenceProvider(IPreferenceStore store, String[] keys) {
-    m_store = store;
-    m_keys = keys;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BooleanArrayPreferenceProvider(IPreferenceStore store, String[] keys) {
+		m_store = store;
+		m_keys = keys;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue(boolean def) {
-    boolean[] values = new boolean[m_keys.length];
-    if (def) {
-      // store default values
-      for (int i = 0; i < values.length; i++) {
-        values[i] = m_store.getDefaultBoolean(m_keys[i]);
-      }
-    } else {
-      // store values
-      for (int i = 0; i < values.length; i++) {
-        values[i] = m_store.getBoolean(m_keys[i]);
-      }
-    }
-    return values;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue(boolean def) {
+		boolean[] values = new boolean[m_keys.length];
+		if (def) {
+			// store default values
+			for (int i = 0; i < values.length; i++) {
+				values[i] = m_store.getDefaultBoolean(m_keys[i]);
+			}
+		} else {
+			// store values
+			for (int i = 0; i < values.length; i++) {
+				values[i] = m_store.getBoolean(m_keys[i]);
+			}
+		}
+		return values;
+	}
 
-  @Override
-  public void setValue(Object value) {
-    // prepare boolean array
-    boolean[] values = ValueUtils.objectToBooleanArray(value);
-    // check set values
-    if (values != null && values.length == m_keys.length) {
-      for (int i = 0; i < values.length; i++) {
-        m_store.setValue(m_keys[i], values[i]);
-      }
-    }
-  }
+	@Override
+	public void setValue(Object value) {
+		// prepare boolean array
+		boolean[] values = ValueUtils.objectToBooleanArray(value);
+		// check set values
+		if (values != null && values.length == m_keys.length) {
+			for (int i = 0; i < values.length; i++) {
+				m_store.setValue(m_keys[i], values[i]);
+			}
+		}
+	}
 }

@@ -27,71 +27,71 @@ import java.util.List;
  * @coverage swt.support
  */
 public class JFaceSupport extends AbstractSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if JFace is avialable.
-   */
-  public static boolean isAvialable() {
-    try {
-      getJFaceResourceClass();
-      return true;
-    } catch (Throwable e) {
-      return false;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if JFace is avialable.
+	 */
+	public static boolean isAvialable() {
+		try {
+			getJFaceResourceClass();
+			return true;
+		} catch (Throwable e) {
+			return false;
+		}
+	}
 
-  /**
-   * @return the {@link ResourceRegistry} class.
-   */
-  public static Class<?> getResourceRegistryClass() throws Exception {
-    return loadClass("org.eclipse.jface.resource.ResourceRegistry");
-  }
+	/**
+	 * @return the {@link ResourceRegistry} class.
+	 */
+	public static Class<?> getResourceRegistryClass() throws Exception {
+		return loadClass("org.eclipse.jface.resource.ResourceRegistry");
+	}
 
-  private static Class<?> getJFaceResourceClass() throws Exception {
-    return loadClass("org.eclipse.jface.resource.JFaceResources");
-  }
+	private static Class<?> getJFaceResourceClass() throws Exception {
+		return loadClass("org.eclipse.jface.resource.JFaceResources");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // JFace
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return all JFace fonts.
-   */
-  public static List<FontInfo> getJFaceFonts() throws Exception {
-    List<FontInfo> jfaceFonts = Lists.newArrayList();
-    Method[] methods = getJFaceResourceClass().getMethods();
-    for (int i = 0; i < methods.length; i++) {
-      Method method = methods[i];
-      int modifiers = method.getModifiers();
-      // check public static
-      if (!Modifier.isPublic(modifiers) || !Modifier.isStatic(modifiers)) {
-        continue;
-      }
-      // check getXXXFont name
-      String name = method.getName();
-      if (!name.startsWith("get") || !name.endsWith("Font")) {
-        continue;
-      }
-      // check empty parameters method
-      if (method.getParameterTypes().length != 0) {
-        continue;
-      }
-      // check return type
-      if (!method.getReturnType().getName().equals("org.eclipse.swt.graphics.Font")) {
-        continue;
-      }
-      // create font info
-      Object font = method.invoke(null);
-      jfaceFonts.add(new FontInfo(name + "()", font, "org.eclipse.jface.resource.JFaceResources."
-          + name
-          + "()", false));
-    }
-    return jfaceFonts;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// JFace
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return all JFace fonts.
+	 */
+	public static List<FontInfo> getJFaceFonts() throws Exception {
+		List<FontInfo> jfaceFonts = Lists.newArrayList();
+		Method[] methods = getJFaceResourceClass().getMethods();
+		for (int i = 0; i < methods.length; i++) {
+			Method method = methods[i];
+			int modifiers = method.getModifiers();
+			// check public static
+			if (!Modifier.isPublic(modifiers) || !Modifier.isStatic(modifiers)) {
+				continue;
+			}
+			// check getXXXFont name
+			String name = method.getName();
+			if (!name.startsWith("get") || !name.endsWith("Font")) {
+				continue;
+			}
+			// check empty parameters method
+			if (method.getParameterTypes().length != 0) {
+				continue;
+			}
+			// check return type
+			if (!method.getReturnType().getName().equals("org.eclipse.swt.graphics.Font")) {
+				continue;
+			}
+			// create font info
+			Object font = method.invoke(null);
+			jfaceFonts.add(new FontInfo(name + "()", font, "org.eclipse.jface.resource.JFaceResources."
+					+ name
+					+ "()", false));
+		}
+		return jfaceFonts;
+	}
 }

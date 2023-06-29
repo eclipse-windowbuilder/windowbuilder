@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
  * @coverage swing.model.layout
  */
 interface IComponentVisitor {
-  /**
-   * Visits {@link ComponentInfo} and its {@link AbstractGridBagConstraintsInfo}.
-   */
-  void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints) throws Exception;
+	/**
+	 * Visits {@link ComponentInfo} and its {@link AbstractGridBagConstraintsInfo}.
+	 */
+	void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints) throws Exception;
 }

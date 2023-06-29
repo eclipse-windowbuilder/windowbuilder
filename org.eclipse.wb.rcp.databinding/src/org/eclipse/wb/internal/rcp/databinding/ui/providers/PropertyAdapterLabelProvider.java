@@ -22,20 +22,20 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.rcp.ui
  */
 public final class PropertyAdapterLabelProvider extends LabelProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LabelProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(Object element) {
-    PropertyAdapter adapter = (PropertyAdapter) element;
-    return adapter.getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LabelProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(Object element) {
+		PropertyAdapter adapter = (PropertyAdapter) element;
+		return adapter.getName();
+	}
 
-  @Override
-  public Image getImage(Object element) {
-    PropertyAdapter adapter = (PropertyAdapter) element;
-    return TypeImageProvider.getImage(adapter.getType());
-  }
+	@Override
+	public Image getImage(Object element) {
+		PropertyAdapter adapter = (PropertyAdapter) element;
+		return TypeImageProvider.getImage(adapter.getType());
+	}
 }

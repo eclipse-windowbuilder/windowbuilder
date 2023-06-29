@@ -22,14 +22,14 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class LayoutRequestValidatorTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.editor.validator");
-    suite.addTest(createSingleSuite(ModelClassLayoutRequestValidatorTest.class));
-    suite.addTest(createSingleSuite(ComponentClassLayoutRequestValidatorTest.class));
-    suite.addTest(createSingleSuite(CompatibleLayoutRequestValidatorTest.class));
-    suite.addTest(createSingleSuite(BorderOfChildLayoutRequestValidatorTest.class));
-    suite.addTest(createSingleSuite(BorderTransparentLayoutRequestValidatorTest.class));
-    suite.addTest(createSingleSuite(LayoutRequestValidatorsTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.editor.validator");
+		suite.addTest(createSingleSuite(ModelClassLayoutRequestValidatorTest.class));
+		suite.addTest(createSingleSuite(ComponentClassLayoutRequestValidatorTest.class));
+		suite.addTest(createSingleSuite(CompatibleLayoutRequestValidatorTest.class));
+		suite.addTest(createSingleSuite(BorderOfChildLayoutRequestValidatorTest.class));
+		suite.addTest(createSingleSuite(BorderTransparentLayoutRequestValidatorTest.class));
+		suite.addTest(createSingleSuite(LayoutRequestValidatorsTest.class));
+		return suite;
+	}
 }

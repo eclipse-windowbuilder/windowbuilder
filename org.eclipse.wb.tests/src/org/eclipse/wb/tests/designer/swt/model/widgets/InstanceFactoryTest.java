@@ -25,54 +25,54 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class InstanceFactoryTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // parse
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parse() throws Exception {
-    setFileContentSrc(
-        "test/InstanceFactory.java",
-        getTestSource(
-            "public final class InstanceFactory {",
-            "  public Button createButton(Composite parent, String text) {",
-            "    Button button = new Button(parent, SWT.NONE);",
-            "    button.setText(text);",
-            "    return button;",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-    //
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  private InstanceFactory m_factory = new InstanceFactory();",
-            "  public Test() {",
-            "    setLayout(new RowLayout());",
-            "    Button button = m_factory.createButton(this, 'button');",
-            "  }",
-            "}");
-    // check for InstanceFactoryInfo
-    {
-      InstanceFactoryContainerInfo factoryContainer = InstanceFactoryContainerInfo.get(shell);
-      List<InstanceFactoryInfo> factories = factoryContainer.getChildrenFactory();
-      assertEquals(1, factories.size());
-      assertEquals(
-          "test.InstanceFactory",
-          factories.get(0).getDescription().getComponentClass().getName());
-    }
-    // check for Button
-    ControlInfo button = shell.getChildrenControls().get(0);
-    assertEquals("m_factory.createButton(this, \"button\")", button.getAssociation().getSource());
-    assertInstanceOf(InstanceFactoryCreationSupport.class, button.getCreationSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// parse
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parse() throws Exception {
+		setFileContentSrc(
+				"test/InstanceFactory.java",
+				getTestSource(
+						"public final class InstanceFactory {",
+						"  public Button createButton(Composite parent, String text) {",
+						"    Button button = new Button(parent, SWT.NONE);",
+						"    button.setText(text);",
+						"    return button;",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+		//
+		CompositeInfo shell =
+				parseComposite(
+						"class Test extends Shell {",
+						"  private InstanceFactory m_factory = new InstanceFactory();",
+						"  public Test() {",
+						"    setLayout(new RowLayout());",
+						"    Button button = m_factory.createButton(this, 'button');",
+						"  }",
+						"}");
+		// check for InstanceFactoryInfo
+		{
+			InstanceFactoryContainerInfo factoryContainer = InstanceFactoryContainerInfo.get(shell);
+			List<InstanceFactoryInfo> factories = factoryContainer.getChildrenFactory();
+			assertEquals(1, factories.size());
+			assertEquals(
+					"test.InstanceFactory",
+					factories.get(0).getDescription().getComponentClass().getName());
+		}
+		// check for Button
+		ControlInfo button = shell.getChildrenControls().get(0);
+		assertEquals("m_factory.createButton(this, \"button\")", button.getAssociation().getSource());
+		assertInstanceOf(InstanceFactoryCreationSupport.class, button.getCreationSupport());
+	}
 }

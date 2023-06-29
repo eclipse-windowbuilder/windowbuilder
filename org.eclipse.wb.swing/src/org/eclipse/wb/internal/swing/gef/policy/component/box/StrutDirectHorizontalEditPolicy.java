@@ -23,28 +23,28 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
  * @coverage swing.gef.policy
  */
 public final class StrutDirectHorizontalEditPolicy extends StrutDirectEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StrutDirectHorizontalEditPolicy(ComponentInfo strut) {
-    super(strut);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StrutDirectHorizontalEditPolicy(ComponentInfo strut) {
+		super(strut);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DirectTextEditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText() {
-    return "" + getHost().getFigure().getBounds().width;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DirectTextEditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText() {
+		return "" + getHost().getFigure().getBounds().width;
+	}
 
-  @Override
-  protected String getSource(ComponentInfo strut, String text) throws Exception {
-    int value = Integer.parseInt(text);
-    return IntegerConverter.INSTANCE.toJavaSource(strut, value);
-  }
+	@Override
+	protected String getSource(ComponentInfo strut, String text) throws Exception {
+		int value = Integer.parseInt(text);
+		return IntegerConverter.INSTANCE.toJavaSource(strut, value);
+	}
 }

@@ -21,47 +21,47 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
  */
 @Deprecated
 public final class ComponentAttachmentInfo {
-  private final IAbstractComponentInfo m_source;
-  private final IAbstractComponentInfo m_target;
-  private final int m_alignment;
+	private final IAbstractComponentInfo m_source;
+	private final IAbstractComponentInfo m_target;
+	private final int m_alignment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComponentAttachmentInfo(IAbstractComponentInfo source,
-      IAbstractComponentInfo target,
-      int alignment) {
-    m_source = source;
-    m_target = target;
-    m_alignment = alignment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComponentAttachmentInfo(IAbstractComponentInfo source,
+			IAbstractComponentInfo target,
+			int alignment) {
+		m_source = source;
+		m_target = target;
+		m_alignment = alignment;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public int getAlignment() {
-    return m_alignment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public int getAlignment() {
+		return m_alignment;
+	}
 
-  public IAbstractComponentInfo getSource() {
-    return m_source;
-  }
+	public IAbstractComponentInfo getSource() {
+		return m_source;
+	}
 
-  public IAbstractComponentInfo getTarget() {
-    return m_target;
-  }
+	public IAbstractComponentInfo getTarget() {
+		return m_target;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // toString
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "" + m_source + " -> " + m_target + " by " + m_alignment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// toString
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "" + m_source + " -> " + m_target + " by " + m_alignment;
+	}
 }

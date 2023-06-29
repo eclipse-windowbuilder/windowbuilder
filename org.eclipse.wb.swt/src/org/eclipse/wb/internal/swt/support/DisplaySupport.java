@@ -21,44 +21,44 @@ import org.eclipse.swt.widgets.Display;
  * @coverage swt.support
  */
 public class DisplaySupport extends AbstractSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Display
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link org.eclipse.swt.widgets.Display} {@link Class} loaded from active editor
-   *         {@link ClassLoader}.
-   */
-  public static Class<?> getDisplayClass() {
-    return loadClass("org.eclipse.swt.widgets.Display");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Display
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link org.eclipse.swt.widgets.Display} {@link Class} loaded from active editor
+	 *         {@link ClassLoader}.
+	 */
+	public static Class<?> getDisplayClass() {
+		return loadClass("org.eclipse.swt.widgets.Display");
+	}
 
-  /**
-   * Invoke method <code>Display.getDefault()</code>.
-   */
-  public static Object getDefault() throws Exception {
-    return ReflectionUtils.invokeMethod(getDisplayClass(), "getDefault()");
-  }
+	/**
+	 * Invoke method <code>Display.getDefault()</code>.
+	 */
+	public static Object getDefault() throws Exception {
+		return ReflectionUtils.invokeMethod(getDisplayClass(), "getDefault()");
+	}
 
-  /**
-   * Invoke method <code>Display.getCurrent()</code>.
-   */
-  public static Object getCurrent() throws Exception {
-    return ReflectionUtils.invokeMethod(getDisplayClass(), "getCurrent()");
-  }
+	/**
+	 * Invoke method <code>Display.getCurrent()</code>.
+	 */
+	public static Object getCurrent() throws Exception {
+		return ReflectionUtils.invokeMethod(getDisplayClass(), "getCurrent()");
+	}
 
-  /**
-   * Invoke method <code>Display.getSystemColor()</code> for given color.
-   */
-  public static Object getSystemColor(Object id) throws Exception {
-    return ReflectionUtils.invokeMethod(getCurrent(), "getSystemColor(int)", id);
-  }
+	/**
+	 * Invoke method <code>Display.getSystemColor()</code> for given color.
+	 */
+	public static Object getSystemColor(Object id) throws Exception {
+		return ReflectionUtils.invokeMethod(getCurrent(), "getSystemColor(int)", id);
+	}
 
-  /**
-   * Invoke method <code>Display.getSystemFont()</code> for default display.
-   */
-  public static Object getSystemFont() throws Exception {
-    return ReflectionUtils.invokeMethod(getDefault(), "getSystemFont()");
-  }
+	/**
+	 * Invoke method <code>Display.getSystemFont()</code> for default display.
+	 */
+	public static Object getSystemFont() throws Exception {
+		return ReflectionUtils.invokeMethod(getDefault(), "getSystemFont()");
+	}
 }

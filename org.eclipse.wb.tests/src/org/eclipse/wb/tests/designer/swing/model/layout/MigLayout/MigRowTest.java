@@ -22,40 +22,40 @@ import org.apache.commons.lang.ArrayUtils;
  * @author scheglov_ke
  */
 public class MigRowTest extends AbstractMigLayoutTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_alignments() throws Exception {
-    checkAlignment(MigRowInfo.Alignment.DEFAULT, "Default");
-    checkAlignment(MigRowInfo.Alignment.TOP, "Top");
-    checkAlignment(MigRowInfo.Alignment.CENTER, "Center");
-    checkAlignment(MigRowInfo.Alignment.BOTTOM, "Bottom");
-    checkAlignment(MigRowInfo.Alignment.FILL, "Fill");
-    checkAlignment(MigRowInfo.Alignment.BASELINE, "Baseline");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_alignments() throws Exception {
+		checkAlignment(MigRowInfo.Alignment.DEFAULT, "Default");
+		checkAlignment(MigRowInfo.Alignment.TOP, "Top");
+		checkAlignment(MigRowInfo.Alignment.CENTER, "Center");
+		checkAlignment(MigRowInfo.Alignment.BOTTOM, "Bottom");
+		checkAlignment(MigRowInfo.Alignment.FILL, "Fill");
+		checkAlignment(MigRowInfo.Alignment.BASELINE, "Baseline");
+	}
 
-  private static void checkAlignment(MigRowInfo.Alignment alignment, String expectedText) {
-    assertNotNull(alignment.getSmallImage());
-    assertNotNull(alignment.getMenuImage());
-    assertEquals(expectedText, alignment.getText());
-  }
+	private static void checkAlignment(MigRowInfo.Alignment alignment, String expectedText) {
+		assertNotNull(alignment.getSmallImage());
+		assertNotNull(alignment.getMenuImage());
+		assertEquals(expectedText, alignment.getText());
+	}
 
-  /**
-   * Check for content of {@link MigRowInfo#ALIGNMENTS_TO_SET}.
-   */
-  public void test_alignmentsToSet() throws Exception {
-    assertThat(MigRowInfo.ALIGNMENTS_TO_SET).hasSize(MigRowInfo.Alignment.values().length - 1);
-    assertFalse(ArrayUtils.contains(MigRowInfo.ALIGNMENTS_TO_SET, MigRowInfo.Alignment.UNKNOWN));
-  }
+	/**
+	 * Check for content of {@link MigRowInfo#ALIGNMENTS_TO_SET}.
+	 */
+	public void test_alignmentsToSet() throws Exception {
+		assertThat(MigRowInfo.ALIGNMENTS_TO_SET).hasSize(MigRowInfo.Alignment.values().length - 1);
+		assertFalse(ArrayUtils.contains(MigRowInfo.ALIGNMENTS_TO_SET, MigRowInfo.Alignment.UNKNOWN));
+	}
 }

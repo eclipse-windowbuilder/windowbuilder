@@ -24,49 +24,49 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
  * @author scheglov_ke
  */
 public class ConvertersTest extends RcpModelTest {
-  private CompositeInfo shell;
+	private CompositeInfo shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    shell =
-        parseComposite(
-            "// filler filler filler",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "  }",
-            "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		shell =
+				parseComposite(
+						"// filler filler filler",
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"  }",
+						"}");
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    shell = null;
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		shell = null;
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_RectangleConverter() throws Exception {
-    ExpressionConverter converter = RectangleConverter.INSTANCE;
-    assertEquals("(org.eclipse.swt.graphics.Rectangle) null", converter.toJavaSource(shell, null));
-    assertEquals(
-        "new org.eclipse.swt.graphics.Rectangle(1, 2, 3, 4)",
-        converter.toJavaSource(shell, RectangleSupport.newRectangle(1, 2, 3, 4)));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_RectangleConverter() throws Exception {
+		ExpressionConverter converter = RectangleConverter.INSTANCE;
+		assertEquals("(org.eclipse.swt.graphics.Rectangle) null", converter.toJavaSource(shell, null));
+		assertEquals(
+				"new org.eclipse.swt.graphics.Rectangle(1, 2, 3, 4)",
+				converter.toJavaSource(shell, RectangleSupport.newRectangle(1, 2, 3, 4)));
+	}
 
-  public void test_PointConverter() throws Exception {
-    ExpressionConverter converter = PointConverter.INSTANCE;
-    assertEquals("(org.eclipse.swt.graphics.Point) null", converter.toJavaSource(shell, null));
-    assertEquals(
-        "new org.eclipse.swt.graphics.Point(1, 2)",
-        converter.toJavaSource(shell, PointSupport.newPoint(1, 2)));
-  }
+	public void test_PointConverter() throws Exception {
+		ExpressionConverter converter = PointConverter.INSTANCE;
+		assertEquals("(org.eclipse.swt.graphics.Point) null", converter.toJavaSource(shell, null));
+		assertEquals(
+				"new org.eclipse.swt.graphics.Point(1, 2)",
+				converter.toJavaSource(shell, PointSupport.newPoint(1, 2)));
+	}
 }

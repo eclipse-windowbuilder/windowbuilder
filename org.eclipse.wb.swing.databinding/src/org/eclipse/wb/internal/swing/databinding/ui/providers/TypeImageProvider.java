@@ -23,68 +23,68 @@ import java.util.Collection;
  * @coverage bindings.swing.ui
  */
 public final class TypeImageProvider {
-  public static final Image OBJECT_IMAGE = Activator.getImage("types/Object.png");
-  public static final Image STRING_IMAGE = Activator.getImage("types/String.png");
-  public static final Image BOOLEAN_IMAGE = Activator.getImage("types/Boolean.png");
-  public static final Image NUMBER_IMAGE = Activator.getImage("types/Number.png");
-  public static final Image IMAGE_IMAGE = Activator.getImage("types/Image.png");
-  public static final Image COLOR_IMAGE = Activator.getImage("types/Color.png");
-  public static final Image FONT_IMAGE = Activator.getImage("types/Font.png");
-  public static final Image ARRAY_IMAGE = Activator.getImage("types/Array.png");
-  public static final Image COLLECTION_IMAGE = Activator.getImage("types/Collection.png");
-  public static final Image EL_PROPERTY_IMAGE = Activator.getImage("el_property2.gif");
-  public static final Image OBJECT_PROPERTY_IMAGE = Activator.getImage("SelfObject.png");
+	public static final Image OBJECT_IMAGE = Activator.getImage("types/Object.png");
+	public static final Image STRING_IMAGE = Activator.getImage("types/String.png");
+	public static final Image BOOLEAN_IMAGE = Activator.getImage("types/Boolean.png");
+	public static final Image NUMBER_IMAGE = Activator.getImage("types/Number.png");
+	public static final Image IMAGE_IMAGE = Activator.getImage("types/Image.png");
+	public static final Image COLOR_IMAGE = Activator.getImage("types/Color.png");
+	public static final Image FONT_IMAGE = Activator.getImage("types/Font.png");
+	public static final Image ARRAY_IMAGE = Activator.getImage("types/Array.png");
+	public static final Image COLLECTION_IMAGE = Activator.getImage("types/Collection.png");
+	public static final Image EL_PROPERTY_IMAGE = Activator.getImage("el_property2.gif");
+	public static final Image OBJECT_PROPERTY_IMAGE = Activator.getImage("SelfObject.png");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Image
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link Image} association with given {@link Class}.
-   */
-  public static Image getImage(Class<?> type) {
-    // unknown type accept as object
-    if (type == null) {
-      return OBJECT_IMAGE;
-    }
-    // string
-    if (type == String.class || type == byte.class || type == char.class) {
-      return STRING_IMAGE;
-    }
-    // boolean
-    if (type == boolean.class || type == Boolean.class) {
-      return BOOLEAN_IMAGE;
-    }
-    // arithmetic
-    if (type == int.class
-        || type == short.class
-        || type == long.class
-        || type == float.class
-        || type == double.class) {
-      return NUMBER_IMAGE;
-    }
-    // array
-    if (type.isArray()) {
-      return ARRAY_IMAGE;
-    }
-    // Collection
-    if (Collection.class.isAssignableFrom(type)) {
-      return COLLECTION_IMAGE;
-    }
-    // AWT image
-    if (type == java.awt.Image.class || type == javax.swing.Icon.class) {
-      return IMAGE_IMAGE;
-    }
-    // AWT color
-    if (type == java.awt.Color.class) {
-      return COLOR_IMAGE;
-    }
-    // AWT font
-    if (type == java.awt.Font.class) {
-      return FONT_IMAGE;
-    }
-    // other accept as object
-    return OBJECT_IMAGE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Image
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link Image} association with given {@link Class}.
+	 */
+	public static Image getImage(Class<?> type) {
+		// unknown type accept as object
+		if (type == null) {
+			return OBJECT_IMAGE;
+		}
+		// string
+		if (type == String.class || type == byte.class || type == char.class) {
+			return STRING_IMAGE;
+		}
+		// boolean
+		if (type == boolean.class || type == Boolean.class) {
+			return BOOLEAN_IMAGE;
+		}
+		// arithmetic
+		if (type == int.class
+				|| type == short.class
+				|| type == long.class
+				|| type == float.class
+				|| type == double.class) {
+			return NUMBER_IMAGE;
+		}
+		// array
+		if (type.isArray()) {
+			return ARRAY_IMAGE;
+		}
+		// Collection
+		if (Collection.class.isAssignableFrom(type)) {
+			return COLLECTION_IMAGE;
+		}
+		// AWT image
+		if (type == java.awt.Image.class || type == javax.swing.Icon.class) {
+			return IMAGE_IMAGE;
+		}
+		// AWT color
+		if (type == java.awt.Color.class) {
+			return COLOR_IMAGE;
+		}
+		// AWT font
+		if (type == java.awt.Font.class) {
+			return FONT_IMAGE;
+		}
+		// other accept as object
+		return OBJECT_IMAGE;
+	}
 }

@@ -28,67 +28,67 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * @coverage core.preferences.ui
  */
 public final class ParsingPreferencePage extends FieldEditorPreferencePage
-    implements
-      IWorkbenchPreferencePage,
-      IPreferenceConstants {
-  private StringFieldEditor m_hideBeginEditor;
-  private StringFieldEditor m_hideEndEditor;
-  private StringFieldEditor m_hideLineEditor;
+implements
+IWorkbenchPreferencePage,
+IPreferenceConstants {
+	private StringFieldEditor m_hideBeginEditor;
+	private StringFieldEditor m_hideEndEditor;
+	private StringFieldEditor m_hideLineEditor;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ParsingPreferencePage() {
-    super(GRID);
-    setPreferenceStore(DesignerPlugin.getDefault().getPreferenceStore());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ParsingPreferencePage() {
+		super(GRID);
+		setPreferenceStore(DesignerPlugin.getDefault().getPreferenceStore());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // FieldEditorPreferencePage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createFieldEditors() {
-    m_hideBeginEditor =
-        new StringFieldEditor(P_CODE_HIDE_BEGIN,
-            UiMessages.ParsingPreferencePage_hideBlockBegin,
-            getFieldEditorParent());
-    m_hideEndEditor =
-        new StringFieldEditor(P_CODE_HIDE_END,
-            UiMessages.ParsingPreferencePage_hideBlockEnd,
-            getFieldEditorParent());
-    m_hideLineEditor =
-        new StringFieldEditor(P_CODE_HIDE_LINE,
-            UiMessages.ParsingPreferencePage_hideSingle,
-            getFieldEditorParent());
-    m_hideBeginEditor.setEmptyStringAllowed(false);
-    m_hideEndEditor.setEmptyStringAllowed(false);
-    m_hideLineEditor.setEmptyStringAllowed(false);
-    addField(m_hideBeginEditor);
-    addField(m_hideEndEditor);
-    addField(m_hideLineEditor);
-    // evaluation
-    addField(new BooleanFieldEditor(P_CODE_STRICT_EVALUATE,
-        UiMessages.ParsingPreferencePage_strictEvaluate,
-        getFieldEditorParent()));
-    // highlight visited/executed lines
-    addField(new BooleanFieldEditor(P_HIGHLIGHT_VISITED,
-        UiMessages.ParsingPreferencePage_highlightVisitedLines,
-        getFieldEditorParent()));
-    addField(new ColorFieldEditor(P_HIGHLIGHT_VISITED_COLOR,
-        UiMessages.ParsingPreferencePage_highlightVisitedLinesColor,
-        getFieldEditorParent()));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// FieldEditorPreferencePage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createFieldEditors() {
+		m_hideBeginEditor =
+				new StringFieldEditor(P_CODE_HIDE_BEGIN,
+						UiMessages.ParsingPreferencePage_hideBlockBegin,
+						getFieldEditorParent());
+		m_hideEndEditor =
+				new StringFieldEditor(P_CODE_HIDE_END,
+						UiMessages.ParsingPreferencePage_hideBlockEnd,
+						getFieldEditorParent());
+		m_hideLineEditor =
+				new StringFieldEditor(P_CODE_HIDE_LINE,
+						UiMessages.ParsingPreferencePage_hideSingle,
+						getFieldEditorParent());
+		m_hideBeginEditor.setEmptyStringAllowed(false);
+		m_hideEndEditor.setEmptyStringAllowed(false);
+		m_hideLineEditor.setEmptyStringAllowed(false);
+		addField(m_hideBeginEditor);
+		addField(m_hideEndEditor);
+		addField(m_hideLineEditor);
+		// evaluation
+		addField(new BooleanFieldEditor(P_CODE_STRICT_EVALUATE,
+				UiMessages.ParsingPreferencePage_strictEvaluate,
+				getFieldEditorParent()));
+		// highlight visited/executed lines
+		addField(new BooleanFieldEditor(P_HIGHLIGHT_VISITED,
+				UiMessages.ParsingPreferencePage_highlightVisitedLines,
+				getFieldEditorParent()));
+		addField(new ColorFieldEditor(P_HIGHLIGHT_VISITED_COLOR,
+				UiMessages.ParsingPreferencePage_highlightVisitedLinesColor,
+				getFieldEditorParent()));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PreferencePage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void init(IWorkbench workbench) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PreferencePage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void init(IWorkbench workbench) {
+	}
 }

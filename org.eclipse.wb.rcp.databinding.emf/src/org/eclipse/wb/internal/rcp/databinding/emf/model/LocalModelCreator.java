@@ -17,20 +17,20 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.ModelCreator;
  * @coverage bindings.rcp.emf.model
  */
 final class LocalModelCreator extends ModelCreator<EmfObserveTypeContainer> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LocalModelCreator(ILocalModelCreator creator) {
-    super(creator);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LocalModelCreator(ILocalModelCreator creator) {
+		super(creator);
+	}
 
-  public LocalModelCreator(int startIndex, ILocalModelCreator creator) {
-    super(startIndex, creator);
-  }
+	public LocalModelCreator(int startIndex, ILocalModelCreator creator) {
+		super(startIndex, creator);
+	}
 
-  public LocalModelCreator(int startIndex0, int startIndex1, ILocalModelCreator creator) {
-    super(startIndex0, startIndex1, creator);
-  }
+	public LocalModelCreator(int startIndex0, int startIndex1, ILocalModelCreator creator) {
+		super(startIndex0, startIndex1, creator);
+	}
 }

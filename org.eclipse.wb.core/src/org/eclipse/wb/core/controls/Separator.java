@@ -27,47 +27,47 @@ import org.eclipse.swt.widgets.Label;
  * @coverage core.control
  */
 public final class Separator extends Composite {
-  private static Font BOLD_FONT;
-  private final Label m_title;
+	private static Font BOLD_FONT;
+	private final Label m_title;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Separator(Composite parent, int style) {
-    super(parent, style);
-    GridLayoutFactory.create(this).noMargins().columns(2).spacingH(8);
-    {
-      m_title = new Label(this, SWT.NONE);
-      GridDataFactory.create(m_title).alignVM();
-      // set font
-      if (BOLD_FONT == null) {
-        BOLD_FONT = DrawUtils.getBoldFont(m_title.getFont());
-      }
-      m_title.setFont(BOLD_FONT);
-    }
-    {
-      Label separator = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
-      GridDataFactory.create(separator).grabH().fillH().alignVM();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Separator(Composite parent, int style) {
+		super(parent, style);
+		GridLayoutFactory.create(this).noMargins().columns(2).spacingH(8);
+		{
+			m_title = new Label(this, SWT.NONE);
+			GridDataFactory.create(m_title).alignVM();
+			// set font
+			if (BOLD_FONT == null) {
+				BOLD_FONT = DrawUtils.getBoldFont(m_title.getFont());
+			}
+			m_title.setFont(BOLD_FONT);
+		}
+		{
+			Label separator = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
+			GridDataFactory.create(separator).grabH().fillH().alignVM();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the text to display.
-   */
-  public void setText(String text) {
-    m_title.setText(text);
-    layout();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the text to display.
+	 */
+	public void setText(String text) {
+		m_title.setText(text);
+		layout();
+	}
 
-  @Override
-  public void setForeground(Color color) {
-    m_title.setForeground(color);
-  }
+	@Override
+	public void setForeground(Color color) {
+		m_title.setForeground(color);
+	}
 }

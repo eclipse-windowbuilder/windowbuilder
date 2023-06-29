@@ -20,8 +20,8 @@ package org.eclipse.wb.gef.core;
  * @coverage gef.core
  */
 public interface IEditPartFactory {
-  /**
-   * Creates a new {@link EditPart} given the specified <i>context</i> and <i>model</i>.
-   */
-  EditPart createEditPart(EditPart context, Object model);
+	/**
+	 * Creates a new {@link EditPart} given the specified <i>context</i> and <i>model</i>.
+	 */
+	EditPart createEditPart(EditPart context, Object model);
 }

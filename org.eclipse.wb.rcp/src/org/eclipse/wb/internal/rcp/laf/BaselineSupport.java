@@ -21,11 +21,11 @@ import org.eclipse.swt.widgets.Control;
  * @author mitin_aa
  */
 public class BaselineSupport implements IBaselineSupport {
-  @Override
-  public int getBaseline(Object component) {
-    if (!(component instanceof Control)) {
-      return NO_BASELINE;
-    }
-    return Baseline.getBaseline((Control) component);
-  }
+	@Override
+	public int getBaseline(Object component) {
+		if (!(component instanceof Control)) {
+			return NO_BASELINE;
+		}
+		return Baseline.getBaseline((Control) component);
+	}
 }

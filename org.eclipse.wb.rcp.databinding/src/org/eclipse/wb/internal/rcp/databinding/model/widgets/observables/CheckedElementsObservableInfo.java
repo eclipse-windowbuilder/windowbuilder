@@ -30,83 +30,83 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public final class CheckedElementsObservableInfo extends ViewerObservableInfo {
-  private Class<?> m_elementType;
+	private Class<?> m_elementType;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CheckedElementsObservableInfo(BindableInfo bindableWidget) throws Exception {
-    this(bindableWidget, (Class<?>) null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CheckedElementsObservableInfo(BindableInfo bindableWidget) throws Exception {
+		this(bindableWidget, (Class<?>) null);
+	}
 
-  public CheckedElementsObservableInfo(BindableInfo bindableWidget, Class<?> elementType)
-      throws Exception {
-    super(bindableWidget, "observeCheckedElements");
-    m_elementType = elementType;
-  }
+	public CheckedElementsObservableInfo(BindableInfo bindableWidget, Class<?> elementType)
+			throws Exception {
+		super(bindableWidget, "observeCheckedElements");
+		m_elementType = elementType;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObservableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canShared() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObservableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canShared() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Class<?> getElementType() {
-    return m_elementType;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Class<?> getElementType() {
+		return m_elementType;
+	}
 
-  public void setElementType(Class<?> elementType) {
-    m_elementType = elementType;
-  }
+	public void setElementType(Class<?> elementType) {
+		m_elementType = elementType;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPresentationText() throws Exception {
-    String presentationElementType =
-        m_elementType == null ? "?????" : ClassUtils.getShortClassName(m_elementType);
-    return getBindableObject().getPresentation().getTextForBinding()
-        + ".checkedElements("
-        + presentationElementType
-        + ".class)";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPresentationText() throws Exception {
+		String presentationElementType =
+				m_elementType == null ? "?????" : ClassUtils.getShortClassName(m_elementType);
+		return getBindableObject().getPresentation().getTextForBinding()
+				+ ".checkedElements("
+				+ presentationElementType
+				+ ".class)";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createContentProviders(List<IUiContentProvider> providers,
-      BindingUiContentProviderContext context,
-      DatabindingsProvider provider) throws Exception {
-    super.createContentProviders(providers, context, provider);
-    //
-    ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel(Messages.CheckedElementsObservableInfo_label);
-    configuration.setValueScope("beans");
-    configuration.setChooseInterfaces(true);
-    configuration.setEmptyClassErrorMessage(MessageFormat.format(
-        Messages.CheckedElementsObservableInfo_emptyMessage,
-        context.getDirection()));
-    configuration.setErrorMessagePrefix(MessageFormat.format(
-        Messages.CheckedElementsObservableInfo_errorPrefix,
-        context.getDirection()));
-    //
-    providers.add(new CheckedElementsUiContentProvider(configuration, this, provider));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createContentProviders(List<IUiContentProvider> providers,
+			BindingUiContentProviderContext context,
+			DatabindingsProvider provider) throws Exception {
+		super.createContentProviders(providers, context, provider);
+		//
+		ChooseClassConfiguration configuration = new ChooseClassConfiguration();
+		configuration.setDialogFieldLabel(Messages.CheckedElementsObservableInfo_label);
+		configuration.setValueScope("beans");
+		configuration.setChooseInterfaces(true);
+		configuration.setEmptyClassErrorMessage(MessageFormat.format(
+				Messages.CheckedElementsObservableInfo_emptyMessage,
+				context.getDirection()));
+		configuration.setErrorMessagePrefix(MessageFormat.format(
+				Messages.CheckedElementsObservableInfo_errorPrefix,
+				context.getDirection()));
+		//
+		providers.add(new CheckedElementsUiContentProvider(configuration, this, provider));
+	}
 }

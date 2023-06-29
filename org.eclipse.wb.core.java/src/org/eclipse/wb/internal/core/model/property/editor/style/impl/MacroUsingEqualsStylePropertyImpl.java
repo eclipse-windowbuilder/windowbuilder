@@ -32,103 +32,103 @@ import org.apache.commons.lang.StringUtils;
  * @coverage core.model.property.editor
  */
 public final class MacroUsingEqualsStylePropertyImpl extends SubStylePropertyImpl {
-  private final long[] m_flags;
-  private final String[] m_sFlags;
-  private final long m_flagsClearMask;
-  private final long m_setClearMask;
+	private final long[] m_flags;
+	private final String[] m_sFlags;
+	private final long m_flagsClearMask;
+	private final long m_setClearMask;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MacroUsingEqualsStylePropertyImpl(AbstractStylePropertyEditor editor,
-      String title,
-      long[] flags,
-      String[] sFlags,
-      long clearMask) {
-    super(editor, title);
-    m_flags = flags;
-    m_sFlags = sFlags;
-    m_flagsClearMask = clearMask;
-    m_setClearMask = ~clearMask;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MacroUsingEqualsStylePropertyImpl(AbstractStylePropertyEditor editor,
+			String title,
+			long[] flags,
+			String[] sFlags,
+			long clearMask) {
+		super(editor, title);
+		m_flags = flags;
+		m_sFlags = sFlags;
+		m_flagsClearMask = clearMask;
+		m_setClearMask = ~clearMask;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public PropertyEditor createEditor() {
-    return new StringComboPropertyEditor(m_sFlags);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public PropertyEditor createEditor() {
+		return new StringComboPropertyEditor(m_sFlags);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Style
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public long getFlag(String sFlag) {
-    return m_flags[ArrayUtils.indexOf(m_sFlags, sFlag)];
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Style
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public long getFlag(String sFlag) {
+		return m_flags[ArrayUtils.indexOf(m_sFlags, sFlag)];
+	}
 
-  @Override
-  public String getFlagValue(Property property) throws Exception {
-    long style = getStyleValue(property) & m_flagsClearMask;
-    for (int i = 0; i < m_flags.length; i++) {
-      long flag = m_flags[i];
-      if (style == flag) {
-        return m_sFlags[i];
-      }
-    }
-    return null;
-  }
+	@Override
+	public String getFlagValue(Property property) throws Exception {
+		long style = getStyleValue(property) & m_flagsClearMask;
+		for (int i = 0; i < m_flags.length; i++) {
+			long flag = m_flags[i];
+			if (style == flag) {
+				return m_sFlags[i];
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue(Property property) throws Exception {
-    return StringUtils.defaultString(getFlagValue(property));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue(Property property) throws Exception {
+		return StringUtils.defaultString(getFlagValue(property));
+	}
 
-  @Override
-  public void setValue(Property property, Object value) throws Exception {
-    long style = getStyleValue(property) & m_setClearMask;
-    if (value != Property.UNKNOWN_VALUE) {
-      String sValue = (String) value;
-      if (!StringUtils.isEmpty(sValue)) {
-        style |= getFlag(sValue);
-      }
-    }
-    setStyleValue(property, style);
-  }
+	@Override
+	public void setValue(Property property, Object value) throws Exception {
+		long style = getStyleValue(property) & m_setClearMask;
+		if (value != Property.UNKNOWN_VALUE) {
+			String sValue = (String) value;
+			if (!StringUtils.isEmpty(sValue)) {
+				style |= getFlag(sValue);
+			}
+		}
+		setStyleValue(property, style);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Popup menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void contributeActions(Property property, IMenuManager manager) throws Exception {
-    // separate sub-properties
-    manager.add(new Separator());
-    // add actions
-    long style = getStyleValue(property);
-    for (int i = 0; i < m_flags.length; i++) {
-      // create
-      IAction action = new RadioStyleAction(property, this, m_sFlags[i]);
-      // configure
-      long flag = m_flags[i];
-      if ((style & flag) == flag) {
-        action.setChecked(true);
-      }
-      // add to menu
-      manager.add(action);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Popup menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void contributeActions(Property property, IMenuManager manager) throws Exception {
+		// separate sub-properties
+		manager.add(new Separator());
+		// add actions
+		long style = getStyleValue(property);
+		for (int i = 0; i < m_flags.length; i++) {
+			// create
+			IAction action = new RadioStyleAction(property, this, m_sFlags[i]);
+			// configure
+			long flag = m_flags[i];
+			if ((style & flag) == flag) {
+				action.setChecked(true);
+			}
+			// add to menu
+			manager.add(action);
+		}
+	}
 }

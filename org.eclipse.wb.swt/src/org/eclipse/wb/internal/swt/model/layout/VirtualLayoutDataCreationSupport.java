@@ -27,89 +27,89 @@ import org.eclipse.jdt.core.dom.ASTNode;
  * @coverage swt.model.layout
  */
 public final class VirtualLayoutDataCreationSupport extends CreationSupport
-    implements
-      IImplicitCreationSupport {
-  private final ControlInfo m_control;
-  private final Object m_dataObject;
+implements
+IImplicitCreationSupport {
+	private final ControlInfo m_control;
+	private final Object m_dataObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualLayoutDataCreationSupport(ControlInfo control, Object dataObject) {
-    m_control = control;
-    m_dataObject = dataObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualLayoutDataCreationSupport(ControlInfo control, Object dataObject) {
+		m_control = control;
+		m_dataObject = dataObject;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    m_javaInfo.setObject(m_dataObject);
-    m_control.addBroadcastListener(new JavaInfoSetObjectAfter() {
-      @Override
-      public void invoke(JavaInfo target, Object object) throws Exception {
-        // check, may be this creation support is not active
-        if (m_javaInfo.getCreationSupport() != VirtualLayoutDataCreationSupport.this) {
-          m_control.removeBroadcastListener(this);
-          return;
-        }
-        // OK, check for control
-        if (target == m_control) {
-          m_javaInfo.setObject(m_dataObject);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		m_javaInfo.setObject(m_dataObject);
+		m_control.addBroadcastListener(new JavaInfoSetObjectAfter() {
+			@Override
+			public void invoke(JavaInfo target, Object object) throws Exception {
+				// check, may be this creation support is not active
+				if (m_javaInfo.getCreationSupport() != VirtualLayoutDataCreationSupport.this) {
+					m_control.removeBroadcastListener(this);
+					return;
+				}
+				// OK, check for control
+				if (target == m_control) {
+					m_javaInfo.setObject(m_dataObject);
+				}
+			}
+		});
+	}
 
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    return false;
-  }
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		return false;
+	}
 
-  @Override
-  public ASTNode getNode() {
-    return null;
-  }
+	@Override
+	public ASTNode getNode() {
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return true;
+	}
 
-  @Override
-  public void delete() throws Exception {
-    JavaInfoUtils.deleteJavaInfo(m_javaInfo, false);
-  }
+	@Override
+	public void delete() throws Exception {
+		JavaInfoUtils.deleteJavaInfo(m_javaInfo, false);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    Class<?> layoutDataClass = getComponentClass();
-    return "virtual-layout_data: " + layoutDataClass.getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		Class<?> layoutDataClass = getComponentClass();
+		return "virtual-layout_data: " + layoutDataClass.getName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IClipboardImplicitCreationSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IClipboardImplicitCreationSupport getImplicitClipboard() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IClipboardImplicitCreationSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IClipboardImplicitCreationSupport getImplicitClipboard() {
+		return null;
+	}
 }

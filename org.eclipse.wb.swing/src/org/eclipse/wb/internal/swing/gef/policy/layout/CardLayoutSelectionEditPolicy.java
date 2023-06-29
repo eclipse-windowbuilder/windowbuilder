@@ -38,118 +38,118 @@ import java.util.List;
  * @coverage swing.gef.policy
  */
 public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
-  private final CardLayoutInfo m_layout;
-  private CardNavigationFigure m_navigationFigure;
+	private final CardLayoutInfo m_layout;
+	private CardNavigationFigure m_navigationFigure;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CardLayoutSelectionEditPolicy(CardLayoutInfo layout) {
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CardLayoutSelectionEditPolicy(CardLayoutInfo layout) {
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    handles.add(new MoveHandle(getHost()));
-    handles.add(createHandle(IPositionConstants.SOUTH_EAST));
-    handles.add(createHandle(IPositionConstants.SOUTH_WEST));
-    handles.add(createHandle(IPositionConstants.NORTH_WEST));
-    handles.add(createHandle(IPositionConstants.NORTH_EAST));
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		handles.add(new MoveHandle(getHost()));
+		handles.add(createHandle(IPositionConstants.SOUTH_EAST));
+		handles.add(createHandle(IPositionConstants.SOUTH_WEST));
+		handles.add(createHandle(IPositionConstants.NORTH_WEST));
+		handles.add(createHandle(IPositionConstants.NORTH_EAST));
+		return handles;
+	}
 
-  /**
-   * @return the {@link ResizeHandle} for given direction.
-   */
-  private Handle createHandle(int direction) {
-    ResizeHandle handle = new ResizeHandle(getHost(), direction);
-    ResizeTracker tracker = new ResizeTracker(direction, null);
-    tracker.setDefaultCursor(ICursorConstants.SIZEALL);
-    handle.setDragTrackerTool(tracker);
-    handle.setCursor(ICursorConstants.SIZEALL);
-    return handle;
-  }
+	/**
+	 * @return the {@link ResizeHandle} for given direction.
+	 */
+	private Handle createHandle(int direction) {
+		ResizeHandle handle = new ResizeHandle(getHost(), direction);
+		ResizeTracker tracker = new ResizeTracker(direction, null);
+		tracker.setDefaultCursor(ICursorConstants.SIZEALL);
+		handle.setDragTrackerTool(tracker);
+		handle.setCursor(ICursorConstants.SIZEALL);
+		return handle;
+	}
 
-  @Override
-  protected void showSelection() {
-    super.showSelection();
-    // add navigate feedback
-    if (m_navigationFigure == null) {
-      m_navigationFigure = new CardNavigationFigure(this);
-      Figure hostFigure = getHostFigure();
-      Rectangle bounds = hostFigure.getBounds().getCopy();
-      FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
-      m_navigationFigure.setBounds(new Rectangle(bounds.right()
-          - CardNavigationFigure.WIDTH
-          * 2
-          - 3,
-          bounds.y - CardNavigationFigure.HEIGHT / 2,
-          CardNavigationFigure.WIDTH * 2,
-          CardNavigationFigure.HEIGHT));
-      addFeedback(m_navigationFigure);
-    }
-  }
+	@Override
+	protected void showSelection() {
+		super.showSelection();
+		// add navigate feedback
+		if (m_navigationFigure == null) {
+			m_navigationFigure = new CardNavigationFigure(this);
+			Figure hostFigure = getHostFigure();
+			Rectangle bounds = hostFigure.getBounds().getCopy();
+			FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
+			m_navigationFigure.setBounds(new Rectangle(bounds.right()
+					- CardNavigationFigure.WIDTH
+					* 2
+					- 3,
+					bounds.y - CardNavigationFigure.HEIGHT / 2,
+					CardNavigationFigure.WIDTH * 2,
+					CardNavigationFigure.HEIGHT));
+			addFeedback(m_navigationFigure);
+		}
+	}
 
-  @Override
-  protected void hideSelection() {
-    super.hideSelection();
-    // remove navigate feedback
-    if (m_navigationFigure != null) {
-      removeFeedback(m_navigationFigure);
-      m_navigationFigure = null;
-    }
-  }
+	@Override
+	protected void hideSelection() {
+		super.hideSelection();
+		// remove navigate feedback
+		if (m_navigationFigure != null) {
+			removeFeedback(m_navigationFigure);
+			m_navigationFigure = null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Selection
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets show previous component relative of current.
-   */
-  public void showPrevComponent() {
-    IEditPartViewer viewer = getHost().getViewer();
-    // show previous component
-    ComponentInfo component = m_layout.getPrevComponent();
-    m_layout.show(component);
-    // select EditPart
-    EditPart editPart = viewer.getEditPartByModel(component);
-    viewer.select(editPart);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Selection
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets show previous component relative of current.
+	 */
+	public void showPrevComponent() {
+		IEditPartViewer viewer = getHost().getViewer();
+		// show previous component
+		ComponentInfo component = m_layout.getPrevComponent();
+		m_layout.show(component);
+		// select EditPart
+		EditPart editPart = viewer.getEditPartByModel(component);
+		viewer.select(editPart);
+	}
 
-  /**
-   * Sets show next component relative of current.
-   */
-  public void showNextComponent() {
-    IEditPartViewer viewer = getHost().getViewer();
-    // show next component
-    ComponentInfo component = m_layout.getNextComponent();
-    m_layout.show(component);
-    // select EditPart
-    EditPart editPart = viewer.getEditPartByModel(component);
-    viewer.select(editPart);
-  }
+	/**
+	 * Sets show next component relative of current.
+	 */
+	public void showNextComponent() {
+		IEditPartViewer viewer = getHost().getViewer();
+		// show next component
+		ComponentInfo component = m_layout.getNextComponent();
+		m_layout.show(component);
+		// select EditPart
+		EditPart editPart = viewer.getEditPartByModel(component);
+		viewer.select(editPart);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart getTargetEditPart(Request request) {
-    if (Request.REQ_SELECTION.equals(request.getType())) {
-      ComponentInfo component = m_layout.getCurrentComponent();
-      return getHost().getViewer().getEditPartByModel(component);
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		if (Request.REQ_SELECTION.equals(request.getType())) {
+			ComponentInfo component = m_layout.getCurrentComponent();
+			return getHost().getViewer().getEditPartByModel(component);
+		}
+		return null;
+	}
 }

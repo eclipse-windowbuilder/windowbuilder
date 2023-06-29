@@ -28,90 +28,90 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage core.model.creation
  */
 public final class StaticFactoryCreationSupport extends AbstractExplicitFactoryCreationSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StaticFactoryCreationSupport(FactoryMethodDescription description) {
-    super(description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StaticFactoryCreationSupport(FactoryMethodDescription description) {
+		super(description);
+	}
 
-  public StaticFactoryCreationSupport(FactoryMethodDescription description,
-      MethodInvocation invocation) {
-    super(description, invocation);
-  }
+	public StaticFactoryCreationSupport(FactoryMethodDescription description,
+			MethodInvocation invocation) {
+		super(description, invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "static factory: "
-        + m_description.getDeclaringClass().getName()
-        + " "
-        + m_description.getSignature();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "static factory: "
+				+ m_description.getDeclaringClass().getName()
+				+ " "
+				+ m_description.getSignature();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public CreationSupport getLiveComponentCreation() {
-    FactoryMethodDescription factoryMethodDescription = getDescription();
-    return new StaticFactoryCreationSupport(factoryMethodDescription);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public CreationSupport getLiveComponentCreation() {
+		FactoryMethodDescription factoryMethodDescription = getDescription();
+		return new StaticFactoryCreationSupport(factoryMethodDescription);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String add_getSource_invocationExpression(NodeTarget target) throws Exception {
-    if (isLocalFactoryMethod()) {
-      return "";
-    }
-    return m_description.getDeclaringClass().getName() + ".";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String add_getSource_invocationExpression(NodeTarget target) throws Exception {
+		if (isLocalFactoryMethod()) {
+			return "";
+		}
+		return m_description.getDeclaringClass().getName() + ".";
+	}
 
-  private boolean isLocalFactoryMethod() {
-    String editorTypeName =
-        m_javaInfo.getEditor().getModelUnit().findPrimaryType().getFullyQualifiedName();
-    String factoryTypeName = m_description.getDeclaringClass().getName();
-    return editorTypeName.equals(factoryTypeName);
-  }
+	private boolean isLocalFactoryMethod() {
+		String editorTypeName =
+				m_javaInfo.getEditor().getModelUnit().findPrimaryType().getFullyQualifiedName();
+		String factoryTypeName = m_description.getDeclaringClass().getName();
+		return editorTypeName.equals(factoryTypeName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IClipboardCreationSupport getClipboard() throws Exception {
-    final String factoryClassName = m_description.getDeclaringClass().getName();
-    final String methodSignature = m_description.getSignature();
-    final String argumentsSource = getClipboardArguments();
-    return new IClipboardCreationSupport() {
-      private static final long serialVersionUID = 0L;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IClipboardCreationSupport getClipboard() throws Exception {
+		final String factoryClassName = m_description.getDeclaringClass().getName();
+		final String methodSignature = m_description.getSignature();
+		final String argumentsSource = getClipboardArguments();
+		return new IClipboardCreationSupport() {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      public CreationSupport create(JavaInfo rootObject) throws Exception {
-        AstEditor editor = rootObject.getEditor();
-        Class<?> factoryClass =
-            EditorState.get(editor).getEditorLoader().loadClass(factoryClassName);
-        FactoryMethodDescription description =
-            FactoryDescriptionHelper.getDescription(editor, factoryClass, methodSignature, true);
-        //
-        StaticFactoryCreationSupport creationSupport =
-            new StaticFactoryCreationSupport(description);
-        creationSupport.m_addArguments = argumentsSource;
-        return creationSupport;
-      }
-    };
-  }
+			@Override
+			public CreationSupport create(JavaInfo rootObject) throws Exception {
+				AstEditor editor = rootObject.getEditor();
+				Class<?> factoryClass =
+						EditorState.get(editor).getEditorLoader().loadClass(factoryClassName);
+				FactoryMethodDescription description =
+						FactoryDescriptionHelper.getDescription(editor, factoryClass, methodSignature, true);
+				//
+				StaticFactoryCreationSupport creationSupport =
+						new StaticFactoryCreationSupport(description);
+				creationSupport.m_addArguments = argumentsSource;
+				return creationSupport;
+			}
+		};
+	}
 }

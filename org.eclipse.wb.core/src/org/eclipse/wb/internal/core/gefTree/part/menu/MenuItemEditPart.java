@@ -23,28 +23,28 @@ import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
  * @coverage core.gefTree.menu
  */
 public final class MenuItemEditPart extends ObjectEditPart {
-  private final ObjectInfo m_itemInfo;
-  private final IMenuItemInfo m_itemObject;
+	private final ObjectInfo m_itemInfo;
+	private final IMenuItemInfo m_itemObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuItemEditPart(ObjectInfo itemInfo, IMenuItemInfo itemObject) {
-    super(itemInfo);
-    m_itemInfo = itemInfo;
-    m_itemObject = itemObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuItemEditPart(ObjectInfo itemInfo, IMenuItemInfo itemObject) {
+		super(itemInfo);
+		m_itemInfo = itemInfo;
+		m_itemObject = itemObject;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(new MenuItemLayoutEditPolicy(m_itemInfo, m_itemObject));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(new MenuItemLayoutEditPolicy(m_itemInfo, m_itemObject));
+	}
 }

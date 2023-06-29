@@ -25,52 +25,52 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.model.generation
  */
 public final class LazyStatementGeneratorDescription extends StatementGeneratorDescription {
-  public static final StatementGeneratorDescription INSTANCE =
-      new LazyStatementGeneratorDescription();
+	public static final StatementGeneratorDescription INSTANCE =
+			new LazyStatementGeneratorDescription();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LazyStatementGeneratorDescription() {
-    super("org.eclipse.wb.core.model.statement.lazy",
-        "Lazy",
-        "each component in separate getXXX() method");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LazyStatementGeneratorDescription() {
+		super("org.eclipse.wb.core.model.statement.lazy",
+				"Lazy",
+				"each component in separate getXXX() method");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StatementGeneratorDescription
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public StatementGenerator get() {
-    return LazyStatementGenerator.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StatementGeneratorDescription
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public StatementGenerator get() {
+		return LazyStatementGenerator.INSTANCE;
+	}
 
-  @Override
-  public GenerationPropertiesComposite createPropertiesComposite(Composite parent,
-      DataBindManager bindManager,
-      IPreferenceStore store) {
-    return new PropertiesComposite(parent, bindManager, store);
-  }
+	@Override
+	public GenerationPropertiesComposite createPropertiesComposite(Composite parent,
+			DataBindManager bindManager,
+			IPreferenceStore store) {
+		return new PropertiesComposite(parent, bindManager, store);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static class PropertiesComposite extends GenerationPropertiesComposite {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public PropertiesComposite(Composite parent,
-        DataBindManager bindManager,
-        IPreferenceStore preferences) {
-      super(parent, bindManager, preferences);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static class PropertiesComposite extends GenerationPropertiesComposite {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public PropertiesComposite(Composite parent,
+				DataBindManager bindManager,
+				IPreferenceStore preferences) {
+			super(parent, bindManager, preferences);
+		}
+	}
 }

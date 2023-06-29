@@ -22,14 +22,14 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
  * @coverage rcp.gef.policy
  */
 public final class RowSelectionEditPolicy<C extends IControlInfo>
-    extends
-      DimensionSelectionEditPolicy<C> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
-    super(mainPolicy);
-  }
+extends
+DimensionSelectionEditPolicy<C> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
+		super(mainPolicy);
+	}
 }

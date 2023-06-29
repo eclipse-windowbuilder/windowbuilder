@@ -26,23 +26,23 @@ import org.eclipse.jface.viewers.Viewer;
  * @coverage bindings.rcp.ui
  */
 public final class AdvancedPropertyFilter extends PropertyFilter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AdvancedPropertyFilter() {
-    super(Messages.AdvancedPropertyFilter_title, Activator.getImage("advanced.png"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AdvancedPropertyFilter() {
+		super(Messages.AdvancedPropertyFilter_title, Activator.getImage("advanced.png"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyFilter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
-    IObserveDecoration observeDecoration = (IObserveDecoration) propertyObserve;
-    return observeDecoration.getDecorator() != IObserveDecorator.HIDDEN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyFilter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
+		IObserveDecoration observeDecoration = (IObserveDecoration) propertyObserve;
+		return observeDecoration.getDecorator() != IObserveDecorator.HIDDEN;
+	}
 }

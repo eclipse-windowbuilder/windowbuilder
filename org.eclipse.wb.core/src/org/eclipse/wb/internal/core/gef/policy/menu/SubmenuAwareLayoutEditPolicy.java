@@ -41,134 +41,134 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage core.gef.menu
  */
 public final class SubmenuAwareLayoutEditPolicy extends LayoutEditPolicy {
-  private final IMenuObjectInfo m_object;
+	private final IMenuObjectInfo m_object;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SubmenuAwareLayoutEditPolicy(IMenuObjectInfo object) {
-    m_object = object;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SubmenuAwareLayoutEditPolicy(IMenuObjectInfo object) {
+		m_object = object;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedbacks
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Layer getFeedbackLayer() {
-    return getLayer(IEditPartViewer.MENU_FEEDBACK_LAYER);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedbacks
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Layer getFeedbackLayer() {
+		return getLayer(IEditPartViewer.MENU_FEEDBACK_LAYER);
+	}
 
-  @Override
-  public void showTargetFeedback(Request request) {
-    PolicyUtils.showBorderTargetFeedback(this);
-  }
+	@Override
+	public void showTargetFeedback(Request request) {
+		PolicyUtils.showBorderTargetFeedback(this);
+	}
 
-  @Override
-  public void eraseTargetFeedback(Request request) {
-    PolicyUtils.eraseBorderTargetFeedback(this);
-  }
+	@Override
+	public void eraseTargetFeedback(Request request) {
+		PolicyUtils.eraseBorderTargetFeedback(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request Routing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart getTargetEditPart(Request request) {
-    // check that we understand this request
-    if (!isRequestCondition(request)) {
-      return null;
-    }
-    // "popup" always shows sub-menu
-    if (getHost() instanceof MenuPopupEditPart) {
-      return getHost();
-    }
-    // if standalone item, no fall through, always show menu
-    if (!(getHost().getParent() instanceof MenuEditPart)) {
-      return getHost();
-    }
-    // check if we have sub-menu for this item
-    if (getSubMenu() == null) {
-      return null;
-    }
-    // prepare location in figure
-    Figure figure = getHostFigure();
-    Point location = ((IDropRequest) request).getLocation().getCopy();
-    FigureUtils.translateAbsoluteToFigure2(figure, location);
-    // if request's mouse location are in middle 1/3 height (width) of figure then return getHost()
-    IMenuInfo parentMenu = ((MenuEditPart) getHost().getParent()).getMenu();
-    if (parentMenu.isHorizontal()) {
-      int halfWidth = figure.getSize().width / 2;
-      if (between(location.x, halfWidth - halfWidth / 4, halfWidth + halfWidth / 4)) {
-        return getHost();
-      }
-    } else {
-      int height = figure.getSize().height;
-      if (between(location.y, height / 2 - height / 3, height / 2 + height / 3)) {
-        return getHost();
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request Routing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		// check that we understand this request
+		if (!isRequestCondition(request)) {
+			return null;
+		}
+		// "popup" always shows sub-menu
+		if (getHost() instanceof MenuPopupEditPart) {
+			return getHost();
+		}
+		// if standalone item, no fall through, always show menu
+		if (!(getHost().getParent() instanceof MenuEditPart)) {
+			return getHost();
+		}
+		// check if we have sub-menu for this item
+		if (getSubMenu() == null) {
+			return null;
+		}
+		// prepare location in figure
+		Figure figure = getHostFigure();
+		Point location = ((IDropRequest) request).getLocation().getCopy();
+		FigureUtils.translateAbsoluteToFigure2(figure, location);
+		// if request's mouse location are in middle 1/3 height (width) of figure then return getHost()
+		IMenuInfo parentMenu = ((MenuEditPart) getHost().getParent()).getMenu();
+		if (parentMenu.isHorizontal()) {
+			int halfWidth = figure.getSize().width / 2;
+			if (between(location.x, halfWidth - halfWidth / 4, halfWidth + halfWidth / 4)) {
+				return getHost();
+			}
+		} else {
+			int height = figure.getSize().height;
+			if (between(location.y, height / 2 - height / 3, height / 2 + height / 3)) {
+				return getHost();
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private IMenuInfo getSubMenu() {
-    return MenuObjectInfoUtils.getSubMenu(m_object);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private IMenuInfo getSubMenu() {
+		return MenuObjectInfoUtils.getSubMenu(m_object);
+	}
 
-  private static boolean between(int x, int a, int b) {
-    return x >= a && x <= b;
-  }
+	private static boolean between(int x, int a, int b) {
+		return x >= a && x <= b;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return m_validator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return m_validator;
+	}
 
-  private final ILayoutRequestValidator m_validator = new ILayoutRequestValidator() {
-    @Override
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      IMenuInfo subMenu = getSubMenu();
-      return subMenu != null && subMenu.getPolicy().validateCreate(request.getNewObject());
-    }
+	private final ILayoutRequestValidator m_validator = new ILayoutRequestValidator() {
+		@Override
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			IMenuInfo subMenu = getSubMenu();
+			return subMenu != null && subMenu.getPolicy().validateCreate(request.getNewObject());
+		}
 
-    @Override
-    public boolean validatePasteRequest(EditPart host, PasteRequest request) {
-      IMenuInfo subMenu = getSubMenu();
-      return subMenu != null && subMenu.getPolicy().validatePaste(request.getMemento());
-    }
+		@Override
+		public boolean validatePasteRequest(EditPart host, PasteRequest request) {
+			IMenuInfo subMenu = getSubMenu();
+			return subMenu != null && subMenu.getPolicy().validatePaste(request.getMemento());
+		}
 
-    @Override
-    public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-      IMenuInfo subMenu = getSubMenu();
-      if (subMenu == null) {
-        return false;
-      }
-      // check that each object can be accepted by sub-menu
-      for (EditPart editPart : request.getEditParts()) {
-        if (!subMenu.getPolicy().validateMove(editPart.getModel())) {
-          return false;
-        }
-      }
-      return true;
-    }
+		@Override
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+			IMenuInfo subMenu = getSubMenu();
+			if (subMenu == null) {
+				return false;
+			}
+			// check that each object can be accepted by sub-menu
+			for (EditPart editPart : request.getEditParts()) {
+				if (!subMenu.getPolicy().validateMove(editPart.getModel())) {
+					return false;
+				}
+			}
+			return true;
+		}
 
-    @Override
-    public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-      return validateMoveRequest(host, request);
-    }
-  };
+		@Override
+		public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+			return validateMoveRequest(host, request);
+		}
+	};
 }

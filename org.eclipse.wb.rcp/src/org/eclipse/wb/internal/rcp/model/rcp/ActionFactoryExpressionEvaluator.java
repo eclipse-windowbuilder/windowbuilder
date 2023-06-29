@@ -29,18 +29,18 @@ import org.eclipse.ui.actions.ActionFactory;
  * @coverage rcp.model.rcp
  */
 public class ActionFactoryExpressionEvaluator implements IExpressionEvaluator {
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    if (expression instanceof QualifiedName) {
-      QualifiedName qualifiedName = (QualifiedName) expression;
-      if (AstNodeUtils.getFullyQualifiedName(qualifiedName.getQualifier(), false).equals(
-          "org.eclipse.ui.actions.ActionFactory")) {
-      }
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		if (expression instanceof QualifiedName) {
+			QualifiedName qualifiedName = (QualifiedName) expression;
+			if (AstNodeUtils.getFullyQualifiedName(qualifiedName.getQualifier(), false).equals(
+					"org.eclipse.ui.actions.ActionFactory")) {
+			}
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

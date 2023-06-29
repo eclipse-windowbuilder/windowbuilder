@@ -19,9 +19,9 @@ import org.eclipse.wb.gef.core.EditPart;
  * @coverage gef.core
  */
 public interface IEditPartClickListener {
-  /**
-   * Called when user does left-click on given {@link EditPart} (only click, i.e. down/up, without
-   * drag) and part is selected (become selected, or already was selected before click).
-   */
-  void clickNotify(EditPart editPart);
+	/**
+	 * Called when user does left-click on given {@link EditPart} (only click, i.e. down/up, without
+	 * drag) and part is selected (become selected, or already was selected before click).
+	 */
+	void clickNotify(EditPart editPart);
 }

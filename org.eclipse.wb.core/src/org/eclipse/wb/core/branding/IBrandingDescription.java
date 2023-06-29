@@ -22,18 +22,18 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage core.util
  */
 public interface IBrandingDescription {
-  /**
-   * @return the product name.
-   */
-  String getProductName();
+	/**
+	 * @return the product name.
+	 */
+	String getProductName();
 
-  /**
-   * @return the url for bug-tracking system and discussion forum.
-   */
-  IBrandingSupportInfo getSupportInfo();
+	/**
+	 * @return the url for bug-tracking system and discussion forum.
+	 */
+	IBrandingSupportInfo getSupportInfo();
 
-  /**
-   * Called by {@link DesignComposite} to paint all product branding onto the canvas.
-   */
-  void paintBrandingOnCanvas(Rectangle clientArea, Graphics graphics);
+	/**
+	 * Called by {@link DesignComposite} to paint all product branding onto the canvas.
+	 */
+	void paintBrandingOnCanvas(Rectangle clientArea, Graphics graphics);
 }

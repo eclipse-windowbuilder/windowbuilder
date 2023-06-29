@@ -26,47 +26,47 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  * @coverage swt.gefTree.part
  */
 public class CompositeEditPart extends ControlEditPart {
-  private final CompositeInfo m_composite;
+	private final CompositeInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompositeEditPart(CompositeInfo composite) {
-    super(composite);
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompositeEditPart(CompositeInfo composite) {
+		super(composite);
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LayoutInfo m_currentLayout;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LayoutInfo m_currentLayout;
 
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    // support for dropping LayoutInfo's
-    if (m_composite.hasLayout()) {
-      installEditPolicy(new DropLayoutEditPolicy(m_composite));
-    }
-  }
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		// support for dropping LayoutInfo's
+		if (m_composite.hasLayout()) {
+			installEditPolicy(new DropLayoutEditPolicy(m_composite));
+		}
+	}
 
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    // support for dropping components
-    if (m_composite.hasLayout()) {
-      LayoutInfo layout = m_composite.getLayout();
-      if (layout != m_currentLayout) {
-        LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
-        if (policy != null) {
-          m_currentLayout = layout;
-          installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
-        }
-      }
-    }
-  }
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		// support for dropping components
+		if (m_composite.hasLayout()) {
+			LayoutInfo layout = m_composite.getLayout();
+			if (layout != m_currentLayout) {
+				LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
+				if (policy != null) {
+					m_currentLayout = layout;
+					installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
+				}
+			}
+		}
+	}
 }

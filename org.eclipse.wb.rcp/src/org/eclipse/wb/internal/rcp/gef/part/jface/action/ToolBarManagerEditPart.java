@@ -22,26 +22,26 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ToolBarManagerInfo;
  * @coverage rcp.gef.part
  */
 public final class ToolBarManagerEditPart extends AbstractComponentEditPart {
-  private final ToolBarManagerInfo m_manager;
+	private final ToolBarManagerInfo m_manager;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ToolBarManagerEditPart(ToolBarManagerInfo manager) {
-    super(manager);
-    m_manager = manager;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ToolBarManagerEditPart(ToolBarManagerInfo manager) {
+		super(manager);
+		m_manager = manager;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(new ToolBarManagerLayoutEditPolicy(m_manager));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(new ToolBarManagerLayoutEditPolicy(m_manager));
+	}
 }

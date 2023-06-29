@@ -23,8 +23,8 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public final class EmptySelectionEditPolicy extends SelectionEditPolicy {
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    return Collections.emptyList();
-  }
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		return Collections.emptyList();
+	}
 }

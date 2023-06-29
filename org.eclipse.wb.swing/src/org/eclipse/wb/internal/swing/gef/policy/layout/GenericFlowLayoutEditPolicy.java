@@ -28,64 +28,64 @@ import org.eclipse.wb.internal.swing.model.layout.GenericFlowLayoutInfo;
  * @coverage swing.gef.policy
  */
 public abstract class GenericFlowLayoutEditPolicy extends ComponentFlowLayoutEditPolicy {
-  private final GenericFlowLayoutInfo m_layout;
+	private final GenericFlowLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenericFlowLayoutEditPolicy(GenericFlowLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenericFlowLayoutEditPolicy(GenericFlowLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isRtl(Request request) {
-    return m_layout.getContainer().isRTL();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isRtl(Request request) {
+		return m_layout.getContainer().isRTL();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Decoration
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void decorateChild(EditPart child) {
-    if (child.getModel() instanceof ComponentInfo) {
-      child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Decoration
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void decorateChild(EditPart child) {
+		if (child.getModel() instanceof ComponentInfo) {
+			child.installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractFlowLayoutEditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    Object model = editPart.getModel();
-    return model instanceof ComponentInfo && GlobalState.getValidatorHelper().canReference(model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractFlowLayoutEditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		Object model = editPart.getModel();
+		return model instanceof ComponentInfo && GlobalState.getValidatorHelper().canReference(model);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ComponentInfo newObject, ComponentInfo referenceObject)
-      throws Exception {
-    m_layout.add(newObject, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ComponentInfo newObject, ComponentInfo referenceObject)
+			throws Exception {
+		m_layout.add(newObject, referenceObject);
+	}
 
-  @Override
-  protected void command_MOVE(ComponentInfo object, ComponentInfo referenceObject) throws Exception {
-    m_layout.move(object, referenceObject);
-  }
+	@Override
+	protected void command_MOVE(ComponentInfo object, ComponentInfo referenceObject) throws Exception {
+		m_layout.move(object, referenceObject);
+	}
 }

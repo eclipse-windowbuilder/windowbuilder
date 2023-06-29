@@ -23,20 +23,20 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class PropertyAccessRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    String id = attributes.getValue("id");
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    getDigester().push(componentDescription.getProperty(id));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		String id = attributes.getValue("id");
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		getDigester().push(componentDescription.getProperty(id));
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    getDigester().pop();
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		getDigester().pop();
+	}
 }

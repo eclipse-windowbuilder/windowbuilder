@@ -25,61 +25,61 @@ import org.eclipse.jface.wizard.Wizard;
  * @coverage core.wizards.ui
  */
 public class OpenTypeWizardAction extends AbstractOpenWizardAction {
-  private static final String ATT_NAME = "name";
-  private static final String ATT_ICON = "icon";
-  private static final String ATT_CLASS = "class";
-  private static final String TAG_DESCRIPTION = "description";
-  private final IConfigurationElement fConfigurationElement;
+	private static final String ATT_NAME = "name";
+	private static final String ATT_ICON = "icon";
+	private static final String ATT_CLASS = "class";
+	private static final String TAG_DESCRIPTION = "description";
+	private final IConfigurationElement fConfigurationElement;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public OpenTypeWizardAction(IConfigurationElement element) {
-    fConfigurationElement = element;
-    setText(element.getAttribute(ATT_NAME));
-    setImageDescriptor(getIconFromConfig(fConfigurationElement));
-    {
-      String description = getDescriptionFromConfig(fConfigurationElement);
-      setDescription(description);
-      setToolTipText(description);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public OpenTypeWizardAction(IConfigurationElement element) {
+		fConfigurationElement = element;
+		setText(element.getAttribute(ATT_NAME));
+		setImageDescriptor(getIconFromConfig(fConfigurationElement));
+		{
+			String description = getDescriptionFromConfig(fConfigurationElement);
+			setDescription(description);
+			setToolTipText(description);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String getDescriptionFromConfig(IConfigurationElement config) {
-    IConfigurationElement[] children = config.getChildren(TAG_DESCRIPTION);
-    if (children.length >= 1) {
-      return children[0].getValue();
-    }
-    return "";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private String getDescriptionFromConfig(IConfigurationElement config) {
+		IConfigurationElement[] children = config.getChildren(TAG_DESCRIPTION);
+		if (children.length >= 1) {
+			return children[0].getValue();
+		}
+		return "";
+	}
 
-  private ImageDescriptor getIconFromConfig(IConfigurationElement config) {
-    try {
-      return ExternalFactoriesHelper.getImageDescriptor(config, ATT_ICON);
-    } catch (Throwable e) {
-      DesignerPlugin.log("Unable to load wizard icon", e);
-    }
-    return ImageDescriptor.getMissingImageDescriptor();
-  }
+	private ImageDescriptor getIconFromConfig(IConfigurationElement config) {
+		try {
+			return ExternalFactoriesHelper.getImageDescriptor(config, ATT_ICON);
+		} catch (Throwable e) {
+			DesignerPlugin.log("Unable to load wizard icon", e);
+		}
+		return ImageDescriptor.getMissingImageDescriptor();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Wizard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Wizard createWizard() {
-    try {
-      return (Wizard) fConfigurationElement.createExecutableExtension(ATT_CLASS);
-    } catch (Exception e) {
-      return null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Wizard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Wizard createWizard() {
+		try {
+			return (Wizard) fConfigurationElement.createExecutableExtension(ATT_CLASS);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }

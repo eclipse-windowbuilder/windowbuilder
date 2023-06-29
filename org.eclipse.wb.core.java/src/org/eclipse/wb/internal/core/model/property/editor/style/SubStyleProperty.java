@@ -19,56 +19,56 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage core.model.property.editor
  */
 public final class SubStyleProperty extends Property {
-  private final Property m_mainProperty;
-  private final SubStylePropertyImpl m_propertyImpl;
-  private String m_overrideTitle = null;
+	private final Property m_mainProperty;
+	private final SubStylePropertyImpl m_propertyImpl;
+	private String m_overrideTitle = null;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SubStyleProperty(Property mainProperty, SubStylePropertyImpl propertyImpl) {
-    super(propertyImpl.createEditor());
-    m_mainProperty = mainProperty;
-    m_propertyImpl = propertyImpl;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SubStyleProperty(Property mainProperty, SubStylePropertyImpl propertyImpl) {
+		super(propertyImpl.createEditor());
+		m_mainProperty = mainProperty;
+		m_propertyImpl = propertyImpl;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() {
-    if (m_overrideTitle == null) {
-      return m_propertyImpl.getTitle();
-    } else {
-      return m_overrideTitle;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() {
+		if (m_overrideTitle == null) {
+			return m_propertyImpl.getTitle();
+		} else {
+			return m_overrideTitle;
+		}
+	}
 
-  public void setOverrideTitle(String title) {
-    m_overrideTitle = title;
-  }
+	public void setOverrideTitle(String title) {
+		m_overrideTitle = title;
+	}
 
-  @Override
-  public boolean isModified() throws Exception {
-    return true;
-  }
+	@Override
+	public boolean isModified() throws Exception {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue() throws Exception {
-    return m_propertyImpl.getValue(m_mainProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue() throws Exception {
+		return m_propertyImpl.getValue(m_mainProperty);
+	}
 
-  @Override
-  public void setValue(Object value) throws Exception {
-    m_propertyImpl.setValue(m_mainProperty, value);
-  }
+	@Override
+	public void setValue(Object value) throws Exception {
+		m_propertyImpl.setValue(m_mainProperty, value);
+	}
 }

@@ -27,50 +27,50 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class JMenuItemTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link JMenuItemInfo} and {@link IMenuItemInfo}.
-   */
-  public void test_0() throws Exception {
-    ContainerInfo frameInfo =
-        parseContainer(
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    JMenuBar menuBar = new JMenuBar();",
-            "    setJMenuBar(menuBar);",
-            "    {",
-            "      JMenu menu = new JMenu('Menu');",
-            "      menuBar.add(menu);",
-            "      {",
-            "        JMenuItem item = new JMenuItem('Item');",
-            "        menu.add(item);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
-    frameInfo.refresh();
-    // prepare models
-    JMenuBarInfo menuBarInfo = frameInfo.getChildren(JMenuBarInfo.class).get(0);
-    JMenuInfo menuInfo = menuBarInfo.getChildrenMenus().get(0);
-    JMenuItemInfo itemInfo = menuInfo.getChildrenItems().get(0);
-    // no adapter for random class
-    assertNull(itemInfo.getAdapter(List.class));
-    // check IMenuItemInfo
-    {
-      IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(itemInfo);
-      assertSame(itemInfo, itemObject.getModel());
-      // presentation
-      assertNull(itemObject.getImage());
-      assertTrue(itemObject.getBounds().width > 40);
-      assertTrue(itemObject.getBounds().height > 15);
-      // in Swing JMenuItem is just item, without sub-menu
-      assertNull(itemObject.getMenu());
-      // ...so, no policy
-      assertSame(IMenuPolicy.NOOP, itemObject.getPolicy());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link JMenuItemInfo} and {@link IMenuItemInfo}.
+	 */
+	public void test_0() throws Exception {
+		ContainerInfo frameInfo =
+				parseContainer(
+						"public class Test extends JFrame {",
+						"  public Test() {",
+						"    JMenuBar menuBar = new JMenuBar();",
+						"    setJMenuBar(menuBar);",
+						"    {",
+						"      JMenu menu = new JMenu('Menu');",
+						"      menuBar.add(menu);",
+						"      {",
+						"        JMenuItem item = new JMenuItem('Item');",
+						"        menu.add(item);",
+						"      }",
+						"    }",
+						"  }",
+						"}");
+		frameInfo.refresh();
+		// prepare models
+		JMenuBarInfo menuBarInfo = frameInfo.getChildren(JMenuBarInfo.class).get(0);
+		JMenuInfo menuInfo = menuBarInfo.getChildrenMenus().get(0);
+		JMenuItemInfo itemInfo = menuInfo.getChildrenItems().get(0);
+		// no adapter for random class
+		assertNull(itemInfo.getAdapter(List.class));
+		// check IMenuItemInfo
+		{
+			IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(itemInfo);
+			assertSame(itemInfo, itemObject.getModel());
+			// presentation
+			assertNull(itemObject.getImage());
+			assertTrue(itemObject.getBounds().width > 40);
+			assertTrue(itemObject.getBounds().height > 15);
+			// in Swing JMenuItem is just item, without sub-menu
+			assertNull(itemObject.getMenu());
+			// ...so, no policy
+			assertSame(IMenuPolicy.NOOP, itemObject.getPolicy());
+		}
+	}
 }

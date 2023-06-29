@@ -22,30 +22,30 @@ import org.eclipse.jface.action.Action;
  * @coverage swing.model.layout
  */
 public final class SetAlignmentVerticalAction extends AbstractAction {
-  private final RowInfo.Alignment m_alignment;
+	private final RowInfo.Alignment m_alignment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetAlignmentVerticalAction(AbstractGridBagConstraintsInfo constraints,
-      String text,
-      String iconPath,
-      RowInfo.Alignment alignment) {
-    super(constraints, text, AS_RADIO_BUTTON, iconPath, false);
-    m_alignment = alignment;
-    // set check for current alignment
-    setChecked(constraints.getVerticalAlignment() == m_alignment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetAlignmentVerticalAction(AbstractGridBagConstraintsInfo constraints,
+			String text,
+			String iconPath,
+			RowInfo.Alignment alignment) {
+		super(constraints, text, AS_RADIO_BUTTON, iconPath, false);
+		m_alignment = alignment;
+		// set check for current alignment
+		setChecked(constraints.getVerticalAlignment() == m_alignment);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    m_constraints.setVerticalAlignment(m_alignment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		m_constraints.setVerticalAlignment(m_alignment);
+	}
 }

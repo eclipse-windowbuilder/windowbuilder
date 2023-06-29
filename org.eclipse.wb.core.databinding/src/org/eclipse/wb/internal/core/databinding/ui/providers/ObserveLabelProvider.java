@@ -25,38 +25,38 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.ui
  */
 public class ObserveLabelProvider extends LabelProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static IObservePresentation getPresentation(Object element) {
-    IObserveInfo observe = (IObserveInfo) element;
-    return observe.getPresentation();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static IObservePresentation getPresentation(Object element) {
+		IObserveInfo observe = (IObserveInfo) element;
+		return observe.getPresentation();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LabelProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(final Object element) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
-      @Override
-      public String runObject() throws Exception {
-        return getPresentation(element).getText();
-      }
-    }, "<exception, see log>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LabelProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(final Object element) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+			@Override
+			public String runObject() throws Exception {
+				return getPresentation(element).getText();
+			}
+		}, "<exception, see log>");
+	}
 
-  @Override
-  public Image getImage(final Object element) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-      @Override
-      public Image runObject() throws Exception {
-        return getPresentation(element).getImage();
-      }
-    }, null);
-  }
+	@Override
+	public Image getImage(final Object element) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+			@Override
+			public Image runObject() throws Exception {
+				return getPresentation(element).getImage();
+			}
+		}, null);
+	}
 }

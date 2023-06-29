@@ -33,79 +33,79 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public final class CollectionPropertyBindableInfo extends PropertyBindableInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CollectionPropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      String text,
-      Class<?> objectType,
-      IReferenceProvider referenceProvider) {
-    super(beanSupport, parent, text, objectType, referenceProvider);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CollectionPropertyBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			String text,
+			Class<?> objectType,
+			IReferenceProvider referenceProvider) {
+		super(beanSupport, parent, text, objectType, referenceProvider);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public List<IObserveInfo> getChildren(ChildrenContext context) {
-    return Collections.emptyList();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public List<IObserveInfo> getChildren(ChildrenContext context) {
+		return Collections.emptyList();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyBindableInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObservableFactory getObservableFactory() throws Exception {
-    return new IObservableFactory() {
-      @Override
-      public Type getType() throws Exception {
-        return Type.InputCollection;
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyBindableInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObservableFactory getObservableFactory() throws Exception {
+		return new IObservableFactory() {
+			@Override
+			public Type getType() throws Exception {
+				return Type.InputCollection;
+			}
 
-      @Override
-      public ObservableInfo createObservable(BindableInfo object,
-          BindableInfo property,
-          Type type,
-          boolean version_1_3) throws Exception {
-        BeanBindableInfo bindableObject = (BeanBindableInfo) object;
-        CollectionPropertyBindableInfo bindableProperty = (CollectionPropertyBindableInfo) property;
-        //
-        if (List.class.isAssignableFrom(getObjectType())) {
-          WritableListBeanObservableInfo observable =
-              new WritableListBeanObservableInfo(bindableObject, bindableProperty, null);
-          if (version_1_3) {
-            observable.setCodeSupport(new SelfListCodeSupport());
-          } else {
-            observable.setCodeSupport(new WritableListCodeSupport());
-          }
-          return observable;
-        }
-        WritableSetBeanObservableInfo observable =
-            new WritableSetBeanObservableInfo(bindableObject, bindableProperty, null);
-        if (version_1_3) {
-          observable.setCodeSupport(new SelfSetCodeSupport());
-        } else {
-          observable.setCodeSupport(new WritableSetCodeSupport());
-        }
-        return observable;
-      }
-    };
-  }
+			@Override
+			public ObservableInfo createObservable(BindableInfo object,
+					BindableInfo property,
+					Type type,
+					boolean version_1_3) throws Exception {
+				BeanBindableInfo bindableObject = (BeanBindableInfo) object;
+				CollectionPropertyBindableInfo bindableProperty = (CollectionPropertyBindableInfo) property;
+				//
+				if (List.class.isAssignableFrom(getObjectType())) {
+					WritableListBeanObservableInfo observable =
+							new WritableListBeanObservableInfo(bindableObject, bindableProperty, null);
+					if (version_1_3) {
+						observable.setCodeSupport(new SelfListCodeSupport());
+					} else {
+						observable.setCodeSupport(new WritableListCodeSupport());
+					}
+					return observable;
+				}
+				WritableSetBeanObservableInfo observable =
+						new WritableSetBeanObservableInfo(bindableObject, bindableProperty, null);
+				if (version_1_3) {
+					observable.setCodeSupport(new SelfSetCodeSupport());
+				} else {
+					observable.setCodeSupport(new WritableSetCodeSupport());
+				}
+				return observable;
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObserveDecorator getDecorator() {
-    return IObserveDecorator.BOLD;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObserveDecorator getDecorator() {
+		return IObserveDecorator.BOLD;
+	}
 }

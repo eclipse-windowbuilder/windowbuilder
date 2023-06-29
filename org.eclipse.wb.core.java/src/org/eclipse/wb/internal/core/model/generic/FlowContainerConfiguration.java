@@ -21,58 +21,58 @@ import org.eclipse.wb.core.model.association.AssociationObjectFactory;
  * @coverage core.model.generic
  */
 public class FlowContainerConfiguration {
-  private final ContainerObjectValidator m_componentValidator;
-  private final ContainerObjectValidator m_referenceValidator;
-  private final Predicate<Object> m_horizontalPredicate;
-  private final Predicate<Object> m_rtlPredicate;
-  private final AssociationObjectFactory m_associationObjectFactory;
-  private final String m_groupName;
+	private final ContainerObjectValidator m_componentValidator;
+	private final ContainerObjectValidator m_referenceValidator;
+	private final Predicate<Object> m_horizontalPredicate;
+	private final Predicate<Object> m_rtlPredicate;
+	private final AssociationObjectFactory m_associationObjectFactory;
+	private final String m_groupName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FlowContainerConfiguration(Predicate<Object> horizontalPredicate,
-      Predicate<Object> rtlPredicate,
-      AssociationObjectFactory associationObjectFactory,
-      ContainerObjectValidator componentValidator,
-      ContainerObjectValidator referenceValidator,
-      String groupName) {
-    m_horizontalPredicate = horizontalPredicate;
-    m_rtlPredicate = rtlPredicate;
-    m_associationObjectFactory = associationObjectFactory;
-    m_componentValidator = componentValidator;
-    m_referenceValidator = referenceValidator;
-    m_groupName = groupName;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FlowContainerConfiguration(Predicate<Object> horizontalPredicate,
+			Predicate<Object> rtlPredicate,
+			AssociationObjectFactory associationObjectFactory,
+			ContainerObjectValidator componentValidator,
+			ContainerObjectValidator referenceValidator,
+			String groupName) {
+		m_horizontalPredicate = horizontalPredicate;
+		m_rtlPredicate = rtlPredicate;
+		m_associationObjectFactory = associationObjectFactory;
+		m_componentValidator = componentValidator;
+		m_referenceValidator = referenceValidator;
+		m_groupName = groupName;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Predicate<Object> getHorizontalPredicate() {
-    return m_horizontalPredicate;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Predicate<Object> getHorizontalPredicate() {
+		return m_horizontalPredicate;
+	}
 
-  public Predicate<Object> getRtlPredicate() {
-    return m_rtlPredicate;
-  }
+	public Predicate<Object> getRtlPredicate() {
+		return m_rtlPredicate;
+	}
 
-  public AssociationObjectFactory getAssociationObjectFactory() {
-    return m_associationObjectFactory;
-  }
+	public AssociationObjectFactory getAssociationObjectFactory() {
+		return m_associationObjectFactory;
+	}
 
-  public ContainerObjectValidator getComponentValidator() {
-    return m_componentValidator;
-  }
+	public ContainerObjectValidator getComponentValidator() {
+		return m_componentValidator;
+	}
 
-  public ContainerObjectValidator getReferenceValidator() {
-    return m_referenceValidator;
-  }
+	public ContainerObjectValidator getReferenceValidator() {
+		return m_referenceValidator;
+	}
 
-  public String getGroupName() {
-    return m_groupName;
-  }
+	public String getGroupName() {
+		return m_groupName;
+	}
 }

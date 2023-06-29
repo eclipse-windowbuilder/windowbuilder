@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.databinding.model.presentation;
  * @coverage bindings.model
  */
 public interface IObservePresentationDecorator {
-  /**
-   * Enable or disable decorate this presentation.
-   */
-  void setBindingDecorator(int corner) throws Exception;
+	/**
+	 * Enable or disable decorate this presentation.
+	 */
+	void setBindingDecorator(int corner) throws Exception;
 }

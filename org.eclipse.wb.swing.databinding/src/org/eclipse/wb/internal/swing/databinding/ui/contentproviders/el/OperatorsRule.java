@@ -23,64 +23,64 @@ import org.eclipse.jface.text.rules.Token;
  * @coverage bindings.swing.ui
  */
 public final class OperatorsRule implements IRule {
-  private final IToken m_token;
+	private final IToken m_token;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public OperatorsRule(ElPropertyUiConfiguration configuration) {
-    m_token = new Token(new TextAttribute(configuration.getOperatorsColor()));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public OperatorsRule(ElPropertyUiConfiguration configuration) {
+		m_token = new Token(new TextAttribute(configuration.getOperatorsColor()));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IToken evaluate(ICharacterScanner scanner) {
-    CharacterScannerWrapper wrapper = new CharacterScannerWrapper(scanner);
-    switch (wrapper.read()) {
-      case '{' :
-      case '}' :
-      case '[' :
-      case ']' :
-      case '$' :
-      case '#' :
-      case '%' :
-      case '?' :
-      case ':' :
-      case '.' :
-      case '*' :
-      case '+' :
-      case '-' :
-      case '/' :
-        return m_token;
-      case '>' :
-      case '<' :
-      case '!' :
-        if (!wrapper.test('=')) {
-          scanner.unread();
-        }
-        return m_token;
-      case '=' :
-        if (wrapper.test('=')) {
-          return m_token;
-        }
-        break;
-      case '&' :
-        if (wrapper.test('&')) {
-          return m_token;
-        }
-        break;
-      case '|' :
-        if (wrapper.test('|')) {
-          return m_token;
-        }
-        break;
-    }
-    wrapper.unread();
-    return Token.UNDEFINED;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IToken evaluate(ICharacterScanner scanner) {
+		CharacterScannerWrapper wrapper = new CharacterScannerWrapper(scanner);
+		switch (wrapper.read()) {
+		case '{' :
+		case '}' :
+		case '[' :
+		case ']' :
+		case '$' :
+		case '#' :
+		case '%' :
+		case '?' :
+		case ':' :
+		case '.' :
+		case '*' :
+		case '+' :
+		case '-' :
+		case '/' :
+			return m_token;
+		case '>' :
+		case '<' :
+		case '!' :
+			if (!wrapper.test('=')) {
+				scanner.unread();
+			}
+			return m_token;
+		case '=' :
+			if (wrapper.test('=')) {
+				return m_token;
+			}
+			break;
+		case '&' :
+			if (wrapper.test('&')) {
+				return m_token;
+			}
+			break;
+		case '|' :
+			if (wrapper.test('|')) {
+				return m_token;
+			}
+			break;
+		}
+		wrapper.unread();
+		return Token.UNDEFINED;
+	}
 }

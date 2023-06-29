@@ -26,29 +26,29 @@ import java.util.List;
  * @coverage rcp.model.forms
  */
 public final class FormToolkitParseContextProcessor implements IParseContextProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new FormToolkitParseContextProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new FormToolkitParseContextProcessor();
 
-  private FormToolkitParseContextProcessor() {
-  }
+	private FormToolkitParseContextProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IParseContextProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(AstEditor editor,
-      ExecutionFlowDescription flowDescription,
-      List<JavaInfo> components) throws Exception {
-    List<MethodDeclaration> methods = flowDescription.getStartMethods();
-    if (!methods.isEmpty()) {
-      MethodDeclaration method = methods.get(0);
-      FormToolkitAccessUtils.createFormToolkit_asMethodParameter(editor, method);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IParseContextProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(AstEditor editor,
+			ExecutionFlowDescription flowDescription,
+			List<JavaInfo> components) throws Exception {
+		List<MethodDeclaration> methods = flowDescription.getStartMethods();
+		if (!methods.isEmpty()) {
+			MethodDeclaration method = methods.get(0);
+			FormToolkitAccessUtils.createFormToolkit_asMethodParameter(editor, method);
+		}
+	}
 }

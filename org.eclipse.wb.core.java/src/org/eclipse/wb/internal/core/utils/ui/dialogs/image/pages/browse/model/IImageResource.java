@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.ImageInfo;
  * @coverage core.ui
  */
 public interface IImageResource extends IImageElement {
-  /**
-   * @return the {@link ImageInfo} for this resource.
-   */
-  ImageInfo getImageInfo();
+	/**
+	 * @return the {@link ImageInfo} for this resource.
+	 */
+	ImageInfo getImageInfo();
 }

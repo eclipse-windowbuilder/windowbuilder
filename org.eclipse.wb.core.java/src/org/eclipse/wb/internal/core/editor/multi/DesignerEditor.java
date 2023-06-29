@@ -53,271 +53,271 @@ import java.util.List;
  */
 @SuppressWarnings("restriction")
 public final class DesignerEditor extends CompilationUnitEditor
-    implements
-      IDesignerEditor,
-      IDesignCompositeProvider {
-  private static final String CONTEXT_ID = "org.eclipse.wb.core.java.editorScope";
-  private MultiMode m_multiMode;
-  private boolean m_firstActivation = true;
-  private Composite m_rootControl;
-  private VisitedLinesHighlighter m_linesHighlighter;
+implements
+IDesignerEditor,
+IDesignCompositeProvider {
+	private static final String CONTEXT_ID = "org.eclipse.wb.core.java.editorScope";
+	private MultiMode m_multiMode;
+	private boolean m_firstActivation = true;
+	private Composite m_rootControl;
+	private VisitedLinesHighlighter m_linesHighlighter;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DesignerEditor() {
-    DesignerPlugin.configurePreEditor();
-    if (isPagesMode()) {
-      m_multiMode = new MultiPagesMode(this);
-    } else {
-      m_multiMode = new MultiSplitMode(this);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DesignerEditor() {
+		DesignerPlugin.configurePreEditor();
+		if (isPagesMode()) {
+			m_multiMode = new MultiPagesMode(this);
+		} else {
+			m_multiMode = new MultiSplitMode(this);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createPartControl(Composite parent) {
-    m_rootControl = parent;
-    m_multiMode.create(parent);
-    m_linesHighlighter = new VisitedLinesHighlighter(getSourceViewer());
-    activateEditorContext();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createPartControl(Composite parent) {
+		m_rootControl = parent;
+		m_multiMode.create(parent);
+		m_linesHighlighter = new VisitedLinesHighlighter(getSourceViewer());
+		activateEditorContext();
+	}
 
-  /**
-   * Activates context of our Java editor.
-   */
-  private void activateEditorContext() {
-    IContextService contextService = (IContextService) getSite().getService(IContextService.class);
-    if (contextService != null) {
-      contextService.activateContext(CONTEXT_ID);
-    }
-  }
+	/**
+	 * Activates context of our Java editor.
+	 */
+	private void activateEditorContext() {
+		IContextService contextService = (IContextService) getSite().getService(IContextService.class);
+		if (contextService != null) {
+			contextService.activateContext(CONTEXT_ID);
+		}
+	}
 
-  @Override
-  public void setFocus() {
-    m_multiMode.setFocus();
-  }
+	@Override
+	public void setFocus() {
+		m_multiMode.setFocus();
+	}
 
-  @Override
-  protected void doSetInput(IEditorInput input) throws CoreException {
-    super.doSetInput(input);
-    if (!canDesignInput()) {
-      m_multiMode = new MultiSourceMode(this);
-    }
-    m_multiMode.onSetInput();
-  }
+	@Override
+	protected void doSetInput(IEditorInput input) throws CoreException {
+		super.doSetInput(input);
+		if (!canDesignInput()) {
+			m_multiMode = new MultiSourceMode(this);
+		}
+		m_multiMode.onSetInput();
+	}
 
-  /**
-   * @return <code>false</code> if input is invalid (for example external file), so we can not
-   *         design it.
-   */
-  private boolean canDesignInput() {
-    ICompilationUnit compilationUnit = getCompilationUnit();
-    if (compilationUnit == null) {
-      return false;
-    }
-    try {
-      compilationUnit.getUnderlyingResource();
-    } catch (Throwable e) {
-      return false;
-    }
-    return true;
-  }
+	/**
+	 * @return <code>false</code> if input is invalid (for example external file), so we can not
+	 *         design it.
+	 */
+	private boolean canDesignInput() {
+		ICompilationUnit compilationUnit = getCompilationUnit();
+		if (compilationUnit == null) {
+			return false;
+		}
+		try {
+			compilationUnit.getUnderlyingResource();
+		} catch (Throwable e) {
+			return false;
+		}
+		return true;
+	}
 
-  /**
-   * {@link DesignerEditorContributor} notifies us about activation, with "Source" tab, so that Java
-   * actions are now installed.
-   */
-  void activated() {
-    if (m_firstActivation) {
-      m_firstActivation = false;
-      m_multiMode.editorActivatedFirstTime();
-    }
-  }
+	/**
+	 * {@link DesignerEditorContributor} notifies us about activation, with "Source" tab, so that Java
+	 * actions are now installed.
+	 */
+	void activated() {
+		if (m_firstActivation) {
+			m_firstActivation = false;
+			m_multiMode.editorActivatedFirstTime();
+		}
+	}
 
-  @Override
-  public void dispose() {
-    super.dispose();
-    m_multiMode.dispose();
-  }
+	@Override
+	public void dispose() {
+		super.dispose();
+		m_multiMode.dispose();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> {@link MultiPagesMode} should be used or <code>false</code> for
-   *         {@link MultiSplitMode}.
-   */
-  private boolean isPagesMode() {
-    int layout = DesignerPlugin.getPreferences().getInt(IPreferenceConstants.P_EDITOR_LAYOUT);
-    return layout == IPreferenceConstants.V_EDITOR_LAYOUT_PAGES_SOURCE
-        || layout == IPreferenceConstants.V_EDITOR_LAYOUT_PAGES_DESIGN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> {@link MultiPagesMode} should be used or <code>false</code> for
+	 *         {@link MultiSplitMode}.
+	 */
+	private boolean isPagesMode() {
+		int layout = DesignerPlugin.getPreferences().getInt(IPreferenceConstants.P_EDITOR_LAYOUT);
+		return layout == IPreferenceConstants.V_EDITOR_LAYOUT_PAGES_SOURCE
+				|| layout == IPreferenceConstants.V_EDITOR_LAYOUT_PAGES_DESIGN;
+	}
 
-  /**
-   * @return the main editor {@link Composite}, root of all its {@link Control}s.
-   */
-  public Composite getRootControl() {
-    return m_rootControl;
-  }
+	/**
+	 * @return the main editor {@link Composite}, root of all its {@link Control}s.
+	 */
+	public Composite getRootControl() {
+		return m_rootControl;
+	}
 
-  /**
-   * Invokes "super" {@link #createPartControl(Composite)}.
-   */
-  void super_createPartControl(Composite parent) {
-    super.createPartControl(parent);
-  }
+	/**
+	 * Invokes "super" {@link #createPartControl(Composite)}.
+	 */
+	void super_createPartControl(Composite parent) {
+		super.createPartControl(parent);
+	}
 
-  /**
-   * Invokes "super" {@link #getSourceViewer()}.
-   */
-  ISourceViewer super_getSourceViewer() {
-    return super.getSourceViewer();
-  }
+	/**
+	 * Invokes "super" {@link #getSourceViewer()}.
+	 */
+	ISourceViewer super_getSourceViewer() {
+		return super.getSourceViewer();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Moves cursor to given position in Java editor.
-   */
-  public void showSourcePosition(final int position) {
-    ExecutionUtils.runLogLater(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        selectAndReveal(position, 0);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Moves cursor to given position in Java editor.
+	 */
+	public void showSourcePosition(final int position) {
+		ExecutionUtils.runLogLater(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				selectAndReveal(position, 0);
+			}
+		});
+	}
 
-  /**
-   * Highlight lines with visited {@link ASTNode}s.
-   */
-  public void highlightVisitedNodes(final Collection<ASTNode> nodes) {
-    ExecutionUtils.runIgnore(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        if (m_linesHighlighter != null) {
-          m_linesHighlighter.setVisitedNodes(nodes);
-        }
-      }
-    });
-  }
+	/**
+	 * Highlight lines with visited {@link ASTNode}s.
+	 */
+	public void highlightVisitedNodes(final Collection<ASTNode> nodes) {
+		ExecutionUtils.runIgnore(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				if (m_linesHighlighter != null) {
+					m_linesHighlighter.setVisitedNodes(nodes);
+				}
+			}
+		});
+	}
 
-  /**
-   * @return the {@link MultiMode}.
-   */
-  @Override
-  public IMultiMode getMultiMode() {
-    return m_multiMode;
-  }
+	/**
+	 * @return the {@link MultiMode}.
+	 */
+	@Override
+	public IMultiMode getMultiMode() {
+		return m_multiMode;
+	}
 
-  /**
-   * @return the {@link ICompilationUnit} opened in this editor.
-   */
-  @Override
-  public ICompilationUnit getCompilationUnit() {
-    IWorkingCopyManager workingCopyManager = JavaUI.getWorkingCopyManager();
-    return workingCopyManager.getWorkingCopy(getEditorInput());
-  }
+	/**
+	 * @return the {@link ICompilationUnit} opened in this editor.
+	 */
+	@Override
+	public ICompilationUnit getCompilationUnit() {
+		IWorkingCopyManager workingCopyManager = JavaUI.getWorkingCopyManager();
+		return workingCopyManager.getWorkingCopy(getEditorInput());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listeners
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final List<DesignerEditorListener> m_designPageListeners = Lists.newArrayList();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listeners
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final List<DesignerEditorListener> m_designPageListeners = Lists.newArrayList();
 
-  @Override
-  public void addDesignPageListener(DesignerEditorListener listener) {
-    m_designPageListeners.add(listener);
-  }
+	@Override
+	public void addDesignPageListener(DesignerEditorListener listener) {
+		m_designPageListeners.add(listener);
+	}
 
-  @Override
-  public void removeDesignPageListener(DesignerEditorListener listener) {
-    m_designPageListeners.remove(listener);
-  }
+	@Override
+	public void removeDesignPageListener(DesignerEditorListener listener) {
+		m_designPageListeners.remove(listener);
+	}
 
-  public List<DesignerEditorListener> getDesignPageListeners() {
-    return m_designPageListeners;
-  }
+	public List<DesignerEditorListener> getDesignPageListeners() {
+		return m_designPageListeners;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDesignCompositeProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public DesignComposite getDesignComposite() {
-    return m_multiMode.getDesignPage().getDesignComposite();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDesignCompositeProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DesignComposite getDesignComposite() {
+		return m_multiMode.getDesignPage().getDesignComposite();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final ProblemsLabelDecorator PROBLEMS_DECORATOR = new ProblemsLabelDecorator();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final ProblemsLabelDecorator PROBLEMS_DECORATOR = new ProblemsLabelDecorator();
 
-  @Override
-  public void updatedTitleImage(Image image) {
-    Image baseImage = DesignerPlugin.getImage("gui_editor.gif");
-    Image decoratedImage = PROBLEMS_DECORATOR.decorateImage(baseImage, getCompilationUnit());
-    if (decoratedImage == null) {
-      decoratedImage = baseImage;
-    }
-    setTitleImage(decoratedImage);
-  }
+	@Override
+	public void updatedTitleImage(Image image) {
+		Image baseImage = DesignerPlugin.getImage("gui_editor.gif");
+		Image decoratedImage = PROBLEMS_DECORATOR.decorateImage(baseImage, getCompilationUnit());
+		if (decoratedImage == null) {
+			decoratedImage = baseImage;
+		}
+		setTitleImage(decoratedImage);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Save
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void doSave(IProgressMonitor progressMonitor) {
-    if (DesignerPlugin.getPreferences().getBoolean(IPreferenceConstants.P_EDITOR_FORMAT_ON_SAVE)) {
-      ICompilationUnit unit = getCompilationUnit();
-      FormatAllAction formatAction = new FormatAllAction(getSite());
-      formatAction.run(new StructuredSelection(unit));
-    }
-    super.doSave(progressMonitor);
-    m_multiMode.afterSave();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Save
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void doSave(IProgressMonitor progressMonitor) {
+		if (DesignerPlugin.getPreferences().getBoolean(IPreferenceConstants.P_EDITOR_FORMAT_ON_SAVE)) {
+			ICompilationUnit unit = getCompilationUnit();
+			FormatAllAction formatAction = new FormatAllAction(getSite());
+			formatAction.run(new StructuredSelection(unit));
+		}
+		super.doSave(progressMonitor);
+		m_multiMode.afterSave();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Actions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setAction(String actionID, IAction action) {
-    super.setAction(actionID, action);
-    m_multiMode.getSourcePage().setAction(actionID, action);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Actions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setAction(String actionID, IAction action) {
+		super.setAction(actionID, action);
+		m_multiMode.getSourcePage().setAction(actionID, action);
+	}
 
-  void super_setAction(String actionID, IAction action) {
-    super.setAction(actionID, action);
-  }
+	void super_setAction(String actionID, IAction action) {
+		super.setAction(actionID, action);
+	}
 
-  @Override
-  public IAction getAction(String actionID) {
-    if (m_multiMode.isSourceActive()) {
-      return super.getAction(actionID);
-    }
-    if (m_multiMode.isDesignActive()) {
-      return m_multiMode.getDesignPage().getDesignComposite().getAction(actionID);
-    }
-    return super.getAction(actionID);
-  }
+	@Override
+	public IAction getAction(String actionID) {
+		if (m_multiMode.isSourceActive()) {
+			return super.getAction(actionID);
+		}
+		if (m_multiMode.isDesignActive()) {
+			return m_multiMode.getDesignPage().getDesignComposite().getAction(actionID);
+		}
+		return super.getAction(actionID);
+	}
 }

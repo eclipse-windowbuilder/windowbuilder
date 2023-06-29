@@ -30,308 +30,308 @@ import java.util.List;
  * Dialog field containing a label and a combo control.
  */
 public class ComboDialogField extends DialogField {
-  private String fText;
-  private int fVisibleItemCount;
-  private int fSelectionIndex;
-  private List<String> fItems = new ArrayList<>();
-  private Combo fComboControl;
-  private ModifyListener fModifyListener;
-  private final int fFlags;
+	private String fText;
+	private int fVisibleItemCount;
+	private int fSelectionIndex;
+	private List<String> fItems = new ArrayList<>();
+	private Combo fComboControl;
+	private ModifyListener fModifyListener;
+	private final int fFlags;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComboDialogField(int flags) {
-    super();
-    fText = ""; //$NON-NLS-1$
-    fFlags = flags;
-    fSelectionIndex = -1;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComboDialogField(int flags) {
+		super();
+		fText = ""; //$NON-NLS-1$
+		fFlags = flags;
+		fSelectionIndex = -1;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Layout helpers
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Control[] doFillIntoGrid(Composite parent, int nColumns) {
-    assertEnoughColumns(nColumns);
-    //
-    Label label = getLabelControl(parent);
-    label.setLayoutData(gridDataForLabel(1));
-    Combo combo = getComboControl(parent);
-    combo.setLayoutData(gridDataForCombo(nColumns - 1));
-    //
-    return new Control[]{label, combo};
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Layout helpers
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Control[] doFillIntoGrid(Composite parent, int nColumns) {
+		assertEnoughColumns(nColumns);
+		//
+		Label label = getLabelControl(parent);
+		label.setLayoutData(gridDataForLabel(1));
+		Combo combo = getComboControl(parent);
+		combo.setLayoutData(gridDataForCombo(nColumns - 1));
+		//
+		return new Control[]{label, combo};
+	}
 
-  @Override
-  public int getNumberOfControls() {
-    return 2;
-  }
+	@Override
+	public int getNumberOfControls() {
+		return 2;
+	}
 
-  protected static GridData gridDataForCombo(int span) {
-    GridData gd = new GridData();
-    gd.horizontalAlignment = GridData.FILL;
-    gd.grabExcessHorizontalSpace = false;
-    gd.horizontalSpan = span;
-    return gd;
-  }
+	protected static GridData gridDataForCombo(int span) {
+		GridData gd = new GridData();
+		gd.horizontalAlignment = GridData.FILL;
+		gd.grabExcessHorizontalSpace = false;
+		gd.horizontalSpan = span;
+		return gd;
+	}
 
-  // ------- focus methods
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Focus methods
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean setFocus() {
-    if (isOkToUse(fComboControl)) {
-      fComboControl.setFocus();
-    }
-    return true;
-  }
+	// ------- focus methods
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Focus methods
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean setFocus() {
+		if (isOkToUse(fComboControl)) {
+			fComboControl.setFocus();
+		}
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // UI creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates or returns the created combo control.
-   *
-   * @param parent
-   *          The parent composite or <code>null</code> when the widget has already been created.
-   */
-  public Combo getComboControl(Composite parent) {
-    if (fComboControl == null) {
-      assertCompositeNotNull(parent);
-      fModifyListener = e -> doModifyText(e);
-      SelectionListener selectionListener = new SelectionListener() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          doSelectionChanged(e);
-        }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// UI creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates or returns the created combo control.
+	 *
+	 * @param parent
+	 *          The parent composite or <code>null</code> when the widget has already been created.
+	 */
+	public Combo getComboControl(Composite parent) {
+		if (fComboControl == null) {
+			assertCompositeNotNull(parent);
+			fModifyListener = e -> doModifyText(e);
+			SelectionListener selectionListener = new SelectionListener() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					doSelectionChanged(e);
+				}
 
-        @Override
-        public void widgetDefaultSelected(SelectionEvent e) {
-        }
-      };
-      fComboControl = new Combo(parent, fFlags);
-      doSetItems();
-      //
-      if (fSelectionIndex != -1) {
-        fComboControl.select(fSelectionIndex);
-      } else {
-        fComboControl.setText(fText);
-      }
-      if (fVisibleItemCount != 0) {
-        fComboControl.setVisibleItemCount(fVisibleItemCount);
-      }
-      fComboControl.setFont(parent.getFont());
-      fComboControl.addModifyListener(fModifyListener);
-      fComboControl.addSelectionListener(selectionListener);
-      fComboControl.setEnabled(isEnabled());
-    }
-    return fComboControl;
-  }
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+				}
+			};
+			fComboControl = new Combo(parent, fFlags);
+			doSetItems();
+			//
+			if (fSelectionIndex != -1) {
+				fComboControl.select(fSelectionIndex);
+			} else {
+				fComboControl.setText(fText);
+			}
+			if (fVisibleItemCount != 0) {
+				fComboControl.setVisibleItemCount(fVisibleItemCount);
+			}
+			fComboControl.setFont(parent.getFont());
+			fComboControl.addModifyListener(fModifyListener);
+			fComboControl.addSelectionListener(selectionListener);
+			fComboControl.setEnabled(isEnabled());
+		}
+		return fComboControl;
+	}
 
-  private void doModifyText(ModifyEvent e) {
-    if (isOkToUse(fComboControl)) {
-      fText = fComboControl.getText();
-      fSelectionIndex = fComboControl.getSelectionIndex();
-    }
-    dialogFieldChanged();
-  }
+	private void doModifyText(ModifyEvent e) {
+		if (isOkToUse(fComboControl)) {
+			fText = fComboControl.getText();
+			fSelectionIndex = fComboControl.getSelectionIndex();
+		}
+		dialogFieldChanged();
+	}
 
-  private void doSelectionChanged(SelectionEvent e) {
-    if (isOkToUse(fComboControl)) {
-      fItems = new ArrayList<>();
-      CollectionUtils.addAll(fItems, fComboControl.getItems());
-      //
-      fText = fComboControl.getText();
-      fSelectionIndex = fComboControl.getSelectionIndex();
-    }
-    dialogFieldChanged();
-  }
+	private void doSelectionChanged(SelectionEvent e) {
+		if (isOkToUse(fComboControl)) {
+			fItems = new ArrayList<>();
+			CollectionUtils.addAll(fItems, fComboControl.getItems());
+			//
+			fText = fComboControl.getText();
+			fSelectionIndex = fComboControl.getSelectionIndex();
+		}
+		dialogFieldChanged();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Enable / disable management
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void updateEnableState() {
-    super.updateEnableState();
-    if (isOkToUse(fComboControl)) {
-      fComboControl.setEnabled(isEnabled());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Enable / disable management
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void updateEnableState() {
+		super.updateEnableState();
+		if (isOkToUse(fComboControl)) {
+			fComboControl.setEnabled(isEnabled());
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Text access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Gets the count of combo items.
-   */
-  public int getItemCount() {
-    return fItems.size();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Text access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Gets the count of combo items.
+	 */
+	public int getItemCount() {
+		return fItems.size();
+	}
 
-  /**
-   * Gets the combo items.
-   */
-  public List<String> getListItems() {
-    return fItems;
-  }
+	/**
+	 * Gets the combo items.
+	 */
+	public List<String> getListItems() {
+		return fItems;
+	}
 
-  /**
-   * Gets the combo items.
-   */
-  public String[] getItems() {
-    return fItems.toArray(new String[fItems.size()]);
-  }
+	/**
+	 * Gets the combo items.
+	 */
+	public String[] getItems() {
+		return fItems.toArray(new String[fItems.size()]);
+	}
 
-  /**
-   * Add the combo item.
-   */
-  public void addItem(String newItem) {
-    fItems.add(newItem);
-    if (isOkToUse(fComboControl)) {
-      fComboControl.add(newItem);
-    }
-    dialogFieldChanged();
-  }
+	/**
+	 * Add the combo item.
+	 */
+	public void addItem(String newItem) {
+		fItems.add(newItem);
+		if (isOkToUse(fComboControl)) {
+			fComboControl.add(newItem);
+		}
+		dialogFieldChanged();
+	}
 
-  /**
-   * Remove the combo item.
-   */
-  public void removeItem(String newItem) {
-    boolean remove = fItems.remove(newItem);
-    if (remove && isOkToUse(fComboControl)) {
-      fComboControl.remove(newItem);
-    }
-  }
+	/**
+	 * Remove the combo item.
+	 */
+	public void removeItem(String newItem) {
+		boolean remove = fItems.remove(newItem);
+		if (remove && isOkToUse(fComboControl)) {
+			fComboControl.remove(newItem);
+		}
+	}
 
-  /**
-   * Add the combo items.
-   */
-  public void addItems(Collection<String> newItems) {
-    for (String item : newItems) {
-      addItem(item);
-    }
-  }
+	/**
+	 * Add the combo items.
+	 */
+	public void addItems(Collection<String> newItems) {
+		for (String item : newItems) {
+			addItem(item);
+		}
+	}
 
-  private void doSetItems() {
-    fComboControl.removeAll();
-    for (String item : fItems) {
-      fComboControl.add(item);
-    }
-  }
+	private void doSetItems() {
+		fComboControl.removeAll();
+		for (String item : fItems) {
+			fComboControl.add(item);
+		}
+	}
 
-  /**
-   * Sets the combo items. Triggers a dialog-changed event.
-   */
-  public void setItems(String[] items) {
-    fItems = new ArrayList<>();
-    CollectionUtils.addAll(fItems, items);
-    //
-    if (isOkToUse(fComboControl)) {
-      doSetItems();
-      fComboControl.setItems(items);
-    }
-    dialogFieldChanged();
-  }
+	/**
+	 * Sets the combo items. Triggers a dialog-changed event.
+	 */
+	public void setItems(String[] items) {
+		fItems = new ArrayList<>();
+		CollectionUtils.addAll(fItems, items);
+		//
+		if (isOkToUse(fComboControl)) {
+			doSetItems();
+			fComboControl.setItems(items);
+		}
+		dialogFieldChanged();
+	}
 
-  /**
-   * Gets the text.
-   */
-  public String getText() {
-    return fText;
-  }
+	/**
+	 * Gets the text.
+	 */
+	public String getText() {
+		return fText;
+	}
 
-  /**
-   * Sets the text. Triggers a dialog-changed event.
-   */
-  public void setText(String text) {
-    fText = text;
-    if (isOkToUse(fComboControl)) {
-      fComboControl.setText(text);
-    } else {
-      dialogFieldChanged();
-    }
-  }
+	/**
+	 * Sets the text. Triggers a dialog-changed event.
+	 */
+	public void setText(String text) {
+		fText = text;
+		if (isOkToUse(fComboControl)) {
+			fComboControl.setText(text);
+		} else {
+			dialogFieldChanged();
+		}
+	}
 
-  /**
-   * Sets the count of visible items
-   */
-  public void setVisibleItemCount(int visibleItemCount) {
-    fVisibleItemCount = visibleItemCount;
-    if (isOkToUse(fComboControl)) {
-      fComboControl.setVisibleItemCount(fVisibleItemCount);
-    } else {
-      dialogFieldChanged();
-    }
-  }
+	/**
+	 * Sets the count of visible items
+	 */
+	public void setVisibleItemCount(int visibleItemCount) {
+		fVisibleItemCount = visibleItemCount;
+		if (isOkToUse(fComboControl)) {
+			fComboControl.setVisibleItemCount(fVisibleItemCount);
+		} else {
+			dialogFieldChanged();
+		}
+	}
 
-  /**
-   * Selects an item.
-   */
-  public boolean selectItem(int index) {
-    boolean success = false;
-    if (isOkToUse(fComboControl)) {
-      fComboControl.select(index);
-      fText = fComboControl.getText();
-      fSelectionIndex = fComboControl.getSelectionIndex();
-      success = fSelectionIndex == index;
-    } else {
-      if (index >= 0 && index < fItems.size()) {
-        fText = fItems.get(index);
-        fSelectionIndex = index;
-        success = true;
-      }
-    }
-    if (success) {
-      dialogFieldChanged();
-    }
-    return success;
-  }
+	/**
+	 * Selects an item.
+	 */
+	public boolean selectItem(int index) {
+		boolean success = false;
+		if (isOkToUse(fComboControl)) {
+			fComboControl.select(index);
+			fText = fComboControl.getText();
+			fSelectionIndex = fComboControl.getSelectionIndex();
+			success = fSelectionIndex == index;
+		} else {
+			if (index >= 0 && index < fItems.size()) {
+				fText = fItems.get(index);
+				fSelectionIndex = index;
+				success = true;
+			}
+		}
+		if (success) {
+			dialogFieldChanged();
+		}
+		return success;
+	}
 
-  /**
-   * Selects an item.
-   */
-  public boolean selectItem(String name) {
-    for (int i = 0; i < fItems.size(); i++) {
-      if (name.equals(fItems.get(i))) {
-        return selectItem(i);
-      }
-    }
-    return false;
-  }
+	/**
+	 * Selects an item.
+	 */
+	public boolean selectItem(String name) {
+		for (int i = 0; i < fItems.size(); i++) {
+			if (name.equals(fItems.get(i))) {
+				return selectItem(i);
+			}
+		}
+		return false;
+	}
 
-  public int getSelectionIndex() {
-    return fSelectionIndex;
-  }
+	public int getSelectionIndex() {
+		return fSelectionIndex;
+	}
 
-  /**
-   * Sets the text without triggering a dialog-changed event.
-   */
-  public void setTextWithoutUpdate(String text) {
-    fText = text;
-    if (isOkToUse(fComboControl)) {
-      fComboControl.removeModifyListener(fModifyListener);
-      fComboControl.setText(text);
-      fComboControl.addModifyListener(fModifyListener);
-    }
-  }
+	/**
+	 * Sets the text without triggering a dialog-changed event.
+	 */
+	public void setTextWithoutUpdate(String text) {
+		fText = text;
+		if (isOkToUse(fComboControl)) {
+			fComboControl.removeModifyListener(fModifyListener);
+			fComboControl.setText(text);
+			fComboControl.addModifyListener(fModifyListener);
+		}
+	}
 
-  @Override
-  public void refresh() {
-    super.refresh();
-    setTextWithoutUpdate(fText);
-  }
+	@Override
+	public void refresh() {
+		super.refresh();
+		setTextWithoutUpdate(fText);
+	}
 }

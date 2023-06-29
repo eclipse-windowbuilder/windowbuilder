@@ -28,43 +28,43 @@ import java.util.List;
  *
  */
 public class GenericUtilsTest extends AbstractBindingTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_getObjectType() throws Exception {
-    JPanelInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
-            "import java.util.List;",
-            "import java.util.Map;",
-            "public class Test extends JPanel {",
-            "  private List<Map<String,Number>> datas;",
-            "  public Test() {",
-            "  }",
-            "}"});
-    assertNotNull(shell);
-    //
-    DatabindingsProvider provider = getDatabindingsProvider();
-    List<IObserveInfo> beanObserves = provider.getObserves(ObserveType.BEANS);
-    List<FieldBeanObserveInfo> fieldObserves =
-        GenericsUtils.select(beanObserves, FieldBeanObserveInfo.class);
-    FieldBeanObserveInfo datas = fieldObserves.get(0);
-    IGenericType datasObjectType = datas.getObjectType();
-    //
-    assertThat(datasObjectType).isInstanceOf(GenericTypeContainer.class);
-    GenericTypeContainer datasType = (GenericTypeContainer) datasObjectType;
-    assertThat(datasType.getFullTypeName()).isEqualTo(
-        "java.util.List<java.util.Map<java.lang.String, java.lang.Number>>");
-    //
-    IGenericType datasItemObjectType = datasType.getSubType(0);
-    //
-    assertThat(datasItemObjectType).isInstanceOf(GenericTypeContainer.class);
-    GenericTypeContainer datasItemType = (GenericTypeContainer) datasItemObjectType;
-    assertThat(datasItemType.getFullTypeName()).isEqualTo(
-        "java.util.Map<java.lang.String, java.lang.Number>");
-    //
-    List<IGenericType> subTypes = datasItemType.getSubTypes();
-    assertThat(subTypes.size()).isEqualTo(2);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_getObjectType() throws Exception {
+		JPanelInfo shell =
+				DatabindingTestUtils.parseTestSource(this, new String[]{
+						"import java.util.List;",
+						"import java.util.Map;",
+						"public class Test extends JPanel {",
+						"  private List<Map<String,Number>> datas;",
+						"  public Test() {",
+						"  }",
+				"}"});
+		assertNotNull(shell);
+		//
+		DatabindingsProvider provider = getDatabindingsProvider();
+		List<IObserveInfo> beanObserves = provider.getObserves(ObserveType.BEANS);
+		List<FieldBeanObserveInfo> fieldObserves =
+				GenericsUtils.select(beanObserves, FieldBeanObserveInfo.class);
+		FieldBeanObserveInfo datas = fieldObserves.get(0);
+		IGenericType datasObjectType = datas.getObjectType();
+		//
+		assertThat(datasObjectType).isInstanceOf(GenericTypeContainer.class);
+		GenericTypeContainer datasType = (GenericTypeContainer) datasObjectType;
+		assertThat(datasType.getFullTypeName()).isEqualTo(
+				"java.util.List<java.util.Map<java.lang.String, java.lang.Number>>");
+		//
+		IGenericType datasItemObjectType = datasType.getSubType(0);
+		//
+		assertThat(datasItemObjectType).isInstanceOf(GenericTypeContainer.class);
+		GenericTypeContainer datasItemType = (GenericTypeContainer) datasItemObjectType;
+		assertThat(datasItemType.getFullTypeName()).isEqualTo(
+				"java.util.Map<java.lang.String, java.lang.Number>");
+		//
+		List<IGenericType> subTypes = datasItemType.getSubTypes();
+		assertThat(subTypes.size()).isEqualTo(2);
+	}
 }

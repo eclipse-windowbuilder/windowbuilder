@@ -28,19 +28,19 @@ import javax.swing.Box;
  * @coverage swing.gef.policy
  */
 public final class GlueSelectionEditPolicy extends SelectionEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    // create move handle
-    MoveHandle moveHandle = new MoveHandle(getHost());
-    moveHandle.setForeground(IColorConstants.red);
-    handles.add(moveHandle);
-    //
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		// create move handle
+		MoveHandle moveHandle = new MoveHandle(getHost());
+		moveHandle.setForeground(IColorConstants.red);
+		handles.add(moveHandle);
+		//
+		return handles;
+	}
 }

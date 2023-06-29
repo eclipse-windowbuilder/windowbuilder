@@ -36,54 +36,54 @@ import javax.swing.JDialog;
  * @coverage swing.wizards.ui
  */
 public final class NewJDialogWizardPage extends SwingWizardPage {
-  private CheckDialogField m_buttonsField;
+	private CheckDialogField m_buttonsField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public NewJDialogWizardPage() {
-    setTitle(Messages.NewJDialogWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/JDialog/banner.gif"));
-    setDescription(Messages.NewJDialogWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public NewJDialogWizardPage() {
+		setTitle(Messages.NewJDialogWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/JDialog/banner.gif"));
+		setDescription(Messages.NewJDialogWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file =
-        Activator.getFile(m_buttonsField.getSelection()
-            ? "templates/JDialog_buttons.jvt"
-            : "templates/JDialog.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file =
+				Activator.getFile(m_buttonsField.getSelection()
+						? "templates/JDialog_buttons.jvt"
+								: "templates/JDialog.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    setSuperClass("javax.swing.JDialog", true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		setSuperClass("javax.swing.JDialog", true);
+	}
 
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    Composite composite = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.create(composite).noMargins();
-    GridDataFactory.create(composite).fillH().grabH().spanH(columns);
-    //
-    m_buttonsField = new CheckDialogField();
-    m_buttonsField.setLabelText(Messages.NewJDialogWizardPage_generateButtons);
-    m_buttonsField.setSelection(true);
-    m_buttonsField.doFillIntoGrid(composite, 1);
-  }
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridLayoutFactory.create(composite).noMargins();
+		GridDataFactory.create(composite).fillH().grabH().spanH(columns);
+		//
+		m_buttonsField = new CheckDialogField();
+		m_buttonsField.setLabelText(Messages.NewJDialogWizardPage_generateButtons);
+		m_buttonsField.setSelection(true);
+		m_buttonsField.doFillIntoGrid(composite, 1);
+	}
 }

@@ -26,88 +26,88 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage bindings.swing.ui
  */
 public final class ElPropertyUiContentProvider
-    extends
-      org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el.ElPropertyUiContentProvider {
-  private ElPropertyInfo m_property;
+extends
+org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el.ElPropertyUiContentProvider {
+	private ElPropertyInfo m_property;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ElPropertyUiContentProvider(ElPropertyUiConfiguration configuration,
-      ElPropertyInfo property) {
-    super(configuration);
-    m_property = property;
-    setEnabled(m_property != null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ElPropertyUiContentProvider(ElPropertyUiConfiguration configuration,
+			ElPropertyInfo property) {
+		super(configuration);
+		m_property = property;
+		setEnabled(m_property != null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ElPropertyInfo getProperty() {
-    return m_property;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ElPropertyInfo getProperty() {
+		return m_property;
+	}
 
-  public void setProperty(ElPropertyInfo property) throws Exception {
-    m_property = property;
-    setEnabled(m_property != null);
-    if (m_property == null) {
-      setText(Messages.ElPropertyUiContentProvider_0);
-    } else {
-      updateFromObject();
-    }
-  }
+	public void setProperty(ElPropertyInfo property) throws Exception {
+		m_property = property;
+		setEnabled(m_property != null);
+		if (m_property == null) {
+			setText(Messages.ElPropertyUiContentProvider_0);
+		} else {
+			updateFromObject();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handling
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createContent(Composite parent, int columns) {
-    super.createContent(parent, columns);
-    m_sourceViewer.getDocument().addDocumentListener(new IDocumentListener() {
-      public void documentChanged(DocumentEvent event) {
-        calculateFinish();
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handling
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createContent(Composite parent, int columns) {
+		super.createContent(parent, columns);
+		m_sourceViewer.getDocument().addDocumentListener(new IDocumentListener() {
+			public void documentChanged(DocumentEvent event) {
+				calculateFinish();
+			}
 
-      public void documentAboutToBeChanged(DocumentEvent event) {
-      }
-    });
-  }
+			public void documentAboutToBeChanged(DocumentEvent event) {
+			}
+		});
+	}
 
-  public Class<?> getTopLevelBean() throws Exception {
-    if (m_property == null) {
-      return null;
-    }
-    PropertyInfo baseProperty = m_property.getBaseProperty();
-    if (baseProperty != null) {
-      return baseProperty.getValueType().getRawType();
-    }
-    return m_property.getSourceObjectType().getRawType();
-  }
+	public Class<?> getTopLevelBean() throws Exception {
+		if (m_property == null) {
+			return null;
+		}
+		PropertyInfo baseProperty = m_property.getBaseProperty();
+		if (baseProperty != null) {
+			return baseProperty.getValueType().getRawType();
+		}
+		return m_property.getSourceObjectType().getRawType();
+	}
 
-  public void calculateFinish() {
-    if (getText().length() == 0) {
-      setErrorMessage(Messages.ElPropertyUiContentProvider_errEmpty);
-    } else {
-      setErrorMessage(null);
-    }
-  }
+	public void calculateFinish() {
+		if (getText().length() == 0) {
+			setErrorMessage(Messages.ElPropertyUiContentProvider_errEmpty);
+		} else {
+			setErrorMessage(null);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    setText(m_property.getExpression());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		setText(m_property.getExpression());
+	}
 
-  public void saveToObject() throws Exception {
-    m_property.setExpression(getText());
-  }
+	public void saveToObject() throws Exception {
+		m_property.setExpression(getText());
+	}
 }

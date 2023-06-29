@@ -24,15 +24,15 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class ToolkitRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    String toolkitId = getRequiredAttribute(name, attributes, "id");
-    componentDescription.setToolkit(DescriptionHelper.getToolkit(toolkitId));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		String toolkitId = getRequiredAttribute(name, attributes, "id");
+		componentDescription.setToolkit(DescriptionHelper.getToolkit(toolkitId));
+	}
 }

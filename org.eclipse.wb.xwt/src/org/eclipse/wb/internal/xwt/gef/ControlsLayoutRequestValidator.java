@@ -21,6 +21,6 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
  * @coverage XWT.gef
  */
 public final class ControlsLayoutRequestValidator {
-  public static final ILayoutRequestValidator INSTANCE =
-      LayoutRequestValidators.modelType(ControlInfo.class);
+	public static final ILayoutRequestValidator INSTANCE =
+			LayoutRequestValidators.modelType(ControlInfo.class);
 }

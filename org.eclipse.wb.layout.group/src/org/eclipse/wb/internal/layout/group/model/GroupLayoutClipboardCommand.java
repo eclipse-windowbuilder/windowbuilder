@@ -32,64 +32,64 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * @author mitin_aa
  */
 public abstract class GroupLayoutClipboardCommand extends ClipboardCommand {
-  private static final long serialVersionUID = 0L;
-  private final String m_layoutXml;
+	private static final long serialVersionUID = 0L;
+	private final String m_layoutXml;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GroupLayoutClipboardCommand(GroupLayoutSupport _this) {
-    Map<String, String> componentsMap = Maps.newHashMap();
-    // map current component ids to xml ids; this requires child order preserving
-    int i = 0;
-    for (AbstractComponentInfo component : _this.getLayoutChildren()) {
-      componentsMap.put(ObjectInfoUtils.getId(component), "" + i++);
-    }
-    // store to xml
-    m_layoutXml =
-        "<layout>"
-            + _this.getLayoutModel().saveContainerLayout(
-                _this.getLayoutRoot(),
-                componentsMap,
-                0,
-                false)
-            + "</layout>";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GroupLayoutClipboardCommand(GroupLayoutSupport _this) {
+		Map<String, String> componentsMap = Maps.newHashMap();
+		// map current component ids to xml ids; this requires child order preserving
+		int i = 0;
+		for (AbstractComponentInfo component : _this.getLayoutChildren()) {
+			componentsMap.put(ObjectInfoUtils.getId(component), "" + i++);
+		}
+		// store to xml
+		m_layoutXml =
+				"<layout>"
+						+ _this.getLayoutModel().saveContainerLayout(
+								_this.getLayoutRoot(),
+								componentsMap,
+								0,
+								false)
+						+ "</layout>";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ClipboardCommand
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void execute(JavaInfo javaInfo) throws Exception {
-    try {
-      // prepare
-      GroupLayoutSupport _this = getLayoutSupport(javaInfo);
-      // map xml ids back to newly created component ids
-      Map<String, String> componentsMap = Maps.newHashMap();
-      int i = 0;
-      for (AbstractComponentInfo component : _this.getLayoutChildren()) {
-        componentsMap.put("" + i++, ObjectInfoUtils.getId(component));
-      }
-      // parse xml
-      Document document =
-          DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
-              IOUtils.toInputStream(m_layoutXml));
-      NodeList nodes = document.getChildNodes().item(0).getChildNodes();
-      // load
-      _this.getLayoutModel().loadContainerLayout(
-          ObjectInfoUtils.getId(_this.getLayoutContainer()),
-          nodes,
-          componentsMap);
-      // save
-      _this.saveLayout();
-    } catch (Throwable e) {
-      DesignerPlugin.log(e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ClipboardCommand
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void execute(JavaInfo javaInfo) throws Exception {
+		try {
+			// prepare
+			GroupLayoutSupport _this = getLayoutSupport(javaInfo);
+			// map xml ids back to newly created component ids
+			Map<String, String> componentsMap = Maps.newHashMap();
+			int i = 0;
+			for (AbstractComponentInfo component : _this.getLayoutChildren()) {
+				componentsMap.put("" + i++, ObjectInfoUtils.getId(component));
+			}
+			// parse xml
+			Document document =
+					DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
+							IOUtils.toInputStream(m_layoutXml));
+			NodeList nodes = document.getChildNodes().item(0).getChildNodes();
+			// load
+			_this.getLayoutModel().loadContainerLayout(
+					ObjectInfoUtils.getId(_this.getLayoutContainer()),
+					nodes,
+					componentsMap);
+			// save
+			_this.saveLayout();
+		} catch (Throwable e) {
+			DesignerPlugin.log(e);
+		}
+	}
 
-  protected abstract GroupLayoutSupport getLayoutSupport(JavaInfo container);
+	protected abstract GroupLayoutSupport getLayoutSupport(JavaInfo container);
 }

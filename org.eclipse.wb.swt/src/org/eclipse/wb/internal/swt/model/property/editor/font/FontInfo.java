@@ -23,92 +23,92 @@ import org.eclipse.swt.graphics.Font;
  * @coverage swt.property.editor
  */
 public final class FontInfo {
-  private final String m_name;
-  private final Object m_font;
-  private final String m_sourceCode;
-  private final boolean m_doDispose;
-  private Object m_data;
-  private String m_pageId;
+	private final String m_name;
+	private final Object m_font;
+	private final String m_sourceCode;
+	private final boolean m_doDispose;
+	private Object m_data;
+	private String m_pageId;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FontInfo(String name, Object font, String sourceCode, boolean doDispose) {
-    m_name = name;
-    m_font = font;
-    m_sourceCode = sourceCode;
-    m_doDispose = doDispose;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FontInfo(String name, Object font, String sourceCode, boolean doDispose) {
+		m_name = name;
+		m_font = font;
+		m_sourceCode = sourceCode;
+		m_doDispose = doDispose;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dispose
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void dispose() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        if (m_doDispose) {
-          ReflectionUtils.invokeMethod(m_font, "dispose()");
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dispose
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void dispose() {
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				if (m_doDispose) {
+					ReflectionUtils.invokeMethod(m_font, "dispose()");
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the name of font.
-   */
-  public String getName() {
-    return m_name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the name of font.
+	 */
+	public String getName() {
+		return m_name;
+	}
 
-  /**
-   * @return the inner {@link Font}.
-   */
-  public Object getFont() {
-    return m_font;
-  }
+	/**
+	 * @return the inner {@link Font}.
+	 */
+	public Object getFont() {
+		return m_font;
+	}
 
-  /**
-   * @return source code association with this font info.
-   */
-  public String getSourceCode() {
-    return m_sourceCode;
-  }
+	/**
+	 * @return source code association with this font info.
+	 */
+	public String getSourceCode() {
+		return m_sourceCode;
+	}
 
-  /**
-   * @return the data associated with this {@link FontInfo}.
-   */
-  public Object getData() {
-    return m_data;
-  }
+	/**
+	 * @return the data associated with this {@link FontInfo}.
+	 */
+	public Object getData() {
+		return m_data;
+	}
 
-  /**
-   * Sets the data associated with this {@link FontInfo}.
-   */
-  public void setData(Object data) {
-    m_data = data;
-  }
+	/**
+	 * Sets the data associated with this {@link FontInfo}.
+	 */
+	public void setData(Object data) {
+		m_data = data;
+	}
 
-  /**
-   * @return owner page id for this value.
-   */
-  public String getPageId() {
-    return m_pageId;
-  }
+	/**
+	 * @return owner page id for this value.
+	 */
+	public String getPageId() {
+		return m_pageId;
+	}
 
-  /**
-   * Sets owner page id for this value.
-   */
-  public void setPageId(String pageId) {
-    m_pageId = pageId;
-  }
+	/**
+	 * Sets owner page id for this value.
+	 */
+	public void setPageId(String pageId) {
+		m_pageId = pageId;
+	}
 }

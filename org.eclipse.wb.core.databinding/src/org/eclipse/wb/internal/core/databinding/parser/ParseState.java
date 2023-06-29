@@ -21,16 +21,16 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * @coverage bindings.parser
  */
 public final class ParseState {
-  public final IDatabindingsProvider databindingsProvider;
-  public final AbstractUIPlugin plugin;
+	public final IDatabindingsProvider databindingsProvider;
+	public final AbstractUIPlugin plugin;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ParseState(IDatabindingsProvider databindingsProvider, AbstractUIPlugin plugin) {
-    this.databindingsProvider = databindingsProvider;
-    this.plugin = plugin;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ParseState(IDatabindingsProvider databindingsProvider, AbstractUIPlugin plugin) {
+		this.databindingsProvider = databindingsProvider;
+		this.plugin = plugin;
+	}
 }

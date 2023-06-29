@@ -19,30 +19,30 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.ui
  */
 public class EmptyPageListener implements IPageListener {
-  public static final IPageListener INSTANCE = new EmptyPageListener();
+	public static final IPageListener INSTANCE = new EmptyPageListener();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IPageListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setErrorMessage(String newMessage) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IPageListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setErrorMessage(String newMessage) {
+	}
 
-  @Override
-  public void setMessage(String newMessage) {
-  }
+	@Override
+	public void setMessage(String newMessage) {
+	}
 
-  @Override
-  public void setPageComplete(boolean complete) {
-  }
+	@Override
+	public void setPageComplete(boolean complete) {
+	}
 
-  @Override
-  public void setTitle(String title) {
-  }
+	@Override
+	public void setTitle(String title) {
+	}
 
-  @Override
-  public void setTitleImage(Image image) {
-  }
+	@Override
+	public void setTitleImage(Image image) {
+	}
 }

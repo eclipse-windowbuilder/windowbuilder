@@ -20,14 +20,14 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
  * @coverage core.nls
  */
 public abstract class AbstractBundleSourceParameters {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Bundle parameters
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IPackageFragmentRoot m_propertySourceFolder;
-  public IPackageFragment m_propertyPackage;
-  public String m_propertyFileName;
-  public String m_propertyBundleName;
-  public boolean m_propertyFileExists;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Bundle parameters
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IPackageFragmentRoot m_propertySourceFolder;
+	public IPackageFragment m_propertyPackage;
+	public String m_propertyFileName;
+	public String m_propertyBundleName;
+	public boolean m_propertyFileExists;
 }

@@ -39,107 +39,107 @@ import javax.swing.JComponent;
  * @coverage swing.model.layout
  */
 public final class BoxLayoutInfo extends GenericFlowLayoutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BoxLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BoxLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link BoxLayoutInfo} lays out {@link Component}'s
-   *         horizontally.
-   */
-  public boolean isHorizontal() {
-    BoxLayout layout = (BoxLayout) getObject();
-    int axis = ReflectionUtils.getFieldInt(layout, "axis");
-    return axis == BoxLayout.X_AXIS || axis == BoxLayout.LINE_AXIS;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link BoxLayoutInfo} lays out {@link Component}'s
+	 *         horizontally.
+	 */
+	public boolean isHorizontal() {
+		BoxLayout layout = (BoxLayout) getObject();
+		int axis = ReflectionUtils.getFieldInt(layout, "axis");
+		return axis == BoxLayout.X_AXIS || axis == BoxLayout.LINE_AXIS;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    // add "Alignment" property for children JComponent's
-    addBroadcastListener(new JavaInfoAddProperties() {
-      public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        if (javaInfo instanceof ComponentInfo
-            && javaInfo.getParent() == getContainer()
-            && JComponent.class.isAssignableFrom(javaInfo.getDescription().getComponentClass())) {
-          ComponentInfo component = (ComponentInfo) javaInfo;
-          Property alignmentProperty = addAlignmentProperty(component, properties);
-          properties.add(alignmentProperty);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		// add "Alignment" property for children JComponent's
+		addBroadcastListener(new JavaInfoAddProperties() {
+			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
+				if (javaInfo instanceof ComponentInfo
+						&& javaInfo.getParent() == getContainer()
+						&& JComponent.class.isAssignableFrom(javaInfo.getDescription().getComponentClass())) {
+					ComponentInfo component = (ComponentInfo) javaInfo;
+					Property alignmentProperty = addAlignmentProperty(component, properties);
+					properties.add(alignmentProperty);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final Map<ComponentInfo, Property> m_alignmentProperties = Maps.newHashMap();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final Map<ComponentInfo, Property> m_alignmentProperties = Maps.newHashMap();
 
-  /**
-   * @return the composite "Alignment" property constructed from given {@link Property}'s.
-   */
-  private Property addAlignmentProperty(ComponentInfo component, List<Property> properties)
-      throws Exception {
-    Property property = m_alignmentProperties.get(component);
-    if (property == null) {
-      ComplexProperty alignmentProperty = new ComplexProperty("Alignment", "(X/Y alignments)");
-      alignmentProperty.setModified(true);
-      alignmentProperty.setCategory(PropertyCategory.system(6));
-      // add sub-properties
-      Property alignmentX = getAlignmentSubProperty(properties, "alignmentX");
-      Property alignmentY = getAlignmentSubProperty(properties, "alignmentY");
-      alignmentProperty.setProperties(new Property[]{alignmentX, alignmentY});
-      // remember
-      m_alignmentProperties.put(component, alignmentProperty);
-      property = alignmentProperty;
-    }
-    return property;
-  }
+	/**
+	 * @return the composite "Alignment" property constructed from given {@link Property}'s.
+	 */
+	private Property addAlignmentProperty(ComponentInfo component, List<Property> properties)
+			throws Exception {
+		Property property = m_alignmentProperties.get(component);
+		if (property == null) {
+			ComplexProperty alignmentProperty = new ComplexProperty("Alignment", "(X/Y alignments)");
+			alignmentProperty.setModified(true);
+			alignmentProperty.setCategory(PropertyCategory.system(6));
+			// add sub-properties
+			Property alignmentX = getAlignmentSubProperty(properties, "alignmentX");
+			Property alignmentY = getAlignmentSubProperty(properties, "alignmentY");
+			alignmentProperty.setProperties(new Property[]{alignmentX, alignmentY});
+			// remember
+			m_alignmentProperties.put(component, alignmentProperty);
+			property = alignmentProperty;
+		}
+		return property;
+	}
 
-  /**
-   * @return the non-advanced copy of {@link GenericPropertyImpl} with given title.
-   */
-  private static Property getAlignmentSubProperty(List<Property> properties, String title)
-      throws Exception {
-    GenericPropertyImpl alignmentSubProperty = null;
-    for (Property property : properties) {
-      if (property instanceof GenericPropertyImpl && property.getTitle().equals(title)) {
-        GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
-        alignmentSubProperty = new GenericPropertyImpl(genericProperty, property.getTitle());
-        alignmentSubProperty.setCategory(PropertyCategory.NORMAL);
-        break;
-      }
-    }
-    Assert.isNotNull(alignmentSubProperty);
-    return alignmentSubProperty;
-  }
+	/**
+	 * @return the non-advanced copy of {@link GenericPropertyImpl} with given title.
+	 */
+	private static Property getAlignmentSubProperty(List<Property> properties, String title)
+			throws Exception {
+		GenericPropertyImpl alignmentSubProperty = null;
+		for (Property property : properties) {
+			if (property instanceof GenericPropertyImpl && property.getTitle().equals(title)) {
+				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+				alignmentSubProperty = new GenericPropertyImpl(genericProperty, property.getTitle());
+				alignmentSubProperty.setCategory(PropertyCategory.NORMAL);
+				break;
+			}
+		}
+		Assert.isNotNull(alignmentSubProperty);
+		return alignmentSubProperty;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Manage general layout data.
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void storeLayoutData(ComponentInfo component) throws Exception {
-    storeLayoutDataDefault(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Manage general layout data.
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void storeLayoutData(ComponentInfo component) throws Exception {
+		storeLayoutDataDefault(component);
+	}
 }

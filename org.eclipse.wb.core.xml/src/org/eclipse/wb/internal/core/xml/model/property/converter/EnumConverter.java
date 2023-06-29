@@ -19,27 +19,27 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.property
  */
 public final class EnumConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new EnumConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new EnumConverter();
 
-  private EnumConverter() {
-  }
+	private EnumConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toSource(XmlObjectInfo object, Object value) throws Exception {
-    if (value instanceof Enum<?>) {
-      Enum<?> enumValue = (Enum<?>) value;
-      return enumValue.name();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toSource(XmlObjectInfo object, Object value) throws Exception {
+		if (value instanceof Enum<?>) {
+			Enum<?> enumValue = (Enum<?>) value;
+			return enumValue.name();
+		}
+		return null;
+	}
 }

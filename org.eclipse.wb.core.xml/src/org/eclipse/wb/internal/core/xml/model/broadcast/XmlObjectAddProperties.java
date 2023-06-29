@@ -24,5 +24,5 @@ import java.util.List;
  * @coverage XML.model
  */
 public interface XmlObjectAddProperties {
-  void invoke(XmlObjectInfo object, List<Property> properties) throws Exception;
+	void invoke(XmlObjectInfo object, List<Property> properties) throws Exception;
 }

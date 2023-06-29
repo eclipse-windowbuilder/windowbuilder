@@ -32,73 +32,73 @@ import java.util.List;
  * @coverage swing.FormLayout.ui
  */
 public final class RowsDialog extends DimensionsDialog<FormRowInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowsDialog(Shell parentShell, FormLayoutInfo layout) {
-    super(parentShell, layout, createRowsCopy(layout), layout.getMinimumSize().width);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowsDialog(Shell parentShell, FormLayoutInfo layout) {
+		super(parentShell, layout, createRowsCopy(layout), layout.getMinimumSize().width);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Copy/update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the deep copy of {@link List} with {@link FormRowInfo}'s.
-   */
-  private static List<FormRowInfo> createRowsCopy(final FormLayoutInfo layout) {
-    final List<FormRowInfo> rows = Lists.newArrayList();
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        for (FormRowInfo row : layout.getRows()) {
-          rows.add(row.copy());
-        }
-      }
-    });
-    return rows;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Copy/update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the deep copy of {@link List} with {@link FormRowInfo}'s.
+	 */
+	private static List<FormRowInfo> createRowsCopy(final FormLayoutInfo layout) {
+		final List<FormRowInfo> rows = Lists.newArrayList();
+		ExecutionUtils.runRethrow(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				for (FormRowInfo row : layout.getRows()) {
+					rows.add(row.copy());
+				}
+			}
+		});
+		return rows;
+	}
 
-  @Override
-  protected void updateLayoutInfo(List<FormRowInfo> dimensions) throws Exception {
-    m_layout.setRows(dimensions);
-  }
+	@Override
+	protected void updateLayoutInfo(List<FormRowInfo> dimensions) throws Exception {
+		m_layout.setRows(dimensions);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DimensionsDialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getDialogTitle() {
-    return ModelMessages.RowsDialog_dialogTitle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DimensionsDialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getDialogTitle() {
+		return ModelMessages.RowsDialog_dialogTitle;
+	}
 
-  @Override
-  protected String getDialogMessage() {
-    return ModelMessages.RowsDialog_dialogMessage;
-  }
+	@Override
+	protected String getDialogMessage() {
+		return ModelMessages.RowsDialog_dialogMessage;
+	}
 
-  @Override
-  protected String getViewerTitle() {
-    return ModelMessages.RowsDialog_viewerTitle;
-  }
+	@Override
+	protected String getViewerTitle() {
+		return ModelMessages.RowsDialog_viewerTitle;
+	}
 
-  @Override
-  protected String getMinimalErrorMessage(int minimumDimensions) {
-    return MessageFormat.format(ModelMessages.RowsDialog_minimalErrorMesssage, minimumDimensions);
-  }
+	@Override
+	protected String getMinimalErrorMessage(int minimumDimensions) {
+		return MessageFormat.format(ModelMessages.RowsDialog_minimalErrorMesssage, minimumDimensions);
+	}
 
-  @Override
-  protected boolean editSelectedDimension(List<FormRowInfo> dimensions, FormRowInfo column) {
-    return new RowEditDialog(getShell(), dimensions, column).open() == OK;
-  }
+	@Override
+	protected boolean editSelectedDimension(List<FormRowInfo> dimensions, FormRowInfo column) {
+		return new RowEditDialog(getShell(), dimensions, column).open() == OK;
+	}
 
-  @Override
-  protected FormRowInfo createNewDimension() throws Exception {
-    return new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC);
-  }
+	@Override
+	protected FormRowInfo createNewDimension() throws Exception {
+		return new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC);
+	}
 }

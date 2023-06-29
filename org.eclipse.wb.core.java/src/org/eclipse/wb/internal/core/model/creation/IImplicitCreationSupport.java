@@ -20,5 +20,5 @@ import org.eclipse.wb.internal.core.model.clipboard.IClipboardImplicitCreationSu
  * @coverage core.model.creation
  */
 public interface IImplicitCreationSupport {
-  IClipboardImplicitCreationSupport getImplicitClipboard();
+	IClipboardImplicitCreationSupport getImplicitClipboard();
 }

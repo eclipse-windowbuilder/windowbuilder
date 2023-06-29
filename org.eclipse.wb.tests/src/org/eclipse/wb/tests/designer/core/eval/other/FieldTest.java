@@ -21,98 +21,98 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
  * @author lobas_av
  */
 public class FieldTest extends AbstractEngineTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    if (m_testProject == null) {
-      do_projectCreate();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		if (m_testProject == null) {
+			do_projectCreate();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Field
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_beanFieldValue() throws Exception {
-    setFileContentSrc(
-        "test/TestBean.java",
-        getSourceDQ("package test;", "class TestBean {", "  public int value = 5;", "}"));
-    waitForAutoBuild();
-    assertEquals(5, evaluateExpression("new TestBean().value", "int"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Field
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_beanFieldValue() throws Exception {
+		setFileContentSrc(
+				"test/TestBean.java",
+				getSourceDQ("package test;", "class TestBean {", "  public int value = 5;", "}"));
+		waitForAutoBuild();
+		assertEquals(5, evaluateExpression("new TestBean().value", "int"));
+	}
 
-  public void test_localFieldValue_thisQualifier() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "class Test {",
-            "  private int value = 5;",
-            "  int foo() {",
-            "    return this.value;",
-            "  }",
-            "}");
-    assertEquals(5, evaluateSingleMethod(typeDeclaration, "foo()"));
-  }
+	public void test_localFieldValue_thisQualifier() throws Exception {
+		TypeDeclaration typeDeclaration =
+				createTypeDeclaration_Test(
+						"class Test {",
+						"  private int value = 5;",
+						"  int foo() {",
+						"    return this.value;",
+						"  }",
+						"}");
+		assertEquals(5, evaluateSingleMethod(typeDeclaration, "foo()"));
+	}
 
-  public void test_localFieldValue_defaultValue_false() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "class Test {",
-            "  private boolean value;",
-            "  boolean foo() {",
-            "    return this.value;",
-            "  }",
-            "}");
-    assertEquals(false, evaluateSingleMethod(typeDeclaration, "foo()"));
-  }
+	public void test_localFieldValue_defaultValue_false() throws Exception {
+		TypeDeclaration typeDeclaration =
+				createTypeDeclaration_Test(
+						"class Test {",
+						"  private boolean value;",
+						"  boolean foo() {",
+						"    return this.value;",
+						"  }",
+						"}");
+		assertEquals(false, evaluateSingleMethod(typeDeclaration, "foo()"));
+	}
 
-  public void test_localFieldValue_defaultValue_zero() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "class Test {",
-            "  private int value;",
-            "  int foo() {",
-            "    return this.value;",
-            "  }",
-            "}");
-    assertEquals(0, evaluateSingleMethod(typeDeclaration, "foo()"));
-  }
+	public void test_localFieldValue_defaultValue_zero() throws Exception {
+		TypeDeclaration typeDeclaration =
+				createTypeDeclaration_Test(
+						"class Test {",
+						"  private int value;",
+						"  int foo() {",
+						"    return this.value;",
+						"  }",
+						"}");
+		assertEquals(0, evaluateSingleMethod(typeDeclaration, "foo()"));
+	}
 
-  public void test_localFieldValue_defaultValue_null() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "class Test {",
-            "  private Object value;",
-            "  Object foo() {",
-            "    return this.value;",
-            "  }",
-            "}");
-    assertEquals(null, evaluateSingleMethod(typeDeclaration, "foo()"));
-  }
+	public void test_localFieldValue_defaultValue_null() throws Exception {
+		TypeDeclaration typeDeclaration =
+				createTypeDeclaration_Test(
+						"class Test {",
+						"  private Object value;",
+						"  Object foo() {",
+						"    return this.value;",
+						"  }",
+						"}");
+		assertEquals(null, evaluateSingleMethod(typeDeclaration, "foo()"));
+	}
 
-  public void test_localFieldValue_noQualifier() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "class Test {",
-            "  private int value = 5;",
-            "  int foo() {",
-            "    return value;",
-            "  }",
-            "}");
-    assertEquals(5, evaluateSingleMethod(typeDeclaration, "foo()"));
-  }
+	public void test_localFieldValue_noQualifier() throws Exception {
+		TypeDeclaration typeDeclaration =
+				createTypeDeclaration_Test(
+						"class Test {",
+						"  private int value = 5;",
+						"  int foo() {",
+						"    return value;",
+						"  }",
+						"}");
+		assertEquals(5, evaluateSingleMethod(typeDeclaration, "foo()"));
+	}
 }

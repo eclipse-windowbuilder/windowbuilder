@@ -21,24 +21,24 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.gefTree.policy
  */
 final class OpenEditorLayoutEditPolicy extends DoubleClickLayoutEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public OpenEditorLayoutEditPolicy(JavaInfo javaInfo) {
-    super(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public OpenEditorLayoutEditPolicy(JavaInfo javaInfo) {
+		super(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DoubleClickLayoutEditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void performDoubleClick() {
-    IDesignPageSite site = IDesignPageSite.Helper.getSite(m_javaInfo);
-    int position = m_javaInfo.getCreationSupport().getNode().getStartPosition();
-    site.openSourcePosition(position);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DoubleClickLayoutEditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void performDoubleClick() {
+		IDesignPageSite site = IDesignPageSite.Helper.getSite(m_javaInfo);
+		int position = m_javaInfo.getCreationSupport().getNode().getStartPosition();
+		site.openSourcePosition(position);
+	}
 }

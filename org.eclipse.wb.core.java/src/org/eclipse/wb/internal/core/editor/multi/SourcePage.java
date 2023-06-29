@@ -34,126 +34,126 @@ import java.util.Map;
  * @coverage core.editor
  */
 public final class SourcePage implements IEditorPage {
-  private final DesignerEditor m_editor;
-  private final Map<String, IAction> m_idToTextEditorAction = Maps.newHashMap();
-  private Composite m_composite;
+	private final DesignerEditor m_editor;
+	private final Map<String, IAction> m_idToTextEditorAction = Maps.newHashMap();
+	private Composite m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SourcePage(DesignerEditor editor) {
-    m_editor = editor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SourcePage(DesignerEditor editor) {
+		m_editor = editor;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void initialize(IDesignerEditor designerPage) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void initialize(IDesignerEditor designerPage) {
+	}
 
-  @Override
-  public void dispose() {
-  }
+	@Override
+	public void dispose() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Activation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean m_active = false;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Activation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean m_active = false;
 
-  @Override
-  public void handleActiveState(boolean activate) {
-    if (m_active == activate) {
-      return;
-    }
-    m_active = activate;
-    //
-    updateSourceActions(m_active);
-  }
+	@Override
+	public void handleActiveState(boolean activate) {
+		if (m_active == activate) {
+			return;
+		}
+		m_active = activate;
+		//
+		updateSourceActions(m_active);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Control createControl(Composite parent) {
-    m_composite = new Composite(parent, SWT.NONE);
-    m_composite.setLayout(new FillLayout());
-    m_editor.super_createPartControl(m_composite);
-    return m_composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Control createControl(Composite parent) {
+		m_composite = new Composite(parent, SWT.NONE);
+		m_composite.setLayout(new FillLayout());
+		m_editor.super_createPartControl(m_composite);
+		return m_composite;
+	}
 
-  @Override
-  public Control getControl() {
-    return m_composite;
-  }
+	@Override
+	public Control getControl() {
+		return m_composite;
+	}
 
-  @Override
-  public void setFocus() {
-    getTextWidget().setFocus();
-  }
+	@Override
+	public void setFocus() {
+		getTextWidget().setFocus();
+	}
 
-  private StyledText getTextWidget() {
-    return m_editor.super_getSourceViewer().getTextWidget();
-  }
+	private StyledText getTextWidget() {
+		return m_editor.super_getSourceViewer().getTextWidget();
+	}
 
-  /**
-   * @return <code>true</code> if page is active.
-   */
-  public boolean isActive() {
-    return getTextWidget().isFocusControl();
-  }
+	/**
+	 * @return <code>true</code> if page is active.
+	 */
+	public boolean isActive() {
+		return getTextWidget().isFocusControl();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getName() {
-    return Messages.SourcePage_name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getName() {
+		return Messages.SourcePage_name;
+	}
 
-  @Override
-  public Image getImage() {
-    return DesignerPlugin.getImage("editor_source_page.png");
-  }
+	@Override
+	public Image getImage() {
+		return DesignerPlugin.getImage("editor_source_page.png");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setAction(String actionID, IAction action) {
-    if (action != null
-        && !"save".equals(actionID)
-        && !"undo".equals(actionID)
-        && !"redo".equals(actionID)) {
-      m_idToTextEditorAction.put(actionID, action);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setAction(String actionID, IAction action) {
+		if (action != null
+				&& !"save".equals(actionID)
+				&& !"undo".equals(actionID)
+				&& !"redo".equals(actionID)) {
+			m_idToTextEditorAction.put(actionID, action);
+		}
+	}
 
-  /**
-   * Installs/removes source editor actions depending on given flag. We need this to prevent
-   * activation of source editor actions on Design page, such as auto-completion (Ctrl+Space).
-   */
-  private void updateSourceActions(boolean install) {
-    for (Map.Entry<String, IAction> entry : m_idToTextEditorAction.entrySet()) {
-      String id = entry.getKey();
-      IAction action = entry.getValue();
-      action.setEnabled(install);
-      if (install) {
-        m_editor.super_setAction(id, action);
-      } else {
-        m_editor.super_setAction(id, null);
-      }
-    }
-  }
+	/**
+	 * Installs/removes source editor actions depending on given flag. We need this to prevent
+	 * activation of source editor actions on Design page, such as auto-completion (Ctrl+Space).
+	 */
+	private void updateSourceActions(boolean install) {
+		for (Map.Entry<String, IAction> entry : m_idToTextEditorAction.entrySet()) {
+			String id = entry.getKey();
+			IAction action = entry.getValue();
+			action.setEnabled(install);
+			if (install) {
+				m_editor.super_setAction(id, action);
+			} else {
+				m_editor.super_setAction(id, null);
+			}
+		}
+	}
 }

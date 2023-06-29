@@ -22,12 +22,12 @@ import org.eclipse.swt.graphics.Color;
  * @coverage core.gef.header
  */
 public final class Headers {
-  /**
-   * {@link Color} for header background.
-   */
-  public static final Color COLOR_HEADER = getColorHeader();
+	/**
+	 * {@link Color} for header background.
+	 */
+	public static final Color COLOR_HEADER = getColorHeader();
 
-  private static Color getColorHeader() {
-    return DrawUtils.getShiftedColor(IColorConstants.white, -16);
-  }
+	private static Color getColorHeader() {
+		return DrawUtils.getShiftedColor(IColorConstants.white, -16);
+	}
 }

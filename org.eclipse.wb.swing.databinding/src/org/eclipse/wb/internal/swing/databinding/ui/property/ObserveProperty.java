@@ -26,32 +26,32 @@ import java.util.List;
  * @coverage bindings.swing.ui.properties
  */
 public class ObserveProperty extends AbstractObserveProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
-    super(context, observeProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveProperty(Context context, IObserveInfo observeProperty) throws Exception {
+		super(context, observeProperty);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractObserveProperty
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void getBindings(List<IBindingInfo> bindings, List<Boolean> isTargets) throws Exception {
-    ObserveInfo observeProperty = (ObserveInfo) m_observeProperty;
-    bindings.addAll(observeProperty.getBindings());
-    //
-    for (IBindingInfo binding : bindings) {
-      isTargets.add(binding.getTargetProperty() == m_observeProperty);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractObserveProperty
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void getBindings(List<IBindingInfo> bindings, List<Boolean> isTargets) throws Exception {
+		ObserveInfo observeProperty = (ObserveInfo) m_observeProperty;
+		bindings.addAll(observeProperty.getBindings());
+		//
+		for (IBindingInfo binding : bindings) {
+			isTargets.add(binding.getTargetProperty() == m_observeProperty);
+		}
+	}
 
-  @Override
-  public AbstractBindingProperty createBindingProperty() throws Exception {
-    return new BindingProperty(m_context);
-  }
+	@Override
+	public AbstractBindingProperty createBindingProperty() throws Exception {
+		return new BindingProperty(m_context);
+	}
 }

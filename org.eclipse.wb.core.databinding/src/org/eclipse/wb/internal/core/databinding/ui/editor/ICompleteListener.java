@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.databinding.ui.editor;
  * @coverage bindings.ui
  */
 public interface ICompleteListener {
-  /**
-   * Notify for recalculate finish state.
-   */
-  void calculateFinish();
+	/**
+	 * Notify for recalculate finish state.
+	 */
+	void calculateFinish();
 }

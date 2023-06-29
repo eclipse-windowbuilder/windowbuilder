@@ -24,28 +24,28 @@ import org.eclipse.jface.action.Action;
  * @coverage swing.MigLayout.header
  */
 public final class SetAlignmentColumnAction extends DimensionHeaderAction<MigColumnInfo> {
-  private final Alignment m_alignment;
+	private final Alignment m_alignment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetAlignmentColumnAction(DimensionHeaderEditPart<MigColumnInfo> header, Alignment alignment) {
-    super(header, alignment.getText(), alignment.getMenuImage(), AS_RADIO_BUTTON);
-    m_alignment = alignment;
-    setChecked(header.getDimension().getAlignment(false) == m_alignment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetAlignmentColumnAction(DimensionHeaderEditPart<MigColumnInfo> header, Alignment alignment) {
+		super(header, alignment.getText(), alignment.getMenuImage(), AS_RADIO_BUTTON);
+		m_alignment = alignment;
+		setChecked(header.getDimension().getAlignment(false) == m_alignment);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void run(MigColumnInfo dimension, int index) throws Exception {
-    if (isChecked()) {
-      dimension.setAlignment(m_alignment);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void run(MigColumnInfo dimension, int index) throws Exception {
+		if (isChecked()) {
+			dimension.setAlignment(m_alignment);
+		}
+	}
 }

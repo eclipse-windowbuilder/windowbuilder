@@ -36,144 +36,144 @@ import java.util.List;
  * @coverage core.gef
  */
 public final class DesignRootEditPart extends GraphicalEditPart {
-  private final DesignRootObject m_designRootObject;
+	private final DesignRootObject m_designRootObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DesignRootEditPart(DesignRootObject designRootObject) {
-    m_designRootObject = designRootObject;
-    setModel(m_designRootObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DesignRootEditPart(DesignRootObject designRootObject) {
+		m_designRootObject = designRootObject;
+		setModel(m_designRootObject);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void activate() {
-    refreshVisualsOnModelRefresh();
-    super.activate();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void activate() {
+		refreshVisualsOnModelRefresh();
+		super.activate();
+	}
 
-  private void refreshVisualsOnModelRefresh() {
-    m_designRootObject.getRootObject().addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshDispose() throws Exception {
-        if (isActive()) {
-          getFigureCanvas().setDrawCached(true);
-        }
-      }
+	private void refreshVisualsOnModelRefresh() {
+		m_designRootObject.getRootObject().addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshDispose() throws Exception {
+				if (isActive()) {
+					getFigureCanvas().setDrawCached(true);
+				}
+			}
 
-      @Override
-      public void refreshed() throws Exception {
-        getFigureCanvas().setDrawCached(false);
-        getFigureCanvas().redraw();
-        refresh();
-      }
+			@Override
+			public void refreshed() throws Exception {
+				getFigureCanvas().setDrawCached(false);
+				getFigureCanvas().redraw();
+				refresh();
+			}
 
-      private FigureCanvas getFigureCanvas() {
-        return (FigureCanvas) getViewer().getControl();
-      }
-    });
-  }
+			private FigureCanvas getFigureCanvas() {
+				return (FigureCanvas) getViewer().getControl();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    installEditPolicy(
-        EditPolicy.LAYOUT_ROLE,
-        new NonVisualLayoutEditPolicy(m_designRootObject.getRootObject()));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		installEditPolicy(
+				EditPolicy.LAYOUT_ROLE,
+				new NonVisualLayoutEditPolicy(m_designRootObject.getRootObject()));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<?> getModelChildren() {
-    return m_designRootObject.getChildren();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<?> getModelChildren() {
+		return m_designRootObject.getChildren();
+	}
 
-  @Override
-  protected EditPart createEditPart(Object model) {
-    if (m_designRootObject.getRootObject() != model) {
-      // direct create non visual bean part
-      JavaInfo javaInfo = (JavaInfo) model;
-      NonVisualBeanInfo nonVisualInfo = NonVisualBeanInfo.getNonVisualInfo(javaInfo);
-      // create EditPart only if location specified
-      if (nonVisualInfo != null && nonVisualInfo.getLocation() != null) {
-        return new NonVisualBeanEditPart(javaInfo);
-      } else {
-        return null;
-      }
-    }
-    // use factory
-    return super.createEditPart(model);
-  }
+	@Override
+	protected EditPart createEditPart(Object model) {
+		if (m_designRootObject.getRootObject() != model) {
+			// direct create non visual bean part
+			JavaInfo javaInfo = (JavaInfo) model;
+			NonVisualBeanInfo nonVisualInfo = NonVisualBeanInfo.getNonVisualInfo(javaInfo);
+			// create EditPart only if location specified
+			if (nonVisualInfo != null && nonVisualInfo.getLocation() != null) {
+				return new NonVisualBeanEditPart(javaInfo);
+			} else {
+				return null;
+			}
+		}
+		// use factory
+		return super.createEditPart(model);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return java root {@link EditPart}.
-   */
-  public EditPart getJavaRootEditPart() {
-    return getChildren().get(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return java root {@link EditPart}.
+	 */
+	public EditPart getJavaRootEditPart() {
+		return getChildren().get(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new TopFigure();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new TopFigure();
+	}
 
-  /**
-   * Special {@link Figure} that cover full area of parent.
-   */
-  private static final class TopFigure extends Figure implements IPreferredSizeProvider {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Figure
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public Rectangle getBounds() {
-      Figure parentFigure = getParent();
-      if (parentFigure != null) {
-        return new Rectangle(new Point(), parentFigure.getSize());
-      }
-      return super.getBounds();
-    }
+	/**
+	 * Special {@link Figure} that cover full area of parent.
+	 */
+	private static final class TopFigure extends Figure implements IPreferredSizeProvider {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Figure
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public Rectangle getBounds() {
+			Figure parentFigure = getParent();
+			if (parentFigure != null) {
+				return new Rectangle(new Point(), parentFigure.getSize());
+			}
+			return super.getBounds();
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // IPreferredSizeProvider
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public Dimension getPreferredSize(Dimension originalPreferredSize) {
-      Rectangle preferred = new Rectangle();
-      for (Figure figure : getChildren()) {
-        if (figure.isVisible()) {
-          preferred.union(figure.getBounds());
-        }
-      }
-      return preferred.getSize();
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// IPreferredSizeProvider
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public Dimension getPreferredSize(Dimension originalPreferredSize) {
+			Rectangle preferred = new Rectangle();
+			for (Figure figure : getChildren()) {
+				if (figure.isVisible()) {
+					preferred.union(figure.getBounds());
+				}
+			}
+			return preferred.getSize();
+		}
+	}
 }

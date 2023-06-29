@@ -32,45 +32,45 @@ import java.lang.reflect.Field;
  * @coverage core.evaluation
  */
 public final class QualifiedNameEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    if (expression instanceof QualifiedName) {
-      QualifiedName qualifiedName = (QualifiedName) expression;
-      Name qualifier = qualifiedName.getQualifier();
-      String fieldName = qualifiedName.getName().getIdentifier();
-      // check for: array[].length
-      if ("length".equals(fieldName)) {
-        Object arrayValue = AstEvaluationEngine.evaluate(context, qualifier);
-        int length = Array.getLength(arrayValue);
-        return length;
-      } else {
-        // prepare class
-        Class<?> qualifierClass;
-        {
-          String qualifierClassName = AstNodeUtils.getFullyQualifiedName(qualifier, true);
-          qualifierClass = context.getClassLoader().loadClass(qualifierClassName);
-        }
-        // prepare field
-        Field field = ReflectionUtils.getFieldByName(qualifierClass, fieldName);
-        Assert.isNotNull(field);
-        // return static value
-        if (ReflectionUtils.isStatic(field)) {
-          return field.get(null);
-        }
-        // return non-static value
-        Object qualifierValue = AstEvaluationEngine.evaluate(context, qualifier);
-        return field.get(qualifierValue);
-      }
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		if (expression instanceof QualifiedName) {
+			QualifiedName qualifiedName = (QualifiedName) expression;
+			Name qualifier = qualifiedName.getQualifier();
+			String fieldName = qualifiedName.getName().getIdentifier();
+			// check for: array[].length
+			if ("length".equals(fieldName)) {
+				Object arrayValue = AstEvaluationEngine.evaluate(context, qualifier);
+				int length = Array.getLength(arrayValue);
+				return length;
+			} else {
+				// prepare class
+				Class<?> qualifierClass;
+				{
+					String qualifierClassName = AstNodeUtils.getFullyQualifiedName(qualifier, true);
+					qualifierClass = context.getClassLoader().loadClass(qualifierClassName);
+				}
+				// prepare field
+				Field field = ReflectionUtils.getFieldByName(qualifierClass, fieldName);
+				Assert.isNotNull(field);
+				// return static value
+				if (ReflectionUtils.isStatic(field)) {
+					return field.get(null);
+				}
+				// return non-static value
+				Object qualifierValue = AstEvaluationEngine.evaluate(context, qualifier);
+				return field.get(qualifierValue);
+			}
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

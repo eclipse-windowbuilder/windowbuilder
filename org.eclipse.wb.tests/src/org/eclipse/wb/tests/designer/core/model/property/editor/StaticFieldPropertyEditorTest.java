@@ -39,311 +39,311 @@ import javax.swing.SwingConstants;
  * @author scheglov_ke
  */
 public class StaticFieldPropertyEditorTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Configure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Top level class, all fields are valid.
-   */
-  public void test_configure_1() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
-    //
-    Class<?> e_class = SwingConstants.class;
-    String m_classSourceName = "javax.swing.SwingConstants";
-    Object[] e_names = new String[]{"LEFT", "RIGHT"};
-    Object[] e_titles = new String[]{"LEFT", "RIGHT"};
-    Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
-    assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Configure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Top level class, all fields are valid.
+	 */
+	public void test_configure_1() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
+		//
+		Class<?> e_class = SwingConstants.class;
+		String m_classSourceName = "javax.swing.SwingConstants";
+		Object[] e_names = new String[]{"LEFT", "RIGHT"};
+		Object[] e_titles = new String[]{"LEFT", "RIGHT"};
+		Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
+		assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
+	}
 
-  /**
-   * Top level class, one field does not exist, should be skipped.
-   */
-  public void test_configure_2() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(SwingConstants.class, new String[]{"LEFT", "noSuchField", "RIGHT"});
-    //
-    Class<?> e_class = SwingConstants.class;
-    String m_classSourceName = "javax.swing.SwingConstants";
-    Object[] e_names = new String[]{"LEFT", "RIGHT"};
-    Object[] e_titles = new String[]{"LEFT", "RIGHT"};
-    Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
-    assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
-  }
+	/**
+	 * Top level class, one field does not exist, should be skipped.
+	 */
+	public void test_configure_2() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(SwingConstants.class, new String[]{"LEFT", "noSuchField", "RIGHT"});
+		//
+		Class<?> e_class = SwingConstants.class;
+		String m_classSourceName = "javax.swing.SwingConstants";
+		Object[] e_names = new String[]{"LEFT", "RIGHT"};
+		Object[] e_titles = new String[]{"LEFT", "RIGHT"};
+		Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
+		assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
+	}
 
-  /**
-   * Top level class, all fields are valid. Specify title in field description.
-   */
-  public void test_configure_3() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(SwingConstants.class, new String[]{"LEFT:asLeft", "RIGHT:asRight"});
-    //
-    Class<?> e_class = SwingConstants.class;
-    String m_classSourceName = "javax.swing.SwingConstants";
-    Object[] e_names = new String[]{"LEFT", "RIGHT"};
-    Object[] e_titles = new String[]{"asLeft", "asRight"};
-    Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
-    assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
-  }
+	/**
+	 * Top level class, all fields are valid. Specify title in field description.
+	 */
+	public void test_configure_3() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(SwingConstants.class, new String[]{"LEFT:asLeft", "RIGHT:asRight"});
+		//
+		Class<?> e_class = SwingConstants.class;
+		String m_classSourceName = "javax.swing.SwingConstants";
+		Object[] e_names = new String[]{"LEFT", "RIGHT"};
+		Object[] e_titles = new String[]{"asLeft", "asRight"};
+		Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
+		assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
+	}
 
-  /**
-   * Special <code>*remove</code> field.
-   */
-  public void test_configure_4() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(SwingConstants.class, new String[]{"LEFT", "*remove", "RIGHT"});
-    //
-    Class<?> e_class = SwingConstants.class;
-    String m_classSourceName = "javax.swing.SwingConstants";
-    Object[] e_names = new String[]{"LEFT", null, "RIGHT"};
-    Object[] e_titles = new String[]{"LEFT", "", "RIGHT"};
-    Object[] e_values = new Object[]{SwingConstants.LEFT, null, SwingConstants.RIGHT};
-    assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
-  }
+	/**
+	 * Special <code>*remove</code> field.
+	 */
+	public void test_configure_4() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(SwingConstants.class, new String[]{"LEFT", "*remove", "RIGHT"});
+		//
+		Class<?> e_class = SwingConstants.class;
+		String m_classSourceName = "javax.swing.SwingConstants";
+		Object[] e_names = new String[]{"LEFT", null, "RIGHT"};
+		Object[] e_titles = new String[]{"LEFT", "", "RIGHT"};
+		Object[] e_values = new Object[]{SwingConstants.LEFT, null, SwingConstants.RIGHT};
+		assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
+	}
 
-  /**
-   * Inner class with fields.
-   */
-  public static class Foo {
-    public static final int A = 1;
-    public static final int B = 2;
-  }
+	/**
+	 * Inner class with fields.
+	 */
+	public static class Foo {
+		public static final int A = 1;
+		public static final int B = 2;
+	}
 
-  /**
-   * Inner class.
-   */
-  public void test_configure_5() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(Foo.class, new String[]{"A", "B"});
-    //
-    Class<?> e_class = Foo.class;
-    String m_classSourceName = StaticFieldPropertyEditorTest.class.getName() + ".Foo";
-    Object[] e_names = new String[]{"A", "B"};
-    Object[] e_titles = new String[]{"A", "B"};
-    Object[] e_values = new Object[]{Foo.A, Foo.B};
-    assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
-  }
+	/**
+	 * Inner class.
+	 */
+	public void test_configure_5() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(Foo.class, new String[]{"A", "B"});
+		//
+		Class<?> e_class = Foo.class;
+		String m_classSourceName = StaticFieldPropertyEditorTest.class.getName() + ".Foo";
+		Object[] e_names = new String[]{"A", "B"};
+		Object[] e_titles = new String[]{"A", "B"};
+		Object[] e_values = new Object[]{Foo.A, Foo.B};
+		assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
+	}
 
-  /**
-   * Test for {@link StaticFieldPropertyEditor#configure(EditorState, java.util.Map)}.<br>
-   * Fields in single {@link String} as <code>"fields"</code> parameter.
-   */
-  public void test_configure_6() throws Exception {
-    parseContainer(
-        "// filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "  }",
-        "}");
-    // create StaticFieldPropertyEditor
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(m_lastState, ImmutableMap.<String, Object>of(
-        "class",
-        "javax.swing.SwingConstants",
-        "fields",
-        "LEFT RIGHT"));
-    // check state
-    Class<?> e_class = SwingConstants.class;
-    String m_classSourceName = "javax.swing.SwingConstants";
-    Object[] e_names = new String[]{"LEFT", "RIGHT"};
-    Object[] e_titles = new String[]{"LEFT", "RIGHT"};
-    Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
-    assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
-  }
+	/**
+	 * Test for {@link StaticFieldPropertyEditor#configure(EditorState, java.util.Map)}.<br>
+	 * Fields in single {@link String} as <code>"fields"</code> parameter.
+	 */
+	public void test_configure_6() throws Exception {
+		parseContainer(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"  }",
+				"}");
+		// create StaticFieldPropertyEditor
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(m_lastState, ImmutableMap.<String, Object>of(
+				"class",
+				"javax.swing.SwingConstants",
+				"fields",
+				"LEFT RIGHT"));
+		// check state
+		Class<?> e_class = SwingConstants.class;
+		String m_classSourceName = "javax.swing.SwingConstants";
+		Object[] e_names = new String[]{"LEFT", "RIGHT"};
+		Object[] e_titles = new String[]{"LEFT", "RIGHT"};
+		Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
+		assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
+	}
 
-  /**
-   * Test for {@link StaticFieldPropertyEditor#configure(EditorState, java.util.Map)}.<br>
-   * Fields in {@link List} as <code>"field"</code> parameter.
-   */
-  public void test_configure_7() throws Exception {
-    parseContainer(
-        "// filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "  }",
-        "}");
-    // create StaticFieldPropertyEditor
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(m_lastState, ImmutableMap.<String, Object>of(
-        "class",
-        "javax.swing.SwingConstants",
-        "field",
-        ImmutableList.of("LEFT", "RIGHT")));
-    // check state
-    Class<?> e_class = SwingConstants.class;
-    String m_classSourceName = "javax.swing.SwingConstants";
-    Object[] e_names = new String[]{"LEFT", "RIGHT"};
-    Object[] e_titles = new String[]{"LEFT", "RIGHT"};
-    Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
-    assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
-  }
+	/**
+	 * Test for {@link StaticFieldPropertyEditor#configure(EditorState, java.util.Map)}.<br>
+	 * Fields in {@link List} as <code>"field"</code> parameter.
+	 */
+	public void test_configure_7() throws Exception {
+		parseContainer(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"  }",
+				"}");
+		// create StaticFieldPropertyEditor
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(m_lastState, ImmutableMap.<String, Object>of(
+				"class",
+				"javax.swing.SwingConstants",
+				"field",
+				ImmutableList.of("LEFT", "RIGHT")));
+		// check state
+		Class<?> e_class = SwingConstants.class;
+		String m_classSourceName = "javax.swing.SwingConstants";
+		Object[] e_names = new String[]{"LEFT", "RIGHT"};
+		Object[] e_titles = new String[]{"LEFT", "RIGHT"};
+		Object[] e_values = new Object[]{SwingConstants.LEFT, SwingConstants.RIGHT};
+		assertConfiguration(editor, e_class, m_classSourceName, e_names, e_titles, e_values);
+	}
 
-  /**
-   * Test for {@link StaticFieldPropertyEditor#configure(EditorState, java.util.Map)}.<br>
-   * No fields, so exception.
-   */
-  public void test_configure_8() throws Exception {
-    parseContainer(
-        "// filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "  }",
-        "}");
-    // create StaticFieldPropertyEditor
-    try {
-      StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-      editor.configure(
-          m_lastState,
-          ImmutableMap.<String, Object>of("class", "javax.swing.SwingConstants"));
-      fail();
-    } catch (DesignerException e) {
-    }
-  }
+	/**
+	 * Test for {@link StaticFieldPropertyEditor#configure(EditorState, java.util.Map)}.<br>
+	 * No fields, so exception.
+	 */
+	public void test_configure_8() throws Exception {
+		parseContainer(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"  }",
+				"}");
+		// create StaticFieldPropertyEditor
+		try {
+			StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+			editor.configure(
+					m_lastState,
+					ImmutableMap.<String, Object>of("class", "javax.swing.SwingConstants"));
+			fail();
+		} catch (DesignerException e) {
+		}
+	}
 
-  /**
-   * Asserts that given {@link StaticFieldPropertyEditor} has expected configuration.
-   */
-  private void assertConfiguration(StaticFieldPropertyEditor editor,
-      Class<?> e_class,
-      String e_classSourceName,
-      Object[] e_names,
-      Object[] e_titles,
-      Object[] e_values) throws Exception {
-    assertSame(e_class, getFieldValue(editor, "m_class"));
-    assertEquals(e_classSourceName, getFieldValue(editor, "m_classSourceName"));
-    Assertions.<Object>assertThat((String[]) getFieldValue(editor, "m_names")).containsOnly(e_names);
-    Assertions.<Object>assertThat((String[]) getFieldValue(editor, "m_titles")).containsOnly(e_titles);
-    assertTrue(ArrayUtils.isEquals(e_values, getFieldValue(editor, "m_values")));
-  }
+	/**
+	 * Asserts that given {@link StaticFieldPropertyEditor} has expected configuration.
+	 */
+	private void assertConfiguration(StaticFieldPropertyEditor editor,
+			Class<?> e_class,
+			String e_classSourceName,
+			Object[] e_names,
+			Object[] e_titles,
+			Object[] e_values) throws Exception {
+		assertSame(e_class, getFieldValue(editor, "m_class"));
+		assertEquals(e_classSourceName, getFieldValue(editor, "m_classSourceName"));
+		Assertions.<Object>assertThat((String[]) getFieldValue(editor, "m_names")).containsOnly(e_names);
+		Assertions.<Object>assertThat((String[]) getFieldValue(editor, "m_titles")).containsOnly(e_titles);
+		assertTrue(ArrayUtils.isEquals(e_values, getFieldValue(editor, "m_values")));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link StaticFieldPropertyEditor#getValueSource(Object)}.
-   */
-  public void test_getValueSource() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(SwingConstants.class, new String[]{"LEFT", "*remove", "RIGHT"});
-    //
-    assertEquals("javax.swing.SwingConstants.LEFT", editor.getValueSource(SwingConstants.LEFT));
-    assertNull(editor.getValueSource(null));
-    assertEquals("javax.swing.SwingConstants.RIGHT", editor.getValueSource(SwingConstants.RIGHT));
-    assertNull(editor.getValueSource(SwingConstants.NORTH));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link StaticFieldPropertyEditor#getValueSource(Object)}.
+	 */
+	public void test_getValueSource() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(SwingConstants.class, new String[]{"LEFT", "*remove", "RIGHT"});
+		//
+		assertEquals("javax.swing.SwingConstants.LEFT", editor.getValueSource(SwingConstants.LEFT));
+		assertNull(editor.getValueSource(null));
+		assertEquals("javax.swing.SwingConstants.RIGHT", editor.getValueSource(SwingConstants.RIGHT));
+		assertNull(editor.getValueSource(SwingConstants.NORTH));
+	}
 
-  /**
-   * Test for {@link StaticFieldPropertyEditor#getText(Property)}.
-   */
-  public void test_getText() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(SwingConstants.class, new String[]{"LEFT:asLeft", "*remove", "RIGHT"});
-    // prepare for mocking
-    Property property = mock(Property.class);
-    // LEFT:asLeft
-    {
-      when(property.getValue()).thenReturn(SwingConstants.LEFT);
-      //
-      assertEquals("asLeft", editor.getText(property));
-      //
-      verify(property).getValue();
-      verifyNoMoreInteractions(property);
-    }
-    // RIGHT
-    {
-      clearInvocations(property);
-      //
-      when(property.getValue()).thenReturn(SwingConstants.RIGHT);
-      //
-      assertEquals("RIGHT", editor.getText(property));
-      //
-      verify(property).getValue();
-      verifyNoMoreInteractions(property);
-    }
-    // UNKNOWN_VALUE
-    {
-      clearInvocations(property);
-      //
-      when(property.getValue()).thenReturn(Property.UNKNOWN_VALUE);
-      //
-      assertEquals(null, editor.getText(property));
-      //
-      verify(property).getValue();
-      verifyNoMoreInteractions(property);
-    }
-  }
+	/**
+	 * Test for {@link StaticFieldPropertyEditor#getText(Property)}.
+	 */
+	public void test_getText() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(SwingConstants.class, new String[]{"LEFT:asLeft", "*remove", "RIGHT"});
+		// prepare for mocking
+		Property property = mock(Property.class);
+		// LEFT:asLeft
+		{
+			when(property.getValue()).thenReturn(SwingConstants.LEFT);
+			//
+			assertEquals("asLeft", editor.getText(property));
+			//
+			verify(property).getValue();
+			verifyNoMoreInteractions(property);
+		}
+		// RIGHT
+		{
+			clearInvocations(property);
+			//
+			when(property.getValue()).thenReturn(SwingConstants.RIGHT);
+			//
+			assertEquals("RIGHT", editor.getText(property));
+			//
+			verify(property).getValue();
+			verifyNoMoreInteractions(property);
+		}
+		// UNKNOWN_VALUE
+		{
+			clearInvocations(property);
+			//
+			when(property.getValue()).thenReturn(Property.UNKNOWN_VALUE);
+			//
+			assertEquals(null, editor.getText(property));
+			//
+			verify(property).getValue();
+			verifyNoMoreInteractions(property);
+		}
+	}
 
-  /**
-   * Test for {@link StaticFieldPropertyEditor#getClipboardSource(GenericProperty)}.
-   */
-  public void test_getClipboardSource() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
-    // prepare for mocking
-    GenericProperty property = mock(GenericProperty.class);
-    // LEFT
-    {
-      when(property.getValue()).thenReturn(SwingConstants.LEFT);
-      //
-      assertEquals("javax.swing.SwingConstants.LEFT", editor.getClipboardSource(property));
-      //
-      verify(property).getValue();
-      verifyNoMoreInteractions(property);
-    }
-  }
+	/**
+	 * Test for {@link StaticFieldPropertyEditor#getClipboardSource(GenericProperty)}.
+	 */
+	public void test_getClipboardSource() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
+		// prepare for mocking
+		GenericProperty property = mock(GenericProperty.class);
+		// LEFT
+		{
+			when(property.getValue()).thenReturn(SwingConstants.LEFT);
+			//
+			assertEquals("javax.swing.SwingConstants.LEFT", editor.getClipboardSource(property));
+			//
+			verify(property).getValue();
+			verifyNoMoreInteractions(property);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // setValue()
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link StaticFieldPropertyEditor#setValue(Property, Object)}.<br>
-   * For {@link GenericProperty}.
-   */
-  public void test_setValue_1() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
-    // prepare for mocking
-    GenericProperty property = mock(GenericProperty.class);
-    // LEFT
-    {
-      editor.setValue(property, SwingConstants.LEFT);
-      //
-      verify(property).setExpression("javax.swing.SwingConstants.LEFT", SwingConstants.LEFT);
-      verifyNoMoreInteractions(property);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// setValue()
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link StaticFieldPropertyEditor#setValue(Property, Object)}.<br>
+	 * For {@link GenericProperty}.
+	 */
+	public void test_setValue_1() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
+		// prepare for mocking
+		GenericProperty property = mock(GenericProperty.class);
+		// LEFT
+		{
+			editor.setValue(property, SwingConstants.LEFT);
+			//
+			verify(property).setExpression("javax.swing.SwingConstants.LEFT", SwingConstants.LEFT);
+			verifyNoMoreInteractions(property);
+		}
+	}
 
-  /**
-   * Test for {@link StaticFieldPropertyEditor#setValue(Property, Object)}.<br>
-   * For simple {@link Property}.
-   */
-  public void test_setValue_2() throws Exception {
-    StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-    editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
-    // prepare for mocking
-    Property property = mock(Property.class);
-    // LEFT
-    {
-      editor.setValue(property, SwingConstants.LEFT);
-      //
-      verify(property).setValue(SwingConstants.LEFT);
-      verifyNoMoreInteractions(property);
-    }
-  }
+	/**
+	 * Test for {@link StaticFieldPropertyEditor#setValue(Property, Object)}.<br>
+	 * For simple {@link Property}.
+	 */
+	public void test_setValue_2() throws Exception {
+		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
+		editor.configure(SwingConstants.class, new String[]{"LEFT", "RIGHT"});
+		// prepare for mocking
+		Property property = mock(Property.class);
+		// LEFT
+		{
+			editor.setValue(property, SwingConstants.LEFT);
+			//
+			verify(property).setValue(SwingConstants.LEFT);
+			verifyNoMoreInteractions(property);
+		}
+	}
 }

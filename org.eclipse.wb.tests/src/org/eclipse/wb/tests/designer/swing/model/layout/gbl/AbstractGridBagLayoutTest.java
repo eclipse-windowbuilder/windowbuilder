@@ -25,45 +25,45 @@ import java.awt.GridBagLayout;
  * @author scheglov_ke
  */
 abstract class AbstractGridBagLayoutTest extends AbstractLayoutTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    configureForTest();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		configureForTest();
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    configureDefaults();
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		configureDefaults();
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures default preferences for {@link GridBagLayout} in tests.
-   */
-  public static void configureForTest() {
-    IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
-    preferences.setValue(IPreferenceConstants.P_GBC_LONG, false);
-    preferences.setValue(
-        IPreferenceConstants.P_CONSTRAINTS_NAME_TEMPLATE,
-        SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures default preferences for {@link GridBagLayout} in tests.
+	 */
+	public static void configureForTest() {
+		IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
+		preferences.setValue(IPreferenceConstants.P_GBC_LONG, false);
+		preferences.setValue(
+				IPreferenceConstants.P_CONSTRAINTS_NAME_TEMPLATE,
+				SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT);
+	}
 
-  /**
-   * Restores default preferences for {@link GridBagLayout}.
-   */
-  public static void configureDefaults() {
-    IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
-    preferences.setToDefault(IPreferenceConstants.P_CONSTRAINTS_NAME_TEMPLATE);
-    preferences.setToDefault(IPreferenceConstants.P_GBC_LONG);
-  }
+	/**
+	 * Restores default preferences for {@link GridBagLayout}.
+	 */
+	public static void configureDefaults() {
+		IPreferenceStore preferences = SwingToolkitDescription.INSTANCE.getPreferences();
+		preferences.setToDefault(IPreferenceConstants.P_CONSTRAINTS_NAME_TEMPLATE);
+		preferences.setToDefault(IPreferenceConstants.P_GBC_LONG);
+	}
 }

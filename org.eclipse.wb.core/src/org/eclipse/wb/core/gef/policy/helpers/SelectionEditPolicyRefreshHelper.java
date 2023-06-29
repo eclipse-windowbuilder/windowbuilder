@@ -23,25 +23,25 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
  * @coverage core.gef.policy
  */
 public class SelectionEditPolicyRefreshHelper {
-  private final SelectionEditPolicy m_policy;
+	private final SelectionEditPolicy m_policy;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionEditPolicyRefreshHelper(SelectionEditPolicy policy) {
-    m_policy = policy;
-    ObjectInfo hierarchyObject = GlobalState.getActiveObject();
-    new BroadcastListenerHelper(hierarchyObject, policy, new ObjectEventListener() {
-      @Override
-      public void refreshed() throws Exception {
-        boolean isActivePolicy = m_policy.isActive();
-        boolean isSelectedHost = m_policy.getHost().getSelected() != EditPart.SELECTED_NONE;
-        if (isActivePolicy && isSelectedHost) {
-          m_policy.refreshSelection();
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionEditPolicyRefreshHelper(SelectionEditPolicy policy) {
+		m_policy = policy;
+		ObjectInfo hierarchyObject = GlobalState.getActiveObject();
+		new BroadcastListenerHelper(hierarchyObject, policy, new ObjectEventListener() {
+			@Override
+			public void refreshed() throws Exception {
+				boolean isActivePolicy = m_policy.isActive();
+				boolean isSelectedHost = m_policy.getHost().getSelected() != EditPart.SELECTED_NONE;
+				if (isActivePolicy && isSelectedHost) {
+					m_policy.refreshSelection();
+				}
+			}
+		});
+	}
 }

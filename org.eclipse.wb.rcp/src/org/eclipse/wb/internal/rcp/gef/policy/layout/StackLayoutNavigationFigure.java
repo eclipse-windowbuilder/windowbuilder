@@ -27,51 +27,51 @@ import org.eclipse.swt.widgets.Control;
  * @coverage rcp.gef.policy
  */
 public final class StackLayoutNavigationFigure extends Figure {
-  public static final int WIDTH = 10;
-  public static final int HEIGHT = 14;
-  private static Image m_prevImage = new Image(null,
-      StackLayoutNavigationFigure.class.getResourceAsStream("prev.png"));
-  private static Image m_nextImage = new Image(null,
-      StackLayoutNavigationFigure.class.getResourceAsStream("next.png"));
-  private final StackLayoutSelectionEditPolicy<?> m_policy;
+	public static final int WIDTH = 10;
+	public static final int HEIGHT = 14;
+	private static Image m_prevImage = new Image(null,
+			StackLayoutNavigationFigure.class.getResourceAsStream("prev.png"));
+	private static Image m_nextImage = new Image(null,
+			StackLayoutNavigationFigure.class.getResourceAsStream("next.png"));
+	private final StackLayoutSelectionEditPolicy<?> m_policy;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StackLayoutNavigationFigure(StackLayoutSelectionEditPolicy<?> policy) {
-    m_policy = policy;
-    addMouseListener(new IMouseListener() {
-      @Override
-      public void mouseUp(MouseEvent event) {
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StackLayoutNavigationFigure(StackLayoutSelectionEditPolicy<?> policy) {
+		m_policy = policy;
+		addMouseListener(new IMouseListener() {
+			@Override
+			public void mouseUp(MouseEvent event) {
+			}
 
-      @Override
-      public void mouseDown(MouseEvent event) {
-        event.consume();
-        if (event.x < WIDTH) {
-          m_policy.showPrevComponent();
-        } else {
-          m_policy.showNextComponent();
-        }
-      }
+			@Override
+			public void mouseDown(MouseEvent event) {
+				event.consume();
+				if (event.x < WIDTH) {
+					m_policy.showPrevComponent();
+				} else {
+					m_policy.showNextComponent();
+				}
+			}
 
-      @Override
-      public void mouseDoubleClick(MouseEvent event) {
-      }
-    });
-  }
+			@Override
+			public void mouseDoubleClick(MouseEvent event) {
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void paintClientArea(Graphics graphics) {
-    Rectangle r = getClientArea();
-    graphics.drawImage(m_prevImage, r.x, r.y);
-    graphics.drawImage(m_nextImage, r.x + WIDTH, r.y);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void paintClientArea(Graphics graphics) {
+		Rectangle r = getClientArea();
+		graphics.drawImage(m_prevImage, r.x, r.y);
+		graphics.drawImage(m_nextImage, r.x + WIDTH, r.y);
+	}
 }

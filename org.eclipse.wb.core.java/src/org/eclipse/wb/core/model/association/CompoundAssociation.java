@@ -36,151 +36,151 @@ import java.util.List;
  * @coverage core.model.association
  */
 public final class CompoundAssociation extends Association {
-  private final List<Association> m_associations = Lists.newArrayList();
-  private final List<Association> m_newAssociations = Lists.newArrayList();
+	private final List<Association> m_associations = Lists.newArrayList();
+	private final List<Association> m_newAssociations = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompoundAssociation(Association... associations) {
-    for (Association association : associations) {
-      Assert.isNotNull(association);
-      if (association instanceof CompoundAssociation) {
-        CompoundAssociation compoundAssociation = (CompoundAssociation) association;
-        m_associations.addAll(compoundAssociation.m_associations);
-      } else {
-        m_associations.add(association);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompoundAssociation(Association... associations) {
+		for (Association association : associations) {
+			Assert.isNotNull(association);
+			if (association instanceof CompoundAssociation) {
+				CompoundAssociation compoundAssociation = (CompoundAssociation) association;
+				m_associations.addAll(compoundAssociation.m_associations);
+			} else {
+				m_associations.add(association);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Compound access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Association} that form this {@link CompoundAssociation}.
-   */
-  public List<Association> getAssociations() {
-    return m_associations;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Compound access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Association} that form this {@link CompoundAssociation}.
+	 */
+	public List<Association> getAssociations() {
+		return m_associations;
+	}
 
-  /**
-   * Adds new {@link Association}, to add when {@link #setParent(JavaInfo)} is used.
-   */
-  public void add(Association association) {
-    Assert.isNotNull(association);
-    m_newAssociations.add(association);
-  }
+	/**
+	 * Adds new {@link Association}, to add when {@link #setParent(JavaInfo)} is used.
+	 */
+	public void add(Association association) {
+		Assert.isNotNull(association);
+		m_newAssociations.add(association);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    // set JavaInfo for sub-associations
-    for (Association association : m_associations) {
-      // when CompoundAssociation is mutated from single Association, it may already have JavaInfo
-      if (association.getJavaInfo() != null) {
-        Assert.isTrue(association.getJavaInfo() == javaInfo);
-      } else {
-        association.setJavaInfo(javaInfo);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		// set JavaInfo for sub-associations
+		for (Association association : m_associations) {
+			// when CompoundAssociation is mutated from single Association, it may already have JavaInfo
+			if (association.getJavaInfo() != null) {
+				Assert.isTrue(association.getJavaInfo() == javaInfo);
+			} else {
+				association.setJavaInfo(javaInfo);
+			}
+		}
+	}
 
-  @Override
-  public boolean canDelete() {
-    for (Association association : m_associations) {
-      if (!association.canDelete()) {
-        return false;
-      }
-    }
-    return true;
-  }
+	@Override
+	public boolean canDelete() {
+		for (Association association : m_associations) {
+			if (!association.canDelete()) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-  @Override
-  public Statement getStatement() {
-    Assert.isTrue(!m_associations.isEmpty());
-    return m_associations.get(0).getStatement();
-  }
+	@Override
+	public Statement getStatement() {
+		Assert.isTrue(!m_associations.isEmpty());
+		return m_associations.get(0).getStatement();
+	}
 
-  @Override
-  public String getSource() {
-    Assert.isTrue(!m_associations.isEmpty());
-    return m_associations.get(0).getSource();
-  }
+	@Override
+	public String getSource() {
+		Assert.isTrue(!m_associations.isEmpty());
+		return m_associations.get(0).getSource();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void add(JavaInfo javaInfo, StatementTarget target, String[] leadingComments)
-      throws Exception {
-    // add individual associations
-    for (Association association : m_associations) {
-      association.add(javaInfo, target, leadingComments);
-      leadingComments = null;
-    }
-    // set association
-    setInModelNoCompound(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void add(JavaInfo javaInfo, StatementTarget target, String[] leadingComments)
+			throws Exception {
+		// add individual associations
+		for (Association association : m_associations) {
+			association.add(javaInfo, target, leadingComments);
+			leadingComments = null;
+		}
+		// set association
+		setInModelNoCompound(javaInfo);
+	}
 
-  @Override
-  public boolean remove() throws Exception {
-    // exclude associations that are removed
-    for (Iterator<Association> I = m_associations.iterator(); I.hasNext();) {
-      Association association = I.next();
-      if (association.remove()) {
-        I.remove();
-      }
-    }
-    // compound is removed if all its children are removed
-    if (m_associations.isEmpty()) {
-      removeFromModelIfPrimary();
-      return true;
-    } else {
-      return false;
-    }
-  }
+	@Override
+	public boolean remove() throws Exception {
+		// exclude associations that are removed
+		for (Iterator<Association> I = m_associations.iterator(); I.hasNext();) {
+			Association association = I.next();
+			if (association.remove()) {
+				I.remove();
+			}
+		}
+		// compound is removed if all its children are removed
+		if (m_associations.isEmpty()) {
+			removeFromModelIfPrimary();
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-  @Override
-  public void setParent(JavaInfo parent) throws Exception {
-    // update existing associations
-    for (Association association : m_associations) {
-      association.setParent(parent);
-    }
-    // add new associations
-    {
-      StatementTarget target = new StatementTarget(getStatement(), false);
-      for (Association association : m_newAssociations) {
-        association.add(m_javaInfo, target, null);
-        m_associations.add(association);
-      }
-      // new associations are accepted
-      m_newAssociations.clear();
-    }
-  }
+	@Override
+	public void setParent(JavaInfo parent) throws Exception {
+		// update existing associations
+		for (Association association : m_associations) {
+			association.setParent(parent);
+		}
+		// add new associations
+		{
+			StatementTarget target = new StatementTarget(getStatement(), false);
+			for (Association association : m_newAssociations) {
+				association.add(m_javaInfo, target, null);
+				m_associations.add(association);
+			}
+			// new associations are accepted
+			m_newAssociations.clear();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Morph
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Association getCopy() {
-    Association[] newAssociations = new Association[m_associations.size()];
-    for (int i = 0; i < m_associations.size(); ++i) {
-      newAssociations[i] = m_associations.get(i).getCopy();
-    }
-    return new CompoundAssociation(newAssociations);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Morph
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Association getCopy() {
+		Association[] newAssociations = new Association[m_associations.size()];
+		for (int i = 0; i < m_associations.size(); ++i) {
+			newAssociations[i] = m_associations.get(i).getCopy();
+		}
+		return new CompoundAssociation(newAssociations);
+	}
 }

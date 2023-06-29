@@ -15,8 +15,8 @@ package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model;
  * @coverage core.ui
  */
 public interface IHasChildren {
-  /**
-   * @return <code>true</code> if container contains elements and <code>false</code> otherwise.
-   */
-  boolean hasChildren();
+	/**
+	 * @return <code>true</code> if container contains elements and <code>false</code> otherwise.
+	 */
+	boolean hasChildren();
 }

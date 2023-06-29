@@ -37,57 +37,57 @@ import javax.swing.JToolBar;
  * @coverage core.model.association
  */
 public final class InvocationVoidAssociation extends InvocationAssociation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public InvocationVoidAssociation() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public InvocationVoidAssociation() {
+	}
 
-  public InvocationVoidAssociation(MethodInvocation invocation) {
-    super(invocation);
-  }
+	public InvocationVoidAssociation(MethodInvocation invocation) {
+		super(invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    // get MethodInvocation from CreationSupport
-    CreationSupport creationSupport = m_javaInfo.getCreationSupport();
-    m_invocation = (MethodInvocation) creationSupport.getNode();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		// get MethodInvocation from CreationSupport
+		CreationSupport creationSupport = m_javaInfo.getCreationSupport();
+		m_invocation = (MethodInvocation) creationSupport.getNode();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void move(StatementTarget target) throws Exception {
-    if (m_javaInfo.getVariableSupport() instanceof LazyVariableSupport) {
-      moveLazy(target);
-    } else {
-      super.move(target);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void move(StatementTarget target) throws Exception {
+		if (m_javaInfo.getVariableSupport() instanceof LazyVariableSupport) {
+			moveLazy(target);
+		} else {
+			super.move(target);
+		}
+	}
 
-  private void moveLazy(StatementTarget target) throws Exception {
-    // prepare invocation of getX() lazy accessor, probably in parent
-    ASTNode invocationInParent;
-    {
-      LazyVariableSupport lazy = (LazyVariableSupport) m_javaInfo.getVariableSupport();
-      ExecutionFlowDescription flow = JavaInfoUtils.getState(m_javaInfo).getFlowDescription();
-      List<ASTNode> invocations = ExecutionFlowUtils.getInvocations(flow, lazy.m_accessor);
-      Assert.isTrue2(!invocations.isEmpty(), "No invocation for {0}", lazy.m_accessor);
-      invocationInParent = invocations.get(0);
-    }
-    // move its Statement into target
-    Statement invocationStatement = AstNodeUtils.getEnclosingStatement(invocationInParent);
-    m_editor.moveStatement(invocationStatement, target);
-  }
+	private void moveLazy(StatementTarget target) throws Exception {
+		// prepare invocation of getX() lazy accessor, probably in parent
+		ASTNode invocationInParent;
+		{
+			LazyVariableSupport lazy = (LazyVariableSupport) m_javaInfo.getVariableSupport();
+			ExecutionFlowDescription flow = JavaInfoUtils.getState(m_javaInfo).getFlowDescription();
+			List<ASTNode> invocations = ExecutionFlowUtils.getInvocations(flow, lazy.m_accessor);
+			Assert.isTrue2(!invocations.isEmpty(), "No invocation for {0}", lazy.m_accessor);
+			invocationInParent = invocations.get(0);
+		}
+		// move its Statement into target
+		Statement invocationStatement = AstNodeUtils.getEnclosingStatement(invocationInParent);
+		m_editor.moveStatement(invocationStatement, target);
+	}
 }

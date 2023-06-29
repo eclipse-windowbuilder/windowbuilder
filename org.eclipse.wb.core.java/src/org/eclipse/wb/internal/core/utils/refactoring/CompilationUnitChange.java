@@ -31,95 +31,95 @@ import org.eclipse.text.edits.UndoEdit;
  * @coverage core.util.refactoring
  */
 public class CompilationUnitChange extends TextFileChange {
-  private final ICompilationUnit fCUnit;
+	private final ICompilationUnit fCUnit;
 
-  /**
-   * Creates a new <code>CompilationUnitChange</code>.
-   *
-   * @param name
-   *          the change's name mainly used to render the change in the UI
-   * @param cunit
-   *          the compilation unit this text change works on
-   */
-  public CompilationUnitChange(String name, ICompilationUnit cunit) {
-    super(name, getFile(cunit));
-    Assert.isNotNull(cunit);
-    fCUnit = cunit;
-    setTextType("java"); //$NON-NLS-1$
-  }
+	/**
+	 * Creates a new <code>CompilationUnitChange</code>.
+	 *
+	 * @param name
+	 *          the change's name mainly used to render the change in the UI
+	 * @param cunit
+	 *          the compilation unit this text change works on
+	 */
+	public CompilationUnitChange(String name, ICompilationUnit cunit) {
+		super(name, getFile(cunit));
+		Assert.isNotNull(cunit);
+		fCUnit = cunit;
+		setTextType("java"); //$NON-NLS-1$
+	}
 
-  private static IFile getFile(ICompilationUnit cunit) {
-    return (IFile) cunit.getResource();
-  }
+	private static IFile getFile(ICompilationUnit cunit) {
+		return (IFile) cunit.getResource();
+	}
 
-  /* non java-doc
-   * Method declared in IChange.
-   */
-  @Override
-  public Object getModifiedElement() {
-    return fCUnit;
-  }
+	/* non java-doc
+	 * Method declared in IChange.
+	 */
+	@Override
+	public Object getModifiedElement() {
+		return fCUnit;
+	}
 
-  /**
-   * Returns the compilation unit this change works on.
-   *
-   * @return the compilation unit this change works on
-   */
-  public ICompilationUnit getCompilationUnit() {
-    return fCUnit;
-  }
+	/**
+	 * Returns the compilation unit this change works on.
+	 *
+	 * @return the compilation unit this change works on
+	 */
+	public ICompilationUnit getCompilationUnit() {
+		return fCUnit;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  protected IDocument acquireDocument(IProgressMonitor pm) throws CoreException {
-    pm.beginTask("", 2); //$NON-NLS-1$
-    fCUnit.becomeWorkingCopy(null, new SubProgressMonitor(pm, 1));
-    return super.acquireDocument(new SubProgressMonitor(pm, 1));
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected IDocument acquireDocument(IProgressMonitor pm) throws CoreException {
+		pm.beginTask("", 2); //$NON-NLS-1$
+		fCUnit.becomeWorkingCopy(null, new SubProgressMonitor(pm, 1));
+		return super.acquireDocument(new SubProgressMonitor(pm, 1));
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  protected void releaseDocument(IDocument document, IProgressMonitor pm) throws CoreException {
-    boolean isModified = isDocumentModified();
-    super.releaseDocument(document, pm);
-    try {
-      fCUnit.discardWorkingCopy();
-    } finally {
-      if (isModified && !isDocumentAcquired()) {
-        if (fCUnit.isWorkingCopy()) {
-          fCUnit.reconcile(ICompilationUnit.NO_AST, false, null, null);
-        } else {
-          fCUnit.makeConsistent(pm);
-        }
-      }
-    }
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void releaseDocument(IDocument document, IProgressMonitor pm) throws CoreException {
+		boolean isModified = isDocumentModified();
+		super.releaseDocument(document, pm);
+		try {
+			fCUnit.discardWorkingCopy();
+		} finally {
+			if (isModified && !isDocumentAcquired()) {
+				if (fCUnit.isWorkingCopy()) {
+					fCUnit.reconcile(ICompilationUnit.NO_AST, false, null, null);
+				} else {
+					fCUnit.makeConsistent(pm);
+				}
+			}
+		}
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  protected Change createUndoChange(UndoEdit edit, ContentStamp stampToRestore) {
-    try {
-      return new UndoCompilationUnitChange(getName(), fCUnit, edit, stampToRestore, getSaveMode());
-    } catch (CoreException e) {
-      DesignerPlugin.log(e);
-      return null;
-    }
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected Change createUndoChange(UndoEdit edit, ContentStamp stampToRestore) {
+		try {
+			return new UndoCompilationUnitChange(getName(), fCUnit, edit, stampToRestore, getSaveMode());
+		} catch (CoreException e) {
+			DesignerPlugin.log(e);
+			return null;
+		}
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public <T> T getAdapter(Class<T> adapter) {
-    if (ICompilationUnit.class.equals(adapter)) {
-      return adapter.cast(fCUnit);
-    }
-    return super.getAdapter(adapter);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public <T> T getAdapter(Class<T> adapter) {
+		if (ICompilationUnit.class.equals(adapter)) {
+			return adapter.cast(fCUnit);
+		}
+		return super.getAdapter(adapter);
+	}
 }

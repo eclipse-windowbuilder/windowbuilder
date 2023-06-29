@@ -32,45 +32,45 @@ import java.util.Map;
  * @coverage bindings.parser
  */
 public class DatabindingRootProcessor implements IRootProcessor {
-  public static final IRootProcessor INSTANCE = new DatabindingRootProcessor();
-  public static final Map<ICompilationUnit, ParseState> STATES = Maps.newHashMap();
-  private List<IDatabindingFactory> m_factories;
+	public static final IRootProcessor INSTANCE = new DatabindingRootProcessor();
+	public static final Map<ICompilationUnit, ParseState> STATES = Maps.newHashMap();
+	private List<IDatabindingFactory> m_factories;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    if (EditorState.get(root.getEditor()).isLiveComponent()) {
-      return;
-    }
-    // prepare factories
-    if (m_factories == null) {
-      m_factories =
-          ExternalFactoriesHelper.getElementsInstances(
-              IDatabindingFactory.class,
-              "org.eclipse.wb.core.databinding.databindingFactories",
-              "factory");
-    }
-    // handle providers
-    for (IDatabindingFactory factory : m_factories) {
-      IDatabindingsProvider databindingsProvider = factory.createProvider(root);
-      if (databindingsProvider != null) {
-        // store current provider
-        STATES.put(
-            root.getEditor().getModelUnit(),
-            new ParseState(databindingsProvider, factory.getPlugin()));
-        // add remove listener
-        root.addBroadcastListener(new ObjectEventListener() {
-          @Override
-          public void dispose() throws Exception {
-            STATES.remove(root.getEditor().getModelUnit());
-          }
-        });
-        return;
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		if (EditorState.get(root.getEditor()).isLiveComponent()) {
+			return;
+		}
+		// prepare factories
+		if (m_factories == null) {
+			m_factories =
+					ExternalFactoriesHelper.getElementsInstances(
+							IDatabindingFactory.class,
+							"org.eclipse.wb.core.databinding.databindingFactories",
+							"factory");
+		}
+		// handle providers
+		for (IDatabindingFactory factory : m_factories) {
+			IDatabindingsProvider databindingsProvider = factory.createProvider(root);
+			if (databindingsProvider != null) {
+				// store current provider
+				STATES.put(
+						root.getEditor().getModelUnit(),
+						new ParseState(databindingsProvider, factory.getPlugin()));
+				// add remove listener
+				root.addBroadcastListener(new ObjectEventListener() {
+					@Override
+					public void dispose() throws Exception {
+						STATES.remove(root.getEditor().getModelUnit());
+					}
+				});
+				return;
+			}
+		}
+	}
 }

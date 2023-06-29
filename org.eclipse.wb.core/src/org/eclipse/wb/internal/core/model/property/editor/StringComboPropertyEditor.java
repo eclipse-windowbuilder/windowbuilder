@@ -20,46 +20,46 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage core.model.property.editor
  */
 public class StringComboPropertyEditor extends AbstractComboPropertyEditor {
-  private final String[] m_items;
+	private final String[] m_items;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StringComboPropertyEditor(String... items) {
-    m_items = items;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StringComboPropertyEditor(String... items) {
+		m_items = items;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    return (String) property.getValue();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		return (String) property.getValue();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractComboPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addItems(Property property, CCombo3 combo) throws Exception {
-    for (String item : m_items) {
-      combo.add(item);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractComboPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addItems(Property property, CCombo3 combo) throws Exception {
+		for (String item : m_items) {
+			combo.add(item);
+		}
+	}
 
-  @Override
-  protected void selectItem(Property property, CCombo3 combo) throws Exception {
-    combo.setText(getText(property));
-  }
+	@Override
+	protected void selectItem(Property property, CCombo3 combo) throws Exception {
+		combo.setText(getText(property));
+	}
 
-  @Override
-  protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
-    property.setValue(m_items[index]);
-  }
+	@Override
+	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+		property.setValue(m_items[index]);
+	}
 }

@@ -31,30 +31,30 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class UtilTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.utils");
-    suite.addTestSuite(SystemUtilTest.class);
-    suite.addTestSuite(AssertTest.class);
-    suite.addTestSuite(Base64UtilsTest.class);
-    suite.addTestSuite(XmlWriterTest.class);
-    suite.addTestSuite(BrandingUtilsTest.class);
-    suite.addTestSuite(DesignerExceptionTest.class);
-    suite.addTestSuite(DesignerExceptionUtilsTest.class);
-    suite.addTestSuite(CoreExceptionRewriterTest.class);
-    suite.addTestSuite(GenericsUtilsTest.class);
-    suite.addTestSuite(PairTest.class);
-    suite.addTest(createSingleSuite(ExecutionUtilsTest.class));
-    suite.addTest(createSingleSuite(NoOpProgressMonitorTest.class));
-    suite.addTest(XmlTests.suite());
-    suite.addTestSuite(ExternalFactoriesHelperTest.class);
-    suite.addTestSuite(EditorWarningTest.class);
-    suite.addTestSuite(ReflectionUtilsTest.class);
-    suite.addTestSuite(IntrospectionHelperTest.class);
-    suite.addTestSuite(MenuIntersectorTest.class);
-    suite.addTestSuite(ImageUtilsTest.class);
-    suite.addTest(AstTests.suite());
-    suite.addTest(JdtCoreTests.suite());
-    suite.addTest(RefactoringTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils");
+		suite.addTestSuite(SystemUtilTest.class);
+		suite.addTestSuite(AssertTest.class);
+		suite.addTestSuite(Base64UtilsTest.class);
+		suite.addTestSuite(XmlWriterTest.class);
+		suite.addTestSuite(BrandingUtilsTest.class);
+		suite.addTestSuite(DesignerExceptionTest.class);
+		suite.addTestSuite(DesignerExceptionUtilsTest.class);
+		suite.addTestSuite(CoreExceptionRewriterTest.class);
+		suite.addTestSuite(GenericsUtilsTest.class);
+		suite.addTestSuite(PairTest.class);
+		suite.addTest(createSingleSuite(ExecutionUtilsTest.class));
+		suite.addTest(createSingleSuite(NoOpProgressMonitorTest.class));
+		suite.addTest(XmlTests.suite());
+		suite.addTestSuite(ExternalFactoriesHelperTest.class);
+		suite.addTestSuite(EditorWarningTest.class);
+		suite.addTestSuite(ReflectionUtilsTest.class);
+		suite.addTestSuite(IntrospectionHelperTest.class);
+		suite.addTestSuite(MenuIntersectorTest.class);
+		suite.addTestSuite(ImageUtilsTest.class);
+		suite.addTest(AstTests.suite());
+		suite.addTest(JdtCoreTests.suite());
+		suite.addTest(RefactoringTests.suite());
+		return suite;
+	}
 }

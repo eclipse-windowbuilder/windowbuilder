@@ -28,38 +28,38 @@ import org.eclipse.swt.widgets.Label;
  * @coverage bindings.ui
  */
 public final class LabelUiContentProvider extends UiContentProviderAdapter {
-  private final String m_title;
-  private final String m_value;
+	private final String m_title;
+	private final String m_value;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LabelUiContentProvider(String title, String value) {
-    m_title = title;
-    m_value = value;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LabelUiContentProvider(String title, String value) {
+		m_title = title;
+		m_value = value;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int getNumberOfControls() {
-    return 2;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int getNumberOfControls() {
+		return 2;
+	}
 
-  @Override
-  public void createContent(Composite parent, int columns) {
-    // create title label
-    Label titleLable = new Label(parent, SWT.NONE);
-    titleLable.setText(m_title);
-    // create value bold label
-    Label valueLabel = new Label(parent, SWT.NONE);
-    GridDataFactory.create(valueLabel).fillH().grabH().spanH(columns - 1);
-    UiUtils.setBoldFont(valueLabel);
-    valueLabel.setText(m_value);
-  }
+	@Override
+	public void createContent(Composite parent, int columns) {
+		// create title label
+		Label titleLable = new Label(parent, SWT.NONE);
+		titleLable.setText(m_title);
+		// create value bold label
+		Label valueLabel = new Label(parent, SWT.NONE);
+		GridDataFactory.create(valueLabel).fillH().grabH().spanH(columns - 1);
+		UiUtils.setBoldFont(valueLabel);
+		valueLabel.setText(m_value);
+	}
 }

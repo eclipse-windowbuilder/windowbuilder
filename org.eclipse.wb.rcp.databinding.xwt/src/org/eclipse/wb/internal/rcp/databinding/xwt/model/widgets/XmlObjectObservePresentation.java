@@ -21,33 +21,33 @@ import org.apache.commons.lang.StringUtils;
  *
  */
 public class XmlObjectObservePresentation extends JavaInfoObservePresentation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlObjectObservePresentation(ObjectInfo javaInfo) {
-    super(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlObjectObservePresentation(ObjectInfo javaInfo) {
+		super(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText() throws Exception {
-    String text = super.getText();
-    String reference = XmlObjectReferenceProvider.getName(m_javaInfo);
-    if (!StringUtils.isEmpty(reference)) {
-      text += " - " + reference;
-    }
-    return text;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText() throws Exception {
+		String text = super.getText();
+		String reference = XmlObjectReferenceProvider.getName(m_javaInfo);
+		if (!StringUtils.isEmpty(reference)) {
+			text += " - " + reference;
+		}
+		return text;
+	}
 
-  @Override
-  public String getTextForBinding() throws Exception {
-    String reference = XmlObjectReferenceProvider.getName(m_javaInfo);
-    return StringUtils.isEmpty(reference) ? super.getText() : reference;
-  }
+	@Override
+	public String getTextForBinding() throws Exception {
+		String reference = XmlObjectReferenceProvider.getName(m_javaInfo);
+		return StringUtils.isEmpty(reference) ? super.getText() : reference;
+	}
 }

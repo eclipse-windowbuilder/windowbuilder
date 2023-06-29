@@ -37,137 +37,137 @@ import java.util.List;
  * @coverage core.gef.menu
  */
 public final class MenuLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
-  private final IMenuInfo m_menu;
-  private final IMenuPolicy m_policy;
+	private final IMenuInfo m_menu;
+	private final IMenuPolicy m_policy;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuLayoutEditPolicy(IMenuInfo menu) {
-    m_menu = menu;
-    m_policy = m_menu.getPolicy();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuLayoutEditPolicy(IMenuInfo menu) {
+		m_menu = menu;
+		m_policy = m_menu.getPolicy();
+	}
 
-  /////////////////////////////////////////////////////////////////////
-  //
-  // AbstractFlowLayoutEditPolicy
-  //
-  /////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return m_menu.isHorizontal();
-  }
+	/////////////////////////////////////////////////////////////////////
+	//
+	// AbstractFlowLayoutEditPolicy
+	//
+	/////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return m_menu.isHorizontal();
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    if (MenuObjectInfoUtils.isImplicitObject(editPart.getModel())) {
-      return false;
-    }
-    return true;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		if (MenuObjectInfoUtils.isImplicitObject(editPart.getModel())) {
+			return false;
+		}
+		return true;
+	}
 
-  @Override
-  protected Layer getFeedbackLayer() {
-    return getLayer(IEditPartViewer.MENU_FEEDBACK_LAYER);
-  }
+	@Override
+	protected Layer getFeedbackLayer() {
+		return getLayer(IEditPartViewer.MENU_FEEDBACK_LAYER);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // CREATE
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(final Object newObject, final Object referenceObject) {
-    return new Command() {
-      @Override
-      public void execute() throws Exception {
-        m_menu.executeEdit(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            m_policy.commandCreate(newObject, referenceObject);
-          }
-        });
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// CREATE
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(final Object newObject, final Object referenceObject) {
+		return new Command() {
+			@Override
+			public void execute() throws Exception {
+				m_menu.executeEdit(new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						m_policy.commandCreate(newObject, referenceObject);
+					}
+				});
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PASTE
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getPasteCommand(final PasteRequest request, final Object referenceObject) {
-    return new Command() {
-      @Override
-      public void execute() throws Exception {
-        m_menu.executeEdit(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            List<?> pastedObject = m_policy.commandPaste(request.getMemento(), referenceObject);
-            request.setObjects(pastedObject);
-          }
-        });
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PASTE
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getPasteCommand(final PasteRequest request, final Object referenceObject) {
+		return new Command() {
+			@Override
+			public void execute() throws Exception {
+				m_menu.executeEdit(new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						List<?> pastedObject = m_policy.commandPaste(request.getMemento(), referenceObject);
+						request.setObjects(pastedObject);
+					}
+				});
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MOVE
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getMoveCommand(final Object moveObject, final Object referenceObject) {
-    return new Command() {
-      @Override
-      public void execute() throws Exception {
-        m_menu.executeEdit(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            m_policy.commandMove(moveObject, referenceObject);
-          }
-        });
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MOVE
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getMoveCommand(final Object moveObject, final Object referenceObject) {
+		return new Command() {
+			@Override
+			public void execute() throws Exception {
+				m_menu.executeEdit(new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						m_policy.commandMove(moveObject, referenceObject);
+					}
+				});
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
-    @Override
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      return m_policy.validateCreate(request.getNewObject());
-    }
+	private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
+		@Override
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			return m_policy.validateCreate(request.getNewObject());
+		}
 
-    @Override
-    public boolean validatePasteRequest(EditPart host, PasteRequest request) {
-      return m_policy.validatePaste(request.getMemento());
-    }
+		@Override
+		public boolean validatePasteRequest(EditPart host, PasteRequest request) {
+			return m_policy.validatePaste(request.getMemento());
+		}
 
-    @Override
-    public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-      for (EditPart editPart : request.getEditParts()) {
-        if (!m_policy.validateMove(editPart.getModel())) {
-          return false;
-        }
-      }
-      return true;
-    }
+		@Override
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+			for (EditPart editPart : request.getEditParts()) {
+				if (!m_policy.validateMove(editPart.getModel())) {
+					return false;
+				}
+			}
+			return true;
+		}
 
-    @Override
-    public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-      return validateMoveRequest(host, request);
-    }
-  };
+		@Override
+		public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+			return validateMoveRequest(host, request);
+		}
+	};
 }

@@ -22,16 +22,16 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class PropertyTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.property");
-    suite.addTest(createSingleSuite(XmlPropertyTest.class));
-    suite.addTest(createSingleSuite(EmptyXmlPropertyTest.class));
-    suite.addTest(createSingleSuite(XmlAttributePropertyTest.class));
-    suite.addTest(createSingleSuite(PropertyTest.class));
-    suite.addTest(createSingleSuite(StaticFieldPropertyEditorTest.class));
-    suite.addTest(createSingleSuite(EnumPropertyEditorTest.class));
-    suite.addTest(createSingleSuite(StringArrayPropertyEditorTest.class));
-    suite.addTest(createSingleSuite(EventsPropertyTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.property");
+		suite.addTest(createSingleSuite(XmlPropertyTest.class));
+		suite.addTest(createSingleSuite(EmptyXmlPropertyTest.class));
+		suite.addTest(createSingleSuite(XmlAttributePropertyTest.class));
+		suite.addTest(createSingleSuite(PropertyTest.class));
+		suite.addTest(createSingleSuite(StaticFieldPropertyEditorTest.class));
+		suite.addTest(createSingleSuite(EnumPropertyEditorTest.class));
+		suite.addTest(createSingleSuite(StringArrayPropertyEditorTest.class));
+		suite.addTest(createSingleSuite(EventsPropertyTest.class));
+		return suite;
+	}
 }

@@ -26,23 +26,23 @@ import org.eclipse.jface.viewers.Viewer;
  * @coverage bindings.swing.ui
  */
 public final class ShowAdvancedPropertyFilter extends PropertyFilter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ShowAdvancedPropertyFilter() {
-    super(Messages.ShowAdvancedPropertyFilter_title, Activator.getImage("show_advanced.png"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ShowAdvancedPropertyFilter() {
+		super(Messages.ShowAdvancedPropertyFilter_title, Activator.getImage("show_advanced.png"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyFilter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
-    IObserveDecoration observeDecoration = (IObserveDecoration) propertyObserve;
-    return observeDecoration.getDecorator() != IObserveDecorator.HIDDEN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyFilter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
+		IObserveDecoration observeDecoration = (IObserveDecoration) propertyObserve;
+		return observeDecoration.getDecorator() != IObserveDecorator.HIDDEN;
+	}
 }

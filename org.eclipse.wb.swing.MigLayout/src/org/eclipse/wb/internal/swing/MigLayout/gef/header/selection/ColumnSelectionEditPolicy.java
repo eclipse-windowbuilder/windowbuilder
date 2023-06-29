@@ -34,79 +34,79 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage swing.MigLayout.header
  */
 public final class ColumnSelectionEditPolicy extends DimensionSelectionEditPolicy<MigColumnInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
-    super(mainPolicy);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
+		super(mainPolicy);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Handle createResizeHandle() {
-    Handle handle = new SideResizeHandle(getHost(), IPositionConstants.RIGHT, 7, true);
-    handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.EAST, REQ_RESIZE));
-    return handle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Handle createResizeHandle() {
+		Handle handle = new SideResizeHandle(getHost(), IPositionConstants.RIGHT, 7, true);
+		handle.setDragTrackerTool(new ResizeTracker(getHost(), IPositionConstants.EAST, REQ_RESIZE));
+		return handle;
+	}
 
-  @Override
-  protected Point getTextFeedbackLocation(Point mouseLocation) {
-    return new Point(mouseLocation.x + 10, 10);
-  }
+	@Override
+	protected Point getTextFeedbackLocation(Point mouseLocation) {
+		return new Point(mouseLocation.x + 10, 10);
+	}
 
-  @Override
-  protected int getPixelSize(Dimension resizeDelta) {
-    return getHostFigure().getSize().width + resizeDelta.width;
-  }
+	@Override
+	protected int getPixelSize(Dimension resizeDelta) {
+		return getHostFigure().getSize().width + resizeDelta.width;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Keyboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    super.performRequest(request);
-    if (request instanceof KeyRequest) {
-      KeyRequest keyRequest = (KeyRequest) request;
-      if (keyRequest.isPressed()) {
-        char c = keyRequest.getCharacter();
-        // horizontal
-        if (c == 'd') {
-          setAlignment(MigColumnInfo.Alignment.DEFAULT);
-        } else if (c == 'l') {
-          setAlignment(MigColumnInfo.Alignment.LEFT);
-        } else if (c == 'c') {
-          setAlignment(MigColumnInfo.Alignment.CENTER);
-        } else if (c == 'r') {
-          setAlignment(MigColumnInfo.Alignment.RIGHT);
-        } else if (c == 'f') {
-          setAlignment(MigColumnInfo.Alignment.FILL);
-        } else if (c == 'q') {
-          setAlignment(MigColumnInfo.Alignment.LEADING);
-        } else if (c == 'w') {
-          setAlignment(MigColumnInfo.Alignment.TRAILING);
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Keyboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		super.performRequest(request);
+		if (request instanceof KeyRequest) {
+			KeyRequest keyRequest = (KeyRequest) request;
+			if (keyRequest.isPressed()) {
+				char c = keyRequest.getCharacter();
+				// horizontal
+				if (c == 'd') {
+					setAlignment(MigColumnInfo.Alignment.DEFAULT);
+				} else if (c == 'l') {
+					setAlignment(MigColumnInfo.Alignment.LEFT);
+				} else if (c == 'c') {
+					setAlignment(MigColumnInfo.Alignment.CENTER);
+				} else if (c == 'r') {
+					setAlignment(MigColumnInfo.Alignment.RIGHT);
+				} else if (c == 'f') {
+					setAlignment(MigColumnInfo.Alignment.FILL);
+				} else if (c == 'q') {
+					setAlignment(MigColumnInfo.Alignment.LEADING);
+				} else if (c == 'w') {
+					setAlignment(MigColumnInfo.Alignment.TRAILING);
+				}
+			}
+		}
+	}
 
-  /**
-   * Sets the alignment for {@link MigColumnInfo}.
-   */
-  private void setAlignment(final MigColumnInfo.Alignment alignment) {
-    final MigLayoutInfo layout = getLayout();
-    ExecutionUtils.run(layout, new RunnableEx() {
-      public void run() throws Exception {
-        getDimension().setAlignment(alignment);
-        layout.writeDimensions();
-      }
-    });
-  }
+	/**
+	 * Sets the alignment for {@link MigColumnInfo}.
+	 */
+	private void setAlignment(final MigColumnInfo.Alignment alignment) {
+		final MigLayoutInfo layout = getLayout();
+		ExecutionUtils.run(layout, new RunnableEx() {
+			public void run() throws Exception {
+				getDimension().setAlignment(alignment);
+				layout.writeDimensions();
+			}
+		});
+	}
 }

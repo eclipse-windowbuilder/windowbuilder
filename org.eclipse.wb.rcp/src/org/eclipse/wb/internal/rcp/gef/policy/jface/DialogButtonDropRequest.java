@@ -22,35 +22,35 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage rcp.gef.policy
  */
 public final class DialogButtonDropRequest extends AbstractCreateRequest {
-  public static final String TYPE = "drop Dialog button";
+	public static final String TYPE = "drop Dialog button";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogButtonDropRequest() {
-    super(TYPE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogButtonDropRequest() {
+		super(TYPE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Component
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ControlInfo m_button;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Component
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ControlInfo m_button;
 
-  /**
-   * @return the {@link ControlInfo} button to select after drop finished.
-   */
-  public ControlInfo getButton() {
-    return m_button;
-  }
+	/**
+	 * @return the {@link ControlInfo} button to select after drop finished.
+	 */
+	public ControlInfo getButton() {
+		return m_button;
+	}
 
-  /**
-   * Sets the {@link ControlInfo} button to select after drop finished.
-   */
-  public void setButton(ControlInfo button) {
-    m_button = button;
-  }
+	/**
+	 * Sets the {@link ControlInfo} button to select after drop finished.
+	 */
+	public void setButton(ControlInfo button) {
+		m_button = button;
+	}
 }

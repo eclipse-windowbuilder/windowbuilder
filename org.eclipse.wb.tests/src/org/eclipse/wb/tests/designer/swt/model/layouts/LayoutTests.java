@@ -22,19 +22,19 @@ import junit.framework.TestSuite;
  * @author lobas_av
  */
 public class LayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swt.model.layout");
-    suite.addTest(createSingleSuite(LayoutTest.class));
-    suite.addTest(createSingleSuite(LayoutDataTest.class));
-    suite.addTest(createSingleSuite(VirtualLayoutDataTest.class));
-    suite.addTest(createSingleSuite(ImplicitLayoutDataTest.class));
-    suite.addTest(createSingleSuite(AbsoluteLayoutTest.class));
-    suite.addTest(createSingleSuite(AbsoluteLayoutSelectionActionsTest.class));
-    suite.addTest(createSingleSuite(AbsoluteLayoutOrderingTest.class));
-    suite.addTest(createSingleSuite(FillLayoutTest.class));
-    suite.addTest(createSingleSuite(RowLayoutTest.class));
-    suite.addTest(createSingleSuite(LayoutLayoutDataCompatibilityTest.class));
-    suite.addTest(GridLayoutTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swt.model.layout");
+		suite.addTest(createSingleSuite(LayoutTest.class));
+		suite.addTest(createSingleSuite(LayoutDataTest.class));
+		suite.addTest(createSingleSuite(VirtualLayoutDataTest.class));
+		suite.addTest(createSingleSuite(ImplicitLayoutDataTest.class));
+		suite.addTest(createSingleSuite(AbsoluteLayoutTest.class));
+		suite.addTest(createSingleSuite(AbsoluteLayoutSelectionActionsTest.class));
+		suite.addTest(createSingleSuite(AbsoluteLayoutOrderingTest.class));
+		suite.addTest(createSingleSuite(FillLayoutTest.class));
+		suite.addTest(createSingleSuite(RowLayoutTest.class));
+		suite.addTest(createSingleSuite(LayoutLayoutDataCompatibilityTest.class));
+		suite.addTest(GridLayoutTests.suite());
+		return suite;
+	}
 }

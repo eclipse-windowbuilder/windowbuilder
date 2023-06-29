@@ -21,27 +21,27 @@ import org.eclipse.wb.internal.core.model.description.IComponentDescription;
  * @coverage core.gef.policy
  */
 public abstract class AbstractModelClassLayoutRequestValidator
-    extends
-      AbstractLayoutRequestValidator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final boolean validate(EditPart host, Object child) {
-    Class<?> clazz = child.getClass();
-    return isValidClass(clazz);
-  }
+extends
+AbstractLayoutRequestValidator {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final boolean validate(EditPart host, Object child) {
+		Class<?> clazz = child.getClass();
+		return isValidClass(clazz);
+	}
 
-  @Override
-  protected final boolean validateDescription(EditPart host, IComponentDescription childDescription) {
-    Class<?> modelClass = childDescription.getModelClass();
-    return isValidClass(modelClass);
-  }
+	@Override
+	protected final boolean validateDescription(EditPart host, IComponentDescription childDescription) {
+		Class<?> modelClass = childDescription.getModelClass();
+		return isValidClass(modelClass);
+	}
 
-  /**
-   * @return <code>true</code> if given type is valid.
-   */
-  protected abstract boolean isValidClass(Class<?> clazz);
+	/**
+	 * @return <code>true</code> if given type is valid.
+	 */
+	protected abstract boolean isValidClass(Class<?> clazz);
 }

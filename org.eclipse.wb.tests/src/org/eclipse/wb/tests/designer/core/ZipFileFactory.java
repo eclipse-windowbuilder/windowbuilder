@@ -27,56 +27,56 @@ import java.util.zip.ZipOutputStream;
  * @author scheglov_ke
  */
 public final class ZipFileFactory {
-  private final ZipOutputStream m_zipStream;
+	private final ZipOutputStream m_zipStream;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ZipFileFactory(OutputStream outputStream) throws IOException {
-    m_zipStream = new ZipOutputStream(outputStream);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ZipFileFactory(OutputStream outputStream) throws IOException {
+		m_zipStream = new ZipOutputStream(outputStream);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void close() throws IOException {
-    m_zipStream.close();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void close() throws IOException {
+		m_zipStream.close();
+	}
 
-  public ZipFileFactory add(String path, String content) throws IOException {
-    add(path, new ByteArrayInputStream(content.getBytes()));
-    return this;
-  }
+	public ZipFileFactory add(String path, String content) throws IOException {
+		add(path, new ByteArrayInputStream(content.getBytes()));
+		return this;
+	}
 
-  public ZipFileFactory add(String path, InputStream inputStream) throws IOException {
-    m_zipStream.putNextEntry(new ZipEntry(path));
-    IOUtils.copy(inputStream, m_zipStream);
-    IOUtils.closeQuietly(inputStream);
-    m_zipStream.closeEntry();
-    return this;
-  }
+	public ZipFileFactory add(String path, InputStream inputStream) throws IOException {
+		m_zipStream.putNextEntry(new ZipEntry(path));
+		IOUtils.copy(inputStream, m_zipStream);
+		IOUtils.closeQuietly(inputStream);
+		m_zipStream.closeEntry();
+		return this;
+	}
 
-  public ZipFileFactory add(String path, File file) throws IOException {
-    path += "/" + file.getName();
-    if (file.isFile()) {
-      add(path, new FileInputStream(file));
-    }
-    if (file.isDirectory()) {
-      for (File child : file.listFiles()) {
-        add(path, child);
-      }
-    }
-    return this;
-  }
+	public ZipFileFactory add(String path, File file) throws IOException {
+		path += "/" + file.getName();
+		if (file.isFile()) {
+			add(path, new FileInputStream(file));
+		}
+		if (file.isDirectory()) {
+			for (File child : file.listFiles()) {
+				add(path, child);
+			}
+		}
+		return this;
+	}
 
-  public ZipFileFactory addClass(Class<?> clazz) throws IOException {
-    String path = clazz.getName().replace('.', '/') + ".class";
-    InputStream classBytes = TestBundle.getClassBytes(clazz);
-    add(path, classBytes);
-    return this;
-  }
+	public ZipFileFactory addClass(Class<?> clazz) throws IOException {
+		String path = clazz.getName().replace('.', '/') + ".class";
+		InputStream classBytes = TestBundle.getClassBytes(clazz);
+		add(path, classBytes);
+		return this;
+	}
 }

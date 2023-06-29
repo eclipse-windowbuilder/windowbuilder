@@ -20,5 +20,5 @@ import org.eclipse.wb.core.model.association.Association;
  * @coverage core.model
  */
 public interface JavaInfoSetAssociationBefore {
-  void invoke(JavaInfo javaInfo, Association association) throws Exception;
+	void invoke(JavaInfo javaInfo, Association association) throws Exception;
 }

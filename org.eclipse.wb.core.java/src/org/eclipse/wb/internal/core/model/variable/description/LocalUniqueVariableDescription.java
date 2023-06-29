@@ -26,56 +26,56 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.model.variable
  */
 public class LocalUniqueVariableDescription extends VariableSupportDescription {
-  public static final String ID = "org.eclipse.wb.core.model.variable.localUnique";
-  public static final VariableSupportDescription INSTANCE = new LocalUniqueVariableDescription();
+	public static final String ID = "org.eclipse.wb.core.model.variable.localUnique";
+	public static final VariableSupportDescription INSTANCE = new LocalUniqueVariableDescription();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LocalUniqueVariableDescription() {
-    super(ID, "Local", "declare unique local variable with component, initialize at declaration");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LocalUniqueVariableDescription() {
+		super(ID, "Local", "declare unique local variable with component, initialize at declaration");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // VariableSupportDescription
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Class<? extends VariableSupport> getType() {
-    return LocalUniqueVariableSupport.class;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// VariableSupportDescription
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Class<? extends VariableSupport> getType() {
+		return LocalUniqueVariableSupport.class;
+	}
 
-  @Override
-  public VariableSupport createSupport(JavaInfo javaInfo) {
-    return new LocalUniqueVariableSupport(javaInfo);
-  }
+	@Override
+	public VariableSupport createSupport(JavaInfo javaInfo) {
+		return new LocalUniqueVariableSupport(javaInfo);
+	}
 
-  @Override
-  public void configureDefaultPreferences(IPreferenceStore store) {
-    store.setDefault(LocalUniqueVariableSupport.P_DECLARE_FINAL, false);
-  }
+	@Override
+	public void configureDefaultPreferences(IPreferenceStore store) {
+		store.setDefault(LocalUniqueVariableSupport.P_DECLARE_FINAL, false);
+	}
 
-  @Override
-  public GenerationPropertiesComposite createPropertiesComposite(Composite parent,
-      DataBindManager bindManager,
-      IPreferenceStore store) {
-    return new PropertiesComposite(parent, bindManager, store);
-  }
+	@Override
+	public GenerationPropertiesComposite createPropertiesComposite(Composite parent,
+			DataBindManager bindManager,
+			IPreferenceStore store) {
+		return new PropertiesComposite(parent, bindManager, store);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static class PropertiesComposite extends GenerationPropertiesComposite {
-    public PropertiesComposite(Composite parent,
-        DataBindManager bindManager,
-        IPreferenceStore preferences) {
-      super(parent, bindManager, preferences);
-      checkButton(this, "Declare variable as \"final\"", LocalUniqueVariableSupport.P_DECLARE_FINAL);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static class PropertiesComposite extends GenerationPropertiesComposite {
+		public PropertiesComposite(Composite parent,
+				DataBindManager bindManager,
+				IPreferenceStore preferences) {
+			super(parent, bindManager, preferences);
+			checkButton(this, "Declare variable as \"final\"", LocalUniqueVariableSupport.P_DECLARE_FINAL);
+		}
+	}
 }

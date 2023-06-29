@@ -32,106 +32,106 @@ import javax.swing.UIManager;
  * @coverage swing.model
  */
 public class SwingLiveManager extends AbstractLiveManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SwingLiveManager(AbstractComponentInfo component) {
-    super(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SwingLiveManager(AbstractComponentInfo component) {
+		super(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractLiveComponentsManager
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractComponentInfo createLiveComponent() throws Exception {
-    // prepare empty JPanel
-    ContainerInfo panel;
-    {
-      String[] sourceLines =
-          new String[]{"  javax.swing.JPanel __wbp_panel = new javax.swing.JPanel();"};
-      panel = (ContainerInfo) parse(sourceLines);
-    }
-    // prepare component
-    ComponentInfo component = createClone();
-    // add component
-    {
-      FlowLayoutInfo flowLayoutInfo = (FlowLayoutInfo) panel.getLayout();
-      flowLayoutInfo.add(component, null);
-    }
-    // apply forced size
-    {
-      String forcedWidthString =
-          JavaInfoUtils.getParameter(m_component, "liveComponent.forcedSize.width");
-      String forcedHeightString =
-          JavaInfoUtils.getParameter(m_component, "liveComponent.forcedSize.height");
-      if (forcedWidthString != null && forcedHeightString != null) {
-        component.addMethodInvocation("setSize(int,int)", forcedWidthString
-            + ", "
-            + forcedHeightString);
-      }
-    }
-    return component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractLiveComponentsManager
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractComponentInfo createLiveComponent() throws Exception {
+		// prepare empty JPanel
+		ContainerInfo panel;
+		{
+			String[] sourceLines =
+					new String[]{"  javax.swing.JPanel __wbp_panel = new javax.swing.JPanel();"};
+			panel = (ContainerInfo) parse(sourceLines);
+		}
+		// prepare component
+		ComponentInfo component = createClone();
+		// add component
+		{
+			FlowLayoutInfo flowLayoutInfo = (FlowLayoutInfo) panel.getLayout();
+			flowLayoutInfo.add(component, null);
+		}
+		// apply forced size
+		{
+			String forcedWidthString =
+					JavaInfoUtils.getParameter(m_component, "liveComponent.forcedSize.width");
+			String forcedHeightString =
+					JavaInfoUtils.getParameter(m_component, "liveComponent.forcedSize.height");
+			if (forcedWidthString != null && forcedHeightString != null) {
+				component.addMethodInvocation("setSize(int,int)", forcedWidthString
+						+ ", "
+						+ forcedHeightString);
+			}
+		}
+		return component;
+	}
 
-  @Override
-  protected String getKey() {
-    return super.getKey() + "|" + UIManager.getLookAndFeel().getID();
-  }
+	@Override
+	protected String getKey() {
+		return super.getKey() + "|" + UIManager.getLookAndFeel().getID();
+	}
 
-  @Override
-  protected ILiveCacheEntry createComponentCacheEntry(AbstractComponentInfo liveComponentInfo) {
-    SwingLiveCacheEntry cacheEntry = new SwingLiveCacheEntry();
-    // get component and detach it from parent
-    final ComponentInfo componentInfo = (ComponentInfo) liveComponentInfo;
-    Component component = componentInfo.getComponent();
-    component.getParent().remove(component);
-    cacheEntry.setComponent(component);
-    // image
-    cacheEntry.setImage(componentInfo.getImage());
-    componentInfo.setImage(null);
-    // baseline
-    cacheEntry.setBaseline(componentInfo.getBaseline());
-    // done
-    return cacheEntry;
-  }
+	@Override
+	protected ILiveCacheEntry createComponentCacheEntry(AbstractComponentInfo liveComponentInfo) {
+		SwingLiveCacheEntry cacheEntry = new SwingLiveCacheEntry();
+		// get component and detach it from parent
+		final ComponentInfo componentInfo = (ComponentInfo) liveComponentInfo;
+		Component component = componentInfo.getComponent();
+		component.getParent().remove(component);
+		cacheEntry.setComponent(component);
+		// image
+		cacheEntry.setImage(componentInfo.getImage());
+		componentInfo.setImage(null);
+		// baseline
+		cacheEntry.setBaseline(componentInfo.getBaseline());
+		// done
+		return cacheEntry;
+	}
 
-  @Override
-  protected ILiveCacheEntry createComponentCacheEntryEx(Throwable e) {
-    SwingLiveCacheEntry cacheEntry = new SwingLiveCacheEntry();
-    // no component
-    cacheEntry.setComponent(null);
-    // set image
-    {
-      Image image = createImageForException(e);
-      cacheEntry.setImage(image);
-    }
-    // done
-    return cacheEntry;
-  }
+	@Override
+	protected ILiveCacheEntry createComponentCacheEntryEx(Throwable e) {
+		SwingLiveCacheEntry cacheEntry = new SwingLiveCacheEntry();
+		// no component
+		cacheEntry.setComponent(null);
+		// set image
+		{
+			Image image = createImageForException(e);
+			cacheEntry.setImage(image);
+		}
+		// done
+		return cacheEntry;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Component getComponent() {
-    return ((SwingLiveCacheEntry) getCachedEntry()).getComponent();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Component getComponent() {
+		return ((SwingLiveCacheEntry) getCachedEntry()).getComponent();
+	}
 
-  public Image getImage() {
-    // get image from memento during paste
-    final Image image = ComponentInfoMemento.getImage(m_component);
-    if (image != null) {
-      return image;
-    }
-    return ((SwingLiveCacheEntry) getCachedEntry()).getImage();
-  }
+	public Image getImage() {
+		// get image from memento during paste
+		final Image image = ComponentInfoMemento.getImage(m_component);
+		if (image != null) {
+			return image;
+		}
+		return ((SwingLiveCacheEntry) getCachedEntry()).getImage();
+	}
 
-  public int getBaseline() {
-    return ((SwingLiveCacheEntry) getCachedEntry()).getBaseline();
-  }
+	public int getBaseline() {
+		return ((SwingLiveCacheEntry) getCachedEntry()).getBaseline();
+	}
 }

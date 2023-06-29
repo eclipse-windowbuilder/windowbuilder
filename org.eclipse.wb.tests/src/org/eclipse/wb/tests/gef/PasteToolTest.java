@@ -18,31 +18,31 @@ import org.eclipse.wb.gef.core.tools.PasteTool;
  *
  */
 public class PasteToolTest extends AbstractCreationToolTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PasteToolTest() {
-    super(PasteTool.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PasteToolTest() {
+		super(PasteTool.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SetUp
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configureTestCase() {
-    // set PasteTool
-    Object memento = "TestMemento";
-    m_tool = new PasteTool(memento) {
-      @Override
-      protected void selectAddedObjects() {
-      }
-    };
-    m_domain.setActiveTool(m_tool);
-    // create request
-    m_request = new PasteRequest(memento);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SetUp
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configureTestCase() {
+		// set PasteTool
+		Object memento = "TestMemento";
+		m_tool = new PasteTool(memento) {
+			@Override
+			protected void selectAddedObjects() {
+			}
+		};
+		m_domain.setActiveTool(m_tool);
+		// create request
+		m_request = new PasteRequest(memento);
+	}
 }

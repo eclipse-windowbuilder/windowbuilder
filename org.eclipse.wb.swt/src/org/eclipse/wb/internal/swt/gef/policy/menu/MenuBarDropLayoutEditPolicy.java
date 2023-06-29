@@ -44,126 +44,126 @@ import org.eclipse.swt.graphics.FontMetrics;
  * @coverage swt.gef.policy.menu
  */
 public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
-  private final CompositeInfo m_shell;
+	private final CompositeInfo m_shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuBarDropLayoutEditPolicy(CompositeInfo shell) {
-    m_shell = shell;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuBarDropLayoutEditPolicy(CompositeInfo shell) {
+		m_shell = shell;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Figure m_fillFeedback;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Figure m_fillFeedback;
 
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    if (m_fillFeedback == null) {
-      // create figure
-      m_fillFeedback = new Figure() {
-        @Override
-        protected void paintClientArea(Graphics graphics) {
-          // draw placeholder text
-          Rectangle bounds = getBounds();
-          graphics.setForegroundColor(IColorConstants.darkGreen);
-          String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_dropMenuHint;
-          Dimension textExtent = graphics.getTextExtent(menuBarText);
-          FontMetrics fontMetrics = graphics.getFontMetrics();
-          {
-            int fontHeight = fontMetrics.getAscent() - fontMetrics.getDescent();
-            int x = (bounds.width - textExtent.width) / 2;
-            int y = (bounds.height - textExtent.height - fontHeight) / 2;
-            graphics.drawString(menuBarText, x, y);
-          }
-        }
-      };
-      m_fillFeedback.setOpaque(true);
-      m_fillFeedback.setBackground(IColorConstants.menuBackground);
-      // set figure bounds
-      Insets clientAreaInsets = m_shell.getClientAreaInsets();
-      final Rectangle bounds = getHostFigure().getBounds().getCopy();
-      bounds.width -= clientAreaInsets.getWidth();
-      if (EnvironmentUtils.IS_MAC) {
-        bounds.x = AbstractComponentEditPart.TOP_LOCATION.x;
-        bounds.y = MenuEditPartFactory.MENU_Y_LOCATION;
-      } else {
-        bounds.x += clientAreaInsets.left;
-        bounds.y += clientAreaInsets.top;
-      }
-      ExecutionUtils.runIgnore(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          bounds.height = ToolkitSupport.getDefaultMenuBarHeight();
-        }
-      });
-      m_fillFeedback.setBounds(bounds);
-      // add some border
-      m_fillFeedback.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected, 1));
-      addFeedback(m_fillFeedback);
-    }
-  }
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		if (m_fillFeedback == null) {
+			// create figure
+			m_fillFeedback = new Figure() {
+				@Override
+				protected void paintClientArea(Graphics graphics) {
+					// draw placeholder text
+					Rectangle bounds = getBounds();
+					graphics.setForegroundColor(IColorConstants.darkGreen);
+					String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_dropMenuHint;
+					Dimension textExtent = graphics.getTextExtent(menuBarText);
+					FontMetrics fontMetrics = graphics.getFontMetrics();
+					{
+						int fontHeight = fontMetrics.getAscent() - fontMetrics.getDescent();
+						int x = (bounds.width - textExtent.width) / 2;
+						int y = (bounds.height - textExtent.height - fontHeight) / 2;
+						graphics.drawString(menuBarText, x, y);
+					}
+				}
+			};
+			m_fillFeedback.setOpaque(true);
+			m_fillFeedback.setBackground(IColorConstants.menuBackground);
+			// set figure bounds
+			Insets clientAreaInsets = m_shell.getClientAreaInsets();
+			final Rectangle bounds = getHostFigure().getBounds().getCopy();
+			bounds.width -= clientAreaInsets.getWidth();
+			if (EnvironmentUtils.IS_MAC) {
+				bounds.x = AbstractComponentEditPart.TOP_LOCATION.x;
+				bounds.y = MenuEditPartFactory.MENU_Y_LOCATION;
+			} else {
+				bounds.x += clientAreaInsets.left;
+				bounds.y += clientAreaInsets.top;
+			}
+			ExecutionUtils.runIgnore(new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					bounds.height = ToolkitSupport.getDefaultMenuBarHeight();
+				}
+			});
+			m_fillFeedback.setBounds(bounds);
+			// add some border
+			m_fillFeedback.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected, 1));
+			addFeedback(m_fillFeedback);
+		}
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    if (m_fillFeedback != null) {
-      removeFeedback(m_fillFeedback);
-      m_fillFeedback = null;
-    }
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		if (m_fillFeedback != null) {
+			removeFeedback(m_fillFeedback);
+			m_fillFeedback = null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(CreateRequest request) {
-    final MenuInfo menu = (MenuInfo) request.getNewObject();
-    return new EditCommand(m_shell) {
-      @Override
-      protected void executeEdit() throws Exception {
-        menu.command_CREATE(m_shell);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(CreateRequest request) {
+		final MenuInfo menu = (MenuInfo) request.getNewObject();
+		return new EditCommand(m_shell) {
+			@Override
+			protected void executeEdit() throws Exception {
+				menu.command_CREATE(m_shell);
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
-    @Override
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      // only one "bar"
-      for (MenuInfo menuInfo : m_shell.getChildren(MenuInfo.class)) {
-        if (menuInfo.isBar()) {
-          return false;
-        }
-      }
-      // check object
-      Object newObject = request.getNewObject();
-      if (newObject instanceof MenuInfo) {
-        return ((MenuInfo) newObject).isBar();
-      }
-      // unknown object
-      return false;
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
+		@Override
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			// only one "bar"
+			for (MenuInfo menuInfo : m_shell.getChildren(MenuInfo.class)) {
+				if (menuInfo.isBar()) {
+					return false;
+				}
+			}
+			// check object
+			Object newObject = request.getNewObject();
+			if (newObject instanceof MenuInfo) {
+				return ((MenuInfo) newObject).isBar();
+			}
+			// unknown object
+			return false;
+		}
+	};
 }

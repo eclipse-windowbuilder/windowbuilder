@@ -32,104 +32,104 @@ import java.util.List;
  * @coverage core.gef.menu
  */
 public abstract class SubmenuAwareEditPart extends MenuObjectEditPart {
-  private final IMenuObjectInfo m_object;
+	private final IMenuObjectInfo m_object;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SubmenuAwareEditPart(Object toolkitModel, IMenuObjectInfo menuModel) {
-    super(toolkitModel, menuModel);
-    m_object = menuModel;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SubmenuAwareEditPart(Object toolkitModel, IMenuObjectInfo menuModel) {
+		super(toolkitModel, menuModel);
+		m_object = menuModel;
+	}
 
-  /////////////////////////////////////////////////////////////////////
-  //
-  // Visuals
-  //
-  /////////////////////////////////////////////////////////////////////
-  @Override
-  public final Figure getContentPane() {
-    return getViewer().getLayer(IEditPartViewer.MENU_PRIMARY_LAYER);
-  }
+	/////////////////////////////////////////////////////////////////////
+	//
+	// Visuals
+	//
+	/////////////////////////////////////////////////////////////////////
+	@Override
+	public final Figure getContentPane() {
+		return getViewer().getLayer(IEditPartViewer.MENU_PRIMARY_LAYER);
+	}
 
-  @Override
-  protected void addChildVisual(EditPart childPart, int index) {
-    // this needed because index for menu item child (cascaded menu)
-    // is always zero. This leads to improper edit parts order.
-    // The workaround is to override this method and forcibly
-    // add figure with default index.
-    GraphicalEditPart graphicalPart = (GraphicalEditPart) childPart;
-    getContentPane().add(graphicalPart.getFigure());
-    graphicalPart.getFigure().setData(childPart);
-  }
+	@Override
+	protected void addChildVisual(EditPart childPart, int index) {
+		// this needed because index for menu item child (cascaded menu)
+		// is always zero. This leads to improper edit parts order.
+		// The workaround is to override this method and forcibly
+		// add figure with default index.
+		GraphicalEditPart graphicalPart = (GraphicalEditPart) childPart;
+		getContentPane().add(graphicalPart.getFigure());
+		graphicalPart.getFigure().setData(childPart);
+	}
 
-  /////////////////////////////////////////////////////////////////////
-  //
-  // Edit policies
-  //
-  /////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(EditPolicy.LAYOUT_ROLE, new SubmenuAwareLayoutEditPolicy(m_object));
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new MenuSelectionEditPolicy());
-  }
+	/////////////////////////////////////////////////////////////////////
+	//
+	// Edit policies
+	//
+	/////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new SubmenuAwareLayoutEditPolicy(m_object));
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new MenuSelectionEditPolicy());
+	}
 
-  /////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  /////////////////////////////////////////////////////////////////////
-  @Override
-  protected final List<?> getModelChildren() {
-    // prepare selected object
-    IMenuObjectInfo selectedObject = null;
-    {
-      List<EditPart> selectedEditParts = getViewer().getSelectedEditParts();
-      if (!selectedEditParts.isEmpty()) {
-        EditPart selectedEditPart = selectedEditParts.get(selectedEditParts.size() - 1);
-        MenuObjectEditPart menuObjectEditPart = getMenuObjectEditPart(selectedEditPart);
-        if (menuObjectEditPart != null) {
-          selectedObject = menuObjectEditPart.getMenuModel();
-        }
-      }
-    }
-    // sub-menu is visible when "selected" or "selecting" objects belong to our menu
-    if (MenuObjectInfoUtils.isParentChild(m_object, selectedObject)
-        || MenuObjectInfoUtils.isParentChild(m_object, MenuObjectInfoUtils.m_selectingObject)) {
-      Object childMenu = getChildMenu();
-      if (childMenu != null) {
-        return Collections.singletonList(childMenu);
-      }
-    }
-    // if we are not on the path to activating menu object, so don't show sub-menu
-    return Collections.EMPTY_LIST;
-  }
+	/////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	/////////////////////////////////////////////////////////////////////
+	@Override
+	protected final List<?> getModelChildren() {
+		// prepare selected object
+		IMenuObjectInfo selectedObject = null;
+		{
+			List<EditPart> selectedEditParts = getViewer().getSelectedEditParts();
+			if (!selectedEditParts.isEmpty()) {
+				EditPart selectedEditPart = selectedEditParts.get(selectedEditParts.size() - 1);
+				MenuObjectEditPart menuObjectEditPart = getMenuObjectEditPart(selectedEditPart);
+				if (menuObjectEditPart != null) {
+					selectedObject = menuObjectEditPart.getMenuModel();
+				}
+			}
+		}
+		// sub-menu is visible when "selected" or "selecting" objects belong to our menu
+		if (MenuObjectInfoUtils.isParentChild(m_object, selectedObject)
+				|| MenuObjectInfoUtils.isParentChild(m_object, MenuObjectInfoUtils.m_selectingObject)) {
+			Object childMenu = getChildMenu();
+			if (childMenu != null) {
+				return Collections.singletonList(childMenu);
+			}
+		}
+		// if we are not on the path to activating menu object, so don't show sub-menu
+		return Collections.EMPTY_LIST;
+	}
 
-  /**
-   * In Swing we can drop just any component on menu, for example strut/glue between items. But for
-   * these components {@link EditPart} is not {@link MenuObjectEditPart}, so, we should climb up
-   * until find {@link MenuObjectEditPart}.
-   *
-   * @return the {@link MenuObjectEditPart} that corresponds to given {@link EditPart}, or
-   *         <code>null</code>, if {@link EditPart} does not belong to any
-   *         {@link MenuObjectEditPart} hierarchy.
-   */
-  private static MenuObjectEditPart getMenuObjectEditPart(EditPart editPart) {
-    for (; editPart != null; editPart = editPart.getParent()) {
-      if (editPart instanceof MenuObjectEditPart) {
-        return (MenuObjectEditPart) editPart;
-      }
-    }
-    // not a MenuObjectEditPart
-    return null;
-  }
+	/**
+	 * In Swing we can drop just any component on menu, for example strut/glue between items. But for
+	 * these components {@link EditPart} is not {@link MenuObjectEditPart}, so, we should climb up
+	 * until find {@link MenuObjectEditPart}.
+	 *
+	 * @return the {@link MenuObjectEditPart} that corresponds to given {@link EditPart}, or
+	 *         <code>null</code>, if {@link EditPart} does not belong to any
+	 *         {@link MenuObjectEditPart} hierarchy.
+	 */
+	private static MenuObjectEditPart getMenuObjectEditPart(EditPart editPart) {
+		for (; editPart != null; editPart = editPart.getParent()) {
+			if (editPart instanceof MenuObjectEditPart) {
+				return (MenuObjectEditPart) editPart;
+			}
+		}
+		// not a MenuObjectEditPart
+		return null;
+	}
 
-  /**
-   * @return the toolkit model for {@link IMenuInfo}, or <code>null</code> this object has no
-   *         sub-menu.
-   */
-  protected abstract Object getChildMenu();
+	/**
+	 * @return the toolkit model for {@link IMenuInfo}, or <code>null</code> this object has no
+	 *         sub-menu.
+	 */
+	protected abstract Object getChildMenu();
 }

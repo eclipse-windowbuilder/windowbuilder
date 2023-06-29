@@ -25,37 +25,37 @@ import org.eclipse.wb.internal.swing.databinding.model.components.JavaInfoRefere
  * @coverage bindings.swing.model
  */
 public final class JavaInfoDecorator
-    extends
-      org.eclipse.wb.internal.core.databinding.model.presentation.JavaInfoDecorator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoDecorator(DatabindingsProvider provider) {
-    super(provider, provider.getJavaInfoRoot());
-  }
+extends
+org.eclipse.wb.internal.core.databinding.model.presentation.JavaInfoDecorator {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoDecorator(DatabindingsProvider provider) {
+		super(provider, provider.getJavaInfoRoot());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean accept(ObjectInfo object) throws Exception {
-    return object instanceof AbstractComponentInfo
-        || object.getParent() instanceof NonVisualBeanContainerInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean accept(ObjectInfo object) throws Exception {
+		return object instanceof AbstractComponentInfo
+				|| object.getParent() instanceof NonVisualBeanContainerInfo;
+	}
 
-  @Override
-  protected String getReference(ObjectInfo object) throws Exception {
-    return JavaInfoReferenceProvider.getReference((JavaInfo) object);
-  }
+	@Override
+	protected String getReference(ObjectInfo object) throws Exception {
+		return JavaInfoReferenceProvider.getReference((JavaInfo) object);
+	}
 
-  @Override
-  protected boolean equals(ObjectInfo object, String objectReference, IObserveInfo iobserve)
-      throws Exception {
-    ObserveInfo observe = (ObserveInfo) iobserve;
-    return objectReference.equals(observe.getReference());
-  }
+	@Override
+	protected boolean equals(ObjectInfo object, String objectReference, IObserveInfo iobserve)
+			throws Exception {
+		ObserveInfo observe = (ObserveInfo) iobserve;
+		return objectReference.equals(observe.getReference());
+	}
 }

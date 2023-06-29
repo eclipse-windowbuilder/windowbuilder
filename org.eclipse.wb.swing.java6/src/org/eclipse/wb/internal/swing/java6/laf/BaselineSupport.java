@@ -21,13 +21,13 @@ import java.awt.Dimension;
  * @author mitin_aa
  */
 public class BaselineSupport implements IBaselineSupport {
-  @Override
-  public int getBaseline(Object component) {
-    if (!(component instanceof Component)) {
-      return NO_BASELINE;
-    }
-    Component comp = (Component) component;
-    Dimension size = comp.getSize();
-    return comp.getBaseline(size.width, size.height);
-  }
+	@Override
+	public int getBaseline(Object component) {
+		if (!(component instanceof Component)) {
+			return NO_BASELINE;
+		}
+		Component comp = (Component) component;
+		Dimension size = comp.getSize();
+		return comp.getBaseline(size.width, size.height);
+	}
 }

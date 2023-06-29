@@ -36,127 +36,127 @@ import org.eclipse.ui.IEditorPart;
  * @coverage XML.editor
  */
 public class XmlDesignComposite extends DesignComposite {
-  private DesignPageActions m_pageActions;
-  private XmlDesignToolbarHelper m_toolbarHelper;
-  private DesignerPalette m_designerPalette;
-  private XmlObjectInfo m_rootObject;
+	private DesignPageActions m_pageActions;
+	private XmlDesignToolbarHelper m_toolbarHelper;
+	private DesignerPalette m_designerPalette;
+	private XmlObjectInfo m_rootObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlDesignComposite(Composite parent,
-      int style,
-      IEditorPart editorPart,
-      ICommandExceptionHandler exceptionHandler) {
-    super(parent, style, editorPart, exceptionHandler);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlDesignComposite(Composite parent,
+			int style,
+			IEditorPart editorPart,
+			ICommandExceptionHandler exceptionHandler) {
+		super(parent, style, editorPart, exceptionHandler);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation of UI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createDesignActions() {
-    IEditPartViewer treeViewer = m_componentsComposite.getTreeViewer();
-    m_pageActions = new DesignPageActions(m_editorPart, treeViewer);
-    m_viewer.setContextMenu(new DesignContextMenuProvider(m_viewer, m_pageActions));
-    // install dispose listener
-    addDisposeListener(new DisposeListener() {
-      @Override
-      public void widgetDisposed(DisposeEvent e) {
-        m_pageActions.dispose();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation of UI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createDesignActions() {
+		IEditPartViewer treeViewer = m_componentsComposite.getTreeViewer();
+		m_pageActions = new DesignPageActions(m_editorPart, treeViewer);
+		m_viewer.setContextMenu(new DesignContextMenuProvider(m_viewer, m_pageActions));
+		// install dispose listener
+		addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				m_pageActions.dispose();
+			}
+		});
+	}
 
-  @Override
-  protected void createDesignToolbarHelper() {
-    m_toolbarHelper = new XmlDesignToolbarHelper(m_toolBar);
-    m_toolbarHelper.initialize(m_pageActions, m_viewer);
-    m_toolbarHelper.fill();
-  }
+	@Override
+	protected void createDesignToolbarHelper() {
+		m_toolbarHelper = new XmlDesignToolbarHelper(m_toolBar);
+		m_toolbarHelper.initialize(m_pageActions, m_viewer);
+		m_toolbarHelper.fill();
+	}
 
-  @Override
-  protected void createPalette(FlyoutControlComposite gefComposite) {
-    m_designerPalette = new DesignerPalette(gefComposite.getFlyoutParent(), SWT.NONE, true);
-  }
+	@Override
+	protected void createPalette(FlyoutControlComposite gefComposite) {
+		m_designerPalette = new DesignerPalette(gefComposite.getFlyoutParent(), SWT.NONE, true);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Notifies that "Design" page was activated.
-   */
-  public void onActivate() {
-    m_pageActions.installActions();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Notifies that "Design" page was activated.
+	 */
+	public void onActivate() {
+		m_pageActions.installActions();
+	}
 
-  /**
-   * Notifies that "Design" page was deactivated.
-   */
-  public void onDeActivate() {
-    m_pageActions.uninstallActions();
-  }
+	/**
+	 * Notifies that "Design" page was deactivated.
+	 */
+	public void onDeActivate() {
+		m_pageActions.uninstallActions();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Design access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh(ObjectInfo rootObject, IProgressMonitor monitor) {
-    m_rootObject = (XmlObjectInfo) rootObject;
-    // refresh viewer's
-    {
-      monitor.subTask(Messages.XmlDesignComposite_statusGef);
-      monitor.worked(1);
-      m_viewer.setInput(m_rootObject);
-      m_viewer.getControl().setDrawCached(false);
-    }
-    {
-      monitor.subTask(Messages.XmlDesignComposite_statusProperties);
-      monitor.worked(1);
-      m_componentsComposite.setInput(m_viewer, m_rootObject);
-    }
-    {
-      long start = System.currentTimeMillis();
-      monitor.subTask(Messages.XmlDesignComposite_statucPalette);
-      monitor.worked(1);
-      {
-        String toolkitId = m_rootObject.getDescription().getToolkit().getId();
-        m_designerPalette.setInput(m_viewer, m_rootObject, toolkitId);
-      }
-      Debug.println("palette: " + (System.currentTimeMillis() - start));
-    }
-    /*{
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Design access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh(ObjectInfo rootObject, IProgressMonitor monitor) {
+		m_rootObject = (XmlObjectInfo) rootObject;
+		// refresh viewer's
+		{
+			monitor.subTask(Messages.XmlDesignComposite_statusGef);
+			monitor.worked(1);
+			m_viewer.setInput(m_rootObject);
+			m_viewer.getControl().setDrawCached(false);
+		}
+		{
+			monitor.subTask(Messages.XmlDesignComposite_statusProperties);
+			monitor.worked(1);
+			m_componentsComposite.setInput(m_viewer, m_rootObject);
+		}
+		{
+			long start = System.currentTimeMillis();
+			monitor.subTask(Messages.XmlDesignComposite_statucPalette);
+			monitor.worked(1);
+			{
+				String toolkitId = m_rootObject.getDescription().getToolkit().getId();
+				m_designerPalette.setInput(m_viewer, m_rootObject, toolkitId);
+			}
+			Debug.println("palette: " + (System.currentTimeMillis() - start));
+		}
+		/*{
     	monitor.subTask("Configuring errors action...");
     	monitor.worked(1);
     	m_pageActions.getErrorsAction().setRoot(m_rootObject);
     }*/
-    // configure helpers
-    m_pageActions.setRoot(m_rootObject);
-    m_toolbarHelper.setRoot(m_rootObject);
-    m_viewersComposite.setRoot(m_rootObject);
-    new SelectSupport(rootObject, m_viewer, m_componentsComposite.getTreeViewer());
-  }
+		// configure helpers
+		m_pageActions.setRoot(m_rootObject);
+		m_toolbarHelper.setRoot(m_rootObject);
+		m_viewersComposite.setRoot(m_rootObject);
+		new SelectSupport(rootObject, m_viewer, m_componentsComposite.getTreeViewer());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Structure/Palette reparenting access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private IExtractableControl m_extractablePalette;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Structure/Palette reparenting access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private IExtractableControl m_extractablePalette;
 
-  @Override
-  public IExtractableControl getExtractablePalette() {
-    if (m_extractablePalette == null) {
-      m_extractablePalette = new ExtractableControl(m_designerPalette.getControl(), this);
-    }
-    return m_extractablePalette;
-  }
+	@Override
+	public IExtractableControl getExtractablePalette() {
+		if (m_extractablePalette == null) {
+			m_extractablePalette = new ExtractableControl(m_designerPalette.getControl(), this);
+		}
+		return m_extractablePalette;
+	}
 }

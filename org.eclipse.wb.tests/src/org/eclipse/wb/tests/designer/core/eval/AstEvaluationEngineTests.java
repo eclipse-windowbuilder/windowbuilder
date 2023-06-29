@@ -33,28 +33,28 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class AstEvaluationEngineTests extends DesignerSuiteTests {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Suite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.eval");
-    suite.addTest(createSingleSuite(EngineTest.class));
-    suite.addTest(createSingleSuite(BooleanTest.class));
-    suite.addTest(createSingleSuite(CharTest.class));
-    suite.addTest(createSingleSuite(IntegerTest.class));
-    suite.addTest(createSingleSuite(LongTest.class));
-    suite.addTest(createSingleSuite(FloatTest.class));
-    suite.addTest(createSingleSuite(DoubleTest.class));
-    suite.addTest(createSingleSuite(CastTest.class));
-    suite.addTest(createSingleSuite(ClassTest.class));
-    suite.addTest(createSingleSuite(StringTest.class));
-    suite.addTest(createSingleSuite(ArrayTest.class));
-    suite.addTest(createSingleSuite(FieldTest.class));
-    suite.addTest(createSingleSuite(ExecutionFlowUtilsTest.class));
-    suite.addTest(createSingleSuite(ExecutionFlowUtils2Test.class));
-    suite.addTest(createSingleSuite(MethodInvocationTest.class));
-    return suite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Suite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.eval");
+		suite.addTest(createSingleSuite(EngineTest.class));
+		suite.addTest(createSingleSuite(BooleanTest.class));
+		suite.addTest(createSingleSuite(CharTest.class));
+		suite.addTest(createSingleSuite(IntegerTest.class));
+		suite.addTest(createSingleSuite(LongTest.class));
+		suite.addTest(createSingleSuite(FloatTest.class));
+		suite.addTest(createSingleSuite(DoubleTest.class));
+		suite.addTest(createSingleSuite(CastTest.class));
+		suite.addTest(createSingleSuite(ClassTest.class));
+		suite.addTest(createSingleSuite(StringTest.class));
+		suite.addTest(createSingleSuite(ArrayTest.class));
+		suite.addTest(createSingleSuite(FieldTest.class));
+		suite.addTest(createSingleSuite(ExecutionFlowUtilsTest.class));
+		suite.addTest(createSingleSuite(ExecutionFlowUtils2Test.class));
+		suite.addTest(createSingleSuite(MethodInvocationTest.class));
+		return suite;
+	}
 }

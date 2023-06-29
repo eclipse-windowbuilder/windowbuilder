@@ -20,21 +20,21 @@ import java.util.List;
  * @coverage core.model.menu
  */
 public interface IMenuInfo extends IMenuObjectInfo {
-  String NO_ITEMS_TEXT = "(Add items here)";
+	String NO_ITEMS_TEXT = "(Add items here)";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if {@link IMenuItemInfo}'s are located horizontally, and
-   *         <code>false</code> if vertically.
-   */
-  boolean isHorizontal();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if {@link IMenuItemInfo}'s are located horizontally, and
+	 *         <code>false</code> if vertically.
+	 */
+	boolean isHorizontal();
 
-  /**
-   * @return {@link IMenuItemInfo}'s that this menu contains.
-   */
-  List<IMenuItemInfo> getItems();
+	/**
+	 * @return {@link IMenuItemInfo}'s that this menu contains.
+	 */
+	List<IMenuItemInfo> getItems();
 }

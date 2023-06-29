@@ -21,12 +21,12 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class WizardTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.wizard");
-    suite.addTest(createSingleSuite(ApplicationWizardTest.class));
-    suite.addTest(createSingleSuite(CompositeWizardTest.class));
-    suite.addTest(createSingleSuite(FormsApplicationWizardTest.class));
-    suite.addTest(createSingleSuite(FormsCompositeWizardTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.wizard");
+		suite.addTest(createSingleSuite(ApplicationWizardTest.class));
+		suite.addTest(createSingleSuite(CompositeWizardTest.class));
+		suite.addTest(createSingleSuite(FormsApplicationWizardTest.class));
+		suite.addTest(createSingleSuite(FormsCompositeWizardTest.class));
+		return suite;
+	}
 }

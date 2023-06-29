@@ -31,239 +31,239 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author scheglov_ke
  */
 public class FactoryParentAssociationTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parse() throws Exception {
-    configureProject();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    MyFactory.addButton(this);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    // check association
-    FactoryParentAssociation association = (FactoryParentAssociation) button.getAssociation();
-    assertSame(button, association.getJavaInfo());
-    assertEquals("MyFactory.addButton(this)", association.getSource());
-    assertEquals("MyFactory.addButton(this)", m_lastEditor.getSource(association.getInvocation()));
-    assertEquals("MyFactory.addButton(this);", m_lastEditor.getSource(association.getStatement()));
-    // check variable
-    assertInstanceOf(EmptyVariableSupport.class, button.getVariableSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parse() throws Exception {
+		configureProject();
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    MyFactory.addButton(this);",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		// check association
+		FactoryParentAssociation association = (FactoryParentAssociation) button.getAssociation();
+		assertSame(button, association.getJavaInfo());
+		assertEquals("MyFactory.addButton(this)", association.getSource());
+		assertEquals("MyFactory.addButton(this)", m_lastEditor.getSource(association.getInvocation()));
+		assertEquals("MyFactory.addButton(this);", m_lastEditor.getSource(association.getStatement()));
+		// check variable
+		assertInstanceOf(EmptyVariableSupport.class, button.getVariableSupport());
+	}
 
-  public void test_delete() throws Exception {
-    configureProject();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    MyFactory.addButton(this);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    // do delete
-    assertTrue(button.canDelete());
-    button.delete();
-    // check source
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "  }",
-        "}");
-  }
+	public void test_delete() throws Exception {
+		configureProject();
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    MyFactory.addButton(this);",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		// do delete
+		assertTrue(button.canDelete());
+		button.delete();
+		// check source
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Note, that when we morph from "factory", target {@link CreationSupport} is
-   * {@link ConstructorCreationSupport}.
-   */
-  public void test_morph() throws Exception {
-    configureProject();
-    setFileContentSrc(
-        "test/MyButton.java",
-        getTestSource(
-            "public class MyButton extends JButton {",
-            "  public MyButton(Container container) {",
-            "  }",
-            "}"));
-    setFileContentSrc(
-        "test/MyButton.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <!-- CREATION -->",
-            "  <creation>",
-            "    <source><![CDATA[new test.MyButton(%parent%)]]></source>",
-            "  </creation>",
-            "  <!-- CONSTRUCTORS -->",
-            "  <constructors>",
-            "    <constructor>",
-            "      <parameter type='java.awt.Container' parent='true'/>",
-            "    </constructor>",
-            "  </constructors>",
-            "</component>"));
-    waitForAutoBuild();
-    // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    MyFactory.addButton(this);",
-            "  }",
-            "}");
-    // prepare "old" button
-    ComponentInfo oldButton = panel.getChildrenComponents().get(0);
-    FactoryParentAssociation oldAssociation = (FactoryParentAssociation) oldButton.getAssociation();
-    // test correct type
-    {
-      assertInstanceOf(ConstructorParentAssociation.class, oldAssociation.getCopy());
-    }
-  }
+	/**
+	 * Note, that when we morph from "factory", target {@link CreationSupport} is
+	 * {@link ConstructorCreationSupport}.
+	 */
+	public void test_morph() throws Exception {
+		configureProject();
+		setFileContentSrc(
+				"test/MyButton.java",
+				getTestSource(
+						"public class MyButton extends JButton {",
+						"  public MyButton(Container container) {",
+						"  }",
+						"}"));
+		setFileContentSrc(
+				"test/MyButton.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <!-- CREATION -->",
+						"  <creation>",
+						"    <source><![CDATA[new test.MyButton(%parent%)]]></source>",
+						"  </creation>",
+						"  <!-- CONSTRUCTORS -->",
+						"  <constructors>",
+						"    <constructor>",
+						"      <parameter type='java.awt.Container' parent='true'/>",
+						"    </constructor>",
+						"  </constructors>",
+						"</component>"));
+		waitForAutoBuild();
+		// parse
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    MyFactory.addButton(this);",
+						"  }",
+						"}");
+		// prepare "old" button
+		ComponentInfo oldButton = panel.getChildrenComponents().get(0);
+		FactoryParentAssociation oldAssociation = (FactoryParentAssociation) oldButton.getAssociation();
+		// test correct type
+		{
+			assertInstanceOf(ConstructorParentAssociation.class, oldAssociation.getCopy());
+		}
+	}
 
-  public void test_add() throws Exception {
-    configureProject();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
-    // add new MyButton
-    ComponentInfo button = createNewButton();
-    flowLayout.add(button, null);
-    // check source
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    {",
-        "      JButton button = MyFactory.addButton(this);",
-        "    }",
-        "  }",
-        "}");
-    // check association
-    FactoryParentAssociation association = (FactoryParentAssociation) button.getAssociation();
-    assertSame(button, association.getJavaInfo());
-    assertEquals("MyFactory.addButton(this)", association.getSource());
-  }
+	public void test_add() throws Exception {
+		configureProject();
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
+		// add new MyButton
+		ComponentInfo button = createNewButton();
+		flowLayout.add(button, null);
+		// check source
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    {",
+				"      JButton button = MyFactory.addButton(this);",
+				"    }",
+				"  }",
+				"}");
+		// check association
+		FactoryParentAssociation association = (FactoryParentAssociation) button.getAssociation();
+		assertSame(button, association.getJavaInfo());
+		assertEquals("MyFactory.addButton(this)", association.getSource());
+	}
 
-  public void test_moveInner() throws Exception {
-    configureProject();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = MyFactory.addButton(this);",
-            "    }",
-            "    {",
-            "      JPanel container = new JPanel();",
-            "      add(container);",
-            "    }",
-            "  }",
-            "}");
-    FlowLayoutInfo panelLayout = (FlowLayoutInfo) panel.getLayout();
-    // move "button"
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    panelLayout.move(button, null);
-    assertEditor(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    {",
-        "      JPanel container = new JPanel();",
-        "      add(container);",
-        "    }",
-        "    {",
-        "      JButton button = MyFactory.addButton(this);",
-        "    }",
-        "  }",
-        "}");
-    // check association
-    FactoryParentAssociation association = (FactoryParentAssociation) button.getAssociation();
-    assertSame(button, association.getJavaInfo());
-    assertEquals("MyFactory.addButton(this)", association.getSource());
-  }
+	public void test_moveInner() throws Exception {
+		configureProject();
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    {",
+						"      JButton button = MyFactory.addButton(this);",
+						"    }",
+						"    {",
+						"      JPanel container = new JPanel();",
+						"      add(container);",
+						"    }",
+						"  }",
+						"}");
+		FlowLayoutInfo panelLayout = (FlowLayoutInfo) panel.getLayout();
+		// move "button"
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		panelLayout.move(button, null);
+		assertEditor(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    {",
+				"      JPanel container = new JPanel();",
+				"      add(container);",
+				"    }",
+				"    {",
+				"      JButton button = MyFactory.addButton(this);",
+				"    }",
+				"  }",
+				"}");
+		// check association
+		FactoryParentAssociation association = (FactoryParentAssociation) button.getAssociation();
+		assertSame(button, association.getJavaInfo());
+		assertEquals("MyFactory.addButton(this)", association.getSource());
+	}
 
-  public void test_moveReparent() throws Exception {
-    configureProject();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = MyFactory.addButton(this);",
-            "      add(button);",
-            "    }",
-            "    {",
-            "      JPanel container = new JPanel();",
-            "      add(container);",
-            "    }",
-            "  }",
-            "}");
-    // prepare  "container"
-    ContainerInfo container = (ContainerInfo) panel.getChildrenComponents().get(1);
-    FlowLayoutInfo containerLayout = (FlowLayoutInfo) container.getLayout();
-    // move "button"
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    containerLayout.move(button, null);
-    assertEditor(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    {",
-        "      JPanel container = new JPanel();",
-        "      add(container);",
-        "      {",
-        "        JButton button = MyFactory.addButton(container);",
-        "        container.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}");
-    // check association
-    CompoundAssociation compoundAssociation = (CompoundAssociation) button.getAssociation();
-    FactoryParentAssociation association =
-        (FactoryParentAssociation) compoundAssociation.getAssociations().get(0);
-    assertSame(button, association.getJavaInfo());
-    assertEquals("MyFactory.addButton(container)", association.getSource());
-  }
+	public void test_moveReparent() throws Exception {
+		configureProject();
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    {",
+						"      JButton button = MyFactory.addButton(this);",
+						"      add(button);",
+						"    }",
+						"    {",
+						"      JPanel container = new JPanel();",
+						"      add(container);",
+						"    }",
+						"  }",
+						"}");
+		// prepare  "container"
+		ContainerInfo container = (ContainerInfo) panel.getChildrenComponents().get(1);
+		FlowLayoutInfo containerLayout = (FlowLayoutInfo) container.getLayout();
+		// move "button"
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		containerLayout.move(button, null);
+		assertEditor(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    {",
+				"      JPanel container = new JPanel();",
+				"      add(container);",
+				"      {",
+				"        JButton button = MyFactory.addButton(container);",
+				"        container.add(button);",
+				"      }",
+				"    }",
+				"  }",
+				"}");
+		// check association
+		CompoundAssociation compoundAssociation = (CompoundAssociation) button.getAssociation();
+		FactoryParentAssociation association =
+				(FactoryParentAssociation) compoundAssociation.getAssociations().get(0);
+		assertSame(button, association.getJavaInfo());
+		assertEquals("MyFactory.addButton(container)", association.getSource());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void configureProject() throws Exception {
-    setFileContentSrc(
-        "test/MyFactory.java",
-        getTestSource(
-            "public class MyFactory {",
-            "  public static JButton addButton(Container parent) {",
-            "    JButton button = new JButton();",
-            "    parent.add(button);",
-            "    return button;",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void configureProject() throws Exception {
+		setFileContentSrc(
+				"test/MyFactory.java",
+				getTestSource(
+						"public class MyFactory {",
+						"  public static JButton addButton(Container parent) {",
+						"    JButton button = new JButton();",
+						"    parent.add(button);",
+						"    return button;",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+	}
 
-  private ComponentInfo createNewButton() throws Exception, ClassNotFoundException {
-    FactoryMethodDescription factoryDescription =
-        FactoryDescriptionHelper.getDescription(
-            m_lastEditor,
-            m_lastLoader.loadClass("test.MyFactory"),
-            "addButton(java.awt.Container)",
-            true);
-    return (ComponentInfo) JavaInfoUtils.createJavaInfo(
-        m_lastEditor,
-        factoryDescription.getReturnClass(),
-        new StaticFactoryCreationSupport(factoryDescription));
-  }
+	private ComponentInfo createNewButton() throws Exception, ClassNotFoundException {
+		FactoryMethodDescription factoryDescription =
+				FactoryDescriptionHelper.getDescription(
+						m_lastEditor,
+						m_lastLoader.loadClass("test.MyFactory"),
+						"addButton(java.awt.Container)",
+						true);
+		return (ComponentInfo) JavaInfoUtils.createJavaInfo(
+				m_lastEditor,
+				factoryDescription.getReturnClass(),
+				new StaticFactoryCreationSupport(factoryDescription));
+	}
 }

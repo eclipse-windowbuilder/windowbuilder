@@ -20,23 +20,23 @@ import org.eclipse.wb.internal.swt.support.SwtSupport;
  * @coverage swt.model.presentation
  */
 public final class ButtonStylePresentation extends StylePresentation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ButtonStylePresentation(ButtonInfo button) {
-    super(button);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ButtonStylePresentation(ButtonInfo button) {
+		super(button);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StylePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initImages() throws Exception {
-    addImage(SwtSupport.CHECK, "wbp-meta/org/eclipse/swt/widgets/Button_check.gif");
-    addImage(SwtSupport.RADIO, "wbp-meta/org/eclipse/swt/widgets/Button_radio.gif");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StylePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initImages() throws Exception {
+		addImage(SwtSupport.CHECK, "wbp-meta/org/eclipse/swt/widgets/Button_check.gif");
+		addImage(SwtSupport.RADIO, "wbp-meta/org/eclipse/swt/widgets/Button_radio.gif");
+	}
 }

@@ -23,120 +23,120 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage core.gef.policy.grid
  */
 public interface IGridInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Dimensions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the count of columns.
-   */
-  int getColumnCount();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Dimensions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the count of columns.
+	 */
+	int getColumnCount();
 
-  /**
-   * @return the count of rows.
-   */
-  int getRowCount();
+	/**
+	 * @return the count of rows.
+	 */
+	int getRowCount();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Intervals
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the array of {@link Interval} for each column in grid.
-   */
-  Interval[] getColumnIntervals();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Intervals
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the array of {@link Interval} for each column in grid.
+	 */
+	Interval[] getColumnIntervals();
 
-  /**
-   * @return the array of {@link Interval} for each row in grid.
-   */
-  Interval[] getRowIntervals();
+	/**
+	 * @return the array of {@link Interval} for each row in grid.
+	 */
+	Interval[] getRowIntervals();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Cells
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the cells {@link Rectangle} occupied by given {@link IAbstractComponentInfo}.
-   */
-  Rectangle getComponentCells(IAbstractComponentInfo component);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Cells
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the cells {@link Rectangle} occupied by given {@link IAbstractComponentInfo}.
+	 */
+	Rectangle getComponentCells(IAbstractComponentInfo component);
 
-  /**
-   * @return the pixels {@link Rectangle} for given cells {@link Rectangle}.
-   */
-  Rectangle getCellsRectangle(Rectangle cells);
+	/**
+	 * @return the pixels {@link Rectangle} for given cells {@link Rectangle}.
+	 */
+	Rectangle getCellsRectangle(Rectangle cells);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if container uses right-to-left orientation.
-   */
-  boolean isRTL();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if container uses right-to-left orientation.
+	 */
+	boolean isRTL();
 
-  /**
-   * Container's client area may be only partly accessible for grid (for example in Swing "border"
-   * can consume some insets inside of container), so this methods returns the {@link Insets} to
-   * crop client area of container.
-   *
-   * @return the {@link Insets} of container.
-   */
-  Insets getInsets();
+	/**
+	 * Container's client area may be only partly accessible for grid (for example in Swing "border"
+	 * can consume some insets inside of container), so this methods returns the {@link Insets} to
+	 * crop client area of container.
+	 *
+	 * @return the {@link Insets} of container.
+	 */
+	Insets getInsets();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Virtual columns
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link IGridInfo} supports virtual columns. For example in
-   *         GWT widget HTMLTable always filled with columns/rows, so virtual columns/rows don't
-   *         exist.
-   */
-  boolean hasVirtualColumns();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Virtual columns
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link IGridInfo} supports virtual columns. For example in
+	 *         GWT widget HTMLTable always filled with columns/rows, so virtual columns/rows don't
+	 *         exist.
+	 */
+	boolean hasVirtualColumns();
 
-  /**
-   * @return the size of virtual column.
-   */
-  int getVirtualColumnSize();
+	/**
+	 * @return the size of virtual column.
+	 */
+	int getVirtualColumnSize();
 
-  /**
-   * @return the size of virtual column gap.
-   */
-  int getVirtualColumnGap();
+	/**
+	 * @return the size of virtual column gap.
+	 */
+	int getVirtualColumnGap();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Virtual rows
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link IGridInfo} supports virtual rows. For example in GWT
-   *         widget HTMLTable always filled with columns/rows, so virtual columns/rows don't exist.
-   */
-  boolean hasVirtualRows();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Virtual rows
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link IGridInfo} supports virtual rows. For example in GWT
+	 *         widget HTMLTable always filled with columns/rows, so virtual columns/rows don't exist.
+	 */
+	boolean hasVirtualRows();
 
-  /**
-   * @return the size of virtual row.
-   */
-  int getVirtualRowSize();
+	/**
+	 * @return the size of virtual row.
+	 */
+	int getVirtualRowSize();
 
-  /**
-   * @return the size of virtual row gap.
-   */
-  int getVirtualRowGap();
+	/**
+	 * @return the size of virtual row gap.
+	 */
+	int getVirtualRowGap();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Checks
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>AbstractComponentInfo</code> that occupies cell with given column/row.
-   */
-  IAbstractComponentInfo getOccupied(int column, int row);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Checks
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>AbstractComponentInfo</code> that occupies cell with given column/row.
+	 */
+	IAbstractComponentInfo getOccupied(int column, int row);
 }

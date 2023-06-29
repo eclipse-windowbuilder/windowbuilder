@@ -34,64 +34,64 @@ import java.util.List;
  * @coverage rcp.wizards.ui
  */
 public final class PerspectiveWizardPage extends RcpPartWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectiveWizardPage() {
-    setTitle(WizardsMessages.PerspectiveWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/Perspective/banner.gif"));
-    setDescription(WizardsMessages.PerspectiveWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectiveWizardPage() {
+		setTitle(WizardsMessages.PerspectiveWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/Perspective/banner.gif"));
+		setDescription(WizardsMessages.PerspectiveWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    super.createTypeMembers(newType, imports, monitor);
-    InputStream file = Activator.getFile("templates/rcp/PerspectiveFactory.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-    if (m_pdeUtils != null) {
-      try {
-        m_pdeUtils.createPerspectiveElement(m_newTypeClassName, getNameText(), m_newTypeClassName);
-      } catch (Throwable e) {
-        throw new CoreException(new Status(IStatus.ERROR,
-            Activator.PLUGIN_ID,
-            IStatus.OK,
-            WizardsMessages.PerspectiveWizardPage_errorPluginXml,
-            e));
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		super.createTypeMembers(newType, imports, monitor);
+		InputStream file = Activator.getFile("templates/rcp/PerspectiveFactory.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+		if (m_pdeUtils != null) {
+			try {
+				m_pdeUtils.createPerspectiveElement(m_newTypeClassName, getNameText(), m_newTypeClassName);
+			} catch (Throwable e) {
+				throw new CoreException(new Status(IStatus.ERROR,
+						Activator.PLUGIN_ID,
+						IStatus.OK,
+						WizardsMessages.PerspectiveWizardPage_errorPluginXml,
+						e));
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createDesignSuperClassControls(Composite composite, int nColumns) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createDesignSuperClassControls(Composite composite, int nColumns) {
+	}
 
-  @Override
-  protected void initTypePage(IJavaElement elem) {
-    super.initTypePage(elem);
-    List<String> interfaces = new ArrayList<String>();
-    interfaces.add("org.eclipse.ui.IPerspectiveFactory");
-    setSuperInterfaces(interfaces, false);
-  }
+	@Override
+	protected void initTypePage(IJavaElement elem) {
+		super.initTypePage(elem);
+		List<String> interfaces = new ArrayList<String>();
+		interfaces.add("org.eclipse.ui.IPerspectiveFactory");
+		setSuperInterfaces(interfaces, false);
+	}
 
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    createLocalControls(
-        parent,
-        columns,
-        WizardsMessages.PerspectiveWizardPage_nameLabel,
-        WizardsMessages.PerspectiveWizardPage_nameDefault);
-  }
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		createLocalControls(
+				parent,
+				columns,
+				WizardsMessages.PerspectiveWizardPage_nameLabel,
+				WizardsMessages.PerspectiveWizardPage_nameDefault);
+	}
 }

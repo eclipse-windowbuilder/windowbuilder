@@ -22,35 +22,35 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class ViewerObservableCodeSupport extends AbstractWidgetPropertiesCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerObservableCodeSupport(String propertyReference,
-      String signatureObserve,
-      String signatureObserveDelayed) {
-    super(propertyReference, signatureObserve, signatureObserveDelayed);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerObservableCodeSupport(String propertyReference,
+			String signatureObserve,
+			String signatureObserveDelayed) {
+		super(propertyReference, signatureObserve, signatureObserveDelayed);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(ObservableInfo observable,
-      List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    // prepare variable
-    if (observable.getVariableIdentifier() == null) {
-      String propertyReference = observable.getBindableProperty().getReference();
-      if (propertyReference.startsWith("Observe")) {
-        propertyReference = propertyReference.substring(7);
-      }
-      observable.setVariableIdentifier(generationSupport.generateLocalName(
-          propertyReference,
-          observable.getBindableObject().getReference()));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(ObservableInfo observable,
+			List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		// prepare variable
+		if (observable.getVariableIdentifier() == null) {
+			String propertyReference = observable.getBindableProperty().getReference();
+			if (propertyReference.startsWith("Observe")) {
+				propertyReference = propertyReference.substring(7);
+			}
+			observable.setVariableIdentifier(generationSupport.generateLocalName(
+					propertyReference,
+					observable.getBindableObject().getReference()));
+		}
+	}
 }

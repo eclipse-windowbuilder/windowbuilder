@@ -21,29 +21,29 @@ import org.eclipse.wb.internal.core.xml.editor.XmlDesignPage;
  * @coverage XML.editor.action
  */
 public abstract class DesignPageAction extends EditorRelatedAction {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void run() {
-    AbstractXmlEditor editor = getEditor();
-    if (editor != null) {
-      IXmlEditorPage designPage = editor.getDesignPage();
-      if (designPage instanceof XmlDesignPage) {
-        run((XmlDesignPage) designPage);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void run() {
+		AbstractXmlEditor editor = getEditor();
+		if (editor != null) {
+			IXmlEditorPage designPage = editor.getDesignPage();
+			if (designPage instanceof XmlDesignPage) {
+				run((XmlDesignPage) designPage);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DesignPageAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Runs the action with given {@link XmlDesignPage}.
-   */
-  protected abstract void run(XmlDesignPage designPage);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DesignPageAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Runs the action with given {@link XmlDesignPage}.
+	 */
+	protected abstract void run(XmlDesignPage designPage);
 }

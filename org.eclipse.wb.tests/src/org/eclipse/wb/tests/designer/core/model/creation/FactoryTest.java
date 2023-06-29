@@ -21,36 +21,36 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author scheglov_ke
  */
 public class FactoryTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parsing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_parseFactory() throws Exception {
-    try {
-      m_waitForAutoBuild = true;
-      parseContainer(
-          "public final class Test {",
-          "  /**",
-          "  * @wbp.factory",
-          "  */",
-          "  public static JButton createButton() {",
-          "    return new JButton();",
-          "  }",
-          "}");
-      fail();
-    } catch (DesignerException e) {
-      assertEquals(ICoreExceptionConstants.PARSER_FACTORY_NOT_SUPPORTED, e.getCode());
-      assertTrue(DesignerExceptionUtils.isWarning(e));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parsing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_parseFactory() throws Exception {
+		try {
+			m_waitForAutoBuild = true;
+			parseContainer(
+					"public final class Test {",
+					"  /**",
+					"  * @wbp.factory",
+					"  */",
+					"  public static JButton createButton() {",
+					"    return new JButton();",
+					"  }",
+					"}");
+			fail();
+		} catch (DesignerException e) {
+			assertEquals(ICoreExceptionConstants.PARSER_FACTORY_NOT_SUPPORTED, e.getCode());
+			assertTrue(DesignerExceptionUtils.isWarning(e));
+		}
+	}
 }

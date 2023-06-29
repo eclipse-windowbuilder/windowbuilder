@@ -16,8 +16,8 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el;
  * @coverage bindings.swing.ui
  */
 public interface IBeanPropertiesSupport {
-  /**
-   * @return {@link Class} of edit {@code Java Bean}.
-   */
-  Class<?> getTopLevelBean() throws Exception;
+	/**
+	 * @return {@link Class} of edit {@code Java Bean}.
+	 */
+	Class<?> getTopLevelBean() throws Exception;
 }

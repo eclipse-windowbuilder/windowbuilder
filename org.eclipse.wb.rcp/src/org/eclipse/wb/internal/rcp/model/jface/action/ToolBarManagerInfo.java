@@ -35,92 +35,92 @@ import net.bytebuddy.ByteBuddy;
  * @coverage rcp.model.jface
  */
 public final class ToolBarManagerInfo extends ContributionManagerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ToolBarManagerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ToolBarManagerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    {
-      ToolBar toolBar = (ToolBar) ReflectionUtils.invokeMethod2(getObject(), "getControl");
-      // if no any items, create one
-      if (toolBar.getItemCount() == 0) {
-        addEmptyAction();
-      }
-      // OK, remember as component
-      setComponentObject(toolBar);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		{
+			ToolBar toolBar = (ToolBar) ReflectionUtils.invokeMethod2(getObject(), "getControl");
+			// if no any items, create one
+			if (toolBar.getItemCount() == 0) {
+				addEmptyAction();
+			}
+			// OK, remember as component
+			setComponentObject(toolBar);
+		}
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    // prepare bounds of underlying ToolBar
-    ControlInfo.refresh_fetch(this, null);
-    // prepare bounds of IContributionItem's
-    ToolItem[] toolItems = ((ToolBar) getComponentObject()).getItems();
-    for (AbstractComponentInfo contributionItem : getItems()) {
-      Object contributionItemObject = contributionItem.getObject();
-      for (ToolItem toolItem : toolItems) {
-        if (toolItem.getData() == contributionItemObject) {
-          Object itemBoundsObject = ReflectionUtils.invokeMethod2(toolItem, "getBounds");
-          Rectangle itemBounds = RectangleSupport.getRectangle(itemBoundsObject);
-          contributionItem.setModelBounds(itemBounds);
-          break;
-        }
-      }
-    }
-    // special support for ToolBarContributionItem
-    if (getParent() instanceof ContributionItemInfo) {
-      ContributionItemInfo parentItem = (ContributionItemInfo) getParent();
-      parentItem.setModelBounds(getModelBounds().getCopy());
-      parentItem.setBounds(getBounds().getCopy());
-      getBounds().setLocation(0, 0);
-    }
-    // continue
-    super.refresh_fetch();
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		// prepare bounds of underlying ToolBar
+		ControlInfo.refresh_fetch(this, null);
+		// prepare bounds of IContributionItem's
+		ToolItem[] toolItems = ((ToolBar) getComponentObject()).getItems();
+		for (AbstractComponentInfo contributionItem : getItems()) {
+			Object contributionItemObject = contributionItem.getObject();
+			for (ToolItem toolItem : toolItems) {
+				if (toolItem.getData() == contributionItemObject) {
+					Object itemBoundsObject = ReflectionUtils.invokeMethod2(toolItem, "getBounds");
+					Rectangle itemBounds = RectangleSupport.getRectangle(itemBoundsObject);
+					contributionItem.setModelBounds(itemBounds);
+					break;
+				}
+			}
+		}
+		// special support for ToolBarContributionItem
+		if (getParent() instanceof ContributionItemInfo) {
+			ContributionItemInfo parentItem = (ContributionItemInfo) getParent();
+			parentItem.setModelBounds(getModelBounds().getCopy());
+			parentItem.setBounds(getBounds().getCopy());
+			getBounds().setLocation(0, 0);
+		}
+		// continue
+		super.refresh_fetch();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Inserts new "empty" {@link Action}.
-   */
-  private void addEmptyAction() throws Exception {
-    String emptyText = JavaInfoUtils.getParameter(this, "emptyText");
-    Assert.isNotNull(
-        emptyText,
-        "IToolBarManager should have parameter 'emptyText' with text to show when there are no Action's.");
-    // prepare Action
-    Object action;
-    {
-      ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
-      Class<?> actionClass = editorLoader.loadClass("org.eclipse.jface.action.Action");
-      action = new ByteBuddy() //
-          .subclass(actionClass) //
-          .make() //
-          .load(editorLoader) //
-          .getLoaded() //
-          .getConstructor(String.class) //
-          .newInstance(emptyText);
-    }
-    // append Action and update
-    ReflectionUtils.invokeMethod(getObject(), "add(org.eclipse.jface.action.IAction)", action);
-    ReflectionUtils.invokeMethod2(getObject(), "update", boolean.class, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Inserts new "empty" {@link Action}.
+	 */
+	private void addEmptyAction() throws Exception {
+		String emptyText = JavaInfoUtils.getParameter(this, "emptyText");
+		Assert.isNotNull(
+				emptyText,
+				"IToolBarManager should have parameter 'emptyText' with text to show when there are no Action's.");
+		// prepare Action
+		Object action;
+		{
+			ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
+			Class<?> actionClass = editorLoader.loadClass("org.eclipse.jface.action.Action");
+			action = new ByteBuddy() //
+					.subclass(actionClass) //
+					.make() //
+					.load(editorLoader) //
+					.getLoaded() //
+					.getConstructor(String.class) //
+					.newInstance(emptyText);
+		}
+		// append Action and update
+		ReflectionUtils.invokeMethod(getObject(), "add(org.eclipse.jface.action.IAction)", action);
+		ReflectionUtils.invokeMethod2(getObject(), "update", boolean.class, true);
+	}
 }

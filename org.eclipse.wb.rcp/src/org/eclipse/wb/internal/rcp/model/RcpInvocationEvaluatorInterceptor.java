@@ -26,16 +26,16 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @coverage rcp.model
  */
 public final class RcpInvocationEvaluatorInterceptor extends InvocationEvaluatorInterceptor {
-  @Override
-  public Object evaluateAnonymous(EvaluationContext context,
-      ClassInstanceCreation expression,
-      ITypeBinding typeBinding,
-      ITypeBinding typeBindingConcrete,
-      IMethodBinding methodBinding,
-      Object[] arguments) throws Exception {
-    if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.jface.action.Action")) {
-      return AstEvaluationEngine.createAnonymousInstance(context, methodBinding, arguments);
-    }
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	@Override
+	public Object evaluateAnonymous(EvaluationContext context,
+			ClassInstanceCreation expression,
+			ITypeBinding typeBinding,
+			ITypeBinding typeBindingConcrete,
+			IMethodBinding methodBinding,
+			Object[] arguments) throws Exception {
+		if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.jface.action.Action")) {
+			return AstEvaluationEngine.createAnonymousInstance(context, methodBinding, arguments);
+		}
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

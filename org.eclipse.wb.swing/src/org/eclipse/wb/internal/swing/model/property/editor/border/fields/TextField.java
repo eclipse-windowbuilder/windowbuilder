@@ -26,47 +26,47 @@ import org.eclipse.swt.widgets.Text;
  * @coverage swing.property.editor
  */
 public final class TextField extends AbstractBorderField {
-  private final Text m_text;
-  private final Listener m_modifyListener = new Listener() {
-    public void handleEvent(Event event) {
-      notifyListeners(SWT.Selection, event);
-    }
-  };
+	private final Text m_text;
+	private final Listener m_modifyListener = new Listener() {
+		public void handleEvent(Event event) {
+			notifyListeners(SWT.Selection, event);
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TextField(Composite parent, String labelText) {
-    super(parent, 1, labelText);
-    // create Text
-    {
-      m_text = new Text(this, SWT.BORDER);
-      GridDataFactory.create(m_text).grabH().fill().hintHC(40);
-      m_text.addListener(SWT.Modify, m_modifyListener);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TextField(Composite parent, String labelText) {
+		super(parent, 1, labelText);
+		// create Text
+		{
+			m_text = new Text(this, SWT.BORDER);
+			GridDataFactory.create(m_text).grabH().fill().hintHC(40);
+			m_text.addListener(SWT.Modify, m_modifyListener);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the value to edit.
-   */
-  public void setValue(String value) throws Exception {
-    m_text.removeListener(SWT.Modify, m_modifyListener);
-    try {
-      m_text.setText(value);
-    } finally {
-      m_text.addListener(SWT.Modify, m_modifyListener);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the value to edit.
+	 */
+	public void setValue(String value) throws Exception {
+		m_text.removeListener(SWT.Modify, m_modifyListener);
+		try {
+			m_text.setText(value);
+		} finally {
+			m_text.addListener(SWT.Modify, m_modifyListener);
+		}
+	}
 
-  @Override
-  public String getSource() throws Exception {
-    return StringConverter.INSTANCE.toJavaSource(null, m_text.getText());
-  }
+	@Override
+	public String getSource() throws Exception {
+		return StringConverter.INSTANCE.toJavaSource(null, m_text.getText());
+	}
 }

@@ -30,72 +30,72 @@ import org.eclipse.swt.widgets.Text;
  * @coverage core.test
  */
 public class FlyoutTest {
-  private Shell m_shell;
-  private CTabFolder m_tabFolder;
+	private Shell m_shell;
+	private CTabFolder m_tabFolder;
 
-  public static void main(String[] args) {
-    try {
-      FlyoutTest window = new FlyoutTest();
-      window.open();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
+	public static void main(String[] args) {
+		try {
+			FlyoutTest window = new FlyoutTest();
+			window.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-  public void open() {
-    final Display display = Display.getDefault();
-    createContents();
-    m_shell.open();
-    m_shell.layout();
-    while (!m_shell.isDisposed()) {
-      if (!display.readAndDispatch()) {
-        display.sleep();
-      }
-    }
-  }
+	public void open() {
+		final Display display = Display.getDefault();
+		createContents();
+		m_shell.open();
+		m_shell.layout();
+		while (!m_shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}
 
-  protected void createContents() {
-    m_shell = new Shell();
-    m_shell.setBounds(600, 300, 800, 600);
-    m_shell.setText("SWT Application");
-    m_shell.setLayout(new FillLayout());
-    //
-    m_tabFolder = new CTabFolder(m_shell, SWT.NONE);
-    m_tabFolder.setBackground(IColorConstants.button);
-    m_tabFolder.setSelectionBackground(IColorConstants.button);
-    {
-      FlyoutControlComposite flyoutComposite = createTab("WEST", IFlyoutPreferences.DOCK_WEST);
-      flyoutComposite.setValidDockLocations(IFlyoutPreferences.DOCK_WEST
-          | IFlyoutPreferences.DOCK_EAST);
-    }
-    createTab("EAST", IFlyoutPreferences.DOCK_EAST);
-    {
-      FlyoutControlComposite flyoutComposite = createTab("NORTH", IFlyoutPreferences.DOCK_NORTH);
-      flyoutComposite.setValidDockLocations(IFlyoutPreferences.DOCK_NORTH
-          | IFlyoutPreferences.DOCK_SOUTH);
-    }
-    createTab("SOUTH", IFlyoutPreferences.DOCK_SOUTH);
-  }
+	protected void createContents() {
+		m_shell = new Shell();
+		m_shell.setBounds(600, 300, 800, 600);
+		m_shell.setText("SWT Application");
+		m_shell.setLayout(new FillLayout());
+		//
+		m_tabFolder = new CTabFolder(m_shell, SWT.NONE);
+		m_tabFolder.setBackground(IColorConstants.button);
+		m_tabFolder.setSelectionBackground(IColorConstants.button);
+		{
+			FlyoutControlComposite flyoutComposite = createTab("WEST", IFlyoutPreferences.DOCK_WEST);
+			flyoutComposite.setValidDockLocations(IFlyoutPreferences.DOCK_WEST
+					| IFlyoutPreferences.DOCK_EAST);
+		}
+		createTab("EAST", IFlyoutPreferences.DOCK_EAST);
+		{
+			FlyoutControlComposite flyoutComposite = createTab("NORTH", IFlyoutPreferences.DOCK_NORTH);
+			flyoutComposite.setValidDockLocations(IFlyoutPreferences.DOCK_NORTH
+					| IFlyoutPreferences.DOCK_SOUTH);
+		}
+		createTab("SOUTH", IFlyoutPreferences.DOCK_SOUTH);
+	}
 
-  private FlyoutControlComposite createTab(String title, int dockLocation) {
-    CTabItem tabItem = new CTabItem(m_tabFolder, SWT.NONE);
-    tabItem.setText(title);
-    //
-    IFlyoutPreferences preferences =
-        new MemoryFlyoutPreferences(dockLocation, IFlyoutPreferences.STATE_OPEN, 200);
-    FlyoutControlComposite flyoutControlComposite =
-        new FlyoutControlComposite(m_tabFolder, SWT.NONE, preferences);
-    flyoutControlComposite.setTitleText("Structure");
-    {
-      Text flyout = new Text(flyoutControlComposite.getFlyoutParent(), SWT.BORDER);
-      flyout.setText("Flyout");
-    }
-    {
-      Text client = new Text(flyoutControlComposite.getClientParent(), SWT.BORDER);
-      client.setText("Client");
-    }
-    //
-    tabItem.setControl(flyoutControlComposite);
-    return flyoutControlComposite;
-  }
+	private FlyoutControlComposite createTab(String title, int dockLocation) {
+		CTabItem tabItem = new CTabItem(m_tabFolder, SWT.NONE);
+		tabItem.setText(title);
+		//
+		IFlyoutPreferences preferences =
+				new MemoryFlyoutPreferences(dockLocation, IFlyoutPreferences.STATE_OPEN, 200);
+		FlyoutControlComposite flyoutControlComposite =
+				new FlyoutControlComposite(m_tabFolder, SWT.NONE, preferences);
+		flyoutControlComposite.setTitleText("Structure");
+		{
+			Text flyout = new Text(flyoutControlComposite.getFlyoutParent(), SWT.BORDER);
+			flyout.setText("Flyout");
+		}
+		{
+			Text client = new Text(flyoutControlComposite.getClientParent(), SWT.BORDER);
+			client.setText("Client");
+		}
+		//
+		tabItem.setControl(flyoutControlComposite);
+		return flyoutControlComposite;
+	}
 }

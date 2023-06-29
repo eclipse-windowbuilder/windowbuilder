@@ -23,30 +23,30 @@ import java.awt.Dimension;
  * @coverage swing.property.converter
  */
 public final class DimensionConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new DimensionConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new DimensionConverter();
 
-  private DimensionConverter() {
-  }
+	private DimensionConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
-    if (value == null) {
-      return "(java.awt.Dimension) null";
-    } else {
-      Dimension dimension = (Dimension) value;
-      String widthSource = IntegerConverter.INSTANCE.toJavaSource(javaInfo, dimension.width);
-      String heightSource = IntegerConverter.INSTANCE.toJavaSource(javaInfo, dimension.height);
-      return "new java.awt.Dimension(" + widthSource + ", " + heightSource + ")";
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) throws Exception {
+		if (value == null) {
+			return "(java.awt.Dimension) null";
+		} else {
+			Dimension dimension = (Dimension) value;
+			String widthSource = IntegerConverter.INSTANCE.toJavaSource(javaInfo, dimension.width);
+			String heightSource = IntegerConverter.INSTANCE.toJavaSource(javaInfo, dimension.height);
+			return "new java.awt.Dimension(" + widthSource + ", " + heightSource + ")";
+		}
+	}
 }

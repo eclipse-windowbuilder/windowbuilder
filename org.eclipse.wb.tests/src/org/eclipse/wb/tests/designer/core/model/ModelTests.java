@@ -30,29 +30,29 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class ModelTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model");
-    suite.addTest(createSingleSuite(ObjectInfoTest.class));
-    suite.addTest(createSingleSuite(DefaultObjectPresentationTest.class));
-    suite.addTest(createSingleSuite(ObjectReferenceInfoTest.class));
-    suite.addTest(createSingleSuite(ClassLoadingTest.class));
-    suite.addTest(DescriptionTests.suite());
-    suite.addTest(createSingleSuite(JavaInfoTest.class));
-    suite.addTest(createSingleSuite(DefaultJavaInfoPresentationTest.class));
-    suite.addTest(createSingleSuite(AbstractComponentTest.class));
-    suite.addTest(UtilTests.suite());
-    suite.addTest(AssociationTests.suite());
-    suite.addTest(createSingleSuite(AddTest.class));
-    suite.addTest(createSingleSuite(DeleteTest.class));
-    suite.addTest(PropertiesTests.suite());
-    suite.addTest(ParserTests.suite());
-    suite.addTest(VariablesTests.suite());
-    suite.addTest(GenericTests.suite());
-    suite.addTest(createSingleSuite(NonVisualBeansTest.class));
-    suite.addTest(createSingleSuite(NonVisualBeansGefTest.class));
-    suite.addTest(createSingleSuite(ArrayObjectTest.class));
-    suite.addTest(createSingleSuite(WrapperInfoTest.class));
-    suite.addTest(createSingleSuite(EllipsisObjectInfoTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model");
+		suite.addTest(createSingleSuite(ObjectInfoTest.class));
+		suite.addTest(createSingleSuite(DefaultObjectPresentationTest.class));
+		suite.addTest(createSingleSuite(ObjectReferenceInfoTest.class));
+		suite.addTest(createSingleSuite(ClassLoadingTest.class));
+		suite.addTest(DescriptionTests.suite());
+		suite.addTest(createSingleSuite(JavaInfoTest.class));
+		suite.addTest(createSingleSuite(DefaultJavaInfoPresentationTest.class));
+		suite.addTest(createSingleSuite(AbstractComponentTest.class));
+		suite.addTest(UtilTests.suite());
+		suite.addTest(AssociationTests.suite());
+		suite.addTest(createSingleSuite(AddTest.class));
+		suite.addTest(createSingleSuite(DeleteTest.class));
+		suite.addTest(PropertiesTests.suite());
+		suite.addTest(ParserTests.suite());
+		suite.addTest(VariablesTests.suite());
+		suite.addTest(GenericTests.suite());
+		suite.addTest(createSingleSuite(NonVisualBeansTest.class));
+		suite.addTest(createSingleSuite(NonVisualBeansGefTest.class));
+		suite.addTest(createSingleSuite(ArrayObjectTest.class));
+		suite.addTest(createSingleSuite(WrapperInfoTest.class));
+		suite.addTest(createSingleSuite(EllipsisObjectInfoTest.class));
+		return suite;
+	}
 }

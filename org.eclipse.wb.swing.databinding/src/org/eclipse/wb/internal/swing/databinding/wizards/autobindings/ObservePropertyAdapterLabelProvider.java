@@ -20,24 +20,24 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.swing.wizard.auto
  */
 public final class ObservePropertyAdapterLabelProvider extends LabelProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LabelProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(Object element) {
-    ObservePropertyAdapter adapter = (ObservePropertyAdapter) element;
-    return adapter.getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LabelProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(Object element) {
+		ObservePropertyAdapter adapter = (ObservePropertyAdapter) element;
+		return adapter.getName();
+	}
 
-  @Override
-  public Image getImage(Object element) {
-    try {
-      ObservePropertyAdapter adapter = (ObservePropertyAdapter) element;
-      return adapter.getObserve().getPresentation().getImage();
-    } catch (Throwable e) {
-      return null;
-    }
-  }
+	@Override
+	public Image getImage(Object element) {
+		try {
+			ObservePropertyAdapter adapter = (ObservePropertyAdapter) element;
+			return adapter.getObserve().getPresentation().getImage();
+		} catch (Throwable e) {
+			return null;
+		}
+	}
 }

@@ -23,31 +23,31 @@ import org.eclipse.wb.internal.rcp.model.rcp.ViewPartLikeInfo;
  * @coverage rcp.gef.part
  */
 public final class ViewPartLikeEditPart extends WorkbenchPartLikeEditPart {
-  private final ViewPartLikeInfo m_part;
+	private final ViewPartLikeInfo m_part;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewPartLikeEditPart(ViewPartLikeInfo part) {
-    super(part);
-    m_part = part;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewPartLikeEditPart(ViewPartLikeInfo part) {
+		super(part);
+		m_part = part;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected EditPart createEditPart(Object model) {
-    if (model instanceof MenuManagerInfo) {
-      MenuManagerInfo manager = (MenuManagerInfo) model;
-      EditPart editPart = MenuEditPartFactory.createPopupMenu(model, m_part.getMenuImpl(manager));
-      EditPartFactory.configureEditPart(this, editPart);
-      return editPart;
-    }
-    return super.createEditPart(model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected EditPart createEditPart(Object model) {
+		if (model instanceof MenuManagerInfo) {
+			MenuManagerInfo manager = (MenuManagerInfo) model;
+			EditPart editPart = MenuEditPartFactory.createPopupMenu(model, m_part.getMenuImpl(manager));
+			EditPartFactory.configureEditPart(this, editPart);
+			return editPart;
+		}
+		return super.createEditPart(model);
+	}
 }

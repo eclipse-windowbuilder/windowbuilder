@@ -30,85 +30,85 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage rcp.gef.policy
  */
 public final class DialogButtonBarLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
-  private final CompositeInfo m_composite;
+	private final CompositeInfo m_composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogButtonBarLayoutEditPolicy(CompositeInfo composite) {
-    m_composite = composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogButtonBarLayoutEditPolicy(CompositeInfo composite) {
+		m_composite = composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return true;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof ControlInfo;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof ControlInfo;
+	}
 
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return super.isRequestCondition(request) || request instanceof DialogButtonDropRequest;
-  }
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return super.isRequestCondition(request) || request instanceof DialogButtonDropRequest;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final ILayoutRequestValidator VALIDATOR =
-      new ILayoutRequestValidator.LayoutRequestValidatorStubFalse() {
-        @Override
-        public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-          return true;
-        }
-      };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final ILayoutRequestValidator VALIDATOR =
+			new ILayoutRequestValidator.LayoutRequestValidatorStubFalse() {
+		@Override
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+			return true;
+		}
+	};
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCommand(Request request, Object referenceObject) {
-    if (request instanceof DialogButtonDropRequest) {
-      final DialogButtonDropRequest buttonRequest = (DialogButtonDropRequest) request;
-      final ControlInfo reference = (ControlInfo) referenceObject;
-      return new EditCommand(m_composite) {
-        @Override
-        protected void executeEdit() throws Exception {
-          ControlInfo newButton = DialogInfo.createButtonOnButtonBar(m_composite, reference);
-          buttonRequest.setButton(newButton);
-        }
-      };
-    }
-    return super.getCommand(request, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCommand(Request request, Object referenceObject) {
+		if (request instanceof DialogButtonDropRequest) {
+			final DialogButtonDropRequest buttonRequest = (DialogButtonDropRequest) request;
+			final ControlInfo reference = (ControlInfo) referenceObject;
+			return new EditCommand(m_composite) {
+				@Override
+				protected void executeEdit() throws Exception {
+					ControlInfo newButton = DialogInfo.createButtonOnButtonBar(m_composite, reference);
+					buttonRequest.setButton(newButton);
+				}
+			};
+		}
+		return super.getCommand(request, referenceObject);
+	}
 
-  @Override
-  protected Command getMoveCommand(Object moveObject, Object referenceObject) {
-    final ControlInfo button = (ControlInfo) moveObject;
-    final ControlInfo reference = (ControlInfo) referenceObject;
-    return new EditCommand(m_composite) {
-      @Override
-      protected void executeEdit() throws Exception {
-        DialogInfo.moveButtonOnButtonBar(button, reference);
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(Object moveObject, Object referenceObject) {
+		final ControlInfo button = (ControlInfo) moveObject;
+		final ControlInfo reference = (ControlInfo) referenceObject;
+		return new EditCommand(m_composite) {
+			@Override
+			protected void executeEdit() throws Exception {
+				DialogInfo.moveButtonOnButtonBar(button, reference);
+			}
+		};
+	}
 }

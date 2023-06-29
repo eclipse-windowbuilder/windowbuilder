@@ -25,15 +25,15 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class XmlTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xml");
-    suite.addTest(org.eclipse.wb.tests.designer.core.util.xml.XmlTests.suite());
-    suite.addTest(createSingleSuite(ActivatorTest.class));
-    suite.addTest(createSingleSuite(ClassLoadingTest.class));
-    suite.addTest(ModelTests.suite());
-    suite.addTest(XmlEditorTests.suite());
-    suite.addTest(GefTests.suite());
-    suite.addTest(PaletteTests.suite());
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xml");
+		suite.addTest(org.eclipse.wb.tests.designer.core.util.xml.XmlTests.suite());
+		suite.addTest(createSingleSuite(ActivatorTest.class));
+		suite.addTest(createSingleSuite(ClassLoadingTest.class));
+		suite.addTest(ModelTests.suite());
+		suite.addTest(XmlEditorTests.suite());
+		suite.addTest(GefTests.suite());
+		suite.addTest(PaletteTests.suite());
+		return suite;
+	}
 }

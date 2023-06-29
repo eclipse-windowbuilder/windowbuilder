@@ -60,232 +60,232 @@ import java.util.List;
  * @coverage rcp.model.jface
  */
 public final class FieldEditorInfo extends AbstractComponentInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FieldEditorInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    // support for copy/paste
-    addBroadcastListener(new JavaEventListener() {
-      @Override
-      public void clipboardCopy_Argument(JavaInfo javaInfo,
-          ParameterDescription parameter,
-          Expression argument,
-          String[] source) throws Exception {
-        if (javaInfo instanceof FieldEditorInfo && isParameterComposite(parameter)) {
-          source[0] = "%parentComposite%";
-        }
-      }
-    });
-    // remember Control's of FieldEditor
-    addBroadcastListener(new EvaluationEventListener() {
-      private final List<Object> m_beforeControls = Lists.newArrayList();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FieldEditorInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		// support for copy/paste
+		addBroadcastListener(new JavaEventListener() {
+			@Override
+			public void clipboardCopy_Argument(JavaInfo javaInfo,
+					ParameterDescription parameter,
+					Expression argument,
+					String[] source) throws Exception {
+				if (javaInfo instanceof FieldEditorInfo && isParameterComposite(parameter)) {
+					source[0] = "%parentComposite%";
+				}
+			}
+		});
+		// remember Control's of FieldEditor
+		addBroadcastListener(new EvaluationEventListener() {
+			private final List<Object> m_beforeControls = Lists.newArrayList();
 
-      @Override
-      public void evaluateBefore(EvaluationContext context, ASTNode node) throws Exception {
-        if (node == getCreationSupport().getNode()) {
-          m_beforeControls.clear();
-          appendControls(getShell(), m_beforeControls);
-        }
-      }
+			@Override
+			public void evaluateBefore(EvaluationContext context, ASTNode node) throws Exception {
+				if (node == getCreationSupport().getNode()) {
+					m_beforeControls.clear();
+					appendControls(getShell(), m_beforeControls);
+				}
+			}
 
-      @Override
-      public void evaluateAfter(EvaluationContext context, ASTNode node) throws Exception {
-        if (getRoot() instanceof PreferencePageInfo || getRoot() instanceof WorkbenchPartLikeInfo) {
-          ASTNode creationNode = getCreationSupport().getNode();
-          Statement creationStatement = AstNodeUtils.getEnclosingStatement(creationNode);
-          if (node == creationStatement) {
-            appendControls(getShell(), m_controls);
-            m_controls.removeAll(m_beforeControls);
-          }
-        }
-      }
+			@Override
+			public void evaluateAfter(EvaluationContext context, ASTNode node) throws Exception {
+				if (getRoot() instanceof PreferencePageInfo || getRoot() instanceof WorkbenchPartLikeInfo) {
+					ASTNode creationNode = getCreationSupport().getNode();
+					Statement creationStatement = AstNodeUtils.getEnclosingStatement(creationNode);
+					if (node == creationStatement) {
+						appendControls(getShell(), m_controls);
+						m_controls.removeAll(m_beforeControls);
+					}
+				}
+			}
 
-      /**
-       * @return the top level {@link Shell}
-       */
-      private Object getShell() {
-        ObjectInfo root = EditorState.getActiveJavaInfo().getRoot();
-        if (root instanceof PreferencePageInfo) {
-          return ((PreferencePageInfo) root).getShell();
-        } else if (root instanceof WorkbenchPartLikeInfo) {
-          return ((WorkbenchPartLikeInfo) root).getShell();
-        }
-        return null;
-      }
-    });
-  }
+			/**
+			 * @return the top level {@link Shell}
+			 */
+			private Object getShell() {
+				ObjectInfo root = EditorState.getActiveJavaInfo().getRoot();
+				if (root instanceof PreferencePageInfo) {
+					return ((PreferencePageInfo) root).getShell();
+				} else if (root instanceof WorkbenchPartLikeInfo) {
+					return ((WorkbenchPartLikeInfo) root).getShell();
+				}
+				return null;
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createExposedChildren() throws Exception {
-    super.createExposedChildren();
-    String exposedMethodsString = JavaInfoUtils.getParameter(this, "FieldEditor.exposeMethods");
-    if (exposedMethodsString != null) {
-      for (String exposedMethodName : StringUtils.split(exposedMethodsString)) {
-        Method exposeMethod =
-            ReflectionUtils.getMethodBySignature(
-                getDescription().getComponentClass(),
-                exposedMethodName + "(org.eclipse.swt.widgets.Composite)");
-        Assert.isNotNull(
-            exposeMethod,
-            "Unable to find expose method %s(Composite) for %s.",
-            exposedMethodName,
-            getDescription().getComponentClass());
-        // create sub-component
-        ControlInfo subComponent =
-            (ControlInfo) JavaInfoUtils.createJavaInfo(
-                getEditor(),
-                exposeMethod.getReturnType(),
-                new FieldEditorSubComponentCreationSupport(this, exposeMethod));
-        {
-          VariableSupport variableSupport =
-              new FieldEditorSubComponentVariableSupport(subComponent, this, exposeMethod);
-          subComponent.setVariableSupport(variableSupport);
-        }
-        subComponent.setAssociation(new ImplicitObjectAssociation(this));
-        // should be initialized
-        Assert.isNotNull(
-            subComponent.getObject(),
-            "Sub-component %s is not initialized in %s.",
-            exposedMethodName,
-            this);
-        // add sub-component
-        addChild(subComponent);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createExposedChildren() throws Exception {
+		super.createExposedChildren();
+		String exposedMethodsString = JavaInfoUtils.getParameter(this, "FieldEditor.exposeMethods");
+		if (exposedMethodsString != null) {
+			for (String exposedMethodName : StringUtils.split(exposedMethodsString)) {
+				Method exposeMethod =
+						ReflectionUtils.getMethodBySignature(
+								getDescription().getComponentClass(),
+								exposedMethodName + "(org.eclipse.swt.widgets.Composite)");
+				Assert.isNotNull(
+						exposeMethod,
+						"Unable to find expose method %s(Composite) for %s.",
+						exposedMethodName,
+						getDescription().getComponentClass());
+				// create sub-component
+				ControlInfo subComponent =
+						(ControlInfo) JavaInfoUtils.createJavaInfo(
+								getEditor(),
+								exposeMethod.getReturnType(),
+								new FieldEditorSubComponentCreationSupport(this, exposeMethod));
+				{
+					VariableSupport variableSupport =
+							new FieldEditorSubComponentVariableSupport(subComponent, this, exposeMethod);
+					subComponent.setVariableSupport(variableSupport);
+				}
+				subComponent.setAssociation(new ImplicitObjectAssociation(this));
+				// should be initialized
+				Assert.isNotNull(
+						subComponent.getObject(),
+						"Sub-component %s is not initialized in %s.",
+						exposedMethodName,
+						this);
+				// add sub-component
+				addChild(subComponent);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given {@link ParameterDescription} is "parentComposite" that
-   *         should be passed into each {@link FieldEditor} constructor.
-   */
-  static boolean isParameterComposite(ParameterDescription parameter) {
-    return parameter.hasTrueTag("parentComposite");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given {@link ParameterDescription} is "parentComposite" that
+	 *         should be passed into each {@link FieldEditor} constructor.
+	 */
+	static boolean isParameterComposite(ParameterDescription parameter) {
+		return parameter.hasTrueTag("parentComposite");
+	}
 
-  /**
-   * @return the {@link ControlInfo} children (exposed).
-   */
-  public List<ControlInfo> getChildControls() {
-    return getChildren(ControlInfo.class);
-  }
+	/**
+	 * @return the {@link ControlInfo} children (exposed).
+	 */
+	public List<ControlInfo> getChildControls() {
+		return getChildren(ControlInfo.class);
+	}
 
-  @Override
-  public Object getComponentObject() {
-    if (!m_controls.isEmpty()) {
-      if (ContainerSupport.isComposite(m_controls.get(0))) {
-        return m_controls.get(0);
-      } else {
-        return ((AbstractComponentInfo) getParent()).getComponentObject();
-      }
-    }
-    return super.getComponentObject();
-  }
+	@Override
+	public Object getComponentObject() {
+		if (!m_controls.isEmpty()) {
+			if (ContainerSupport.isComposite(m_controls.get(0))) {
+				return m_controls.get(0);
+			} else {
+				return ((AbstractComponentInfo) getParent()).getComponentObject();
+			}
+		}
+		return super.getComponentObject();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenGraphical() throws Exception {
-      return ImmutableList.of();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenGraphical() throws Exception {
+			return ImmutableList.of();
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final List<Object> m_controls = Lists.newArrayList();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final List<Object> m_controls = Lists.newArrayList();
 
-  /**
-   * Appends direct/indirect children of given {@link Control}.
-   */
-  private static void appendControls(Object control, List<Object> controls) throws Exception {
-    if (control == null) {
-      return;
-    }
-    controls.add(control);
-    if (ContainerSupport.isComposite(control)) {
-      Object[] children = ContainerSupport.getChildren(control);
-      for (Object child : children) {
-        appendControls(child, controls);
-      }
-    }
-  }
+	/**
+	 * Appends direct/indirect children of given {@link Control}.
+	 */
+	private static void appendControls(Object control, List<Object> controls) throws Exception {
+		if (control == null) {
+			return;
+		}
+		controls.add(control);
+		if (ContainerSupport.isComposite(control)) {
+			Object[] children = ContainerSupport.getChildren(control);
+			for (Object child : children) {
+				appendControls(child, controls);
+			}
+		}
+	}
 
-  @Override
-  public void refresh_dispose() throws Exception {
-    m_controls.clear();
-    super.refresh_dispose();
-  }
+	@Override
+	public void refresh_dispose() throws Exception {
+		m_controls.clear();
+		super.refresh_dispose();
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    // prepare enclosing bounds for FieldEditor Control's
-    Assert.isLegal(!m_controls.isEmpty());
-    if (ContainerSupport.isComposite(m_controls.get(0))) {
-      Object composite = m_controls.get(0);
-      ControlInfo.refresh_fetch(this, composite, null);
-    } else {
-      // keep only "top level" Control's, remove any children
-      for (Iterator<Object> I = m_controls.iterator(); I.hasNext();) {
-        Object control = I.next();
-        do {
-          control = ControlSupport.getParent(control);
-          if (m_controls.contains(control)) {
-            I.remove();
-            break;
-          }
-        } while (control != null);
-      }
-      // prepare "bounds" as intersection of all Control's
-      Rectangle bounds = new Rectangle();
-      for (Object control : m_controls) {
-        Rectangle controlBounds = ControlSupport.getBounds(control);
-        if (bounds.isEmpty()) {
-          bounds = controlBounds;
-        } else {
-          bounds.union(controlBounds);
-        }
-      }
-      // model bounds
-      setModelBounds(bounds.getCopy());
-      // convert into "shot"
-      {
-        Object control = m_controls.get(0);
-        Object parentControl = ((AbstractComponentInfo) getParent()).getComponentObject();
-        Point controlLocation = CoordinateUtils.getDisplayLocation(control, bounds.x, bounds.y);
-        Point parentLocation = CoordinateUtils.getDisplayLocation(parentControl);
-        bounds.x = controlLocation.x - parentLocation.x;
-        bounds.y = controlLocation.y - parentLocation.y;
-      }
-      // remember
-      setBounds(bounds);
-    }
-    // process children
-    super.refresh_fetch();
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		// prepare enclosing bounds for FieldEditor Control's
+		Assert.isLegal(!m_controls.isEmpty());
+		if (ContainerSupport.isComposite(m_controls.get(0))) {
+			Object composite = m_controls.get(0);
+			ControlInfo.refresh_fetch(this, composite, null);
+		} else {
+			// keep only "top level" Control's, remove any children
+			for (Iterator<Object> I = m_controls.iterator(); I.hasNext();) {
+				Object control = I.next();
+				do {
+					control = ControlSupport.getParent(control);
+					if (m_controls.contains(control)) {
+						I.remove();
+						break;
+					}
+				} while (control != null);
+			}
+			// prepare "bounds" as intersection of all Control's
+			Rectangle bounds = new Rectangle();
+			for (Object control : m_controls) {
+				Rectangle controlBounds = ControlSupport.getBounds(control);
+				if (bounds.isEmpty()) {
+					bounds = controlBounds;
+				} else {
+					bounds.union(controlBounds);
+				}
+			}
+			// model bounds
+			setModelBounds(bounds.getCopy());
+			// convert into "shot"
+			{
+				Object control = m_controls.get(0);
+				Object parentControl = ((AbstractComponentInfo) getParent()).getComponentObject();
+				Point controlLocation = CoordinateUtils.getDisplayLocation(control, bounds.x, bounds.y);
+				Point parentLocation = CoordinateUtils.getDisplayLocation(parentControl);
+				bounds.x = controlLocation.x - parentLocation.x;
+				bounds.y = controlLocation.y - parentLocation.y;
+			}
+			// remember
+			setBounds(bounds);
+		}
+		// process children
+		super.refresh_fetch();
+	}
 }

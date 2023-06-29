@@ -29,52 +29,52 @@ import java.util.Map;
  * @coverage core.model.description
  */
 public final class LayoutDescriptionHelper {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LayoutDescriptionHelper() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LayoutDescriptionHelper() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final String POINT_ID = "org.eclipse.wb.core.layoutManagers";
-  private static final Map<ToolkitDescription, List<LayoutDescription>> m_layouts =
-      Maps.newHashMap();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final String POINT_ID = "org.eclipse.wb.core.layoutManagers";
+	private static final Map<ToolkitDescription, List<LayoutDescription>> m_layouts =
+			Maps.newHashMap();
 
-  /**
-   * @return the {@link List} of {@link LayoutDescription}'s contributed for given toolkit.
-   */
-  public static List<LayoutDescription> get(ToolkitDescription toolkit) {
-    List<LayoutDescription> layouts = m_layouts.get(toolkit);
-    if (layouts == null) {
-      layouts = Lists.newArrayList();
-      m_layouts.put(toolkit, layouts);
-      //
-      for (IConfigurationElement element : ExternalFactoriesHelper.getElements(POINT_ID, "layout")) {
-        String toolkitId = ExternalFactoriesHelper.getRequiredAttribute(element, "toolkit");
-        if (toolkitId.equals(toolkit.getId())) {
-          layouts.add(new LayoutDescription(toolkit, element));
-        }
-      }
-    }
-    return layouts;
-  }
+	/**
+	 * @return the {@link List} of {@link LayoutDescription}'s contributed for given toolkit.
+	 */
+	public static List<LayoutDescription> get(ToolkitDescription toolkit) {
+		List<LayoutDescription> layouts = m_layouts.get(toolkit);
+		if (layouts == null) {
+			layouts = Lists.newArrayList();
+			m_layouts.put(toolkit, layouts);
+			//
+			for (IConfigurationElement element : ExternalFactoriesHelper.getElements(POINT_ID, "layout")) {
+				String toolkitId = ExternalFactoriesHelper.getRequiredAttribute(element, "toolkit");
+				if (toolkitId.equals(toolkit.getId())) {
+					layouts.add(new LayoutDescription(toolkit, element));
+				}
+			}
+		}
+		return layouts;
+	}
 
-  /**
-   * @return the {@link LayoutDescription} with given id, or <code>null</code> if not found.
-   */
-  public static LayoutDescription get(ToolkitDescription toolkit, String id) {
-    for (LayoutDescription layout : get(toolkit)) {
-      if (layout.getId().equals(id)) {
-        return layout;
-      }
-    }
-    // not found
-    return null;
-  }
+	/**
+	 * @return the {@link LayoutDescription} with given id, or <code>null</code> if not found.
+	 */
+	public static LayoutDescription get(ToolkitDescription toolkit, String id) {
+		for (LayoutDescription layout : get(toolkit)) {
+			if (layout.getId().equals(id)) {
+				return layout;
+			}
+		}
+		// not found
+		return null;
+	}
 }

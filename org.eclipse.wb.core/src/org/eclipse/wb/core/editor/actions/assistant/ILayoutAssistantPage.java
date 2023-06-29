@@ -17,13 +17,13 @@ package org.eclipse.wb.core.editor.actions.assistant;
  * @coverage core.editor.action.assistant
  */
 public interface ILayoutAssistantPage {
-  /**
-   * @return <code>true</code> if this page handle valid objects.
-   */
-  boolean isPageValid();
+	/**
+	 * @return <code>true</code> if this page handle valid objects.
+	 */
+	boolean isPageValid();
 
-  /**
-   * Notifies page that it should update its controls from model.
-   */
-  void updatePage();
+	/**
+	 * Notifies page that it should update its controls from model.
+	 */
+	void updatePage();
 }

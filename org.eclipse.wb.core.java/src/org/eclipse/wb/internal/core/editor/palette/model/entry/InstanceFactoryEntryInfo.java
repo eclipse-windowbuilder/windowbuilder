@@ -38,124 +38,124 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class InstanceFactoryEntryInfo extends FactoryEntryInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public InstanceFactoryEntryInfo() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public InstanceFactoryEntryInfo() {
+	}
 
-  public InstanceFactoryEntryInfo(CategoryInfo categoryInfo,
-      String factoryClassName,
-      AttributesProvider attributes) {
-    super(categoryInfo, factoryClassName, attributes);
-  }
+	public InstanceFactoryEntryInfo(CategoryInfo categoryInfo,
+			String factoryClassName,
+			AttributesProvider attributes) {
+		super(categoryInfo, factoryClassName, attributes);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "InstanceFactoryMethod(class='"
-        + m_factoryClassName
-        + "' signature='"
-        + m_methodSignature
-        + "')";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "InstanceFactoryMethod(class='"
+				+ m_factoryClassName
+				+ "' signature='"
+				+ m_methodSignature
+				+ "')";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isStaticFactory() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isStaticFactory() {
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ToolEntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Tool createTool() throws Exception {
-    if (!ensureComponentDescription()) {
-      return null;
-    }
-    // prepare instance factory
-    final InstanceFactoryInfo factoryInfo;
-    {
-      factoryInfo = getFactory();
-      if (factoryInfo == null) {
-        return null;
-      }
-    }
-    // prepare creation factory
-    ICreationFactory creationFactory = new ICreationFactory() {
-      private JavaInfo m_javaInfo;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ToolEntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Tool createTool() throws Exception {
+		if (!ensureComponentDescription()) {
+			return null;
+		}
+		// prepare instance factory
+		final InstanceFactoryInfo factoryInfo;
+		{
+			factoryInfo = getFactory();
+			if (factoryInfo == null) {
+				return null;
+			}
+		}
+		// prepare creation factory
+		ICreationFactory creationFactory = new ICreationFactory() {
+			private JavaInfo m_javaInfo;
 
-      @Override
-      public void activate() throws Exception {
-        CreationSupport creationSupport =
-            new InstanceFactoryCreationSupport(factoryInfo, m_methodDescription);
-        m_javaInfo = createJavaInfo(creationSupport);
-        m_javaInfo = JavaInfoUtils.getWrapped(m_javaInfo);
-        m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
-      }
+			@Override
+			public void activate() throws Exception {
+				CreationSupport creationSupport =
+						new InstanceFactoryCreationSupport(factoryInfo, m_methodDescription);
+				m_javaInfo = createJavaInfo(creationSupport);
+				m_javaInfo = JavaInfoUtils.getWrapped(m_javaInfo);
+				m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
+			}
 
-      @Override
-      public Object getNewObject() {
-        return m_javaInfo;
-      }
-    };
-    // return tool
-    return new CreationTool(creationFactory);
-  }
+			@Override
+			public Object getNewObject() {
+				return m_javaInfo;
+			}
+		};
+		// return tool
+		return new CreationTool(creationFactory);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the single {@link InstanceFactoryInfo} - existing or newly added.
-   */
-  private InstanceFactoryInfo getFactory() throws Exception {
-    List<InstanceFactoryInfo> factories =
-        InstanceFactoryInfo.getFactories(m_rootJavaInfo, m_factoryClass);
-    // single factory
-    if (factories.size() == 1) {
-      return factories.get(0);
-    }
-    // no factories
-    if (factories.size() == 0) {
-      final InstanceFactoryInfo[] result = new InstanceFactoryInfo[1];
-      ExecutionUtils.run(m_rootJavaInfo, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          result[0] = InstanceFactoryInfo.add(m_rootJavaInfo, m_factoryClass);
-        }
-      });
-      return result[0];
-    }
-    // more than one factory
-    {
-      // prepare dialog
-      ElementListSelectionDialog dialog;
-      {
-        Shell shell = DesignerPlugin.getShell();
-        dialog = new ElementListSelectionDialog(shell, ObjectsLabelProvider.INSTANCE);
-        dialog.setTitle(Messages.InstanceFactoryEntryInfo_selectFactoryTitle);
-        dialog.setMessage(Messages.InstanceFactoryEntryInfo_selectFactoryMessage);
-      }
-      // open dialog
-      dialog.setElements(factories.toArray());
-      dialog.open();
-      return (InstanceFactoryInfo) dialog.getFirstResult();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the single {@link InstanceFactoryInfo} - existing or newly added.
+	 */
+	private InstanceFactoryInfo getFactory() throws Exception {
+		List<InstanceFactoryInfo> factories =
+				InstanceFactoryInfo.getFactories(m_rootJavaInfo, m_factoryClass);
+		// single factory
+		if (factories.size() == 1) {
+			return factories.get(0);
+		}
+		// no factories
+		if (factories.size() == 0) {
+			final InstanceFactoryInfo[] result = new InstanceFactoryInfo[1];
+			ExecutionUtils.run(m_rootJavaInfo, new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					result[0] = InstanceFactoryInfo.add(m_rootJavaInfo, m_factoryClass);
+				}
+			});
+			return result[0];
+		}
+		// more than one factory
+		{
+			// prepare dialog
+			ElementListSelectionDialog dialog;
+			{
+				Shell shell = DesignerPlugin.getShell();
+				dialog = new ElementListSelectionDialog(shell, ObjectsLabelProvider.INSTANCE);
+				dialog.setTitle(Messages.InstanceFactoryEntryInfo_selectFactoryTitle);
+				dialog.setMessage(Messages.InstanceFactoryEntryInfo_selectFactoryMessage);
+			}
+			// open dialog
+			dialog.setElements(factories.toArray());
+			dialog.open();
+			return (InstanceFactoryInfo) dialog.getFirstResult();
+		}
+	}
 }

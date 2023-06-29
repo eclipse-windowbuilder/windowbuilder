@@ -24,29 +24,29 @@ import org.eclipse.swt.custom.CTabItem;
  * @coverage rcp.model.widgets
  */
 public final class CTabItemInfo extends AbstractTabItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CTabItemInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CTabItemInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    // set bounds
-    {
-      CTabItem item = (CTabItem) getObject();
-      setModelBounds(RectangleSupport.getRectangle(item.getBounds()));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		// set bounds
+		{
+			CTabItem item = (CTabItem) getObject();
+			setModelBounds(RectangleSupport.getRectangle(item.getBounds()));
+		}
+	}
 }

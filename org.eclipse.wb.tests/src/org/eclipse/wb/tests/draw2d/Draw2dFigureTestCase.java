@@ -22,21 +22,21 @@ import junit.framework.TestCase;
  *
  */
 public abstract class Draw2dFigureTestCase extends TestCase
-    implements
-      IColorConstants,
-      ICursorConstants {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Draw2dFigureTestCase(Class<?> _class) {
-    super(_class.getName());
-  }
+implements
+IColorConstants,
+ICursorConstants {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Draw2dFigureTestCase(Class<?> _class) {
+		super(_class.getName());
+	}
 
-  @Override
-  protected void setUp() throws Exception {
-    // check create display for initialize figure's colors
-    Display.getDefault();
-  }
+	@Override
+	protected void setUp() throws Exception {
+		// check create display for initialize figure's colors
+		Display.getDefault();
+	}
 }

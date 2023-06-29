@@ -24,60 +24,60 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class ChangeLayoutTest extends RcpGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Canvas
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_removeSelectionPolicy_whenDropFillLayout() throws Exception {
-    CompositeInfo composite =
-        openComposite(
-            "public class Test extends Composite {",
-            "  public Test(Composite parent, int style) {",
-            "    super(parent, style);",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(0, 0, 100, 20);",
-            "    }",
-            "  }",
-            "}");
-    ControlInfo button = composite.getChildrenControls().get(0);
-    GraphicalEditPart buttonPart = canvas.getEditPart(button);
-    // initially Button has "absolute" selection policy
-    {
-      EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
-      assertThat(policy).isNotNull();
-      assertThat(policy.toString()).contains("AbsoluteLayoutSelectionEditPolicy");
-    }
-    // drop FillLayout
-    loadCreationTool("org.eclipse.swt.layout.FillLayout");
-    canvas.create();
-    canvas.target(composite).in(10, 10).move();
-    canvas.click();
-    assertEditor(
-        "public class Test extends Composite {",
-        "  public Test(Composite parent, int style) {",
-        "    super(parent, style);",
-        "    setLayout(new FillLayout(SWT.HORIZONTAL));",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "    }",
-        "  }",
-        "}");
-    // FillLayout uses "non-resizable" selection policy
-    {
-      EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
-      assertThat(policy).isNotNull();
-      assertThat(policy.toString()).contains("NonResizableSelectionEditPolicy");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Canvas
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_removeSelectionPolicy_whenDropFillLayout() throws Exception {
+		CompositeInfo composite =
+				openComposite(
+						"public class Test extends Composite {",
+						"  public Test(Composite parent, int style) {",
+						"    super(parent, style);",
+						"    {",
+						"      Button button = new Button(this, SWT.NONE);",
+						"      button.setBounds(0, 0, 100, 20);",
+						"    }",
+						"  }",
+						"}");
+		ControlInfo button = composite.getChildrenControls().get(0);
+		GraphicalEditPart buttonPart = canvas.getEditPart(button);
+		// initially Button has "absolute" selection policy
+		{
+			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
+			assertThat(policy).isNotNull();
+			assertThat(policy.toString()).contains("AbsoluteLayoutSelectionEditPolicy");
+		}
+		// drop FillLayout
+		loadCreationTool("org.eclipse.swt.layout.FillLayout");
+		canvas.create();
+		canvas.target(composite).in(10, 10).move();
+		canvas.click();
+		assertEditor(
+				"public class Test extends Composite {",
+				"  public Test(Composite parent, int style) {",
+				"    super(parent, style);",
+				"    setLayout(new FillLayout(SWT.HORIZONTAL));",
+				"    {",
+				"      Button button = new Button(this, SWT.NONE);",
+				"    }",
+				"  }",
+				"}");
+		// FillLayout uses "non-resizable" selection policy
+		{
+			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
+			assertThat(policy).isNotNull();
+			assertThat(policy.toString()).contains("NonResizableSelectionEditPolicy");
+		}
+	}
 }

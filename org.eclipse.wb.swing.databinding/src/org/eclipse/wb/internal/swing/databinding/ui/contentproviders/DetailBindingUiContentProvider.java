@@ -24,35 +24,35 @@ import java.util.List;
  * @coverage bindings.swing.ui
  */
 public final class DetailBindingUiContentProvider extends ChooseClassAndPropertiesUiContentProvider {
-  private final DetailBindingInfo m_binding;
+	private final DetailBindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DetailBindingUiContentProvider(ChooseClassAndPropertiesConfiguration configuration,
-      DetailBindingInfo binding) {
-    super(configuration);
-    m_binding = binding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DetailBindingUiContentProvider(ChooseClassAndPropertiesConfiguration configuration,
+			DetailBindingInfo binding) {
+		super(configuration);
+		m_binding = binding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    String elementClassName = m_binding.getJListBinding().getInputElementType().getFullTypeName();
-    setClassNameAndProperty(
-        StringUtils.substringBefore(elementClassName, "<")
-            + StringUtils.substringAfterLast(elementClassName, ">"),
-        m_binding.getDetailProperty());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		String elementClassName = m_binding.getJListBinding().getInputElementType().getFullTypeName();
+		setClassNameAndProperty(
+				StringUtils.substringBefore(elementClassName, "<")
+				+ StringUtils.substringAfterLast(elementClassName, ">"),
+				m_binding.getDetailProperty());
+	}
 
-  @Override
-  protected void saveToObject0(Class<?> choosenClass, List<PropertyInfo> choosenProperties)
-      throws Exception {
-    m_binding.setDetailProperty(choosenProperties.get(0));
-  }
+	@Override
+	protected void saveToObject0(Class<?> choosenClass, List<PropertyInfo> choosenProperties)
+			throws Exception {
+		m_binding.setDetailProperty(choosenProperties.get(0));
+	}
 }

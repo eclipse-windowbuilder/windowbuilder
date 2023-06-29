@@ -29,47 +29,47 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage swing.FormLayout.ui
  */
 public final class FormLayoutPreferencePage extends AbstractBindingPreferencesPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormLayoutPreferencePage() {
-    super(Activator.getStore());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormLayoutPreferencePage() {
+		super(Activator.getStore());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractBindingComposite createBindingComposite(Composite parent) {
-    return new ContentsComposite(parent, m_bindManager, m_preferences);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractBindingComposite createBindingComposite(Composite parent) {
+		return new ContentsComposite(parent, m_bindManager, m_preferences);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Contents
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private class ContentsComposite extends AbstractBindingComposite {
-    public ContentsComposite(Composite parent,
-        DataBindManager bindManager,
-        IPreferenceStore preferences) {
-      super(parent, bindManager, preferences);
-      GridLayoutFactory.create(this).noMargins().columns(2);
-      // boolean preferences
-      checkButton(
-          this,
-          2,
-          PreferencesMessages.FormLayoutPreferencePage_useGrab,
-          IPreferenceConstants.P_ENABLE_GRAB);
-      checkButton(
-          this,
-          2,
-          PreferencesMessages.FormLayoutPreferencePage_rightAlignment,
-          IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Contents
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private class ContentsComposite extends AbstractBindingComposite {
+		public ContentsComposite(Composite parent,
+				DataBindManager bindManager,
+				IPreferenceStore preferences) {
+			super(parent, bindManager, preferences);
+			GridLayoutFactory.create(this).noMargins().columns(2);
+			// boolean preferences
+			checkButton(
+					this,
+					2,
+					PreferencesMessages.FormLayoutPreferencePage_useGrab,
+					IPreferenceConstants.P_ENABLE_GRAB);
+			checkButton(
+					this,
+					2,
+					PreferencesMessages.FormLayoutPreferencePage_rightAlignment,
+					IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT);
+		}
+	}
 }

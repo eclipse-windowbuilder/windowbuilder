@@ -24,16 +24,16 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
  * @coverage XWT.model.forms
  */
 public final class ExpandableCompositeInfo extends AbstractPositionCompositeInfo {
-  private static final String[] POSITIONS = {"textClient", "client"};
+	private static final String[] POSITIONS = {"textClient", "client"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExpandableCompositeInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport, POSITIONS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExpandableCompositeInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport, POSITIONS);
+	}
 }

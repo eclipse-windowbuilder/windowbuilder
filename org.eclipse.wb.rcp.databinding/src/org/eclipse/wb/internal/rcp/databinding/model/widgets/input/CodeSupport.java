@@ -22,15 +22,15 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public abstract class CodeSupport extends AstObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Generate source code association with this object and add to <code>lines</code>.
-   */
-  @Override
-  public abstract void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Generate source code association with this object and add to <code>lines</code>.
+	 */
+	@Override
+	public abstract void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception;
 }

@@ -25,41 +25,41 @@ import org.eclipse.swt.SWT;
  * @coverage bindings.swing.ui
  */
 public final class UpdateStrategyUiContentProvider extends DialogFieldUiContentProvider {
-  private final UpdateStrategyInfo m_strategyInfo;
-  private final ComboDialogField m_dialogField;
+	private final UpdateStrategyInfo m_strategyInfo;
+	private final ComboDialogField m_dialogField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UpdateStrategyUiContentProvider(UpdateStrategyInfo strategyInfo) {
-    m_strategyInfo = strategyInfo;
-    m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
-    m_dialogField.setLabelText(Messages.UpdateStrategyUiContentProvider_label);
-    m_dialogField.setItems(UpdateStrategyInfo.VALUES);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UpdateStrategyUiContentProvider(UpdateStrategyInfo strategyInfo) {
+		m_strategyInfo = strategyInfo;
+		m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
+		m_dialogField.setLabelText(Messages.UpdateStrategyUiContentProvider_label);
+		m_dialogField.setItems(UpdateStrategyInfo.VALUES);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractUIContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public DialogField getDialogField() {
-    return m_dialogField;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractUIContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DialogField getDialogField() {
+		return m_dialogField;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    m_dialogField.selectItem(m_strategyInfo.getStrategyValue());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		m_dialogField.selectItem(m_strategyInfo.getStrategyValue());
+	}
 
-  public void saveToObject() throws Exception {
-    m_strategyInfo.setStrategyValue(m_dialogField.getText());
-  }
+	public void saveToObject() throws Exception {
+		m_strategyInfo.setStrategyValue(m_dialogField.getText());
+	}
 }

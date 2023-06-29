@@ -22,32 +22,32 @@ import java.lang.reflect.Constructor;
  * @coverage swt.support
  */
 public class FormLayoutSupport extends AbstractSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // FormLayout
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create new {@link org.eclipse.swt.layout.FormData}.
-   */
-  public static Object createFormData() throws Exception {
-    return loadClass("org.eclipse.swt.layout.FormData").newInstance();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// FormLayout
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create new {@link org.eclipse.swt.layout.FormData}.
+	 */
+	public static Object createFormData() throws Exception {
+		return loadClass("org.eclipse.swt.layout.FormData").newInstance();
+	}
 
-  /**
-   * Create new {@link org.eclipse.swt.layout.FormAttachment}.
-   */
-  public static Object createFormAttachment() throws Exception {
-    Class<?> clazz = getFormAttachmentClass();
-    // use ctor with two parameters
-    Constructor<?> twoParamsConstructor = clazz.getConstructor(int.class, int.class);
-    return twoParamsConstructor.newInstance(0, 0);
-  }
+	/**
+	 * Create new {@link org.eclipse.swt.layout.FormAttachment}.
+	 */
+	public static Object createFormAttachment() throws Exception {
+		Class<?> clazz = getFormAttachmentClass();
+		// use ctor with two parameters
+		Constructor<?> twoParamsConstructor = clazz.getConstructor(int.class, int.class);
+		return twoParamsConstructor.newInstance(0, 0);
+	}
 
-  /**
-   * @return a {@link Class} of {@link FormAttachment}.
-   */
-  public static Class<?> getFormAttachmentClass() throws Exception {
-    return loadClass("org.eclipse.swt.layout.FormAttachment");
-  }
+	/**
+	 * @return a {@link Class} of {@link FormAttachment}.
+	 */
+	public static Class<?> getFormAttachmentClass() throws Exception {
+		return loadClass("org.eclipse.swt.layout.FormAttachment");
+	}
 }

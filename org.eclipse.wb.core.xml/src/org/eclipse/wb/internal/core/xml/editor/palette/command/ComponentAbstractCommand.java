@@ -22,47 +22,47 @@ import org.xml.sax.Attributes;
  * @coverage XML.editor.palette
  */
 public abstract class ComponentAbstractCommand extends AbstractElementCommand {
-  protected final String m_className;
+	protected final String m_className;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComponentAbstractCommand(String id,
-      String name,
-      String description,
-      boolean visible,
-      String className) {
-    super(id, name, description, visible);
-    m_className = className;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComponentAbstractCommand(String id,
+			String name,
+			String description,
+			boolean visible,
+			String className) {
+		super(id, name, description, visible);
+		m_className = className;
+	}
 
-  public ComponentAbstractCommand(Attributes attributes) {
-    super(attributes);
-    m_className = attributes.getValue("class");
-  }
+	public ComponentAbstractCommand(Attributes attributes) {
+		super(attributes);
+		m_className = attributes.getValue("class");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final void updateElement(AbstractElementInfo element) {
-    super.updateElement(element);
-    ComponentEntryInfo component = (ComponentEntryInfo) element;
-    component.setComponentClassName(m_className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final void updateElement(AbstractElementInfo element) {
+		super.updateElement(element);
+		ComponentEntryInfo component = (ComponentEntryInfo) element;
+		component.setComponentClassName(m_className);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    super.addAttributes();
-    addAttribute("class", m_className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		super.addAttributes();
+		addAttribute("class", m_className);
+	}
 }

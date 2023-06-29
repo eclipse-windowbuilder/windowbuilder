@@ -20,15 +20,15 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model
  */
 public abstract class XmlObjectAdd {
-  /**
-   * Before {@link XmlObjectInfo} added to its parent.
-   */
-  public void before(ObjectInfo parent, XmlObjectInfo child) throws Exception {
-  }
+	/**
+	 * Before {@link XmlObjectInfo} added to its parent.
+	 */
+	public void before(ObjectInfo parent, XmlObjectInfo child) throws Exception {
+	}
 
-  /**
-   * After {@link XmlObjectInfo} add to its parent.
-   */
-  public void after(ObjectInfo parent, XmlObjectInfo child) throws Exception {
-  }
+	/**
+	 * After {@link XmlObjectInfo} add to its parent.
+	 */
+	public void after(ObjectInfo parent, XmlObjectInfo child) throws Exception {
+	}
 }

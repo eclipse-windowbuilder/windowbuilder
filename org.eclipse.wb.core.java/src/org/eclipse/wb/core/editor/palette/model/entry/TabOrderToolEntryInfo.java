@@ -28,37 +28,37 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class TabOrderToolEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = DesignerPlugin.getImage("palette/tab_order.gif");
+	private static final Image ICON = DesignerPlugin.getImage("palette/tab_order.gif");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TabOrderToolEntryInfo() {
-    setName(Messages.TabOrderToolEntryInfo_name);
-    setDescription(Messages.TabOrderToolEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TabOrderToolEntryInfo() {
+		setName(Messages.TabOrderToolEntryInfo_name);
+		setDescription(Messages.TabOrderToolEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Tool createTool() throws Exception {
-    List<EditPart> selectedParts = m_editPartViewer.getSelectedEditParts();
-    if (selectedParts.size() == 1) {
-      EditPart editPart = selectedParts.get(0);
-      if (TabOrderTool.hasContainerRole(editPart)) {
-        return new TabOrderTool(editPart);
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Tool createTool() throws Exception {
+		List<EditPart> selectedParts = m_editPartViewer.getSelectedEditParts();
+		if (selectedParts.size() == 1) {
+			EditPart editPart = selectedParts.get(0);
+			if (TabOrderTool.hasContainerRole(editPart)) {
+				return new TabOrderTool(editPart);
+			}
+		}
+		return null;
+	}
 
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 }

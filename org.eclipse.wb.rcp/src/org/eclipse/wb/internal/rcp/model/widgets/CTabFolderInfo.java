@@ -26,50 +26,50 @@ import java.util.List;
  * @coverage rcp.model.widgets
  */
 public final class CTabFolderInfo extends AbstractTabFolderInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CTabFolderInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CTabFolderInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link CTabItemInfo} children.
-   */
-  public List<CTabItemInfo> getItems2() {
-    return getChildren(CTabItemInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link CTabItemInfo} children.
+	 */
+	public List<CTabItemInfo> getItems2() {
+		return getChildren(CTabItemInfo.class);
+	}
 
-  @Override
-  protected String getItemClassName() {
-    return "org.eclipse.swt.custom.CTabItem";
-  }
+	@Override
+	protected String getItemClassName() {
+		return "org.eclipse.swt.custom.CTabItem";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    selectItem();
-    super.refresh_afterCreate();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		selectItem();
+		super.refresh_afterCreate();
+	}
 
-  private void selectItem() {
-    AbstractTabItemInfo selectedItem = getSelectedItem();
-    if (selectedItem != null) {
-      CTabFolder tabFolder = (CTabFolder) getObject();
-      tabFolder.setSelection((CTabItem) selectedItem.getObject());
-    }
-  }
+	private void selectItem() {
+		AbstractTabItemInfo selectedItem = getSelectedItem();
+		if (selectedItem != null) {
+			CTabFolder tabFolder = (CTabFolder) getObject();
+			tabFolder.setSelection((CTabItem) selectedItem.getObject());
+		}
+	}
 }

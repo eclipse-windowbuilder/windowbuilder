@@ -19,8 +19,8 @@ import java.util.zip.ZipOutputStream;
  * @coverage core.editor.errors.report2
  */
 public interface IReportEntry {
-  /**
-   * Writes the contents into given Zip stream.
-   */
-  void write(ZipOutputStream zips) throws Exception;
+	/**
+	 * Writes the contents into given Zip stream.
+	 */
+	void write(ZipOutputStream zips) throws Exception;
 }

@@ -27,63 +27,63 @@ import org.eclipse.jface.dialogs.DialogPage;
  * @coverage rcp.model.jface
  */
 public abstract class DialogPageInfo extends AbstractComponentInfo {
-  protected Object m_shell;
+	protected Object m_shell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogPageInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogPageInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractComponentInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected TopBoundsSupport createTopBoundsSupport() {
-    return new DialogPageTopBoundsSupport(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractComponentInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected TopBoundsSupport createTopBoundsSupport() {
+		return new DialogPageTopBoundsSupport(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canBeRoot() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canBeRoot() {
+		return true;
+	}
 
-  @Override
-  public Object getComponentObject() {
-    return m_shell;
-  }
+	@Override
+	public Object getComponentObject() {
+		return m_shell;
+	}
 
-  /**
-   * @return the {@link DialogPageInfo}'s Shell.
-   */
-  Object getShell() {
-    return m_shell;
-  }
+	/**
+	 * @return the {@link DialogPageInfo}'s Shell.
+	 */
+	Object getShell() {
+		return m_shell;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    ControlInfo.refresh_fetch(this, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        DialogPageInfo.super.refresh_fetch();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		ControlInfo.refresh_fetch(this, new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				DialogPageInfo.super.refresh_fetch();
+			}
+		});
+	}
 }

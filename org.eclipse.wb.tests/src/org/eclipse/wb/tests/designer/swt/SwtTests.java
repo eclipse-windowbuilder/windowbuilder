@@ -25,9 +25,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    ManagerUtilsTest.class,
-    ModelTests.class,
-    SupportTests.class,
+	ManagerUtilsTest.class,
+	ModelTests.class,
+	SupportTests.class,
 
 })
 public class SwtTests {

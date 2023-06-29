@@ -30,80 +30,80 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormSide;
  * @coverage XWT.model.layout
  */
 public class VirtualFormAttachmentCreationSupport extends CreationSupport
-    implements
-      IImplicitCreationSupport {
-  private final FormDataInfo m_formDataInfo;
-  private final Object m_attachmentObject;
-  private final FormSide m_formSide;
+implements
+IImplicitCreationSupport {
+	private final FormDataInfo m_formDataInfo;
+	private final Object m_attachmentObject;
+	private final FormSide m_formSide;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualFormAttachmentCreationSupport(FormDataInfo formDataInfo,
-      Object attachmentObject,
-      FormSide formSide) {
-    m_formDataInfo = formDataInfo;
-    m_attachmentObject = attachmentObject;
-    m_formSide = formSide;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualFormAttachmentCreationSupport(FormDataInfo formDataInfo,
+			Object attachmentObject,
+			FormSide formSide) {
+		m_formDataInfo = formDataInfo;
+		m_attachmentObject = attachmentObject;
+		m_formSide = formSide;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "virtual-FormAttachment: " + m_object.getDescription().getComponentClass().getName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "virtual-FormAttachment: " + m_object.getDescription().getComponentClass().getName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setObject(XmlObjectInfo object) throws Exception {
-    super.setObject(object);
-    m_object.setObject(m_attachmentObject);
-    m_formDataInfo.addBroadcastListener(new XmlObjectSetObjectAfter() {
-      public void invoke(XmlObjectInfo target, Object object) throws Exception {
-        // check for this creation support to be active
-        if (m_object.getCreationSupport() != VirtualFormAttachmentCreationSupport.this) {
-          m_formDataInfo.removeBroadcastListener(this);
-          return;
-        }
-        // this object is the target
-        if (target == m_formDataInfo) {
-          m_object.setObject(m_attachmentObject);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setObject(XmlObjectInfo object) throws Exception {
+		super.setObject(object);
+		m_object.setObject(m_attachmentObject);
+		m_formDataInfo.addBroadcastListener(new XmlObjectSetObjectAfter() {
+			public void invoke(XmlObjectInfo target, Object object) throws Exception {
+				// check for this creation support to be active
+				if (m_object.getCreationSupport() != VirtualFormAttachmentCreationSupport.this) {
+					m_formDataInfo.removeBroadcastListener(this);
+					return;
+				}
+				// this object is the target
+				if (target == m_formDataInfo) {
+					m_object.setObject(m_attachmentObject);
+				}
+			}
+		});
+	}
 
-  @Override
-  public String getTitle() {
-    return toString();
-  }
+	@Override
+	public String getTitle() {
+		return toString();
+	}
 
-  @Override
-  public DocumentElement getElement() {
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      public void run() throws Exception {
-        materialize();
-      }
-    });
-    return m_object.getCreationSupport().getElement();
-  }
+	@Override
+	public DocumentElement getElement() {
+		ExecutionUtils.runRethrow(new RunnableEx() {
+			public void run() throws Exception {
+				materialize();
+			}
+		});
+		return m_object.getCreationSupport().getElement();
+	}
 
-  private void materialize() throws Exception {
-    CreationSupport elementCreationSupport = new ElementCreationSupport();
-    m_object.setCreationSupport(elementCreationSupport);
-    // add element
-    DocumentElement controlElement = m_formDataInfo.getCreationSupport().getElement();
-    Association association = Associations.property(m_formSide.getField());
-    association.add(m_object, new ElementTarget(controlElement, 0));
-  }
+	private void materialize() throws Exception {
+		CreationSupport elementCreationSupport = new ElementCreationSupport();
+		m_object.setCreationSupport(elementCreationSupport);
+		// add element
+		DocumentElement controlElement = m_formDataInfo.getCreationSupport().getElement();
+		Association association = Associations.property(m_formSide.getField());
+		association.add(m_object, new ElementTarget(controlElement, 0));
+	}
 }

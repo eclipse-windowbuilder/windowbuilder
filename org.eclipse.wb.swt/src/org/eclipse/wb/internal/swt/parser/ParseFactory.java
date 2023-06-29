@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.parser.IParseFactory;
  * @coverage swt.parser
  */
 public abstract class ParseFactory extends AbstractParseFactory {
-  /*@Override
+	/*@Override
   public JavaInfo create(ASTEditor editor,
   		ClassInstanceCreation creation,
   		IMethodBinding methodBinding,
@@ -42,7 +42,7 @@ public abstract class ParseFactory extends AbstractParseFactory {
   	// unknown class
   	return super.create(editor, creation, methodBinding, typeBinding, arguments, argumentInfos);
   }*/
-  /*@Override
+	/*@Override
   protected void createStaticFactory_Association(JavaInfo javaInfo,
   		MethodInvocation invocation,
   		JavaInfo[] argumentInfos,

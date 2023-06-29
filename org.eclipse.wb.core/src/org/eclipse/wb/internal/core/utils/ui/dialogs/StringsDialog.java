@@ -32,49 +32,49 @@ import java.util.List;
  * @coverage core.ui
  */
 public class StringsDialog extends TextDialog {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StringsDialog(Shell parentShell,
-      AbstractUIPlugin plugin,
-      String titleText,
-      String headerText,
-      String footerText) {
-    super(parentShell, plugin, titleText, headerText, footerText);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StringsDialog(Shell parentShell,
+			AbstractUIPlugin plugin,
+			String titleText,
+			String headerText,
+			String footerText) {
+		super(parentShell, plugin, titleText, headerText, footerText);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Items
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the items to edit.
-   */
-  public void setItems(String[] items) {
-    setText(StringUtils.join(items, "\n"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Items
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the items to edit.
+	 */
+	public void setItems(String[] items) {
+		setText(StringUtils.join(items, "\n"));
+	}
 
-  /**
-   * @return the edited items.
-   */
-  public String[] getItems() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
-      @Override
-      public String[] runObject() throws Exception {
-        List<String> strings = Lists.newArrayList();
-        BufferedReader br = new BufferedReader(new StringReader(getText()));
-        while (true) {
-          String s = br.readLine();
-          if (s == null) {
-            break;
-          }
-          strings.add(s);
-        }
-        return strings.toArray(new String[strings.size()]);
-      }
-    }, ArrayUtils.EMPTY_STRING_ARRAY);
-  }
+	/**
+	 * @return the edited items.
+	 */
+	public String[] getItems() {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
+			@Override
+			public String[] runObject() throws Exception {
+				List<String> strings = Lists.newArrayList();
+				BufferedReader br = new BufferedReader(new StringReader(getText()));
+				while (true) {
+					String s = br.readLine();
+					if (s == null) {
+						break;
+					}
+					strings.add(s);
+				}
+				return strings.toArray(new String[strings.size()]);
+			}
+		}, ArrayUtils.EMPTY_STRING_ARRAY);
+	}
 }

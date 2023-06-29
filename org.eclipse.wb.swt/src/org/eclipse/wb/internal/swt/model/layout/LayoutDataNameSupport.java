@@ -27,43 +27,43 @@ import java.util.Map;
  * @coverage swt.model.layout
  */
 public final class LayoutDataNameSupport
-    extends
-      org.eclipse.wb.internal.core.model.layout.LayoutDataNameSupport<LayoutDataInfo> {
-  public final static String[] TEMPLATES = new String[]{
-      "${dataAcronym}_${controlName}",
-      "${dataAcronym}${controlName-cap}",
-      "${controlName}${dataClassName}",
-      "${defaultName}"};
+extends
+org.eclipse.wb.internal.core.model.layout.LayoutDataNameSupport<LayoutDataInfo> {
+	public final static String[] TEMPLATES = new String[]{
+			"${dataAcronym}_${controlName}",
+			"${dataAcronym}${controlName-cap}",
+			"${controlName}${dataClassName}",
+	"${defaultName}"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutDataNameSupport(LayoutDataInfo layoutData) {
-    super(layoutData);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutDataNameSupport(LayoutDataInfo layoutData) {
+		super(layoutData);
+	}
 
-  @Override
-  protected String getTemplate() {
-    IPreferenceStore preferences = m_childInfo.getDescription().getToolkit().getPreferences();
-    String template = preferences.getString(IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE);
-    if (!isValidTemplate(TEMPLATES, template)) {
-      template = getTemplateForDefault();
-    }
-    return template;
-  }
+	@Override
+	protected String getTemplate() {
+		IPreferenceStore preferences = m_childInfo.getDescription().getToolkit().getPreferences();
+		String template = preferences.getString(IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE);
+		if (!isValidTemplate(TEMPLATES, template)) {
+			template = getTemplateForDefault();
+		}
+		return template;
+	}
 
-  @Override
-  protected Map<String, String> getValueMap() {
-    // prepare variables
-    Map<String, String> valueMap = Maps.newTreeMap();
-    {
-      valueMap.put("dataAcronym", getAcronym());
-      valueMap.put("dataClassName", getClassName());
-      valueMap.put("controlName", getParentName());
-      valueMap.put("controlName-cap", getParentNameCap());
-    }
-    return valueMap;
-  }
+	@Override
+	protected Map<String, String> getValueMap() {
+		// prepare variables
+		Map<String, String> valueMap = Maps.newTreeMap();
+		{
+			valueMap.put("dataAcronym", getAcronym());
+			valueMap.put("dataClassName", getClassName());
+			valueMap.put("controlName", getParentName());
+			valueMap.put("controlName-cap", getParentNameCap());
+		}
+		return valueMap;
+	}
 }

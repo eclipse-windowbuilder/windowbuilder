@@ -21,31 +21,31 @@ import javax.swing.JComboBox;
  * @author scheglov_ke
  */
 public class JComboBoxTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test that {@link JComboBox#addItem(Object)} is executable.
-   */
-  public void test_addItem() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JComboBox combo = new JComboBox();",
-            "    add(combo);",
-            "    combo.addItem('a');",
-            "    combo.addItem('b');",
-            "    combo.setSelectedIndex(1);",
-            "  }",
-            "}");
-    assertHierarchy(
-        "{this: javax.swing.JPanel} {this} {/add(combo)/}",
-        "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-        "  {new: javax.swing.JComboBox} {local-unique: combo} {/new JComboBox()/ /add(combo)/ /combo.addItem('a')/ /combo.addItem('b')/ /combo.setSelectedIndex(1)/}");
-    panel.refresh();
-    assertNoErrors(panel);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test that {@link JComboBox#addItem(Object)} is executable.
+	 */
+	public void test_addItem() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    JComboBox combo = new JComboBox();",
+						"    add(combo);",
+						"    combo.addItem('a');",
+						"    combo.addItem('b');",
+						"    combo.setSelectedIndex(1);",
+						"  }",
+						"}");
+		assertHierarchy(
+				"{this: javax.swing.JPanel} {this} {/add(combo)/}",
+				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
+				"  {new: javax.swing.JComboBox} {local-unique: combo} {/new JComboBox()/ /add(combo)/ /combo.addItem('a')/ /combo.addItem('b')/ /combo.setSelectedIndex(1)/}");
+		panel.refresh();
+		assertNoErrors(panel);
+	}
 }

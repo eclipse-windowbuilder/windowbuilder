@@ -20,10 +20,10 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
  * @author scheglov_ke
  */
 public class SelectionToolEntryInfoTest extends DesignerTestCase {
-  public void test() throws Exception {
-    SelectionToolEntryInfo entry = new SelectionToolEntryInfo();
-    assertEquals("Selection", entry.getName());
-    assertNotNull(entry.getIcon());
-    assertInstanceOf(SelectionTool.class, entry.createTool());
-  }
+	public void test() throws Exception {
+		SelectionToolEntryInfo entry = new SelectionToolEntryInfo();
+		assertEquals("Selection", entry.getName());
+		assertNotNull(entry.getIcon());
+		assertInstanceOf(SelectionTool.class, entry.createTool());
+	}
 }

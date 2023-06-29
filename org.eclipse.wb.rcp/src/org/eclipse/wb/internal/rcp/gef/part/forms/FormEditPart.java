@@ -24,31 +24,31 @@ import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
  * @coverage rcp.gef.part
  */
 public final class FormEditPart extends CompositeEditPart {
-  private final FormInfo m_form;
+	private final FormInfo m_form;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormEditPart(FormInfo form) {
-    super(form);
-    m_form = form;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormEditPart(FormInfo form) {
+		super(form);
+		m_form = form;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected EditPart createEditPart(Object model) {
-    if (model instanceof MenuManagerInfo) {
-      MenuManagerInfo manager = (MenuManagerInfo) model;
-      EditPart editPart = MenuEditPartFactory.createPopupMenu(model, m_form.getMenuImpl(manager));
-      EditPartFactory.configureEditPart(this, editPart);
-      return editPart;
-    }
-    return super.createEditPart(model);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected EditPart createEditPart(Object model) {
+		if (model instanceof MenuManagerInfo) {
+			MenuManagerInfo manager = (MenuManagerInfo) model;
+			EditPart editPart = MenuEditPartFactory.createPopupMenu(model, m_form.getMenuImpl(manager));
+			EditPartFactory.configureEditPart(this, editPart);
+			return editPart;
+		}
+		return super.createEditPart(model);
+	}
 }

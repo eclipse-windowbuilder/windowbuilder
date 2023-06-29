@@ -20,9 +20,9 @@ import org.eclipse.wb.internal.core.model.description.ConfigurablePropertyDescri
  * @coverage core.model.property
  */
 public interface IConfigurablePropertyFactory {
-  /**
-   * @return the {@link Property} created/configured according the given
-   *         {@link ConfigurablePropertyDescription} .
-   */
-  Property create(JavaInfo javaInfo, ConfigurablePropertyDescription description) throws Exception;
+	/**
+	 * @return the {@link Property} created/configured according the given
+	 *         {@link ConfigurablePropertyDescription} .
+	 */
+	Property create(JavaInfo javaInfo, ConfigurablePropertyDescription description) throws Exception;
 }

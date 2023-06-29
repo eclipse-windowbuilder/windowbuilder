@@ -26,33 +26,33 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
  * @coverage core.gef
  */
 public final class MenuEditPartFactory {
-  /**
-   * @return the {@link EditPart} for {@link IMenuInfo}.
-   */
-  public static EditPart createPopupMenu(Object toolkitModel, IMenuPopupInfo popup) {
-    return new MenuPopupEditPart(toolkitModel, popup);
-  }
+	/**
+	 * @return the {@link EditPart} for {@link IMenuInfo}.
+	 */
+	public static EditPart createPopupMenu(Object toolkitModel, IMenuPopupInfo popup) {
+		return new MenuPopupEditPart(toolkitModel, popup);
+	}
 
-  /**
-   * @return the {@link EditPart} for {@link IMenuInfo}.
-   */
-  public static EditPart createMenu(Object toolkitModel, IMenuInfo menu) {
-    return new MenuEditPart(toolkitModel, menu);
-  }
+	/**
+	 * @return the {@link EditPart} for {@link IMenuInfo}.
+	 */
+	public static EditPart createMenu(Object toolkitModel, IMenuInfo menu) {
+		return new MenuEditPart(toolkitModel, menu);
+	}
 
-  /**
-   * @return the {@link EditPart} for {@link IMenuInfo}, used on Mac.
-   */
-  public static EditPart createMenuMac(Object toolkitModel, IMenuInfo menu) {
-    return new MacMenuEditPart(toolkitModel, menu);
-  }
+	/**
+	 * @return the {@link EditPart} for {@link IMenuInfo}, used on Mac.
+	 */
+	public static EditPart createMenuMac(Object toolkitModel, IMenuInfo menu) {
+		return new MacMenuEditPart(toolkitModel, menu);
+	}
 
-  /**
-   * @return the {@link EditPart} for {@link IMenuItemInfo}.
-   */
-  public static EditPart createMenuItem(Object toolkitModel, IMenuItemInfo item) {
-    return new MenuItemEditPart(toolkitModel, item);
-  }
+	/**
+	 * @return the {@link EditPart} for {@link IMenuItemInfo}.
+	 */
+	public static EditPart createMenuItem(Object toolkitModel, IMenuItemInfo item) {
+		return new MenuItemEditPart(toolkitModel, item);
+	}
 
-  public static final int MENU_Y_LOCATION = 3;
+	public static final int MENU_Y_LOCATION = 3;
 }

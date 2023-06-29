@@ -27,75 +27,75 @@ import java.util.List;
  * @coverage core.model.creation
  */
 public final class InstanceFactoryContainerInfo extends ObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "{instance factory container}";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "{instance factory container}";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the list of {@link InstanceFactoryInfo} children.
-   */
-  public List<InstanceFactoryInfo> getChildrenFactory() {
-    return getChildren(InstanceFactoryInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the list of {@link InstanceFactoryInfo} children.
+	 */
+	public List<InstanceFactoryInfo> getChildrenFactory() {
+		return getChildren(InstanceFactoryInfo.class);
+	}
 
-  /**
-   * @return the existing or new {@link InstanceFactoryContainerInfo} for given root.
-   */
-  public static InstanceFactoryContainerInfo get(JavaInfo root) throws Exception {
-    // try to find existing container
-    for (ObjectInfo child : root.getChildren()) {
-      if (child instanceof InstanceFactoryContainerInfo) {
-        return (InstanceFactoryContainerInfo) child;
-      }
-    }
-    // add new container
-    InstanceFactoryContainerInfo container = new InstanceFactoryContainerInfo();
-    root.addChild(container);
-    return container;
-  }
+	/**
+	 * @return the existing or new {@link InstanceFactoryContainerInfo} for given root.
+	 */
+	public static InstanceFactoryContainerInfo get(JavaInfo root) throws Exception {
+		// try to find existing container
+		for (ObjectInfo child : root.getChildren()) {
+			if (child instanceof InstanceFactoryContainerInfo) {
+				return (InstanceFactoryContainerInfo) child;
+			}
+		}
+		// add new container
+		InstanceFactoryContainerInfo container = new InstanceFactoryContainerInfo();
+		root.addChild(container);
+		return container;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObjectPresentation getPresentation() {
-    return new DefaultObjectPresentation(this) {
-      @Override
-      public String getText() throws Exception {
-        return "(instance factories)";
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObjectPresentation getPresentation() {
+		return new DefaultObjectPresentation(this) {
+			@Override
+			public String getText() throws Exception {
+				return "(instance factories)";
+			}
 
-      @Override
-      public Image getIcon() throws Exception {
-        return DesignerPlugin.getImage("components/factory_container.gif");
-      }
-    };
-  }
+			@Override
+			public Image getIcon() throws Exception {
+				return DesignerPlugin.getImage("components/factory_container.gif");
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return false;
+	}
 
-  @Override
-  public void delete() throws Exception {
-  }
+	@Override
+	public void delete() throws Exception {
+	}
 }

@@ -21,33 +21,33 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.II
  * @coverage swt.property.editor.plugin
  */
 public abstract class ImageContainer implements IImageContainer, IDisposable {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void dispose() {
-    IImageElement[] elements = directElements();
-    if (elements != null) {
-      for (int i = 0; i < elements.length; i++) {
-        IImageElement element = elements[i];
-        if (element instanceof IDisposable) {
-          IDisposable disposable = (IDisposable) element;
-          disposable.dispose();
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void dispose() {
+		IImageElement[] elements = directElements();
+		if (elements != null) {
+			for (int i = 0; i < elements.length; i++) {
+				IImageElement element = elements[i];
+				if (element instanceof IDisposable) {
+					IDisposable disposable = (IDisposable) element;
+					disposable.dispose();
+				}
+			}
+		}
+	}
 
-  /**
-   * @return the children {@link IImageElement}'s without preparing.
-   */
-  protected abstract IImageElement[] directElements();
+	/**
+	 * @return the children {@link IImageElement}'s without preparing.
+	 */
+	protected abstract IImageElement[] directElements();
 
-  /**
-   * @return array with path to <code>imagePath</code> relative to given plugin if resource exist
-   *         otherwise <code>null</code>.
-   */
-  public abstract Object[] findResource(String symbolicName, String imagePath);
+	/**
+	 * @return array with path to <code>imagePath</code> relative to given plugin if resource exist
+	 *         otherwise <code>null</code>.
+	 */
+	public abstract Object[] findResource(String symbolicName, String imagePath);
 }

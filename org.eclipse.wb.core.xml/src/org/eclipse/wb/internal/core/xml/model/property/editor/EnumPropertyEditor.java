@@ -27,120 +27,120 @@ import org.eclipse.wb.internal.core.xml.model.property.IExpressionPropertyEditor
  * @coverage XML.model.property.editor
  */
 public final class EnumPropertyEditor extends AbstractComboPropertyEditor
-    implements
-      IExpressionPropertyEditor,
-      IClipboardSourceProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final EnumPropertyEditor INSTANCE = new EnumPropertyEditor();
+implements
+IExpressionPropertyEditor,
+IClipboardSourceProvider {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final EnumPropertyEditor INSTANCE = new EnumPropertyEditor();
 
-  private EnumPropertyEditor() {
-  }
+	private EnumPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TextDisplayPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    // return title for value
-    if (value instanceof Enum<?>) {
-      Enum<?> element = (Enum<?>) value;
-      return element.toString();
-    }
-    // unknown value
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TextDisplayPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		// return title for value
+		if (value instanceof Enum<?>) {
+			Enum<?> element = (Enum<?>) value;
+			return element.toString();
+		}
+		// unknown value
+		return null;
+	}
 
-  public void setText(Property property, String text) throws Exception {
-    for (Enum<?> element : getElements(property)) {
-      if (element.toString().equals(text)) {
-        setPropertyValue(property, element);
-        break;
-      }
-    }
-  }
+	public void setText(Property property, String text) throws Exception {
+		for (Enum<?> element : getElements(property)) {
+			if (element.toString().equals(text)) {
+				setPropertyValue(property, element);
+				break;
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Combo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addItems(Property property, CCombo3 combo) throws Exception {
-    Enum<?>[] elements = getElements(property);
-    for (Enum<?> element : elements) {
-      combo.add(element.toString());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Combo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addItems(Property property, CCombo3 combo) throws Exception {
+		Enum<?>[] elements = getElements(property);
+		for (Enum<?> element : elements) {
+			combo.add(element.toString());
+		}
+	}
 
-  @Override
-  protected void selectItem(Property property, CCombo3 combo) throws Exception {
-    combo.setText(getText(property));
-  }
+	@Override
+	protected void selectItem(Property property, CCombo3 combo) throws Exception {
+		combo.setText(getText(property));
+	}
 
-  @Override
-  protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
-    Enum<?>[] elements = getElements(property);
-    Enum<?> element = elements[index];
-    setPropertyValue(property, element);
-  }
+	@Override
+	protected void toPropertyEx(Property property, CCombo3 combo, int index) throws Exception {
+		Enum<?>[] elements = getElements(property);
+		Enum<?> element = elements[index];
+		setPropertyValue(property, element);
+	}
 
-  /**
-   * @return array of available values.
-   */
-  private Enum<?>[] getElements(Property property) throws Exception {
-    Enum<?>[] elements = null;
-    if (property instanceof ITypedProperty) {
-      Class<?> typeClass = ((ITypedProperty) property).getType();
-      if (typeClass.isEnum()) {
-        elements = (Enum<?>[]) typeClass.getEnumConstants();
-      }
-    }
-    return elements == null ? new Enum<?>[0] : elements;
-  }
+	/**
+	 * @return array of available values.
+	 */
+	private Enum<?>[] getElements(Property property) throws Exception {
+		Enum<?>[] elements = null;
+		if (property instanceof ITypedProperty) {
+			Class<?> typeClass = ((ITypedProperty) property).getType();
+			if (typeClass.isEnum()) {
+				elements = (Enum<?>[]) typeClass.getEnumConstants();
+			}
+		}
+		return elements == null ? new Enum<?>[0] : elements;
+	}
 
-  /**
-   * Apply new selected value to {@link Property}.
-   */
-  private void setPropertyValue(Property property, Enum<?> element) throws Exception {
-    if (property instanceof GenericProperty) {
-      GenericProperty genericProperty = (GenericProperty) property;
-      String source = getValueExpression(genericProperty, element);
-      genericProperty.setExpression(source, element);
-    } else {
-      property.setValue(element);
-    }
-  }
+	/**
+	 * Apply new selected value to {@link Property}.
+	 */
+	private void setPropertyValue(Property property, Enum<?> element) throws Exception {
+		if (property instanceof GenericProperty) {
+			GenericProperty genericProperty = (GenericProperty) property;
+			String source = getValueExpression(genericProperty, element);
+			genericProperty.setExpression(source, element);
+		} else {
+			property.setValue(element);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getValueExpression(GenericProperty property, Object value) throws Exception {
-    if (value instanceof Enum<?>) {
-      Enum<?> element = (Enum<?>) value;
-      return element.name();
-    }
-    // unknown value
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getValueExpression(GenericProperty property, Object value) throws Exception {
+		if (value instanceof Enum<?>) {
+			Enum<?> element = (Enum<?>) value;
+			return element.name();
+		}
+		// unknown value
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IClipboardSourceProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getClipboardSource(GenericProperty property) throws Exception {
-    Object value = property.getValue();
-    return getValueExpression(property, value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IClipboardSourceProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getClipboardSource(GenericProperty property) throws Exception {
+		Object value = property.getValue();
+		return getValueExpression(property, value);
+	}
 }

@@ -25,25 +25,25 @@ import org.eclipse.jface.action.IMenuManager;
  * @coverage core.gef.header
  */
 public final class HeadersContextMenuProvider extends MultiSelectionContextMenuProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public HeadersContextMenuProvider(IEditPartViewer viewer) {
-    super(viewer);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public HeadersContextMenuProvider(IEditPartViewer viewer) {
+		super(viewer);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MultiSelectionContextMenuProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void buildContextMenu(EditPart editPart, IMenuManager manager) {
-    if (editPart instanceof IHeaderMenuProvider) {
-      IHeaderMenuProvider headerMenuProvider = (IHeaderMenuProvider) editPart;
-      headerMenuProvider.buildContextMenu(manager);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MultiSelectionContextMenuProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void buildContextMenu(EditPart editPart, IMenuManager manager) {
+		if (editPart instanceof IHeaderMenuProvider) {
+			IHeaderMenuProvider headerMenuProvider = (IHeaderMenuProvider) editPart;
+			headerMenuProvider.buildContextMenu(manager);
+		}
+	}
 }

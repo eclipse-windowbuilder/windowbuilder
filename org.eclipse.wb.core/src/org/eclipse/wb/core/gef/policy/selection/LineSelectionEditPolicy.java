@@ -34,81 +34,81 @@ import java.util.List;
  * @coverage core.gef.menu
  */
 public class LineSelectionEditPolicy extends SelectionEditPolicy {
-  private final Color m_lineColor;
-  private Figure m_selectionFigure;
-  private IAncestorListener m_ancestorListener;
+	private final Color m_lineColor;
+	private Figure m_selectionFigure;
+	private IAncestorListener m_ancestorListener;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LineSelectionEditPolicy() {
-    this(IColorConstants.orange);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LineSelectionEditPolicy() {
+		this(IColorConstants.orange);
+	}
 
-  public LineSelectionEditPolicy(Color lineColor) {
-    m_lineColor = lineColor;
-  }
+	public LineSelectionEditPolicy(Color lineColor) {
+		m_lineColor = lineColor;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    return Collections.emptyList();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		return Collections.emptyList();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Selection
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void showSelection() {
-    hideSelection();
-    m_selectionFigure = new Figure();
-    m_selectionFigure.setBorder(new LineBorder(m_lineColor));
-    updateFeedbackBounds();
-    m_ancestorListener = new IAncestorListener() {
-      @Override
-      public void ancestorMoved(Figure ancestor) {
-        updateFeedbackBounds();
-      }
-    };
-    getHostFigure().addAncestorListener(m_ancestorListener);
-    addFeedback(m_selectionFigure);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Selection
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void showSelection() {
+		hideSelection();
+		m_selectionFigure = new Figure();
+		m_selectionFigure.setBorder(new LineBorder(m_lineColor));
+		updateFeedbackBounds();
+		m_ancestorListener = new IAncestorListener() {
+			@Override
+			public void ancestorMoved(Figure ancestor) {
+				updateFeedbackBounds();
+			}
+		};
+		getHostFigure().addAncestorListener(m_ancestorListener);
+		addFeedback(m_selectionFigure);
+	}
 
-  @Override
-  protected void hideSelection() {
-    if (m_selectionFigure != null) {
-      getHostFigure().removeAncestorListener(m_ancestorListener);
-      removeFeedback(m_selectionFigure);
-      m_selectionFigure = null;
-    }
-  }
+	@Override
+	protected void hideSelection() {
+		if (m_selectionFigure != null) {
+			getHostFigure().removeAncestorListener(m_ancestorListener);
+			removeFeedback(m_selectionFigure);
+			m_selectionFigure = null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedbacks
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Updates feedback figure bounds in ancestor listener.
-   */
-  private void updateFeedbackBounds() {
-    Rectangle selectionBounds = getHostBounds().getExpanded(1, 1);
-    FigureUtils.translateFigureToFigure(getHostFigure(), m_selectionFigure, selectionBounds);
-    m_selectionFigure.setBounds(selectionBounds);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedbacks
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Updates feedback figure bounds in ancestor listener.
+	 */
+	private void updateFeedbackBounds() {
+		Rectangle selectionBounds = getHostBounds().getExpanded(1, 1);
+		FigureUtils.translateFigureToFigure(getHostFigure(), m_selectionFigure, selectionBounds);
+		m_selectionFigure.setBounds(selectionBounds);
+	}
 
-  /**
-   * @return the bounds of {@link Figure} of host {@link EditPart}, in "bounds" coordinates.
-   */
-  protected Rectangle getHostBounds() {
-    return getHostFigure().getBounds();
-  }
+	/**
+	 * @return the bounds of {@link Figure} of host {@link EditPart}, in "bounds" coordinates.
+	 */
+	protected Rectangle getHostBounds() {
+		return getHostFigure().getBounds();
+	}
 }

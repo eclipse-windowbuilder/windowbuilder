@@ -34,14 +34,14 @@ import org.junit.runners.Suite.SuiteClasses;
 	Draw2dTests.class, //
 	GefTests.class, //
 	SwtTests.class,
-    CommonTests.class,
-    CoreTests.class,
-    EditorTests.class,
-    SwingTests.class,
-    RcpTests.class
-// not yet ready to run, need work to run successfully
-// XmlTests.class,
-// XwtTests.class
+	CommonTests.class,
+	CoreTests.class,
+	EditorTests.class,
+	SwingTests.class,
+	RcpTests.class
+	// not yet ready to run, need work to run successfully
+	// XmlTests.class,
+	// XwtTests.class
 
 })
 

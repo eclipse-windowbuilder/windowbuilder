@@ -22,15 +22,15 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class TableWrapLayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.forms.table");
-    suite.addTest(createSingleSuite(TableWrapDataTest.class));
-    suite.addTest(createSingleSuite(TableWrapLayoutSelectionActionsTest.class));
-    suite.addTest(createSingleSuite(TableWrapLayoutTest.class));
-    suite.addTest(createSingleSuite(TabelWrapLayoutParametersTest.class));
-    suite.addTest(createSingleSuite(TableWrapLayoutExposedTest.class));
-    suite.addTest(createSingleSuite(TableWrapLayoutClipboardTest.class));
-    suite.addTest(createSingleSuite(TableWrapLayoutGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.forms.table");
+		suite.addTest(createSingleSuite(TableWrapDataTest.class));
+		suite.addTest(createSingleSuite(TableWrapLayoutSelectionActionsTest.class));
+		suite.addTest(createSingleSuite(TableWrapLayoutTest.class));
+		suite.addTest(createSingleSuite(TabelWrapLayoutParametersTest.class));
+		suite.addTest(createSingleSuite(TableWrapLayoutExposedTest.class));
+		suite.addTest(createSingleSuite(TableWrapLayoutClipboardTest.class));
+		suite.addTest(createSingleSuite(TableWrapLayoutGefTest.class));
+		return suite;
+	}
 }

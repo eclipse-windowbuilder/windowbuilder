@@ -25,23 +25,23 @@ import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
  * @coverage core.model.creation
  */
 public interface IThisMethodParameterEvaluator {
-  /**
-   * @param context
-   *          the {@link EvaluationContext}
-   * @param methodDeclaration
-   *          the {@link MethodDeclaration} to evaluate parameter.
-   * @param methodSignature
-   *          the signature of {@link MethodDeclaration}.
-   * @param parameter
-   *          the parameter in {@link MethodDeclaration}.
-   * @param index
-   *          the index of parameter.
-   *
-   * @return the value of given parameter or {@link AstEvaluationEngine#UNKNOWN}.
-   */
-  Object evaluateParameter(EvaluationContext context,
-      MethodDeclaration methodDeclaration,
-      String methodSignature,
-      SingleVariableDeclaration parameter,
-      int index) throws Exception;
+	/**
+	 * @param context
+	 *          the {@link EvaluationContext}
+	 * @param methodDeclaration
+	 *          the {@link MethodDeclaration} to evaluate parameter.
+	 * @param methodSignature
+	 *          the signature of {@link MethodDeclaration}.
+	 * @param parameter
+	 *          the parameter in {@link MethodDeclaration}.
+	 * @param index
+	 *          the index of parameter.
+	 *
+	 * @return the value of given parameter or {@link AstEvaluationEngine#UNKNOWN}.
+	 */
+	Object evaluateParameter(EvaluationContext context,
+			MethodDeclaration methodDeclaration,
+			String methodSignature,
+			SingleVariableDeclaration parameter,
+			int index) throws Exception;
 }

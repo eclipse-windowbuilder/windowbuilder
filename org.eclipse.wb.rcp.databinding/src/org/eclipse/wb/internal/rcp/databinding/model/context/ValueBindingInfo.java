@@ -20,31 +20,31 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateVa
  * @coverage bindings.rcp.model.context
  */
 public final class ValueBindingInfo extends BindingInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ValueBindingInfo(ObservableInfo target, ObservableInfo model) {
-    this(target, model, null, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ValueBindingInfo(ObservableInfo target, ObservableInfo model) {
+		this(target, model, null, null);
+	}
 
-  public ValueBindingInfo(ObservableInfo target,
-      ObservableInfo model,
-      UpdateValueStrategyInfo targetStrategy,
-      UpdateValueStrategyInfo modelStrategy) {
-    super(target, model);
-    m_targetStrategy = targetStrategy == null ? new UpdateValueStrategyInfo() : targetStrategy;
-    m_modelStrategy = modelStrategy == null ? new UpdateValueStrategyInfo() : modelStrategy;
-  }
+	public ValueBindingInfo(ObservableInfo target,
+			ObservableInfo model,
+			UpdateValueStrategyInfo targetStrategy,
+			UpdateValueStrategyInfo modelStrategy) {
+		super(target, model);
+		m_targetStrategy = targetStrategy == null ? new UpdateValueStrategyInfo() : targetStrategy;
+		m_modelStrategy = modelStrategy == null ? new UpdateValueStrategyInfo() : modelStrategy;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getBindingMethod() {
-    return "bindValue";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getBindingMethod() {
+		return "bindValue";
+	}
 }

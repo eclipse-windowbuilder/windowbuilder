@@ -22,29 +22,29 @@ import org.eclipse.jface.action.Action;
  * @coverage swing.model.layout
  */
 public final class SetGrowAction extends AbstractAction {
-  private final DimensionInfo m_dimension;
+	private final DimensionInfo m_dimension;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetGrowAction(AbstractGridBagConstraintsInfo constraints,
-      String text,
-      String iconPath,
-      boolean horizontal) {
-    super(constraints, text, AS_CHECK_BOX, iconPath, horizontal);
-    m_dimension = horizontal ? constraints.getColumn() : constraints.getRow();
-    setChecked(m_dimension.hasWeight());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetGrowAction(AbstractGridBagConstraintsInfo constraints,
+			String text,
+			String iconPath,
+			boolean horizontal) {
+		super(constraints, text, AS_CHECK_BOX, iconPath, horizontal);
+		m_dimension = horizontal ? constraints.getColumn() : constraints.getRow();
+		setChecked(m_dimension.hasWeight());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    m_dimension.setWeight(m_dimension.hasWeight() ? 0.0 : 1.0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		m_dimension.setWeight(m_dimension.hasWeight() ? 0.0 : 1.0);
+	}
 }

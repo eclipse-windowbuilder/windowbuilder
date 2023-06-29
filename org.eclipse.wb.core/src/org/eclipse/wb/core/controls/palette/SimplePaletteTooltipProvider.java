@@ -25,30 +25,30 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage core.control.palette
  */
 public final class SimplePaletteTooltipProvider extends CustomTooltipProvider {
-  private final String m_details;
+	private final String m_details;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimplePaletteTooltipProvider(String details) {
-    m_details = details;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimplePaletteTooltipProvider(String details) {
+		m_details = details;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // CustomTooltipProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createTooltipFigure(Figure hostFigure) {
-    // create tooltip figure
-    Label tooltipFigure = new Label(m_details);
-    tooltipFigure.setBorder(new MarginBorder(2));
-    // configure bounds
-    Dimension preferredSize = tooltipFigure.getPreferredSize();
-    tooltipFigure.setBounds(new Rectangle(0, 0, preferredSize.width, preferredSize.height));
-    return tooltipFigure;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// CustomTooltipProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createTooltipFigure(Figure hostFigure) {
+		// create tooltip figure
+		Label tooltipFigure = new Label(m_details);
+		tooltipFigure.setBorder(new MarginBorder(2));
+		// configure bounds
+		Dimension preferredSize = tooltipFigure.getPreferredSize();
+		tooltipFigure.setBounds(new Rectangle(0, 0, preferredSize.width, preferredSize.height));
+		return tooltipFigure;
+	}
 }

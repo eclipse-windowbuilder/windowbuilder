@@ -23,11 +23,11 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
  * @coverage core.nls
  */
 public class SourceClassParameters {
-  public IPackageFragmentRoot m_sourceFolder;
-  public IPackageFragment m_package;
-  public IFolder m_packageFolder;
-  public String m_packageName;
-  public String m_className;
-  public String m_fullClassName;
-  public boolean m_exists;
+	public IPackageFragmentRoot m_sourceFolder;
+	public IPackageFragment m_package;
+	public IFolder m_packageFolder;
+	public String m_packageName;
+	public String m_className;
+	public String m_fullClassName;
+	public boolean m_exists;
 }

@@ -23,15 +23,15 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
  * @coverage swing.model.layout
  */
 public final class ConstraintsAbsoluteLayoutDataInfo extends JavaInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ConstraintsAbsoluteLayoutDataInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    JavaInfoUtils.setParameter(this, "visible", "false");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ConstraintsAbsoluteLayoutDataInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		JavaInfoUtils.setParameter(this, "visible", "false");
+	}
 }

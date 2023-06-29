@@ -22,8 +22,8 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
  * @coverage core.model.parser
  */
 public interface IParseValidator {
-  /**
-   * Validates {@link AstEditor}, does nothing if OK. Throws some exception in case of any problem.
-   */
-  void validate(AstEditor editor) throws Exception;
+	/**
+	 * Validates {@link AstEditor}, does nothing if OK. Throws some exception in case of any problem.
+	 */
+	void validate(AstEditor editor) throws Exception;
 }

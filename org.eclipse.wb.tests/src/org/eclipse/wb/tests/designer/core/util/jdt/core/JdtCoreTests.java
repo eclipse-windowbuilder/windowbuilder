@@ -19,17 +19,17 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class JdtCoreTests extends DesignerSuiteTests {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Suite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.jdt.core");
-    suite.addTest(createSingleSuite(CodeUtilsTest.class));
-    suite.addTest(createSingleSuite(JavaDocUtilsTest.class));
-    suite.addTest(createSingleSuite(SubtypesScopeTest.class));
-    suite.addTest(createSingleSuite(ProjectUtilsTest.class));
-    return suite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Suite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.jdt.core");
+		suite.addTest(createSingleSuite(CodeUtilsTest.class));
+		suite.addTest(createSingleSuite(JavaDocUtilsTest.class));
+		suite.addTest(createSingleSuite(SubtypesScopeTest.class));
+		suite.addTest(createSingleSuite(ProjectUtilsTest.class));
+		return suite;
+	}
 }

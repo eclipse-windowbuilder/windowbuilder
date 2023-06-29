@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @coverage core.model.property
  */
 public interface PropertyCategoryProvider {
-  /**
-   * @return the {@link PropertyCategory} of given Property, not <code>null</code>.
-   */
-  PropertyCategory getCategory(Property property);
+	/**
+	 * @return the {@link PropertyCategory} of given Property, not <code>null</code>.
+	 */
+	PropertyCategory getCategory(Property property);
 }

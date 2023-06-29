@@ -28,60 +28,60 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.gef.menu
  */
 public final class MenuItemEditPart extends SubmenuAwareEditPart {
-  private final IMenuItemInfo m_item;
+	private final IMenuItemInfo m_item;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuItemEditPart(Object toolkitModel, IMenuItemInfo item) {
-    super(toolkitModel, item);
-    m_item = item;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuItemEditPart(Object toolkitModel, IMenuItemInfo item) {
+		super(toolkitModel, item);
+		m_item = item;
+	}
 
-  /////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  /////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        // draw image
-        {
-          Image image = m_item.getImage();
-          if (image != null) {
-            graphics.drawImage(image, 0, 0);
-          }
-        }
-        // highlight "item" with displayed "menu"
-        if (!getModelChildren().isEmpty()) {
-          Rectangle area = getFigure().getClientArea();
-          graphics.setForegroundColor(IColorConstants.menuBackgroundSelected);
-          graphics.setBackgroundColor(IColorConstants.white);
-          graphics.setLineWidth(2);
-          graphics.drawRectangle(1, 1, area.width - 2, area.height - 2);
-        }
-      }
-    };
-  }
+	/////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	/////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				// draw image
+				{
+					Image image = m_item.getImage();
+					if (image != null) {
+						graphics.drawImage(image, 0, 0);
+					}
+				}
+				// highlight "item" with displayed "menu"
+				if (!getModelChildren().isEmpty()) {
+					Rectangle area = getFigure().getClientArea();
+					graphics.setForegroundColor(IColorConstants.menuBackgroundSelected);
+					graphics.setBackgroundColor(IColorConstants.white);
+					graphics.setLineWidth(2);
+					graphics.drawRectangle(1, 1, area.width - 2, area.height - 2);
+				}
+			}
+		};
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    getFigure().setBounds(m_item.getBounds());
-  }
+	@Override
+	protected void refreshVisuals() {
+		getFigure().setBounds(m_item.getBounds());
+	}
 
-  /////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  /////////////////////////////////////////////////////////////////////
-  @Override
-  protected Object getChildMenu() {
-    IMenuInfo menu = m_item.getMenu();
-    return menu != null ? menu.getModel() : null;
-  }
+	/////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	/////////////////////////////////////////////////////////////////////
+	@Override
+	protected Object getChildMenu() {
+		IMenuInfo menu = m_item.getMenu();
+		return menu != null ? menu.getModel() : null;
+	}
 }

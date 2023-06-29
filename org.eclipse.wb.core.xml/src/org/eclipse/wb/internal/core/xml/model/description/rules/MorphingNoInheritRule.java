@@ -24,15 +24,15 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class MorphingNoInheritRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    // clear morphing targets
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    componentDescription.clearMorphingTargets();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		// clear morphing targets
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		componentDescription.clearMorphingTargets();
+	}
 }

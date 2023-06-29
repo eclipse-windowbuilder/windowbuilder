@@ -30,81 +30,81 @@ import java.util.List;
  * @coverage swt.gef.GridLayout
  */
 public abstract class DimensionHeaderAction<C extends IControlInfo> extends ObjectInfoAction {
-  private final IEditPartViewer m_viewer;
+	private final IEditPartViewer m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart, String text) {
-    this(editPart, text, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart, String text) {
+		this(editPart, text, null);
+	}
 
-  public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart,
-      String text,
-      ImageDescriptor imageDescriptor) {
-    this(editPart, text, imageDescriptor, AS_PUSH_BUTTON);
-  }
+	public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart,
+			String text,
+			ImageDescriptor imageDescriptor) {
+		this(editPart, text, imageDescriptor, AS_PUSH_BUTTON);
+	}
 
-  public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart,
-      String text,
-      ImageDescriptor imageDescriptor,
-      int style) {
-    super(editPart.getLayout().getUnderlyingModel(), text, style);
-    m_viewer = editPart.getViewer();
-    setImageDescriptor(imageDescriptor);
-  }
+	public DimensionHeaderAction(DimensionHeaderEditPart<C> editPart,
+			String text,
+			ImageDescriptor imageDescriptor,
+			int style) {
+		super(editPart.getLayout().getUnderlyingModel(), text, style);
+		m_viewer = editPart.getViewer();
+		setImageDescriptor(imageDescriptor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final int hashCode() {
-    return 0;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final int hashCode() {
+		return 0;
+	}
 
-  @Override
-  public boolean equals(Object obj) {
-    return getClass() == obj.getClass();
-  }
+	@Override
+	public boolean equals(Object obj) {
+		return getClass() == obj.getClass();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  @SuppressWarnings("unchecked")
-  protected final void runEx() throws Exception {
-    // prepare selection
-    List<GridDimensionInfo<C>> dimensions = Lists.newArrayList();
-    {
-      for (EditPart editPart : m_viewer.getSelectedEditParts()) {
-        if (editPart instanceof DimensionHeaderEditPart<?>) {
-          DimensionHeaderEditPart<C> headerEditPart = (DimensionHeaderEditPart<C>) editPart;
-          dimensions.add(headerEditPart.getDimension());
-        }
-      }
-    }
-    // run over them
-    run(dimensions);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	@SuppressWarnings("unchecked")
+	protected final void runEx() throws Exception {
+		// prepare selection
+		List<GridDimensionInfo<C>> dimensions = Lists.newArrayList();
+		{
+			for (EditPart editPart : m_viewer.getSelectedEditParts()) {
+				if (editPart instanceof DimensionHeaderEditPart<?>) {
+					DimensionHeaderEditPart<C> headerEditPart = (DimensionHeaderEditPart<C>) editPart;
+					dimensions.add(headerEditPart.getDimension());
+				}
+			}
+		}
+		// run over them
+		run(dimensions);
+	}
 
-  /**
-   * Does some operation on {@link List} of selected {@link GridDimensionInfo}'s.
-   */
-  protected void run(List<GridDimensionInfo<C>> dimensions) throws Exception {
-    for (GridDimensionInfo<C> dimension : dimensions) {
-      run(dimension);
-    }
-  }
+	/**
+	 * Does some operation on {@link List} of selected {@link GridDimensionInfo}'s.
+	 */
+	protected void run(List<GridDimensionInfo<C>> dimensions) throws Exception {
+		for (GridDimensionInfo<C> dimension : dimensions) {
+			run(dimension);
+		}
+	}
 
-  /**
-   * Does some operation on selected {@link GridDimensionInfo}'s.
-   */
-  protected void run(GridDimensionInfo<C> dimension) throws Exception {
-  }
+	/**
+	 * Does some operation on selected {@link GridDimensionInfo}'s.
+	 */
+	protected void run(GridDimensionInfo<C> dimension) throws Exception {
+	}
 }

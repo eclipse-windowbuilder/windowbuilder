@@ -19,9 +19,9 @@ package org.eclipse.wb.internal.core.nls.model;
  * @coverage core.nls
  */
 public interface IKeyRenameStrategy {
-  /**
-   * @return the new key. If it is same as any of existing keys, including returning "oldKey", then
-   *         no rename will be performed.
-   */
-  String getNewKey(String oldName, String newName, String oldKey);
+	/**
+	 * @return the new key. If it is same as any of existing keys, including returning "oldKey", then
+	 *         no rename will be performed.
+	 */
+	String getNewKey(String oldName, String newName, String oldKey);
 }

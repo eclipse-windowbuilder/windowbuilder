@@ -33,87 +33,87 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public abstract class AbsoluteBasedSelectionEditPolicy<C extends IAbstractComponentInfo>
-    extends
-      SelectionEditPolicy {
-  // constants
-  public static final String REQ_RESIZE = "_absolute_resize";
+extends
+SelectionEditPolicy {
+	// constants
+	public static final String REQ_RESIZE = "_absolute_resize";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    MoveHandle moveHandle = new MoveHandle(getHost());
-    handles.add(moveHandle);
-    handles.add(createResizeHandle(IPositionConstants.NORTH));
-    handles.add(createResizeHandle(IPositionConstants.SOUTH));
-    handles.add(createResizeHandle(IPositionConstants.WEST));
-    handles.add(createResizeHandle(IPositionConstants.EAST));
-    handles.add(createResizeHandle(IPositionConstants.SOUTH_EAST));
-    handles.add(createResizeHandle(IPositionConstants.SOUTH_WEST));
-    handles.add(createResizeHandle(IPositionConstants.NORTH_WEST));
-    handles.add(createResizeHandle(IPositionConstants.NORTH_EAST));
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		MoveHandle moveHandle = new MoveHandle(getHost());
+		handles.add(moveHandle);
+		handles.add(createResizeHandle(IPositionConstants.NORTH));
+		handles.add(createResizeHandle(IPositionConstants.SOUTH));
+		handles.add(createResizeHandle(IPositionConstants.WEST));
+		handles.add(createResizeHandle(IPositionConstants.EAST));
+		handles.add(createResizeHandle(IPositionConstants.SOUTH_EAST));
+		handles.add(createResizeHandle(IPositionConstants.SOUTH_WEST));
+		handles.add(createResizeHandle(IPositionConstants.NORTH_WEST));
+		handles.add(createResizeHandle(IPositionConstants.NORTH_EAST));
+		return handles;
+	}
 
-  /**
-   * @return the {@link ResizeHandle} for given direction.
-   */
-  private Handle createResizeHandle(int direction) {
-    ResizeHandle handle = new ResizeHandle(getHost(), direction);
-    handle.setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE) {
-      @Override
-      protected Command getCommand() {
-        return getLayoutEditPolicy().getResizeCommandImpl(getRequest());
-      }
+	/**
+	 * @return the {@link ResizeHandle} for given direction.
+	 */
+	private Handle createResizeHandle(int direction) {
+		ResizeHandle handle = new ResizeHandle(getHost(), direction);
+		handle.setDragTrackerTool(new ResizeTracker(direction, REQ_RESIZE) {
+			@Override
+			protected Command getCommand() {
+				return getLayoutEditPolicy().getResizeCommandImpl(getRequest());
+			}
 
-      @Override
-      protected void showSourceFeedback() {
-        getLayoutEditPolicy().showResizeFeedback(getRequest());
-        setShowingFeedback(true);
-      }
+			@Override
+			protected void showSourceFeedback() {
+				getLayoutEditPolicy().showResizeFeedback(getRequest());
+				setShowingFeedback(true);
+			}
 
-      @Override
-      protected void eraseSourceFeedback() {
-        if (isShowingFeedback()) {
-          setShowingFeedback(false);
-          getLayoutEditPolicy().eraseResizeFeedback(getRequest());
-        }
-      }
-    });
-    return handle;
-  }
+			@Override
+			protected void eraseSourceFeedback() {
+				if (isShowingFeedback()) {
+					setShowingFeedback(false);
+					getLayoutEditPolicy().eraseResizeFeedback(getRequest());
+				}
+			}
+		});
+		return handle;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Routing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean understandsRequest(Request request) {
-    return super.understandsRequest(request) || request.getType() == REQ_RESIZE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Routing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean understandsRequest(Request request) {
+		return super.understandsRequest(request) || request.getType() == REQ_RESIZE;
+	}
 
-  @Override
-  public void performRequest(Request request) {
-    getLayoutEditPolicy().performRequest(request);
-  }
+	@Override
+	public void performRequest(Request request) {
+		getLayoutEditPolicy().performRequest(request);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @SuppressWarnings("unchecked")
-  protected final AbsoluteBasedLayoutEditPolicy<C> getLayoutEditPolicy() {
-    return (AbsoluteBasedLayoutEditPolicy<C>) getHost().getParent().getEditPolicy(
-        EditPolicy.LAYOUT_ROLE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	protected final AbsoluteBasedLayoutEditPolicy<C> getLayoutEditPolicy() {
+		return (AbsoluteBasedLayoutEditPolicy<C>) getHost().getParent().getEditPolicy(
+				EditPolicy.LAYOUT_ROLE);
+	}
 
-  protected final PlacementsSupport getPlacementsSupport() {
-    return getLayoutEditPolicy().getPlacementsSupport();
-  }
+	protected final PlacementsSupport getPlacementsSupport() {
+		return getLayoutEditPolicy().getPlacementsSupport();
+	}
 }

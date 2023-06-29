@@ -47,203 +47,203 @@ import java.util.List;
  * @coverage core.model.clipboard
  */
 public class JavaInfoMemento implements Serializable {
-  private static final long serialVersionUID = 0L;
-  /**
-   * The key under which {@link JavaInfoMemento} registers itself in created {@link JavaInfo}.
-   */
-  public static final String KEY_MEMENTO = "KEY_MEMENTO";
+	private static final long serialVersionUID = 0L;
+	/**
+	 * The key under which {@link JavaInfoMemento} registers itself in created {@link JavaInfo}.
+	 */
+	public static final String KEY_MEMENTO = "KEY_MEMENTO";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link JavaInfoMemento} for given {@link JavaInfo}.
-   */
-  public static JavaInfoMemento createMemento(JavaInfo javaInfo) throws Exception {
-    if (javaInfo instanceof AbstractComponentInfo) {
-      return new ComponentInfoMemento((AbstractComponentInfo) javaInfo);
-    }
-    return new JavaInfoMemento(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link JavaInfoMemento} for given {@link JavaInfo}.
+	 */
+	public static JavaInfoMemento createMemento(JavaInfo javaInfo) throws Exception {
+		if (javaInfo instanceof AbstractComponentInfo) {
+			return new ComponentInfoMemento((AbstractComponentInfo) javaInfo);
+		}
+		return new JavaInfoMemento(javaInfo);
+	}
 
-  /**
-   * Checks that component can be copy/paste, i.e. {@link JavaInfoMemento} can be created, but don't
-   * really create it. We use this to enable/disable copy/cut actions on selection change.
-   *
-   * @return <code>true</code> if {@link JavaInfoMemento} can be created for given {@link JavaInfo}.
-   */
-  public static boolean hasMemento(JavaInfo javaInfo) {
-    try {
-      IClipboardCreationSupport clipboard = javaInfo.getCreationSupport().getClipboard();
-      return clipboard != null;
-    } catch (Throwable e) {
-      return false;
-    }
-  }
+	/**
+	 * Checks that component can be copy/paste, i.e. {@link JavaInfoMemento} can be created, but don't
+	 * really create it. We use this to enable/disable copy/cut actions on selection change.
+	 *
+	 * @return <code>true</code> if {@link JavaInfoMemento} can be created for given {@link JavaInfo}.
+	 */
+	public static boolean hasMemento(JavaInfo javaInfo) {
+		try {
+			IClipboardCreationSupport clipboard = javaInfo.getCreationSupport().getClipboard();
+			return clipboard != null;
+		} catch (Throwable e) {
+			return false;
+		}
+	}
 
-  /**
-   * If given {@link JavaInfo} was created from some {@link JavaInfoMemento}, then applies this
-   * memento.
-   */
-  public static void apply(JavaInfo javaInfo) throws Exception {
-    JavaInfoMemento memento = (JavaInfoMemento) javaInfo.getArbitraryValue(KEY_MEMENTO);
-    memento.apply();
-  }
+	/**
+	 * If given {@link JavaInfo} was created from some {@link JavaInfoMemento}, then applies this
+	 * memento.
+	 */
+	public static void apply(JavaInfo javaInfo) throws Exception {
+		JavaInfoMemento memento = (JavaInfoMemento) javaInfo.getArbitraryValue(KEY_MEMENTO);
+		memento.apply();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final String m_componentClassName;
-  private final IClipboardCreationSupport m_creationSupport;
-  private final List<ClipboardCommand> m_commands = Lists.newArrayList();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final String m_componentClassName;
+	private final IClipboardCreationSupport m_creationSupport;
+	private final List<ClipboardCommand> m_commands = Lists.newArrayList();
 
-  //the variable.field name must be kept, it's not contained in javaInfo created during paste.
-  private String m_variableName;
+	//the variable.field name must be kept, it's not contained in javaInfo created during paste.
+	private String m_variableName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected JavaInfoMemento(JavaInfo javaInfo) throws Exception {
-    m_componentClassName = javaInfo.getDescription().getComponentClass().getName();
-    // creation
-    {
-      m_creationSupport = javaInfo.getCreationSupport().getClipboard();
-      m_variableName = getVariableName(javaInfo);
-      Assert.isNotNull(m_creationSupport, "No clipboard CreationSupport for %s", javaInfo);
-      cleanUpAnonymous(m_creationSupport);
-    }
-    // prepare commands
-    addCommands(javaInfo, m_commands);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected JavaInfoMemento(JavaInfo javaInfo) throws Exception {
+		m_componentClassName = javaInfo.getDescription().getComponentClass().getName();
+		// creation
+		{
+			m_creationSupport = javaInfo.getCreationSupport().getClipboard();
+			m_variableName = getVariableName(javaInfo);
+			Assert.isNotNull(m_creationSupport, "No clipboard CreationSupport for %s", javaInfo);
+			cleanUpAnonymous(m_creationSupport);
+		}
+		// prepare commands
+		addCommands(javaInfo, m_commands);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Copy utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds {@link ClipboardCommand}'s for restoring properties, children, etc for given
-   * {@link JavaInfo}.
-   *
-   * @param javaInfo
-   *          the {@link JavaInfo} to add commands for.
-   * @param commands
-   *          the container to add commands to.
-   */
-  static void addCommands(JavaInfo javaInfo, List<ClipboardCommand> commands) throws Exception {
-    // properties command
-    commands.add(new PropertiesClipboardCommand(javaInfo));
-    // implicit/exposed children commands
-    for (JavaInfo child : javaInfo.getChildrenJava()) {
-      if (child.getCreationSupport() instanceof IImplicitCreationSupport) {
-        commands.add(new ImplicitChildCommand(child));
-      }
-    }
-    // broadcast commands
-    javaInfo.getBroadcastJava().clipboardCopy(javaInfo, commands);
-    // clean up anonymous commands
-    for (ClipboardCommand command : commands) {
-      cleanUpAnonymous(command);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Copy utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds {@link ClipboardCommand}'s for restoring properties, children, etc for given
+	 * {@link JavaInfo}.
+	 *
+	 * @param javaInfo
+	 *          the {@link JavaInfo} to add commands for.
+	 * @param commands
+	 *          the container to add commands to.
+	 */
+	static void addCommands(JavaInfo javaInfo, List<ClipboardCommand> commands) throws Exception {
+		// properties command
+		commands.add(new PropertiesClipboardCommand(javaInfo));
+		// implicit/exposed children commands
+		for (JavaInfo child : javaInfo.getChildrenJava()) {
+			if (child.getCreationSupport() instanceof IImplicitCreationSupport) {
+				commands.add(new ImplicitChildCommand(child));
+			}
+		}
+		// broadcast commands
+		javaInfo.getBroadcastJava().clipboardCopy(javaInfo, commands);
+		// clean up anonymous commands
+		for (ClipboardCommand command : commands) {
+			cleanUpAnonymous(command);
+		}
+	}
 
-  /**
-   * Clears "this$0", "this$1", etc, because it is convenient to use clipboard anonymous classes,
-   * and we sure that they don't reference enclosing classes, even if Java thinks that they do this.
-   */
-  static void cleanUpAnonymous(Object o) throws Exception {
-    for (int i = 0; i < 10; i++) {
-      Field field = ReflectionUtils.getFieldByName(o.getClass(), "this$" + i);
-      if (field != null) {
-        field.set(o, null);
-      }
-    }
-  }
+	/**
+	 * Clears "this$0", "this$1", etc, because it is convenient to use clipboard anonymous classes,
+	 * and we sure that they don't reference enclosing classes, even if Java thinks that they do this.
+	 */
+	static void cleanUpAnonymous(Object o) throws Exception {
+		for (int i = 0; i < 10; i++) {
+			Field field = ReflectionUtils.getFieldByName(o.getClass(), "this$" + i);
+			if (field != null) {
+				field.set(o, null);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation/paste
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private transient JavaInfo m_javaInfo;
-  private transient boolean m_applied;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation/paste
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private transient JavaInfo m_javaInfo;
+	private transient boolean m_applied;
 
-  /**
-   * @return the class of component represented by this {@link JavaInfoMemento}. This can be used to
-   *         check component class/model in more light way than creating real {@link JavaInfo}.
-   */
-  public String getComponentClassName() {
-    return m_componentClassName;
-  }
+	/**
+	 * @return the class of component represented by this {@link JavaInfoMemento}. This can be used to
+	 *         check component class/model in more light way than creating real {@link JavaInfo}.
+	 */
+	public String getComponentClassName() {
+		return m_componentClassName;
+	}
 
-  /**
-   * Creates new {@link JavaInfo} using remembered values.
-   *
-   * @param existingHierarchyObject
-   *          some {@link JavaInfo} in model hierarchy.
-   *
-   * @return the new {@link JavaInfo}.
-   */
-  public JavaInfo create(JavaInfo existingHierarchyObject) throws Exception {
-    Assert.isLegal(!m_applied, "This memento already applied.");
-    if (m_javaInfo == null) {
-      JavaInfo rootObject = existingHierarchyObject.getRootJava();
-      AstEditor editor = rootObject.getEditor();
-      Class<?> componentClass =
-          JavaInfoUtils.getClassLoader(rootObject).loadClass(m_componentClassName);
-      // prepare creation
-      CreationSupport creationSupport = m_creationSupport.create(rootObject);
-      // create JavaInfo
-      m_javaInfo = JavaInfoUtils.createJavaInfo(editor, componentClass, creationSupport);
-      m_javaInfo.putArbitraryValue(KEY_MEMENTO, this);
-      JavaInfoUtils.setParameter(m_javaInfo, NamesManager.NAME_PARAMETER, m_variableName);
-    }
-    return m_javaInfo;
-  }
+	/**
+	 * Creates new {@link JavaInfo} using remembered values.
+	 *
+	 * @param existingHierarchyObject
+	 *          some {@link JavaInfo} in model hierarchy.
+	 *
+	 * @return the new {@link JavaInfo}.
+	 */
+	public JavaInfo create(JavaInfo existingHierarchyObject) throws Exception {
+		Assert.isLegal(!m_applied, "This memento already applied.");
+		if (m_javaInfo == null) {
+			JavaInfo rootObject = existingHierarchyObject.getRootJava();
+			AstEditor editor = rootObject.getEditor();
+			Class<?> componentClass =
+					JavaInfoUtils.getClassLoader(rootObject).loadClass(m_componentClassName);
+			// prepare creation
+			CreationSupport creationSupport = m_creationSupport.create(rootObject);
+			// create JavaInfo
+			m_javaInfo = JavaInfoUtils.createJavaInfo(editor, componentClass, creationSupport);
+			m_javaInfo.putArbitraryValue(KEY_MEMENTO, this);
+			JavaInfoUtils.setParameter(m_javaInfo, NamesManager.NAME_PARAMETER, m_variableName);
+		}
+		return m_javaInfo;
+	}
 
-  /**
-   * Performs configuring for this {@link JavaInfo}.
-   */
-  public void apply() throws Exception {
-    Assert.isNotNull(m_javaInfo, "JavaInfo should be already created using create().");
-    Assert.isLegal(
-        m_javaInfo.getParent() != null,
-        "JavaInfo should be already bounds to the hierarchy.");
-    Assert.isLegal(!m_applied, "This memento already applied.");
-    m_applied = true;
-    // do apply
-    m_javaInfo.getRootJava().refreshLight();
-    m_creationSupport.apply(m_javaInfo);
-    // execute commands
-    executeCommands();
-  }
+	/**
+	 * Performs configuring for this {@link JavaInfo}.
+	 */
+	public void apply() throws Exception {
+		Assert.isNotNull(m_javaInfo, "JavaInfo should be already created using create().");
+		Assert.isLegal(
+				m_javaInfo.getParent() != null,
+				"JavaInfo should be already bounds to the hierarchy.");
+		Assert.isLegal(!m_applied, "This memento already applied.");
+		m_applied = true;
+		// do apply
+		m_javaInfo.getRootJava().refreshLight();
+		m_creationSupport.apply(m_javaInfo);
+		// execute commands
+		executeCommands();
+	}
 
-  /**
-   * Executes remembered {@link ClipboardCommand}'s for this {@link JavaInfo}.
-   */
-  private void executeCommands() throws Exception {
-    for (ClipboardCommand command : m_commands) {
-      command.execute(m_javaInfo);
-    }
-  }
+	/**
+	 * Executes remembered {@link ClipboardCommand}'s for this {@link JavaInfo}.
+	 */
+	private void executeCommands() throws Exception {
+		for (ClipboardCommand command : m_commands) {
+			command.execute(m_javaInfo);
+		}
+	}
 
-  /**
-   * Get the variable field name of the JavaInfo.
-   *
-   * @param javaInfo The JavaInfo will be queried.
-   *
-   * @return The variable field name.
-   */
-    private String getVariableName(JavaInfo javaInfo) {
-        if (javaInfo != null) {
-            return javaInfo.getVariableSupport().getName();
-        }
-        return null;
-    }
+	/**
+	 * Get the variable field name of the JavaInfo.
+	 *
+	 * @param javaInfo The JavaInfo will be queried.
+	 *
+	 * @return The variable field name.
+	 */
+	private String getVariableName(JavaInfo javaInfo) {
+		if (javaInfo != null) {
+			return javaInfo.getVariableSupport().getName();
+		}
+		return null;
+	}
 }

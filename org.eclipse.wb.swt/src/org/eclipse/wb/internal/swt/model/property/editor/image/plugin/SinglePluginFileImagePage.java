@@ -25,32 +25,32 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage swt.property.editor.plugin
  */
 public class SinglePluginFileImagePage extends AbstractBrowseImagePage {
-  public static final String ID = "PLUGIN";
+	public static final String ID = "PLUGIN";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SinglePluginFileImagePage(Composite parent,
-      int style,
-      AbstractImageDialog imageDialog,
-      IProject project) {
-    super(parent, style, imageDialog, new SinglePluginImagesRoot(project));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SinglePluginFileImagePage(Composite parent,
+			int style,
+			AbstractImageDialog imageDialog,
+			IProject project) {
+		super(parent, style, imageDialog, new SinglePluginImagesRoot(project));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractImagePage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getId() {
-    return ID;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractImagePage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getId() {
+		return ID;
+	}
 
-  @Override
-  public String getTitle() {
-    return ModelMessages.SinglePluginFileImagePage_title;
-  }
+	@Override
+	public String getTitle() {
+		return ModelMessages.SinglePluginFileImagePage_title;
+	}
 }

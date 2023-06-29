@@ -21,8 +21,8 @@ import org.eclipse.swt.layout.RowLayout;
  * @coverage swt.model.layout
  */
 public interface IRowLayoutInfo<C extends IControlInfo> extends ILayoutInfo<C> {
-  /**
-   * @return {@link IRowDataInfo} association with given {@link IControlInfo}.
-   */
-  IRowDataInfo getRowData2(C control);
+	/**
+	 * @return {@link IRowDataInfo} association with given {@link IControlInfo}.
+	 */
+	IRowDataInfo getRowData2(C control);
 }

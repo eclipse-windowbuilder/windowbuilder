@@ -20,14 +20,14 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
  * @coverage core.model
  */
 public interface IDescriptionHelper {
-  /**
-   * @return the {@link PropertyEditor} for given type.
-   */
-  PropertyEditor getEditorForType(Class<?> type) throws Exception;
+	/**
+	 * @return the {@link PropertyEditor} for given type.
+	 */
+	PropertyEditor getEditorForType(Class<?> type) throws Exception;
 
-  /**
-   * @return the {@link IComponentDescription} of given model instance, may be <code>null</code> if
-   *         object is not model instance.
-   */
-  IComponentDescription getDescription(Object object);
+	/**
+	 * @return the {@link IComponentDescription} of given model instance, may be <code>null</code> if
+	 *         object is not model instance.
+	 */
+	IComponentDescription getDescription(Object object);
 }

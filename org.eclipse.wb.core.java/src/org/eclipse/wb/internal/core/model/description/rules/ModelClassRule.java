@@ -23,18 +23,18 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class ModelClassRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    // prepare model Class
-    String className = attributes.getValue("class");
-    Class<?> modelClass = DescriptionHelper.loadModelClass(className);
-    // set model Class
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-    componentDescription.setModelClass(modelClass);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		// prepare model Class
+		String className = attributes.getValue("class");
+		Class<?> modelClass = DescriptionHelper.loadModelClass(className);
+		// set model Class
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+		componentDescription.setModelClass(modelClass);
+	}
 }

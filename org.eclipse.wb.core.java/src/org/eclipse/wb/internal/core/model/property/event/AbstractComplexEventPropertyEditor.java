@@ -23,31 +23,31 @@ import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexProper
  * @coverage core.model.property.events
  */
 public abstract class AbstractComplexEventPropertyEditor extends TextDisplayPropertyEditor
-    implements
-      IComplexPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TextDisplayPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final String getText(Property property) throws Exception {
-    StringBuffer sb = new StringBuffer();
-    // append properties
-    Property[] subProperties = getProperties(property);
-    for (int i = 0; i < subProperties.length; i++) {
-      Property subProperty = subProperties[i];
-      if (subProperty.isModified()) {
-        if (sb.length() != 0) {
-          sb.append(", ");
-        }
-        sb.append(subProperty.getTitle());
-      }
-    }
-    // append square brackets
-    sb.insert(0, "[");
-    sb.append("]");
-    // return final text
-    return sb.toString();
-  }
+implements
+IComplexPropertyEditor {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TextDisplayPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final String getText(Property property) throws Exception {
+		StringBuffer sb = new StringBuffer();
+		// append properties
+		Property[] subProperties = getProperties(property);
+		for (int i = 0; i < subProperties.length; i++) {
+			Property subProperty = subProperties[i];
+			if (subProperty.isModified()) {
+				if (sb.length() != 0) {
+					sb.append(", ");
+				}
+				sb.append(subProperty.getTitle());
+			}
+		}
+		// append square brackets
+		sb.insert(0, "[");
+		sb.append("]");
+		// return final text
+		return sb.toString();
+	}
 }

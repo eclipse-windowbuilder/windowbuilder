@@ -20,27 +20,27 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
  * @coverage bindings.ui.properties
  */
 public class BindingAction extends ObjectInfoAction {
-  private final Context m_context;
-  private final IBindingInfo m_binding;
+	private final Context m_context;
+	private final IBindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BindingAction(Context context, IBindingInfo binding) {
-    super(context.objectInfo);
-    m_context = context;
-    m_binding = binding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BindingAction(Context context, IBindingInfo binding) {
+		super(context.objectInfo);
+		m_context = context;
+		m_binding = binding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObjectInfoAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    AbstractBindingProperty.editBinding(m_context, m_binding);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObjectInfoAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		AbstractBindingProperty.editBinding(m_context, m_binding);
+	}
 }

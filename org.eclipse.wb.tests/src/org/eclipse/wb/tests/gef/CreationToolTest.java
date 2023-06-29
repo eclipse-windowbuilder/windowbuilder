@@ -19,42 +19,42 @@ import org.eclipse.wb.gef.core.tools.CreationTool;
  *
  */
 public class CreationToolTest extends AbstractCreationToolTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CreationToolTest() {
-    super(CreationTool.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CreationToolTest() {
+		super(CreationTool.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SetUp
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configureTestCase() {
-    // create test factory
-    ICreationFactory factory = new ICreationFactory() {
-      @Override
-      public void activate() {
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SetUp
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configureTestCase() {
+		// create test factory
+		ICreationFactory factory = new ICreationFactory() {
+			@Override
+			public void activate() {
+			}
 
-      @Override
-      public Object getNewObject() {
-        return "_NewObject_";
-      }
+			@Override
+			public Object getNewObject() {
+				return "_NewObject_";
+			}
 
-      @Override
-      public String toString() {
-        return "TestFactory";
-      }
-    };
-    // set CreationTool
-    m_tool = new CreationTool(factory);
-    m_domain.setActiveTool(m_tool);
-    // create request
-    m_request = new CreateRequest(factory);
-  }
+			@Override
+			public String toString() {
+				return "TestFactory";
+			}
+		};
+		// set CreationTool
+		m_tool = new CreationTool(factory);
+		m_domain.setActiveTool(m_tool);
+		// create request
+		m_request = new CreateRequest(factory);
+	}
 }

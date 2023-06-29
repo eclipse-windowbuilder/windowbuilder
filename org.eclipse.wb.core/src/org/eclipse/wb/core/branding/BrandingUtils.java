@@ -21,19 +21,19 @@ import java.util.List;
  * @coverage core.util
  */
 public final class BrandingUtils {
-  /**
-   * @return the {@link IBrandingDescription} contributed by product provider, or default one for
-   *         WindowBuilder project.
-   */
-  public static IBrandingDescription getBranding() {
-    List<IBrandingDescription> instances =
-        ExternalFactoriesHelper.getElementsInstances(
-            IBrandingDescription.class,
-            "org.eclipse.wb.core.branding",
-            "branding");
-    if (instances.size() != 0) {
-      return instances.get(0);
-    }
-    return DefaultBrandingDescription.INSTANCE;
-  }
+	/**
+	 * @return the {@link IBrandingDescription} contributed by product provider, or default one for
+	 *         WindowBuilder project.
+	 */
+	public static IBrandingDescription getBranding() {
+		List<IBrandingDescription> instances =
+				ExternalFactoriesHelper.getElementsInstances(
+						IBrandingDescription.class,
+						"org.eclipse.wb.core.branding",
+						"branding");
+		if (instances.size() != 0) {
+			return instances.get(0);
+		}
+		return DefaultBrandingDescription.INSTANCE;
+	}
 }

@@ -29,53 +29,53 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage swing.gefTree.policy
  */
 public final class AbsoluteLayoutEditPolicy extends ObjectLayoutEditPolicy<ComponentInfo> {
-  private final AbstractAbsoluteLayoutInfo m_layout;
+	private final AbstractAbsoluteLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbsoluteLayoutEditPolicy(AbstractAbsoluteLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbsoluteLayoutEditPolicy(AbstractAbsoluteLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof ComponentInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof ComponentInfo;
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ComponentsLayoutRequestValidator.INSTANCE;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ComponentsLayoutRequestValidator.INSTANCE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ComponentInfo component, ComponentInfo reference) throws Exception {
-    Dimension preferredSize = component.getPreferredSize();
-    m_layout.command_CREATE(component, reference);
-    m_layout.command_BOUNDS(component, new Point(0, 0), preferredSize);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ComponentInfo component, ComponentInfo reference) throws Exception {
+		Dimension preferredSize = component.getPreferredSize();
+		m_layout.command_CREATE(component, reference);
+		m_layout.command_BOUNDS(component, new Point(0, 0), preferredSize);
+	}
 
-  @Override
-  protected void command_MOVE(ComponentInfo component, ComponentInfo reference) throws Exception {
-    m_layout.command_MOVE(component, reference);
-  }
+	@Override
+	protected void command_MOVE(ComponentInfo component, ComponentInfo reference) throws Exception {
+		m_layout.command_MOVE(component, reference);
+	}
 
-  @Override
-  protected void command_ADD(ComponentInfo component, ComponentInfo reference) throws Exception {
-    m_layout.command_MOVE(component, reference);
-    m_layout.command_BOUNDS(component, new Point(0, 0), component.getModelBounds().getSize());
-  }
+	@Override
+	protected void command_ADD(ComponentInfo component, ComponentInfo reference) throws Exception {
+		m_layout.command_MOVE(component, reference);
+		m_layout.command_BOUNDS(component, new Point(0, 0), component.getModelBounds().getSize());
+	}
 }

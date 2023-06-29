@@ -21,29 +21,29 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
  * @coverage bindings.ui.properties
  */
 public class ObserveAction extends ObjectInfoAction {
-  private final AbstractObserveProperty m_property;
+	private final AbstractObserveProperty m_property;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveAction(ObjectInfo object, AbstractObserveProperty property) throws Exception {
-    super(object);
-    m_property = property;
-    //
-    IObservePresentation presentation = m_property.getObserveProperty().getPresentation();
-    setText(presentation.getText());
-    setIcon(presentation.getImage());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveAction(ObjectInfo object, AbstractObserveProperty property) throws Exception {
+		super(object);
+		m_property = property;
+		//
+		IObservePresentation presentation = m_property.getObserveProperty().getPresentation();
+		setText(presentation.getText());
+		setIcon(presentation.getImage());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObjectInfoAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    m_property.createBinding();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObjectInfoAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		m_property.createBinding();
+	}
 }

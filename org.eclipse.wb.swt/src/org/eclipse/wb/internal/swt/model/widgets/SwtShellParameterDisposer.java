@@ -32,50 +32,50 @@ import java.util.List;
  * @coverage swt.model.widgets
  */
 public final class SwtShellParameterDisposer implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new SwtShellParameterDisposer();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new SwtShellParameterDisposer();
 
-  private SwtShellParameterDisposer() {
-  }
+	private SwtShellParameterDisposer() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    root.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void dispose() throws Exception {
-        CompilationUnit unit = root.getEditor().getAstUnit();
-        disposeShellParameters(unit);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		root.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void dispose() throws Exception {
+				CompilationUnit unit = root.getEditor().getAstUnit();
+				disposeShellParameters(unit);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static void disposeShellParameters(CompilationUnit unit) throws Exception {
-    unit.accept(new ASTVisitor() {
-      @Override
-      public void postVisit(ASTNode node) {
-        String key = SwtMethodParameterEvaluator.SHELL_KEY;
-        Object shell = node.getProperty(key);
-        if (shell != null
-            && ReflectionUtils.isSuccessorOf(shell, "org.eclipse.swt.widgets.Shell")
-            && !ControlSupport.isDisposed(shell)) {
-          ControlSupport.dispose(shell);
-          node.setProperty(key, null);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static void disposeShellParameters(CompilationUnit unit) throws Exception {
+		unit.accept(new ASTVisitor() {
+			@Override
+			public void postVisit(ASTNode node) {
+				String key = SwtMethodParameterEvaluator.SHELL_KEY;
+				Object shell = node.getProperty(key);
+				if (shell != null
+						&& ReflectionUtils.isSuccessorOf(shell, "org.eclipse.swt.widgets.Shell")
+						&& !ControlSupport.isDisposed(shell)) {
+					ControlSupport.dispose(shell);
+					node.setProperty(key, null);
+				}
+			}
+		});
+	}
 }

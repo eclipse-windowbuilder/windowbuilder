@@ -32,63 +32,63 @@ import org.eclipse.swt.widgets.Text;
  * @coverage rcp.wizards.ui
  */
 public abstract class RcpPartWizardPage extends RcpWizardPage {
-  private Text m_nameText;
-  protected PdeUtils m_pdeUtils;
-  protected String m_newTypeClassName;
+	private Text m_nameText;
+	protected PdeUtils m_pdeUtils;
+	protected String m_newTypeClassName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initTypePage(IJavaElement element) {
-    super.initTypePage(element);
-    if (element != null) {
-      m_pdeUtils = PdeUtils.get(element.getJavaProject().getProject());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initTypePage(IJavaElement element) {
+		super.initTypePage(element);
+		if (element != null) {
+			m_pdeUtils = PdeUtils.get(element.getJavaProject().getProject());
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    m_newTypeClassName = newType.getFullyQualifiedName();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		m_newTypeClassName = newType.getFullyQualifiedName();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Additional control
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final void createLocalControls(Composite parent,
-      int numColumns,
-      String nameLabel,
-      String nameValue) {
-    Composite composite = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.create(composite).columns(2).noMargins();
-    GridDataFactory.create(composite).fillH().grabH().spanH(numColumns);
-    // title
-    Label label = new Label(composite, SWT.NONE);
-    label.setText(nameLabel);
-    // text
-    m_nameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
-    GridDataFactory.create(m_nameText).fillH().grabH();
-    m_nameText.setText(nameValue);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Additional control
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final void createLocalControls(Composite parent,
+			int numColumns,
+			String nameLabel,
+			String nameValue) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridLayoutFactory.create(composite).columns(2).noMargins();
+		GridDataFactory.create(composite).fillH().grabH().spanH(numColumns);
+		// title
+		Label label = new Label(composite, SWT.NONE);
+		label.setText(nameLabel);
+		// text
+		m_nameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
+		GridDataFactory.create(m_nameText).fillH().grabH();
+		m_nameText.setText(nameValue);
+	}
 
-  protected final String getNameText() {
-    final String[] text = new String[1];
-    getShell().getDisplay().syncExec(new Runnable() {
-      @Override
-      public void run() {
-        text[0] = m_nameText.getText();
-      }
-    });
-    return text[0];
-  }
+	protected final String getNameText() {
+		final String[] text = new String[1];
+		getShell().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				text[0] = m_nameText.getText();
+			}
+		});
+		return text[0];
+	}
 }

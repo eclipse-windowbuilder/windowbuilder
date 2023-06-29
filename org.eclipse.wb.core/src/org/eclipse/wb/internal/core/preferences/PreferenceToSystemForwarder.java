@@ -20,31 +20,31 @@ import org.eclipse.jface.util.PropertyChangeEvent;
  * @author mitin_aa
  */
 public final class PreferenceToSystemForwarder {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PreferenceToSystemForwarder(IPreferenceStore preferenceStore,
-      final String preference,
-      final String property) {
-    preferenceStore.addPropertyChangeListener(new IPropertyChangeListener() {
-      @Override
-      public void propertyChange(PropertyChangeEvent event) {
-        if (event.getProperty().equals(preference)) {
-          updateProperty(property, event.getNewValue());
-        }
-      }
-    });
-    updateProperty(property, preferenceStore.getBoolean(preference));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PreferenceToSystemForwarder(IPreferenceStore preferenceStore,
+			final String preference,
+			final String property) {
+		preferenceStore.addPropertyChangeListener(new IPropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent event) {
+				if (event.getProperty().equals(preference)) {
+					updateProperty(property, event.getNewValue());
+				}
+			}
+		});
+		updateProperty(property, preferenceStore.getBoolean(preference));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void updateProperty(String property, Object newValue) {
-    System.setProperty(property, newValue.toString());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void updateProperty(String property, Object newValue) {
+		System.setProperty(property, newValue.toString());
+	}
 }

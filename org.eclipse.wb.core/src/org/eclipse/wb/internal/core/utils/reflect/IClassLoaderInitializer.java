@@ -17,13 +17,13 @@ package org.eclipse.wb.internal.core.utils.reflect;
  * @coverage core.util
  */
 public interface IClassLoaderInitializer {
-  /**
-   * Project {@link ClassLoader} was created and should be initialized.
-   */
-  void initialize(ClassLoader classLoader);
+	/**
+	 * Project {@link ClassLoader} was created and should be initialized.
+	 */
+	void initialize(ClassLoader classLoader);
 
-  /**
-   * Clear all resources association with project {@link ClassLoader}.
-   */
-  void deinitialize(ClassLoader classLoader);
+	/**
+	 * Clear all resources association with project {@link ClassLoader}.
+	 */
+	void deinitialize(ClassLoader classLoader);
 }

@@ -26,40 +26,40 @@ import java.util.List;
  * @coverage core.model.nonvisual
  */
 public final class NonVisualBeanRootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new NonVisualBeanRootProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new NonVisualBeanRootProcessor();
 
-  private NonVisualBeanRootProcessor() {
-  }
+	private NonVisualBeanRootProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    // check initial root state
-    Assert.isNull(NonVisualBeanContainerInfo.find(root));
-    // prepare all non-visual beans
-    List<JavaInfo> nonVisualBeans = Lists.newArrayList();
-    for (JavaInfo component : components) {
-      if (component.getParent() == null && NonVisualBeanInfo.getNonVisualInfo(component) != null) {
-        nonVisualBeans.add(component);
-      }
-    }
-    // check create container
-    if (!nonVisualBeans.isEmpty()) {
-      NonVisualBeanContainerInfo container = new NonVisualBeanContainerInfo();
-      root.addChild(container);
-      for (JavaInfo component : nonVisualBeans) {
-        component.setAssociation(new NonVisualAssociation());
-        container.addChild(component);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		// check initial root state
+		Assert.isNull(NonVisualBeanContainerInfo.find(root));
+		// prepare all non-visual beans
+		List<JavaInfo> nonVisualBeans = Lists.newArrayList();
+		for (JavaInfo component : components) {
+			if (component.getParent() == null && NonVisualBeanInfo.getNonVisualInfo(component) != null) {
+				nonVisualBeans.add(component);
+			}
+		}
+		// check create container
+		if (!nonVisualBeans.isEmpty()) {
+			NonVisualBeanContainerInfo container = new NonVisualBeanContainerInfo();
+			root.addChild(container);
+			for (JavaInfo component : nonVisualBeans) {
+				component.setAssociation(new NonVisualAssociation());
+				container.addChild(component);
+			}
+		}
+	}
 }

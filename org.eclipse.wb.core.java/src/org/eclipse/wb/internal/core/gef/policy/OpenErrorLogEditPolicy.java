@@ -36,124 +36,124 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.gef.policy
  */
 public final class OpenErrorLogEditPolicy extends EditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Install and access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final Object KEY = OpenErrorLogEditPolicy.class;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Install and access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final Object KEY = OpenErrorLogEditPolicy.class;
 
-  /**
-   * Installs {@link OpenErrorLogEditPolicy} for given {@link AbstractComponentEditPart}.
-   */
-  public static void install(AbstractComponentEditPart editPart) {
-    OpenErrorLogEditPolicy policy = new OpenErrorLogEditPolicy(editPart);
-    editPart.installEditPolicy(KEY, policy);
-  }
+	/**
+	 * Installs {@link OpenErrorLogEditPolicy} for given {@link AbstractComponentEditPart}.
+	 */
+	public static void install(AbstractComponentEditPart editPart) {
+		OpenErrorLogEditPolicy policy = new OpenErrorLogEditPolicy(editPart);
+		editPart.installEditPolicy(KEY, policy);
+	}
 
-  /**
-   * Notifies that {@link AbstractComponentEditPart} was refresh, so {@link OpenErrorLogEditPolicy}
-   * should be refreshed too.
-   */
-  public static void refresh(AbstractComponentEditPart editPart) {
-    OpenErrorLogEditPolicy policy = (OpenErrorLogEditPolicy) editPart.getEditPolicy(KEY);
-    if (policy != null) {
-      policy.refresh();
-    }
-  }
+	/**
+	 * Notifies that {@link AbstractComponentEditPart} was refresh, so {@link OpenErrorLogEditPolicy}
+	 * should be refreshed too.
+	 */
+	public static void refresh(AbstractComponentEditPart editPart) {
+		OpenErrorLogEditPolicy policy = (OpenErrorLogEditPolicy) editPart.getEditPolicy(KEY);
+		if (policy != null) {
+			policy.refresh();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final AbstractComponentEditPart m_editPart;
-  private final JavaInfo m_javaInfo;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance fields
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final AbstractComponentEditPart m_editPart;
+	private final JavaInfo m_javaInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public OpenErrorLogEditPolicy(AbstractComponentEditPart editPart) {
-    m_editPart = editPart;
-    m_javaInfo = m_editPart.getComponent();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public OpenErrorLogEditPolicy(AbstractComponentEditPart editPart) {
+		m_editPart = editPart;
+		m_javaInfo = m_editPart.getComponent();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Figure m_figure;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Figure m_figure;
 
-  /**
-   * If placeholder used - show error log figure. If not - hide it.
-   */
-  private void refresh() {
-    if (m_javaInfo.isPlaceholder()) {
-      if (m_figure == null) {
-        createFigure();
-      }
-      if (m_figure.getParent() == null) {
-        m_editPart.getFigure().add(m_figure);
-      }
-    } else {
-      FigureUtils.removeFigure(m_figure);
-    }
-  }
+	/**
+	 * If placeholder used - show error log figure. If not - hide it.
+	 */
+	private void refresh() {
+		if (m_javaInfo.isPlaceholder()) {
+			if (m_figure == null) {
+				createFigure();
+			}
+			if (m_figure.getParent() == null) {
+				m_editPart.getFigure().add(m_figure);
+			}
+		} else {
+			FigureUtils.removeFigure(m_figure);
+		}
+	}
 
-  private void createFigure() {
-    ILocator locator = new ILocator() {
-      @Override
-      public void relocate(Figure target) {
-        Figure componentFigure = m_editPart.getFigure();
-        Rectangle componentArea = componentFigure.getClientArea();
-        target.setBounds(new Rectangle(5, componentArea.bottom() - 5 - 16, 16, 16));
-      }
-    };
-    m_figure = new Handle(m_editPart, locator) {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        Image icon = DesignerPlugin.getImage("actions/errors/errors.gif");
-        graphics.drawImage(icon, 0, 0);
-      }
-    };
-    // open "log" on click
-    m_figure.addMouseListener(new IMouseListener() {
-      @Override
-      public void mouseUp(MouseEvent event) {
-      }
+	private void createFigure() {
+		ILocator locator = new ILocator() {
+			@Override
+			public void relocate(Figure target) {
+				Figure componentFigure = m_editPart.getFigure();
+				Rectangle componentArea = componentFigure.getClientArea();
+				target.setBounds(new Rectangle(5, componentArea.bottom() - 5 - 16, 16, 16));
+			}
+		};
+		m_figure = new Handle(m_editPart, locator) {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				Image icon = DesignerPlugin.getImage("actions/errors/errors.gif");
+				graphics.drawImage(icon, 0, 0);
+			}
+		};
+		// open "log" on click
+		m_figure.addMouseListener(new IMouseListener() {
+			@Override
+			public void mouseUp(MouseEvent event) {
+			}
 
-      @Override
-      public void mouseDown(MouseEvent event) {
-        scheduleOpenErrorLog();
-      }
+			@Override
+			public void mouseDown(MouseEvent event) {
+				scheduleOpenErrorLog();
+			}
 
-      @Override
-      public void mouseDoubleClick(MouseEvent event) {
-      }
-    });
-  }
+			@Override
+			public void mouseDoubleClick(MouseEvent event) {
+			}
+		});
+	}
 
-  /**
-   * Schedules showing error log later. We do this to allow normal "click" processing first.
-   */
-  private void scheduleOpenErrorLog() {
-    ExecutionUtils.runAsync(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        openErrorLog();
-      }
-    });
-  }
+	/**
+	 * Schedules showing error log later. We do this to allow normal "click" processing first.
+	 */
+	private void scheduleOpenErrorLog() {
+		ExecutionUtils.runAsync(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				openErrorLog();
+			}
+		});
+	}
 
-  /**
-   * Shows errors log.
-   */
-  private void openErrorLog() {
-    ErrorsAction errorsAction = new ErrorsAction();
-    errorsAction.setRoot(m_javaInfo.getRoot());
-    errorsAction.run();
-  }
+	/**
+	 * Shows errors log.
+	 */
+	private void openErrorLog() {
+		ErrorsAction errorsAction = new ErrorsAction();
+		errorsAction.setRoot(m_javaInfo.getRoot());
+		errorsAction.run();
+	}
 }

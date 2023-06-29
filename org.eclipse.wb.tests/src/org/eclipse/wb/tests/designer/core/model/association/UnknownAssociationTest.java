@@ -19,14 +19,14 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author scheglov_ke
  */
 public class UnknownAssociationTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test() throws Exception {
-    UnknownAssociation association = new UnknownAssociation();
-    assertFalse(association.canDelete());
-    assertNull(association.getStatement());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test() throws Exception {
+		UnknownAssociation association = new UnknownAssociation();
+		assertFalse(association.canDelete());
+		assertNull(association.getStatement());
+	}
 }

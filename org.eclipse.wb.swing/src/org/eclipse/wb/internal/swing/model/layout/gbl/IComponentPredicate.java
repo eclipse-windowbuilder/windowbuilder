@@ -19,24 +19,24 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
  * @coverage swing.model.layout
  */
 public interface IComponentPredicate {
-  /**
-   * @return <code>true</code> if {@link ComponentInfo} should be visited.
-   */
-  boolean apply(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-      throws Exception;
+	/**
+	 * @return <code>true</code> if {@link ComponentInfo} should be visited.
+	 */
+	boolean apply(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
+			throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TRUE
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link IComponentPredicate} that accepts all {@link ComponentInfo}'s.
-   */
-  IComponentPredicate TRUE = new IComponentPredicate() {
-    public boolean apply(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-        throws Exception {
-      return true;
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TRUE
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link IComponentPredicate} that accepts all {@link ComponentInfo}'s.
+	 */
+	IComponentPredicate TRUE = new IComponentPredicate() {
+		public boolean apply(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
+				throws Exception {
+			return true;
+		}
+	};
 }

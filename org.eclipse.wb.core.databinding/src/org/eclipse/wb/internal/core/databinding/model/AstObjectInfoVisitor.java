@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.databinding.model;
  * @coverage bindings.model
  */
 public abstract class AstObjectInfoVisitor {
-  /**
-   * This method is invoked to visit given {@link AstObjectInfo}.
-   */
-  public abstract void visit(AstObjectInfo object) throws Exception;
+	/**
+	 * This method is invoked to visit given {@link AstObjectInfo}.
+	 */
+	public abstract void visit(AstObjectInfo object) throws Exception;
 }

@@ -24,46 +24,46 @@ import org.eclipse.jface.window.Window;
  * @coverage rcp.model.rcp
  */
 public final class ViewCategoryPropertyEditor extends TextDialogPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new ViewCategoryPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new ViewCategoryPropertyEditor();
 
-  private ViewCategoryPropertyEditor() {
-  }
+	private ViewCategoryPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof String) {
-      return (String) value;
-    }
-    // unknown value
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof String) {
+			return (String) value;
+		}
+		// unknown value
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    ExtensionElementProperty<?> extensionProperty = (ExtensionElementProperty<?>) property;
-    // prepare dialog
-    CategoriesAndViewsDialog dialog =
-        new CategoriesAndViewsDialog(DesignerPlugin.getShell(), extensionProperty.getUtils());
-    // open dialog
-    if (dialog.open() == Window.OK) {
-      // TODO
-      //property.setValue(localeDialog.getSelectedLocale().getLocale());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		ExtensionElementProperty<?> extensionProperty = (ExtensionElementProperty<?>) property;
+		// prepare dialog
+		CategoriesAndViewsDialog dialog =
+				new CategoriesAndViewsDialog(DesignerPlugin.getShell(), extensionProperty.getUtils());
+		// open dialog
+		if (dialog.open() == Window.OK) {
+			// TODO
+			//property.setValue(localeDialog.getSelectedLocale().getLocale());
+		}
+	}
 }

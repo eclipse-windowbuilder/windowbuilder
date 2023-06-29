@@ -23,44 +23,44 @@ import java.net.URL;
  * @coverage core.model.description
  */
 public final class ResourceInfo {
-  private final Bundle m_bundle;
-  private final ToolkitDescription m_toolkit;
-  private final URL m_url;
+	private final Bundle m_bundle;
+	private final ToolkitDescription m_toolkit;
+	private final URL m_url;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ResourceInfo(Bundle bundle, ToolkitDescription toolkit, URL url) {
-    m_bundle = bundle;
-    m_toolkit = toolkit;
-    m_url = url;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ResourceInfo(Bundle bundle, ToolkitDescription toolkit, URL url) {
+		m_bundle = bundle;
+		m_toolkit = toolkit;
+		m_url = url;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Bundle} that contains this {@link ResourceInfo}.
-   */
-  public Bundle getBundle() {
-    return m_bundle;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Bundle} that contains this {@link ResourceInfo}.
+	 */
+	public Bundle getBundle() {
+		return m_bundle;
+	}
 
-  /**
-   * @return the {@link ToolkitDescription} of {@link Bundle}.
-   */
-  public ToolkitDescription getToolkit() {
-    return m_toolkit;
-  }
+	/**
+	 * @return the {@link ToolkitDescription} of {@link Bundle}.
+	 */
+	public ToolkitDescription getToolkit() {
+		return m_toolkit;
+	}
 
-  /**
-   * @return the {@link URL} with reference on this {@link ResourceInfo}.
-   */
-  public URL getURL() {
-    return m_url;
-  }
+	/**
+	 * @return the {@link URL} with reference on this {@link ResourceInfo}.
+	 */
+	public URL getURL() {
+		return m_url;
+	}
 }

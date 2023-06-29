@@ -35,86 +35,86 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class SwtApplicationWizardPage extends RcpWizardPage {
-  private Button m_createContentsButton;
-  private Button m_openButton;
-  private Button m_mainButton;
+	private Button m_createContentsButton;
+	private Button m_openButton;
+	private Button m_mainButton;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SwtApplicationWizardPage() {
-    setTitle(WizardsMessages.SwtApplicationWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/ApplicationWindow/banner.gif"));
-    setDescription(WizardsMessages.SwtApplicationWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SwtApplicationWizardPage() {
+		setTitle(WizardsMessages.SwtApplicationWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/ApplicationWindow/banner.gif"));
+		setDescription(WizardsMessages.SwtApplicationWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/swt/" + getTemplateName() + ".jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/swt/" + getTemplateName() + ".jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 
-  private String getTemplateName() {
-    final boolean selection[] = new boolean[2];
-    getShell().getDisplay().syncExec(new Runnable() {
-      @Override
-      public void run() {
-        selection[0] = m_openButton.getSelection();
-        selection[1] = m_mainButton.getSelection();
-      }
-    });
-    if (selection[0]) {
-      return "Application2";
-    }
-    if (selection[1]) {
-      return "Application3";
-    }
-    return "Application1";
-  }
+	private String getTemplateName() {
+		final boolean selection[] = new boolean[2];
+		getShell().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				selection[0] = m_openButton.getSelection();
+				selection[1] = m_mainButton.getSelection();
+			}
+		});
+		if (selection[0]) {
+			return "Application2";
+		}
+		if (selection[1]) {
+			return "Application3";
+		}
+		return "Application1";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createDesignSuperClassControls(Composite composite, int nColumns) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createDesignSuperClassControls(Composite composite, int nColumns) {
+	}
 
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    Composite methodsComposite = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.create(methodsComposite).margins(0);
-    GridDataFactory.create(methodsComposite).fillH().spanH(columns);
-    //
-    Label label = new Label(methodsComposite, SWT.NONE);
-    label.setText(WizardsMessages.SwtApplicationWizardPage_createContentsIn);
-    //
-    m_createContentsButton = new Button(methodsComposite, SWT.RADIO);
-    m_createContentsButton.setText("protected " + getCreateMethod("createContents") + "() method");
-    m_createContentsButton.setSelection(true);
-    GridDataFactory.create(m_createContentsButton).indentH(24);
-    //
-    m_openButton = new Button(methodsComposite, SWT.RADIO);
-    m_openButton.setText("public open() method");
-    GridDataFactory.create(m_openButton).indentH(24);
-    //
-    m_mainButton = new Button(methodsComposite, SWT.RADIO);
-    m_mainButton.setText("public static main() method");
-    GridDataFactory.create(m_mainButton).indentH(24);
-    //
-    createSeparator(parent, columns);
-    // I always use same names during tests
-    if (EnvironmentUtils.DEVELOPER_HOST) {
-      setTypeName("Application_1", true);
-    }
-  }
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		Composite methodsComposite = new Composite(parent, SWT.NONE);
+		GridLayoutFactory.create(methodsComposite).margins(0);
+		GridDataFactory.create(methodsComposite).fillH().spanH(columns);
+		//
+		Label label = new Label(methodsComposite, SWT.NONE);
+		label.setText(WizardsMessages.SwtApplicationWizardPage_createContentsIn);
+		//
+		m_createContentsButton = new Button(methodsComposite, SWT.RADIO);
+		m_createContentsButton.setText("protected " + getCreateMethod("createContents") + "() method");
+		m_createContentsButton.setSelection(true);
+		GridDataFactory.create(m_createContentsButton).indentH(24);
+		//
+		m_openButton = new Button(methodsComposite, SWT.RADIO);
+		m_openButton.setText("public open() method");
+		GridDataFactory.create(m_openButton).indentH(24);
+		//
+		m_mainButton = new Button(methodsComposite, SWT.RADIO);
+		m_mainButton.setText("public static main() method");
+		GridDataFactory.create(m_mainButton).indentH(24);
+		//
+		createSeparator(parent, columns);
+		// I always use same names during tests
+		if (EnvironmentUtils.DEVELOPER_HOST) {
+			setTypeName("Application_1", true);
+		}
+	}
 }

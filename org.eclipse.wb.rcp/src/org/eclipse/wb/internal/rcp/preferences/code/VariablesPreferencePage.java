@@ -20,14 +20,14 @@ import org.eclipse.wb.internal.rcp.ToolkitProvider;
  * @coverage rcp.preferences.ui
  */
 public final class VariablesPreferencePage
-    extends
-      org.eclipse.wb.internal.core.preferences.code.VariablesPreferencePage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VariablesPreferencePage() {
-    super(ToolkitProvider.DESCRIPTION);
-  }
+extends
+org.eclipse.wb.internal.core.preferences.code.VariablesPreferencePage {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VariablesPreferencePage() {
+		super(ToolkitProvider.DESCRIPTION);
+	}
 }

@@ -21,27 +21,27 @@ import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
  * @coverage nebula.gef
  */
 public final class CollapsibleButtonsEditPart extends CompositeEditPart {
-  private final CollapsibleButtonsInfo m_collButtons;
+	private final CollapsibleButtonsInfo m_collButtons;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CollapsibleButtonsEditPart(CollapsibleButtonsInfo collButtons) {
-    super(collButtons);
-    m_collButtons = collButtons;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CollapsibleButtonsEditPart(CollapsibleButtonsInfo collButtons) {
+		super(collButtons);
+		m_collButtons = collButtons;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(new CollapsibleButtonsLayoutEditPolicy(m_collButtons));
-    installEditPolicy(new TerminatorLayoutEditPolicy());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(new CollapsibleButtonsLayoutEditPolicy(m_collButtons));
+		installEditPolicy(new TerminatorLayoutEditPolicy());
+	}
 }

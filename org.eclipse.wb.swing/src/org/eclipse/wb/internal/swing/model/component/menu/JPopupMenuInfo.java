@@ -53,273 +53,273 @@ import javax.swing.JSeparator;
  * @coverage swing.model.menu
  */
 public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JPopupMenuInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JPopupMenuInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Events
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    MenuUtils.copyPasteItems(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Events
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		MenuUtils.copyPasteItems(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link JMenuItemInfo} children. Practically can be used only in tests because
-   *         {@link JMenu} may have not only {@link JMenuItem} children, but also {@link JSeparator}
-   *         or just any {@link Component}.
-   */
-  public List<JMenuItemInfo> getChildrenItems() {
-    return getChildren(JMenuItemInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link JMenuItemInfo} children. Practically can be used only in tests because
+	 *         {@link JMenu} may have not only {@link JMenuItem} children, but also {@link JSeparator}
+	 *         or just any {@link Component}.
+	 */
+	public List<JMenuItemInfo> getChildrenItems() {
+		return getChildren(JMenuItemInfo.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private MenuVisualData m_visualData;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private MenuVisualData m_visualData;
 
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    JPopupMenu menu = (JPopupMenu) getObject();
-    // add text, if no "real" items
-    {
-      if (menu.getComponentCount() == 0) {
-        menu.add(new JMenuItem(IMenuInfo.NO_ITEMS_TEXT));
-      }
-    }
-    // add a popup menu tracking listener to get the menu working in 'Test/Preview' mode.
-    {
-      ComponentInfo parent = (ComponentInfo) getParent();
-      if (parent != null) {
-        Component parentComponent = parent.getComponent();
-        addPopup(parentComponent, menu);
-      }
-    }
-    // continue
-    super.refresh_afterCreate();
-  }
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		JPopupMenu menu = (JPopupMenu) getObject();
+		// add text, if no "real" items
+		{
+			if (menu.getComponentCount() == 0) {
+				menu.add(new JMenuItem(IMenuInfo.NO_ITEMS_TEXT));
+			}
+		}
+		// add a popup menu tracking listener to get the menu working in 'Test/Preview' mode.
+		{
+			ComponentInfo parent = (ComponentInfo) getParent();
+			if (parent != null) {
+				Component parentComponent = parent.getComponent();
+				addPopup(parentComponent, menu);
+			}
+		}
+		// continue
+		super.refresh_afterCreate();
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    m_visualData = SwingImageUtils.fetchMenuVisualData(getContainer(), null);
-    super.refresh_fetch();
-    MenuUtils.setItemsBounds(m_visualData, getChildrenComponents());
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		m_visualData = SwingImageUtils.fetchMenuVisualData(getContainer(), null);
+		super.refresh_fetch();
+		MenuUtils.setItemsBounds(m_visualData, getChildrenComponents());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds new {@link JPopupMenuInfo} on given {@link ComponentInfo}.
-   */
-  public void command_CREATE(ComponentInfo component) throws Exception {
-    JavaInfoUtils.addFirst(this, getAssociation_(), component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds new {@link JPopupMenuInfo} on given {@link ComponentInfo}.
+	 */
+	public void command_CREATE(ComponentInfo component) throws Exception {
+		JavaInfoUtils.addFirst(this, getAssociation_(), component);
+	}
 
-  /**
-   * Moves this {@link JPopupMenuInfo} on given {@link ComponentInfo}.
-   */
-  public void command_MOVE(ComponentInfo component) throws Exception {
-    ComponentOrder order = ComponentOrderFirst.INSTANCE;
-    JavaInfo nextComponent = order.getNextComponent_whenLast(this, component);
-    JavaInfoUtils.move(this, getAssociation_(), component, nextComponent);
-  }
+	/**
+	 * Moves this {@link JPopupMenuInfo} on given {@link ComponentInfo}.
+	 */
+	public void command_MOVE(ComponentInfo component) throws Exception {
+		ComponentOrder order = ComponentOrderFirst.INSTANCE;
+		JavaInfo nextComponent = order.getNextComponent_whenLast(this, component);
+		JavaInfoUtils.move(this, getAssociation_(), component, nextComponent);
+	}
 
-  private static AssociationObject getAssociation_() {
-    Association association = new JPopupMenuAssociation();
-    return new AssociationObject(association, true);
-  }
+	private static AssociationObject getAssociation_() {
+		Association association = new JPopupMenuAssociation();
+		return new AssociationObject(association, true);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IAdaptable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IMenuPopupInfo m_popupImpl = new MenuPopupImpl();
-  private final IMenuInfo m_menuImpl = new MenuImpl();
-  private final IMenuPolicy m_menuPolicyImpl = new JMenuPolicyImpl(this);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IAdaptable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IMenuPopupInfo m_popupImpl = new MenuPopupImpl();
+	private final IMenuInfo m_menuImpl = new MenuImpl();
+	private final IMenuPolicy m_menuPolicyImpl = new JMenuPolicyImpl(this);
 
-  public <T> T getAdapter(Class<T> adapter) {
-    if (adapter.isAssignableFrom(IMenuPopupInfo.class)) {
-      return adapter.cast(m_popupImpl);
-    }
-    return null;
-  }
+	public <T> T getAdapter(Class<T> adapter) {
+		if (adapter.isAssignableFrom(IMenuPopupInfo.class)) {
+			return adapter.cast(m_popupImpl);
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Popup menu tracking
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds a special popup tracking listener to get the menu working in 'Test/Preview' mode.
-   */
-  private static void addPopup(Component component, final JPopupMenu popup) {
-    component.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mousePressed(MouseEvent e) {
-        if (e.isPopupTrigger()) {
-          showMenu(e);
-        }
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Popup menu tracking
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds a special popup tracking listener to get the menu working in 'Test/Preview' mode.
+	 */
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
 
-      @Override
-      public void mouseReleased(MouseEvent e) {
-        if (e.isPopupTrigger()) {
-          showMenu(e);
-        }
-      }
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
 
-      private void showMenu(MouseEvent e) {
-        popup.show(e.getComponent(), e.getX(), e.getY());
-      }
-    });
-  }
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractMenuImpl
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Abstract superclass for {@link IMenuObjectInfo} implementations.
-   *
-   * @author scheglov_ke
-   */
-  private abstract class MenuAbstractImpl extends JavaMenuMenuObject {
-    public MenuAbstractImpl() {
-      super(JPopupMenuInfo.this);
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IMenuPopupInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link IMenuPopupInfo}.
-   *
-   * @author scheglov_ke
-   */
-  private final class MenuPopupImpl extends MenuAbstractImpl implements IMenuPopupInfo {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Model
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public Object getModel() {
-      return JPopupMenuInfo.this;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractMenuImpl
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Abstract superclass for {@link IMenuObjectInfo} implementations.
+	 *
+	 * @author scheglov_ke
+	 */
+	private abstract class MenuAbstractImpl extends JavaMenuMenuObject {
+		public MenuAbstractImpl() {
+			super(JPopupMenuInfo.this);
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IMenuPopupInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link IMenuPopupInfo}.
+	 *
+	 * @author scheglov_ke
+	 */
+	private final class MenuPopupImpl extends MenuAbstractImpl implements IMenuPopupInfo {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Model
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public Object getModel() {
+			return JPopupMenuInfo.this;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Presentation
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public Image getImage() {
-      return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-        public Image runObject() throws Exception {
-          return getPresentation().getIcon();
-        }
-      }, getDescription().getIcon());
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Presentation
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public Image getImage() {
+			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+				public Image runObject() throws Exception {
+					return getPresentation().getIcon();
+				}
+			}, getDescription().getIcon());
+		}
 
-    public Rectangle getBounds() {
-      Image image = getImage();
-      return new Rectangle(0, 0, image.getBounds().width, image.getBounds().height);
-    }
+		public Rectangle getBounds() {
+			Image image = getImage();
+			return new Rectangle(0, 0, image.getBounds().width, image.getBounds().height);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // IMenuPopupInfo
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public IMenuInfo getMenu() {
-      return m_menuImpl;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// IMenuPopupInfo
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public IMenuInfo getMenu() {
+			return m_menuImpl;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Policy
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public IMenuPolicy getPolicy() {
-      return IMenuPolicy.NOOP;
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IMenuInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link IMenuInfo}.
-   *
-   * @author scheglov_ke
-   */
-  private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Model
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public Object getModel() {
-      return this;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Policy
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public IMenuPolicy getPolicy() {
+			return IMenuPolicy.NOOP;
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IMenuInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link IMenuInfo}.
+	 *
+	 * @author scheglov_ke
+	 */
+	private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Model
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public Object getModel() {
+			return this;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Presentation
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public Image getImage() {
-      return m_visualData.m_menuImage;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Presentation
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public Image getImage() {
+			return m_visualData.m_menuImage;
+		}
 
-    public Rectangle getBounds() {
-      return m_visualData.m_menuBounds;
-    }
+		public Rectangle getBounds() {
+			return m_visualData.m_menuBounds;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Access
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public boolean isHorizontal() {
-      return false;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Access
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public boolean isHorizontal() {
+			return false;
+		}
 
-    public List<IMenuItemInfo> getItems() {
-      return MenuUtils.getItems(JPopupMenuInfo.this);
-    }
+		public List<IMenuItemInfo> getItems() {
+			return MenuUtils.getItems(JPopupMenuInfo.this);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Policy
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public IMenuPolicy getPolicy() {
-      return m_menuPolicyImpl;
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Policy
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public IMenuPolicy getPolicy() {
+			return m_menuPolicyImpl;
+		}
+	}
 }

@@ -28,59 +28,59 @@ import java.util.List;
  * @coverage core.model.association
  */
 public final class ArrayAssociation extends Association {
-  private final ArrayCreation m_arrayCreation;
+	private final ArrayCreation m_arrayCreation;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ArrayAssociation(ArrayCreation arrayCreation) {
-    m_arrayCreation = arrayCreation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ArrayAssociation(ArrayCreation arrayCreation) {
+		m_arrayCreation = arrayCreation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the underlying {@link ArrayCreation}.
-   */
-  public ArrayCreation getCreation() {
-    return m_arrayCreation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the underlying {@link ArrayCreation}.
+	 */
+	public ArrayCreation getCreation() {
+		return m_arrayCreation;
+	}
 
-  @Override
-  public Statement getStatement() {
-    return AstNodeUtils.getEnclosingStatement(m_arrayCreation);
-  }
+	@Override
+	public Statement getStatement() {
+		return AstNodeUtils.getEnclosingStatement(m_arrayCreation);
+	}
 
-  @Override
-  public String getSource() {
-    return m_editor.getSource(m_arrayCreation);
-  }
+	@Override
+	public String getSource() {
+		return m_editor.getSource(m_arrayCreation);
+	}
 
-  @Override
-  public boolean remove() throws Exception {
-    ArrayInitializer initializer = m_arrayCreation.getInitializer();
-    List<Expression> expressionsToRemove = Lists.newArrayList();
-    // locate items
-    {
-      @SuppressWarnings("unchecked")
-      List<Expression> expressions = initializer.expressions();
-      for (Expression expression : expressions) {
-        if (m_javaInfo.isRepresentedBy(expression)) {
-          expressionsToRemove.add(expression);
-        }
-      }
-    }
-    // remove items
-    for (Expression expression : expressionsToRemove) {
-      int elementIndex = initializer.expressions().indexOf(expression);
-      m_editor.removeArrayElement(initializer, elementIndex);
-    }
-    // yes, association removed
-    return super.remove();
-  }
+	@Override
+	public boolean remove() throws Exception {
+		ArrayInitializer initializer = m_arrayCreation.getInitializer();
+		List<Expression> expressionsToRemove = Lists.newArrayList();
+		// locate items
+		{
+			@SuppressWarnings("unchecked")
+			List<Expression> expressions = initializer.expressions();
+			for (Expression expression : expressions) {
+				if (m_javaInfo.isRepresentedBy(expression)) {
+					expressionsToRemove.add(expression);
+				}
+			}
+		}
+		// remove items
+		for (Expression expression : expressionsToRemove) {
+			int elementIndex = initializer.expressions().indexOf(expression);
+			m_editor.removeArrayElement(initializer, elementIndex);
+		}
+		// yes, association removed
+		return super.remove();
+	}
 }

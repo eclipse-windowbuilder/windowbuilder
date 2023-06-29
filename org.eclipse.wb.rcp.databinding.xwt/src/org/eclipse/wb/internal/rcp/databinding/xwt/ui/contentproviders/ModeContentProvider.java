@@ -24,43 +24,43 @@ import org.eclipse.swt.SWT;
  *
  */
 public class ModeContentProvider extends DialogFieldUiContentProvider {
-  private final ComboDialogField m_dialogField;
-  private final BindingInfo m_binding;
+	private final ComboDialogField m_dialogField;
+	private final BindingInfo m_binding;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ModeContentProvider(BindingInfo binding) {
-    m_binding = binding;
-    m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
-    m_dialogField.setLabelText(Messages.ModeContentProvider_title);
-    m_dialogField.setItems(BindingInfo.MODES);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ModeContentProvider(BindingInfo binding) {
+		m_binding = binding;
+		m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
+		m_dialogField.setLabelText(Messages.ModeContentProvider_title);
+		m_dialogField.setItems(BindingInfo.MODES);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractUIContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public DialogField getDialogField() {
-    return m_dialogField;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractUIContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DialogField getDialogField() {
+		return m_dialogField;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-    m_dialogField.selectItem(m_binding.getMode());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+		m_dialogField.selectItem(m_binding.getMode());
+	}
 
-  @Override
-  public void saveToObject() throws Exception {
-    m_binding.setMode(m_dialogField.getSelectionIndex());
-  }
+	@Override
+	public void saveToObject() throws Exception {
+		m_binding.setMode(m_dialogField.getSelectionIndex());
+	}
 }

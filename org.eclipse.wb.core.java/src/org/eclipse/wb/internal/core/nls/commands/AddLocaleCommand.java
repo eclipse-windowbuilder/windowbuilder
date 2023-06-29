@@ -23,32 +23,32 @@ import java.util.Map;
  * @coverage core.nls
  */
 public final class AddLocaleCommand extends AbstractCommand {
-  private final LocaleInfo m_locale;
-  private final Map<String, String> m_values;
+	private final LocaleInfo m_locale;
+	private final Map<String, String> m_values;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AddLocaleCommand(IEditableSource editableSource,
-      LocaleInfo locale,
-      Map<String, String> values) {
-    super(editableSource);
-    m_locale = locale;
-    m_values = new HashMap<String, String>(values);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AddLocaleCommand(IEditableSource editableSource,
+			LocaleInfo locale,
+			Map<String, String> values) {
+		super(editableSource);
+		m_locale = locale;
+		m_values = new HashMap<String, String>(values);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LocaleInfo getLocale() {
-    return m_locale;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LocaleInfo getLocale() {
+		return m_locale;
+	}
 
-  public Map<String, String> getValues() {
-    return m_values;
-  }
+	public Map<String, String> getValues() {
+		return m_values;
+	}
 }

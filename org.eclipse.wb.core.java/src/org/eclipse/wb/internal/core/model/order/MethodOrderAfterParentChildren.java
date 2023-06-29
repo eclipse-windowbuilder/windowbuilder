@@ -26,33 +26,33 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage core.model.description
  */
 public final class MethodOrderAfterParentChildren extends MethodOrderChildren {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodOrderAfterParentChildren(String childrenTypeNames) {
-    super(childrenTypeNames);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodOrderAfterParentChildren(String childrenTypeNames) {
+		super(childrenTypeNames);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MethodOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
-      throws Exception {
-    JavaInfoUtils.materializeVariable(javaInfo);
-    // calculate 'relative' target
-    JavaInfo parentJavaInfo = javaInfo.getParentJava();
-    JavaInfo parentNextChild =
-        GenericsUtils.getNextOrNull(parentJavaInfo.getChildrenJava(), getLastChild(parentJavaInfo));
-    StatementTarget target = JavaInfoUtils.getTarget(parentJavaInfo, parentNextChild);
-    // check target
-    if (!JavaInfoUtils.isCreatedAtTarget(javaInfo, new NodeTarget(target))) {
-      target = JavaInfoUtils.getTarget(javaInfo);
-    }
-    return target;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MethodOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
+			throws Exception {
+		JavaInfoUtils.materializeVariable(javaInfo);
+		// calculate 'relative' target
+		JavaInfo parentJavaInfo = javaInfo.getParentJava();
+		JavaInfo parentNextChild =
+				GenericsUtils.getNextOrNull(parentJavaInfo.getChildrenJava(), getLastChild(parentJavaInfo));
+		StatementTarget target = JavaInfoUtils.getTarget(parentJavaInfo, parentNextChild);
+		// check target
+		if (!JavaInfoUtils.isCreatedAtTarget(javaInfo, new NodeTarget(target))) {
+			target = JavaInfoUtils.getTarget(javaInfo);
+		}
+		return target;
+	}
 }

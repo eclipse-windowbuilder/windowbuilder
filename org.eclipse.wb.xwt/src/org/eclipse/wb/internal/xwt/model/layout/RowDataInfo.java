@@ -24,27 +24,27 @@ import org.eclipse.swt.layout.RowData;
  * @coverage XWT.model.layout
  */
 public final class RowDataInfo extends LayoutDataInfo implements IRowDataInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowDataInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowDataInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void setWidth(int width) throws Exception {
-    getPropertyByTitle("width").setValue(width);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void setWidth(int width) throws Exception {
+		getPropertyByTitle("width").setValue(width);
+	}
 
-  public void setHeight(int height) throws Exception {
-    getPropertyByTitle("height").setValue(height);
-  }
+	public void setHeight(int height) throws Exception {
+		getPropertyByTitle("height").setValue(height);
+	}
 }

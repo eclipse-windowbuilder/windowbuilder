@@ -22,14 +22,14 @@ import org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSu
  * @coverage core.model.layout
  */
 public abstract class LayoutDataNameSupport<T extends JavaInfo>
-    extends
-      SyncParentChildVariableNameSupport<T> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutDataNameSupport(T layoutData) {
-    super(layoutData);
-  }
+extends
+SyncParentChildVariableNameSupport<T> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutDataNameSupport(T layoutData) {
+		super(layoutData);
+	}
 }

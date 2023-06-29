@@ -19,13 +19,13 @@ import org.eclipse.wb.core.model.ObjectInfo;
  * @coverage core.model
  */
 public interface ObjectInfoPresentationDecorateText {
-  /**
-   * This method is used to support external decoration of object text.
-   *
-   * @param object
-   *          the {@link ObjectInfo} to decorate title.
-   * @param text
-   *          the array with single {@link String}, listener can replace it
-   */
-  void invoke(ObjectInfo object, String[] text) throws Exception;
+	/**
+	 * This method is used to support external decoration of object text.
+	 *
+	 * @param object
+	 *          the {@link ObjectInfo} to decorate title.
+	 * @param text
+	 *          the array with single {@link String}, listener can replace it
+	 */
+	void invoke(ObjectInfo object, String[] text) throws Exception;
 }

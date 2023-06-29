@@ -23,34 +23,34 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
  * @coverage bindings.rcp.model.beans
  */
 public class LocalVariableBindableInfo extends BeanBindableInfo {
-  private final VariableDeclarationFragment m_fragment;
+	private final VariableDeclarationFragment m_fragment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LocalVariableBindableInfo(BeanSupport beanSupport,
-      VariableDeclarationFragment fragment,
-      Class<?> objectType) throws Exception {
-    super(beanSupport,
-        null,
-        objectType,
-        new FragmentReferenceProvider(fragment),
-        new BeanBindablePresentation(objectType,
-            new FragmentReferenceProvider(fragment),
-            null,
-            Activator.getImage("localvariable_obj.gif")));
-    setBindingDecoration(SwtResourceManager.TOP_RIGHT);
-    m_fragment = fragment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LocalVariableBindableInfo(BeanSupport beanSupport,
+			VariableDeclarationFragment fragment,
+			Class<?> objectType) throws Exception {
+		super(beanSupport,
+				null,
+				objectType,
+				new FragmentReferenceProvider(fragment),
+				new BeanBindablePresentation(objectType,
+						new FragmentReferenceProvider(fragment),
+						null,
+						Activator.getImage("localvariable_obj.gif")));
+		setBindingDecoration(SwtResourceManager.TOP_RIGHT);
+		m_fragment = fragment;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VariableDeclarationFragment getFragment() {
-    return m_fragment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VariableDeclarationFragment getFragment() {
+		return m_fragment;
+	}
 }

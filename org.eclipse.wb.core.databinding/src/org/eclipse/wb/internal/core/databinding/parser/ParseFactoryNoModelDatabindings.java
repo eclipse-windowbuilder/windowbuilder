@@ -23,17 +23,17 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
  * @coverage bindings.parser
  */
 public final class ParseFactoryNoModelDatabindings extends ParseFactoryNoModel {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ParseFactory_noModel
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean noModel(ASTNode node) {
-    MethodDeclaration enclosingMethod = AstNodeUtils.getEnclosingMethod(node);
-    if (enclosingMethod != null) {
-      return "initDataBindings".equals(enclosingMethod.getName().toString());
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ParseFactory_noModel
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean noModel(ASTNode node) {
+		MethodDeclaration enclosingMethod = AstNodeUtils.getEnclosingMethod(node);
+		if (enclosingMethod != null) {
+			return "initDataBindings".equals(enclosingMethod.getName().toString());
+		}
+		return false;
+	}
 }

@@ -27,50 +27,50 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author scheglov_ke
  */
 public class AbstractXmlEditorTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_getAdapter_StructuredTextEditor() throws Exception {
-    openEditor("<Shell/>");
-    // we can access it
-    Object adapter = m_designerEditor.getAdapter(StructuredTextEditor.class);
-    assertSame(m_sourcePage.getXmlEditor(), adapter);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_getAdapter_StructuredTextEditor() throws Exception {
+		openEditor("<Shell/>");
+		// we can access it
+		Object adapter = m_designerEditor.getAdapter(StructuredTextEditor.class);
+		assertSame(m_sourcePage.getXmlEditor(), adapter);
+	}
 
-  public void test_doSaveAs() throws Exception {
-    openEditor("<Shell/>");
-    // disabled
-    assertEquals(false, m_designerEditor.isSaveAsAllowed());
-    // ignored
-    m_designerEditor.doSaveAs();
-  }
+	public void test_doSaveAs() throws Exception {
+		openEditor("<Shell/>");
+		// disabled
+		assertEquals(false, m_designerEditor.isSaveAsAllowed());
+		// ignored
+		m_designerEditor.doSaveAs();
+	}
 
-  /**
-   * Our editor accepts only {@link IFileEditorInput}.
-   */
-  public void test_init_notFile() throws Exception {
-    AbstractXmlEditor editor = new AbstractXmlEditor() {
-      @Override
-      protected XmlDesignPage createDesignPage() {
-        return null;
-      }
-    };
-    try {
-      editor.init(null, new NullEditorInput());
-      fail();
-    } catch (PartInitException e) {
-      assertThat(e.getMessage()).contains("IFileEditorInput");
-    }
-  }
+	/**
+	 * Our editor accepts only {@link IFileEditorInput}.
+	 */
+	public void test_init_notFile() throws Exception {
+		AbstractXmlEditor editor = new AbstractXmlEditor() {
+			@Override
+			protected XmlDesignPage createDesignPage() {
+				return null;
+			}
+		};
+		try {
+			editor.init(null, new NullEditorInput());
+			fail();
+		} catch (PartInitException e) {
+			assertThat(e.getMessage()).contains("IFileEditorInput");
+		}
+	}
 }

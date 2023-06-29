@@ -19,18 +19,18 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model
  */
 public interface XmlObjectResolveTag {
-  /**
-   * Fills namespace and tag.
-   *
-   * @param object
-   *          some {@link XmlObjectInfo} in hierarchy.
-   * @param clazz
-   *          the {@link Class} to create namespace/tag for.
-   * @param namespace
-   *          the array with single element, initially <code>null</code>.
-   * @param tag
-   *          the array with single element, initially <code>null</code>.
-   */
-  void invoke(XmlObjectInfo object, Class<?> claz, String[] namespace, String[] tag)
-      throws Exception;
+	/**
+	 * Fills namespace and tag.
+	 *
+	 * @param object
+	 *          some {@link XmlObjectInfo} in hierarchy.
+	 * @param clazz
+	 *          the {@link Class} to create namespace/tag for.
+	 * @param namespace
+	 *          the array with single element, initially <code>null</code>.
+	 * @param tag
+	 *          the array with single element, initially <code>null</code>.
+	 */
+	void invoke(XmlObjectInfo object, Class<?> claz, String[] namespace, String[] tag)
+			throws Exception;
 }

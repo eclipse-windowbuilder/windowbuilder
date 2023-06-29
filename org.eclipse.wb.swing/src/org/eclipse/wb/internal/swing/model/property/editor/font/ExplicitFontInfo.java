@@ -20,38 +20,38 @@ import java.text.MessageFormat;
  * @coverage swing.property.editor
  */
 public final class ExplicitFontInfo extends FontInfo {
-  private final Font m_font;
+	private final Font m_font;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExplicitFontInfo(Font font) {
-    m_font = font;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExplicitFontInfo(Font font) {
+		m_font = font;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Font getFont() {
-    return m_font;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Font getFont() {
+		return m_font;
+	}
 
-  @Override
-  public String getText() {
-    return getText(m_font);
-  }
+	@Override
+	public String getText() {
+		return getText(m_font);
+	}
 
-  @Override
-  public String getSource() throws Exception {
-    return MessageFormat.format(
-        "new java.awt.Font(\"{0}\", {1}, {2})",
-        m_font.getFamily(),
-        getStyleSource(m_font.getStyle()),
-        m_font.getSize());
-  }
+	@Override
+	public String getSource() throws Exception {
+		return MessageFormat.format(
+				"new java.awt.Font(\"{0}\", {1}, {2})",
+				m_font.getFamily(),
+				getStyleSource(m_font.getStyle()),
+				m_font.getSize());
+	}
 }

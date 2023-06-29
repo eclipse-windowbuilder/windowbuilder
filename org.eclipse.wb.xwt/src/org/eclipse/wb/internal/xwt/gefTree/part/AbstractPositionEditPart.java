@@ -22,26 +22,26 @@ import org.eclipse.wb.internal.xwt.model.widgets.AbstractPositionInfo;
  * @coverage XWT.gefTree.part
  */
 public final class AbstractPositionEditPart extends ObjectEditPart {
-  private final AbstractPositionInfo m_position;
+	private final AbstractPositionInfo m_position;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractPositionEditPart(AbstractPositionInfo position) {
-    super(position);
-    m_position = position;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractPositionEditPart(AbstractPositionInfo position) {
+		super(position);
+		m_position = position;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(new AbstractPositionLayoutEditPolicy(m_position));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(new AbstractPositionLayoutEditPolicy(m_position));
+	}
 }

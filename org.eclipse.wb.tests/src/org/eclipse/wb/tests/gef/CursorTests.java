@@ -18,11 +18,11 @@ import junit.framework.TestSuite;
  * @author lobas_av
  */
 public class CursorTests extends TestCase {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.gef.cursors");
-    suite.addTestSuite(CreationToolCursorTest.class);
-    suite.addTestSuite(SelectionToolCursorTest.class);
-    suite.addTestSuite(MarqueeSelectionToolCursorTest.class);
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.gef.cursors");
+		suite.addTestSuite(CreationToolCursorTest.class);
+		suite.addTestSuite(SelectionToolCursorTest.class);
+		suite.addTestSuite(MarqueeSelectionToolCursorTest.class);
+		return suite;
+	}
 }

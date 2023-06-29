@@ -22,15 +22,15 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class PropertyTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.property");
-    suite.addTest(createSingleSuite(XwtStyleClassResolverTest.class));
-    suite.addTest(createSingleSuite(StylePropertyEditorTest.class));
-    suite.addTest(createSingleSuite(ColorPropertyEditorTest.class));
-    suite.addTest(createSingleSuite(FontPropertyEditorTest.class));
-    suite.addTest(createSingleSuite(ImagePropertyEditorTest.class));
-    suite.addTest(createSingleSuite(InnerClassPropertyEditorTest.class));
-    suite.addTest(createSingleSuite(ObjectPropertyEditorTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.property");
+		suite.addTest(createSingleSuite(XwtStyleClassResolverTest.class));
+		suite.addTest(createSingleSuite(StylePropertyEditorTest.class));
+		suite.addTest(createSingleSuite(ColorPropertyEditorTest.class));
+		suite.addTest(createSingleSuite(FontPropertyEditorTest.class));
+		suite.addTest(createSingleSuite(ImagePropertyEditorTest.class));
+		suite.addTest(createSingleSuite(InnerClassPropertyEditorTest.class));
+		suite.addTest(createSingleSuite(ObjectPropertyEditorTest.class));
+		return suite;
+	}
 }

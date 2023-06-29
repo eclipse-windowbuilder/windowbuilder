@@ -20,23 +20,23 @@ import org.eclipse.wb.internal.core.xml.model.property.accessor.ExpressionAccess
  * @author scheglov_ke
  */
 public class EmptyExpressionAccessorTest extends AbstractCoreTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Types
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    ExpressionAccessor accessor = EmptyExpressionAccessor.INSTANCE;
-    assertSame(Property.UNKNOWN_VALUE, accessor.getValue(null));
-    assertSame(Property.UNKNOWN_VALUE, accessor.getDefaultValue(null));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Types
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		ExpressionAccessor accessor = EmptyExpressionAccessor.INSTANCE;
+		assertSame(Property.UNKNOWN_VALUE, accessor.getValue(null));
+		assertSame(Property.UNKNOWN_VALUE, accessor.getDefaultValue(null));
+	}
 }

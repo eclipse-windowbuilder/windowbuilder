@@ -39,96 +39,96 @@ import java.util.List;
  * @coverage rcp.model.jface
  */
 public final class CoolBarManagerInfo extends ContributionManagerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CoolBarManagerInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CoolBarManagerInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public List<ToolBarManagerInfo> getToolBarManagers() {
-    return getChildren(ToolBarManagerInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public List<ToolBarManagerInfo> getToolBarManagers() {
+		return getChildren(ToolBarManagerInfo.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    // force update for CoolBarManager, to ensure that CoolBar widget is create and filled (re-filled)
-    ReflectionUtils.invokeMethod2(getObject(), "update", boolean.class, true);
-    // prepare CoolBar widget
-    {
-      CoolBar coolBar = (CoolBar) ReflectionUtils.invokeMethod2(getObject(), "getControl");
-      // if no any items, create one
-      if (coolBar.getItemCount() == 0) {
-        CoolItem coolItem = new CoolItem(coolBar, SWT.NONE);
-        // use ToolBar on CoolItem
-        ToolBar toolBar = new ToolBar(coolBar, SWT.FLAT);
-        coolItem.setControl(toolBar);
-        // show message using ToolItem
-        ToolItem toolItem = new ToolItem(toolBar, SWT.NONE);
-        toolItem.setText("Empty CoolBarManager, add new ToolBarManager(s)");
-        // configure sizes
-        Point toolBar_preferredSize = toolBar.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-        Point item_preferredSize =
-            coolItem.computeSize(toolBar_preferredSize.x, toolBar_preferredSize.y);
-        coolItem.setSize(item_preferredSize);
-      }
-      // OK, remember as component
-      setComponentObject(coolBar);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		// force update for CoolBarManager, to ensure that CoolBar widget is create and filled (re-filled)
+		ReflectionUtils.invokeMethod2(getObject(), "update", boolean.class, true);
+		// prepare CoolBar widget
+		{
+			CoolBar coolBar = (CoolBar) ReflectionUtils.invokeMethod2(getObject(), "getControl");
+			// if no any items, create one
+			if (coolBar.getItemCount() == 0) {
+				CoolItem coolItem = new CoolItem(coolBar, SWT.NONE);
+				// use ToolBar on CoolItem
+				ToolBar toolBar = new ToolBar(coolBar, SWT.FLAT);
+				coolItem.setControl(toolBar);
+				// show message using ToolItem
+				ToolItem toolItem = new ToolItem(toolBar, SWT.NONE);
+				toolItem.setText("Empty CoolBarManager, add new ToolBarManager(s)");
+				// configure sizes
+				Point toolBar_preferredSize = toolBar.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+				Point item_preferredSize =
+						coolItem.computeSize(toolBar_preferredSize.x, toolBar_preferredSize.y);
+				coolItem.setSize(item_preferredSize);
+			}
+			// OK, remember as component
+			setComponentObject(coolBar);
+		}
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    // prepare bounds of underlying CoolBar
-    ControlInfo.refresh_fetch(this, null);
-    // process children
-    super.refresh_fetch();
-    tweakToolBarManagerBounds();
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		// prepare bounds of underlying CoolBar
+		ControlInfo.refresh_fetch(this, null);
+		// process children
+		super.refresh_fetch();
+		tweakToolBarManagerBounds();
+	}
 
-  /**
-   * Each child {@link ToolBarManager} is represented as {@link ToolBar} widget, but it is more
-   * convenient to use bounds of {@link CoolItem} with this {@link ToolBar}.
-   */
-  private void tweakToolBarManagerBounds() throws Exception {
-    CoolBar coolBar = (CoolBar) ReflectionUtils.invokeMethod(getObject(), "getControl()");
-    CoolItem[] coolItems = coolBar.getItems();
-    for (ToolBarManagerInfo toolBarManager : getChildren(ToolBarManagerInfo.class)) {
-      ToolBar toolBar =
-          (ToolBar) ReflectionUtils.invokeMethod(toolBarManager.getObject(), "getControl()");
-      for (CoolItem coolItem : coolItems) {
-        if (coolItem.getControl() == toolBar) {
-          Rectangle newBounds = RectangleSupport.getRectangle(coolItem.getBounds());
-          Rectangle oldBounds = toolBarManager.getBounds();
-          final int deltaX = oldBounds.x - newBounds.x;
-          final int deltaY = oldBounds.y - newBounds.y;
-          toolBarManager.accept(new ObjectInfoVisitor() {
-            @Override
-            public void endVisit(ObjectInfo objectInfo) throws Exception {
-              if (objectInfo instanceof AbstractComponentInfo) {
-                AbstractComponentInfo component = (AbstractComponentInfo) objectInfo;
-                component.getBounds().performTranslate(deltaX, deltaY);
-              }
-            }
-          });
-          toolBarManager.setBounds(newBounds);
-        }
-      }
-    }
-  }
+	/**
+	 * Each child {@link ToolBarManager} is represented as {@link ToolBar} widget, but it is more
+	 * convenient to use bounds of {@link CoolItem} with this {@link ToolBar}.
+	 */
+	private void tweakToolBarManagerBounds() throws Exception {
+		CoolBar coolBar = (CoolBar) ReflectionUtils.invokeMethod(getObject(), "getControl()");
+		CoolItem[] coolItems = coolBar.getItems();
+		for (ToolBarManagerInfo toolBarManager : getChildren(ToolBarManagerInfo.class)) {
+			ToolBar toolBar =
+					(ToolBar) ReflectionUtils.invokeMethod(toolBarManager.getObject(), "getControl()");
+			for (CoolItem coolItem : coolItems) {
+				if (coolItem.getControl() == toolBar) {
+					Rectangle newBounds = RectangleSupport.getRectangle(coolItem.getBounds());
+					Rectangle oldBounds = toolBarManager.getBounds();
+					final int deltaX = oldBounds.x - newBounds.x;
+					final int deltaY = oldBounds.y - newBounds.y;
+					toolBarManager.accept(new ObjectInfoVisitor() {
+						@Override
+						public void endVisit(ObjectInfo objectInfo) throws Exception {
+							if (objectInfo instanceof AbstractComponentInfo) {
+								AbstractComponentInfo component = (AbstractComponentInfo) objectInfo;
+								component.getBounds().performTranslate(deltaX, deltaY);
+							}
+						}
+					});
+					toolBarManager.setBounds(newBounds);
+				}
+			}
+		}
+	}
 }

@@ -24,58 +24,58 @@ import org.xml.sax.Attributes;
  * @coverage core.editor.palette
  */
 public abstract class FactoryAbstractCommand extends AbstractElementCommand {
-  protected final String m_factoryClassName;
-  protected final String m_methodSignature;
-  protected final boolean m_forStatic;
+	protected final String m_factoryClassName;
+	protected final String m_methodSignature;
+	protected final boolean m_forStatic;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FactoryAbstractCommand(String id,
-      String name,
-      String description,
-      boolean visible,
-      String factoryClassName,
-      String methodSignature,
-      boolean forStatic) {
-    super(id, name, description, visible);
-    m_factoryClassName = factoryClassName;
-    m_methodSignature = methodSignature;
-    m_forStatic = forStatic;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FactoryAbstractCommand(String id,
+			String name,
+			String description,
+			boolean visible,
+			String factoryClassName,
+			String methodSignature,
+			boolean forStatic) {
+		super(id, name, description, visible);
+		m_factoryClassName = factoryClassName;
+		m_methodSignature = methodSignature;
+		m_forStatic = forStatic;
+	}
 
-  public FactoryAbstractCommand(Attributes attributes) {
-    super(attributes);
-    m_factoryClassName = attributes.getValue("class");
-    m_methodSignature = attributes.getValue("signature");
-    m_forStatic = "true".equals(attributes.getValue("static"));
-  }
+	public FactoryAbstractCommand(Attributes attributes) {
+		super(attributes);
+		m_factoryClassName = attributes.getValue("class");
+		m_methodSignature = attributes.getValue("signature");
+		m_forStatic = "true".equals(attributes.getValue("static"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Execution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final void updateElement(AbstractElementInfo element) {
-    super.updateElement(element);
-    FactoryEntryInfo component = (FactoryEntryInfo) element;
-    component.setFactoryClassName(m_factoryClassName);
-    component.setMethodSignature(m_methodSignature);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Execution
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final void updateElement(AbstractElementInfo element) {
+		super.updateElement(element);
+		FactoryEntryInfo component = (FactoryEntryInfo) element;
+		component.setFactoryClassName(m_factoryClassName);
+		component.setMethodSignature(m_methodSignature);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes() {
-    super.addAttributes();
-    addAttribute("class", m_factoryClassName);
-    addAttribute("signature", m_methodSignature);
-    addAttribute("static", m_forStatic);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes() {
+		super.addAttributes();
+		addAttribute("class", m_factoryClassName);
+		addAttribute("signature", m_methodSignature);
+		addAttribute("static", m_forStatic);
+	}
 }

@@ -32,83 +32,83 @@ import java.util.regex.Pattern;
  * @coverage core.model.description
  */
 public final class MethodsOperationRule extends AbstractDesignerRule {
-  private final boolean m_include;
+	private final boolean m_include;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodsOperationRule(boolean include) {
-    m_include = include;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodsOperationRule(boolean include) {
+		m_include = include;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ComponentDescription componentDescription;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ComponentDescription componentDescription;
 
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    componentDescription = (ComponentDescription) getDigester().peek();
-    String signature = getRequiredAttribute(name, attributes, "signature");
-    if (isRegexpSignature(signature)) {
-      processRegexp(signature);
-    } else {
-      processSingleSignature(signature);
-    }
-  }
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		componentDescription = (ComponentDescription) getDigester().peek();
+		String signature = getRequiredAttribute(name, attributes, "signature");
+		if (isRegexpSignature(signature)) {
+			processRegexp(signature);
+		} else {
+			processSingleSignature(signature);
+		}
+	}
 
-  private boolean isRegexpSignature(String signature) {
-    return signature.startsWith("/") && signature.endsWith("/");
-  }
+	private boolean isRegexpSignature(String signature) {
+		return signature.startsWith("/") && signature.endsWith("/");
+	}
 
-  private void processRegexp(final String signature) throws Exception {
-    final Pattern pattern = Pattern.compile(StringUtils.substring(signature, 1, -1));
-    process(new Predicate<String>() {
-      @Override
-      public boolean apply(String t) {
-        return pattern.matcher(t).matches();
-      }
-    });
-  }
+	private void processRegexp(final String signature) throws Exception {
+		final Pattern pattern = Pattern.compile(StringUtils.substring(signature, 1, -1));
+		process(new Predicate<String>() {
+			@Override
+			public boolean apply(String t) {
+				return pattern.matcher(t).matches();
+			}
+		});
+	}
 
-  private void processSingleSignature(final String signature) throws Exception {
-    process(new Predicate<String>() {
-      @Override
-      public boolean apply(String t) {
-        return signature.equals(t);
-      }
-    });
-  }
+	private void processSingleSignature(final String signature) throws Exception {
+		process(new Predicate<String>() {
+			@Override
+			public boolean apply(String t) {
+				return signature.equals(t);
+			}
+		});
+	}
 
-  private void process(Predicate<String> signaturePredicate) throws Exception {
-    if (m_include) {
-      processInclude(signaturePredicate);
-    } else {
-      processExclude(signaturePredicate);
-    }
-  }
+	private void process(Predicate<String> signaturePredicate) throws Exception {
+		if (m_include) {
+			processInclude(signaturePredicate);
+		} else {
+			processExclude(signaturePredicate);
+		}
+	}
 
-  private void processInclude(Predicate<String> signaturePredicate) throws Exception {
-    Method[] methods = componentDescription.getComponentClass().getMethods();
-    for (Method method : methods) {
-      String methodSignature = ReflectionUtils.getMethodSignature(method);
-      if (signaturePredicate.apply(methodSignature)) {
-        componentDescription.addMethod(method);
-      }
-    }
-  }
+	private void processInclude(Predicate<String> signaturePredicate) throws Exception {
+		Method[] methods = componentDescription.getComponentClass().getMethods();
+		for (Method method : methods) {
+			String methodSignature = ReflectionUtils.getMethodSignature(method);
+			if (signaturePredicate.apply(methodSignature)) {
+				componentDescription.addMethod(method);
+			}
+		}
+	}
 
-  private void processExclude(Predicate<String> signaturePredicate) {
-    for (Iterator<MethodDescription> I = componentDescription.getMethods().iterator(); I.hasNext();) {
-      MethodDescription methodDescription = I.next();
-      String methodSignature = methodDescription.getSignature();
-      if (signaturePredicate.apply(methodSignature)) {
-        I.remove();
-      }
-    }
-  }
+	private void processExclude(Predicate<String> signaturePredicate) {
+		for (Iterator<MethodDescription> I = componentDescription.getMethods().iterator(); I.hasNext();) {
+			MethodDescription methodDescription = I.next();
+			String methodSignature = methodDescription.getSignature();
+			if (signaturePredicate.apply(methodSignature)) {
+				I.remove();
+			}
+		}
+	}
 }

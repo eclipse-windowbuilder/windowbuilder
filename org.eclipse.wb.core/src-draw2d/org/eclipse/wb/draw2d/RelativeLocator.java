@@ -19,32 +19,32 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage gef.draw2d
  */
 public final class RelativeLocator extends AbstractRelativeLocator {
-  private final Figure m_reference;
+	private final Figure m_reference;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RelativeLocator(Figure reference, double relativeX, double relativeY) {
-    super(relativeX, relativeY);
-    m_reference = reference;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RelativeLocator(Figure reference, double relativeX, double relativeY) {
+		super(relativeX, relativeY);
+		m_reference = reference;
+	}
 
-  public RelativeLocator(Figure reference, int location) {
-    super(location);
-    m_reference = reference;
-  }
+	public RelativeLocator(Figure reference, int location) {
+		super(location);
+		m_reference = reference;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractRelativeLocator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Rectangle getReferenceRectangle() {
-    Rectangle bounds = m_reference.getBounds().getCopy();
-    FigureUtils.translateFigureToAbsolute(m_reference, bounds);
-    return bounds;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractRelativeLocator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Rectangle getReferenceRectangle() {
+		Rectangle bounds = m_reference.getBounds().getCopy();
+		FigureUtils.translateFigureToAbsolute(m_reference, bounds);
+		return bounds;
+	}
 }

@@ -26,60 +26,60 @@ import java.util.List;
  * @coverage XML.model.generic
  */
 public final class SimpleContainerClipboardSupport implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new SimpleContainerClipboardSupport();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new SimpleContainerClipboardSupport();
 
-  private SimpleContainerClipboardSupport() {
-  }
+	private SimpleContainerClipboardSupport() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(final XmlObjectInfo root) throws Exception {
-    root.addBroadcastListener(new XmlObjectClipboardCopy() {
-      @Override
-      public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
-        List<SimpleContainer> containers = getSimpleContainers(object);
-        for (int i = 0; i < containers.size(); i++) {
-          SimpleContainer container = containers.get(i);
-          Object child = container.getChild();
-          if (child instanceof XmlObjectInfo) {
-            ClipboardCommand command = createCommand(i, (XmlObjectInfo) child);
-            commands.add(command);
-          }
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(final XmlObjectInfo root) throws Exception {
+		root.addBroadcastListener(new XmlObjectClipboardCopy() {
+			@Override
+			public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
+				List<SimpleContainer> containers = getSimpleContainers(object);
+				for (int i = 0; i < containers.size(); i++) {
+					SimpleContainer container = containers.get(i);
+					Object child = container.getChild();
+					if (child instanceof XmlObjectInfo) {
+						ClipboardCommand command = createCommand(i, (XmlObjectInfo) child);
+						commands.add(command);
+					}
+				}
+			}
+		});
+	}
 
-  private static List<SimpleContainer> getSimpleContainers(XmlObjectInfo object) {
-    return new SimpleContainerFactory(object, true).get();
-  }
+	private static List<SimpleContainer> getSimpleContainers(XmlObjectInfo object) {
+		return new SimpleContainerFactory(object, true).get();
+	}
 
-  /**
-   * @return the {@link ClipboardCommand} for creating given child on simple container, during
-   *         paste.
-   */
-  private static ClipboardCommand createCommand(final int containerIndex, XmlObjectInfo child)
-      throws Exception {
-    final XmlObjectMemento memento = XmlObjectMemento.createMemento(child);
-    ClipboardCommand command = new ClipboardCommand() {
-      private static final long serialVersionUID = 0L;
+	/**
+	 * @return the {@link ClipboardCommand} for creating given child on simple container, during
+	 *         paste.
+	 */
+	private static ClipboardCommand createCommand(final int containerIndex, XmlObjectInfo child)
+			throws Exception {
+		final XmlObjectMemento memento = XmlObjectMemento.createMemento(child);
+		ClipboardCommand command = new ClipboardCommand() {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      public void execute(XmlObjectInfo newContainer) throws Exception {
-        XmlObjectInfo newChild = memento.create(newContainer);
-        getSimpleContainers(newContainer).get(containerIndex).command_CREATE(newChild);
-        memento.apply();
-      }
-    };
-    return command;
-  }
+			@Override
+			public void execute(XmlObjectInfo newContainer) throws Exception {
+				XmlObjectInfo newChild = memento.create(newContainer);
+				getSimpleContainers(newContainer).get(containerIndex).command_CREATE(newChild);
+				memento.apply();
+			}
+		};
+		return command;
+	}
 }

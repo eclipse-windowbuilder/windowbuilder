@@ -33,216 +33,216 @@ import org.apache.commons.lang.ArrayUtils;
  * @author scheglov_ke
  */
 public abstract class XwtGefTest extends AbstractXmlGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    configureForTestPreferences(Activator.getToolkit().getPreferences());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		configureForTestPreferences(Activator.getToolkit().getPreferences());
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    configureDefaultPreferences(Activator.getToolkit().getPreferences());
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		configureDefaultPreferences(Activator.getToolkit().getPreferences());
+		super.tearDown();
+	}
 
-  /**
-   * Configures created project.
-   */
-  @Override
-  protected void configureNewProject() throws Exception {
-    BTestUtils.configure(m_testProject);
-    m_testProject.addPlugin("com.ibm.icu");
-    m_testProject.addPlugin("org.eclipse.core.databinding");
-    m_testProject.addPlugin("org.eclipse.core.databinding.beans");
-    m_testProject.addPlugin("org.eclipse.core.databinding.observable");
-    m_testProject.addPlugin("org.eclipse.core.databinding.property");
-    m_testProject.addPlugin("org.eclipse.jface.databinding");
-    m_testProject.addBundleJars("org.eclipse.wb.xwt", "lib");
-  }
+	/**
+	 * Configures created project.
+	 */
+	@Override
+	protected void configureNewProject() throws Exception {
+		BTestUtils.configure(m_testProject);
+		m_testProject.addPlugin("com.ibm.icu");
+		m_testProject.addPlugin("org.eclipse.core.databinding");
+		m_testProject.addPlugin("org.eclipse.core.databinding.beans");
+		m_testProject.addPlugin("org.eclipse.core.databinding.observable");
+		m_testProject.addPlugin("org.eclipse.core.databinding.property");
+		m_testProject.addPlugin("org.eclipse.jface.databinding");
+		m_testProject.addBundleJars("org.eclipse.wb.xwt", "lib");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Preferences
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Configures test values for toolkit preferences.
-   */
-  protected void configureForTestPreferences(IPreferenceStore preferences) {
-    // direct edit
-    preferences.setValue(IPreferenceConstants.P_GENERAL_DIRECT_EDIT_AFTER_ADD, false);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Preferences
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Configures test values for toolkit preferences.
+	 */
+	protected void configureForTestPreferences(IPreferenceStore preferences) {
+		// direct edit
+		preferences.setValue(IPreferenceConstants.P_GENERAL_DIRECT_EDIT_AFTER_ADD, false);
+	}
 
-  /**
-   * Configures default values for toolkit preferences.
-   */
-  protected void configureDefaultPreferences(IPreferenceStore preferences) {
-    preferences.setToDefault(org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE);
-    preferences.setToDefault(org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
-  }
+	/**
+	 * Configures default values for toolkit preferences.
+	 */
+	protected void configureDefaultPreferences(IPreferenceStore preferences) {
+		preferences.setToDefault(org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE);
+		preferences.setToDefault(org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Open "Design" and fetch
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Opens {@link AbstractXmlEditor} with given XML source.
-   */
-  @SuppressWarnings("unchecked")
-  protected <T extends XmlObjectInfo> T openEditor(String... lines) throws Exception {
-    IFile file = setFileContentSrc("test/Test.xwt", getTestSource(lines));
-    openDesign(file);
-    return (T) m_contentObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Open "Design" and fetch
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Opens {@link AbstractXmlEditor} with given XML source.
+	 */
+	@SuppressWarnings("unchecked")
+	protected <T extends XmlObjectInfo> T openEditor(String... lines) throws Exception {
+		IFile file = setFileContentSrc("test/Test.xwt", getTestSource(lines));
+		openDesign(file);
+		return (T) m_contentObject;
+	}
 
-  @Override
-  protected final String getEditorID() {
-    return XwtEditor.ID;
-  }
+	@Override
+	protected final String getEditorID() {
+		return XwtEditor.ID;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Java source
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getJavaSourceToAssert() {
-    return getFileContentSrc("test/Test.java");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Java source
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getJavaSourceToAssert() {
+		return getFileContentSrc("test/Test.java");
+	}
 
-  @Override
-  protected String[] getJavaSource_decorate(String... lines) {
-    lines =
-        CodeUtils.join(new String[]{
-            "package test;",
-            "import org.eclipse.swt.SWT;",
-            "import org.eclipse.swt.events.*;",
-            "import org.eclipse.swt.graphics.*;",
-            "import org.eclipse.swt.widgets.*;",
-            "import org.eclipse.swt.layout.*;",
-            "import org.eclipse.swt.custom.*;",
-            "import org.eclipse.jface.layout.*;",
-            "import org.eclipse.jface.viewers.*;"}, lines);
-    return lines;
-  }
+	@Override
+	protected String[] getJavaSource_decorate(String... lines) {
+		lines =
+				CodeUtils.join(new String[]{
+						"package test;",
+						"import org.eclipse.swt.SWT;",
+						"import org.eclipse.swt.events.*;",
+						"import org.eclipse.swt.graphics.*;",
+						"import org.eclipse.swt.widgets.*;",
+						"import org.eclipse.swt.layout.*;",
+						"import org.eclipse.swt.custom.*;",
+						"import org.eclipse.jface.layout.*;",
+				"import org.eclipse.jface.viewers.*;"}, lines);
+		return lines;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // XML source
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getTestSource_namespaces() {
-    String newLine = "\n\t";
-    return newLine
-        + "xmlns:wbp='http://www.eclipse.org/wb/xwt'"
-        + newLine
-        + "xmlns:t='clr-namespace:test'"
-        + newLine
-        + "xmlns='http://www.eclipse.org/xwt/presentation'"
-        + newLine
-        + "xmlns:x='http://www.eclipse.org/xwt'";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// XML source
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getTestSource_namespaces() {
+		String newLine = "\n\t";
+		return newLine
+				+ "xmlns:wbp='http://www.eclipse.org/wb/xwt'"
+				+ newLine
+				+ "xmlns:t='clr-namespace:test'"
+				+ newLine
+				+ "xmlns='http://www.eclipse.org/xwt/presentation'"
+				+ newLine
+				+ "xmlns:x='http://www.eclipse.org/xwt'";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tool
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Loads {@link CreationTool} with {@link Button} without text.
-   */
-  protected final XmlObjectInfo loadButton() throws Exception {
-    return loadCreationTool("org.eclipse.swt.widgets.Button", "empty");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tool
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Loads {@link CreationTool} with {@link Button} without text.
+	 */
+	protected final XmlObjectInfo loadButton() throws Exception {
+		return loadCreationTool("org.eclipse.swt.widgets.Button", "empty");
+	}
 
-  /**
-   * Loads {@link CreationTool} with {@link Button} with text.
-   */
-  protected final XmlObjectInfo loadButtonWithText() throws Exception {
-    return loadCreationTool("org.eclipse.swt.widgets.Button");
-  }
+	/**
+	 * Loads {@link CreationTool} with {@link Button} with text.
+	 */
+	protected final XmlObjectInfo loadButtonWithText() throws Exception {
+		return loadCreationTool("org.eclipse.swt.widgets.Button");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // test.MyComponent support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Prepares empty <code>test.MyComponent</code> class with additional lines in type body.
-   */
-  protected final void prepareMyComponent(String... lines) throws Exception {
-    prepareMyComponent(lines, ArrayUtils.EMPTY_STRING_ARRAY);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// test.MyComponent support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Prepares empty <code>test.MyComponent</code> class with additional lines in type body.
+	 */
+	protected final void prepareMyComponent(String... lines) throws Exception {
+		prepareMyComponent(lines, ArrayUtils.EMPTY_STRING_ARRAY);
+	}
 
-  /**
-   * Prepares empty <code>test.MyComponent</code> class with additional lines in type body, and with
-   * special <code>wbp-component.xml</code> description.
-   */
-  protected final void prepareMyComponent(String[] javaLines, String[] descriptionLines)
-      throws Exception {
-    // java
-    {
-      String[] lines =
-          new String[]{
-              "package test;",
-              "import org.eclipse.swt.SWT;",
-              "import org.eclipse.swt.widgets.*;",
-              "public class MyComponent extends Composite {",
-              "  public MyComponent(Composite parent, int style) {",
-              "    super(parent, style);",
-              "  }"};
-      lines = CodeUtils.join(lines, javaLines);
-      lines = CodeUtils.join(lines, new String[]{"}"});
-      setFileContentSrc("test/MyComponent.java", getSourceDQ(lines));
-    }
-    // description
-    {
-      String[] lines =
-          new String[]{
-              "<?xml version='1.0' encoding='UTF-8'?>",
-              "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>"};
-      descriptionLines = removeFillerLines(descriptionLines);
-      lines = CodeUtils.join(lines, descriptionLines);
-      lines = CodeUtils.join(lines, new String[]{"</component>"});
-      setFileContentSrc("test/MyComponent.wbp-component.xml", getSourceDQ(lines));
-    }
-    waitForAutoBuild();
-  }
+	/**
+	 * Prepares empty <code>test.MyComponent</code> class with additional lines in type body, and with
+	 * special <code>wbp-component.xml</code> description.
+	 */
+	protected final void prepareMyComponent(String[] javaLines, String[] descriptionLines)
+			throws Exception {
+		// java
+		{
+			String[] lines =
+					new String[]{
+							"package test;",
+							"import org.eclipse.swt.SWT;",
+							"import org.eclipse.swt.widgets.*;",
+							"public class MyComponent extends Composite {",
+							"  public MyComponent(Composite parent, int style) {",
+							"    super(parent, style);",
+			"  }"};
+			lines = CodeUtils.join(lines, javaLines);
+			lines = CodeUtils.join(lines, new String[]{"}"});
+			setFileContentSrc("test/MyComponent.java", getSourceDQ(lines));
+		}
+		// description
+		{
+			String[] lines =
+					new String[]{
+							"<?xml version='1.0' encoding='UTF-8'?>",
+			"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>"};
+			descriptionLines = removeFillerLines(descriptionLines);
+			lines = CodeUtils.join(lines, descriptionLines);
+			lines = CodeUtils.join(lines, new String[]{"</component>"});
+			setFileContentSrc("test/MyComponent.wbp-component.xml", getSourceDQ(lines));
+		}
+		waitForAutoBuild();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Box
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected void prepareBox() throws Exception {
-    prepareBox(100, 50);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Box
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected void prepareBox() throws Exception {
+		prepareBox(100, 50);
+	}
 
-  protected void prepareBox(int width, int height) throws Exception {
-    setFileContentSrc(
-        "test/Box.java",
-        getJavaSource(
-            "public class Box extends org.eclipse.swt.widgets.Button {",
-            "  public Box(Composite parent, int style) {",
-            "    super(parent, style);",
-            "  }",
-            "  protected void checkSubclass () {",
-            "  }",
-            "  public Point computeSize (int wHint, int hHint, boolean changed) {",
-            "    return new Point(" + width + ", " + height + ");",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-  }
+	protected void prepareBox(int width, int height) throws Exception {
+		setFileContentSrc(
+				"test/Box.java",
+				getJavaSource(
+						"public class Box extends org.eclipse.swt.widgets.Button {",
+						"  public Box(Composite parent, int style) {",
+						"    super(parent, style);",
+						"  }",
+						"  protected void checkSubclass () {",
+						"  }",
+						"  public Point computeSize (int wHint, int hHint, boolean changed) {",
+						"    return new Point(" + width + ", " + height + ");",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+	}
 
-  protected ControlInfo loadBox() throws Exception {
-    return loadCreationTool("test.Box");
-  }
+	protected ControlInfo loadBox() throws Exception {
+		return loadCreationTool("test.Box");
+	}
 }

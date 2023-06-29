@@ -21,11 +21,11 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class JFaceTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.jface");
-    suite.addTest(createSingleSuite(ViewerTest.class));
-    suite.addTest(createSingleSuite(TableViewerTest.class));
-    suite.addTest(createSingleSuite(TableViewerGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.jface");
+		suite.addTest(createSingleSuite(ViewerTest.class));
+		suite.addTest(createSingleSuite(TableViewerTest.class));
+		suite.addTest(createSingleSuite(TableViewerGefTest.class));
+		return suite;
+	}
 }

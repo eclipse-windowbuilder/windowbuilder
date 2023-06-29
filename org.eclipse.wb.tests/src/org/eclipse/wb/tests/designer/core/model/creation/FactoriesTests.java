@@ -22,18 +22,18 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class FactoriesTests extends DesignerSuiteTests {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Suite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model.factory");
-    suite.addTest(createSingleSuite(FactoryDescriptionHelperTest.class));
-    suite.addTest(createSingleSuite(StaticFactoryCreationSupportTest.class));
-    suite.addTest(createSingleSuite(InstanceFactoryCreationSupportTest.class));
-    suite.addTest(createSingleSuite(ImplicitFactoryCreationSupportTest.class));
-    suite.addTest(createSingleSuite(FactoryTest.class));
-    return suite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Suite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.factory");
+		suite.addTest(createSingleSuite(FactoryDescriptionHelperTest.class));
+		suite.addTest(createSingleSuite(StaticFactoryCreationSupportTest.class));
+		suite.addTest(createSingleSuite(InstanceFactoryCreationSupportTest.class));
+		suite.addTest(createSingleSuite(ImplicitFactoryCreationSupportTest.class));
+		suite.addTest(createSingleSuite(FactoryTest.class));
+		return suite;
+	}
 }

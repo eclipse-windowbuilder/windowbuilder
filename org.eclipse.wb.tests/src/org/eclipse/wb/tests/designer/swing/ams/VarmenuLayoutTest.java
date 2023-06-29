@@ -22,148 +22,148 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
  * @author scheglov_ke
  */
 public class VarmenuLayoutTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    setFileContentSrc(
-        "ams/zpointcs/components/VarmenuConstraints.java",
-        IOUtils2.readString(getClass().getResourceAsStream("VarmenuConstraints.txt")));
-    setFileContentSrc(
-        "ams/zpointcs/components/VarmenuLayout.java",
-        IOUtils2.readString(getClass().getResourceAsStream("VarmenuLayout.txt")));
-    prepareBox();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		setFileContentSrc(
+				"ams/zpointcs/components/VarmenuConstraints.java",
+				IOUtils2.readString(getClass().getResourceAsStream("VarmenuConstraints.txt")));
+		setFileContentSrc(
+				"ams/zpointcs/components/VarmenuLayout.java",
+				IOUtils2.readString(getClass().getResourceAsStream("VarmenuLayout.txt")));
+		prepareBox();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void DISABLE_test_CREATE() throws Exception {
-    ContainerInfo panel =
-        openContainer(
-            "import ams.zpointcs.components.*;",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new VarmenuLayout());",
-            "  }",
-            "}");
-    panel.refresh();
-    //
-    loadCreationBox();
-    canvas.sideMode().create(100, 50);
-    canvas.target(panel).in(150, 100).move();
-    canvas.click();
-    assertEditor(
-        "import ams.zpointcs.components.*;",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    setLayout(new VarmenuLayout());",
-        "    {",
-        "      Box box = new Box();",
-        "      add(box, new VarmenuConstraints(150, 100, 0, 0));",
-        "    }",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void DISABLE_test_CREATE() throws Exception {
+		ContainerInfo panel =
+				openContainer(
+						"import ams.zpointcs.components.*;",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    setLayout(new VarmenuLayout());",
+						"  }",
+						"}");
+		panel.refresh();
+		//
+		loadCreationBox();
+		canvas.sideMode().create(100, 50);
+		canvas.target(panel).in(150, 100).move();
+		canvas.click();
+		assertEditor(
+				"import ams.zpointcs.components.*;",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    setLayout(new VarmenuLayout());",
+				"    {",
+				"      Box box = new Box();",
+				"      add(box, new VarmenuConstraints(150, 100, 0, 0));",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  public void DISABLE_test_RESIZE_width() throws Exception {
-    ContainerInfo panel =
-        openContainer(
-            "import ams.zpointcs.components.*;",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new VarmenuLayout());",
-            "    {",
-            "      Box box = new Box();",
-            "      add(box, new VarmenuConstraints(150, 100, 0, 0));",
-            "    }",
-            "  }",
-            "}");
-    panel.refresh();
-    ComponentInfo box = panel.getChildrenComponents().get(0);
-    // drag to non-default width
-    canvas.beginResize(box, IPositionConstants.EAST).dragOn(30, 0).endDrag();
-    assertEditor(
-        "import ams.zpointcs.components.*;",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    setLayout(new VarmenuLayout());",
-        "    {",
-        "      Box box = new Box();",
-        "      add(box, new VarmenuConstraints(150, 100, 130, 0));",
-        "    }",
-        "  }",
-        "}");
-    // drag to default width
-    canvas.beginResize(box, IPositionConstants.EAST).dragOn(-30, 0).endDrag();
-    assertEditor(
-        "import ams.zpointcs.components.*;",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    setLayout(new VarmenuLayout());",
-        "    {",
-        "      Box box = new Box();",
-        "      add(box, new VarmenuConstraints(150, 100, 0, 0));",
-        "    }",
-        "  }",
-        "}");
-  }
+	public void DISABLE_test_RESIZE_width() throws Exception {
+		ContainerInfo panel =
+				openContainer(
+						"import ams.zpointcs.components.*;",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    setLayout(new VarmenuLayout());",
+						"    {",
+						"      Box box = new Box();",
+						"      add(box, new VarmenuConstraints(150, 100, 0, 0));",
+						"    }",
+						"  }",
+						"}");
+		panel.refresh();
+		ComponentInfo box = panel.getChildrenComponents().get(0);
+		// drag to non-default width
+		canvas.beginResize(box, IPositionConstants.EAST).dragOn(30, 0).endDrag();
+		assertEditor(
+				"import ams.zpointcs.components.*;",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    setLayout(new VarmenuLayout());",
+				"    {",
+				"      Box box = new Box();",
+				"      add(box, new VarmenuConstraints(150, 100, 130, 0));",
+				"    }",
+				"  }",
+				"}");
+		// drag to default width
+		canvas.beginResize(box, IPositionConstants.EAST).dragOn(-30, 0).endDrag();
+		assertEditor(
+				"import ams.zpointcs.components.*;",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    setLayout(new VarmenuLayout());",
+				"    {",
+				"      Box box = new Box();",
+				"      add(box, new VarmenuConstraints(150, 100, 0, 0));",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  public void DISABLE_test_RESIZE_height() throws Exception {
-    ContainerInfo panel =
-        openContainer(
-            "import ams.zpointcs.components.*;",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new VarmenuLayout());",
-            "    {",
-            "      Box box = new Box();",
-            "      add(box, new VarmenuConstraints(150, 100, 0, 0));",
-            "    }",
-            "  }",
-            "}");
-    panel.refresh();
-    ComponentInfo box = panel.getChildrenComponents().get(0);
-    // drag to non-default width
-    canvas.beginResize(box, IPositionConstants.SOUTH).dragOn(0, 50).endDrag();
-    assertEditor(
-        "import ams.zpointcs.components.*;",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    setLayout(new VarmenuLayout());",
-        "    {",
-        "      Box box = new Box();",
-        "      add(box, new VarmenuConstraints(150, 100, 0, 100));",
-        "    }",
-        "  }",
-        "}");
-    // drag to default width
-    canvas.beginResize(box, IPositionConstants.SOUTH).dragOn(0, -50).endDrag();
-    assertEditor(
-        "import ams.zpointcs.components.*;",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    setLayout(new VarmenuLayout());",
-        "    {",
-        "      Box box = new Box();",
-        "      add(box, new VarmenuConstraints(150, 100, 0, 0));",
-        "    }",
-        "  }",
-        "}");
-  }
+	public void DISABLE_test_RESIZE_height() throws Exception {
+		ContainerInfo panel =
+				openContainer(
+						"import ams.zpointcs.components.*;",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    setLayout(new VarmenuLayout());",
+						"    {",
+						"      Box box = new Box();",
+						"      add(box, new VarmenuConstraints(150, 100, 0, 0));",
+						"    }",
+						"  }",
+						"}");
+		panel.refresh();
+		ComponentInfo box = panel.getChildrenComponents().get(0);
+		// drag to non-default width
+		canvas.beginResize(box, IPositionConstants.SOUTH).dragOn(0, 50).endDrag();
+		assertEditor(
+				"import ams.zpointcs.components.*;",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    setLayout(new VarmenuLayout());",
+				"    {",
+				"      Box box = new Box();",
+				"      add(box, new VarmenuConstraints(150, 100, 0, 100));",
+				"    }",
+				"  }",
+				"}");
+		// drag to default width
+		canvas.beginResize(box, IPositionConstants.SOUTH).dragOn(0, -50).endDrag();
+		assertEditor(
+				"import ams.zpointcs.components.*;",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    setLayout(new VarmenuLayout());",
+				"    {",
+				"      Box box = new Box();",
+				"      add(box, new VarmenuConstraints(150, 100, 0, 0));",
+				"    }",
+				"  }",
+				"}");
+	}
 }

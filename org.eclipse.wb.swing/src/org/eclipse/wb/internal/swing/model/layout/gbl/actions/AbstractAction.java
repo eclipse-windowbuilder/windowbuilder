@@ -24,26 +24,26 @@ import org.eclipse.jface.action.Action;
  * @coverage swing.model.layout
  */
 abstract class AbstractAction extends ObjectInfoAction {
-  protected final AbstractGridBagConstraintsInfo m_constraints;
-  protected final boolean m_horizontal;
+	protected final AbstractGridBagConstraintsInfo m_constraints;
+	protected final boolean m_horizontal;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractAction(AbstractGridBagConstraintsInfo constraints,
-      String text,
-      int style,
-      String iconPath,
-      boolean horizontal) {
-    super(constraints, text, style);
-    m_constraints = constraints;
-    m_horizontal = horizontal;
-    // set image
-    if (iconPath != null) {
-      String path = "headers/" + (horizontal ? "h" : "v") + "/menu/" + iconPath;
-      setImageDescriptor(AbstractGridBagLayoutInfo.getImageDescriptor(path));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractAction(AbstractGridBagConstraintsInfo constraints,
+			String text,
+			int style,
+			String iconPath,
+			boolean horizontal) {
+		super(constraints, text, style);
+		m_constraints = constraints;
+		m_horizontal = horizontal;
+		// set image
+		if (iconPath != null) {
+			String path = "headers/" + (horizontal ? "h" : "v") + "/menu/" + iconPath;
+			setImageDescriptor(AbstractGridBagLayoutInfo.getImageDescriptor(path));
+		}
+	}
 }

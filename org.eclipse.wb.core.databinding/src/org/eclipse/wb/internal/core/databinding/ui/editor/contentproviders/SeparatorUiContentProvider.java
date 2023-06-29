@@ -24,19 +24,19 @@ import org.eclipse.swt.widgets.Label;
  * @coverage bindings.ui
  */
 public final class SeparatorUiContentProvider extends UiContentProviderAdapter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int getNumberOfControls() {
-    return 1;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int getNumberOfControls() {
+		return 1;
+	}
 
-  @Override
-  public void createContent(Composite parent, int columns) {
-    Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
-    GridDataFactory.create(separator).fillH().grabH().spanH(columns);
-  }
+	@Override
+	public void createContent(Composite parent, int columns) {
+		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		GridDataFactory.create(separator).fillH().grabH().spanH(columns);
+	}
 }

@@ -21,28 +21,28 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage core.gef.policy.snapping
  */
 public interface IFeedbackProxy {
-  /**
-   * Create vertical line feedback for feedback layer.
-   */
-  Figure addVerticalFeedbackLine(int x, int y, int height);
+	/**
+	 * Create vertical line feedback for feedback layer.
+	 */
+	Figure addVerticalFeedbackLine(int x, int y, int height);
 
-  /**
-   * Create horizontal line feedback for feedback layer.
-   */
-  Figure addHorizontalFeedbackLine(int y, int x, int width);
+	/**
+	 * Create horizontal line feedback for feedback layer.
+	 */
+	Figure addHorizontalFeedbackLine(int y, int x, int width);
 
-  /**
-   * Create vertical middle line feedback for feedback layer.
-   */
-  Figure addVerticalMiddleLineFeedback(int x, int y, int height);
+	/**
+	 * Create vertical middle line feedback for feedback layer.
+	 */
+	Figure addVerticalMiddleLineFeedback(int x, int y, int height);
 
-  /**
-   * Create horizontal middle line feedback for feedback layer.
-   */
-  Figure addHorizontalMiddleLineFeedback(int y, int x, int width);
+	/**
+	 * Create horizontal middle line feedback for feedback layer.
+	 */
+	Figure addHorizontalMiddleLineFeedback(int y, int x, int width);
 
-  /**
-   * Create outline feedback for feedback layer.
-   */
-  Figure addOutlineFeedback(Rectangle bounds);
+	/**
+	 * Create outline feedback for feedback layer.
+	 */
+	Figure addOutlineFeedback(Rectangle bounds);
 }

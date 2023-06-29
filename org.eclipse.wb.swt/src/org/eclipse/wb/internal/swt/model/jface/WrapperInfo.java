@@ -34,50 +34,50 @@ import java.util.List;
  * @coverage swt.model.jface
  */
 public class WrapperInfo extends WrapperMethodInfo {
-  private final WrapperInfo m_this = this;
+	private final WrapperInfo m_this = this;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WrapperInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WrapperInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Initialize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initialize() throws Exception {
-    super.initialize();
-    addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void addContextMenu(List<? extends ObjectInfo> objects,
-          ObjectInfo object,
-          IMenuManager manager) throws Exception {
-        if (object == m_this) {
-          ExposeComponentSupport.contribute(m_this, manager, ModelMessages.WrapperInfo_exposeViewer);
-          RenameConvertSupport.contribute(objects, manager);
-        }
-      }
-    });
-    StylePropertyEditor.configureContributeActions(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Initialize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initialize() throws Exception {
+		super.initialize();
+		addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void addContextMenu(List<? extends ObjectInfo> objects,
+					ObjectInfo object,
+					IMenuManager manager) throws Exception {
+				if (object == m_this) {
+					ExposeComponentSupport.contribute(m_this, manager, ModelMessages.WrapperInfo_exposeViewer);
+					RenameConvertSupport.contribute(objects, manager);
+				}
+			}
+		});
+		StylePropertyEditor.configureContributeActions(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Property> getPropertyList() throws Exception {
-    List<Property> properties = super.getPropertyList();
-    StylePropertyEditor.addStyleProperties(properties);
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Property> getPropertyList() throws Exception {
+		List<Property> properties = super.getPropertyList();
+		StylePropertyEditor.addStyleProperties(properties);
+		return properties;
+	}
 }

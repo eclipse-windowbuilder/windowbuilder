@@ -24,42 +24,42 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @coverage core.model.parser
  */
 public final class ParseFactory extends org.eclipse.wb.internal.core.parser.AbstractParseFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IParseFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isToolkitObject(AstEditor editor, ITypeBinding typeBinding) throws Exception {
-    return editor.getJavaProject().findType("org.eclipse.swt.custom.SashForm") != null // is_RCPContext
-        && isNebulaObject(typeBinding);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IParseFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isToolkitObject(AstEditor editor, ITypeBinding typeBinding) throws Exception {
+		return editor.getJavaProject().findType("org.eclipse.swt.custom.SashForm") != null // is_RCPContext
+				&& isNebulaObject(typeBinding);
+	}
 
-  /**
-   * @return <code>true</code> if given type binding is RCP object.
-   */
-  private static boolean isNebulaObject(ITypeBinding typeBinding) throws Exception {
-    if (typeBinding == null) {
-      return false;
-    }
-    // FormattedText
-    if (AstNodeUtils.isSuccessorOf(
-        typeBinding,
-        "org.eclipse.nebula.widgets.formattedtext.AbstractFormatter")) {
-      return true;
-    }
-    // GanttChart
-    if (AstNodeUtils.isSuccessorOf(
-        typeBinding,
-        "org.eclipse.nebula.widgets.ganttchart.AbstractGanttEvent")) {
-      return true;
-    }
-    //
-    return false;
-  }
+	/**
+	 * @return <code>true</code> if given type binding is RCP object.
+	 */
+	private static boolean isNebulaObject(ITypeBinding typeBinding) throws Exception {
+		if (typeBinding == null) {
+			return false;
+		}
+		// FormattedText
+		if (AstNodeUtils.isSuccessorOf(
+				typeBinding,
+				"org.eclipse.nebula.widgets.formattedtext.AbstractFormatter")) {
+			return true;
+		}
+		// GanttChart
+		if (AstNodeUtils.isSuccessorOf(
+				typeBinding,
+				"org.eclipse.nebula.widgets.ganttchart.AbstractGanttEvent")) {
+			return true;
+		}
+		//
+		return false;
+	}
 
-  @Override
-  protected String getToolkitId() {
-    return Activator.PLUGIN_ID;
-  }
+	@Override
+	protected String getToolkitId() {
+		return Activator.PLUGIN_ID;
+	}
 }

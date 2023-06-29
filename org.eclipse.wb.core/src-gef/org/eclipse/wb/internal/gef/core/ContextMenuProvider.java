@@ -24,37 +24,37 @@ import org.eclipse.swt.widgets.MenuItem;
  * @coverage gef.core
  */
 public abstract class ContextMenuProvider extends MenuManager {
-  protected final IEditPartViewer m_viewer;
+	protected final IEditPartViewer m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ContextMenuProvider(IEditPartViewer viewer) {
-    m_viewer = viewer;
-    setRemoveAllWhenShown(true);
-    addMenuListener(new IMenuListener() {
-      @Override
-      public void menuAboutToShow(IMenuManager manager) {
-        // dispose items to avoid their caching
-        for (MenuItem item : getMenu().getItems()) {
-          item.dispose();
-        }
-        // apply new items
-        buildContextMenu();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ContextMenuProvider(IEditPartViewer viewer) {
+		m_viewer = viewer;
+		setRemoveAllWhenShown(true);
+		addMenuListener(new IMenuListener() {
+			@Override
+			public void menuAboutToShow(IMenuManager manager) {
+				// dispose items to avoid their caching
+				for (MenuItem item : getMenu().getItems()) {
+					item.dispose();
+				}
+				// apply new items
+				buildContextMenu();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Context Menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Called when the menu is about to show. Subclasses must implement this method to populate the
-   * menu each time it is shown.
-   */
-  protected abstract void buildContextMenu();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Context Menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Called when the menu is about to show. Subclasses must implement this method to populate the
+	 * menu each time it is shown.
+	 */
+	protected abstract void buildContextMenu();
 }

@@ -23,67 +23,67 @@ import org.eclipse.draw2d.geometry.Dimension;
  * @coverage swt.model.layout.form
  */
 public interface IFormLayoutInfo<C extends IControlInfo> extends ILayoutInfo<C> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Model
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the implementation of the FormLayout support.
-   */
-  FormLayoutInfoImpl<C> getImpl();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Model
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the implementation of the FormLayout support.
+	 */
+	FormLayoutInfoImpl<C> getImpl();
 
-  /**
-   * @return the size of the host container.
-   */
-  Dimension getContainerSize();
+	/**
+	 * @return the size of the host container.
+	 */
+	Dimension getContainerSize();
 
-  /**
-   * Moves a Control into a host Composite.
-   */
-  void commandMove(C control, C nextControl) throws Exception;
+	/**
+	 * Moves a Control into a host Composite.
+	 */
+	void commandMove(C control, C nextControl) throws Exception;
 
-  /**
-   * Adds a Control into a host Composite.
-   */
-  void commandCreate(C control, C nextControl) throws Exception;
+	/**
+	 * Adds a Control into a host Composite.
+	 */
+	void commandCreate(C control, C nextControl) throws Exception;
 
-  /**
-   * Binds Control's <code>side</code> to the <b>left</b> side of the container with given
-   * <code>offset</code>.
-   */
-  void setAttachmentOffset(C control, int side, int offset) throws Exception;
+	/**
+	 * Binds Control's <code>side</code> to the <b>left</b> side of the container with given
+	 * <code>offset</code>.
+	 */
+	void setAttachmentOffset(C control, int side, int offset) throws Exception;
 
-  /**
-   * Anchors the control at current place to the parent with given sides. If side omitted and if
-   * relative, then anchors the missing side to percent, otherwise deletes attachment.
-   */
-  void setQuickAnchors(C control, int sides, boolean relative) throws Exception;
+	/**
+	 * Anchors the control at current place to the parent with given sides. If side omitted and if
+	 * relative, then anchors the missing side to percent, otherwise deletes attachment.
+	 */
+	void setQuickAnchors(C control, int sides, boolean relative) throws Exception;
 
-  /**
-   * Anchors the control at current place to the parent with given control's side and container's
-   * side.
-   */
-  void anchorToParent(C control, int controlSide, int parentSide) throws Exception;
+	/**
+	 * Anchors the control at current place to the parent with given control's side and container's
+	 * side.
+	 */
+	void anchorToParent(C control, int controlSide, int parentSide) throws Exception;
 
-  /**
-   * Anchors the control at current place by the given side to the percentage value.
-   */
-  void anchorToParentAsPercent(C control, int controlSide) throws Exception;
+	/**
+	 * Anchors the control at current place by the given side to the percentage value.
+	 */
+	void anchorToParentAsPercent(C control, int controlSide) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Misc
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the instance of class maintaining FormLayout preferences. May not return
-   *         <code>null</code>.
-   */
-  FormLayoutPreferences<C> getPreferences();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Misc
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the instance of class maintaining FormLayout preferences. May not return
+	 *         <code>null</code>.
+	 */
+	FormLayoutPreferences<C> getPreferences();
 
-  /**
-   * @return underlying resource for the editing class.
-   */
-  IResource getUnderlyingResource() throws Exception;
+	/**
+	 * @return underlying resource for the editing class.
+	 */
+	IResource getUnderlyingResource() throws Exception;
 }

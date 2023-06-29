@@ -24,38 +24,38 @@ import org.eclipse.jface.window.Window;
  * @coverage core.model.property.order
  */
 public final class TabOrderPropertyEditor extends TextDialogPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new TabOrderPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new TabOrderPropertyEditor();
 
-  private TabOrderPropertyEditor() {
-  }
+	private TabOrderPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    TabOrderProperty orderProperty = (TabOrderProperty) property;
-    return orderProperty.getDisplayText();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		TabOrderProperty orderProperty = (TabOrderProperty) property;
+		return orderProperty.getDisplayText();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    TabOrderInfo orderInfo = (TabOrderInfo) property.getValue();
-    ReorderDialog dialog = new ReorderDialog(DesignerPlugin.getShell(), orderInfo);
-    if (dialog.open() == Window.OK) {
-      property.setValue(orderInfo);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		TabOrderInfo orderInfo = (TabOrderInfo) property.getValue();
+		ReorderDialog dialog = new ReorderDialog(DesignerPlugin.getShell(), orderInfo);
+		if (dialog.open() == Window.OK) {
+			property.setValue(orderInfo);
+		}
+	}
 }

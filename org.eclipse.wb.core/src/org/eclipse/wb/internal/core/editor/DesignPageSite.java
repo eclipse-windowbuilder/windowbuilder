@@ -25,120 +25,120 @@ import org.eclipse.jface.viewers.TreeViewer;
  * @coverage core.editor
  */
 public abstract class DesignPageSite implements IDesignPageSite {
-  public static final DesignPageSite EMPTY = new DesignPageSite() {
-  };
+	public static final DesignPageSite EMPTY = new DesignPageSite() {
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Moves cursor to given position in Java editor.
-   */
-  @Override
-  public void showSourcePosition(int position) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Moves cursor to given position in Java editor.
+	 */
+	@Override
+	public void showSourcePosition(int position) {
+	}
 
-  /**
-   * Moves cursor to given position in Java editor and opens Java editor.
-   */
-  @Override
-  public void openSourcePosition(int position) {
-  }
+	/**
+	 * Moves cursor to given position in Java editor and opens Java editor.
+	 */
+	@Override
+	public void openSourcePosition(int position) {
+	}
 
-  // TODO(scheglov)
-//  /**
-//   * Highlight in editor lines with visited {@link ASTNode}s.
-//   */
-//  public void highlightVisitedNodes(Collection<ASTNode> nodes) {
-//  }
-  /**
-   * Handles any unexpected {@link Exception}.
-   */
-  @Override
-  public void handleException(Throwable e) {
-  }
+	// TODO(scheglov)
+	//  /**
+	//   * Highlight in editor lines with visited {@link ASTNode}s.
+	//   */
+	//  public void highlightVisitedNodes(Collection<ASTNode> nodes) {
+	//  }
+	/**
+	 * Handles any unexpected {@link Exception}.
+	 */
+	@Override
+	public void handleException(Throwable e) {
+	}
 
-  /**
-   * Performs reparse for this editor. Note, that this is last method that should be invoked for
-   * this {@link DesignPageSite} and in this {@link ObjectInfo} hierarchy.
-   */
-  @Override
-  public void reparse() {
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Components tree
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private IComponentsTree m_componentTree;
+	/**
+	 * Performs reparse for this editor. Note, that this is last method that should be invoked for
+	 * this {@link DesignPageSite} and in this {@link ObjectInfo} hierarchy.
+	 */
+	@Override
+	public void reparse() {
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Components tree
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private IComponentsTree m_componentTree;
 
-  /**
-   * @return the {@link IComponentsTree} for accessing components tree.
-   */
-  public final IComponentsTree getComponentTree() {
-    return m_componentTree;
-  }
+	/**
+	 * @return the {@link IComponentsTree} for accessing components tree.
+	 */
+	public final IComponentsTree getComponentTree() {
+		return m_componentTree;
+	}
 
-  /**
-   * Sets the {@link TreeViewer} for accessing components tree.
-   */
-  public final void setComponentsTree(IComponentsTree componentTree) {
-    m_componentTree = componentTree;
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Helper
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Helper for accessing {@link DesignPageSite}.
-   *
-   * @author scheglov_ke
-   */
-  public static class Helper {
-    private static final String KEY = "key_DesignPageSite";
+	/**
+	 * Sets the {@link TreeViewer} for accessing components tree.
+	 */
+	public final void setComponentsTree(IComponentsTree componentTree) {
+		m_componentTree = componentTree;
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Helper
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Helper for accessing {@link DesignPageSite}.
+	 *
+	 * @author scheglov_ke
+	 */
+	public static class Helper {
+		private static final String KEY = "key_DesignPageSite";
 
-    /**
-     * @return {@link DesignPageSite} for given {@link ObjectInfo}.
-     */
-    public static DesignPageSite getSite(ObjectInfo objectInfo) {
-      return (DesignPageSite) objectInfo.getRoot().getArbitraryValue(KEY);
-    }
+		/**
+		 * @return {@link DesignPageSite} for given {@link ObjectInfo}.
+		 */
+		public static DesignPageSite getSite(ObjectInfo objectInfo) {
+			return (DesignPageSite) objectInfo.getRoot().getArbitraryValue(KEY);
+		}
 
-    /**
-     * Sets the {@link IDesignPageSite} for given {@link ObjectInfo}.
-     */
-    public static void setSite(ObjectInfo objectInfo, IDesignPageSite site) {
-      objectInfo.getRoot().putArbitraryValue(KEY, site);
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Progress
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final IProgressMonitor NULL_PROGRESS_MONITOR = new NullProgressMonitor();
-  private static IProgressMonitor m_progressMonitor;
+		/**
+		 * Sets the {@link IDesignPageSite} for given {@link ObjectInfo}.
+		 */
+		public static void setSite(ObjectInfo objectInfo, IDesignPageSite site) {
+			objectInfo.getRoot().putArbitraryValue(KEY, site);
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Progress
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final IProgressMonitor NULL_PROGRESS_MONITOR = new NullProgressMonitor();
+	private static IProgressMonitor m_progressMonitor;
 
-  /**
-   * @return the {@link IProgressMonitor} to use for displaying progress during parsing (initiated
-   *         by {@link IDesignPage}). If parsing was complete, or we run tests, then
-   *         {@link NullProgressMonitor} will be returned. Never returns <code>null</code>.
-   */
-  public static IProgressMonitor getProgressMonitor() {
-    return m_progressMonitor != null ? m_progressMonitor : NULL_PROGRESS_MONITOR;
-  }
+	/**
+	 * @return the {@link IProgressMonitor} to use for displaying progress during parsing (initiated
+	 *         by {@link IDesignPage}). If parsing was complete, or we run tests, then
+	 *         {@link NullProgressMonitor} will be returned. Never returns <code>null</code>.
+	 */
+	public static IProgressMonitor getProgressMonitor() {
+		return m_progressMonitor != null ? m_progressMonitor : NULL_PROGRESS_MONITOR;
+	}
 
-  /**
-   * Sets the {@link IProgressMonitor} to return from
-   * {@link IDesignPageSite.Helper#getProgressMonitor()}.
-   *
-   * @param progressMonitor
-   *          the {@link IProgressMonitor} to use, may be <code>null</code>.
-   */
-  public static void setProgressMonitor(IProgressMonitor progressMonitor) {
-    m_progressMonitor = progressMonitor;
-  }
+	/**
+	 * Sets the {@link IProgressMonitor} to return from
+	 * {@link IDesignPageSite.Helper#getProgressMonitor()}.
+	 *
+	 * @param progressMonitor
+	 *          the {@link IProgressMonitor} to use, may be <code>null</code>.
+	 */
+	public static void setProgressMonitor(IProgressMonitor progressMonitor) {
+		m_progressMonitor = progressMonitor;
+	}
 }

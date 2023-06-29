@@ -19,44 +19,44 @@ import org.eclipse.wb.internal.core.xml.editor.AbstractXmlEditor;
  * @coverage XML.editor.action
  */
 public class SwitchAction extends EditorRelatedAction {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void run() {
-    AbstractXmlEditor editor = getEditor();
-    if (editor != null) {
-      editor.switchSourceDesign();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void run() {
+		AbstractXmlEditor editor = getEditor();
+		if (editor != null) {
+			editor.switchSourceDesign();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Shows "Source" page.
-   */
-  public static void showSource() {
-    showSource(-1);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Shows "Source" page.
+	 */
+	public static void showSource() {
+		showSource(-1);
+	}
 
-  /**
-   * Shows "Source" page and at given source position.
-   *
-   * @param position
-   *          the position to show in source, if <code>-1</code>, then ignored.
-   */
-  public static void showSource(int position) {
-    AbstractXmlEditor editor = getActiveEditor();
-    if (editor != null) {
-      editor.showSource();
-      if (position != -1) {
-        editor.showSourcePosition(position);
-      }
-    }
-  }
+	/**
+	 * Shows "Source" page and at given source position.
+	 *
+	 * @param position
+	 *          the position to show in source, if <code>-1</code>, then ignored.
+	 */
+	public static void showSource(int position) {
+		AbstractXmlEditor editor = getActiveEditor();
+		if (editor != null) {
+			editor.showSource();
+			if (position != -1) {
+				editor.showSourcePosition(position);
+			}
+		}
+	}
 }

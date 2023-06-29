@@ -33,66 +33,66 @@ import org.xml.sax.Attributes;
  * @coverage XWT.parser
  */
 public class XwtDescriptionRulesProvider implements IDescriptionRulesProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IDescriptionRulesProvider INSTANCE = new XwtDescriptionRulesProvider();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IDescriptionRulesProvider INSTANCE = new XwtDescriptionRulesProvider();
 
-  private XwtDescriptionRulesProvider() {
-  }
+	private XwtDescriptionRulesProvider() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDescriptionRulesProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void addRules(Digester digester, EditorContext context, Class<?> componentClass) {
-    if (Widget.class.isAssignableFrom(componentClass)
-        || Viewer.class.isAssignableFrom(componentClass)) {
-      addRule_forStylePropertyEditor(digester, context);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDescriptionRulesProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void addRules(Digester digester, EditorContext context, Class<?> componentClass) {
+		if (Widget.class.isAssignableFrom(componentClass)
+				|| Viewer.class.isAssignableFrom(componentClass)) {
+			addRule_forStylePropertyEditor(digester, context);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Parses {@link StylePropertyEditor} specification for constructor parameter and remember it as
-   * arbitrary value in {@link ComponentDescription}.
-   */
-  private void addRule_forStylePropertyEditor(final Digester digester, final EditorContext context) {
-    String pattern = "component/constructors/constructor/parameter/editor";
-    digester.addRule(pattern, new Rule() {
-      @Override
-      public void begin(String namespace, String name, Attributes attributes) throws Exception {
-        String editorId = attributes.getValue("id");
-        PropertyEditor editor = DescriptionPropertiesHelper.getConfigurableEditor(editorId);
-        digester.push(new PropertyEditorDescription(context, editor));
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Parses {@link StylePropertyEditor} specification for constructor parameter and remember it as
+	 * arbitrary value in {@link ComponentDescription}.
+	 */
+	private void addRule_forStylePropertyEditor(final Digester digester, final EditorContext context) {
+		String pattern = "component/constructors/constructor/parameter/editor";
+		digester.addRule(pattern, new Rule() {
+			@Override
+			public void begin(String namespace, String name, Attributes attributes) throws Exception {
+				String editorId = attributes.getValue("id");
+				PropertyEditor editor = DescriptionPropertiesHelper.getConfigurableEditor(editorId);
+				digester.push(new PropertyEditorDescription(context, editor));
+			}
 
-      @Override
-      public void end(String namespace, String name) throws Exception {
-        // prepare editor
-        PropertyEditor configuredEditor;
-        {
-          PropertyEditorDescription description = (PropertyEditorDescription) digester.pop();
-          configuredEditor = description.getConfiguredEditor();
-        }
-        // remember editor
-        if (configuredEditor instanceof StylePropertyEditor) {
-          ComponentDescription componentDescription = (ComponentDescription) digester.peek();
-          Class<StylePropertyEditor> key = StylePropertyEditor.class;
-          // XXX
-          /*if (componentDescription.getArbitraryValue(key) == null)*/{
-            componentDescription.putArbitraryValue(key, configuredEditor);
-          }
-        }
-      }
-    });
-    ComponentDescriptionHelper.addConfigurableObjectParametersRules(digester, pattern);
-  }
+			@Override
+			public void end(String namespace, String name) throws Exception {
+				// prepare editor
+				PropertyEditor configuredEditor;
+				{
+					PropertyEditorDescription description = (PropertyEditorDescription) digester.pop();
+					configuredEditor = description.getConfiguredEditor();
+				}
+				// remember editor
+				if (configuredEditor instanceof StylePropertyEditor) {
+					ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+					Class<StylePropertyEditor> key = StylePropertyEditor.class;
+					// XXX
+					/*if (componentDescription.getArbitraryValue(key) == null)*/{
+						componentDescription.putArbitraryValue(key, configuredEditor);
+					}
+				}
+			}
+		});
+		ComponentDescriptionHelper.addConfigurableObjectParametersRules(digester, pattern);
+	}
 }

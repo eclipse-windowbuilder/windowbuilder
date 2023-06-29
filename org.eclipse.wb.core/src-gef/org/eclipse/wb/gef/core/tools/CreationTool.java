@@ -26,69 +26,69 @@ import org.eclipse.wb.gef.core.requests.Request;
  * @coverage gef.core
  */
 public class CreationTool extends AbstractCreationTool {
-  private final ICreationFactory m_factory;
+	private final ICreationFactory m_factory;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CreationTool(ICreationFactory factory) {
-    m_factory = factory;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CreationTool(ICreationFactory factory) {
+		m_factory = factory;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void activate() {
-    super.activate();
-    try {
-      m_factory.activate();
-    } catch (Throwable e) {
-      getDomain().loadDefaultTool();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void activate() {
+		super.activate();
+		try {
+			m_factory.activate();
+		} catch (Throwable e) {
+			getDomain().loadDefaultTool();
+		}
+	}
 
-  /**
-   * @return the {@link ICreationFactory} used to create the new {@link EditPart}'s.
-   */
-  public final ICreationFactory getFactory() {
-    return m_factory;
-  }
+	/**
+	 * @return the {@link ICreationFactory} used to create the new {@link EditPart}'s.
+	 */
+	public final ICreationFactory getFactory() {
+		return m_factory;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates a {@link CreateRequest} and sets this tool's factory on the request.
-   */
-  @Override
-  protected Request createTargetRequest() {
-    return new CreateRequest(m_factory);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates a {@link CreateRequest} and sets this tool's factory on the request.
+	 */
+	@Override
+	protected Request createTargetRequest() {
+		return new CreateRequest(m_factory);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Selection
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void selectAddedObjects() {
-    CreateRequest request = (CreateRequest) getTargetRequest();
-    Object model = request.getSelectObject();
-    if (model != null) {
-      IEditPartViewer viewer = getViewer();
-      if (viewer != null) {
-        EditPart editPart = viewer.getEditPartByModel(model);
-        if (editPart != null) {
-          viewer.select(editPart);
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Selection
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void selectAddedObjects() {
+		CreateRequest request = (CreateRequest) getTargetRequest();
+		Object model = request.getSelectObject();
+		if (model != null) {
+			IEditPartViewer viewer = getViewer();
+			if (viewer != null) {
+				EditPart editPart = viewer.getEditPartByModel(model);
+				if (editPart != null) {
+					viewer.select(editPart);
+				}
+			}
+		}
+	}
 }

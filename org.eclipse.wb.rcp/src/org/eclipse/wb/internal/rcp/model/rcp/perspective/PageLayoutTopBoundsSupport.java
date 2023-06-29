@@ -28,72 +28,72 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage rcp.model.rcp
  */
 public final class PageLayoutTopBoundsSupport extends TopBoundsSupport {
-  private final PageLayoutInfo m_page;
+	private final PageLayoutInfo m_page;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PageLayoutTopBoundsSupport(PageLayoutInfo page) {
-    super(page);
-    m_page = page;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PageLayoutTopBoundsSupport(PageLayoutInfo page) {
+		super(page);
+		m_page = page;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TopBoundsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void apply() throws Exception {
-    // set size from resource properties (or default)
-    {
-      Dimension size = getResourceSize();
-      Shell shell = m_page.getShell();
-      // "size" is size of _content_ for "shell", so calculate trim
-      Rectangle trim =
-          RectangleSupport.getRectangle(shell.computeTrim(0, 0, size.width, size.height));
-      // OK, set size from trim
-      ControlSupport.setSize(shell, trim.width, trim.height);
-    }
-    // layout perspective
-    m_page.layoutPerspectiveParts();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TopBoundsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void apply() throws Exception {
+		// set size from resource properties (or default)
+		{
+			Dimension size = getResourceSize();
+			Shell shell = m_page.getShell();
+			// "size" is size of _content_ for "shell", so calculate trim
+			Rectangle trim =
+					RectangleSupport.getRectangle(shell.computeTrim(0, 0, size.width, size.height));
+			// OK, set size from trim
+			ControlSupport.setSize(shell, trim.width, trim.height);
+		}
+		// layout perspective
+		m_page.layoutPerspectiveParts();
+	}
 
-  @Override
-  public void setSize(int width, int height) throws Exception {
-    // remember size in resource properties
-    setResourceSize(width, height);
-  }
+	@Override
+	public void setSize(int width, int height) throws Exception {
+		// remember size in resource properties
+		setResourceSize(width, height);
+	}
 
-  @Override
-  protected Dimension getDefaultSize() {
-    return new Dimension(600, 500);
-  }
+	@Override
+	protected Dimension getDefaultSize() {
+		return new Dimension(600, 500);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Show
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean show() throws Exception {
-    // layout after resize
-    final Shell shell = m_page.getShell();
-    shell.addControlListener(new ControlAdapter() {
-      @Override
-      public void controlResized(ControlEvent e) {
-        shell.setRedraw(false);
-        try {
-          m_page.layoutPerspectiveParts();
-        } finally {
-          shell.setRedraw(true);
-        }
-      }
-    });
-    // OK, show
-    CompositeTopBoundsSupport.show(m_page, shell);
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Show
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean show() throws Exception {
+		// layout after resize
+		final Shell shell = m_page.getShell();
+		shell.addControlListener(new ControlAdapter() {
+			@Override
+			public void controlResized(ControlEvent e) {
+				shell.setRedraw(false);
+				try {
+					m_page.layoutPerspectiveParts();
+				} finally {
+					shell.setRedraw(true);
+				}
+			}
+		});
+		// OK, show
+		CompositeTopBoundsSupport.show(m_page, shell);
+		return true;
+	}
 }

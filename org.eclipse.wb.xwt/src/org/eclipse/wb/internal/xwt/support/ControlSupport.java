@@ -20,22 +20,22 @@ import org.eclipse.swt.widgets.Widget;
  * @coverage XWT.support
  */
 public class ControlSupport {
-  /**
-   * @return <code>true</code> if given {@link Widget} styles contains given style bit.
-   */
-  public static boolean hasStyle(Widget widget, int style) {
-    return (widget.getStyle() & style) != 0;
-  }
+	/**
+	 * @return <code>true</code> if given {@link Widget} styles contains given style bit.
+	 */
+	public static boolean hasStyle(Widget widget, int style) {
+		return (widget.getStyle() & style) != 0;
+	}
 
-  /**
-   * Performs safe {@link Widget#dispose()} operation.
-   */
-  public static void dispose(Widget widget) {
-    if (widget == null) {
-      return;
-    }
-    if (!widget.isDisposed()) {
-      widget.dispose();
-    }
-  }
+	/**
+	 * Performs safe {@link Widget#dispose()} operation.
+	 */
+	public static void dispose(Widget widget) {
+		if (widget == null) {
+			return;
+		}
+		if (!widget.isDisposed()) {
+			widget.dispose();
+		}
+	}
 }

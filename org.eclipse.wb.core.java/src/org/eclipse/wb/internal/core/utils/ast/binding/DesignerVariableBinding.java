@@ -28,150 +28,150 @@ import org.eclipse.jdt.core.dom.IVariableBinding;
  * @coverage core.util.ast
  */
 final class DesignerVariableBinding implements IVariableBinding {
-  private final String m_name;
-  private final ITypeBinding m_declaringClass;
-  private final ITypeBinding m_type;
-  private final boolean m_field;
-  private final int m_modifiers;
+	private final String m_name;
+	private final ITypeBinding m_declaringClass;
+	private final ITypeBinding m_type;
+	private final boolean m_field;
+	private final int m_modifiers;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  DesignerVariableBinding(BindingContext context, IVariableBinding binding) {
-    m_name = binding.getName();
-    m_type = context.get(binding.getType(), true);
-    m_declaringClass = context.get(binding.getDeclaringClass());
-    m_field = binding.isField();
-    m_modifiers = binding.getModifiers();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	DesignerVariableBinding(BindingContext context, IVariableBinding binding) {
+		m_name = binding.getName();
+		m_type = context.get(binding.getType(), true);
+		m_declaringClass = context.get(binding.getDeclaringClass());
+		m_field = binding.isField();
+		m_modifiers = binding.getModifiers();
+	}
 
-  DesignerVariableBinding(BindingContext context,
-      String name,
-      ITypeBinding declaringClass,
-      ITypeBinding type,
-      boolean field,
-      int modifiers) {
-    m_name = name;
-    m_declaringClass = context.get(declaringClass);
-    m_type = context.get(type, true);
-    m_field = field;
-    m_modifiers = modifiers;
-  }
+	DesignerVariableBinding(BindingContext context,
+			String name,
+			ITypeBinding declaringClass,
+			ITypeBinding type,
+			boolean field,
+			int modifiers) {
+		m_name = name;
+		m_declaringClass = context.get(declaringClass);
+		m_type = context.get(type, true);
+		m_field = field;
+		m_modifiers = modifiers;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    throw new IllegalArgumentException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		throw new IllegalArgumentException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IVariableBinding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getConstantValue() {
-    throw new IllegalArgumentException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IVariableBinding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getConstantValue() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public ITypeBinding getDeclaringClass() {
-    return m_declaringClass;
-  }
+	@Override
+	public ITypeBinding getDeclaringClass() {
+		return m_declaringClass;
+	}
 
-  @Override
-  public IMethodBinding getDeclaringMethod() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public IMethodBinding getDeclaringMethod() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public String getName() {
-    return m_name;
-  }
+	@Override
+	public String getName() {
+		return m_name;
+	}
 
-  @Override
-  public ITypeBinding getType() {
-    return m_type;
-  }
+	@Override
+	public ITypeBinding getType() {
+		return m_type;
+	}
 
-  @Override
-  public IVariableBinding getVariableDeclaration() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public IVariableBinding getVariableDeclaration() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public int getVariableId() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public int getVariableId() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isEnumConstant() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isEnumConstant() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isField() {
-    return m_field;
-  }
+	@Override
+	public boolean isField() {
+		return m_field;
+	}
 
-  @Override
-  public boolean isParameter() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isParameter() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public IAnnotationBinding[] getAnnotations() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public IAnnotationBinding[] getAnnotations() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public IJavaElement getJavaElement() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public IJavaElement getJavaElement() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public String getKey() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public String getKey() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public int getKind() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public int getKind() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public int getModifiers() {
-    return m_modifiers;
-  }
+	@Override
+	public int getModifiers() {
+		return m_modifiers;
+	}
 
-  @Override
-  public boolean isDeprecated() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isDeprecated() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isEqualTo(IBinding binding) {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isEqualTo(IBinding binding) {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isSynthetic() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isSynthetic() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isRecovered() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isRecovered() {
+		throw new IllegalArgumentException();
+	}
 
-  @Override
-  public boolean isEffectivelyFinal() {
-    throw new IllegalArgumentException();
-  }
+	@Override
+	public boolean isEffectivelyFinal() {
+		throw new IllegalArgumentException();
+	}
 }

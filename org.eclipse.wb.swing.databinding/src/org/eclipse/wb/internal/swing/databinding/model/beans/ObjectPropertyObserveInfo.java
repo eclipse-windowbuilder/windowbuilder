@@ -35,77 +35,77 @@ import java.util.List;
  * @coverage bindings.swing.model.beans
  */
 public final class ObjectPropertyObserveInfo extends ObserveInfo implements IObserveDecoration {
-  private final ObserveCreationType m_creationType;
-  private final IObservePresentation m_presentation;
+	private final ObserveCreationType m_creationType;
+	private final IObservePresentation m_presentation;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObjectPropertyObserveInfo(IGenericType objectType) {
-    super(objectType, StringReferenceProvider.EMPTY);
-    setBindingDecoration(SwtResourceManager.TOP_LEFT);
-    m_creationType =
-        java.util.List.class.isAssignableFrom(getObjectClass())
-            ? ObserveCreationType.ListSelfProperty
-            : ObserveCreationType.SelfProperty;
-    m_presentation =
-        new SimpleObservePresentation("<Self Object>", "", TypeImageProvider.OBJECT_PROPERTY_IMAGE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObjectPropertyObserveInfo(IGenericType objectType) {
+		super(objectType, StringReferenceProvider.EMPTY);
+		setBindingDecoration(SwtResourceManager.TOP_LEFT);
+		m_creationType =
+				java.util.List.class.isAssignableFrom(getObjectClass())
+				? ObserveCreationType.ListSelfProperty
+						: ObserveCreationType.SelfProperty;
+		m_presentation =
+				new SimpleObservePresentation("<Self Object>", "", TypeImageProvider.OBJECT_PROPERTY_IMAGE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canShared() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canShared() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObserveType
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveType getType() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObserveType
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveType getType() {
+		return null;
+	}
 
-  @Override
-  public ObserveCreationType getCreationType() {
-    return m_creationType;
-  }
+	@Override
+	public ObserveCreationType getCreationType() {
+		return m_creationType;
+	}
 
-  @Override
-  public PropertyInfo createProperty(ObserveInfo observeObject) throws Exception {
-    return new ObjectPropertyInfo(getObjectType());
-  }
+	@Override
+	public PropertyInfo createProperty(ObserveInfo observeObject) throws Exception {
+		return new ObjectPropertyInfo(getObjectType());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IObserveInfo getParent() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IObserveInfo getParent() {
+		return null;
+	}
 
-  public List<IObserveInfo> getChildren(ChildrenContext context) {
-    return Collections.emptyList();
-  }
+	public List<IObserveInfo> getChildren(ChildrenContext context) {
+		return Collections.emptyList();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IObservePresentation getPresentation() {
-    return m_presentation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IObservePresentation getPresentation() {
+		return m_presentation;
+	}
 
-  public IObserveDecorator getDecorator() {
-    return IObserveDecorator.BOLD;
-  }
+	public IObserveDecorator getDecorator() {
+		return IObserveDecorator.BOLD;
+	}
 }

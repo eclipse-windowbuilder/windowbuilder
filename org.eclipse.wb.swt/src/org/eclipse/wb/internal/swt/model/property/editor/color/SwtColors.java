@@ -28,33 +28,33 @@ import java.util.List;
  * @coverage swt.property.editor
  */
 public final class SwtColors {
-  private static ColorInfo[] m_systemColors;
+	private static ColorInfo[] m_systemColors;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // System
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link ColorInfo}'s for colors from {@link SWT.COLOR_XXX}.
-   */
-  public static ColorInfo[] getSystemColors(JavaInfo javaInfo) {
-    if (m_systemColors == null) {
-      List<ColorInfo> colors = Lists.newArrayList();
-      try {
-        Field[] fields = SwtSupport.getSwtClass().getFields();
-        for (int i = 0; i < fields.length; i++) {
-          Field field = fields[i];
-          String name = field.getName();
-          if (name.startsWith("COLOR_")) {
-            colors.add(ColorSupport.createInfo(field));
-          }
-        }
-      } catch (Throwable e) {
-        throw ReflectionUtils.propagate(e);
-      }
-      m_systemColors = colors.toArray(new ColorInfo[colors.size()]);
-    }
-    return m_systemColors;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// System
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link ColorInfo}'s for colors from {@link SWT.COLOR_XXX}.
+	 */
+	public static ColorInfo[] getSystemColors(JavaInfo javaInfo) {
+		if (m_systemColors == null) {
+			List<ColorInfo> colors = Lists.newArrayList();
+			try {
+				Field[] fields = SwtSupport.getSwtClass().getFields();
+				for (int i = 0; i < fields.length; i++) {
+					Field field = fields[i];
+					String name = field.getName();
+					if (name.startsWith("COLOR_")) {
+						colors.add(ColorSupport.createInfo(field));
+					}
+				}
+			} catch (Throwable e) {
+				throw ReflectionUtils.propagate(e);
+			}
+			m_systemColors = colors.toArray(new ColorInfo[colors.size()]);
+		}
+		return m_systemColors;
+	}
 }

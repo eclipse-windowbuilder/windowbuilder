@@ -23,30 +23,30 @@ import java.util.List;
  * @coverage swing.model.util
  */
 public abstract class LayoutSurroundSupport extends SwingSurroundSupport {
-  private final LayoutInfo m_layout;
+	private final LayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LayoutSurroundSupport(LayoutInfo layout) {
-    super(layout.getContainer());
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LayoutSurroundSupport(LayoutInfo layout) {
+		super(layout.getContainer());
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean validateComponents(List<ComponentInfo> components) throws Exception {
-    // perform "surround" only for "active" layout
-    if (!m_layout.isActive()) {
-      return false;
-    }
-    // continue
-    return super.validateComponents(components);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean validateComponents(List<ComponentInfo> components) throws Exception {
+		// perform "surround" only for "active" layout
+		if (!m_layout.isActive()) {
+			return false;
+		}
+		// continue
+		return super.validateComponents(components);
+	}
 }

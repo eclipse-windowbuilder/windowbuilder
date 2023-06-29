@@ -34,48 +34,48 @@ import java.lang.reflect.Field;
  * @coverage core.evaluation
  */
 public final class FieldAccessEvaluator implements IExpressionEvaluator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IExpressionEvaluator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception {
-    if (expression instanceof FieldAccess) {
-      FieldAccess fieldAccess = (FieldAccess) expression;
-      String fieldName = fieldAccess.getName().getIdentifier();
-      // check "this" expression
-      Expression fieldAccessExpression = fieldAccess.getExpression();
-      if (fieldAccessExpression instanceof ThisExpression) {
-        // prepare field declaration
-        TypeDeclaration typeDeclaration = AstNodeUtils.getEnclosingType(expression);
-        VariableDeclarationFragment fragment =
-            AstNodeUtils.getFieldFragmentByName(typeDeclaration, fieldName);
-        Assert.isNotNull(fragment);
-        // calculate field value
-        Expression fieldInitializer = fragment.getInitializer();
-        if (fieldInitializer == null) {
-          FieldDeclaration fieldDeclaration =
-              AstNodeUtils.getEnclosingNode(fragment, FieldDeclaration.class);
-          String className = AstNodeUtils.getFullyQualifiedName(fieldDeclaration.getType(), true);
-          return ReflectionUtils.getDefaultValue(className);
-        }
-        return AstEvaluationEngine.evaluate(context, fieldInitializer);
-      }
-      // prepare expression
-      String expressionClassName = AstNodeUtils.getFullyQualifiedName(fieldAccessExpression, true);
-      Class<?> expressionClass = context.getClassLoader().loadClass(expressionClassName);
-      Object expressionValue = AstEvaluationEngine.evaluate(context, fieldAccessExpression);
-      // prepare field
-      Field field = ReflectionUtils.getFieldByName(expressionClass, fieldName);
-      Assert.isNotNull(field);
-      // return static value
-      return field.get(expressionValue);
-    }
-    // we don't understand given expression
-    return AstEvaluationEngine.UNKNOWN;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IExpressionEvaluator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception {
+		if (expression instanceof FieldAccess) {
+			FieldAccess fieldAccess = (FieldAccess) expression;
+			String fieldName = fieldAccess.getName().getIdentifier();
+			// check "this" expression
+			Expression fieldAccessExpression = fieldAccess.getExpression();
+			if (fieldAccessExpression instanceof ThisExpression) {
+				// prepare field declaration
+				TypeDeclaration typeDeclaration = AstNodeUtils.getEnclosingType(expression);
+				VariableDeclarationFragment fragment =
+						AstNodeUtils.getFieldFragmentByName(typeDeclaration, fieldName);
+				Assert.isNotNull(fragment);
+				// calculate field value
+				Expression fieldInitializer = fragment.getInitializer();
+				if (fieldInitializer == null) {
+					FieldDeclaration fieldDeclaration =
+							AstNodeUtils.getEnclosingNode(fragment, FieldDeclaration.class);
+					String className = AstNodeUtils.getFullyQualifiedName(fieldDeclaration.getType(), true);
+					return ReflectionUtils.getDefaultValue(className);
+				}
+				return AstEvaluationEngine.evaluate(context, fieldInitializer);
+			}
+			// prepare expression
+			String expressionClassName = AstNodeUtils.getFullyQualifiedName(fieldAccessExpression, true);
+			Class<?> expressionClass = context.getClassLoader().loadClass(expressionClassName);
+			Object expressionValue = AstEvaluationEngine.evaluate(context, fieldAccessExpression);
+			// prepare field
+			Field field = ReflectionUtils.getFieldByName(expressionClass, fieldName);
+			Assert.isNotNull(field);
+			// return static value
+			return field.get(expressionValue);
+		}
+		// we don't understand given expression
+		return AstEvaluationEngine.UNKNOWN;
+	}
 }

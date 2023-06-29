@@ -21,22 +21,22 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
  * @coverage swt.preferences
  */
 public interface IPreferenceConstants {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Preferences
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * When <code>true</code>, we automatically add <code>SWTResourceManager</code> and use it for
-   * color/font/image access. This allows use resources sharing.
-   */
-  String P_USE_RESOURCE_MANAGER = "useResourceManager";
-  /**
-   * The template for {@link LayoutInfo} name.
-   */
-  String P_LAYOUT_NAME_TEMPLATE = "templateLayoutName";
-  /**
-   * The template for {@link LayoutDataInfo} name.
-   */
-  String P_LAYOUT_DATA_NAME_TEMPLATE = "templateLayoutDataName";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Preferences
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * When <code>true</code>, we automatically add <code>SWTResourceManager</code> and use it for
+	 * color/font/image access. This allows use resources sharing.
+	 */
+	String P_USE_RESOURCE_MANAGER = "useResourceManager";
+	/**
+	 * The template for {@link LayoutInfo} name.
+	 */
+	String P_LAYOUT_NAME_TEMPLATE = "templateLayoutName";
+	/**
+	 * The template for {@link LayoutDataInfo} name.
+	 */
+	String P_LAYOUT_DATA_NAME_TEMPLATE = "templateLayoutDataName";
 }

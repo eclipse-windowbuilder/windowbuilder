@@ -19,20 +19,20 @@ import org.eclipse.jdt.core.ICompilationUnit;
  * @coverage core.util.ast
  */
 public interface IASTEditorCommitListener {
-  /**
-   * Notifies that {@link AstEditor} is going to commit changes to {@link ICompilationUnit} buffer.
-   */
-  void aboutToCommit();
+	/**
+	 * Notifies that {@link AstEditor} is going to commit changes to {@link ICompilationUnit} buffer.
+	 */
+	void aboutToCommit();
 
-  /**
-   * Request editable state for file. When file is in CVS and project configured to use edit/watch
-   * mode, files are read only and we should request edit to change them. {@link AstEditor} calls
-   * this method to ensure that changes made in shadow buffer can be saved in main file buffer.
-   */
-  boolean canEditBaseFile();
+	/**
+	 * Request editable state for file. When file is in CVS and project configured to use edit/watch
+	 * mode, files are read only and we should request edit to change them. {@link AstEditor} calls
+	 * this method to ensure that changes made in shadow buffer can be saved in main file buffer.
+	 */
+	boolean canEditBaseFile();
 
-  /**
-   * Notifies that {@link AstEditor} done commit changes to {@link ICompilationUnit} buffer.
-   */
-  void commitDone();
+	/**
+	 * Notifies that {@link AstEditor} done commit changes to {@link ICompilationUnit} buffer.
+	 */
+	void commitDone();
 }

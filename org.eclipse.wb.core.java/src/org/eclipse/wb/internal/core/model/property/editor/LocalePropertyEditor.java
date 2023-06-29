@@ -25,48 +25,48 @@ import java.util.Locale;
  * @coverage core.model.property.editor
  */
 public final class LocalePropertyEditor extends TextDialogPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new LocalePropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new LocalePropertyEditor();
 
-  private LocalePropertyEditor() {
-  }
+	private LocalePropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof Locale) {
-      return ((Locale) value).getDisplayName();
-    }
-    // unknown value
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof Locale) {
+			return ((Locale) value).getDisplayName();
+		}
+		// unknown value
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    Object value = property.getValue();
-    ChooseLocaleDialog localeDialog;
-    if (value instanceof Locale) {
-      localeDialog = new ChooseLocaleDialog(DesignerPlugin.getShell(), (Locale) value);
-    } else {
-      localeDialog = new ChooseLocaleDialog(DesignerPlugin.getShell(), null);
-    }
-    // open dialog
-    if (localeDialog.open() == Window.OK) {
-      property.setValue(localeDialog.getSelectedLocale().getLocale());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		Object value = property.getValue();
+		ChooseLocaleDialog localeDialog;
+		if (value instanceof Locale) {
+			localeDialog = new ChooseLocaleDialog(DesignerPlugin.getShell(), (Locale) value);
+		} else {
+			localeDialog = new ChooseLocaleDialog(DesignerPlugin.getShell(), null);
+		}
+		// open dialog
+		if (localeDialog.open() == Window.OK) {
+			property.setValue(localeDialog.getSelectedLocale().getLocale());
+		}
+	}
 }

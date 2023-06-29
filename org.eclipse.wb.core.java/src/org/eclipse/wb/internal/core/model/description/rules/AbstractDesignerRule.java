@@ -23,19 +23,19 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public abstract class AbstractDesignerRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the value of required attribute or throws exception if attribute is missing.
-   */
-  protected static String getRequiredAttribute(String tagName,
-      Attributes attributes,
-      String attributeName) {
-    String value = attributes.getValue(attributeName);
-    Assert.isNotNull(value, "Attribute '" + attributeName + "' for <" + tagName + "> required.");
-    return value;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the value of required attribute or throws exception if attribute is missing.
+	 */
+	protected static String getRequiredAttribute(String tagName,
+			Attributes attributes,
+			String attributeName) {
+		String value = attributes.getValue(attributeName);
+		Assert.isNotNull(value, "Attribute '" + attributeName + "' for <" + tagName + "> required.");
+		return value;
+	}
 }

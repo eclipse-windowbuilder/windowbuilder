@@ -21,8 +21,8 @@ import org.eclipse.swt.widgets.TreeColumn;
  * @coverage swt.model.widgets
  */
 public interface ITreeColumnInfo extends IItemInfo {
-  /**
-   * Sets width in pixels.
-   */
-  public void setWidth(int width) throws Exception;
+	/**
+	 * Sets width in pixels.
+	 */
+	public void setWidth(int width) throws Exception;
 }

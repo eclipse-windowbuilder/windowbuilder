@@ -51,670 +51,670 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class SimpleContainerModelTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SimpleContainer_Factory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * No special container association, so only {@link Association} from component will be used.
-   */
-  public void test_getConfigurations_noContainerAssociation() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer", "true"},
-            {"simpleContainer.component", "java.awt.Component"},});
-    assertThat(configurations).hasSize(1);
-    assertConfiguration(configurations.get(0), "NO", "java.awt.Component");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SimpleContainer_Factory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * No special container association, so only {@link Association} from component will be used.
+	 */
+	public void test_getConfigurations_noContainerAssociation() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer", "true"},
+					{"simpleContainer.component", "java.awt.Component"},});
+		assertThat(configurations).hasSize(1);
+		assertConfiguration(configurations.get(0), "NO", "java.awt.Component");
+	}
 
-  /**
-   * Ask "forCanvas", return common configuration for both - canvas/tree.
-   */
-  public void test_getConfigurations_forCanvas_common() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer", "true"},
-            {"simpleContainer.association", "%parent%.add(%child%)"},
-            {"simpleContainer.component", "java.awt.Component"},});
-    assertThat(configurations).hasSize(1);
-    assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
-  }
+	/**
+	 * Ask "forCanvas", return common configuration for both - canvas/tree.
+	 */
+	public void test_getConfigurations_forCanvas_common() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer", "true"},
+					{"simpleContainer.association", "%parent%.add(%child%)"},
+					{"simpleContainer.component", "java.awt.Component"},});
+		assertThat(configurations).hasSize(1);
+		assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
+	}
 
-  /**
-   * Ask "forCanvas", return explicit "forCanvas".
-   */
-  public void test_getConfigurations_forCanvas_explicit() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer.canvas", "true"},
-            {"simpleContainer.canvas.association", "%parent%.add(%child%)"},
-            {"simpleContainer.canvas.component", "java.awt.Component"},});
-    assertThat(configurations).hasSize(1);
-    assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
-  }
+	/**
+	 * Ask "forCanvas", return explicit "forCanvas".
+	 */
+	public void test_getConfigurations_forCanvas_explicit() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer.canvas", "true"},
+					{"simpleContainer.canvas.association", "%parent%.add(%child%)"},
+					{"simpleContainer.canvas.component", "java.awt.Component"},});
+		assertThat(configurations).hasSize(1);
+		assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
+	}
 
-  /**
-   * Ask "forCanvas", but only "forTree" exist.
-   */
-  public void test_getConfigurations_forCanvas_onlyForTree() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer.tree", "true"},
-            {"simpleContainer.tree.association", "%parent%.add(%child%)"},
-            {"simpleContainer.tree.component", "java.awt.Component"},});
-    assertThat(configurations).isEmpty();
-  }
+	/**
+	 * Ask "forCanvas", but only "forTree" exist.
+	 */
+	public void test_getConfigurations_forCanvas_onlyForTree() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer.tree", "true"},
+					{"simpleContainer.tree.association", "%parent%.add(%child%)"},
+					{"simpleContainer.tree.component", "java.awt.Component"},});
+		assertThat(configurations).isEmpty();
+	}
 
-  /**
-   * Ask "forTree", return common configuration for both - canvas/tree.
-   */
-  public void test_getConfigurations_forTree_common() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(false, new String[][]{
-            {"simpleContainer", "true"},
-            {"simpleContainer.association", "%parent%.add(%child%)"},
-            {"simpleContainer.component", "java.awt.Component"},});
-    assertThat(configurations).hasSize(1);
-  }
+	/**
+	 * Ask "forTree", return common configuration for both - canvas/tree.
+	 */
+	public void test_getConfigurations_forTree_common() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(false, new String[][]{
+					{"simpleContainer", "true"},
+					{"simpleContainer.association", "%parent%.add(%child%)"},
+					{"simpleContainer.component", "java.awt.Component"},});
+		assertThat(configurations).hasSize(1);
+	}
 
-  /**
-   * Ask "forTree", return explicit "forTree".
-   */
-  public void test_getConfigurations_forTree_explicit() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(false, new String[][]{
-            {"simpleContainer.tree", "true"},
-            {"simpleContainer.tree.association", "%parent%.add(%child%)"},
-            {"simpleContainer.tree.component", "java.awt.Component"},});
-    assertThat(configurations).hasSize(1);
-  }
+	/**
+	 * Ask "forTree", return explicit "forTree".
+	 */
+	public void test_getConfigurations_forTree_explicit() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(false, new String[][]{
+					{"simpleContainer.tree", "true"},
+					{"simpleContainer.tree.association", "%parent%.add(%child%)"},
+					{"simpleContainer.tree.component", "java.awt.Component"},});
+		assertThat(configurations).hasSize(1);
+	}
 
-  /**
-   * Several different configurations.
-   */
-  public void test_getConfigurations_3_count() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer", "true"},
-            {"simpleContainer.association", "%parent%.add(%child%)"},
-            {"simpleContainer.component", "java.awt.Component"},
-            {"simpleContainer.1", "true"},
-            {"simpleContainer.1.association", "%parent%.add(%child%)"},
-            {"simpleContainer.1.component", "javax.swing.JButton"},
-            {"simpleContainer.5", "true"},
-            {"simpleContainer.5.association", "%parent%.add(%child%)"},
-            {"simpleContainer.5.component", "javax.swing.JTextField"},});
-    assertThat(configurations).hasSize(3);
-    assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
-    assertConfiguration(configurations.get(1), "%parent%.add(%child%)", "javax.swing.JButton");
-    assertConfiguration(configurations.get(2), "%parent%.add(%child%)", "javax.swing.JTextField");
-  }
+	/**
+	 * Several different configurations.
+	 */
+	public void test_getConfigurations_3_count() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer", "true"},
+					{"simpleContainer.association", "%parent%.add(%child%)"},
+					{"simpleContainer.component", "java.awt.Component"},
+					{"simpleContainer.1", "true"},
+					{"simpleContainer.1.association", "%parent%.add(%child%)"},
+					{"simpleContainer.1.component", "javax.swing.JButton"},
+					{"simpleContainer.5", "true"},
+					{"simpleContainer.5.association", "%parent%.add(%child%)"},
+					{"simpleContainer.5.component", "javax.swing.JTextField"},});
+		assertThat(configurations).hasSize(3);
+		assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
+		assertConfiguration(configurations.get(1), "%parent%.add(%child%)", "javax.swing.JButton");
+		assertConfiguration(configurations.get(2), "%parent%.add(%child%)", "javax.swing.JTextField");
+	}
 
-  /**
-   * Ignore if <code>simpleContainer</code> value is not <code>true</code>.
-   */
-  public void test_getConfigurations_ignoreFalse() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer", "false"},
-            {"simpleContainer.association", "%parent%.add(%child%)"},
-            {"simpleContainer.component", "java.awt.Component"},});
-    assertThat(configurations).hasSize(0);
-  }
+	/**
+	 * Ignore if <code>simpleContainer</code> value is not <code>true</code>.
+	 */
+	public void test_getConfigurations_ignoreFalse() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer", "false"},
+					{"simpleContainer.association", "%parent%.add(%child%)"},
+					{"simpleContainer.component", "java.awt.Component"},});
+		assertThat(configurations).hasSize(0);
+	}
 
-  /**
-   * Use default component/reference validator.
-   */
-  public void test_getConfigurations_defaultValidators() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer.defaultComponent", "java.awt.Component"},
-            {"simpleContainer", "true"},
-            {"simpleContainer.association", "%parent%.add(%child%)"},});
-    assertThat(configurations).hasSize(1);
-    assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
-  }
+	/**
+	 * Use default component/reference validator.
+	 */
+	public void test_getConfigurations_defaultValidators() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer.defaultComponent", "java.awt.Component"},
+					{"simpleContainer", "true"},
+					{"simpleContainer.association", "%parent%.add(%child%)"},});
+		assertThat(configurations).hasSize(1);
+		assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Container validation MVEL scripts
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_getConfigurations_validateContainer_isContainerType() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer.canvas", "isContainerType('java.awt.Component')"},
-            {"simpleContainer.canvas.association", "%parent%.add(%child%)"},
-            {"simpleContainer.canvas.component", "java.awt.Component"},});
-    assertThat(configurations).hasSize(1);
-    assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Container validation MVEL scripts
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_getConfigurations_validateContainer_isContainerType() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer.canvas", "isContainerType('java.awt.Component')"},
+					{"simpleContainer.canvas.association", "%parent%.add(%child%)"},
+					{"simpleContainer.canvas.component", "java.awt.Component"},});
+		assertThat(configurations).hasSize(1);
+		assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
+	}
 
-  public void test_getConfigurations_validateContainer_scriptToFalse() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer.canvas", "1 == 2"},
-            {"simpleContainer.canvas.association", "%parent%.add(%child%)"},
-            {"simpleContainer.canvas.component", "java.awt.Component"},});
-    assertThat(configurations).isEmpty();
-  }
+	public void test_getConfigurations_validateContainer_scriptToFalse() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer.canvas", "1 == 2"},
+					{"simpleContainer.canvas.association", "%parent%.add(%child%)"},
+					{"simpleContainer.canvas.component", "java.awt.Component"},});
+		assertThat(configurations).isEmpty();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SimpleContainer_Factory: component
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Exception when no "component" validator.
-   */
-  public void test_getConfigurations_noComponentValidator() throws Exception {
-    try {
-      getConfigurations(true, new String[][]{
-          {"simpleContainer", "true"},
-          {"simpleContainer.association", "%parent%.add(%child%)"},});
-      fail();
-    } catch (Throwable e) {
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SimpleContainer_Factory: component
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Exception when no "component" validator.
+	 */
+	public void test_getConfigurations_noComponentValidator() throws Exception {
+		try {
+			getConfigurations(true, new String[][]{
+				{"simpleContainer", "true"},
+				{"simpleContainer.association", "%parent%.add(%child%)"},});
+			fail();
+		} catch (Throwable e) {
+		}
+	}
 
-  public void test_getConfigurations_explicitComponentTypes() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer", "true"},
-            {"simpleContainer.association", "%parent%.add(%child%)"},
-            {"simpleContainer.component", "javax.swing.JButton javax.swing.JTextField"},});
-    assertThat(configurations).hasSize(1);
-    assertConfiguration(
-        configurations.get(0),
-        "%parent%.add(%child%)",
-        "javax.swing.JButton javax.swing.JTextField");
-  }
+	public void test_getConfigurations_explicitComponentTypes() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer", "true"},
+					{"simpleContainer.association", "%parent%.add(%child%)"},
+					{"simpleContainer.component", "javax.swing.JButton javax.swing.JTextField"},});
+		assertThat(configurations).hasSize(1);
+		assertConfiguration(
+				configurations.get(0),
+				"%parent%.add(%child%)",
+				"javax.swing.JButton javax.swing.JTextField");
+	}
 
-  /**
-   * Use default component validator.
-   */
-  public void test_getConfigurations_defaultComponent() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer.defaultComponent", "java.awt.Component"},
-            {"simpleContainer", "true"},
-            {"simpleContainer.association", "%parent%.add(%child%)"},});
-    assertThat(configurations).hasSize(1);
-    assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
-  }
+	/**
+	 * Use default component validator.
+	 */
+	public void test_getConfigurations_defaultComponent() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer.defaultComponent", "java.awt.Component"},
+					{"simpleContainer", "true"},
+					{"simpleContainer.association", "%parent%.add(%child%)"},});
+		assertThat(configurations).hasSize(1);
+		assertConfiguration(configurations.get(0), "%parent%.add(%child%)", "java.awt.Component");
+	}
 
-  public void test_getConfigurations_componentValidatorExpression() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer", "true"},
-            {"simpleContainer.association", "%parent%.add(%child%)"},
-            {"simpleContainer.component-validator", "isComponentType(java.awt.Component)"},});
-    assertThat(configurations).hasSize(1);
-    assertConfiguration(
-        configurations.get(0),
-        "%parent%.add(%child%)",
-        "isComponentType(java.awt.Component)");
-  }
+	public void test_getConfigurations_componentValidatorExpression() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer", "true"},
+					{"simpleContainer.association", "%parent%.add(%child%)"},
+					{"simpleContainer.component-validator", "isComponentType(java.awt.Component)"},});
+		assertThat(configurations).hasSize(1);
+		assertConfiguration(
+				configurations.get(0),
+				"%parent%.add(%child%)",
+				"isComponentType(java.awt.Component)");
+	}
 
-  public void test_getConfigurations_commandValidatorExpression() throws Exception {
-    List<SimpleContainerConfiguration> configurations =
-        getConfigurations(true, new String[][]{
-            {"simpleContainer", "true"},
-            {"simpleContainer.association", "%parent%.add(%child%)"},
-            {"simpleContainer.component-validator", "isComponentType(java.awt.Component)"},
-            {"simpleContainer.command-validator", "isGoodCommand()"},});
-    assertThat(configurations).hasSize(1);
-    assertConfiguration(
-        configurations.get(0),
-        "%parent%.add(%child%)",
-        "isComponentType(java.awt.Component)");
-  }
+	public void test_getConfigurations_commandValidatorExpression() throws Exception {
+		List<SimpleContainerConfiguration> configurations =
+				getConfigurations(true, new String[][]{
+					{"simpleContainer", "true"},
+					{"simpleContainer.association", "%parent%.add(%child%)"},
+					{"simpleContainer.component-validator", "isComponentType(java.awt.Component)"},
+					{"simpleContainer.command-validator", "isGoodCommand()"},});
+		assertThat(configurations).hasSize(1);
+		assertConfiguration(
+				configurations.get(0),
+				"%parent%.add(%child%)",
+				"isComponentType(java.awt.Component)");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Configurations access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static void assertConfiguration(SimpleContainerConfiguration configuration,
-      String association,
-      String expectedComponentValidator) {
-    assertEquals(association, getAssociationObjectString(configuration));
-    if (expectedComponentValidator != null) {
-      assertEquals(
-          expectedComponentValidator,
-          getValidatorString(configuration.getComponentValidator()));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Configurations access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static void assertConfiguration(SimpleContainerConfiguration configuration,
+			String association,
+			String expectedComponentValidator) {
+		assertEquals(association, getAssociationObjectString(configuration));
+		if (expectedComponentValidator != null) {
+			assertEquals(
+					expectedComponentValidator,
+					getValidatorString(configuration.getComponentValidator()));
+		}
+	}
 
-  private static String getAssociationObjectString(SimpleContainerConfiguration configuration) {
-    return configuration.getAssociationObjectFactory().toString();
-  }
+	private static String getAssociationObjectString(SimpleContainerConfiguration configuration) {
+		return configuration.getAssociationObjectFactory().toString();
+	}
 
-  private static String getValidatorString(Object validator) {
-    return validator.toString();
-  }
+	private static String getValidatorString(Object validator) {
+		return validator.toString();
+	}
 
-  private List<SimpleContainerConfiguration> getConfigurations(boolean forCanvas,
-      String[][] parameters) throws Exception {
-    String[] parameterLines = new String[parameters.length];
-    for (int i = 0; i < parameters.length; i++) {
-      String[] parameterPair = parameters[i];
-      assertEquals(2, parameterPair.length);
-      parameterLines[i] =
-          MessageFormat.format(
-              "    <parameter name=''{0}''>{1}</parameter>",
-              parameterPair[0],
-              parameterPair[1]);
-    }
-    // prepare description
-    setFileContentSrc(
-        "test/SimplePanel.java",
-        getTestSource(
-            "public class SimplePanel extends Container {",
-            "  public SimplePanel() {",
-            "  }",
-            "}"));
-    setFileContentSrc(
-        "test/SimplePanel.wbp-component.xml",
-        getSource3(new String[]{
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <methods>",
-            "    <method name='add'>",
-            "      <parameter type='java.awt.Component' child='true'/>",
-            "    </method>",
-            "  </methods>",
-            "  <parameters>"}, parameterLines, new String[]{"  </parameters>", "</component>"}));
-    waitForAutoBuild();
-    // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends SimplePanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    panel.refresh();
-    // get configurations
-    return new SimpleContainerFactory(panel, forCanvas).getConfigurations();
-  }
+	private List<SimpleContainerConfiguration> getConfigurations(boolean forCanvas,
+			String[][] parameters) throws Exception {
+		String[] parameterLines = new String[parameters.length];
+		for (int i = 0; i < parameters.length; i++) {
+			String[] parameterPair = parameters[i];
+			assertEquals(2, parameterPair.length);
+			parameterLines[i] =
+					MessageFormat.format(
+							"    <parameter name=''{0}''>{1}</parameter>",
+							parameterPair[0],
+							parameterPair[1]);
+		}
+		// prepare description
+		setFileContentSrc(
+				"test/SimplePanel.java",
+				getTestSource(
+						"public class SimplePanel extends Container {",
+						"  public SimplePanel() {",
+						"  }",
+						"}"));
+		setFileContentSrc(
+				"test/SimplePanel.wbp-component.xml",
+				getSource3(new String[]{
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <methods>",
+						"    <method name='add'>",
+						"      <parameter type='java.awt.Component' child='true'/>",
+						"    </method>",
+						"  </methods>",
+				"  <parameters>"}, parameterLines, new String[]{"  </parameters>", "</component>"}));
+		waitForAutoBuild();
+		// parse
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends SimplePanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		panel.refresh();
+		// get configurations
+		return new SimpleContainerFactory(panel, forCanvas).getConfigurations();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Duck typing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static class MySimpleContainer extends JavaInfo {
-    public MySimpleContainer(AstEditor editor,
-        ComponentDescription description,
-        CreationSupport creationSupport) throws Exception {
-      super(editor, description, creationSupport);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Duck typing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static class MySimpleContainer extends JavaInfo {
+		public MySimpleContainer(AstEditor editor,
+				ComponentDescription description,
+				CreationSupport creationSupport) throws Exception {
+			super(editor, description, creationSupport);
+		}
 
-    public List<ObjectInfo> getSimpleContainerChildren() {
-      return ImmutableList.of();
-    }
+		public List<ObjectInfo> getSimpleContainerChildren() {
+			return ImmutableList.of();
+		}
 
-    public void command_CREATE(Object component) {
-    }
+		public void command_CREATE(Object component) {
+		}
 
-    public void command_ADD(Object component) {
-    }
-  }
+		public void command_ADD(Object component) {
+		}
+	}
 
-  /**
-   * Create/Move operations of {@link SimpleContainerConfigurable} should try to find corresponding
-   * CREATE/MOVE methods in container {@link JavaInfo} and use them instead of generic
-   * implementation.
-   */
-  public void test_duckTyping() throws Exception {
-    final JavaInfo component = mock(JavaInfo.class);
-    final MySimpleContainer container = mock(MySimpleContainer.class);
-    final InOrder inOrder = inOrder(component, container);
-    final SimpleContainer simpleContainer;
-    {
-      ContainerObjectValidator validator = ContainerObjectValidators.alwaysTrue();
-      SimpleContainerConfiguration configuration =
-          new SimpleContainerConfiguration(validator, null);
-      simpleContainer = new SimpleContainerConfigurable(container, configuration);
-    }
-    // isEmpty() == true, because no existing children
-    {
-      when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
-      //
-      assertTrue(simpleContainer.isEmpty());
-      //
-      inOrder.verify(container).getSimpleContainerChildren();
-      inOrder.verifyNoMoreInteractions();
-    }
-    // isEmpty() == false, because return existing child
-    {
-      clearInvocations(container);
-      //
-      final TestObjectInfo existingChild = new TestObjectInfo();
-      when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
-      //
-      assertFalse(simpleContainer.isEmpty());
-      //
-      inOrder.verify(container).getSimpleContainerChildren();
-      inOrder.verifyNoMoreInteractions();
-    }
-    // getChild() == null, because no existing children
-    {
-      clearInvocations(container);
-      //
-      when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
-      //
-      assertSame(null, simpleContainer.getChild());
-      //
-      inOrder.verify(container).getSimpleContainerChildren();
-      inOrder.verifyNoMoreInteractions();
-    }
-    // getChild() != null, because return existing child
-    {
-      clearInvocations(container);
-      //
-      final TestObjectInfo existingChild = new TestObjectInfo();
-      when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
-      //
-      assertSame(existingChild, simpleContainer.getChild());
-      //
-      inOrder.verify(container).getSimpleContainerChildren();
-      inOrder.verifyNoMoreInteractions();
-    }
-    // CREATE
-    {
-      clearInvocations(container);
-      //
-      simpleContainer.command_CREATE(component);
-      //
-      inOrder.verify(container).command_CREATE(component);
-      inOrder.verifyNoMoreInteractions();
-    }
-    // MOVE
-    {
-      clearInvocations(container);
-      //
-      simpleContainer.command_ADD(component);
-      //
-      inOrder.verify(container).command_ADD(component);
-      inOrder.verifyNoMoreInteractions();
-    }
-  }
+	/**
+	 * Create/Move operations of {@link SimpleContainerConfigurable} should try to find corresponding
+	 * CREATE/MOVE methods in container {@link JavaInfo} and use them instead of generic
+	 * implementation.
+	 */
+	public void test_duckTyping() throws Exception {
+		final JavaInfo component = mock(JavaInfo.class);
+		final MySimpleContainer container = mock(MySimpleContainer.class);
+		final InOrder inOrder = inOrder(component, container);
+		final SimpleContainer simpleContainer;
+		{
+			ContainerObjectValidator validator = ContainerObjectValidators.alwaysTrue();
+			SimpleContainerConfiguration configuration =
+					new SimpleContainerConfiguration(validator, null);
+			simpleContainer = new SimpleContainerConfigurable(container, configuration);
+		}
+		// isEmpty() == true, because no existing children
+		{
+			when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
+			//
+			assertTrue(simpleContainer.isEmpty());
+			//
+			inOrder.verify(container).getSimpleContainerChildren();
+			inOrder.verifyNoMoreInteractions();
+		}
+		// isEmpty() == false, because return existing child
+		{
+			clearInvocations(container);
+			//
+			final TestObjectInfo existingChild = new TestObjectInfo();
+			when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
+			//
+			assertFalse(simpleContainer.isEmpty());
+			//
+			inOrder.verify(container).getSimpleContainerChildren();
+			inOrder.verifyNoMoreInteractions();
+		}
+		// getChild() == null, because no existing children
+		{
+			clearInvocations(container);
+			//
+			when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of());
+			//
+			assertSame(null, simpleContainer.getChild());
+			//
+			inOrder.verify(container).getSimpleContainerChildren();
+			inOrder.verifyNoMoreInteractions();
+		}
+		// getChild() != null, because return existing child
+		{
+			clearInvocations(container);
+			//
+			final TestObjectInfo existingChild = new TestObjectInfo();
+			when(container.getSimpleContainerChildren()).thenReturn(ImmutableList.<ObjectInfo>of(existingChild));
+			//
+			assertSame(existingChild, simpleContainer.getChild());
+			//
+			inOrder.verify(container).getSimpleContainerChildren();
+			inOrder.verifyNoMoreInteractions();
+		}
+		// CREATE
+		{
+			clearInvocations(container);
+			//
+			simpleContainer.command_CREATE(component);
+			//
+			inOrder.verify(container).command_CREATE(component);
+			inOrder.verifyNoMoreInteractions();
+		}
+		// MOVE
+		{
+			clearInvocations(container);
+			//
+			simpleContainer.command_ADD(component);
+			//
+			inOrder.verify(container).command_ADD(component);
+			inOrder.verifyNoMoreInteractions();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_validateMethods() throws Exception {
-    final JavaInfo container = mock(JavaInfo.class);
-    final JavaInfo component = mock(JavaInfo.class);
-    final SimpleContainerConfiguration configuration = mock(SimpleContainerConfiguration.class);
-    final InOrder inOrder = inOrder(component, container, configuration);
-    final SimpleContainer simpleContainer =
-        new SimpleContainerConfigurable(container, configuration);
-    // validateComponent() = true
-    when(configuration.getComponentValidator()).thenReturn(ContainerObjectValidators.alwaysTrue());
-    assertTrue(simpleContainer.validateComponent(component));
-    inOrder.verify(configuration).getComponentValidator();
-    inOrder.verifyNoMoreInteractions();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_validateMethods() throws Exception {
+		final JavaInfo container = mock(JavaInfo.class);
+		final JavaInfo component = mock(JavaInfo.class);
+		final SimpleContainerConfiguration configuration = mock(SimpleContainerConfiguration.class);
+		final InOrder inOrder = inOrder(component, container, configuration);
+		final SimpleContainer simpleContainer =
+				new SimpleContainerConfigurable(container, configuration);
+		// validateComponent() = true
+		when(configuration.getComponentValidator()).thenReturn(ContainerObjectValidators.alwaysTrue());
+		assertTrue(simpleContainer.validateComponent(component));
+		inOrder.verify(configuration).getComponentValidator();
+		inOrder.verifyNoMoreInteractions();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Models
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link SimpleContainerConfigurable#command_CREATE(Object, Object)}.
-   */
-  public void test_CREATE() throws Exception {
-    prepareSimplePanel();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends SimplePanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    panel.refresh();
-    // prepare SimpleContainer
-    SimpleContainer simpleContainer = new SimpleContainerFactory(panel, true).get().get(0);
-    assertTrue(simpleContainer.isEmpty());
-    // do CREATE
-    ComponentInfo newButton = createJButton();
-    {
-      assertTrue(simpleContainer.validateComponent(newButton));
-    }
-    simpleContainer.command_CREATE(newButton);
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends SimplePanel {",
-        "  public Test() {",
-        "    {",
-        "      JButton button = new JButton();",
-        "      setContent(button);",
-        "    }",
-        "  }",
-        "}");
-    assertFalse(simpleContainer.isEmpty());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Models
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link SimpleContainerConfigurable#command_CREATE(Object, Object)}.
+	 */
+	public void test_CREATE() throws Exception {
+		prepareSimplePanel();
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends SimplePanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		panel.refresh();
+		// prepare SimpleContainer
+		SimpleContainer simpleContainer = new SimpleContainerFactory(panel, true).get().get(0);
+		assertTrue(simpleContainer.isEmpty());
+		// do CREATE
+		ComponentInfo newButton = createJButton();
+		{
+			assertTrue(simpleContainer.validateComponent(newButton));
+		}
+		simpleContainer.command_CREATE(newButton);
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends SimplePanel {",
+				"  public Test() {",
+				"    {",
+				"      JButton button = new JButton();",
+				"      setContent(button);",
+				"    }",
+				"  }",
+				"}");
+		assertFalse(simpleContainer.isEmpty());
+	}
 
-  /**
-   * Ensure that we can: create, delete and create new component again.
-   */
-  public void test_CREATE_twoTimes() throws Exception {
-    prepareSimplePanel();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends SimplePanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    panel.refresh();
-    // prepare SimpleContainer
-    SimpleContainer simpleContainer = new SimpleContainerFactory(panel, true).get().get(0);
-    assertTrue(simpleContainer.isEmpty());
-    // create/delete
-    {
-      ComponentInfo newButton = createJButton();
-      simpleContainer.command_CREATE(newButton);
-      newButton.delete();
-    }
-    // create again
-    {
-      ComponentInfo newButton = createJButton();
-      simpleContainer.command_CREATE(newButton);
-    }
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends SimplePanel {",
-        "  public Test() {",
-        "    {",
-        "      JButton button = new JButton();",
-        "      setContent(button);",
-        "    }",
-        "  }",
-        "}");
-  }
+	/**
+	 * Ensure that we can: create, delete and create new component again.
+	 */
+	public void test_CREATE_twoTimes() throws Exception {
+		prepareSimplePanel();
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends SimplePanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		panel.refresh();
+		// prepare SimpleContainer
+		SimpleContainer simpleContainer = new SimpleContainerFactory(panel, true).get().get(0);
+		assertTrue(simpleContainer.isEmpty());
+		// create/delete
+		{
+			ComponentInfo newButton = createJButton();
+			simpleContainer.command_CREATE(newButton);
+			newButton.delete();
+		}
+		// create again
+		{
+			ComponentInfo newButton = createJButton();
+			simpleContainer.command_CREATE(newButton);
+		}
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends SimplePanel {",
+				"  public Test() {",
+				"    {",
+				"      JButton button = new JButton();",
+				"      setContent(button);",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Test for {@link SimpleContainerConfigurable#command_absolute_MOVE(Object, Object)}.
-   */
-  public void test_MOVE() throws Exception {
-    prepareSimplePanel();
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    {",
-            "      SimplePanel SimplePanel = new SimplePanel();",
-            "      add(SimplePanel);",
-            "    }",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
-    panel.refresh();
-    ContainerInfo simplePanel = (ContainerInfo) panel.getChildrenComponents().get(0);
-    ComponentInfo button = panel.getChildrenComponents().get(1);
-    // prepare SimpleContainer
-    SimpleContainer simpleContainer;
-    {
-      AssociationObjectFactory associationObjectFactory =
-          AssociationObjectFactories.invocationChild("%parent%.add(%child%)", false);
-      ContainerObjectValidator validator = ContainerObjectValidators.alwaysTrue();
-      SimpleContainerConfiguration configuration =
-          new SimpleContainerConfiguration(validator, associationObjectFactory);
-      simpleContainer = new SimpleContainerConfigurable(simplePanel, configuration);
-    }
-    // do MOVE
-    simpleContainer.command_ADD(button);
-    assertEditor(
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    {",
-        "      SimplePanel SimplePanel = new SimplePanel();",
-        "      add(SimplePanel);",
-        "      {",
-        "        JButton button = new JButton();",
-        "        SimplePanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for {@link SimpleContainerConfigurable#command_absolute_MOVE(Object, Object)}.
+	 */
+	public void test_MOVE() throws Exception {
+		prepareSimplePanel();
+		ContainerInfo panel =
+				parseContainer(
+						"class Test extends JPanel {",
+						"  Test() {",
+						"    {",
+						"      SimplePanel SimplePanel = new SimplePanel();",
+						"      add(SimplePanel);",
+						"    }",
+						"    {",
+						"      JButton button = new JButton();",
+						"      add(button);",
+						"    }",
+						"  }",
+						"}");
+		panel.refresh();
+		ContainerInfo simplePanel = (ContainerInfo) panel.getChildrenComponents().get(0);
+		ComponentInfo button = panel.getChildrenComponents().get(1);
+		// prepare SimpleContainer
+		SimpleContainer simpleContainer;
+		{
+			AssociationObjectFactory associationObjectFactory =
+					AssociationObjectFactories.invocationChild("%parent%.add(%child%)", false);
+			ContainerObjectValidator validator = ContainerObjectValidators.alwaysTrue();
+			SimpleContainerConfiguration configuration =
+					new SimpleContainerConfiguration(validator, associationObjectFactory);
+			simpleContainer = new SimpleContainerConfigurable(simplePanel, configuration);
+		}
+		// do MOVE
+		simpleContainer.command_ADD(button);
+		assertEditor(
+				"class Test extends JPanel {",
+				"  Test() {",
+				"    {",
+				"      SimplePanel SimplePanel = new SimplePanel();",
+				"      add(SimplePanel);",
+				"      {",
+				"        JButton button = new JButton();",
+				"        SimplePanel.add(button);",
+				"      }",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  /**
-   * {@link SimpleContainer} should automatically copy its child into clipboard.
-   */
-  public void DISABLE_test_clipboard() throws Exception {
-    prepareSimplePanel();
-    ContainerInfo rootPanel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    {",
-            "      SimplePanel panel = new SimplePanel();",
-            "      add(panel);",
-            "      {",
-            "        JButton button = new JButton();",
-            "        panel.setContent(button);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
-    rootPanel.refresh();
-    // prepare memento
-    JavaInfoMemento memento;
-    {
-      ContainerInfo panel = (ContainerInfo) rootPanel.getChildrenComponents().get(0);
-      memento = JavaInfoMemento.createMemento(panel);
-    }
-    // do paste
-    ContainerInfo newPanel = (ContainerInfo) memento.create(rootPanel);
-    ((FlowLayoutInfo) rootPanel.getLayout()).add(newPanel, null);
-    memento.apply();
-    assertEditor(
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    {",
-        "      SimplePanel panel = new SimplePanel();",
-        "      add(panel);",
-        "      {",
-        "        JButton button = new JButton();",
-        "        panel.setContent(button);",
-        "      }",
-        "    }",
-        "    {",
-        "      SimplePanel simplePanel = new SimplePanel();",
-        "      add(simplePanel);",
-        "      {",
-        "        JButton button = new JButton();",
-        "        simplePanel.setContent(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}");
-  }
+	/**
+	 * {@link SimpleContainer} should automatically copy its child into clipboard.
+	 */
+	public void DISABLE_test_clipboard() throws Exception {
+		prepareSimplePanel();
+		ContainerInfo rootPanel =
+				parseContainer(
+						"class Test extends JPanel {",
+						"  Test() {",
+						"    {",
+						"      SimplePanel panel = new SimplePanel();",
+						"      add(panel);",
+						"      {",
+						"        JButton button = new JButton();",
+						"        panel.setContent(button);",
+						"      }",
+						"    }",
+						"  }",
+						"}");
+		rootPanel.refresh();
+		// prepare memento
+		JavaInfoMemento memento;
+		{
+			ContainerInfo panel = (ContainerInfo) rootPanel.getChildrenComponents().get(0);
+			memento = JavaInfoMemento.createMemento(panel);
+		}
+		// do paste
+		ContainerInfo newPanel = (ContainerInfo) memento.create(rootPanel);
+		((FlowLayoutInfo) rootPanel.getLayout()).add(newPanel, null);
+		memento.apply();
+		assertEditor(
+				"class Test extends JPanel {",
+				"  Test() {",
+				"    {",
+				"      SimplePanel panel = new SimplePanel();",
+				"      add(panel);",
+				"      {",
+				"        JButton button = new JButton();",
+				"        panel.setContent(button);",
+				"      }",
+				"    }",
+				"    {",
+				"      SimplePanel simplePanel = new SimplePanel();",
+				"      add(simplePanel);",
+				"      {",
+				"        JButton button = new JButton();",
+				"        simplePanel.setContent(button);",
+				"      }",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  static void prepareSimplePanel() throws Exception {
-    prepareSimplePanel_classes();
-    AbstractJavaProjectTest.setFileContentSrc(
-        "test/SimplePanel.wbp-component.xml",
-        getSourceDQ(
-            "<?xml version='1.0' encoding='UTF-8'?>",
-            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-            "  <methods>",
-            "    <method name='setContent'>",
-            "      <parameter type='java.awt.Component' child='true'/>",
-            "    </method>",
-            "  </methods>",
-            "  <parameters>",
-            "    <parameter name='simpleContainer'>true</parameter>",
-            "    <parameter name='simpleContainer.association'>%parent%.setContent(%child%)</parameter>",
-            "    <parameter name='simpleContainer.component'>java.awt.Component</parameter>",
-            "  </parameters>",
-            "</component>"));
-    waitForAutoBuild();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	static void prepareSimplePanel() throws Exception {
+		prepareSimplePanel_classes();
+		AbstractJavaProjectTest.setFileContentSrc(
+				"test/SimplePanel.wbp-component.xml",
+				getSourceDQ(
+						"<?xml version='1.0' encoding='UTF-8'?>",
+						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+						"  <methods>",
+						"    <method name='setContent'>",
+						"      <parameter type='java.awt.Component' child='true'/>",
+						"    </method>",
+						"  </methods>",
+						"  <parameters>",
+						"    <parameter name='simpleContainer'>true</parameter>",
+						"    <parameter name='simpleContainer.association'>%parent%.setContent(%child%)</parameter>",
+						"    <parameter name='simpleContainer.component'>java.awt.Component</parameter>",
+						"  </parameters>",
+						"</component>"));
+		waitForAutoBuild();
+	}
 
-  static void prepareSimplePanel_classes() throws Exception {
-    setFileContentSrc(
-        "test/MyLayout.java",
-        getSourceDQ(
-            "package test;",
-            "import java.awt.*;",
-            "public class MyLayout implements LayoutManager {",
-            "  public void addLayoutComponent(String name, Component comp) {",
-            "  }",
-            "  public  void removeLayoutComponent(Component comp) {",
-            "  }",
-            "  public Dimension preferredLayoutSize(Container parent) {",
-            "    return new Dimension(200, 100);",
-            "  }",
-            "  public Dimension minimumLayoutSize(Container parent) {",
-            "    return new Dimension(200, 100);",
-            "  }",
-            "  public void layoutContainer(Container parent) {",
-            "    int nmembers = parent.getComponentCount();",
-            "    for (int i = 0 ; i < nmembers ; i++) {",
-            "      Component m = parent.getComponent(i);",
-            "      m.setBounds(10, 10, parent.getWidth() - 20, parent.getHeight() - 20);",
-            "    }",
-            "  }",
-            "}"));
-    setFileContentSrc(
-        "test/SimplePanel.java",
-        getSourceDQ(
-            "package test;",
-            "import java.awt.*;",
-            "public class SimplePanel extends Container {",
-            "  public SimplePanel() {",
-            "    setLayout(new MyLayout());",
-            "  }",
-            "  public void setContent(Component component) {",
-            "    add(component);",
-            "  }",
-            "}"));
-  }
+	static void prepareSimplePanel_classes() throws Exception {
+		setFileContentSrc(
+				"test/MyLayout.java",
+				getSourceDQ(
+						"package test;",
+						"import java.awt.*;",
+						"public class MyLayout implements LayoutManager {",
+						"  public void addLayoutComponent(String name, Component comp) {",
+						"  }",
+						"  public  void removeLayoutComponent(Component comp) {",
+						"  }",
+						"  public Dimension preferredLayoutSize(Container parent) {",
+						"    return new Dimension(200, 100);",
+						"  }",
+						"  public Dimension minimumLayoutSize(Container parent) {",
+						"    return new Dimension(200, 100);",
+						"  }",
+						"  public void layoutContainer(Container parent) {",
+						"    int nmembers = parent.getComponentCount();",
+						"    for (int i = 0 ; i < nmembers ; i++) {",
+						"      Component m = parent.getComponent(i);",
+						"      m.setBounds(10, 10, parent.getWidth() - 20, parent.getHeight() - 20);",
+						"    }",
+						"  }",
+						"}"));
+		setFileContentSrc(
+				"test/SimplePanel.java",
+				getSourceDQ(
+						"package test;",
+						"import java.awt.*;",
+						"public class SimplePanel extends Container {",
+						"  public SimplePanel() {",
+						"    setLayout(new MyLayout());",
+						"  }",
+						"  public void setContent(Component component) {",
+						"    add(component);",
+						"  }",
+						"}"));
+	}
 }

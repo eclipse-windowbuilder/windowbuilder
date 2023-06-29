@@ -19,11 +19,11 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
  * @author scheglov_ke
  */
 public class EditorWarningTest extends DesignerTestCase {
-  public void test() throws Exception {
-    String message = "message";
-    Exception exception = new Exception();
-    EditorWarning warning = new EditorWarning(message, exception);
-    assertSame(message, warning.getMessage());
-    assertSame(exception, warning.getException());
-  }
+	public void test() throws Exception {
+		String message = "message";
+		Exception exception = new Exception();
+		EditorWarning warning = new EditorWarning(message, exception);
+		assertSame(message, warning.getMessage());
+		assertSame(exception, warning.getException());
+	}
 }

@@ -36,88 +36,88 @@ import java.util.Map.Entry;
  * @coverage core.editor.palette.ui
  */
 public final class TypeParametersDialog extends ResizableTitleAreaDialog {
-  private final IJavaProject m_javaProject;
-  private final Map<String, TypeParameterDescription> m_typeParameters;
-  private final Map<String, String> m_typeArguments = Maps.newTreeMap();
-  private final Map<String, TypeParameterComposite> m_typeParameterComposites = Maps.newTreeMap();
+	private final IJavaProject m_javaProject;
+	private final Map<String, TypeParameterDescription> m_typeParameters;
+	private final Map<String, String> m_typeArguments = Maps.newTreeMap();
+	private final Map<String, TypeParameterComposite> m_typeParameterComposites = Maps.newTreeMap();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TypeParametersDialog(Shell parentShell,
-      IJavaProject javaProject,
-      Map<String, TypeParameterDescription> typeParameters) {
-    super(parentShell, DesignerPlugin.getDefault());
-    m_javaProject = javaProject;
-    m_typeParameters = typeParameters;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TypeParametersDialog(Shell parentShell,
+			IJavaProject javaProject,
+			Map<String, TypeParameterDescription> typeParameters) {
+		super(parentShell, DesignerPlugin.getDefault());
+		m_javaProject = javaProject;
+		m_typeParameters = typeParameters;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Map<String, String> getArguments() {
-    return m_typeArguments;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Map<String, String> getArguments() {
+		return m_typeArguments;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Messages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final Control createContents(Composite parent) {
-    Control control = super.createContents(parent);
-    configureMessages();
-    return control;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Messages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final Control createContents(Composite parent) {
+		Control control = super.createContents(parent);
+		configureMessages();
+		return control;
+	}
 
-  /**
-   * Subclasses override this methods to set title and message for this {@link TitleAreaDialog}.
-   */
-  protected void configureMessages() {
-    getShell().setText(Messages.TypeParametersDialog_shellTitle);
-    setTitle(Messages.TypeParametersDialog_title);
-    setMessage(Messages.TypeParametersDialog_message);
-  }
+	/**
+	 * Subclasses override this methods to set title and message for this {@link TitleAreaDialog}.
+	 */
+	protected void configureMessages() {
+		getShell().setText(Messages.TypeParametersDialog_shellTitle);
+		setTitle(Messages.TypeParametersDialog_title);
+		setMessage(Messages.TypeParametersDialog_message);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Control createDialogArea(Composite parent) {
-    Composite area = (Composite) super.createDialogArea(parent);
-    //
-    Composite container = new Composite(area, SWT.NONE);
-    GridDataFactory.create(container).grab().fill();
-    GridLayoutFactory.create(container).columns(1);
-    // create {@link TypeParameterComposite}s
-    for (Entry<String, TypeParameterDescription> typeParameter : m_typeParameters.entrySet()) {
-      String key = typeParameter.getKey();
-      TypeParameterDescription paramenerInfo = typeParameter.getValue();
-      // create parameters composites
-      TypeParameterComposite parameterComposite =
-          new TypeParameterComposite(container, SWT.NONE, m_javaProject, paramenerInfo);
-      GridDataFactory.create(parameterComposite).grabH().fillH();
-      m_typeParameterComposites.put(key, parameterComposite);
-      // fill result arguments by default
-      m_typeArguments.put(key, paramenerInfo.getTypeName());
-    }
-    return area;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		Composite area = (Composite) super.createDialogArea(parent);
+		//
+		Composite container = new Composite(area, SWT.NONE);
+		GridDataFactory.create(container).grab().fill();
+		GridLayoutFactory.create(container).columns(1);
+		// create {@link TypeParameterComposite}s
+		for (Entry<String, TypeParameterDescription> typeParameter : m_typeParameters.entrySet()) {
+			String key = typeParameter.getKey();
+			TypeParameterDescription paramenerInfo = typeParameter.getValue();
+			// create parameters composites
+			TypeParameterComposite parameterComposite =
+					new TypeParameterComposite(container, SWT.NONE, m_javaProject, paramenerInfo);
+			GridDataFactory.create(parameterComposite).grabH().fillH();
+			m_typeParameterComposites.put(key, parameterComposite);
+			// fill result arguments by default
+			m_typeArguments.put(key, paramenerInfo.getTypeName());
+		}
+		return area;
+	}
 
-  @Override
-  protected void okPressed() {
-    // fill selected arguments
-    for (Entry<String, TypeParameterComposite> parameterComposite : m_typeParameterComposites.entrySet()) {
-      m_typeArguments.put(parameterComposite.getKey(), parameterComposite.getValue().getArgument());
-    }
-    // OK
-    super.okPressed();
-  }
+	@Override
+	protected void okPressed() {
+		// fill selected arguments
+		for (Entry<String, TypeParameterComposite> parameterComposite : m_typeParameterComposites.entrySet()) {
+			m_typeArguments.put(parameterComposite.getKey(), parameterComposite.getValue().getArgument());
+		}
+		// OK
+		super.okPressed();
+	}
 }

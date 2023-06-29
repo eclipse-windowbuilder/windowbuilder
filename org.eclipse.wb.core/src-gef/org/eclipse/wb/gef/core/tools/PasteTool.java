@@ -27,54 +27,54 @@ import java.util.List;
  * @coverage gef.core
  */
 public class PasteTool extends AbstractCreationTool {
-  private final Object m_memento;
+	private final Object m_memento;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PasteTool(Object memento) {
-    m_memento = memento;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PasteTool(Object memento) {
+		m_memento = memento;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns object with paste info.
-   */
-  public final Object getMemento() {
-    return m_memento;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns object with paste info.
+	 */
+	public final Object getMemento() {
+		return m_memento;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates a {@link PasteRequest} and sets this memento object on the request.
-   */
-  @Override
-  protected Request createTargetRequest() {
-    return new PasteRequest(m_memento);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates a {@link PasteRequest} and sets this memento object on the request.
+	 */
+	@Override
+	protected Request createTargetRequest() {
+		return new PasteRequest(m_memento);
+	}
 
-  @Override
-  protected void selectAddedObjects() {
-    final IEditPartViewer viewer = getViewer();
-    // prepare pasted EditPart's
-    List<EditPart> editParts = Lists.newArrayList();
-    {
-      PasteRequest request = (PasteRequest) getTargetRequest();
-      for (Object model : request.getObjects()) {
-        editParts.add(viewer.getEditPartByModel(model));
-      }
-    }
-    // select EditPart's
-    viewer.setSelection(editParts);
-  }
+	@Override
+	protected void selectAddedObjects() {
+		final IEditPartViewer viewer = getViewer();
+		// prepare pasted EditPart's
+		List<EditPart> editParts = Lists.newArrayList();
+		{
+			PasteRequest request = (PasteRequest) getTargetRequest();
+			for (Object model : request.getObjects()) {
+				editParts.add(viewer.getEditPartByModel(model));
+			}
+		}
+		// select EditPart's
+		viewer.setSelection(editParts);
+	}
 }

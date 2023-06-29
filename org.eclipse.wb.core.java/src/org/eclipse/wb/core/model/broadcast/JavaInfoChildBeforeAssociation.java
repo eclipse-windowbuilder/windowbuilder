@@ -22,32 +22,32 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model
  */
 public class JavaInfoChildBeforeAssociation extends JavaEventListener {
-  private final JavaInfo m_javaInfo;
+	private final JavaInfo m_javaInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoChildBeforeAssociation(JavaInfo javaInfo) {
-    m_javaInfo = javaInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoChildBeforeAssociation(JavaInfo javaInfo) {
+		m_javaInfo = javaInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Ensures that all children are added before association {@link Statement}.
-   */
-  @Override
-  public void target_isTerminalStatement(JavaInfo parent,
-      JavaInfo child,
-      Statement statement,
-      boolean[] terminal) {
-    if (parent == m_javaInfo && statement == m_javaInfo.getAssociation().getStatement()) {
-      terminal[0] = true;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Ensures that all children are added before association {@link Statement}.
+	 */
+	@Override
+	public void target_isTerminalStatement(JavaInfo parent,
+			JavaInfo child,
+			Statement statement,
+			boolean[] terminal) {
+		if (parent == m_javaInfo && statement == m_javaInfo.getAssociation().getStatement()) {
+			terminal[0] = true;
+		}
+	}
 }

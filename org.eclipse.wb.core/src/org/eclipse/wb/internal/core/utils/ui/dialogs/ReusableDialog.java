@@ -21,51 +21,51 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage core.ui
  */
 public class ReusableDialog extends Dialog {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected ReusableDialog(Shell parentShell) {
-    super(parentShell);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected ReusableDialog(Shell parentShell) {
+		super(parentShell);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Changes for reusing dialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final int open() {
-    // prepare Shell
-    if (getShell() == null) {
-      create();
-    }
-    Shell shell = getShell();
-    // send event
-    onBeforeOpen();
-    // open the window
-    shell.open();
-    Display display = shell.getDisplay();
-    while (shell.getVisible()) {
-      if (!display.readAndDispatch()) {
-        display.sleep();
-      }
-    }
-    // result code
-    return getReturnCode();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Changes for reusing dialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final int open() {
+		// prepare Shell
+		if (getShell() == null) {
+			create();
+		}
+		Shell shell = getShell();
+		// send event
+		onBeforeOpen();
+		// open the window
+		shell.open();
+		Display display = shell.getDisplay();
+		while (shell.getVisible()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+		// result code
+		return getReturnCode();
+	}
 
-  @Override
-  public final boolean close() {
-    getShell().setVisible(false);
-    return true;
-  }
+	@Override
+	public final boolean close() {
+		getShell().setVisible(false);
+		return true;
+	}
 
-  /**
-   * This method is invoked directly before opening dialog. This is good place for initializing
-   * controls from data.
-   */
-  protected void onBeforeOpen() {
-  }
+	/**
+	 * This method is invoked directly before opening dialog. This is good place for initializing
+	 * controls from data.
+	 */
+	protected void onBeforeOpen() {
+	}
 }

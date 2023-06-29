@@ -33,60 +33,60 @@ import javax.swing.JScrollPane;
  * @coverage swing.model.util
  */
 public final class JScrollPaneSurroundTarget
-    extends
-      ISurroundTarget<JScrollPaneInfo, ComponentInfo> {
-  private static final String CLASS_NAME = "javax.swing.JScrollPane";
+extends
+ISurroundTarget<JScrollPaneInfo, ComponentInfo> {
+	private static final String CLASS_NAME = "javax.swing.JScrollPane";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon(AstEditor editor) throws Exception {
-    return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon(AstEditor editor) throws Exception {
+		return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
+	}
 
-  @Override
-  public String getText(AstEditor editor) throws Exception {
-    return CLASS_NAME;
-  }
+	@Override
+	public String getText(AstEditor editor) throws Exception {
+		return CLASS_NAME;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public JScrollPaneInfo createContainer(AstEditor editor) throws Exception {
-    return (JScrollPaneInfo) JavaInfoUtils.createJavaInfo(
-        editor,
-        CLASS_NAME,
-        new ConstructorCreationSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public JScrollPaneInfo createContainer(AstEditor editor) throws Exception {
+		return (JScrollPaneInfo) JavaInfoUtils.createJavaInfo(
+				editor,
+				CLASS_NAME,
+				new ConstructorCreationSupport());
+	}
 
-  @Override
-  public void afterContainerAdd(JScrollPaneInfo container, List<ComponentInfo> components)
-      throws Exception {
-    super.afterContainerAdd(container, components);
-    if (components.size() != 1) {
-      ContainerInfo panel =
-          (ContainerInfo) JavaInfoUtils.createJavaInfo(
-              container.getEditor(),
-              "javax.swing.JPanel",
-              new ConstructorCreationSupport());
-      container.command_CREATE(panel, "setViewportView");
-    }
-  }
+	@Override
+	public void afterContainerAdd(JScrollPaneInfo container, List<ComponentInfo> components)
+			throws Exception {
+		super.afterContainerAdd(container, components);
+		if (components.size() != 1) {
+			ContainerInfo panel =
+					(ContainerInfo) JavaInfoUtils.createJavaInfo(
+							container.getEditor(),
+							"javax.swing.JPanel",
+							new ConstructorCreationSupport());
+			container.command_CREATE(panel, "setViewportView");
+		}
+	}
 
-  @Override
-  public void move(JScrollPaneInfo container, ComponentInfo component) throws Exception {
-    if (container.getChildrenComponents().isEmpty()) {
-      container.command_ADD(component, "setViewportView");
-    } else {
-      ContainerInfo panel = (ContainerInfo) container.getChildrenComponents().get(0);
-      FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
-      flowLayout.move(component, null);
-    }
-  }
+	@Override
+	public void move(JScrollPaneInfo container, ComponentInfo component) throws Exception {
+		if (container.getChildrenComponents().isEmpty()) {
+			container.command_ADD(component, "setViewportView");
+		} else {
+			ContainerInfo panel = (ContainerInfo) container.getChildrenComponents().get(0);
+			FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
+			flowLayout.move(component, null);
+		}
+	}
 }

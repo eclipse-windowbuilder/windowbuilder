@@ -23,20 +23,20 @@ import org.eclipse.ui.forms.widgets.Section;
  * @coverage rcp.model.forms
  */
 public final class SectionInfo extends ExpandableCompositeInfo {
-  private static final String[] POSITIONS = {
-      "setTextClient",
-      "setDescriptionControl",
-      "setSeparatorControl",
-      "setClient"};
+	private static final String[] POSITIONS = {
+			"setTextClient",
+			"setDescriptionControl",
+			"setSeparatorControl",
+	"setClient"};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SectionInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport, POSITIONS);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SectionInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport, POSITIONS);
+	}
 }

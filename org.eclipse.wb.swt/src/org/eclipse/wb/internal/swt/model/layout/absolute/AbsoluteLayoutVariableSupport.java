@@ -25,97 +25,97 @@ import org.eclipse.jdt.core.dom.NullLiteral;
  * @coverage swt.model.layout
  */
 public final class AbsoluteLayoutVariableSupport extends VariableSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbsoluteLayoutVariableSupport(JavaInfo javaInfo) {
-    super(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbsoluteLayoutVariableSupport(JavaInfo javaInfo) {
+		super(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "absolute";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "absolute";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Name
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean hasName() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Name
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean hasName() {
+		return false;
+	}
 
-  @Override
-  public String getName() {
-    throw new IllegalStateException();
-  }
+	@Override
+	public String getName() {
+		throw new IllegalStateException();
+	}
 
-  @Override
-  public void setName(String newName) throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public void setName(String newName) throws Exception {
+		throw new IllegalStateException();
+	}
 
-  @Override
-  public String getTitle() throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public String getTitle() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    throw new IllegalStateException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		throw new IllegalStateException();
+	}
 
-  @Override
-  public String getAccessExpression(NodeTarget target) throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public String getAccessExpression(NodeTarget target) throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Conversion
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canConvertLocalToField() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Conversion
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canConvertLocalToField() {
+		return false;
+	}
 
-  @Override
-  public void convertLocalToField() throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public void convertLocalToField() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  @Override
-  public boolean canConvertFieldToLocal() {
-    return false;
-  }
+	@Override
+	public boolean canConvertFieldToLocal() {
+		return false;
+	}
 
-  @Override
-  public void convertFieldToLocal() throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public void convertFieldToLocal() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public StatementTarget getStatementTarget() throws Exception {
-    throw new IllegalStateException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public StatementTarget getStatementTarget() throws Exception {
+		throw new IllegalStateException();
+	}
 }

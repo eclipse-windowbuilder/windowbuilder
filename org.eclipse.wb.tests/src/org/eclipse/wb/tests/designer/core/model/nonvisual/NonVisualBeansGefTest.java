@@ -19,35 +19,35 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
  * @author scheglov_ke
  */
 public class NonVisualBeansGefTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Canvas
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Layout-s expect too much about its parent, so we should not allow to drop them as NVO.
-   */
-  public void test_canNotDropLayout_asNVO() throws Exception {
-    ContainerInfo panel =
-        openContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    loadCreationTool("java.awt.FlowLayout");
-    // use canvas
-    canvas.sideMode().create(10, 10);
-    canvas.target(panel).inX(100).outY(100).move();
-    canvas.assertCommandNull();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Canvas
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Layout-s expect too much about its parent, so we should not allow to drop them as NVO.
+	 */
+	public void test_canNotDropLayout_asNVO() throws Exception {
+		ContainerInfo panel =
+				openContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		loadCreationTool("java.awt.FlowLayout");
+		// use canvas
+		canvas.sideMode().create(10, 10);
+		canvas.target(panel).inX(100).outY(100).move();
+		canvas.assertCommandNull();
+	}
 }

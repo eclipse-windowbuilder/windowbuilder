@@ -21,30 +21,30 @@ import org.eclipse.jdt.core.dom.Expression;
  * @coverage bindings.parser
  */
 public interface IModelResolver {
-  /**
-   * Add default {@link AstObjectInfo} model resolver for given {@link Expression}.
-   */
-  void addModel(AstObjectInfo model, Expression creation) throws Exception;
+	/**
+	 * Add default {@link AstObjectInfo} model resolver for given {@link Expression}.
+	 */
+	void addModel(AstObjectInfo model, Expression creation) throws Exception;
 
-  /**
-   * @return {@link AstObjectInfo} for given {@link Expression} or <code>null</code> if given
-   *         {@link Expression} does not represent {@link AstObjectInfo}.
-   */
-  AstObjectInfo getModel(Expression expression) throws Exception;
+	/**
+	 * @return {@link AstObjectInfo} for given {@link Expression} or <code>null</code> if given
+	 *         {@link Expression} does not represent {@link AstObjectInfo}.
+	 */
+	AstObjectInfo getModel(Expression expression) throws Exception;
 
-  /**
-   * XXX
-   */
-  AstObjectInfo getModel(Expression expression, IModelResolverFilter filter) throws Exception;
+	/**
+	 * XXX
+	 */
+	AstObjectInfo getModel(Expression expression, IModelResolverFilter filter) throws Exception;
 
-  /**
-   * Add {@link IModelSupport} special {@link AstObjectInfo} model resolver.
-   */
-  void addModelSupport(IModelSupport modelSupport);
+	/**
+	 * Add {@link IModelSupport} special {@link AstObjectInfo} model resolver.
+	 */
+	void addModelSupport(IModelSupport modelSupport);
 
-  /**
-   * @return {@link IModelSupport} for given {@link Expression} or <code>null</code> if given
-   *         {@link Expression} does not represent {@link IModelSupport}.
-   */
-  IModelSupport getModelSupport(Expression expression) throws Exception;
+	/**
+	 * @return {@link IModelSupport} for given {@link Expression} or <code>null</code> if given
+	 *         {@link Expression} does not represent {@link IModelSupport}.
+	 */
+	IModelSupport getModelSupport(Expression expression) throws Exception;
 }

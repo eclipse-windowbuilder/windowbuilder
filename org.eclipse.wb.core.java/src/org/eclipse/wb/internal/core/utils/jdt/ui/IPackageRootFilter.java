@@ -20,13 +20,13 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
  * @coverage core.util.jdt.ui
  */
 public interface IPackageRootFilter {
-  /**
-   * @return <code>true</code> if given {@link IJavaProject} can be selected.
-   */
-  boolean select(IJavaProject javaProject);
+	/**
+	 * @return <code>true</code> if given {@link IJavaProject} can be selected.
+	 */
+	boolean select(IJavaProject javaProject);
 
-  /**
-   * @return <code>true</code> if given {@link IPackageFragmentRoot} can be selected.
-   */
-  boolean select(IPackageFragmentRoot packageFragmentRoot);
+	/**
+	 * @return <code>true</code> if given {@link IPackageFragmentRoot} can be selected.
+	 */
+	boolean select(IPackageFragmentRoot packageFragmentRoot);
 }

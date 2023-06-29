@@ -20,91 +20,91 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
  * @author scheglov_ke
  */
 public class ExpandableCompositeGefTest extends XwtGefTest {
-  private ExpandableCompositeInfo composite;
+	private ExpandableCompositeInfo composite;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Canvas, CREATE
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_canvas_CREATE_textClient() throws Exception {
-    prepare_canvas_CREATE();
-    // use canvas
-    canvas.target(composite).in(-0.1, 0.1).move();
-    canvas.click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<!-- Forms API -->",
-        "<ExpandableComposite>",
-        "  <ExpandableComposite.textClient>",
-        "    <Button/>",
-        "  </ExpandableComposite.textClient>",
-        "</ExpandableComposite>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Canvas, CREATE
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_canvas_CREATE_textClient() throws Exception {
+		prepare_canvas_CREATE();
+		// use canvas
+		canvas.target(composite).in(-0.1, 0.1).move();
+		canvas.click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<!-- Forms API -->",
+				"<ExpandableComposite>",
+				"  <ExpandableComposite.textClient>",
+				"    <Button/>",
+				"  </ExpandableComposite.textClient>",
+				"</ExpandableComposite>");
+	}
 
-  public void test_canvas_CREATE_client() throws Exception {
-    prepare_canvas_CREATE();
-    // use canvas
-    canvas.target(composite).in(0.5, 0.5).move();
-    canvas.click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<!-- Forms API -->",
-        "<ExpandableComposite>",
-        "  <ExpandableComposite.client>",
-        "    <Button/>",
-        "  </ExpandableComposite.client>",
-        "</ExpandableComposite>");
-  }
+	public void test_canvas_CREATE_client() throws Exception {
+		prepare_canvas_CREATE();
+		// use canvas
+		canvas.target(composite).in(0.5, 0.5).move();
+		canvas.click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<!-- Forms API -->",
+				"<ExpandableComposite>",
+				"  <ExpandableComposite.client>",
+				"    <Button/>",
+				"  </ExpandableComposite.client>",
+				"</ExpandableComposite>");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // CREATE
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ExpandableCompositeInfo prepare_canvas_CREATE() throws Exception {
-    composite =
-        openEditor(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "<!-- Forms API -->",
-            "<ExpandableComposite/>");
-    // create Button
-    loadButton();
-    canvas.create(0, 0);
-    // use this ExpandableComposite_Info
-    return composite;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// CREATE
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ExpandableCompositeInfo prepare_canvas_CREATE() throws Exception {
+		composite =
+				openEditor(
+						"// filler filler filler filler filler",
+						"// filler filler filler filler filler",
+						"<!-- Forms API -->",
+						"<ExpandableComposite/>");
+		// create Button
+		loadButton();
+		canvas.create(0, 0);
+		// use this ExpandableComposite_Info
+		return composite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tree
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_tree_CREATE_left() throws Exception {
-    prepare_canvas_CREATE();
-    // use tree
-    EditPart position = tree.getEditPart(composite).getChildren().get(1);
-    tree.moveOn(position).click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<!-- Forms API -->",
-        "<ExpandableComposite>",
-        "  <ExpandableComposite.client>",
-        "    <Button/>",
-        "  </ExpandableComposite.client>",
-        "</ExpandableComposite>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tree
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_tree_CREATE_left() throws Exception {
+		prepare_canvas_CREATE();
+		// use tree
+		EditPart position = tree.getEditPart(composite).getChildren().get(1);
+		tree.moveOn(position).click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<!-- Forms API -->",
+				"<ExpandableComposite>",
+				"  <ExpandableComposite.client>",
+				"    <Button/>",
+				"  </ExpandableComposite.client>",
+				"</ExpandableComposite>");
+	}
 }

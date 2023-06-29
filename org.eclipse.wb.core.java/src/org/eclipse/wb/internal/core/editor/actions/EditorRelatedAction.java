@@ -26,62 +26,62 @@ import org.eclipse.ui.IEditorPart;
  * @coverage core.editor.action
  */
 public abstract class EditorRelatedAction extends Action implements IEditorActionDelegate {
-  private DesignerEditor m_editor;
+	private DesignerEditor m_editor;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IEditorActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void setActiveEditor(IAction action, IEditorPart editor) {
-    m_editor = null;
-    if (editor instanceof DesignerEditor) {
-      m_editor = (DesignerEditor) editor;
-    }
-    setEnabled(m_editor != null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IEditorActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void setActiveEditor(IAction action, IEditorPart editor) {
+		m_editor = null;
+		if (editor instanceof DesignerEditor) {
+			m_editor = (DesignerEditor) editor;
+		}
+		setEnabled(m_editor != null);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void selectionChanged(IAction action, ISelection selection) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+	}
 
-  @Override
-  public void run(IAction action) {
-    run();
-  }
+	@Override
+	public void run(IAction action) {
+		run();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the active {@link DesignerEditor}.
-   */
-  protected final DesignerEditor getEditor() {
-    DesignerEditor designerEditor = m_editor;
-    if (designerEditor == null) {
-      designerEditor = getActiveEditor();
-    }
-    //
-    return designerEditor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the active {@link DesignerEditor}.
+	 */
+	protected final DesignerEditor getEditor() {
+		DesignerEditor designerEditor = m_editor;
+		if (designerEditor == null) {
+			designerEditor = getActiveEditor();
+		}
+		//
+		return designerEditor;
+	}
 
-  /**
-   * @return the active {@link DesignerEditor}.
-   */
-  static DesignerEditor getActiveEditor() {
-    IEditorPart editor =
-        DesignerPlugin.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-    if (editor != null && editor instanceof DesignerEditor) {
-      return (DesignerEditor) editor;
-    }
-    return null;
-  }
+	/**
+	 * @return the active {@link DesignerEditor}.
+	 */
+	static DesignerEditor getActiveEditor() {
+		IEditorPart editor =
+				DesignerPlugin.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if (editor != null && editor instanceof DesignerEditor) {
+			return (DesignerEditor) editor;
+		}
+		return null;
+	}
 }

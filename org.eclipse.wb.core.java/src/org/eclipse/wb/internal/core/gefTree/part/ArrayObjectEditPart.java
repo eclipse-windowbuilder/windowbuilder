@@ -23,26 +23,26 @@ import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
  * @coverage core.gefTree
  */
 public final class ArrayObjectEditPart extends ObjectEditPart {
-  private final AbstractArrayObjectInfo m_arrayInfo;
+	private final AbstractArrayObjectInfo m_arrayInfo;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ArrayObjectEditPart(AbstractArrayObjectInfo object) {
-    super(object);
-    m_arrayInfo = object;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ArrayObjectEditPart(AbstractArrayObjectInfo object) {
+		super(object);
+		m_arrayInfo = object;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(EditPolicy.LAYOUT_ROLE, new ArrayObjectLayoutEditPolicy(m_arrayInfo));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new ArrayObjectLayoutEditPolicy(m_arrayInfo));
+	}
 }

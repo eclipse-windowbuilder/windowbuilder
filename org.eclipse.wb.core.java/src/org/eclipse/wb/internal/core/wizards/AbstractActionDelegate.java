@@ -25,60 +25,60 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
  * @coverage core.wizards.ui
  */
 public abstract class AbstractActionDelegate
-    implements
-      IWorkbenchWindowActionDelegate,
-      IObjectActionDelegate {
-  private IWorkbenchWindow m_window;
-  private IStructuredSelection m_selection;
+implements
+IWorkbenchWindowActionDelegate,
+IObjectActionDelegate {
+	private IWorkbenchWindow m_window;
+	private IStructuredSelection m_selection;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IWorkbenchWindowActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void init(IWorkbenchWindow window) {
-    m_window = window;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IWorkbenchWindowActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void init(IWorkbenchWindow window) {
+		m_window = window;
+	}
 
-  @Override
-  public void dispose() {
-  }
+	@Override
+	public void dispose() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObjectActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-    m_window = targetPart.getSite().getWorkbenchWindow();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObjectActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		m_window = targetPart.getSite().getWorkbenchWindow();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IWorkbenchWindowActionDelegate + IObjectActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void selectionChanged(IAction action, ISelection selection) {
-    if (selection instanceof IStructuredSelection) {
-      m_selection = (IStructuredSelection) selection;
-    } else {
-      m_selection = null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IWorkbenchWindowActionDelegate + IObjectActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+		if (selection instanceof IStructuredSelection) {
+			m_selection = (IStructuredSelection) selection;
+		} else {
+			m_selection = null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final IWorkbenchWindow getWorkbenchWindow() {
-    return m_window;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final IWorkbenchWindow getWorkbenchWindow() {
+		return m_window;
+	}
 
-  protected final IStructuredSelection getSelection() {
-    return m_selection;
-  }
+	protected final IStructuredSelection getSelection() {
+		return m_selection;
+	}
 }

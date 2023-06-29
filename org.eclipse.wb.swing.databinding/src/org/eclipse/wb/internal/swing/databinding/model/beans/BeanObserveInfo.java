@@ -28,58 +28,58 @@ import java.util.List;
  * @coverage bindings.swing.model.beans
  */
 public abstract class BeanObserveInfo extends ObserveInfo {
-  private final BeanSupport m_beanSupport;
-  private final ObserveInfo m_parent;
-  private List<ObserveInfo> m_properties;
+	private final BeanSupport m_beanSupport;
+	private final ObserveInfo m_parent;
+	private List<ObserveInfo> m_properties;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeanObserveInfo(BeanSupport beanSupport,
-      ObserveInfo parent,
-      IGenericType objectType,
-      IReferenceProvider referenceProvider) {
-    super(objectType, referenceProvider);
-    m_beanSupport = beanSupport;
-    m_parent = parent;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeanObserveInfo(BeanSupport beanSupport,
+			ObserveInfo parent,
+			IGenericType objectType,
+			IReferenceProvider referenceProvider) {
+		super(objectType, referenceProvider);
+		m_beanSupport = beanSupport;
+		m_parent = parent;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Type
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveType getType() {
-    return ObserveType.BEANS;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Type
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveType getType() {
+		return ObserveType.BEANS;
+	}
 
-  @Override
-  public ObserveCreationType getCreationType() {
-    return ObserveCreationType.AutoBinding;
-  }
+	@Override
+	public ObserveCreationType getCreationType() {
+		return ObserveCreationType.AutoBinding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final IObserveInfo getParent() {
-    return m_parent;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final IObserveInfo getParent() {
+		return m_parent;
+	}
 
-  public final List<IObserveInfo> getChildren(ChildrenContext context) {
-    if (context == ChildrenContext.ChildrenForPropertiesTable) {
-      if (m_properties == null) {
-        m_properties = m_beanSupport.createProperties(this, getObjectType());
-      }
-      return CoreUtils.cast(m_properties);
-    }
-    return Collections.emptyList();
-  }
+	public final List<IObserveInfo> getChildren(ChildrenContext context) {
+		if (context == ChildrenContext.ChildrenForPropertiesTable) {
+			if (m_properties == null) {
+				m_properties = m_beanSupport.createProperties(this, getObjectType());
+			}
+			return CoreUtils.cast(m_properties);
+		}
+		return Collections.emptyList();
+	}
 
-  protected final void setProperties(List<ObserveInfo> properties) {
-    m_properties = properties;
-  }
+	protected final void setProperties(List<ObserveInfo> properties) {
+		m_properties = properties;
+	}
 }

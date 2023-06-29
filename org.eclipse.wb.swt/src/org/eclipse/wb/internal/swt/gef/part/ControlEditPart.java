@@ -29,105 +29,105 @@ import java.util.List;
  * @coverage swt.gef.part
  */
 public class ControlEditPart extends AbstractComponentEditPart {
-  private final IControlEditPartDelegate m_delegate;
+	private final IControlEditPartDelegate m_delegate;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ControlEditPart(ControlInfo control) {
-    super(control);
-    m_delegate = createDelegate();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ControlEditPart(ControlInfo control) {
+		super(control);
+		m_delegate = createDelegate();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Edit Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart getTargetEditPart(Request request) {
-    if (TabOrderContainerEditPolicy.TAB_ORDER_REQUEST == request) {
-      return this;
-    }
-    return super.getTargetEditPart(request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Edit Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		if (TabOrderContainerEditPolicy.TAB_ORDER_REQUEST == request) {
+			return this;
+		}
+		return super.getTargetEditPart(request);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delegating
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    if (m_delegate != null) {
-      return m_delegate.createFigure();
-    } else {
-      return super.createFigure();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delegating
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		if (m_delegate != null) {
+			return m_delegate.createFigure();
+		} else {
+			return super.createFigure();
+		}
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    if (m_delegate != null) {
-      m_delegate.refreshVisuals();
-    } else {
-      super.refreshVisuals();
-    }
-  }
+	@Override
+	protected void refreshVisuals() {
+		if (m_delegate != null) {
+			m_delegate.refreshVisuals();
+		} else {
+			super.refreshVisuals();
+		}
+	}
 
-  @Override
-  public void addNotify() {
-    if (m_delegate != null) {
-      m_delegate.addNotify();
-    }
-    super.addNotify();
-  }
+	@Override
+	public void addNotify() {
+		if (m_delegate != null) {
+			m_delegate.addNotify();
+		}
+		super.addNotify();
+	}
 
-  @Override
-  public void removeNotify() {
-    if (m_delegate != null) {
-      m_delegate.removeNotify();
-    }
-    super.removeNotify();
-  }
+	@Override
+	public void removeNotify() {
+		if (m_delegate != null) {
+			m_delegate.removeNotify();
+		}
+		super.removeNotify();
+	}
 
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    if (m_delegate != null) {
-      m_delegate.refreshEditPolicies();
-    }
-  }
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		if (m_delegate != null) {
+			m_delegate.refreshEditPolicies();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the array of registered {@link IControlEditPartDelegateProvider}'s.
-   */
-  private static List<IControlEditPartDelegateProvider> getDelegateProviders() {
-    return ExternalFactoriesHelper.getElementsInstances(
-        IControlEditPartDelegateProvider.class,
-        "org.eclipse.wb.swt.controlEditPartDelegateProviders",
-        "provider");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the array of registered {@link IControlEditPartDelegateProvider}'s.
+	 */
+	private static List<IControlEditPartDelegateProvider> getDelegateProviders() {
+		return ExternalFactoriesHelper.getElementsInstances(
+				IControlEditPartDelegateProvider.class,
+				"org.eclipse.wb.swt.controlEditPartDelegateProviders",
+				"provider");
+	}
 
-  /**
-   * @return the {@link IControlEditPartDelegate} for this {@link ControlEditPart}, may return
-   *         <code>null</code> if no delegate found.
-   */
-  private IControlEditPartDelegate createDelegate() {
-    for (IControlEditPartDelegateProvider provider : getDelegateProviders()) {
-      IControlEditPartDelegate delegate = provider.getDelegate(this);
-      if (delegate != null) {
-        return delegate;
-      }
-    }
-    // no delegate
-    return null;
-  }
+	/**
+	 * @return the {@link IControlEditPartDelegate} for this {@link ControlEditPart}, may return
+	 *         <code>null</code> if no delegate found.
+	 */
+	private IControlEditPartDelegate createDelegate() {
+		for (IControlEditPartDelegateProvider provider : getDelegateProviders()) {
+			IControlEditPartDelegate delegate = provider.getDelegate(this);
+			if (delegate != null) {
+				return delegate;
+			}
+		}
+		// no delegate
+		return null;
+	}
 }

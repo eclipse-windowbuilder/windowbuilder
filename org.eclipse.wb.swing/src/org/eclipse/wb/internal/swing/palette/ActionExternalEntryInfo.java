@@ -33,41 +33,41 @@ import javax.swing.Action;
  * @coverage swing.editor.palette
  */
 public final class ActionExternalEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = Activator.getImage("info/Action/action_open.gif");
+	private static final Image ICON = Activator.getImage("info/Action/action_open.gif");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionExternalEntryInfo() {
-    setName(PaletteMessages.ActionExternalEntryInfo_name);
-    setDescription(PaletteMessages.ActionExternalEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionExternalEntryInfo() {
+		setName(PaletteMessages.ActionExternalEntryInfo_name);
+		setDescription(PaletteMessages.ActionExternalEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    IType actionType = m_javaProject.findType("javax.swing.Action");
-    SubtypesScope scope = new SubtypesScope(actionType);
-    IType selectedActionType = JdtUiUtils.selectType(DesignerPlugin.getShell(), scope);
-    if (selectedActionType != null) {
-      ActionInfo actionInfo =
-          (ActionInfo) JavaInfoUtils.createJavaInfo(
-              m_editor,
-              selectedActionType.getFullyQualifiedName(),
-              new ConstructorCreationSupport());
-      return ActionUseEntryInfo.createActionTool(actionInfo);
-    }
-    return null;
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		IType actionType = m_javaProject.findType("javax.swing.Action");
+		SubtypesScope scope = new SubtypesScope(actionType);
+		IType selectedActionType = JdtUiUtils.selectType(DesignerPlugin.getShell(), scope);
+		if (selectedActionType != null) {
+			ActionInfo actionInfo =
+					(ActionInfo) JavaInfoUtils.createJavaInfo(
+							m_editor,
+							selectedActionType.getFullyQualifiedName(),
+							new ConstructorCreationSupport());
+			return ActionUseEntryInfo.createActionTool(actionInfo);
+		}
+		return null;
+	}
 }

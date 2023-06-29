@@ -21,35 +21,35 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.property
  */
 public class EmptyXmlProperty extends XmlProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EmptyXmlProperty(XmlObjectInfo object) {
-    super(object, null, StringPropertyEditor.INSTANCE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EmptyXmlProperty(XmlObjectInfo object) {
+		super(object, null, StringPropertyEditor.INSTANCE);
+	}
 
-  public EmptyXmlProperty(XmlObjectInfo object, PropertyCategory category) {
-    super(object, null, category, StringPropertyEditor.INSTANCE);
-  }
+	public EmptyXmlProperty(XmlObjectInfo object, PropertyCategory category) {
+		super(object, null, category, StringPropertyEditor.INSTANCE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isModified() throws Exception {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isModified() throws Exception {
+		return false;
+	}
 
-  @Override
-  public Object getValue() throws Exception {
-    return null;
-  }
+	@Override
+	public Object getValue() throws Exception {
+		return null;
+	}
 
-  @Override
-  public void setValue(Object value) throws Exception {
-  }
+	@Override
+	public void setValue(Object value) throws Exception {
+	}
 }

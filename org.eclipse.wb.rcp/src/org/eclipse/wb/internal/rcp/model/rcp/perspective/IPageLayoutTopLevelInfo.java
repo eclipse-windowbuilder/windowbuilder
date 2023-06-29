@@ -19,14 +19,14 @@ import org.eclipse.ui.IPageLayout;
  * @coverage rcp.model.rcp
  */
 public interface IPageLayoutTopLevelInfo {
-  /**
-   * @return the ID of this {@link IPageLayoutTopLevelInfo}.
-   */
-  String getId();
+	/**
+	 * @return the ID of this {@link IPageLayoutTopLevelInfo}.
+	 */
+	String getId();
 
-  /**
-   * @return the source for ID of this {@link IPageLayoutTopLevelInfo}, it should be evaluated into
-   *         same value as {@link #getId()}.
-   */
-  String getIdSource();
+	/**
+	 * @return the source for ID of this {@link IPageLayoutTopLevelInfo}, it should be evaluated into
+	 *         same value as {@link #getId()}.
+	 */
+	String getIdSource();
 }

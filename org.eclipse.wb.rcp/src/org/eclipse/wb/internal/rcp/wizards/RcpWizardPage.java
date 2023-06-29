@@ -25,55 +25,55 @@ import org.apache.commons.lang.StringUtils;
  * @coverage rcp.wizards.ui
  */
 public class RcpWizardPage extends TemplateDesignWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Substitution support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static String doPerformSubstitutions(TemplateDesignWizardPage page,
-      String code,
-      ImportsManager imports) {
-    code = StringUtils.replace(code, "%CreateMethod%", page.getCreateMethod("createContents"));
-    code = StringUtils.replace(code, "%SWTLayout%", page.getLayoutCode("", imports));
-    code = StringUtils.replace(code, "%shell.SWTLayout%", page.getLayoutCode("shell.", imports));
-    code =
-        StringUtils.replace(
-            code,
-            "%container.SWTLayout%",
-            page.getLayoutCode("container.", imports));
-    code =
-        StringUtils.replace(
-            code,
-            "%field-prefix-shell.SWTLayout%",
-            page.getLayoutCode("%field-prefix%shell.", imports));
-    code =
-        StringUtils.replace(
-            code,
-            "%field-prefix-container.SWTLayout%",
-            page.getLayoutCode("%field-prefix%container.", imports));
-    code = performFieldPrefixesSubstitutions(code);
-    return code;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Substitution support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static String doPerformSubstitutions(TemplateDesignWizardPage page,
+			String code,
+			ImportsManager imports) {
+		code = StringUtils.replace(code, "%CreateMethod%", page.getCreateMethod("createContents"));
+		code = StringUtils.replace(code, "%SWTLayout%", page.getLayoutCode("", imports));
+		code = StringUtils.replace(code, "%shell.SWTLayout%", page.getLayoutCode("shell.", imports));
+		code =
+				StringUtils.replace(
+						code,
+						"%container.SWTLayout%",
+						page.getLayoutCode("container.", imports));
+		code =
+				StringUtils.replace(
+						code,
+						"%field-prefix-shell.SWTLayout%",
+						page.getLayoutCode("%field-prefix%shell.", imports));
+		code =
+				StringUtils.replace(
+						code,
+						"%field-prefix-container.SWTLayout%",
+						page.getLayoutCode("%field-prefix%container.", imports));
+		code = performFieldPrefixesSubstitutions(code);
+		return code;
+	}
 
-  @Override
-  protected String performSubstitutions(String code, ImportsManager imports) {
-    code = super.performSubstitutions(code, imports);
-    code = doPerformSubstitutions(this, code, imports);
-    return code;
-  }
+	@Override
+	protected String performSubstitutions(String code, ImportsManager imports) {
+		code = super.performSubstitutions(code, imports);
+		code = doPerformSubstitutions(this, code, imports);
+		return code;
+	}
 
-  @Override
-  protected ToolkitDescriptionJava getToolkitDescription() {
-    return ToolkitProvider.DESCRIPTION;
-  }
+	@Override
+	protected ToolkitDescriptionJava getToolkitDescription() {
+		return ToolkitProvider.DESCRIPTION;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createDesignSuperClassControls(Composite composite, int nColumns) {
-    createSuperClassControls(composite, nColumns);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createDesignSuperClassControls(Composite composite, int nColumns) {
+		createSuperClassControls(composite, nColumns);
+	}
 }

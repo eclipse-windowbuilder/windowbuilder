@@ -28,23 +28,23 @@ import java.lang.reflect.Method;
  * @coverage core.model.description
  */
 public final class PropertyGetterRule extends Rule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    ComponentDescription componentDescription = (ComponentDescription) getDigester().peek(1);
-    GenericPropertyDescription propertyDescription =
-        (GenericPropertyDescription) getDigester().peek();
-    String getterName = attributes.getValue("name");
-    Method getter = ReflectionUtils.getMethod(componentDescription.getComponentClass(), getterName);
-    for (ExpressionAccessor accessor : propertyDescription.getAccessorsList()) {
-      if (accessor instanceof SetterAccessor) {
-        SetterAccessor setterAccessor = (SetterAccessor) accessor;
-        setterAccessor.setGetter(getter);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		ComponentDescription componentDescription = (ComponentDescription) getDigester().peek(1);
+		GenericPropertyDescription propertyDescription =
+				(GenericPropertyDescription) getDigester().peek();
+		String getterName = attributes.getValue("name");
+		Method getter = ReflectionUtils.getMethod(componentDescription.getComponentClass(), getterName);
+		for (ExpressionAccessor accessor : propertyDescription.getAccessorsList()) {
+			if (accessor instanceof SetterAccessor) {
+				SetterAccessor setterAccessor = (SetterAccessor) accessor;
+				setterAccessor.setGetter(getter);
+			}
+		}
+	}
 }

@@ -17,13 +17,13 @@ package org.eclipse.wb.internal.core.xml.model.property.editor;
  * @coverage XML.model.property.editor
  */
 public interface StaticFieldPropertyEditorGetExpression {
-  /**
-   * @param clazz
-   *          the {@link Class} with fields.
-   * @param field
-   *          the name of field.
-   * @param expression
-   *          the array with single element, initially <code>null</code>.
-   */
-  void invoke(Class<?> clazz, String field, String[] expression) throws Exception;
+	/**
+	 * @param clazz
+	 *          the {@link Class} with fields.
+	 * @param field
+	 *          the name of field.
+	 * @param expression
+	 *          the array with single element, initially <code>null</code>.
+	 */
+	void invoke(Class<?> clazz, String field, String[] expression) throws Exception;
 }

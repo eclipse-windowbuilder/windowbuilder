@@ -30,70 +30,70 @@ import org.eclipse.jface.dialogs.DialogPage;
  * @coverage rcp.model.jface
  */
 public class DialogPageImplInfo extends DialogPageInfo implements IJavaInfoRendering {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DialogPageImplInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    JavaInfoUtils.scheduleSpecialRendering(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DialogPageImplInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		JavaInfoUtils.scheduleSpecialRendering(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void render() throws Exception {
-    m_shell = ContainerSupport.createShell();
-    ContainerSupport.setFillLayout(m_shell);
-    //
-    ReflectionUtils.invokeMethod(
-        getObject(),
-        "createControl(org.eclipse.swt.widgets.Composite)",
-        m_shell);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void render() throws Exception {
+		m_shell = ContainerSupport.createShell();
+		ContainerSupport.setFillLayout(m_shell);
+		//
+		ReflectionUtils.invokeMethod(
+				getObject(),
+				"createControl(org.eclipse.swt.widgets.Composite)",
+				m_shell);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    // clear LayoutData, because FillLayout does not want any
-    {
-      Object[] childControls = ContainerSupport.getChildren(m_shell);
-      if (childControls.length == 1) {
-        ControlSupport.setLayoutData(childControls[0], null);
-      }
-    }
-    // continue
-    super.refresh_afterCreate();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		// clear LayoutData, because FillLayout does not want any
+		{
+			Object[] childControls = ContainerSupport.getChildren(m_shell);
+			if (childControls.length == 1) {
+				ControlSupport.setLayoutData(childControls[0], null);
+			}
+		}
+		// continue
+		super.refresh_afterCreate();
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    ControlInfo.refresh_fetch(this, new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        DialogPageImplInfo.super.refresh_fetch();
-      }
-    });
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		ControlInfo.refresh_fetch(this, new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				DialogPageImplInfo.super.refresh_fetch();
+			}
+		});
+	}
 
-  @Override
-  public void refresh_dispose() throws Exception {
-    // dispose Shell
-    if (m_shell != null) {
-      ControlSupport.dispose(m_shell);
-      m_shell = null;
-    }
-    // call "super"
-    super.refresh_dispose();
-  }
+	@Override
+	public void refresh_dispose() throws Exception {
+		// dispose Shell
+		if (m_shell != null) {
+			ControlSupport.dispose(m_shell);
+			m_shell = null;
+		}
+		// call "super"
+		super.refresh_dispose();
+	}
 }

@@ -37,118 +37,118 @@ import java.util.List;
  * @coverage swing.property.order
  */
 public class TabOrderProperty
-    extends
-      org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
-  private static final String FOCUS_TRAVERSAL_CLASS = "org.eclipse.wb.swing.FocusTraversalOnArray";
-  private static final String FOCUS_TRAVERSAL_METHOD_SIGNATURE =
-      "setFocusTraversalPolicy(java.awt.FocusTraversalPolicy)";
-  private static final String TITLE_TOOLTIP = ModelMessages.TabOrderProperty_tooltip;
+extends
+org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
+	private static final String FOCUS_TRAVERSAL_CLASS = "org.eclipse.wb.swing.FocusTraversalOnArray";
+	private static final String FOCUS_TRAVERSAL_METHOD_SIGNATURE =
+			"setFocusTraversalPolicy(java.awt.FocusTraversalPolicy)";
+	private static final String TITLE_TOOLTIP = ModelMessages.TabOrderProperty_tooltip;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TabOrderProperty(ContainerInfo container) {
-    super(container);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TabOrderProperty(ContainerInfo container) {
+		super(container);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ArrayInitializer getOrderedArray() throws Exception {
-    MethodInvocation invocation = m_container.getMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
-    if (invocation != null) {
-      Object traversalPolicy = invocation.arguments().get(0);
-      if (traversalPolicy instanceof ClassInstanceCreation) {
-        ClassInstanceCreation traversalPolicyCreation = (ClassInstanceCreation) traversalPolicy;
-        if (FOCUS_TRAVERSAL_CLASS.equals(AstNodeUtils.getFullyQualifiedName(
-            traversalPolicyCreation,
-            false))) {
-          Object focusTraversalOnArray = traversalPolicyCreation.arguments().get(0);
-          if (focusTraversalOnArray instanceof ArrayCreation) {
-            ArrayCreation creation = (ArrayCreation) focusTraversalOnArray;
-            return creation.getInitializer();
-          }
-        }
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ArrayInitializer getOrderedArray() throws Exception {
+		MethodInvocation invocation = m_container.getMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
+		if (invocation != null) {
+			Object traversalPolicy = invocation.arguments().get(0);
+			if (traversalPolicy instanceof ClassInstanceCreation) {
+				ClassInstanceCreation traversalPolicyCreation = (ClassInstanceCreation) traversalPolicy;
+				if (FOCUS_TRAVERSAL_CLASS.equals(AstNodeUtils.getFullyQualifiedName(
+						traversalPolicyCreation,
+						false))) {
+					Object focusTraversalOnArray = traversalPolicyCreation.arguments().get(0);
+					if (focusTraversalOnArray instanceof ArrayCreation) {
+						ArrayCreation creation = (ArrayCreation) focusTraversalOnArray;
+						return creation.getInitializer();
+					}
+				}
+			}
+		}
+		return null;
+	}
 
-  @Override
-  protected void removePropertyAssociation() throws Exception {
-    m_container.removeMethodInvocations(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
-  }
+	@Override
+	protected void removePropertyAssociation() throws Exception {
+		m_container.removeMethodInvocations(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
+	}
 
-  @Override
-  protected void setOrderedArraySource(String source) throws Exception {
-    String newSource =
-        "new org.eclipse.wb.swing.FocusTraversalOnArray(new java.awt.Component[]" + source + ")";
-    MethodInvocation invocation = m_container.getMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
-    if (invocation == null) {
-      ProjectUtils.ensureResourceType(
-          m_container.getEditor().getJavaProject(),
-          m_container.getDescription().getToolkit().getBundle(),
-          FOCUS_TRAVERSAL_CLASS);
-      m_container.addMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE, newSource);
-    } else {
-      Expression argument = DomGenerics.arguments(invocation).get(0);
-      m_container.replaceExpression(argument, newSource);
-    }
-  }
+	@Override
+	protected void setOrderedArraySource(String source) throws Exception {
+		String newSource =
+				"new org.eclipse.wb.swing.FocusTraversalOnArray(new java.awt.Component[]" + source + ")";
+		MethodInvocation invocation = m_container.getMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE);
+		if (invocation == null) {
+			ProjectUtils.ensureResourceType(
+					m_container.getEditor().getJavaProject(),
+					m_container.getDescription().getToolkit().getBundle(),
+					FOCUS_TRAVERSAL_CLASS);
+			m_container.addMethodInvocation(FOCUS_TRAVERSAL_METHOD_SIGNATURE, newSource);
+		} else {
+			Expression argument = DomGenerics.arguments(invocation).get(0);
+			m_container.replaceExpression(argument, newSource);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<? extends AbstractComponentInfo> getTabPossibleChildren() throws Exception {
-    final List<AbstractComponentInfo> children = Lists.newArrayList();
-    m_container.accept(new ObjectInfoVisitor() {
-      @Override
-      public boolean visit(ObjectInfo objectInfo) throws Exception {
-        if (objectInfo != m_container && objectInfo instanceof ComponentInfo) {
-          children.add((AbstractComponentInfo) objectInfo);
-        }
-        return true;
-      }
-    });
-    return children;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<? extends AbstractComponentInfo> getTabPossibleChildren() throws Exception {
+		final List<AbstractComponentInfo> children = Lists.newArrayList();
+		m_container.accept(new ObjectInfoVisitor() {
+			@Override
+			public boolean visit(ObjectInfo objectInfo) throws Exception {
+				if (objectInfo != m_container && objectInfo instanceof ComponentInfo) {
+					children.add((AbstractComponentInfo) objectInfo);
+				}
+				return true;
+			}
+		});
+		return children;
+	}
 
-  @Override
-  protected boolean isDefaultOrdered(AbstractComponentInfo component) throws Exception {
-    return true;
-  }
+	@Override
+	protected boolean isDefaultOrdered(AbstractComponentInfo component) throws Exception {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean hasOrderElement(ObjectInfo parent, ObjectInfo child) throws Exception {
-    while (parent != null) {
-      if (parent == m_container) {
-        return true;
-      }
-      parent = parent.getParent();
-    }
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean hasOrderElement(ObjectInfo parent, ObjectInfo child) throws Exception {
+		while (parent != null) {
+			if (parent == m_container) {
+				return true;
+			}
+			parent = parent.getParent();
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tooltip
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getPropertyTooltipText() {
-    return TITLE_TOOLTIP;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tooltip
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getPropertyTooltipText() {
+		return TITLE_TOOLTIP;
+	}
 }

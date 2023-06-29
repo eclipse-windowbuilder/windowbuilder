@@ -28,54 +28,54 @@ import java.util.List;
  * @coverage swing.model.layout
  */
 public abstract class GenericFlowLayoutInfo extends LayoutInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenericFlowLayoutInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenericFlowLayoutInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds new {@link ComponentInfo}.
-   */
-  public final void add(ComponentInfo componentInfo, ComponentInfo nextComponentInfo)
-      throws Exception {
-    add(componentInfo, null, nextComponentInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds new {@link ComponentInfo}.
+	 */
+	public final void add(ComponentInfo componentInfo, ComponentInfo nextComponentInfo)
+			throws Exception {
+		add(componentInfo, null, nextComponentInfo);
+	}
 
-  /**
-   * Moves given {@link ComponentInfo}.
-   */
-  public final void move(ComponentInfo componentInfo, ComponentInfo nextComponentInfo)
-      throws Exception {
-    move(componentInfo, null, nextComponentInfo);
-  }
+	/**
+	 * Moves given {@link ComponentInfo}.
+	 */
+	public final void move(ComponentInfo componentInfo, ComponentInfo nextComponentInfo)
+			throws Exception {
+		move(componentInfo, null, nextComponentInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Clipboard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void clipboardCopy_addComponentCommands(ComponentInfo component,
-      List<ClipboardCommand> commands) throws Exception {
-    super.clipboardCopy_addComponentCommands(component, commands);
-    commands.add(new LayoutClipboardCommand<GenericFlowLayoutInfo>(component) {
-      private static final long serialVersionUID = 0L;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Clipboard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void clipboardCopy_addComponentCommands(ComponentInfo component,
+			List<ClipboardCommand> commands) throws Exception {
+		super.clipboardCopy_addComponentCommands(component, commands);
+		commands.add(new LayoutClipboardCommand<GenericFlowLayoutInfo>(component) {
+			private static final long serialVersionUID = 0L;
 
-      @Override
-      protected void add(GenericFlowLayoutInfo layout, ComponentInfo component) throws Exception {
-        layout.add(component, null);
-      }
-    });
-  }
+			@Override
+			protected void add(GenericFlowLayoutInfo layout, ComponentInfo component) throws Exception {
+				layout.add(component, null);
+			}
+		});
+	}
 }

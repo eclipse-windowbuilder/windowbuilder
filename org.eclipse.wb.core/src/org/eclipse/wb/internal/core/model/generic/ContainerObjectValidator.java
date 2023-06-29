@@ -17,5 +17,5 @@ package org.eclipse.wb.internal.core.model.generic;
  * @coverage core.model.generic
  */
 public interface ContainerObjectValidator {
-  boolean validate(Object container, Object object);
+	boolean validate(Object container, Object object);
 }

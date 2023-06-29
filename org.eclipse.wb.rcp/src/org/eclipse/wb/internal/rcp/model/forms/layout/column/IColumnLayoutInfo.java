@@ -22,13 +22,13 @@ import org.eclipse.ui.forms.widgets.ColumnLayout;
  * @coverage rcp.model.forms
  */
 public interface IColumnLayoutInfo<C extends IControlInfo> extends ILayoutInfo<C> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Layout data
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@link IColumnLayoutDataInfo} associated with given {@link IControlInfo}.
-   */
-  IColumnLayoutDataInfo getColumnData2(C control);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Layout data
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return {@link IColumnLayoutDataInfo} associated with given {@link IControlInfo}.
+	 */
+	IColumnLayoutDataInfo getColumnData2(C control);
 }

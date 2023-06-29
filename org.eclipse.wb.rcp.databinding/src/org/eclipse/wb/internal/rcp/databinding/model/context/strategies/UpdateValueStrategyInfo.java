@@ -49,286 +49,286 @@ import java.util.Map;
  * @coverage bindings.rcp.model.context
  */
 public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
-  private static final String[] VALIDATORS = {
-      "setAfterConvertValidator",
-      "setAfterGetValidator",
-      "setBeforeSetValidator"};
-  private final Map<String, ValidatorInfo> m_validators = Maps.newHashMap();
+	private static final String[] VALIDATORS = {
+			"setAfterConvertValidator",
+			"setAfterGetValidator",
+	"setBeforeSetValidator"};
+	private final Map<String, ValidatorInfo> m_validators = Maps.newHashMap();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UpdateValueStrategyInfo() {
-    setStringValue(Activator.getStore().getString(
-        IPreferenceConstants.UPDATE_VALUE_STRATEGY_DEFAULT));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UpdateValueStrategyInfo() {
+		setStringValue(Activator.getStore().getString(
+				IPreferenceConstants.UPDATE_VALUE_STRATEGY_DEFAULT));
+	}
 
-  public UpdateValueStrategyInfo(ClassInstanceCreation creation, Expression[] arguments) {
-    super(creation, arguments);
-  }
+	public UpdateValueStrategyInfo(ClassInstanceCreation creation, Expression[] arguments) {
+		super(creation, arguments);
+	}
 
-  /**
-   * Note: this constructor used only for tests.
-   */
-  public UpdateValueStrategyInfo(StrategyType strategyType,
-      Object strategyValue,
-      ConverterInfo converter) {
-    super(strategyType, strategyValue, converter);
-  }
+	/**
+	 * Note: this constructor used only for tests.
+	 */
+	public UpdateValueStrategyInfo(StrategyType strategyType,
+			Object strategyValue,
+			ConverterInfo converter) {
+		super(strategyType, strategyValue, converter);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    String methodName = invocation.getName().getIdentifier();
-    // parse validator
-    if (ArrayUtils.contains(VALIDATORS, methodName)) {
-      Assert.isLegal(arguments.length == 1);
-      Assert.isNull(m_validators.get(methodName));
-      ValidatorInfo validator = (ValidatorInfo) resolver.getModel(arguments[0]);
-      if (validator == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.UpdateValueStrategyInfo_validatorArgumentNotFound,
-            arguments[0]), new Throwable());
-      } else {
-        m_validators.put(methodName, validator);
-        //
-        IModelSupport modelSupport = resolver.getModelSupport(invocation.getExpression());
-        if (modelSupport instanceof StrategyModelSupport) {
-          StrategyModelSupport strategyModelSupport = (StrategyModelSupport) modelSupport;
-          strategyModelSupport.addInvocation(invocation);
-        }
-      }
-    }
-    //
-    return super.parseExpression(editor, signature, invocation, arguments, resolver, provider);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		String methodName = invocation.getName().getIdentifier();
+		// parse validator
+		if (ArrayUtils.contains(VALIDATORS, methodName)) {
+			Assert.isLegal(arguments.length == 1);
+			Assert.isNull(m_validators.get(methodName));
+			ValidatorInfo validator = (ValidatorInfo) resolver.getModel(arguments[0]);
+			if (validator == null) {
+				AbstractParser.addError(editor, MessageFormat.format(
+						Messages.UpdateValueStrategyInfo_validatorArgumentNotFound,
+						arguments[0]), new Throwable());
+			} else {
+				m_validators.put(methodName, validator);
+				//
+				IModelSupport modelSupport = resolver.getModelSupport(invocation.getExpression());
+				if (modelSupport instanceof StrategyModelSupport) {
+					StrategyModelSupport strategyModelSupport = (StrategyModelSupport) modelSupport;
+					strategyModelSupport.addInvocation(invocation);
+				}
+			}
+		}
+		//
+		return super.parseExpression(editor, signature, invocation, arguments, resolver, provider);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getStrategyClass() {
-    return "org.eclipse.core.databinding.UpdateValueStrategy";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getStrategyClass() {
+		return "org.eclipse.core.databinding.UpdateValueStrategy";
+	}
 
-  @Override
-  protected Object getStrategyValue(String value) {
-    if (value == null) {
-      return Value.POLICY_UPDATE;
-    }
-    if (value.endsWith("POLICY_NEVER")) {
-      return Value.POLICY_NEVER;
-    }
-    if (value.endsWith("POLICY_ON_REQUEST")) {
-      return Value.POLICY_ON_REQUEST;
-    }
-    if (value.endsWith("POLICY_CONVERT")) {
-      return Value.POLICY_CONVERT;
-    }
-    if (value.endsWith("POLICY_UPDATE")) {
-      return Value.POLICY_UPDATE;
-    }
-    //
-    Assert.fail(Messages.UpdateValueStrategyInfo_undefinedValueStrategy + value);
-    return null;
-  }
+	@Override
+	protected Object getStrategyValue(String value) {
+		if (value == null) {
+			return Value.POLICY_UPDATE;
+		}
+		if (value.endsWith("POLICY_NEVER")) {
+			return Value.POLICY_NEVER;
+		}
+		if (value.endsWith("POLICY_ON_REQUEST")) {
+			return Value.POLICY_ON_REQUEST;
+		}
+		if (value.endsWith("POLICY_CONVERT")) {
+			return Value.POLICY_CONVERT;
+		}
+		if (value.endsWith("POLICY_UPDATE")) {
+			return Value.POLICY_UPDATE;
+		}
+		//
+		Assert.fail(Messages.UpdateValueStrategyInfo_undefinedValueStrategy + value);
+		return null;
+	}
 
-  @Override
-  protected String getStrategyStringValue() {
-    switch ((Value) m_strategyValue) {
-      case POLICY_NEVER :
-        return "POLICY_NEVER";
-      case POLICY_ON_REQUEST :
-        return "POLICY_ON_REQUEST";
-      case POLICY_CONVERT :
-        return "POLICY_CONVERT";
-      case POLICY_UPDATE :
-        return "POLICY_UPDATE";
-    }
-    Assert.fail(Messages.UpdateValueStrategyInfo_undefinedValueStrategy + m_strategyValue);
-    return null;
-  }
+	@Override
+	protected String getStrategyStringValue() {
+		switch ((Value) m_strategyValue) {
+		case POLICY_NEVER :
+			return "POLICY_NEVER";
+		case POLICY_ON_REQUEST :
+			return "POLICY_ON_REQUEST";
+		case POLICY_CONVERT :
+			return "POLICY_CONVERT";
+		case POLICY_UPDATE :
+			return "POLICY_UPDATE";
+		}
+		Assert.fail(Messages.UpdateValueStrategyInfo_undefinedValueStrategy + m_strategyValue);
+		return null;
+	}
 
-  @Override
-  public void setStringValue(String value) {
-    if (value.endsWith("POLICY_NEVER")) {
-      m_strategyType = StrategyType.IntConstructor;
-      m_strategyValue = Value.POLICY_NEVER;
-    } else if (value.endsWith("POLICY_ON_REQUEST")) {
-      m_strategyType = StrategyType.IntConstructor;
-      m_strategyValue = Value.POLICY_ON_REQUEST;
-    } else if (value.endsWith("POLICY_CONVERT")) {
-      m_strategyType = StrategyType.IntConstructor;
-      m_strategyValue = Value.POLICY_CONVERT;
-    } else if (value.endsWith("POLICY_UPDATE")) {
-      m_strategyType = StrategyType.Null;
-      m_strategyValue = Value.POLICY_UPDATE;
-    } else {
-      m_strategyType = StrategyType.ExtendetClass;
-      m_strategyValue = value;
-    }
-  }
+	@Override
+	public void setStringValue(String value) {
+		if (value.endsWith("POLICY_NEVER")) {
+			m_strategyType = StrategyType.IntConstructor;
+			m_strategyValue = Value.POLICY_NEVER;
+		} else if (value.endsWith("POLICY_ON_REQUEST")) {
+			m_strategyType = StrategyType.IntConstructor;
+			m_strategyValue = Value.POLICY_ON_REQUEST;
+		} else if (value.endsWith("POLICY_CONVERT")) {
+			m_strategyType = StrategyType.IntConstructor;
+			m_strategyValue = Value.POLICY_CONVERT;
+		} else if (value.endsWith("POLICY_UPDATE")) {
+			m_strategyType = StrategyType.Null;
+			m_strategyValue = Value.POLICY_UPDATE;
+		} else {
+			m_strategyType = StrategyType.ExtendetClass;
+			m_strategyValue = value;
+		}
+	}
 
-  public ValidatorInfo getAfterConvertValidator() {
-    return m_validators.get(VALIDATORS[0]);
-  }
+	public ValidatorInfo getAfterConvertValidator() {
+		return m_validators.get(VALIDATORS[0]);
+	}
 
-  public ValidatorInfo getAfterGetValidator() {
-    return m_validators.get(VALIDATORS[1]);
-  }
+	public ValidatorInfo getAfterGetValidator() {
+		return m_validators.get(VALIDATORS[1]);
+	}
 
-  public ValidatorInfo getBeforeSetValidator() {
-    return m_validators.get(VALIDATORS[2]);
-  }
+	public ValidatorInfo getBeforeSetValidator() {
+		return m_validators.get(VALIDATORS[2]);
+	}
 
-  public ValidatorInfo getValidator(String name) {
-    Assert.isTrue(ArrayUtils.contains(VALIDATORS, name));
-    return m_validators.get(name);
-  }
+	public ValidatorInfo getValidator(String name) {
+		Assert.isTrue(ArrayUtils.contains(VALIDATORS, name));
+		return m_validators.get(name);
+	}
 
-  public void setValidator(String name, ValidatorInfo validator) {
-    Assert.isTrue(ArrayUtils.contains(VALIDATORS, name));
-    if (validator == null) {
-      // add validator
-      m_validators.remove(name);
-    } else {
-      // replace validator
-      m_validators.put(name, validator);
-    }
-  }
+	public void setValidator(String name, ValidatorInfo validator) {
+		Assert.isTrue(ArrayUtils.contains(VALIDATORS, name));
+		if (validator == null) {
+			// add validator
+			m_validators.remove(name);
+		} else {
+			// replace validator
+			m_validators.put(name, validator);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ChooseClassConfiguration createConfiguration(BindingUiContentProviderContext context) {
-    ChooseClassConfiguration configuration = super.createConfiguration(context);
-    configuration.setDialogFieldLabel(Messages.UpdateValueStrategyInfo_title);
-    configuration.setDefaultValues(new String[]{
-        "POLICY_UPDATE",
-        "POLICY_NEVER",
-        "POLICY_ON_REQUEST",
-        "POLICY_CONVERT"});
-    return configuration;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ChooseClassConfiguration createConfiguration(BindingUiContentProviderContext context) {
+		ChooseClassConfiguration configuration = super.createConfiguration(context);
+		configuration.setDialogFieldLabel(Messages.UpdateValueStrategyInfo_title);
+		configuration.setDefaultValues(new String[]{
+				"POLICY_UPDATE",
+				"POLICY_NEVER",
+				"POLICY_ON_REQUEST",
+		"POLICY_CONVERT"});
+		return configuration;
+	}
 
-  /**
-   * Create configuration for edit strategy validator.
-   */
-  private ChooseClassConfiguration createValidatorConfiguration(BindingUiContentProviderContext context,
-      String name,
-      ValidatorInfo validator) {
-    ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel(name + ":");
-    configuration.setValueScope("org.eclipse.core.databinding.validation.IValidator");
-    configuration.setClearValue("N/S");
-    configuration.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
-    configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    configuration.setEmptyClassErrorMessage(MessageFormat.format(
-        Messages.UpdateValueStrategyInfo_validatorErrorMessage,
-        context.getDirection(),
-        name));
-    configuration.setErrorMessagePrefix(MessageFormat.format(
-        Messages.UpdateValueStrategyInfo_validatorErrorMessagePrefix,
-        context.getDirection(),
-        name));
-    //
-    if (validator != null
-        && (validator.isAnonymous() || validator.getClassName().indexOf('(') != -1)) {
-      configuration.addDefaultStart(validator.getClassName());
-    }
-    //
-    return configuration;
-  }
+	/**
+	 * Create configuration for edit strategy validator.
+	 */
+	private ChooseClassConfiguration createValidatorConfiguration(BindingUiContentProviderContext context,
+			String name,
+			ValidatorInfo validator) {
+		ChooseClassConfiguration configuration = new ChooseClassConfiguration();
+		configuration.setDialogFieldLabel(name + ":");
+		configuration.setValueScope("org.eclipse.core.databinding.validation.IValidator");
+		configuration.setClearValue("N/S");
+		configuration.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+		configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
+		configuration.setEmptyClassErrorMessage(MessageFormat.format(
+				Messages.UpdateValueStrategyInfo_validatorErrorMessage,
+				context.getDirection(),
+				name));
+		configuration.setErrorMessagePrefix(MessageFormat.format(
+				Messages.UpdateValueStrategyInfo_validatorErrorMessagePrefix,
+				context.getDirection(),
+				name));
+		//
+		if (validator != null
+				&& (validator.isAnonymous() || validator.getClassName().indexOf('(') != -1)) {
+			configuration.addDefaultStart(validator.getClassName());
+		}
+		//
+		return configuration;
+	}
 
-  @Override
-  public void createContentProviders(List<IUiContentProvider> providers,
-      BindingUiContentProviderContext context) throws Exception {
-    // self editor
-    providers.add(new UpdateStrategyUiContentProvider(createConfiguration(context), this));
-    // properties editor
-    UpdateStrategyPropertiesUiContentProvider propertiesUIContentProvider =
-        new UpdateStrategyPropertiesUiContentProvider(context.getDirection());
-    // validators
-    propertiesUIContentProvider.addProvider(new ValidatorUiContentProvider(createValidatorConfiguration(
-        context,
-        "AfterConvertValidator",
-        m_validators.get(VALIDATORS[0])), this, VALIDATORS[0]));
-    propertiesUIContentProvider.addProvider(new ValidatorUiContentProvider(createValidatorConfiguration(
-        context,
-        "AfterGetValidator",
-        m_validators.get(VALIDATORS[1])), this, VALIDATORS[1]));
-    propertiesUIContentProvider.addProvider(new ValidatorUiContentProvider(createValidatorConfiguration(
-        context,
-        "BeforeSetValidator",
-        m_validators.get(VALIDATORS[2])), this, VALIDATORS[2]));
-    // converter
-    propertiesUIContentProvider.addProvider(new ConverterUiContentProvider(createConverterConfiguration(context),
-        this));
-    //
-    providers.add(propertiesUIContentProvider);
-  }
+	@Override
+	public void createContentProviders(List<IUiContentProvider> providers,
+			BindingUiContentProviderContext context) throws Exception {
+		// self editor
+		providers.add(new UpdateStrategyUiContentProvider(createConfiguration(context), this));
+		// properties editor
+		UpdateStrategyPropertiesUiContentProvider propertiesUIContentProvider =
+				new UpdateStrategyPropertiesUiContentProvider(context.getDirection());
+		// validators
+		propertiesUIContentProvider.addProvider(new ValidatorUiContentProvider(createValidatorConfiguration(
+				context,
+				"AfterConvertValidator",
+				m_validators.get(VALIDATORS[0])), this, VALIDATORS[0]));
+		propertiesUIContentProvider.addProvider(new ValidatorUiContentProvider(createValidatorConfiguration(
+				context,
+				"AfterGetValidator",
+				m_validators.get(VALIDATORS[1])), this, VALIDATORS[1]));
+		propertiesUIContentProvider.addProvider(new ValidatorUiContentProvider(createValidatorConfiguration(
+				context,
+				"BeforeSetValidator",
+				m_validators.get(VALIDATORS[2])), this, VALIDATORS[2]));
+		// converter
+		propertiesUIContentProvider.addProvider(new ConverterUiContentProvider(createConverterConfiguration(context),
+				this));
+		//
+		providers.add(propertiesUIContentProvider);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean sourceCodeHasVariable() {
-    return m_converter != null || !m_validators.isEmpty();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean sourceCodeHasVariable() {
+		return m_converter != null || !m_validators.isEmpty();
+	}
 
-  @Override
-  protected void addSourceCodeForProperties(List<String> lines,
-      CodeGenerationSupport generationSupport) throws Exception {
-    super.addSourceCodeForProperties(lines, generationSupport);
-    // add validators
-    for (Map.Entry<String, ValidatorInfo> entry : m_validators.entrySet()) {
-      lines.add(getVariableIdentifier()
-          + "."
-          + entry.getKey()
-          + "("
-          + entry.getValue().getSourceCode(lines, generationSupport)
-          + ");");
-    }
-  }
+	@Override
+	protected void addSourceCodeForProperties(List<String> lines,
+			CodeGenerationSupport generationSupport) throws Exception {
+		super.addSourceCodeForProperties(lines, generationSupport);
+		// add validators
+		for (Map.Entry<String, ValidatorInfo> entry : m_validators.entrySet()) {
+			lines.add(getVariableIdentifier()
+					+ "."
+					+ entry.getKey()
+					+ "("
+					+ entry.getValue().getSourceCode(lines, generationSupport)
+					+ ");");
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Visiting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void accept(AstObjectInfoVisitor visitor) throws Exception {
-    super.accept(visitor);
-    // visit to validators
-    for (Map.Entry<String, ValidatorInfo> entry : m_validators.entrySet()) {
-      entry.getValue().accept(visitor);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Visiting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void accept(AstObjectInfoVisitor visitor) throws Exception {
+		super.accept(visitor);
+		// visit to validators
+		for (Map.Entry<String, ValidatorInfo> entry : m_validators.entrySet()) {
+			entry.getValue().accept(visitor);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Values
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static enum Value {
-    POLICY_NEVER, POLICY_ON_REQUEST, POLICY_CONVERT, POLICY_UPDATE
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Values
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static enum Value {
+		POLICY_NEVER, POLICY_ON_REQUEST, POLICY_CONVERT, POLICY_UPDATE
+	}
 }

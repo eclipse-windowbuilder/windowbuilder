@@ -30,159 +30,159 @@ import org.eclipse.jdt.core.dom.StringLiteral;
  * @author scheglov_ke
  */
 public class ConstructorAccessorTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_0() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JButton('text'));",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    GenericProperty property = (GenericProperty) button.getPropertyByTitle("text");
-    ConstructorAccessor accessor =
-        (ConstructorAccessor) getGenericPropertyAccessors(property).get(1);
-    // check
-    assertSame(Property.UNKNOWN_VALUE, accessor.getDefaultValue(button));
-    assertEquals("text", ((StringLiteral) accessor.getExpression(button)).getLiteralValue());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_0() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    add(new JButton('text'));",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		GenericProperty property = (GenericProperty) button.getPropertyByTitle("text");
+		ConstructorAccessor accessor =
+				(ConstructorAccessor) getGenericPropertyAccessors(property).get(1);
+		// check
+		assertSame(Property.UNKNOWN_VALUE, accessor.getDefaultValue(button));
+		assertEquals("text", ((StringLiteral) accessor.getExpression(button)).getLiteralValue());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // setExpression
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_setExpression_newValue() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JButton('text'));",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    GenericProperty property = (GenericProperty) button.getPropertyByTitle("text");
-    ConstructorAccessor accessor =
-        (ConstructorAccessor) getGenericPropertyAccessors(property).get(1);
-    // check
-    assertTrue(accessor.setExpression(button, "\"new text\""));
-    assertEditor(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    add(new JButton('new text'));",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// setExpression
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_setExpression_newValue() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    add(new JButton('text'));",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		GenericProperty property = (GenericProperty) button.getPropertyByTitle("text");
+		ConstructorAccessor accessor =
+				(ConstructorAccessor) getGenericPropertyAccessors(property).get(1);
+		// check
+		assertTrue(accessor.setExpression(button, "\"new text\""));
+		assertEditor(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    add(new JButton('new text'));",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Use <code>null</code> to clear value.
-   */
-  public void test_setExpression_nullValue() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JButton('text'));",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    GenericProperty property = (GenericProperty) button.getPropertyByTitle("text");
-    ConstructorAccessor accessor =
-        (ConstructorAccessor) getGenericPropertyAccessors(property).get(1);
-    // set "null", default value is used
-    assertTrue(accessor.setExpression(button, null));
-    assertEditor(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    add(new JButton((String) null));",
-        "  }",
-        "}");
-  }
+	/**
+	 * Use <code>null</code> to clear value.
+	 */
+	public void test_setExpression_nullValue() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    add(new JButton('text'));",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		GenericProperty property = (GenericProperty) button.getPropertyByTitle("text");
+		ConstructorAccessor accessor =
+				(ConstructorAccessor) getGenericPropertyAccessors(property).get(1);
+		// set "null", default value is used
+		assertTrue(accessor.setExpression(button, null));
+		assertEditor(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    add(new JButton((String) null));",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Use <code>null</code> to clear value.
-   */
-  public void test_setExpression_nullValue_noDefault() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JButton('text'));",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    // create accessor
-    ConstructorAccessor accessor = new ConstructorAccessor(0, null);
-    // set "null", but no default value, so ignored
-    assertFalse(accessor.setExpression(button, null));
-    assertEditor(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    add(new JButton('text'));",
-        "  }",
-        "}");
-  }
+	/**
+	 * Use <code>null</code> to clear value.
+	 */
+	public void test_setExpression_nullValue_noDefault() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    add(new JButton('text'));",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		// create accessor
+		ConstructorAccessor accessor = new ConstructorAccessor(0, null);
+		// set "null", but no default value, so ignored
+		assertFalse(accessor.setExpression(button, null));
+		assertEditor(
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    add(new JButton('text'));",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Test that {@link ConstructorAccessor} resolves deferred {@link JavaInfo} references.
-   */
-  public void test_setExpression_replaceComponent() throws Exception {
-    setFileContentSrc(
-        "test/MyPanel.java",
-        getTestSource(
-            "public class MyPanel extends JPanel {",
-            "  public MyPanel(JButton button) {",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-    // parse
-    parseContainer(
-        "public class Test extends JPanel {",
-        "  private final JButton button_1 = new JButton();",
-        "  private final JButton button_2 = new JButton();",
-        "  private final MyPanel myPanel = new MyPanel(button_1);",
-        "  public Test() {",
-        "    add(button_1);",
-        "    add(button_2);",
-        "    add(myPanel);",
-        "  }",
-        "}");
-    ContainerInfo myPanel = getJavaInfoByName("myPanel");
-    ComponentInfo button_1 = getJavaInfoByName("button_1");
-    ComponentInfo button_2 = getJavaInfoByName("button_2");
-    // prepare ExpressionAccessor
-    ExpressionAccessor setterAccessor;
-    {
-      GenericProperty property =
-          (GenericProperty) PropertyUtils.getByPath(myPanel, "Constructor/button");
-      assertNotNull(property);
-      setterAccessor = getGenericPropertyAccessors(property).get(0);
-    }
-    // "button_1" initially
-    {
-      Expression expression = setterAccessor.getExpression(myPanel);
-      assertTrue(button_1.isRepresentedBy(expression));
-    }
-    // use "button_2"
-    {
-      String source = TemplateUtils.format("{0}", button_2);
-      setterAccessor.setExpression(myPanel, source);
-    }
-    assertEditor(
-        "public class Test extends JPanel {",
-        "  private final JButton button_1 = new JButton();",
-        "  private final JButton button_2 = new JButton();",
-        "  private final MyPanel myPanel = new MyPanel(button_2);",
-        "  public Test() {",
-        "    add(button_1);",
-        "    add(button_2);",
-        "    add(myPanel);",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test that {@link ConstructorAccessor} resolves deferred {@link JavaInfo} references.
+	 */
+	public void test_setExpression_replaceComponent() throws Exception {
+		setFileContentSrc(
+				"test/MyPanel.java",
+				getTestSource(
+						"public class MyPanel extends JPanel {",
+						"  public MyPanel(JButton button) {",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+		// parse
+		parseContainer(
+				"public class Test extends JPanel {",
+				"  private final JButton button_1 = new JButton();",
+				"  private final JButton button_2 = new JButton();",
+				"  private final MyPanel myPanel = new MyPanel(button_1);",
+				"  public Test() {",
+				"    add(button_1);",
+				"    add(button_2);",
+				"    add(myPanel);",
+				"  }",
+				"}");
+		ContainerInfo myPanel = getJavaInfoByName("myPanel");
+		ComponentInfo button_1 = getJavaInfoByName("button_1");
+		ComponentInfo button_2 = getJavaInfoByName("button_2");
+		// prepare ExpressionAccessor
+		ExpressionAccessor setterAccessor;
+		{
+			GenericProperty property =
+					(GenericProperty) PropertyUtils.getByPath(myPanel, "Constructor/button");
+			assertNotNull(property);
+			setterAccessor = getGenericPropertyAccessors(property).get(0);
+		}
+		// "button_1" initially
+		{
+			Expression expression = setterAccessor.getExpression(myPanel);
+			assertTrue(button_1.isRepresentedBy(expression));
+		}
+		// use "button_2"
+		{
+			String source = TemplateUtils.format("{0}", button_2);
+			setterAccessor.setExpression(myPanel, source);
+		}
+		assertEditor(
+				"public class Test extends JPanel {",
+				"  private final JButton button_1 = new JButton();",
+				"  private final JButton button_2 = new JButton();",
+				"  private final MyPanel myPanel = new MyPanel(button_2);",
+				"  public Test() {",
+				"    add(button_1);",
+				"    add(button_2);",
+				"    add(myPanel);",
+				"  }",
+				"}");
+	}
 }

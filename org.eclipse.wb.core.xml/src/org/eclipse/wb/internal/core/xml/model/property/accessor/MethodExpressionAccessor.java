@@ -26,93 +26,93 @@ import java.lang.reflect.Method;
  * @coverage XML.model.property
  */
 public final class MethodExpressionAccessor extends ExpressionAccessor {
-  private final Method m_setter;
-  private final Method m_getter;
+	private final Method m_setter;
+	private final Method m_getter;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodExpressionAccessor(String attribute, Method setter, Method getter) {
-    super(attribute);
-    m_setter = setter;
-    m_getter = getter;
-    m_tooltipProvider = AccessorUtils.PropertyTooltipProvider_forMethod(setter);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodExpressionAccessor(String attribute, Method setter, Method getter) {
+		super(attribute);
+		m_setter = setter;
+		m_getter = getter;
+		m_tooltipProvider = AccessorUtils.PropertyTooltipProvider_forMethod(setter);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getDefaultValue(XmlObjectInfo object) throws Exception {
-    return object.getArbitraryValue(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getDefaultValue(XmlObjectInfo object) throws Exception {
+		return object.getArbitraryValue(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Visiting
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void visit(XmlObjectInfo object, int state) throws Exception {
-    super.visit(object, state);
-    if (state == STATE_OBJECT_READY) {
-      object.putArbitraryValue(this, askDefaultValue(object));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Visiting
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void visit(XmlObjectInfo object, int state) throws Exception {
+		super.visit(object, state);
+		if (state == STATE_OBJECT_READY) {
+			object.putArbitraryValue(this, askDefaultValue(object));
+		}
+	}
 
-  /**
-   * @return the default value to remember, may be {@link Property#UNKNOWN_VALUE}.
-   */
-  private Object askDefaultValue(final XmlObjectInfo object) {
-    if (m_getter != null) {
-      return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
-        @Override
-        public Object runObject() throws Exception {
-          Object toolkitObject = object.getObject();
-          return m_getter.invoke(toolkitObject);
-        }
-      }, Property.UNKNOWN_VALUE);
-    } else {
-      return Property.UNKNOWN_VALUE;
-    }
-  }
+	/**
+	 * @return the default value to remember, may be {@link Property#UNKNOWN_VALUE}.
+	 */
+	private Object askDefaultValue(final XmlObjectInfo object) {
+		if (m_getter != null) {
+			return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
+				@Override
+				public Object runObject() throws Exception {
+					Object toolkitObject = object.getObject();
+					return m_getter.invoke(toolkitObject);
+				}
+			}, Property.UNKNOWN_VALUE);
+		} else {
+			return Property.UNKNOWN_VALUE;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IAdaptable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final PropertyTooltipProvider m_tooltipProvider;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IAdaptable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final PropertyTooltipProvider m_tooltipProvider;
 
-  @Override
-  public <T> T getAdapter(Class<T> adapter) {
-    if (adapter == PropertyTooltipProvider.class) {
-      return adapter.cast(m_tooltipProvider);
-    }
-    // other
-    return super.getAdapter(adapter);
-  }
+	@Override
+	public <T> T getAdapter(Class<T> adapter) {
+		if (adapter == PropertyTooltipProvider.class) {
+			return adapter.cast(m_tooltipProvider);
+		}
+		// other
+		return super.getAdapter(adapter);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the setter of the property.
-   */
-  public Method getSetter() {
-    return m_setter;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the setter of the property.
+	 */
+	public Method getSetter() {
+		return m_setter;
+	}
 
-  /**
-   * @return the getter of the property.
-   */
-  public Method getGetter() {
-    return m_getter;
-  }
+	/**
+	 * @return the getter of the property.
+	 */
+	public Method getGetter() {
+		return m_getter;
+	}
 }

@@ -24,33 +24,33 @@ import org.eclipse.swt.widgets.Table;
  * @coverage rcp.model.widgets
  */
 public final class TableInfo extends org.eclipse.wb.internal.swt.model.widgets.TableInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TableInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TableInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TableCursor_Info
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link TableInfo} already has {@link TableCursorInfo}.
-   */
-  public boolean hasTableCursor() {
-    return !getChildren(TableCursorInfo.class).isEmpty();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TableCursor_Info
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link TableInfo} already has {@link TableCursorInfo}.
+	 */
+	public boolean hasTableCursor() {
+		return !getChildren(TableCursorInfo.class).isEmpty();
+	}
 
-  /**
-   * Adds new {@link TableCursorInfo} to this table.
-   */
-  public void command_CREATE(TableCursorInfo tableCursor) throws Exception {
-    JavaInfoUtils.add(tableCursor, null, this, null);
-  }
+	/**
+	 * Adds new {@link TableCursorInfo} to this table.
+	 */
+	public void command_CREATE(TableCursorInfo tableCursor) throws Exception {
+		JavaInfoUtils.add(tableCursor, null, this, null);
+	}
 }

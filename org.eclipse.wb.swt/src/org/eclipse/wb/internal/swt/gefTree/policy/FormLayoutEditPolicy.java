@@ -28,46 +28,46 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
  * @coverage swt.gefTree.policy
  */
 public final class FormLayoutEditPolicy<C extends IControlInfo> extends ObjectLayoutEditPolicy<C> {
-  private final IFormLayoutInfo<C> m_layout;
+	private final IFormLayoutInfo<C> m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormLayoutEditPolicy(IFormLayoutInfo<C> layout) {
-    super(layout.getUnderlyingModel());
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormLayoutEditPolicy(IFormLayoutInfo<C> layout) {
+		super(layout.getUnderlyingModel());
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ControlsLayoutRequestValidator.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ControlsLayoutRequestValidator.INSTANCE;
+	}
 
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    Object model = editPart.getModel();
-    return model instanceof IControlInfo;
-  }
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		Object model = editPart.getModel();
+		return model instanceof IControlInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(C control, C reference) throws Exception {
-    m_layout.commandCreate(control, reference);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(C control, C reference) throws Exception {
+		m_layout.commandCreate(control, reference);
+	}
 
-  @Override
-  protected void command_MOVE(C control, C reference) throws Exception {
-    m_layout.commandMove(control, reference);
-  }
+	@Override
+	protected void command_MOVE(C control, C reference) throws Exception {
+		m_layout.commandMove(control, reference);
+	}
 }

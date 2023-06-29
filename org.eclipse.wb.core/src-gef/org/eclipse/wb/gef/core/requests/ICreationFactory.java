@@ -19,17 +19,17 @@ import org.eclipse.wb.gef.core.tools.CreationTool;
  * @coverage gef.core
  */
 public interface ICreationFactory {
-  /**
-   * Activates this factory, during {@link CreationTool} activation (including reloading). This
-   * allows factory do any operations that are too expensive to perform them in
-   * {@link #getNewObject()}.
-   *
-   * If any exception thrown, then {@link CreationTool} will be unloaded.
-   */
-  void activate() throws Exception;
+	/**
+	 * Activates this factory, during {@link CreationTool} activation (including reloading). This
+	 * allows factory do any operations that are too expensive to perform them in
+	 * {@link #getNewObject()}.
+	 *
+	 * If any exception thrown, then {@link CreationTool} will be unloaded.
+	 */
+	void activate() throws Exception;
 
-  /**
-   * @return the new object.
-   */
-  Object getNewObject();
+	/**
+	 * @return the new object.
+	 */
+	Object getNewObject();
 }

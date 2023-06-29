@@ -21,18 +21,18 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
  * @coverage rcp
  */
 public final class ToolkitProvider implements IToolkitProvider {
-  public static final ToolkitDescriptionJava DESCRIPTION = RcpToolkitDescription.INSTANCE;
-  static {
-    ((RcpToolkitDescription) DESCRIPTION).initialize();
-  }
+	public static final ToolkitDescriptionJava DESCRIPTION = RcpToolkitDescription.INSTANCE;
+	static {
+		((RcpToolkitDescription) DESCRIPTION).initialize();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IToolkitProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ToolkitDescription getDescription() {
-    return DESCRIPTION;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IToolkitProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ToolkitDescription getDescription() {
+		return DESCRIPTION;
+	}
 }

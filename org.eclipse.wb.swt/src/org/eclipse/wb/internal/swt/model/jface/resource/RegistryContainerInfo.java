@@ -32,108 +32,108 @@ import java.util.List;
  * @coverage swt.model.jface
  */
 public final class RegistryContainerInfo extends ObjectInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the existing or new {@link RegistryContainerInfo} for given root.
-   */
-  public static RegistryContainerInfo get(JavaInfo root) throws Exception {
-    // try to find existing container
-    RegistryContainerInfo container = findContainer(root);
-    if (container != null) {
-      return container;
-    }
-    // add new container
-    container = new RegistryContainerInfo();
-    root.addChild(container);
-    return container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the existing or new {@link RegistryContainerInfo} for given root.
+	 */
+	public static RegistryContainerInfo get(JavaInfo root) throws Exception {
+		// try to find existing container
+		RegistryContainerInfo container = findContainer(root);
+		if (container != null) {
+			return container;
+		}
+		// add new container
+		container = new RegistryContainerInfo();
+		root.addChild(container);
+		return container;
+	}
 
-  /**
-   * @return all registries for given root assignable from given {@link Class}.
-   */
-  public static <T extends ResourceRegistryInfo> List<T> getRegistries(JavaInfo root,
-      Class<T> componentClass) throws Exception {
-    RegistryContainerInfo container = findContainer(root);
-    if (container != null) {
-      return container.getChildren(componentClass);
-    }
-    return Collections.emptyList();
-  }
+	/**
+	 * @return all registries for given root assignable from given {@link Class}.
+	 */
+	public static <T extends ResourceRegistryInfo> List<T> getRegistries(JavaInfo root,
+			Class<T> componentClass) throws Exception {
+		RegistryContainerInfo container = findContainer(root);
+		if (container != null) {
+			return container.getChildren(componentClass);
+		}
+		return Collections.emptyList();
+	}
 
-  /**
-   * @return {@link ResourceRegistryInfo} defined into given root represented given {@link ASTNode}.
-   */
-  public static ResourceRegistryInfo getRegistry(JavaInfo root, ASTNode node) throws Exception {
-    RegistryContainerInfo container = findContainer(root);
-    Assert.isNotNull(container);
-    //
-    for (ResourceRegistryInfo registry : container.getRegistryChildren()) {
-      if (registry.isRepresentedBy(node)) {
-        return registry;
-      }
-    }
-    //
-    Assert.fail(MessageFormat.format(
-        ModelMessages.RegistryContainerInfo_unknownRegistry,
-        root,
-        node));
-    return null;
-  }
+	/**
+	 * @return {@link ResourceRegistryInfo} defined into given root represented given {@link ASTNode}.
+	 */
+	public static ResourceRegistryInfo getRegistry(JavaInfo root, ASTNode node) throws Exception {
+		RegistryContainerInfo container = findContainer(root);
+		Assert.isNotNull(container);
+		//
+		for (ResourceRegistryInfo registry : container.getRegistryChildren()) {
+			if (registry.isRepresentedBy(node)) {
+				return registry;
+			}
+		}
+		//
+		Assert.fail(MessageFormat.format(
+				ModelMessages.RegistryContainerInfo_unknownRegistry,
+				root,
+				node));
+		return null;
+	}
 
-  /**
-   * @return find the existing {@link RegistryContainerInfo} for given root.
-   */
-  private static RegistryContainerInfo findContainer(JavaInfo root) {
-    for (ObjectInfo child : root.getChildren()) {
-      if (child instanceof RegistryContainerInfo) {
-        return (RegistryContainerInfo) child;
-      }
-    }
-    return null;
-  }
+	/**
+	 * @return find the existing {@link RegistryContainerInfo} for given root.
+	 */
+	private static RegistryContainerInfo findContainer(JavaInfo root) {
+		for (ObjectInfo child : root.getChildren()) {
+			if (child instanceof RegistryContainerInfo) {
+				return (RegistryContainerInfo) child;
+			}
+		}
+		return null;
+	}
 
-  /**
-   * @return the list of {@link ResourceRegistryInfo} children.
-   */
-  public List<ResourceRegistryInfo> getRegistryChildren() {
-    return getChildren(ResourceRegistryInfo.class);
-  }
+	/**
+	 * @return the list of {@link ResourceRegistryInfo} children.
+	 */
+	public List<ResourceRegistryInfo> getRegistryChildren() {
+		return getChildren(ResourceRegistryInfo.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObjectPresentation getPresentation() {
-    return new DefaultObjectPresentation(this) {
-      @Override
-      public String getText() throws Exception {
-        return ModelMessages.RegistryContainerInfo_jfaceRegistries;
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObjectPresentation getPresentation() {
+		return new DefaultObjectPresentation(this) {
+			@Override
+			public String getText() throws Exception {
+				return ModelMessages.RegistryContainerInfo_jfaceRegistries;
+			}
 
-      @Override
-      public Image getIcon() throws Exception {
-        return Activator.getImage("components/registry_container.gif");
-      }
-    };
-  }
+			@Override
+			public Image getIcon() throws Exception {
+				return Activator.getImage("components/registry_container.gif");
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return false;
+	}
 
-  @Override
-  public void delete() throws Exception {
-  }
+	@Override
+	public void delete() throws Exception {
+	}
 }

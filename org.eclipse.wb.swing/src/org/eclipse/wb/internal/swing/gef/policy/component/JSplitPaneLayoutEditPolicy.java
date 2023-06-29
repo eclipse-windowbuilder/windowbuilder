@@ -23,56 +23,56 @@ import org.eclipse.wb.internal.swing.model.component.JSplitPaneInfo;
  * @coverage swing.gef.policy
  */
 public final class JSplitPaneLayoutEditPolicy extends ComponentPositionLayoutEditPolicy<Boolean> {
-  private final JSplitPaneInfo m_component;
+	private final JSplitPaneInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JSplitPaneLayoutEditPolicy(JSplitPaneInfo component) {
-    super(component);
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JSplitPaneLayoutEditPolicy(JSplitPaneInfo component) {
+		super(component);
+		m_component = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedbacks
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addFeedbacks() throws Exception {
-    if (m_component.isEmptyPosition(true)) {
-      addFeedback(
-          m_component.getPositionRectangle(true),
-          GefMessages.JSplitPaneLayoutEditPolicy_leftTop,
-          Boolean.TRUE);
-    }
-    if (m_component.isEmptyPosition(false)) {
-      addFeedback(
-          m_component.getPositionRectangle(false),
-          GefMessages.JSplitPaneLayoutEditPolicy_rightBottom,
-          Boolean.FALSE);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedbacks
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addFeedbacks() throws Exception {
+		if (m_component.isEmptyPosition(true)) {
+			addFeedback(
+					m_component.getPositionRectangle(true),
+					GefMessages.JSplitPaneLayoutEditPolicy_leftTop,
+					Boolean.TRUE);
+		}
+		if (m_component.isEmptyPosition(false)) {
+			addFeedback(
+					m_component.getPositionRectangle(false),
+					GefMessages.JSplitPaneLayoutEditPolicy_rightBottom,
+					Boolean.FALSE);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation of commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ComponentInfo component, Boolean data) throws Exception {
-    m_component.command_CREATE(component, data);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation of commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ComponentInfo component, Boolean data) throws Exception {
+		m_component.command_CREATE(component, data);
+	}
 
-  @Override
-  protected void command_MOVE(ComponentInfo component, Boolean data) throws Exception {
-    m_component.command_MOVE(component, data);
-  }
+	@Override
+	protected void command_MOVE(ComponentInfo component, Boolean data) throws Exception {
+		m_component.command_MOVE(component, data);
+	}
 
-  @Override
-  protected void command_ADD(ComponentInfo component, Boolean data) throws Exception {
-    m_component.command_ADD(component, data);
-  }
+	@Override
+	protected void command_ADD(ComponentInfo component, Boolean data) throws Exception {
+		m_component.command_ADD(component, data);
+	}
 }

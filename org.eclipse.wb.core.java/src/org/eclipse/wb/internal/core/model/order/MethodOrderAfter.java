@@ -31,60 +31,60 @@ import java.util.List;
  * @coverage core.model.description
  */
 public final class MethodOrderAfter extends MethodOrder {
-  private final String m_targetSignature;
+	private final String m_targetSignature;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodOrderAfter(String targetSignature) {
-    m_targetSignature = targetSignature;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodOrderAfter(String targetSignature) {
+		m_targetSignature = targetSignature;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MethodOrder
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canReference(JavaInfo javaInfo) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// MethodOrder
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canReference(JavaInfo javaInfo) {
+		return true;
+	}
 
-  @Override
-  protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
-      throws Exception {
-    List<MethodInvocation> targetInvocations = javaInfo.getMethodInvocations(m_targetSignature);
-    if (!targetInvocations.isEmpty()) {
-      // "after" means 'after all such invocations', so sort to find last one
-      {
-        AstEditor editor = javaInfo.getEditor();
-        ExecutionFlowDescription flowDescription = EditorState.get(editor).getFlowDescription();
-        JavaInfoUtils.sortNodesByFlow(flowDescription, false, targetInvocations);
-      }
-      // use last invocation as target
-      MethodInvocation targetInvocation = targetInvocations.get(targetInvocations.size() - 1);
-      Statement targetStatement = AstNodeUtils.getEnclosingStatement(targetInvocation);
-      return new StatementTarget(targetStatement, false);
-    }
-    // no "target" invocation, but may be "target" has its own "order"
-    {
-      MethodDescription targetMethod = javaInfo.getDescription().getMethod(m_targetSignature);
-      MethodOrder targetOrder = targetMethod.getOrder();
-      return targetOrder.getTarget(javaInfo, newSignature);
-    }
-  }
+	@Override
+	protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
+			throws Exception {
+		List<MethodInvocation> targetInvocations = javaInfo.getMethodInvocations(m_targetSignature);
+		if (!targetInvocations.isEmpty()) {
+			// "after" means 'after all such invocations', so sort to find last one
+			{
+				AstEditor editor = javaInfo.getEditor();
+				ExecutionFlowDescription flowDescription = EditorState.get(editor).getFlowDescription();
+				JavaInfoUtils.sortNodesByFlow(flowDescription, false, targetInvocations);
+			}
+			// use last invocation as target
+			MethodInvocation targetInvocation = targetInvocations.get(targetInvocations.size() - 1);
+			Statement targetStatement = AstNodeUtils.getEnclosingStatement(targetInvocation);
+			return new StatementTarget(targetStatement, false);
+		}
+		// no "target" invocation, but may be "target" has its own "order"
+		{
+			MethodDescription targetMethod = javaInfo.getDescription().getMethod(m_targetSignature);
+			MethodOrder targetOrder = targetMethod.getOrder();
+			return targetOrder.getTarget(javaInfo, newSignature);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given signature is target one.
-   */
-  boolean isTarget(String newSignature) {
-    return m_targetSignature.equals(newSignature);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given signature is target one.
+	 */
+	boolean isTarget(String newSignature) {
+		return m_targetSignature.equals(newSignature);
+	}
 }

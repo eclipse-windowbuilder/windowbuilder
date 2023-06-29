@@ -23,20 +23,20 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
  * @coverage swing.FormLayout.policy
  */
 public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutEditPolicyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    if (model instanceof LayoutInfo) {
-      Class<?> layoutClass = model.getClass();
-      if (layoutClass == FormLayoutInfo.class) {
-        return new FormLayoutEditPolicy((FormLayoutInfo) model);
-      }
-    }
-    // not found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutEditPolicyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		if (model instanceof LayoutInfo) {
+			Class<?> layoutClass = model.getClass();
+			if (layoutClass == FormLayoutInfo.class) {
+				return new FormLayoutEditPolicy((FormLayoutInfo) model);
+			}
+		}
+		// not found
+		return null;
+	}
 }

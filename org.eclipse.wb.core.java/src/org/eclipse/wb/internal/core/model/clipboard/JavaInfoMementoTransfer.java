@@ -37,135 +37,135 @@ import java.util.zip.GZIPOutputStream;
  * @coverage core.model.clipboard
  */
 public class JavaInfoMementoTransfer extends ByteArrayTransfer {
-  private static final String TYPE_NAME = "DESIGNER_TYPE_NAME";
-  private static final int TYPE_ID = registerType(TYPE_NAME);
-  private static JavaInfoMementoTransfer _instance = new JavaInfoMementoTransfer();
+	private static final String TYPE_NAME = "DESIGNER_TYPE_NAME";
+	private static final int TYPE_ID = registerType(TYPE_NAME);
+	private static JavaInfoMementoTransfer _instance = new JavaInfoMementoTransfer();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private JavaInfoMementoTransfer() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private JavaInfoMementoTransfer() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static JavaInfoMementoTransfer getInstance() {
-    return _instance;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static JavaInfoMementoTransfer getInstance() {
+		return _instance;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Transfer
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String[] getTypeNames() {
-    return new String[]{TYPE_NAME};
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Transfer
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String[] getTypeNames() {
+		return new String[]{TYPE_NAME};
+	}
 
-  @Override
-  protected int[] getTypeIds() {
-    return new int[]{TYPE_ID};
-  }
+	@Override
+	protected int[] getTypeIds() {
+		return new int[]{TYPE_ID};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ByteArrayTransfer
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void javaToNative(final Object object, final TransferData transferData) {
-    if (isSupportedType(transferData)) {
-      ExecutionUtils.runRethrow(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          byte[] bytes = convertObjectToBytes(object);
-          JavaInfoMementoTransfer.super.javaToNative(bytes, transferData);
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ByteArrayTransfer
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void javaToNative(final Object object, final TransferData transferData) {
+		if (isSupportedType(transferData)) {
+			ExecutionUtils.runRethrow(new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					byte[] bytes = convertObjectToBytes(object);
+					JavaInfoMementoTransfer.super.javaToNative(bytes, transferData);
+				}
+			});
+		}
+	}
 
-  @Override
-  public Object nativeToJava(final TransferData transferData) {
-    if (isSupportedType(transferData)) {
-      return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-        @Override
-        public Object runObject() throws Exception {
-          byte[] bytes = (byte[]) JavaInfoMementoTransfer.super.nativeToJava(transferData);
-          return convertBytesToObject(bytes);
-        }
-      });
-    }
-    return null;
-  }
+	@Override
+	public Object nativeToJava(final TransferData transferData) {
+		if (isSupportedType(transferData)) {
+			return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+				@Override
+				public Object runObject() throws Exception {
+					byte[] bytes = (byte[]) JavaInfoMementoTransfer.super.nativeToJava(transferData);
+					return convertBytesToObject(bytes);
+				}
+			});
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the bytes that correspond to the serialized object.
-   */
-  public static byte[] convertObjectToBytes(Object object) throws IOException {
-    // write object to stream
-    ByteArrayOutputStream baos;
-    {
-      baos = new ByteArrayOutputStream();
-      ObjectOutputStream oos = new ObjectOutputStream(new GZIPOutputStream(baos));
-      oos.writeObject(object);
-      oos.close();
-    }
-    // return as bytes
-    return baos.toByteArray();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the bytes that correspond to the serialized object.
+	 */
+	public static byte[] convertObjectToBytes(Object object) throws IOException {
+		// write object to stream
+		ByteArrayOutputStream baos;
+		{
+			baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(new GZIPOutputStream(baos));
+			oos.writeObject(object);
+			oos.close();
+		}
+		// return as bytes
+		return baos.toByteArray();
+	}
 
-  public static Object convertBytesToObject(byte[] bytes) throws Exception {
-    ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-    ObjectInputStream ois = new BundleObjectInputStream(new GZIPInputStream(bais));
-    try {
-      return ois.readObject();
-    } finally {
-      ois.close();
-    }
-  }
+	public static Object convertBytesToObject(byte[] bytes) throws Exception {
+		ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+		ObjectInputStream ois = new BundleObjectInputStream(new GZIPInputStream(bais));
+		try {
+			return ois.readObject();
+		} finally {
+			ois.close();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // BundleObjectInputStream
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link ObjectInputStream} that resolves classes using {@link Bundle}'s.
-   *
-   * @author scheglov_ke
-   */
-  private static final class BundleObjectInputStream extends ObjectInputStream {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public BundleObjectInputStream(InputStream in) throws IOException {
-      super(in);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// BundleObjectInputStream
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link ObjectInputStream} that resolves classes using {@link Bundle}'s.
+	 *
+	 * @author scheglov_ke
+	 */
+	private static final class BundleObjectInputStream extends ObjectInputStream {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public BundleObjectInputStream(InputStream in) throws IOException {
+			super(in);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Resolve
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException,
-        ClassNotFoundException {
-      String className = desc.getName();
-      return ExternalFactoriesHelper.loadBundleClass(className);
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Resolve
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException,
+		ClassNotFoundException {
+			String className = desc.getName();
+			return ExternalFactoriesHelper.loadBundleClass(className);
+		}
+	}
 }

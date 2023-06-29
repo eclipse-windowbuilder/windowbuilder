@@ -24,34 +24,34 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
  * @coverage core.gef.policy
  */
 public final class DblClickRunScriptEditPolicy extends EditPolicy {
-  private final ObjectInfo m_component;
-  private final String m_script;
+	private final ObjectInfo m_component;
+	private final String m_script;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DblClickRunScriptEditPolicy(ObjectInfo component, String script) {
-    m_component = component;
-    m_script = script;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DblClickRunScriptEditPolicy(ObjectInfo component, String script) {
+		m_component = component;
+		m_script = script;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    super.performRequest(request);
-    if (Request.REQ_OPEN.equals(request.getType())) {
-      ExecutionUtils.run(m_component, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          ScriptUtils.evaluate(m_script, m_component);
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		super.performRequest(request);
+		if (Request.REQ_OPEN.equals(request.getType())) {
+			ExecutionUtils.run(m_component, new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					ScriptUtils.evaluate(m_script, m_component);
+				}
+			});
+		}
+	}
 }

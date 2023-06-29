@@ -30,93 +30,93 @@ import org.apache.commons.lang.ObjectUtils;
  * @coverage core.model.description
  */
 public final class ComponentDescriptionKey {
-  private final Class<?> m_componentClass;
-  private final ComponentDescriptionKey m_host;
-  private final String m_suffix;
+	private final Class<?> m_componentClass;
+	private final ComponentDescriptionKey m_host;
+	private final String m_suffix;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ComponentDescriptionKey(Class<?> componentClass) {
-    this(componentClass, null, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ComponentDescriptionKey(Class<?> componentClass) {
+		this(componentClass, null, null);
+	}
 
-  public ComponentDescriptionKey(Class<?> componentClass,
-      ComponentDescriptionKey host,
-      String suffix) {
-    Assert.isNotNull(componentClass);
-    Assert.isLegal(
-        !(host != null ^ suffix != null),
-        "Host and suffix should both be null or not null.");
-    m_componentClass = componentClass;
-    m_host = host;
-    m_suffix = suffix;
-  }
+	public ComponentDescriptionKey(Class<?> componentClass,
+			ComponentDescriptionKey host,
+			String suffix) {
+		Assert.isNotNull(componentClass);
+		Assert.isLegal(
+				!(host != null ^ suffix != null),
+				"Host and suffix should both be null or not null.");
+		m_componentClass = componentClass;
+		m_host = host;
+		m_suffix = suffix;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int hashCode() {
-    return m_componentClass.hashCode();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int hashCode() {
+		return m_componentClass.hashCode();
+	}
 
-  @Override
-  public boolean equals(Object obj) {
-    if (obj instanceof ComponentDescriptionKey) {
-      ComponentDescriptionKey key = (ComponentDescriptionKey) obj;
-      return m_componentClass == key.m_componentClass
-          && ObjectUtils.equals(m_host, key.m_host)
-          && ObjectUtils.equals(m_suffix, key.m_suffix);
-    }
-    return false;
-  }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ComponentDescriptionKey) {
+			ComponentDescriptionKey key = (ComponentDescriptionKey) obj;
+			return m_componentClass == key.m_componentClass
+					&& ObjectUtils.equals(m_host, key.m_host)
+					&& ObjectUtils.equals(m_suffix, key.m_suffix);
+		}
+		return false;
+	}
 
-  @Override
-  public String toString() {
-    String s = "CDKey(";
-    s += m_componentClass.getName();
-    // some specialization of "host"
-    if (m_host != null) {
-      s += "," + m_host.toString() + "," + m_suffix;
-    }
-    // finalize toString()
-    s += ")";
-    return s;
-  }
+	@Override
+	public String toString() {
+		String s = "CDKey(";
+		s += m_componentClass.getName();
+		// some specialization of "host"
+		if (m_host != null) {
+			s += "," + m_host.toString() + "," + m_suffix;
+		}
+		// finalize toString()
+		s += ")";
+		return s;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the underlying component {@link Class}.
-   */
-  public Class<?> getComponentClass() {
-    return m_componentClass;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the underlying component {@link Class}.
+	 */
+	public Class<?> getComponentClass() {
+		return m_componentClass;
+	}
 
-  /**
-   * @return <code>true</code> if this {@link ComponentDescriptionKey} is pure component
-   *         {@link Class}, not hosted by other {@link ComponentDescriptionKey}.
-   */
-  public boolean isPureComponent() {
-    return m_host == null;
-  }
+	/**
+	 * @return <code>true</code> if this {@link ComponentDescriptionKey} is pure component
+	 *         {@link Class}, not hosted by other {@link ComponentDescriptionKey}.
+	 */
+	public boolean isPureComponent() {
+		return m_host == null;
+	}
 
-  /**
-   * @return the name of resource with {@link ComponentDescription}, excluding
-   *         <code>.wbp-component.xml</code> extension.
-   */
-  public String getName() {
-    if (m_host != null) {
-      return m_host.getName() + "." + m_suffix;
-    }
-    return m_componentClass.getName().replace('.', '/');
-  }
+	/**
+	 * @return the name of resource with {@link ComponentDescription}, excluding
+	 *         <code>.wbp-component.xml</code> extension.
+	 */
+	public String getName() {
+		if (m_host != null) {
+			return m_host.getName() + "." + m_suffix;
+		}
+		return m_componentClass.getName().replace('.', '/');
+	}
 }

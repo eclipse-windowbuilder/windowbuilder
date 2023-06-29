@@ -28,36 +28,36 @@ import java.util.List;
  * @coverage nebula.model
  */
 public final class GridColumnGroupInfo extends ItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridColumnGroupInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridColumnGroupInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    {
-      Object swtBounds = ReflectionUtils.invokeMethod(getObject(), "getBounds()");
-      Rectangle bounds = RectangleSupport.getRectangle(swtBounds);
-      List<GridColumnInfo> columns = getChildren(GridColumnInfo.class);
-      for (GridColumnInfo column : columns) {
-        bounds.union(RectangleSupport.getRectangle(ReflectionUtils.invokeMethod(
-            column.getObject(),
-            "getBounds()")));
-      }
-      setModelBounds(bounds);
-    }
-    // continue in super()
-    super.refresh_fetch();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		{
+			Object swtBounds = ReflectionUtils.invokeMethod(getObject(), "getBounds()");
+			Rectangle bounds = RectangleSupport.getRectangle(swtBounds);
+			List<GridColumnInfo> columns = getChildren(GridColumnInfo.class);
+			for (GridColumnInfo column : columns) {
+				bounds.union(RectangleSupport.getRectangle(ReflectionUtils.invokeMethod(
+						column.getObject(),
+						"getBounds()")));
+			}
+			setModelBounds(bounds);
+		}
+		// continue in super()
+		super.refresh_fetch();
+	}
 }

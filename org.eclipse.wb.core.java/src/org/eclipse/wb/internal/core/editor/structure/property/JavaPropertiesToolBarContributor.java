@@ -32,83 +32,83 @@ import java.util.List;
  * @coverage core.editor.structure
  */
 public final class JavaPropertiesToolBarContributor implements IPropertiesToolBarContributor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IPropertiesToolBarContributor INSTANCE =
-      new JavaPropertiesToolBarContributor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IPropertiesToolBarContributor INSTANCE =
+			new JavaPropertiesToolBarContributor();
 
-  private JavaPropertiesToolBarContributor() {
-  }
+	private JavaPropertiesToolBarContributor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IPropertiesToolBarContributor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void contributeToolBar(IToolBarManager manager, final List<ObjectInfo> objects)
-      throws Exception {
-    addGotoDefinitionAction(manager, objects);
-    addVariableConvertAction(manager, objects);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IPropertiesToolBarContributor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void contributeToolBar(IToolBarManager manager, final List<ObjectInfo> objects)
+			throws Exception {
+		addGotoDefinitionAction(manager, objects);
+		addVariableConvertAction(manager, objects);
+	}
 
-  private void addGotoDefinitionAction(IToolBarManager manager, List<ObjectInfo> objects) {
-    if (objects.size() == 1 && objects.get(0) instanceof JavaInfo) {
-      final JavaInfo javaInfo = (JavaInfo) objects.get(0);
-      IAction gotoDefinitionAction = new Action() {
-        @Override
-        public void run() {
-          int position = javaInfo.getCreationSupport().getNode().getStartPosition();
-          IDesignPageSite site = IDesignPageSite.Helper.getSite(javaInfo);
-          site.openSourcePosition(position);
-        }
-      };
-      gotoDefinitionAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/goto_definition.gif"));
-      gotoDefinitionAction.setToolTipText(Messages.ComponentsPropertiesPage_goDefinition);
-      manager.appendToGroup(GROUP_EDIT, gotoDefinitionAction);
-    }
-  }
+	private void addGotoDefinitionAction(IToolBarManager manager, List<ObjectInfo> objects) {
+		if (objects.size() == 1 && objects.get(0) instanceof JavaInfo) {
+			final JavaInfo javaInfo = (JavaInfo) objects.get(0);
+			IAction gotoDefinitionAction = new Action() {
+				@Override
+				public void run() {
+					int position = javaInfo.getCreationSupport().getNode().getStartPosition();
+					IDesignPageSite site = IDesignPageSite.Helper.getSite(javaInfo);
+					site.openSourcePosition(position);
+				}
+			};
+			gotoDefinitionAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/goto_definition.gif"));
+			gotoDefinitionAction.setToolTipText(Messages.ComponentsPropertiesPage_goDefinition);
+			manager.appendToGroup(GROUP_EDIT, gotoDefinitionAction);
+		}
+	}
 
-  private void addVariableConvertAction(IToolBarManager manager, List<ObjectInfo> objects) {
-    if (objects.size() == 1 && objects.get(0) instanceof JavaInfo) {
-      final JavaInfo javaInfo = (JavaInfo) objects.get(0);
-      final VariableSupport variableSupport = javaInfo.getVariableSupport();
-      // prepare action
-      IAction variableConvertAction = new Action() {
-        @Override
-        public void run() {
-          ExecutionUtils.run(javaInfo, new RunnableEx() {
-            @Override
-            public void run() throws Exception {
-              if (variableSupport.canConvertLocalToField()) {
-                variableSupport.convertLocalToField();
-              } else if (variableSupport.canConvertFieldToLocal()) {
-                variableSupport.convertFieldToLocal();
-              }
-            }
-          });
-        }
-      };
-      boolean enabled = false;
-      // to field
-      if (variableSupport.canConvertLocalToField()) {
-        variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/local_to_field.gif"));
-        variableConvertAction.setToolTipText(Messages.ComponentsPropertiesPage_convertLocalToFieldAction);
-        enabled = true;
-      }
-      // to local
-      if (!enabled && variableSupport.canConvertFieldToLocal()) {
-        variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/field_to_local.gif"));
-        variableConvertAction.setToolTipText(Messages.ComponentsPropertiesPage_convertFieldToLocalAction);
-        enabled = true;
-      }
-      // append action
-      if (enabled) {
-        manager.appendToGroup(GROUP_EDIT, variableConvertAction);
-      }
-    }
-  }
+	private void addVariableConvertAction(IToolBarManager manager, List<ObjectInfo> objects) {
+		if (objects.size() == 1 && objects.get(0) instanceof JavaInfo) {
+			final JavaInfo javaInfo = (JavaInfo) objects.get(0);
+			final VariableSupport variableSupport = javaInfo.getVariableSupport();
+			// prepare action
+			IAction variableConvertAction = new Action() {
+				@Override
+				public void run() {
+					ExecutionUtils.run(javaInfo, new RunnableEx() {
+						@Override
+						public void run() throws Exception {
+							if (variableSupport.canConvertLocalToField()) {
+								variableSupport.convertLocalToField();
+							} else if (variableSupport.canConvertFieldToLocal()) {
+								variableSupport.convertFieldToLocal();
+							}
+						}
+					});
+				}
+			};
+			boolean enabled = false;
+			// to field
+			if (variableSupport.canConvertLocalToField()) {
+				variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/local_to_field.gif"));
+				variableConvertAction.setToolTipText(Messages.ComponentsPropertiesPage_convertLocalToFieldAction);
+				enabled = true;
+			}
+			// to local
+			if (!enabled && variableSupport.canConvertFieldToLocal()) {
+				variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/field_to_local.gif"));
+				variableConvertAction.setToolTipText(Messages.ComponentsPropertiesPage_convertFieldToLocalAction);
+				enabled = true;
+			}
+			// append action
+			if (enabled) {
+				manager.appendToGroup(GROUP_EDIT, variableConvertAction);
+			}
+		}
+	}
 }

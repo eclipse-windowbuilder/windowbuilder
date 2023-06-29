@@ -26,85 +26,85 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.model.util
  */
 public abstract class ObjectInfoAction extends Action {
-  private final ObjectInfo m_object;
+	private final ObjectInfo m_object;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObjectInfoAction(ObjectInfo object) {
-    this(object, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObjectInfoAction(ObjectInfo object) {
+		this(object, null);
+	}
 
-  public ObjectInfoAction(ObjectInfo object, String text) {
-    this(object, text, (ImageDescriptor) null);
-  }
+	public ObjectInfoAction(ObjectInfo object, String text) {
+		this(object, text, (ImageDescriptor) null);
+	}
 
-  public ObjectInfoAction(ObjectInfo object, String text, ImageDescriptor image) {
-    this(object, text, image, AS_PUSH_BUTTON);
-  }
+	public ObjectInfoAction(ObjectInfo object, String text, ImageDescriptor image) {
+		this(object, text, image, AS_PUSH_BUTTON);
+	}
 
-  public ObjectInfoAction(ObjectInfo object, String text, Image image) {
-    this(object, text, new ImageImageDescriptor(image), AS_PUSH_BUTTON);
-  }
+	public ObjectInfoAction(ObjectInfo object, String text, Image image) {
+		this(object, text, new ImageImageDescriptor(image), AS_PUSH_BUTTON);
+	}
 
-  public ObjectInfoAction(ObjectInfo object, String text, int style) {
-    this(object, text, null, style);
-  }
+	public ObjectInfoAction(ObjectInfo object, String text, int style) {
+		this(object, text, null, style);
+	}
 
-  public ObjectInfoAction(ObjectInfo object, String text, ImageDescriptor image, int style) {
-    super(text, style);
-    setImageDescriptor(image);
-    m_object = object;
-  }
+	public ObjectInfoAction(ObjectInfo object, String text, ImageDescriptor image, int style) {
+		super(text, style);
+		setImageDescriptor(image);
+		m_object = object;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets {@link #setImageDescriptor(ImageDescriptor)} using given {@link Image} icon.
-   */
-  public void setIcon(Image icon) {
-    setImageDescriptor(new ImageImageDescriptor(icon));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets {@link #setImageDescriptor(ImageDescriptor)} using given {@link Image} icon.
+	 */
+	public void setIcon(Image icon) {
+		setImageDescriptor(new ImageImageDescriptor(icon));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void run() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        if (shouldRun()) {
-          ExecutionUtils.run(m_object, new RunnableEx() {
-            @Override
-            public void run() throws Exception {
-              runEx();
-            }
-          });
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void run() {
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				if (shouldRun()) {
+					ExecutionUtils.run(m_object, new RunnableEx() {
+						@Override
+						public void run() throws Exception {
+							runEx();
+						}
+					});
+				}
+			}
+		});
+	}
 
-  /**
-   * @return <code>true</code> if {@link #runEx()} should be run inside of edit operation.
-   */
-  protected boolean shouldRun() throws Exception {
-    if (getStyle() == AS_RADIO_BUTTON) {
-      return isChecked();
-    }
-    return true;
-  }
+	/**
+	 * @return <code>true</code> if {@link #runEx()} should be run inside of edit operation.
+	 */
+	protected boolean shouldRun() throws Exception {
+		if (getStyle() == AS_RADIO_BUTTON) {
+			return isChecked();
+		}
+		return true;
+	}
 
-  /**
-   * Executes some {@link ObjectInfo} editing operation.
-   */
-  protected abstract void runEx() throws Exception;
+	/**
+	 * Executes some {@link ObjectInfo} editing operation.
+	 */
+	protected abstract void runEx() throws Exception;
 }

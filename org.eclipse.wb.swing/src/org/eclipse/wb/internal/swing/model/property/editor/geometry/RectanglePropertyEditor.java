@@ -27,94 +27,94 @@ import java.awt.Rectangle;
  * @coverage swing.property.editor
  */
 public final class RectanglePropertyEditor extends TextDialogPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new RectanglePropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new RectanglePropertyEditor();
 
-  private RectanglePropertyEditor() {
-  }
+	private RectanglePropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof Rectangle) {
-      Rectangle rectangle = (Rectangle) value;
-      return "("
-          + rectangle.x
-          + ", "
-          + rectangle.y
-          + ", "
-          + rectangle.width
-          + ", "
-          + rectangle.height
-          + ")";
-    }
-    // unknown value
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof Rectangle) {
+			Rectangle rectangle = (Rectangle) value;
+			return "("
+			+ rectangle.x
+			+ ", "
+			+ rectangle.y
+			+ ", "
+			+ rectangle.width
+			+ ", "
+			+ rectangle.height
+			+ ")";
+		}
+		// unknown value
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    // prepare Rectangle to edit
-    Rectangle rectangle;
-    {
-      Object value = property.getValue();
-      if (value instanceof Rectangle) {
-        rectangle = new Rectangle((Rectangle) value);
-      } else {
-        rectangle = new Rectangle();
-      }
-    }
-    // prepare dialog
-    RectangleDialog rectangleDialog = new RectangleDialog(property.getTitle(), rectangle);
-    // open dialog
-    int result = rectangleDialog.open();
-    if (result == IDialogConstants.IGNORE_ID) {
-      property.setValue(Property.UNKNOWN_VALUE);
-    } else if (result == IDialogConstants.OK_ID) {
-      property.setValue(rectangle);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		// prepare Rectangle to edit
+		Rectangle rectangle;
+		{
+			Object value = property.getValue();
+			if (value instanceof Rectangle) {
+				rectangle = new Rectangle((Rectangle) value);
+			} else {
+				rectangle = new Rectangle();
+			}
+		}
+		// prepare dialog
+		RectangleDialog rectangleDialog = new RectangleDialog(property.getTitle(), rectangle);
+		// open dialog
+		int result = rectangleDialog.open();
+		if (result == IDialogConstants.IGNORE_ID) {
+			property.setValue(Property.UNKNOWN_VALUE);
+		} else if (result == IDialogConstants.OK_ID) {
+			property.setValue(rectangle);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // RectangleDialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final class RectangleDialog extends AbstractGeometryDialog {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public RectangleDialog(String title, Rectangle rectangle) {
-      super(title, rectangle);
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// RectangleDialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final class RectangleDialog extends AbstractGeometryDialog {
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public RectangleDialog(String title, Rectangle rectangle) {
+			super(title, rectangle);
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // GUI
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected void createEditors() {
-      createEditor(ModelMessages.RectanglePropertyEditor_x, "x");
-      createEditor(ModelMessages.RectanglePropertyEditor_y, "y");
-      createEditor(ModelMessages.RectanglePropertyEditor_width, "width");
-      createEditor(ModelMessages.RectanglePropertyEditor_height, "height");
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// GUI
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected void createEditors() {
+			createEditor(ModelMessages.RectanglePropertyEditor_x, "x");
+			createEditor(ModelMessages.RectanglePropertyEditor_y, "y");
+			createEditor(ModelMessages.RectanglePropertyEditor_width, "width");
+			createEditor(ModelMessages.RectanglePropertyEditor_height, "height");
+		}
+	}
 }

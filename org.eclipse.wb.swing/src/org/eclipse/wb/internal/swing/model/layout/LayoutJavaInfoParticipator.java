@@ -32,106 +32,106 @@ import org.apache.commons.lang.StringUtils;
  * @coverage swing.model.layout
  */
 public final class LayoutJavaInfoParticipator implements IJavaInfoInitializationParticipator {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new LayoutJavaInfoParticipator();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new LayoutJavaInfoParticipator();
 
-  private LayoutJavaInfoParticipator() {
-  }
+	private LayoutJavaInfoParticipator() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IJavaInfoInitializationParticipator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void process(JavaInfo javaInfo) throws Exception {
-    if (javaInfo instanceof LayoutInfo) {
-      final LayoutInfo layout = (LayoutInfo) javaInfo;
-      // perform bindings...
-      if (layout.getParent() != null) {
-        // ...right now, if Layout already bound to its container
-        performBindings(layout);
-      } else {
-        // ...or later, when Layout will be bound to its container
-        layout.addBroadcastListener(new ObjectInfoChildAddAfter() {
-          public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
-            if (child == layout) {
-              layout.removeBroadcastListener(this);
-              performBindings(layout);
-            }
-          }
-        });
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IJavaInfoInitializationParticipator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void process(JavaInfo javaInfo) throws Exception {
+		if (javaInfo instanceof LayoutInfo) {
+			final LayoutInfo layout = (LayoutInfo) javaInfo;
+			// perform bindings...
+			if (layout.getParent() != null) {
+				// ...right now, if Layout already bound to its container
+				performBindings(layout);
+			} else {
+				// ...or later, when Layout will be bound to its container
+				layout.addBroadcastListener(new ObjectInfoChildAddAfter() {
+					public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
+						if (child == layout) {
+							layout.removeBroadcastListener(this);
+							performBindings(layout);
+						}
+					}
+				});
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Bindings
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Performs artifacts bindings after building components tree.
-   */
-  private void performBindings(LayoutInfo layout) throws Exception {
-    // bind SurroundSupport
-    run(layout, new IBindingProcessor() {
-      public boolean run(LayoutInfo layout,
-          ClassLoader classLoader,
-          Class<?> layoutClass,
-          String layoutName) throws Exception {
-        String surroundClassName = layoutName + "SurroundSupport";
-        Class<?> surroundClass = classLoader.loadClass(surroundClassName);
-        ReflectionUtils.getConstructor(surroundClass, layoutClass).newInstance(layout);
-        return true;
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Bindings
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Performs artifacts bindings after building components tree.
+	 */
+	private void performBindings(LayoutInfo layout) throws Exception {
+		// bind SurroundSupport
+		run(layout, new IBindingProcessor() {
+			public boolean run(LayoutInfo layout,
+					ClassLoader classLoader,
+					Class<?> layoutClass,
+					String layoutName) throws Exception {
+				String surroundClassName = layoutName + "SurroundSupport";
+				Class<?> surroundClass = classLoader.loadClass(surroundClassName);
+				ReflectionUtils.getConstructor(surroundClass, layoutClass).newInstance(layout);
+				return true;
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * The processor to use with {@link LayoutJavaInfoParticipator#run(LayoutInfo, IBindingProcessor)}
-   * .
-   */
-  private interface IBindingProcessor {
-    boolean run(LayoutInfo layout, ClassLoader classLoader, Class<?> layoutClass, String layoutName)
-        throws Exception;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * The processor to use with {@link LayoutJavaInfoParticipator#run(LayoutInfo, IBindingProcessor)}
+	 * .
+	 */
+	private interface IBindingProcessor {
+		boolean run(LayoutInfo layout, ClassLoader classLoader, Class<?> layoutClass, String layoutName)
+				throws Exception;
+	}
 
-  /**
-   * Uses {@link IBindingProcessor} to attempt to perform binding by class of {@link LayoutInfo} and
-   * any of its super classes. Trick is that sometimes artifact is bound not to the exact class of
-   * {@link LayoutInfo}, but to some of its super classes, so we should check them too.
-   */
-  private static void run(final LayoutInfo layout, final IBindingProcessor processor) {
-    Class<?> layoutClass = layout.getClass();
-    while (layoutClass != null) {
-      final ClassLoader classLoader = ReflectionUtils.getClassLoader(layoutClass);
-      // prepare name of Layout without "Info" suffix
-      final String layoutName;
-      {
-        String layoutClassName = layoutClass.getName();
-        layoutName = StringUtils.removeEnd(layoutClassName, "Info");
-      }
-      // bind safely
-      final Class<?> finalLayoutClass = layoutClass;
-      boolean success = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
-        public Boolean runObject() throws Exception {
-          return processor.run(layout, classLoader, finalLayoutClass, layoutName);
-        }
-      }, false);
-      if (success) {
-        return;
-      }
-      // try super class
-      layoutClass = layoutClass.getSuperclass();
-    }
-  }
+	/**
+	 * Uses {@link IBindingProcessor} to attempt to perform binding by class of {@link LayoutInfo} and
+	 * any of its super classes. Trick is that sometimes artifact is bound not to the exact class of
+	 * {@link LayoutInfo}, but to some of its super classes, so we should check them too.
+	 */
+	private static void run(final LayoutInfo layout, final IBindingProcessor processor) {
+		Class<?> layoutClass = layout.getClass();
+		while (layoutClass != null) {
+			final ClassLoader classLoader = ReflectionUtils.getClassLoader(layoutClass);
+			// prepare name of Layout without "Info" suffix
+			final String layoutName;
+			{
+				String layoutClassName = layoutClass.getName();
+				layoutName = StringUtils.removeEnd(layoutClassName, "Info");
+			}
+			// bind safely
+			final Class<?> finalLayoutClass = layoutClass;
+			boolean success = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+				public Boolean runObject() throws Exception {
+					return processor.run(layout, classLoader, finalLayoutClass, layoutName);
+				}
+			}, false);
+			if (success) {
+				return;
+			}
+			// try super class
+			layoutClass = layoutClass.getSuperclass();
+		}
+	}
 }

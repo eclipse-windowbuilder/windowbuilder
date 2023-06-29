@@ -25,35 +25,35 @@ import java.util.List;
  * @coverage core.model
  */
 public final class DesignRootObject {
-  private final JavaInfo m_rootObject;
+	private final JavaInfo m_rootObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DesignRootObject(JavaInfo rootObject) {
-    m_rootObject = rootObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DesignRootObject(JavaInfo rootObject) {
+		m_rootObject = rootObject;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfo getRootObject() {
-    return m_rootObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfo getRootObject() {
+		return m_rootObject;
+	}
 
-  public List<?> getChildren() {
-    List<Object> children = Lists.newArrayList();
-    // add "info" root
-    children.add(m_rootObject);
-    // add exist non visual beans
-    NonVisualBeanContainerInfo container = NonVisualBeanContainerInfo.find(m_rootObject);
-    if (container != null) {
-      children.addAll(container.getChildren());
-    }
-    return children;
-  }
+	public List<?> getChildren() {
+		List<Object> children = Lists.newArrayList();
+		// add "info" root
+		children.add(m_rootObject);
+		// add exist non visual beans
+		NonVisualBeanContainerInfo container = NonVisualBeanContainerInfo.find(m_rootObject);
+		if (container != null) {
+			children.addAll(container.getChildren());
+		}
+		return children;
+	}
 }

@@ -22,17 +22,17 @@ import org.eclipse.wb.internal.rcp.swing2swt.layout.BorderLayoutInfo;
  * @coverage rcp.swing2swt.gef
  */
 public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutEditPolicyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    if (model instanceof BorderLayoutInfo) {
-      return new BorderLayoutEditPolicy((BorderLayoutInfo) model);
-    }
-    // not found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutEditPolicyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		if (model instanceof BorderLayoutInfo) {
+			return new BorderLayoutEditPolicy((BorderLayoutInfo) model);
+		}
+		// not found
+		return null;
+	}
 }

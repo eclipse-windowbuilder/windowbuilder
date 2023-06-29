@@ -33,102 +33,102 @@ import org.apache.commons.lang.StringUtils;
  * @coverage XML.model
  */
 public abstract class TopBoundsSupport implements ITopBoundsSupport {
-  private static final QualifiedName KEY_DESIGN_BOUNDS =
-      new QualifiedName(DesignerPlugin.PLUGIN_ID, "designBounds");
-  protected final AbstractComponentInfo m_component;
+	private static final QualifiedName KEY_DESIGN_BOUNDS =
+			new QualifiedName(DesignerPlugin.PLUGIN_ID, "designBounds");
+	protected final AbstractComponentInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TopBoundsSupport(AbstractComponentInfo componentInfo) {
-    m_component = componentInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TopBoundsSupport(AbstractComponentInfo componentInfo) {
+		m_component = componentInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Size
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Applies size to component.
-   */
-  public abstract void apply() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Size
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Applies size to component.
+	 */
+	public abstract void apply() throws Exception;
 
-  /**
-   * Sets new size of component.
-   */
-  @Override
-  public abstract void setSize(int width, int height) throws Exception;
+	/**
+	 * Sets new size of component.
+	 */
+	@Override
+	public abstract void setSize(int width, int height) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Test
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Shows component for testing/preview.
-   *
-   * @return <code>true</code> if something really was shown, so reparse required.
-   */
-  public abstract boolean show() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Test
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Shows component for testing/preview.
+	 *
+	 * @return <code>true</code> if something really was shown, so reparse required.
+	 */
+	public abstract boolean show() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link IResource} for this component.
-   */
-  protected final IResource getUnderlyingResource() throws Exception {
-    return m_component.getContext().getFile();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link IResource} for this component.
+	 */
+	protected final IResource getUnderlyingResource() throws Exception {
+		return m_component.getContext().getFile();
+	}
 
-  /**
-   * @return the size remembered in {@link IResource} properties for this component.
-   */
-  protected final Dimension getResourceSize() throws Exception {
-    int width;
-    int height;
-    // set defaults
-    {
-      Dimension defaultSize = getDefaultSize();
-      width = defaultSize.width;
-      height = defaultSize.height;
-    }
-    // check for size from resource properties
-    {
-      String designBoundsString = getUnderlyingResource().getPersistentProperty(KEY_DESIGN_BOUNDS);
-      if (designBoundsString != null) {
-        String[] parts = StringUtils.split(designBoundsString);
-        width = Integer.parseInt(parts[0]);
-        height = Integer.parseInt(parts[1]);
-      }
-    }
-    // ensure positive size
-    width = Math.max(width, 1);
-    height = Math.max(height, 1);
-    // final size
-    return new Dimension(width, height);
-  }
+	/**
+	 * @return the size remembered in {@link IResource} properties for this component.
+	 */
+	protected final Dimension getResourceSize() throws Exception {
+		int width;
+		int height;
+		// set defaults
+		{
+			Dimension defaultSize = getDefaultSize();
+			width = defaultSize.width;
+			height = defaultSize.height;
+		}
+		// check for size from resource properties
+		{
+			String designBoundsString = getUnderlyingResource().getPersistentProperty(KEY_DESIGN_BOUNDS);
+			if (designBoundsString != null) {
+				String[] parts = StringUtils.split(designBoundsString);
+				width = Integer.parseInt(parts[0]);
+				height = Integer.parseInt(parts[1]);
+			}
+		}
+		// ensure positive size
+		width = Math.max(width, 1);
+		height = Math.max(height, 1);
+		// final size
+		return new Dimension(width, height);
+	}
 
-  /**
-   * Remembers the size of component into {@link IResource} properties for this component.
-   */
-  protected final void setResourceSize(int width, int height) throws Exception {
-    String designBoundsString = width + " " + height;
-    getUnderlyingResource().setPersistentProperty(KEY_DESIGN_BOUNDS, designBoundsString);
-  }
+	/**
+	 * Remembers the size of component into {@link IResource} properties for this component.
+	 */
+	protected final void setResourceSize(int width, int height) throws Exception {
+		String designBoundsString = width + " " + height;
+		getUnderlyingResource().setPersistentProperty(KEY_DESIGN_BOUNDS, designBoundsString);
+	}
 
-  /**
-   * @return the default size for this component.
-   */
-  protected Dimension getDefaultSize() {
-    IPreferenceStore preferences = m_component.getDescription().getToolkit().getPreferences();
-    int width = preferences.getInt(IPreferenceConstants.P_GENERAL_DEFAULT_TOP_WIDTH);
-    int height = preferences.getInt(IPreferenceConstants.P_GENERAL_DEFAULT_TOP_HEIGHT);
-    return new Dimension(width, height);
-  }
+	/**
+	 * @return the default size for this component.
+	 */
+	protected Dimension getDefaultSize() {
+		IPreferenceStore preferences = m_component.getDescription().getToolkit().getPreferences();
+		int width = preferences.getInt(IPreferenceConstants.P_GENERAL_DEFAULT_TOP_WIDTH);
+		int height = preferences.getInt(IPreferenceConstants.P_GENERAL_DEFAULT_TOP_HEIGHT);
+		return new Dimension(width, height);
+	}
 }

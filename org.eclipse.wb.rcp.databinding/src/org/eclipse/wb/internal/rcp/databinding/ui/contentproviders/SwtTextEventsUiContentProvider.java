@@ -36,95 +36,95 @@ import java.util.Arrays;
  * @coverage bindings.rcp.ui
  */
 public final class SwtTextEventsUiContentProvider extends DialogFieldUiContentProvider {
-  private final TextSwtObservableInfo m_observable;
-  private final CheckedListDialogField m_dialogField;
+	private final TextSwtObservableInfo m_observable;
+	private final CheckedListDialogField m_dialogField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SwtTextEventsUiContentProvider(TextSwtObservableInfo observable) {
-    m_observable = observable;
-    m_dialogField = new CheckedListDialogField(null, null, new LabelProvider()) {
-      @Override
-      public int getNumberOfControls() {
-        return 2;
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SwtTextEventsUiContentProvider(TextSwtObservableInfo observable) {
+		m_observable = observable;
+		m_dialogField = new CheckedListDialogField(null, null, new LabelProvider()) {
+			@Override
+			public int getNumberOfControls() {
+				return 2;
+			}
 
-      @Override
-      public Control[] doFillIntoGrid(Composite parent, int columns) {
-        assertEnoughColumns(columns);
-        //
-        Label label = getLabelControl(parent);
-        label.setLayoutData(gridDataForLabel(1));
-        //
-        Control list = getListControl(parent);
-        GridDataFactory.create(list).fillH().grabH().spanH(columns - 1);
-        //
-        return new Control[]{label, list};
-      }
-    };
-    m_dialogField.setLabelText(Messages.SwtTextEventsUiContentProvider_eventsLabel);
-    m_dialogField.addElements(Arrays.asList(TextSwtObservableInfo.TEXT_EVENTS));
-  }
+			@Override
+			public Control[] doFillIntoGrid(Composite parent, int columns) {
+				assertEnoughColumns(columns);
+				//
+				Label label = getLabelControl(parent);
+				label.setLayoutData(gridDataForLabel(1));
+				//
+				Control list = getListControl(parent);
+				GridDataFactory.create(list).fillH().grabH().spanH(columns - 1);
+				//
+				return new Control[]{label, list};
+			}
+		};
+		m_dialogField.setLabelText(Messages.SwtTextEventsUiContentProvider_eventsLabel);
+		m_dialogField.addElements(Arrays.asList(TextSwtObservableInfo.TEXT_EVENTS));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractUIContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createContent(Composite parent, int columns) {
-    super.createContent(parent, columns);
-    CheckboxTableViewer tableViewer = (CheckboxTableViewer) m_dialogField.getTableViewer();
-    tableViewer.addCheckStateListener(new ICheckStateListener() {
-      @Override
-      public void checkStateChanged(CheckStateChangedEvent event) {
-        calculateBetterValues(event);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractUIContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createContent(Composite parent, int columns) {
+		super.createContent(parent, columns);
+		CheckboxTableViewer tableViewer = (CheckboxTableViewer) m_dialogField.getTableViewer();
+		tableViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
+			public void checkStateChanged(CheckStateChangedEvent event) {
+				calculateBetterValues(event);
+			}
+		});
+	}
 
-  @Override
-  public DialogField getDialogField() {
-    return m_dialogField;
-  }
+	@Override
+	public DialogField getDialogField() {
+		return m_dialogField;
+	}
 
-  private void calculateBetterValues(CheckStateChangedEvent event) {
-    if (event.getChecked()) {
-      Object checkedElement = event.getElement();
-      ICheckable checkable = event.getCheckable();
-      //
-      if ("SWT.NONE".equals(checkedElement)) {
-        for (Object element : m_dialogField.getCheckedElements()) {
-          if (element != checkedElement) {
-            checkable.setChecked(element, false);
-          }
-        }
-      } else {
-        for (Object element : m_dialogField.getCheckedElements()) {
-          if ("SWT.NONE".equals(element)) {
-            checkable.setChecked(element, false);
-            break;
-          }
-        }
-      }
-    }
-  }
+	private void calculateBetterValues(CheckStateChangedEvent event) {
+		if (event.getChecked()) {
+			Object checkedElement = event.getElement();
+			ICheckable checkable = event.getCheckable();
+			//
+			if ("SWT.NONE".equals(checkedElement)) {
+				for (Object element : m_dialogField.getCheckedElements()) {
+					if (element != checkedElement) {
+						checkable.setChecked(element, false);
+					}
+				}
+			} else {
+				for (Object element : m_dialogField.getCheckedElements()) {
+					if ("SWT.NONE".equals(element)) {
+						checkable.setChecked(element, false);
+						break;
+					}
+				}
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() {
-    m_dialogField.setCheckedElements(m_observable.getUpdateEvents());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() {
+		m_dialogField.setCheckedElements(m_observable.getUpdateEvents());
+	}
 
-  @Override
-  public void saveToObject() {
-    m_observable.setUpdateEvents(CoreUtils.<String>cast(m_dialogField.getCheckedElements()));
-  }
+	@Override
+	public void saveToObject() {
+		m_observable.setUpdateEvents(CoreUtils.<String>cast(m_dialogField.getCheckedElements()));
+	}
 }

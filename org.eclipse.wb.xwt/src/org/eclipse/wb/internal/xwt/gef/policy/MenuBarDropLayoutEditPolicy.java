@@ -42,139 +42,139 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage XWT.gef.policy
  */
 public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
-  private final ShellInfo m_shell;
-  private final ILayoutRequestValidator m_validator;
+	private final ShellInfo m_shell;
+	private final ILayoutRequestValidator m_validator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuBarDropLayoutEditPolicy(ShellInfo shell) {
-    m_shell = shell;
-    m_validator = new MenuBarDrop_Validator(shell);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuBarDropLayoutEditPolicy(ShellInfo shell) {
+		m_shell = shell;
+		m_validator = new MenuBarDrop_Validator(shell);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return m_validator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return m_validator;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Figure m_fillFeedback;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Figure m_fillFeedback;
 
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    if (m_fillFeedback == null) {
-      // create figure
-      m_fillFeedback = new Figure() {
-        @Override
-        protected void paintClientArea(Graphics graphics) {
-          // draw placeholder text
-          Rectangle bounds = getBounds();
-          graphics.setForegroundColor(IColorConstants.darkGreen);
-          String menuBarText = "Menu bar would be placed here";
-          Dimension textExtent = graphics.getTextExtent(menuBarText);
-          int x = bounds.width / 2 - textExtent.width / 2;
-          int y = bounds.height / 2 - textExtent.height / 2;
-          graphics.drawString(menuBarText, x, y);
-        }
-      };
-      m_fillFeedback.setOpaque(true);
-      m_fillFeedback.setBackground(IColorConstants.menuBackground);
-      // set figure bounds
-      Insets clientAreaInsets = m_shell.getClientAreaInsets();
-      final Rectangle bounds = getHostFigure().getBounds().getCopy();
-      bounds.width -= clientAreaInsets.getWidth();
-      if (EnvironmentUtils.IS_MAC) {
-        bounds.x = AbstractComponentEditPart.TOP_LOCATION.x;
-        bounds.y = MenuEditPartFactory.MENU_Y_LOCATION;
-      } else {
-        bounds.x += clientAreaInsets.left;
-        bounds.y += clientAreaInsets.top;
-      }
-      ExecutionUtils.runIgnore(new RunnableEx() {
-        public void run() throws Exception {
-          bounds.height = ToolkitSupport.getDefaultMenuBarHeight();
-        }
-      });
-      m_fillFeedback.setBounds(bounds);
-      // add some border
-      m_fillFeedback.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected, 1));
-      addFeedback(m_fillFeedback);
-    }
-  }
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		if (m_fillFeedback == null) {
+			// create figure
+			m_fillFeedback = new Figure() {
+				@Override
+				protected void paintClientArea(Graphics graphics) {
+					// draw placeholder text
+					Rectangle bounds = getBounds();
+					graphics.setForegroundColor(IColorConstants.darkGreen);
+					String menuBarText = "Menu bar would be placed here";
+					Dimension textExtent = graphics.getTextExtent(menuBarText);
+					int x = bounds.width / 2 - textExtent.width / 2;
+					int y = bounds.height / 2 - textExtent.height / 2;
+					graphics.drawString(menuBarText, x, y);
+				}
+			};
+			m_fillFeedback.setOpaque(true);
+			m_fillFeedback.setBackground(IColorConstants.menuBackground);
+			// set figure bounds
+			Insets clientAreaInsets = m_shell.getClientAreaInsets();
+			final Rectangle bounds = getHostFigure().getBounds().getCopy();
+			bounds.width -= clientAreaInsets.getWidth();
+			if (EnvironmentUtils.IS_MAC) {
+				bounds.x = AbstractComponentEditPart.TOP_LOCATION.x;
+				bounds.y = MenuEditPartFactory.MENU_Y_LOCATION;
+			} else {
+				bounds.x += clientAreaInsets.left;
+				bounds.y += clientAreaInsets.top;
+			}
+			ExecutionUtils.runIgnore(new RunnableEx() {
+				public void run() throws Exception {
+					bounds.height = ToolkitSupport.getDefaultMenuBarHeight();
+				}
+			});
+			m_fillFeedback.setBounds(bounds);
+			// add some border
+			m_fillFeedback.setBorder(new LineBorder(IColorConstants.menuBackgroundSelected, 1));
+			addFeedback(m_fillFeedback);
+		}
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    if (m_fillFeedback != null) {
-      removeFeedback(m_fillFeedback);
-      m_fillFeedback = null;
-    }
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		if (m_fillFeedback != null) {
+			removeFeedback(m_fillFeedback);
+			m_fillFeedback = null;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(CreateRequest request) {
-    final MenuInfo menu = (MenuInfo) request.getNewObject();
-    return new EditCommand(m_shell) {
-      @Override
-      protected void executeEdit() throws Exception {
-        menu.commandCreate(m_shell);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(CreateRequest request) {
+		final MenuInfo menu = (MenuInfo) request.getNewObject();
+		return new EditCommand(m_shell) {
+			@Override
+			protected void executeEdit() throws Exception {
+				menu.commandCreate(m_shell);
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final class MenuBarDrop_Validator extends LayoutRequestValidatorStubFalse {
-    private final ShellInfo m_m_shell;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final class MenuBarDrop_Validator extends LayoutRequestValidatorStubFalse {
+		private final ShellInfo m_m_shell;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public MenuBarDrop_Validator(ShellInfo m_shell) {
-      m_m_shell = m_shell;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public MenuBarDrop_Validator(ShellInfo m_shell) {
+			m_m_shell = m_shell;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Validation
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      // only one "bar"
-      for (MenuInfo menuInfo : m_m_shell.getChildren(MenuInfo.class)) {
-        if (menuInfo.isBar()) {
-          return false;
-        }
-      }
-      // check object
-      Object newObject = request.getNewObject();
-      if (newObject instanceof MenuInfo) {
-        return ((MenuInfo) newObject).isBar();
-      }
-      // unknown object
-      return false;
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Validation
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			// only one "bar"
+			for (MenuInfo menuInfo : m_m_shell.getChildren(MenuInfo.class)) {
+				if (menuInfo.isBar()) {
+					return false;
+				}
+			}
+			// check object
+			Object newObject = request.getNewObject();
+			if (newObject instanceof MenuInfo) {
+				return ((MenuInfo) newObject).isBar();
+			}
+			// unknown object
+			return false;
+		}
+	}
 }

@@ -35,115 +35,115 @@ import java.util.TimerTask;
  * @coverage core.model.description
  */
 public final class ImageDisposer {
-  private static boolean DEBUG = false;
-  private static ReferenceQueue<Object> m_queue = new ReferenceQueue<Object>();
-  private static final List<ImageHolder> m_references = Lists.newArrayList();
-  private static Timer m_timer;
-  static {
-    // create Timer (its TimerThread) with empty set of ProtectionDomain's,
-    // so prevent holding reference on stack ProtectionDomain's, which include ClassLoader's
-    AccessController.doPrivileged(new PrivilegedAction<Object>() {
-      @Override
-      public Object run() {
-        m_timer = new Timer(true);
-        return null;
-      }
-    }, new AccessControlContext(new ProtectionDomain[]{}));
-    // schedule time
-    m_timer.schedule(new TimerTask() {
-      @Override
-      public void run() {
-        disposeImages();
-      }
-    }, 1000, 1000);
-  }
+	private static boolean DEBUG = false;
+	private static ReferenceQueue<Object> m_queue = new ReferenceQueue<Object>();
+	private static final List<ImageHolder> m_references = Lists.newArrayList();
+	private static Timer m_timer;
+	static {
+		// create Timer (its TimerThread) with empty set of ProtectionDomain's,
+		// so prevent holding reference on stack ProtectionDomain's, which include ClassLoader's
+		AccessController.doPrivileged(new PrivilegedAction<Object>() {
+			@Override
+			public Object run() {
+				m_timer = new Timer(true);
+				return null;
+			}
+		}, new AccessControlContext(new ProtectionDomain[]{}));
+		// schedule time
+		m_timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				disposeImages();
+			}
+		}, 1000, 1000);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ImageDisposer() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ImageDisposer() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Registers {@link Image} that should be disposed when its key is garbage collected.
-   */
-  public static synchronized void add(Object key, String name, Image image) {
-    if (image != null) {
-      m_references.add(new ImageHolder(key, m_queue, name, image));
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Registers {@link Image} that should be disposed when its key is garbage collected.
+	 */
+	public static synchronized void add(Object key, String name, Image image) {
+		if (image != null) {
+			m_references.add(new ImageHolder(key, m_queue, name, image));
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * {@link WeakReference} that holds reference on {@link Image}.
-   */
-  private static class ImageHolder extends WeakReference<Object> {
-    private final String m_name;
-    private final Image m_image;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * {@link WeakReference} that holds reference on {@link Image}.
+	 */
+	private static class ImageHolder extends WeakReference<Object> {
+		private final String m_name;
+		private final Image m_image;
 
-    public ImageHolder(Object key, ReferenceQueue<Object> queue, String name, Image image) {
-      super(key, queue);
-      m_name = name;
-      m_image = image;
-    }
-  }
+		public ImageHolder(Object key, ReferenceQueue<Object> queue, String name, Image image) {
+			super(key, queue);
+			m_name = name;
+			m_image = image;
+		}
+	}
 
-  /**
-   * Disposes {@link Image}-s for which keys are garbage collected.
-   */
-  private static synchronized void disposeImages() {
-    int removed = 0;
-    while (true) {
-      ImageHolder reference = (ImageHolder) m_queue.poll();
-      if (reference == null) {
-        break;
-      }
-      // remove reference
-      {
-        m_references.remove(reference);
-        removed++;
-      }
-      // dispose Image
-      final Image image = reference.m_image;
-      ExecutionUtils.runAsync(new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          if (image != null && !image.isDisposed()) {
-            image.dispose();
-          }
-        }
-      });
-    }
-    if (DEBUG && removed != 0) {
-      printReferences();
-    }
-  }
+	/**
+	 * Disposes {@link Image}-s for which keys are garbage collected.
+	 */
+	private static synchronized void disposeImages() {
+		int removed = 0;
+		while (true) {
+			ImageHolder reference = (ImageHolder) m_queue.poll();
+			if (reference == null) {
+				break;
+			}
+			// remove reference
+			{
+				m_references.remove(reference);
+				removed++;
+			}
+			// dispose Image
+			final Image image = reference.m_image;
+			ExecutionUtils.runAsync(new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					if (image != null && !image.isDisposed()) {
+						image.dispose();
+					}
+				}
+			});
+		}
+		if (DEBUG && removed != 0) {
+			printReferences();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Debug
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static void printReferences() {
-    Debug.println("references: " + m_references.size());
-    try {
-      for (ImageHolder reference : m_references) {
-        Debug.print("\t");
-        Debug.print(reference.m_name);
-        Debug.println();
-      }
-    } catch (Throwable e) {
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Debug
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static void printReferences() {
+		Debug.println("references: " + m_references.size());
+		try {
+			for (ImageHolder reference : m_references) {
+				Debug.print("\t");
+				Debug.print(reference.m_name);
+				Debug.println();
+			}
+		} catch (Throwable e) {
+		}
+	}
 }

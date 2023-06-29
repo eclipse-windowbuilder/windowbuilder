@@ -18,13 +18,13 @@ import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
  * @author scheglov_ke
  */
 public class SimpleContainerGefTest extends SimpleContainerAbstractGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void prepareSimplePanel() throws Exception {
-    SimpleContainerModelTest.prepareSimplePanel();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void prepareSimplePanel() throws Exception {
+		SimpleContainerModelTest.prepareSimplePanel();
+	}
 }

@@ -17,8 +17,8 @@ package org.eclipse.wb.draw2d.events;
  * @coverage gef.draw2d
  */
 public interface IMouseMoveListener {
-  /**
-   * Sent when the mouse moves.
-   */
-  void mouseMove(MouseEvent event);
+	/**
+	 * Sent when the mouse moves.
+	 */
+	void mouseMove(MouseEvent event);
 }

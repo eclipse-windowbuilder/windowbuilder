@@ -17,13 +17,13 @@ package org.eclipse.wb.internal.rcp.databinding.model.widgets.observables;
  * @coverage bindings.rcp.model.widgets
  */
 public interface IDelayValueProvider {
-  /**
-   * @return the delay current value.
-   */
-  int getDelayValue();
+	/**
+	 * @return the delay current value.
+	 */
+	int getDelayValue();
 
-  /**
-   * Sets delay value.
-   */
-  void setDelayValue(int delayValue);
+	/**
+	 * Sets delay value.
+	 */
+	void setDelayValue(int delayValue);
 }

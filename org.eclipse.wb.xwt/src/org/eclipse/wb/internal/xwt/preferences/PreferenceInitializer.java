@@ -19,8 +19,8 @@ import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
  * @coverage XWT.preferences
  */
 public final class PreferenceInitializer extends AbstractPreferenceInitializer {
-  @Override
-  public void initializeDefaultPreferences() {
-    //IPreferenceStore preferences = Activator.getToolkit().getPreferences();
-  }
+	@Override
+	public void initializeDefaultPreferences() {
+		//IPreferenceStore preferences = Activator.getToolkit().getPreferences();
+	}
 }

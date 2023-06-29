@@ -26,54 +26,54 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public class LabelProviderInfo extends AbstractLabelProviderInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LabelProviderInfo(String className) {
-    super(className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LabelProviderInfo(String className) {
+		super(className);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create {@link IUiContentProvider} content providers for edit this model.
-   */
-  @Override
-  public final void createContentProviders(List<IUiContentProvider> providers,
-      DatabindingsProvider provider,
-      boolean useClear) {
-    ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel(Messages.LabelProviderInfo_label);
-    configure(configuration, useClear);
-    configuration.setEmptyClassErrorMessage(Messages.LabelProviderInfo_errorMessage);
-    configuration.setErrorMessagePrefix(Messages.LabelProviderInfo_errorMessagePrefix);
-    providers.add(new SimpleClassUiContentProvider(configuration, this));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create {@link IUiContentProvider} content providers for edit this model.
+	 */
+	@Override
+	public final void createContentProviders(List<IUiContentProvider> providers,
+			DatabindingsProvider provider,
+			boolean useClear) {
+		ChooseClassConfiguration configuration = new ChooseClassConfiguration();
+		configuration.setDialogFieldLabel(Messages.LabelProviderInfo_label);
+		configure(configuration, useClear);
+		configuration.setEmptyClassErrorMessage(Messages.LabelProviderInfo_errorMessage);
+		configuration.setErrorMessagePrefix(Messages.LabelProviderInfo_errorMessagePrefix);
+		providers.add(new SimpleClassUiContentProvider(configuration, this));
+	}
 
-  /**
-   * Create configuration for edit this label provider.
-   */
-  protected void configure(ChooseClassConfiguration configuration, boolean useClear) {
-    configuration.setValueScope("org.eclipse.jface.viewers.IBaseLabelProvider");
-    configuration.setBaseClassName("org.eclipse.jface.viewers.IBaseLabelProvider");
-    configuration.setDefaultValues(new String[]{
-        "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
-        "org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider"});
-  }
+	/**
+	 * Create configuration for edit this label provider.
+	 */
+	protected void configure(ChooseClassConfiguration configuration, boolean useClear) {
+		configuration.setValueScope("org.eclipse.jface.viewers.IBaseLabelProvider");
+		configuration.setBaseClassName("org.eclipse.jface.viewers.IBaseLabelProvider");
+		configuration.setDefaultValues(new String[]{
+				"org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider",
+		"org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider"});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    return "new " + m_className + "()";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		return "new " + m_className + "()";
+	}
 }

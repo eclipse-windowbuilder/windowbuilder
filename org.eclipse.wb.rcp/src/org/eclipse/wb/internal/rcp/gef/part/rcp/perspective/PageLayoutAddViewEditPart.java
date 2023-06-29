@@ -24,32 +24,32 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutAddViewInfo;
  * @coverage rcp.gef.part
  */
 public final class PageLayoutAddViewEditPart extends AbstractComponentEditPart {
-  private final PageLayoutAddViewInfo m_view;
+	private final PageLayoutAddViewInfo m_view;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PageLayoutAddViewEditPart(PageLayoutAddViewInfo view) {
-    super(view);
-    m_view = view;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PageLayoutAddViewEditPart(PageLayoutAddViewInfo view) {
+		super(view);
+		m_view = view;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(new PageLayoutSidesLayoutEditPolicy(m_view.getPage(), m_view, true));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(new PageLayoutSidesLayoutEditPolicy(m_view.getPage(), m_view, true));
+	}
 
-  @Override
-  protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    installEditPolicy(EditPolicy.SELECTION_ROLE, new AbstractPartSelectionEditPolicy(m_view));
-  }
+	@Override
+	protected void refreshEditPolicies() {
+		super.refreshEditPolicies();
+		installEditPolicy(EditPolicy.SELECTION_ROLE, new AbstractPartSelectionEditPolicy(m_view));
+	}
 }

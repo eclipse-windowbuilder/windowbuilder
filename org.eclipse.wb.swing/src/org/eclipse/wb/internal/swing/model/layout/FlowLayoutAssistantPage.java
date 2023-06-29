@@ -27,47 +27,47 @@ import java.awt.FlowLayout;
  * @coverage swing.assistant
  */
 public final class FlowLayoutAssistantPage extends AbstractAssistantPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FlowLayoutAssistantPage(Composite parent, Object selection) {
-    super(parent, selection);
-    GridLayoutFactory.create(this).columns(2);
-    // orientation
-    {
-      Group orientationGroup =
-          addChoiceProperty(
-              this,
-              "alignment",
-              ModelMessages.FlowLayoutAssistantPage_alignmentGroup,
-              new Object[][]{
-                  new Object[]{ModelMessages.FlowLayoutAssistantPage_alignmentLeft, FlowLayout.LEFT},
-                  new Object[]{
-                      ModelMessages.FlowLayoutAssistantPage_alignmentCenter,
-                      FlowLayout.CENTER},
-                  new Object[]{
-                      ModelMessages.FlowLayoutAssistantPage_alignmentRight,
-                      FlowLayout.RIGHT},
-                  new Object[]{
-                      ModelMessages.FlowLayoutAssistantPage_alignmentLeading,
-                      FlowLayout.LEADING},
-                  new Object[]{
-                      ModelMessages.FlowLayoutAssistantPage_alignmentTrailing,
-                      FlowLayout.TRAILING}});
-      GridDataFactory.create(orientationGroup).fillV();
-    }
-    //
-    {
-      Group gapGroup =
-          addIntegerProperties(
-              this,
-              ModelMessages.FlowLayoutAssistantPage_gapsGroup,
-              new String[][]{
-                  {"hgap", ModelMessages.FlowLayoutAssistantPage_gapHorizontal},
-                  {"vgap", ModelMessages.FlowLayoutAssistantPage_gapVertical}});
-      GridDataFactory.create(gapGroup).fillV();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FlowLayoutAssistantPage(Composite parent, Object selection) {
+		super(parent, selection);
+		GridLayoutFactory.create(this).columns(2);
+		// orientation
+		{
+			Group orientationGroup =
+					addChoiceProperty(
+							this,
+							"alignment",
+							ModelMessages.FlowLayoutAssistantPage_alignmentGroup,
+							new Object[][]{
+								new Object[]{ModelMessages.FlowLayoutAssistantPage_alignmentLeft, FlowLayout.LEFT},
+								new Object[]{
+										ModelMessages.FlowLayoutAssistantPage_alignmentCenter,
+										FlowLayout.CENTER},
+								new Object[]{
+										ModelMessages.FlowLayoutAssistantPage_alignmentRight,
+										FlowLayout.RIGHT},
+								new Object[]{
+										ModelMessages.FlowLayoutAssistantPage_alignmentLeading,
+										FlowLayout.LEADING},
+								new Object[]{
+										ModelMessages.FlowLayoutAssistantPage_alignmentTrailing,
+										FlowLayout.TRAILING}});
+			GridDataFactory.create(orientationGroup).fillV();
+		}
+		//
+		{
+			Group gapGroup =
+					addIntegerProperties(
+							this,
+							ModelMessages.FlowLayoutAssistantPage_gapsGroup,
+							new String[][]{
+								{"hgap", ModelMessages.FlowLayoutAssistantPage_gapHorizontal},
+								{"vgap", ModelMessages.FlowLayoutAssistantPage_gapVertical}});
+			GridDataFactory.create(gapGroup).fillV();
+		}
+	}
 }

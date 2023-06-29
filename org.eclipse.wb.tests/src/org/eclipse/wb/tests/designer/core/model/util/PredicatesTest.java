@@ -25,87 +25,87 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  * @author scheglov_ke
  */
 public class PredicatesTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link AlwaysPredicate}.
-   */
-  public void test_AlwaysPredicate_true() throws Exception {
-    Predicate<Object> predicate = new AlwaysPredicate(true);
-    assertTrue(predicate.apply("yes"));
-    assertTrue(predicate.apply(this));
-    assertTrue(predicate.apply(null));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link AlwaysPredicate}.
+	 */
+	public void test_AlwaysPredicate_true() throws Exception {
+		Predicate<Object> predicate = new AlwaysPredicate(true);
+		assertTrue(predicate.apply("yes"));
+		assertTrue(predicate.apply(this));
+		assertTrue(predicate.apply(null));
+	}
 
-  /**
-   * Test for {@link AlwaysPredicate}.
-   */
-  public void test_AlwaysPredicate_false() throws Exception {
-    Predicate<Object> predicate = new AlwaysPredicate(false);
-    assertFalse(predicate.apply("yes"));
-    assertFalse(predicate.apply(this));
-    assertFalse(predicate.apply(null));
-  }
+	/**
+	 * Test for {@link AlwaysPredicate}.
+	 */
+	public void test_AlwaysPredicate_false() throws Exception {
+		Predicate<Object> predicate = new AlwaysPredicate(false);
+		assertFalse(predicate.apply("yes"));
+		assertFalse(predicate.apply(this));
+		assertFalse(predicate.apply(null));
+	}
 
-  /**
-   * Test for {@link SubclassPredicate}.
-   */
-  public void test_SubclassPredicate() throws Exception {
-    Predicate<Object> predicate = new SubclassPredicate(String.class);
-    assertTrue(predicate.apply("yes"));
-    assertFalse(predicate.apply(this));
-    assertTrue(predicate.apply(null));
-  }
+	/**
+	 * Test for {@link SubclassPredicate}.
+	 */
+	public void test_SubclassPredicate() throws Exception {
+		Predicate<Object> predicate = new SubclassPredicate(String.class);
+		assertTrue(predicate.apply("yes"));
+		assertFalse(predicate.apply(this));
+		assertTrue(predicate.apply(null));
+	}
 
-  /**
-   * Test for {@link ComponentSubclassPredicate}.
-   */
-  public void test_ComponentSubclassPredicate() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    ComponentSubclassPredicate predicate = new ComponentSubclassPredicate("java.awt.Component");
-    assertEquals("java.awt.Component", predicate.toString());
-    assertTrue(predicate.apply(panel));
-    assertFalse(predicate.apply(panel.getLayout()));
-    assertFalse(predicate.apply("not JavaInfo"));
-  }
+	/**
+	 * Test for {@link ComponentSubclassPredicate}.
+	 */
+	public void test_ComponentSubclassPredicate() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		ComponentSubclassPredicate predicate = new ComponentSubclassPredicate("java.awt.Component");
+		assertEquals("java.awt.Component", predicate.toString());
+		assertTrue(predicate.apply(panel));
+		assertFalse(predicate.apply(panel.getLayout()));
+		assertFalse(predicate.apply("not JavaInfo"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expression predicate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link ExpressionPredicate}.
-   */
-  public void test_ExpressionPredicate_alwaysTrue() throws Exception {
-    Predicate<Object> predicate = new ExpressionPredicate<Object>("true");
-    assertEquals("true", predicate.toString());
-    assertTrue(predicate.apply(null));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expression predicate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link ExpressionPredicate}.
+	 */
+	public void test_ExpressionPredicate_alwaysTrue() throws Exception {
+		Predicate<Object> predicate = new ExpressionPredicate<Object>("true");
+		assertEquals("true", predicate.toString());
+		assertTrue(predicate.apply(null));
+	}
 
-  /**
-   * Test for {@link ExpressionPredicate}.
-   */
-  public void test_ExpressionPredicate_alwaysFalse() throws Exception {
-    Predicate<Object> predicate = new ExpressionPredicate<Object>("false");
-    assertFalse(predicate.apply(null));
-  }
+	/**
+	 * Test for {@link ExpressionPredicate}.
+	 */
+	public void test_ExpressionPredicate_alwaysFalse() throws Exception {
+		Predicate<Object> predicate = new ExpressionPredicate<Object>("false");
+		assertFalse(predicate.apply(null));
+	}
 
-  /**
-   * Test for {@link ExpressionPredicate}.
-   */
-  public void test_ExpressionPredicate_checkLength() throws Exception {
-    Predicate<Object> predicate = new ExpressionPredicate<Object>("length() > 5");
-    assertFalse(predicate.apply("123"));
-    assertTrue(predicate.apply("123456"));
-  }
+	/**
+	 * Test for {@link ExpressionPredicate}.
+	 */
+	public void test_ExpressionPredicate_checkLength() throws Exception {
+		Predicate<Object> predicate = new ExpressionPredicate<Object>("length() > 5");
+		assertFalse(predicate.apply("123"));
+		assertTrue(predicate.apply("123456"));
+	}
 }

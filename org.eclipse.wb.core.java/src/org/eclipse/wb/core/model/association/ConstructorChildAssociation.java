@@ -28,71 +28,71 @@ import java.util.List;
  * @coverage core.model.association
  */
 public final class ConstructorChildAssociation extends ConstructorAssociation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ClassInstanceCreation getCreation() {
-    return getConstructorCreationSupport().getCreation();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ClassInstanceCreation getCreation() {
+		return getConstructorCreationSupport().getCreation();
+	}
 
-  /**
-   * @return the {@link ConstructorCreationSupport} for <em>parent</em> this {@link JavaInfo}.
-   */
-  private ConstructorCreationSupport getConstructorCreationSupport() {
-    return (ConstructorCreationSupport) m_javaInfo.getParentJava().getCreationSupport();
-  }
+	/**
+	 * @return the {@link ConstructorCreationSupport} for <em>parent</em> this {@link JavaInfo}.
+	 */
+	private ConstructorCreationSupport getConstructorCreationSupport() {
+		return (ConstructorCreationSupport) m_javaInfo.getParentJava().getCreationSupport();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    // no need for check if we going to delete parent
-    if (m_javaInfo.getParentJava().isDeleting()) {
-      return true;
-    }
-    // prepare new binding - without this JavaInfo arguments
-    DesignerMethodBinding newBinding;
-    {
-      ConstructorCreationSupport creationSupport = getConstructorCreationSupport();
-      newBinding = m_editor.getBindingContext().get(creationSupport.getBinding());
-      List<Expression> arguments = DomGenerics.arguments(getCreation());
-      for (int i = arguments.size() - 1; i >= 0; i--) {
-        Expression argument = arguments.get(i);
-        if (m_javaInfo.isRepresentedBy(argument)) {
-          newBinding.removeParameterType(i);
-        }
-      }
-    }
-    // we can delete association only if there is alternative constructor, without child
-    return m_javaInfo.getParentJava().getDescription().getConstructor(newBinding) != null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		// no need for check if we going to delete parent
+		if (m_javaInfo.getParentJava().isDeleting()) {
+			return true;
+		}
+		// prepare new binding - without this JavaInfo arguments
+		DesignerMethodBinding newBinding;
+		{
+			ConstructorCreationSupport creationSupport = getConstructorCreationSupport();
+			newBinding = m_editor.getBindingContext().get(creationSupport.getBinding());
+			List<Expression> arguments = DomGenerics.arguments(getCreation());
+			for (int i = arguments.size() - 1; i >= 0; i--) {
+				Expression argument = arguments.get(i);
+				if (m_javaInfo.isRepresentedBy(argument)) {
+					newBinding.removeParameterType(i);
+				}
+			}
+		}
+		// we can delete association only if there is alternative constructor, without child
+		return m_javaInfo.getParentJava().getDescription().getConstructor(newBinding) != null;
+	}
 
-  @Override
-  public boolean remove() throws Exception {
-    if (!m_javaInfo.getParentJava().isDeleting()) {
-      // update ClassInstanceCreation
-      ClassInstanceCreation creation;
-      {
-        ConstructorCreationSupport creationSupport = getConstructorCreationSupport();
-        creation = creationSupport.getCreation();
-        List<Expression> arguments = DomGenerics.arguments(creation);
-        for (int i = arguments.size() - 1; i >= 0; i--) {
-          Expression argument = arguments.get(i);
-          if (m_javaInfo.isRepresentedBy(argument)) {
-            m_javaInfo.getEditor().removeCreationArgument(creation, i);
-          }
-        }
-      }
-      // set new ConstructorCreationSupport for parent JavaInfo
-      m_javaInfo.getParentJava().setCreationSupport(new ConstructorCreationSupport(creation));
-    }
-    // remove association
-    return super.remove();
-  }
+	@Override
+	public boolean remove() throws Exception {
+		if (!m_javaInfo.getParentJava().isDeleting()) {
+			// update ClassInstanceCreation
+			ClassInstanceCreation creation;
+			{
+				ConstructorCreationSupport creationSupport = getConstructorCreationSupport();
+				creation = creationSupport.getCreation();
+				List<Expression> arguments = DomGenerics.arguments(creation);
+				for (int i = arguments.size() - 1; i >= 0; i--) {
+					Expression argument = arguments.get(i);
+					if (m_javaInfo.isRepresentedBy(argument)) {
+						m_javaInfo.getEditor().removeCreationArgument(creation, i);
+					}
+				}
+			}
+			// set new ConstructorCreationSupport for parent JavaInfo
+			m_javaInfo.getParentJava().setCreationSupport(new ConstructorCreationSupport(creation));
+		}
+		// remove association
+		return super.remove();
+	}
 }

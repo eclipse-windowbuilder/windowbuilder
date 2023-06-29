@@ -36,89 +36,89 @@ import java.util.List;
  * @coverage bindings.rcp.ui
  */
 public class ObservableDetailUiContentProvider
-    extends
-      ChooseClassAndTreePropertiesUiContentProvider2 {
-  private final DetailBeanObservableInfo m_observable;
-  private final DatabindingsProvider m_provider;
+extends
+ChooseClassAndTreePropertiesUiContentProvider2 {
+	private final DetailBeanObservableInfo m_observable;
+	private final DatabindingsProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObservableDetailUiContentProvider(ChooseClassAndPropertiesConfiguration configuration,
-      DetailBeanObservableInfo observable,
-      DatabindingsProvider provider) {
-    super(configuration);
-    configuration.addDefaultStart("detail(");
-    m_observable = observable;
-    m_provider = provider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObservableDetailUiContentProvider(ChooseClassAndPropertiesConfiguration configuration,
+			DetailBeanObservableInfo observable,
+			DatabindingsProvider provider) {
+		super(configuration);
+		configuration.addDefaultStart("detail(");
+		m_observable = observable;
+		m_provider = provider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-    String propertyReference = m_observable.getDetailPropertyReference();
-    // sets property reference and type
-    if (propertyReference == null) {
-      // calculate type over viewer input element type
-      if (m_observable.getMasterObservable() instanceof ViewerObservableInfo) {
-        Class<?> elementType =
-            AbstractViewerInputBindingInfo.getViewerInutElementType(
-                m_observable.getMasterObservable(),
-                m_provider);
-        if (elementType == null) {
-          calculateFinish();
-        } else {
-          setClassName(CoreUtils.getClassName(elementType));
-        }
-      } else {
-        calculateFinish();
-      }
-    } else if (m_observable.getDetailBeanClass() == null) {
-      // prepare property
-      Class<?> propertyType = m_observable.getDetailPropertyType();
-      String propertyName = StringUtils.substringBetween(propertyReference, "\"");
-      BeanPropertyBindableInfo bindableProperty =
-          new BeanPropertyBindableInfo(null, null, propertyName, propertyType, propertyName);
-      bindableProperty.setProperties(Collections.<PropertyBindableInfo>emptyList());
-      PropertyAdapter property = new ObservePropertyAdapter(null, bindableProperty);
-      // prepare fake class name
-      String className =
-          "detail("
-              + propertyReference
-              + ", "
-              + ClassUtils.getShortClassName(propertyType)
-              + ".class)";
-      // sets class and property
-      setClassNameAndProperty(className, property, false);
-    } else {
-      // set temporally None strategy for select detail property
-      LoadedPropertiesCheckedStrategy strategy =
-          m_configuration.getLoadedPropertiesCheckedStrategy();
-      m_configuration.setLoadedPropertiesCheckedStrategy(LoadedPropertiesCheckedStrategy.None);
-      // sets class and property
-      setClassNameAndProperties(
-          m_observable.getDetailBeanClass(),
-          null,
-          Lists.newArrayList(propertyReference));
-      // restore strategy
-      m_configuration.setLoadedPropertiesCheckedStrategy(strategy);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+		String propertyReference = m_observable.getDetailPropertyReference();
+		// sets property reference and type
+		if (propertyReference == null) {
+			// calculate type over viewer input element type
+			if (m_observable.getMasterObservable() instanceof ViewerObservableInfo) {
+				Class<?> elementType =
+						AbstractViewerInputBindingInfo.getViewerInutElementType(
+								m_observable.getMasterObservable(),
+								m_provider);
+				if (elementType == null) {
+					calculateFinish();
+				} else {
+					setClassName(CoreUtils.getClassName(elementType));
+				}
+			} else {
+				calculateFinish();
+			}
+		} else if (m_observable.getDetailBeanClass() == null) {
+			// prepare property
+			Class<?> propertyType = m_observable.getDetailPropertyType();
+			String propertyName = StringUtils.substringBetween(propertyReference, "\"");
+			BeanPropertyBindableInfo bindableProperty =
+					new BeanPropertyBindableInfo(null, null, propertyName, propertyType, propertyName);
+			bindableProperty.setProperties(Collections.<PropertyBindableInfo>emptyList());
+			PropertyAdapter property = new ObservePropertyAdapter(null, bindableProperty);
+			// prepare fake class name
+			String className =
+					"detail("
+							+ propertyReference
+							+ ", "
+							+ ClassUtils.getShortClassName(propertyType)
+							+ ".class)";
+			// sets class and property
+			setClassNameAndProperty(className, property, false);
+		} else {
+			// set temporally None strategy for select detail property
+			LoadedPropertiesCheckedStrategy strategy =
+					m_configuration.getLoadedPropertiesCheckedStrategy();
+			m_configuration.setLoadedPropertiesCheckedStrategy(LoadedPropertiesCheckedStrategy.None);
+			// sets class and property
+			setClassNameAndProperties(
+					m_observable.getDetailBeanClass(),
+					null,
+					Lists.newArrayList(propertyReference));
+			// restore strategy
+			m_configuration.setLoadedPropertiesCheckedStrategy(strategy);
+		}
+	}
 
-  @Override
-  protected void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenProperties)
-      throws Exception {
-    if (choosenClass != null) {
-      Object[] checkedElements = m_propertiesViewer.getCheckedElements();
-      ObservePropertyAdapter adapter = (ObservePropertyAdapter) checkedElements[0];
-      m_observable.setDetailPropertyType(adapter.getType());
-      m_observable.setDetailPropertyReference(choosenClass, adapter.getProperty().getReference());
-    }
-  }
+	@Override
+	protected void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenProperties)
+			throws Exception {
+		if (choosenClass != null) {
+			Object[] checkedElements = m_propertiesViewer.getCheckedElements();
+			ObservePropertyAdapter adapter = (ObservePropertyAdapter) checkedElements[0];
+			m_observable.setDetailPropertyType(adapter.getType());
+			m_observable.setDetailPropertyReference(choosenClass, adapter.getProperty().getReference());
+		}
+	}
 }

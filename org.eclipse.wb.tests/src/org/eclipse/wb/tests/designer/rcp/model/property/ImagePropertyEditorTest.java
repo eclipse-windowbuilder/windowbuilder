@@ -30,59 +30,59 @@ import java.io.File;
  * @author lobas_av
  */
 public abstract class ImagePropertyEditorTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final Property createImagePropertyForSource(String imageSource) throws Exception {
-    m_waitForAutoBuild = true;
-    CompositeInfo shell =
-        parseComposite(
-            "// filler filler filler",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setImage(" + imageSource + ");",
-            "  }",
-            "}");
-    shell.refresh();
-    assertNoErrors(shell);
-    // we should have value for "image"
-    {
-      Object image = ReflectionUtils.invokeMethod(shell.getObject(), "getImage()");
-      assertNotNull(image);
-    }
-    //
-    return shell.getPropertyByTitle("image");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final Property createImagePropertyForSource(String imageSource) throws Exception {
+		m_waitForAutoBuild = true;
+		CompositeInfo shell =
+				parseComposite(
+						"// filler filler filler",
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    setImage(" + imageSource + ");",
+						"  }",
+						"}");
+		shell.refresh();
+		assertNoErrors(shell);
+		// we should have value for "image"
+		{
+			Object image = ReflectionUtils.invokeMethod(shell.getObject(), "getImage()");
+			assertNotNull(image);
+		}
+		//
+		return shell.getPropertyByTitle("image");
+	}
 
-  /**
-   * Checks the results of {@link ImagePropertyEditor#getText()} and
-   * {@link ImagePropertyEditor#getClipboardSource()} when Image is set using given source.
-   */
-  protected final void assert_getText_getClipboardSource_forSource(String imageSource,
-      String expectedText,
-      String expectedClipboardSource) throws Exception {
-    Property property = createImagePropertyForSource(imageSource);
-    assertEquals(expectedText, PropertyEditorTestUtils.getText(property));
-    assertEquals(expectedClipboardSource, PropertyEditorTestUtils.getClipboardSource(property));
-  }
+	/**
+	 * Checks the results of {@link ImagePropertyEditor#getText()} and
+	 * {@link ImagePropertyEditor#getClipboardSource()} when Image is set using given source.
+	 */
+	protected final void assert_getText_getClipboardSource_forSource(String imageSource,
+			String expectedText,
+			String expectedClipboardSource) throws Exception {
+		Property property = createImagePropertyForSource(imageSource);
+		assertEquals(expectedText, PropertyEditorTestUtils.getText(property));
+		assertEquals(expectedClipboardSource, PropertyEditorTestUtils.getClipboardSource(property));
+	}
 
-  /**
-   * Create blank image 1x1 and save to temporal file.
-   */
-  protected static File createTempImage() throws Exception {
-    // create temporal file
-    File file = File.createTempFile("testcase", ".png");
-    // create image
-    Image image = new Image(null, 1, 1);
-    // save image to disk
-    ImageLoader loader = new ImageLoader();
-    loader.data = new ImageData[]{image.getImageData()};
-    loader.save(file.getAbsolutePath(), SWT.IMAGE_PNG);
-    // clear resource
-    image.dispose();
-    //
-    return file;
-  }
+	/**
+	 * Create blank image 1x1 and save to temporal file.
+	 */
+	protected static File createTempImage() throws Exception {
+		// create temporal file
+		File file = File.createTempFile("testcase", ".png");
+		// create image
+		Image image = new Image(null, 1, 1);
+		// save image to disk
+		ImageLoader loader = new ImageLoader();
+		loader.data = new ImageData[]{image.getImageData()};
+		loader.save(file.getAbsolutePath(), SWT.IMAGE_PNG);
+		// clear resource
+		image.dispose();
+		//
+		return file;
+	}
 }

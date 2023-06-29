@@ -33,63 +33,63 @@ import javax.swing.LookAndFeel;
  * @coverage swing.laf.model
  */
 public class PluginLafInfo extends AbstractCustomLafInfo {
-  private ILookAndFeelInitializer m_initializer = ILookAndFeelInitializer.DEFAULT;
-  private final Bundle m_extensionBundle;
+	private ILookAndFeelInitializer m_initializer = ILookAndFeelInitializer.DEFAULT;
+	private final Bundle m_extensionBundle;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PluginLafInfo(final IConfigurationElement element) {
-    super(ExternalFactoriesHelper.getRequiredAttribute(element, "id"),
-        ExternalFactoriesHelper.getRequiredAttribute(element, "name"),
-        ExternalFactoriesHelper.getRequiredAttribute(element, "class"),
-        resolveJarFile(
-            ExternalFactoriesHelper.getRequiredAttribute(element, "jarFile"),
-            ExternalFactoriesHelper.getExtensionBundle(element)));
-    m_extensionBundle = ExternalFactoriesHelper.getExtensionBundle(element);
-    String initializerValue = element.getAttribute("initializer");
-    if (initializerValue != null) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        public void run() throws Exception {
-          m_initializer =
-              (ILookAndFeelInitializer) element.createExecutableExtension("initializer");
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PluginLafInfo(final IConfigurationElement element) {
+		super(ExternalFactoriesHelper.getRequiredAttribute(element, "id"),
+				ExternalFactoriesHelper.getRequiredAttribute(element, "name"),
+				ExternalFactoriesHelper.getRequiredAttribute(element, "class"),
+				resolveJarFile(
+						ExternalFactoriesHelper.getRequiredAttribute(element, "jarFile"),
+						ExternalFactoriesHelper.getExtensionBundle(element)));
+		m_extensionBundle = ExternalFactoriesHelper.getExtensionBundle(element);
+		String initializerValue = element.getAttribute("initializer");
+		if (initializerValue != null) {
+			ExecutionUtils.runLog(new RunnableEx() {
+				public void run() throws Exception {
+					m_initializer =
+							(ILookAndFeelInitializer) element.createExecutableExtension("initializer");
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Reference<LookAndFeel> m_instanceReference;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Reference<LookAndFeel> m_instanceReference;
 
-  @Override
-  public LookAndFeel getLookAndFeelInstance() throws Exception {
-    if (m_instanceReference == null || m_instanceReference.get() == null) {
-      m_initializer.initialize();
-      Class<?> lafClass = m_extensionBundle.loadClass(getClassName());
-      m_instanceReference = new SoftReference<LookAndFeel>((LookAndFeel) lafClass.newInstance());
-    }
-    return m_instanceReference.get();
-  }
+	@Override
+	public LookAndFeel getLookAndFeelInstance() throws Exception {
+		if (m_instanceReference == null || m_instanceReference.get() == null) {
+			m_initializer.initialize();
+			Class<?> lafClass = m_extensionBundle.loadClass(getClassName());
+			m_instanceReference = new SoftReference<LookAndFeel>((LookAndFeel) lafClass.newInstance());
+		}
+		return m_instanceReference.get();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the full path to JAR file.
-   */
-  private static String resolveJarFile(String jarFile, Bundle extensionBundle) {
-    try {
-      return FileLocator.toFileURL(extensionBundle.getEntry(jarFile)).getPath();
-    } catch (Throwable e) {
-      throw ReflectionUtils.propagate(e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the full path to JAR file.
+	 */
+	private static String resolveJarFile(String jarFile, Bundle extensionBundle) {
+		try {
+			return FileLocator.toFileURL(extensionBundle.getEntry(jarFile)).getPath();
+		} catch (Throwable e) {
+			throw ReflectionUtils.propagate(e);
+		}
+	}
 }

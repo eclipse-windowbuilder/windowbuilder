@@ -22,14 +22,14 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class GridLayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.layout.grid");
-    suite.addTest(createSingleSuite(GridDataTest.class));
-    suite.addTest(createSingleSuite(GridLayoutSelectionActionsTest.class));
-    suite.addTest(createSingleSuite(GridLayoutTest.class));
-    suite.addTest(createSingleSuite(GridLayoutParametersTest.class));
-    suite.addTest(createSingleSuite(GridLayoutConverterTest.class));
-    suite.addTest(createSingleSuite(GridLayoutGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.layout.grid");
+		suite.addTest(createSingleSuite(GridDataTest.class));
+		suite.addTest(createSingleSuite(GridLayoutSelectionActionsTest.class));
+		suite.addTest(createSingleSuite(GridLayoutTest.class));
+		suite.addTest(createSingleSuite(GridLayoutParametersTest.class));
+		suite.addTest(createSingleSuite(GridLayoutConverterTest.class));
+		suite.addTest(createSingleSuite(GridLayoutGefTest.class));
+		return suite;
+	}
 }

@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.model.generic;
  * @coverage core.model.generic
  */
 public interface AbstractContainer {
-  /**
-   * @return <code>true</code> if given component can be added to container.
-   */
-  boolean validateComponent(Object component);
+	/**
+	 * @return <code>true</code> if given component can be added to container.
+	 */
+	boolean validateComponent(Object component);
 }

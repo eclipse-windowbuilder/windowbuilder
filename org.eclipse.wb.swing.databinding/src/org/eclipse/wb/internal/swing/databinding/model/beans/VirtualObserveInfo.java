@@ -26,37 +26,37 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.ClassGenericType;
  * @coverage bindings.swing.model.beans
  */
 public final class VirtualObserveInfo extends BeanObserveInfo {
-  private final IObservePresentation m_presentation;
+	private final IObservePresentation m_presentation;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualObserveInfo() {
-    super(null, null, ClassGenericType.LIST_CLASS, StringReferenceProvider.EMPTY);
-    setBindingDecoration(SwtResourceManager.TOP_LEFT);
-    m_presentation =
-        new SimpleObservePresentation("[Virtual]", "[Virtual]", Activator.getImage("virtual.png"));
-    setProperties(ImmutableList.<ObserveInfo>of(new ObjectPropertyObserveInfo(getObjectType())));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualObserveInfo() {
+		super(null, null, ClassGenericType.LIST_CLASS, StringReferenceProvider.EMPTY);
+		setBindingDecoration(SwtResourceManager.TOP_LEFT);
+		m_presentation =
+				new SimpleObservePresentation("[Virtual]", "[Virtual]", Activator.getImage("virtual.png"));
+		setProperties(ImmutableList.<ObserveInfo>of(new ObjectPropertyObserveInfo(getObjectType())));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Type
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ObserveCreationType getCreationType() {
-    return ObserveCreationType.VirtualBinding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Type
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ObserveCreationType getCreationType() {
+		return ObserveCreationType.VirtualBinding;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IObservePresentation getPresentation() {
-    return m_presentation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IObservePresentation getPresentation() {
+		return m_presentation;
+	}
 }

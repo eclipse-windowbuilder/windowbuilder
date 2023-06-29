@@ -16,8 +16,8 @@ package org.eclipse.wb.tests.gef;
  * @author scheglov_ke
  */
 public interface UIRunnable {
-  /**
-   * Executes some actions in {@link UiContext}.
-   */
-  void run(UiContext context) throws Exception;
+	/**
+	 * Executes some actions in {@link UiContext}.
+	 */
+	void run(UiContext context) throws Exception;
 }

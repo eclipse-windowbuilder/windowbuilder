@@ -33,65 +33,65 @@ import java.util.List;
  * @coverage rcp.model.widgets
  */
 public final class ToolBarInfo extends CompositeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ToolBarInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ToolBarInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this {@link ToolBarInfo} has horizontal layout.
-   */
-  public boolean isHorizontal() {
-    return ControlSupport.isStyle(getObject(), SWT.HORIZONTAL);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this {@link ToolBarInfo} has horizontal layout.
+	 */
+	public boolean isHorizontal() {
+		return ControlSupport.isStyle(getObject(), SWT.HORIZONTAL);
+	}
 
-  /**
-   * @return the {@link ToolItemInfo} children.
-   */
-  public List<ToolItemInfo> getItems() {
-    return getChildren(ToolItemInfo.class);
-  }
+	/**
+	 * @return the {@link ToolItemInfo} children.
+	 */
+	public List<ToolItemInfo> getItems() {
+		return getChildren(ToolItemInfo.class);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public List<ObjectInfo> getChildrenTree() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
-      removeItemControls(children);
-      return children;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public List<ObjectInfo> getChildrenTree() throws Exception {
+			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+			removeItemControls(children);
+			return children;
+		}
 
-    @Override
-    public List<ObjectInfo> getChildrenGraphical() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenGraphical());
-      removeItemControls(children);
-      return children;
-    }
+		@Override
+		public List<ObjectInfo> getChildrenGraphical() throws Exception {
+			List<ObjectInfo> children = Lists.newArrayList(super.getChildrenGraphical());
+			removeItemControls(children);
+			return children;
+		}
 
-    private void removeItemControls(List<ObjectInfo> children) {
-      for (ToolItemInfo item : getItems()) {
-        children.remove(item.getControl());
-      }
-    }
-  };
+		private void removeItemControls(List<ObjectInfo> children) {
+			for (ToolItemInfo item : getItems()) {
+				children.remove(item.getControl());
+			}
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 }

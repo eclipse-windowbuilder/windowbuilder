@@ -25,44 +25,44 @@ import java.util.List;
  *
  */
 public class StringListEditor implements IDataEditor {
-  private final ListDialogField m_field;
-  private final String m_separator;
+	private final ListDialogField m_field;
+	private final String m_separator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StringListEditor(ListDialogField field, String separator) {
-    m_field = field;
-    m_separator = separator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StringListEditor(ListDialogField field, String separator) {
+		m_field = field;
+		m_separator = separator;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDataEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue() {
-    StringBuffer buffer = new StringBuffer();
-    int count = m_field.getSize();
-    int last = count - 1;
-    for (int i = 0; i < count; i++) {
-      buffer.append(m_field.getElement(i));
-      if (i != last) {
-        buffer.append(m_separator);
-      }
-    }
-    return buffer.toString();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDataEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue() {
+		StringBuffer buffer = new StringBuffer();
+		int count = m_field.getSize();
+		int last = count - 1;
+		for (int i = 0; i < count; i++) {
+			buffer.append(m_field.getElement(i));
+			if (i != last) {
+				buffer.append(m_separator);
+			}
+		}
+		return buffer.toString();
+	}
 
-  @Override
-  public void setValue(Object value) {
-    String stringValue = ObjectUtils.toString(value);
-    String[] values = StringUtils.split(stringValue, m_separator);
-    List elements = new ArrayList();
-    CollectionUtils.addAll(elements, values);
-    m_field.setElements(elements);
-  }
+	@Override
+	public void setValue(Object value) {
+		String stringValue = ObjectUtils.toString(value);
+		String[] values = StringUtils.split(stringValue, m_separator);
+		List elements = new ArrayList();
+		CollectionUtils.addAll(elements, values);
+		m_field.setElements(elements);
+	}
 }

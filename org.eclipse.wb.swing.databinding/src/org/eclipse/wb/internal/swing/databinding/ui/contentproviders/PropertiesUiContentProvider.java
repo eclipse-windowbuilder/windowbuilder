@@ -24,40 +24,40 @@ import org.eclipse.swt.SWT;
  * @coverage bindings.swing.ui
  */
 public class PropertiesUiContentProvider extends DialogFieldUiContentProvider {
-  private final BeanPropertyInfo m_property;
-  private final ComboDialogField m_dialogField;
+	private final BeanPropertyInfo m_property;
+	private final ComboDialogField m_dialogField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertiesUiContentProvider(BeanPropertyInfo property, String[] items) {
-    m_property = property;
-    m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
-    m_dialogField.setItems(items);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertiesUiContentProvider(BeanPropertyInfo property, String[] items) {
+		m_property = property;
+		m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
+		m_dialogField.setItems(items);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractUIContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public DialogField getDialogField() {
-    return m_dialogField;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractUIContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DialogField getDialogField() {
+		return m_dialogField;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    m_dialogField.selectItem(m_property.getPath());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		m_dialogField.selectItem(m_property.getPath());
+	}
 
-  public void saveToObject() throws Exception {
-    m_property.setPath(m_dialogField.getText());
-  }
+	public void saveToObject() throws Exception {
+		m_property.setPath(m_dialogField.getText());
+	}
 }

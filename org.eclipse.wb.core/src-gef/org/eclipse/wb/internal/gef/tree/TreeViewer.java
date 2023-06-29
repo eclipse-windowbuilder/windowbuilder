@@ -42,238 +42,238 @@ import java.util.List;
  * @coverage gef.tree
  */
 public class TreeViewer extends AbstractEditPartViewer {
-  private final Tree m_tree;
-  private final RootEditPart m_rootEditPart;
-  private final TreeEventManager m_eventManager;
+	private final Tree m_tree;
+	private final RootEditPart m_rootEditPart;
+	private final TreeEventManager m_eventManager;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TreeViewer(Composite parent, int style) {
-    this(new Tree(parent, style));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TreeViewer(Composite parent, int style) {
+		this(new Tree(parent, style));
+	}
 
-  public TreeViewer(Tree tree) {
-    m_tree = tree;
-    // handle SWT events
-    m_eventManager = new TreeEventManager(m_tree, this);
-    // create root EditPart
-    m_rootEditPart = new RootEditPart(this);
-    m_rootEditPart.activate();
-    setRootEditPart(m_rootEditPart);
-    // handle selection events
-    synchronizeSelection();
-  }
+	public TreeViewer(Tree tree) {
+		m_tree = tree;
+		// handle SWT events
+		m_eventManager = new TreeEventManager(m_tree, this);
+		// create root EditPart
+		m_rootEditPart = new RootEditPart(this);
+		m_rootEditPart.activate();
+		setRootEditPart(m_rootEditPart);
+		// handle selection events
+		synchronizeSelection();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Tree} control for this viewer.
-   */
-  public Tree getTree() {
-    return m_tree;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Tree} control for this viewer.
+	 */
+	public Tree getTree() {
+		return m_tree;
+	}
 
-  /**
-   * Returns the SWT <code>Control</code> for this viewer.
-   */
-  @Override
-  public Control getControl() {
-    return m_tree;
-  }
+	/**
+	 * Returns the SWT <code>Control</code> for this viewer.
+	 */
+	@Override
+	public Control getControl() {
+		return m_tree;
+	}
 
-  /**
-   * @return viewer horizontal scroll offset.
-   */
-  @Override
-  public int getHOffset() {
-    return 0;
-  }
+	/**
+	 * @return viewer horizontal scroll offset.
+	 */
+	@Override
+	public int getHOffset() {
+		return 0;
+	}
 
-  /**
-   * @return viewer vertical scroll offset.
-   */
-  @Override
-  public int getVOffset() {
-    return 0;
-  }
+	/**
+	 * @return viewer vertical scroll offset.
+	 */
+	@Override
+	public int getVOffset() {
+		return 0;
+	}
 
-  /**
-   * Returns root {@link EditPart}.
-   */
-  @Override
-  public EditPart getRootEditPart() {
-    return m_rootEditPart;
-  }
+	/**
+	 * Returns root {@link EditPart}.
+	 */
+	@Override
+	public EditPart getRootEditPart() {
+		return m_rootEditPart;
+	}
 
-  @Override
-  public IRootFigure getRootFigure() {
-    return null;
-  }
+	@Override
+	public IRootFigure getRootFigure() {
+		return null;
+	}
 
-  @Override
-  public Layer getLayer(String name) {
-    return null;
-  }
+	@Override
+	public Layer getLayer(String name) {
+		return null;
+	}
 
-  /**
-   * Sets the <code>{@link EditDomain}</code> for this viewer. The Viewer will route all mouse and
-   * keyboard events to the {@link EditDomain}.
-   */
-  @Override
-  public void setEditDomain(EditDomain domain) {
-    super.setEditDomain(domain);
-    m_eventManager.setDomain(domain);
-  }
+	/**
+	 * Sets the <code>{@link EditDomain}</code> for this viewer. The Viewer will route all mouse and
+	 * keyboard events to the {@link EditDomain}.
+	 */
+	@Override
+	public void setEditDomain(EditDomain domain) {
+		super.setEditDomain(domain);
+		m_eventManager.setDomain(domain);
+	}
 
-  /**
-   * Set the Cursor.
-   */
-  @Override
-  public void setCursor(Cursor cursor) {
-    m_tree.setCursor(cursor);
-  }
+	/**
+	 * Set the Cursor.
+	 */
+	@Override
+	public void setCursor(Cursor cursor) {
+		m_tree.setCursor(cursor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expansion
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Collapses all items in underlying {@link Tree}.
-   */
-  public void collapseAll() {
-    UiUtils.collapseAll(m_tree);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expansion
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Collapses all items in underlying {@link Tree}.
+	 */
+	public void collapseAll() {
+		UiUtils.collapseAll(m_tree);
+	}
 
-  /**
-   * Expands all items in underlying {@link Tree}.
-   */
-  public void expandAll() {
-    UiUtils.expandAll(m_tree);
-  }
+	/**
+	 * Expands all items in underlying {@link Tree}.
+	 */
+	public void expandAll() {
+		UiUtils.expandAll(m_tree);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Selection
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds listeners for synchronizing selection between this {@link TreeViewer} and underlying
-   * {@link Tree} widget.
-   */
-  private void synchronizeSelection() {
-    final boolean[] inTreeSelectionListener = new boolean[1];
-    // listener for Tree widget selection
-    m_tree.addSelectionListener(new SelectionListener() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        // prepare selected EditPart's
-        EditPart[] selection;
-        {
-          TreeItem[] items = m_tree.getSelection();
-          selection = new EditPart[items.length];
-          for (int i = 0; i < selection.length; i++) {
-            selection[i] = (EditPart) items[i].getData();
-          }
-        }
-        // set selection in viewer
-        try {
-          inTreeSelectionListener[0] = true;
-          setSelection(new StructuredSelection(selection));
-        } finally {
-          inTreeSelectionListener[0] = false;
-        }
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Selection
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds listeners for synchronizing selection between this {@link TreeViewer} and underlying
+	 * {@link Tree} widget.
+	 */
+	private void synchronizeSelection() {
+		final boolean[] inTreeSelectionListener = new boolean[1];
+		// listener for Tree widget selection
+		m_tree.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// prepare selected EditPart's
+				EditPart[] selection;
+				{
+					TreeItem[] items = m_tree.getSelection();
+					selection = new EditPart[items.length];
+					for (int i = 0; i < selection.length; i++) {
+						selection[i] = (EditPart) items[i].getData();
+					}
+				}
+				// set selection in viewer
+				try {
+					inTreeSelectionListener[0] = true;
+					setSelection(new StructuredSelection(selection));
+				} finally {
+					inTreeSelectionListener[0] = false;
+				}
+			}
 
-      @Override
-      public void widgetDefaultSelected(SelectionEvent e) {
-        widgetSelected(e);
-      }
-    });
-    // listener for this viewer selection
-    addSelectionChangedListener(new ISelectionChangedListener() {
-      @Override
-      public void selectionChanged(SelectionChangedEvent event) {
-        if (!inTreeSelectionListener[0]) {
-          setSelectionToTreeWidget();
-        }
-      }
-    });
-  }
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
+		// listener for this viewer selection
+		addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				if (!inTreeSelectionListener[0]) {
+					setSelectionToTreeWidget();
+				}
+			}
+		});
+	}
 
-  /**
-   * Applies existing selection from this {@link TreeViewer} to underlying {@link Tree} widget.
-   */
-  public void setSelectionToTreeWidget() {
-    // prepare selected TreeItem's
-    List<TreeItem> treeItems = Lists.newArrayList();
-    for (EditPart editPart : getSelectedEditParts()) {
-      TreeEditPart treeEditPart = (TreeEditPart) editPart;
-      treeItems.add(treeEditPart.getWidget());
-    }
-    // set selection in tree
-    m_tree.setSelection(treeItems.toArray(new TreeItem[treeItems.size()]));
-  }
+	/**
+	 * Applies existing selection from this {@link TreeViewer} to underlying {@link Tree} widget.
+	 */
+	public void setSelectionToTreeWidget() {
+		// prepare selected TreeItem's
+		List<TreeItem> treeItems = Lists.newArrayList();
+		for (EditPart editPart : getSelectedEditParts()) {
+			TreeEditPart treeEditPart = (TreeEditPart) editPart;
+			treeItems.add(treeEditPart.getWidget());
+		}
+		// set selection in tree
+		m_tree.setSelection(treeItems.toArray(new TreeItem[treeItems.size()]));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Finding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns <code>null</code> or the <code>{@link EditPart}</code> at the specified location, using
-   * the given exclusion set and conditional.
-   */
-  @Override
-  public EditPart findTargetEditPart(int x,
-      int y,
-      Collection<EditPart> exclude,
-      IConditional conditional) {
-    // simple check location
-    Rectangle clientArea = m_tree.getClientArea();
-    if (x < 0 || y < 0 || x > clientArea.width || y > clientArea.height) {
-      return null;
-    }
-    // find EditPart
-    EditPart result = null;
-    TreeItem item = m_tree.getItem(new org.eclipse.swt.graphics.Point(x, y));
-    if (item == null) {
-      result = m_rootEditPart;
-    } else {
-      result = (EditPart) item.getData();
-    }
-    // apply conditional
-    while (result != null) {
-      if (!exclude.contains(result) && (conditional == null || conditional.evaluate(result))) {
-        return result;
-      }
-      result = result.getParent();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Finding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns <code>null</code> or the <code>{@link EditPart}</code> at the specified location, using
+	 * the given exclusion set and conditional.
+	 */
+	@Override
+	public EditPart findTargetEditPart(int x,
+			int y,
+			Collection<EditPart> exclude,
+			IConditional conditional) {
+		// simple check location
+		Rectangle clientArea = m_tree.getClientArea();
+		if (x < 0 || y < 0 || x > clientArea.width || y > clientArea.height) {
+			return null;
+		}
+		// find EditPart
+		EditPart result = null;
+		TreeItem item = m_tree.getItem(new org.eclipse.swt.graphics.Point(x, y));
+		if (item == null) {
+			result = m_rootEditPart;
+		} else {
+			result = (EditPart) item.getData();
+		}
+		// apply conditional
+		while (result != null) {
+			if (!exclude.contains(result) && (conditional == null || conditional.evaluate(result))) {
+				return result;
+			}
+			result = result.getParent();
+		}
+		return null;
+	}
 
-  @Override
-  public EditPart findTargetEditPart(int x,
-      int y,
-      Collection<EditPart> exclude,
-      IConditional conditional,
-      String layer) {
-    return null;
-  }
+	@Override
+	public EditPart findTargetEditPart(int x,
+			int y,
+			Collection<EditPart> exclude,
+			IConditional conditional,
+			String layer) {
+		return null;
+	}
 
-  @Override
-  public Handle findTargetHandle(Point location) {
-    return null;
-  }
+	@Override
+	public Handle findTargetHandle(Point location) {
+		return null;
+	}
 
-  @Override
-  public Handle findTargetHandle(int x, int y) {
-    return null;
-  }
+	@Override
+	public Handle findTargetHandle(int x, int y) {
+		return null;
+	}
 }

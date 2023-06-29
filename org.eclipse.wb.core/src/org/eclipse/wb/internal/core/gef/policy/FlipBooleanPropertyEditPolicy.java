@@ -27,41 +27,41 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
  * @coverage core.gef.policy
  */
 public final class FlipBooleanPropertyEditPolicy extends EditPolicy {
-  private final ObjectInfo m_component;
-  private final String m_propertyPath;
+	private final ObjectInfo m_component;
+	private final String m_propertyPath;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FlipBooleanPropertyEditPolicy(ObjectInfo component, String propertyPath) {
-    m_component = component;
-    m_propertyPath = propertyPath;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FlipBooleanPropertyEditPolicy(ObjectInfo component, String propertyPath) {
+		m_component = component;
+		m_propertyPath = propertyPath;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Request
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void performRequest(Request request) {
-    super.performRequest(request);
-    if (Request.REQ_OPEN.equals(request.getType())) {
-      ExecutionUtils.run(m_component, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          Property property = PropertyUtils.getByPath(m_component, m_propertyPath);
-          if (property != null) {
-            Object value = property.getValue();
-            if (value instanceof Boolean) {
-              boolean booleanValue = (Boolean) value;
-              property.setValue(!booleanValue);
-            }
-          }
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Request
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void performRequest(Request request) {
+		super.performRequest(request);
+		if (Request.REQ_OPEN.equals(request.getType())) {
+			ExecutionUtils.run(m_component, new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					Property property = PropertyUtils.getByPath(m_component, m_propertyPath);
+					if (property != null) {
+						Object value = property.getValue();
+						if (value instanceof Boolean) {
+							boolean booleanValue = (Boolean) value;
+							property.setValue(!booleanValue);
+						}
+					}
+				}
+			});
+		}
+	}
 }

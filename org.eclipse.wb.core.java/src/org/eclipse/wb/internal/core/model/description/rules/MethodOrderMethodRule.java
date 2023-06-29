@@ -25,32 +25,32 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class MethodOrderMethodRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    // prepare order
-    MethodOrder order;
-    {
-      String specification = getRequiredAttribute(name, attributes, "order");
-      order = MethodOrder.parse(specification);
-    }
-    // prepare method
-    MethodDescription methodDescription;
-    {
-      String signature = getRequiredAttribute(name, attributes, "signature");
-      ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-      methodDescription = componentDescription.getMethod(signature);
-      Assert.isNotNull(
-          methodDescription,
-          "Can not find method %s for %s.",
-          signature,
-          componentDescription);
-    }
-    // set order
-    methodDescription.setOrder(order);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		// prepare order
+		MethodOrder order;
+		{
+			String specification = getRequiredAttribute(name, attributes, "order");
+			order = MethodOrder.parse(specification);
+		}
+		// prepare method
+		MethodDescription methodDescription;
+		{
+			String signature = getRequiredAttribute(name, attributes, "signature");
+			ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+			methodDescription = componentDescription.getMethod(signature);
+			Assert.isNotNull(
+					methodDescription,
+					"Can not find method %s for %s.",
+					signature,
+					componentDescription);
+		}
+		// set order
+		methodDescription.setOrder(order);
+	}
 }

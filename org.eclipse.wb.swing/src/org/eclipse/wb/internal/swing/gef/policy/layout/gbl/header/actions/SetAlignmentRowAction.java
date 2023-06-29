@@ -23,31 +23,31 @@ import org.eclipse.jface.resource.ImageDescriptor;
  * @coverage swing.gef.policy
  */
 public final class SetAlignmentRowAction extends DimensionHeaderAction<RowInfo> {
-  private final RowInfo.Alignment m_alignment;
+	private final RowInfo.Alignment m_alignment;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetAlignmentRowAction(DimensionHeaderEditPart<RowInfo> header,
-      String text,
-      ImageDescriptor imageDescriptor,
-      RowInfo.Alignment alignment) {
-    super(header, text, imageDescriptor, AS_RADIO_BUTTON);
-    m_alignment = alignment;
-    setChecked(header.getDimension().getAlignment() == m_alignment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetAlignmentRowAction(DimensionHeaderEditPart<RowInfo> header,
+			String text,
+			ImageDescriptor imageDescriptor,
+			RowInfo.Alignment alignment) {
+		super(header, text, imageDescriptor, AS_RADIO_BUTTON);
+		m_alignment = alignment;
+		setChecked(header.getDimension().getAlignment() == m_alignment);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void run(RowInfo dimension) throws Exception {
-    if (isChecked()) {
-      dimension.setAlignment(m_alignment);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void run(RowInfo dimension) throws Exception {
+		if (isChecked()) {
+			dimension.setAlignment(m_alignment);
+		}
+	}
 }

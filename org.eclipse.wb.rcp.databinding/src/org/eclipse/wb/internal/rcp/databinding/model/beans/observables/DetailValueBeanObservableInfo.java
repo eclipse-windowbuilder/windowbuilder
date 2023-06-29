@@ -19,25 +19,25 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
  * @coverage bindings.rcp.model.beans
  */
 public final class DetailValueBeanObservableInfo extends DetailBeanObservableInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DetailValueBeanObservableInfo(ObservableInfo masterObservable,
-      Class<?> detailBeanClass,
-      String detailPropertyReference,
-      Class<?> detailPropertyType) {
-    super(masterObservable, detailBeanClass, detailPropertyReference, detailPropertyType);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DetailValueBeanObservableInfo(ObservableInfo masterObservable,
+			Class<?> detailBeanClass,
+			String detailPropertyReference,
+			Class<?> detailPropertyType) {
+		super(masterObservable, detailBeanClass, detailPropertyReference, detailPropertyType);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPresentationPrefix() {
-    return "Value";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPresentationPrefix() {
+		return "Value";
+	}
 }

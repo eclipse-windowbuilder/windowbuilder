@@ -25,43 +25,43 @@ import java.util.Map;
  * @coverage core.model.clipboard
  */
 public final class PropertiesClipboardCommand extends ClipboardCommand {
-  private static final long serialVersionUID = 0L;
-  private final Map<String, String> m_propertyTitleToSource = Maps.newTreeMap();
+	private static final long serialVersionUID = 0L;
+	private final Map<String, String> m_propertyTitleToSource = Maps.newTreeMap();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PropertiesClipboardCommand(JavaInfo javaInfo) throws Exception {
-    for (Property property : javaInfo.getProperties()) {
-      if (property instanceof GenericPropertyImpl
-          && !property.getCategory().isSystem()
-          && property.isModified()) {
-        GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
-        String clipboardSource = genericProperty.getClipboardSource();
-        if (clipboardSource != null) {
-          m_propertyTitleToSource.put(property.getTitle(), clipboardSource);
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PropertiesClipboardCommand(JavaInfo javaInfo) throws Exception {
+		for (Property property : javaInfo.getProperties()) {
+			if (property instanceof GenericPropertyImpl
+					&& !property.getCategory().isSystem()
+					&& property.isModified()) {
+				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+				String clipboardSource = genericProperty.getClipboardSource();
+				if (clipboardSource != null) {
+					m_propertyTitleToSource.put(property.getTitle(), clipboardSource);
+				}
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void execute(JavaInfo javaInfo) throws Exception {
-    for (Property property : javaInfo.getProperties()) {
-      if (property instanceof GenericPropertyImpl) {
-        GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
-        String clipboardSource = m_propertyTitleToSource.get(property.getTitle());
-        if (clipboardSource != null) {
-          genericProperty.setExpression(clipboardSource, Property.UNKNOWN_VALUE);
-        }
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void execute(JavaInfo javaInfo) throws Exception {
+		for (Property property : javaInfo.getProperties()) {
+			if (property instanceof GenericPropertyImpl) {
+				GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+				String clipboardSource = m_propertyTitleToSource.get(property.getTitle());
+				if (clipboardSource != null) {
+					genericProperty.setExpression(clipboardSource, Property.UNKNOWN_VALUE);
+				}
+			}
+		}
+	}
 }

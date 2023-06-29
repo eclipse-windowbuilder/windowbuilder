@@ -32,106 +32,106 @@ import java.util.List;
  * @coverage bindings.ui.properties
  */
 public abstract class AbstractBindingsProperty extends AbstractProperty {
-  private Property[] m_properties;
+	private Property[] m_properties;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractBindingsProperty(Context context) {
-    super(BindingsPropertyEditor.EDITOR, context);
-    setCategory(PropertyCategory.system(7));
-    m_context.objectInfo.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void addContextMenu(List<? extends ObjectInfo> objects,
-          ObjectInfo object,
-          IMenuManager manager) throws Exception {
-        if (m_context.objectInfo == object) {
-          contributeActions(manager);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractBindingsProperty(Context context) {
+		super(BindingsPropertyEditor.EDITOR, context);
+		setCategory(PropertyCategory.system(7));
+		m_context.objectInfo.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void addContextMenu(List<? extends ObjectInfo> objects,
+					ObjectInfo object,
+					IMenuManager manager) throws Exception {
+				if (m_context.objectInfo == object) {
+					contributeActions(manager);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final Property[] getProperties() throws Exception {
-    if (m_properties == null) {
-      m_properties = createProperties();
-    }
-    return m_properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final Property[] getProperties() throws Exception {
+		if (m_properties == null) {
+			m_properties = createProperties();
+		}
+		return m_properties;
+	}
 
-  /**
-   * @return the array with sub properties.
-   */
-  protected abstract Property[] createProperties() throws Exception;
+	/**
+	 * @return the array with sub properties.
+	 */
+	protected abstract Property[] createProperties() throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final String getTitle() {
-    return Messages.AbstractBindingsProperty_title;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Property
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final String getTitle() {
+		return Messages.AbstractBindingsProperty_title;
+	}
 
-  @Override
-  public final boolean isModified() throws Exception {
-    for (Property property : getProperties()) {
-      if (property.isModified()) {
-        return true;
-      }
-    }
-    return false;
-  }
+	@Override
+	public final boolean isModified() throws Exception {
+		for (Property property : getProperties()) {
+			if (property.isModified()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void contributeActions(IMenuManager manager) throws Exception {
-    IMenuManager menu = new MenuManager(Messages.AbstractBindingsProperty_menuName);
-    // fill bindings
-    for (IBindingInfo binding : m_context.provider.getBindings()) {
-      if (checkEquals(binding.getTarget())) {
-        addBindingAction(menu, binding, binding.getTargetProperty(), true);
-      } else if (checkEquals(binding.getModel())) {
-        addBindingAction(menu, binding, binding.getModelProperty(), false);
-      }
-    }
-    // separator
-    menu.add(new Separator());
-    // fill properties
-    for (Property property : getProperties()) {
-      if (property instanceof AbstractObserveProperty) {
-        AbstractObserveProperty observeProperty = (AbstractObserveProperty) property;
-        menu.add(new ObserveAction(m_context.objectInfo, observeProperty));
-      } else if (property instanceof SingleObserveBindingProperty) {
-        SingleObserveBindingProperty observeProperty = (SingleObserveBindingProperty) property;
-        menu.add(new SingleObserveBindingAction(m_context.objectInfo, observeProperty));
-      }
-    }
-    // add menu
-    manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, menu);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void contributeActions(IMenuManager manager) throws Exception {
+		IMenuManager menu = new MenuManager(Messages.AbstractBindingsProperty_menuName);
+		// fill bindings
+		for (IBindingInfo binding : m_context.provider.getBindings()) {
+			if (checkEquals(binding.getTarget())) {
+				addBindingAction(menu, binding, binding.getTargetProperty(), true);
+			} else if (checkEquals(binding.getModel())) {
+				addBindingAction(menu, binding, binding.getModelProperty(), false);
+			}
+		}
+		// separator
+		menu.add(new Separator());
+		// fill properties
+		for (Property property : getProperties()) {
+			if (property instanceof AbstractObserveProperty) {
+				AbstractObserveProperty observeProperty = (AbstractObserveProperty) property;
+				menu.add(new ObserveAction(m_context.objectInfo, observeProperty));
+			} else if (property instanceof SingleObserveBindingProperty) {
+				SingleObserveBindingProperty observeProperty = (SingleObserveBindingProperty) property;
+				menu.add(new SingleObserveBindingAction(m_context.objectInfo, observeProperty));
+			}
+		}
+		// add menu
+		manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, menu);
+	}
 
-  /**
-   * @return <code>true</code> if given {@link IObserveInfo} represented property info.
-   */
-  protected abstract boolean checkEquals(IObserveInfo observe) throws Exception;
+	/**
+	 * @return <code>true</code> if given {@link IObserveInfo} represented property info.
+	 */
+	protected abstract boolean checkEquals(IObserveInfo observe) throws Exception;
 
-  /**
-   * Add menu action for given binding.
-   */
-  protected abstract void addBindingAction(IMenuManager menu,
-      IBindingInfo binding,
-      IObserveInfo observeProperty,
-      boolean isTarget) throws Exception;
+	/**
+	 * Add menu action for given binding.
+	 */
+	protected abstract void addBindingAction(IMenuManager menu,
+			IBindingInfo binding,
+			IObserveInfo observeProperty,
+			boolean isTarget) throws Exception;
 }

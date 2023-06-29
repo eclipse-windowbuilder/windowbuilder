@@ -33,70 +33,70 @@ import java.util.List;
  * @coverage bindings.swing.ui
  */
 public class JTableColumnContainerUiContentProvider extends TabContainerUiContentProvider {
-  private final JTableBindingInfo m_binding;
-  private final List<BindingInfo> m_bindings;
-  private final DatabindingsProvider m_provider;
+	private final JTableBindingInfo m_binding;
+	private final List<BindingInfo> m_bindings;
+	private final DatabindingsProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JTableColumnContainerUiContentProvider(TabContainerConfiguration configuration,
-      JTableBindingInfo binding,
-      List<BindingInfo> bindings,
-      DatabindingsProvider provider) {
-    super(configuration);
-    m_binding = binding;
-    m_bindings = bindings;
-    m_provider = provider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JTableColumnContainerUiContentProvider(TabContainerConfiguration configuration,
+			JTableBindingInfo binding,
+			List<BindingInfo> bindings,
+			DatabindingsProvider provider) {
+		super(configuration);
+		m_binding = binding;
+		m_bindings = bindings;
+		m_provider = provider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected IUiContentProvider createNewPageContentProvider() throws Exception {
-    return new UIContentContainer<ColumnBindingInfo>(m_binding.createNewColumnBinding(-1),
-        m_bindings,
-        Messages.JTableColumnContainerUiContentProvider_column,
-        m_provider);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected IUiContentProvider createNewPageContentProvider() throws Exception {
+		return new UIContentContainer<ColumnBindingInfo>(m_binding.createNewColumnBinding(-1),
+				m_bindings,
+				Messages.JTableColumnContainerUiContentProvider_column,
+				m_provider);
+	}
 
-  @Override
-  protected void configute(CTabItem tabItem, int index, IUiContentProvider provider) {
-    tabItem.setText(MessageFormat.format(
-        Messages.JTableColumnContainerUiContentProvider_columnIndex,
-        index));
-  }
+	@Override
+	protected void configute(CTabItem tabItem, int index, IUiContentProvider provider) {
+		tabItem.setText(MessageFormat.format(
+				Messages.JTableColumnContainerUiContentProvider_columnIndex,
+				index));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    List<IUiContentProvider> providers = Lists.newArrayList();
-    for (ColumnBindingInfo binding : m_binding.getColumns()) {
-      providers.add(new UIContentContainer<ColumnBindingInfo>(binding,
-          m_bindings,
-          Messages.JTableColumnContainerUiContentProvider_column,
-          m_provider));
-    }
-    updateFromObject(providers);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		List<IUiContentProvider> providers = Lists.newArrayList();
+		for (ColumnBindingInfo binding : m_binding.getColumns()) {
+			providers.add(new UIContentContainer<ColumnBindingInfo>(binding,
+					m_bindings,
+					Messages.JTableColumnContainerUiContentProvider_column,
+					m_provider));
+		}
+		updateFromObject(providers);
+	}
 
-  @Override
-  @SuppressWarnings("unchecked")
-  protected void saveToObject(List<IUiContentProvider> providers) throws Exception {
-    List<ColumnBindingInfo> columns = Lists.newArrayList();
-    for (IUiContentProvider provider : providers) {
-      UIContentContainer<ColumnBindingInfo> container =
-          (UIContentContainer<ColumnBindingInfo>) provider;
-      columns.add(container.getBinding());
-    }
-    m_binding.setColumns(columns, m_bindings);
-  }
+	@Override
+	@SuppressWarnings("unchecked")
+	protected void saveToObject(List<IUiContentProvider> providers) throws Exception {
+		List<ColumnBindingInfo> columns = Lists.newArrayList();
+		for (IUiContentProvider provider : providers) {
+			UIContentContainer<ColumnBindingInfo> container =
+					(UIContentContainer<ColumnBindingInfo>) provider;
+			columns.add(container.getBinding());
+		}
+		m_binding.setColumns(columns, m_bindings);
+	}
 }

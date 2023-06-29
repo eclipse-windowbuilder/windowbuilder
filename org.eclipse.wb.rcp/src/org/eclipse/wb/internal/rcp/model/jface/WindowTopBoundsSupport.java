@@ -37,89 +37,89 @@ import java.util.List;
  * @coverage rcp.model.jface
  */
 public class WindowTopBoundsSupport extends TopBoundsSupport {
-  private final WindowInfo m_window;
+	private final WindowInfo m_window;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WindowTopBoundsSupport(WindowInfo window) {
-    super(window);
-    m_window = window;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WindowTopBoundsSupport(WindowInfo window) {
+		super(window);
+		m_window = window;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TopBoundsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void apply() throws Exception {
-    // check for getInitialSize()
-    if (get_getInitialSize_Point() != null) {
-      return;
-    }
-    // set size from resource properties (or default)
-    {
-      Dimension size = getResourceSize();
-      ControlSupport.setSize(m_window.getShell(), size.width, size.height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TopBoundsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void apply() throws Exception {
+		// check for getInitialSize()
+		if (get_getInitialSize_Point() != null) {
+			return;
+		}
+		// set size from resource properties (or default)
+		{
+			Dimension size = getResourceSize();
+			ControlSupport.setSize(m_window.getShell(), size.width, size.height);
+		}
+	}
 
-  @Override
-  public void setSize(int width, int height) throws Exception {
-    // check for getInitialSize()
-    {
-      ClassInstanceCreation pointCreation = get_getInitialSize_Point();
-      if (pointCreation != null) {
-        String widthSource = IntegerConverter.INSTANCE.toJavaSource(m_window, width);
-        String heightSource = IntegerConverter.INSTANCE.toJavaSource(m_window, height);
-        AstEditor editor = m_window.getEditor();
-        List<Expression> arguments = DomGenerics.arguments(pointCreation);
-        editor.replaceExpression(arguments.get(0), widthSource);
-        editor.replaceExpression(arguments.get(1), heightSource);
-      }
-    }
-    // remember size in resource properties
-    setResourceSize(width, height);
-  }
+	@Override
+	public void setSize(int width, int height) throws Exception {
+		// check for getInitialSize()
+		{
+			ClassInstanceCreation pointCreation = get_getInitialSize_Point();
+			if (pointCreation != null) {
+				String widthSource = IntegerConverter.INSTANCE.toJavaSource(m_window, width);
+				String heightSource = IntegerConverter.INSTANCE.toJavaSource(m_window, height);
+				AstEditor editor = m_window.getEditor();
+				List<Expression> arguments = DomGenerics.arguments(pointCreation);
+				editor.replaceExpression(arguments.get(0), widthSource);
+				editor.replaceExpression(arguments.get(1), heightSource);
+			}
+		}
+		// remember size in resource properties
+		setResourceSize(width, height);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Show
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean show() throws Exception {
-    CompositeTopBoundsSupport.show(m_window, m_window.getShell());
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Show
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean show() throws Exception {
+		CompositeTopBoundsSupport.show(m_window, m_window.getShell());
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Size utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ClassInstanceCreation} for new {@link Point} in
-   *         <code>getInitialSize()</code>, or <code>null</code> if something different is returned.
-   */
-  private ClassInstanceCreation get_getInitialSize_Point() {
-    TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(m_window);
-    MethodDeclaration method =
-        AstNodeUtils.getMethodBySignature(typeDeclaration, "getInitialSize()");
-    if (method != null) {
-      List<Statement> statements = DomGenerics.statements(method.getBody());
-      Statement lastStatement = statements.get(statements.size() - 1);
-      if (lastStatement instanceof ReturnStatement) {
-        ReturnStatement returnStatement = (ReturnStatement) lastStatement;
-        if (returnStatement.getExpression() instanceof ClassInstanceCreation) {
-          return (ClassInstanceCreation) returnStatement.getExpression();
-        }
-      }
-    }
-    // unknown state
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Size utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ClassInstanceCreation} for new {@link Point} in
+	 *         <code>getInitialSize()</code>, or <code>null</code> if something different is returned.
+	 */
+	private ClassInstanceCreation get_getInitialSize_Point() {
+		TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(m_window);
+		MethodDeclaration method =
+				AstNodeUtils.getMethodBySignature(typeDeclaration, "getInitialSize()");
+		if (method != null) {
+			List<Statement> statements = DomGenerics.statements(method.getBody());
+			Statement lastStatement = statements.get(statements.size() - 1);
+			if (lastStatement instanceof ReturnStatement) {
+				ReturnStatement returnStatement = (ReturnStatement) lastStatement;
+				if (returnStatement.getExpression() instanceof ClassInstanceCreation) {
+					return (ClassInstanceCreation) returnStatement.getExpression();
+				}
+			}
+		}
+		// unknown state
+		return null;
+	}
 }

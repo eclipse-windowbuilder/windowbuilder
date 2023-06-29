@@ -25,22 +25,22 @@ import java.util.Map;
  * @coverage core.model.description
  */
 public interface IDescriptionVersionsProviderFactory {
-  /**
-   * @return the {@link Map} with versions, for example <code>rcp.version -> 3.2</code> or
-   *         <code>gwt_version -> 1.5</code>.
-   */
-  Map<String, Object> getVersions(IJavaProject javaProject, ClassLoader classLoader)
-      throws Exception;
+	/**
+	 * @return the {@link Map} with versions, for example <code>rcp.version -> 3.2</code> or
+	 *         <code>gwt_version -> 1.5</code>.
+	 */
+	Map<String, Object> getVersions(IJavaProject javaProject, ClassLoader classLoader)
+			throws Exception;
 
-  /**
-   * @param javaProject
-   *          the {@link IJavaProject} that can be used to detect version of toolkit/library.
-   * @param classLoader
-   *          the editor {@link ClassLoader} that can be used to detect version of toolkit/library.
-   *
-   * @return the {@link IDescriptionVersionsProvider} for toolkit or library that is supported by
-   *         this {@link IDescriptionVersionsProviderFactory}, may be <code>null</code>.
-   */
-  IDescriptionVersionsProvider getProvider(IJavaProject javaProject, ClassLoader classLoader)
-      throws Exception;
+	/**
+	 * @param javaProject
+	 *          the {@link IJavaProject} that can be used to detect version of toolkit/library.
+	 * @param classLoader
+	 *          the editor {@link ClassLoader} that can be used to detect version of toolkit/library.
+	 *
+	 * @return the {@link IDescriptionVersionsProvider} for toolkit or library that is supported by
+	 *         this {@link IDescriptionVersionsProviderFactory}, may be <code>null</code>.
+	 */
+	IDescriptionVersionsProvider getProvider(IJavaProject javaProject, ClassLoader classLoader)
+			throws Exception;
 }

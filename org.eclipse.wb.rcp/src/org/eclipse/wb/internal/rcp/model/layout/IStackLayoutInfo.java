@@ -22,18 +22,18 @@ import org.eclipse.swt.custom.StackLayout;
  * @coverage rcp.model.layout
  */
 public interface IStackLayoutInfo<C extends IControlInfo> extends ILayoutInfo<C> {
-  /**
-   * @return the {@link IControlInfo} before active one.
-   */
-  C getPrevControl();
+	/**
+	 * @return the {@link IControlInfo} before active one.
+	 */
+	C getPrevControl();
 
-  /**
-   * @return the {@link IControlInfo} after active one.
-   */
-  C getNextControl();
+	/**
+	 * @return the {@link IControlInfo} after active one.
+	 */
+	C getNextControl();
 
-  /**
-   * Sets {@link IControlInfo} to show on {@link StackLayout}.
-   */
-  void show(C control);
+	/**
+	 * Sets {@link IControlInfo} to show on {@link StackLayout}.
+	 */
+	void show(C control);
 }

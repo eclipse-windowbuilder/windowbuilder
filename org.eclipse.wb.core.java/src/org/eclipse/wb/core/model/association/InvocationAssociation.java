@@ -23,39 +23,39 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.association
  */
 public abstract class InvocationAssociation extends Association {
-  protected MethodInvocation m_invocation;
+	protected MethodInvocation m_invocation;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected InvocationAssociation() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected InvocationAssociation() {
+	}
 
-  protected InvocationAssociation(MethodInvocation invocation) {
-    m_invocation = invocation;
-  }
+	protected InvocationAssociation(MethodInvocation invocation) {
+		m_invocation = invocation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the underlying {@link MethodInvocation}.
-   */
-  public final MethodInvocation getInvocation() {
-    return m_invocation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the underlying {@link MethodInvocation}.
+	 */
+	public final MethodInvocation getInvocation() {
+		return m_invocation;
+	}
 
-  @Override
-  public final Statement getStatement() {
-    return AstNodeUtils.getEnclosingStatement(m_invocation);
-  }
+	@Override
+	public final Statement getStatement() {
+		return AstNodeUtils.getEnclosingStatement(m_invocation);
+	}
 
-  @Override
-  public final String getSource() {
-    return m_editor.getSource(m_invocation);
-  }
+	@Override
+	public final String getSource() {
+		return m_editor.getSource(m_invocation);
+	}
 }

@@ -17,11 +17,11 @@ package org.netbeans.modules.form.layoutdesign;
  * @author mitin_aa
  */
 public interface IFeedbacksDrawer {
-  public static final int BOTH_DIMENSIONS = 2;
+	public static final int BOTH_DIMENSIONS = 2;
 
-  void drawLine(int x1, int y1, int x2, int y2);
+	void drawLine(int x1, int y1, int x2, int y2);
 
-  void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle);
+	void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle);
 
-  void drawLinkBadge(int x, int y, int dimension);
+	void drawLinkBadge(int x, int y, int dimension);
 }

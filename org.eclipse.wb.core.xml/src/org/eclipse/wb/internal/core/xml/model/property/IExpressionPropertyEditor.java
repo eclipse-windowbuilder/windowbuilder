@@ -20,8 +20,8 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
  * @coverage XML.model.property
  */
 public interface IExpressionPropertyEditor {
-  /**
-   * @return the {@link String} to set into attribute.
-   */
-  String getValueExpression(GenericProperty property, Object value) throws Exception;
+	/**
+	 * @return the {@link String} to set into attribute.
+	 */
+	String getValueExpression(GenericProperty property, Object value) throws Exception;
 }

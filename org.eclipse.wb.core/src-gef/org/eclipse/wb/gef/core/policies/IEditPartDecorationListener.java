@@ -20,13 +20,13 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
  * @coverage gef.core
  */
 public interface IEditPartDecorationListener {
-  /**
-   * Notifies that {@link EditPart} should be decorated.
-   */
-  void decorate(EditPart child);
+	/**
+	 * Notifies that {@link EditPart} should be decorated.
+	 */
+	void decorate(EditPart child);
 
-  /**
-   * Notifies that {@link EditPart} should be undecorated.
-   */
-  void undecorate(EditPart child);
+	/**
+	 * Notifies that {@link EditPart} should be undecorated.
+	 */
+	void undecorate(EditPart child);
 }

@@ -21,30 +21,30 @@ import org.eclipse.swt.graphics.Image;
  * @coverage XML.model
  */
 public class XmlObjectPresentation extends DefaultObjectPresentation {
-  private final XmlObjectInfo m_object;
+	private final XmlObjectInfo m_object;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public XmlObjectPresentation(XmlObjectInfo object) {
-    super(object);
-    m_object = object;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public XmlObjectPresentation(XmlObjectInfo object) {
+		super(object);
+		m_object = object;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() throws Exception {
-    return m_object.getDescription().getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() throws Exception {
+		return m_object.getDescription().getIcon();
+	}
 
-  @Override
-  public String getText() throws Exception {
-    return m_object.getCreationSupport().getTitle();
-  }
+	@Override
+	public String getText() throws Exception {
+		return m_object.getCreationSupport().getTitle();
+	}
 }

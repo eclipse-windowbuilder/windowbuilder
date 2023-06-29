@@ -20,9 +20,9 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
  * @coverage core.model
  */
 public interface IWrapperInfo {
-  /**
-   * @return the {@link AbstractWrapper}.
-   * @see JavaInfoUtils#getWrapped(JavaInfo)
-   */
-  public IWrapper getWrapper();
+	/**
+	 * @return the {@link AbstractWrapper}.
+	 * @see JavaInfoUtils#getWrapped(JavaInfo)
+	 */
+	public IWrapper getWrapper();
 }

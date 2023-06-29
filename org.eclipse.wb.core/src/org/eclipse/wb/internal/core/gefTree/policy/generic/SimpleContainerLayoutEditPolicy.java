@@ -25,51 +25,51 @@ import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
  * @coverage core.gefTree.policy
  */
 public final class SimpleContainerLayoutEditPolicy extends SingleObjectLayoutEditPolicy<Object> {
-  private final SimpleContainer m_container;
-  private final ILayoutRequestValidator m_requestValidator;
+	private final SimpleContainer m_container;
+	private final ILayoutRequestValidator m_requestValidator;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimpleContainerLayoutEditPolicy(ObjectInfo model, SimpleContainer container) {
-    super(model);
-    m_container = container;
-    {
-      ILayoutRequestValidator validator = new AbstractContainerRequestValidator(container);
-      validator = LayoutRequestValidators.cache(validator);
-      m_requestValidator = validator;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimpleContainerLayoutEditPolicy(ObjectInfo model, SimpleContainer container) {
+		super(model);
+		m_container = container;
+		{
+			ILayoutRequestValidator validator = new AbstractContainerRequestValidator(container);
+			validator = LayoutRequestValidators.cache(validator);
+			m_requestValidator = validator;
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return m_requestValidator;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return m_requestValidator;
+	}
 
-  @Override
-  protected boolean isEmpty() {
-    return m_container.isEmpty();
-  }
+	@Override
+	protected boolean isEmpty() {
+		return m_container.isEmpty();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(Object component) throws Exception {
-    m_container.command_CREATE(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(Object component) throws Exception {
+		m_container.command_CREATE(component);
+	}
 
-  @Override
-  protected void command_ADD(Object component) throws Exception {
-    m_container.command_ADD(component);
-  }
+	@Override
+	protected void command_ADD(Object component) throws Exception {
+		m_container.command_ADD(component);
+	}
 }

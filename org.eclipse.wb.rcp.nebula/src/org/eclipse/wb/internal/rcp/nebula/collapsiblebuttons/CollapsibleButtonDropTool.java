@@ -24,26 +24,26 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage nebula.gef
  */
 public final class CollapsibleButtonDropTool extends AbstractCreationTool {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractCreationTool
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Request createTargetRequest() {
-    return new CollapsibleButtonDropRequest();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractCreationTool
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Request createTargetRequest() {
+		return new CollapsibleButtonDropRequest();
+	}
 
-  @Override
-  protected void selectAddedObjects() {
-    CollapsibleButtonDropRequest request = (CollapsibleButtonDropRequest) getTargetRequest();
-    ControlInfo button = request.getButton();
-    if (button != null) {
-      IEditPartViewer viewer = getViewer();
-      EditPart editPart = viewer.getEditPartByModel(button);
-      if (editPart != null) {
-        viewer.select(editPart);
-      }
-    }
-  }
+	@Override
+	protected void selectAddedObjects() {
+		CollapsibleButtonDropRequest request = (CollapsibleButtonDropRequest) getTargetRequest();
+		ControlInfo button = request.getButton();
+		if (button != null) {
+			IEditPartViewer viewer = getViewer();
+			EditPart editPart = viewer.getEditPartByModel(button);
+			if (editPart != null) {
+				viewer.select(editPart);
+			}
+		}
+	}
 }

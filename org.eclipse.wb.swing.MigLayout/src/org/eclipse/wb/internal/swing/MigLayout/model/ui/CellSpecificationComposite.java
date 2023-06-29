@@ -26,101 +26,101 @@ import org.eclipse.swt.widgets.Text;
  * @coverage swing.MigLayout.ui
  */
 public final class CellSpecificationComposite extends Composite {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // UI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final ErrorMessageTextField m_field;
-  private final Text m_textWidget;
-  private final Listener m_listener = new Listener() {
-    public void handleEvent(Event e) {
-      String s = m_textWidget.getText();
-      toCell(s);
-    }
-  };
-  private boolean m_updatingCell;
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Model
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private CellConstraintsSupport m_cell;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// UI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final ErrorMessageTextField m_field;
+	private final Text m_textWidget;
+	private final Listener m_listener = new Listener() {
+		public void handleEvent(Event e) {
+			String s = m_textWidget.getText();
+			toCell(s);
+		}
+	};
+	private boolean m_updatingCell;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Model
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private CellConstraintsSupport m_cell;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CellSpecificationComposite(Composite parent) {
-    super(parent, SWT.NONE);
-    setLayout(new FillLayout());
-    // prepare field/widget
-    m_field = new ErrorMessageTextField(this, SWT.BORDER);
-    m_textWidget = (Text) m_field.getControl();
-    // listen for modification
-    m_textWidget.addListener(SWT.Modify, m_listener);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CellSpecificationComposite(Composite parent) {
+		super(parent, SWT.NONE);
+		setLayout(new FillLayout());
+		// prepare field/widget
+		m_field = new ErrorMessageTextField(this, SWT.BORDER);
+		m_textWidget = (Text) m_field.getControl();
+		// listen for modification
+		m_textWidget.addListener(SWT.Modify, m_listener);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean setFocus() {
-    return m_textWidget.setFocus();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean setFocus() {
+		return m_textWidget.setFocus();
+	}
 
-  /**
-   * Updates this field from {@link CellConstraintsSupport}.
-   */
-  public void fromCell(CellConstraintsSupport cell) {
-    if (!m_updatingCell) {
-      m_cell = cell;
-      String specification = m_cell.getString();
-      if (!m_textWidget.getText().equals(specification)) {
-        setText(specification);
-      }
-    }
-  }
+	/**
+	 * Updates this field from {@link CellConstraintsSupport}.
+	 */
+	public void fromCell(CellConstraintsSupport cell) {
+		if (!m_updatingCell) {
+			m_cell = cell;
+			String specification = m_cell.getString();
+			if (!m_textWidget.getText().equals(specification)) {
+				setText(specification);
+			}
+		}
+	}
 
-  /**
-   * Uses text from {@link #m_textWidget} to update {@link CellConstraintsSupport}.
-   */
-  private void toCell(String s) {
-    m_updatingCell = true;
-    try {
-      m_cell.setString(s);
-      notifyModified(true);
-      m_field.setErrorMessage(null);
-    } catch (Throwable e) {
-      notifyModified(false);
-      m_field.setErrorMessage(e.getMessage());
-    } finally {
-      m_updatingCell = false;
-    }
-  }
+	/**
+	 * Uses text from {@link #m_textWidget} to update {@link CellConstraintsSupport}.
+	 */
+	private void toCell(String s) {
+		m_updatingCell = true;
+		try {
+			m_cell.setString(s);
+			notifyModified(true);
+			m_field.setErrorMessage(null);
+		} catch (Throwable e) {
+			notifyModified(false);
+			m_field.setErrorMessage(e.getMessage());
+		} finally {
+			m_updatingCell = false;
+		}
+	}
 
-  /**
-   * Notifies {@link SWT#Modify} listener that this field was updated, with given valid state.
-   */
-  private void notifyModified(boolean valid) {
-    Event event = new Event();
-    event.doit = valid;
-    notifyListeners(SWT.Modify, event);
-  }
+	/**
+	 * Notifies {@link SWT#Modify} listener that this field was updated, with given valid state.
+	 */
+	private void notifyModified(boolean valid) {
+		Event event = new Event();
+		event.doit = valid;
+		notifyListeners(SWT.Modify, event);
+	}
 
-  /**
-   * Sets text to {@link #m_textWidget}.
-   */
-  private void setText(String text) {
-    m_textWidget.removeListener(SWT.Modify, m_listener);
-    try {
-      m_textWidget.setText(text);
-      m_field.setErrorMessage(null);
-    } finally {
-      m_textWidget.addListener(SWT.Modify, m_listener);
-    }
-  }
+	/**
+	 * Sets text to {@link #m_textWidget}.
+	 */
+	private void setText(String text) {
+		m_textWidget.removeListener(SWT.Modify, m_listener);
+		try {
+			m_textWidget.setText(text);
+			m_field.setErrorMessage(null);
+		} finally {
+			m_textWidget.addListener(SWT.Modify, m_listener);
+		}
+	}
 }

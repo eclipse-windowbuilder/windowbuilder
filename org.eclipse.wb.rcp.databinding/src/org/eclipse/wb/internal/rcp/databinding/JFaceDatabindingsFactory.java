@@ -24,37 +24,37 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * @coverage bindings.rcp.model
  */
 public final class JFaceDatabindingsFactory implements IDatabindingFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IDatabindingFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IDatabindingsProvider createProvider(JavaInfo javaInfoRoot) throws Exception {
-    // check root
-    if (isRCPRootObject(javaInfoRoot)) {
-      // create provider
-      DatabindingsProvider provider = new DatabindingsProvider(javaInfoRoot);
-      // parse
-      DatabindingParser.parse(provider);
-      // events
-      provider.hookJavaInfoEvents();
-      return provider;
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IDatabindingFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IDatabindingsProvider createProvider(JavaInfo javaInfoRoot) throws Exception {
+		// check root
+		if (isRCPRootObject(javaInfoRoot)) {
+			// create provider
+			DatabindingsProvider provider = new DatabindingsProvider(javaInfoRoot);
+			// parse
+			DatabindingParser.parse(provider);
+			// events
+			provider.hookJavaInfoEvents();
+			return provider;
+		}
+		return null;
+	}
 
-  @Override
-  public AbstractUIPlugin getPlugin() {
-    return Activator.getDefault();
-  }
+	@Override
+	public AbstractUIPlugin getPlugin() {
+		return Activator.getDefault();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static boolean isRCPRootObject(JavaInfo javaInfoRoot) throws Exception {
-    return javaInfoRoot.getDescription().getToolkit().getId() == org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants.TOOLKIT_ID;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static boolean isRCPRootObject(JavaInfo javaInfoRoot) throws Exception {
+		return javaInfoRoot.getDescription().getToolkit().getId() == org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants.TOOLKIT_ID;
+	}
 }

@@ -23,30 +23,30 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class ConfigurablePropertyRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    String id = getRequiredAttribute(name, attributes, "id");
-    String title = getRequiredAttribute(name, attributes, "title");
-    // create property
-    ConfigurablePropertyDescription propertyDescription = new ConfigurablePropertyDescription();
-    propertyDescription.setId(id);
-    propertyDescription.setTitle(title);
-    // add property
-    {
-      ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
-      componentDescription.addConfigurableProperty(propertyDescription);
-    }
-    // push property
-    getDigester().push(propertyDescription);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		String id = getRequiredAttribute(name, attributes, "id");
+		String title = getRequiredAttribute(name, attributes, "title");
+		// create property
+		ConfigurablePropertyDescription propertyDescription = new ConfigurablePropertyDescription();
+		propertyDescription.setId(id);
+		propertyDescription.setTitle(title);
+		// add property
+		{
+			ComponentDescription componentDescription = (ComponentDescription) getDigester().peek();
+			componentDescription.addConfigurableProperty(propertyDescription);
+		}
+		// push property
+		getDigester().push(propertyDescription);
+	}
 
-  @Override
-  public void end(String namespace, String name) throws Exception {
-    getDigester().pop();
-  }
+	@Override
+	public void end(String namespace, String name) throws Exception {
+		getDigester().pop();
+	}
 }

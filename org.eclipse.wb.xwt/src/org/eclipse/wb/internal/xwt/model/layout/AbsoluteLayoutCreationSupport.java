@@ -22,60 +22,60 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
  * @coverage XWT.model.layout
  */
 public final class AbsoluteLayoutCreationSupport extends CreationSupport
-    implements
-      IImplicitCreationSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "explicit-layout: absolute";
-  }
+implements
+IImplicitCreationSupport {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "explicit-layout: absolute";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link CompositeInfo} parent.
-   */
-  private CompositeInfo getComposite() {
-    return (CompositeInfo) m_object.getParent();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link CompositeInfo} parent.
+	 */
+	private CompositeInfo getComposite() {
+		return (CompositeInfo) m_object.getParent();
+	}
 
-  @Override
-  public DocumentElement getElement() {
-    return getComposite().getCreationSupport().getElement();
-  }
+	@Override
+	public DocumentElement getElement() {
+		return getComposite().getCreationSupport().getElement();
+	}
 
-  @Override
-  public String getTitle() {
-    return toString();
-  }
+	@Override
+	public String getTitle() {
+		return toString();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Add
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addElement(DocumentElement parent, int index) throws Exception {
-    CompositeInfo composite = getComposite();
-    composite.setAttribute("layout", "{x:Null}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Add
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addElement(DocumentElement parent, int index) throws Exception {
+		CompositeInfo composite = getComposite();
+		composite.setAttribute("layout", "{x:Null}");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void delete() throws Exception {
-    CompositeInfo composite = getComposite();
-    composite.removeAttribute("layout");
-    composite.removeChild(m_object);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void delete() throws Exception {
+		CompositeInfo composite = getComposite();
+		composite.removeAttribute("layout");
+		composite.removeChild(m_object);
+	}
 }

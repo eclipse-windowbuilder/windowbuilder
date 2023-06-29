@@ -22,27 +22,27 @@ import java.util.List;
  * @coverage swing.model
  */
 public final class ActionRootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new ActionRootProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new ActionRootProcessor();
 
-  private ActionRootProcessor() {
-  }
+	private ActionRootProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    for (JavaInfo javaInfo : components) {
-      if (javaInfo instanceof ActionInfo) {
-        ActionInfo actionInfo = (ActionInfo) javaInfo;
-        ActionContainerInfo.get(root).addAction(actionInfo);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		for (JavaInfo javaInfo : components) {
+			if (javaInfo instanceof ActionInfo) {
+				ActionInfo actionInfo = (ActionInfo) javaInfo;
+				ActionContainerInfo.get(root).addAction(actionInfo);
+			}
+		}
+	}
 }

@@ -29,65 +29,65 @@ import org.eclipse.swt.graphics.Font;
  * @coverage bindings.ui
  */
 public final class ObserveDecoratingLabelProvider extends ObserveLabelProvider
-    implements
-      IColorProvider,
-      IFontProvider {
-  private final Font m_italicFont;
-  private final Font m_boldFont;
-  private final Font m_boldItalicFont;
+implements
+IColorProvider,
+IFontProvider {
+	private final Font m_italicFont;
+	private final Font m_boldFont;
+	private final Font m_boldItalicFont;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveDecoratingLabelProvider(StructuredViewer viewer) {
-    Font baseFont = viewer.getControl().getFont();
-    m_boldFont = DrawUtils.getBoldFont(baseFont);
-    m_italicFont = DrawUtils.getItalicFont(baseFont);
-    m_boldItalicFont = DrawUtils.getBoldItalicFont(baseFont);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveDecoratingLabelProvider(StructuredViewer viewer) {
+		Font baseFont = viewer.getControl().getFont();
+		m_boldFont = DrawUtils.getBoldFont(baseFont);
+		m_italicFont = DrawUtils.getItalicFont(baseFont);
+		m_boldItalicFont = DrawUtils.getBoldItalicFont(baseFont);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dispose() {
-    super.dispose();
-    m_italicFont.dispose();
-    m_boldFont.dispose();
-    m_boldItalicFont.dispose();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dispose() {
+		super.dispose();
+		m_italicFont.dispose();
+		m_boldFont.dispose();
+		m_boldItalicFont.dispose();
+	}
 
-  private static IObserveDecorator getDecorator(Object element) {
-    IObserveDecoration observe = (IObserveDecoration) element;
-    return observe.getDecorator();
-  }
+	private static IObserveDecorator getDecorator(Object element) {
+		IObserveDecoration observe = (IObserveDecoration) element;
+		return observe.getDecorator();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IColorDecorator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Color getBackground(Object element) {
-    return getDecorator(element).getBackground();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IColorDecorator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Color getBackground(Object element) {
+		return getDecorator(element).getBackground();
+	}
 
-  @Override
-  public Color getForeground(Object element) {
-    return getDecorator(element).getForeground();
-  }
+	@Override
+	public Color getForeground(Object element) {
+		return getDecorator(element).getForeground();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IFontDecorator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Font getFont(Object element) {
-    return getDecorator(element).getFont(m_italicFont, m_boldFont, m_boldItalicFont);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IFontDecorator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Font getFont(Object element) {
+		return getDecorator(element).getFont(m_italicFont, m_boldFont, m_boldItalicFont);
+	}
 }

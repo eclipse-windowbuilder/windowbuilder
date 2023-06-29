@@ -56,176 +56,176 @@ import javax.swing.Icon;
  * @coverage swing.model
  */
 public class AbstractActionInfo extends ActionInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractActionInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    // add "putValue()" properties
-    addBroadcastListener(new JavaInfoAddProperties() {
-      public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        if (javaInfo == AbstractActionInfo.this) {
-          addProperties(properties);
-        }
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractActionInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		// add "putValue()" properties
+		addBroadcastListener(new JavaInfoAddProperties() {
+			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
+				if (javaInfo == AbstractActionInfo.this) {
+					addProperties(properties);
+				}
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Adds additional properties accessed via
-   * {@link javax.swing.AbstractAction#putValue(String, Object)} if can.
-   */
-  private List<Property> m_properties = null;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Adds additional properties accessed via
+	 * {@link javax.swing.AbstractAction#putValue(String, Object)} if can.
+	 */
+	private List<Property> m_properties = null;
 
-  private void addProperties(List<Property> properties) throws Exception {
-    if (m_properties == null) {
-      m_properties = createProperties();
-    }
-    if (!m_properties.isEmpty()) {
-      properties.addAll(m_properties);
-    }
-  }
+	private void addProperties(List<Property> properties) throws Exception {
+		if (m_properties == null) {
+			m_properties = createProperties();
+		}
+		if (!m_properties.isEmpty()) {
+			properties.addAll(m_properties);
+		}
+	}
 
-  private List<Property> createProperties() throws Exception {
-    CreationSupport creationSupport = getCreationSupport();
-    // no additional properties available
-    if (!(creationSupport instanceof IActionSupport)) {
-      return Lists.newArrayList();
-    }
-    // create properties
-    List<Property> properties = Lists.newArrayList();
-    properties.add(createStringProperty("name", "NAME"));
-    properties.add(createStringProperty("short description", "SHORT_DESCRIPTION"));
-    properties.add(createStringProperty("long description", "LONG_DESCRIPTION"));
-    properties.add(createIconProperty("small icon", "SMALL_ICON"));
-    properties.add(createStringProperty("action command", "ACTION_COMMAND_KEY"));
-    properties.add(createProperty(
-        "accelerator",
-        "ACCELERATOR_KEY",
-        null,
-        KeyStrokePropertyEditor.INSTANCE));
-    properties.add(createProperty(
-        "mnemonic",
-        "MNEMONIC_KEY",
-        null,
-        DisplayedMnemonicKeyPropertyEditor.INSTANCE));
-    if (SystemUtils.JAVA_VERSION_FLOAT >= 1.6) {
-      properties.add(createProperty(
-          "displayed mnemonic index",
-          "DISPLAYED_MNEMONIC_INDEX_KEY",
-          IntegerConverter.INSTANCE,
-          IntegerPropertyEditor.INSTANCE));
-      properties.add(createIconProperty("large icon", "LARGE_ICON_KEY"));
-    }
-    // remove null-s
-    Iterables.removeIf(properties, Predicates.isNull());
-    return properties;
-  }
+	private List<Property> createProperties() throws Exception {
+		CreationSupport creationSupport = getCreationSupport();
+		// no additional properties available
+		if (!(creationSupport instanceof IActionSupport)) {
+			return Lists.newArrayList();
+		}
+		// create properties
+		List<Property> properties = Lists.newArrayList();
+		properties.add(createStringProperty("name", "NAME"));
+		properties.add(createStringProperty("short description", "SHORT_DESCRIPTION"));
+		properties.add(createStringProperty("long description", "LONG_DESCRIPTION"));
+		properties.add(createIconProperty("small icon", "SMALL_ICON"));
+		properties.add(createStringProperty("action command", "ACTION_COMMAND_KEY"));
+		properties.add(createProperty(
+				"accelerator",
+				"ACCELERATOR_KEY",
+				null,
+				KeyStrokePropertyEditor.INSTANCE));
+		properties.add(createProperty(
+				"mnemonic",
+				"MNEMONIC_KEY",
+				null,
+				DisplayedMnemonicKeyPropertyEditor.INSTANCE));
+		if (SystemUtils.JAVA_VERSION_FLOAT >= 1.6) {
+			properties.add(createProperty(
+					"displayed mnemonic index",
+					"DISPLAYED_MNEMONIC_INDEX_KEY",
+					IntegerConverter.INSTANCE,
+					IntegerPropertyEditor.INSTANCE));
+			properties.add(createIconProperty("large icon", "LARGE_ICON_KEY"));
+		}
+		// remove null-s
+		Iterables.removeIf(properties, Predicates.isNull());
+		return properties;
+	}
 
-  /**
-   * @return the new {@link Action} property for {@link String}.
-   */
-  private Property createStringProperty(String title, String keyName) throws Exception {
-    return createProperty(title, keyName, StringConverter.INSTANCE, StringPropertyEditor.INSTANCE);
-  }
+	/**
+	 * @return the new {@link Action} property for {@link String}.
+	 */
+	private Property createStringProperty(String title, String keyName) throws Exception {
+		return createProperty(title, keyName, StringConverter.INSTANCE, StringPropertyEditor.INSTANCE);
+	}
 
-  /**
-   * @return the new {@link Action} property for {@link Icon}.
-   */
-  private Property createIconProperty(String title, String keyName) throws Exception {
-    return createProperty(title, keyName, null, IconPropertyEditor.INSTANCE);
-  }
+	/**
+	 * @return the new {@link Action} property for {@link Icon}.
+	 */
+	private Property createIconProperty(String title, String keyName) throws Exception {
+		return createProperty(title, keyName, null, IconPropertyEditor.INSTANCE);
+	}
 
-  /**
-   * @return the new {@link Action} property.
-   */
-  private Property createProperty(String title,
-      String keyName,
-      ExpressionConverter converter,
-      PropertyEditor editor) throws Exception {
-    List<ExpressionAccessor> accessors = getAccessors(keyName);
-    // may be no accessors
-    if (accessors.isEmpty()) {
-      return null;
-    }
-    // create property
-    return new GenericPropertyImpl(this, title, Iterables.toArray(
-        accessors,
-        ExpressionAccessor.class), Property.UNKNOWN_VALUE, converter, editor);
-  }
+	/**
+	 * @return the new {@link Action} property.
+	 */
+	private Property createProperty(String title,
+			String keyName,
+			ExpressionConverter converter,
+			PropertyEditor editor) throws Exception {
+		List<ExpressionAccessor> accessors = getAccessors(keyName);
+		// may be no accessors
+		if (accessors.isEmpty()) {
+			return null;
+		}
+		// create property
+		return new GenericPropertyImpl(this, title, Iterables.toArray(
+				accessors,
+				ExpressionAccessor.class), Property.UNKNOWN_VALUE, converter, editor);
+	}
 
-  private List<ExpressionAccessor> getAccessors(String keyName) throws Exception {
-    IActionSupport creationInfo = (IActionSupport) getCreationSupport();
-    List<ExpressionAccessor> accessors = Lists.newArrayList();
-    // <init>()
-    {
-      ExpressionAccessor constructorAccessor =
-          createConstructorArgumentAccessor(creationInfo, keyName);
-      if (constructorAccessor != null) {
-        accessors.add(constructorAccessor);
-      }
-    }
-    // putValue()
-    if (!creationInfo.getInitializationBlocks().isEmpty()) {
-      ExpressionAccessor actionExpressionAccessor =
-          new ActionExpressionAccessor(creationInfo, keyName);
-      accessors.add(actionExpressionAccessor);
-    }
-    // done
-    return accessors;
-  }
+	private List<ExpressionAccessor> getAccessors(String keyName) throws Exception {
+		IActionSupport creationInfo = (IActionSupport) getCreationSupport();
+		List<ExpressionAccessor> accessors = Lists.newArrayList();
+		// <init>()
+		{
+			ExpressionAccessor constructorAccessor =
+					createConstructorArgumentAccessor(creationInfo, keyName);
+			if (constructorAccessor != null) {
+				accessors.add(constructorAccessor);
+			}
+		}
+		// putValue()
+		if (!creationInfo.getInitializationBlocks().isEmpty()) {
+			ExpressionAccessor actionExpressionAccessor =
+					new ActionExpressionAccessor(creationInfo, keyName);
+			accessors.add(actionExpressionAccessor);
+		}
+		// done
+		return accessors;
+	}
 
-  private static ExpressionAccessor createConstructorArgumentAccessor(final IActionSupport creationInfo,
-      String keyName) throws Exception {
-    String keyValue = (String) ReflectionUtils.getFieldObject(Action.class, keyName);
-    ConstructorDescription constructorDescription = creationInfo.getConstructorDescription();
-    if (constructorDescription != null) {
-      for (ParameterDescription parameter : constructorDescription.getParameters()) {
-        if (keyValue.equals(parameter.getTag("actionKey"))) {
-          final int index = parameter.getIndex();
-          return new ExpressionAccessor() {
-            @Override
-            public Expression getExpression(JavaInfo javaInfo) throws Exception {
-              ASTNode creationNode = creationInfo.getCreation();
-              return DomGenerics.arguments(creationNode).get(index);
-            }
+	private static ExpressionAccessor createConstructorArgumentAccessor(final IActionSupport creationInfo,
+			String keyName) throws Exception {
+		String keyValue = (String) ReflectionUtils.getFieldObject(Action.class, keyName);
+		ConstructorDescription constructorDescription = creationInfo.getConstructorDescription();
+		if (constructorDescription != null) {
+			for (ParameterDescription parameter : constructorDescription.getParameters()) {
+				if (keyValue.equals(parameter.getTag("actionKey"))) {
+					final int index = parameter.getIndex();
+					return new ExpressionAccessor() {
+						@Override
+						public Expression getExpression(JavaInfo javaInfo) throws Exception {
+							ASTNode creationNode = creationInfo.getCreation();
+							return DomGenerics.arguments(creationNode).get(index);
+						}
 
-            @Override
-            public boolean setExpression(JavaInfo javaInfo, String source) throws Exception {
-              // prepare source
-              final String newSource;
-              if (source != null) {
-                newSource = source;
-              } else {
-                newSource = "null";
-              }
-              // replace source
-              final AstEditor editor = javaInfo.getEditor();
-              final Expression oldExpression = getExpression(javaInfo);
-              if (!editor.getSource(oldExpression).equals(source)) {
-                ExecutionUtils.run(javaInfo, new RunnableEx() {
-                  public void run() throws Exception {
-                    editor.replaceExpression(oldExpression, newSource);
-                  }
-                });
-                return true;
-              }
-              // no changes
-              return false;
-            }
-          };
-        }
-      }
-    }
-    return null;
-  }
+						@Override
+						public boolean setExpression(JavaInfo javaInfo, String source) throws Exception {
+							// prepare source
+							final String newSource;
+							if (source != null) {
+								newSource = source;
+							} else {
+								newSource = "null";
+							}
+							// replace source
+							final AstEditor editor = javaInfo.getEditor();
+							final Expression oldExpression = getExpression(javaInfo);
+							if (!editor.getSource(oldExpression).equals(source)) {
+								ExecutionUtils.run(javaInfo, new RunnableEx() {
+									public void run() throws Exception {
+										editor.replaceExpression(oldExpression, newSource);
+									}
+								});
+								return true;
+							}
+							// no changes
+							return false;
+						}
+					};
+				}
+			}
+		}
+		return null;
+	}
 }

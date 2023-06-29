@@ -22,48 +22,48 @@ import org.eclipse.ui.IPageLayout;
  * @coverage rcp.model.rcp
  */
 public final class ViewShortcutContainerInfo extends AbstractShortcutContainerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewShortcutContainerInfo(PageLayoutInfo page) throws Exception {
-    super(page, SWT.VERTICAL);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewShortcutContainerInfo(PageLayoutInfo page) throws Exception {
+		super(page, SWT.VERTICAL);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getPresentationText() {
-    return "(view shortcuts)";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getPresentationText() {
+		return "(view shortcuts)";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link ViewShortcutInfo}.
-   *
-   * @return the created {@link ViewShortcutInfo}.
-   */
-  public ViewShortcutInfo command_CREATE(String viewId, ViewShortcutInfo nextItem) throws Exception {
-    return command_CREATE(
-        viewId,
-        ViewShortcutInfo.class,
-        nextItem,
-        "addViewShortcuts",
-        "addShowViewShortcut");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link ViewShortcutInfo}.
+	 *
+	 * @return the created {@link ViewShortcutInfo}.
+	 */
+	public ViewShortcutInfo command_CREATE(String viewId, ViewShortcutInfo nextItem) throws Exception {
+		return command_CREATE(
+				viewId,
+				ViewShortcutInfo.class,
+				nextItem,
+				"addViewShortcuts",
+				"addShowViewShortcut");
+	}
 
-  /**
-   * Moves existing {@link ViewShortcutInfo}.
-   */
-  public void command_MOVE(ViewShortcutInfo item, ViewShortcutInfo nextItem) throws Exception {
-    command_MOVE(item, nextItem, "addViewShortcuts");
-  }
+	/**
+	 * Moves existing {@link ViewShortcutInfo}.
+	 */
+	public void command_MOVE(ViewShortcutInfo item, ViewShortcutInfo nextItem) throws Exception {
+		command_MOVE(item, nextItem, "addViewShortcuts");
+	}
 }

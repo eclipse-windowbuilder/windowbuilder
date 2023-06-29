@@ -27,306 +27,306 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
  * @author scheglov_ke
  */
 public class AstVisitorExTest extends AbstractJavaTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    if (m_testProject == null) {
-      do_projectCreate();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		if (m_testProject == null) {
+			do_projectCreate();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_preVisit_ASTNode() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "package test;",
-                "public class Test {",
-                "}"));
-    // no exception
-    compilationUnit.accept(new AstVisitorEx() {
-      @Override
-      public void preVisitEx(ASTNode node) throws Exception {
-      }
-    });
-    // exception
-    final Exception expected = new Exception("pre");
-    try {
-      compilationUnit.accept(new AstVisitorEx() {
-        @Override
-        public void preVisitEx(ASTNode node) throws Exception {
-          throw expected;
-        }
-      });
-      fail();
-    } catch (Throwable e) {
-      assertSame(expected, e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_preVisit_ASTNode() throws Exception {
+		CompilationUnit compilationUnit =
+				createASTCompilationUnit(
+						"test",
+						"Test.java",
+						getSourceDQ(
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"package test;",
+								"public class Test {",
+								"}"));
+		// no exception
+		compilationUnit.accept(new AstVisitorEx() {
+			@Override
+			public void preVisitEx(ASTNode node) throws Exception {
+			}
+		});
+		// exception
+		final Exception expected = new Exception("pre");
+		try {
+			compilationUnit.accept(new AstVisitorEx() {
+				@Override
+				public void preVisitEx(ASTNode node) throws Exception {
+					throw expected;
+				}
+			});
+			fail();
+		} catch (Throwable e) {
+			assertSame(expected, e);
+		}
+	}
 
-  public void test_postVisit_ASTNode() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "package test;",
-                "public class Test {",
-                "}"));
-    // no exception
-    compilationUnit.accept(new AstVisitorEx() {
-      @Override
-      public void postVisitEx(ASTNode node) throws Exception {
-      }
-    });
-    // exception
-    final Exception expected = new Exception("post");
-    try {
-      compilationUnit.accept(new AstVisitorEx() {
-        @Override
-        public void postVisitEx(ASTNode node) throws Exception {
-          throw expected;
-        }
-      });
-      fail();
-    } catch (Throwable e) {
-      assertSame(expected, e);
-    }
-  }
+	public void test_postVisit_ASTNode() throws Exception {
+		CompilationUnit compilationUnit =
+				createASTCompilationUnit(
+						"test",
+						"Test.java",
+						getSourceDQ(
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"package test;",
+								"public class Test {",
+								"}"));
+		// no exception
+		compilationUnit.accept(new AstVisitorEx() {
+			@Override
+			public void postVisitEx(ASTNode node) throws Exception {
+			}
+		});
+		// exception
+		final Exception expected = new Exception("post");
+		try {
+			compilationUnit.accept(new AstVisitorEx() {
+				@Override
+				public void postVisitEx(ASTNode node) throws Exception {
+					throw expected;
+				}
+			});
+			fail();
+		} catch (Throwable e) {
+			assertSame(expected, e);
+		}
+	}
 
-  public void test_visit_QualifiedName() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "package test;",
-                "public class Test {",
-                "  java.lang.Object o = null;",
-                "}"));
-    // no exception
-    compilationUnit.accept(new AstVisitorEx() {
-      @Override
-      public boolean visitEx(QualifiedName node) throws Exception {
-        return true;
-      }
-    });
-    // exception
-    final Exception expected = new Exception("visit");
-    try {
-      compilationUnit.accept(new AstVisitorEx() {
-        @Override
-        public boolean visitEx(QualifiedName node) throws Exception {
-          throw expected;
-        }
-      });
-      fail();
-    } catch (Throwable e) {
-      assertSame(expected, e);
-    }
-  }
+	public void test_visit_QualifiedName() throws Exception {
+		CompilationUnit compilationUnit =
+				createASTCompilationUnit(
+						"test",
+						"Test.java",
+						getSourceDQ(
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"package test;",
+								"public class Test {",
+								"  java.lang.Object o = null;",
+								"}"));
+		// no exception
+		compilationUnit.accept(new AstVisitorEx() {
+			@Override
+			public boolean visitEx(QualifiedName node) throws Exception {
+				return true;
+			}
+		});
+		// exception
+		final Exception expected = new Exception("visit");
+		try {
+			compilationUnit.accept(new AstVisitorEx() {
+				@Override
+				public boolean visitEx(QualifiedName node) throws Exception {
+					throw expected;
+				}
+			});
+			fail();
+		} catch (Throwable e) {
+			assertSame(expected, e);
+		}
+	}
 
-  public void test_endVisit_QualifiedName() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "package test;",
-                "public class Test {",
-                "  java.lang.Object o = null;",
-                "}"));
-    // no exception
-    final Exception expected = new Exception("endVisit");
-    compilationUnit.accept(new AstVisitorEx() {
-      @Override
-      public void endVisitEx(QualifiedName node) throws Exception {
-        super.endVisitEx(node);
-      }
-    });
-    // exception
-    try {
-      compilationUnit.accept(new AstVisitorEx() {
-        @Override
-        public void endVisitEx(QualifiedName node) throws Exception {
-          throw expected;
-        }
-      });
-      fail();
-    } catch (Throwable e) {
-      assertSame(expected, e);
-    }
-  }
+	public void test_endVisit_QualifiedName() throws Exception {
+		CompilationUnit compilationUnit =
+				createASTCompilationUnit(
+						"test",
+						"Test.java",
+						getSourceDQ(
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"package test;",
+								"public class Test {",
+								"  java.lang.Object o = null;",
+								"}"));
+		// no exception
+		final Exception expected = new Exception("endVisit");
+		compilationUnit.accept(new AstVisitorEx() {
+			@Override
+			public void endVisitEx(QualifiedName node) throws Exception {
+				super.endVisitEx(node);
+			}
+		});
+		// exception
+		try {
+			compilationUnit.accept(new AstVisitorEx() {
+				@Override
+				public void endVisitEx(QualifiedName node) throws Exception {
+					throw expected;
+				}
+			});
+			fail();
+		} catch (Throwable e) {
+			assertSame(expected, e);
+		}
+	}
 
-  public void test_endVisit_MethodInvocation() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "package test;",
-                "public class Test {",
-                "  private Test() {",
-                "    System.out.println();",
-                "  }",
-                "}"));
-    // no exception
-    compilationUnit.accept(new AstVisitorEx() {
-      @Override
-      public void endVisitEx(MethodInvocation node) throws Exception {
-        super.endVisitEx(node);
-      }
-    });
-    // exception
-    final Exception expected = new Exception("endVisit");
-    try {
-      compilationUnit.accept(new AstVisitorEx() {
-        @Override
-        public void endVisitEx(MethodInvocation node) throws Exception {
-          throw expected;
-        }
-      });
-      fail();
-    } catch (Throwable e) {
-      assertSame(expected, e);
-    }
-  }
+	public void test_endVisit_MethodInvocation() throws Exception {
+		CompilationUnit compilationUnit =
+				createASTCompilationUnit(
+						"test",
+						"Test.java",
+						getSourceDQ(
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"package test;",
+								"public class Test {",
+								"  private Test() {",
+								"    System.out.println();",
+								"  }",
+								"}"));
+		// no exception
+		compilationUnit.accept(new AstVisitorEx() {
+			@Override
+			public void endVisitEx(MethodInvocation node) throws Exception {
+				super.endVisitEx(node);
+			}
+		});
+		// exception
+		final Exception expected = new Exception("endVisit");
+		try {
+			compilationUnit.accept(new AstVisitorEx() {
+				@Override
+				public void endVisitEx(MethodInvocation node) throws Exception {
+					throw expected;
+				}
+			});
+			fail();
+		} catch (Throwable e) {
+			assertSame(expected, e);
+		}
+	}
 
-  public void test_endVisit_SuperMethodInvocation() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "package test;",
-                "public class Test extends javax.swing.JPanel {",
-                "  private Test() {",
-                "    super.setEnabled(true);",
-                "  }",
-                "}"));
-    // no exception
-    compilationUnit.accept(new AstVisitorEx() {
-      @Override
-      public void endVisitEx(SuperMethodInvocation node) throws Exception {
-        super.endVisitEx(node);
-      }
-    });
-    // exception
-    final Exception expected = new Exception("endVisit");
-    try {
-      compilationUnit.accept(new AstVisitorEx() {
-        @Override
-        public void endVisitEx(SuperMethodInvocation node) throws Exception {
-          throw expected;
-        }
-      });
-      fail();
-    } catch (Throwable e) {
-      assertSame(expected, e);
-    }
-  }
+	public void test_endVisit_SuperMethodInvocation() throws Exception {
+		CompilationUnit compilationUnit =
+				createASTCompilationUnit(
+						"test",
+						"Test.java",
+						getSourceDQ(
+								"// filler filler filler filler filler",
+								"package test;",
+								"public class Test extends javax.swing.JPanel {",
+								"  private Test() {",
+								"    super.setEnabled(true);",
+								"  }",
+								"}"));
+		// no exception
+		compilationUnit.accept(new AstVisitorEx() {
+			@Override
+			public void endVisitEx(SuperMethodInvocation node) throws Exception {
+				super.endVisitEx(node);
+			}
+		});
+		// exception
+		final Exception expected = new Exception("endVisit");
+		try {
+			compilationUnit.accept(new AstVisitorEx() {
+				@Override
+				public void endVisitEx(SuperMethodInvocation node) throws Exception {
+					throw expected;
+				}
+			});
+			fail();
+		} catch (Throwable e) {
+			assertSame(expected, e);
+		}
+	}
 
-  public void test_endVisit_TypeDeclaration() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "package test;",
-                "public class Test {",
-                "}"));
-    // no exception
-    compilationUnit.accept(new AstVisitorEx() {
-      @Override
-      public void endVisitEx(TypeDeclaration node) throws Exception {
-        super.endVisitEx(node);
-      }
-    });
-    // exception
-    final Exception expected = new Exception("endVisit");
-    try {
-      compilationUnit.accept(new AstVisitorEx() {
-        @Override
-        public void endVisitEx(TypeDeclaration node) throws Exception {
-          throw expected;
-        }
-      });
-      fail();
-    } catch (Throwable e) {
-      assertSame(expected, e);
-    }
-  }
+	public void test_endVisit_TypeDeclaration() throws Exception {
+		CompilationUnit compilationUnit =
+				createASTCompilationUnit(
+						"test",
+						"Test.java",
+						getSourceDQ(
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"package test;",
+								"public class Test {",
+								"}"));
+		// no exception
+		compilationUnit.accept(new AstVisitorEx() {
+			@Override
+			public void endVisitEx(TypeDeclaration node) throws Exception {
+				super.endVisitEx(node);
+			}
+		});
+		// exception
+		final Exception expected = new Exception("endVisit");
+		try {
+			compilationUnit.accept(new AstVisitorEx() {
+				@Override
+				public void endVisitEx(TypeDeclaration node) throws Exception {
+					throw expected;
+				}
+			});
+			fail();
+		} catch (Throwable e) {
+			assertSame(expected, e);
+		}
+	}
 
-  public void test_endVisit_TryStatement() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "// filler filler filler filler filler",
-                "package test;",
-                "public class Test {",
-                "  public Test() {",
-                "    try {} finally {}",
-                "  }",
-                "}"));
-    // no exception
-    compilationUnit.accept(new AstVisitorEx() {
-      @Override
-      public void endVisitEx(TryStatement node) throws Exception {
-        super.endVisitEx(node);
-      }
-    });
-    // exception
-    final Exception expected = new Exception("endVisit");
-    try {
-      compilationUnit.accept(new AstVisitorEx() {
-        @Override
-        public void endVisitEx(TryStatement node) throws Exception {
-          throw expected;
-        }
-      });
-      fail();
-    } catch (Throwable e) {
-      assertSame(expected, e);
-    }
-  }
+	public void test_endVisit_TryStatement() throws Exception {
+		CompilationUnit compilationUnit =
+				createASTCompilationUnit(
+						"test",
+						"Test.java",
+						getSourceDQ(
+								"// filler filler filler filler filler",
+								"// filler filler filler filler filler",
+								"package test;",
+								"public class Test {",
+								"  public Test() {",
+								"    try {} finally {}",
+								"  }",
+								"}"));
+		// no exception
+		compilationUnit.accept(new AstVisitorEx() {
+			@Override
+			public void endVisitEx(TryStatement node) throws Exception {
+				super.endVisitEx(node);
+			}
+		});
+		// exception
+		final Exception expected = new Exception("endVisit");
+		try {
+			compilationUnit.accept(new AstVisitorEx() {
+				@Override
+				public void endVisitEx(TryStatement node) throws Exception {
+					throw expected;
+				}
+			});
+			fail();
+		} catch (Throwable e) {
+			assertSame(expected, e);
+		}
+	}
 }

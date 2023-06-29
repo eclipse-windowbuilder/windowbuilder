@@ -34,124 +34,124 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutI
  * @coverage rcp.gef.policy
  */
 public final class PageLayoutCreateFolderLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
-  private static final ILayoutRequestValidator VALIDATOR = LayoutRequestValidators.or(
-      LayoutRequestValidators.modelType(FolderViewInfo.class),
-      LayoutRequestValidators.modelType(PageLayoutAddViewInfo.class),
-      LayoutRequestValidators.modelType(FastViewInfo.class),
-      LayoutRequestValidators.modelType(ViewShortcutInfo.class));
-  private final PageLayoutCreateFolderInfo m_folder;
+	private static final ILayoutRequestValidator VALIDATOR = LayoutRequestValidators.or(
+			LayoutRequestValidators.modelType(FolderViewInfo.class),
+			LayoutRequestValidators.modelType(PageLayoutAddViewInfo.class),
+			LayoutRequestValidators.modelType(FastViewInfo.class),
+			LayoutRequestValidators.modelType(ViewShortcutInfo.class));
+	private final PageLayoutCreateFolderInfo m_folder;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PageLayoutCreateFolderLayoutEditPolicy(PageLayoutCreateFolderInfo container) {
-    m_folder = container;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PageLayoutCreateFolderLayoutEditPolicy(PageLayoutCreateFolderInfo container) {
+		m_folder = container;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof FolderViewInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof FolderViewInfo;
+	}
 
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return super.isRequestCondition(request) || request instanceof ViewDropRequest;
-  }
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return super.isRequestCondition(request) || request instanceof ViewDropRequest;
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractFlowLayoutEditPolicy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isHorizontal(Request request) {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractFlowLayoutEditPolicy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isHorizontal(Request request) {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCommand(Request request, Object referenceObject) {
-    if (request instanceof ViewDropRequest) {
-      final ViewDropRequest viewDrop_Request = (ViewDropRequest) request;
-      final ViewInfo viewInfo = viewDrop_Request.getView();
-      final FolderViewInfo reference = (FolderViewInfo) referenceObject;
-      return new EditCommand(m_folder) {
-        @Override
-        protected void executeEdit() throws Exception {
-          FolderViewInfo newView = m_folder.command_CREATE(viewInfo.getId(), reference);
-          viewDrop_Request.setComponent(newView);
-        }
-      };
-    }
-    return super.getCommand(request, referenceObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCommand(Request request, Object referenceObject) {
+		if (request instanceof ViewDropRequest) {
+			final ViewDropRequest viewDrop_Request = (ViewDropRequest) request;
+			final ViewInfo viewInfo = viewDrop_Request.getView();
+			final FolderViewInfo reference = (FolderViewInfo) referenceObject;
+			return new EditCommand(m_folder) {
+				@Override
+				protected void executeEdit() throws Exception {
+					FolderViewInfo newView = m_folder.command_CREATE(viewInfo.getId(), reference);
+					viewDrop_Request.setComponent(newView);
+				}
+			};
+		}
+		return super.getCommand(request, referenceObject);
+	}
 
-  @Override
-  protected Command getMoveCommand(Object moveObject, Object referenceObject) {
-    final FolderViewInfo item = (FolderViewInfo) moveObject;
-    final FolderViewInfo nextItem = (FolderViewInfo) referenceObject;
-    return new EditCommand(m_folder) {
-      @Override
-      protected void executeEdit() throws Exception {
-        m_folder.command_MOVE(item, nextItem);
-      }
-    };
-  }
+	@Override
+	protected Command getMoveCommand(Object moveObject, Object referenceObject) {
+		final FolderViewInfo item = (FolderViewInfo) moveObject;
+		final FolderViewInfo nextItem = (FolderViewInfo) referenceObject;
+		return new EditCommand(m_folder) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_folder.command_MOVE(item, nextItem);
+			}
+		};
+	}
 
-  @Override
-  protected Command getAddCommand(Object addObject, Object referenceObject) {
-    if (addObject instanceof PageLayoutAddViewInfo) {
-      PageLayoutAddViewInfo oldView = (PageLayoutAddViewInfo) addObject;
-      return getAddCommand(oldView, oldView.getId(), referenceObject);
-    }
-    if (addObject instanceof FolderViewInfo) {
-      FolderViewInfo oldView = (FolderViewInfo) addObject;
-      return getAddCommand(oldView, oldView.getId(), referenceObject);
-    }
-    if (addObject instanceof FastViewInfo) {
-      FastViewInfo oldView = (FastViewInfo) addObject;
-      return getAddCommand(oldView, oldView.getId(), referenceObject);
-    }
-    if (addObject instanceof ViewShortcutInfo) {
-      ViewShortcutInfo oldView = (ViewShortcutInfo) addObject;
-      return getAddCommand(oldView, oldView.getId(), referenceObject);
-    }
-    return null;
-  }
+	@Override
+	protected Command getAddCommand(Object addObject, Object referenceObject) {
+		if (addObject instanceof PageLayoutAddViewInfo) {
+			PageLayoutAddViewInfo oldView = (PageLayoutAddViewInfo) addObject;
+			return getAddCommand(oldView, oldView.getId(), referenceObject);
+		}
+		if (addObject instanceof FolderViewInfo) {
+			FolderViewInfo oldView = (FolderViewInfo) addObject;
+			return getAddCommand(oldView, oldView.getId(), referenceObject);
+		}
+		if (addObject instanceof FastViewInfo) {
+			FastViewInfo oldView = (FastViewInfo) addObject;
+			return getAddCommand(oldView, oldView.getId(), referenceObject);
+		}
+		if (addObject instanceof ViewShortcutInfo) {
+			ViewShortcutInfo oldView = (ViewShortcutInfo) addObject;
+			return getAddCommand(oldView, oldView.getId(), referenceObject);
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Command} that move any "view" into this "folder".
-   */
-  private Command getAddCommand(final JavaInfo oldView, final String id, Object referenceObject) {
-    final FolderViewInfo nextItem = (FolderViewInfo) referenceObject;
-    return new EditCommand(m_folder) {
-      @Override
-      protected void executeEdit() throws Exception {
-        FolderViewInfo newView = m_folder.command_CREATE(id, nextItem);
-        oldView.delete();
-        PolicyUtils.scheduleSelection(getHost(), newView);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Command} that move any "view" into this "folder".
+	 */
+	private Command getAddCommand(final JavaInfo oldView, final String id, Object referenceObject) {
+		final FolderViewInfo nextItem = (FolderViewInfo) referenceObject;
+		return new EditCommand(m_folder) {
+			@Override
+			protected void executeEdit() throws Exception {
+				FolderViewInfo newView = m_folder.command_CREATE(id, nextItem);
+				oldView.delete();
+				PolicyUtils.scheduleSelection(getHost(), newView);
+			}
+		};
+	}
 }

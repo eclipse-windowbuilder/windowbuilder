@@ -21,32 +21,32 @@ import java.lang.reflect.Method;
  * @coverage core.model.description
  */
 public final class ExposingMethodRule extends ExposingRule {
-  private final boolean m_include;
-  private final String m_methodName;
+	private final boolean m_include;
+	private final String m_methodName;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ExposingMethodRule(boolean include, String methodName) {
-    m_include = include;
-    m_methodName = methodName;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ExposingMethodRule(boolean include, String methodName) {
+		m_include = include;
+		m_methodName = methodName;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Filter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Boolean filter(Method method) {
-    Assert.isLegal(method.getParameterTypes().length == 0, method.toString());
-    // check method name
-    if (!method.getName().equals(m_methodName)) {
-      return null;
-    }
-    // OK, method satisfies to filter, so include/exclude it
-    return m_include;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Filter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Boolean filter(Method method) {
+		Assert.isLegal(method.getParameterTypes().length == 0, method.toString());
+		// check method name
+		if (!method.getName().equals(m_methodName)) {
+			return null;
+		}
+		// OK, method satisfies to filter, so include/exclude it
+		return m_include;
+	}
 }

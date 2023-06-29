@@ -23,28 +23,28 @@ import org.eclipse.jdt.core.IJavaProject;
  * @coverage rcp.support
  */
 public class PdeProjectClasspathListener implements IProjectClasspathListener {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IProjectClasspathListener INSTANCE = new PdeProjectClasspathListener();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IProjectClasspathListener INSTANCE = new PdeProjectClasspathListener();
 
-  private PdeProjectClasspathListener() {
-  }
+	private PdeProjectClasspathListener() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IProjectClasspathListener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addClasspathEntry(IJavaProject javaProject, String jarPathString, String srcPathString)
-      throws Exception {
-    IProject project = javaProject.getProject();
-    if (PdeUtils.hasPDENature(project)) {
-      PdeUtils utils = PdeUtils.get(project);
-      utils.addLibrary(jarPathString);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IProjectClasspathListener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addClasspathEntry(IJavaProject javaProject, String jarPathString, String srcPathString)
+			throws Exception {
+		IProject project = javaProject.getProject();
+		if (PdeUtils.hasPDENature(project)) {
+			PdeUtils utils = PdeUtils.get(project);
+			utils.addLibrary(jarPathString);
+		}
+	}
 }

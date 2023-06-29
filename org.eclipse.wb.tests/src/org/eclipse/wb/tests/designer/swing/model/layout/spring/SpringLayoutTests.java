@@ -23,11 +23,11 @@ import javax.swing.SpringLayout;
  * @author scheglov_ke
  */
 public class SpringLayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.layout.spring");
-    suite.addTest(createSingleSuite(SpringAttachmentTest.class));
-    suite.addTest(createSingleSuite(SpringLayoutTest.class));
-    suite.addTest(createSingleSuite(SpringLayoutGefTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.layout.spring");
+		suite.addTest(createSingleSuite(SpringAttachmentTest.class));
+		suite.addTest(createSingleSuite(SpringLayoutTest.class));
+		suite.addTest(createSingleSuite(SpringLayoutGefTest.class));
+		return suite;
+	}
 }

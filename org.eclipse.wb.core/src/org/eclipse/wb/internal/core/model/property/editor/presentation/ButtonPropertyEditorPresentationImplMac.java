@@ -25,33 +25,33 @@ import org.eclipse.swt.widgets.Control;
  * @coverage core.model.property.editor
  */
 final class ButtonPropertyEditorPresentationImplMac extends ButtonPropertyEditorPresentationImpl {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ButtonPropertyEditorPresentationImplMac(ButtonPropertyEditorPresentation presentation) {
-    super(presentation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ButtonPropertyEditorPresentationImplMac(ButtonPropertyEditorPresentation presentation) {
+		super(presentation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Control
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected final Control createControlImpl(final PropertyTable propertyTable, Property property) {
-    CFlatButton button = new CFlatButton(propertyTable, SWT.NONE);
-    button.setImage(getPresentation().getImage());
-    button.setToolTipText(getPresentation().getTooltip());
-    return button;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Control
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected final Control createControlImpl(final PropertyTable propertyTable, Property property) {
+		CFlatButton button = new CFlatButton(propertyTable, SWT.NONE);
+		button.setImage(getPresentation().getImage());
+		button.setToolTipText(getPresentation().getTooltip());
+		return button;
+	}
 
-  @Override
-  public final void setSelection(PropertyTable propertyTable, Property property, boolean selected) {
-    CFlatButton button = (CFlatButton) m_propertyToControl.get(propertyTable, property);
-    if (button != null) {
-      button.setSelected(selected);
-    }
-  }
+	@Override
+	public final void setSelection(PropertyTable propertyTable, Property property, boolean selected) {
+		CFlatButton button = (CFlatButton) m_propertyToControl.get(propertyTable, property);
+		if (button != null) {
+			button.setSelected(selected);
+		}
+	}
 }

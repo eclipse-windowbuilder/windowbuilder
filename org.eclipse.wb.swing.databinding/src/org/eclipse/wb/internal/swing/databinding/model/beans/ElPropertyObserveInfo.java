@@ -39,83 +39,83 @@ import java.util.List;
  * @coverage bindings.swing.model.beans
  */
 public final class ElPropertyObserveInfo extends ObserveInfo implements IObserveDecoration {
-  private static final ElPropertyUiConfiguration CONFIGURATION = new ElPropertyUiConfiguration();
-  private final ObserveInfo m_parent;
-  private final IObservePresentation m_presentation;
+	private static final ElPropertyUiConfiguration CONFIGURATION = new ElPropertyUiConfiguration();
+	private final ObserveInfo m_parent;
+	private final IObservePresentation m_presentation;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ElPropertyObserveInfo(ObserveInfo parent, IGenericType objectType) {
-    super(objectType, StringReferenceProvider.EMPTY);
-    m_parent = parent instanceof BeanPropertyObserveInfo ? parent : null;
-    m_presentation =
-        new SimpleObservePresentation("<EL Expression>",
-            "${XXX}",
-            TypeImageProvider.EL_PROPERTY_IMAGE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ElPropertyObserveInfo(ObserveInfo parent, IGenericType objectType) {
+		super(objectType, StringReferenceProvider.EMPTY);
+		m_parent = parent instanceof BeanPropertyObserveInfo ? parent : null;
+		m_presentation =
+				new SimpleObservePresentation("<EL Expression>",
+						"${XXX}",
+						TypeImageProvider.EL_PROPERTY_IMAGE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObserveType
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveType getType() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObserveType
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveType getType() {
+		return null;
+	}
 
-  @Override
-  public ObserveCreationType getCreationType() {
-    return ObserveCreationType.AnyProperty;
-  }
+	@Override
+	public ObserveCreationType getCreationType() {
+		return ObserveCreationType.AnyProperty;
+	}
 
-  @Override
-  public PropertyInfo createProperty(ObserveInfo observeObject) throws Exception {
-    return new ElPropertyInfo(observeObject.getObjectType(),
-        ClassGenericType.OBJECT_CLASS,
-        m_parent == null ? null : m_parent.createProperty(observeObject),
-        "");
-  }
+	@Override
+	public PropertyInfo createProperty(ObserveInfo observeObject) throws Exception {
+		return new ElPropertyInfo(observeObject.getObjectType(),
+				ClassGenericType.OBJECT_CLASS,
+				m_parent == null ? null : m_parent.createProperty(observeObject),
+						"");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IObserveInfo getParent() {
-    return m_parent;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IObserveInfo getParent() {
+		return m_parent;
+	}
 
-  public List<IObserveInfo> getChildren(ChildrenContext context) {
-    return Collections.emptyList();
-  }
+	public List<IObserveInfo> getChildren(ChildrenContext context) {
+		return Collections.emptyList();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IObservePresentation getPresentation() {
-    return m_presentation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IObservePresentation getPresentation() {
+		return m_presentation;
+	}
 
-  public IObserveDecorator getDecorator() {
-    return IObserveDecorator.BOLD;
-  }
+	public IObserveDecorator getDecorator() {
+		return IObserveDecorator.BOLD;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createContentProviders(List<IUiContentProvider> providers,
-      ObserveInfo observeObject,
-      PropertyInfo observeAstProperty) throws Exception {
-    providers.add(new ElPropertyUiContentProvider(CONFIGURATION,
-        (ElPropertyInfo) observeAstProperty));
-    providers.add(new SeparatorUiContentProvider());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createContentProviders(List<IUiContentProvider> providers,
+			ObserveInfo observeObject,
+			PropertyInfo observeAstProperty) throws Exception {
+		providers.add(new ElPropertyUiContentProvider(CONFIGURATION,
+				(ElPropertyInfo) observeAstProperty));
+		providers.add(new SeparatorUiContentProvider());
+	}
 }

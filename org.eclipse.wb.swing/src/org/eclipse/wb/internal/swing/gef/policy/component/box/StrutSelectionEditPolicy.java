@@ -42,148 +42,148 @@ import javax.swing.Box;
  * @coverage swing.gef.policy
  */
 abstract class StrutSelectionEditPolicy extends SelectionEditPolicy {
-  private static final String REQ_RESIZE = "resize";
-  private final ComponentInfo m_strut;
+	private static final String REQ_RESIZE = "resize";
+	private final ComponentInfo m_strut;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public StrutSelectionEditPolicy(ComponentInfo strut) {
-    m_strut = strut;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public StrutSelectionEditPolicy(ComponentInfo strut) {
+		m_strut = strut;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    // create move handle
-    MoveHandle moveHandle = new MoveHandle(getHost());
-    moveHandle.setForeground(IColorConstants.red);
-    handles.add(moveHandle);
-    //
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		// create move handle
+		MoveHandle moveHandle = new MoveHandle(getHost());
+		moveHandle.setForeground(IColorConstants.red);
+		handles.add(moveHandle);
+		//
+		return handles;
+	}
 
-  /**
-   * @return the resize {@link Handle} located on given side.
-   */
-  protected Handle createResizeHandle(int handleSide, int resizeDirection) {
-    SideResizeHandle resizeHandle = new SideResizeHandle(getHost(), handleSide, 5, true);
-    resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(), resizeDirection, REQ_RESIZE));
-    return resizeHandle;
-  }
+	/**
+	 * @return the resize {@link Handle} located on given side.
+	 */
+	protected Handle createResizeHandle(int handleSide, int resizeDirection) {
+		SideResizeHandle resizeHandle = new SideResizeHandle(getHost(), handleSide, 5, true);
+		resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(), resizeDirection, REQ_RESIZE));
+		return resizeHandle;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Routing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean understandsRequest(Request request) {
-    return super.understandsRequest(request) || request.getType() == REQ_RESIZE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Routing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean understandsRequest(Request request) {
+		return super.understandsRequest(request) || request.getType() == REQ_RESIZE;
+	}
 
-  @Override
-  public Command getCommand(Request request) {
-    return getResizeCommand((ChangeBoundsRequest) request);
-  }
+	@Override
+	public Command getCommand(Request request) {
+		return getResizeCommand((ChangeBoundsRequest) request);
+	}
 
-  @Override
-  public void showSourceFeedback(Request request) {
-    showResizeFeedback((ChangeBoundsRequest) request);
-  }
+	@Override
+	public void showSourceFeedback(Request request) {
+		showResizeFeedback((ChangeBoundsRequest) request);
+	}
 
-  @Override
-  public void eraseSourceFeedback(Request request) {
-    eraseResizeFeedback((ChangeBoundsRequest) request);
-  }
+	@Override
+	public void eraseSourceFeedback(Request request) {
+		eraseResizeFeedback((ChangeBoundsRequest) request);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Figure m_sizeFeedback;
-  private TextFeedback m_textFeedback;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Figure m_sizeFeedback;
+	private TextFeedback m_textFeedback;
 
-  /**
-   * @return the {@link Command} that resizes strut.
-   */
-  private Command getResizeCommand(ChangeBoundsRequest request) {
-    final Rectangle newBounds = request.getTransformedRectangle(getHostFigure().getBounds());
-    return new EditCommand(m_strut) {
-      @Override
-      protected void executeEdit() throws Exception {
-        String source = getSource(m_strut, newBounds.width, newBounds.height);
-        BoxSupport.setStrutSize(m_strut, source);
-      }
-    };
-  }
+	/**
+	 * @return the {@link Command} that resizes strut.
+	 */
+	private Command getResizeCommand(ChangeBoundsRequest request) {
+		final Rectangle newBounds = request.getTransformedRectangle(getHostFigure().getBounds());
+		return new EditCommand(m_strut) {
+			@Override
+			protected void executeEdit() throws Exception {
+				String source = getSource(m_strut, newBounds.width, newBounds.height);
+				BoxSupport.setStrutSize(m_strut, source);
+			}
+		};
+	}
 
-  /**
-   * Shows resize feedback.
-   */
-  private void showResizeFeedback(ChangeBoundsRequest request) {
-    if (m_sizeFeedback == null) {
-      // create size feedback
-      {
-        m_sizeFeedback = new RectangleFigure();
-        m_sizeFeedback.setForeground(IColorConstants.red);
-        addFeedback(m_sizeFeedback);
-      }
-      // create text feedback
-      {
-        m_textFeedback = new TextFeedback(getFeedbackLayer());
-        m_textFeedback.add();
-      }
-    }
-    // prepare bounds
-    Rectangle bounds;
-    {
-      Figure hostFigure = getHostFigure();
-      bounds = request.getTransformedRectangle(hostFigure.getBounds());
-      FigureUtils.translateFigureToAbsolute(hostFigure, bounds.shrink(-1, -1));
-    }
-    // update size feedback
-    m_sizeFeedback.setBounds(bounds);
-    // update text feedback
-    {
-      String tooltip = getTooltip(bounds.width - 2, bounds.height - 2);
-      m_textFeedback.setText(tooltip);
-      m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
-    }
-  }
+	/**
+	 * Shows resize feedback.
+	 */
+	private void showResizeFeedback(ChangeBoundsRequest request) {
+		if (m_sizeFeedback == null) {
+			// create size feedback
+			{
+				m_sizeFeedback = new RectangleFigure();
+				m_sizeFeedback.setForeground(IColorConstants.red);
+				addFeedback(m_sizeFeedback);
+			}
+			// create text feedback
+			{
+				m_textFeedback = new TextFeedback(getFeedbackLayer());
+				m_textFeedback.add();
+			}
+		}
+		// prepare bounds
+		Rectangle bounds;
+		{
+			Figure hostFigure = getHostFigure();
+			bounds = request.getTransformedRectangle(hostFigure.getBounds());
+			FigureUtils.translateFigureToAbsolute(hostFigure, bounds.shrink(-1, -1));
+		}
+		// update size feedback
+		m_sizeFeedback.setBounds(bounds);
+		// update text feedback
+		{
+			String tooltip = getTooltip(bounds.width - 2, bounds.height - 2);
+			m_textFeedback.setText(tooltip);
+			m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
+		}
+	}
 
-  /**
-   * Erases resize feedback.
-   */
-  private void eraseResizeFeedback(ChangeBoundsRequest request) {
-    // erase size feedback
-    removeFeedback(m_sizeFeedback);
-    m_sizeFeedback = null;
-    // erase text feedback
-    m_textFeedback.remove();
-    m_textFeedback = null;
-  }
+	/**
+	 * Erases resize feedback.
+	 */
+	private void eraseResizeFeedback(ChangeBoundsRequest request) {
+		// erase size feedback
+		removeFeedback(m_sizeFeedback);
+		m_sizeFeedback = null;
+		// erase text feedback
+		m_textFeedback.remove();
+		m_textFeedback = null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Abstract
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the text to display new size for user during resize.
-   */
-  protected abstract String getTooltip(int width, int height);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Abstract
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the text to display new size for user during resize.
+	 */
+	protected abstract String getTooltip(int width, int height);
 
-  /**
-   * @return the source to set as factory argument, such that size of strut is same as in given.
-   */
-  protected abstract String getSource(ComponentInfo strut, int width, int height) throws Exception;
+	/**
+	 * @return the source to set as factory argument, such that size of strut is same as in given.
+	 */
+	protected abstract String getSource(ComponentInfo strut, int width, int height) throws Exception;
 }

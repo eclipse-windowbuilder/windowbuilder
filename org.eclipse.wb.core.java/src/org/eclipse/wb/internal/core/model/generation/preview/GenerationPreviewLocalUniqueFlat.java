@@ -22,59 +22,59 @@ import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
  * @coverage core.model.generation.ui
  */
 public final class GenerationPreviewLocalUniqueFlat extends GenerationPreview {
-  public static final GenerationPreview INSTANCE = new GenerationPreviewLocalUniqueFlat();
+	public static final GenerationPreview INSTANCE = new GenerationPreviewLocalUniqueFlat();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private GenerationPreviewLocalUniqueFlat() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private GenerationPreviewLocalUniqueFlat() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GenerationPreview
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPreview(GenerationPropertiesComposite variableComposite,
-      GenerationPropertiesComposite statementComposite) {
-    boolean v_useFinal = variableComposite.getBoolean(LocalUniqueVariableSupport.P_DECLARE_FINAL);
-    boolean s_usePrefix = statementComposite.getBoolean(FlatStatementGenerator.P_USE_PREFIX);
-    String s_thePrefix = statementComposite.getString(FlatStatementGenerator.P_PREFIX_TEXT);
-    String source = "";
-    // begin
-    source += "\t...\n";
-    // parent
-    {
-      source += "\t";
-      if (v_useFinal) {
-        source += "final ";
-      }
-      source += "JPanel panel = new JPanel();\n";
-      // properties
-      source += "\tpanel.setBorder(new TitledBorder(\"Management\"));\n";
-    }
-    // child
-    {
-      // optional prefix
-      if (s_usePrefix) {
-        source += "\t" + s_thePrefix + "\n";
-      }
-      // variable
-      source += "\t";
-      if (v_useFinal) {
-        source += "final ";
-      }
-      source += "JButton button = new JButton();\n";
-      // properties
-      source += "\tbutton.setText(\"Add customer...\");\n";
-      source += "\tpanel.add(button);\n";
-    }
-    // end
-    source += "\t...\n";
-    // final result
-    return source;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GenerationPreview
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPreview(GenerationPropertiesComposite variableComposite,
+			GenerationPropertiesComposite statementComposite) {
+		boolean v_useFinal = variableComposite.getBoolean(LocalUniqueVariableSupport.P_DECLARE_FINAL);
+		boolean s_usePrefix = statementComposite.getBoolean(FlatStatementGenerator.P_USE_PREFIX);
+		String s_thePrefix = statementComposite.getString(FlatStatementGenerator.P_PREFIX_TEXT);
+		String source = "";
+		// begin
+		source += "\t...\n";
+		// parent
+		{
+			source += "\t";
+			if (v_useFinal) {
+				source += "final ";
+			}
+			source += "JPanel panel = new JPanel();\n";
+			// properties
+			source += "\tpanel.setBorder(new TitledBorder(\"Management\"));\n";
+		}
+		// child
+		{
+			// optional prefix
+			if (s_usePrefix) {
+				source += "\t" + s_thePrefix + "\n";
+			}
+			// variable
+			source += "\t";
+			if (v_useFinal) {
+				source += "final ";
+			}
+			source += "JButton button = new JButton();\n";
+			// properties
+			source += "\tbutton.setText(\"Add customer...\");\n";
+			source += "\tpanel.add(button);\n";
+		}
+		// end
+		source += "\t...\n";
+		// final result
+		return source;
+	}
 }

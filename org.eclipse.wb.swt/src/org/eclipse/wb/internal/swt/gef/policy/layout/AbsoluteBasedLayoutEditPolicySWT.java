@@ -34,59 +34,59 @@ import java.util.List;
  * @coverage swt.gef.policy
  */
 public abstract class AbsoluteBasedLayoutEditPolicySWT<C extends IControlInfo>
-    extends
-      AbsoluteBasedLayoutEditPolicy<C> {
-  private final ILayoutInfo<C> m_layout;
+extends
+AbsoluteBasedLayoutEditPolicy<C> {
+	private final ILayoutInfo<C> m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbsoluteBasedLayoutEditPolicySWT(ILayoutInfo<C> layout) {
-    super(layout.getUnderlyingModel());
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbsoluteBasedLayoutEditPolicySWT(ILayoutInfo<C> layout) {
+		super(layout.getUnderlyingModel());
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ControlsLayoutRequestValidator.INSTANCE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ControlsLayoutRequestValidator.INSTANCE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IVisualDataProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public List<C> getAllComponents() {
-    List<C> components = Lists.newArrayList();
-    components.addAll(m_layout.getControls());
-    return components;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IVisualDataProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public List<C> getAllComponents() {
+		List<C> components = Lists.newArrayList();
+		components.addAll(m_layout.getControls());
+		return components;
+	}
 
-  @Override
-  public int getBaseline(IAbstractComponentInfo component) {
-    return BaselineSupportHelper.getBaseline(component.getObject());
-  }
+	@Override
+	public int getBaseline(IAbstractComponentInfo component) {
+		return BaselineSupportHelper.getBaseline(component.getObject());
+	}
 
-  @Override
-  public Dimension getComponentPreferredSize(IAbstractComponentInfo component) {
-    @SuppressWarnings("unchecked")
-    C componentInfo = (C) component;
-    return componentInfo.getPreferredSize();
-  }
+	@Override
+	public Dimension getComponentPreferredSize(IAbstractComponentInfo component) {
+		@SuppressWarnings("unchecked")
+		C componentInfo = (C) component;
+		return componentInfo.getPreferredSize();
+	}
 
-  @Override
-  public Dimension getContainerSize() {
-    IAbstractComponentInfo composite = m_layout.getComposite();
-    Rectangle compositeBounds = composite.getModelBounds().getCopy();
-    Insets clientAreaInsets = composite.getClientAreaInsets();
-    return compositeBounds.crop(clientAreaInsets).getSize();
-  }
+	@Override
+	public Dimension getContainerSize() {
+		IAbstractComponentInfo composite = m_layout.getComposite();
+		Rectangle compositeBounds = composite.getModelBounds().getCopy();
+		Insets clientAreaInsets = composite.getClientAreaInsets();
+		return compositeBounds.crop(clientAreaInsets).getSize();
+	}
 }

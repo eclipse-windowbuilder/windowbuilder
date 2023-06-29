@@ -25,19 +25,19 @@ import org.eclipse.ui.forms.SectionPart;
  * @coverage rcp.model.widgets
  */
 public final class SectionPartHierarchyProvider extends HierarchyProvider {
-  @Override
-  public Object getParentObject(Object object) throws Exception {
-    if (ReflectionUtils.isSuccessorOf(object.getClass(), "org.eclipse.ui.forms.SectionPart")) {
-      Object control = ReflectionUtils.invokeMethod(object, "getSection()");
-      return ReflectionUtils.invokeMethod(control, "getParent()");
-    }
-    return null;
-  }
+	@Override
+	public Object getParentObject(Object object) throws Exception {
+		if (ReflectionUtils.isSuccessorOf(object.getClass(), "org.eclipse.ui.forms.SectionPart")) {
+			Object control = ReflectionUtils.invokeMethod(object, "getSection()");
+			return ReflectionUtils.invokeMethod(control, "getParent()");
+		}
+		return null;
+	}
 
-  @Override
-  public void add(JavaInfo host, JavaInfo exposed) throws Exception {
-    if (exposed instanceof SectionPartInfo && host instanceof CompositeInfo) {
-      ((SectionPartInfo) exposed).getWrapper().configureHierarchy(host);
-    }
-  }
+	@Override
+	public void add(JavaInfo host, JavaInfo exposed) throws Exception {
+		if (exposed instanceof SectionPartInfo && host instanceof CompositeInfo) {
+			((SectionPartInfo) exposed).getWrapper().configureHierarchy(host);
+		}
+	}
 }

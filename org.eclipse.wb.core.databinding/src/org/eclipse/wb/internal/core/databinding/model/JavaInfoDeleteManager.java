@@ -26,69 +26,69 @@ import java.util.List;
  * @coverage bindings.model
  */
 public abstract class JavaInfoDeleteManager {
-  protected final IDatabindingsProvider m_provider;
+	protected final IDatabindingsProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfoDeleteManager(IDatabindingsProvider provider, ObjectInfo objectInfoRoot) {
-    m_provider = provider;
-    objectInfoRoot.addBroadcastListener(new ObjectInfoDelete() {
-      @Override
-      public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
-        deleteJavaInfo(child);
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfoDeleteManager(IDatabindingsProvider provider, ObjectInfo objectInfoRoot) {
+		m_provider = provider;
+		objectInfoRoot.addBroadcastListener(new ObjectInfoDelete() {
+			@Override
+			public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
+				deleteJavaInfo(child);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public final void deleteJavaInfo(ObjectInfo javaInfo) throws Exception {
-    List<IBindingInfo> deleteList = Lists.newArrayList();
-    List<IBindingInfo> bindings = m_provider.getBindings();
-    //
-    if (!m_provider.getBindings().isEmpty() && accept(javaInfo)) {
-      String reference = getReference(javaInfo);
-      //
-      if (reference != null) {
-        for (IBindingInfo binding : Lists.newArrayList(bindings)) {
-          if (equals(javaInfo, reference, binding.getTarget())
-              || equals(javaInfo, reference, binding.getModel())) {
-            deleteList.add(binding);
-            deleteBinding(binding, bindings);
-          }
-        }
-      }
-    }
-    // commit
-    if (!deleteList.isEmpty()) {
-      bindings.removeAll(deleteList);
-      m_provider.saveEdit();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public final void deleteJavaInfo(ObjectInfo javaInfo) throws Exception {
+		List<IBindingInfo> deleteList = Lists.newArrayList();
+		List<IBindingInfo> bindings = m_provider.getBindings();
+		//
+		if (!m_provider.getBindings().isEmpty() && accept(javaInfo)) {
+			String reference = getReference(javaInfo);
+			//
+			if (reference != null) {
+				for (IBindingInfo binding : Lists.newArrayList(bindings)) {
+					if (equals(javaInfo, reference, binding.getTarget())
+							|| equals(javaInfo, reference, binding.getModel())) {
+						deleteList.add(binding);
+						deleteBinding(binding, bindings);
+					}
+				}
+			}
+		}
+		// commit
+		if (!deleteList.isEmpty()) {
+			bindings.removeAll(deleteList);
+			m_provider.saveEdit();
+		}
+	}
 
-  protected abstract void deleteBinding(IBindingInfo binding, List<IBindingInfo> bindings)
-      throws Exception;
+	protected abstract void deleteBinding(IBindingInfo binding, List<IBindingInfo> bindings)
+			throws Exception;
 
-  /**
-   * @return <code>true</code> if given {@link JavaInfo} can work with bindings.
-   */
-  protected abstract boolean accept(ObjectInfo javaInfo) throws Exception;
+	/**
+	 * @return <code>true</code> if given {@link JavaInfo} can work with bindings.
+	 */
+	protected abstract boolean accept(ObjectInfo javaInfo) throws Exception;
 
-  /**
-   * @return {@link String} reference that represented given {@link JavaInfo}.
-   */
-  protected abstract String getReference(ObjectInfo javaInfo) throws Exception;
+	/**
+	 * @return {@link String} reference that represented given {@link JavaInfo}.
+	 */
+	protected abstract String getReference(ObjectInfo javaInfo) throws Exception;
 
-  /**
-   * @return <code>true</code> if given {@link JavaInfo} equal with given {@link IObserveInfo}.
-   */
-  protected abstract boolean equals(ObjectInfo javaInfo,
-      String javaInfoReference,
-      IObserveInfo iobserve) throws Exception;
+	/**
+	 * @return <code>true</code> if given {@link JavaInfo} equal with given {@link IObserveInfo}.
+	 */
+	protected abstract boolean equals(ObjectInfo javaInfo,
+			String javaInfoReference,
+			IObserveInfo iobserve) throws Exception;
 }

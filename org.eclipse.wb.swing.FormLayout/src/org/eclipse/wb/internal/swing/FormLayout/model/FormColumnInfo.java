@@ -19,49 +19,49 @@ import com.jgoodies.forms.layout.ColumnSpec;
  * @coverage swing.FormLayout.model
  */
 public final class FormColumnInfo extends FormDimensionInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormColumnInfo(ColumnSpec spec) throws Exception {
-    super(spec);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormColumnInfo(ColumnSpec spec) throws Exception {
+		super(spec);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Copy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public FormColumnInfo copy() throws Exception {
-    return new FormColumnInfo((ColumnSpec) getFormSpec());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Copy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public FormColumnInfo copy() throws Exception {
+		return new FormColumnInfo((ColumnSpec) getFormSpec());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Templates
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final FormDimensionTemplate[] TEMPLATES = new FormDimensionTemplate[]{
-      new FormDimensionTemplate("DEFAULT_COLSPEC", true, "default", "default.gif"),
-      new FormDimensionTemplate("PREF_COLSPEC", true, "preferred", "preferred.gif"),
-      new FormDimensionTemplate("MIN_COLSPEC", true, "minimum", "minimum.gif"),
-      new FormDimensionTemplate("BUTTON_COLSPEC", true, "button", "button.gif"),
-      new FormDimensionTemplate("GROWING_BUTTON_COLSPEC",
-          true,
-          "growing button",
-          "growing_button.gif"),
-      new FormDimensionTemplate("GLUE_COLSPEC", false, "glue", "glue.gif"),
-      new FormDimensionTemplate("RELATED_GAP_COLSPEC", false, "related gap", "related.gif"),
-      new FormDimensionTemplate("UNRELATED_GAP_COLSPEC", false, "unrelated gap", "unrelated.gif"),
-      new FormDimensionTemplate("LABEL_COMPONENT_GAP_COLSPEC",
-          false,
-          "label component gap",
-          "label.gif"),};
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Templates
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final FormDimensionTemplate[] TEMPLATES = new FormDimensionTemplate[]{
+			new FormDimensionTemplate("DEFAULT_COLSPEC", true, "default", "default.gif"),
+			new FormDimensionTemplate("PREF_COLSPEC", true, "preferred", "preferred.gif"),
+			new FormDimensionTemplate("MIN_COLSPEC", true, "minimum", "minimum.gif"),
+			new FormDimensionTemplate("BUTTON_COLSPEC", true, "button", "button.gif"),
+			new FormDimensionTemplate("GROWING_BUTTON_COLSPEC",
+					true,
+					"growing button",
+					"growing_button.gif"),
+			new FormDimensionTemplate("GLUE_COLSPEC", false, "glue", "glue.gif"),
+			new FormDimensionTemplate("RELATED_GAP_COLSPEC", false, "related gap", "related.gif"),
+			new FormDimensionTemplate("UNRELATED_GAP_COLSPEC", false, "unrelated gap", "unrelated.gif"),
+			new FormDimensionTemplate("LABEL_COMPONENT_GAP_COLSPEC",
+					false,
+					"label component gap",
+					"label.gif"),};
 
-  @Override
-  public FormDimensionTemplate[] getTemplates() {
-    return TEMPLATES;
-  }
+	@Override
+	public FormDimensionTemplate[] getTemplates() {
+		return TEMPLATES;
+	}
 }

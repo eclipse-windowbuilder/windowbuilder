@@ -23,40 +23,40 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.BindingInfo;
  * @coverage bindings.swing.ui
  */
 public class BindingNameUiContentProvider extends DialogFieldUiContentProvider {
-  private final BindingInfo m_binding;
-  private final StringDialogField m_dialogField;
+	private final BindingInfo m_binding;
+	private final StringDialogField m_dialogField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BindingNameUiContentProvider(BindingInfo binding) {
-    m_binding = binding;
-    m_dialogField = new StringDialogField();
-    m_dialogField.setLabelText(Messages.BindingNameUiContentProvider_label);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BindingNameUiContentProvider(BindingInfo binding) {
+		m_binding = binding;
+		m_dialogField = new StringDialogField();
+		m_dialogField.setLabelText(Messages.BindingNameUiContentProvider_label);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DialogFieldUIContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public DialogField getDialogField() {
-    return m_dialogField;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DialogFieldUIContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DialogField getDialogField() {
+		return m_dialogField;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    m_dialogField.setText(m_binding.getName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		m_dialogField.setText(m_binding.getName());
+	}
 
-  public void saveToObject() throws Exception {
-    m_binding.setName(m_dialogField.getText());
-  }
+	public void saveToObject() throws Exception {
+		m_binding.setName(m_dialogField.getText());
+	}
 }

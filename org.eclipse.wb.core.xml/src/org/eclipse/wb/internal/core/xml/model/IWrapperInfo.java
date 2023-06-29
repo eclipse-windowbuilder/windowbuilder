@@ -17,8 +17,8 @@ package org.eclipse.wb.internal.core.xml.model;
  * @coverage XML.model
  */
 public interface IWrapperInfo {
-  /**
-   * @return the wrapped {@link XmlObjectInfo}.
-   */
-  public XmlObjectInfo getWrapped() throws Exception;
+	/**
+	 * @return the wrapped {@link XmlObjectInfo}.
+	 */
+	public XmlObjectInfo getWrapped() throws Exception;
 }

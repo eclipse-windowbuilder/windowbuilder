@@ -34,94 +34,94 @@ import org.eclipse.swt.widgets.Menu;
  * @coverage core.gef.policy.generic
  */
 public abstract class AbstractPopupFigure extends Figure {
-  private static final int MARGIN = 6;
-  private static final Color COLOR_BACKGROUND = DrawUtils.getShiftedColor(
-      IColorConstants.white,
-      -32);
-  private static final Color COLOR_FOREGROUND = DrawUtils.getShiftedColor(
-      IColorConstants.white,
-      -64);
-  private final IEditPartViewer m_viewer;
+	private static final int MARGIN = 6;
+	private static final Color COLOR_BACKGROUND = DrawUtils.getShiftedColor(
+			IColorConstants.white,
+			-32);
+	private static final Color COLOR_FOREGROUND = DrawUtils.getShiftedColor(
+			IColorConstants.white,
+			-64);
+	private final IEditPartViewer m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link AbstractPopupFigure}.
-   *
-   * @param width
-   *          the width of the image.
-   * @param height
-   *          the height of the image.
-   */
-  public AbstractPopupFigure(IEditPartViewer viewer, int width, int height) {
-    m_viewer = viewer;
-    // configure figure
-    setSize(width + MARGIN, height + MARGIN);
-    setBackground(COLOR_BACKGROUND);
-    setForeground(COLOR_FOREGROUND);
-    setCursor(ICursorConstants.HAND);
-    // add mouse listener
-    addMouseListener(new IMouseListener() {
-      @Override
-      public void mouseDown(MouseEvent event) {
-        event.consume();
-        // prepare IMenuManager
-        MenuManager manager = new MenuManager();
-        fillMenu(manager);
-        // open context menu
-        Control control = m_viewer.getControl();
-        Menu menu = manager.createContextMenu(control);
-        menu.setVisible(true);
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link AbstractPopupFigure}.
+	 *
+	 * @param width
+	 *          the width of the image.
+	 * @param height
+	 *          the height of the image.
+	 */
+	public AbstractPopupFigure(IEditPartViewer viewer, int width, int height) {
+		m_viewer = viewer;
+		// configure figure
+		setSize(width + MARGIN, height + MARGIN);
+		setBackground(COLOR_BACKGROUND);
+		setForeground(COLOR_FOREGROUND);
+		setCursor(ICursorConstants.HAND);
+		// add mouse listener
+		addMouseListener(new IMouseListener() {
+			@Override
+			public void mouseDown(MouseEvent event) {
+				event.consume();
+				// prepare IMenuManager
+				MenuManager manager = new MenuManager();
+				fillMenu(manager);
+				// open context menu
+				Control control = m_viewer.getControl();
+				Menu menu = manager.createContextMenu(control);
+				menu.setVisible(true);
+			}
 
-      @Override
-      public void mouseUp(MouseEvent event) {
-      }
+			@Override
+			public void mouseUp(MouseEvent event) {
+			}
 
-      @Override
-      public void mouseDoubleClick(MouseEvent event) {
-      }
-    });
-  }
+			@Override
+			public void mouseDoubleClick(MouseEvent event) {
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Paint
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void paintClientArea(Graphics graphics) {
-    Rectangle clientArea = getClientArea();
-    // draw filled rectangle
-    graphics.fillRectangle(clientArea);
-    graphics.drawRectangle(clientArea.getResized(-1, -1));
-    // draw image
-    {
-      Image image = getImage();
-      if (image != null) {
-        org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
-        int x = (clientArea.width - imageBounds.width) / 2;
-        int y = (clientArea.height - imageBounds.height) / 2;
-        graphics.drawImage(image, x, y);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Paint
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void paintClientArea(Graphics graphics) {
+		Rectangle clientArea = getClientArea();
+		// draw filled rectangle
+		graphics.fillRectangle(clientArea);
+		graphics.drawRectangle(clientArea.getResized(-1, -1));
+		// draw image
+		{
+			Image image = getImage();
+			if (image != null) {
+				org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
+				int x = (clientArea.width - imageBounds.width) / 2;
+				int y = (clientArea.height - imageBounds.height) / 2;
+				graphics.drawImage(image, x, y);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Abstract methods
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the image to display.
-   */
-  protected abstract Image getImage();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Abstract methods
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the image to display.
+	 */
+	protected abstract Image getImage();
 
-  /**
-   * Creates the actions on given {@link IMenuManager}.
-   */
-  protected abstract void fillMenu(IMenuManager manager);
+	/**
+	 * Creates the actions on given {@link IMenuManager}.
+	 */
+	protected abstract void fillMenu(IMenuManager manager);
 }

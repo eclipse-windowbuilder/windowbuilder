@@ -21,123 +21,123 @@ import org.eclipse.wb.tests.designer.rcp.BTestUtils;
  * @author scheglov_ke
  */
 public class ExpandableCompositeTest extends AbstractFormsTest {
-  public void test_properties() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new RowLayout());",
-            "    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER, ExpandableComposite.TREE_NODE);",
-            "  }",
-            "}");
-    shell.refresh();
-    ExpandableCompositeInfo composite =
-        (ExpandableCompositeInfo) shell.getChildrenControls().get(0);
-    assertNotNull(composite.getPropertyByTitle("Style"));
-    assertNotNull(composite.getPropertyByTitle("ExpansionStyle"));
-  }
+	public void test_properties() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    setLayout(new RowLayout());",
+						"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER, ExpandableComposite.TREE_NODE);",
+						"  }",
+						"}");
+		shell.refresh();
+		ExpandableCompositeInfo composite =
+				(ExpandableCompositeInfo) shell.getChildrenControls().get(0);
+		assertNotNull(composite.getPropertyByTitle("Style"));
+		assertNotNull(composite.getPropertyByTitle("ExpansionStyle"));
+	}
 
-  /**
-   * Test for {@link ExpandableComposite_Info#command_CREATE(ControlInfo, String), String)}.<br>
-   * When drop using <code>setTextClient()</code>, just create happens, "expanded" property is not
-   * changed.
-   */
-  public void test_CREATE_setTextClient() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new RowLayout());",
-            "    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-            "  }",
-            "}");
-    shell.refresh();
-    ExpandableCompositeInfo composite =
-        (ExpandableCompositeInfo) shell.getChildrenControls().get(0);
-    // when
-    ControlInfo button = BTestUtils.createButton();
-    composite.command_CREATE(button, "setTextClient");
-    assertEditor(
-        "public class Test extends Shell {",
-        "  public Test() {",
-        "    setLayout(new RowLayout());",
-        "    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-        "    {",
-        "      Button button = new Button(composite, SWT.NONE);",
-        "      composite.setTextClient(button);",
-        "    }",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for {@link ExpandableComposite_Info#command_CREATE(ControlInfo, String), String)}.<br>
+	 * When drop using <code>setTextClient()</code>, just create happens, "expanded" property is not
+	 * changed.
+	 */
+	public void test_CREATE_setTextClient() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    setLayout(new RowLayout());",
+						"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
+						"  }",
+						"}");
+		shell.refresh();
+		ExpandableCompositeInfo composite =
+				(ExpandableCompositeInfo) shell.getChildrenControls().get(0);
+		// when
+		ControlInfo button = BTestUtils.createButton();
+		composite.command_CREATE(button, "setTextClient");
+		assertEditor(
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"    setLayout(new RowLayout());",
+				"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
+				"    {",
+				"      Button button = new Button(composite, SWT.NONE);",
+				"      composite.setTextClient(button);",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Test for {@link ExpandableCompositeInfo#command_CREATE(ControlInfo, String)}.<br>
-   * When drop using <code>setClient()</code>, "expanded" property should be set to
-   * <code>true</code>.
-   */
-  public void test_CREATE_setClient() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new RowLayout());",
-            "    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-            "  }",
-            "}");
-    shell.refresh();
-    ExpandableCompositeInfo composite =
-        (ExpandableCompositeInfo) shell.getChildrenControls().get(0);
-    // when
-    ControlInfo button = BTestUtils.createButton();
-    composite.command_CREATE(button, "setClient");
-    assertEditor(
-        "public class Test extends Shell {",
-        "  public Test() {",
-        "    setLayout(new RowLayout());",
-        "    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-        "    composite.setExpanded(true);",
-        "    {",
-        "      Button button = new Button(composite, SWT.NONE);",
-        "      composite.setClient(button);",
-        "    }",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for {@link ExpandableCompositeInfo#command_CREATE(ControlInfo, String)}.<br>
+	 * When drop using <code>setClient()</code>, "expanded" property should be set to
+	 * <code>true</code>.
+	 */
+	public void test_CREATE_setClient() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    setLayout(new RowLayout());",
+						"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
+						"  }",
+						"}");
+		shell.refresh();
+		ExpandableCompositeInfo composite =
+				(ExpandableCompositeInfo) shell.getChildrenControls().get(0);
+		// when
+		ControlInfo button = BTestUtils.createButton();
+		composite.command_CREATE(button, "setClient");
+		assertEditor(
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"    setLayout(new RowLayout());",
+				"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
+				"    composite.setExpanded(true);",
+				"    {",
+				"      Button button = new Button(composite, SWT.NONE);",
+				"      composite.setClient(button);",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  /**
-   * Test for {@link ExpandableCompositeInfo#command_MOVE(ControlInfo, String)}.<br>
-   * When drop using <code>setClient()</code>, "expanded" property should be set to
-   * <code>true</code>.
-   */
-  public void test_MOVE_setClient() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new RowLayout());",
-            "    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
-    shell.refresh();
-    ExpandableCompositeInfo composite =
-        (ExpandableCompositeInfo) shell.getChildrenControls().get(0);
-    ControlInfo button = shell.getChildrenControls().get(1);
-    // when
-    composite.command_MOVE(button, "setClient");
-    assertEditor(
-        "public class Test extends Shell {",
-        "  public Test() {",
-        "    setLayout(new RowLayout());",
-        "    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
-        "    composite.setExpanded(true);",
-        "    {",
-        "      Button button = new Button(composite, SWT.NONE);",
-        "      composite.setClient(button);",
-        "    }",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for {@link ExpandableCompositeInfo#command_MOVE(ControlInfo, String)}.<br>
+	 * When drop using <code>setClient()</code>, "expanded" property should be set to
+	 * <code>true</code>.
+	 */
+	public void test_MOVE_setClient() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    setLayout(new RowLayout());",
+						"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
+						"    {",
+						"      Button button = new Button(this, SWT.NONE);",
+						"    }",
+						"  }",
+						"}");
+		shell.refresh();
+		ExpandableCompositeInfo composite =
+				(ExpandableCompositeInfo) shell.getChildrenControls().get(0);
+		ControlInfo button = shell.getChildrenControls().get(1);
+		// when
+		composite.command_MOVE(button, "setClient");
+		assertEditor(
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"    setLayout(new RowLayout());",
+				"    ExpandableComposite composite = new ExpandableComposite(this, SWT.BORDER);",
+				"    composite.setExpanded(true);",
+				"    {",
+				"      Button button = new Button(composite, SWT.NONE);",
+				"      composite.setClient(button);",
+				"    }",
+				"  }",
+				"}");
+	}
 }

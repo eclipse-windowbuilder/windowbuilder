@@ -19,46 +19,46 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
  * @coverage XML.model.description
  */
 public final class CreationAttributeDescription extends AbstractDescription {
-  private final String m_namespace;
-  private final String m_name;
-  private final String m_value;
+	private final String m_namespace;
+	private final String m_name;
+	private final String m_value;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CreationAttributeDescription(String namespace, String name, String value) {
-    m_namespace = namespace;
-    m_name = name;
-    m_value = value;
-    Assert.isNotNull(name, "No x-attribute name.");
-    Assert.isNotNull(value, "No x-attribute value.");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CreationAttributeDescription(String namespace, String name, String value) {
+		m_namespace = namespace;
+		m_name = name;
+		m_value = value;
+		Assert.isNotNull(name, "No x-attribute name.");
+		Assert.isNotNull(value, "No x-attribute value.");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the optional namespace, may be <code>null</code>.
-   */
-  public String getNamespace() {
-    return m_namespace;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the optional namespace, may be <code>null</code>.
+	 */
+	public String getNamespace() {
+		return m_namespace;
+	}
 
-  /**
-   * @return the simple name of attribute, not <code>null</code>.
-   */
-  public String getName() {
-    return m_name;
-  }
+	/**
+	 * @return the simple name of attribute, not <code>null</code>.
+	 */
+	public String getName() {
+		return m_name;
+	}
 
-  /**
-   * @return the name of attribute, not <code>null</code>.
-   */
-  public String getValue() {
-    return m_value;
-  }
+	/**
+	 * @return the name of attribute, not <code>null</code>.
+	 */
+	public String getValue() {
+		return m_value;
+	}
 }

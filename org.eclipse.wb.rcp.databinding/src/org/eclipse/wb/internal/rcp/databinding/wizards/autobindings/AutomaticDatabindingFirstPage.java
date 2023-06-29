@@ -28,56 +28,56 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage bindings.rcp.wizard.auto
  */
 public final class AutomaticDatabindingFirstPage
-    extends
-      org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingFirstPage {
-  private final CheckDialogField m_controlField = new CheckDialogField();
+extends
+org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingFirstPage {
+	private final CheckDialogField m_controlField = new CheckDialogField();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AutomaticDatabindingFirstPage(IAutomaticDatabindingProvider databindingProvider,
-      String initialBeanClassName) {
-    super(databindingProvider, initialBeanClassName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AutomaticDatabindingFirstPage(IAutomaticDatabindingProvider databindingProvider,
+			String initialBeanClassName) {
+		super(databindingProvider, initialBeanClassName);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createLocalControls(Composite parent, int columns) {
-    super.createLocalControls(parent, columns);
-    new Separator(SWT.SEPARATOR | SWT.HORIZONTAL).doFillIntoGrid(parent, columns);
-    m_controlField.setLabelText(Messages.AutomaticDatabindingFirstPage_controllerFieldLabel);
-    m_controlField.doFillIntoGrid(parent, columns);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createLocalControls(Composite parent, int columns) {
+		super.createLocalControls(parent, columns);
+		new Separator(SWT.SEPARATOR | SWT.HORIZONTAL).doFillIntoGrid(parent, columns);
+		m_controlField.setLabelText(Messages.AutomaticDatabindingFirstPage_controllerFieldLabel);
+		m_controlField.doFillIntoGrid(parent, columns);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Substitution support
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String performSubstitutions(String code, ImportsManager imports) {
-    code = super.performSubstitutions(code, imports);
-    code = RcpWizardPage.doPerformSubstitutions(this, code, imports);
-    return code;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Substitution support
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String performSubstitutions(String code, ImportsManager imports) {
+		code = super.performSubstitutions(code, imports);
+		code = RcpWizardPage.doPerformSubstitutions(this, code, imports);
+		return code;
+	}
 
-  @Override
-  protected ToolkitDescriptionJava getToolkitDescription() {
-    return ToolkitProvider.DESCRIPTION;
-  }
+	@Override
+	protected ToolkitDescriptionJava getToolkitDescription() {
+		return ToolkitProvider.DESCRIPTION;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean isCreateControlClass() {
-    return m_controlField.getSelection();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean isCreateControlClass() {
+		return m_controlField.getSelection();
+	}
 }

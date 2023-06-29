@@ -25,37 +25,37 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
  * @coverage rcp.gef.policy
  */
 public final class ActionDropTool extends AbstractCreationTool {
-  private final ActionInfo m_action;
+	private final ActionInfo m_action;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionDropTool(ActionInfo action) {
-    m_action = action;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionDropTool(ActionInfo action) {
+		m_action = action;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractCreationTool
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Request createTargetRequest() {
-    return new ActionDropRequest(m_action);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractCreationTool
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Request createTargetRequest() {
+		return new ActionDropRequest(m_action);
+	}
 
-  @Override
-  protected void selectAddedObjects() {
-    ActionDropRequest request = (ActionDropRequest) getTargetRequest();
-    ActionContributionItemInfo item = request.getItem();
-    if (item != null) {
-      IEditPartViewer viewer = getViewer();
-      EditPart editPart = viewer.getEditPartByModel(item);
-      if (editPart != null) {
-        viewer.select(editPart);
-      }
-    }
-  }
+	@Override
+	protected void selectAddedObjects() {
+		ActionDropRequest request = (ActionDropRequest) getTargetRequest();
+		ActionContributionItemInfo item = request.getItem();
+		if (item != null) {
+			IEditPartViewer viewer = getViewer();
+			EditPart editPart = viewer.getEditPartByModel(item);
+			if (editPart != null) {
+				viewer.select(editPart);
+			}
+		}
+	}
 }

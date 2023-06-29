@@ -46,187 +46,187 @@ import java.util.List;
  * @coverage swing.gef.policy
  */
 abstract class DimensionSelectionEditPolicy<T extends DimensionInfo>
-    extends
-      AbstractHeaderSelectionEditPolicy {
-  protected static final String REQ_RESIZE = "resize";
+extends
+AbstractHeaderSelectionEditPolicy {
+	protected static final String REQ_RESIZE = "resize";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DimensionSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
-    super(mainPolicy);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DimensionSelectionEditPolicy(LayoutEditPolicy mainPolicy) {
+		super(mainPolicy);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    // move handle
-    {
-      MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
-      moveHandle.setForeground(IColorConstants.red);
-      handles.add(moveHandle);
-    }
-    //
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		// move handle
+		{
+			MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
+			moveHandle.setForeground(IColorConstants.red);
+			handles.add(moveHandle);
+		}
+		//
+		return handles;
+	}
 
-  @Override
-  protected List<Handle> createStaticHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    handles.add(createResizeHandle());
-    return handles;
-  }
+	@Override
+	protected List<Handle> createStaticHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		handles.add(createResizeHandle());
+		return handles;
+	}
 
-  /**
-   * @return the {@link Handle} for resizing.
-   */
-  protected abstract Handle createResizeHandle();
+	/**
+	 * @return the {@link Handle} for resizing.
+	 */
+	protected abstract Handle createResizeHandle();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the host {@link DimensionHeaderEditPart}.
-   */
-  @SuppressWarnings("unchecked")
-  private DimensionHeaderEditPart<T> getHostHeader() {
-    return (DimensionHeaderEditPart<T>) getHost();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the host {@link DimensionHeaderEditPart}.
+	 */
+	@SuppressWarnings("unchecked")
+	private DimensionHeaderEditPart<T> getHostHeader() {
+		return (DimensionHeaderEditPart<T>) getHost();
+	}
 
-  /**
-   * @return the host {@link AbstractGridBagLayoutInfo}.
-   */
-  protected final AbstractGridBagLayoutInfo getLayout() {
-    return getHostHeader().getLayout();
-  }
+	/**
+	 * @return the host {@link AbstractGridBagLayoutInfo}.
+	 */
+	protected final AbstractGridBagLayoutInfo getLayout() {
+		return getHostHeader().getLayout();
+	}
 
-  /**
-   * @return the host {@link DimensionInfo}.
-   */
-  protected final T getDimension() {
-    return getHostHeader().getDimension();
-  }
+	/**
+	 * @return the host {@link DimensionInfo}.
+	 */
+	protected final T getDimension() {
+		return getHostHeader().getDimension();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Figure m_lineFeedback;
-  private TextFeedback m_feedback;
-  protected Command m_resizeCommand;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Figure m_lineFeedback;
+	private TextFeedback m_feedback;
+	protected Command m_resizeCommand;
 
-  @Override
-  public boolean understandsRequest(Request request) {
-    return super.understandsRequest(request) || request.getType() == REQ_RESIZE;
-  }
+	@Override
+	public boolean understandsRequest(Request request) {
+		return super.understandsRequest(request) || request.getType() == REQ_RESIZE;
+	}
 
-  @Override
-  public Command getCommand(Request request) {
-    return m_resizeCommand;
-  }
+	@Override
+	public Command getCommand(Request request) {
+		return m_resizeCommand;
+	}
 
-  @Override
-  public void showSourceFeedback(Request request) {
-    ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
-    m_resizeCommand = null;
-    // line feedback
-    {
-      // create feedback
-      if (m_lineFeedback == null) {
-        m_lineFeedback = new Figure();
-        LineBorder border = new LineBorder(IColorConstants.red, 2);
-        m_lineFeedback.setBorder(border);
-        addFeedback(m_lineFeedback);
-      }
-      // prepare feedback bounds
-      Rectangle bounds;
-      {
-        Figure hostFigure = getHostFigure();
-        bounds = changeBoundsRequest.getTransformedRectangle(hostFigure.getBounds());
-        FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
-      }
-      // show feedback
-      m_lineFeedback.setBounds(bounds);
-    }
-    // text feedback
-    {
-      Layer feedbackLayer = getMainLayer(IEditPartViewer.FEEDBACK_LAYER);
-      // add feedback
-      if (m_feedback == null) {
-        m_feedback = new TextFeedback(feedbackLayer);
-        m_feedback.add();
-      }
-      // set feedback bounds
-      {
-        Point mouseLocation = changeBoundsRequest.getLocation().getCopy();
-        Point feedbackLocation = getTextFeedbackLocation(mouseLocation);
-        FigureUtils.translateAbsoluteToFigure(feedbackLayer, feedbackLocation);
-        m_feedback.setLocation(feedbackLocation);
-      }
-      // set text
-      m_feedback.setText(getFeedbackText(changeBoundsRequest));
-    }
-  }
+	@Override
+	public void showSourceFeedback(Request request) {
+		ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
+		m_resizeCommand = null;
+		// line feedback
+		{
+			// create feedback
+			if (m_lineFeedback == null) {
+				m_lineFeedback = new Figure();
+				LineBorder border = new LineBorder(IColorConstants.red, 2);
+				m_lineFeedback.setBorder(border);
+				addFeedback(m_lineFeedback);
+			}
+			// prepare feedback bounds
+			Rectangle bounds;
+			{
+				Figure hostFigure = getHostFigure();
+				bounds = changeBoundsRequest.getTransformedRectangle(hostFigure.getBounds());
+				FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
+			}
+			// show feedback
+			m_lineFeedback.setBounds(bounds);
+		}
+		// text feedback
+		{
+			Layer feedbackLayer = getMainLayer(IEditPartViewer.FEEDBACK_LAYER);
+			// add feedback
+			if (m_feedback == null) {
+				m_feedback = new TextFeedback(feedbackLayer);
+				m_feedback.add();
+			}
+			// set feedback bounds
+			{
+				Point mouseLocation = changeBoundsRequest.getLocation().getCopy();
+				Point feedbackLocation = getTextFeedbackLocation(mouseLocation);
+				FigureUtils.translateAbsoluteToFigure(feedbackLayer, feedbackLocation);
+				m_feedback.setLocation(feedbackLocation);
+			}
+			// set text
+			m_feedback.setText(getFeedbackText(changeBoundsRequest));
+		}
+	}
 
-  @Override
-  public void eraseSourceFeedback(Request request) {
-    removeFeedback(m_lineFeedback);
-    m_lineFeedback = null;
-    m_feedback.remove();
-    m_feedback = null;
-  }
+	@Override
+	public void eraseSourceFeedback(Request request) {
+		removeFeedback(m_lineFeedback);
+		m_lineFeedback = null;
+		m_feedback.remove();
+		m_feedback = null;
+	}
 
-  /**
-   * @return the size of {@link DimensionInfo} in pixels (based on {@link IGridInfo} information).
-   */
-  protected final int getDimensionSize(Interval[] intervals) {
-    int index = getDimension().getIndex();
-    if (index < intervals.length - 1) {
-      return intervals[index + 1].begin() - intervals[index].begin();
-    } else {
-      return intervals[index].length();
-    }
-  }
+	/**
+	 * @return the size of {@link DimensionInfo} in pixels (based on {@link IGridInfo} information).
+	 */
+	protected final int getDimensionSize(Interval[] intervals) {
+		int index = getDimension().getIndex();
+		if (index < intervals.length - 1) {
+			return intervals[index + 1].begin() - intervals[index].begin();
+		} else {
+			return intervals[index].length();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Resize: abstract feedback
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the location of text feedback (with size hint).
-   */
-  protected abstract Point getTextFeedbackLocation(Point mouseLocation);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Resize: abstract feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the location of text feedback (with size hint).
+	 */
+	protected abstract Point getTextFeedbackLocation(Point mouseLocation);
 
-  /**
-   * @return the text for feedback.
-   */
-  protected abstract String getFeedbackText(ChangeBoundsRequest request);
+	/**
+	 * @return the text for feedback.
+	 */
+	protected abstract String getFeedbackText(ChangeBoundsRequest request);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Move location
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link ILocator} to place handle directly on header.
-   */
-  private class HeaderMoveHandleLocator implements ILocator {
-    public void relocate(Figure target) {
-      Figure reference = getHostFigure();
-      Rectangle bounds = reference.getBounds().getCopy();
-      FigureUtils.translateFigureToFigure(reference, target, bounds);
-      target.setBounds(bounds);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Move location
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link ILocator} to place handle directly on header.
+	 */
+	private class HeaderMoveHandleLocator implements ILocator {
+		public void relocate(Figure target) {
+			Figure reference = getHostFigure();
+			Rectangle bounds = reference.getBounds().getCopy();
+			FigureUtils.translateFigureToFigure(reference, target, bounds);
+			target.setBounds(bounds);
+		}
+	}
 }

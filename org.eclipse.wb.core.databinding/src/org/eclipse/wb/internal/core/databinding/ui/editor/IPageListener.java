@@ -24,28 +24,28 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.ui
  */
 public interface IPageListener {
-  /**
-   * Sets this dialog/wizard page's title.
-   */
-  void setTitle(String title);
+	/**
+	 * Sets this dialog/wizard page's title.
+	 */
+	void setTitle(String title);
 
-  /**
-   * Sets this dialog/wizard page's {@link Image}.
-   */
-  void setTitleImage(Image image);
+	/**
+	 * Sets this dialog/wizard page's {@link Image}.
+	 */
+	void setTitleImage(Image image);
 
-  /**
-   * Sets or clears the message for this page.
-   */
-  void setMessage(String newMessage);
+	/**
+	 * Sets or clears the message for this page.
+	 */
+	void setMessage(String newMessage);
 
-  /**
-   * Sets or clears the error message for this page.
-   */
-  void setErrorMessage(String newMessage);
+	/**
+	 * Sets or clears the error message for this page.
+	 */
+	void setErrorMessage(String newMessage);
 
-  /**
-   * Sets whether this page is complete.
-   */
-  void setPageComplete(boolean complete);
+	/**
+	 * Sets whether this page is complete.
+	 */
+	void setPageComplete(boolean complete);
 }

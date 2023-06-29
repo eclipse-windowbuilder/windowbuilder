@@ -17,42 +17,42 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 public class ObjectInfoUtilsTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ID
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link ObjectInfoUtils#getId(ObjectInfo)}.
-   */
-  public void test_getId() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    assertNotNull(ObjectInfoUtils.getId(panel));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ID
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link ObjectInfoUtils#getId(ObjectInfo)}.
+	 */
+	public void test_getId() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		assertNotNull(ObjectInfoUtils.getId(panel));
+	}
 
-  /**
-   * Test for {@link ObjectInfoUtils#getById(String)}.
-   */
-  public void test_getById() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    // ask using "panel"
-    assertSame(panel, ObjectInfoUtils.getById(ObjectInfoUtils.getId(panel)));
-    assertSame(button, ObjectInfoUtils.getById(ObjectInfoUtils.getId(button)));
-    // ask using "button"
-    assertSame(panel, ObjectInfoUtils.getById(ObjectInfoUtils.getId(panel)));
-    assertSame(button, ObjectInfoUtils.getById(ObjectInfoUtils.getId(button)));
-  }
+	/**
+	 * Test for {@link ObjectInfoUtils#getById(String)}.
+	 */
+	public void test_getById() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"    add(new JButton());",
+						"  }",
+						"}");
+		ComponentInfo button = panel.getChildrenComponents().get(0);
+		// ask using "panel"
+		assertSame(panel, ObjectInfoUtils.getById(ObjectInfoUtils.getId(panel)));
+		assertSame(button, ObjectInfoUtils.getById(ObjectInfoUtils.getId(button)));
+		// ask using "button"
+		assertSame(panel, ObjectInfoUtils.getById(ObjectInfoUtils.getId(panel)));
+		assertSame(button, ObjectInfoUtils.getById(ObjectInfoUtils.getId(button)));
+	}
 }

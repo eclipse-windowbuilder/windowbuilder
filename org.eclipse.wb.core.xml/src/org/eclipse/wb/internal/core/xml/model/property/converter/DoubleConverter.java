@@ -22,28 +22,28 @@ import org.apache.commons.lang.StringUtils;
  * @coverage XML.model.property
  */
 public final class DoubleConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new DoubleConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new DoubleConverter();
 
-  private DoubleConverter() {
-  }
+	private DoubleConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toSource(XmlObjectInfo object, Object value) throws Exception {
-    if (value instanceof Double) {
-      String source = Double.toString((Double) value);
-      source = StringUtils.removeEnd(source, ".0");
-      return source;
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toSource(XmlObjectInfo object, Object value) throws Exception {
+		if (value instanceof Double) {
+			String source = Double.toString((Double) value);
+			source = StringUtils.removeEnd(source, ".0");
+			return source;
+		}
+		return null;
+	}
 }

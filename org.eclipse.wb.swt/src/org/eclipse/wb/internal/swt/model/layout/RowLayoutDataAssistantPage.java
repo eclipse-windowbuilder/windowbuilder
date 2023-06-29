@@ -26,29 +26,29 @@ import org.eclipse.swt.widgets.Group;
  * @coverage swt.assistant
  */
 public final class RowLayoutDataAssistantPage extends AbstractAssistantPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RowLayoutDataAssistantPage(Composite parent, Object selection) {
-    super(parent, selection);
-    GridLayoutFactory.create(this).columns(2);
-    // Width & Height
-    {
-      Group group =
-          addIntegerProperties(
-              this,
-              ModelMessages.RowLayoutDataAssistantPage_sizeGroup,
-              new String[][]{
-                  {"width", ModelMessages.RowLayoutDataAssistantPage_sizeWidth},
-                  {"height", ModelMessages.RowLayoutDataAssistantPage_sizeHeight}},
-              new int[]{SWT.DEFAULT, SWT.DEFAULT});
-      GridDataFactory.create(group).fillV();
-    }
-    // Exclude
-    {
-      addBooleanProperty(this, "exclude", ModelMessages.RowLayoutDataAssistantPage_excludeFlag);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RowLayoutDataAssistantPage(Composite parent, Object selection) {
+		super(parent, selection);
+		GridLayoutFactory.create(this).columns(2);
+		// Width & Height
+		{
+			Group group =
+					addIntegerProperties(
+							this,
+							ModelMessages.RowLayoutDataAssistantPage_sizeGroup,
+							new String[][]{
+								{"width", ModelMessages.RowLayoutDataAssistantPage_sizeWidth},
+								{"height", ModelMessages.RowLayoutDataAssistantPage_sizeHeight}},
+							new int[]{SWT.DEFAULT, SWT.DEFAULT});
+			GridDataFactory.create(group).fillV();
+		}
+		// Exclude
+		{
+			addBooleanProperty(this, "exclude", ModelMessages.RowLayoutDataAssistantPage_excludeFlag);
+		}
+	}
 }

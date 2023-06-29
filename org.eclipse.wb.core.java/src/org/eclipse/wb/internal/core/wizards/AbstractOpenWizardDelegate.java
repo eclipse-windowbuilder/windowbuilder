@@ -23,40 +23,40 @@ import org.eclipse.ui.IWorkbenchWizard;
  * @coverage core.wizards.ui
  */
 public abstract class AbstractOpenWizardDelegate extends AbstractActionDelegate {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IActionDelegate
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void run(IAction action) {
-    openWizard();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IActionDelegate
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void run(IAction action) {
+		openWizard();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Wizard
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final void openWizard() {
-    IWorkbenchWindow workbenchWindow = getWorkbenchWindow();
-    IWizard wizard = createWizard();
-    // initialize IWorkbenchWizard
-    if (wizard instanceof IWorkbenchWizard) {
-      ((IWorkbenchWizard) wizard).init(workbenchWindow.getWorkbench(), getSelection());
-    }
-    // open Wizard UI
-    WizardDialog dialog = new WizardDialog(workbenchWindow.getShell(), wizard);
-    dialog.create();
-    String title = wizard.getWindowTitle();
-    if (title != null) {
-      dialog.getShell().setText(title);
-    }
-    dialog.open();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Wizard
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final void openWizard() {
+		IWorkbenchWindow workbenchWindow = getWorkbenchWindow();
+		IWizard wizard = createWizard();
+		// initialize IWorkbenchWizard
+		if (wizard instanceof IWorkbenchWizard) {
+			((IWorkbenchWizard) wizard).init(workbenchWindow.getWorkbench(), getSelection());
+		}
+		// open Wizard UI
+		WizardDialog dialog = new WizardDialog(workbenchWindow.getShell(), wizard);
+		dialog.create();
+		String title = wizard.getWindowTitle();
+		if (title != null) {
+			dialog.getShell().setText(title);
+		}
+		dialog.open();
+	}
 
-  /**
-   * Creates the specific wizard (to be implemented by a subclass).
-   */
-  protected abstract IWizard createWizard();
+	/**
+	 * Creates the specific wizard (to be implemented by a subclass).
+	 */
+	protected abstract IWizard createWizard();
 }

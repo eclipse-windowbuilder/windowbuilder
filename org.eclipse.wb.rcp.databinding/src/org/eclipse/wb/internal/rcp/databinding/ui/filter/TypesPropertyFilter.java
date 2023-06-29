@@ -23,25 +23,25 @@ import org.eclipse.swt.graphics.Image;
  * @coverage bindings.rcp.ui
  */
 public final class TypesPropertyFilter
-    extends
-      org.eclipse.wb.internal.core.databinding.ui.filter.TypesPropertyFilter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TypesPropertyFilter(String name, Image image, Class<?>... types) {
-    super(name, image, types);
-  }
+extends
+org.eclipse.wb.internal.core.databinding.ui.filter.TypesPropertyFilter {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TypesPropertyFilter(String name, Image image, Class<?>... types) {
+		super(name, image, types);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyFilter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
-    BindableInfo bindable = (BindableInfo) propertyObserve;
-    return select(bindable.getObjectType());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyFilter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean select(Viewer viewer, IObserveInfo propertyObserve) {
+		BindableInfo bindable = (BindableInfo) propertyObserve;
+		return select(bindable.getObjectType());
+	}
 }

@@ -39,169 +39,169 @@ import javax.swing.JPanel;
  * @author scheglov_ke
  */
 public class ImplicitLayoutTest extends AbstractLayoutTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for implicit {@link FlowLayout} for {@link JPanel}.
-   */
-  public void test_1_implicitLayout_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test {",
-            "  public static void main(String args[]) {",
-            "    JPanel panel = new JPanel();",
-            "  }",
-            "}");
-    assertEquals(1, panel.getChildren().size());
-    assertSame(FlowLayoutInfo.class, panel.getChildren().get(0).getClass());
-    assertSame(panel.getLayout(), panel.getChildren().get(0));
-    //
-    LayoutInfo layout = panel.getLayout();
-    assertTrue(layout.canDelete());
-    // check association
-    assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
-    // check creation support
-    {
-      CreationSupport creationSupport = layout.getCreationSupport();
-      assertInstanceOf(ImplicitLayoutCreationSupport.class, creationSupport);
-      assertEquals(panel.getCreationSupport().getNode(), creationSupport.getNode());
-      assertEquals("implicit-layout: java.awt.FlowLayout", creationSupport.toString());
-    }
-    // check variable
-    {
-      VariableSupport variableSupport = layout.getVariableSupport();
-      assertInstanceOf(ImplicitLayoutVariableSupport.class, variableSupport);
-      assertEquals("implicit-layout", variableSupport.toString());
-      assertEquals("(implicit layout)", variableSupport.getTitle());
-      // name
-      assertFalse(variableSupport.hasName());
-      try {
-        variableSupport.getName();
-        fail();
-      } catch (IllegalStateException e) {
-      }
-      try {
-        variableSupport.setName("foo");
-        fail();
-      } catch (IllegalStateException e) {
-      }
-      // conversion
-      assertFalse(variableSupport.canConvertLocalToField());
-      try {
-        variableSupport.convertLocalToField();
-        fail();
-      } catch (IllegalStateException e) {
-      }
-      assertFalse(variableSupport.canConvertFieldToLocal());
-      try {
-        variableSupport.convertFieldToLocal();
-        fail();
-      } catch (IllegalStateException e) {
-      }
-      // target
-      {
-        StatementTarget target = variableSupport.getStatementTarget();
-        assertEditor(
-            "class Test {",
-            "  public static void main(String args[]) {",
-            "    JPanel panel = new JPanel();",
-            "    FlowLayout flowLayout = (FlowLayout) panel.getLayout();",
-            "  }",
-            "}");
-        //
-        ClassInstanceCreation panelCreation =
-            ((ConstructorCreationSupport) panel.getCreationSupport()).getCreation();
-        Statement expectedStatement =
-            getStatement(AstNodeUtils.getEnclosingBlock(panelCreation), new int[]{1});
-        assertTarget(target, null, expectedStatement, false);
-      }
-    }
-    // check association
-    assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for implicit {@link FlowLayout} for {@link JPanel}.
+	 */
+	public void test_1_implicitLayout_1() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"class Test {",
+						"  public static void main(String args[]) {",
+						"    JPanel panel = new JPanel();",
+						"  }",
+						"}");
+		assertEquals(1, panel.getChildren().size());
+		assertSame(FlowLayoutInfo.class, panel.getChildren().get(0).getClass());
+		assertSame(panel.getLayout(), panel.getChildren().get(0));
+		//
+		LayoutInfo layout = panel.getLayout();
+		assertTrue(layout.canDelete());
+		// check association
+		assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
+		// check creation support
+		{
+			CreationSupport creationSupport = layout.getCreationSupport();
+			assertInstanceOf(ImplicitLayoutCreationSupport.class, creationSupport);
+			assertEquals(panel.getCreationSupport().getNode(), creationSupport.getNode());
+			assertEquals("implicit-layout: java.awt.FlowLayout", creationSupport.toString());
+		}
+		// check variable
+		{
+			VariableSupport variableSupport = layout.getVariableSupport();
+			assertInstanceOf(ImplicitLayoutVariableSupport.class, variableSupport);
+			assertEquals("implicit-layout", variableSupport.toString());
+			assertEquals("(implicit layout)", variableSupport.getTitle());
+			// name
+			assertFalse(variableSupport.hasName());
+			try {
+				variableSupport.getName();
+				fail();
+			} catch (IllegalStateException e) {
+			}
+			try {
+				variableSupport.setName("foo");
+				fail();
+			} catch (IllegalStateException e) {
+			}
+			// conversion
+			assertFalse(variableSupport.canConvertLocalToField());
+			try {
+				variableSupport.convertLocalToField();
+				fail();
+			} catch (IllegalStateException e) {
+			}
+			assertFalse(variableSupport.canConvertFieldToLocal());
+			try {
+				variableSupport.convertFieldToLocal();
+				fail();
+			} catch (IllegalStateException e) {
+			}
+			// target
+			{
+				StatementTarget target = variableSupport.getStatementTarget();
+				assertEditor(
+						"class Test {",
+						"  public static void main(String args[]) {",
+						"    JPanel panel = new JPanel();",
+						"    FlowLayout flowLayout = (FlowLayout) panel.getLayout();",
+						"  }",
+						"}");
+				//
+				ClassInstanceCreation panelCreation =
+						((ConstructorCreationSupport) panel.getCreationSupport()).getCreation();
+				Statement expectedStatement =
+						getStatement(AstNodeUtils.getEnclosingBlock(panelCreation), new int[]{1});
+				assertTarget(target, null, expectedStatement, false);
+			}
+		}
+		// check association
+		assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
+	}
 
-  /**
-   * Test for materializing implicit {@link FlowLayout}.
-   */
-  public void test_1_implicitLayout_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    LayoutInfo layout = panel.getLayout();
-    assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
-    // materialize by asking for expression
-    {
-      NodeTarget target = getNodeBlockTarget(panel, false);
-      String accessExpression = layout.getVariableSupport().getAccessExpression(target);
-      assertEquals("flowLayout.", accessExpression);
-    }
-    // check creation/variable/association
-    assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
-    assertInstanceOf(LocalUniqueVariableSupport.class, layout.getVariableSupport());
-    assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
-    // check source
-    assertEditor(
-        "// filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    FlowLayout flowLayout = (FlowLayout) getLayout();",
-        "  }",
-        "}");
-  }
+	/**
+	 * Test for materializing implicit {@link FlowLayout}.
+	 */
+	public void test_1_implicitLayout_2() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		LayoutInfo layout = panel.getLayout();
+		assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
+		// materialize by asking for expression
+		{
+			NodeTarget target = getNodeBlockTarget(panel, false);
+			String accessExpression = layout.getVariableSupport().getAccessExpression(target);
+			assertEquals("flowLayout.", accessExpression);
+		}
+		// check creation/variable/association
+		assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
+		assertInstanceOf(LocalUniqueVariableSupport.class, layout.getVariableSupport());
+		assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
+		// check source
+		assertEditor(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    FlowLayout flowLayout = (FlowLayout) getLayout();",
+				"  }",
+				"}");
+	}
 
-  // XXX
-  /**
-   * Test for parsing materialized implicit layout (with {@link CastExpression}).
-   */
-  public void test_1_implicitLayout_3() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "class Test extends JPanel {",
-            "  public Test() {",
-            "    FlowLayout flowLayout = (FlowLayout) getLayout();",
-            "  }",
-            "}");
-    {
-      LayoutInfo layout = panel.getLayout();
-      assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
-      {
-        VariableSupport variableSupport = layout.getVariableSupport();
-        assertInstanceOf(LocalUniqueVariableSupport.class, variableSupport);
-        assertEquals("flowLayout", variableSupport.getName());
-      }
-      assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
-    }
-    // check for "de-materializing" implicit layout
-    {
-      panel.getLayout().delete();
-      assertEditor(
-          "// filler filler filler",
-          "class Test extends JPanel {",
-          "  public Test() {",
-          "  }",
-          "}");
-      //
-      LayoutInfo layout = panel.getLayout();
-      assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
-      assertInstanceOf(ImplicitLayoutVariableSupport.class, layout.getVariableSupport());
-      assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
-    }
-  }
+	// XXX
+	/**
+	 * Test for parsing materialized implicit layout (with {@link CastExpression}).
+	 */
+	public void test_1_implicitLayout_3() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"class Test extends JPanel {",
+						"  public Test() {",
+						"    FlowLayout flowLayout = (FlowLayout) getLayout();",
+						"  }",
+						"}");
+		{
+			LayoutInfo layout = panel.getLayout();
+			assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
+			{
+				VariableSupport variableSupport = layout.getVariableSupport();
+				assertInstanceOf(LocalUniqueVariableSupport.class, variableSupport);
+				assertEquals("flowLayout", variableSupport.getName());
+			}
+			assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
+		}
+		// check for "de-materializing" implicit layout
+		{
+			panel.getLayout().delete();
+			assertEditor(
+					"// filler filler filler",
+					"class Test extends JPanel {",
+					"  public Test() {",
+					"  }",
+					"}");
+			//
+			LayoutInfo layout = panel.getLayout();
+			assertInstanceOf(ImplicitLayoutCreationSupport.class, layout.getCreationSupport());
+			assertInstanceOf(ImplicitLayoutVariableSupport.class, layout.getVariableSupport());
+			assertInstanceOf(ImplicitObjectAssociation.class, layout.getAssociation());
+		}
+	}
 }

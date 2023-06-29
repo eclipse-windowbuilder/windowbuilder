@@ -29,36 +29,36 @@ import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
  * @coverage swt.model.widgets.live
  */
 public class MenuItemLiveManager extends SwtLiveManager {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuItemLiveManager(AbstractComponentInfo component) {
-    super(component);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuItemLiveManager(AbstractComponentInfo component) {
+		super(component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // LiveComponentsManager
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addWidget(CompositeInfo shell, WidgetInfo widget) throws Exception {
-    AstEditor editor = shell.getEditor();
-    // add menu
-    MenuInfo menu;
-    {
-      menu =
-          (MenuInfo) JavaInfoUtils.createJavaInfo(
-              editor,
-              "org.eclipse.swt.widgets.Menu",
-              new ConstructorCreationSupport("bar", false));
-      AssociationObject association =
-          AssociationObjects.invocationChild("%parent%.setMenuBar(%child%)", true);
-      JavaInfoUtils.add(menu, association, shell, null);
-    }
-    // add item
-    JavaInfoUtils.add(widget, null, menu, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// LiveComponentsManager
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addWidget(CompositeInfo shell, WidgetInfo widget) throws Exception {
+		AstEditor editor = shell.getEditor();
+		// add menu
+		MenuInfo menu;
+		{
+			menu =
+					(MenuInfo) JavaInfoUtils.createJavaInfo(
+							editor,
+							"org.eclipse.swt.widgets.Menu",
+							new ConstructorCreationSupport("bar", false));
+			AssociationObject association =
+					AssociationObjects.invocationChild("%parent%.setMenuBar(%child%)", true);
+			JavaInfoUtils.add(menu, association, shell, null);
+		}
+		// add item
+		JavaInfoUtils.add(widget, null, menu, null);
+	}
 }

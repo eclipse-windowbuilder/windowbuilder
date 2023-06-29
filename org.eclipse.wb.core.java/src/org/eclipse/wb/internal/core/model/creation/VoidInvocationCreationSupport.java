@@ -36,125 +36,125 @@ import java.util.List;
  * @coverage core.model.creation
  */
 public abstract class VoidInvocationCreationSupport extends AbstractFactoryCreationSupport {
-  private final JavaInfo m_hostJavaInfo;
+	private final JavaInfo m_hostJavaInfo;
 
-  //private MethodInvocation m_invocation;
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VoidInvocationCreationSupport(JavaInfo hostJavaInfo,
-      MethodDescription description,
-      MethodInvocation invocation) {
-    super(description, invocation);
-    m_hostJavaInfo = hostJavaInfo;
-    //m_invocation = invocation;
-  }
+	//private MethodInvocation m_invocation;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VoidInvocationCreationSupport(JavaInfo hostJavaInfo,
+			MethodDescription description,
+			MethodInvocation invocation) {
+		super(description, invocation);
+		m_hostJavaInfo = hostJavaInfo;
+		//m_invocation = invocation;
+	}
 
-  /**
-   * Creates new {@link VoidInvocationCreationSupport} for adding new component.
-   *
-   * @param hostJavaInfo
-   *          the {@link JavaInfo} for which {@link MethodInvocation} should be added.
-   */
-  public VoidInvocationCreationSupport(JavaInfo hostJavaInfo, MethodDescription description) {
-    super(description);
-    m_hostJavaInfo = hostJavaInfo;
-  }
+	/**
+	 * Creates new {@link VoidInvocationCreationSupport} for adding new component.
+	 *
+	 * @param hostJavaInfo
+	 *          the {@link JavaInfo} for which {@link MethodInvocation} should be added.
+	 */
+	public VoidInvocationCreationSupport(JavaInfo hostJavaInfo, MethodDescription description) {
+		super(description);
+		m_hostJavaInfo = hostJavaInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "void";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "void";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canUseParent(JavaInfo parent) throws Exception {
-    // TODO consider to implement
-    return super.canUseParent(parent);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canUseParent(JavaInfo parent) throws Exception {
+		// TODO consider to implement
+		return super.canUseParent(parent);
+	}
 
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    m_javaInfo.addBroadcastListener(new JavaInfosetObjectBefore() {
-      @Override
-      public void invoke(JavaInfo target, Object[] objectRef) throws Exception {
-        if (target == m_javaInfo) {
-          if (m_javaInfo.getCreationSupport() == VoidInvocationCreationSupport.this) {
-            Object hostObject = m_hostJavaInfo.getObject();
-            objectRef[0] = getObject(hostObject);
-          } else {
-            m_javaInfo.removeBroadcastListener(this);
-          }
-        }
-      }
-    });
-    m_javaInfo.addBroadcastListener(new ObjectInfoAllProperties() {
-      @Override
-      public void invoke(ObjectInfo object, List<Property> properties) throws Exception {
-        if (object == m_javaInfo) {
-          if (!m_description.hasTrueTag("voidFactory.dontFilterProperties")) {
-            Predicate<Property> predicate = PropertyUtils.getIncludeByTitlePredicate("Factory");
-            PropertyUtils.filterProperties(properties, predicate);
-          }
-        }
-      }
-    });
-  }
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		m_javaInfo.addBroadcastListener(new JavaInfosetObjectBefore() {
+			@Override
+			public void invoke(JavaInfo target, Object[] objectRef) throws Exception {
+				if (target == m_javaInfo) {
+					if (m_javaInfo.getCreationSupport() == VoidInvocationCreationSupport.this) {
+						Object hostObject = m_hostJavaInfo.getObject();
+						objectRef[0] = getObject(hostObject);
+					} else {
+						m_javaInfo.removeBroadcastListener(this);
+					}
+				}
+			}
+		});
+		m_javaInfo.addBroadcastListener(new ObjectInfoAllProperties() {
+			@Override
+			public void invoke(ObjectInfo object, List<Property> properties) throws Exception {
+				if (object == m_javaInfo) {
+					if (!m_description.hasTrueTag("voidFactory.dontFilterProperties")) {
+						Predicate<Property> predicate = PropertyUtils.getIncludeByTitlePredicate("Factory");
+						PropertyUtils.filterProperties(properties, predicate);
+					}
+				}
+			}
+		});
+	}
 
-  /**
-   * Void methods don't return any value, so we need so special way to access created object.
-   *
-   * @param hostObject
-   *          the {@link Object} or host {@link JavaInfo}.
-   * @return the object of this {@link JavaInfo}.
-   */
-  protected abstract Object getObject(Object hostObject) throws Exception;
+	/**
+	 * Void methods don't return any value, so we need so special way to access created object.
+	 *
+	 * @param hostObject
+	 *          the {@link Object} or host {@link JavaInfo}.
+	 * @return the object of this {@link JavaInfo}.
+	 */
+	protected abstract Object getObject(Object hostObject) throws Exception;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Special access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets underlying {@link MethodInvocation}, useful to perform morphing into different method.
-   * <p>
-   * TODO may be move into {@link AbstractFactoryCreationSupport}.
-   */
-  public final void setInvocation(MethodInvocation invocation) {
-    m_invocation = invocation;
-    m_javaInfo.bindToExpression(invocation);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Special access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets underlying {@link MethodInvocation}, useful to perform morphing into different method.
+	 * <p>
+	 * TODO may be move into {@link AbstractFactoryCreationSupport}.
+	 */
+	public final void setInvocation(MethodInvocation invocation) {
+		m_invocation = invocation;
+		m_javaInfo.bindToExpression(invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the source of {@link MethodInvocation} for {@link #add_getSource(NodeTarget)}, starting
-   *         from method name, without "expression" part, for example <code>addSeparator()</code>.
-   */
-  protected abstract String add_getMethodSource() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the source of {@link MethodInvocation} for {@link #add_getSource(NodeTarget)}, starting
+	 *         from method name, without "expression" part, for example <code>addSeparator()</code>.
+	 */
+	protected abstract String add_getMethodSource() throws Exception;
 
-  @Override
-  public final String add_getSource(NodeTarget target) throws Exception {
-    return TemplateUtils.format("{0}.{1}", m_hostJavaInfo, add_getMethodSource());
-  }
+	@Override
+	public final String add_getSource(NodeTarget target) throws Exception {
+		return TemplateUtils.format("{0}.{1}", m_hostJavaInfo, add_getMethodSource());
+	}
 
-  @Override
-  public final void add_setSourceExpression(Expression expression) throws Exception {
-    setInvocation((MethodInvocation) expression);
-  }
+	@Override
+	public final void add_setSourceExpression(Expression expression) throws Exception {
+		setInvocation((MethodInvocation) expression);
+	}
 }

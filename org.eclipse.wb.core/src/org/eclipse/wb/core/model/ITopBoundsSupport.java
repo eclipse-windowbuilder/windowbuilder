@@ -17,8 +17,8 @@ package org.eclipse.wb.core.model;
  * @coverage core.model
  */
 public interface ITopBoundsSupport {
-  /**
-   * Sets new size of component.
-   */
-  void setSize(int width, int height) throws Exception;
+	/**
+	 * Sets new size of component.
+	 */
+	void setSize(int width, int height) throws Exception;
 }

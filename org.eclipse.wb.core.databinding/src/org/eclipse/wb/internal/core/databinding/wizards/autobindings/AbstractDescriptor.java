@@ -23,94 +23,94 @@ import java.util.List;
  * @coverage bindings.wizard.auto
  */
 public abstract class AbstractDescriptor {
-  private final List<String> m_names = Lists.newArrayList();
-  private final List<Image> m_images = Lists.newArrayList();
-  private String m_name;
-  private Image m_image;
-  private boolean m_default;
+	private final List<String> m_names = Lists.newArrayList();
+	private final List<Image> m_images = Lists.newArrayList();
+	private String m_name;
+	private Image m_image;
+	private boolean m_default;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the name with given index to display for user.
-   */
-  public String getName(int index) {
-    return m_names.get(index);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the name with given index to display for user.
+	 */
+	public String getName(int index) {
+		return m_names.get(index);
+	}
 
-  /**
-   * Add the name to display for user.
-   */
-  public void addName(String name) {
-    m_names.add(name);
-  }
+	/**
+	 * Add the name to display for user.
+	 */
+	public void addName(String name) {
+		m_names.add(name);
+	}
 
-  /**
-   * @return the name to display for user.
-   */
-  public String getName() {
-    return m_name;
-  }
+	/**
+	 * @return the name to display for user.
+	 */
+	public String getName() {
+		return m_name;
+	}
 
-  /**
-   * Sets the name to display for user.
-   */
-  public void setName(String name) {
-    m_name = name;
-  }
+	/**
+	 * Sets the name to display for user.
+	 */
+	public void setName(String name) {
+		m_name = name;
+	}
 
-  /**
-   * @return the image with given index to display for user.
-   */
-  public Image getImage(int index) {
-    return m_images.get(index);
-  }
+	/**
+	 * @return the image with given index to display for user.
+	 */
+	public Image getImage(int index) {
+		return m_images.get(index);
+	}
 
-  /**
-   * Add the image to display for user.
-   */
-  public void addImage(Image image) {
-    m_images.add(image);
-  }
+	/**
+	 * Add the image to display for user.
+	 */
+	public void addImage(Image image) {
+		m_images.add(image);
+	}
 
-  /**
-   * @return the image to display for user.
-   */
-  public Image getImage() {
-    return m_image;
-  }
+	/**
+	 * @return the image to display for user.
+	 */
+	public Image getImage() {
+		return m_image;
+	}
 
-  /**
-   * Sets the image to display for user.
-   */
-  public void setImage(Image image) {
-    m_image = image;
-  }
+	/**
+	 * Sets the image to display for user.
+	 */
+	public void setImage(Image image) {
+		m_image = image;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Default
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this descriptor is default.
-   */
-  public boolean isDefault() {
-    return m_default;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Default
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this descriptor is default.
+	 */
+	public boolean isDefault() {
+		return m_default;
+	}
 
-  /**
-   * Sets default state.
-   */
-  public void setDefault() {
-    m_default = true;
-  }
+	/**
+	 * Sets default state.
+	 */
+	public void setDefault() {
+		m_default = true;
+	}
 
-  /**
-   * @return <code>true</code> if this descriptor is default for given object.
-   */
-  public abstract boolean isDefault(Object property);
+	/**
+	 * @return <code>true</code> if this descriptor is default for given object.
+	 */
+	public abstract boolean isDefault(Object property);
 }

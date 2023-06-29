@@ -44,88 +44,88 @@ import java.util.List;
  * @coverage swt.model.jface
  */
 public final class ResourceRegistryRootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
-    processRoot(root);
-    processComponents(root, components);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
+		processRoot(root);
+		processComponents(root, components);
+	}
 
-  private void processRoot(final JavaInfo root) {
-    root.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshDispose() throws Exception {
-        disposeResourceRegistries(root);
-      }
+	private void processRoot(final JavaInfo root) {
+		root.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshDispose() throws Exception {
+				disposeResourceRegistries(root);
+			}
 
-      @Override
-      public void dispose() throws Exception {
-        disposeResourceRegistries(root);
-      }
-    });
-  }
+			@Override
+			public void dispose() throws Exception {
+				disposeResourceRegistries(root);
+			}
+		});
+	}
 
-  private void processComponents(final JavaInfo root, final List<JavaInfo> components)
-      throws Exception {
-    // bind {@link ResourceRegistryInfo}'s into hierarchy.
-    for (JavaInfo javaInfo : components) {
-      if (javaInfo instanceof ResourceRegistryInfo) {
-        ResourceRegistryInfo resourceRegistryInfo = (ResourceRegistryInfo) javaInfo;
-        RegistryContainerInfo.get(root).addChild(resourceRegistryInfo);
-      }
-    }
-  }
+	private void processComponents(final JavaInfo root, final List<JavaInfo> components)
+			throws Exception {
+		// bind {@link ResourceRegistryInfo}'s into hierarchy.
+		for (JavaInfo javaInfo : components) {
+			if (javaInfo instanceof ResourceRegistryInfo) {
+				ResourceRegistryInfo resourceRegistryInfo = (ResourceRegistryInfo) javaInfo;
+				RegistryContainerInfo.get(root).addChild(resourceRegistryInfo);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Disposes all {@link ResourceRegistry}'s, loaded for given hierarchy.
-   *
-   * @param javaInfo
-   *          the root {@link JavaInfo} of hierarchy.
-   */
-  private static void disposeResourceRegistries(JavaInfo javaInfo) throws Exception {
-    EditorState editorState = EditorState.get(javaInfo.getEditor());
-    // SWT utilities require "activeJavaInfo"
-    ObjectInfo activeObject = GlobalState.getActiveObject();
-    if (!(activeObject instanceof JavaInfo)) {
-      return;
-    }
-    JavaInfo activeJavaInfo = (JavaInfo) activeObject;
-    try {
-      GlobalStateJava.activate(javaInfo);
-      if (AbstractSupport.is_SWT()) {
-        Object display = DisplaySupport.getDefault();
-        Object disposeList = ReflectionUtils.getFieldObject(display, "disposeList");
-        if (disposeList != null) {
-          int length = Array.getLength(disposeList);
-          for (int i = 0; i < length; i++) {
-            Object runnable = Array.get(disposeList, i);
-            if (runnable != null) {
-              try {
-                Object registry = ReflectionUtils.getFieldObject(runnable, "this$0");
-                Class<?> registryClass = registry.getClass();
-                if (editorState.isLoadedFrom(registryClass)) {
-                  // remove listener
-                  Array.set(disposeList, i, null);
-                  // clear resources
-                  ReflectionUtils.invokeMethod(runnable, "run()");
-                }
-              } catch (Throwable e) {
-              }
-            }
-          }
-        }
-      }
-    } finally {
-      GlobalStateJava.activate(activeJavaInfo);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Disposes all {@link ResourceRegistry}'s, loaded for given hierarchy.
+	 *
+	 * @param javaInfo
+	 *          the root {@link JavaInfo} of hierarchy.
+	 */
+	private static void disposeResourceRegistries(JavaInfo javaInfo) throws Exception {
+		EditorState editorState = EditorState.get(javaInfo.getEditor());
+		// SWT utilities require "activeJavaInfo"
+		ObjectInfo activeObject = GlobalState.getActiveObject();
+		if (!(activeObject instanceof JavaInfo)) {
+			return;
+		}
+		JavaInfo activeJavaInfo = (JavaInfo) activeObject;
+		try {
+			GlobalStateJava.activate(javaInfo);
+			if (AbstractSupport.is_SWT()) {
+				Object display = DisplaySupport.getDefault();
+				Object disposeList = ReflectionUtils.getFieldObject(display, "disposeList");
+				if (disposeList != null) {
+					int length = Array.getLength(disposeList);
+					for (int i = 0; i < length; i++) {
+						Object runnable = Array.get(disposeList, i);
+						if (runnable != null) {
+							try {
+								Object registry = ReflectionUtils.getFieldObject(runnable, "this$0");
+								Class<?> registryClass = registry.getClass();
+								if (editorState.isLoadedFrom(registryClass)) {
+									// remove listener
+									Array.set(disposeList, i, null);
+									// clear resources
+									ReflectionUtils.invokeMethod(runnable, "run()");
+								}
+							} catch (Throwable e) {
+							}
+						}
+					}
+				}
+			}
+		} finally {
+			GlobalStateJava.activate(activeJavaInfo);
+		}
+	}
 }

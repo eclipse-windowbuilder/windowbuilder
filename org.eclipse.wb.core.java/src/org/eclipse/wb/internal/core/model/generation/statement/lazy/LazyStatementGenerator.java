@@ -30,39 +30,39 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.generation
  */
 public final class LazyStatementGenerator extends StatementGenerator {
-  public static final LazyStatementGenerator INSTANCE = new LazyStatementGenerator();
+	public static final LazyStatementGenerator INSTANCE = new LazyStatementGenerator();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private LazyStatementGenerator() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private LazyStatementGenerator() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StatementGenerator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void add(JavaInfo child, StatementTarget target, Association association) throws Exception {
-    // add method
-    {
-      VariableSupport variableSupport = child.getVariableSupport();
-      Assert.isTrue(variableSupport instanceof LazyVariableSupport);
-      variableSupport.add_getVariableStatementSource(target);
-    }
-    // add association
-    association.add(child, target, null);
-    // This type of association is used when child associated with parent at creation.
-    // But we still need to call method to perform creation/association.
-    if (association instanceof InvocationVoidAssociation) {
-      LazyVariableSupport variableSupport = (LazyVariableSupport) child.getVariableSupport();
-      String source = variableSupport.m_accessor.getName() + "();";
-      Statement statement = child.getEditor().addStatement(source, target);
-      Expression expression = DomGenerics.getExpression(statement);
-      child.addRelatedNode(expression);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StatementGenerator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void add(JavaInfo child, StatementTarget target, Association association) throws Exception {
+		// add method
+		{
+			VariableSupport variableSupport = child.getVariableSupport();
+			Assert.isTrue(variableSupport instanceof LazyVariableSupport);
+			variableSupport.add_getVariableStatementSource(target);
+		}
+		// add association
+		association.add(child, target, null);
+		// This type of association is used when child associated with parent at creation.
+		// But we still need to call method to perform creation/association.
+		if (association instanceof InvocationVoidAssociation) {
+			LazyVariableSupport variableSupport = (LazyVariableSupport) child.getVariableSupport();
+			String source = variableSupport.m_accessor.getName() + "();";
+			Statement statement = child.getEditor().addStatement(source, target);
+			Expression expression = DomGenerics.getExpression(statement);
+			child.addRelatedNode(expression);
+		}
+	}
 }

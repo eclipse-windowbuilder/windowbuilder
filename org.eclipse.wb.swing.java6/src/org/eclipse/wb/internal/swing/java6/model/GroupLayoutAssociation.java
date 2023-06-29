@@ -24,38 +24,38 @@ import org.eclipse.jdt.core.dom.Statement;
  * @author mitin_aa
  */
 public final class GroupLayoutAssociation extends Association {
-  private Statement m_statement;
+	private Statement m_statement;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    // extract association expression
-    Expression expression =
-        (Expression) javaInfo.getArbitraryValue(GroupLayoutCodeSupport.ASSOCIATION_EXPRESSION_KEY);
-    if (expression != null) {
-      m_statement = AstNodeUtils.getEnclosingStatement(expression);
-    } else {
-      m_statement = null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		// extract association expression
+		Expression expression =
+				(Expression) javaInfo.getArbitraryValue(GroupLayoutCodeSupport.ASSOCIATION_EXPRESSION_KEY);
+		if (expression != null) {
+			m_statement = AstNodeUtils.getEnclosingStatement(expression);
+		} else {
+			m_statement = null;
+		}
+	}
 
-  @Override
-  public Statement getStatement() {
-    return m_statement;
-  }
+	@Override
+	public Statement getStatement() {
+		return m_statement;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Clone
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Association getCopy() {
-    return new GroupLayoutAssociation();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Clone
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Association getCopy() {
+		return new GroupLayoutAssociation();
+	}
 }

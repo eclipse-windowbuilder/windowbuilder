@@ -24,25 +24,25 @@ import org.eclipse.jface.resource.ImageDescriptor;
  * @coverage rcp.gef.policy
  */
 public final class SetGrabAction<C extends IControlInfo> extends DimensionHeaderAction<C> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetGrabAction(DimensionHeaderEditPart<C> header,
-      String text,
-      ImageDescriptor imageDescriptor) {
-    super(header, text, imageDescriptor, AS_CHECK_BOX);
-    setChecked(header.getDimension().getGrab());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetGrabAction(DimensionHeaderEditPart<C> header,
+			String text,
+			ImageDescriptor imageDescriptor) {
+		super(header, text, imageDescriptor, AS_CHECK_BOX);
+		setChecked(header.getDimension().getGrab());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void run(TableWrapDimensionInfo<C> dimension) throws Exception {
-    dimension.setGrab(!dimension.getGrab());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void run(TableWrapDimensionInfo<C> dimension) throws Exception {
+		dimension.setGrab(!dimension.getGrab());
+	}
 }

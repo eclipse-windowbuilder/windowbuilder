@@ -28,47 +28,47 @@ import org.eclipse.swt.graphics.Image;
  * @coverage rcp.model.util
  */
 public final class CTabFolderSurroundTarget extends ISurroundTarget<CTabFolderInfo, ControlInfo> {
-  private static final String FOLDER_CLASS_NAME = "org.eclipse.swt.custom.CTabFolder";
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new CTabFolderSurroundTarget();
+	private static final String FOLDER_CLASS_NAME = "org.eclipse.swt.custom.CTabFolder";
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new CTabFolderSurroundTarget();
 
-  private CTabFolderSurroundTarget() {
-  }
+	private CTabFolderSurroundTarget() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon(AstEditor editor) throws Exception {
-    return ComponentDescriptionHelper.getDescription(editor, FOLDER_CLASS_NAME).getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon(AstEditor editor) throws Exception {
+		return ComponentDescriptionHelper.getDescription(editor, FOLDER_CLASS_NAME).getIcon();
+	}
 
-  @Override
-  public String getText(AstEditor editor) throws Exception {
-    return FOLDER_CLASS_NAME;
-  }
+	@Override
+	public String getText(AstEditor editor) throws Exception {
+		return FOLDER_CLASS_NAME;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public CTabFolderInfo createContainer(AstEditor editor) throws Exception {
-    return (CTabFolderInfo) JavaInfoUtils.createJavaInfo(
-        editor,
-        FOLDER_CLASS_NAME,
-        new ConstructorCreationSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public CTabFolderInfo createContainer(AstEditor editor) throws Exception {
+		return (CTabFolderInfo) JavaInfoUtils.createJavaInfo(
+				editor,
+				FOLDER_CLASS_NAME,
+				new ConstructorCreationSupport());
+	}
 
-  @Override
-  public void move(CTabFolderInfo container, ControlInfo component) throws Exception {
-    container.command_MOVE(component, null);
-  }
+	@Override
+	public void move(CTabFolderInfo container, ControlInfo component) throws Exception {
+		container.command_MOVE(component, null);
+	}
 }

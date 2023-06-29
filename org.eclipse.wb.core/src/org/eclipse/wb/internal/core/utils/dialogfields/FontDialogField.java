@@ -32,162 +32,162 @@ import org.eclipse.swt.widgets.Listener;
  * @author scheglov_ke
  */
 public class FontDialogField extends DialogField {
-  private FontData[] m_fontDataArray;
-  private String m_chooseButtonText = "!Choose!";
-  private String m_defaultButtonText = "!Default!";
-  //
-  private Group m_group;
-  private Label m_fontLabel;
-  private Button m_chooseButton;
-  private Button m_defaultButton;
+	private FontData[] m_fontDataArray;
+	private String m_chooseButtonText = "!Choose!";
+	private String m_defaultButtonText = "!Default!";
+	//
+	private Group m_group;
+	private Label m_fontLabel;
+	private Button m_chooseButton;
+	private Button m_defaultButton;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Control[] doFillIntoGrid(Composite parent, int columns) {
-    assertEnoughColumns(columns);
-    // create group
-    getGroupControl(parent);
-    GridDataFactory.create(m_group).spanH(columns).grabH().fillH();
-    //
-    return new Control[]{m_group};
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Control[] doFillIntoGrid(Composite parent, int columns) {
+		assertEnoughColumns(columns);
+		// create group
+		getGroupControl(parent);
+		GridDataFactory.create(m_group).spanH(columns).grabH().fillH();
+		//
+		return new Control[]{m_group};
+	}
 
-  @Override
-  public int getNumberOfControls() {
-    return 1;
-  }
+	@Override
+	public int getNumberOfControls() {
+		return 1;
+	}
 
-  /**
-   * Returns or creates {@link Group} control.
-   */
-  public Group getGroupControl(Composite parent) {
-    if (m_group == null) {
-      m_group = new Group(parent, SWT.NONE);
-      m_group.setText(fLabelText);
-      //
-      GridLayoutFactory.create(m_group).columns(3);
-      // font label
-      {
-        m_fontLabel = new Label(m_group, SWT.NONE);
-        GridDataFactory.create(m_fontLabel).grab().fillH().alignVM();
-        updateFontLabel();
-      }
-      // buttons
-      {
-        {
-          m_chooseButton = new Button(m_group, SWT.NONE);
-          GridDataFactory.create(m_chooseButton);
-          m_chooseButton.setText(m_chooseButtonText);
-          m_chooseButton.addListener(SWT.Selection, new Listener() {
-            @Override
-            public void handleEvent(Event event) {
-              FontDialog fontDialog = new FontDialog(m_group.getShell());
-              fontDialog.setFontList(m_fontDataArray);
-              if (fontDialog.open() != null) {
-                setFontDataArray(fontDialog.getFontList());
-              }
-            }
-          });
-        }
-        {
-          m_defaultButton = new Button(m_group, SWT.NONE);
-          GridDataFactory.create(m_defaultButton);
-          m_defaultButton.setText(m_defaultButtonText);
-          m_defaultButton.addListener(SWT.Selection, new Listener() {
-            @Override
-            public void handleEvent(Event event) {
-              setFontDataArray(Display.getDefault().getSystemFont().getFontData());
-            }
-          });
-        }
-      }
-    }
-    return m_group;
-  }
+	/**
+	 * Returns or creates {@link Group} control.
+	 */
+	public Group getGroupControl(Composite parent) {
+		if (m_group == null) {
+			m_group = new Group(parent, SWT.NONE);
+			m_group.setText(fLabelText);
+			//
+			GridLayoutFactory.create(m_group).columns(3);
+			// font label
+			{
+				m_fontLabel = new Label(m_group, SWT.NONE);
+				GridDataFactory.create(m_fontLabel).grab().fillH().alignVM();
+				updateFontLabel();
+			}
+			// buttons
+			{
+				{
+					m_chooseButton = new Button(m_group, SWT.NONE);
+					GridDataFactory.create(m_chooseButton);
+					m_chooseButton.setText(m_chooseButtonText);
+					m_chooseButton.addListener(SWT.Selection, new Listener() {
+						@Override
+						public void handleEvent(Event event) {
+							FontDialog fontDialog = new FontDialog(m_group.getShell());
+							fontDialog.setFontList(m_fontDataArray);
+							if (fontDialog.open() != null) {
+								setFontDataArray(fontDialog.getFontList());
+							}
+						}
+					});
+				}
+				{
+					m_defaultButton = new Button(m_group, SWT.NONE);
+					GridDataFactory.create(m_defaultButton);
+					m_defaultButton.setText(m_defaultButtonText);
+					m_defaultButton.addListener(SWT.Selection, new Listener() {
+						@Override
+						public void handleEvent(Event event) {
+							setFontDataArray(Display.getDefault().getSystemFont().getFontData());
+						}
+					});
+				}
+			}
+		}
+		return m_group;
+	}
 
-  /**
-   * Shows current array of {@link FontData} in {@link #m_fontLabel}.
-   */
-  private void updateFontLabel() {
-    if (isOkToUse(m_fontLabel)) {
-      if (m_fontDataArray != null) {
-        m_fontLabel.setFont(new Font(m_group.getDisplay(), m_fontDataArray));
-        //
-        FontData fontData = m_fontDataArray[0];
-        //
-        String styleString = "";
-        {
-          int style = fontData.getStyle();
-          if ((style & SWT.BOLD) != 0) {
-            styleString += " BOLD";
-          }
-          if ((style & SWT.ITALIC) != 0) {
-            styleString += " ITALIC";
-          }
-        }
-        m_fontLabel.setText(fontData.getName() + styleString + " " + fontData.getHeight());
-      } else {
-        m_fontLabel.setFont(null);
-        m_fontLabel.setText("");
-      }
-      m_group.layout();
-    }
-  }
+	/**
+	 * Shows current array of {@link FontData} in {@link #m_fontLabel}.
+	 */
+	private void updateFontLabel() {
+		if (isOkToUse(m_fontLabel)) {
+			if (m_fontDataArray != null) {
+				m_fontLabel.setFont(new Font(m_group.getDisplay(), m_fontDataArray));
+				//
+				FontData fontData = m_fontDataArray[0];
+				//
+				String styleString = "";
+				{
+					int style = fontData.getStyle();
+					if ((style & SWT.BOLD) != 0) {
+						styleString += " BOLD";
+					}
+					if ((style & SWT.ITALIC) != 0) {
+						styleString += " ITALIC";
+					}
+				}
+				m_fontLabel.setText(fontData.getName() + styleString + " " + fontData.getHeight());
+			} else {
+				m_fontLabel.setFont(null);
+				m_fontLabel.setText("");
+			}
+			m_group.layout();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Focus methods
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean setFocus() {
-    if (isOkToUse(m_chooseButton)) {
-      m_chooseButton.setFocus();
-    }
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Focus methods
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean setFocus() {
+		if (isOkToUse(m_chooseButton)) {
+			m_chooseButton.setFocus();
+		}
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the selected array of {@link FontData}.
-   */
-  public FontData[] getFontDataArray() {
-    return m_fontDataArray;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the selected array of {@link FontData}.
+	 */
+	public FontData[] getFontDataArray() {
+		return m_fontDataArray;
+	}
 
-  /**
-   * Sets the array of {@link FontData} to display.
-   */
-  public void setFontDataArray(FontData[] fontDataArray) {
-    m_fontDataArray = fontDataArray;
-    updateFontLabel();
-  }
+	/**
+	 * Sets the array of {@link FontData} to display.
+	 */
+	public void setFontDataArray(FontData[] fontDataArray) {
+		m_fontDataArray = fontDataArray;
+		updateFontLabel();
+	}
 
-  /**
-   * Sets the label of "choose" button.
-   */
-  public void setChooseButtonText(String chooseButtonText) {
-    m_chooseButtonText = chooseButtonText;
-    if (isOkToUse(m_chooseButton)) {
-      m_chooseButton.setText(m_chooseButtonText);
-    }
-  }
+	/**
+	 * Sets the label of "choose" button.
+	 */
+	public void setChooseButtonText(String chooseButtonText) {
+		m_chooseButtonText = chooseButtonText;
+		if (isOkToUse(m_chooseButton)) {
+			m_chooseButton.setText(m_chooseButtonText);
+		}
+	}
 
-  /**
-   * Sets the label of "default" button.
-   */
-  public void setDefaultButtonText(String defaultButtonText) {
-    m_defaultButtonText = defaultButtonText;
-    if (isOkToUse(m_defaultButton)) {
-      m_defaultButton.setText(m_defaultButtonText);
-    }
-  }
+	/**
+	 * Sets the label of "default" button.
+	 */
+	public void setDefaultButtonText(String defaultButtonText) {
+		m_defaultButtonText = defaultButtonText;
+		if (isOkToUse(m_defaultButton)) {
+			m_defaultButton.setText(m_defaultButtonText);
+		}
+	}
 }

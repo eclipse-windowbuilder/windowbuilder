@@ -19,5 +19,5 @@ import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSourceParameters;
  * @coverage core.nls
  */
 public class SourceParameters extends AbstractBundleSourceParameters {
-  public String m_fieldName;
+	public String m_fieldName;
 }

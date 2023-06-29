@@ -60,311 +60,311 @@ import java.util.Map;
  * @coverage bindings.swing.model.beans
  */
 public final class BeansObserveTypeContainer extends ObserveTypeContainer {
-  private static final String OBJECT_PROPERTY_CREATE =
-      "org.jdesktop.beansbinding.ObjectProperty.create()";
-  private static final String BEAN_PROPERTY_CREATE_1 =
-      "org.jdesktop.beansbinding.BeanProperty.create(java.lang.String)";
-  private static final String BEAN_PROPERTY_CREATE_2 =
-      "org.jdesktop.beansbinding.BeanProperty.create(org.jdesktop.beansbinding.Property,java.lang.String)";
-  private static final String EL_PROPERTY_CREATE_1 =
-      "org.jdesktop.beansbinding.ELProperty.create(java.lang.String)";
-  private static final String EL_PROPERTY_CREATE_2 =
-      "org.jdesktop.beansbinding.ELProperty.create(org.jdesktop.beansbinding.Property,java.lang.String)";
-  private List<IObserveInfo> m_observes = Collections.emptyList();
-  private JavaInfo m_javaInfoRoot;
+	private static final String OBJECT_PROPERTY_CREATE =
+			"org.jdesktop.beansbinding.ObjectProperty.create()";
+	private static final String BEAN_PROPERTY_CREATE_1 =
+			"org.jdesktop.beansbinding.BeanProperty.create(java.lang.String)";
+	private static final String BEAN_PROPERTY_CREATE_2 =
+			"org.jdesktop.beansbinding.BeanProperty.create(org.jdesktop.beansbinding.Property,java.lang.String)";
+	private static final String EL_PROPERTY_CREATE_1 =
+			"org.jdesktop.beansbinding.ELProperty.create(java.lang.String)";
+	private static final String EL_PROPERTY_CREATE_2 =
+			"org.jdesktop.beansbinding.ELProperty.create(org.jdesktop.beansbinding.Property,java.lang.String)";
+	private List<IObserveInfo> m_observes = Collections.emptyList();
+	private JavaInfo m_javaInfoRoot;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeansObserveTypeContainer() {
-    super(ObserveType.BEANS, false, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeansObserveTypeContainer() {
+		super(ObserveType.BEANS, false, true);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObserveInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public List<IObserveInfo> getObservables() {
-    return m_observes;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObserveInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public List<IObserveInfo> getObservables() {
+		return m_observes;
+	}
 
-  @Override
-  public void synchronizeObserves(JavaInfo root, final AstEditor editor, TypeDeclaration rootNode)
-      throws Exception {
-    final BeanSupport beanSupport = new BeanSupport();
-    //
-    IObserveInfo virtualObserve = m_observes.remove(0);
-    // fields
-    SynchronizeManager.synchronizeObjects(
-        m_observes,
-        CoreUtils.getFieldFragments(rootNode),
-        new ISynchronizeProcessor<VariableDeclarationFragment, IObserveInfo>() {
-          public boolean handleObject(IObserveInfo object) {
-            return object instanceof FieldBeanObserveInfo;
-          }
+	@Override
+	public void synchronizeObserves(JavaInfo root, final AstEditor editor, TypeDeclaration rootNode)
+			throws Exception {
+		final BeanSupport beanSupport = new BeanSupport();
+		//
+		IObserveInfo virtualObserve = m_observes.remove(0);
+		// fields
+		SynchronizeManager.synchronizeObjects(
+				m_observes,
+				CoreUtils.getFieldFragments(rootNode),
+				new ISynchronizeProcessor<VariableDeclarationFragment, IObserveInfo>() {
+					public boolean handleObject(IObserveInfo object) {
+						return object instanceof FieldBeanObserveInfo;
+					}
 
-          public VariableDeclarationFragment getKeyObject(IObserveInfo observe) {
-            FieldBeanObserveInfo beanObserve = (FieldBeanObserveInfo) observe;
-            return beanObserve.getFragment();
-          }
+					public VariableDeclarationFragment getKeyObject(IObserveInfo observe) {
+						FieldBeanObserveInfo beanObserve = (FieldBeanObserveInfo) observe;
+						return beanObserve.getFragment();
+					}
 
-          public boolean equals(VariableDeclarationFragment key0, VariableDeclarationFragment key1) {
-            return key0 == key1;
-          }
+					public boolean equals(VariableDeclarationFragment key0, VariableDeclarationFragment key1) {
+						return key0 == key1;
+					}
 
-          public IObserveInfo findObject(Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
-              VariableDeclarationFragment key) throws Exception {
-            return null;
-          }
+					public IObserveInfo findObject(Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
+							VariableDeclarationFragment key) throws Exception {
+						return null;
+					}
 
-          public IObserveInfo createObject(VariableDeclarationFragment fragment) throws Exception {
-            Type type = CoreUtils.getType(fragment, true);
-            //
-            if (CoreUtils.isIncludeType(type)) {
-              // prepare bean type
-              ITypeBinding binding = AstNodeUtils.getTypeBinding(type);
-              if (binding != null) {
-                try {
-                  IGenericType beanObjectType = GenericUtils.getObjectType(editor, binding);
-                  // prepare association component
-                  JavaInfo component = getJavaInfoRepresentedBy(fragment.getName().getIdentifier());
-                  //
-                  return new FieldBeanObserveInfo(beanSupport, fragment, beanObjectType, component);
-                } catch (ClassNotFoundException e) {
-                  AbstractParser.addError(m_javaInfoRoot.getEditor(), "ClassNotFoundException: "
-                      + fragment, new Throwable());
-                }
-              }
-            }
-            return null;
-          }
+					public IObserveInfo createObject(VariableDeclarationFragment fragment) throws Exception {
+						Type type = CoreUtils.getType(fragment, true);
+						//
+						if (CoreUtils.isIncludeType(type)) {
+							// prepare bean type
+							ITypeBinding binding = AstNodeUtils.getTypeBinding(type);
+							if (binding != null) {
+								try {
+									IGenericType beanObjectType = GenericUtils.getObjectType(editor, binding);
+									// prepare association component
+									JavaInfo component = getJavaInfoRepresentedBy(fragment.getName().getIdentifier());
+									//
+									return new FieldBeanObserveInfo(beanSupport, fragment, beanObjectType, component);
+								} catch (ClassNotFoundException e) {
+									AbstractParser.addError(m_javaInfoRoot.getEditor(), "ClassNotFoundException: "
+											+ fragment, new Throwable());
+								}
+							}
+						}
+						return null;
+					}
 
-          public void update(IObserveInfo object) throws Exception {
-          }
-        });
-    // local variables
-    int observableSize = m_observes.size();
-    int localVariableIndex = observableSize;
-    //
-    for (int i = 0; i < observableSize; i++) {
-      if (m_observes.get(i) instanceof LocalVariableObserveInfo) {
-        localVariableIndex = i;
-        break;
-      }
-    }
-    //
-    SynchronizeManager.synchronizeObjects(
-        m_observes.subList(localVariableIndex, observableSize),
-        CoreUtils.getLocalFragments(rootNode, DataBindingsRootInfo.INIT_DATA_BINDINGS_METHOD_NAME),
-        new ISynchronizeProcessor<VariableDeclarationFragment, IObserveInfo>() {
-          public boolean handleObject(IObserveInfo object) {
-            return true;
-          }
+					public void update(IObserveInfo object) throws Exception {
+					}
+				});
+		// local variables
+		int observableSize = m_observes.size();
+		int localVariableIndex = observableSize;
+		//
+		for (int i = 0; i < observableSize; i++) {
+			if (m_observes.get(i) instanceof LocalVariableObserveInfo) {
+				localVariableIndex = i;
+				break;
+			}
+		}
+		//
+		SynchronizeManager.synchronizeObjects(
+				m_observes.subList(localVariableIndex, observableSize),
+				CoreUtils.getLocalFragments(rootNode, DataBindingsRootInfo.INIT_DATA_BINDINGS_METHOD_NAME),
+				new ISynchronizeProcessor<VariableDeclarationFragment, IObserveInfo>() {
+					public boolean handleObject(IObserveInfo object) {
+						return true;
+					}
 
-          public VariableDeclarationFragment getKeyObject(IObserveInfo observe) {
-            LocalVariableObserveInfo beanObserve = (LocalVariableObserveInfo) observe;
-            return beanObserve.getFragment();
-          }
+					public VariableDeclarationFragment getKeyObject(IObserveInfo observe) {
+						LocalVariableObserveInfo beanObserve = (LocalVariableObserveInfo) observe;
+						return beanObserve.getFragment();
+					}
 
-          public boolean equals(VariableDeclarationFragment fragment0,
-              VariableDeclarationFragment fragment1) {
-            return fragment0.getName().getIdentifier().equals(fragment1.getName().getIdentifier());
-          }
+					public boolean equals(VariableDeclarationFragment fragment0,
+							VariableDeclarationFragment fragment1) {
+						return fragment0.getName().getIdentifier().equals(fragment1.getName().getIdentifier());
+					}
 
-          public IObserveInfo findObject(Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
-              VariableDeclarationFragment key) throws Exception {
-            return null;
-          }
+					public IObserveInfo findObject(Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
+							VariableDeclarationFragment key) throws Exception {
+						return null;
+					}
 
-          public IObserveInfo createObject(VariableDeclarationFragment fragment) throws Exception {
-            try {
-              ITypeBinding binding = CoreUtils.getType(fragment, true);
-              // prepare bean class
-              IGenericType beanObjectType = GenericUtils.getObjectType(editor, binding);
-              //
-              return new LocalVariableObserveInfo(beanSupport, fragment, beanObjectType);
-            } catch (ClassNotFoundException e) {
-              AbstractParser.addError(m_javaInfoRoot.getEditor(), "ClassNotFoundException: "
-                  + fragment, new Throwable());
-              return null;
-            }
-          }
+					public IObserveInfo createObject(VariableDeclarationFragment fragment) throws Exception {
+						try {
+							ITypeBinding binding = CoreUtils.getType(fragment, true);
+							// prepare bean class
+							IGenericType beanObjectType = GenericUtils.getObjectType(editor, binding);
+							//
+							return new LocalVariableObserveInfo(beanSupport, fragment, beanObjectType);
+						} catch (ClassNotFoundException e) {
+							AbstractParser.addError(m_javaInfoRoot.getEditor(), "ClassNotFoundException: "
+									+ fragment, new Throwable());
+							return null;
+						}
+					}
 
-          public void update(IObserveInfo object) throws Exception {
-          }
-        });
-    //
-    m_observes.add(0, virtualObserve);
-  }
+					public void update(IObserveInfo object) throws Exception {
+					}
+				});
+		//
+		m_observes.add(0, virtualObserve);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void createObservables(JavaInfo root,
-      IModelResolver resolver,
-      AstEditor editor,
-      TypeDeclaration rootNode) throws Exception {
-    m_javaInfoRoot = root;
-    //
-    m_observes = Lists.newArrayList();
-    // add virtual
-    m_observes.add(new VirtualObserveInfo());
-    // handle fields
-    BeanSupport beanSupport = new BeanSupport();
-    for (VariableDeclarationFragment fragment : CoreUtils.getFieldFragments(rootNode)) {
-      try {
-        Type type = CoreUtils.getType(fragment, true);
-        //
-        if (CoreUtils.isIncludeType(type)) {
-          // prepare bean type
-          ITypeBinding binding = AstNodeUtils.getTypeBinding(type);
-          if (binding != null) {
-            IGenericType beanObjectType = GenericUtils.getObjectType(editor, binding);
-            // prepare association component
-            JavaInfo component = getJavaInfoRepresentedBy(fragment.getName().getIdentifier());
-            m_observes.add(new FieldBeanObserveInfo(beanSupport,
-                fragment,
-                beanObjectType,
-                component));
-          }
-        }
-      } catch (ClassNotFoundException e) {
-        AbstractParser.addError(editor, "ClassNotFoundException: " + fragment, new Throwable());
-      } catch (NoClassDefFoundError e) {
-        AbstractParser.addError(editor, "NoClassDefFoundError: " + fragment, new Throwable());
-      } catch (Throwable e) {
-        throw ReflectionUtils.propagate(e);
-      }
-    }
-    // handle initDataBindings() local variables
-    for (VariableDeclarationFragment fragment : CoreUtils.getLocalFragments(
-        rootNode,
-        DataBindingsRootInfo.INIT_DATA_BINDINGS_METHOD_NAME)) {
-      try {
-        ITypeBinding binding = CoreUtils.getType(fragment, true);
-        // prepare bean class
-        IGenericType beanObjectType = GenericUtils.getObjectType(editor, binding);
-        //
-        m_observes.add(new LocalVariableObserveInfo(beanSupport, fragment, beanObjectType));
-      } catch (ClassNotFoundException e) {
-        AbstractParser.addError(editor, "ClassNotFoundException: " + fragment, new Throwable());
-      } catch (NoClassDefFoundError e) {
-        AbstractParser.addError(editor, "NoClassDefFoundError: " + fragment, new Throwable());
-      } catch (Throwable e) {
-        throw ReflectionUtils.propagate(e);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void createObservables(JavaInfo root,
+			IModelResolver resolver,
+			AstEditor editor,
+			TypeDeclaration rootNode) throws Exception {
+		m_javaInfoRoot = root;
+		//
+		m_observes = Lists.newArrayList();
+		// add virtual
+		m_observes.add(new VirtualObserveInfo());
+		// handle fields
+		BeanSupport beanSupport = new BeanSupport();
+		for (VariableDeclarationFragment fragment : CoreUtils.getFieldFragments(rootNode)) {
+			try {
+				Type type = CoreUtils.getType(fragment, true);
+				//
+				if (CoreUtils.isIncludeType(type)) {
+					// prepare bean type
+					ITypeBinding binding = AstNodeUtils.getTypeBinding(type);
+					if (binding != null) {
+						IGenericType beanObjectType = GenericUtils.getObjectType(editor, binding);
+						// prepare association component
+						JavaInfo component = getJavaInfoRepresentedBy(fragment.getName().getIdentifier());
+						m_observes.add(new FieldBeanObserveInfo(beanSupport,
+								fragment,
+								beanObjectType,
+								component));
+					}
+				}
+			} catch (ClassNotFoundException e) {
+				AbstractParser.addError(editor, "ClassNotFoundException: " + fragment, new Throwable());
+			} catch (NoClassDefFoundError e) {
+				AbstractParser.addError(editor, "NoClassDefFoundError: " + fragment, new Throwable());
+			} catch (Throwable e) {
+				throw ReflectionUtils.propagate(e);
+			}
+		}
+		// handle initDataBindings() local variables
+		for (VariableDeclarationFragment fragment : CoreUtils.getLocalFragments(
+				rootNode,
+				DataBindingsRootInfo.INIT_DATA_BINDINGS_METHOD_NAME)) {
+			try {
+				ITypeBinding binding = CoreUtils.getType(fragment, true);
+				// prepare bean class
+				IGenericType beanObjectType = GenericUtils.getObjectType(editor, binding);
+				//
+				m_observes.add(new LocalVariableObserveInfo(beanSupport, fragment, beanObjectType));
+			} catch (ClassNotFoundException e) {
+				AbstractParser.addError(editor, "ClassNotFoundException: " + fragment, new Throwable());
+			} catch (NoClassDefFoundError e) {
+				AbstractParser.addError(editor, "NoClassDefFoundError: " + fragment, new Throwable());
+			} catch (Throwable e) {
+				throw ReflectionUtils.propagate(e);
+			}
+		}
+	}
 
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      ClassInstanceCreation creation,
-      Expression[] arguments,
-      IModelResolver resolver,
-      IDatabindingsProvider provider) throws Exception {
-    return null;
-  }
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			ClassInstanceCreation creation,
+			Expression[] arguments,
+			IModelResolver resolver,
+			IDatabindingsProvider provider) throws Exception {
+		return null;
+	}
 
-  public AstObjectInfo parseExpression(AstEditor editor,
-      String signature,
-      MethodInvocation invocation,
-      Expression[] arguments,
-      IModelResolver resolver) throws Exception {
-    // ObjectProperty.create()
-    if (OBJECT_PROPERTY_CREATE.equals(signature)) {
-      IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 1);
-      return new ObjectPropertyInfo(types[0]);
-    }
-    // BeanProperty.create(String)
-    if (BEAN_PROPERTY_CREATE_1.equals(signature)) {
-      IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
-      String path = CoreUtils.evaluate(String.class, editor, arguments[0]);
-      return new BeanPropertyInfo(types[0], types[1], null, path);
-    }
-    // BeanProperty.create(Property, String)
-    if (BEAN_PROPERTY_CREATE_2.equals(signature)) {
-      IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
-      PropertyInfo baseProperty = (PropertyInfo) resolver.getModel(arguments[0]);
-      if (baseProperty == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.BeansObserveTypeContainer_errArgumentNotFound,
-            arguments[0]), new Throwable());
-        return null;
-      }
-      GenericUtils.assertEquals(baseProperty.getSourceObjectType(), types[0]);
-      String path = CoreUtils.evaluate(String.class, editor, arguments[1]);
-      return new BeanPropertyInfo(types[0], types[1], baseProperty, path);
-    }
-    // ELProperty.create(String)
-    if (EL_PROPERTY_CREATE_1.equals(signature)) {
-      IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
-      String path = CoreUtils.evaluate(String.class, editor, arguments[0]);
-      return new ElPropertyInfo(types[0], types[1], null, path);
-    }
-    // ELProperty.create(Property, String)
-    if (EL_PROPERTY_CREATE_2.equals(signature)) {
-      IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
-      PropertyInfo baseProperty = (PropertyInfo) resolver.getModel(arguments[0]);
-      if (baseProperty == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.BeansObserveTypeContainer_errArgumentNotFound,
-            arguments[0]), new Throwable());
-        return null;
-      }
-      GenericUtils.assertEquals(baseProperty.getSourceObjectType(), types[0]);
-      String path = CoreUtils.evaluate(String.class, editor, arguments[1]);
-      return new ElPropertyInfo(types[0], types[1], baseProperty, path);
-    }
-    return null;
-  }
+	public AstObjectInfo parseExpression(AstEditor editor,
+			String signature,
+			MethodInvocation invocation,
+			Expression[] arguments,
+			IModelResolver resolver) throws Exception {
+		// ObjectProperty.create()
+		if (OBJECT_PROPERTY_CREATE.equals(signature)) {
+			IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 1);
+			return new ObjectPropertyInfo(types[0]);
+		}
+		// BeanProperty.create(String)
+		if (BEAN_PROPERTY_CREATE_1.equals(signature)) {
+			IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
+			String path = CoreUtils.evaluate(String.class, editor, arguments[0]);
+			return new BeanPropertyInfo(types[0], types[1], null, path);
+		}
+		// BeanProperty.create(Property, String)
+		if (BEAN_PROPERTY_CREATE_2.equals(signature)) {
+			IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
+			PropertyInfo baseProperty = (PropertyInfo) resolver.getModel(arguments[0]);
+			if (baseProperty == null) {
+				AbstractParser.addError(editor, MessageFormat.format(
+						Messages.BeansObserveTypeContainer_errArgumentNotFound,
+						arguments[0]), new Throwable());
+				return null;
+			}
+			GenericUtils.assertEquals(baseProperty.getSourceObjectType(), types[0]);
+			String path = CoreUtils.evaluate(String.class, editor, arguments[1]);
+			return new BeanPropertyInfo(types[0], types[1], baseProperty, path);
+		}
+		// ELProperty.create(String)
+		if (EL_PROPERTY_CREATE_1.equals(signature)) {
+			IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
+			String path = CoreUtils.evaluate(String.class, editor, arguments[0]);
+			return new ElPropertyInfo(types[0], types[1], null, path);
+		}
+		// ELProperty.create(Property, String)
+		if (EL_PROPERTY_CREATE_2.equals(signature)) {
+			IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
+			PropertyInfo baseProperty = (PropertyInfo) resolver.getModel(arguments[0]);
+			if (baseProperty == null) {
+				AbstractParser.addError(editor, MessageFormat.format(
+						Messages.BeansObserveTypeContainer_errArgumentNotFound,
+						arguments[0]), new Throwable());
+				return null;
+			}
+			GenericUtils.assertEquals(baseProperty.getSourceObjectType(), types[0]);
+			String path = CoreUtils.evaluate(String.class, editor, arguments[1]);
+			return new ElPropertyInfo(types[0], types[1], baseProperty, path);
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObserveInfo resolve(Expression expression) throws Exception {
-    String reference = CoreUtils.getNodeReference(expression);
-    for (ObserveInfo observe : CoreUtils.<ObserveInfo>cast(m_observes)) {
-      if (reference.equals(observe.getReference())) {
-        return observe;
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObserveInfo resolve(Expression expression) throws Exception {
+		String reference = CoreUtils.getNodeReference(expression);
+		for (ObserveInfo observe : CoreUtils.<ObserveInfo>cast(m_observes)) {
+			if (reference.equals(observe.getReference())) {
+				return observe;
+			}
+		}
+		return null;
+	}
 
-  public ObserveInfo resolve(JavaInfo javaInfo) throws Exception {
-    String reference = JavaInfoReferenceProvider.getReference(javaInfo);
-    Assert.isNotNull(reference);
-    for (ObserveInfo observe : CoreUtils.<ObserveInfo>cast(m_observes)) {
-      if (reference.equals(observe.getReference())) {
-        return observe;
-      }
-    }
-    return null;
-  }
+	public ObserveInfo resolve(JavaInfo javaInfo) throws Exception {
+		String reference = JavaInfoReferenceProvider.getReference(javaInfo);
+		Assert.isNotNull(reference);
+		for (ObserveInfo observe : CoreUtils.<ObserveInfo>cast(m_observes)) {
+			if (reference.equals(observe.getReference())) {
+				return observe;
+			}
+		}
+		return null;
+	}
 
-  private JavaInfo getJavaInfoRepresentedBy(final String variable) {
-    final JavaInfo result[] = new JavaInfo[1];
-    m_javaInfoRoot.accept(new ObjectInfoVisitor() {
-      @Override
-      public boolean visit(ObjectInfo objectInfo) throws Exception {
-        if (result[0] == null && objectInfo instanceof JavaInfo) {
-          JavaInfo javaInfo = (JavaInfo) objectInfo;
-          if (variable.equals(JavaInfoReferenceProvider.getReference(javaInfo))) {
-            result[0] = javaInfo;
-          }
-        }
-        return result[0] == null;
-      }
-    });
-    return result[0];
-  }
+	private JavaInfo getJavaInfoRepresentedBy(final String variable) {
+		final JavaInfo result[] = new JavaInfo[1];
+		m_javaInfoRoot.accept(new ObjectInfoVisitor() {
+			@Override
+			public boolean visit(ObjectInfo objectInfo) throws Exception {
+				if (result[0] == null && objectInfo instanceof JavaInfo) {
+					JavaInfo javaInfo = (JavaInfo) objectInfo;
+					if (variable.equals(JavaInfoReferenceProvider.getReference(javaInfo))) {
+						result[0] = javaInfo;
+					}
+				}
+				return result[0] == null;
+			}
+		});
+		return result[0];
+	}
 }

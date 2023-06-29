@@ -19,8 +19,8 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.property
  */
 public abstract class ExpressionConverter {
-  /**
-   * @return the value of XML attribute with given value.
-   */
-  public abstract String toSource(XmlObjectInfo object, Object value) throws Exception;
+	/**
+	 * @return the value of XML attribute with given value.
+	 */
+	public abstract String toSource(XmlObjectInfo object, Object value) throws Exception;
 }

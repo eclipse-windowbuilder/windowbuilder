@@ -22,45 +22,45 @@ import org.eclipse.swt.widgets.Control;
  * @coverage XWT.support
  */
 public class ToolkitSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ScreenShot
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Marks given {@link Control} instance as needed screen shot {@link Image}.
-   */
-  public static void markAsNeededImage(Control control) throws Exception {
-    control.setData(OSSupport.WBP_NEED_IMAGE, Boolean.TRUE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ScreenShot
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Marks given {@link Control} instance as needed screen shot {@link Image}.
+	 */
+	public static void markAsNeededImage(Control control) throws Exception {
+		control.setData(OSSupport.WBP_NEED_IMAGE, Boolean.TRUE);
+	}
 
-  /**
-   * @return the screen shot {@link Image} from given {@link Control}.
-   */
-  public static Image getShotImage(Control control) throws Exception {
-    return (Image) control.getData(OSSupport.WBP_IMAGE);
-  }
+	/**
+	 * @return the screen shot {@link Image} from given {@link Control}.
+	 */
+	public static Image getShotImage(Control control) throws Exception {
+		return (Image) control.getData(OSSupport.WBP_IMAGE);
+	}
 
-  /**
-   * Creates screen shots for all {@link Control}'s in hierarchy marked with
-   * <code>WBP_NEED_IMAGE</code>. Created {@link Image}'s are located in <code>WBP_IMAGE</code>
-   * data.
-   */
-  public static void makeShots(Object control) throws Exception {
-    OSSupport.get().makeShots(control);
-  }
+	/**
+	 * Creates screen shots for all {@link Control}'s in hierarchy marked with
+	 * <code>WBP_NEED_IMAGE</code>. Created {@link Image}'s are located in <code>WBP_IMAGE</code>
+	 * data.
+	 */
+	public static void makeShots(Object control) throws Exception {
+		OSSupport.get().makeShots(control);
+	}
 
-  /**
-   * Prepares the process of taking screen shot.
-   */
-  public static void beginShot(Object control) throws Exception {
-    OSSupport.get().beginShot(control);
-  }
+	/**
+	 * Prepares the process of taking screen shot.
+	 */
+	public static void beginShot(Object control) throws Exception {
+		OSSupport.get().beginShot(control);
+	}
 
-  /**
-   * Finalizes the process of taking screen shot.
-   */
-  public static void endShot(Object control) throws Exception {
-    OSSupport.get().endShot(control);
-  }
+	/**
+	 * Finalizes the process of taking screen shot.
+	 */
+	public static void endShot(Object control) throws Exception {
+		OSSupport.get().endShot(control);
+	}
 }

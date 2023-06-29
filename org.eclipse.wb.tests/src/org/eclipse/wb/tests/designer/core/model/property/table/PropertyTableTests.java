@@ -22,11 +22,11 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class PropertyTableTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.model.property.table");
-    suite.addTest(createSingleSuite(PropertyTableTest.class));
-    //suite.addTest(createSingleSuite(PropertyTableTooltipTest.class));
-    //suite.addTest(createSingleSuite(PropertyTableEditorsTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.property.table");
+		suite.addTest(createSingleSuite(PropertyTableTest.class));
+		//suite.addTest(createSingleSuite(PropertyTableTooltipTest.class));
+		//suite.addTest(createSingleSuite(PropertyTableEditorsTest.class));
+		return suite;
+	}
 }

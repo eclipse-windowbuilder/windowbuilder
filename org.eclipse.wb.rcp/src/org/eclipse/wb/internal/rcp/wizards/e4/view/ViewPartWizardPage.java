@@ -29,26 +29,26 @@ import java.io.InputStream;
  * @coverage rcp.wizards.ui
  */
 public final class ViewPartWizardPage extends RcpWizardPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewPartWizardPage() {
-    setTitle(WizardsMessages.E4ViewPartWizardPage_title);
-    setImageDescriptor(Activator.getImageDescriptor("wizard/banner_e4.png"));
-    setDescription(WizardsMessages.E4ViewPartWizardPage_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewPartWizardPage() {
+		setTitle(WizardsMessages.E4ViewPartWizardPage_title);
+		setImageDescriptor(Activator.getImageDescriptor("wizard/banner_e4.png"));
+		setDescription(WizardsMessages.E4ViewPartWizardPage_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // WizardPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
-      throws CoreException {
-    InputStream file = Activator.getFile("templates/e4/ViewPart.jvt");
-    fillTypeFromTemplate(newType, imports, monitor, file);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// WizardPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createTypeMembers(IType newType, ImportsManager imports, IProgressMonitor monitor)
+			throws CoreException {
+		InputStream file = Activator.getFile("templates/e4/ViewPart.jvt");
+		fillTypeFromTemplate(newType, imports, monitor, file);
+	}
 }

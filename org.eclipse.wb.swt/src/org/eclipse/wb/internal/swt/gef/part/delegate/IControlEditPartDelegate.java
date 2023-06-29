@@ -23,13 +23,13 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage swt.gef.part
  */
 public interface IControlEditPartDelegate {
-  Figure createFigure();
+	Figure createFigure();
 
-  void refreshVisuals();
+	void refreshVisuals();
 
-  void addNotify();
+	void addNotify();
 
-  void removeNotify();
+	void removeNotify();
 
-  void refreshEditPolicies();
+	void refreshEditPolicies();
 }

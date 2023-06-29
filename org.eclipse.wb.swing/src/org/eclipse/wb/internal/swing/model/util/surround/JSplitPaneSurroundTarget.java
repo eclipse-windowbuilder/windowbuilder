@@ -31,52 +31,52 @@ import javax.swing.JSplitPane;
  * @coverage swing.model.util
  */
 public final class JSplitPaneSurroundTarget extends ISurroundTarget<JSplitPaneInfo, ComponentInfo> {
-  private static final String CLASS_NAME = "javax.swing.JSplitPane";
+	private static final String CLASS_NAME = "javax.swing.JSplitPane";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon(AstEditor editor) throws Exception {
-    return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon(AstEditor editor) throws Exception {
+		return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
+	}
 
-  @Override
-  public String getText(AstEditor editor) throws Exception {
-    return CLASS_NAME;
-  }
+	@Override
+	public String getText(AstEditor editor) throws Exception {
+		return CLASS_NAME;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validate(List<ComponentInfo> components) throws Exception {
-    return components.size() <= 2;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validate(List<ComponentInfo> components) throws Exception {
+		return components.size() <= 2;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public JSplitPaneInfo createContainer(AstEditor editor) throws Exception {
-    return (JSplitPaneInfo) JavaInfoUtils.createJavaInfo(
-        editor,
-        CLASS_NAME,
-        new ConstructorCreationSupport());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public JSplitPaneInfo createContainer(AstEditor editor) throws Exception {
+		return (JSplitPaneInfo) JavaInfoUtils.createJavaInfo(
+				editor,
+				CLASS_NAME,
+				new ConstructorCreationSupport());
+	}
 
-  @Override
-  public void move(JSplitPaneInfo container, ComponentInfo component) throws Exception {
-    if (container.getChildrenComponents().isEmpty()) {
-      container.command_ADD(component, true);
-    } else {
-      container.command_ADD(component, false);
-    }
-  }
+	@Override
+	public void move(JSplitPaneInfo container, ComponentInfo component) throws Exception {
+		if (container.getChildrenComponents().isEmpty()) {
+			container.command_ADD(component, true);
+		} else {
+			container.command_ADD(component, false);
+		}
+	}
 }

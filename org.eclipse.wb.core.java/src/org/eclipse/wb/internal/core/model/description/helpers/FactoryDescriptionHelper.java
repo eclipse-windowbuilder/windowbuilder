@@ -501,7 +501,7 @@ public class FactoryDescriptionHelper {
 					FactoryMethodDescription factoryMethodDescription = new FactoryMethodDescription(declaringClass);
 					Boolean allMethodsAreFactories = (Boolean) getDigester().peek(1);
 					factoryMethodDescription
-							.setFactory(allMethodsAreFactories != null ? allMethodsAreFactories.booleanValue() : true);
+					.setFactory(allMethodsAreFactories != null ? allMethodsAreFactories.booleanValue() : true);
 					digester.push(factoryMethodDescription);
 				}
 

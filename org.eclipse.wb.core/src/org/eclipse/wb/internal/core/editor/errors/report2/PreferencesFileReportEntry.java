@@ -38,72 +38,72 @@ import java.util.List;
  * @coverage core.editor.errors.report2
  */
 public final class PreferencesFileReportEntry extends FileReportEntry {
-  private static final String EXPORT_ERROR_MESSAGE =
-      Messages.PreferencesFileReportEntry_errorMessage;
-  private static final String PREFERENCES_PREFIX = "org.eclipse.wb";
+	private static final String EXPORT_ERROR_MESSAGE =
+			Messages.PreferencesFileReportEntry_errorMessage;
+	private static final String PREFERENCES_PREFIX = "org.eclipse.wb";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PreferencesFileReportEntry() {
-    super("preferences.epf");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PreferencesFileReportEntry() {
+		super("preferences.epf");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractFileReportInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected InputStream getContents() {
-    IStatus exportStatus = null;
-    try {
-      // get preference service
-      IPreferencesService service = Platform.getPreferencesService();
-      // we need instance scope only
-      IEclipsePreferences node =
-          (IEclipsePreferences) service.getRootNode().node(InstanceScope.SCOPE);
-      // prepare list of preferences to exclude to pass later into export method
-      final List<String> excludesList = Lists.newArrayList();
-      node.accept(new IPreferenceNodeVisitor() {
-        @Override
-        public boolean visit(IEclipsePreferences childNode) throws BackingStoreException {
-          // don't exclude root instance node
-          if (childNode.name().equals(InstanceScope.SCOPE)) {
-            return true;
-          }
-          // exclude all which not relative do WindowBuilder
-          if (!StringUtils.contains(childNode.absolutePath(), PREFERENCES_PREFIX)) {
-            excludesList.add(childNode.name());
-          }
-          return true;
-        }
-      });
-      // do export
-      ByteArrayOutputStream exportStream = new ByteArrayOutputStream();
-      exportStatus =
-          service.exportPreferences(
-              node,
-              exportStream,
-              excludesList.toArray(new String[excludesList.size()]));
-      if (exportStatus.getCode() != IStatus.OK) {
-        throw new RuntimeException(EXPORT_ERROR_MESSAGE);
-      }
-      // return input stream to be saved
-      return new ByteArrayInputStream(exportStream.toByteArray());
-    } catch (Throwable e) {
-      DesignerPlugin.log(e);
-      // show error
-      ErrorDialog.openError(
-          DesignerPlugin.getShell(),
-          Messages.PreferencesFileReportEntry_errorTitle,
-          EXPORT_ERROR_MESSAGE,
-          exportStatus == null
-              ? new Status(IStatus.ERROR, DesignerPlugin.PLUGIN_ID, 0, null, e)
-              : exportStatus);
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractFileReportInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected InputStream getContents() {
+		IStatus exportStatus = null;
+		try {
+			// get preference service
+			IPreferencesService service = Platform.getPreferencesService();
+			// we need instance scope only
+			IEclipsePreferences node =
+					(IEclipsePreferences) service.getRootNode().node(InstanceScope.SCOPE);
+			// prepare list of preferences to exclude to pass later into export method
+			final List<String> excludesList = Lists.newArrayList();
+			node.accept(new IPreferenceNodeVisitor() {
+				@Override
+				public boolean visit(IEclipsePreferences childNode) throws BackingStoreException {
+					// don't exclude root instance node
+					if (childNode.name().equals(InstanceScope.SCOPE)) {
+						return true;
+					}
+					// exclude all which not relative do WindowBuilder
+					if (!StringUtils.contains(childNode.absolutePath(), PREFERENCES_PREFIX)) {
+						excludesList.add(childNode.name());
+					}
+					return true;
+				}
+			});
+			// do export
+			ByteArrayOutputStream exportStream = new ByteArrayOutputStream();
+			exportStatus =
+					service.exportPreferences(
+							node,
+							exportStream,
+							excludesList.toArray(new String[excludesList.size()]));
+			if (exportStatus.getCode() != IStatus.OK) {
+				throw new RuntimeException(EXPORT_ERROR_MESSAGE);
+			}
+			// return input stream to be saved
+			return new ByteArrayInputStream(exportStream.toByteArray());
+		} catch (Throwable e) {
+			DesignerPlugin.log(e);
+			// show error
+			ErrorDialog.openError(
+					DesignerPlugin.getShell(),
+					Messages.PreferencesFileReportEntry_errorTitle,
+					EXPORT_ERROR_MESSAGE,
+					exportStatus == null
+					? new Status(IStatus.ERROR, DesignerPlugin.PLUGIN_ID, 0, null, e)
+							: exportStatus);
+		}
+		return null;
+	}
 }

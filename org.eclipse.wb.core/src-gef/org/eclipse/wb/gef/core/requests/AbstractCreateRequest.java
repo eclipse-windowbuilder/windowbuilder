@@ -17,53 +17,53 @@ import org.eclipse.draw2d.geometry.Dimension;
  * @coverage gef.core
  */
 public abstract class AbstractCreateRequest extends LocationRequest implements IDropRequest {
-  private Dimension m_size;
+	private Dimension m_size;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractCreateRequest() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractCreateRequest() {
+	}
 
-  public AbstractCreateRequest(Object type) {
-    super(type);
-  }
+	public AbstractCreateRequest(Object type) {
+		super(type);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the size of the object to be created.
-   */
-  public Dimension getSize() {
-    return m_size;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the size of the object to be created.
+	 */
+	public Dimension getSize() {
+		return m_size;
+	}
 
-  /**
-   * Sets the size of the new object.
-   */
-  public void setSize(Dimension size) {
-    m_size = size;
-  }
+	/**
+	 * Sets the size of the new object.
+	 */
+	public void setSize(Dimension size) {
+		m_size = size;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // State
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Copies state from given {@link Request} into this one.
-   */
-  public void copyStateFrom(Request _source) {
-    if (_source instanceof AbstractCreateRequest) {
-      AbstractCreateRequest source = (AbstractCreateRequest) _source;
-      setLocation(source.getLocation());
-      setSize(source.getSize());
-      setStateMask(source.getStateMask());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// State
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Copies state from given {@link Request} into this one.
+	 */
+	public void copyStateFrom(Request _source) {
+		if (_source instanceof AbstractCreateRequest) {
+			AbstractCreateRequest source = (AbstractCreateRequest) _source;
+			setLocation(source.getLocation());
+			setSize(source.getSize());
+			setStateMask(source.getStateMask());
+		}
+	}
 }

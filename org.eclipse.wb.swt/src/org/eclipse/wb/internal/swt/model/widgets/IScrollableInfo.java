@@ -20,8 +20,8 @@ import org.eclipse.swt.widgets.Scrollable;
  * @coverage swt.model.widgets
  */
 public interface IScrollableInfo extends IControlInfo {
-  /**
-   * @return the {@link Rectangle}, same as {@link Scrollable#getClientArea()}.
-   */
-  Rectangle getClientArea();
+	/**
+	 * @return the {@link Rectangle}, same as {@link Scrollable#getClientArea()}.
+	 */
+	Rectangle getClientArea();
 }

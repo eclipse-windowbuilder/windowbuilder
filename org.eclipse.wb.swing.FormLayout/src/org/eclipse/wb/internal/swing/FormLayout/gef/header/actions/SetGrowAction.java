@@ -25,26 +25,26 @@ import com.jgoodies.forms.layout.FormSpec;
  * @coverage swing.FormLayout.header
  */
 public final class SetGrowAction<T extends FormDimensionInfo> extends DimensionHeaderAction<T> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetGrowAction(DimensionHeaderEditPart<T> header,
-      String text,
-      ImageDescriptor imageDescriptor) {
-    super(header, text, imageDescriptor, AS_CHECK_BOX);
-    setChecked(header.getDimension().hasGrow());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetGrowAction(DimensionHeaderEditPart<T> header,
+			String text,
+			ImageDescriptor imageDescriptor) {
+		super(header, text, imageDescriptor, AS_CHECK_BOX);
+		setChecked(header.getDimension().hasGrow());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void run(T dimension) throws Exception {
-    double weight = dimension.hasGrow() ? FormSpec.NO_GROW : FormSpec.DEFAULT_GROW;
-    dimension.setWeight(weight);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void run(T dimension) throws Exception {
+		double weight = dimension.hasGrow() ? FormSpec.NO_GROW : FormSpec.DEFAULT_GROW;
+		dimension.setWeight(weight);
+	}
 }

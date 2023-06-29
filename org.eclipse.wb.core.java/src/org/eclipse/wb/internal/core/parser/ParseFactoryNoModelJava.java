@@ -22,25 +22,25 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @coverage core.model.parser
  */
 public final class ParseFactoryNoModelJava extends ParseFactoryNoModel {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ParseFactory_noModel
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean noModel(ClassInstanceCreation creation, ITypeBinding typeBinding) {
-    // classes from standard packages
-    String typeName = AstNodeUtils.getFullyQualifiedName(typeBinding, false);
-    if (typeName.startsWith("java.lang.") || typeName.startsWith("java.util.")) {
-      return true;
-    }
-    // anonymous listener
-    if (creation.getAnonymousClassDeclaration() != null
-        && AstNodeUtils.isSuccessorOf(typeBinding, "java.util.EventListener")) {
-      boolean isPureInterface = typeBinding.getSuperclass().getSuperclass() == null;
-      return isPureInterface;
-    }
-    // something different
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ParseFactory_noModel
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean noModel(ClassInstanceCreation creation, ITypeBinding typeBinding) {
+		// classes from standard packages
+		String typeName = AstNodeUtils.getFullyQualifiedName(typeBinding, false);
+		if (typeName.startsWith("java.lang.") || typeName.startsWith("java.util.")) {
+			return true;
+		}
+		// anonymous listener
+		if (creation.getAnonymousClassDeclaration() != null
+				&& AstNodeUtils.isSuccessorOf(typeBinding, "java.util.EventListener")) {
+			boolean isPureInterface = typeBinding.getSuperclass().getSuperclass() == null;
+			return isPureInterface;
+		}
+		// something different
+		return false;
+	}
 }

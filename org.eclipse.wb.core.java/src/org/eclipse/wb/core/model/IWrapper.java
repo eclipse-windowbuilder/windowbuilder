@@ -19,18 +19,18 @@ import org.eclipse.jdt.core.dom.ASTNode;
  * @coverage core.model
  */
 public interface IWrapper {
-  /**
-   * @return wrapper {@link JavaInfo}.
-   */
-  JavaInfo getWrapperInfo();
+	/**
+	 * @return wrapper {@link JavaInfo}.
+	 */
+	JavaInfo getWrapperInfo();
 
-  /**
-   * @return wrapped {@link JavaInfo}.
-   */
-  JavaInfo getWrappedInfo() throws Exception;
+	/**
+	 * @return wrapped {@link JavaInfo}.
+	 */
+	JavaInfo getWrappedInfo() throws Exception;
 
-  /**
-   * @return <code>true</code> if given {@link ASTNode} represents {@link #getWrappedInfo()}.
-   */
-  boolean isWrappedInfo(ASTNode node);
+	/**
+	 * @return <code>true</code> if given {@link ASTNode} represents {@link #getWrappedInfo()}.
+	 */
+	boolean isWrappedInfo(ASTNode node);
 }

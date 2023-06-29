@@ -42,123 +42,123 @@ import org.apache.commons.lang.StringUtils;
  * @coverage XWT.model.property.editor
  */
 public final class ImagePropertyEditor extends TextDialogPropertyEditor
-    implements
-      IClipboardSourceProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new ImagePropertyEditor();
+implements
+IClipboardSourceProvider {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new ImagePropertyEditor();
 
-  private ImagePropertyEditor() {
-  }
+	private ImagePropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    return ((GenericProperty) property).getExpression();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		return ((GenericProperty) property).getExpression();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IClipboardSourceProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getClipboardSource(GenericProperty property) throws Exception {
-    return property.getExpression();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IClipboardSourceProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getClipboardSource(GenericProperty property) throws Exception {
+		return property.getExpression();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void openDialog(Property property) throws Exception {
-    GenericProperty genericProperty = (GenericProperty) property;
-    EditorContext context = genericProperty.getObject().getContext();
-    IJavaProject javaProject = context.getJavaProject();
-    String packagePath = getContextPackagePath(context);
-    // create dialog
-    ImageDialog imageDialog = new ImageDialog(javaProject);
-    // set input for dialog
-    {
-      String text = getText(property);
-      if (text == null) {
-        imageDialog.setInput(DefaultImagePage.ID, null);
-      } else {
-        if (!text.startsWith("/")) {
-          text = packagePath + text;
-        }
-        imageDialog.setInput(ClasspathImagePage.ID, text);
-      }
-    }
-    // open dialog
-    if (imageDialog.open() == Window.OK) {
-      ImageInfo imageInfo = imageDialog.getImageInfo();
-      // prepare expression
-      String expression = null;
-      {
-        String pageId = imageInfo.getPageId();
-        if (pageId == DefaultImagePage.ID) {
-        } else {
-          expression = "/" + imageInfo.getData();
-          expression = StringUtils.removeStart(expression, packagePath);
-        }
-      }
-      // set expression
-      genericProperty.setExpression(expression, Property.UNKNOWN_VALUE);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void openDialog(Property property) throws Exception {
+		GenericProperty genericProperty = (GenericProperty) property;
+		EditorContext context = genericProperty.getObject().getContext();
+		IJavaProject javaProject = context.getJavaProject();
+		String packagePath = getContextPackagePath(context);
+		// create dialog
+		ImageDialog imageDialog = new ImageDialog(javaProject);
+		// set input for dialog
+		{
+			String text = getText(property);
+			if (text == null) {
+				imageDialog.setInput(DefaultImagePage.ID, null);
+			} else {
+				if (!text.startsWith("/")) {
+					text = packagePath + text;
+				}
+				imageDialog.setInput(ClasspathImagePage.ID, text);
+			}
+		}
+		// open dialog
+		if (imageDialog.open() == Window.OK) {
+			ImageInfo imageInfo = imageDialog.getImageInfo();
+			// prepare expression
+			String expression = null;
+			{
+				String pageId = imageInfo.getPageId();
+				if (pageId == DefaultImagePage.ID) {
+				} else {
+					expression = "/" + imageInfo.getData();
+					expression = StringUtils.removeStart(expression, packagePath);
+				}
+			}
+			// set expression
+			genericProperty.setExpression(expression, Property.UNKNOWN_VALUE);
+		}
+	}
 
-  /**
-   * @return the '/' separated path of context {@link IFile}.
-   */
-  private static String getContextPackagePath(EditorContext context) {
-    String packagePath = "/";
-    // try to append Java package name
-    IContainer packageFolder = context.getFile().getParent();
-    IJavaElement javaElement = JavaCore.create(packageFolder);
-    if (javaElement instanceof IPackageFragment) {
-      IPackageFragment packageFragment = (IPackageFragment) javaElement;
-      packagePath += packageFragment.getElementName().replace('.', '/') + "/";
-    }
-    // done
-    return packagePath;
-  }
+	/**
+	 * @return the '/' separated path of context {@link IFile}.
+	 */
+	private static String getContextPackagePath(EditorContext context) {
+		String packagePath = "/";
+		// try to append Java package name
+		IContainer packageFolder = context.getFile().getParent();
+		IJavaElement javaElement = JavaCore.create(packageFolder);
+		if (javaElement instanceof IPackageFragment) {
+			IPackageFragment packageFragment = (IPackageFragment) javaElement;
+			packagePath += packageFragment.getElementName().replace('.', '/') + "/";
+		}
+		// done
+		return packagePath;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ImageDialog
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final class ImageDialog extends AbstractImageDialog {
-    private final IJavaProject m_javaProject;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ImageDialog
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final class ImageDialog extends AbstractImageDialog {
+		private final IJavaProject m_javaProject;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    protected ImageDialog(IJavaProject javaProject) {
-      super(DesignerPlugin.getShell(), Activator.getDefault());
-      m_javaProject = javaProject;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		protected ImageDialog(IJavaProject javaProject) {
+			super(DesignerPlugin.getShell(), Activator.getDefault());
+			m_javaProject = javaProject;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Pages
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected void addPages(Composite parent) {
-      addPage(new ClasspathImagePage(parent, SWT.NONE, this, m_javaProject));
-      addPage(new DefaultImagePage(parent, SWT.NONE, this));
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Pages
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected void addPages(Composite parent) {
+			addPage(new ClasspathImagePage(parent, SWT.NONE, this, m_javaProject));
+			addPage(new DefaultImagePage(parent, SWT.NONE, this));
+		}
+	}
 }

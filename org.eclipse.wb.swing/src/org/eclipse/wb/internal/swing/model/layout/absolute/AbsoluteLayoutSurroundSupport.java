@@ -25,42 +25,42 @@ import java.util.List;
  * @coverage swing.model.layout
  */
 public final class AbsoluteLayoutSurroundSupport extends LayoutSurroundSupport {
-  static final String BOUNDS_KEY = "SurroundSupport_BOUNDS";
-  private final AbsoluteLayoutInfo m_layout;
+	static final String BOUNDS_KEY = "SurroundSupport_BOUNDS";
+	private final AbsoluteLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbsoluteLayoutSurroundSupport(AbsoluteLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbsoluteLayoutSurroundSupport(AbsoluteLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addContainer(ContainerInfo container, List<ComponentInfo> components)
-      throws Exception {
-    //m_layout.add(container, components.get(0));
-    // prepare enclosing bounds
-    Rectangle enclosingRectangle;
-    {
-      enclosingRectangle = components.get(0).getModelBounds().getCopy();
-      for (ComponentInfo component : components) {
-        enclosingRectangle.union(component.getModelBounds());
-      }
-    }
-    // set bounds
-    m_layout.command_CREATE(container, components.get(0));
-    m_layout.command_BOUNDS(
-        container,
-        enclosingRectangle.getLocation(),
-        enclosingRectangle.getSize());
-    container.putArbitraryValue(BOUNDS_KEY, enclosingRectangle);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addContainer(ContainerInfo container, List<ComponentInfo> components)
+			throws Exception {
+		//m_layout.add(container, components.get(0));
+		// prepare enclosing bounds
+		Rectangle enclosingRectangle;
+		{
+			enclosingRectangle = components.get(0).getModelBounds().getCopy();
+			for (ComponentInfo component : components) {
+				enclosingRectangle.union(component.getModelBounds());
+			}
+		}
+		// set bounds
+		m_layout.command_CREATE(container, components.get(0));
+		m_layout.command_BOUNDS(
+				container,
+				enclosingRectangle.getLocation(),
+				enclosingRectangle.getSize());
+		container.putArbitraryValue(BOUNDS_KEY, enclosingRectangle);
+	}
 }

@@ -25,50 +25,50 @@ import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectSetObjectAfter;
  * @coverage bindings.xml.model
  */
 public final class SynchronizeManager {
-  private final IDatabindingsProvider m_provider;
+	private final IDatabindingsProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SynchronizeManager(IDatabindingsProvider provider, XmlObjectInfo xmlObjectRoot) {
-    m_provider = provider;
-    xmlObjectRoot.addBroadcastListener(new ObjectInfoDelete() {
-      @Override
-      public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
-        synchronizeObserves();
-      }
-    });
-    xmlObjectRoot.addBroadcastListener(new XmlObjectAdd() {
-      @Override
-      public void after(ObjectInfo parent, final XmlObjectInfo child) throws Exception {
-        child.addBroadcastListener(new XmlObjectSetObjectAfter() {
-          @Override
-          public void invoke(XmlObjectInfo target, Object o) throws Exception {
-            if (child == target) {
-              target.removeBroadcastListener(this);
-              synchronizeObserves();
-            }
-          }
-        });
-      }
-    });
-    xmlObjectRoot.addBroadcastListener(new XmlObjectMove() {
-      @Override
-      public void after(XmlObjectInfo child, ObjectInfo oldParent, ObjectInfo newParent)
-          throws Exception {
-        synchronizeObserves();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SynchronizeManager(IDatabindingsProvider provider, XmlObjectInfo xmlObjectRoot) {
+		m_provider = provider;
+		xmlObjectRoot.addBroadcastListener(new ObjectInfoDelete() {
+			@Override
+			public void after(ObjectInfo parent, ObjectInfo child) throws Exception {
+				synchronizeObserves();
+			}
+		});
+		xmlObjectRoot.addBroadcastListener(new XmlObjectAdd() {
+			@Override
+			public void after(ObjectInfo parent, final XmlObjectInfo child) throws Exception {
+				child.addBroadcastListener(new XmlObjectSetObjectAfter() {
+					@Override
+					public void invoke(XmlObjectInfo target, Object o) throws Exception {
+						if (child == target) {
+							target.removeBroadcastListener(this);
+							synchronizeObserves();
+						}
+					}
+				});
+			}
+		});
+		xmlObjectRoot.addBroadcastListener(new XmlObjectMove() {
+			@Override
+			public void after(XmlObjectInfo child, ObjectInfo oldParent, ObjectInfo newParent)
+					throws Exception {
+				synchronizeObserves();
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void synchronizeObserves() throws Exception {
-    m_provider.synchronizeObserves();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void synchronizeObserves() throws Exception {
+		m_provider.synchronizeObserves();
+	}
 }

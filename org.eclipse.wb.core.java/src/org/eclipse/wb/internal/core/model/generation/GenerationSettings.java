@@ -491,7 +491,7 @@ public final class GenerationSettings {
 			}
 			StatementGeneratorDescription statementDescription = singleCount >= multipleCount
 					? BlockStatementGeneratorDescription.INSTANCE
-					: FlatStatementGeneratorDescription.INSTANCE;
+							: FlatStatementGeneratorDescription.INSTANCE;
 			store.setValue(P_STATEMENT_GENERATOR_ID, statementDescription.getId());
 		}
 	}

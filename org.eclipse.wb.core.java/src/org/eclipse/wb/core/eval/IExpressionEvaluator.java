@@ -23,11 +23,11 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * @author scheglov_ke
  */
 public interface IExpressionEvaluator {
-  /**
-   * @return value of given {@link Expression} or {@link AstEvaluationEngine#UNKNOWN}.
-   */
-  Object evaluate(EvaluationContext context,
-      Expression expression,
-      ITypeBinding typeBinding,
-      String typeQualifiedName) throws Exception;
+	/**
+	 * @return value of given {@link Expression} or {@link AstEvaluationEngine#UNKNOWN}.
+	 */
+	Object evaluate(EvaluationContext context,
+			Expression expression,
+			ITypeBinding typeBinding,
+			String typeQualifiedName) throws Exception;
 }

@@ -24,15 +24,15 @@ import junit.framework.TestSuite;
  * @author mitin_aa
  */
 public class FormLayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.layout.FormLayout");
-    suite.addTest(createSingleSuite(FormLayoutMoveSingleResizableTest.class));
-    suite.addTest(createSingleSuite(FormLayoutMoveSingleWithSingleSideTest.class));
-    suite.addTest(createSingleSuite(FormLayoutMoveSingleWithBothSidesTest.class));
-    suite.addTest(createSingleSuite(FormLayoutAlignmentDetectionTest.class));
-    suite.addTest(createSingleSuite(FormLayoutModelsTest.class));
-    /*suite.addTest(createSingleSuite(FormLayoutMoveTest.class));
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.layout.FormLayout");
+		suite.addTest(createSingleSuite(FormLayoutMoveSingleResizableTest.class));
+		suite.addTest(createSingleSuite(FormLayoutMoveSingleWithSingleSideTest.class));
+		suite.addTest(createSingleSuite(FormLayoutMoveSingleWithBothSidesTest.class));
+		suite.addTest(createSingleSuite(FormLayoutAlignmentDetectionTest.class));
+		suite.addTest(createSingleSuite(FormLayoutModelsTest.class));
+		/*suite.addTest(createSingleSuite(FormLayoutMoveTest.class));
     suite.addTest(createSingleSuite(FormLayout_Alignment_Test.class));*/
-    return suite;
-  }
+		return suite;
+	}
 }

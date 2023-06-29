@@ -21,34 +21,34 @@ import org.eclipse.draw2d.geometry.Insets;
  * @coverage gef.draw2d
  */
 public class MarginBorder extends Border {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Constructs a {@link MarginBorder} with dimensions specified by <i>insets</i>.
-   */
-  public MarginBorder(Insets insets) {
-    super(insets);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Constructs a {@link MarginBorder} with dimensions specified by <i>insets</i>.
+	 */
+	public MarginBorder(Insets insets) {
+		super(insets);
+	}
 
-  /**
-   * Constructs a {@link MarginBorder} with padding specified by the passed values.
-   */
-  public MarginBorder(int allsides) {
-    this(new Insets(allsides));
-  }
+	/**
+	 * Constructs a {@link MarginBorder} with padding specified by the passed values.
+	 */
+	public MarginBorder(int allsides) {
+		this(new Insets(allsides));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Border
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * This method does nothing, since this border is just for spacing.
-   */
-  @Override
-  protected void paint(int ownerWidth, int ownerHeight, Graphics graphics) {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Border
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * This method does nothing, since this border is just for spacing.
+	 */
+	@Override
+	protected void paint(int ownerWidth, int ownerHeight, Graphics graphics) {
+	}
 }

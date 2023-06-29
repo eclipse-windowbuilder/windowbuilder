@@ -29,76 +29,76 @@ import java.io.Reader;
  * @coverage core.util.jdt
  */
 public class JavadocContentAccess {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private JavadocContentAccess() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private JavadocContentAccess() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Reader} for an {@link IMember}'s Javadoc comment content from the source
-   *         attachment.
-   */
-  public static Reader getContentReader(IMember member, boolean allowInherited) throws Exception {
-    // check current type
-    {
-      IBuffer buffer =
-          member.isBinary()
-              ? member.getClassFile().getBuffer()
-              : member.getCompilationUnit().getBuffer();
-      // no source attachment found
-      if (buffer == null) {
-        return null;
-      }
-      //
-      ISourceRange range = member.getSourceRange();
-      int start = range.getOffset();
-      int length = range.getLength();
-      if (length > 0 && buffer.getChar(start) == '/') {
-        // prepare scanner
-        IScanner scanner;
-        {
-          scanner = ToolFactory.createScanner(true, false, false, false);
-          scanner.setSource(buffer.getCharacters());
-          scanner.resetTo(start, start + length - 1);
-        }
-        // find last JavaDoc comment
-        {
-          int docOffset = -1;
-          int docEnd = -1;
-          {
-            int terminal = scanner.getNextToken();
-            while (org.eclipse.jdt.internal.corext.dom.TokenScanner.isComment(terminal)) {
-              if (terminal == ITerminalSymbols.TokenNameCOMMENT_JAVADOC) {
-                docOffset = scanner.getCurrentTokenStartPosition();
-                docEnd = scanner.getCurrentTokenEndPosition() + 1;
-              }
-              terminal = scanner.getNextToken();
-            }
-          }
-          // if comment found, return it
-          if (docOffset != -1) {
-            return new JavaDocCommentReader(buffer, docOffset, docEnd);
-          }
-        }
-      }
-    }
-    // check inherited
-    if (allowInherited && member.getElementType() == IJavaElement.METHOD) {
-      IMethod method = (IMethod) member;
-      IMethod superMethod = CodeUtils.findSuperMethod(method);
-      if (superMethod != null) {
-        return getContentReader(superMethod, allowInherited);
-      }
-    }
-    // not found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Reader} for an {@link IMember}'s Javadoc comment content from the source
+	 *         attachment.
+	 */
+	public static Reader getContentReader(IMember member, boolean allowInherited) throws Exception {
+		// check current type
+		{
+			IBuffer buffer =
+					member.isBinary()
+					? member.getClassFile().getBuffer()
+							: member.getCompilationUnit().getBuffer();
+			// no source attachment found
+			if (buffer == null) {
+				return null;
+			}
+			//
+			ISourceRange range = member.getSourceRange();
+			int start = range.getOffset();
+			int length = range.getLength();
+			if (length > 0 && buffer.getChar(start) == '/') {
+				// prepare scanner
+				IScanner scanner;
+				{
+					scanner = ToolFactory.createScanner(true, false, false, false);
+					scanner.setSource(buffer.getCharacters());
+					scanner.resetTo(start, start + length - 1);
+				}
+				// find last JavaDoc comment
+				{
+					int docOffset = -1;
+					int docEnd = -1;
+					{
+						int terminal = scanner.getNextToken();
+						while (org.eclipse.jdt.internal.corext.dom.TokenScanner.isComment(terminal)) {
+							if (terminal == ITerminalSymbols.TokenNameCOMMENT_JAVADOC) {
+								docOffset = scanner.getCurrentTokenStartPosition();
+								docEnd = scanner.getCurrentTokenEndPosition() + 1;
+							}
+							terminal = scanner.getNextToken();
+						}
+					}
+					// if comment found, return it
+							if (docOffset != -1) {
+								return new JavaDocCommentReader(buffer, docOffset, docEnd);
+							}
+				}
+			}
+		}
+		// check inherited
+		if (allowInherited && member.getElementType() == IJavaElement.METHOD) {
+			IMethod method = (IMethod) member;
+			IMethod superMethod = CodeUtils.findSuperMethod(method);
+			if (superMethod != null) {
+				return getContentReader(superMethod, allowInherited);
+			}
+		}
+		// not found
+		return null;
+	}
 }

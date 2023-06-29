@@ -24,95 +24,95 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author scheglov_ke
  */
 public class OpenListenerEditPolicyTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_newHandler() throws Exception {
-    openContainer(
-        "// filler filler filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    JButton button = new JButton();",
-        "    add(button);",
-        "  }",
-        "}");
-    ComponentInfo button = getJavaInfoByName("button");
-    // add "refresh" broadcast listener
-    final AtomicBoolean refreshFlag = new AtomicBoolean();
-    button.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshed() throws Exception {
-        refreshFlag.set(true);
-      }
-    });
-    // double click on "button"
-    canvas.doubleClick(button);
-    // refresh was done
-    assertTrue(refreshFlag.get());
-    // "Source" page is active
-    {
-      MultiMode multiMode = (MultiMode) m_designerEditor.getMultiMode();
-      waitEventLoop(10);
-      // isActive() fails on Linux because the widget isn't updated in time...
-      // assertTrue(multiMode.getSourcePage().isActive());
-      assertTrue(multiMode.isSourceActive());
-    }
-    // source changes
-    assertEditor(
-        "// filler filler filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    JButton button = new JButton();",
-        "    button.addActionListener(new ActionListener() {",
-        "      public void actionPerformed(ActionEvent e) {",
-        "      }",
-        "    });",
-        "    add(button);",
-        "  }",
-        "}");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_newHandler() throws Exception {
+		openContainer(
+				"// filler filler filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    JButton button = new JButton();",
+				"    add(button);",
+				"  }",
+				"}");
+		ComponentInfo button = getJavaInfoByName("button");
+		// add "refresh" broadcast listener
+		final AtomicBoolean refreshFlag = new AtomicBoolean();
+		button.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshed() throws Exception {
+				refreshFlag.set(true);
+			}
+		});
+		// double click on "button"
+		canvas.doubleClick(button);
+		// refresh was done
+		assertTrue(refreshFlag.get());
+		// "Source" page is active
+		{
+			MultiMode multiMode = (MultiMode) m_designerEditor.getMultiMode();
+			waitEventLoop(10);
+			// isActive() fails on Linux because the widget isn't updated in time...
+			// assertTrue(multiMode.getSourcePage().isActive());
+			assertTrue(multiMode.isSourceActive());
+		}
+		// source changes
+		assertEditor(
+				"// filler filler filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    JButton button = new JButton();",
+				"    button.addActionListener(new ActionListener() {",
+				"      public void actionPerformed(ActionEvent e) {",
+				"      }",
+				"    });",
+				"    add(button);",
+				"  }",
+				"}");
+	}
 
-  /**
-   * When we open existing event handler, would be good to about refresh cycle.
-   * <p>
-   * http://www.eclipse.org/forums/index.php/t/217349/
-   */
-  public void test_existingHandler() throws Exception {
-    openContainer(
-        "// filler filler filler filler filler",
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "    JButton button = new JButton();",
-        "    button.addActionListener(new ActionListener() {",
-        "      public void actionPerformed(ActionEvent e) {",
-        "      }",
-        "    });",
-        "    add(button);",
-        "  }",
-        "}");
-    ComponentInfo button = getJavaInfoByName("button");
-    // add "refresh" broadcast listener
-    final AtomicBoolean refreshFlag = new AtomicBoolean();
-    button.addBroadcastListener(new ObjectEventListener() {
-      @Override
-      public void refreshed() throws Exception {
-        refreshFlag.set(true);
-      }
-    });
-    // double click on "button"
-    canvas.doubleClick(button);
-    // refresh was not required
-    assertFalse(refreshFlag.get());
-  }
+	/**
+	 * When we open existing event handler, would be good to about refresh cycle.
+	 * <p>
+	 * http://www.eclipse.org/forums/index.php/t/217349/
+	 */
+	public void test_existingHandler() throws Exception {
+		openContainer(
+				"// filler filler filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"    JButton button = new JButton();",
+				"    button.addActionListener(new ActionListener() {",
+				"      public void actionPerformed(ActionEvent e) {",
+				"      }",
+				"    });",
+				"    add(button);",
+				"  }",
+				"}");
+		ComponentInfo button = getJavaInfoByName("button");
+		// add "refresh" broadcast listener
+		final AtomicBoolean refreshFlag = new AtomicBoolean();
+		button.addBroadcastListener(new ObjectEventListener() {
+			@Override
+			public void refreshed() throws Exception {
+				refreshFlag.set(true);
+			}
+		});
+		// double click on "button"
+		canvas.doubleClick(button);
+		// refresh was not required
+		assertFalse(refreshFlag.get());
+	}
 }

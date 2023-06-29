@@ -19,32 +19,32 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.Choos
  * @coverage bindings.rcp.model.widgets
  */
 public final class BeansSetObservableFactoryInfo extends BeansObservableFactoryInfo {
-  private static final String FACTORY_CLASS =
-      "org.eclipse.wb.rcp.databinding.BeansSetObservableFactory";
+	private static final String FACTORY_CLASS =
+			"org.eclipse.wb.rcp.databinding.BeansSetObservableFactory";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeansSetObservableFactoryInfo(String className) {
-    super(className);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeansSetObservableFactoryInfo(String className) {
+		super(className);
+	}
 
-  public BeansSetObservableFactoryInfo() {
-    super(FACTORY_CLASS);
-  }
+	public BeansSetObservableFactoryInfo() {
+		super(FACTORY_CLASS);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void configure(ChooseClassConfiguration configuration) {
-    configuration.setValueScope(FACTORY_CLASS);
-    configuration.setClearValue(FACTORY_CLASS);
-    configuration.setBaseClassName(FACTORY_CLASS);
-    configuration.setConstructorParameters(new Class[]{Class.class, String.class});
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void configure(ChooseClassConfiguration configuration) {
+		configuration.setValueScope(FACTORY_CLASS);
+		configuration.setClearValue(FACTORY_CLASS);
+		configuration.setBaseClassName(FACTORY_CLASS);
+		configuration.setConstructorParameters(new Class[]{Class.class, String.class});
+	}
 }

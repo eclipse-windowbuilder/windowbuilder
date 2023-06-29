@@ -22,24 +22,24 @@ import org.apache.commons.lang.NotImplementedException;
  * @author scheglov_ke
  */
 public class ICreationSupportPermissionsTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Test for {@link ICreationSupportPermissions#FALSE}.
-   */
-  public void test_FALSE() throws Exception {
-    JavaInfo javaInfo = null;
-    ICreationSupportPermissions permissions = ICreationSupportPermissions.FALSE;
-    assertFalse(permissions.canDelete(javaInfo));
-    try {
-      permissions.delete(javaInfo);
-      fail();
-    } catch (NotImplementedException e) {
-    }
-    assertFalse(permissions.canReorder(javaInfo));
-    assertFalse(permissions.canReparent(javaInfo));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Test for {@link ICreationSupportPermissions#FALSE}.
+	 */
+	public void test_FALSE() throws Exception {
+		JavaInfo javaInfo = null;
+		ICreationSupportPermissions permissions = ICreationSupportPermissions.FALSE;
+		assertFalse(permissions.canDelete(javaInfo));
+		try {
+			permissions.delete(javaInfo);
+			fail();
+		} catch (NotImplementedException e) {
+		}
+		assertFalse(permissions.canReorder(javaInfo));
+		assertFalse(permissions.canReparent(javaInfo));
+	}
 }

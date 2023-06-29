@@ -20,18 +20,18 @@ package org.eclipse.wb.internal.core.nls.edit;
  * @coverage core.nls
  */
 public interface IEditableSourceListener {
-  /**
-   * Sent when new key was added.
-   */
-  void keyAdded(String key, Object o);
+	/**
+	 * Sent when new key was added.
+	 */
+	void keyAdded(String key, Object o);
 
-  /**
-   * Sent when key was removed.
-   */
-  void keyRemoved(String key);
+	/**
+	 * Sent when key was removed.
+	 */
+	void keyRemoved(String key);
 
-  /**
-   * Sent when key was renamed.
-   */
-  void keyRenamed(String oldKey, String newKey);
+	/**
+	 * Sent when key was renamed.
+	 */
+	void keyRenamed(String oldKey, String newKey);
 }

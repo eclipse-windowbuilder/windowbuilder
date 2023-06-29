@@ -19,16 +19,16 @@ import org.eclipse.wb.core.model.ObjectInfo;
  * @coverage core.model
  */
 public class ObjectInfoVisitor {
-  /**
-   * This method is invoked to check if given {@link ObjectInfo} and its children should be visited.
-   */
-  public boolean visit(ObjectInfo objectInfo) throws Exception {
-    return true;
-  }
+	/**
+	 * This method is invoked to check if given {@link ObjectInfo} and its children should be visited.
+	 */
+	public boolean visit(ObjectInfo objectInfo) throws Exception {
+		return true;
+	}
 
-  /**
-   * This method is invoked when all children of given {@link ObjectInfo} were visited.
-   */
-  public void endVisit(ObjectInfo objectInfo) throws Exception {
-  }
+	/**
+	 * This method is invoked when all children of given {@link ObjectInfo} were visited.
+	 */
+	public void endVisit(ObjectInfo objectInfo) throws Exception {
+	}
 }

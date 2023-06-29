@@ -22,5 +22,5 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model
  */
 public interface XmlObjectSetObjectAfter {
-  void invoke(XmlObjectInfo target, Object o) throws Exception;
+	void invoke(XmlObjectInfo target, Object o) throws Exception;
 }

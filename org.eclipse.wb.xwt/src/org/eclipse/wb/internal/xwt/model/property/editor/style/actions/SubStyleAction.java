@@ -23,45 +23,45 @@ import org.eclipse.wb.internal.xwt.model.property.editor.style.SubStylePropertyI
  * @coverage XWT.model.property.editor
  */
 public abstract class SubStyleAction extends ObjectInfoAction {
-  private final Property m_property;
-  private final SubStylePropertyImpl m_propertyImpl;
+	private final Property m_property;
+	private final SubStylePropertyImpl m_propertyImpl;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SubStyleAction(Property property,
-      SubStylePropertyImpl propertyImpl,
-      String title,
-      int style) {
-    super(getHostObject(property), title, style);
-    m_property = property;
-    m_propertyImpl = propertyImpl;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SubStyleAction(Property property,
+			SubStylePropertyImpl propertyImpl,
+			String title,
+			int style) {
+		super(getHostObject(property), title, style);
+		m_property = property;
+		m_propertyImpl = propertyImpl;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObjectInfoAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    m_propertyImpl.setValue(m_property, getActionValue());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObjectInfoAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		m_propertyImpl.setValue(m_property, getActionValue());
+	}
 
-  /**
-   * @return the new "action" value.
-   */
-  protected abstract Object getActionValue();
+	/**
+	 * @return the new "action" value.
+	 */
+	protected abstract Object getActionValue();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static ObjectInfo getHostObject(Property property) {
-    GenericProperty genericProperty = (GenericProperty) property;
-    return genericProperty.getObject();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static ObjectInfo getHostObject(Property property) {
+		GenericProperty genericProperty = (GenericProperty) property;
+		return genericProperty.getObject();
+	}
 }

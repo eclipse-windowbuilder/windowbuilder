@@ -20,13 +20,13 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanPropert
  * @coverage bindings.rcp.model.beans
  */
 public final class ValueBeanObservableInfo extends BeanObservableInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ValueBeanObservableInfo(BeanBindableInfo bindableObject,
-      BeanPropertyBindableInfo bindableProperty) {
-    super(bindableObject, bindableProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ValueBeanObservableInfo(BeanBindableInfo bindableObject,
+			BeanPropertyBindableInfo bindableProperty) {
+		super(bindableObject, bindableProperty);
+	}
 }

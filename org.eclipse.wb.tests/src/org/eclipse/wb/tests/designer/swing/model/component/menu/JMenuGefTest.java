@@ -24,87 +24,87 @@ import javax.swing.JMenu;
  * @author scheglov_ke
  */
 public class JMenuGefTest extends SwingGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_drop_JMenuBar_onJFrame() throws Exception {
-    ContainerInfo frame =
-        openContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "  }",
-            "}");
-    //
-    JMenuBarInfo menuBar = loadCreationTool("javax.swing.JMenuBar");
-    canvas.moveTo(frame, 100, 5).click();
-    assertEditor(
-        "// filler filler filler filler filler",
-        "public class Test extends JFrame {",
-        "  public Test() {",
-        "    {",
-        "      JMenuBar menuBar = new JMenuBar();",
-        "      setJMenuBar(menuBar);",
-        "    }",
-        "  }",
-        "}");
-    canvas.assertPrimarySelected(menuBar);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_drop_JMenuBar_onJFrame() throws Exception {
+		ContainerInfo frame =
+				openContainer(
+						"// filler filler filler filler filler",
+						"public class Test extends JFrame {",
+						"  public Test() {",
+						"  }",
+						"}");
+		//
+		JMenuBarInfo menuBar = loadCreationTool("javax.swing.JMenuBar");
+		canvas.moveTo(frame, 100, 5).click();
+		assertEditor(
+				"// filler filler filler filler filler",
+				"public class Test extends JFrame {",
+				"  public Test() {",
+				"    {",
+				"      JMenuBar menuBar = new JMenuBar();",
+				"      setJMenuBar(menuBar);",
+				"    }",
+				"  }",
+				"}");
+		canvas.assertPrimarySelected(menuBar);
+	}
 
-  public void test_drop_JMenuBar_onJInternalFrame() throws Exception {
-    ContainerInfo frame =
-        openContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JInternalFrame {",
-            "  public Test() {",
-            "  }",
-            "}");
-    //
-    JMenuBarInfo menuBar = loadCreationTool("javax.swing.JMenuBar");
-    canvas.moveTo(frame, 100, 5).click();
-    assertEditor(
-        "// filler filler filler filler filler",
-        "public class Test extends JInternalFrame {",
-        "  public Test() {",
-        "    {",
-        "      JMenuBar menuBar = new JMenuBar();",
-        "      setJMenuBar(menuBar);",
-        "    }",
-        "  }",
-        "}");
-    canvas.assertPrimarySelected(menuBar);
-  }
+	public void test_drop_JMenuBar_onJInternalFrame() throws Exception {
+		ContainerInfo frame =
+				openContainer(
+						"// filler filler filler filler filler",
+						"public class Test extends JInternalFrame {",
+						"  public Test() {",
+						"  }",
+						"}");
+		//
+		JMenuBarInfo menuBar = loadCreationTool("javax.swing.JMenuBar");
+		canvas.moveTo(frame, 100, 5).click();
+		assertEditor(
+				"// filler filler filler filler filler",
+				"public class Test extends JInternalFrame {",
+				"  public Test() {",
+				"    {",
+				"      JMenuBar menuBar = new JMenuBar();",
+				"      setJMenuBar(menuBar);",
+				"    }",
+				"  }",
+				"}");
+		canvas.assertPrimarySelected(menuBar);
+	}
 
-  /**
-   * Don't allow to move "item" of {@link JMenu} on its "popup".
-   */
-  public void test_dontMoveMove_onItsItem() throws Exception {
-    openContainer(
-        "// filler filler filler filler filler",
-        "public class Test extends JFrame {",
-        "  public Test() {",
-        "    JMenuBar menuBar = new JMenuBar();",
-        "    setJMenuBar(menuBar);",
-        "    {",
-        "      JMenu menu = new JMenu('Test');",
-        "      menuBar.add(menu);",
-        "    }",
-        "  }",
-        "}");
-    JavaInfo menu = getJavaInfoByName("menu");
-    //
-    canvas.moveTo(menu, 0.5, -1).beginDrag().dragOn(0, 20);
-    canvas.assertCommandNull();
-  }
+	/**
+	 * Don't allow to move "item" of {@link JMenu} on its "popup".
+	 */
+	public void test_dontMoveMove_onItsItem() throws Exception {
+		openContainer(
+				"// filler filler filler filler filler",
+				"public class Test extends JFrame {",
+				"  public Test() {",
+				"    JMenuBar menuBar = new JMenuBar();",
+				"    setJMenuBar(menuBar);",
+				"    {",
+				"      JMenu menu = new JMenu('Test');",
+				"      menuBar.add(menu);",
+				"    }",
+				"  }",
+				"}");
+		JavaInfo menu = getJavaInfoByName("menu");
+		//
+		canvas.moveTo(menu, 0.5, -1).beginDrag().dragOn(0, 20);
+		canvas.assertCommandNull();
+	}
 }

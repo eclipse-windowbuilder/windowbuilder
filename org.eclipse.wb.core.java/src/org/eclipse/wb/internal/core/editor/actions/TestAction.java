@@ -27,60 +27,60 @@ import org.eclipse.jface.action.Action;
  * @coverage core.editor.action
  */
 public final class TestAction extends Action {
-  private ObjectInfo m_rootObject;
+	private ObjectInfo m_rootObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TestAction() {
-    setText("Test/Preview...");
-    setToolTipText("Quickly test/preview the window without compiling or running it");
-    setImageDescriptor(DesignerPlugin.getImageDescriptor("test.png"));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TestAction() {
+		setText("Test/Preview...");
+		setToolTipText("Quickly test/preview the window without compiling or running it");
+		setImageDescriptor(DesignerPlugin.getImageDescriptor("test.png"));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the root {@link ObjectInfo} on {@link DesignPage}.
-   */
-  public void setRoot(ObjectInfo rootObject) {
-    m_rootObject = rootObject;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the root {@link ObjectInfo} on {@link DesignPage}.
+	 */
+	public void setRoot(ObjectInfo rootObject) {
+		m_rootObject = rootObject;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Action
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void run() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        ExecutionUtils.runDesignTime(new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            run0();
-          }
-        });
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Action
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void run() {
+		ExecutionUtils.runLog(new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				ExecutionUtils.runDesignTime(new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						run0();
+					}
+				});
+			}
+		});
+	}
 
-  private void run0() throws Exception {
-    if (m_rootObject instanceof AbstractComponentInfo) {
-      AbstractComponentInfo component = (AbstractComponentInfo) m_rootObject;
-      TopBoundsSupport topSupport = component.getTopBoundsSupport();
-      boolean doReparse = topSupport.show();
-      // refresh because user can change something
-      if (doReparse) {
-        m_rootObject.refresh();
-      }
-    }
-  }
+	private void run0() throws Exception {
+		if (m_rootObject instanceof AbstractComponentInfo) {
+			AbstractComponentInfo component = (AbstractComponentInfo) m_rootObject;
+			TopBoundsSupport topSupport = component.getTopBoundsSupport();
+			boolean doReparse = topSupport.show();
+			// refresh because user can change something
+			if (doReparse) {
+				m_rootObject.refresh();
+			}
+		}
+	}
 }

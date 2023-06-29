@@ -19,59 +19,59 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage core.editor
  */
 final class MultiSourceMode extends DefaultMultiMode {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MultiSourceMode(DesignerEditor editor) {
-    super(editor);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MultiSourceMode(DesignerEditor editor) {
+		super(editor);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  void setFocus() {
-    m_sourcePage.setFocus();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	void setFocus() {
+		m_sourcePage.setFocus();
+	}
 
-  @Override
-  public void showSource() {
-    showPage(m_sourcePage);
-  }
+	@Override
+	public void showSource() {
+		showPage(m_sourcePage);
+	}
 
-  @Override
-  public void showDesign() {
-  }
+	@Override
+	public void showDesign() {
+	}
 
-  @Override
-  public void switchSourceDesign() {
-  }
+	@Override
+	public void switchSourceDesign() {
+	}
 
-  @Override
-  public void onSetInput() {
-  }
+	@Override
+	public void onSetInput() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void create(Composite parent) {
-    m_sourcePage.initialize(m_editor);
-    m_sourcePage.createControl(parent);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void create(Composite parent) {
+		m_sourcePage.initialize(m_editor);
+		m_sourcePage.createControl(parent);
+	}
 
-  @Override
-  void editorActivatedFirstTime() {
-  }
+	@Override
+	void editorActivatedFirstTime() {
+	}
 
-  @Override
-  void dispose() {
-    m_sourcePage.dispose();
-  }
+	@Override
+	void dispose() {
+		m_sourcePage.dispose();
+	}
 }

@@ -35,88 +35,88 @@ import java.lang.reflect.Proxy;
  * @coverage rcp.model.rcp
  */
 public final class ViewPartInfo extends ViewPartLikeInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewPartInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-    contributeExtensionProperty();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewPartInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+		contributeExtensionProperty();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private void contributeExtensionProperty() throws Exception {
-    new ExtensionPropertyHelper(this, "org.eclipse.ui.views", "view") {
-      @Override
-      protected Property[] createProperties() {
-        return new Property[]{
-            createStringProperty("name"),
-            createIconProperty("icon"),
-            createAttributeProperty(ViewCategoryPropertyEditor.INSTANCE, "category")};
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void contributeExtensionProperty() throws Exception {
+		new ExtensionPropertyHelper(this, "org.eclipse.ui.views", "view") {
+			@Override
+			protected Property[] createProperties() {
+				return new Property[]{
+						createStringProperty("name"),
+						createIconProperty("icon"),
+						createAttributeProperty(ViewCategoryPropertyEditor.INSTANCE, "category")};
+			}
+		};
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getGUIMethodName() {
-    return "createPartControl";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getGUIMethodName() {
+		return "createPartControl";
+	}
 
-  @Override
-  protected void configureTabItem(CTabItem tabItem) throws Exception {
-    configureTabItem_fromExtension(tabItem, "ViewPart");
-  }
+	@Override
+	protected void configureTabItem(CTabItem tabItem) throws Exception {
+		configureTabItem_fromExtension(tabItem, "ViewPart");
+	}
 
-  /**
-   * Initializes this {@link ViewPart} with {@link IViewSite}.
-   */
-  @Override
-  protected void applyActionBars() throws Exception {
-    ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
-    Class<?> viewSiteClass = editorLoader.loadClass("org.eclipse.ui.IViewSite");
-    // create IViewSite
-    Object viewSite =
-        Proxy.newProxyInstance(
-            editorLoader,
-            new Class<?>[]{viewSiteClass},
-            new InvocationHandler() {
-              @Override
-              public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                String signature = ReflectionUtils.getMethodSignature(method);
-                if (signature.equals("toString()")) {
-                  return "IViewSite_stub";
-                }
-                if (signature.equals("hashCode()")) {
-                  return 0;
-                }
-                if (signature.equals("getActionBars()")) {
-                  return m_actionBars;
-                }
-                if (signature.equals("getId()")) {
-                  return getID();
-                }
-                if (signature.equals("getSecondaryId()")) {
-                  return null;
-                }
-                if (signature.equals("getWorkbenchWindow()")) {
-                  return DesignerPlugin.getActiveWorkbenchWindow();
-                }
-                throw new NotImplementedException(method.toString());
-              }
-            });
-    // call init(IViewSite)
-    ReflectionUtils.invokeMethod(getObject(), "init(org.eclipse.ui.IViewSite)", viewSite);
-  }
+	/**
+	 * Initializes this {@link ViewPart} with {@link IViewSite}.
+	 */
+	@Override
+	protected void applyActionBars() throws Exception {
+		ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
+		Class<?> viewSiteClass = editorLoader.loadClass("org.eclipse.ui.IViewSite");
+		// create IViewSite
+		Object viewSite =
+				Proxy.newProxyInstance(
+						editorLoader,
+						new Class<?>[]{viewSiteClass},
+						new InvocationHandler() {
+							@Override
+							public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+								String signature = ReflectionUtils.getMethodSignature(method);
+								if (signature.equals("toString()")) {
+									return "IViewSite_stub";
+								}
+								if (signature.equals("hashCode()")) {
+									return 0;
+								}
+								if (signature.equals("getActionBars()")) {
+									return m_actionBars;
+								}
+								if (signature.equals("getId()")) {
+									return getID();
+								}
+								if (signature.equals("getSecondaryId()")) {
+									return null;
+								}
+								if (signature.equals("getWorkbenchWindow()")) {
+									return DesignerPlugin.getActiveWorkbenchWindow();
+								}
+								throw new NotImplementedException(method.toString());
+							}
+						});
+		// call init(IViewSite)
+		ReflectionUtils.invokeMethod(getObject(), "init(org.eclipse.ui.IViewSite)", viewSite);
+	}
 }

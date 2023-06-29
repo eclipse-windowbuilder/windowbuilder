@@ -35,122 +35,122 @@ import org.eclipse.swt.widgets.Control;
  * @coverage rcp.model.jface
  */
 public final class ControlDecorationInfo extends AbstractComponentInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ControlDecorationInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ControlDecorationInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link ControlInfo} that is decorated by this {@link ControlDecorationInfo}.
-   */
-  public ControlInfo getControl() {
-    return (ControlInfo) getParent();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link ControlInfo} that is decorated by this {@link ControlDecorationInfo}.
+	 */
+	public ControlInfo getControl() {
+		return (ControlInfo) getParent();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Image m_decorationImage;
-  private Image m_iconImage;
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public Image getIcon() throws Exception {
-      if (m_decorationImage != null && m_iconImage != null) {
-        return m_iconImage;
-      }
-      return super.getIcon();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Image m_decorationImage;
+	private Image m_iconImage;
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public Image getIcon() throws Exception {
+			if (m_decorationImage != null && m_iconImage != null) {
+				return m_iconImage;
+			}
+			return super.getIcon();
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh_dispose() throws Exception {
-    super.refresh_dispose();
-    // dispose image
-    if (m_iconImage != null) {
-      m_iconImage.dispose();
-      m_iconImage = null;
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh_dispose() throws Exception {
+		super.refresh_dispose();
+		// dispose image
+		if (m_iconImage != null) {
+			m_iconImage.dispose();
+			m_iconImage = null;
+		}
+	}
 
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    // prepare "real" image
-    m_decorationImage = (Image) ReflectionUtils.invokeMethod(getObject(), "getImage()");
-    // if no "real" image, set default one
-    if (m_decorationImage == null) {
-      ReflectionUtils.invokeMethod(
-          getObject(),
-          "setImage(org.eclipse.swt.graphics.Image)",
-          Activator.getImage("info/ControlDecoration/default.gif"));
-    }
-  }
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		// prepare "real" image
+		m_decorationImage = (Image) ReflectionUtils.invokeMethod(getObject(), "getImage()");
+		// if no "real" image, set default one
+		if (m_decorationImage == null) {
+			ReflectionUtils.invokeMethod(
+					getObject(),
+					"setImage(org.eclipse.swt.graphics.Image)",
+					Activator.getImage("info/ControlDecoration/default.gif"));
+		}
+	}
 
-  @Override
-  protected void refresh_fetch() throws Exception {
-    // bounds
-    {
-      Control targetControl = (Control) ReflectionUtils.invokeMethod(getObject(), "getControl()");
-      Rectangle decorationRectangle =
-          RectangleSupport.getRectangle(ReflectionUtils.invokeMethod(
-              getObject(),
-              "getDecorationRectangle(org.eclipse.swt.widgets.Control)",
-              targetControl));
-      setModelBounds(decorationRectangle);
-    }
-    // image icon
-    if (m_decorationImage != null) {
-      m_iconImage = new Image(null, 16, 16);
-      GC gc = new GC(m_iconImage);
-      try {
-        DrawUtils.drawImageCHCV(gc, m_decorationImage, 0, 0, 16, 16);
-      } finally {
-        gc.dispose();
-      }
-    }
-    // continue
-    super.refresh_fetch();
-  }
+	@Override
+	protected void refresh_fetch() throws Exception {
+		// bounds
+		{
+			Control targetControl = (Control) ReflectionUtils.invokeMethod(getObject(), "getControl()");
+			Rectangle decorationRectangle =
+					RectangleSupport.getRectangle(ReflectionUtils.invokeMethod(
+							getObject(),
+							"getDecorationRectangle(org.eclipse.swt.widgets.Control)",
+							targetControl));
+			setModelBounds(decorationRectangle);
+		}
+		// image icon
+		if (m_decorationImage != null) {
+			m_iconImage = new Image(null, 16, 16);
+			GC gc = new GC(m_iconImage);
+			try {
+				DrawUtils.drawImageCHCV(gc, m_decorationImage, 0, 0, 16, 16);
+			} finally {
+				gc.dispose();
+			}
+		}
+		// continue
+		super.refresh_fetch();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Decorates {@link ControlInfo} with this new {@link ControlDecorationInfo}.
-   */
-  public void command_CREATE(ControlInfo target) throws Exception {
-    JavaInfoUtils.add(this, null, target, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Decorates {@link ControlInfo} with this new {@link ControlDecorationInfo}.
+	 */
+	public void command_CREATE(ControlInfo target) throws Exception {
+		JavaInfoUtils.add(this, null, target, null);
+	}
 
-  /**
-   * Decorates {@link ControlInfo} with this (already existing) {@link ControlDecorationInfo}.
-   */
-  public void command_ADD(ControlInfo target) throws Exception {
-    JavaInfoUtils.move(this, null, target, null);
-  }
+	/**
+	 * Decorates {@link ControlInfo} with this (already existing) {@link ControlDecorationInfo}.
+	 */
+	public void command_ADD(ControlInfo target) throws Exception {
+		JavaInfoUtils.move(this, null, target, null);
+	}
 }

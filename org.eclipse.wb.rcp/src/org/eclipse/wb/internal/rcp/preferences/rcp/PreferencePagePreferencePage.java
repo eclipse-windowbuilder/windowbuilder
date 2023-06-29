@@ -29,41 +29,41 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage rcp.preferences.ui
  */
 public class PreferencePagePreferencePage extends AbstractBindingPreferencesPage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PreferencePagePreferencePage() {
-    super(RcpToolkitDescription.INSTANCE);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PreferencePagePreferencePage() {
+		super(RcpToolkitDescription.INSTANCE);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractBindingComposite createBindingComposite(Composite parent) {
-    return new ContentsComposite(parent, m_bindManager, m_preferences);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractBindingComposite createBindingComposite(Composite parent) {
+		return new ContentsComposite(parent, m_bindManager, m_preferences);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Contents
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private class ContentsComposite extends AbstractBindingComposite {
-    public ContentsComposite(Composite parent,
-        DataBindManager bindManager,
-        IPreferenceStore preferences) {
-      super(parent, bindManager, preferences);
-      GridLayoutFactory.create(this).noMargins().columns(1);
-      // boolean preferences
-      checkButton(
-          this,
-          PreferencesMessages.PreferencePagePreferencePage_useControlCodeGen,
-          IPreferenceConstants.PREF_FIELD_USUAL_CODE);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Contents
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private class ContentsComposite extends AbstractBindingComposite {
+		public ContentsComposite(Composite parent,
+				DataBindManager bindManager,
+				IPreferenceStore preferences) {
+			super(parent, bindManager, preferences);
+			GridLayoutFactory.create(this).noMargins().columns(1);
+			// boolean preferences
+			checkButton(
+					this,
+					PreferencesMessages.PreferencePagePreferencePage_useControlCodeGen,
+					IPreferenceConstants.PREF_FIELD_USUAL_CODE);
+		}
+	}
 }

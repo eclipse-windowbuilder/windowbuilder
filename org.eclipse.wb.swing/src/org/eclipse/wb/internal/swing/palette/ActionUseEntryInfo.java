@@ -39,63 +39,63 @@ import javax.swing.JToolBar;
  * @coverage swing.editor.palette
  */
 public final class ActionUseEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = Activator.getImage("info/Action/action.gif");
-  private final ActionInfo m_action;
+	private static final Image ICON = Activator.getImage("info/Action/action.gif");
+	private final ActionInfo m_action;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionUseEntryInfo(ActionInfo action) throws Exception {
-    m_action = action;
-    setId(ObjectUtils.identityToString(action));
-    setName(action.getVariableSupport().getName());
-    setDescription(ModelMessages.ActionUseEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionUseEntryInfo(ActionInfo action) throws Exception {
+		m_action = action;
+		setId(ObjectUtils.identityToString(action));
+		setName(action.getVariableSupport().getName());
+		setDescription(ModelMessages.ActionUseEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-      public Image runObject() throws Exception {
-        return m_action.getPresentation().getIcon();
-      }
-    }, ICON);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+			public Image runObject() throws Exception {
+				return m_action.getPresentation().getIcon();
+			}
+		}, ICON);
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    return createActionTool(m_action);
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		return createActionTool(m_action);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Tool} for dropping {@link ActionInfo}.
-   */
-  static Tool createActionTool(final ActionInfo action) {
-    // prepare factory
-    ICreationFactory factory = new ICreationFactory() {
-      public void activate() throws Exception {
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Tool} for dropping {@link ActionInfo}.
+	 */
+	static Tool createActionTool(final ActionInfo action) {
+		// prepare factory
+		ICreationFactory factory = new ICreationFactory() {
+			public void activate() throws Exception {
+			}
 
-      public Object getNewObject() {
-        return action;
-      }
-    };
-    // return tool
-    return new CreationTool(factory) {
-      @Override
-      protected void selectAddedObjects() {
-      }
-    };
-  }
+			public Object getNewObject() {
+				return action;
+			}
+		};
+		// return tool
+		return new CreationTool(factory) {
+			@Override
+			protected void selectAddedObjects() {
+			}
+		};
+	}
 }

@@ -29,94 +29,94 @@ import java.util.Collection;
  * @coverage bindings.ui
  */
 public class ObjectsTreeContentProvider implements ITreeContentProvider {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Input
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object[] getElements(Object input) {
-    // case collection
-    if (input instanceof Collection<?>) {
-      Collection<?> inputCollection = (Collection<?>) input;
-      return inputCollection.toArray();
-    }
-    // case array
-    if (input instanceof Object[]) {
-      return (Object[]) input;
-    }
-    // case direct object
-    if (input instanceof ObjectInfo) {
-      return getChildren(input);
-    }
-    // no input
-    return ArrayUtils.EMPTY_OBJECT_ARRAY;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Input
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object[] getElements(Object input) {
+		// case collection
+		if (input instanceof Collection<?>) {
+			Collection<?> inputCollection = (Collection<?>) input;
+			return inputCollection.toArray();
+		}
+		// case array
+		if (input instanceof Object[]) {
+			return (Object[]) input;
+		}
+		// case direct object
+		if (input instanceof ObjectInfo) {
+			return getChildren(input);
+		}
+		// no input
+		return ArrayUtils.EMPTY_OBJECT_ARRAY;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parent/Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getParent(Object element) {
-    if (element instanceof ObjectInfo) {
-      ObjectInfo info = (ObjectInfo) element;
-      return info.getParent();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parent/Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getParent(Object element) {
+		if (element instanceof ObjectInfo) {
+			ObjectInfo info = (ObjectInfo) element;
+			return info.getParent();
+		}
+		return null;
+	}
 
-  @Override
-  public boolean hasChildren(Object element) {
-    if (element instanceof ObjectInfo) {
-      // prepare info
-      ObjectInfo info = (ObjectInfo) element;
-      // prepare presentation
-      final IObjectPresentation presentation = info.getPresentation();
-      if (presentation != null) {
-        // check children
-        return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-          @Override
-          public Boolean runObject() throws Exception {
-            return presentation.isVisible() && !presentation.getChildrenTree().isEmpty();
-          }
-        }, false);
-      }
-    }
-    return false;
-  }
+	@Override
+	public boolean hasChildren(Object element) {
+		if (element instanceof ObjectInfo) {
+			// prepare info
+			ObjectInfo info = (ObjectInfo) element;
+			// prepare presentation
+			final IObjectPresentation presentation = info.getPresentation();
+			if (presentation != null) {
+				// check children
+				return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+					@Override
+					public Boolean runObject() throws Exception {
+						return presentation.isVisible() && !presentation.getChildrenTree().isEmpty();
+					}
+				}, false);
+			}
+		}
+		return false;
+	}
 
-  @Override
-  public Object[] getChildren(Object element) {
-    if (element instanceof ObjectInfo) {
-      // prepare info
-      ObjectInfo info = (ObjectInfo) element;
-      // prepare presentation
-      final IObjectPresentation presentation = info.getPresentation();
-      if (presentation != null) {
-        // get children
-        return ExecutionUtils.runObjectLog(new RunnableObjectEx<Object[]>() {
-          @Override
-          public Object[] runObject() throws Exception {
-            return presentation.getChildrenTree().toArray();
-          }
-        }, ArrayUtils.EMPTY_OBJECT_ARRAY);
-      }
-    }
-    return ArrayUtils.EMPTY_OBJECT_ARRAY;
-  }
+	@Override
+	public Object[] getChildren(Object element) {
+		if (element instanceof ObjectInfo) {
+			// prepare info
+			ObjectInfo info = (ObjectInfo) element;
+			// prepare presentation
+			final IObjectPresentation presentation = info.getPresentation();
+			if (presentation != null) {
+				// get children
+				return ExecutionUtils.runObjectLog(new RunnableObjectEx<Object[]>() {
+					@Override
+					public Object[] runObject() throws Exception {
+						return presentation.getChildrenTree().toArray();
+					}
+				}, ArrayUtils.EMPTY_OBJECT_ARRAY);
+			}
+		}
+		return ArrayUtils.EMPTY_OBJECT_ARRAY;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void dispose() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void dispose() {
+	}
 
-  @Override
-  public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-  }
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+	}
 }

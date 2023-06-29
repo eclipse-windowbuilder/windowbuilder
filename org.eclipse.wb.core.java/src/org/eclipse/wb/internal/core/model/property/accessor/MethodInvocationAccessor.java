@@ -35,93 +35,93 @@ import java.lang.reflect.Method;
  * @coverage core.model.property.accessor
  */
 public final class MethodInvocationAccessor extends ExpressionAccessor {
-  private final Method m_method;
-  private final String m_methodSignature;
+	private final Method m_method;
+	private final String m_methodSignature;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodInvocationAccessor(Method setMethod) throws Exception {
-    m_method = setMethod;
-    m_methodSignature = ReflectionUtils.getMethodSignature(m_method);
-    // initialize IAdaptable
-    m_accessibleAccessor = AccessorUtils.IAccessibleExpressionAccessor_forMethod(m_method);
-    m_tooltipProvider = AccessorUtils.PropertyTooltipProvider_forMethod(m_method);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodInvocationAccessor(Method setMethod) throws Exception {
+		m_method = setMethod;
+		m_methodSignature = ReflectionUtils.getMethodSignature(m_method);
+		// initialize IAdaptable
+		m_accessibleAccessor = AccessorUtils.IAccessibleExpressionAccessor_forMethod(m_method);
+		m_tooltipProvider = AccessorUtils.PropertyTooltipProvider_forMethod(m_method);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionAccessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Expression getExpression(JavaInfo javaInfo) throws Exception {
-    return getMethodInvocation(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionAccessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Expression getExpression(JavaInfo javaInfo) throws Exception {
+		return getMethodInvocation(javaInfo);
+	}
 
-  @Override
-  public boolean setExpression(final JavaInfo javaInfo, final String source) throws Exception {
-    final MethodInvocation invocation = getMethodInvocation(javaInfo);
-    if (invocation != null) {
-      final AstEditor editor = javaInfo.getEditor();
-      if (source == null) {
-        ExecutionUtils.run(javaInfo, new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            editor.removeEnclosingStatement(invocation);
-          }
-        });
-      } else {
-        ExecutionUtils.run(javaInfo, new RunnableEx() {
-          @Override
-          public void run() throws Exception {
-            editor.replaceInvocationArguments(invocation, ImmutableList.of(source));
-          }
-        });
-      }
-    } else if (source != null) {
-      ExecutionUtils.run(javaInfo, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          javaInfo.addMethodInvocation(m_methodSignature, source);
-        }
-      });
-    }
-    // success
-    return true;
-  }
+	@Override
+	public boolean setExpression(final JavaInfo javaInfo, final String source) throws Exception {
+		final MethodInvocation invocation = getMethodInvocation(javaInfo);
+		if (invocation != null) {
+			final AstEditor editor = javaInfo.getEditor();
+			if (source == null) {
+				ExecutionUtils.run(javaInfo, new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						editor.removeEnclosingStatement(invocation);
+					}
+				});
+			} else {
+				ExecutionUtils.run(javaInfo, new RunnableEx() {
+					@Override
+					public void run() throws Exception {
+						editor.replaceInvocationArguments(invocation, ImmutableList.of(source));
+					}
+				});
+			}
+		} else if (source != null) {
+			ExecutionUtils.run(javaInfo, new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					javaInfo.addMethodInvocation(m_methodSignature, source);
+				}
+			});
+		}
+		// success
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IAdaptable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IAccessibleExpressionAccessor m_accessibleAccessor;
-  private final PropertyTooltipProvider m_tooltipProvider;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IAdaptable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IAccessibleExpressionAccessor m_accessibleAccessor;
+	private final PropertyTooltipProvider m_tooltipProvider;
 
-  @Override
-  public <T> T getAdapter(Class<T> adapter) {
-    if (adapter == IAccessibleExpressionAccessor.class) {
-      return adapter.cast(m_accessibleAccessor);
-    }
-    if (adapter == PropertyTooltipProvider.class) {
-      return adapter.cast(m_tooltipProvider);
-    }
-    // other
-    return super.getAdapter(adapter);
-  }
+	@Override
+	public <T> T getAdapter(Class<T> adapter) {
+		if (adapter == IAccessibleExpressionAccessor.class) {
+			return adapter.cast(m_accessibleAccessor);
+		}
+		if (adapter == PropertyTooltipProvider.class) {
+			return adapter.cast(m_tooltipProvider);
+		}
+		// other
+		return super.getAdapter(adapter);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link MethodInvocation} of this setter for given {@link JavaInfo}.
-   */
-  private MethodInvocation getMethodInvocation(JavaInfo javaInfo) throws Exception {
-    return javaInfo.getMethodInvocation(m_methodSignature);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link MethodInvocation} of this setter for given {@link JavaInfo}.
+	 */
+	private MethodInvocation getMethodInvocation(JavaInfo javaInfo) throws Exception {
+		return javaInfo.getMethodInvocation(m_methodSignature);
+	}
 }

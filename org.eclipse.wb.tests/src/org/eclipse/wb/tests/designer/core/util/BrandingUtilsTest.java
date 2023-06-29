@@ -21,28 +21,28 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
  * @author scheglov_ke
  */
 public class BrandingUtilsTest extends DesignerTestCase {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // getBranding()
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * We run tests with multiple products.
-   */
-  public void test_getBranding_multi() throws Exception {
-    IBrandingDescription branding = BrandingUtils.getBranding();
-    assertNotNull(branding);
-    // no check for name, may be default, may be GWT
-    assertNotSame(null, branding.getProductName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// getBranding()
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * We run tests with multiple products.
+	 */
+	public void test_getBranding_multi() throws Exception {
+		IBrandingDescription branding = BrandingUtils.getBranding();
+		assertNotNull(branding);
+		// no check for name, may be default, may be GWT
+		assertNotSame(null, branding.getProductName());
+	}
 }

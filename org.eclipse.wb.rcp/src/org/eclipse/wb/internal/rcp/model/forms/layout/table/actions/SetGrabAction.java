@@ -21,30 +21,30 @@ import org.eclipse.jface.action.Action;
  * @coverage rcp.model.forms
  */
 public final class SetGrabAction extends AbstractAction {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SetGrabAction(ITableWrapDataInfo layoutData,
-      String text,
-      String iconPath,
-      boolean horizontal) {
-    super(layoutData, text, AS_CHECK_BOX, iconPath, horizontal);
-    setChecked(horizontal ? layoutData.getHorizontalGrab() : layoutData.getVerticalGrab());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SetGrabAction(ITableWrapDataInfo layoutData,
+			String text,
+			String iconPath,
+			boolean horizontal) {
+		super(layoutData, text, AS_CHECK_BOX, iconPath, horizontal);
+		setChecked(horizontal ? layoutData.getHorizontalGrab() : layoutData.getVerticalGrab());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Run
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void runEx() throws Exception {
-    if (m_horizontal) {
-      m_layoutData.setHorizontalGrab(!m_layoutData.getHorizontalGrab());
-    } else {
-      m_layoutData.setVerticalGrab(!m_layoutData.getVerticalGrab());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Run
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void runEx() throws Exception {
+		if (m_horizontal) {
+			m_layoutData.setHorizontalGrab(!m_layoutData.getHorizontalGrab());
+		} else {
+			m_layoutData.setVerticalGrab(!m_layoutData.getVerticalGrab());
+		}
+	}
 }

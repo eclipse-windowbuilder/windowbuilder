@@ -58,313 +58,313 @@ import java.util.Map;
  * @coverage rcp.model.rcp
  */
 public final class PageLayoutCreateFolderInfo extends AbstractPartInfo {
-  private final PageLayoutInfo m_page;
+	private final PageLayoutInfo m_page;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PageLayoutCreateFolderInfo(PageLayoutInfo page, MethodInvocation invocation)
-      throws Exception {
-    super(page.getEditor(), getFolderDescription(page), new PageLayoutAddCreationSupport(page,
-        invocation));
-    m_page = page;
-    ObjectInfoUtils.setNewId(this);
-    setVariableSupport(new EmptyPureVariableSupport(this));
-    setAssociation(new InvocationVoidAssociation());
-    page.addChild(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PageLayoutCreateFolderInfo(PageLayoutInfo page, MethodInvocation invocation)
+			throws Exception {
+		super(page.getEditor(), getFolderDescription(page), new PageLayoutAddCreationSupport(page,
+				invocation));
+		m_page = page;
+		ObjectInfoUtils.setNewId(this);
+		setVariableSupport(new EmptyPureVariableSupport(this));
+		setAssociation(new InvocationVoidAssociation());
+		page.addChild(this);
+	}
 
-  public PageLayoutCreateFolderInfo(PageLayoutInfo page, CreationSupport creationSupport)
-      throws Exception {
-    super(page.getEditor(), getFolderDescription(page), creationSupport);
-    m_page = page;
-    ObjectInfoUtils.setNewId(this);
-  }
+	public PageLayoutCreateFolderInfo(PageLayoutInfo page, CreationSupport creationSupport)
+			throws Exception {
+		super(page.getEditor(), getFolderDescription(page), creationSupport);
+		m_page = page;
+		ObjectInfoUtils.setNewId(this);
+	}
 
-  /**
-   * @return the {@link ComponentDescription} for {@link IFolderLayout}.
-   */
-  private static ComponentDescription getFolderDescription(JavaInfo host) throws Exception {
-    AstEditor editor = host.getEditor();
-    ClassLoader editorLoader = JavaInfoUtils.getClassLoader(host);
-    Class<?> folderClass = editorLoader.loadClass("org.eclipse.ui.IFolderLayout");
-    return ComponentDescriptionHelper.getDescription(editor, folderClass);
-  }
+	/**
+	 * @return the {@link ComponentDescription} for {@link IFolderLayout}.
+	 */
+	private static ComponentDescription getFolderDescription(JavaInfo host) throws Exception {
+		AstEditor editor = host.getEditor();
+		ClassLoader editorLoader = JavaInfoUtils.getClassLoader(host);
+		Class<?> folderClass = editorLoader.loadClass("org.eclipse.ui.IFolderLayout");
+		return ComponentDescriptionHelper.getDescription(editor, folderClass);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link FolderViewInfo} children.
-   */
-  public List<FolderViewInfo> getViews() {
-    return getChildren(FolderViewInfo.class);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link FolderViewInfo} children.
+	 */
+	public List<FolderViewInfo> getViews() {
+		return getChildren(FolderViewInfo.class);
+	}
 
-  @Override
-  protected void registerLayoutControls(Map<String, Control> idToControl) {
-    super.registerLayoutControls(idToControl);
-    Control folderControl = (Control) getComponentObject();
-    for (FolderViewInfo view : getViews()) {
-      idToControl.put(view.getId(), folderControl);
-    }
-  }
+	@Override
+	protected void registerLayoutControls(Map<String, Control> idToControl) {
+		super.registerLayoutControls(idToControl);
+		Control folderControl = (Control) getComponentObject();
+		for (FolderViewInfo view : getViews()) {
+			idToControl.put(view.getId(), folderControl);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Properties
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final Property m_placeholderProperty = new JavaProperty(this, "placeholder",
-      BooleanPropertyEditor.INSTANCE) {
-    @Override
-    public boolean isModified() throws Exception {
-      return true;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Properties
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final Property m_placeholderProperty = new JavaProperty(this, "placeholder",
+			BooleanPropertyEditor.INSTANCE) {
+		@Override
+		public boolean isModified() throws Exception {
+			return true;
+		}
 
-    @Override
-    public Object getValue() throws Exception {
-      return isPlaceholder2();
-    }
+		@Override
+		public Object getValue() throws Exception {
+			return isPlaceholder2();
+		}
 
-    @Override
-    public void setValue(final Object value) throws Exception {
-      ExecutionUtils.run(m_page, new RunnableEx() {
-        @Override
-        public void run() throws Exception {
-          setPlaceholder((Boolean) value);
-        }
-      });
-    }
-  };
+		@Override
+		public void setValue(final Object value) throws Exception {
+			ExecutionUtils.run(m_page, new RunnableEx() {
+				@Override
+				public void run() throws Exception {
+					setPlaceholder((Boolean) value);
+				}
+			});
+		}
+	};
 
-  @Override
-  protected List<Property> getPropertyList() throws Exception {
-    List<Property> properties = super.getPropertyList();
-    properties.add(m_placeholderProperty);
-    return properties;
-  }
+	@Override
+	protected List<Property> getPropertyList() throws Exception {
+		List<Property> properties = super.getPropertyList();
+		properties.add(m_placeholderProperty);
+		return properties;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // State
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if this folder is place-holder, i.e. created using
-   *         {@link IPageLayout#createPlaceholderFolder(String, int, float, String)}.
-   */
-  public boolean isPlaceholder2() {
-    String signature = getInvocationSignature();
-    return signature.equals("createPlaceholderFolder(java.lang.String,int,float,java.lang.String)");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// State
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if this folder is place-holder, i.e. created using
+	 *         {@link IPageLayout#createPlaceholderFolder(String, int, float, String)}.
+	 */
+	public boolean isPlaceholder2() {
+		String signature = getInvocationSignature();
+		return signature.equals("createPlaceholderFolder(java.lang.String,int,float,java.lang.String)");
+	}
 
-  /**
-   * If given <code>makePlaceholder</code> argument is <code>true</code>,converts creation to use
-   * {@link IPageLayout#createPlaceholderFolder(String, int, float, String)}.
-   */
-  public void setPlaceholder(final boolean makePlaceholder) throws Exception {
-    AstEditor editor = getEditor();
-    boolean wasPlaceholder = isPlaceholder2();
-    if (makePlaceholder && !wasPlaceholder) {
-      // replace variable type to IPlaceholderFolderLayout
-      if (getVariableSupport() instanceof AbstractSimpleVariableSupport) {
-        AbstractSimpleVariableSupport variableSupport =
-            (AbstractSimpleVariableSupport) getVariableSupport();
-        variableSupport.setType("org.eclipse.ui.IPlaceholderFolderLayout");
-      }
-      // replace methods for folder and its views
-      editor.replaceInvocationName(getInvocation(), "createPlaceholderFolder");
-      setViewsMethodName("addPlaceholder");
-    } else if (!makePlaceholder && wasPlaceholder) {
-      // replace variable type to IFolderLayout
-      if (getVariableSupport() instanceof AbstractSimpleVariableSupport) {
-        AbstractSimpleVariableSupport variableSupport =
-            (AbstractSimpleVariableSupport) getVariableSupport();
-        variableSupport.setType("org.eclipse.ui.IFolderLayout");
-      }
-      // replace methods for folder and its views
-      editor.replaceInvocationName(getInvocation(), "createFolder");
-      setViewsMethodName("addView");
-    }
-  }
+	/**
+	 * If given <code>makePlaceholder</code> argument is <code>true</code>,converts creation to use
+	 * {@link IPageLayout#createPlaceholderFolder(String, int, float, String)}.
+	 */
+	public void setPlaceholder(final boolean makePlaceholder) throws Exception {
+		AstEditor editor = getEditor();
+		boolean wasPlaceholder = isPlaceholder2();
+		if (makePlaceholder && !wasPlaceholder) {
+			// replace variable type to IPlaceholderFolderLayout
+			if (getVariableSupport() instanceof AbstractSimpleVariableSupport) {
+				AbstractSimpleVariableSupport variableSupport =
+						(AbstractSimpleVariableSupport) getVariableSupport();
+				variableSupport.setType("org.eclipse.ui.IPlaceholderFolderLayout");
+			}
+			// replace methods for folder and its views
+			editor.replaceInvocationName(getInvocation(), "createPlaceholderFolder");
+			setViewsMethodName("addPlaceholder");
+		} else if (!makePlaceholder && wasPlaceholder) {
+			// replace variable type to IFolderLayout
+			if (getVariableSupport() instanceof AbstractSimpleVariableSupport) {
+				AbstractSimpleVariableSupport variableSupport =
+						(AbstractSimpleVariableSupport) getVariableSupport();
+				variableSupport.setType("org.eclipse.ui.IFolderLayout");
+			}
+			// replace methods for folder and its views
+			editor.replaceInvocationName(getInvocation(), "createFolder");
+			setViewsMethodName("addView");
+		}
+	}
 
-  /**
-   * Replaces name of method between <code>"addView"</code> and <code>"addPlaceholder"</code>.
-   */
-  private void setViewsMethodName(String methodName) throws Exception {
-    AstEditor editor = getEditor();
-    for (FolderViewInfo view : getViews()) {
-      MethodInvocation invocation = view.getInvocation();
-      editor.replaceInvocationName(invocation, methodName);
-    }
-  }
+	/**
+	 * Replaces name of method between <code>"addView"</code> and <code>"addPlaceholder"</code>.
+	 */
+	private void setViewsMethodName(String methodName) throws Exception {
+		AstEditor editor = getEditor();
+		for (FolderViewInfo view : getViews()) {
+			MethodInvocation invocation = view.getInvocation();
+			editor.replaceInvocationName(invocation, methodName);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Image getPresentationIcon() {
-    return Activator.getImage("info/perspective/folder.gif");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Image getPresentationIcon() {
+		return Activator.getImage("info/perspective/folder.gif");
+	}
 
-  @Override
-  protected String getPresentationText() {
-    return getId();
-  }
+	@Override
+	protected String getPresentationText() {
+		return getId();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final int VIEWS_CONTAINER_MARGIN = 8;
-  private CTabFolder m_folder;
-  private Composite m_viewsComposite;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final int VIEWS_CONTAINER_MARGIN = 8;
+	private CTabFolder m_folder;
+	private Composite m_viewsComposite;
 
-  @Override
-  public Object getComponentObject() {
-    return m_folder;
-  }
+	@Override
+	public Object getComponentObject() {
+		return m_folder;
+	}
 
-  @Override
-  public Object render() throws Exception {
-    m_folder = PageLayoutInfo.createPartFolder(m_page.getPartsComposite());
-    // create views container, where we will add view icons
-    m_viewsComposite = new Composite(m_folder.getParent(), SWT.NONE);
-    {
-      {
-        RowLayout rowLayout = new RowLayout();
-        rowLayout.justify = true;
-        m_viewsComposite.setLayout(rowLayout);
-      }
-      // view container should be always above client area of folder
-      m_viewsComposite.moveAbove(m_folder);
-      m_folder.addControlListener(new ControlAdapter() {
-        @Override
-        public void controlResized(ControlEvent e) {
-          relocateViewsComposite();
-        }
+	@Override
+	public Object render() throws Exception {
+		m_folder = PageLayoutInfo.createPartFolder(m_page.getPartsComposite());
+		// create views container, where we will add view icons
+		m_viewsComposite = new Composite(m_folder.getParent(), SWT.NONE);
+		{
+			{
+				RowLayout rowLayout = new RowLayout();
+				rowLayout.justify = true;
+				m_viewsComposite.setLayout(rowLayout);
+			}
+			// view container should be always above client area of folder
+			m_viewsComposite.moveAbove(m_folder);
+			m_folder.addControlListener(new ControlAdapter() {
+				@Override
+				public void controlResized(ControlEvent e) {
+					relocateViewsComposite();
+				}
 
-        private void relocateViewsComposite() {
-          Rectangle bounds = m_folder.getBounds();
-          Rectangle clientArea = m_folder.getClientArea();
-          // change margins
-          clientArea.x += VIEWS_CONTAINER_MARGIN;
-          clientArea.width -= 2 * VIEWS_CONTAINER_MARGIN;
-          clientArea.y += VIEWS_CONTAINER_MARGIN;
-          clientArea.height -= 2 * VIEWS_CONTAINER_MARGIN;
-          // real parent for views composite is parent of folder, so change bounds
-          clientArea.x += bounds.x;
-          clientArea.y += bounds.y;
-          //
-          m_viewsComposite.setBounds(clientArea);
-        }
-      });
-    }
-    // return mock as object
-    {
-      return new ByteBuddy() //
-          .subclass(getDescription().getComponentClass()) //
-          .method(ElementMatchers.any()) //
-          .intercept(StubMethod.INSTANCE) //
-          .make() //
-          .load(JavaInfoUtils.getClassLoader(this)) //
-          .getLoaded() //
-          .getConstructor() //
-          .newInstance();
-    }
-  }
+				private void relocateViewsComposite() {
+					Rectangle bounds = m_folder.getBounds();
+					Rectangle clientArea = m_folder.getClientArea();
+					// change margins
+					clientArea.x += VIEWS_CONTAINER_MARGIN;
+					clientArea.width -= 2 * VIEWS_CONTAINER_MARGIN;
+					clientArea.y += VIEWS_CONTAINER_MARGIN;
+					clientArea.height -= 2 * VIEWS_CONTAINER_MARGIN;
+					// real parent for views composite is parent of folder, so change bounds
+					clientArea.x += bounds.x;
+					clientArea.y += bounds.y;
+					//
+					m_viewsComposite.setBounds(clientArea);
+				}
+			});
+		}
+		// return mock as object
+		{
+			return new ByteBuddy() //
+					.subclass(getDescription().getComponentClass()) //
+					.method(ElementMatchers.any()) //
+					.intercept(StubMethod.INSTANCE) //
+					.make() //
+					.load(JavaInfoUtils.getClassLoader(this)) //
+					.getLoaded() //
+					.getConstructor() //
+					.newInstance();
+		}
+	}
 
-  /**
-   * @return the {@link CTabFolder} widget, to add {@link CTabItem}'s for {@link FolderViewInfo}.
-   */
-  CTabFolder getFolder() {
-    return m_folder;
-  }
+	/**
+	 * @return the {@link CTabFolder} widget, to add {@link CTabItem}'s for {@link FolderViewInfo}.
+	 */
+	CTabFolder getFolder() {
+		return m_folder;
+	}
 
-  /**
-   * @return the {@link Composite}, to add {@link Control}'s for {@link FolderViewInfo}.
-   */
-  Composite getViewsComposite() {
-    return m_viewsComposite;
-  }
+	/**
+	 * @return the {@link Composite}, to add {@link Control}'s for {@link FolderViewInfo}.
+	 */
+	Composite getViewsComposite() {
+		return m_viewsComposite;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_afterCreate() throws Exception {
-    super.refresh_afterCreate();
-    // select first item
-    m_folder.setSelection(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_afterCreate() throws Exception {
+		super.refresh_afterCreate();
+		// select first item
+		m_folder.setSelection(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link FolderViewInfo}.
-   *
-   * @return the created {@link FolderViewInfo}.
-   */
-  public FolderViewInfo command_CREATE(String viewId, FolderViewInfo nextView) throws Exception {
-    // add new MethodInvocation
-    MethodInvocation newInvocation;
-    {
-      StatementTarget target = JavaInfoUtils.getTarget(this, nextView);
-      String source =
-          TemplateUtils.format("{0}.{1}({2})", this, isPlaceholder2()
-              ? "addPlaceholder"
-              : "addView", StringConverter.INSTANCE.toJavaSource(this, viewId));
-      newInvocation = (MethodInvocation) addExpressionStatement(target, source);
-    }
-    // create new FolderView_Info
-    FolderViewInfo newView = new FolderViewInfo(this, newInvocation);
-    moveChild(newView, nextView);
-    // add related nodes
-    {
-      newView.bindToExpression(newInvocation);
-      newView.addRelatedNodes(newInvocation);
-      addRelatedNodes(newInvocation);
-    }
-    // OK, we have new view
-    return newView;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link FolderViewInfo}.
+	 *
+	 * @return the created {@link FolderViewInfo}.
+	 */
+	public FolderViewInfo command_CREATE(String viewId, FolderViewInfo nextView) throws Exception {
+		// add new MethodInvocation
+		MethodInvocation newInvocation;
+		{
+			StatementTarget target = JavaInfoUtils.getTarget(this, nextView);
+			String source =
+					TemplateUtils.format("{0}.{1}({2})", this, isPlaceholder2()
+							? "addPlaceholder"
+									: "addView", StringConverter.INSTANCE.toJavaSource(this, viewId));
+			newInvocation = (MethodInvocation) addExpressionStatement(target, source);
+		}
+		// create new FolderView_Info
+		FolderViewInfo newView = new FolderViewInfo(this, newInvocation);
+		moveChild(newView, nextView);
+		// add related nodes
+		{
+			newView.bindToExpression(newInvocation);
+			newView.addRelatedNodes(newInvocation);
+			addRelatedNodes(newInvocation);
+		}
+		// OK, we have new view
+		return newView;
+	}
 
-  /**
-   * Moves existing {@link FolderViewInfo} inside or into this folder.
-   */
-  public FolderViewInfo command_MOVE(FolderViewInfo view, FolderViewInfo nextView) throws Exception {
-    if (view.getParent() == this) {
-      JavaInfoUtils.move(view, null, this, nextView);
-      return view;
-    } else {
-      FolderViewInfo newView = command_CREATE(view.getId(), nextView);
-      view.delete();
-      return newView;
-    }
-  }
+	/**
+	 * Moves existing {@link FolderViewInfo} inside or into this folder.
+	 */
+	public FolderViewInfo command_MOVE(FolderViewInfo view, FolderViewInfo nextView) throws Exception {
+		if (view.getParent() == this) {
+			JavaInfoUtils.move(view, null, this, nextView);
+			return view;
+		} else {
+			FolderViewInfo newView = command_CREATE(view.getId(), nextView);
+			view.delete();
+			return newView;
+		}
+	}
 
-  /**
-   * Creates new {@link FolderViewInfo} using existing {@link PageLayoutAddViewInfo}.
-   *
-   * @return the created {@link FolderViewInfo}.
-   */
-  public FolderViewInfo command_MOVE(PageLayoutAddViewInfo topView, FolderViewInfo nextView)
-      throws Exception {
-    FolderViewInfo newView = command_CREATE(topView.getId(), nextView);
-    topView.delete();
-    return newView;
-  }
+	/**
+	 * Creates new {@link FolderViewInfo} using existing {@link PageLayoutAddViewInfo}.
+	 *
+	 * @return the created {@link FolderViewInfo}.
+	 */
+	public FolderViewInfo command_MOVE(PageLayoutAddViewInfo topView, FolderViewInfo nextView)
+			throws Exception {
+		FolderViewInfo newView = command_CREATE(topView.getId(), nextView);
+		topView.delete();
+		return newView;
+	}
 }

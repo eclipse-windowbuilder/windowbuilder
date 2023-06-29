@@ -39,247 +39,247 @@ import java.util.List;
  * @author mitin_aa
  */
 final class FormLayoutSnapPointsProvider<C extends IControlInfo>
-    extends
-      SnapPoints.DefaultSnapPoints {
-  private final FormLayoutVisualDataProvider<C> m_vdProvider;
-  private final List<? extends IAbstractComponentInfo> m_allWidgets;
-  private final IFormLayoutInfo<C> m_layout;
+extends
+SnapPoints.DefaultSnapPoints {
+	private final FormLayoutVisualDataProvider<C> m_vdProvider;
+	private final List<? extends IAbstractComponentInfo> m_allWidgets;
+	private final IFormLayoutInfo<C> m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormLayoutSnapPointsProvider(IFormLayoutInfo<C> layout,
-      FormLayoutVisualDataProvider<C> visualDataProvider,
-      List<? extends IAbstractComponentInfo> allWidgets) {
-    super(visualDataProvider, allWidgets);
-    m_layout = layout;
-    m_vdProvider = visualDataProvider;
-    m_allWidgets = allWidgets;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormLayoutSnapPointsProvider(IFormLayoutInfo<C> layout,
+			FormLayoutVisualDataProvider<C> visualDataProvider,
+			List<? extends IAbstractComponentInfo> allWidgets) {
+		super(visualDataProvider, allWidgets);
+		m_layout = layout;
+		m_vdProvider = visualDataProvider;
+		m_allWidgets = allWidgets;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ISnapPointsProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public List<SnapPoint> forComponent(IAbstractComponentInfo target, boolean isHorizontal) {
-    List<SnapPoint> pts = Lists.newArrayList();
-    int lSide = PlacementUtils.getSide(isHorizontal, true);
-    int tSide = PlacementUtils.getSide(isHorizontal, false);
-    if (isHorizontal) {
-      // snap to child on left side with indent
-      SnapPoint snapPoint = new IndentedComponentSnapPoint(m_vdProvider, target);
-      pts.add(snapPoint);
-    } else {
-      // baseline snap
-      SnapPoint snapPoint = new BaselineComponentSnapPoint(m_vdProvider, target);
-      pts.add(snapPoint);
-    }
-    // snap to child on leading side with gap
-    {
-      SnapPoint snapPoint =
-          new ComponentSnapPoint(m_vdProvider, target, lSide, PlacementInfo.TRAILING, true);
-      snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
-      pts.add(snapPoint);
-    }
-    // snap to child on leading side
-    {
-      ComponentSnapPoint snapPoint =
-          new ComponentSnapPoint(m_vdProvider, target, lSide, PlacementInfo.LEADING);
-      snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
-      pts.add(snapPoint);
-    }
-    // snap to child on trailing side with gap
-    {
-      SnapPoint snapPoint =
-          new ComponentSnapPoint(m_vdProvider, target, tSide, PlacementInfo.LEADING, true);
-      snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
-      pts.add(snapPoint);
-    }
-    // snap to child on trailing side
-    {
-      SnapPoint snapPoint =
-          new ComponentSnapPoint(m_vdProvider, target, tSide, PlacementInfo.TRAILING);
-      snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
-      pts.add(snapPoint);
-    }
-    return pts;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ISnapPointsProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public List<SnapPoint> forComponent(IAbstractComponentInfo target, boolean isHorizontal) {
+		List<SnapPoint> pts = Lists.newArrayList();
+		int lSide = PlacementUtils.getSide(isHorizontal, true);
+		int tSide = PlacementUtils.getSide(isHorizontal, false);
+		if (isHorizontal) {
+			// snap to child on left side with indent
+			SnapPoint snapPoint = new IndentedComponentSnapPoint(m_vdProvider, target);
+			pts.add(snapPoint);
+		} else {
+			// baseline snap
+			SnapPoint snapPoint = new BaselineComponentSnapPoint(m_vdProvider, target);
+			pts.add(snapPoint);
+		}
+		// snap to child on leading side with gap
+		{
+			SnapPoint snapPoint =
+					new ComponentSnapPoint(m_vdProvider, target, lSide, PlacementInfo.TRAILING, true);
+			snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
+			pts.add(snapPoint);
+		}
+		// snap to child on leading side
+		{
+			ComponentSnapPoint snapPoint =
+					new ComponentSnapPoint(m_vdProvider, target, lSide, PlacementInfo.LEADING);
+			snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
+			pts.add(snapPoint);
+		}
+		// snap to child on trailing side with gap
+		{
+			SnapPoint snapPoint =
+					new ComponentSnapPoint(m_vdProvider, target, tSide, PlacementInfo.LEADING, true);
+			snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
+			pts.add(snapPoint);
+		}
+		// snap to child on trailing side
+		{
+			SnapPoint snapPoint =
+					new ComponentSnapPoint(m_vdProvider, target, tSide, PlacementInfo.TRAILING);
+			snapPoint.setCommand(new MoveToComponentCommand<C>(m_layout, snapPoint));
+			pts.add(snapPoint);
+		}
+		return pts;
+	}
 
-  @Override
-  public List<SnapPoint> forContainer(boolean isHorizontal) {
-    List<SnapPoint> pts = Lists.newArrayList();
-    int leadingSide = PlacementUtils.getSide(isHorizontal, true);
-    int trailingSide = PlacementUtils.getSide(isHorizontal, false);
-    // snap to parent at leading side with gap
-    {
-      SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, leadingSide, true);
-      snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
-      pts.add(snapPoint);
-    }
-    // snap to parent at leading side
-    {
-      SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, leadingSide);
-      snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
-      pts.add(snapPoint);
-    }
-    // snap to parent at trailing side with gap
-    {
-      SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, trailingSide, true);
-      snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
-      pts.add(snapPoint);
-    }
-    // snap to parent at trailing side
-    {
-      SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, trailingSide);
-      snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
-      pts.add(snapPoint);
-    }
-    // 'same size'
-    {
-      SnapPoint snapPoint = new SameSizeSnapPoint(m_vdProvider, m_allWidgets, leadingSide);
-      pts.add(snapPoint);
-    }
-    {
-      SnapPoint snapPoint = new SameSizeSnapPoint(m_vdProvider, m_allWidgets, trailingSide);
-      pts.add(snapPoint);
-    }
-    // percentage
-    for (Integer percent : m_vdProvider.getPercentsValues(isHorizontal)) {
-      {
-        SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, leadingSide, percent, true);
-        snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
-        pts.add(snapPoint);
-      }
-      {
-        SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, leadingSide, percent);
-        snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
-        pts.add(snapPoint);
-      }
-      {
-        SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, trailingSide, percent, true);
-        snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
-        pts.add(snapPoint);
-      }
-      {
-        SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, trailingSide, percent);
-        snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
-        pts.add(snapPoint);
-      }
-    }
-    return pts;
-  }
+	@Override
+	public List<SnapPoint> forContainer(boolean isHorizontal) {
+		List<SnapPoint> pts = Lists.newArrayList();
+		int leadingSide = PlacementUtils.getSide(isHorizontal, true);
+		int trailingSide = PlacementUtils.getSide(isHorizontal, false);
+		// snap to parent at leading side with gap
+		{
+			SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, leadingSide, true);
+			snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
+			pts.add(snapPoint);
+		}
+		// snap to parent at leading side
+		{
+			SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, leadingSide);
+			snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
+			pts.add(snapPoint);
+		}
+		// snap to parent at trailing side with gap
+		{
+			SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, trailingSide, true);
+			snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
+			pts.add(snapPoint);
+		}
+		// snap to parent at trailing side
+		{
+			SnapPoint snapPoint = new ContainerSnapPoint(m_vdProvider, trailingSide);
+			snapPoint.setCommand(new MoveToContainerCommand<C>(m_layout, snapPoint));
+			pts.add(snapPoint);
+		}
+		// 'same size'
+		{
+			SnapPoint snapPoint = new SameSizeSnapPoint(m_vdProvider, m_allWidgets, leadingSide);
+			pts.add(snapPoint);
+		}
+		{
+			SnapPoint snapPoint = new SameSizeSnapPoint(m_vdProvider, m_allWidgets, trailingSide);
+			pts.add(snapPoint);
+		}
+		// percentage
+		for (Integer percent : m_vdProvider.getPercentsValues(isHorizontal)) {
+			{
+				SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, leadingSide, percent, true);
+				snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
+				pts.add(snapPoint);
+			}
+			{
+				SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, leadingSide, percent);
+				snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
+				pts.add(snapPoint);
+			}
+			{
+				SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, trailingSide, percent, true);
+				snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
+				pts.add(snapPoint);
+			}
+			{
+				SnapPoint snapPoint = new PercentageSnapPoint<C>(m_vdProvider, trailingSide, percent);
+				snapPoint.setCommand(new MoveToPercentCommand<C>(m_layout, snapPoint));
+				pts.add(snapPoint);
+			}
+		}
+		return pts;
+	}
 
-  private static final class MoveToContainerCommand<C extends IControlInfo>
-      extends
-        SnapPointCommand {
-    private final IFormLayoutInfo<C> m_layout;
+	private static final class MoveToContainerCommand<C extends IControlInfo>
+	extends
+	SnapPointCommand {
+		private final IFormLayoutInfo<C> m_layout;
 
-    public MoveToContainerCommand(IFormLayoutInfo<C> layoutInfo, SnapPoint snapPoint) {
-      super(layoutInfo.getUnderlyingModel(), snapPoint);
-      m_layout = layoutInfo;
-    }
+		public MoveToContainerCommand(IFormLayoutInfo<C> layoutInfo, SnapPoint snapPoint) {
+			super(layoutInfo.getUnderlyingModel(), snapPoint);
+			m_layout = layoutInfo;
+		}
 
-    @Override
-    protected void executeEdit() throws Exception {
-      SnapPoint snapPoint = getSnapPoint();
-      int value = snapPoint.getValue();
-      FormLayoutInfoImplAutomatic<C> impl = (FormLayoutInfoImplAutomatic<C>) m_layout.getImpl();
-      impl.command_moveToContainer(
-          snapPoint.getWorkingSet(),
-          snapPoint.getNearestBeingSnapped(),
-          snapPoint.getSide(),
-          value);
-    }
-  }
-  private static final class MoveToComponentCommand<C extends IControlInfo>
-      extends
-        SnapPointCommand {
-    private final IFormLayoutInfo<C> m_layout;
+		@Override
+		protected void executeEdit() throws Exception {
+			SnapPoint snapPoint = getSnapPoint();
+			int value = snapPoint.getValue();
+			FormLayoutInfoImplAutomatic<C> impl = (FormLayoutInfoImplAutomatic<C>) m_layout.getImpl();
+			impl.command_moveToContainer(
+					snapPoint.getWorkingSet(),
+					snapPoint.getNearestBeingSnapped(),
+					snapPoint.getSide(),
+					value);
+		}
+	}
+	private static final class MoveToComponentCommand<C extends IControlInfo>
+	extends
+	SnapPointCommand {
+		private final IFormLayoutInfo<C> m_layout;
 
-    public MoveToComponentCommand(IFormLayoutInfo<C> layoutInfo, SnapPoint snapPoint) {
-      super(layoutInfo.getUnderlyingModel(), snapPoint);
-      m_layout = layoutInfo;
-    }
+		public MoveToComponentCommand(IFormLayoutInfo<C> layoutInfo, SnapPoint snapPoint) {
+			super(layoutInfo.getUnderlyingModel(), snapPoint);
+			m_layout = layoutInfo;
+		}
 
-    @Override
-    protected void executeEdit() throws Exception {
-      ComponentSnapPoint snapPoint = (ComponentSnapPoint) getSnapPoint();
-      int targetSide = snapPoint.getSide();
-      int gap = snapPoint.getGap();
-      int sourceSide = gap > 0 ? PlacementUtils.getOppositeSide(targetSide) : targetSide;
-      FormLayoutInfoImplAutomatic<C> impl = (FormLayoutInfoImplAutomatic<C>) m_layout.getImpl();
-      impl.command_moveAsAttachedToComponent(
-          snapPoint.getWorkingSet(),
-          snapPoint.getNearestBeingSnapped(),
-          sourceSide,
-          snapPoint.getComponent(),
-          targetSide,
-          gap);
-    }
-  }
-  private static final class MoveToPercentCommand<C extends IControlInfo> extends SnapPointCommand {
-    private final IFormLayoutInfo<C> m_layout;
+		@Override
+		protected void executeEdit() throws Exception {
+			ComponentSnapPoint snapPoint = (ComponentSnapPoint) getSnapPoint();
+			int targetSide = snapPoint.getSide();
+			int gap = snapPoint.getGap();
+			int sourceSide = gap > 0 ? PlacementUtils.getOppositeSide(targetSide) : targetSide;
+			FormLayoutInfoImplAutomatic<C> impl = (FormLayoutInfoImplAutomatic<C>) m_layout.getImpl();
+			impl.command_moveAsAttachedToComponent(
+					snapPoint.getWorkingSet(),
+					snapPoint.getNearestBeingSnapped(),
+					sourceSide,
+					snapPoint.getComponent(),
+					targetSide,
+					gap);
+		}
+	}
+	private static final class MoveToPercentCommand<C extends IControlInfo> extends SnapPointCommand {
+		private final IFormLayoutInfo<C> m_layout;
 
-    public MoveToPercentCommand(IFormLayoutInfo<C> layoutInfo, SnapPoint snapPoint) {
-      super(layoutInfo.getUnderlyingModel(), snapPoint);
-      m_layout = layoutInfo;
-    }
+		public MoveToPercentCommand(IFormLayoutInfo<C> layoutInfo, SnapPoint snapPoint) {
+			super(layoutInfo.getUnderlyingModel(), snapPoint);
+			m_layout = layoutInfo;
+		}
 
-    @Override
-    protected void executeEdit() throws Exception {
-      @SuppressWarnings("unchecked")
-      PercentageSnapPoint<C> snapPoint = (PercentageSnapPoint<C>) getSnapPoint();
-      FormLayoutInfoImplAutomatic<C> impl = (FormLayoutInfoImplAutomatic<C>) m_layout.getImpl();
-      impl.command_moveToPercent(
-          snapPoint.getWorkingSet(),
-          snapPoint.getNearestBeingSnapped(),
-          snapPoint.getSide(),
-          snapPoint.getPercent(),
-          snapPoint.getGap());
-    }
-  }
-  static final class MoveFreelyCommand<C extends IControlInfo> extends EditCommand {
-    private final List<? extends IAbstractComponentInfo> m_components;
-    private final int m_moveDirection;
-    private final boolean m_isHorizontal;
-    private final IFormLayoutInfo<C> m_layout;
-    private final IVisualDataProvider m_visualDataProvider;
-    private final Rectangle m_bounds;
+		@Override
+		protected void executeEdit() throws Exception {
+			@SuppressWarnings("unchecked")
+			PercentageSnapPoint<C> snapPoint = (PercentageSnapPoint<C>) getSnapPoint();
+			FormLayoutInfoImplAutomatic<C> impl = (FormLayoutInfoImplAutomatic<C>) m_layout.getImpl();
+			impl.command_moveToPercent(
+					snapPoint.getWorkingSet(),
+					snapPoint.getNearestBeingSnapped(),
+					snapPoint.getSide(),
+					snapPoint.getPercent(),
+					snapPoint.getGap());
+		}
+	}
+	static final class MoveFreelyCommand<C extends IControlInfo> extends EditCommand {
+		private final List<? extends IAbstractComponentInfo> m_components;
+		private final int m_moveDirection;
+		private final boolean m_isHorizontal;
+		private final IFormLayoutInfo<C> m_layout;
+		private final IVisualDataProvider m_visualDataProvider;
+		private final Rectangle m_bounds;
 
-    MoveFreelyCommand(IFormLayoutInfo<C> layoutInfo,
-        Rectangle bounds,
-        List<? extends IAbstractComponentInfo> components,
-        int moveDirection,
-        boolean isHorizontal,
-        IVisualDataProvider provider) {
-      super(layoutInfo);
-      m_layout = layoutInfo;
-      m_bounds = bounds;
-      m_components = components;
-      m_moveDirection = moveDirection;
-      m_isHorizontal = isHorizontal;
-      m_visualDataProvider = provider;
-    }
+		MoveFreelyCommand(IFormLayoutInfo<C> layoutInfo,
+				Rectangle bounds,
+				List<? extends IAbstractComponentInfo> components,
+				int moveDirection,
+				boolean isHorizontal,
+				IVisualDataProvider provider) {
+			super(layoutInfo);
+			m_layout = layoutInfo;
+			m_bounds = bounds;
+			m_components = components;
+			m_moveDirection = moveDirection;
+			m_isHorizontal = isHorizontal;
+			m_visualDataProvider = provider;
+		}
 
-    @Override
-    protected void executeEdit() throws Exception {
-      FormLayoutInfoImplAutomatic<C> impl = (FormLayoutInfoImplAutomatic<C>) m_layout.getImpl();
-      IAbstractComponentInfo nearestComponentToSide =
-          SnapPoint.getNearestComponentToSide(
-              m_components,
-              m_moveDirection,
-              m_isHorizontal,
-              m_visualDataProvider);
-      impl.command_moveFreely(
-          m_bounds,
-          m_components,
-          nearestComponentToSide,
-          m_moveDirection,
-          m_isHorizontal);
-    }
-  }
+		@Override
+		protected void executeEdit() throws Exception {
+			FormLayoutInfoImplAutomatic<C> impl = (FormLayoutInfoImplAutomatic<C>) m_layout.getImpl();
+			IAbstractComponentInfo nearestComponentToSide =
+					SnapPoint.getNearestComponentToSide(
+							m_components,
+							m_moveDirection,
+							m_isHorizontal,
+							m_visualDataProvider);
+			impl.command_moveFreely(
+					m_bounds,
+					m_components,
+					nearestComponentToSide,
+					m_moveDirection,
+					m_isHorizontal);
+		}
+	}
 }

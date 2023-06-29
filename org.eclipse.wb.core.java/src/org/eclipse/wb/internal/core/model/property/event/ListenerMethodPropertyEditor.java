@@ -28,67 +28,67 @@ import org.eclipse.swt.graphics.Point;
  * @coverage core.model.property.events
  */
 final class ListenerMethodPropertyEditor extends TextDisplayPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new ListenerMethodPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new ListenerMethodPropertyEditor();
 
-  private ListenerMethodPropertyEditor() {
-  }
+	private ListenerMethodPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TextDisplayPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    ListenerMethodProperty methodProperty = (ListenerMethodProperty) property;
-    MethodDeclaration method = methodProperty.findStubMethod();
-    if (method != null) {
-      JavaInfo javaInfo = methodProperty.getJavaInfo();
-      int line = javaInfo.getEditor().getLineNumber(method.getStartPosition());
-      return "line " + line;
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TextDisplayPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		ListenerMethodProperty methodProperty = (ListenerMethodProperty) property;
+		MethodDeclaration method = methodProperty.findStubMethod();
+		if (method != null) {
+			JavaInfo javaInfo = methodProperty.getJavaInfo();
+			int line = javaInfo.getEditor().getLineNumber(method.getStartPosition());
+			return "line " + line;
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void doubleClick(Property property, Point location) throws Exception {
-    openStubMethod(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void doubleClick(Property property, Point location) throws Exception {
+		openStubMethod(property);
+	}
 
-  @Override
-  public boolean activate(PropertyTable propertyTable, Property property, Point location)
-      throws Exception {
-    if (location == null) {
-      openStubMethod(property);
-    }
-    return false;
-  }
+	@Override
+	public boolean activate(PropertyTable propertyTable, Property property, Point location)
+			throws Exception {
+		if (location == null) {
+			openStubMethod(property);
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Opens stub method in "Source" page.
-   */
-  private void openStubMethod(Property property) throws Exception {
-    final ListenerMethodProperty methodProperty = (ListenerMethodProperty) property;
-    ExecutionUtils.run(methodProperty.getJavaInfo(), new RunnableEx() {
-      @Override
-      public void run() throws Exception {
-        methodProperty.openStubMethod();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Opens stub method in "Source" page.
+	 */
+	private void openStubMethod(Property property) throws Exception {
+		final ListenerMethodProperty methodProperty = (ListenerMethodProperty) property;
+		ExecutionUtils.run(methodProperty.getJavaInfo(), new RunnableEx() {
+			@Override
+			public void run() throws Exception {
+				methodProperty.openStubMethod();
+			}
+		});
+	}
 }

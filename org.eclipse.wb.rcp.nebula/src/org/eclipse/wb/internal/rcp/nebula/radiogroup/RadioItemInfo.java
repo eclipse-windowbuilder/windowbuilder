@@ -27,34 +27,34 @@ import org.eclipse.swt.widgets.Button;
  * @coverage nebula.model
  */
 public final class RadioItemInfo extends ItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public RadioItemInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public RadioItemInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    super.refresh_fetch();
-    fixBodyBounds();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		super.refresh_fetch();
+		fixBodyBounds();
+	}
 
-  /**
-   * Get bounds from inner {@link Button} widget.
-   */
-  private void fixBodyBounds() throws Exception {
-    Button button = (Button) ReflectionUtils.invokeMethod(getObject(), "getButton()");
-    Rectangle bounds = RectangleSupport.getRectangle(button.getBounds());
-    setModelBounds(bounds);
-  }
+	/**
+	 * Get bounds from inner {@link Button} widget.
+	 */
+	private void fixBodyBounds() throws Exception {
+		Button button = (Button) ReflectionUtils.invokeMethod(getObject(), "getButton()");
+		Rectangle bounds = RectangleSupport.getRectangle(button.getBounds());
+		setModelBounds(bounds);
+	}
 }

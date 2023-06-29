@@ -21,8 +21,8 @@ import java.util.Map;
  * @coverage XML.model.property
  */
 public interface IConfigurablePropertyObject {
-  /**
-   * Configures object with given {@link Map} of parameters.
-   */
-  void configure(EditorContext context, Map<String, Object> parameters) throws Exception;
+	/**
+	 * Configures object with given {@link Map} of parameters.
+	 */
+	void configure(EditorContext context, Map<String, Object> parameters) throws Exception;
 }

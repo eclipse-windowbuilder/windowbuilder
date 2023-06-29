@@ -432,7 +432,7 @@ public final class PlacementsSupport {
 			} else {
 				int distance = placementInfo.getAttachmentType() == AttachmentTypes.ComponentWithOffset
 						? placementInfo.getDistances()[direction]
-						: 0;
+								: 0;
 				m_layoutCommands.attachWidgetParallelly(widget, attachedToWidget, side, distance);
 			}
 		}
@@ -580,7 +580,7 @@ public final class PlacementsSupport {
 					// parallel attachment
 					distance = placementInfo.getAttachmentType() == AttachmentTypes.ComponentWithOffset
 							? placementInfo.getDistances()[direction]
-							: 0;
+									: 0;
 					m_layoutCommands.attachWidgetParallelly(widget, attachedToWidget, side, distance);
 				}
 				if (!isAttachedOppositeSide) {
@@ -780,7 +780,7 @@ public final class PlacementsSupport {
 			placementInfo.getDistances()[direction] = distance;
 			aligningBounds.x += distance;
 		}
-			break;
+		break;
 		case IPositionConstants.LEFT:
 		case IPositionConstants.TOP:
 			aligningBounds.x = sampleBounds.x;

@@ -19,30 +19,30 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
  * @coverage core.util
  */
 public class Debug {
-  /**
-   * Prints debug output on console, only if developers host.
-   */
-  public static void print(Object s) {
-    if (EnvironmentUtils.DEVELOPER_HOST) {
-      System.out.print(s);
-    }
-  }
+	/**
+	 * Prints debug output on console, only if developers host.
+	 */
+	public static void print(Object s) {
+		if (EnvironmentUtils.DEVELOPER_HOST) {
+			System.out.print(s);
+		}
+	}
 
-  /**
-   * Prints debug output on console, only if developers host.
-   */
-  public static void println(Object s) {
-    if (EnvironmentUtils.DEVELOPER_HOST) {
-      System.out.println(s);
-    }
-  }
+	/**
+	 * Prints debug output on console, only if developers host.
+	 */
+	public static void println(Object s) {
+		if (EnvironmentUtils.DEVELOPER_HOST) {
+			System.out.println(s);
+		}
+	}
 
-  /**
-   * Prints new line on console, only if developers host.
-   */
-  public static void println() {
-    if (EnvironmentUtils.DEVELOPER_HOST) {
-      System.out.println();
-    }
-  }
+	/**
+	 * Prints new line on console, only if developers host.
+	 */
+	public static void println() {
+		if (EnvironmentUtils.DEVELOPER_HOST) {
+			System.out.println();
+		}
+	}
 }

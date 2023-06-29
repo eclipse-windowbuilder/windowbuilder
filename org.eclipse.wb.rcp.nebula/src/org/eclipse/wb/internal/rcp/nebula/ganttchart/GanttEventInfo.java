@@ -26,30 +26,30 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage nebula.model
  */
 public final class GanttEventInfo extends AbstractComponentInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GanttEventInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GanttEventInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    {
-      Object swtBounds = ReflectionUtils.invokeMethod(getObject(), "getBounds()");
-      Rectangle bounds = RectangleSupport.getRectangle(swtBounds);
-      setModelBounds(bounds);
-    }
-    // continue in super()
-    super.refresh_fetch();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		{
+			Object swtBounds = ReflectionUtils.invokeMethod(getObject(), "getBounds()");
+			Rectangle bounds = RectangleSupport.getRectangle(swtBounds);
+			setModelBounds(bounds);
+		}
+		// continue in super()
+		super.refresh_fetch();
+	}
 }

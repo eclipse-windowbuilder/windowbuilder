@@ -29,59 +29,59 @@ import org.eclipse.ui.ide.IDE;
  * @author scheglov_ke
  */
 public class XwtJavaParseValidatorTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void tearDown() throws Exception {
-    DesignerPlugin.setDisplayExceptionOnConsole(true);
-    EnvironmentUtils.setTestingTime(true);
-    super.tearDown();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void tearDown() throws Exception {
+		DesignerPlugin.setDisplayExceptionOnConsole(true);
+		EnvironmentUtils.setTestingTime(true);
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_showWarning() throws Exception {
-    removeExceptionsListener();
-    DesignerPlugin.setDisplayExceptionOnConsole(false);
-    //
-    IFile javaFile =
-        setFileContentSrc(
-            "test/Test.java",
-            getJavaSource(
-                "// filler filler filler filler filler",
-                "public class Test {",
-                "  public static void main(String args[]) throws Exception {",
-                "    XWT.load((java.net.URL) null);",
-                "  }",
-                "}"));
-    IEditorPart javaEditor =
-        IDE.openEditor(DesignerPlugin.getActivePage(), javaFile, IDesignerEditor.ID);
-    // switch to Design
-    {
-      SwitchAction switchAction = new SwitchAction();
-      switchAction.setActiveEditor(null, javaEditor);
-      switchAction.run();
-    }
-    // prepare UIContext
-    UiContext context = new UiContext();
-    // WarningComposite is visible
-    Composite warningComposite = context.findFirstWidget(WarningComposite.class);
-    assertNotNull(warningComposite);
-    assertTrue(warningComposite.isVisible());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_showWarning() throws Exception {
+		removeExceptionsListener();
+		DesignerPlugin.setDisplayExceptionOnConsole(false);
+		//
+		IFile javaFile =
+				setFileContentSrc(
+						"test/Test.java",
+						getJavaSource(
+								"// filler filler filler filler filler",
+								"public class Test {",
+								"  public static void main(String args[]) throws Exception {",
+								"    XWT.load((java.net.URL) null);",
+								"  }",
+								"}"));
+		IEditorPart javaEditor =
+				IDE.openEditor(DesignerPlugin.getActivePage(), javaFile, IDesignerEditor.ID);
+		// switch to Design
+		{
+			SwitchAction switchAction = new SwitchAction();
+			switchAction.setActiveEditor(null, javaEditor);
+			switchAction.run();
+		}
+		// prepare UIContext
+		UiContext context = new UiContext();
+		// WarningComposite is visible
+		Composite warningComposite = context.findFirstWidget(WarningComposite.class);
+		assertNotNull(warningComposite);
+		assertTrue(warningComposite.isVisible());
+	}
 }

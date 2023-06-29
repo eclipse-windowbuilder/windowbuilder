@@ -21,23 +21,23 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class GenericTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.generic");
-    suite.addTest(createSingleSuite(FlipBooleanPropertyGefTest.class));
-    suite.addTest(createSingleSuite(ContainerObjectValidatorsTest.class));
-    // flow container
-    suite.addTest(createSingleSuite(FlowContainerModelTest.class));
-    suite.addTest(createSingleSuite(FlowContainerGefTest.class));
-    suite.addTest(createSingleSuite(FlowContainerLayoutGefTest.class));
-    // simple container
-    suite.addTest(createSingleSuite(SimpleContainerModelTest.class));
-    suite.addTest(createSingleSuite(SimpleContainerGefTest.class));
-    suite.addTest(createSingleSuite(SimpleContainerLayoutGefTest.class));
-    // properties
-    suite.addTest(createSingleSuite(CopyPropertyTopTest.class));
-    suite.addTest(createSingleSuite(ModelMethodPropertyTest.class));
-    suite.addTest(createSingleSuite(ModelMethodPropertyChildTest.class));
-    // done
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.generic");
+		suite.addTest(createSingleSuite(FlipBooleanPropertyGefTest.class));
+		suite.addTest(createSingleSuite(ContainerObjectValidatorsTest.class));
+		// flow container
+		suite.addTest(createSingleSuite(FlowContainerModelTest.class));
+		suite.addTest(createSingleSuite(FlowContainerGefTest.class));
+		suite.addTest(createSingleSuite(FlowContainerLayoutGefTest.class));
+		// simple container
+		suite.addTest(createSingleSuite(SimpleContainerModelTest.class));
+		suite.addTest(createSingleSuite(SimpleContainerGefTest.class));
+		suite.addTest(createSingleSuite(SimpleContainerLayoutGefTest.class));
+		// properties
+		suite.addTest(createSingleSuite(CopyPropertyTopTest.class));
+		suite.addTest(createSingleSuite(ModelMethodPropertyTest.class));
+		suite.addTest(createSingleSuite(ModelMethodPropertyChildTest.class));
+		// done
+		return suite;
+	}
 }

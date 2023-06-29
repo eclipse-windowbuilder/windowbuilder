@@ -18,8 +18,8 @@ package org.eclipse.wb.internal.core.xml.model;
  * @coverage XML.model
  */
 public interface IXMLObjectInitializationParticipator {
-  /**
-   * Participates in given {@link XmlObjectInfo} initialization.
-   */
-  void process(XmlObjectInfo object) throws Exception;
+	/**
+	 * Participates in given {@link XmlObjectInfo} initialization.
+	 */
+	void process(XmlObjectInfo object) throws Exception;
 }

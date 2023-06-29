@@ -22,16 +22,16 @@ import org.xml.sax.Attributes;
  * @coverage core.model.description
  */
 public final class ParameterTagRule extends AbstractDesignerRule {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rule
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    String tag = getRequiredAttribute(name, attributes, "name");
-    String value = getRequiredAttribute(name, attributes, "value");
-    ParameterDescription parameterDescription = (ParameterDescription) getDigester().peek();
-    parameterDescription.putTag(tag, value);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rule
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void begin(String namespace, String name, Attributes attributes) throws Exception {
+		String tag = getRequiredAttribute(name, attributes, "name");
+		String value = getRequiredAttribute(name, attributes, "value");
+		ParameterDescription parameterDescription = (ParameterDescription) getDigester().peek();
+		parameterDescription.putTag(tag, value);
+	}
 }

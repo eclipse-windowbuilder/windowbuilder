@@ -28,68 +28,68 @@ import org.eclipse.swt.widgets.ToolBar;
  * @coverage core.editor
  */
 public final class JavaDesignToolbarHelper extends DesignToolbarHelper {
-  private DesignPageActions m_pageActions;
-  private ExternalizeStringsContributionItem m_externalizeItem;
+	private DesignPageActions m_pageActions;
+	private ExternalizeStringsContributionItem m_externalizeItem;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaDesignToolbarHelper(ToolBar toolBar) {
-    super(toolBar);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaDesignToolbarHelper(ToolBar toolBar) {
+		super(toolBar);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Initializes with {@link DesignPageActions} and {@link IEditPartViewer}.
-   */
-  public void initialize(DesignPageActions pageActions, IEditPartViewer viewer) {
-    super.initialize(viewer);
-    m_pageActions = pageActions;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Initializes with {@link DesignPageActions} and {@link IEditPartViewer}.
+	 */
+	public void initialize(DesignPageActions pageActions, IEditPartViewer viewer) {
+		super.initialize(viewer);
+		m_pageActions = pageActions;
+	}
 
-  /**
-   * Fills {@link ToolBar} with actions.
-   */
-  @Override
-  public void fill() {
-    {
-      m_toolBarManager.add(m_pageActions.getErrorsAction());
-      m_toolBarManager.add(new Separator());
-    }
-    {
-      m_toolBarManager.add(m_pageActions.getTestAction());
-      m_toolBarManager.add(m_pageActions.getRefreshAction());
-      m_toolBarManager.add(new Separator());
-    }
-    super.fill();
-    /* $if oem.name != "RIM" $ */
-    {
-      m_toolBarManager.add(m_pageActions.getAssistantAction());
-      m_toolBarManager.add(new Separator());
-    }
-    {
-      m_externalizeItem = new ExternalizeStringsContributionItem();
-      m_toolBarManager.add(m_externalizeItem);
-    }
-    /* $endif$ */
-    super.fill2();
-  }
+	/**
+	 * Fills {@link ToolBar} with actions.
+	 */
+	@Override
+	public void fill() {
+		{
+			m_toolBarManager.add(m_pageActions.getErrorsAction());
+			m_toolBarManager.add(new Separator());
+		}
+		{
+			m_toolBarManager.add(m_pageActions.getTestAction());
+			m_toolBarManager.add(m_pageActions.getRefreshAction());
+			m_toolBarManager.add(new Separator());
+		}
+		super.fill();
+		/* $if oem.name != "RIM" $ */
+		{
+			m_toolBarManager.add(m_pageActions.getAssistantAction());
+			m_toolBarManager.add(new Separator());
+		}
+		{
+			m_externalizeItem = new ExternalizeStringsContributionItem();
+			m_toolBarManager.add(m_externalizeItem);
+		}
+		/* $endif$ */
+		super.fill2();
+	}
 
-  /**
-   * Sets the root {@link JavaInfo} on {@link DesignPage}.
-   */
-  @Override
-  public void setRoot(ObjectInfo rootObject) {
-    super.setRoot(rootObject);
-    /* $if oem.name != "RIM" $ */
-    m_externalizeItem.setRoot((JavaInfo) rootObject);
-    /* $endif$ */
-    m_toolBarManager.getControl().getParent().layout();
-  }
+	/**
+	 * Sets the root {@link JavaInfo} on {@link DesignPage}.
+	 */
+	@Override
+	public void setRoot(ObjectInfo rootObject) {
+		super.setRoot(rootObject);
+		/* $if oem.name != "RIM" $ */
+		m_externalizeItem.setRoot((JavaInfo) rootObject);
+		/* $endif$ */
+		m_toolBarManager.getControl().getParent().layout();
+	}
 }

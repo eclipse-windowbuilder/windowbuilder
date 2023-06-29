@@ -28,28 +28,28 @@ import java.util.List;
  * @coverage swt.model.layout
  */
 public final class GridLayoutAssistant extends LayoutAssistantSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridLayoutAssistant(ILayoutInfo<?> layout) {
-    super(layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridLayoutAssistant(ILayoutInfo<?> layout) {
+		super(layout);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected AbstractAssistantPage createLayoutPage(Composite parent) {
-    return new GridLayoutAssistantPage(parent, m_layout);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected AbstractAssistantPage createLayoutPage(Composite parent) {
+		return new GridLayoutAssistantPage(parent, m_layout);
+	}
 
-  @Override
-  protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
-    List<ILayoutDataInfo> dataList = getDataList(objects);
-    return new GridLayoutDataAssistantPage(parent, dataList);
-  }
+	@Override
+	protected AbstractAssistantPage createConstraintsPage(Composite parent, List<ObjectInfo> objects) {
+		List<ILayoutDataInfo> dataList = getDataList(objects);
+		return new GridLayoutDataAssistantPage(parent, dataList);
+	}
 }

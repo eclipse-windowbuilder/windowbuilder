@@ -19,10 +19,10 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class GefLayoutTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.layout.gef");
-    suite.addTest(createSingleSuite(BorderLayoutPolicyTest.class));
-    suite.addTest(createSingleSuite(GridLayoutPolicyTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.layout.gef");
+		suite.addTest(createSingleSuite(BorderLayoutPolicyTest.class));
+		suite.addTest(createSingleSuite(GridLayoutPolicyTest.class));
+		return suite;
+	}
 }

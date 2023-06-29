@@ -24,75 +24,75 @@ import org.eclipse.swt.widgets.Control;
  * @author scheglov_ke
  */
 public class CellEditorTest extends RcpModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_TextCellEditor() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    TextCellEditor textCellEditor = new TextCellEditor(this, SWT.BORDER);",
-            "  }",
-            "}");
-    assertHierarchy(
-        "{this: org.eclipse.swt.widgets.Shell} {this} {/new TextCellEditor(this, SWT.BORDER)/}",
-        "  {implicit-layout: absolute} {implicit-layout} {}",
-        "  {viewer: public org.eclipse.swt.widgets.Control org.eclipse.jface.viewers.CellEditor.getControl()} {viewer} {}",
-        "    {new: org.eclipse.jface.viewers.TextCellEditor} {local-unique: textCellEditor} {/new TextCellEditor(this, SWT.BORDER)/}");
-    // refresh()
-    shell.refresh();
-    assertNoErrors(shell);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_TextCellEditor() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    TextCellEditor textCellEditor = new TextCellEditor(this, SWT.BORDER);",
+						"  }",
+						"}");
+		assertHierarchy(
+				"{this: org.eclipse.swt.widgets.Shell} {this} {/new TextCellEditor(this, SWT.BORDER)/}",
+				"  {implicit-layout: absolute} {implicit-layout} {}",
+				"  {viewer: public org.eclipse.swt.widgets.Control org.eclipse.jface.viewers.CellEditor.getControl()} {viewer} {}",
+				"    {new: org.eclipse.jface.viewers.TextCellEditor} {local-unique: textCellEditor} {/new TextCellEditor(this, SWT.BORDER)/}");
+		// refresh()
+		shell.refresh();
+		assertNoErrors(shell);
+	}
 
-  /**
-   * {@link CheckboxCellEditor} has no {@link Control}, so can not be used as viewer.
-   */
-  public void test_CheckboxCellEditor() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    CheckboxCellEditor cellEditor = new CheckboxCellEditor(this, SWT.NONE);",
-            "  }",
-            "}");
-    assertHierarchy(
-        "{this: org.eclipse.swt.widgets.Shell} {this} {/new CheckboxCellEditor(this, SWT.NONE)/}",
-        "  {implicit-layout: absolute} {implicit-layout} {}");
-    // refresh()
-    shell.refresh();
-    assertNoErrors(shell);
-  }
+	/**
+	 * {@link CheckboxCellEditor} has no {@link Control}, so can not be used as viewer.
+	 */
+	public void test_CheckboxCellEditor() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    CheckboxCellEditor cellEditor = new CheckboxCellEditor(this, SWT.NONE);",
+						"  }",
+						"}");
+		assertHierarchy(
+				"{this: org.eclipse.swt.widgets.Shell} {this} {/new CheckboxCellEditor(this, SWT.NONE)/}",
+				"  {implicit-layout: absolute} {implicit-layout} {}");
+		// refresh()
+		shell.refresh();
+		assertNoErrors(shell);
+	}
 
-  /**
-   * {@link ComboBoxCellEditor} constructor has no items (for #setItems).
-   */
-  public void test_ComboBoxCellEditor() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    ComboBoxCellEditor cellEditor = new ComboBoxCellEditor(this, null);",
-            "  }",
-            "}");
-    assertHierarchy(
-        "{this: org.eclipse.swt.widgets.Shell} {this} {/new ComboBoxCellEditor(this, null)/}",
-        "  {implicit-layout: absolute} {implicit-layout} {}",
-        "  {viewer: public org.eclipse.swt.widgets.Control org.eclipse.jface.viewers.CellEditor.getControl()} {viewer} {}",
-        "    {new: org.eclipse.jface.viewers.ComboBoxCellEditor} {local-unique: cellEditor} {/new ComboBoxCellEditor(this, null)/}");
-    // refresh()
-    shell.refresh();
-    assertNoErrors(shell);
-  }
+	/**
+	 * {@link ComboBoxCellEditor} constructor has no items (for #setItems).
+	 */
+	public void test_ComboBoxCellEditor() throws Exception {
+		CompositeInfo shell =
+				parseComposite(
+						"public class Test extends Shell {",
+						"  public Test() {",
+						"    ComboBoxCellEditor cellEditor = new ComboBoxCellEditor(this, null);",
+						"  }",
+						"}");
+		assertHierarchy(
+				"{this: org.eclipse.swt.widgets.Shell} {this} {/new ComboBoxCellEditor(this, null)/}",
+				"  {implicit-layout: absolute} {implicit-layout} {}",
+				"  {viewer: public org.eclipse.swt.widgets.Control org.eclipse.jface.viewers.CellEditor.getControl()} {viewer} {}",
+				"    {new: org.eclipse.jface.viewers.ComboBoxCellEditor} {local-unique: cellEditor} {/new ComboBoxCellEditor(this, null)/}");
+		// refresh()
+		shell.refresh();
+		assertNoErrors(shell);
+	}
 }

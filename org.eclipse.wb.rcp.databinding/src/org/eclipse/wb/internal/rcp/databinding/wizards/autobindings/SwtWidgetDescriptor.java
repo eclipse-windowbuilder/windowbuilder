@@ -24,88 +24,88 @@ import org.apache.commons.lang.StringUtils;
  * @coverage bindings.rcp.wizard.auto
  */
 public final class SwtWidgetDescriptor extends AbstractDescriptor {
-  private String m_fullClassName;
-  private String m_className;
-  private String m_createCode;
-  private String m_bindingCode;
-  private String[] m_classes;
+	private String m_fullClassName;
+	private String m_className;
+	private String m_createCode;
+	private String m_bindingCode;
+	private String[] m_classes;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the widget short class name.
-   */
-  public String getClassName() {
-    return m_className;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the widget short class name.
+	 */
+	public String getClassName() {
+		return m_className;
+	}
 
-  /**
-   * @return the widget class name.
-   */
-  public String getFullClassName() {
-    return m_fullClassName;
-  }
+	/**
+	 * @return the widget class name.
+	 */
+	public String getFullClassName() {
+		return m_fullClassName;
+	}
 
-  /**
-   * Sets widget class name.
-   */
-  public void setFullClassName(String className) {
-    m_fullClassName = className;
-    m_className = ClassUtils.getShortClassName(m_fullClassName);
-  }
+	/**
+	 * Sets widget class name.
+	 */
+	public void setFullClassName(String className) {
+		m_fullClassName = className;
+		m_className = ClassUtils.getShortClassName(m_fullClassName);
+	}
 
-  /**
-   * @return the widget creation code.
-   */
-  public String getCreateCode(String parent) {
-    return StringUtils.replace(m_createCode, "%parent%", parent);
-  }
+	/**
+	 * @return the widget creation code.
+	 */
+	public String getCreateCode(String parent) {
+		return StringUtils.replace(m_createCode, "%parent%", parent);
+	}
 
-  /**
-   * Sets the widget creation code.
-   */
-  public void setCreateCode(String code) {
-    m_createCode = code;
-  }
+	/**
+	 * Sets the widget creation code.
+	 */
+	public void setCreateCode(String code) {
+		m_createCode = code;
+	}
 
-  /**
-   * @return the widget binding code.
-   */
-  public String getBindingCode(String widget) {
-    return StringUtils.replace(m_bindingCode, "%widget%", widget);
-  }
+	/**
+	 * @return the widget binding code.
+	 */
+	public String getBindingCode(String widget) {
+		return StringUtils.replace(m_bindingCode, "%widget%", widget);
+	}
 
-  /**
-   * Sets the widget binding code.
-   */
-  public void setBindingCode(String code) {
-    m_bindingCode = code;
-  }
+	/**
+	 * Sets the widget binding code.
+	 */
+	public void setBindingCode(String code) {
+		m_bindingCode = code;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Default
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets widget binding property association type.
-   */
-  public void setPropertyType(String types) {
-    m_classes = StringUtils.split(types);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Default
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets widget binding property association type.
+	 */
+	public void setPropertyType(String types) {
+		m_classes = StringUtils.split(types);
+	}
 
-  @Override
-  public boolean isDefault(Object property) {
-    PropertyAdapter propertyAdapter = (PropertyAdapter) property;
-    Class<?> propertyType = propertyAdapter.getType();
-    //
-    if (propertyType != null) {
-      return ArrayUtils.contains(m_classes, propertyType.getName());
-    }
-    //
-    return false;
-  }
+	@Override
+	public boolean isDefault(Object property) {
+		PropertyAdapter propertyAdapter = (PropertyAdapter) property;
+		Class<?> propertyType = propertyAdapter.getType();
+		//
+		if (propertyType != null) {
+			return ArrayUtils.contains(m_classes, propertyType.getName());
+		}
+		//
+		return false;
+	}
 }

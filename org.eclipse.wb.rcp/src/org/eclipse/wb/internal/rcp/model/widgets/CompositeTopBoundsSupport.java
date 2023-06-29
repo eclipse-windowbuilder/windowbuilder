@@ -20,14 +20,14 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
  * @coverage rcp.model.widgets
  */
 public final class CompositeTopBoundsSupport
-    extends
-      org.eclipse.wb.internal.swt.model.widgets.CompositeTopBoundsSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CompositeTopBoundsSupport(CompositeInfo composite) {
-    super(composite);
-  }
+extends
+org.eclipse.wb.internal.swt.model.widgets.CompositeTopBoundsSupport {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CompositeTopBoundsSupport(CompositeInfo composite) {
+		super(composite);
+	}
 }

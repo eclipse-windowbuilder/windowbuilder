@@ -17,11 +17,11 @@ package org.eclipse.wb.internal.core.model.description.resource;
  * @coverage core.model.description
  */
 public final class ClassResourceInfo {
-  public final Class<?> clazz;
-  public final ResourceInfo resource;
+	public final Class<?> clazz;
+	public final ResourceInfo resource;
 
-  public ClassResourceInfo(Class<?> clazz, ResourceInfo resource) {
-    this.clazz = clazz;
-    this.resource = resource;
-  }
+	public ClassResourceInfo(Class<?> clazz, ResourceInfo resource) {
+		this.clazz = clazz;
+		this.resource = resource;
+	}
 }

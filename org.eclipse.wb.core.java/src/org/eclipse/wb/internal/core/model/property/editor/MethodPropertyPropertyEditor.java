@@ -28,56 +28,56 @@ import java.util.List;
  * @coverage core.model.property.editor
  */
 public final class MethodPropertyPropertyEditor extends TextDisplayPropertyEditor
-    implements
-      IComplexPropertyEditor {
-  private final String m_text;
-  private final List<GenericPropertyDescription> m_descriptions;
+implements
+IComplexPropertyEditor {
+	private final String m_text;
+	private final List<GenericPropertyDescription> m_descriptions;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MethodPropertyPropertyEditor(String text, List<GenericPropertyDescription> descriptions) {
-    m_text = text;
-    m_descriptions = descriptions;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MethodPropertyPropertyEditor(String text, List<GenericPropertyDescription> descriptions) {
+		m_text = text;
+		m_descriptions = descriptions;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getText(Property property) throws Exception {
-    return m_text;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getText(Property property) throws Exception {
+		return m_text;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IComplexPropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Property[] getProperties(Property _methodProperty) throws Exception {
-    GenericProperty methodProperty = (GenericProperty) _methodProperty;
-    // lazily create sub-properties
-    Property[] properties = (Property[]) methodProperty.getArbitraryValue(this);
-    if (properties == null) {
-      properties = createProperties(methodProperty);
-      methodProperty.putArbitraryValue(this, properties);
-    }
-    // OK, we have sub-properties
-    return properties;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IComplexPropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Property[] getProperties(Property _methodProperty) throws Exception {
+		GenericProperty methodProperty = (GenericProperty) _methodProperty;
+		// lazily create sub-properties
+		Property[] properties = (Property[]) methodProperty.getArbitraryValue(this);
+		if (properties == null) {
+			properties = createProperties(methodProperty);
+			methodProperty.putArbitraryValue(this, properties);
+		}
+		// OK, we have sub-properties
+		return properties;
+	}
 
-  private Property[] createProperties(GenericProperty methodProperty) {
-    Property[] properties = new Property[m_descriptions.size()];
-    int propertyIndex = 0;
-    for (GenericPropertyDescription description : m_descriptions) {
-      JavaInfo javaInfo = methodProperty.getJavaInfo();
-      properties[propertyIndex++] = PropertyUtils2.createGenericPropertyImpl(javaInfo, description);
-    }
-    return properties;
-  }
+	private Property[] createProperties(GenericProperty methodProperty) {
+		Property[] properties = new Property[m_descriptions.size()];
+		int propertyIndex = 0;
+		for (GenericPropertyDescription description : m_descriptions) {
+			JavaInfo javaInfo = methodProperty.getJavaInfo();
+			properties[propertyIndex++] = PropertyUtils2.createGenericPropertyImpl(javaInfo, description);
+		}
+		return properties;
+	}
 }

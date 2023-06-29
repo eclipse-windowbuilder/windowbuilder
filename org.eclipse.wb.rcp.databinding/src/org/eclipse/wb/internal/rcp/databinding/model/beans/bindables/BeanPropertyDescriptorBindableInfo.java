@@ -26,60 +26,60 @@ import java.beans.PropertyDescriptor;
  * @coverage bindings.rcp.model.beans
  */
 public final class BeanPropertyDescriptorBindableInfo extends BeanPropertyBindableInfo {
-  private final PropertyDescriptor m_descriptor;
+	private final PropertyDescriptor m_descriptor;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BeanPropertyDescriptorBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      PropertyDescriptor descriptor) throws Exception {
-    super(beanSupport, parent, descriptor.getPropertyType(), createReference(
-        parent,
-        descriptor.getName()), createPresentation(
-        parent,
-        descriptor.getName(),
-        descriptor.getPropertyType()));
-    m_descriptor = descriptor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BeanPropertyDescriptorBindableInfo(BeanSupport beanSupport,
+			IObserveInfo parent,
+			PropertyDescriptor descriptor) throws Exception {
+		super(beanSupport, parent, descriptor.getPropertyType(), createReference(
+				parent,
+				descriptor.getName()), createPresentation(
+						parent,
+						descriptor.getName(),
+						descriptor.getPropertyType()));
+		m_descriptor = descriptor;
+	}
 
-  private static String createReference(IObserveInfo parent, String reference) throws Exception {
-    if (parent instanceof BeanPropertyDescriptorBindableInfo) {
-      BeanPropertyDescriptorBindableInfo bindableParent =
-          (BeanPropertyDescriptorBindableInfo) parent;
-      return StringUtils.removeEnd(bindableParent.getReference(), "\"") + "." + reference + "\"";
-    }
-    return "\"" + reference + "\"";
-  }
+	private static String createReference(IObserveInfo parent, String reference) throws Exception {
+		if (parent instanceof BeanPropertyDescriptorBindableInfo) {
+			BeanPropertyDescriptorBindableInfo bindableParent =
+					(BeanPropertyDescriptorBindableInfo) parent;
+			return StringUtils.removeEnd(bindableParent.getReference(), "\"") + "." + reference + "\"";
+		}
+		return "\"" + reference + "\"";
+	}
 
-  private static IObservePresentation createPresentation(IObserveInfo parent,
-      String reference,
-      Class<?> objectType) throws Exception {
-    if (parent instanceof BeanPropertyDescriptorBindableInfo) {
-      BeanPropertyDescriptorBindableInfo bindableParent =
-          (BeanPropertyDescriptorBindableInfo) parent;
-      String parentReference = StringUtils.removeStart(bindableParent.getReference(), "\"");
-      parentReference = StringUtils.removeEnd(parentReference, "\"");
-      //
-      final String bindingReference = parentReference + "." + reference;
-      return new SimpleObservePresentation(reference,
-          bindingReference,
-          TypeImageProvider.getImage(objectType));
-    }
-    return new SimpleObservePresentation(reference, TypeImageProvider.getImage(objectType));
-  }
+	private static IObservePresentation createPresentation(IObserveInfo parent,
+			String reference,
+			Class<?> objectType) throws Exception {
+		if (parent instanceof BeanPropertyDescriptorBindableInfo) {
+			BeanPropertyDescriptorBindableInfo bindableParent =
+					(BeanPropertyDescriptorBindableInfo) parent;
+			String parentReference = StringUtils.removeStart(bindableParent.getReference(), "\"");
+			parentReference = StringUtils.removeEnd(parentReference, "\"");
+			//
+			final String bindingReference = parentReference + "." + reference;
+			return new SimpleObservePresentation(reference,
+					bindingReference,
+					TypeImageProvider.getImage(objectType));
+		}
+		return new SimpleObservePresentation(reference, TypeImageProvider.getImage(objectType));
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Access to property {@link PropertyDescriptor}.
-   */
-  public PropertyDescriptor getDescriptor() {
-    return m_descriptor;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Access to property {@link PropertyDescriptor}.
+	 */
+	public PropertyDescriptor getDescriptor() {
+		return m_descriptor;
+	}
 }

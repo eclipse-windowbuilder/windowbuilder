@@ -39,119 +39,119 @@ import java.util.List;
  * @coverage bindings.rcp.emf.model
  */
 public final class EObjectBindableInfo extends BindableInfo {
-  private final VariableDeclarationFragment m_fragment;
-  private final PropertiesSupport m_propertiesSupport;
-  private final IObservePresentation m_presentation;
-  private final List<EPropertyBindableInfo> m_properties = Lists.newArrayList();
+	private final VariableDeclarationFragment m_fragment;
+	private final PropertiesSupport m_propertiesSupport;
+	private final IObservePresentation m_presentation;
+	private final List<EPropertyBindableInfo> m_properties = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EObjectBindableInfo(Class<?> objectType,
-      VariableDeclarationFragment fragment,
-      PropertiesSupport propertiesSupport,
-      IModelResolver resolver) throws Exception {
-    super(objectType, new FragmentReferenceProvider(fragment));
-    setBindingDecoration(SwtResourceManager.TOP_RIGHT);
-    m_fragment = fragment;
-    m_propertiesSupport = propertiesSupport;
-    m_presentation = new EObjectObservePresentation(this);
-    // add properties
-    for (PropertyInfo propertyInfo : propertiesSupport.getProperties(objectType)) {
-      m_properties.add(new EPropertyBindableInfo(propertiesSupport,
-          null,
-          propertyInfo.type,
-          propertyInfo.name,
-          propertyInfo.reference));
-    }
-    // check observable object
-    if (CoreUtils.isAssignableFrom(m_propertiesSupport.getIObservableValue(), objectType)) {
-      DirectPropertyBindableInfo property = new DirectPropertyBindableInfo(objectType);
-      m_properties.add(property);
-      //
-      if (resolver != null) {
-        DirectObservableInfo directObservable = new DirectObservableInfo(this, property);
-        resolver.addModelSupport(new DirectFieldModelSupport(directObservable));
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EObjectBindableInfo(Class<?> objectType,
+			VariableDeclarationFragment fragment,
+			PropertiesSupport propertiesSupport,
+			IModelResolver resolver) throws Exception {
+		super(objectType, new FragmentReferenceProvider(fragment));
+		setBindingDecoration(SwtResourceManager.TOP_RIGHT);
+		m_fragment = fragment;
+		m_propertiesSupport = propertiesSupport;
+		m_presentation = new EObjectObservePresentation(this);
+		// add properties
+		for (PropertyInfo propertyInfo : propertiesSupport.getProperties(objectType)) {
+			m_properties.add(new EPropertyBindableInfo(propertiesSupport,
+					null,
+					propertyInfo.type,
+					propertyInfo.name,
+					propertyInfo.reference));
+		}
+		// check observable object
+		if (CoreUtils.isAssignableFrom(m_propertiesSupport.getIObservableValue(), objectType)) {
+			DirectPropertyBindableInfo property = new DirectPropertyBindableInfo(objectType);
+			m_properties.add(property);
+			//
+			if (resolver != null) {
+				DirectObservableInfo directObservable = new DirectObservableInfo(this, property);
+				resolver.addModelSupport(new DirectFieldModelSupport(directObservable));
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VariableDeclarationFragment getFragment() {
-    return m_fragment;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VariableDeclarationFragment getFragment() {
+		return m_fragment;
+	}
 
-  public PropertiesSupport getPropertiesSupport() {
-    return m_propertiesSupport;
-  }
+	public PropertiesSupport getPropertiesSupport() {
+		return m_propertiesSupport;
+	}
 
-  @Override
-  public EPropertyBindableInfo resolvePropertyReference(String reference) throws Exception {
-    if (reference.startsWith("org.eclipse.emf.databinding.FeaturePath.fromList(")) {
-      reference = StringUtils.substringBetween(reference, "(", ")");
-      String[] references = StringUtils.split(reference, ", ");
-      //
-      for (EPropertyBindableInfo property : m_properties) {
-        if (references[0].equals(property.getReference())) {
-          return property.resolvePropertyReference(references, 1);
-        }
-      }
-    } else {
-      for (EPropertyBindableInfo property : m_properties) {
-        if (reference.equals(property.getReference())) {
-          return property;
-        }
-      }
-    }
-    return null;
-  }
+	@Override
+	public EPropertyBindableInfo resolvePropertyReference(String reference) throws Exception {
+		if (reference.startsWith("org.eclipse.emf.databinding.FeaturePath.fromList(")) {
+			reference = StringUtils.substringBetween(reference, "(", ")");
+			String[] references = StringUtils.split(reference, ", ");
+			//
+			for (EPropertyBindableInfo property : m_properties) {
+				if (references[0].equals(property.getReference())) {
+					return property.resolvePropertyReference(references, 1);
+				}
+			}
+		} else {
+			for (EPropertyBindableInfo property : m_properties) {
+				if (reference.equals(property.getReference())) {
+					return property;
+				}
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObserveInfo getParent() {
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObserveInfo getParent() {
+		return null;
+	}
 
-  @Override
-  protected List<BindableInfo> getChildren() {
-    return Collections.emptyList();
-  }
+	@Override
+	protected List<BindableInfo> getChildren() {
+		return Collections.emptyList();
+	}
 
-  @Override
-  public List<IObserveInfo> getChildren(ChildrenContext context) {
-    if (context == ChildrenContext.ChildrenForPropertiesTable) {
-      return CoreUtils.cast(m_properties);
-    }
-    return Collections.emptyList();
-  }
+	@Override
+	public List<IObserveInfo> getChildren(ChildrenContext context) {
+		if (context == ChildrenContext.ChildrenForPropertiesTable) {
+			return CoreUtils.cast(m_properties);
+		}
+		return Collections.emptyList();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public IObservePresentation getPresentation() {
-    return m_presentation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public IObservePresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ObserveType
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ObserveType getType() {
-    return EmfObserveTypeContainer.TYPE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ObserveType
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ObserveType getType() {
+		return EmfObserveTypeContainer.TYPE;
+	}
 }

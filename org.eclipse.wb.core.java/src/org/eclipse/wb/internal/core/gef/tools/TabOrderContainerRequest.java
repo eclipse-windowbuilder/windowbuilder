@@ -24,78 +24,78 @@ import java.util.List;
  * @coverage core.gef
  */
 public final class TabOrderContainerRequest extends Request {
-  private List<AbstractComponentInfo> m_possibleChildren;
-  private List<AbstractComponentInfo> m_children;
-  private Object m_selectedChild;
-  private Command m_command;
+	private List<AbstractComponentInfo> m_possibleChildren;
+	private List<AbstractComponentInfo> m_children;
+	private Object m_selectedChild;
+	private Command m_command;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public TabOrderContainerRequest(Object type) {
-    super(type);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public TabOrderContainerRequest(Object type) {
+		super(type);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return children that can be selected or not in list of tab order.
-   */
-  public List<AbstractComponentInfo> getPossibleChildren() {
-    return m_possibleChildren;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return children that can be selected or not in list of tab order.
+	 */
+	public List<AbstractComponentInfo> getPossibleChildren() {
+		return m_possibleChildren;
+	}
 
-  /**
-   * Sets children that can be selected or not in list of tab order.
-   */
-  public void setPossibleChildren(List<AbstractComponentInfo> possibleChildren) {
-    m_possibleChildren = possibleChildren;
-  }
+	/**
+	 * Sets children that can be selected or not in list of tab order.
+	 */
+	public void setPossibleChildren(List<AbstractComponentInfo> possibleChildren) {
+		m_possibleChildren = possibleChildren;
+	}
 
-  /**
-   * @return selected children that should be reordered.
-   */
-  public List<AbstractComponentInfo> getChildren() {
-    return m_children;
-  }
+	/**
+	 * @return selected children that should be reordered.
+	 */
+	public List<AbstractComponentInfo> getChildren() {
+		return m_children;
+	}
 
-  /**
-   * Sets selected children that should be reordered.
-   */
-  public void setChildren(List<AbstractComponentInfo> children) {
-    m_children = children;
-  }
+	/**
+	 * Sets selected children that should be reordered.
+	 */
+	public void setChildren(List<AbstractComponentInfo> children) {
+		m_children = children;
+	}
 
-  /**
-   * @return the current selection for change ordering.
-   */
-  public Object getSelectedChild() {
-    return m_selectedChild;
-  }
+	/**
+	 * @return the current selection for change ordering.
+	 */
+	public Object getSelectedChild() {
+		return m_selectedChild;
+	}
 
-  /**
-   * Sets current selection for change ordering.
-   */
-  public void setSelectedChild(Object selectedChild) {
-    m_selectedChild = selectedChild;
-  }
+	/**
+	 * Sets current selection for change ordering.
+	 */
+	public void setSelectedChild(Object selectedChild) {
+		m_selectedChild = selectedChild;
+	}
 
-  /**
-   * @return {@link Command} for execute reordering.
-   */
-  public Command getCommand() {
-    return m_command;
-  }
+	/**
+	 * @return {@link Command} for execute reordering.
+	 */
+	public Command getCommand() {
+		return m_command;
+	}
 
-  /**
-   * Sets {@link Command} for execute reordering.
-   */
-  public void setCommand(Command command) {
-    m_command = command;
-  }
+	/**
+	 * Sets {@link Command} for execute reordering.
+	 */
+	public void setCommand(Command command) {
+		m_command = command;
+	}
 }

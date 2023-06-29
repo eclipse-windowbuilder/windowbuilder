@@ -18,13 +18,13 @@ package org.eclipse.wb.internal.core.utils.reflect;
  * @coverage core.util
  */
 public interface IByteCodeProcessor {
-  /**
-   * This method invoked during add this processor to class loader.
-   */
-  void initialize(ProjectClassLoader classLoader);
+	/**
+	 * This method invoked during add this processor to class loader.
+	 */
+	void initialize(ProjectClassLoader classLoader);
 
-  /**
-   * @return the possibly modified bytes for given class.
-   */
-  byte[] process(String className, byte[] bytes);
+	/**
+	 * @return the possibly modified bytes for given class.
+	 */
+	byte[] process(String className, byte[] bytes);
 }

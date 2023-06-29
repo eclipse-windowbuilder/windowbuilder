@@ -45,250 +45,250 @@ import java.util.List;
  * @coverage swing.FormLayout.header
  */
 public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo> {
-  private final FormColumnInfo m_column;
+	private final FormColumnInfo m_column;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ColumnHeaderEditPart(FormLayoutInfo layout, FormColumnInfo column, Figure containerFigure) {
-    super(layout, column, containerFigure);
-    m_column = column;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ColumnHeaderEditPart(FormLayoutInfo layout, FormColumnInfo column, Figure containerFigure) {
+		super(layout, column, containerFigure);
+		m_column = column;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    Figure newFigure = new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        Rectangle r = getClientArea();
-        // draw rectangle
-        graphics.setForegroundColor(IColorConstants.buttonDarker);
-        graphics.drawLine(r.x, r.y, r.x, r.bottom());
-        graphics.drawLine(r.right() - 1, r.y, r.right() - 1, r.bottom());
-        // draw column index
-        int titleLeft;
-        int titleRight;
-        {
-          String title = "" + (1 + getIndex());
-          Dimension textExtents = graphics.getTextExtent(title);
-          if (r.width < 3 + textExtents.width + 3) {
-            return;
-          }
-          // draw title
-          titleLeft = r.x + (r.width - textExtents.width) / 2;
-          titleRight = titleLeft + textExtents.width;
-          int y = r.y + (r.height - textExtents.height) / 2;
-          graphics.setForegroundColor(IColorConstants.black);
-          graphics.drawText(title, titleLeft, y);
-        }
-        // draw alignment indicator
-        if (titleLeft - r.x > 3 + 7 + 3) {
-          Image image;
-          if (m_column.getAlignment() == ColumnSpec.LEFT) {
-            image = getImage("left.gif");
-          } else if (m_column.getAlignment() == ColumnSpec.RIGHT) {
-            image = getImage("right.gif");
-          } else if (m_column.getAlignment() == ColumnSpec.CENTER) {
-            image = getImage("center.gif");
-          } else {
-            image = getImage("fill.gif");
-          }
-          //
-          int x = r.x + 2;
-          drawCentered(graphics, image, x);
-        }
-        // draw grow indicator
-        if (m_column.hasGrow()) {
-          if (titleRight + 3 + 7 + 3 < r.right()) {
-            Image image = getImage("grow.gif");
-            drawCentered(graphics, image, r.right() - 3 - image.getBounds().width);
-          }
-        }
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		Figure newFigure = new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				Rectangle r = getClientArea();
+				// draw rectangle
+				graphics.setForegroundColor(IColorConstants.buttonDarker);
+				graphics.drawLine(r.x, r.y, r.x, r.bottom());
+				graphics.drawLine(r.right() - 1, r.y, r.right() - 1, r.bottom());
+				// draw column index
+				int titleLeft;
+				int titleRight;
+				{
+					String title = "" + (1 + getIndex());
+					Dimension textExtents = graphics.getTextExtent(title);
+					if (r.width < 3 + textExtents.width + 3) {
+						return;
+					}
+					// draw title
+					titleLeft = r.x + (r.width - textExtents.width) / 2;
+					titleRight = titleLeft + textExtents.width;
+					int y = r.y + (r.height - textExtents.height) / 2;
+					graphics.setForegroundColor(IColorConstants.black);
+					graphics.drawText(title, titleLeft, y);
+				}
+				// draw alignment indicator
+				if (titleLeft - r.x > 3 + 7 + 3) {
+					Image image;
+					if (m_column.getAlignment() == ColumnSpec.LEFT) {
+						image = getImage("left.gif");
+					} else if (m_column.getAlignment() == ColumnSpec.RIGHT) {
+						image = getImage("right.gif");
+					} else if (m_column.getAlignment() == ColumnSpec.CENTER) {
+						image = getImage("center.gif");
+					} else {
+						image = getImage("fill.gif");
+					}
+					//
+					int x = r.x + 2;
+					drawCentered(graphics, image, x);
+				}
+				// draw grow indicator
+				if (m_column.hasGrow()) {
+					if (titleRight + 3 + 7 + 3 < r.right()) {
+						Image image = getImage("grow.gif");
+						drawCentered(graphics, image, r.right() - 3 - image.getBounds().width);
+					}
+				}
+			}
 
-      private Image getImage(String name) {
-        return ColumnHeaderEditPart.this.getImage("alignment/h/" + name);
-      }
+			private Image getImage(String name) {
+				return ColumnHeaderEditPart.this.getImage("alignment/h/" + name);
+			}
 
-      private void drawCentered(Graphics graphics, Image image, int x) {
-        int y = (getBounds().height - image.getBounds().height) / 2;
-        graphics.drawImage(image, x, y);
-      }
-    };
-    //
-    newFigure.setFont(DEFAULT_FONT);
-    newFigure.setOpaque(true);
-    return newFigure;
-  }
+			private void drawCentered(Graphics graphics, Image image, int x) {
+				int y = (getBounds().height - image.getBounds().height) / 2;
+				graphics.drawImage(image, x, y);
+			}
+		};
+		//
+		newFigure.setFont(DEFAULT_FONT);
+		newFigure.setOpaque(true);
+		return newFigure;
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    super.refreshVisuals();
-    int index = getIndex();
-    Interval interval = m_layout.getGridInfo().getColumnIntervals()[index];
-    Rectangle bounds =
-        new Rectangle(interval.begin(),
-            0,
-            interval.length() + 1,
-            ((GraphicalEditPart) getParent()).getFigure().getSize().height);
-    bounds.performTranslate(getOffset().x, 0);
-    getFigure().setBounds(bounds);
-  }
+	@Override
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+		int index = getIndex();
+		Interval interval = m_layout.getGridInfo().getColumnIntervals()[index];
+		Rectangle bounds =
+				new Rectangle(interval.begin(),
+						0,
+						interval.length() + 1,
+						((GraphicalEditPart) getParent()).getFigure().getSize().height);
+		bounds.performTranslate(getOffset().x, 0);
+		getFigure().setBounds(bounds);
+	}
 
-  @Override
-  public int getIndex() {
-    return m_layout.getColumns().indexOf(m_column);
-  }
+	@Override
+	public int getIndex() {
+		return m_layout.getColumns().indexOf(m_column);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IHeaderMenuProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void buildContextMenu(IMenuManager manager) {
-    if (!m_layout.canChangeDimensions()) {
-      return;
-    }
-    // operations
-    {
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_insertColumn) {
-        @Override
-        protected void run(FormColumnInfo dimension) throws Exception {
-          int index = m_layout.getColumns().indexOf(dimension);
-          m_layout.insertColumn(index);
-        }
-      });
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_appendColumn) {
-        @Override
-        protected void run(FormColumnInfo dimension) throws Exception {
-          int index = m_layout.getColumns().indexOf(dimension);
-          m_layout.insertColumn(index + 1);
-        }
-      });
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_deleteColumn) {
-        @Override
-        protected void run(FormColumnInfo dimension) throws Exception {
-          int index = m_layout.getColumns().indexOf(dimension);
-          m_layout.deleteColumn(index);
-        }
-      });
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_DeleteContents) {
-        @Override
-        protected void run(FormColumnInfo dimension) throws Exception {
-          int index = m_layout.getColumns().indexOf(dimension);
-          m_layout.deleteColumnContents(index);
-        }
-      });
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_splitColumn) {
-        @Override
-        protected void run(FormColumnInfo dimension) throws Exception {
-          int index = m_layout.getColumns().indexOf(dimension);
-          m_layout.splitColumn(index);
-        }
-      });
-    }
-    // alignment
-    {
-      manager.add(new Separator());
-      manager.add(new SetAlignmentAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_haLeft,
-          Activator.getImageDescriptor("alignment/h/menu/left.gif"),
-          ColumnSpec.LEFT));
-      manager.add(new SetAlignmentAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_haFill,
-          Activator.getImageDescriptor("alignment/h/menu/fill.gif"),
-          ColumnSpec.FILL));
-      manager.add(new SetAlignmentAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_haCenter,
-          Activator.getImageDescriptor("alignment/h/menu/center.gif"),
-          ColumnSpec.CENTER));
-      manager.add(new SetAlignmentAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_haRight,
-          Activator.getImageDescriptor("alignment/h/menu/right.gif"),
-          ColumnSpec.RIGHT));
-    }
-    // grow
-    {
-      manager.add(new Separator());
-      manager.add(new SetGrowAction<FormColumnInfo>(this,
-          GefMessages.ColumnHeaderEditPart_grow,
-          Activator.getImageDescriptor("alignment/h/menu/grow.gif")));
-    }
-    // templates
-    {
-      manager.add(new Separator());
-      addTemplateActions(manager, m_dimension.getTemplates(true));
-      {
-        IMenuManager otherManager =
-            new MenuManager(GefMessages.ColumnHeaderEditPart_otherTemplates);
-        manager.add(otherManager);
-        addTemplateActions(otherManager, m_dimension.getTemplates(false));
-      }
-    }
-    // group
-    {
-      manager.add(new Separator());
-      {
-        DimensionHeaderAction<FormColumnInfo> action =
-            new DimensionHeaderAction<FormColumnInfo>(this, GefMessages.ColumnHeaderEditPart_group) {
-              @Override
-              protected void run(List<FormColumnInfo> dimensions) throws Exception {
-                m_layout.groupColumns(dimensions);
-              }
-            };
-        action.setEnabled(getViewer().getSelectedEditParts().size() >= 2);
-        manager.add(action);
-      }
-      {
-        DimensionHeaderAction<FormColumnInfo> action =
-            new DimensionHeaderAction<FormColumnInfo>(this,
-                GefMessages.ColumnHeaderEditPart_unGroup) {
-              @Override
-              protected void run(List<FormColumnInfo> dimensions) throws Exception {
-                m_layout.unGroupColumns(dimensions);
-              }
-            };
-        manager.add(action);
-        // check if there is grouped dimension selected
-        boolean hasGroup = false;
-        for (EditPart editPart : getViewer().getSelectedEditParts()) {
-          ColumnHeaderEditPart headerEditPart = (ColumnHeaderEditPart) editPart;
-          if (m_layout.getColumnGroup(headerEditPart.m_column) != null) {
-            hasGroup = true;
-            break;
-          }
-        }
-        // enable action
-        action.setEnabled(hasGroup);
-      }
-    }
-    // properties
-    {
-      manager.add(new Separator());
-      manager.add(new ObjectInfoAction(m_layout, GefMessages.ColumnHeaderEditPart_properties) {
-        @Override
-        protected void runEx() throws Exception {
-          editDimension();
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IHeaderMenuProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void buildContextMenu(IMenuManager manager) {
+		if (!m_layout.canChangeDimensions()) {
+			return;
+		}
+		// operations
+		{
+			manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_insertColumn) {
+				@Override
+				protected void run(FormColumnInfo dimension) throws Exception {
+					int index = m_layout.getColumns().indexOf(dimension);
+					m_layout.insertColumn(index);
+				}
+			});
+			manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_appendColumn) {
+				@Override
+				protected void run(FormColumnInfo dimension) throws Exception {
+					int index = m_layout.getColumns().indexOf(dimension);
+					m_layout.insertColumn(index + 1);
+				}
+			});
+			manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_deleteColumn) {
+				@Override
+				protected void run(FormColumnInfo dimension) throws Exception {
+					int index = m_layout.getColumns().indexOf(dimension);
+					m_layout.deleteColumn(index);
+				}
+			});
+			manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_DeleteContents) {
+				@Override
+				protected void run(FormColumnInfo dimension) throws Exception {
+					int index = m_layout.getColumns().indexOf(dimension);
+					m_layout.deleteColumnContents(index);
+				}
+			});
+			manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_splitColumn) {
+				@Override
+				protected void run(FormColumnInfo dimension) throws Exception {
+					int index = m_layout.getColumns().indexOf(dimension);
+					m_layout.splitColumn(index);
+				}
+			});
+		}
+		// alignment
+		{
+			manager.add(new Separator());
+			manager.add(new SetAlignmentAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_haLeft,
+					Activator.getImageDescriptor("alignment/h/menu/left.gif"),
+					ColumnSpec.LEFT));
+			manager.add(new SetAlignmentAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_haFill,
+					Activator.getImageDescriptor("alignment/h/menu/fill.gif"),
+					ColumnSpec.FILL));
+			manager.add(new SetAlignmentAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_haCenter,
+					Activator.getImageDescriptor("alignment/h/menu/center.gif"),
+					ColumnSpec.CENTER));
+			manager.add(new SetAlignmentAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_haRight,
+					Activator.getImageDescriptor("alignment/h/menu/right.gif"),
+					ColumnSpec.RIGHT));
+		}
+		// grow
+		{
+			manager.add(new Separator());
+			manager.add(new SetGrowAction<FormColumnInfo>(this,
+					GefMessages.ColumnHeaderEditPart_grow,
+					Activator.getImageDescriptor("alignment/h/menu/grow.gif")));
+		}
+		// templates
+		{
+			manager.add(new Separator());
+			addTemplateActions(manager, m_dimension.getTemplates(true));
+			{
+				IMenuManager otherManager =
+						new MenuManager(GefMessages.ColumnHeaderEditPart_otherTemplates);
+				manager.add(otherManager);
+				addTemplateActions(otherManager, m_dimension.getTemplates(false));
+			}
+		}
+		// group
+		{
+			manager.add(new Separator());
+			{
+				DimensionHeaderAction<FormColumnInfo> action =
+						new DimensionHeaderAction<FormColumnInfo>(this, GefMessages.ColumnHeaderEditPart_group) {
+					@Override
+					protected void run(List<FormColumnInfo> dimensions) throws Exception {
+						m_layout.groupColumns(dimensions);
+					}
+				};
+				action.setEnabled(getViewer().getSelectedEditParts().size() >= 2);
+				manager.add(action);
+			}
+			{
+				DimensionHeaderAction<FormColumnInfo> action =
+						new DimensionHeaderAction<FormColumnInfo>(this,
+								GefMessages.ColumnHeaderEditPart_unGroup) {
+					@Override
+					protected void run(List<FormColumnInfo> dimensions) throws Exception {
+						m_layout.unGroupColumns(dimensions);
+					}
+				};
+				manager.add(action);
+				// check if there is grouped dimension selected
+				boolean hasGroup = false;
+				for (EditPart editPart : getViewer().getSelectedEditParts()) {
+					ColumnHeaderEditPart headerEditPart = (ColumnHeaderEditPart) editPart;
+					if (m_layout.getColumnGroup(headerEditPart.m_column) != null) {
+						hasGroup = true;
+						break;
+					}
+				}
+				// enable action
+				action.setEnabled(hasGroup);
+			}
+		}
+		// properties
+		{
+			manager.add(new Separator());
+			manager.add(new ObjectInfoAction(m_layout, GefMessages.ColumnHeaderEditPart_properties) {
+				@Override
+				protected void runEx() throws Exception {
+					editDimension();
+				}
+			});
+		}
+	}
 
-  @Override
-  protected void editDimension() {
-    new ColumnEditDialog(DesignerPlugin.getShell(), m_layout, m_column).open();
-  }
+	@Override
+	protected void editDimension() {
+		new ColumnEditDialog(DesignerPlugin.getShell(), m_layout, m_column).open();
+	}
 }

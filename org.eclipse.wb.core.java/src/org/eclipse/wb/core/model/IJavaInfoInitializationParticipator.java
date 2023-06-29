@@ -17,8 +17,8 @@ package org.eclipse.wb.core.model;
  * @coverage core.model
  */
 public interface IJavaInfoInitializationParticipator {
-  /**
-   * Participates in given {@link JavaInfo} initialization.
-   */
-  void process(JavaInfo javaInfo) throws Exception;
+	/**
+	 * Participates in given {@link JavaInfo} initialization.
+	 */
+	void process(JavaInfo javaInfo) throws Exception;
 }

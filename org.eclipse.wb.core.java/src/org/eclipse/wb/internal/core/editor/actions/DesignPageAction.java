@@ -21,27 +21,27 @@ import org.eclipse.wb.internal.core.editor.multi.DesignerEditor;
  * @coverage core.editor.action
  */
 public abstract class DesignPageAction extends EditorRelatedAction {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final void run() {
-    DesignerEditor editor = getEditor();
-    if (editor != null) {
-      IDesignPage designPage = editor.getMultiMode().getDesignPage();
-      run(designPage);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final void run() {
+		DesignerEditor editor = getEditor();
+		if (editor != null) {
+			IDesignPage designPage = editor.getMultiMode().getDesignPage();
+			run(designPage);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DesignPageAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Runs the action with given {@link DesignPage}.
-   */
-  protected abstract void run(IDesignPage designPage);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DesignPageAction
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Runs the action with given {@link DesignPage}.
+	 */
+	protected abstract void run(IDesignPage designPage);
 }

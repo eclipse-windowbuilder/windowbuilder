@@ -26,84 +26,84 @@ import java.util.List;
  * @coverage bindings.swing.model
  */
 public abstract class SimpleClassObjectInfo extends AstObjectInfo {
-  private final String m_abstractClassName;
-  protected String m_className;
-  private String m_parameters;
+	private final String m_abstractClassName;
+	protected String m_className;
+	private String m_parameters;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SimpleClassObjectInfo(String abstractClassName, String className) {
-    m_abstractClassName = abstractClassName;
-    m_className = className;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SimpleClassObjectInfo(String abstractClassName, String className) {
+		m_abstractClassName = abstractClassName;
+		m_className = className;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getClassName() {
-    return m_className;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getClassName() {
+		return m_className;
+	}
 
-  public void setClassName(String className) {
-    m_className = className;
-  }
+	public void setClassName(String className) {
+		m_className = className;
+	}
 
-  protected IGenericType[] getTypeArguments() {
-    return null;
-  }
+	protected IGenericType[] getTypeArguments() {
+		return null;
+	}
 
-  public String getParameters() {
-    return m_parameters;
-  }
+	public String getParameters() {
+		return m_parameters;
+	}
 
-  public void setParameters(String parameters) {
-    m_parameters = parameters;
-  }
+	public void setParameters(String parameters) {
+		m_parameters = parameters;
+	}
 
-  public String getFullClassName() {
-    return StringUtils.isEmpty(m_parameters) ? m_className : m_className + m_parameters;
-  }
+	public String getFullClassName() {
+		return StringUtils.isEmpty(m_parameters) ? m_className : m_className + m_parameters;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    IGenericType[] typeArguments = getTypeArguments();
-    boolean variable = getVariableIdentifier() != null;
-    StringBuffer line = new StringBuffer();
-    if (variable) {
-      if (m_abstractClassName == null) {
-        line.append(m_className);
-      } else {
-        line.append(m_abstractClassName);
-      }
-      if (generationSupport.useGenerics() && typeArguments != null) {
-        line.append(GenericUtils.getTypesSource(typeArguments));
-      }
-      line.append(" " + getVariableIdentifier() + " = ");
-    }
-    line.append("new " + m_className);
-    if (generationSupport.useGenerics() && typeArguments != null) {
-      line.append(GenericUtils.getTypesSource(typeArguments));
-    }
-    if (StringUtils.isEmpty(m_parameters)) {
-      line.append("()");
-    } else {
-      line.append(m_parameters);
-    }
-    if (variable) {
-      line.append(";");
-      lines.add(line.toString());
-      return getVariableIdentifier();
-    }
-    return line.toString();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		IGenericType[] typeArguments = getTypeArguments();
+		boolean variable = getVariableIdentifier() != null;
+		StringBuffer line = new StringBuffer();
+		if (variable) {
+			if (m_abstractClassName == null) {
+				line.append(m_className);
+			} else {
+				line.append(m_abstractClassName);
+			}
+			if (generationSupport.useGenerics() && typeArguments != null) {
+				line.append(GenericUtils.getTypesSource(typeArguments));
+			}
+			line.append(" " + getVariableIdentifier() + " = ");
+		}
+		line.append("new " + m_className);
+		if (generationSupport.useGenerics() && typeArguments != null) {
+			line.append(GenericUtils.getTypesSource(typeArguments));
+		}
+		if (StringUtils.isEmpty(m_parameters)) {
+			line.append("()");
+		} else {
+			line.append(m_parameters);
+		}
+		if (variable) {
+			line.append(";");
+			lines.add(line.toString());
+			return getVariableIdentifier();
+		}
+		return line.toString();
+	}
 }

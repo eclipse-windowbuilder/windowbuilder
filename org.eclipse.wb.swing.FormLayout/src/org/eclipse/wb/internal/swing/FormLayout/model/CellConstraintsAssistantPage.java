@@ -31,100 +31,100 @@ import java.util.List;
  * @coverage swing.FormLayout.model
  */
 public class CellConstraintsAssistantPage extends AbstractAssistantPage {
-  private final FormLayoutInfo m_layout;
+	private final FormLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CellConstraintsAssistantPage(Composite parent,
-      FormLayoutInfo layout,
-      List<ObjectInfo> objects) {
-    super(parent, objects);
-    m_layout = layout;
-    GridLayoutFactory.create(this).columns(3);
-    // horizontal alignments
-    {
-      Group horizontalGroup =
-          addChoiceProperty(
-              this,
-              "h alignment",
-              ModelMessages.CellConstraintsAssistantPage_horizontalGroup,
-              new Object[][]{
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_haDefault,
-                      CellConstraints.DEFAULT},
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_haLeft,
-                      CellConstraints.LEFT},
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_haCenter,
-                      CellConstraints.CENTER},
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_haRight,
-                      CellConstraints.RIGHT},
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_haFill,
-                      CellConstraints.FILL}});
-      GridDataFactory.modify(horizontalGroup).fill();
-    }
-    // vertical alignments
-    {
-      Group verticalGroup =
-          addChoiceProperty(
-              this,
-              "v alignment",
-              ModelMessages.CellConstraintsAssistantPage_verticalGroup,
-              new Object[][]{
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_vaDefault,
-                      CellConstraints.DEFAULT},
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_vaTop,
-                      CellConstraints.TOP},
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_vaCenter,
-                      CellConstraints.CENTER},
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_vaBottom,
-                      CellConstraints.BOTTOM},
-                  new Object[]{
-                      ModelMessages.CellConstraintsAssistantPage_vaFill,
-                      CellConstraints.FILL}});
-      GridDataFactory.modify(verticalGroup).fill();
-    }
-    // grid
-    {
-      Group gridGroup =
-          addIntegerProperties(
-              this,
-              ModelMessages.CellConstraintsAssistantPage_gridGroup,
-              new String[][]{
-                  {"grid x", ModelMessages.CellConstraintsAssistantPage_gridX},
-                  {"grid y", ModelMessages.CellConstraintsAssistantPage_gridY},
-                  {"grid width", ModelMessages.CellConstraintsAssistantPage_gridWidth},
-                  {"grid height", ModelMessages.CellConstraintsAssistantPage_gridHeight}});
-      GridDataFactory.modify(gridGroup).fill();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CellConstraintsAssistantPage(Composite parent,
+			FormLayoutInfo layout,
+			List<ObjectInfo> objects) {
+		super(parent, objects);
+		m_layout = layout;
+		GridLayoutFactory.create(this).columns(3);
+		// horizontal alignments
+		{
+			Group horizontalGroup =
+					addChoiceProperty(
+							this,
+							"h alignment",
+							ModelMessages.CellConstraintsAssistantPage_horizontalGroup,
+							new Object[][]{
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_haDefault,
+										CellConstraints.DEFAULT},
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_haLeft,
+										CellConstraints.LEFT},
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_haCenter,
+										CellConstraints.CENTER},
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_haRight,
+										CellConstraints.RIGHT},
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_haFill,
+										CellConstraints.FILL}});
+			GridDataFactory.modify(horizontalGroup).fill();
+		}
+		// vertical alignments
+		{
+			Group verticalGroup =
+					addChoiceProperty(
+							this,
+							"v alignment",
+							ModelMessages.CellConstraintsAssistantPage_verticalGroup,
+							new Object[][]{
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_vaDefault,
+										CellConstraints.DEFAULT},
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_vaTop,
+										CellConstraints.TOP},
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_vaCenter,
+										CellConstraints.CENTER},
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_vaBottom,
+										CellConstraints.BOTTOM},
+								new Object[]{
+										ModelMessages.CellConstraintsAssistantPage_vaFill,
+										CellConstraints.FILL}});
+			GridDataFactory.modify(verticalGroup).fill();
+		}
+		// grid
+		{
+			Group gridGroup =
+					addIntegerProperties(
+							this,
+							ModelMessages.CellConstraintsAssistantPage_gridGroup,
+							new String[][]{
+								{"grid x", ModelMessages.CellConstraintsAssistantPage_gridX},
+								{"grid y", ModelMessages.CellConstraintsAssistantPage_gridY},
+								{"grid width", ModelMessages.CellConstraintsAssistantPage_gridWidth},
+								{"grid height", ModelMessages.CellConstraintsAssistantPage_gridHeight}});
+			GridDataFactory.modify(gridGroup).fill();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractAssistantPage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ObjectInfo getEditObject() {
-    return m_layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractAssistantPage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ObjectInfo getEditObject() {
+		return m_layout;
+	}
 
-  @Override
-  protected Property getCustomProperty(Object object, String propertyName) throws Exception {
-    if (object instanceof ComponentInfo) {
-      ComponentInfo component = (ComponentInfo) object;
-      return FormLayoutInfo.getConstraints(component).getPropertyByTitle(propertyName);
-    }
-    return null;
-  }
+	@Override
+	protected Property getCustomProperty(Object object, String propertyName) throws Exception {
+		if (object instanceof ComponentInfo) {
+			ComponentInfo component = (ComponentInfo) object;
+			return FormLayoutInfo.getConstraints(component).getPropertyByTitle(propertyName);
+		}
+		return null;
+	}
 }

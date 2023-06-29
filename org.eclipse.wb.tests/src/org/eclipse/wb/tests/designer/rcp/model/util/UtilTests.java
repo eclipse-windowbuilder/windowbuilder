@@ -21,10 +21,10 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class UtilTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.util");
-    suite.addTest(createSingleSuite(SurroundSupportTest.class));
-    suite.addTest(createSingleSuite(ActivatorImagesTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.util");
+		suite.addTest(createSingleSuite(SurroundSupportTest.class));
+		suite.addTest(createSingleSuite(ActivatorImagesTest.class));
+		return suite;
+	}
 }

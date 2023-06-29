@@ -22,50 +22,50 @@ import org.eclipse.ui.IPageLayout;
  * @coverage rcp.model.rcp
  */
 public final class PerspectiveShortcutContainerInfo extends AbstractShortcutContainerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public PerspectiveShortcutContainerInfo(PageLayoutInfo page) throws Exception {
-    super(page, SWT.VERTICAL);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public PerspectiveShortcutContainerInfo(PageLayoutInfo page) throws Exception {
+		super(page, SWT.VERTICAL);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getPresentationText() {
-    return "(perspective shortcuts)";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getPresentationText() {
+		return "(perspective shortcuts)";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates new {@link PerspectiveShortcutInfo}.
-   *
-   * @return the created {@link PerspectiveShortcutInfo}.
-   */
-  public PerspectiveShortcutInfo command_CREATE(String perspectiveId,
-      PerspectiveShortcutInfo nextItem) throws Exception {
-    return command_CREATE(
-        perspectiveId,
-        PerspectiveShortcutInfo.class,
-        nextItem,
-        "addPerspectiveShortcuts",
-        "addPerspectiveShortcut");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates new {@link PerspectiveShortcutInfo}.
+	 *
+	 * @return the created {@link PerspectiveShortcutInfo}.
+	 */
+	public PerspectiveShortcutInfo command_CREATE(String perspectiveId,
+			PerspectiveShortcutInfo nextItem) throws Exception {
+		return command_CREATE(
+				perspectiveId,
+				PerspectiveShortcutInfo.class,
+				nextItem,
+				"addPerspectiveShortcuts",
+				"addPerspectiveShortcut");
+	}
 
-  /**
-   * Moves existing {@link PerspectiveShortcutInfo}.
-   */
-  public void command_MOVE(PerspectiveShortcutInfo item, PerspectiveShortcutInfo nextItem)
-      throws Exception {
-    command_MOVE(item, nextItem, "addPerspectiveShortcuts");
-  }
+	/**
+	 * Moves existing {@link PerspectiveShortcutInfo}.
+	 */
+	public void command_MOVE(PerspectiveShortcutInfo item, PerspectiveShortcutInfo nextItem)
+			throws Exception {
+		command_MOVE(item, nextItem, "addPerspectiveShortcuts");
+	}
 }

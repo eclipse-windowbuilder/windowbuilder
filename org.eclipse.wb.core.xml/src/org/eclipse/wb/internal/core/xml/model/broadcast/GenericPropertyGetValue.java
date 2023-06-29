@@ -25,17 +25,17 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
  * @coverage XML.model
  */
 public interface GenericPropertyGetValue {
-  /**
-   * Subscribers can use this method to unconditionally return the property value. This is
-   * applicable for cases when property should unconditionally return certain value without using
-   * any expression evaluating related to this property. For example, the property may return value
-   * of another property.
-   *
-   * @param property
-   *          the {@link GenericPropertyImpl} that sends this event.
-   * @param value
-   *          the single element array to return property value. Initially it has <code>null</code>
-   *          value.
-   */
-  void invoke(GenericPropertyImpl property, Object[] value) throws Exception;
+	/**
+	 * Subscribers can use this method to unconditionally return the property value. This is
+	 * applicable for cases when property should unconditionally return certain value without using
+	 * any expression evaluating related to this property. For example, the property may return value
+	 * of another property.
+	 *
+	 * @param property
+	 *          the {@link GenericPropertyImpl} that sends this event.
+	 * @param value
+	 *          the single element array to return property value. Initially it has <code>null</code>
+	 *          value.
+	 */
+	void invoke(GenericPropertyImpl property, Object[] value) throws Exception;
 }

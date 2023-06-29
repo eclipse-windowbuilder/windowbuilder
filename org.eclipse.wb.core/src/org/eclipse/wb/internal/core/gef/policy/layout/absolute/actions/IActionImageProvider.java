@@ -18,5 +18,5 @@ import org.eclipse.swt.graphics.Image;
  * @author mitin_aa
  */
 public interface IActionImageProvider {
-  Image getActionImage(String imagePath);
+	Image getActionImage(String imagePath);
 }

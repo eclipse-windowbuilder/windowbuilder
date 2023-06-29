@@ -29,61 +29,61 @@ import java.util.List;
  * @coverage swing.model.layout
  */
 public final class AbsoluteLayoutSurroundProcessor
-    implements
-      ISurroundProcessor<ContainerInfo, ComponentInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new AbsoluteLayoutSurroundProcessor();
+implements
+ISurroundProcessor<ContainerInfo, ComponentInfo> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new AbsoluteLayoutSurroundProcessor();
 
-  private AbsoluteLayoutSurroundProcessor() {
-  }
+	private AbsoluteLayoutSurroundProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ISurroundProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public boolean filter(ContainerInfo sourceContainer, ContainerInfo targetContainer)
-      throws Exception {
-    String targetClassName = targetContainer.getDescription().getComponentClass().getName();
-    boolean isJPanel = targetClassName.equals("javax.swing.JPanel");
-    return sourceContainer.hasLayout()
-        && sourceContainer.getLayout() instanceof AbsoluteLayoutInfo
-        && isJPanel;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ISurroundProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public boolean filter(ContainerInfo sourceContainer, ContainerInfo targetContainer)
+			throws Exception {
+		String targetClassName = targetContainer.getDescription().getComponentClass().getName();
+		boolean isJPanel = targetClassName.equals("javax.swing.JPanel");
+		return sourceContainer.hasLayout()
+				&& sourceContainer.getLayout() instanceof AbsoluteLayoutInfo
+				&& isJPanel;
+	}
 
-  public void move(ContainerInfo sourceContainer,
-      ContainerInfo targetContainer,
-      List<ComponentInfo> components) throws Exception {
-    // set absolute layout for target
-    AbsoluteLayoutInfo targetLayout;
-    {
-      targetLayout = AbsoluteLayoutInfo.createExplicit(targetContainer.getEditor());
-      targetContainer.setLayout(targetLayout);
-    }
-    // prepare expanded bounds for "targetContainer"
-    Point locationOffset;
-    {
-      Rectangle targetBounds =
-          (Rectangle) targetContainer.getArbitraryValue(AbsoluteLayoutSurroundSupport.BOUNDS_KEY);
-      targetBounds.expand(targetContainer.getInsets());
-      // prepare offset for components
-      locationOffset = targetBounds.getLocation().getNegated();
-      // set for "targetContainer" expanded bounds
-      AbsoluteLayoutInfo sourceLayout = (AbsoluteLayoutInfo) sourceContainer.getLayout();
-      sourceLayout.command_BOUNDS(
-          targetContainer,
-          targetBounds.getLocation(),
-          targetBounds.getSize());
-    }
-    // move components
-    for (ComponentInfo component : components) {
-      Rectangle bounds = component.getModelBounds().getTranslated(locationOffset);
-      targetLayout.command_MOVE(component, null);
-      targetLayout.command_BOUNDS(component, bounds.getLocation(), bounds.getSize());
-    }
-  }
+	public void move(ContainerInfo sourceContainer,
+			ContainerInfo targetContainer,
+			List<ComponentInfo> components) throws Exception {
+		// set absolute layout for target
+		AbsoluteLayoutInfo targetLayout;
+		{
+			targetLayout = AbsoluteLayoutInfo.createExplicit(targetContainer.getEditor());
+			targetContainer.setLayout(targetLayout);
+		}
+		// prepare expanded bounds for "targetContainer"
+		Point locationOffset;
+		{
+			Rectangle targetBounds =
+					(Rectangle) targetContainer.getArbitraryValue(AbsoluteLayoutSurroundSupport.BOUNDS_KEY);
+			targetBounds.expand(targetContainer.getInsets());
+			// prepare offset for components
+			locationOffset = targetBounds.getLocation().getNegated();
+			// set for "targetContainer" expanded bounds
+			AbsoluteLayoutInfo sourceLayout = (AbsoluteLayoutInfo) sourceContainer.getLayout();
+			sourceLayout.command_BOUNDS(
+					targetContainer,
+					targetBounds.getLocation(),
+					targetBounds.getSize());
+		}
+		// move components
+		for (ComponentInfo component : components) {
+			Rectangle bounds = component.getModelBounds().getTranslated(locationOffset);
+			targetLayout.command_MOVE(component, null);
+			targetLayout.command_BOUNDS(component, bounds.getLocation(), bounds.getSize());
+		}
+	}
 }

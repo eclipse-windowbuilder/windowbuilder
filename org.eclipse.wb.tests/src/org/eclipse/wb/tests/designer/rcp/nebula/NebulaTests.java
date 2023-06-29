@@ -21,11 +21,11 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    CollapsibleButtonsTest.class,
-    GalleryTest.class,
-    GanttChartTest.class,
-    GridTest.class,
-    PShelfTest.class,
+	CollapsibleButtonsTest.class,
+	GalleryTest.class,
+	GanttChartTest.class,
+	GridTest.class,
+	PShelfTest.class,
 })
 public class NebulaTests {
 

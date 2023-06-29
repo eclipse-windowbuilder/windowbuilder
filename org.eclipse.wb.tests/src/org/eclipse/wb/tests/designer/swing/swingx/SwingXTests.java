@@ -21,9 +21,9 @@ import junit.framework.TestSuite;
  * @author sablin_aa
  */
 public class SwingXTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.swingx");
-    //suite.addTest(createSingleSuite(JXTaskPaneTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.swingx");
+		//suite.addTest(createSingleSuite(JXTaskPaneTest.class));
+		return suite;
+	}
 }

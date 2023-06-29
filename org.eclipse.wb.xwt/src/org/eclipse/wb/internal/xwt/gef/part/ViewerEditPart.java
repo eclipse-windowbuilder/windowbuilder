@@ -38,106 +38,106 @@ import java.util.List;
  * @coverage XWT.gef
  */
 public class ViewerEditPart extends GraphicalEditPart {
-  private final ViewerInfo m_viewer;
+	private final ViewerInfo m_viewer;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ViewerEditPart(ViewerInfo viewer) {
-    setModel(viewer);
-    m_viewer = viewer;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ViewerEditPart(ViewerInfo viewer) {
+		setModel(viewer);
+		m_viewer = viewer;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Edit Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    super.createEditPolicies();
-    installEditPolicy(
-        EditPolicy.SELECTION_ROLE,
-        new LineSelectionEditPolicy(IColorConstants.black) {
-          @Override
-          protected Rectangle getHostBounds() {
-            Rectangle bounds = getIconBounds();
-            bounds.performTranslate(getHostFigure().getLocation());
-            return bounds;
-          }
-        });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Edit Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		super.createEditPolicies();
+		installEditPolicy(
+				EditPolicy.SELECTION_ROLE,
+				new LineSelectionEditPolicy(IColorConstants.black) {
+					@Override
+					protected Rectangle getHostBounds() {
+						Rectangle bounds = getIconBounds();
+						bounds.performTranslate(getHostFigure().getLocation());
+						return bounds;
+					}
+				});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        Rectangle iconBounds = getIconBounds();
-        graphics.drawImage(m_viewer.getDescription().getIcon(), iconBounds.x, iconBounds.y);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				Rectangle iconBounds = getIconBounds();
+				graphics.drawImage(m_viewer.getDescription().getIcon(), iconBounds.x, iconBounds.y);
+			}
+		};
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    Display.getCurrent().asyncExec(new Runnable() {
-      public void run() {
-        Rectangle bounds = ((GraphicalEditPart) getParent()).getFigure().getClientArea();
-        getFigure().setBounds(bounds);
-      }
-    });
-  }
+	@Override
+	protected void refreshVisuals() {
+		Display.getCurrent().asyncExec(new Runnable() {
+			public void run() {
+				Rectangle bounds = ((GraphicalEditPart) getParent()).getFigure().getClientArea();
+				getFigure().setBounds(bounds);
+			}
+		});
+	}
 
-  private Rectangle getIconBounds() {
-    org.eclipse.swt.graphics.Rectangle imageBounds =
-        m_viewer.getDescription().getIcon().getBounds();
-    int width = imageBounds.width;
-    int height = imageBounds.height;
-    //
-    Point location = getFigure().getBounds().getBottomRight().getTranslated(-width, -height);;
-    location.performTranslate(-3, -3);
-    return new Rectangle(location.x, location.y, width, height);
-  }
+	private Rectangle getIconBounds() {
+		org.eclipse.swt.graphics.Rectangle imageBounds =
+				m_viewer.getDescription().getIcon().getBounds();
+		int width = imageBounds.width;
+		int height = imageBounds.height;
+		//
+		Point location = getFigure().getBounds().getBottomRight().getTranslated(-width, -height);;
+		location.performTranslate(-3, -3);
+		return new Rectangle(location.x, location.y, width, height);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart getTargetEditPart(Request request) {
-    if (request instanceof SelectionRequest) {
-      Point location;
-      {
-        SelectionRequest selectionRequest = (SelectionRequest) request;
-        location = selectionRequest.getLocation();
-        if (location == null) {
-          return this;
-        }
-        location = location.getCopy();
-        FigureUtils.translateAbsoluteToFigure2(getFigure(), location);
-      }
-      if (!getIconBounds().contains(location)) {
-        return getParent().getTargetEditPart(request);
-      }
-    }
-    return super.getTargetEditPart(request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		if (request instanceof SelectionRequest) {
+			Point location;
+			{
+				SelectionRequest selectionRequest = (SelectionRequest) request;
+				location = selectionRequest.getLocation();
+				if (location == null) {
+					return this;
+				}
+				location = location.getCopy();
+				FigureUtils.translateAbsoluteToFigure2(getFigure(), location);
+			}
+			if (!getIconBounds().contains(location)) {
+				return getParent().getTargetEditPart(request);
+			}
+		}
+		return super.getTargetEditPart(request);
+	}
 
-  @Override
-  protected List<?> getModelChildren() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
-      public List<?> runObject() throws Exception {
-        return m_viewer.getPresentation().getChildrenGraphical();
-      }
-    }, Collections.emptyList());
-  }
+	@Override
+	protected List<?> getModelChildren() {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
+			public List<?> runObject() throws Exception {
+				return m_viewer.getPresentation().getChildrenGraphical();
+			}
+		}, Collections.emptyList());
+	}
 }

@@ -22,40 +22,40 @@ import org.eclipse.jdt.core.IJavaProject;
  * @coverage core.model.property.converter
  */
 public final class BooleanObjectConverter extends ExpressionConverter {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final ExpressionConverter INSTANCE = new BooleanObjectConverter();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final ExpressionConverter INSTANCE = new BooleanObjectConverter();
 
-  private BooleanObjectConverter() {
-  }
+	private BooleanObjectConverter() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ExpressionConverter
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toJavaSource(JavaInfo javaInfo, Object value) {
-    if (value == null) {
-      return "(Boolean) null";
-    }
-    // has value
-    boolean b = ((Boolean) value).booleanValue();
-    // may be use auto-boxing
-    if (javaInfo != null) {
-      IJavaProject javaProject = javaInfo.getEditor().getJavaProject();
-      if (ProjectUtils.isJDK15(javaProject)) {
-        return Boolean.toString(b);
-      }
-    }
-    // use explicit boxing
-    if (b) {
-      return "Boolean.TRUE";
-    } else {
-      return "Boolean.FALSE";
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ExpressionConverter
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toJavaSource(JavaInfo javaInfo, Object value) {
+		if (value == null) {
+			return "(Boolean) null";
+		}
+		// has value
+		boolean b = ((Boolean) value).booleanValue();
+		// may be use auto-boxing
+		if (javaInfo != null) {
+			IJavaProject javaProject = javaInfo.getEditor().getJavaProject();
+			if (ProjectUtils.isJDK15(javaProject)) {
+				return Boolean.toString(b);
+			}
+		}
+		// use explicit boxing
+		if (b) {
+			return "Boolean.TRUE";
+		} else {
+			return "Boolean.FALSE";
+		}
+	}
 }

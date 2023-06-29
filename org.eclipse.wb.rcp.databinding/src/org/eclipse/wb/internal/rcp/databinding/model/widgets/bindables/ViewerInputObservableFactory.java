@@ -21,23 +21,23 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
  * @coverage bindings.rcp.model.widgets
  */
 public final class ViewerInputObservableFactory implements IObservableFactory {
-  public static final IObservableFactory INSTANCE = new ViewerInputObservableFactory();
+	public static final IObservableFactory INSTANCE = new ViewerInputObservableFactory();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IObservableFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Type getType() throws Exception {
-    return Type.Input;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IObservableFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Type getType() throws Exception {
+		return Type.Input;
+	}
 
-  @Override
-  public ObservableInfo createObservable(BindableInfo object,
-      BindableInfo property,
-      Type type,
-      boolean version_1_3) throws Exception {
-    return null;
-  }
+	@Override
+	public ObservableInfo createObservable(BindableInfo object,
+			BindableInfo property,
+			Type type,
+			boolean version_1_3) throws Exception {
+		return null;
+	}
 }

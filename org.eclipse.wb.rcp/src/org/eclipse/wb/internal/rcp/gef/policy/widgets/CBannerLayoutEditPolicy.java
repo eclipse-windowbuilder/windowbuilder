@@ -24,45 +24,45 @@ import org.eclipse.draw2d.geometry.Insets;
  * @coverage rcp.gef.policy
  */
 public final class CBannerLayoutEditPolicy extends AbstractPositionCompositeLayoutEditPolicy {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Composite
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CBannerLayoutEditPolicy(CBannerInfo composite) {
-    super(composite);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Composite
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CBannerLayoutEditPolicy(CBannerInfo composite) {
+		super(composite);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Positions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addFeedbacks() throws Exception {
-    addFeedback2(
-        0.0,
-        0.0,
-        0.5,
-        0.4,
-        new Insets(0, 0, 1, 1),
-        GefMessages.CBannerLayoutEditPolicy_posLeft,
-        "setLeft");
-    addFeedback2(
-        0.5,
-        0.0,
-        1.0,
-        0.4,
-        new Insets(0, 0, 1, 0),
-        GefMessages.CBannerLayoutEditPolicy_posRight,
-        "setRight");
-    addFeedback2(
-        0.0,
-        0.6,
-        1.0,
-        1.0,
-        new Insets(0, 0, 0, 0),
-        GefMessages.CBannerLayoutEditPolicy_posBottom,
-        "setBottom");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Positions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addFeedbacks() throws Exception {
+		addFeedback2(
+				0.0,
+				0.0,
+				0.5,
+				0.4,
+				new Insets(0, 0, 1, 1),
+				GefMessages.CBannerLayoutEditPolicy_posLeft,
+				"setLeft");
+		addFeedback2(
+				0.5,
+				0.0,
+				1.0,
+				0.4,
+				new Insets(0, 0, 1, 0),
+				GefMessages.CBannerLayoutEditPolicy_posRight,
+				"setRight");
+		addFeedback2(
+				0.0,
+				0.6,
+				1.0,
+				1.0,
+				new Insets(0, 0, 0, 0),
+				GefMessages.CBannerLayoutEditPolicy_posBottom,
+				"setBottom");
+	}
 }

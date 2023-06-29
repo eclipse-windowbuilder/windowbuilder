@@ -25,46 +25,46 @@ import java.util.List;
  * @coverage bindings.rcp.model.beans
  */
 public class SetPropertyDetailCodeSupport extends BeanObservableDetailCodeSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addDetailSourceCode(List<String> lines,
-      CodeGenerationSupport generationSupport,
-      DetailBeanObservableInfo observable,
-      ObservableInfo masterObservable) throws Exception {
-    String sourceCode =
-        observable.isPojoBindable0()
-            ? "org.eclipse.core.databinding.beans.typed.PojoProperties"
-            : "org.eclipse.core.databinding.beans.typed.BeanProperties";
-    String beanClassCode =
-        observable.getDetailBeanClass() == null
-            ? ""
-            : CoreUtils.getClassName(observable.getDetailBeanClass()) + ".class, ";
-    sourceCode +=
-        ".set("
-            + beanClassCode
-            + observable.getDetailPropertyReference()
-            + ", "
-            + CoreUtils.getClassName(observable.getDetailPropertyType())
-            + ".class)";
-    if (getVariableIdentifier() != null) {
-      lines.add("org.eclipse.core.databinding.beans.IBeanSetProperty "
-          + getVariableIdentifier()
-          + " = "
-          + sourceCode
-          + ";");
-      sourceCode = getVariableIdentifier();
-    }
-    // add code
-    lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
-        + observable.getVariableIdentifier()
-        + " = "
-        + sourceCode
-        + ".observeDetail("
-        + masterObservable.getVariableIdentifier()
-        + ");");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addDetailSourceCode(List<String> lines,
+			CodeGenerationSupport generationSupport,
+			DetailBeanObservableInfo observable,
+			ObservableInfo masterObservable) throws Exception {
+		String sourceCode =
+				observable.isPojoBindable0()
+				? "org.eclipse.core.databinding.beans.typed.PojoProperties"
+						: "org.eclipse.core.databinding.beans.typed.BeanProperties";
+		String beanClassCode =
+				observable.getDetailBeanClass() == null
+				? ""
+						: CoreUtils.getClassName(observable.getDetailBeanClass()) + ".class, ";
+		sourceCode +=
+				".set("
+						+ beanClassCode
+						+ observable.getDetailPropertyReference()
+						+ ", "
+						+ CoreUtils.getClassName(observable.getDetailPropertyType())
+						+ ".class)";
+		if (getVariableIdentifier() != null) {
+			lines.add("org.eclipse.core.databinding.beans.IBeanSetProperty "
+					+ getVariableIdentifier()
+					+ " = "
+					+ sourceCode
+					+ ";");
+			sourceCode = getVariableIdentifier();
+		}
+		// add code
+		lines.add("org.eclipse.core.databinding.observable.set.IObservableSet "
+				+ observable.getVariableIdentifier()
+				+ " = "
+				+ sourceCode
+				+ ".observeDetail("
+				+ masterObservable.getVariableIdentifier()
+				+ ");");
+	}
 }

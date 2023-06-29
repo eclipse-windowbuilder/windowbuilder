@@ -19,8 +19,8 @@ import org.eclipse.wb.gef.core.EditPart;
  * @coverage gef.core
  */
 public interface IEditPartSelectionListener {
-  /**
-   * Called when the selected state of an {@link EditPart} has changed.
-   */
-  void selectionChanged(EditPart editPart);
+	/**
+	 * Called when the selected state of an {@link EditPart} has changed.
+	 */
+	void selectionChanged(EditPart editPart);
 }

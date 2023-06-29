@@ -30,78 +30,78 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
  * @coverage rcp.model.forms
  */
 public final class FormToolkitVariableSupport extends AbstractNoNameVariableSupport {
-  private final JavaInfo m_hostJavaInfo;
-  private final FormToolkitAccess m_toolkitAccess;
+	private final JavaInfo m_hostJavaInfo;
+	private final FormToolkitAccess m_toolkitAccess;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FormToolkitVariableSupport(JavaInfo javaInfo,
-      JavaInfo hostJavaInfo,
-      FormToolkitAccess toolkitAccess) {
-    super(javaInfo);
-    m_hostJavaInfo = hostJavaInfo;
-    m_toolkitAccess = toolkitAccess;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FormToolkitVariableSupport(JavaInfo javaInfo,
+			JavaInfo hostJavaInfo,
+			FormToolkitAccess toolkitAccess) {
+		super(javaInfo);
+		m_hostJavaInfo = hostJavaInfo;
+		m_toolkitAccess = toolkitAccess;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "toolkitAccess";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "toolkitAccess";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() throws Exception {
-    return "FormToolkit instance";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() throws Exception {
+		return "FormToolkit instance";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    return m_toolkitAccess.getReferenceExpression();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		return m_toolkitAccess.getReferenceExpression();
+	}
 
-  @Override
-  public String getAccessExpression(NodeTarget target) throws Exception {
-    return getReferenceExpression(target) + ".";
-  }
+	@Override
+	public String getAccessExpression(NodeTarget target) throws Exception {
+		return getReferenceExpression(target) + ".";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public StatementTarget getStatementTarget() throws Exception {
-    MethodDeclaration configureMethod;
-    {
-      String configureMethodSignature =
-          JavaInfoUtils.getParameter(m_hostJavaInfo, "FormToolkit.configureMethod");
-      Assert.isNotNull(
-          configureMethodSignature,
-          ModelMessages.FormToolkitVariableSupport_noFormToolkit_configureMethod,
-          m_hostJavaInfo);
-      configureMethod =
-          AstNodeUtils.getMethodBySignature(
-              JavaInfoUtils.getTypeDeclaration(m_hostJavaInfo),
-              configureMethodSignature);
-    }
-    // target = beginning of "configure" method
-    return new StatementTarget(configureMethod, true);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public StatementTarget getStatementTarget() throws Exception {
+		MethodDeclaration configureMethod;
+		{
+			String configureMethodSignature =
+					JavaInfoUtils.getParameter(m_hostJavaInfo, "FormToolkit.configureMethod");
+			Assert.isNotNull(
+					configureMethodSignature,
+					ModelMessages.FormToolkitVariableSupport_noFormToolkit_configureMethod,
+					m_hostJavaInfo);
+			configureMethod =
+					AstNodeUtils.getMethodBySignature(
+							JavaInfoUtils.getTypeDeclaration(m_hostJavaInfo),
+							configureMethodSignature);
+		}
+		// target = beginning of "configure" method
+		return new StatementTarget(configureMethod, true);
+	}
 }

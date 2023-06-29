@@ -30,127 +30,127 @@ import java.util.List;
  * @coverage core.editor
  */
 public abstract class MultiMode implements IMultiMode {
-  protected final DesignerEditor m_editor;
-  protected final SourcePage m_sourcePage;
-  protected final DesignPage m_designPage;
-  protected final List<IEditorPage> m_additionalPages = Lists.newArrayList();
+	protected final DesignerEditor m_editor;
+	protected final SourcePage m_sourcePage;
+	protected final DesignPage m_designPage;
+	protected final List<IEditorPage> m_additionalPages = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MultiMode(DesignerEditor editor) {
-    m_editor = editor;
-    m_sourcePage = new SourcePage(m_editor);
-    m_designPage = new DesignPage();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MultiMode(DesignerEditor editor) {
+		m_editor = editor;
+		m_sourcePage = new SourcePage(m_editor);
+		m_designPage = new DesignPage();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link SourcePage}.
-   */
-  public final SourcePage getSourcePage() {
-    return m_sourcePage;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link SourcePage}.
+	 */
+	public final SourcePage getSourcePage() {
+		return m_sourcePage;
+	}
 
-  /**
-   * @return the {@link DesignPage}.
-   */
-  @Override
-  public final DesignPage getDesignPage() {
-    return m_designPage;
-  }
+	/**
+	 * @return the {@link DesignPage}.
+	 */
+	@Override
+	public final DesignPage getDesignPage() {
+		return m_designPage;
+	}
 
-  /**
-   * @return <code>true</code> if "Source" page is active.
-   */
-  public abstract boolean isSourceActive();
+	/**
+	 * @return <code>true</code> if "Source" page is active.
+	 */
+	public abstract boolean isSourceActive();
 
-  /**
-   * @return <code>true</code> if "Design" page is active.
-   */
-  public abstract boolean isDesignActive();
+	/**
+	 * @return <code>true</code> if "Design" page is active.
+	 */
+	public abstract boolean isDesignActive();
 
-  /**
-   * Activates "Source" page of editor.
-   */
-  @Override
-  public abstract void showSource();
+	/**
+	 * Activates "Source" page of editor.
+	 */
+	@Override
+	public abstract void showSource();
 
-  /**
-   * Activates "Design" page of editor.
-   */
-  @Override
-  public abstract void showDesign();
+	/**
+	 * Activates "Design" page of editor.
+	 */
+	@Override
+	public abstract void showDesign();
 
-  /**
-   * Switches between "Source" and "Design" pages.
-   */
-  @Override
-  public abstract void switchSourceDesign();
+	/**
+	 * Switches between "Source" and "Design" pages.
+	 */
+	@Override
+	public abstract void switchSourceDesign();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Internal access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates GUI for this mode.
-   */
-  void create(Composite parent) {
-    m_sourcePage.initialize(m_editor);
-    m_designPage.initialize(m_editor);
-    // create additional pages
-    List<IEditorPageFactory> factories =
-        ExternalFactoriesHelper.getElementsInstances(
-            IEditorPageFactory.class,
-            "org.eclipse.wb.core.designPageFactories",
-            "factory");
-    for (IEditorPageFactory factory : factories) {
-      factory.createPages(m_editor, m_additionalPages);
-    }
-    // initialize create additional pages
-    for (IEditorPage page : m_additionalPages) {
-      page.initialize(m_editor);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Internal access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates GUI for this mode.
+	 */
+	void create(Composite parent) {
+		m_sourcePage.initialize(m_editor);
+		m_designPage.initialize(m_editor);
+		// create additional pages
+		List<IEditorPageFactory> factories =
+				ExternalFactoriesHelper.getElementsInstances(
+						IEditorPageFactory.class,
+						"org.eclipse.wb.core.designPageFactories",
+						"factory");
+		for (IEditorPageFactory factory : factories) {
+			factory.createPages(m_editor, m_additionalPages);
+		}
+		// initialize create additional pages
+		for (IEditorPage page : m_additionalPages) {
+			page.initialize(m_editor);
+		}
+	}
 
-  /**
-   * {@link DesignerEditor} was fully created and activated. This is good time to show default page,
-   * move focus, etc.
-   */
-  abstract void editorActivatedFirstTime();
+	/**
+	 * {@link DesignerEditor} was fully created and activated. This is good time to show default page,
+	 * move focus, etc.
+	 */
+	abstract void editorActivatedFirstTime();
 
-  /**
-   * Asks to take focus within the workbench.
-   */
-  abstract void setFocus();
+	/**
+	 * Asks to take focus within the workbench.
+	 */
+	abstract void setFocus();
 
-  /**
-   * Disposes this {@link MultiMode}.
-   */
-  void dispose() {
-    m_sourcePage.dispose();
-    m_designPage.dispose();
-    for (IEditorPage page : m_additionalPages) {
-      page.dispose();
-    }
-  }
+	/**
+	 * Disposes this {@link MultiMode}.
+	 */
+	void dispose() {
+		m_sourcePage.dispose();
+		m_designPage.dispose();
+		for (IEditorPage page : m_additionalPages) {
+			page.dispose();
+		}
+	}
 
-  /**
-   * Notifies that {@link DesignerEditor} has now new input, so new {@link ICompilationUnit} to
-   * parse.
-   */
-  public abstract void onSetInput();
+	/**
+	 * Notifies that {@link DesignerEditor} has now new input, so new {@link ICompilationUnit} to
+	 * parse.
+	 */
+	public abstract void onSetInput();
 
-  /**
-   * Notifies that {@link DesignerEditor} was saved.
-   */
-  public void afterSave() {
-  }
+	/**
+	 * Notifies that {@link DesignerEditor} was saved.
+	 */
+	public void afterSave() {
+	}
 }

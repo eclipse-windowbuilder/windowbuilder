@@ -32,92 +32,92 @@ import java.util.List;
  * @coverage swing.FormLayout.model
  */
 public final class FormLayoutSurroundProcessor
-    implements
-      ISurroundProcessor<ContainerInfo, ComponentInfo> {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final Object INSTANCE = new FormLayoutSurroundProcessor();
+implements
+ISurroundProcessor<ContainerInfo, ComponentInfo> {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final Object INSTANCE = new FormLayoutSurroundProcessor();
 
-  private FormLayoutSurroundProcessor() {
-  }
+	private FormLayoutSurroundProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ISurroundProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean filter(ContainerInfo sourceContainer, ContainerInfo targetContainer)
-      throws Exception {
-    String targetClassName = targetContainer.getDescription().getComponentClass().getName();
-    boolean isJPanel = targetClassName.equals("javax.swing.JPanel");
-    return sourceContainer.hasLayout()
-        && sourceContainer.getLayout() instanceof FormLayoutInfo
-        && isJPanel;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ISurroundProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean filter(ContainerInfo sourceContainer, ContainerInfo targetContainer)
+			throws Exception {
+		String targetClassName = targetContainer.getDescription().getComponentClass().getName();
+		boolean isJPanel = targetClassName.equals("javax.swing.JPanel");
+		return sourceContainer.hasLayout()
+				&& sourceContainer.getLayout() instanceof FormLayoutInfo
+				&& isJPanel;
+	}
 
-  @Override
-  public void move(ContainerInfo sourceContainer,
-      ContainerInfo targetContainer,
-      List<ComponentInfo> components) throws Exception {
-    // set FormLayout for target
-    FormLayoutInfo targetLayout;
-    {
-      targetLayout =
-          (FormLayoutInfo) JavaInfoUtils.createJavaInfo(
-              targetContainer.getEditor(),
-              "com.jgoodies.forms.layout.FormLayout",
-              new ConstructorCreationSupport());
-      targetContainer.setLayout(targetLayout);
-    }
-    // prepare cells of "targetContainer"
-    Point locationOffset;
-    {
-      Rectangle targetBounds =
-          (Rectangle) targetContainer.getArbitraryValue(FormLayoutSurroundSupport.CELLS_KEY);
-      FormLayoutInfo sourceLayout = (FormLayoutInfo) sourceContainer.getLayout();
-      // copy columns
-      {
-        List<FormColumnInfo> targetColumns = Lists.newArrayList();
-        for (int columnIndex = targetBounds.x; columnIndex < targetBounds.right(); columnIndex++) {
-          FormColumnInfo sourceColumn = sourceLayout.getColumns().get(columnIndex - 1);
-          targetColumns.add(sourceColumn.copy());
-        }
-        targetLayout.setColumns(targetColumns);
-      }
-      // copy rows
-      {
-        List<FormRowInfo> targetRows = Lists.newArrayList();
-        for (int rowIndex = targetBounds.y; rowIndex < targetBounds.bottom(); rowIndex++) {
-          FormRowInfo sourceRow = sourceLayout.getRows().get(rowIndex - 1);
-          targetRows.add(sourceRow.copy());
-        }
-        targetLayout.setRows(targetRows);
-      }
-      //
-      locationOffset = targetBounds.getLocation().getNegated();
-    }
-    // move components
-    for (ComponentInfo component : components) {
-      CellConstraintsSupport oldConstraints = FormLayoutInfo.getConstraints(component);
-      // move component
-      {
-        Rectangle cells = FormLayoutSurroundSupport.getCells(component);
-        cells = cells.getTranslated(locationOffset);
-        targetLayout.command_ADD(component, 1 + cells.x, false, 1 + cells.y, false);
-      }
-      // update constraints
-      {
-        CellConstraintsSupport constraints = FormLayoutInfo.getConstraints(component);
-        constraints.width = oldConstraints.width;
-        constraints.height = oldConstraints.height;
-        constraints.alignH = oldConstraints.alignH;
-        constraints.alignV = oldConstraints.alignV;
-        constraints.write();
-      }
-    }
-  }
+	@Override
+	public void move(ContainerInfo sourceContainer,
+			ContainerInfo targetContainer,
+			List<ComponentInfo> components) throws Exception {
+		// set FormLayout for target
+		FormLayoutInfo targetLayout;
+		{
+			targetLayout =
+					(FormLayoutInfo) JavaInfoUtils.createJavaInfo(
+							targetContainer.getEditor(),
+							"com.jgoodies.forms.layout.FormLayout",
+							new ConstructorCreationSupport());
+			targetContainer.setLayout(targetLayout);
+		}
+		// prepare cells of "targetContainer"
+		Point locationOffset;
+		{
+			Rectangle targetBounds =
+					(Rectangle) targetContainer.getArbitraryValue(FormLayoutSurroundSupport.CELLS_KEY);
+			FormLayoutInfo sourceLayout = (FormLayoutInfo) sourceContainer.getLayout();
+			// copy columns
+			{
+				List<FormColumnInfo> targetColumns = Lists.newArrayList();
+				for (int columnIndex = targetBounds.x; columnIndex < targetBounds.right(); columnIndex++) {
+					FormColumnInfo sourceColumn = sourceLayout.getColumns().get(columnIndex - 1);
+					targetColumns.add(sourceColumn.copy());
+				}
+				targetLayout.setColumns(targetColumns);
+			}
+			// copy rows
+			{
+				List<FormRowInfo> targetRows = Lists.newArrayList();
+				for (int rowIndex = targetBounds.y; rowIndex < targetBounds.bottom(); rowIndex++) {
+					FormRowInfo sourceRow = sourceLayout.getRows().get(rowIndex - 1);
+					targetRows.add(sourceRow.copy());
+				}
+				targetLayout.setRows(targetRows);
+			}
+			//
+			locationOffset = targetBounds.getLocation().getNegated();
+		}
+		// move components
+		for (ComponentInfo component : components) {
+			CellConstraintsSupport oldConstraints = FormLayoutInfo.getConstraints(component);
+			// move component
+			{
+				Rectangle cells = FormLayoutSurroundSupport.getCells(component);
+				cells = cells.getTranslated(locationOffset);
+				targetLayout.command_ADD(component, 1 + cells.x, false, 1 + cells.y, false);
+			}
+			// update constraints
+			{
+				CellConstraintsSupport constraints = FormLayoutInfo.getConstraints(component);
+				constraints.width = oldConstraints.width;
+				constraints.height = oldConstraints.height;
+				constraints.alignH = oldConstraints.alignH;
+				constraints.alignV = oldConstraints.alignV;
+				constraints.write();
+			}
+		}
+	}
 }

@@ -23,47 +23,47 @@ import javax.swing.SwingConstants;
  * @author scheglov_ke
  */
 public class XwtStaticFieldSupportTest extends XwtModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * No class for field from {@link SWT}.
-   */
-  public void test_SWT() throws Exception {
-    parse("<Shell/>");
-    //
-    String fieldName = "LEFT";
-    String[] expression = {null};
-    m_lastObject.getBroadcast(StaticFieldPropertyEditorGetExpression.class).invoke(
-        SWT.class,
-        fieldName,
-        expression);
-    assertEquals("LEFT", expression[0]);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * No class for field from {@link SWT}.
+	 */
+	public void test_SWT() throws Exception {
+		parse("<Shell/>");
+		//
+		String fieldName = "LEFT";
+		String[] expression = {null};
+		m_lastObject.getBroadcast(StaticFieldPropertyEditorGetExpression.class).invoke(
+				SWT.class,
+				fieldName,
+				expression);
+		assertEquals("LEFT", expression[0]);
+	}
 
-  /**
-   * Not {@link SWT}, so use fully qualified class name.
-   */
-  public void test_customStyle() throws Exception {
-    parse("<Shell/>");
-    //
-    String fieldName = "LEFT";
-    String[] expression = {null};
-    m_lastObject.getBroadcast(StaticFieldPropertyEditorGetExpression.class).invoke(
-        SwingConstants.class,
-        fieldName,
-        expression);
-    assertEquals("(javax.swing.SwingConstants).LEFT", expression[0]);
-  }
+	/**
+	 * Not {@link SWT}, so use fully qualified class name.
+	 */
+	public void test_customStyle() throws Exception {
+		parse("<Shell/>");
+		//
+		String fieldName = "LEFT";
+		String[] expression = {null};
+		m_lastObject.getBroadcast(StaticFieldPropertyEditorGetExpression.class).invoke(
+				SwingConstants.class,
+				fieldName,
+				expression);
+		assertEquals("(javax.swing.SwingConstants).LEFT", expression[0]);
+	}
 }

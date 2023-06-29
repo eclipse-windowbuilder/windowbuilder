@@ -22,40 +22,40 @@ import org.eclipse.wb.internal.swing.databinding.Messages;
  * @coverage bindings.swing.ui
  */
 public class EditableUiContentProvider extends DialogFieldUiContentProvider {
-  private final IEditableProvider m_provider;
-  private final BooleanDialogField m_dialogField;
+	private final IEditableProvider m_provider;
+	private final BooleanDialogField m_dialogField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public EditableUiContentProvider(IEditableProvider provider) {
-    m_provider = provider;
-    m_dialogField = new BooleanDialogField();
-    m_dialogField.setLabelText(Messages.EditableUiContentProvider_title);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public EditableUiContentProvider(IEditableProvider provider) {
+		m_provider = provider;
+		m_dialogField = new BooleanDialogField();
+		m_dialogField.setLabelText(Messages.EditableUiContentProvider_title);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // DialogFieldUIContentProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public DialogField getDialogField() {
-    return m_dialogField;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DialogFieldUIContentProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DialogField getDialogField() {
+		return m_dialogField;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void updateFromObject() throws Exception {
-    m_dialogField.setSelection(m_provider.isEditable());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void updateFromObject() throws Exception {
+		m_dialogField.setSelection(m_provider.isEditable());
+	}
 
-  public void saveToObject() throws Exception {
-    m_provider.setEditable(m_dialogField.getSelection());
-  }
+	public void saveToObject() throws Exception {
+		m_provider.setEditable(m_dialogField.getSelection());
+	}
 }

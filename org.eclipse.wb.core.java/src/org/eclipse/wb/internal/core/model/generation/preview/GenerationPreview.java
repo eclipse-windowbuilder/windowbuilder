@@ -25,52 +25,52 @@ import org.apache.commons.lang.StringUtils;
  * @coverage core.model.generation.ui
  */
 public abstract class GenerationPreview {
-  /**
-   * @return the preview source using properties from given {@link GenerationPropertiesComposite}'s
-   *         for variable and statement.
-   */
-  public abstract String getPreview(GenerationPropertiesComposite variableComposite,
-      GenerationPropertiesComposite statementComposite);
+	/**
+	 * @return the preview source using properties from given {@link GenerationPropertiesComposite}'s
+	 *         for variable and statement.
+	 */
+	public abstract String getPreview(GenerationPropertiesComposite variableComposite,
+			GenerationPropertiesComposite statementComposite);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link String} for joined given {@link String}'s using "\n".
-   */
-  protected static String getSource(String[] lines) {
-    return getSource(new String[][]{lines});
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link String} for joined given {@link String}'s using "\n".
+	 */
+	protected static String getSource(String[] lines) {
+		return getSource(new String[][]{lines});
+	}
 
-  /**
-   * @return the {@link String} for joined given {@link String}'s using "\n".
-   */
-  protected static String getSource(String[][] lines2) {
-    StringBuffer buffer = new StringBuffer();
-    for (String[] lines : lines2) {
-      if (lines == null) {
-        continue;
-      }
-      //
-      for (String line : lines) {
-        // prepare count of leading spaces
-        int spaceCount = 0;
-        for (char c : line.toCharArray()) {
-          if (c != ' ') {
-            break;
-          }
-          spaceCount++;
-        }
-        // replace each two leading spaces with one \t
-        Assert.isTrue(spaceCount % 2 == 0);
-        line = StringUtils.repeat("\t", spaceCount / 2) + line.substring(spaceCount);
-        // append line
-        buffer.append(line);
-        buffer.append("\n");
-      }
-    }
-    return buffer.toString();
-  }
+	/**
+	 * @return the {@link String} for joined given {@link String}'s using "\n".
+	 */
+	protected static String getSource(String[][] lines2) {
+		StringBuffer buffer = new StringBuffer();
+		for (String[] lines : lines2) {
+			if (lines == null) {
+				continue;
+			}
+			//
+			for (String line : lines) {
+				// prepare count of leading spaces
+				int spaceCount = 0;
+				for (char c : line.toCharArray()) {
+					if (c != ' ') {
+						break;
+					}
+					spaceCount++;
+				}
+				// replace each two leading spaces with one \t
+				Assert.isTrue(spaceCount % 2 == 0);
+				line = StringUtils.repeat("\t", spaceCount / 2) + line.substring(spaceCount);
+				// append line
+				buffer.append(line);
+				buffer.append("\n");
+			}
+		}
+		return buffer.toString();
+	}
 }

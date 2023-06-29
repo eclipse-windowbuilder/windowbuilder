@@ -23,43 +23,43 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
  * @coverage core.gef.header
  */
 public abstract class AbstractHeaderLayoutEditPolicy extends LayoutEditPolicy {
-  private final LayoutEditPolicy m_mainPolicy;
+	private final LayoutEditPolicy m_mainPolicy;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractHeaderLayoutEditPolicy(LayoutEditPolicy mainPolicy) {
-    m_mainPolicy = mainPolicy;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractHeaderLayoutEditPolicy(LayoutEditPolicy mainPolicy) {
+		m_mainPolicy = mainPolicy;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isRequestCondition(Request request) {
-    return request.getType() == Request.REQ_MOVE;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isRequestCondition(Request request) {
+		return request.getType() == Request.REQ_MOVE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback utilities
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link Layer} from main {@link IEditPartViewer} with given id.
-   */
-  protected final Layer getMainLayer(String layerId) {
-    return getMainViewer().getLayer(layerId);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback utilities
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link Layer} from main {@link IEditPartViewer} with given id.
+	 */
+	protected final Layer getMainLayer(String layerId) {
+		return getMainViewer().getLayer(layerId);
+	}
 
-  /**
-   * @return the main {@link IEditPartViewer}.
-   */
-  private IEditPartViewer getMainViewer() {
-    return m_mainPolicy.getHost().getViewer();
-  }
+	/**
+	 * @return the main {@link IEditPartViewer}.
+	 */
+	private IEditPartViewer getMainViewer() {
+		return m_mainPolicy.getHost().getViewer();
+	}
 }

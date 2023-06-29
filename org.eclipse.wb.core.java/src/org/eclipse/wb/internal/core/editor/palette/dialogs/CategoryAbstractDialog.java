@@ -31,96 +31,96 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage core.editor.palette.ui
  */
 public abstract class CategoryAbstractDialog extends AbstractPaletteElementDialog {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public CategoryAbstractDialog(Shell parentShell, String shellText, String titleText) {
-    super(parentShell, shellText, titleText, null, Messages.CategoryAbstractDialog_message);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public CategoryAbstractDialog(Shell parentShell, String shellText, String titleText) {
+		super(parentShell, shellText, titleText, null, Messages.CategoryAbstractDialog_message);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected StringDialogField m_idField;
-  protected StringDialogField m_nameField;
-  protected StringAreaDialogField m_descriptionField;
-  protected SelectionButtonDialogFieldGroup m_stateField;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected StringDialogField m_idField;
+	protected StringDialogField m_nameField;
+	protected StringAreaDialogField m_descriptionField;
+	protected SelectionButtonDialogFieldGroup m_stateField;
 
-  @Override
-  protected void createControls(Composite container) {
-    m_fieldsContainer = container;
-    GridLayoutFactory.create(container).columns(2);
-    // id
-    {
-      m_idField = new StringDialogField();
-      m_idField.setEditable(false);
-      doCreateField(m_idField, Messages.CategoryAbstractDialog_idLabel);
-    }
-    // name
-    {
-      m_nameField = new StringDialogField();
-      doCreateField(m_nameField, Messages.CategoryAbstractDialog_nameLabel);
-      m_nameField.setFocus();
-    }
-    // description
-    {
-      m_descriptionField = new StringAreaDialogField(5);
-      doCreateField(m_descriptionField, Messages.CategoryAbstractDialog_descriptionLabel);
-      GridDataFactory.modify(m_descriptionField.getTextControl(null)).grabV();
-    }
-    // state
-    {
-      m_stateField =
-          new SelectionButtonDialogFieldGroup(SWT.CHECK, new String[]{
-              Messages.CategoryAbstractDialog_stateVisible,
-              Messages.CategoryAbstractDialog_stateOpen}, 1, SWT.SHADOW_ETCHED_IN);
-      doCreateField(m_stateField, Messages.CategoryAbstractDialog_stateLabel);
-    }
-    // allow to add more controls
-    createAdditionalControls(container);
-  }
+	@Override
+	protected void createControls(Composite container) {
+		m_fieldsContainer = container;
+		GridLayoutFactory.create(container).columns(2);
+		// id
+		{
+			m_idField = new StringDialogField();
+			m_idField.setEditable(false);
+			doCreateField(m_idField, Messages.CategoryAbstractDialog_idLabel);
+		}
+		// name
+		{
+			m_nameField = new StringDialogField();
+			doCreateField(m_nameField, Messages.CategoryAbstractDialog_nameLabel);
+			m_nameField.setFocus();
+		}
+		// description
+		{
+			m_descriptionField = new StringAreaDialogField(5);
+			doCreateField(m_descriptionField, Messages.CategoryAbstractDialog_descriptionLabel);
+			GridDataFactory.modify(m_descriptionField.getTextControl(null)).grabV();
+		}
+		// state
+		{
+			m_stateField =
+					new SelectionButtonDialogFieldGroup(SWT.CHECK, new String[]{
+							Messages.CategoryAbstractDialog_stateVisible,
+							Messages.CategoryAbstractDialog_stateOpen}, 1, SWT.SHADOW_ETCHED_IN);
+			doCreateField(m_stateField, Messages.CategoryAbstractDialog_stateLabel);
+		}
+		// allow to add more controls
+		createAdditionalControls(container);
+	}
 
-  /**
-   * Creates additional controls.
-   */
-  protected void createAdditionalControls(Composite container) {
-  }
+	/**
+	 * Creates additional controls.
+	 */
+	protected void createAdditionalControls(Composite container) {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String validate() {
-    // validate name
-    {
-      String name = m_nameField.getText();
-      if (name.length() == 0) {
-        return Messages.CategoryAbstractDialog_validateEmptyName;
-      }
-    }
-    // OK
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String validate() {
+		// validate name
+		{
+			String name = m_nameField.getText();
+			if (name.length() == 0) {
+				return Messages.CategoryAbstractDialog_validateEmptyName;
+			}
+		}
+		// OK
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Composite m_fieldsContainer;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private Composite m_fieldsContainer;
 
-  /**
-   * Configures given {@link DialogField} for specific of this dialog.
-   */
-  protected final void doCreateField(DialogField dialogField, String labelText) {
-    dialogField.setLabelText(labelText);
-    dialogField.setDialogFieldListener(m_validateListener);
-    DialogFieldUtils.fillControls(m_fieldsContainer, dialogField, 2, 60);
-  }
+	/**
+	 * Configures given {@link DialogField} for specific of this dialog.
+	 */
+	protected final void doCreateField(DialogField dialogField, String labelText) {
+		dialogField.setLabelText(labelText);
+		dialogField.setDialogFieldListener(m_validateListener);
+		DialogFieldUtils.fillControls(m_fieldsContainer, dialogField, 2, 60);
+	}
 }

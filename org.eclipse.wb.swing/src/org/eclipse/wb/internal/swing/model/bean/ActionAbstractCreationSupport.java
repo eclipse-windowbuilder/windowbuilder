@@ -48,217 +48,217 @@ import javax.swing.Action;
  * @coverage swing.model
  */
 public abstract class ActionAbstractCreationSupport extends CreationSupport
-    implements
-      IActionSupport {
-  protected ClassInstanceCreation m_creation;
-  protected TypeDeclaration m_typeDeclaration;
-  protected List<Block> m_initializingBlocks;
-  protected ComponentDescription m_typeDescription;
+implements
+IActionSupport {
+	protected ClassInstanceCreation m_creation;
+	protected TypeDeclaration m_typeDeclaration;
+	protected List<Block> m_initializingBlocks;
+	protected ComponentDescription m_typeDescription;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected ActionAbstractCreationSupport() throws Exception {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected ActionAbstractCreationSupport() throws Exception {
+	}
 
-  protected ActionAbstractCreationSupport(ClassInstanceCreation creation) throws Exception {
-    setCreation(creation);
-    updateTypeDescription();
-  }
+	protected ActionAbstractCreationSupport(ClassInstanceCreation creation) throws Exception {
+		setCreation(creation);
+		updateTypeDescription();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "abstractAction";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "abstractAction";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // State
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the {@link ClassInstanceCreation}, initializes internal state.
-   */
-  protected void setCreation(ClassInstanceCreation creation) throws Exception {
-    m_creation = creation;
-    setCreationEx();
-    addInitializationBlocks();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// State
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the {@link ClassInstanceCreation}, initializes internal state.
+	 */
+	protected void setCreation(ClassInstanceCreation creation) throws Exception {
+		m_creation = creation;
+		setCreationEx();
+		addInitializationBlocks();
+	}
 
-  /**
-   * Additional processing of {@link ClassInstanceCreation} in superclasses.
-   */
-  protected void setCreationEx() {
-  }
+	/**
+	 * Additional processing of {@link ClassInstanceCreation} in superclasses.
+	 */
+	protected void setCreationEx() {
+	}
 
-  /**
-   * Adds initializer {@link Block}s into {@link #m_initializingBlocks}.
-   */
-  protected void addInitializationBlocks() {
-    m_initializingBlocks = Lists.newArrayList();
-    for (Initializer typeInitializer : DomGenerics.initializers(m_typeDeclaration, false)) {
-      m_initializingBlocks.add(typeInitializer.getBody());
-    }
-  }
+	/**
+	 * Adds initializer {@link Block}s into {@link #m_initializingBlocks}.
+	 */
+	protected void addInitializationBlocks() {
+		m_initializingBlocks = Lists.newArrayList();
+		for (Initializer typeInitializer : DomGenerics.initializers(m_typeDeclaration, false)) {
+			m_initializingBlocks.add(typeInitializer.getBody());
+		}
+	}
 
-  /**
-   * Prepares {@link ComponentDescription} for super class, in field {@link #m_typeDescription}.
-   */
-  protected void updateTypeDescription() throws Exception {
-    if (m_typeDescription == null && m_javaInfo != null && m_typeDeclaration != null) {
-      // prepare super Class
-      String superClassName = getActionClassName();
-      Class<?> superClass = JavaInfoUtils.getClassLoader(m_javaInfo).loadClass(superClassName);
-      // load description for super Class
-      m_typeDescription =
-          ComponentDescriptionHelper.getDescription(m_javaInfo.getEditor(), superClass);
-    }
-  }
+	/**
+	 * Prepares {@link ComponentDescription} for super class, in field {@link #m_typeDescription}.
+	 */
+	protected void updateTypeDescription() throws Exception {
+		if (m_typeDescription == null && m_javaInfo != null && m_typeDeclaration != null) {
+			// prepare super Class
+			String superClassName = getActionClassName();
+			Class<?> superClass = JavaInfoUtils.getClassLoader(m_javaInfo).loadClass(superClassName);
+			// load description for super Class
+			m_typeDescription =
+					ComponentDescriptionHelper.getDescription(m_javaInfo.getEditor(), superClass);
+		}
+	}
 
-  protected String getActionClassName() throws Exception {
-    ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(m_typeDeclaration);
-    return AstNodeUtils.getFullyQualifiedName(typeBinding.getSuperclass(), true);
-  }
+	protected String getActionClassName() throws Exception {
+		ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(m_typeDeclaration);
+		return AstNodeUtils.getFullyQualifiedName(typeBinding.getSuperclass(), true);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ASTNode getNode() {
-    return m_creation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ASTNode getNode() {
+		return m_creation;
+	}
 
-  @Override
-  public boolean isJavaInfo(ASTNode node) {
-    return node == m_creation;
-  }
+	@Override
+	public boolean isJavaInfo(ASTNode node) {
+		return node == m_creation;
+	}
 
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    updateTypeDescription();
-  }
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		updateTypeDescription();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Evaluation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canBeEvaluated() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Evaluation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canBeEvaluated() {
+		return false;
+	}
 
-  @Override
-  public Object create(EvaluationContext context, ExecutionFlowFrameVisitor visitor)
-      throws Exception {
-    AbstractAction action = create_createObject(context);
-    create_evaluateInitialization(context, action);
-    // OK, we have Action instance
-    return action;
-  }
+	@Override
+	public Object create(EvaluationContext context, ExecutionFlowFrameVisitor visitor)
+			throws Exception {
+		AbstractAction action = create_createObject(context);
+		create_evaluateInitialization(context, action);
+		// OK, we have Action instance
+		return action;
+	}
 
-  /**
-   * @return {@link AbstractAction} instance.
-   */
-  protected abstract AbstractAction create_createObject(EvaluationContext context) throws Exception;
+	/**
+	 * @return {@link AbstractAction} instance.
+	 */
+	protected abstract AbstractAction create_createObject(EvaluationContext context) throws Exception;
 
-  /**
-   * Evaluate putValue(key,value) invocations in top-level constructor statements
-   */
-  protected void create_evaluateInitialization(EvaluationContext context, AbstractAction action)
-      throws Exception {
-    for (Block constructorBlock : m_initializingBlocks) {
-      for (Statement statement : DomGenerics.statements(constructorBlock)) {
-        create_evaluateStatement(context, action, statement);
-      }
-    }
-  }
+	/**
+	 * Evaluate putValue(key,value) invocations in top-level constructor statements
+	 */
+	protected void create_evaluateInitialization(EvaluationContext context, AbstractAction action)
+			throws Exception {
+		for (Block constructorBlock : m_initializingBlocks) {
+			for (Statement statement : DomGenerics.statements(constructorBlock)) {
+				create_evaluateStatement(context, action, statement);
+			}
+		}
+	}
 
-  /**
-   * Evaluate any {@link Statement} in initialization blocks.
-   */
-  protected void create_evaluateStatement(EvaluationContext context,
-      AbstractAction action,
-      Statement statement) throws Exception {
-    if (statement instanceof ExpressionStatement) {
-      ExpressionStatement expressionStatement = (ExpressionStatement) statement;
-      updateAction_ExpressionStatement(context, action, expressionStatement);
-    }
-  }
+	/**
+	 * Evaluate any {@link Statement} in initialization blocks.
+	 */
+	protected void create_evaluateStatement(EvaluationContext context,
+			AbstractAction action,
+			Statement statement) throws Exception {
+		if (statement instanceof ExpressionStatement) {
+			ExpressionStatement expressionStatement = (ExpressionStatement) statement;
+			updateAction_ExpressionStatement(context, action, expressionStatement);
+		}
+	}
 
-  /**
-   * Updates {@link Action} instance using {@link Action#putValue(String, Object)} invocation.
-   */
-  private void updateAction_ExpressionStatement(EvaluationContext context,
-      AbstractAction action,
-      ExpressionStatement expressionStatement) throws Exception {
-    if (expressionStatement.getExpression() instanceof MethodInvocation) {
-      MethodInvocation invocation = (MethodInvocation) expressionStatement.getExpression();
-      if (invocation.getExpression() == null
-          && AstNodeUtils.getMethodSignature(invocation).equals(
-              "putValue(java.lang.String,java.lang.Object)")) {
-        // evaluate key/value
-        List<Expression> arguments = DomGenerics.arguments(invocation);
-        String key = (String) AstEvaluationEngine.evaluate(context, arguments.get(0));
-        Object value = AstEvaluationEngine.evaluate(context, arguments.get(1));
-        // put value
-        action.putValue(key, value);
-      }
-    }
-  }
+	/**
+	 * Updates {@link Action} instance using {@link Action#putValue(String, Object)} invocation.
+	 */
+	private void updateAction_ExpressionStatement(EvaluationContext context,
+			AbstractAction action,
+			ExpressionStatement expressionStatement) throws Exception {
+		if (expressionStatement.getExpression() instanceof MethodInvocation) {
+			MethodInvocation invocation = (MethodInvocation) expressionStatement.getExpression();
+			if (invocation.getExpression() == null
+					&& AstNodeUtils.getMethodSignature(invocation).equals(
+							"putValue(java.lang.String,java.lang.Object)")) {
+				// evaluate key/value
+				List<Expression> arguments = DomGenerics.arguments(invocation);
+				String key = (String) AstEvaluationEngine.evaluate(context, arguments.get(0));
+				Object value = AstEvaluationEngine.evaluate(context, arguments.get(1));
+				// put value
+				action.putValue(key, value);
+			}
+		}
+	}
 
-  /**
-   * Evaluate constructor arguments.
-   */
-  protected void evaluateConstructorArguments(EvaluationContext context,
-      AbstractAction action,
-      ConstructorDescription constructor,
-      List<Expression> arguments) throws Exception {
-    for (ParameterDescription parameter : constructor.getParameters()) {
-      String key = parameter.getTag("actionKey");
-      if (key != null) {
-        Expression argument = arguments.get(parameter.getIndex());
-        Object value = AstEvaluationEngine.evaluate(context, argument);
-        action.putValue(key, value);
-      }
-    }
-  }
+	/**
+	 * Evaluate constructor arguments.
+	 */
+	protected void evaluateConstructorArguments(EvaluationContext context,
+			AbstractAction action,
+			ConstructorDescription constructor,
+			List<Expression> arguments) throws Exception {
+		for (ParameterDescription parameter : constructor.getParameters()) {
+			String key = parameter.getTag("actionKey");
+			if (key != null) {
+				Expression argument = arguments.get(parameter.getIndex());
+				Object value = AstEvaluationEngine.evaluate(context, argument);
+				action.putValue(key, value);
+			}
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean canDelete() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean canDelete() {
+		return true;
+	}
 
-  @Override
-  public void delete() throws Exception {
-    JavaInfoUtils.deleteJavaInfo(m_javaInfo, true);
-  }
+	@Override
+	public void delete() throws Exception {
+		JavaInfoUtils.deleteJavaInfo(m_javaInfo, true);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IActionSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ASTNode getCreation() {
-    return m_creation;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IActionSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ASTNode getCreation() {
+		return m_creation;
+	}
 
-  public List<Block> getInitializationBlocks() {
-    return m_initializingBlocks;
-  }
+	public List<Block> getInitializationBlocks() {
+		return m_initializingBlocks;
+	}
 }

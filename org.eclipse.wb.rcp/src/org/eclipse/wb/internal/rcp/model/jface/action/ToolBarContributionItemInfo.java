@@ -27,31 +27,31 @@ import org.eclipse.swt.widgets.ToolBar;
  * @coverage rcp.model.jface
  */
 public final class ToolBarContributionItemInfo extends ContributionItemInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ToolBarContributionItemInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ToolBarContributionItemInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getComponentObject() {
-    return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
-      @Override
-      public Object runObject() throws Exception {
-        ToolBarManagerInfo managerInfo = getChildren(ToolBarManagerInfo.class).get(0);
-        Object manager = managerInfo.getObject();
-        return ((ToolBar) ReflectionUtils.invokeMethod(manager, "getControl()")).getParent();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getComponentObject() {
+		return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+			@Override
+			public Object runObject() throws Exception {
+				ToolBarManagerInfo managerInfo = getChildren(ToolBarManagerInfo.class).get(0);
+				Object manager = managerInfo.getObject();
+				return ((ToolBar) ReflectionUtils.invokeMethod(manager, "getControl()")).getParent();
+			}
+		});
+	}
 }

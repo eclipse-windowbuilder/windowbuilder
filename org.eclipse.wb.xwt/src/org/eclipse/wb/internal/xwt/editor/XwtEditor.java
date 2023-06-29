@@ -20,15 +20,15 @@ import org.eclipse.wb.internal.core.xml.editor.XmlDesignPage;
  * @coverage XWT.editor
  */
 public final class XwtEditor extends AbstractXmlEditor {
-  public static final String ID = "org.eclipse.wb.xwt.editor.XwtEditor";
+	public static final String ID = "org.eclipse.wb.xwt.editor.XwtEditor";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Pages
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected XmlDesignPage createDesignPage() {
-    return new XwtDesignPage();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Pages
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected XmlDesignPage createDesignPage() {
+		return new XwtDesignPage();
+	}
 }

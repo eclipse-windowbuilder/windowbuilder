@@ -33,74 +33,74 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @coverage core.gef.policy
  */
 public final class BorderTransparentLayoutRequestValidator implements ILayoutRequestValidator {
-  private final Insets m_insets;
+	private final Insets m_insets;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public BorderTransparentLayoutRequestValidator(int hBorder, int vBorder) {
-    this(vBorder, hBorder, vBorder, hBorder);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public BorderTransparentLayoutRequestValidator(int hBorder, int vBorder) {
+		this(vBorder, hBorder, vBorder, hBorder);
+	}
 
-  public BorderTransparentLayoutRequestValidator(int top, int left, int bottom, int right) {
-    m_insets = new Insets(top, left, bottom, right);
-  }
+	public BorderTransparentLayoutRequestValidator(int top, int left, int bottom, int right) {
+		m_insets = new Insets(top, left, bottom, right);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutRequestValidator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-    if (request.isEraseFeedback()) {
-      return true;
-    }
-    return isInnerPartOfHost(host, request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutRequestValidator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+		if (request.isEraseFeedback()) {
+			return true;
+		}
+		return isInnerPartOfHost(host, request);
+	}
 
-  @Override
-  public boolean validatePasteRequest(EditPart host, PasteRequest request) {
-    if (request.isEraseFeedback()) {
-      return true;
-    }
-    return isInnerPartOfHost(host, request);
-  }
+	@Override
+	public boolean validatePasteRequest(EditPart host, PasteRequest request) {
+		if (request.isEraseFeedback()) {
+			return true;
+		}
+		return isInnerPartOfHost(host, request);
+	}
 
-  @Override
-  public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-    return true;
-  }
+	@Override
+	public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+		return true;
+	}
 
-  @Override
-  public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-    if (request.isEraseFeedback()) {
-      return true;
-    }
-    return isInnerPartOfHost(host, request);
-  }
+	@Override
+	public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+		if (request.isEraseFeedback()) {
+			return true;
+		}
+		return isInnerPartOfHost(host, request);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean isInnerPartOfHost(EditPart host, IDropRequest request) {
-    if (host instanceof GraphicalEditPart) {
-      GraphicalEditPart graphicalHost = (GraphicalEditPart) host;
-      Figure hostFigure = graphicalHost.getFigure();
-      // prepare location in host
-      Point location;
-      {
-        location = request.getLocation().getCopy();
-        FigureUtils.translateAbsoluteToFigure2(hostFigure, location);
-      }
-      // check if "location" is inside of "inner part" of host
-      Rectangle hostClientArea = hostFigure.getClientArea();
-      return hostClientArea.getCropped(m_insets).contains(location);
-    }
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private boolean isInnerPartOfHost(EditPart host, IDropRequest request) {
+		if (host instanceof GraphicalEditPart) {
+			GraphicalEditPart graphicalHost = (GraphicalEditPart) host;
+			Figure hostFigure = graphicalHost.getFigure();
+			// prepare location in host
+			Point location;
+			{
+				location = request.getLocation().getCopy();
+				FigureUtils.translateAbsoluteToFigure2(hostFigure, location);
+			}
+			// check if "location" is inside of "inner part" of host
+			Rectangle hostClientArea = hostFigure.getClientArea();
+			return hostClientArea.getCropped(m_insets).contains(location);
+		}
+		return true;
+	}
 }

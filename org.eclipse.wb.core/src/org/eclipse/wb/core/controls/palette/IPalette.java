@@ -24,43 +24,43 @@ import java.util.List;
  * @coverage core.control.palette
  */
 public interface IPalette {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link List} of {@link ICategory}'s to display as roots of palette.
-   */
-  List<ICategory> getCategories();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link List} of {@link ICategory}'s to display as roots of palette.
+	 */
+	List<ICategory> getCategories();
 
-  /**
-   * Adds {@link Action}'s to the popup menu.
-   *
-   * @param menuManager
-   *          the {@link IMenuManager} for {@link Action}'s
-   * @param target
-   *          the object under cursor
-   */
-  void addPopupActions(IMenuManager menuManager, Object target, int iconsType);
+	/**
+	 * Adds {@link Action}'s to the popup menu.
+	 *
+	 * @param menuManager
+	 *          the {@link IMenuManager} for {@link Action}'s
+	 * @param target
+	 *          the object under cursor
+	 */
+	void addPopupActions(IMenuManager menuManager, Object target, int iconsType);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Asks for selecting default {@link IEntry}.
-   */
-  void selectDefault();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Asks for selecting default {@link IEntry}.
+	 */
+	void selectDefault();
 
-  /**
-   * Moves given <code>category</code> before given <code>nextCategory</code>.
-   */
-  void moveCategory(ICategory category, ICategory nextCategory);
+	/**
+	 * Moves given <code>category</code> before given <code>nextCategory</code>.
+	 */
+	void moveCategory(ICategory category, ICategory nextCategory);
 
-  /**
-   * Moves given <code>entry</code> into given category before <code>nextEntry</code>.
-   */
-  void moveEntry(IEntry entry, ICategory targetCategory, IEntry nextEntry);
+	/**
+	 * Moves given <code>entry</code> into given category before <code>nextEntry</code>.
+	 */
+	void moveEntry(IEntry entry, ICategory targetCategory, IEntry nextEntry);
 }

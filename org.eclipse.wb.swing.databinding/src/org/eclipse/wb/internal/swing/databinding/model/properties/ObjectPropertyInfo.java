@@ -28,75 +28,75 @@ import java.util.List;
  * @coverage bindings.swing.model.properties
  */
 public final class ObjectPropertyInfo extends PropertyInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObjectPropertyInfo(IGenericType sourceObjectType) {
-    super(sourceObjectType, sourceObjectType);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObjectPropertyInfo(IGenericType sourceObjectType) {
+		super(sourceObjectType, sourceObjectType);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ObserveInfo getObserveProperty(ObserveInfo observeObject) throws Exception {
-    for (IObserveInfo observe : observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable)) {
-      if (observe instanceof ObjectPropertyObserveInfo) {
-        return (ObserveInfo) observe;
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ObserveInfo getObserveProperty(ObserveInfo observeObject) throws Exception {
+		for (IObserveInfo observe : observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable)) {
+			if (observe instanceof ObjectPropertyObserveInfo) {
+				return (ObserveInfo) observe;
+			}
+		}
+		return null;
+	}
 
-  @Override
-  public boolean canShared(PropertyInfo property) {
-    if (property instanceof ObjectPropertyInfo) {
-      return !DatabindingParser.useGenerics
-          || m_sourceObjectType.getFullTypeName().equals(
-              property.getSourceObjectType().getFullTypeName());
-    }
-    return false;
-  }
+	@Override
+	public boolean canShared(PropertyInfo property) {
+		if (property instanceof ObjectPropertyInfo) {
+			return !DatabindingParser.useGenerics
+					|| m_sourceObjectType.getFullTypeName().equals(
+							property.getSourceObjectType().getFullTypeName());
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    if (getVariableIdentifier() == null) {
-      setVariableIdentifier(generationSupport.generateLocalName(
-          m_sourceObjectType.getSimpleTypeName(),
-          "ObjectProperty"));
-    }
-    if (generationSupport.useGenerics()) {
-      lines.add("org.jdesktop.beansbinding.ObjectProperty"
-          + GenericUtils.getTypesSource(m_sourceObjectType)
-          + " "
-          + getVariableIdentifier()
-          + " = org.jdesktop.beansbinding.ObjectProperty.create();");
-    } else {
-      lines.add("org.jdesktop.beansbinding.Property "
-          + getVariableIdentifier()
-          + " = org.jdesktop.beansbinding.ObjectProperty.create();");
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		if (getVariableIdentifier() == null) {
+			setVariableIdentifier(generationSupport.generateLocalName(
+					m_sourceObjectType.getSimpleTypeName(),
+					"ObjectProperty"));
+		}
+		if (generationSupport.useGenerics()) {
+			lines.add("org.jdesktop.beansbinding.ObjectProperty"
+					+ GenericUtils.getTypesSource(m_sourceObjectType)
+					+ " "
+					+ getVariableIdentifier()
+					+ " = org.jdesktop.beansbinding.ObjectProperty.create();");
+		} else {
+			lines.add("org.jdesktop.beansbinding.Property "
+					+ getVariableIdentifier()
+					+ " = org.jdesktop.beansbinding.ObjectProperty.create();");
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPresentationText(IObserveInfo observeObject,
-      IObserveInfo observeProperty,
-      boolean full) throws Exception {
-    return observeObject.getPresentation().getTextForBinding();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPresentationText(IObserveInfo observeObject,
+			IObserveInfo observeProperty,
+			boolean full) throws Exception {
+		return observeObject.getPresentation().getTextForBinding();
+	}
 }

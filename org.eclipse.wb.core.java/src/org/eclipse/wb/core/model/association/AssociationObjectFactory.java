@@ -20,5 +20,5 @@ package org.eclipse.wb.core.model.association;
  * @coverage core.model.association
  */
 public interface AssociationObjectFactory {
-  AssociationObject create();
+	AssociationObject create();
 }

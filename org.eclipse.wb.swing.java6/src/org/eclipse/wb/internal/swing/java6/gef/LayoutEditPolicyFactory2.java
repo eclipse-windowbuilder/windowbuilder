@@ -26,23 +26,23 @@ import org.eclipse.wb.internal.swing.java6.model.GroupLayoutInfo2;
  * @coverage swing.gef.policy
  */
 public final class LayoutEditPolicyFactory2 implements ILayoutEditPolicyFactory {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ILayoutEditPolicyFactory
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
-    if (model instanceof GroupLayoutInfo2) {
-      if (!(((GroupLayoutInfo2) model).getCreationSupport() instanceof IImplicitCreationSupport)) {
-        IAdaptable adaptable = (IAdaptable) model;
-        IGroupLayoutInfo layoutInfo = adaptable.getAdapter(IGroupLayoutInfo.class);
-        if (layoutInfo != null) {
-          return new SwingGroupLayoutEditPolicy2(layoutInfo);
-        }
-      }
-    }
-    // not found
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ILayoutEditPolicyFactory
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
+		if (model instanceof GroupLayoutInfo2) {
+			if (!(((GroupLayoutInfo2) model).getCreationSupport() instanceof IImplicitCreationSupport)) {
+				IAdaptable adaptable = (IAdaptable) model;
+				IGroupLayoutInfo layoutInfo = adaptable.getAdapter(IGroupLayoutInfo.class);
+				if (layoutInfo != null) {
+					return new SwingGroupLayoutEditPolicy2(layoutInfo);
+				}
+			}
+		}
+		// not found
+		return null;
+	}
 }

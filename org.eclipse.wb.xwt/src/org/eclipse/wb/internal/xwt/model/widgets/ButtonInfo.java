@@ -25,32 +25,32 @@ import org.eclipse.swt.widgets.Button;
  * @coverage XWT.model.widgets
  */
 public final class ButtonInfo extends ControlInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ButtonInfo(EditorContext context,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(context, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ButtonInfo(EditorContext context,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(context, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new StylePresentation(this) {
-    @Override
-    protected void initImages() throws Exception {
-      addImage(SWT.CHECK, "wbp-meta/org/eclipse/swt/widgets/Button_check.gif");
-      addImage(SWT.RADIO, "wbp-meta/org/eclipse/swt/widgets/Button_radio.gif");
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new StylePresentation(this) {
+		@Override
+		protected void initImages() throws Exception {
+			addImage(SWT.CHECK, "wbp-meta/org/eclipse/swt/widgets/Button_check.gif");
+			addImage(SWT.RADIO, "wbp-meta/org/eclipse/swt/widgets/Button_radio.gif");
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 }

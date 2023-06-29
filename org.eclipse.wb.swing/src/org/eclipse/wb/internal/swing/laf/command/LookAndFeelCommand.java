@@ -22,32 +22,32 @@ import org.xml.sax.Attributes;
  * @coverage swing.laf.model
  */
 public abstract class LookAndFeelCommand extends Command {
-  protected final String m_id;
-  protected final String m_name;
+	protected final String m_id;
+	protected final String m_name;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LookAndFeelCommand(String id, String name) {
-    m_id = id;
-    m_name = name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LookAndFeelCommand(String id, String name) {
+		m_id = id;
+		m_name = name;
+	}
 
-  public LookAndFeelCommand(Attributes attributes) {
-    m_id = attributes.getValue(ATTR_ID);
-    m_name = attributes.getValue(ATTR_NAME);
-  }
+	public LookAndFeelCommand(Attributes attributes) {
+		m_id = attributes.getValue(ATTR_ID);
+		m_name = attributes.getValue(ATTR_NAME);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void addAttributes(XmlWriter writer) {
-    addAttribute(writer, ATTR_ID, m_id);
-    addAttribute(writer, ATTR_NAME, m_name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void addAttributes(XmlWriter writer) {
+		addAttribute(writer, ATTR_ID, m_id);
+		addAttribute(writer, ATTR_NAME, m_name);
+	}
 }

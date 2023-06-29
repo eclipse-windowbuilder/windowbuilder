@@ -17,50 +17,50 @@ package org.eclipse.wb.internal.swt.model.jface.resource;
  * @coverage swt.model.jface
  */
 public final class KeyFieldInfo {
-  /**
-   * Key field name.
-   */
-  public final String keyName;
-  /**
-   * Key source code: <code>qualifiedClassName.fieldName</code>.
-   */
-  public final String keySource;
-  /**
-   * Key field value.
-   */
-  public final String keyValue;
-  /**
-   * Registry value for current key. Maybe is <code>null</code>.
-   */
-  public Object value;
+	/**
+	 * Key field name.
+	 */
+	public final String keyName;
+	/**
+	 * Key source code: <code>qualifiedClassName.fieldName</code>.
+	 */
+	public final String keySource;
+	/**
+	 * Key field value.
+	 */
+	public final String keyValue;
+	/**
+	 * Registry value for current key. Maybe is <code>null</code>.
+	 */
+	public Object value;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public KeyFieldInfo(Class<?> declaringClass, String keyName, String keyValue) {
-    this.keyName = keyName;
-    keySource = declaringClass.getName() + "." + keyName;
-    this.keyValue = keyValue;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public KeyFieldInfo(Class<?> declaringClass, String keyName, String keyValue) {
+		this.keyName = keyName;
+		keySource = declaringClass.getName() + "." + keyName;
+		this.keyValue = keyValue;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int hashCode() {
-    return keyName.hashCode();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int hashCode() {
+		return keyName.hashCode();
+	}
 
-  @Override
-  public boolean equals(Object object) {
-    if (object instanceof KeyFieldInfo) {
-      KeyFieldInfo info = (KeyFieldInfo) object;
-      return keyName.equals(info.keyName);
-    }
-    return false;
-  }
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof KeyFieldInfo) {
+			KeyFieldInfo info = (KeyFieldInfo) object;
+			return keyName.equals(info.keyName);
+		}
+		return false;
+	}
 }

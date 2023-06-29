@@ -28,49 +28,49 @@ import org.eclipse.ltk.core.refactoring.participants.RenameParticipant;
  * @coverage XWT.refactoring
  */
 public abstract class AbstractRenameParticipant extends RenameParticipant {
-  protected IMethod m_method;
+	protected IMethod m_method;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // RefactoringParticipant
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getName() {
-    return "XWT rename participant";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// RefactoringParticipant
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getName() {
+		return "XWT rename participant";
+	}
 
-  @Override
-  protected boolean initialize(Object element) {
-    Assert.isTrue(
-        element instanceof IMethod,
-        "Only IMethod can be renamed, but {0} received. Check participant enablement filters.",
-        element);
-    m_method = (IMethod) element;
-    return true;
-  }
+	@Override
+	protected boolean initialize(Object element) {
+		Assert.isTrue(
+				element instanceof IMethod,
+				"Only IMethod can be renamed, but {0} received. Check participant enablement filters.",
+				element);
+		m_method = (IMethod) element;
+		return true;
+	}
 
-  @Override
-  public RefactoringStatus checkConditions(IProgressMonitor pm, CheckConditionsContext context) {
-    return new RefactoringStatus();
-  }
+	@Override
+	public RefactoringStatus checkConditions(IProgressMonitor pm, CheckConditionsContext context) {
+		return new RefactoringStatus();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Change
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final Change createChange(final IProgressMonitor pm) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Change>() {
-      public Change runObject() throws Exception {
-        return createChangeEx(pm);
-      }
-    }, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Change
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final Change createChange(final IProgressMonitor pm) {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Change>() {
+			public Change runObject() throws Exception {
+				return createChangeEx(pm);
+			}
+		}, null);
+	}
 
-  /**
-   * Implementation of {@link #createChange(IProgressMonitor)} that can throw {@link Exception}.
-   */
-  public abstract Change createChangeEx(IProgressMonitor pm) throws Exception;
+	/**
+	 * Implementation of {@link #createChange(IProgressMonitor)} that can throw {@link Exception}.
+	 */
+	public abstract Change createChangeEx(IProgressMonitor pm) throws Exception;
 }

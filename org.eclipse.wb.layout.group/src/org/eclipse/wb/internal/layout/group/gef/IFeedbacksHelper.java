@@ -20,13 +20,13 @@ import org.eclipse.draw2d.geometry.Translatable;
  * @author mitin_aa
  */
 public interface IFeedbacksHelper {
-  /**
-   * Translates the {@link Translatable} from model to feedback coordinate systems.
-   */
-  void translateModelToFeedback(Translatable t);
+	/**
+	 * Translates the {@link Translatable} from model to feedback coordinate systems.
+	 */
+	void translateModelToFeedback(Translatable t);
 
-  /**
-   * Adds a figure to appropriate layer.
-   */
-  void addFeedback2(Figure figure);
+	/**
+	 * Adds a figure to appropriate layer.
+	 */
+	void addFeedback2(Figure figure);
 }

@@ -34,97 +34,97 @@ import javax.swing.JToolBar;
  * @author sablin_aa
  */
 public class JXTaskPaneTest extends SwingxModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Invocation of {@link JXTaskPane#add(Action)} creates {@link Component}, so we also should
-   * create {@link ComponentInfo} for such invocation.
-   */
-  public void test_Action_parse() throws Exception {
-    createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  private ExternalAction action = new ExternalAction();",
-            "  Test() {",
-            "    JXTaskPane pane = new JXTaskPane();",
-            "    Component actionComponent = pane.add(action);",
-            "    add(pane);",
-            "  }",
-            "}");
-    panel.refresh();
-    //
-    assertThat(ActionContainerInfo.getActions(panel).size()).isEqualTo(1);
-    List<JXTaskPaneInfo> children = panel.getChildren(JXTaskPaneInfo.class);
-    assertThat(children.size()).isEqualTo(1);
-    // check JXTaskPane
-    JXTaskPaneInfo pane = children.get(0);
-    assertThat(pane.getChildrenComponents().size()).isEqualTo(2);// ContentPane & action Component
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Invocation of {@link JXTaskPane#add(Action)} creates {@link Component}, so we also should
+	 * create {@link ComponentInfo} for such invocation.
+	 */
+	public void test_Action_parse() throws Exception {
+		createExternalAction();
+		ContainerInfo panel =
+				parseContainer(
+						"class Test extends JPanel {",
+						"  private ExternalAction action = new ExternalAction();",
+						"  Test() {",
+						"    JXTaskPane pane = new JXTaskPane();",
+						"    Component actionComponent = pane.add(action);",
+						"    add(pane);",
+						"  }",
+						"}");
+		panel.refresh();
+		//
+		assertThat(ActionContainerInfo.getActions(panel).size()).isEqualTo(1);
+		List<JXTaskPaneInfo> children = panel.getChildren(JXTaskPaneInfo.class);
+		assertThat(children.size()).isEqualTo(1);
+		// check JXTaskPane
+		JXTaskPaneInfo pane = children.get(0);
+		assertThat(pane.getChildrenComponents().size()).isEqualTo(2);// ContentPane & action Component
+	}
 
-  /**
-   * Use {@link ImplicitFactoryCreationSupport} with {@link JToolBar#add(Action)} to create
-   * {@link JButton}.
-   */
-  public void test_Action_CREATE() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    JXTaskPane pane = new JXTaskPane();",
-            "    add(pane);",
-            "  }",
-            "}");
-    panel.refresh();
-    JXTaskPaneInfo pane = (JXTaskPaneInfo) panel.getChildrenComponents().get(0);
-    // create Action
-    ActionInfo action = ActionInfo.createInner(pane.getEditor());
-    pane.command_CREATE(action, null);
-    // check
-    assertEditor(
-        "class Test extends JPanel {",
-        "  private final Action action = new SwingAction();",
-        "  Test() {",
-        "    JXTaskPane pane = new JXTaskPane();",
-        "    add(pane);",
-        "    {",
-        "      Component component = pane.add(action);",
-        "    }",
-        "  }",
-        "  private class SwingAction extends AbstractAction {",
-        "    public SwingAction() {",
-        "      putValue(NAME, 'SwingAction');",
-        "      putValue(SHORT_DESCRIPTION, 'Some short description');",
-        "    }",
-        "    public void actionPerformed(ActionEvent e) {",
-        "    }",
-        "  }",
-        "}");
-  }
+	/**
+	 * Use {@link ImplicitFactoryCreationSupport} with {@link JToolBar#add(Action)} to create
+	 * {@link JButton}.
+	 */
+	public void test_Action_CREATE() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"class Test extends JPanel {",
+						"  Test() {",
+						"    JXTaskPane pane = new JXTaskPane();",
+						"    add(pane);",
+						"  }",
+						"}");
+		panel.refresh();
+		JXTaskPaneInfo pane = (JXTaskPaneInfo) panel.getChildrenComponents().get(0);
+		// create Action
+		ActionInfo action = ActionInfo.createInner(pane.getEditor());
+		pane.command_CREATE(action, null);
+		// check
+		assertEditor(
+				"class Test extends JPanel {",
+				"  private final Action action = new SwingAction();",
+				"  Test() {",
+				"    JXTaskPane pane = new JXTaskPane();",
+				"    add(pane);",
+				"    {",
+				"      Component component = pane.add(action);",
+				"    }",
+				"  }",
+				"  private class SwingAction extends AbstractAction {",
+				"    public SwingAction() {",
+				"      putValue(NAME, 'SwingAction');",
+				"      putValue(SHORT_DESCRIPTION, 'Some short description');",
+				"    }",
+				"    public void actionPerformed(ActionEvent e) {",
+				"    }",
+				"  }",
+				"}");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create {@link CompilationUnit} with external {@link Action}.
-   */
-  private void createExternalAction() throws Exception {
-    setFileContentSrc(
-        "test/ExternalAction.java",
-        getTestSource(
-            "public class ExternalAction extends AbstractAction {",
-            "  public ExternalAction() {",
-            "    putValue(NAME, 'My name');",
-            "    putValue(SHORT_DESCRIPTION, 'My short description');",
-            "  }",
-            "  public void actionPerformed(ActionEvent e) {",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Create {@link CompilationUnit} with external {@link Action}.
+	 */
+	private void createExternalAction() throws Exception {
+		setFileContentSrc(
+				"test/ExternalAction.java",
+				getTestSource(
+						"public class ExternalAction extends AbstractAction {",
+						"  public ExternalAction() {",
+						"    putValue(NAME, 'My name');",
+						"    putValue(SHORT_DESCRIPTION, 'My short description');",
+						"  }",
+						"  public void actionPerformed(ActionEvent e) {",
+						"  }",
+						"}"));
+		waitForAutoBuild();
+	}
 }

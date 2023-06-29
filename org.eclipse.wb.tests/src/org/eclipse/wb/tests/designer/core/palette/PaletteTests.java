@@ -22,24 +22,24 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class PaletteTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.core.palette");
-    suite.addTest(createSingleSuite(AttributesProvidersTest.class));
-    suite.addTest(createSingleSuite(AbstractElementInfoTest.class));
-    suite.addTest(createSingleSuite(PaletteInfoTest.class));
-    suite.addTest(createSingleSuite(CategoryInfoTest.class));
-    suite.addTest(createSingleSuite(SelectionToolEntryInfoTest.class));
-    suite.addTest(createSingleSuite(MarqueeSelectionToolEntryInfoTest.class));
-    suite.addTest(createSingleSuite(TabOrderToolEntryInfoTest.class));
-    suite.addTest(createSingleSuite(ChooseComponentEntryInfoTest.class));
-    suite.addTest(createSingleSuite(ToolEntryInfoTest.class));
-    suite.addTest(createSingleSuite(ComponentEntryInfoTest.class));
-    suite.addTest(createSingleSuite(StaticFactoryEntryInfoTest.class));
-    suite.addTest(createSingleSuite(InstanceFactoryEntryInfoTest.class));
-    suite.addTest(createSingleSuite(PaletteManagerTest.class));
-    suite.addTest(createSingleSuite(CategoryCommandsTest.class));
-    suite.addTest(createSingleSuite(ComponentCommandsTest.class));
-    suite.addTest(createSingleSuite(FactoryCommandsTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.core.palette");
+		suite.addTest(createSingleSuite(AttributesProvidersTest.class));
+		suite.addTest(createSingleSuite(AbstractElementInfoTest.class));
+		suite.addTest(createSingleSuite(PaletteInfoTest.class));
+		suite.addTest(createSingleSuite(CategoryInfoTest.class));
+		suite.addTest(createSingleSuite(SelectionToolEntryInfoTest.class));
+		suite.addTest(createSingleSuite(MarqueeSelectionToolEntryInfoTest.class));
+		suite.addTest(createSingleSuite(TabOrderToolEntryInfoTest.class));
+		suite.addTest(createSingleSuite(ChooseComponentEntryInfoTest.class));
+		suite.addTest(createSingleSuite(ToolEntryInfoTest.class));
+		suite.addTest(createSingleSuite(ComponentEntryInfoTest.class));
+		suite.addTest(createSingleSuite(StaticFactoryEntryInfoTest.class));
+		suite.addTest(createSingleSuite(InstanceFactoryEntryInfoTest.class));
+		suite.addTest(createSingleSuite(PaletteManagerTest.class));
+		suite.addTest(createSingleSuite(CategoryCommandsTest.class));
+		suite.addTest(createSingleSuite(ComponentCommandsTest.class));
+		suite.addTest(createSingleSuite(FactoryCommandsTest.class));
+		return suite;
+	}
 }

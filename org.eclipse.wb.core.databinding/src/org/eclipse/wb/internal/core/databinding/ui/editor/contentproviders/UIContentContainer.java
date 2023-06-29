@@ -26,93 +26,93 @@ import java.util.List;
  * @coverage bindings.ui
  */
 public abstract class UIContentContainer<T> implements IUiContentProvider {
-  protected final T m_binding;
-  private final String m_errorPrefix;
-  protected final List<IUiContentProvider> m_providers = Lists.newArrayList();
+	protected final T m_binding;
+	private final String m_errorPrefix;
+	protected final List<IUiContentProvider> m_providers = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UIContentContainer(T binding, String errorPrefix) {
-    m_binding = binding;
-    m_errorPrefix = errorPrefix;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UIContentContainer(T binding, String errorPrefix) {
+		m_binding = binding;
+		m_errorPrefix = errorPrefix;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public T getBinding() {
-    return m_binding;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public T getBinding() {
+		return m_binding;
+	}
 
-  public List<IUiContentProvider> getProviders() {
-    return m_providers;
-  }
+	public List<IUiContentProvider> getProviders() {
+		return m_providers;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Complete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setCompleteListener(ICompleteListener listener) {
-    for (IUiContentProvider provider : m_providers) {
-      provider.setCompleteListener(listener);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Complete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setCompleteListener(ICompleteListener listener) {
+		for (IUiContentProvider provider : m_providers) {
+			provider.setCompleteListener(listener);
+		}
+	}
 
-  @Override
-  public String getErrorMessage() {
-    for (IUiContentProvider provider : m_providers) {
-      String errorMessage = provider.getErrorMessage();
-      if (errorMessage != null) {
-        return m_errorPrefix + errorMessage;
-      }
-    }
-    return null;
-  }
+	@Override
+	public String getErrorMessage() {
+		for (IUiContentProvider provider : m_providers) {
+			String errorMessage = provider.getErrorMessage();
+			if (errorMessage != null) {
+				return m_errorPrefix + errorMessage;
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int getNumberOfControls() {
-    int columns = 0;
-    for (IUiContentProvider provider : m_providers) {
-      columns = Math.max(columns, provider.getNumberOfControls());
-    }
-    return columns;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int getNumberOfControls() {
+		int columns = 0;
+		for (IUiContentProvider provider : m_providers) {
+			columns = Math.max(columns, provider.getNumberOfControls());
+		}
+		return columns;
+	}
 
-  @Override
-  public void createContent(Composite parent, int columns) {
-    for (IUiContentProvider provider : m_providers) {
-      provider.createContent(parent, columns);
-    }
-  }
+	@Override
+	public void createContent(Composite parent, int columns) {
+		for (IUiContentProvider provider : m_providers) {
+			provider.createContent(parent, columns);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-    for (IUiContentProvider provider : m_providers) {
-      provider.updateFromObject();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+		for (IUiContentProvider provider : m_providers) {
+			provider.updateFromObject();
+		}
+	}
 
-  @Override
-  public void saveToObject() throws Exception {
-    for (IUiContentProvider provider : m_providers) {
-      provider.saveToObject();
-    }
-  }
+	@Override
+	public void saveToObject() throws Exception {
+		for (IUiContentProvider provider : m_providers) {
+			provider.saveToObject();
+		}
+	}
 }

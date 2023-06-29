@@ -28,22 +28,22 @@ import javax.swing.JInternalFrame;
  * @coverage swing.gef.policy
  */
 public final class MenuDropPolicyConfigurator implements IEditPartConfigurator {
-  public void configure(EditPart context, EditPart editPart) {
-    // drop JMenuBar on JFrame, JDialog and JApply
-    if (editPart.getModel() instanceof ContainerInfo) {
-      ContainerInfo container = (ContainerInfo) editPart.getModel();
-      Class<?> componentClass = container.getDescription().getComponentClass();
-      if (JFrame.class.isAssignableFrom(componentClass)
-          || JInternalFrame.class.isAssignableFrom(componentClass)
-          || JDialog.class.isAssignableFrom(componentClass)
-          || JApplet.class.isAssignableFrom(componentClass)) {
-        editPart.installEditPolicy(new MenuBarDropLayoutEditPolicy(container));
-      }
-    }
-    // drop JPopupMenu on any java.awt.Component
-    if (editPart.getModel() instanceof ComponentInfo) {
-      ComponentInfo component = (ComponentInfo) editPart.getModel();
-      editPart.installEditPolicy(new MenuPopupDropLayoutEditPolicy(component));
-    }
-  }
+	public void configure(EditPart context, EditPart editPart) {
+		// drop JMenuBar on JFrame, JDialog and JApply
+		if (editPart.getModel() instanceof ContainerInfo) {
+			ContainerInfo container = (ContainerInfo) editPart.getModel();
+			Class<?> componentClass = container.getDescription().getComponentClass();
+			if (JFrame.class.isAssignableFrom(componentClass)
+					|| JInternalFrame.class.isAssignableFrom(componentClass)
+					|| JDialog.class.isAssignableFrom(componentClass)
+					|| JApplet.class.isAssignableFrom(componentClass)) {
+				editPart.installEditPolicy(new MenuBarDropLayoutEditPolicy(container));
+			}
+		}
+		// drop JPopupMenu on any java.awt.Component
+		if (editPart.getModel() instanceof ComponentInfo) {
+			ComponentInfo component = (ComponentInfo) editPart.getModel();
+			editPart.installEditPolicy(new MenuPopupDropLayoutEditPolicy(component));
+		}
+	}
 }

@@ -25,37 +25,37 @@ import java.util.List;
  * @coverage core.nls
  */
 public abstract class AbstractCommand {
-  private final IEditableSource m_editableSource;
+	private final IEditableSource m_editableSource;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractCommand(IEditableSource editableSource) {
-    m_editableSource = editableSource;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractCommand(IEditableSource editableSource) {
+		m_editableSource = editableSource;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IEditableSource getEditableSource() {
-    return m_editableSource;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IEditableSource getEditableSource() {
+		return m_editableSource;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Adding to queue
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Add command in given list, possible with some optimizations. For example if we have already
-   * "set values" for same locale on top of commands queue, we can remove previous "set values" and
-   * use only current one.
-   */
-  public void addToCommandList(List<AbstractCommand> commands) {
-    commands.add(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Adding to queue
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Add command in given list, possible with some optimizations. For example if we have already
+	 * "set values" for same locale on top of commands queue, we can remove previous "set values" and
+	 * use only current one.
+	 */
+	public void addToCommandList(List<AbstractCommand> commands) {
+		commands.add(this);
+	}
 }

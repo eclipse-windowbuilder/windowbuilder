@@ -19,64 +19,64 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.nls
  */
 public final class LocalePartInfo implements Comparable<LocalePartInfo> {
-  private final String m_name;
-  private final String m_displayName;
-  private final Image m_flagImage;
+	private final String m_name;
+	private final String m_displayName;
+	private final Image m_flagImage;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public LocalePartInfo(String name, String displayName, Image flagImage) {
-    m_name = name;
-    m_displayName = displayName;
-    m_flagImage = flagImage;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public LocalePartInfo(String name, String displayName, Image flagImage) {
+		m_name = name;
+		m_displayName = displayName;
+		m_flagImage = flagImage;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public String getName() {
-    return m_name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public String getName() {
+		return m_name;
+	}
 
-  public Image getFlagImage() {
-    return m_flagImage;
-  }
+	public Image getFlagImage() {
+		return m_flagImage;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    if (m_name.length() == 0) {
-      return m_displayName;
-    }
-    return m_name + " - " + m_displayName;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		if (m_name.length() == 0) {
+			return m_displayName;
+		}
+		return m_name + " - " + m_displayName;
+	}
 
-  @Override
-  public int hashCode() {
-    return m_name.hashCode();
-  }
+	@Override
+	public int hashCode() {
+		return m_name.hashCode();
+	}
 
-  @Override
-  public boolean equals(Object obj) {
-    return obj instanceof LocalePartInfo && m_name.equals(((LocalePartInfo) obj).m_name);
-  }
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof LocalePartInfo && m_name.equals(((LocalePartInfo) obj).m_name);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Comparable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int compareTo(LocalePartInfo o) {
-    return m_name.compareTo(o.m_name);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Comparable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int compareTo(LocalePartInfo o) {
+		return m_name.compareTo(o.m_name);
+	}
 }

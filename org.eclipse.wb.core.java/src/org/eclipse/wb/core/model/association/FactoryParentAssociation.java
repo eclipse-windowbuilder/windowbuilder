@@ -30,64 +30,64 @@ import org.eclipse.swt.widgets.Control;
  * @coverage core.model.association
  */
 public final class FactoryParentAssociation extends InvocationAssociation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FactoryParentAssociation() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FactoryParentAssociation() {
+	}
 
-  public FactoryParentAssociation(MethodInvocation invocation) {
-    super(invocation);
-  }
+	public FactoryParentAssociation(MethodInvocation invocation) {
+		super(invocation);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setJavaInfo(JavaInfo javaInfo) throws Exception {
-    super.setJavaInfo(javaInfo);
-    // get MethodInvocation from AbstractFactoryCreationSupport
-    {
-      AbstractFactoryCreationSupport creationSupport =
-          (AbstractFactoryCreationSupport) javaInfo.getCreationSupport();
-      m_invocation = creationSupport.getInvocation();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setJavaInfo(JavaInfo javaInfo) throws Exception {
+		super.setJavaInfo(javaInfo);
+		// get MethodInvocation from AbstractFactoryCreationSupport
+		{
+			AbstractFactoryCreationSupport creationSupport =
+					(AbstractFactoryCreationSupport) javaInfo.getCreationSupport();
+			m_invocation = creationSupport.getInvocation();
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setParent(JavaInfo parent) throws Exception {
-    // prepare description
-    MethodDescription description;
-    {
-      AbstractFactoryCreationSupport creationSupport =
-          (AbstractFactoryCreationSupport) m_javaInfo.getCreationSupport();
-      description = creationSupport.getDescription();
-    }
-    // update association
-    AssociationUtils.updateParentAssociation(
-        description,
-        DomGenerics.arguments(m_invocation),
-        parent);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setParent(JavaInfo parent) throws Exception {
+		// prepare description
+		MethodDescription description;
+		{
+			AbstractFactoryCreationSupport creationSupport =
+					(AbstractFactoryCreationSupport) m_javaInfo.getCreationSupport();
+			description = creationSupport.getDescription();
+		}
+		// update association
+		AssociationUtils.updateParentAssociation(
+				description,
+				DomGenerics.arguments(m_invocation),
+				parent);
+	}
 
-  @Override
-  public boolean remove() throws Exception {
-    // parent argument can not be removed from factory, just do nothing
-    return false;
-  }
+	@Override
+	public boolean remove() throws Exception {
+		// parent argument can not be removed from factory, just do nothing
+		return false;
+	}
 
-  @Override
-  public Association getCopy() {
-    // in MorphingSupport we use ConstructorCreationSupport
-    return new ConstructorParentAssociation();
-  }
+	@Override
+	public Association getCopy() {
+		// in MorphingSupport we use ConstructorCreationSupport
+		return new ConstructorParentAssociation();
+	}
 }

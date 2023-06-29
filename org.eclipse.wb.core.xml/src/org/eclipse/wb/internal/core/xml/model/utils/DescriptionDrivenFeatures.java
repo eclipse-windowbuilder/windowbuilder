@@ -24,16 +24,16 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @coverage XML.model.util
  */
 public final class DescriptionDrivenFeatures implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void process(XmlObjectInfo object) throws Exception {
-    new CopyPropertyTopSupport(object);
-    //CopyPropertyTop_ChildSupport.install(javaInfo);
-    ModelMethodPropertySupport.install(object, "x-modelMethodProperty ");
-    ModelMethodPropertyChildSupport.install(object, "x-modelMethodChildProperty ");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void process(XmlObjectInfo object) throws Exception {
+		new CopyPropertyTopSupport(object);
+		//CopyPropertyTop_ChildSupport.install(javaInfo);
+		ModelMethodPropertySupport.install(object, "x-modelMethodProperty ");
+		ModelMethodPropertyChildSupport.install(object, "x-modelMethodChildProperty ");
+	}
 }

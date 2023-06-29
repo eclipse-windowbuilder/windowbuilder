@@ -26,45 +26,45 @@ import org.eclipse.wb.internal.swing.model.layout.GenericFlowLayoutInfo;
  * @coverage swing.gefTree.policy
  */
 public final class GenericFlowLayoutEditPolicy extends ObjectLayoutEditPolicy<ComponentInfo> {
-  private final GenericFlowLayoutInfo m_layout;
+	private final GenericFlowLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenericFlowLayoutEditPolicy(GenericFlowLayoutInfo layout) {
-    super(layout);
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenericFlowLayoutEditPolicy(GenericFlowLayoutInfo layout) {
+		super(layout);
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
-    return editPart.getModel() instanceof ComponentInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
+		return editPart.getModel() instanceof ComponentInfo;
+	}
 
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return ComponentsLayoutRequestValidator.INSTANCE;
-  }
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return ComponentsLayoutRequestValidator.INSTANCE;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ComponentInfo component, ComponentInfo reference) throws Exception {
-    m_layout.add(component, reference);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ComponentInfo component, ComponentInfo reference) throws Exception {
+		m_layout.add(component, reference);
+	}
 
-  @Override
-  protected void command_MOVE(ComponentInfo component, ComponentInfo reference) throws Exception {
-    m_layout.move(component, reference);
-  }
+	@Override
+	protected void command_MOVE(ComponentInfo component, ComponentInfo reference) throws Exception {
+		m_layout.move(component, reference);
+	}
 }

@@ -18,9 +18,9 @@ package org.eclipse.wb.internal.core.model.menu;
  * @coverage core.model.menu
  */
 public interface IMenuItemInfo extends IMenuObjectInfo {
-  /**
-   * @return the child {@link IMenuInfo}, or <code>null</code> if there are no child
-   *         {@link IMenuInfo}.
-   */
-  IMenuInfo getMenu();
+	/**
+	 * @return the child {@link IMenuInfo}, or <code>null</code> if there are no child
+	 *         {@link IMenuInfo}.
+	 */
+	IMenuInfo getMenu();
 }

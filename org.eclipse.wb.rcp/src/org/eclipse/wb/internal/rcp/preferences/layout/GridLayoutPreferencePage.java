@@ -22,14 +22,14 @@ import org.eclipse.jface.preference.PreferencePage;
  * @coverage rcp.preferences.ui
  */
 public final class GridLayoutPreferencePage
-    extends
-      org.eclipse.wb.internal.swt.preferences.layout.GridLayoutPreferencePage {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GridLayoutPreferencePage() {
-    super(ToolkitProvider.DESCRIPTION);
-  }
+extends
+org.eclipse.wb.internal.swt.preferences.layout.GridLayoutPreferencePage {
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GridLayoutPreferencePage() {
+		super(ToolkitProvider.DESCRIPTION);
+	}
 }

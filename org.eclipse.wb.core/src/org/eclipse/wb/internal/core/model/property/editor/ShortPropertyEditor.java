@@ -24,60 +24,60 @@ import java.text.MessageFormat;
  * @coverage core.model.property.editor
  */
 public class ShortPropertyEditor extends AbstractTextPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final PropertyEditor INSTANCE = new ShortPropertyEditor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final PropertyEditor INSTANCE = new ShortPropertyEditor();
 
-  private ShortPropertyEditor() {
-  }
+	private ShortPropertyEditor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getText(Property property) throws Exception {
-    Object value = property.getValue();
-    if (value instanceof Short) {
-      return value.toString();
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getText(Property property) throws Exception {
+		Object value = property.getValue();
+		if (value instanceof Short) {
+			return value.toString();
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String getEditorText(Property property) throws Exception {
-    return getText(property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String getEditorText(Property property) throws Exception {
+		return getText(property);
+	}
 
-  @Override
-  protected boolean setEditorText(Property property, String text) throws Exception {
-    text = text.trim();
-    // check for delete
-    if (text.length() == 0) {
-      property.setValue(Property.UNKNOWN_VALUE);
-    }
-    // prepare value
-    Short value;
-    try {
-      value = Short.valueOf(text);
-    } catch (Throwable e) {
-      UiUtils.openWarning(
-          DesignerPlugin.getShell(),
-          property.getTitle(),
-          MessageFormat.format(ModelMessages.ShortPropertyEditor_notValidShort, text));
-      return false;
-    }
-    // modify property
-    property.setValue(value);
-    return true;
-  }
+	@Override
+	protected boolean setEditorText(Property property, String text) throws Exception {
+		text = text.trim();
+		// check for delete
+		if (text.length() == 0) {
+			property.setValue(Property.UNKNOWN_VALUE);
+		}
+		// prepare value
+		Short value;
+		try {
+			value = Short.valueOf(text);
+		} catch (Throwable e) {
+			UiUtils.openWarning(
+					DesignerPlugin.getShell(),
+					property.getTitle(),
+					MessageFormat.format(ModelMessages.ShortPropertyEditor_notValidShort, text));
+			return false;
+		}
+		// modify property
+		property.setValue(value);
+		return true;
+	}
 }

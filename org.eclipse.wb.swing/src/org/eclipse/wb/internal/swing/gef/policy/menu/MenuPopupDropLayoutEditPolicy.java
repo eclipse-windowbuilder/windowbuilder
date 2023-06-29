@@ -40,171 +40,171 @@ import java.util.List;
  * @coverage swing.gef.policy
  */
 public class MenuPopupDropLayoutEditPolicy extends LayoutEditPolicy {
-  private final ComponentInfo m_component;
+	private final ComponentInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuPopupDropLayoutEditPolicy(ComponentInfo component) {
-    m_component = component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuPopupDropLayoutEditPolicy(ComponentInfo component) {
+		m_component = component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Feedback
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void showLayoutTargetFeedback(Request request) {
-    PolicyUtils.showBorderTargetFeedback(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Feedback
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void showLayoutTargetFeedback(Request request) {
+		PolicyUtils.showBorderTargetFeedback(this);
+	}
 
-  @Override
-  protected void eraseLayoutTargetFeedback(Request request) {
-    PolicyUtils.eraseBorderTargetFeedback(this);
-  }
+	@Override
+	protected void eraseLayoutTargetFeedback(Request request) {
+		PolicyUtils.eraseBorderTargetFeedback(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Command getCreateCommand(final CreateRequest request) {
-    if (!canAcceptPopup()) {
-      return null;
-    }
-    // OK, we can add new "popup"
-    return new EditCommand(m_component) {
-      @Override
-      protected void executeEdit() throws Exception {
-        JPopupMenuInfo popup = (JPopupMenuInfo) request.getNewObject();
-        popup.command_CREATE(m_component);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Command getCreateCommand(final CreateRequest request) {
+		if (!canAcceptPopup()) {
+			return null;
+		}
+		// OK, we can add new "popup"
+		return new EditCommand(m_component) {
+			@Override
+			protected void executeEdit() throws Exception {
+				JPopupMenuInfo popup = (JPopupMenuInfo) request.getNewObject();
+				popup.command_CREATE(m_component);
+			}
+		};
+	}
 
-  @Override
-  protected Command getPasteCommand(PasteRequest request) {
-    if (!canAcceptPopup()) {
-      return null;
-    }
-    // OK, we can paste "popup"
-    return LayoutPolicyUtils2.getPasteCommand(
-        m_component,
-        request,
-        JPopupMenuInfo.class,
-        new IPasteProcessor<JPopupMenuInfo>() {
-          public void process(JPopupMenuInfo popup) throws Exception {
-            popup.command_CREATE(m_component);
-          }
-        });
-  }
+	@Override
+	protected Command getPasteCommand(PasteRequest request) {
+		if (!canAcceptPopup()) {
+			return null;
+		}
+		// OK, we can paste "popup"
+		return LayoutPolicyUtils2.getPasteCommand(
+				m_component,
+				request,
+				JPopupMenuInfo.class,
+				new IPasteProcessor<JPopupMenuInfo>() {
+					public void process(JPopupMenuInfo popup) throws Exception {
+						popup.command_CREATE(m_component);
+					}
+				});
+	}
 
-  @Override
-  protected Command getMoveCommand(ChangeBoundsRequest request) {
-    return null;
-  }
+	@Override
+	protected Command getMoveCommand(ChangeBoundsRequest request) {
+		return null;
+	}
 
-  @Override
-  protected Command getAddCommand(ChangeBoundsRequest request) {
-    if (!canAcceptPopup()) {
-      return null;
-    }
-    // OK, we can move "popup"
-    final JPopupMenuInfo popup = (JPopupMenuInfo) request.getEditParts().get(0).getModel();
-    return new EditCommand(m_component) {
-      @Override
-      protected void executeEdit() throws Exception {
-        popup.command_MOVE(m_component);
-      }
-    };
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validator instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
-    public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      return request.getNewObject() instanceof JPopupMenuInfo;
-    }
+	@Override
+	protected Command getAddCommand(ChangeBoundsRequest request) {
+		if (!canAcceptPopup()) {
+			return null;
+		}
+		// OK, we can move "popup"
+		final JPopupMenuInfo popup = (JPopupMenuInfo) request.getEditParts().get(0).getModel();
+		return new EditCommand(m_component) {
+			@Override
+			protected void executeEdit() throws Exception {
+				popup.command_MOVE(m_component);
+			}
+		};
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Validator instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final ILayoutRequestValidator VALIDATOR = new ILayoutRequestValidator() {
+		public boolean validateCreateRequest(EditPart host, CreateRequest request) {
+			return request.getNewObject() instanceof JPopupMenuInfo;
+		}
 
-    public boolean validatePasteRequest(EditPart host, final PasteRequest request) {
-      return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-        public Boolean runObject() throws Exception {
-          // check that memento contains JPopupMenu_Info
-          @SuppressWarnings("unchecked")
-          List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
-          if (mementos.size() == 1) {
-            JavaInfo javaInfo = mementos.get(0).create(m_component);
-            if (javaInfo instanceof JPopupMenuInfo) {
-              request.setObject(javaInfo);
-              return true;
-            }
-          }
-          // not a JPopupMenu_Info
-          return false;
-        }
-      }, false);
-    }
+		public boolean validatePasteRequest(EditPart host, final PasteRequest request) {
+			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+				public Boolean runObject() throws Exception {
+					// check that memento contains JPopupMenu_Info
+					@SuppressWarnings("unchecked")
+					List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
+					if (mementos.size() == 1) {
+						JavaInfo javaInfo = mementos.get(0).create(m_component);
+						if (javaInfo instanceof JPopupMenuInfo) {
+							request.setObject(javaInfo);
+							return true;
+						}
+					}
+					// not a JPopupMenu_Info
+					return false;
+				}
+			}, false);
+		}
 
-    public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
-      return request.getEditParts().size() == 1
-          && request.getEditParts().get(0).getModel() instanceof JPopupMenuInfo;
-    }
+		public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
+			return request.getEditParts().size() == 1
+					&& request.getEditParts().get(0).getModel() instanceof JPopupMenuInfo;
+		}
 
-    public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
-      if (request.getEditParts().size() == 1) {
-        Object object = request.getEditParts().get(0).getModel();
-        return object instanceof JPopupMenuInfo;
-      }
-      return false;
-    }
-  };
+		public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
+			if (request.getEditParts().size() == 1) {
+				Object object = request.getEditParts().get(0).getModel();
+				return object instanceof JPopupMenuInfo;
+			}
+			return false;
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Checks
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if new {@link JPopupMenuInfo} can be added on this
-   *         {@link ComponentInfo}.
-   */
-  private boolean canAcceptPopup() {
-    return !hasChildPopup() && !isPartOfMenu();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Checks
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if new {@link JPopupMenuInfo} can be added on this
+	 *         {@link ComponentInfo}.
+	 */
+	private boolean canAcceptPopup() {
+		return !hasChildPopup() && !isPartOfMenu();
+	}
 
-  /**
-   * @return <code>true</code> if this {@link ComponentInfo} already has {@link JPopupMenuInfo}.
-   */
-  private boolean hasChildPopup() {
-    return !m_component.getChildren(JPopupMenuInfo.class).isEmpty();
-  }
+	/**
+	 * @return <code>true</code> if this {@link ComponentInfo} already has {@link JPopupMenuInfo}.
+	 */
+	private boolean hasChildPopup() {
+		return !m_component.getChildren(JPopupMenuInfo.class).isEmpty();
+	}
 
-  /**
-   * @return <code>true</code> if this {@link ComponentInfo} is already located on
-   *         {@link JMenuBarInfo} or {@link JPopupMenuInfo}.
-   */
-  private boolean isPartOfMenu() {
-    for (ObjectInfo object = m_component; object != null; object = object.getParent()) {
-      if (object instanceof JMenuBarInfo || object instanceof JPopupMenuInfo) {
-        return true;
-      }
-    }
-    return false;
-  }
+	/**
+	 * @return <code>true</code> if this {@link ComponentInfo} is already located on
+	 *         {@link JMenuBarInfo} or {@link JPopupMenuInfo}.
+	 */
+	private boolean isPartOfMenu() {
+		for (ObjectInfo object = m_component; object != null; object = object.getParent()) {
+			if (object instanceof JMenuBarInfo || object instanceof JPopupMenuInfo) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

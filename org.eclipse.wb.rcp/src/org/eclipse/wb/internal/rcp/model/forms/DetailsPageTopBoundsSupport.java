@@ -28,66 +28,66 @@ import org.eclipse.swt.widgets.Shell;
  * @coverage rcp.model.forms
  */
 public final class DetailsPageTopBoundsSupport extends TopBoundsSupport {
-  private final DetailsPageInfo m_page;
+	private final DetailsPageInfo m_page;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DetailsPageTopBoundsSupport(DetailsPageInfo page) {
-    super(page);
-    m_page = page;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DetailsPageTopBoundsSupport(DetailsPageInfo page) {
+		super(page);
+		m_page = page;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TopBoundsSupport
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void apply() throws Exception {
-    // set size from resource properties (or default)
-    {
-      Dimension size = getResourceSize();
-      Shell shell = m_page.getShell();
-      // "size" is size of _content_ for "shell", so calculate trim
-      Rectangle trim =
-          RectangleSupport.getRectangle(shell.computeTrim(0, 0, size.width, size.height));
-      // OK, set size from trim
-      ControlSupport.setSize(shell, trim.width, trim.height);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TopBoundsSupport
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void apply() throws Exception {
+		// set size from resource properties (or default)
+		{
+			Dimension size = getResourceSize();
+			Shell shell = m_page.getShell();
+			// "size" is size of _content_ for "shell", so calculate trim
+			Rectangle trim =
+					RectangleSupport.getRectangle(shell.computeTrim(0, 0, size.width, size.height));
+			// OK, set size from trim
+			ControlSupport.setSize(shell, trim.width, trim.height);
+		}
+	}
 
-  @Override
-  public void setSize(int width, int height) throws Exception {
-    // remember size in resource properties
-    setResourceSize(width, height);
-  }
+	@Override
+	public void setSize(int width, int height) throws Exception {
+		// remember size in resource properties
+		setResourceSize(width, height);
+	}
 
-  @Override
-  protected Dimension getDefaultSize() {
-    return new Dimension(600, 500);
-  }
+	@Override
+	protected Dimension getDefaultSize() {
+		return new Dimension(600, 500);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Show
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean show() throws Exception {
-    Shell shell = m_page.getShell();
-    // don't dispose Shell, DetailsPage_Info reuses it between refresh()
-    shell.addShellListener(new ShellAdapter() {
-      @Override
-      public void shellClosed(ShellEvent e) {
-        e.doit = false;
-        ((Shell) e.widget).setVisible(false);
-      }
-    });
-    // do show
-    CompositeTopBoundsSupport.show(m_page, shell);
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Show
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean show() throws Exception {
+		Shell shell = m_page.getShell();
+		// don't dispose Shell, DetailsPage_Info reuses it between refresh()
+		shell.addShellListener(new ShellAdapter() {
+			@Override
+			public void shellClosed(ShellEvent e) {
+				e.doit = false;
+				((Shell) e.widget).setVisible(false);
+			}
+		});
+		// do show
+		CompositeTopBoundsSupport.show(m_page, shell);
+		return true;
+	}
 }

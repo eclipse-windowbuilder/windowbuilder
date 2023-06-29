@@ -24,50 +24,50 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage rcp.gef.policy
  */
 public final class ControlDecorationDropLayoutEditPolicy
-    extends
-      SingleObjectLayoutEditPolicy<ControlDecorationInfo> {
-  private static final ILayoutRequestValidator VALIDATOR =
-      LayoutRequestValidators.modelType(ControlDecorationInfo.class);
-  private final ControlInfo m_control;
+extends
+SingleObjectLayoutEditPolicy<ControlDecorationInfo> {
+	private static final ILayoutRequestValidator VALIDATOR =
+			LayoutRequestValidators.modelType(ControlDecorationInfo.class);
+	private final ControlInfo m_control;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ControlDecorationDropLayoutEditPolicy(ControlInfo control) {
-    super(control);
-    m_control = control;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ControlDecorationDropLayoutEditPolicy(ControlInfo control) {
+		super(control);
+		m_control = control;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected ILayoutRequestValidator getRequestValidator() {
-    return VALIDATOR;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected ILayoutRequestValidator getRequestValidator() {
+		return VALIDATOR;
+	}
 
-  @Override
-  protected boolean isEmpty() {
-    return m_control.getParent() != null
-        && m_control.getChildren(ControlDecorationInfo.class).isEmpty();
-  }
+	@Override
+	protected boolean isEmpty() {
+		return m_control.getParent() != null
+				&& m_control.getChildren(ControlDecorationInfo.class).isEmpty();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void command_CREATE(ControlDecorationInfo decoration) throws Exception {
-    decoration.command_CREATE(m_control);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void command_CREATE(ControlDecorationInfo decoration) throws Exception {
+		decoration.command_CREATE(m_control);
+	}
 
-  @Override
-  protected void command_ADD(ControlDecorationInfo decoration) throws Exception {
-    decoration.command_ADD(m_control);
-  }
+	@Override
+	protected void command_ADD(ControlDecorationInfo decoration) throws Exception {
+		decoration.command_ADD(m_control);
+	}
 }

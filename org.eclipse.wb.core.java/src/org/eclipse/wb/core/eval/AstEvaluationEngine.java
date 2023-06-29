@@ -38,136 +38,136 @@ import java.util.List;
  * @coverage core.evaluation
  */
 public final class AstEvaluationEngine {
-  /**
-   * The value that means that {@link AstEvaluationEngine} can not evaluate given expression.
-   */
-  public static final Object UNKNOWN = new Object();
+	/**
+	 * The value that means that {@link AstEvaluationEngine} can not evaluate given expression.
+	 */
+	public static final Object UNKNOWN = new Object();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return value of given {@link Expression}.
-   * @throws DesignerException
-   *           if given expression can not be evaluated.
-   */
-  public static Object evaluate(final EvaluationContext context, final Expression expression)
-      throws Exception {
-    try {
-      return evaluate0(context, expression);
-    } catch (final Throwable e) {
-      Object result = ExecutionUtils.runObjectLog(new RunnableObjectEx<Object>() {
-        @Override
-        public Object runObject() throws Exception {
-          return context.evaluationFailed(expression, e);
-        }
-      }, UNKNOWN);
-      if (result != UNKNOWN) {
-        return result;
-      }
-      throw new Error(context.getSource(expression), e);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return value of given {@link Expression}.
+	 * @throws DesignerException
+	 *           if given expression can not be evaluated.
+	 */
+	public static Object evaluate(final EvaluationContext context, final Expression expression)
+			throws Exception {
+		try {
+			return evaluate0(context, expression);
+		} catch (final Throwable e) {
+			Object result = ExecutionUtils.runObjectLog(new RunnableObjectEx<Object>() {
+				@Override
+				public Object runObject() throws Exception {
+					return context.evaluationFailed(expression, e);
+				}
+			}, UNKNOWN);
+			if (result != UNKNOWN) {
+				return result;
+			}
+			throw new Error(context.getSource(expression), e);
+		}
+	}
 
-  /**
-   * Evaluates given {@link ClassInstanceCreation} directly, without asking other possible
-   * registered {@link IExpressionEvaluator}.
-   */
-  public static Object createClassInstanceCreationDirectly(EvaluationContext context,
-      ClassInstanceCreation creation) throws Exception {
-    ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(creation);
-    String typeQualifiedName = AstNodeUtils.getFullyQualifiedName(typeBinding, true);
-    return new InvocationEvaluator().evaluate(context, creation, typeBinding, typeQualifiedName);
-  }
+	/**
+	 * Evaluates given {@link ClassInstanceCreation} directly, without asking other possible
+	 * registered {@link IExpressionEvaluator}.
+	 */
+	public static Object createClassInstanceCreationDirectly(EvaluationContext context,
+			ClassInstanceCreation creation) throws Exception {
+		ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(creation);
+		String typeQualifiedName = AstNodeUtils.getFullyQualifiedName(typeBinding, true);
+		return new InvocationEvaluator().evaluate(context, creation, typeBinding, typeQualifiedName);
+	}
 
-  /**
-   * @param methodBinding
-   *          the {@link IMethodBinding} of constructor.
-   *
-   * @return the instance of anonymous {@link ClassInstanceCreation}, intercepting methods using
-   *         a default implementation.
-   * @see DefaultMethodInterceptor
-   */
-  public static Object createAnonymousInstance(EvaluationContext context,
-      IMethodBinding methodBinding,
-      Object[] argumentValues) throws Exception {
-    return InvocationEvaluator.createAnonymousInstance(
-        context,
-        methodBinding,
-        argumentValues);
-  }
+	/**
+	 * @param methodBinding
+	 *          the {@link IMethodBinding} of constructor.
+	 *
+	 * @return the instance of anonymous {@link ClassInstanceCreation}, intercepting methods using
+	 *         a default implementation.
+	 * @see DefaultMethodInterceptor
+	 */
+	public static Object createAnonymousInstance(EvaluationContext context,
+			IMethodBinding methodBinding,
+			Object[] argumentValues) throws Exception {
+		return InvocationEvaluator.createAnonymousInstance(
+				context,
+				methodBinding,
+				argumentValues);
+	}
 
-  /**
-   * @return stack trace for exception in user code.
-   */
-  public static String getUserStackTrace(Throwable e) {
-    e = DesignerExceptionUtils.getRootCause(e);
-    String stackTrace = ExceptionUtils.getStackTrace(e);
-    stackTrace = StringUtils.substringBefore(stackTrace, "at org.eclipse.wb.");
-    stackTrace = StringUtils.substringBefore(stackTrace, "at sun.reflect.");
-    stackTrace = StringUtils.stripEnd(stackTrace, null);
-    return stackTrace;
-  }
+	/**
+	 * @return stack trace for exception in user code.
+	 */
+	public static String getUserStackTrace(Throwable e) {
+		e = DesignerExceptionUtils.getRootCause(e);
+		String stackTrace = ExceptionUtils.getStackTrace(e);
+		stackTrace = StringUtils.substringBefore(stackTrace, "at org.eclipse.wb.");
+		stackTrace = StringUtils.substringBefore(stackTrace, "at sun.reflect.");
+		stackTrace = StringUtils.stripEnd(stackTrace, null);
+		return stackTrace;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static Object evaluate0(EvaluationContext context, Expression expression)
-      throws Exception {
-    // try to evaluate "pure" expression
-    {
-      Object value = context.evaluate(expression);
-      if (value != UNKNOWN) {
-        context.evaluationSuccessful(expression, value);
-        return value;
-      }
-    }
-    // simple expression
-    if (expression instanceof NullLiteral) {
-      context.evaluationSuccessful(expression, null);
-      return null;
-    }
-    if (expression instanceof ParenthesizedExpression) {
-      ParenthesizedExpression parenthesizedExpression = (ParenthesizedExpression) expression;
-      Object value = evaluate(context, parenthesizedExpression.getExpression());
-      context.evaluationSuccessful(expression, value);
-      return value;
-    }
-    // use expression evaluators
-    {
-      // prepare type binding/name
-      ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(expression);
-      String typeQualifiedName = AstNodeUtils.getFullyQualifiedName(typeBinding, false);
-      // temporary evaluators
-      for (IExpressionEvaluator evaluator : context.getEvaluators()) {
-        Object value = evaluator.evaluate(context, expression, typeBinding, typeQualifiedName);
-        if (value != UNKNOWN) {
-          context.evaluationSuccessful(expression, value);
-          return value;
-        }
-      }
-      // external evaluators
-      {
-        List<IExpressionEvaluator> evaluators =
-            ExternalFactoriesHelper.getElementsInstances(
-                IExpressionEvaluator.class,
-                "org.eclipse.wb.core.expressionEvaluators",
-                "evaluator");
-        for (IExpressionEvaluator evaluator : evaluators) {
-          Object value = evaluator.evaluate(context, expression, typeBinding, typeQualifiedName);
-          if (value != UNKNOWN) {
-            context.evaluationSuccessful(expression, value);
-            return value;
-          }
-        }
-      }
-    }
-    // unknown expression
-    throw new DesignerException(ICoreExceptionConstants.EVAL_UNKNOWN_EXPRESSION_TYPE,
-        context.getSource(expression));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static Object evaluate0(EvaluationContext context, Expression expression)
+			throws Exception {
+		// try to evaluate "pure" expression
+		{
+			Object value = context.evaluate(expression);
+			if (value != UNKNOWN) {
+				context.evaluationSuccessful(expression, value);
+				return value;
+			}
+		}
+		// simple expression
+		if (expression instanceof NullLiteral) {
+			context.evaluationSuccessful(expression, null);
+			return null;
+		}
+		if (expression instanceof ParenthesizedExpression) {
+			ParenthesizedExpression parenthesizedExpression = (ParenthesizedExpression) expression;
+			Object value = evaluate(context, parenthesizedExpression.getExpression());
+			context.evaluationSuccessful(expression, value);
+			return value;
+		}
+		// use expression evaluators
+		{
+			// prepare type binding/name
+			ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(expression);
+			String typeQualifiedName = AstNodeUtils.getFullyQualifiedName(typeBinding, false);
+			// temporary evaluators
+			for (IExpressionEvaluator evaluator : context.getEvaluators()) {
+				Object value = evaluator.evaluate(context, expression, typeBinding, typeQualifiedName);
+				if (value != UNKNOWN) {
+					context.evaluationSuccessful(expression, value);
+					return value;
+				}
+			}
+			// external evaluators
+			{
+				List<IExpressionEvaluator> evaluators =
+						ExternalFactoriesHelper.getElementsInstances(
+								IExpressionEvaluator.class,
+								"org.eclipse.wb.core.expressionEvaluators",
+								"evaluator");
+				for (IExpressionEvaluator evaluator : evaluators) {
+					Object value = evaluator.evaluate(context, expression, typeBinding, typeQualifiedName);
+					if (value != UNKNOWN) {
+						context.evaluationSuccessful(expression, value);
+						return value;
+					}
+				}
+			}
+		}
+		// unknown expression
+		throw new DesignerException(ICoreExceptionConstants.EVAL_UNKNOWN_EXPRESSION_TYPE,
+				context.getSource(expression));
+	}
 }

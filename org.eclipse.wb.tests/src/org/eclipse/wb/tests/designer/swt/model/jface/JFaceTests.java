@@ -21,9 +21,9 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  */
 public class JFaceTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swt.model.jface");
-    suite.addTest(createSingleSuite(ViewerTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swt.model.jface");
+		suite.addTest(createSingleSuite(ViewerTest.class));
+		return suite;
+	}
 }

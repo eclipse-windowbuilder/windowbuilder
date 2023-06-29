@@ -23,51 +23,51 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.IMasterDetailProvider
  * @coverage bindings.rcp.model.beans
  */
 public final class DirectObservableInfo extends DirectPropertyObservableInfo
-    implements
-      IMasterDetailProvider {
-  public static final String DETAIL_PROPERTY_NAME = "Detail for IObservableValue";
+implements
+IMasterDetailProvider {
+	public static final String DETAIL_PROPERTY_NAME = "Detail for IObservableValue";
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DirectObservableInfo(BindableInfo bindableObject, BindableInfo property) {
-    super(bindableObject, property);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DirectObservableInfo(BindableInfo bindableObject, BindableInfo property) {
+		super(bindableObject, property);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Variable
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getVariableIdentifier() throws Exception {
-    return m_bindableObject.getReference();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Variable
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getVariableIdentifier() throws Exception {
+		return m_bindableObject.getReference();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IMasterDetailProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public ObservableInfo getMasterObservable() throws Exception {
-    for (IObserveInfo property : m_bindableObject.getChildren(ChildrenContext.ChildrenForPropertiesTable)) {
-      if (DETAIL_PROPERTY_NAME.equals(property.getPresentation().getText())) {
-        return new DirectObservableInfo(m_bindableObject, (BindableInfo) property);
-      }
-    }
-    return null;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IMasterDetailProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public ObservableInfo getMasterObservable() throws Exception {
+		for (IObserveInfo property : m_bindableObject.getChildren(ChildrenContext.ChildrenForPropertiesTable)) {
+			if (DETAIL_PROPERTY_NAME.equals(property.getPresentation().getText())) {
+				return new DirectObservableInfo(m_bindableObject, (BindableInfo) property);
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getPresentationText() throws Exception {
-    return getBindableObject().getPresentation().getTextForBinding();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getPresentationText() throws Exception {
+		return getBindableObject().getPresentation().getTextForBinding();
+	}
 }

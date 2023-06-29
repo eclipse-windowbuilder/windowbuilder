@@ -17,87 +17,87 @@ package org.eclipse.wb.internal.core.editor.errors;
  * @coverage core.editor.errors
  */
 public final class ErrorEntryInfo {
-  private final int m_code;
-  private final boolean m_warning;
-  private final String m_title;
-  private final String m_description;
-  private final String m_altDescription;
+	private final int m_code;
+	private final boolean m_warning;
+	private final String m_title;
+	private final String m_description;
+	private final String m_altDescription;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @param code
-   *          the code of the error.
-   * @param warning
-   *          is this entry should be threat as warning.
-   * @param title
-   *          the title of the error.
-   * @param description
-   *          html-based description of the error.
-   */
-  public ErrorEntryInfo(int code, boolean warning, String title, String description) {
-    this(code, warning, title, description, null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @param code
+	 *          the code of the error.
+	 * @param warning
+	 *          is this entry should be threat as warning.
+	 * @param title
+	 *          the title of the error.
+	 * @param description
+	 *          html-based description of the error.
+	 */
+	public ErrorEntryInfo(int code, boolean warning, String title, String description) {
+		this(code, warning, title, description, null);
+	}
 
-  /**
-   * @param code
-   *          the code of the error.
-   * @param warning
-   *          is this entry should be threat as warning.
-   * @param title
-   *          the title of the error.
-   * @param description
-   *          html-based description of the error.
-   * @param altDescription
-   *          plain-text description of the error (optional, can be <code>null</code>).
-   */
-  public ErrorEntryInfo(int code,
-      boolean warning,
-      String title,
-      String description,
-      String altDescription) {
-    m_code = code;
-    m_warning = warning;
-    m_title = title;
-    m_description = description;
-    m_altDescription = altDescription;
-  }
+	/**
+	 * @param code
+	 *          the code of the error.
+	 * @param warning
+	 *          is this entry should be threat as warning.
+	 * @param title
+	 *          the title of the error.
+	 * @param description
+	 *          html-based description of the error.
+	 * @param altDescription
+	 *          plain-text description of the error (optional, can be <code>null</code>).
+	 */
+	public ErrorEntryInfo(int code,
+			boolean warning,
+			String title,
+			String description,
+			String altDescription) {
+		m_code = code;
+		m_warning = warning;
+		m_title = title;
+		m_description = description;
+		m_altDescription = altDescription;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Getters
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public int getCode() {
-    return m_code;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Getters
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public int getCode() {
+		return m_code;
+	}
 
-  public boolean isWarning() {
-    return m_warning;
-  }
+	public boolean isWarning() {
+		return m_warning;
+	}
 
-  public String getTitle() {
-    return m_title;
-  }
+	public String getTitle() {
+		return m_title;
+	}
 
-  public String getDescription() {
-    return m_description;
-  }
+	public String getDescription() {
+		return m_description;
+	}
 
-  public String getAltDescription() {
-    return m_altDescription;
-  }
+	public String getAltDescription() {
+		return m_altDescription;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return Integer.toString(getCode()) + ": " + getTitle();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return Integer.toString(getCode()) + ": " + getTitle();
+	}
 }

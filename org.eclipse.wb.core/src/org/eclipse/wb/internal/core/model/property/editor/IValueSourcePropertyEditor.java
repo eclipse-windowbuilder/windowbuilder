@@ -18,8 +18,8 @@ package org.eclipse.wb.internal.core.model.property.editor;
  * @coverage core.model.property.editor
  */
 public interface IValueSourcePropertyEditor {
-  /**
-   * @return the Java source for given value.
-   */
-  String getValueSource(Object value) throws Exception;
+	/**
+	 * @return the Java source for given value.
+	 */
+	String getValueSource(Object value) throws Exception;
 }

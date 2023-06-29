@@ -29,34 +29,34 @@ import java.util.List;
  * @coverage core.gef.policy
  */
 public final class MoveSelectionEditPolicy extends SelectionEditPolicy {
-  private final Color m_color;
+	private final Color m_color;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MoveSelectionEditPolicy() {
-    this(IColorConstants.black);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MoveSelectionEditPolicy() {
+		this(IColorConstants.black);
+	}
 
-  public MoveSelectionEditPolicy(Color color) {
-    m_color = color;
-  }
+	public MoveSelectionEditPolicy(Color color) {
+		m_color = color;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handles
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
-    {
-      MoveHandle moveHandle = new MoveHandle(getHost());
-      moveHandle.setForeground(m_color);
-      handles.add(moveHandle);
-    }
-    return handles;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handles
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> handles = Lists.newArrayList();
+		{
+			MoveHandle moveHandle = new MoveHandle(getHost());
+			moveHandle.setForeground(m_color);
+			handles.add(moveHandle);
+		}
+		return handles;
+	}
 }

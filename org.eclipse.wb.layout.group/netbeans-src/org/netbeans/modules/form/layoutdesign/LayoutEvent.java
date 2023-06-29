@@ -37,339 +37,339 @@ import java.util.List;
  * Holds information about a change in the layout model. Is able to undo/redo the change.
  */
 abstract class LayoutEvent extends EventObject {
-  private static final long serialVersionUID = 1L;
-  static final int COMPONENT_ADDED = 1;
-  static final int COMPONENT_REMOVED = 2;
-  static final int LAYOUT_ROOTS_ADDED = 14;
-  static final int LAYOUT_ROOTS_REMOVED = 15;
-  static final int LAYOUT_ROOTS_CHANGED = 16;
-  static final int INTERVAL_ADDED = 3;
-  static final int INTERVAL_REMOVED = 4;
-  static final int INTERVAL_ALIGNMENT_CHANGED = 5;
-  static final int GROUP_ALIGNMENT_CHANGED = 6;
-  static final int INTERVAL_SIZE_CHANGED = 7;
-  static final int INTERVAL_PADDING_TYPE_CHANGED = 13;
-  static final int INTERVAL_ATTRIBUTES_CHANGED = 8;
-  static final int INTERVAL_LINKSIZE_CHANGED = 9;
-  static final int CONTAINER_ATTR_CHANGED = 10;
-  static final int COMPONENT_REGISTERED = 11;
-  static final int COMPONENT_UNREGISTERED = 12;
-  private final int changeType;
+	private static final long serialVersionUID = 1L;
+	static final int COMPONENT_ADDED = 1;
+	static final int COMPONENT_REMOVED = 2;
+	static final int LAYOUT_ROOTS_ADDED = 14;
+	static final int LAYOUT_ROOTS_REMOVED = 15;
+	static final int LAYOUT_ROOTS_CHANGED = 16;
+	static final int INTERVAL_ADDED = 3;
+	static final int INTERVAL_REMOVED = 4;
+	static final int INTERVAL_ALIGNMENT_CHANGED = 5;
+	static final int GROUP_ALIGNMENT_CHANGED = 6;
+	static final int INTERVAL_SIZE_CHANGED = 7;
+	static final int INTERVAL_PADDING_TYPE_CHANGED = 13;
+	static final int INTERVAL_ATTRIBUTES_CHANGED = 8;
+	static final int INTERVAL_LINKSIZE_CHANGED = 9;
+	static final int CONTAINER_ATTR_CHANGED = 10;
+	static final int COMPONENT_REGISTERED = 11;
+	static final int COMPONENT_UNREGISTERED = 12;
+	private final int changeType;
 
-  LayoutEvent(LayoutModel source, int changeType) {
-    super(source);
-    this.changeType = changeType;
-  }
+	LayoutEvent(LayoutModel source, int changeType) {
+		super(source);
+		this.changeType = changeType;
+	}
 
-  LayoutModel getModel() {
-    return (LayoutModel) source;
-  }
+	LayoutModel getModel() {
+		return (LayoutModel) source;
+	}
 
-  int getType() {
-    return changeType;
-  }
+	int getType() {
+		return changeType;
+	}
 
-  abstract void undo();
+	abstract void undo();
 
-  abstract void redo();
+	abstract void redo();
 
-  // -----
-  /**
-   * Change event related to an interval.
-   */
-  static class Interval extends LayoutEvent {
-    private static final long serialVersionUID = 1L;
-    private LayoutInterval interval;
-    private LayoutInterval parentInt;
-    private int index;
-    private int oldAlignment;
-    private int newAlignment;
-    private int oldAttributes;
-    private int newAttributes;
-    private int[] oldSizes;
-    private int[] newSizes;
-    private LayoutConstants.PaddingType oldPaddingType;
-    private LayoutConstants.PaddingType newPaddingType;
+	// -----
+	/**
+	 * Change event related to an interval.
+	 */
+	static class Interval extends LayoutEvent {
+		private static final long serialVersionUID = 1L;
+		private LayoutInterval interval;
+		private LayoutInterval parentInt;
+		private int index;
+		private int oldAlignment;
+		private int newAlignment;
+		private int oldAttributes;
+		private int newAttributes;
+		private int[] oldSizes;
+		private int[] newSizes;
+		private LayoutConstants.PaddingType oldPaddingType;
+		private LayoutConstants.PaddingType newPaddingType;
 
-    Interval(LayoutModel source, int changeType) {
-      super(source, changeType);
-    }
+		Interval(LayoutModel source, int changeType) {
+			super(source, changeType);
+		}
 
-    void setInterval(LayoutInterval interval, LayoutInterval parent, int index) {
-      this.interval = interval;
-      parentInt = parent;
-      this.index = index;
-    }
+		void setInterval(LayoutInterval interval, LayoutInterval parent, int index) {
+			this.interval = interval;
+			parentInt = parent;
+			this.index = index;
+		}
 
-    void setAlignment(LayoutInterval interval, int oldAlign, int newAlign) {
-      this.interval = interval;
-      oldAlignment = oldAlign;
-      newAlignment = newAlign;
-    }
+		void setAlignment(LayoutInterval interval, int oldAlign, int newAlign) {
+			this.interval = interval;
+			oldAlignment = oldAlign;
+			newAlignment = newAlign;
+		}
 
-    void setAttributes(LayoutInterval interval, int oldAttributes, int newAttributes) {
-      this.interval = interval;
-      this.oldAttributes = oldAttributes;
-      this.newAttributes = newAttributes;
-    }
+		void setAttributes(LayoutInterval interval, int oldAttributes, int newAttributes) {
+			this.interval = interval;
+			this.oldAttributes = oldAttributes;
+			this.newAttributes = newAttributes;
+		}
 
-    void setSize(LayoutInterval interval,
-        int oldMin,
-        int oldPref,
-        int oldMax,
-        int newMin,
-        int newPref,
-        int newMax) {
-      this.interval = interval;
-      oldSizes = new int[]{oldMin, oldPref, oldMax};
-      newSizes = new int[]{newMin, newPref, newMax};
-    }
+		void setSize(LayoutInterval interval,
+				int oldMin,
+				int oldPref,
+				int oldMax,
+				int newMin,
+				int newPref,
+				int newMax) {
+			this.interval = interval;
+			oldSizes = new int[]{oldMin, oldPref, oldMax};
+			newSizes = new int[]{newMin, newPref, newMax};
+		}
 
-    void setPaddingType(LayoutInterval interval,
-        LayoutConstants.PaddingType oldPadding,
-        LayoutConstants.PaddingType newPadding) {
-      this.interval = interval;
-      oldPaddingType = oldPadding;
-      newPaddingType = newPadding;
-    }
+		void setPaddingType(LayoutInterval interval,
+				LayoutConstants.PaddingType oldPadding,
+				LayoutConstants.PaddingType newPadding) {
+			this.interval = interval;
+			oldPaddingType = oldPadding;
+			newPaddingType = newPadding;
+		}
 
-    LayoutInterval getInterval() {
-      return interval;
-    }
+		LayoutInterval getInterval() {
+			return interval;
+		}
 
-    LayoutInterval getParentInterval() {
-      return parentInt;
-    }
+		LayoutInterval getParentInterval() {
+			return parentInt;
+		}
 
-    int getIndex() {
-      return index;
-    }
+		int getIndex() {
+			return index;
+		}
 
-    @Override
-    void undo() {
-      switch (getType()) {
-        case INTERVAL_ADDED :
-          undoIntervalAddition();
-          break;
-        case INTERVAL_REMOVED :
-          undoIntervalRemoval();
-          break;
-        case INTERVAL_ALIGNMENT_CHANGED :
-          // getModel().setIntervalAlignment(interval, oldAlignment);
-          interval.setAlignment(oldAlignment);
-          break;
-        case GROUP_ALIGNMENT_CHANGED :
-          // getModel().setGroupAlignment(interval, oldAlignment);
-          interval.setGroupAlignment(oldAlignment);
-          break;
-        case INTERVAL_SIZE_CHANGED :
-          // getModel().setIntervalSize(interval, oldSizes[0], oldSizes[1], oldSizes[2]);
-          interval.setSizes(oldSizes[0], oldSizes[1], oldSizes[2]);
-          break;
-        case INTERVAL_PADDING_TYPE_CHANGED :
-          interval.setPaddingType(oldPaddingType);
-          break;
-        case INTERVAL_ATTRIBUTES_CHANGED :
-          interval.setAttributes(oldAttributes);
-          break;
-      }
-    }
+		@Override
+		void undo() {
+			switch (getType()) {
+			case INTERVAL_ADDED :
+				undoIntervalAddition();
+				break;
+			case INTERVAL_REMOVED :
+				undoIntervalRemoval();
+				break;
+			case INTERVAL_ALIGNMENT_CHANGED :
+				// getModel().setIntervalAlignment(interval, oldAlignment);
+				interval.setAlignment(oldAlignment);
+				break;
+			case GROUP_ALIGNMENT_CHANGED :
+				// getModel().setGroupAlignment(interval, oldAlignment);
+				interval.setGroupAlignment(oldAlignment);
+				break;
+			case INTERVAL_SIZE_CHANGED :
+				// getModel().setIntervalSize(interval, oldSizes[0], oldSizes[1], oldSizes[2]);
+				interval.setSizes(oldSizes[0], oldSizes[1], oldSizes[2]);
+				break;
+			case INTERVAL_PADDING_TYPE_CHANGED :
+				interval.setPaddingType(oldPaddingType);
+				break;
+			case INTERVAL_ATTRIBUTES_CHANGED :
+				interval.setAttributes(oldAttributes);
+				break;
+			}
+		}
 
-    @Override
-    void redo() {
-      switch (getType()) {
-        case INTERVAL_ADDED :
-          undoIntervalRemoval();
-          break;
-        case INTERVAL_REMOVED :
-          undoIntervalAddition();
-          break;
-        case INTERVAL_ALIGNMENT_CHANGED :
-          // getModel().setIntervalAlignment(interval, newAlignment);
-          interval.setAlignment(newAlignment);
-          break;
-        case GROUP_ALIGNMENT_CHANGED :
-          // getModel().setGroupAlignment(interval, newAlignment);
-          interval.setGroupAlignment(newAlignment);
-          break;
-        case INTERVAL_SIZE_CHANGED :
-          // getModel().setIntervalSize(interval, newSizes[0], newSizes[1], newSizes[2]);
-          interval.setSizes(newSizes[0], newSizes[1], newSizes[2]);
-          break;
-        case INTERVAL_PADDING_TYPE_CHANGED :
-          interval.setPaddingType(newPaddingType);
-          break;
-        case INTERVAL_ATTRIBUTES_CHANGED :
-          interval.setAttributes(newAttributes);
-          break;
-      }
-    }
+		@Override
+		void redo() {
+			switch (getType()) {
+			case INTERVAL_ADDED :
+				undoIntervalRemoval();
+				break;
+			case INTERVAL_REMOVED :
+				undoIntervalAddition();
+				break;
+			case INTERVAL_ALIGNMENT_CHANGED :
+				// getModel().setIntervalAlignment(interval, newAlignment);
+				interval.setAlignment(newAlignment);
+				break;
+			case GROUP_ALIGNMENT_CHANGED :
+				// getModel().setGroupAlignment(interval, newAlignment);
+				interval.setGroupAlignment(newAlignment);
+				break;
+			case INTERVAL_SIZE_CHANGED :
+				// getModel().setIntervalSize(interval, newSizes[0], newSizes[1], newSizes[2]);
+				interval.setSizes(newSizes[0], newSizes[1], newSizes[2]);
+				break;
+			case INTERVAL_PADDING_TYPE_CHANGED :
+				interval.setPaddingType(newPaddingType);
+				break;
+			case INTERVAL_ATTRIBUTES_CHANGED :
+				interval.setAttributes(newAttributes);
+				break;
+			}
+		}
 
-    private void undoIntervalAddition() {
-      getModel().removeInterval(parentInt, index);
-    }
+		private void undoIntervalAddition() {
+			getModel().removeInterval(parentInt, index);
+		}
 
-    private void undoIntervalRemoval() {
-      getModel().addInterval(interval, parentInt, index);
-    }
-  }
-  /**
-   * Change event related to a component.
-   */
-  static class Component extends LayoutEvent {
-    private static final long serialVersionUID = 1L;
-    private LayoutComponent component;
-    private LayoutComponent parentComp;
-    private int index;
-    private List<LayoutInterval[]> oldLayoutRoots;
-    private List<LayoutInterval[]> newLayoutRoots;
-    private LayoutInterval[] layoutRoots;
-    private int oldLinkSizeId;
-    private int newLinkSizeId;
-    private int dimension;
+		private void undoIntervalRemoval() {
+			getModel().addInterval(interval, parentInt, index);
+		}
+	}
+	/**
+	 * Change event related to a component.
+	 */
+	static class Component extends LayoutEvent {
+		private static final long serialVersionUID = 1L;
+		private LayoutComponent component;
+		private LayoutComponent parentComp;
+		private int index;
+		private List<LayoutInterval[]> oldLayoutRoots;
+		private List<LayoutInterval[]> newLayoutRoots;
+		private LayoutInterval[] layoutRoots;
+		private int oldLinkSizeId;
+		private int newLinkSizeId;
+		private int dimension;
 
-    Component(LayoutModel source, int changeType) {
-      super(source, changeType);
-    }
+		Component(LayoutModel source, int changeType) {
+			super(source, changeType);
+		}
 
-    void setComponent(LayoutComponent comp) {
-      component = comp;
-    }
+		void setComponent(LayoutComponent comp) {
+			component = comp;
+		}
 
-    void setComponent(LayoutComponent comp, LayoutComponent parent, int index) {
-      component = comp;
-      parentComp = parent;
-      this.index = index;
-    }
+		void setComponent(LayoutComponent comp, LayoutComponent parent, int index) {
+			component = comp;
+			parentComp = parent;
+			this.index = index;
+		}
 
-    void setContainer(LayoutComponent comp, List<LayoutInterval[]> rootsList) {
-      component = comp;
-      newLayoutRoots = rootsList;
-    }
+		void setContainer(LayoutComponent comp, List<LayoutInterval[]> rootsList) {
+			component = comp;
+			newLayoutRoots = rootsList;
+		}
 
-    void setLayoutRoots(LayoutComponent container, LayoutInterval[] roots, int index) {
-      component = container;
-      layoutRoots = roots;
-      this.index = index;
-    }
+		void setLayoutRoots(LayoutComponent container, LayoutInterval[] roots, int index) {
+			component = container;
+			layoutRoots = roots;
+			this.index = index;
+		}
 
-    void setLayoutRoots(LayoutComponent container,
-        List<LayoutInterval[]> oldRoots,
-        List<LayoutInterval[]> newRoots) {
-      component = container;
-      oldLayoutRoots = oldRoots;
-      newLayoutRoots = newRoots;
-    }
+		void setLayoutRoots(LayoutComponent container,
+				List<LayoutInterval[]> oldRoots,
+				List<LayoutInterval[]> newRoots) {
+			component = container;
+			oldLayoutRoots = oldRoots;
+			newLayoutRoots = newRoots;
+		}
 
-    void setLinkSizeGroup(LayoutComponent component,
-        int oldLinkSizeId,
-        int newLinkSizeId,
-        int dimension) {
-      this.component = component;
-      this.oldLinkSizeId = oldLinkSizeId;
-      this.newLinkSizeId = newLinkSizeId;
-      this.dimension = dimension;
-    }
+		void setLinkSizeGroup(LayoutComponent component,
+				int oldLinkSizeId,
+				int newLinkSizeId,
+				int dimension) {
+			this.component = component;
+			this.oldLinkSizeId = oldLinkSizeId;
+			this.newLinkSizeId = newLinkSizeId;
+			this.dimension = dimension;
+		}
 
-    @Override
-    void undo() {
-      switch (getType()) {
-        case COMPONENT_ADDED :
-          undoComponentAddition();
-          break;
-        case COMPONENT_REMOVED :
-          undoComponentRemoval();
-          break;
-        case LAYOUT_ROOTS_ADDED :
-          undoRootsAddition();
-          break;
-        case LAYOUT_ROOTS_REMOVED :
-          undoRootsRemoval();
-          break;
-        case LAYOUT_ROOTS_CHANGED :
-          component.setLayoutRoots(oldLayoutRoots);
-          break;
-        case INTERVAL_LINKSIZE_CHANGED :
-          undoLinkSize(oldLinkSizeId);
-          break;
-        case CONTAINER_ATTR_CHANGED :
-          changeContainerAttr();
-          break;
-        case COMPONENT_REGISTERED :
-          undoComponentRegistration();
-          break;
-        case COMPONENT_UNREGISTERED :
-          undoComponentUnregistration();
-          break;
-      }
-    }
+		@Override
+		void undo() {
+			switch (getType()) {
+			case COMPONENT_ADDED :
+				undoComponentAddition();
+				break;
+			case COMPONENT_REMOVED :
+				undoComponentRemoval();
+				break;
+			case LAYOUT_ROOTS_ADDED :
+				undoRootsAddition();
+				break;
+			case LAYOUT_ROOTS_REMOVED :
+				undoRootsRemoval();
+				break;
+			case LAYOUT_ROOTS_CHANGED :
+				component.setLayoutRoots(oldLayoutRoots);
+				break;
+			case INTERVAL_LINKSIZE_CHANGED :
+				undoLinkSize(oldLinkSizeId);
+				break;
+			case CONTAINER_ATTR_CHANGED :
+				changeContainerAttr();
+				break;
+			case COMPONENT_REGISTERED :
+				undoComponentRegistration();
+				break;
+			case COMPONENT_UNREGISTERED :
+				undoComponentUnregistration();
+				break;
+			}
+		}
 
-    @Override
-    void redo() {
-      switch (getType()) {
-        case COMPONENT_ADDED :
-          undoComponentRemoval();
-          break;
-        case COMPONENT_REMOVED :
-          undoComponentAddition();
-          break;
-        case LAYOUT_ROOTS_ADDED :
-          undoRootsRemoval();
-          break;
-        case LAYOUT_ROOTS_REMOVED :
-          undoRootsAddition();
-          break;
-        case LAYOUT_ROOTS_CHANGED :
-          component.setLayoutRoots(newLayoutRoots);
-          break;
-        case INTERVAL_LINKSIZE_CHANGED :
-          undoLinkSize(newLinkSizeId);
-          break;
-        case CONTAINER_ATTR_CHANGED :
-          changeContainerAttr();
-          break;
-        case COMPONENT_REGISTERED :
-          undoComponentUnregistration();
-          break;
-        case COMPONENT_UNREGISTERED :
-          undoComponentRegistration();
-          break;
-      }
-    }
+		@Override
+		void redo() {
+			switch (getType()) {
+			case COMPONENT_ADDED :
+				undoComponentRemoval();
+				break;
+			case COMPONENT_REMOVED :
+				undoComponentAddition();
+				break;
+			case LAYOUT_ROOTS_ADDED :
+				undoRootsRemoval();
+				break;
+			case LAYOUT_ROOTS_REMOVED :
+				undoRootsAddition();
+				break;
+			case LAYOUT_ROOTS_CHANGED :
+				component.setLayoutRoots(newLayoutRoots);
+				break;
+			case INTERVAL_LINKSIZE_CHANGED :
+				undoLinkSize(newLinkSizeId);
+				break;
+			case CONTAINER_ATTR_CHANGED :
+				changeContainerAttr();
+				break;
+			case COMPONENT_REGISTERED :
+				undoComponentUnregistration();
+				break;
+			case COMPONENT_UNREGISTERED :
+				undoComponentRegistration();
+				break;
+			}
+		}
 
-    private void undoLinkSize(int id) {
-      getModel().removeComponentFromLinkSizedGroup(component, dimension);
-      if (!(id == LayoutConstants.NOT_EXPLICITLY_DEFINED)) {
-        getModel().addComponentToLinkSizedGroupImpl(id, component.getId(), dimension);
-      }
-    }
+		private void undoLinkSize(int id) {
+			getModel().removeComponentFromLinkSizedGroup(component, dimension);
+			if (!(id == LayoutConstants.NOT_EXPLICITLY_DEFINED)) {
+				getModel().addComponentToLinkSizedGroupImpl(id, component.getId(), dimension);
+			}
+		}
 
-    private void undoComponentAddition() {
-      getModel().removeComponentImpl(component);
-    }
+		private void undoComponentAddition() {
+			getModel().removeComponentImpl(component);
+		}
 
-    private void undoComponentRemoval() {
-      getModel().addComponentImpl(component, parentComp, index);
-    }
+		private void undoComponentRemoval() {
+			getModel().addComponentImpl(component, parentComp, index);
+		}
 
-    private void undoRootsAddition() {
-      component.removeLayoutRoots(layoutRoots);
-    }
+		private void undoRootsAddition() {
+			component.removeLayoutRoots(layoutRoots);
+		}
 
-    private void undoRootsRemoval() {
-      component.addLayoutRoots(layoutRoots, index);
-    }
+		private void undoRootsRemoval() {
+			component.addLayoutRoots(layoutRoots, index);
+		}
 
-    private void changeContainerAttr() {
-      component.setLayoutContainer(!component.isLayoutContainer(), newLayoutRoots);
-    }
+		private void changeContainerAttr() {
+			component.setLayoutContainer(!component.isLayoutContainer(), newLayoutRoots);
+		}
 
-    private void undoComponentRegistration() {
-      getModel().unregisterComponentImpl(component);
-    }
+		private void undoComponentRegistration() {
+			getModel().unregisterComponentImpl(component);
+		}
 
-    private void undoComponentUnregistration() {
-      getModel().registerComponentImpl(component);
-    }
-  }
+		private void undoComponentUnregistration() {
+			getModel().registerComponentImpl(component);
+		}
+	}
 }

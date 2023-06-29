@@ -23,128 +23,128 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 
 public class AbstractPropertyTableTest extends DesignerTestCase {
-  protected Shell m_shell;
-  protected PropertyTable m_propertyTable;
-  protected EventSender m_sender;
+	protected Shell m_shell;
+	protected PropertyTable m_propertyTable;
+	protected EventSender m_sender;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Test life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    // create GUI
-    {
-      m_shell = new Shell();
-      m_shell.setText("PropertyTable test");
-      m_shell.setLayout(new FillLayout());
-      m_shell.setBounds(10000, 0, 300, 500);
-      //
-      m_propertyTable = new PropertyTable(m_shell, SWT.NONE);
-      m_sender = new EventSender(m_propertyTable);
-      //
-      m_shell.setVisible(true);
-      waitEventLoop(1);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Test life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		// create GUI
+		{
+			m_shell = new Shell();
+			m_shell.setText("PropertyTable test");
+			m_shell.setLayout(new FillLayout());
+			m_shell.setBounds(10000, 0, 300, 500);
+			//
+			m_propertyTable = new PropertyTable(m_shell, SWT.NONE);
+			m_sender = new EventSender(m_propertyTable);
+			//
+			m_shell.setVisible(true);
+			waitEventLoop(1);
+		}
+	}
 
-  @Override
-  protected void tearDown() throws Exception {
-    m_shell.dispose();
-    super.tearDown();
-  }
+	@Override
+	protected void tearDown() throws Exception {
+		m_shell.dispose();
+		super.tearDown();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // TestProperty
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Implementation of {@link Property} for testing {@link PropertyTable}.
-   */
-  protected static class TestProperty extends Property {
-    private final String m_title;
-    private final boolean m_modified;
-    private final Object m_value;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// TestProperty
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Implementation of {@link Property} for testing {@link PropertyTable}.
+	 */
+	protected static class TestProperty extends Property {
+		private final String m_title;
+		private final boolean m_modified;
+		private final Object m_value;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public TestProperty(String title, boolean modified, Object value, PropertyEditor propertyEditor) {
-      super(propertyEditor);
-      m_title = title;
-      m_modified = modified;
-      m_value = value;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public TestProperty(String title, boolean modified, Object value, PropertyEditor propertyEditor) {
+			super(propertyEditor);
+			m_title = title;
+			m_modified = modified;
+			m_value = value;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Property
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public String getTitle() {
-      return m_title;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Property
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public String getTitle() {
+			return m_title;
+		}
 
-    @Override
-    public boolean isModified() throws Exception {
-      return m_modified;
-    }
+		@Override
+		public boolean isModified() throws Exception {
+			return m_modified;
+		}
 
-    @Override
-    public Object getValue() throws Exception {
-      return m_value;
-    }
+		@Override
+		public Object getValue() throws Exception {
+			return m_value;
+		}
 
-    @Override
-    public void setValue(Object value) throws Exception {
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ComplexEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Simple implementation of {@link IComplexPropertyEditor}.
-   */
-  protected static class ComplexEditor extends TextDisplayPropertyEditor
-      implements
-        IComplexPropertyEditor {
-    private final Property[] m_properties;
+		@Override
+		public void setValue(Object value) throws Exception {
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ComplexEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Simple implementation of {@link IComplexPropertyEditor}.
+	 */
+	protected static class ComplexEditor extends TextDisplayPropertyEditor
+	implements
+	IComplexPropertyEditor {
+		private final Property[] m_properties;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public ComplexEditor(Property[] properties) {
-      m_properties = properties;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Constructor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		public ComplexEditor(Property[] properties) {
+			m_properties = properties;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Presentation
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected String getText(Property property) throws Exception {
-      return null;
-    }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// Presentation
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		protected String getText(Property property) throws Exception {
+			return null;
+		}
 
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // IComplexPropertyEditor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public Property[] getProperties(Property property) throws Exception {
-      return m_properties;
-    }
-  }
+		////////////////////////////////////////////////////////////////////////////
+		//
+		// IComplexPropertyEditor
+		//
+		////////////////////////////////////////////////////////////////////////////
+		@Override
+		public Property[] getProperties(Property property) throws Exception {
+			return m_properties;
+		}
+	}
 }

@@ -19,8 +19,8 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage gef.core
  */
 public interface IDropRequest {
-  /**
-   * Returns the current mouse location.
-   */
-  Point getLocation();
+	/**
+	 * Returns the current mouse location.
+	 */
+	Point getLocation();
 }

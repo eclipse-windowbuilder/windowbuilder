@@ -20,11 +20,11 @@ import junit.framework.TestSuite;
  *
  */
 public class BindingTests extends DesignerSuiteTests {
-  public static Test suite() {
-    TestSuite suite = new TestSuite("org.eclipse.wb.swing.databinding");
-    suite.addTest(createSingleSuite(SwingDatabindingsFactoryTest.class));
-    suite.addTest(createSingleSuite(GenericUtilsTest.class));
-    suite.addTest(createSingleSuite(BindValueTest.class));
-    return suite;
-  }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("org.eclipse.wb.swing.databinding");
+		suite.addTest(createSingleSuite(SwingDatabindingsFactoryTest.class));
+		suite.addTest(createSingleSuite(GenericUtilsTest.class));
+		suite.addTest(createSingleSuite(BindValueTest.class));
+		return suite;
+	}
 }

@@ -16,13 +16,13 @@ package org.eclipse.wb.internal.core.utils.binding;
  * @author lobas_av
  */
 public interface IDataProvider {
-  /**
-   * @return the current or default value.
-   */
-  Object getValue(boolean def);
+	/**
+	 * @return the current or default value.
+	 */
+	Object getValue(boolean def);
 
-  /**
-   * Sets current value.
-   */
-  void setValue(Object value);
+	/**
+	 * Sets current value.
+	 */
+	void setValue(Object value);
 }

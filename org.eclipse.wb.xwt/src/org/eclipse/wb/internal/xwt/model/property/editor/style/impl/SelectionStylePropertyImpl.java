@@ -30,131 +30,131 @@ import org.apache.commons.lang.ArrayUtils;
  * @coverage XWT.model.property.editor
  */
 public final class SelectionStylePropertyImpl extends SubStylePropertyImpl {
-  private final long[] m_flags;
-  private final int m_defaultIndex;
-  private final String[] m_sFlags;
+	private final long[] m_flags;
+	private final int m_defaultIndex;
+	private final String[] m_sFlags;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionStylePropertyImpl(StylePropertyEditor editor,
-      String title,
-      long[] flags,
-      String[] sFlags,
-      long defaultFlag) {
-    super(editor, title);
-    m_flags = flags;
-    m_sFlags = sFlags;
-    m_defaultIndex = ArrayUtils.indexOf(m_flags, defaultFlag);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionStylePropertyImpl(StylePropertyEditor editor,
+			String title,
+			long[] flags,
+			String[] sFlags,
+			long defaultFlag) {
+		super(editor, title);
+		m_flags = flags;
+		m_sFlags = sFlags;
+		m_defaultIndex = ArrayUtils.indexOf(m_flags, defaultFlag);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // PropertyEditor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public PropertyEditor createEditor() {
-    return new StringComboPropertyEditor(m_sFlags);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// PropertyEditor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public PropertyEditor createEditor() {
+		return new StringComboPropertyEditor(m_sFlags);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Style
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public long getFlag(String sFlag) {
-    return m_flags[ArrayUtils.indexOf(m_sFlags, sFlag)];
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Style
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public long getFlag(String sFlag) {
+		return m_flags[ArrayUtils.indexOf(m_sFlags, sFlag)];
+	}
 
-  @Override
-  public String getFlagValue(Property property) throws Exception {
-    long style = getStyle(property);
-    for (int i = 0; i < m_flags.length; i++) {
-      if (i == m_defaultIndex) {
-        continue;
-      }
-      if ((style & m_flags[i]) != 0) {
-        return m_sFlags[i];
-      }
-    }
-    return null;
-  }
+	@Override
+	public String getFlagValue(Property property) throws Exception {
+		long style = getStyle(property);
+		for (int i = 0; i < m_flags.length; i++) {
+			if (i == m_defaultIndex) {
+				continue;
+			}
+			if ((style & m_flags[i]) != 0) {
+				return m_sFlags[i];
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Value
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Object getValue(Property property) throws Exception {
-    long style = getStyle(property);
-    for (int i = 0; i < m_flags.length; i++) {
-      if ((style & m_flags[i]) != 0) {
-        return m_sFlags[i];
-      }
-    }
-    return m_sFlags[m_defaultIndex];
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Value
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Object getValue(Property property) throws Exception {
+		long style = getStyle(property);
+		for (int i = 0; i < m_flags.length; i++) {
+			if ((style & m_flags[i]) != 0) {
+				return m_sFlags[i];
+			}
+		}
+		return m_sFlags[m_defaultIndex];
+	}
 
-  private long getCurrentFlag(Property property) throws Exception {
-    long style = getStyle(property);
-    for (int i = 0; i < m_flags.length; i++) {
-      if ((style & m_flags[i]) != 0) {
-        return m_flags[i];
-      }
-    }
-    return m_flags[m_defaultIndex];
-  }
+	private long getCurrentFlag(Property property) throws Exception {
+		long style = getStyle(property);
+		for (int i = 0; i < m_flags.length; i++) {
+			if ((style & m_flags[i]) != 0) {
+				return m_flags[i];
+			}
+		}
+		return m_flags[m_defaultIndex];
+	}
 
-  @Override
-  public void setValue(Property property, Object value) throws Exception {
-    long style = getStyle(property) ^ getCurrentFlag(property);
-    if (value != Property.UNKNOWN_VALUE) {
-      String sFlag = (String) value;
-      int index = ArrayUtils.indexOf(m_sFlags, sFlag);
-      if (index != m_defaultIndex) {
-        style |= m_flags[index];
-      }
-    }
-    setStyleValue(property, style);
-  }
+	@Override
+	public void setValue(Property property, Object value) throws Exception {
+		long style = getStyle(property) ^ getCurrentFlag(property);
+		if (value != Property.UNKNOWN_VALUE) {
+			String sFlag = (String) value;
+			int index = ArrayUtils.indexOf(m_sFlags, sFlag);
+			if (index != m_defaultIndex) {
+				style |= m_flags[index];
+			}
+		}
+		setStyleValue(property, style);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Popup menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void contributeActions(Property property, IMenuManager manager) throws Exception {
-    // separate sub-properties
-    manager.add(new Separator());
-    // default
-    IAction defaultAction = null;
-    boolean defineChecked = false;
-    // add actions
-    long style = getStyle(property);
-    for (int i = 0; i < m_flags.length; i++) {
-      // create
-      IAction action = new RadioStyleAction(property, this, m_sFlags[i]);
-      // configure
-      if ((style & m_flags[i]) != 0) {
-        action.setChecked(true);
-        defineChecked = true;
-      }
-      // default
-      if (m_defaultIndex == i) {
-        defaultAction = action;
-      }
-      // add to menu
-      manager.add(action);
-    }
-    // default
-    if (!defineChecked && defaultAction != null) {
-      defaultAction.setChecked(true);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Popup menu
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void contributeActions(Property property, IMenuManager manager) throws Exception {
+		// separate sub-properties
+		manager.add(new Separator());
+		// default
+		IAction defaultAction = null;
+		boolean defineChecked = false;
+		// add actions
+		long style = getStyle(property);
+		for (int i = 0; i < m_flags.length; i++) {
+			// create
+			IAction action = new RadioStyleAction(property, this, m_sFlags[i]);
+			// configure
+			if ((style & m_flags[i]) != 0) {
+				action.setChecked(true);
+				defineChecked = true;
+			}
+			// default
+			if (m_defaultIndex == i) {
+				defaultAction = action;
+			}
+			// add to menu
+			manager.add(action);
+		}
+		// default
+		if (!defineChecked && defaultAction != null) {
+			defaultAction.setChecked(true);
+		}
+	}
 }

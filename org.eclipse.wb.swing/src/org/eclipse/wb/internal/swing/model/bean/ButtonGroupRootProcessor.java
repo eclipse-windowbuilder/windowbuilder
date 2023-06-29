@@ -23,28 +23,28 @@ import java.util.List;
  * @coverage swing.model
  */
 public final class ButtonGroupRootProcessor implements IRootProcessor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final IRootProcessor INSTANCE = new ButtonGroupRootProcessor();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Instance
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final IRootProcessor INSTANCE = new ButtonGroupRootProcessor();
 
-  private ButtonGroupRootProcessor() {
-  }
+	private ButtonGroupRootProcessor() {
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IRootProcessor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
-    for (JavaInfo javaInfo : components) {
-      if (javaInfo instanceof ButtonGroupInfo) {
-        ButtonGroupInfo buttonGroupInfo = (ButtonGroupInfo) javaInfo;
-        buttonGroupInfo.setAssociation(new EmptyAssociation());
-        ButtonGroupContainerInfo.get(root).addChild(buttonGroupInfo);
-      }
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IRootProcessor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
+		for (JavaInfo javaInfo : components) {
+			if (javaInfo instanceof ButtonGroupInfo) {
+				ButtonGroupInfo buttonGroupInfo = (ButtonGroupInfo) javaInfo;
+				buttonGroupInfo.setAssociation(new EmptyAssociation());
+				ButtonGroupContainerInfo.get(root).addChild(buttonGroupInfo);
+			}
+		}
+	}
 }

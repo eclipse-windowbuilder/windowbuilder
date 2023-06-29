@@ -28,35 +28,35 @@ import java.util.List;
  * @coverage bindings.swing.ui.properties
  */
 public class JComboBoxSelfObserveProperty extends SingleObserveBindingProperty {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JComboBoxSelfObserveProperty(Context context, IObserveInfo observeProperty)
-      throws Exception {
-    super(context, observeProperty);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JComboBoxSelfObserveProperty(Context context, IObserveInfo observeProperty)
+			throws Exception {
+		super(context, observeProperty);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // SingleObserveBindingProperty
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected IBindingInfo getBinding() throws Exception {
-    ObserveInfo observeProperty = (ObserveInfo) m_observeProperty;
-    List<BindingInfo> bindings = observeProperty.getBindings();
-    return bindings.isEmpty() ? null : bindings.get(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// SingleObserveBindingProperty
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected IBindingInfo getBinding() throws Exception {
+		ObserveInfo observeProperty = (ObserveInfo) m_observeProperty;
+		List<BindingInfo> bindings = observeProperty.getBindings();
+		return bindings.isEmpty() ? null : bindings.get(0);
+	}
 
-  @Override
-  protected String getText() throws Exception {
-    IBindingInfo binding = getBinding();
-    if (binding == null) {
-      return "";
-    }
-    int column = binding.getTargetProperty() == m_observeProperty ? 2 : 1;
-    return BindingLabelProvider.INSTANCE.getColumnText(binding, column);
-  }
+	@Override
+	protected String getText() throws Exception {
+		IBindingInfo binding = getBinding();
+		if (binding == null) {
+			return "";
+		}
+		int column = binding.getTargetProperty() == m_observeProperty ? 2 : 1;
+		return BindingLabelProvider.INSTANCE.getColumnText(binding, column);
+	}
 }

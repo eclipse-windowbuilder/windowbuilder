@@ -36,110 +36,110 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * @coverage swing.model.layout
  */
 public final class VirtualConstraintsVariableSupport extends AbstractNoNameVariableSupport {
-  final AbstractGridBagConstraintsInfo m_constraints;
+	final AbstractGridBagConstraintsInfo m_constraints;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public VirtualConstraintsVariableSupport(AbstractGridBagConstraintsInfo constraints) {
-    super(constraints);
-    m_constraints = constraints;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public VirtualConstraintsVariableSupport(AbstractGridBagConstraintsInfo constraints) {
+		super(constraints);
+		m_constraints = constraints;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getTitle() throws Exception {
-    return "(virtual GBL constraints)";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTitle() throws Exception {
+		return "(virtual GBL constraints)";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    materialize();
-    return m_javaInfo.getVariableSupport().getReferenceExpression(target);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		materialize();
+		return m_javaInfo.getVariableSupport().getReferenceExpression(target);
+	}
 
-  @Override
-  public String getAccessExpression(NodeTarget target) throws Exception {
-    return getReferenceExpression(target) + ".";
-  }
+	@Override
+	public String getAccessExpression(NodeTarget target) throws Exception {
+		return getReferenceExpression(target) + ".";
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Implementation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Materializes {@link AbstractGridBagConstraintsInfo} with this
-   * {@link VirtualConstraintsVariableSupport} , i.e. ensures that it has {@link ASTNode}, real
-   * {@link CreationSupport} and {@link VariableSupport}.
-   */
-  void materialize() throws Exception {
-    ComponentInfo component = (ComponentInfo) m_javaInfo.getParent();
-    AstEditor editor = component.getEditor();
-    // check for usual code pattern: add(java.awt.Component)
-    if (component.getAssociation() instanceof InvocationChildAssociation) {
-      InvocationChildAssociation association =
-          (InvocationChildAssociation) component.getAssociation();
-      MethodInvocation invocation = association.getInvocation();
-      if (AstNodeUtils.getMethodSignature(invocation).equals("add(java.awt.Component)")) {
-        // prepare constraints source
-        String source;
-        if (Activator.getDefault().getPreferenceStore().getBoolean(IPreferenceConstants.P_GBC_LONG)) {
-          source = m_constraints.newInstanceSourceLong();
-        } else {
-          source = m_constraints.newInstanceSourceShort();
-        }
-        // add constraints ASTNode
-        Expression constraintsExpression = editor.addInvocationArgument(invocation, 1, source);
-        m_javaInfo.addRelatedNode(constraintsExpression);
-        // ConstructorCreationSupport was used
-        {
-          ConstructorCreationSupport creationSupport = new ConstructorCreationSupport();
-          m_javaInfo.setCreationSupport(creationSupport);
-          creationSupport.add_setSourceExpression(constraintsExpression);
-        }
-        // use empty variable
-        VariableSupport variableSupport =
-            new EmptyVariableSupport(m_javaInfo, constraintsExpression);
-        m_javaInfo.setVariableSupport(variableSupport);
-        // use "secondary" association
-        m_javaInfo.setAssociation(new InvocationSecondaryAssociation(invocation));
-        // done
-        return;
-      }
-    }
-    // XXX
-    Assert.fail("Not implemented yet.");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Implementation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Materializes {@link AbstractGridBagConstraintsInfo} with this
+	 * {@link VirtualConstraintsVariableSupport} , i.e. ensures that it has {@link ASTNode}, real
+	 * {@link CreationSupport} and {@link VariableSupport}.
+	 */
+	void materialize() throws Exception {
+		ComponentInfo component = (ComponentInfo) m_javaInfo.getParent();
+		AstEditor editor = component.getEditor();
+		// check for usual code pattern: add(java.awt.Component)
+		if (component.getAssociation() instanceof InvocationChildAssociation) {
+			InvocationChildAssociation association =
+					(InvocationChildAssociation) component.getAssociation();
+			MethodInvocation invocation = association.getInvocation();
+			if (AstNodeUtils.getMethodSignature(invocation).equals("add(java.awt.Component)")) {
+				// prepare constraints source
+				String source;
+				if (Activator.getDefault().getPreferenceStore().getBoolean(IPreferenceConstants.P_GBC_LONG)) {
+					source = m_constraints.newInstanceSourceLong();
+				} else {
+					source = m_constraints.newInstanceSourceShort();
+				}
+				// add constraints ASTNode
+				Expression constraintsExpression = editor.addInvocationArgument(invocation, 1, source);
+				m_javaInfo.addRelatedNode(constraintsExpression);
+				// ConstructorCreationSupport was used
+				{
+					ConstructorCreationSupport creationSupport = new ConstructorCreationSupport();
+					m_javaInfo.setCreationSupport(creationSupport);
+					creationSupport.add_setSourceExpression(constraintsExpression);
+				}
+				// use empty variable
+				VariableSupport variableSupport =
+						new EmptyVariableSupport(m_javaInfo, constraintsExpression);
+				m_javaInfo.setVariableSupport(variableSupport);
+				// use "secondary" association
+				m_javaInfo.setAssociation(new InvocationSecondaryAssociation(invocation));
+				// done
+				return;
+			}
+		}
+		// XXX
+		Assert.fail("Not implemented yet.");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Target
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public StatementTarget getStatementTarget() throws Exception {
-    throw new IllegalStateException();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Target
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public StatementTarget getStatementTarget() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    return "virtual-GBL-constraints";
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "virtual-GBL-constraints";
+	}
 }

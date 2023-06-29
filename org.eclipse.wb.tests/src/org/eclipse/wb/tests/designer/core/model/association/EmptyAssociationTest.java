@@ -23,66 +23,66 @@ import org.apache.commons.lang.NotImplementedException;
  * @author scheglov_ke
  */
 public class EmptyAssociationTest extends SwingModelTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    // create JButton with EmptyAssociation... Ha! it is really not related with our JPanel :-)
-    ComponentInfo button = createJButton();
-    panel.addChild(button);
-    EmptyAssociation association = new EmptyAssociation();
-    button.setAssociation(association);
-    // check association
-    assertSame(button, association.getJavaInfo());
-    assertTrue(association.canDelete());
-    // no getSource()
-    try {
-      association.getSource();
-      fail();
-    } catch (NotImplementedException e) {
-    }
-    // no getStatement()
-    assertNull(association.getStatement());
-    // can not be moved
-    try {
-      association.move(null);
-      fail();
-    } catch (NotImplementedException e) {
-    }
-    // can not be reparented
-    try {
-      association.setParent(null);
-      fail();
-    } catch (NotImplementedException e) {
-    }
-    // can not be morphed
-    try {
-      association.getCopy();
-      fail();
-    } catch (NotImplementedException e) {
-    }
-    // can not be removed
-    {
-      association.remove();
-      assertSame(association, button.getAssociation());
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test() throws Exception {
+		ContainerInfo panel =
+				parseContainer(
+						"// filler filler filler",
+						"public class Test extends JPanel {",
+						"  public Test() {",
+						"  }",
+						"}");
+		// create JButton with EmptyAssociation... Ha! it is really not related with our JPanel :-)
+		ComponentInfo button = createJButton();
+		panel.addChild(button);
+		EmptyAssociation association = new EmptyAssociation();
+		button.setAssociation(association);
+		// check association
+		assertSame(button, association.getJavaInfo());
+		assertTrue(association.canDelete());
+		// no getSource()
+		try {
+			association.getSource();
+			fail();
+		} catch (NotImplementedException e) {
+		}
+		// no getStatement()
+		assertNull(association.getStatement());
+		// can not be moved
+		try {
+			association.move(null);
+			fail();
+		} catch (NotImplementedException e) {
+		}
+		// can not be reparented
+		try {
+			association.setParent(null);
+			fail();
+		} catch (NotImplementedException e) {
+		}
+		// can not be morphed
+		try {
+			association.getCopy();
+			fail();
+		} catch (NotImplementedException e) {
+		}
+		// can not be removed
+		{
+			association.remove();
+			assertSame(association, button.getAssociation());
+		}
+	}
 }

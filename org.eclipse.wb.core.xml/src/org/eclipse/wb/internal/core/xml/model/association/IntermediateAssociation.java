@@ -25,100 +25,100 @@ import java.util.Map;
  * @coverage XML.model.association
  */
 public final class IntermediateAssociation extends DirectAssociation {
-  private final String m_name;
-  private Map<String, String> m_attributes;
+	private final String m_name;
+	private Map<String, String> m_attributes;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IntermediateAssociation(String name) {
-    m_name = name;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IntermediateAssociation(String name) {
+		m_name = name;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    String s = "inter " + m_name;
-    if (m_attributes != null) {
-      s += " " + m_attributes;
-    }
-    return s;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		String s = "inter " + m_name;
+		if (m_attributes != null) {
+			s += " " + m_attributes;
+		}
+		return s;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets attributes which should be set for new "intermediate" element.
-   */
-  public void setAttributes(Map<String, String> attributes) {
-    m_attributes = attributes;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets attributes which should be set for new "intermediate" element.
+	 */
+	public void setAttributes(Map<String, String> attributes) {
+		m_attributes = attributes;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void add(XmlObjectInfo object, ElementTarget target) throws Exception {
-    target = prepareTarget(target);
-    super.add(object, target);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void add(XmlObjectInfo object, ElementTarget target) throws Exception {
+		target = prepareTarget(target);
+		super.add(object, target);
+	}
 
-  @Override
-  public void move(XmlObjectInfo object,
-      ElementTarget target,
-      XmlObjectInfo oldParent,
-      XmlObjectInfo newParent) throws Exception {
-    // if reorder, move with enclosing element
-    if (newParent == oldParent) {
-      DocumentElement targetElement = target.getElement();
-      int targetIndex = target.getIndex();
-      targetElement.moveChild(object.getElement().getParent(), targetIndex);
-      return;
-    }
-    // create new "intermediate" element
-    target = prepareTarget(target);
-    super.move(object, target, oldParent, newParent);
-  }
+	@Override
+	public void move(XmlObjectInfo object,
+			ElementTarget target,
+			XmlObjectInfo oldParent,
+			XmlObjectInfo newParent) throws Exception {
+		// if reorder, move with enclosing element
+		if (newParent == oldParent) {
+			DocumentElement targetElement = target.getElement();
+			int targetIndex = target.getIndex();
+			targetElement.moveChild(object.getElement().getParent(), targetIndex);
+			return;
+		}
+		// create new "intermediate" element
+		target = prepareTarget(target);
+		super.move(object, target, oldParent, newParent);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ElementTarget prepareTarget(ElementTarget target) {
-    // prepare "intermediate" element
-    DocumentElement interElement;
-    {
-      DocumentElement targetElement = target.getElement();
-      int targetIndex = target.getIndex();
-      // create "intermediate" element
-      interElement = new DocumentElement();
-      {
-        String tag = m_name;
-        tag = StringUtils.replace(tag, "{parentNS}", targetElement.getTagNS());
-        interElement.setTag(tag);
-      }
-      // add it
-      targetElement.addChild(interElement, targetIndex);
-      // add attributes
-      if (m_attributes != null) {
-        for (Map.Entry<String, String> entry : m_attributes.entrySet()) {
-          interElement.setAttribute(entry.getKey(), entry.getValue());
-        }
-      }
-    }
-    // prepare new target
-    return new ElementTarget(interElement, 0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private ElementTarget prepareTarget(ElementTarget target) {
+		// prepare "intermediate" element
+		DocumentElement interElement;
+		{
+			DocumentElement targetElement = target.getElement();
+			int targetIndex = target.getIndex();
+			// create "intermediate" element
+			interElement = new DocumentElement();
+			{
+				String tag = m_name;
+				tag = StringUtils.replace(tag, "{parentNS}", targetElement.getTagNS());
+				interElement.setTag(tag);
+			}
+			// add it
+			targetElement.addChild(interElement, targetIndex);
+			// add attributes
+			if (m_attributes != null) {
+				for (Map.Entry<String, String> entry : m_attributes.entrySet()) {
+					interElement.setAttribute(entry.getKey(), entry.getValue());
+				}
+			}
+		}
+		// prepare new target
+		return new ElementTarget(interElement, 0);
+	}
 }

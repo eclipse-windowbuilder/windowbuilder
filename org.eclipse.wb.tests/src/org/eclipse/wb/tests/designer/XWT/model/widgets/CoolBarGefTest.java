@@ -20,136 +20,136 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
  * @author scheglov_ke
  */
 public class CoolBarGefTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Exit zone :-) XXX
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void _test_exit() throws Exception {
+		System.exit(0);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Canvas
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_canvas_CREATE_item() throws Exception {
-    CoolBarInfo toolBar = openEditor("<CoolBar/>");
-    //
-    loadCreationTool("org.eclipse.swt.widgets.CoolItem");
-    canvas.moveTo(toolBar, 5, 5);
-    canvas.click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<CoolBar>",
-        "  <CoolItem/>",
-        "</CoolBar>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Canvas
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_canvas_CREATE_item() throws Exception {
+		CoolBarInfo toolBar = openEditor("<CoolBar/>");
+		//
+		loadCreationTool("org.eclipse.swt.widgets.CoolItem");
+		canvas.moveTo(toolBar, 5, 5);
+		canvas.click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<CoolBar>",
+				"  <CoolItem/>",
+				"</CoolBar>");
+	}
 
-  public void test_canvas_CREATE_control_good() throws Exception {
-    openEditor(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<CoolBar>",
-        "  <CoolItem wbp:name='item' size='100, 50'/>",
-        "</CoolBar>");
-    XmlObjectInfo item = getObjectByName("item");
-    //
-    loadButton();
-    canvas.moveTo(item, 5, 5);
-    canvas.assertFeedbacks(canvas.getTargetPredicate(item));
-    canvas.assertCommandNotNull();
-    canvas.click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "<CoolBar>",
-        "  <CoolItem wbp:name='item' size='100, 50'>",
-        "    <CoolItem.control>",
-        "      <Button/>",
-        "    </CoolItem.control>",
-        "  </CoolItem>",
-        "</CoolBar>");
-  }
+	public void test_canvas_CREATE_control_good() throws Exception {
+		openEditor(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<CoolBar>",
+				"  <CoolItem wbp:name='item' size='100, 50'/>",
+				"</CoolBar>");
+		XmlObjectInfo item = getObjectByName("item");
+		//
+		loadButton();
+		canvas.moveTo(item, 5, 5);
+		canvas.assertFeedbacks(canvas.getTargetPredicate(item));
+		canvas.assertCommandNotNull();
+		canvas.click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"<CoolBar>",
+				"  <CoolItem wbp:name='item' size='100, 50'>",
+				"    <CoolItem.control>",
+				"      <Button/>",
+				"    </CoolItem.control>",
+				"  </CoolItem>",
+				"</CoolBar>");
+	}
 
-  public void test_canvas_CREATE_control_alreadyHasControl() throws Exception {
-    openEditor(
-        "// filler filler filler filler filler",
-        "<CoolBar>",
-        "  <CoolItem wbp:name='item' size='100, 50'>",
-        "    <CoolItem.control>",
-        "      <Button/>",
-        "    </CoolItem.control>",
-        "  </CoolItem>",
-        "</CoolBar>");
-    XmlObjectInfo item = getObjectByName("item");
-    //
-    loadButton();
-    canvas.moveTo(item, 5, 5);
-    canvas.assertFeedbacks(canvas.getTargetPredicate(item));
-    canvas.assertCommandNull();
-  }
+	public void test_canvas_CREATE_control_alreadyHasControl() throws Exception {
+		openEditor(
+				"// filler filler filler filler filler",
+				"<CoolBar>",
+				"  <CoolItem wbp:name='item' size='100, 50'>",
+				"    <CoolItem.control>",
+				"      <Button/>",
+				"    </CoolItem.control>",
+				"  </CoolItem>",
+				"</CoolBar>");
+		XmlObjectInfo item = getObjectByName("item");
+		//
+		loadButton();
+		canvas.moveTo(item, 5, 5);
+		canvas.assertFeedbacks(canvas.getTargetPredicate(item));
+		canvas.assertCommandNull();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tree
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_tree_CREATE_item() throws Exception {
-    CoolBarInfo toolBar = openEditor("<CoolBar/>");
-    //
-    loadCreationTool("org.eclipse.swt.widgets.CoolItem");
-    tree.moveOn(toolBar);
-    tree.click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<CoolBar>",
-        "  <CoolItem/>",
-        "</CoolBar>");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tree
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_tree_CREATE_item() throws Exception {
+		CoolBarInfo toolBar = openEditor("<CoolBar/>");
+		//
+		loadCreationTool("org.eclipse.swt.widgets.CoolItem");
+		tree.moveOn(toolBar);
+		tree.click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<CoolBar>",
+				"  <CoolItem/>",
+				"</CoolBar>");
+	}
 
-  public void test_tree_CREATE_control_good() throws Exception {
-    openEditor(
-        "// filler filler filler filler filler",
-        "// filler filler filler filler filler",
-        "<CoolBar>",
-        "  <CoolItem wbp:name='item' size='100, 50'/>",
-        "</CoolBar>");
-    XmlObjectInfo item = getObjectByName("item");
-    //
-    loadButton();
-    tree.moveOn(item);
-    tree.assertFeedback_on(item);
-    tree.assertCommandNotNull();
-    tree.click();
-    assertXML(
-        "// filler filler filler filler filler",
-        "<CoolBar>",
-        "  <CoolItem wbp:name='item' size='100, 50'>",
-        "    <CoolItem.control>",
-        "      <Button/>",
-        "    </CoolItem.control>",
-        "  </CoolItem>",
-        "</CoolBar>");
-  }
+	public void test_tree_CREATE_control_good() throws Exception {
+		openEditor(
+				"// filler filler filler filler filler",
+				"// filler filler filler filler filler",
+				"<CoolBar>",
+				"  <CoolItem wbp:name='item' size='100, 50'/>",
+				"</CoolBar>");
+		XmlObjectInfo item = getObjectByName("item");
+		//
+		loadButton();
+		tree.moveOn(item);
+		tree.assertFeedback_on(item);
+		tree.assertCommandNotNull();
+		tree.click();
+		assertXML(
+				"// filler filler filler filler filler",
+				"<CoolBar>",
+				"  <CoolItem wbp:name='item' size='100, 50'>",
+				"    <CoolItem.control>",
+				"      <Button/>",
+				"    </CoolItem.control>",
+				"  </CoolItem>",
+				"</CoolBar>");
+	}
 
-  public void test_tree_CREATE_control_alreadyHasControl() throws Exception {
-    openEditor(
-        "// filler filler filler filler filler",
-        "<CoolBar>",
-        "  <CoolItem wbp:name='item' size='100, 50'>",
-        "    <CoolItem.control>",
-        "      <Button/>",
-        "    </CoolItem.control>",
-        "  </CoolItem>",
-        "</CoolBar>");
-    XmlObjectInfo item = getObjectByName("item");
-    //
-    loadButton();
-    tree.moveOn(item);
-    tree.assertFeedback_on(item);
-    tree.assertCommandNull();
-  }
+	public void test_tree_CREATE_control_alreadyHasControl() throws Exception {
+		openEditor(
+				"// filler filler filler filler filler",
+				"<CoolBar>",
+				"  <CoolItem wbp:name='item' size='100, 50'>",
+				"    <CoolItem.control>",
+				"      <Button/>",
+				"    </CoolItem.control>",
+				"  </CoolItem>",
+				"</CoolBar>");
+		XmlObjectInfo item = getObjectByName("item");
+		//
+		loadButton();
+		tree.moveOn(item);
+		tree.assertFeedback_on(item);
+		tree.assertCommandNull();
+	}
 }

@@ -22,24 +22,24 @@ import org.eclipse.wb.internal.swt.support.SwtSupport;
  * @coverage swt.model.widgets.menu
  */
 public final class MenuStylePresentation extends StylePresentation {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MenuStylePresentation(MenuInfo menu) {
-    super(menu);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public MenuStylePresentation(MenuInfo menu) {
+		super(menu);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // StylePresentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void initImages() throws Exception {
-    addImage(SwtSupport.BAR, "wbp-meta/org/eclipse/swt/widgets/Menu_bar.gif");
-    addImage(SwtSupport.POP_UP, "wbp-meta/org/eclipse/swt/widgets/Menu.gif");
-    addImage(SwtSupport.DROP_DOWN, "wbp-meta/org/eclipse/swt/widgets/Menu_dropdown.gif");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// StylePresentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void initImages() throws Exception {
+		addImage(SwtSupport.BAR, "wbp-meta/org/eclipse/swt/widgets/Menu_bar.gif");
+		addImage(SwtSupport.POP_UP, "wbp-meta/org/eclipse/swt/widgets/Menu.gif");
+		addImage(SwtSupport.DROP_DOWN, "wbp-meta/org/eclipse/swt/widgets/Menu_dropdown.gif");
+	}
 }

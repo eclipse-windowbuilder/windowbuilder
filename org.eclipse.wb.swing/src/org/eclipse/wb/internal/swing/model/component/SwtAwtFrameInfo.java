@@ -23,42 +23,42 @@ import org.eclipse.wb.internal.swing.utils.SwingUtils;
  * @coverage swing.model
  */
 public class SwtAwtFrameInfo extends ContainerInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SwtAwtFrameInfo(AstEditor editor,
-      ComponentDescription description,
-      CreationSupport creationSupport) throws Exception {
-    super(editor, description, creationSupport);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SwtAwtFrameInfo(AstEditor editor,
+			ComponentDescription description,
+			CreationSupport creationSupport) throws Exception {
+		super(editor, description, creationSupport);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Hierarchy
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isSwingRoot() {
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Hierarchy
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isSwingRoot() {
+		return true;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    SwingUtils.runLaterAndWait(new RunnableEx() {
-      public void run() throws Exception {
-        runRefreshFetch();
-      }
-    });
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		SwingUtils.runLaterAndWait(new RunnableEx() {
+			public void run() throws Exception {
+				runRefreshFetch();
+			}
+		});
+	}
 
-  private void runRefreshFetch() throws Exception {
-    super.refresh_fetch();
-  }
+	private void runRefreshFetch() throws Exception {
+		super.refresh_fetch();
+	}
 }

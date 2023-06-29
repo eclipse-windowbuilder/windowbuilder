@@ -17,22 +17,22 @@ package org.eclipse.wb.gef.core;
  * @coverage gef.core
  */
 public abstract class Command {
-  /**
-   * {@link Command} that does nothing.
-   */
-  public static final Command EMPTY = new Command() {
-    @Override
-    public void execute() {
-    }
-  };
+	/**
+	 * {@link Command} that does nothing.
+	 */
+	public static final Command EMPTY = new Command() {
+		@Override
+		public void execute() {
+		}
+	};
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Executes this {@link Command}.
-   */
-  public abstract void execute() throws Exception;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Executes this {@link Command}.
+	 */
+	public abstract void execute() throws Exception;
 }

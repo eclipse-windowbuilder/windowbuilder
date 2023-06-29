@@ -24,18 +24,18 @@ import java.util.List;
  * @coverage core.editor.action.assistant
  */
 public abstract class LayoutAssistantListener {
-  /**
-   * Adds pages based on selected {@link ObjectInfo}'s.
-   *
-   * @param objects
-   *          the {@link List} of selected {@link ObjectInfo}.
-   * @param folder
-   *          the {@link TabFolder} for add tabs.
-   * @param pages
-   *          the {@link List} of {@link ILayoutAssistantPage}.
-   */
-  public void createAssistantPages(List<ObjectInfo> objects,
-      TabFolder folder,
-      List<ILayoutAssistantPage> pages) throws Exception {
-  }
+	/**
+	 * Adds pages based on selected {@link ObjectInfo}'s.
+	 *
+	 * @param objects
+	 *          the {@link List} of selected {@link ObjectInfo}.
+	 * @param folder
+	 *          the {@link TabFolder} for add tabs.
+	 * @param pages
+	 *          the {@link List} of {@link ILayoutAssistantPage}.
+	 */
+	public void createAssistantPages(List<ObjectInfo> objects,
+			TabFolder folder,
+			List<ILayoutAssistantPage> pages) throws Exception {
+	}
 }

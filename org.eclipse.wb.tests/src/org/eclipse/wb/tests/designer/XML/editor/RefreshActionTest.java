@@ -19,17 +19,17 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
  * @author scheglov_ke
  */
 public class RefreshActionTest extends XwtGefTest {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tests
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_run() throws Exception {
-    openEditor("<Shell/>");
-    Object oldObject = m_lastObject;
-    //
-    m_designPageActions.getRefreshAction().run();
-    fetchContentFields();
-    assertNotSame(oldObject, m_lastObject);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Tests
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public void test_run() throws Exception {
+		openEditor("<Shell/>");
+		Object oldObject = m_lastObject;
+		//
+		m_designPageActions.getRefreshAction().run();
+		fetchContentFields();
+		assertNotSame(oldObject, m_lastObject);
+	}
 }

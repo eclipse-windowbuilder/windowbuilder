@@ -19,62 +19,62 @@ import org.eclipse.wb.gef.core.EditPart;
  * @coverage gef.core
  */
 public class SelectionRequest extends LocationRequest {
-  private int m_lastButtonPressed;
+	private int m_lastButtonPressed;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Constructs an empty {@link SelectionRequest}.
-   */
-  public SelectionRequest() {
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Constructs an empty {@link SelectionRequest}.
+	 */
+	public SelectionRequest() {
+	}
 
-  /**
-   * Constructs a {@link SelectionRequest} with the specified <i>type</i>.
-   */
-  public SelectionRequest(Object type) {
-    super(type);
-  }
+	/**
+	 * Constructs a {@link SelectionRequest} with the specified <i>type</i>.
+	 */
+	public SelectionRequest(Object type) {
+		super(type);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns the last button that was pressed. This is useful if there is more than one mouse button
-   * pressed and the most recent button pressed needs to be identified.
-   */
-  public int getLastButtonPressed() {
-    return m_lastButtonPressed;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns the last button that was pressed. This is useful if there is more than one mouse button
+	 * pressed and the most recent button pressed needs to be identified.
+	 */
+	public int getLastButtonPressed() {
+		return m_lastButtonPressed;
+	}
 
-  /**
-   * Sets the last mouse button that was pressed.
-   */
-  public void setLastButtonPressed(int lastButtonPressed) {
-    m_lastButtonPressed = lastButtonPressed;
-  }
+	/**
+	 * Sets the last mouse button that was pressed.
+	 */
+	public void setLastButtonPressed(int lastButtonPressed) {
+		m_lastButtonPressed = lastButtonPressed;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Object
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String toString() {
-    StringBuffer buffer = new StringBuffer("SelectionRequest(type=");
-    buffer.append(getType());
-    buffer.append(", location=");
-    buffer.append(getLocation());
-    buffer.append(", stateMask=");
-    buffer.append(getStateMask());
-    buffer.append(", button=");
-    buffer.append(m_lastButtonPressed);
-    buffer.append(")");
-    return buffer.toString();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Object
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer("SelectionRequest(type=");
+		buffer.append(getType());
+		buffer.append(", location=");
+		buffer.append(getLocation());
+		buffer.append(", stateMask=");
+		buffer.append(getStateMask());
+		buffer.append(", button=");
+		buffer.append(m_lastButtonPressed);
+		buffer.append(")");
+		return buffer.toString();
+	}
 }

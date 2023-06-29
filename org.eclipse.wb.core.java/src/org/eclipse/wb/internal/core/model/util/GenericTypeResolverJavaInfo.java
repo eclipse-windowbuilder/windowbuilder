@@ -32,61 +32,61 @@ import java.util.Map;
  * @coverage core.util
  */
 public class GenericTypeResolverJavaInfo extends GenericTypeResolver {
-  private final Map<String, String> m_typeArguments;
+	private final Map<String, String> m_typeArguments;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public GenericTypeResolverJavaInfo(JavaInfo javaInfo) throws Exception {
-    super(GenericTypeResolver.EMPTY);
-    m_typeArguments = getTypeArguments(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public GenericTypeResolverJavaInfo(JavaInfo javaInfo) throws Exception {
+		super(GenericTypeResolver.EMPTY);
+		m_typeArguments = getTypeArguments(javaInfo);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Creation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static Map<String, String> getTypeArguments(JavaInfo javaInfo) throws Exception {
-    Map<String, String> typeArguments = Maps.newHashMap();
-    ASTNode node = javaInfo.getCreationSupport().getNode();
-    if (node instanceof ClassInstanceCreation) {
-      ClassInstanceCreation creation = (ClassInstanceCreation) node;
-      if (creation.getType() instanceof ParameterizedType) {
-        ParameterizedType parameterizedType = (ParameterizedType) creation.getType();
-        ITypeBinding binding = AstNodeUtils.getTypeBinding(parameterizedType);
-        ITypeBinding[] typeParameters_bindings = binding.getTypeDeclaration().getTypeParameters();
-        ITypeBinding[] typeArguments_bindings = binding.getTypeArguments();
-        for (int i = 0; i < typeParameters_bindings.length; i++) {
-          ITypeBinding typeParameter = typeParameters_bindings[i];
-          ITypeBinding typeArgument = typeArguments_bindings[i];
-          String typeParameterName = typeParameter.getName();
-          String typeArgumentName = AstNodeUtils.getFullyQualifiedName(typeArgument, true);
-          typeArguments.put(typeParameterName, typeArgumentName);
-        }
-      } else {
-        Class<?> componentClass = javaInfo.getDescription().getComponentClass();
-        for (TypeVariable<?> typeParameter : componentClass.getTypeParameters()) {
-          java.lang.reflect.Type[] bounds = typeParameter.getBounds();
-          Class<?> upperBound = (Class<?>) bounds[0];
-          String upperBoundName = ReflectionUtils.getCanonicalName(upperBound);
-          typeArguments.put(typeParameter.getName(), upperBoundName);
-        }
-      }
-    }
-    return typeArguments;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Creation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static Map<String, String> getTypeArguments(JavaInfo javaInfo) throws Exception {
+		Map<String, String> typeArguments = Maps.newHashMap();
+		ASTNode node = javaInfo.getCreationSupport().getNode();
+		if (node instanceof ClassInstanceCreation) {
+			ClassInstanceCreation creation = (ClassInstanceCreation) node;
+			if (creation.getType() instanceof ParameterizedType) {
+				ParameterizedType parameterizedType = (ParameterizedType) creation.getType();
+				ITypeBinding binding = AstNodeUtils.getTypeBinding(parameterizedType);
+				ITypeBinding[] typeParameters_bindings = binding.getTypeDeclaration().getTypeParameters();
+				ITypeBinding[] typeArguments_bindings = binding.getTypeArguments();
+				for (int i = 0; i < typeParameters_bindings.length; i++) {
+					ITypeBinding typeParameter = typeParameters_bindings[i];
+					ITypeBinding typeArgument = typeArguments_bindings[i];
+					String typeParameterName = typeParameter.getName();
+					String typeArgumentName = AstNodeUtils.getFullyQualifiedName(typeArgument, true);
+					typeArguments.put(typeParameterName, typeArgumentName);
+				}
+			} else {
+				Class<?> componentClass = javaInfo.getDescription().getComponentClass();
+				for (TypeVariable<?> typeParameter : componentClass.getTypeParameters()) {
+					java.lang.reflect.Type[] bounds = typeParameter.getBounds();
+					Class<?> upperBound = (Class<?>) bounds[0];
+					String upperBoundName = ReflectionUtils.getCanonicalName(upperBound);
+					typeArguments.put(typeParameter.getName(), upperBoundName);
+				}
+			}
+		}
+		return typeArguments;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected String resolveTypeVariable(TypeVariable<?> variable) {
-    String variableName = variable.getName();
-    return m_typeArguments.get(variableName);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected String resolveTypeVariable(TypeVariable<?> variable) {
+		String variableName = variable.getName();
+		return m_typeArguments.get(variableName);
+	}
 }

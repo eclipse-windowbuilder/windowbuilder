@@ -27,114 +27,114 @@ import org.eclipse.jdt.core.dom.Statement;
  * @coverage core.model.variable
  */
 public abstract class FieldVariableSupport extends AbstractSimpleVariableSupport {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FieldVariableSupport(JavaInfo javaInfo) {
-    super(javaInfo);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FieldVariableSupport(JavaInfo javaInfo) {
+		super(javaInfo);
+	}
 
-  public FieldVariableSupport(JavaInfo javaInfo, Expression variable) {
-    super(javaInfo, variable);
-  }
+	public FieldVariableSupport(JavaInfo javaInfo, Expression variable) {
+		super(javaInfo, variable);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean isValidStatementForChild(Statement statement) {
-    // When statement is Block, this means that we try to leave it (down).
-    // To have good code structure, we should not leave blocks where field is assigned.
-    if (statement instanceof Block) {
-      return AstNodeUtils.getEnclosingBlock(m_variable) != statement;
-    }
-    // field is always visible, so any related statement is valid
-    return true;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean isValidStatementForChild(Statement statement) {
+		// When statement is Block, this means that we try to leave it (down).
+		// To have good code structure, we should not leave blocks where field is assigned.
+		if (statement instanceof Block) {
+			return AstNodeUtils.getEnclosingBlock(m_variable) != statement;
+		}
+		// field is always visible, so any related statement is valid
+		return true;
+	}
 
-  @Override
-  public String getComponentName() {
-    return m_utils.stripPrefixSuffix(
-        getName(),
-        JavaCore.CODEASSIST_FIELD_PREFIXES,
-        JavaCore.CODEASSIST_FIELD_SUFFIXES);
-  }
+	@Override
+	public String getComponentName() {
+		return m_utils.stripPrefixSuffix(
+				getName(),
+				JavaCore.CODEASSIST_FIELD_PREFIXES,
+				JavaCore.CODEASSIST_FIELD_SUFFIXES);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Expressions
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReferenceExpression(NodeTarget target) throws Exception {
-    assertJavaInfoCreatedAt(target);
-    boolean isStatic;
-    {
-      FieldDeclaration fieldDeclaration =
-          AstNodeUtils.getEnclosingNode(m_declaration, FieldDeclaration.class);
-      isStatic = AstNodeUtils.isStatic(fieldDeclaration);
-    }
-    String fieldName = getName();
-    return !isStatic && prefixThis() ? "this." + fieldName : fieldName;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Expressions
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReferenceExpression(NodeTarget target) throws Exception {
+		assertJavaInfoCreatedAt(target);
+		boolean isStatic;
+		{
+			FieldDeclaration fieldDeclaration =
+					AstNodeUtils.getEnclosingNode(m_declaration, FieldDeclaration.class);
+			isStatic = AstNodeUtils.isStatic(fieldDeclaration);
+		}
+		String fieldName = getName();
+		return !isStatic && prefixThis() ? "this." + fieldName : fieldName;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Conversion
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public final boolean canConvertLocalToField() {
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Conversion
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public final boolean canConvertLocalToField() {
+		return false;
+	}
 
-  @Override
-  public final void convertLocalToField() throws Exception {
-    throw new IllegalStateException();
-  }
+	@Override
+	public final void convertLocalToField() throws Exception {
+		throw new IllegalStateException();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Delete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Deletes {@link FieldDeclaration} of this {@link FieldVariableSupport}.
-   */
-  protected final void delete_removeDeclarationField() throws Exception {
-    m_javaInfo.getEditor().removeVariableDeclaration(m_declaration);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Delete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Deletes {@link FieldDeclaration} of this {@link FieldVariableSupport}.
+	 */
+	protected final void delete_removeDeclarationField() throws Exception {
+		m_javaInfo.getEditor().removeVariableDeclaration(m_declaration);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rename on "text" property modification
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  String decorateTextName(String newName) {
-    return m_utils.addPrefixSuffix(
-        newName,
-        JavaCore.CODEASSIST_FIELD_PREFIXES,
-        JavaCore.CODEASSIST_FIELD_SUFFIXES);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rename on "text" property modification
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	String decorateTextName(String newName) {
+		return m_utils.addPrefixSuffix(
+				newName,
+				JavaCore.CODEASSIST_FIELD_PREFIXES,
+				JavaCore.CODEASSIST_FIELD_SUFFIXES);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Preferences
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static final String[] V_MODIFIER_CODE = {"private ", "", "protected ", "public "};
-  public static final int V_FIELD_MODIFIER_PRIVATE = 0;
-  public static final int V_FIELD_MODIFIER_PACKAGE = 1;
-  public static final int V_FIELD_MODIFIER_PROTECTED = 2;
-  public static final int V_FIELD_MODIFIER_PUBLIC = 3;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Preferences
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static final String[] V_MODIFIER_CODE = {"private ", "", "protected ", "public "};
+	public static final int V_FIELD_MODIFIER_PRIVATE = 0;
+	public static final int V_FIELD_MODIFIER_PACKAGE = 1;
+	public static final int V_FIELD_MODIFIER_PROTECTED = 2;
+	public static final int V_FIELD_MODIFIER_PUBLIC = 3;
 
-  /**
-   * @return <code>true</code> if field access should be prefixed by "this.".
-   */
-  protected abstract boolean prefixThis();
+	/**
+	 * @return <code>true</code> if field access should be prefixed by "this.".
+	 */
+	protected abstract boolean prefixThis();
 }

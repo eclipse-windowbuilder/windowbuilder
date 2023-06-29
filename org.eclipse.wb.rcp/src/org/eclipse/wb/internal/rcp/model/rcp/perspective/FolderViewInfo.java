@@ -40,136 +40,136 @@ import org.eclipse.ui.IFolderLayout;
  * @coverage rcp.model.rcp
  */
 public final class FolderViewInfo extends AbstractComponentInfo implements IRenderableInfo {
-  private final PageLayoutCreateFolderInfo m_container;
+	private final PageLayoutCreateFolderInfo m_container;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FolderViewInfo(PageLayoutCreateFolderInfo container, MethodInvocation invocation)
-      throws Exception {
-    super(container.getEditor(),
-        new ComponentDescription(null),
-        new PageLayoutAddCreationSupport(container, invocation));
-    m_container = container;
-    ObjectInfoUtils.setNewId(this);
-    getDescription().setToolkit(container.getDescription().getToolkit());
-    setAssociation(new InvocationVoidAssociation());
-    setVariableSupport(new VoidInvocationVariableSupport(this));
-    container.addChild(this);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FolderViewInfo(PageLayoutCreateFolderInfo container, MethodInvocation invocation)
+			throws Exception {
+		super(container.getEditor(),
+				new ComponentDescription(null),
+				new PageLayoutAddCreationSupport(container, invocation));
+		m_container = container;
+		ObjectInfoUtils.setNewId(this);
+		getDescription().setToolkit(container.getDescription().getToolkit());
+		setAssociation(new InvocationVoidAssociation());
+		setVariableSupport(new VoidInvocationVariableSupport(this));
+		container.addChild(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the <code>ID</code> of this view.
-   */
-  public final String getId() {
-    return (String) getInvocationArgument(0);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the <code>ID</code> of this view.
+	 */
+	public final String getId() {
+		return (String) getInvocationArgument(0);
+	}
 
-  /**
-   * @return the underlying {@link MethodInvocation}.
-   */
-  MethodInvocation getInvocation() {
-    return (MethodInvocation) getCreationSupport().getNode();
-  }
+	/**
+	 * @return the underlying {@link MethodInvocation}.
+	 */
+	MethodInvocation getInvocation() {
+		return (MethodInvocation) getCreationSupport().getNode();
+	}
 
-  /**
-   * @return the value of argument of underlying {@link MethodInvocation}.
-   */
-  private Object getInvocationArgument(int index) {
-    MethodInvocation invocation = getInvocation();
-    Expression argument = DomGenerics.arguments(invocation).get(index);
-    return JavaInfoEvaluationHelper.getValue(argument);
-  }
+	/**
+	 * @return the value of argument of underlying {@link MethodInvocation}.
+	 */
+	private Object getInvocationArgument(int index) {
+		MethodInvocation invocation = getInvocation();
+		Expression argument = DomGenerics.arguments(invocation).get(index);
+		return JavaInfoEvaluationHelper.getValue(argument);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
-    @Override
-    public Image getIcon() throws Exception {
-      return getPresentationIcon();
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
+		@Override
+		public Image getIcon() throws Exception {
+			return getPresentationIcon();
+		}
 
-    @Override
-    public String getText() throws Exception {
-      return getPresentationText();
-    }
-  };
+		@Override
+		public String getText() throws Exception {
+			return getPresentationText();
+		}
+	};
 
-  @Override
-  public IObjectPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public IObjectPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  /**
-   * @return the icon to show in component tree.
-   */
-  private Image getPresentationIcon() throws Exception {
-    return getViewInfo().getIcon();
-  }
+	/**
+	 * @return the icon to show in component tree.
+	 */
+	private Image getPresentationIcon() throws Exception {
+		return getViewInfo().getIcon();
+	}
 
-  /**
-   * @return the text to show in component tree.
-   */
-  private String getPresentationText() throws Exception {
-    return "\"" + getViewInfo().getName() + "\" - " + getId();
-  }
+	/**
+	 * @return the text to show in component tree.
+	 */
+	private String getPresentationText() throws Exception {
+		return "\"" + getViewInfo().getName() + "\" - " + getId();
+	}
 
-  /**
-   * @return the {@link ViewInfo} for this view.
-   */
-  private ViewInfo getViewInfo() {
-    return PdeUtils.getViewInfoDefault(getId());
-  }
+	/**
+	 * @return the {@link ViewInfo} for this view.
+	 */
+	private ViewInfo getViewInfo() {
+		return PdeUtils.getViewInfoDefault(getId());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Rendering
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private CLabel m_viewLabel;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Rendering
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private CLabel m_viewLabel;
 
-  @Override
-  public Object render() throws Exception {
-    CTabFolder folder = m_container.getFolder();
-    Composite viewsComposite = m_container.getViewsComposite();
-    // prepare presentation
-    Image icon = getViewInfo().getIcon();
-    String name = getViewInfo().getName();
-    // create item for view
-    {
-      CTabItem item = new CTabItem(folder, SWT.CLOSE);
-      item.setImage(icon);
-      item.setText(name);
-      folder.setSelection(item);
-    }
-    // create control to show in client area of folder
-    {
-      m_viewLabel = new CLabel(viewsComposite, SWT.NONE);
-      m_viewLabel.setImage(icon);
-      m_viewLabel.setText(name);
-    }
-    // use CLabel as object
-    return m_viewLabel;
-  }
+	@Override
+	public Object render() throws Exception {
+		CTabFolder folder = m_container.getFolder();
+		Composite viewsComposite = m_container.getViewsComposite();
+		// prepare presentation
+		Image icon = getViewInfo().getIcon();
+		String name = getViewInfo().getName();
+		// create item for view
+		{
+			CTabItem item = new CTabItem(folder, SWT.CLOSE);
+			item.setImage(icon);
+			item.setText(name);
+			folder.setSelection(item);
+		}
+		// create control to show in client area of folder
+		{
+			m_viewLabel = new CLabel(viewsComposite, SWT.NONE);
+			m_viewLabel.setImage(icon);
+			m_viewLabel.setText(name);
+		}
+		// use CLabel as object
+		return m_viewLabel;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void refresh_fetch() throws Exception {
-    setModelBounds(CoordinateUtils.getBounds(m_container.getFolder(), m_viewLabel));
-    super.refresh_fetch();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void refresh_fetch() throws Exception {
+		setModelBounds(CoordinateUtils.getBounds(m_container.getFolder(), m_viewLabel));
+		super.refresh_fetch();
+	}
 }

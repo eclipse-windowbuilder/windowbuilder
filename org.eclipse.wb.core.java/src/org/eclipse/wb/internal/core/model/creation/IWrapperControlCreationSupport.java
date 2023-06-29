@@ -19,8 +19,8 @@ import org.eclipse.wb.core.model.JavaInfo;
  * @coverage core.model.creation
  */
 public interface IWrapperControlCreationSupport {
-  /**
-   * @return the {@link JavaInfo} that wraps this {@link JavaInfo}.
-   */
-  JavaInfo getWrapperInfo();
+	/**
+	 * @return the {@link JavaInfo} that wraps this {@link JavaInfo}.
+	 */
+	JavaInfo getWrapperInfo();
 }

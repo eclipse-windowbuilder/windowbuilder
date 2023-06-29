@@ -20,69 +20,69 @@ import org.eclipse.wb.internal.core.model.property.PropertyManager;
  * @coverage core.model.property
  */
 public final class PropertyCategoryProviders {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Simple providers
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final PropertyCategoryProvider FROM_PROPERTY = new PropertyCategoryProvider() {
-    @Override
-    public PropertyCategory getCategory(Property property) {
-      return property.getCategory();
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Simple providers
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private static final PropertyCategoryProvider FROM_PROPERTY = new PropertyCategoryProvider() {
+		@Override
+		public PropertyCategory getCategory(Property property) {
+			return property.getCategory();
+		}
+	};
 
-  /**
-   * Returns result of {@link Property#getCategory()}, never <code>null</code>.
-   */
-  public static PropertyCategoryProvider fromProperty() {
-    return FROM_PROPERTY;
-  }
+	/**
+	 * Returns result of {@link Property#getCategory()}, never <code>null</code>.
+	 */
+	public static PropertyCategoryProvider fromProperty() {
+		return FROM_PROPERTY;
+	}
 
-  private static final PropertyCategoryProvider FORCED_BY_USER = new PropertyCategoryProvider() {
-    @Override
-    public PropertyCategory getCategory(Property property) {
-      return PropertyManager.getCategoryForced(property);
-    }
-  };
+	private static final PropertyCategoryProvider FORCED_BY_USER = new PropertyCategoryProvider() {
+		@Override
+		public PropertyCategory getCategory(Property property) {
+			return PropertyManager.getCategoryForced(property);
+		}
+	};
 
-  /**
-   * Returns category forced by user, may be <code>null</code>.
-   */
-  public static PropertyCategoryProvider forcedByUser() {
-    return FORCED_BY_USER;
-  }
+	/**
+	 * Returns category forced by user, may be <code>null</code>.
+	 */
+	public static PropertyCategoryProvider forcedByUser() {
+		return FORCED_BY_USER;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Compound
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Returns first not <code>null</code> category returned by provider.
-   */
-  public static PropertyCategoryProvider combine(final PropertyCategoryProvider... providers) {
-    return new PropertyCategoryProvider() {
-      @Override
-      public PropertyCategory getCategory(Property property) {
-        for (PropertyCategoryProvider provider : providers) {
-          PropertyCategory category = provider.getCategory(property);
-          if (category != null) {
-            return category;
-          }
-        }
-        throw new IllegalStateException("Can not provide category for " + property.getTitle());
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Compound
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Returns first not <code>null</code> category returned by provider.
+	 */
+	public static PropertyCategoryProvider combine(final PropertyCategoryProvider... providers) {
+		return new PropertyCategoryProvider() {
+			@Override
+			public PropertyCategory getCategory(Property property) {
+				for (PropertyCategoryProvider provider : providers) {
+					PropertyCategory category = provider.getCategory(property);
+					if (category != null) {
+						return category;
+					}
+				}
+				throw new IllegalStateException("Can not provide category for " + property.getTitle());
+			}
+		};
+	}
 
-  private static final PropertyCategoryProvider DEF = combine(forcedByUser(), fromProperty());
+	private static final PropertyCategoryProvider DEF = combine(forcedByUser(), fromProperty());
 
-  /**
-   * Returns the default combination of {@link PropertyCategoryProvider}s - first
-   * {@link #forcedByUser()}, then {@link #fromProperty()}.
-   */
-  public static PropertyCategoryProvider def() {
-    return DEF;
-  }
+	/**
+	 * Returns the default combination of {@link PropertyCategoryProvider}s - first
+	 * {@link #forcedByUser()}, then {@link #fromProperty()}.
+	 */
+	public static PropertyCategoryProvider def() {
+		return DEF;
+	}
 }

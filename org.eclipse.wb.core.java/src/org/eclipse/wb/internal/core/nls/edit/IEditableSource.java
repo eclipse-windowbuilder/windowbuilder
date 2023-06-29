@@ -27,123 +27,123 @@ import java.util.Set;
  * @coverage core.nls
  */
 public interface IEditableSource {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Command queue
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  void setCommandQueue(ICommandQueue commandQueue);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Command queue
+	//
+	////////////////////////////////////////////////////////////////////////////
+	void setCommandQueue(ICommandQueue commandQueue);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Key generator
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  void setKeyGeneratorStrategy(IKeyGeneratorStrategy keyGeneratorStrategy);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Key generator
+	//
+	////////////////////////////////////////////////////////////////////////////
+	void setKeyGeneratorStrategy(IKeyGeneratorStrategy keyGeneratorStrategy);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Listener
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Add listener.
-   */
-  void addListener(IEditableSourceListener listener);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Listener
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Add listener.
+	 */
+	void addListener(IEditableSourceListener listener);
 
-  /**
-   * Remove listener.
-   */
-  void removeListener(IEditableSourceListener listener);
+	/**
+	 * Remove listener.
+	 */
+	void removeListener(IEditableSourceListener listener);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Return "shoft title" that can be used in places where we have litle space.
-   */
-  String getShortTitle();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Return "shoft title" that can be used in places where we have litle space.
+	 */
+	String getShortTitle();
 
-  /**
-   * Return "long title" that can be used in places where we have much space.
-   */
-  String getLongTitle();
+	/**
+	 * Return "long title" that can be used in places where we have much space.
+	 */
+	String getLongTitle();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Locales
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Return all locales in this source.
-   */
-  LocaleInfo[] getLocales();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Locales
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Return all locales in this source.
+	 */
+	LocaleInfo[] getLocales();
 
-  /**
-   * Add new locale information based on (possible null) baseLocale.
-   */
-  void addLocale(LocaleInfo locale, LocaleInfo baseLocale);
+	/**
+	 * Add new locale information based on (possible null) baseLocale.
+	 */
+	void addLocale(LocaleInfo locale, LocaleInfo baseLocale);
 
-  /**
-   * Remove locale information.
-   */
-  void removeLocale(LocaleInfo locale);
+	/**
+	 * Remove locale information.
+	 */
+	void removeLocale(LocaleInfo locale);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Keys
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Return all key's of this source.
-   */
-  Set<String> getKeys();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Keys
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Return all key's of this source.
+	 */
+	Set<String> getKeys();
 
-  /**
-   * Return key's used in in current form.
-   */
-  Set<String> getFormKeys();
+	/**
+	 * Return key's used in in current form.
+	 */
+	Set<String> getFormKeys();
 
-  /**
-   * Replace key in all locales.
-   */
-  void renameKey(String oldKey, String newKey);
+	/**
+	 * Replace key in all locales.
+	 */
+	void renameKey(String oldKey, String newKey);
 
-  /**
-   * Mark passed property as externalized.
-   */
-  void externalize(StringPropertyInfo propertyInfo, boolean copyToAllLocales);
+	/**
+	 * Mark passed property as externalized.
+	 */
+	void externalize(StringPropertyInfo propertyInfo, boolean copyToAllLocales);
 
-  /**
-   * Internalize key: remove key from all locales and replace externalize expression with default
-   * string literal.
-   */
-  void internalizeKey(String key);
+	/**
+	 * Internalize key: remove key from all locales and replace externalize expression with default
+	 * string literal.
+	 */
+	void internalizeKey(String key);
 
-  /**
-   * Set value for given key in all locales.
-   */
-  void addKey(String key, String value);
+	/**
+	 * Set value for given key in all locales.
+	 */
+	void addKey(String key, String value);
 
-  /**
-   * @return {@link Set} of components for that have externalized properties with given key.
-   */
-  Set<JavaInfo> getComponentsByKey(String key);
+	/**
+	 * @return {@link Set} of components for that have externalized properties with given key.
+	 */
+	Set<JavaInfo> getComponentsByKey(String key);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Values
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Get value for given key and locale.
-   */
-  String getValue(LocaleInfo locale, String key);
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Values
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Get value for given key and locale.
+	 */
+	String getValue(LocaleInfo locale, String key);
 
-  /**
-   * Set value for given key and locale.
-   */
-  void setValue(LocaleInfo locale, String key, String value);
+	/**
+	 * Set value for given key and locale.
+	 */
+	void setValue(LocaleInfo locale, String key, String value);
 }

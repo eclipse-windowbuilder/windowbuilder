@@ -38,132 +38,132 @@ import java.util.List;
  * @coverage bindings.rcp.ui
  */
 public final class UpdateStrategyPropertiesUiContentProvider implements IUiContentProvider {
-  //
-  private final List<IUiContentProvider> m_providers = Lists.newArrayList();
-  private ExpandableComposite m_expandableComposite;
-  private final String m_settingKey;
-  private final String m_captionPrefix;
-  private final IDialogSettings m_settings;
+	//
+	private final List<IUiContentProvider> m_providers = Lists.newArrayList();
+	private ExpandableComposite m_expandableComposite;
+	private final String m_settingKey;
+	private final String m_captionPrefix;
+	private final IDialogSettings m_settings;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public UpdateStrategyPropertiesUiContentProvider(String direction) {
-    m_settingKey = direction + " strategy expanded state";
-    if ("Target".equals(direction)) {
-      m_captionPrefix = Messages.UpdateStrategyPropertiesUiContentProvider_Target2Model + " ";
-    } else if ("Model".equals(direction)) {
-      m_captionPrefix = Messages.UpdateStrategyPropertiesUiContentProvider_Model2Target + " ";
-    } else {
-      m_captionPrefix = StringUtils.EMPTY;
-    }
-    IDialogSettings mainSettings = Activator.getDefault().getDialogSettings();
-    m_settings = UiUtils.getSettings(mainSettings, getClass().getName());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public UpdateStrategyPropertiesUiContentProvider(String direction) {
+		m_settingKey = direction + " strategy expanded state";
+		if ("Target".equals(direction)) {
+			m_captionPrefix = Messages.UpdateStrategyPropertiesUiContentProvider_Target2Model + " ";
+		} else if ("Model".equals(direction)) {
+			m_captionPrefix = Messages.UpdateStrategyPropertiesUiContentProvider_Model2Target + " ";
+		} else {
+			m_captionPrefix = StringUtils.EMPTY;
+		}
+		IDialogSettings mainSettings = Activator.getDefault().getDialogSettings();
+		m_settings = UiUtils.getSettings(mainSettings, getClass().getName());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Add sub {@link IUiContentProvider} content provider to container.
-   */
-  public void addProvider(IUiContentProvider provider) {
-    m_providers.add(provider);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Add sub {@link IUiContentProvider} content provider to container.
+	 */
+	public void addProvider(IUiContentProvider provider) {
+		m_providers.add(provider);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Complete
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void setCompleteListener(ICompleteListener listener) {
-    for (IUiContentProvider provider : m_providers) {
-      provider.setCompleteListener(listener);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Complete
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void setCompleteListener(ICompleteListener listener) {
+		for (IUiContentProvider provider : m_providers) {
+			provider.setCompleteListener(listener);
+		}
+	}
 
-  @Override
-  public String getErrorMessage() {
-    for (IUiContentProvider provider : m_providers) {
-      String errorMessage = provider.getErrorMessage();
-      if (errorMessage != null) {
-        return errorMessage;
-      }
-    }
-    return null;
-  }
+	@Override
+	public String getErrorMessage() {
+		for (IUiContentProvider provider : m_providers) {
+			String errorMessage = provider.getErrorMessage();
+			if (errorMessage != null) {
+				return errorMessage;
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // GUI
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public int getNumberOfControls() {
-    return 1;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// GUI
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public int getNumberOfControls() {
+		return 1;
+	}
 
-  @Override
-  public void createContent(final Composite parent, int columns) {
-    // create expandable composite
-    m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
-    m_expandableComposite.setExpanded(true);
-    GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
-    m_expandableComposite.addExpansionListener(new ExpansionAdapter() {
-      @Override
-      public void expansionStateChanged(ExpansionEvent e) {
-        compositeExpansionStateChanging();
-        parent.layout();
-      }
-    });
-    // calculate columns
-    int subColumns = 0;
-    for (IUiContentProvider provider : m_providers) {
-      subColumns = Math.max(subColumns, provider.getNumberOfControls());
-    }
-    // create sub content providers
-    Composite clientComposite = new Composite(m_expandableComposite, SWT.NONE);
-    GridLayoutFactory.create(clientComposite).columns(subColumns).noMargins();
-    m_expandableComposite.setClient(clientComposite);
-    //
-    for (IUiContentProvider provider : m_providers) {
-      provider.createContent(clientComposite, subColumns);
-    }
-    compositeExpansionStateChanging();
-  }
+	@Override
+	public void createContent(final Composite parent, int columns) {
+		// create expandable composite
+		m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
+		m_expandableComposite.setExpanded(true);
+		GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
+		m_expandableComposite.addExpansionListener(new ExpansionAdapter() {
+			@Override
+			public void expansionStateChanged(ExpansionEvent e) {
+				compositeExpansionStateChanging();
+				parent.layout();
+			}
+		});
+		// calculate columns
+		int subColumns = 0;
+		for (IUiContentProvider provider : m_providers) {
+			subColumns = Math.max(subColumns, provider.getNumberOfControls());
+		}
+		// create sub content providers
+		Composite clientComposite = new Composite(m_expandableComposite, SWT.NONE);
+		GridLayoutFactory.create(clientComposite).columns(subColumns).noMargins();
+		m_expandableComposite.setClient(clientComposite);
+		//
+		for (IUiContentProvider provider : m_providers) {
+			provider.createContent(clientComposite, subColumns);
+		}
+		compositeExpansionStateChanging();
+	}
 
-  private void compositeExpansionStateChanging() {
-    m_settings.put(m_settingKey, !m_expandableComposite.isExpanded());
-    if (m_expandableComposite.isExpanded()) {
-      m_expandableComposite.setText(m_captionPrefix
-          + Messages.UpdateStrategyPropertiesUiContentProvider_strategyProperties);
-    } else {
-      m_expandableComposite.setText(m_captionPrefix
-          + Messages.UpdateStrategyPropertiesUiContentProvider_strategyPropertiesDots);
-    }
-  }
+	private void compositeExpansionStateChanging() {
+		m_settings.put(m_settingKey, !m_expandableComposite.isExpanded());
+		if (m_expandableComposite.isExpanded()) {
+			m_expandableComposite.setText(m_captionPrefix
+					+ Messages.UpdateStrategyPropertiesUiContentProvider_strategyProperties);
+		} else {
+			m_expandableComposite.setText(m_captionPrefix
+					+ Messages.UpdateStrategyPropertiesUiContentProvider_strategyPropertiesDots);
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Update
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void updateFromObject() throws Exception {
-    for (IUiContentProvider provider : m_providers) {
-      provider.updateFromObject();
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Update
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateFromObject() throws Exception {
+		for (IUiContentProvider provider : m_providers) {
+			provider.updateFromObject();
+		}
+	}
 
-  @Override
-  public void saveToObject() throws Exception {
-    for (IUiContentProvider provider : m_providers) {
-      provider.saveToObject();
-    }
-  }
+	@Override
+	public void saveToObject() throws Exception {
+		for (IUiContentProvider provider : m_providers) {
+			provider.saveToObject();
+		}
+	}
 }

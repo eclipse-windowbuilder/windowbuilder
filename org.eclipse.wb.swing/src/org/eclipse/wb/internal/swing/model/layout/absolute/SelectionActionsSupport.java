@@ -25,44 +25,44 @@ import org.eclipse.draw2d.geometry.Point;
  * @coverage swing.model.layout
  */
 public final class SelectionActionsSupport
-    extends
-      org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.SimpleAlignmentActionsSupport<ComponentInfo> {
-  private final AbstractAbsoluteLayoutInfo m_layout;
+extends
+org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.SimpleAlignmentActionsSupport<ComponentInfo> {
+	private final AbstractAbsoluteLayoutInfo m_layout;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public SelectionActionsSupport(AbstractAbsoluteLayoutInfo layout) {
-    super();
-    m_layout = layout;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public SelectionActionsSupport(AbstractAbsoluteLayoutInfo layout) {
+		super();
+		m_layout = layout;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  //
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected boolean isComponentInfo(ObjectInfo object) {
-    return object instanceof ComponentInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected boolean isComponentInfo(ObjectInfo object) {
+		return object instanceof ComponentInfo;
+	}
 
-  @Override
-  protected boolean isValidObjectOnRootPath(IAbstractComponentInfo parent) {
-    ContainerInfo container = (ContainerInfo) parent;
-    return container.hasLayout() && container.getLayout() instanceof AbstractAbsoluteLayoutInfo;
-  }
+	@Override
+	protected boolean isValidObjectOnRootPath(IAbstractComponentInfo parent) {
+		ContainerInfo container = (ContainerInfo) parent;
+		return container.hasLayout() && container.getLayout() instanceof AbstractAbsoluteLayoutInfo;
+	}
 
-  @Override
-  protected IAbstractComponentInfo getLayoutContainer() {
-    return m_layout.getContainer();
-  }
+	@Override
+	protected IAbstractComponentInfo getLayoutContainer() {
+		return m_layout.getContainer();
+	}
 
-  @Override
-  protected void commandChangeBounds(ComponentInfo component, Point location, Dimension size)
-      throws Exception {
-    m_layout.command_BOUNDS(component, location, size);
-  }
+	@Override
+	protected void commandChangeBounds(ComponentInfo component, Point location, Dimension size)
+			throws Exception {
+		m_layout.command_BOUNDS(component, location, size);
+	}
 }

@@ -22,28 +22,28 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * @coverage bindings.ui.properties
  */
 public final class Context {
-  public final AbstractUIPlugin plugin;
-  public final IDatabindingsProvider provider;
-  public final ObjectInfo objectInfo;
-  public IObserveInfo observeObject;
+	public final AbstractUIPlugin plugin;
+	public final IDatabindingsProvider provider;
+	public final ObjectInfo objectInfo;
+	public IObserveInfo observeObject;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public Context(AbstractUIPlugin plugin, IDatabindingsProvider provider, ObjectInfo objectInfo) {
-    this.plugin = plugin;
-    this.provider = provider;
-    this.objectInfo = objectInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public Context(AbstractUIPlugin plugin, IDatabindingsProvider provider, ObjectInfo objectInfo) {
+		this.plugin = plugin;
+		this.provider = provider;
+		this.objectInfo = objectInfo;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public JavaInfo javaInfo() {
-    return (JavaInfo) objectInfo;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public JavaInfo javaInfo() {
+		return (JavaInfo) objectInfo;
+	}
 }

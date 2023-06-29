@@ -29,13 +29,13 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    ModelTests.class,
-    DescriptionTests.class,
-    ResourceTests.class,
-    NebulaTests.class,
-    Swing2SwtTests.class,
-    GefTests.class,
-    BindingTests.class
+	ModelTests.class,
+	DescriptionTests.class,
+	ResourceTests.class,
+	NebulaTests.class,
+	Swing2SwtTests.class,
+	GefTests.class,
+	BindingTests.class
 })
 public class RcpTests {
 }

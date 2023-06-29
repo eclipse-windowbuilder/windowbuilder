@@ -21,36 +21,36 @@ import java.util.List;
  * @coverage bindings.rcp.model.widgets
  */
 public final class ObservableSetContentProviderInfo extends ObservableCollectionContentProviderInfo {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ObservableSetContentProviderInfo() {
-    super("org.eclipse.jface.databinding.viewers.ObservableSetContentProvider");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ObservableSetContentProviderInfo() {
+		super("org.eclipse.jface.databinding.viewers.ObservableSetContentProvider");
+	}
 
-  public ObservableSetContentProviderInfo(String className) {
-    super(className);
-  }
+	public ObservableSetContentProviderInfo(String className) {
+		super(className);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
-      throws Exception {
-    // prepare variable
-    if (getVariableIdentifier() == null) {
-      setVariableIdentifier(generationSupport.generateLocalName("setContentProvider"));
-    }
-    // add code
-    lines.add("org.eclipse.jface.databinding.viewers.ObservableSetContentProvider "
-        + getVariableIdentifier()
-        + " = new "
-        + m_className
-        + "();");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Code generation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addSourceCode(List<String> lines, CodeGenerationSupport generationSupport)
+			throws Exception {
+		// prepare variable
+		if (getVariableIdentifier() == null) {
+			setVariableIdentifier(generationSupport.generateLocalName("setContentProvider"));
+		}
+		// add code
+		lines.add("org.eclipse.jface.databinding.viewers.ObservableSetContentProvider "
+				+ getVariableIdentifier()
+				+ " = new "
+				+ m_className
+				+ "();");
+	}
 }

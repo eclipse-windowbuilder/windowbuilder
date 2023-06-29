@@ -19,8 +19,8 @@ import org.eclipse.wb.core.model.ObjectInfo;
  * @coverage core.model
  */
 public interface ObjectInfoTreeComplete {
-  /**
-   * After building complete {@link ObjectInfo} tree.
-   */
-  void invoke() throws Exception;
+	/**
+	 * After building complete {@link ObjectInfo} tree.
+	 */
+	void invoke() throws Exception;
 }

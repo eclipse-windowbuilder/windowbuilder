@@ -23,55 +23,55 @@ import java.util.List;
  * @coverage bindings.ui.properties
  */
 public abstract class AbstractJavaInfoPropertiesManager {
-  private static final String BINDINGS_KEY =
-      "Bindings-Property-853b7e9d-af65-4702-b9e4-de524cd066ca";
-  protected final IDatabindingsProvider m_provider;
+	private static final String BINDINGS_KEY =
+			"Bindings-Property-853b7e9d-af65-4702-b9e4-de524cd066ca";
+	protected final IDatabindingsProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected AbstractJavaInfoPropertiesManager(IDatabindingsProvider provider) {
-    m_provider = provider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected AbstractJavaInfoPropertiesManager(IDatabindingsProvider provider) {
+		m_provider = provider;
+	}
 
-  public AbstractJavaInfoPropertiesManager(IDatabindingsProvider provider, JavaInfo javaInfoRoot) {
-    m_provider = provider;
-    javaInfoRoot.addBroadcastListener(new JavaInfoAddProperties() {
-      @Override
-      public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        addBindingsProperty(javaInfo, properties);
-      }
-    });
-  }
+	public AbstractJavaInfoPropertiesManager(IDatabindingsProvider provider, JavaInfo javaInfoRoot) {
+		m_provider = provider;
+		javaInfoRoot.addBroadcastListener(new JavaInfoAddProperties() {
+			@Override
+			public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
+				addBindingsProperty(javaInfo, properties);
+			}
+		});
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Handle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final void addBindingsProperty(ObjectInfo objectInfo, List<Property> properties)
-      throws Exception {
-    if (isCreateProperty(objectInfo)) {
-      AbstractBindingsProperty bindingsProperty =
-          (AbstractBindingsProperty) objectInfo.getArbitraryValue(BINDINGS_KEY);
-      if (bindingsProperty == null) {
-        bindingsProperty = createProperty(objectInfo);
-        objectInfo.putArbitraryValue(BINDINGS_KEY, bindingsProperty);
-      }
-      properties.add(bindingsProperty);
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Handle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final void addBindingsProperty(ObjectInfo objectInfo, List<Property> properties)
+			throws Exception {
+		if (isCreateProperty(objectInfo)) {
+			AbstractBindingsProperty bindingsProperty =
+					(AbstractBindingsProperty) objectInfo.getArbitraryValue(BINDINGS_KEY);
+			if (bindingsProperty == null) {
+				bindingsProperty = createProperty(objectInfo);
+				objectInfo.putArbitraryValue(BINDINGS_KEY, bindingsProperty);
+			}
+			properties.add(bindingsProperty);
+		}
+	}
 
-  /**
-   * @return <code>true</code> if for given {@link ObjectInfo} need create properties.
-   */
-  protected abstract boolean isCreateProperty(ObjectInfo objectInfo) throws Exception;
+	/**
+	 * @return <code>true</code> if for given {@link ObjectInfo} need create properties.
+	 */
+	protected abstract boolean isCreateProperty(ObjectInfo objectInfo) throws Exception;
 
-  /**
-   * Create {@link AbstractBindingsProperty} for given {@link ObjectInfo}.
-   */
-  protected abstract AbstractBindingsProperty createProperty(ObjectInfo objectInfo)
-      throws Exception;
+	/**
+	 * Create {@link AbstractBindingsProperty} for given {@link ObjectInfo}.
+	 */
+	protected abstract AbstractBindingsProperty createProperty(ObjectInfo objectInfo)
+			throws Exception;
 }

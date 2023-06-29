@@ -20,5 +20,5 @@ import org.eclipse.wb.internal.draw2d.EventManager;
  * @coverage gef.core
  */
 public final class CancelOperationError extends Error {
-  private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 }

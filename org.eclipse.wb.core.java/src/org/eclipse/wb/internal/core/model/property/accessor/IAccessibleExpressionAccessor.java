@@ -25,11 +25,11 @@ import org.eclipse.wb.internal.core.model.creation.ThisCreationSupport;
  * @coverage core.model.property.accessor
  */
 public interface IAccessibleExpressionAccessor {
-  /**
-   * @param javaInfo
-   *          the {@link JavaInfo} that has property with this {@link ExpressionAccessor}.
-   *
-   * @return <code>true</code> if this {@link ExpressionAccessor} can be used.
-   */
-  boolean isAccessible(JavaInfo javaInfo);
+	/**
+	 * @param javaInfo
+	 *          the {@link JavaInfo} that has property with this {@link ExpressionAccessor}.
+	 *
+	 * @return <code>true</code> if this {@link ExpressionAccessor} can be used.
+	 */
+	boolean isAccessible(JavaInfo javaInfo);
 }

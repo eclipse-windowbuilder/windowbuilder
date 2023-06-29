@@ -45,191 +45,191 @@ import org.apache.commons.lang.ArrayUtils;
  * @coverage core.ui
  */
 public abstract class AbstractBrowseImagePage extends AbstractImagePage {
-  private final TreeViewer m_viewer;
-  private final IImageRoot m_root;
+	private final TreeViewer m_viewer;
+	private final IImageRoot m_root;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractBrowseImagePage(Composite parent,
-      int style,
-      AbstractImageDialog imageDialog,
-      IImageRoot root) {
-    super(parent, style, imageDialog);
-    m_root = root;
-    //
-    GridLayoutFactory.create(this);
-    addListener(SWT.Dispose, new Listener() {
-      @Override
-      public void handleEvent(Event event) {
-        m_root.dispose();
-      }
-    });
-    // create viewer
-    {
-      m_viewer = new TreeViewer(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-      GridDataFactory.create(m_viewer.getTree()).hintC(50, 20).grab().fill();
-      m_viewer.getTree().setData("org.eclipse.jface.viewers.TreeViewer", m_viewer);
-      // set providers
-      m_viewer.setContentProvider(new ImageContentProvider());
-      m_viewer.setLabelProvider(new ImageLabelProvider());
-      // add listeners
-      m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-        @Override
-        public void selectionChanged(SelectionChangedEvent event) {
-          IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
-          if (selection.getFirstElement() instanceof IImageResource) {
-            IImageResource resource = (IImageResource) selection.getFirstElement();
-            m_imageDialog.setResultImageInfo(resource.getImageInfo());
-          } else {
-            m_imageDialog.setResultImageInfo(null);
-          }
-        }
-      });
-      m_viewer.addDoubleClickListener(new IDoubleClickListener() {
-        @Override
-        public void doubleClick(DoubleClickEvent event) {
-          m_imageDialog.closeOk();
-        }
-      });
-    }
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractBrowseImagePage(Composite parent,
+			int style,
+			AbstractImageDialog imageDialog,
+			IImageRoot root) {
+		super(parent, style, imageDialog);
+		m_root = root;
+		//
+		GridLayoutFactory.create(this);
+		addListener(SWT.Dispose, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				m_root.dispose();
+			}
+		});
+		// create viewer
+		{
+			m_viewer = new TreeViewer(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+			GridDataFactory.create(m_viewer.getTree()).hintC(50, 20).grab().fill();
+			m_viewer.getTree().setData("org.eclipse.jface.viewers.TreeViewer", m_viewer);
+			// set providers
+			m_viewer.setContentProvider(new ImageContentProvider());
+			m_viewer.setLabelProvider(new ImageLabelProvider());
+			// add listeners
+			m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+				@Override
+				public void selectionChanged(SelectionChangedEvent event) {
+					IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
+					if (selection.getFirstElement() instanceof IImageResource) {
+						IImageResource resource = (IImageResource) selection.getFirstElement();
+						m_imageDialog.setResultImageInfo(resource.getImageInfo());
+					} else {
+						m_imageDialog.setResultImageInfo(null);
+					}
+				}
+			});
+			m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+				@Override
+				public void doubleClick(DoubleClickEvent event) {
+					m_imageDialog.closeOk();
+				}
+			});
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // AbstractImagePage
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void activate() {
-    m_viewer.setInput(m_root);
-    m_imageDialog.setResultImageInfo(null);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// AbstractImagePage
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void activate() {
+		m_viewer.setInput(m_root);
+		m_imageDialog.setResultImageInfo(null);
+	}
 
-  @Override
-  public void setInput(Object data) {
-    Object[] selectionPath = m_root.getSelectionPath(data);
-    if (selectionPath != null) {
-      m_viewer.setExpandedElements(selectionPath);
-      m_viewer.setSelection(new StructuredSelection(selectionPath[selectionPath.length - 1]));
-    }
-  }
+	@Override
+	public void setInput(Object data) {
+		Object[] selectionPath = m_root.getSelectionPath(data);
+		if (selectionPath != null) {
+			m_viewer.setExpandedElements(selectionPath);
+			m_viewer.setSelection(new StructuredSelection(selectionPath[selectionPath.length - 1]));
+		}
+	}
 
-  protected final void refresh() {
-    m_viewer.refresh();
-  }
+	protected final void refresh() {
+		m_viewer.refresh();
+	}
 
-  protected final TreeViewer getViewer() {
-    return m_viewer;
-  }
+	protected final TreeViewer getViewer() {
+		return m_viewer;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Content provider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * {@link ITreeContentProvider} for {@link IImageElement}.
-   *
-   * @author scheglov_ke
-   */
-  private static final class ImageContentProvider implements ITreeContentProvider {
-    @Override
-    public Object[] getElements(Object inputElement) {
-      try {
-        IImageRoot root = (IImageRoot) inputElement;
-        return root.elements();
-      } catch (Throwable e) {
-      }
-      return ArrayUtils.EMPTY_OBJECT_ARRAY;
-    }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Content provider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * {@link ITreeContentProvider} for {@link IImageElement}.
+	 *
+	 * @author scheglov_ke
+	 */
+	private static final class ImageContentProvider implements ITreeContentProvider {
+		@Override
+		public Object[] getElements(Object inputElement) {
+			try {
+				IImageRoot root = (IImageRoot) inputElement;
+				return root.elements();
+			} catch (Throwable e) {
+			}
+			return ArrayUtils.EMPTY_OBJECT_ARRAY;
+		}
 
-    @Override
-    public boolean hasChildren(Object element) {
-      if (element instanceof IHasChildren) {
-        IHasChildren tester = (IHasChildren) element;
-        return tester.hasChildren();
-      }
-      return getChildren(element).length != 0;
-    }
+		@Override
+		public boolean hasChildren(Object element) {
+			if (element instanceof IHasChildren) {
+				IHasChildren tester = (IHasChildren) element;
+				return tester.hasChildren();
+			}
+			return getChildren(element).length != 0;
+		}
 
-    @Override
-    public Object[] getChildren(Object parentElement) {
-      try {
-        if (parentElement instanceof IImageContainer) {
-          IImageContainer container = (IImageContainer) parentElement;
-          return container.elements();
-        }
-      } catch (Throwable e) {
-      }
-      return ArrayUtils.EMPTY_OBJECT_ARRAY;
-    }
+		@Override
+		public Object[] getChildren(Object parentElement) {
+			try {
+				if (parentElement instanceof IImageContainer) {
+					IImageContainer container = (IImageContainer) parentElement;
+					return container.elements();
+				}
+			} catch (Throwable e) {
+			}
+			return ArrayUtils.EMPTY_OBJECT_ARRAY;
+		}
 
-    @Override
-    public Object getParent(Object element) {
-      return null;
-    }
+		@Override
+		public Object getParent(Object element) {
+			return null;
+		}
 
-    @Override
-    public void dispose() {
-    }
+		@Override
+		public void dispose() {
+		}
 
-    @Override
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Label provider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * {@link LabelProvider} for {@link IImageElement}.
-   *
-   * @author scheglov_ke
-   */
-  private static final class ImageLabelProvider extends LabelProvider {
-    @Override
-    public Image getImage(Object element) {
-      if (element instanceof IImageElement) {
-        IImageElement imageElement = (IImageElement) element;
-        return imageElement.getImage();
-      }
-      return null;
-    }
+		@Override
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Label provider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * {@link LabelProvider} for {@link IImageElement}.
+	 *
+	 * @author scheglov_ke
+	 */
+	private static final class ImageLabelProvider extends LabelProvider {
+		@Override
+		public Image getImage(Object element) {
+			if (element instanceof IImageElement) {
+				IImageElement imageElement = (IImageElement) element;
+				return imageElement.getImage();
+			}
+			return null;
+		}
 
-    @Override
-    public String getText(Object element) {
-      if (element instanceof IImageContainer) {
-        IImageContainer container = (IImageContainer) element;
-        return container.getName();
-      } else if (element instanceof IImageResource) {
-        IImageResource resource = (IImageResource) element;
-        return resource.getName();
-      }
-      return "???";
-    }
-  }
+		@Override
+		public String getText(Object element) {
+			if (element instanceof IImageContainer) {
+				IImageContainer container = (IImageContainer) element;
+				return container.getName();
+			} else if (element instanceof IImageResource) {
+				IImageResource resource = (IImageResource) element;
+				return resource.getName();
+			}
+			return "???";
+		}
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utils
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return <code>true</code> if given extension is valid image extension.
-   */
-  public static boolean isImageExtension(String extension) {
-    if (extension == null) {
-      return false;
-    }
-    return extension.equalsIgnoreCase("gif")
-        || extension.equalsIgnoreCase("png")
-        || extension.equalsIgnoreCase("jpg")
-        || extension.equalsIgnoreCase("jpeg")
-        || extension.equalsIgnoreCase("bmp")
-        || extension.equalsIgnoreCase("ico");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return <code>true</code> if given extension is valid image extension.
+	 */
+	public static boolean isImageExtension(String extension) {
+		if (extension == null) {
+			return false;
+		}
+		return extension.equalsIgnoreCase("gif")
+				|| extension.equalsIgnoreCase("png")
+				|| extension.equalsIgnoreCase("jpg")
+				|| extension.equalsIgnoreCase("jpeg")
+				|| extension.equalsIgnoreCase("bmp")
+				|| extension.equalsIgnoreCase("ico");
+	}
 }

@@ -19,7 +19,7 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
  * @coverage core.gef.policy
  */
 public class AbsoluteLayoutSelectionEditPolicy<C extends IAbstractComponentInfo>
-    extends
-      AbsoluteBasedSelectionEditPolicy<C> {
-  // nothing here
+extends
+AbsoluteBasedSelectionEditPolicy<C> {
+	// nothing here
 }

@@ -28,31 +28,31 @@ import javax.swing.Action;
  * @coverage swing.editor.palette
  */
 public final class ActionNewEntryInfo extends ToolEntryInfo {
-  private static final Image ICON = Activator.getImage("info/Action/action_new.gif");
+	private static final Image ICON = Activator.getImage("info/Action/action_new.gif");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public ActionNewEntryInfo() {
-    setName(PaletteMessages.ActionNewEntryInfo_name);
-    setDescription(PaletteMessages.ActionNewEntryInfo_description);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public ActionNewEntryInfo() {
+		setName(PaletteMessages.ActionNewEntryInfo_name);
+		setDescription(PaletteMessages.ActionNewEntryInfo_description);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  @Override
-  public Tool createTool() throws Exception {
-    ActionInfo action = ActionInfo.createInner(m_editor);
-    return ActionUseEntryInfo.createActionTool(action);
-  }
+	@Override
+	public Tool createTool() throws Exception {
+		ActionInfo action = ActionInfo.createInner(m_editor);
+		return ActionUseEntryInfo.createActionTool(action);
+	}
 }

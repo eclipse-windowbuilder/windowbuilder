@@ -19,47 +19,47 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
  * @coverage bindings.model
  */
 public final class FragmentReferenceProvider implements IReferenceProvider {
-  private VariableDeclarationFragment m_fragment;
-  private IReferenceProvider m_provider;
+	private VariableDeclarationFragment m_fragment;
+	private IReferenceProvider m_provider;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public FragmentReferenceProvider(VariableDeclarationFragment fragment) {
-    setFragment(fragment);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public FragmentReferenceProvider(VariableDeclarationFragment fragment) {
+		setFragment(fragment);
+	}
 
-  public FragmentReferenceProvider(IReferenceProvider provider) {
-    m_provider = provider;
-  }
+	public FragmentReferenceProvider(IReferenceProvider provider) {
+		m_provider = provider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public IReferenceProvider getProvider() {
-    return m_provider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public IReferenceProvider getProvider() {
+		return m_provider;
+	}
 
-  public VariableDeclarationFragment getFragment() {
-    return m_fragment;
-  }
+	public VariableDeclarationFragment getFragment() {
+		return m_fragment;
+	}
 
-  public void setFragment(VariableDeclarationFragment fragment) {
-    m_fragment = fragment;
-    m_provider = null;
-  }
+	public void setFragment(VariableDeclarationFragment fragment) {
+		m_fragment = fragment;
+		m_provider = null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IReferenceProvider
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public String getReference() throws Exception {
-    return m_provider == null ? m_fragment.getName().getIdentifier() : m_provider.getReference();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IReferenceProvider
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getReference() throws Exception {
+		return m_provider == null ? m_fragment.getName().getIdentifier() : m_provider.getReference();
+	}
 }

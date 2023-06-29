@@ -30,59 +30,59 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  * @coverage swing.FormLayout.model
  */
 public final class DefaultComponentFactoryCreateLabelEntryInfo
-    extends
-      DefaultComponentFactoryEntryInfo {
-  private static final Image ICON =
-      Activator.getImage("DefaultComponentFactory/createLabel_java.lang.String_.gif");
+extends
+DefaultComponentFactoryEntryInfo {
+	private static final Image ICON =
+			Activator.getImage("DefaultComponentFactory/createLabel_java.lang.String_.gif");
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DefaultComponentFactoryCreateLabelEntryInfo() {
-    setId(getClass().getName());
-    setName("createLabel(String)");
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public DefaultComponentFactoryCreateLabelEntryInfo() {
+		setId(getClass().getName());
+		setName("createLabel(String)");
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // EntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Image getIcon() {
-    return ICON;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// EntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Image getIcon() {
+		return ICON;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ToolEntryInfo
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public Tool createTool() throws Exception {
-    ICreationFactory factory = new ICreationFactory() {
-      private JavaInfo m_javaInfo;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// ToolEntryInfo
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public Tool createTool() throws Exception {
+		ICreationFactory factory = new ICreationFactory() {
+			private JavaInfo m_javaInfo;
 
-      @Override
-      public void activate() throws Exception {
-        String source = "createLabel(\"New JGoodies label\")";
-        m_javaInfo =
-            JavaInfoUtils.createJavaInfo(
-                m_editor,
-                "javax.swing.JLabel",
-                new DefaultComponentFactoryCreationSupport(source));
-        m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
-      }
+			@Override
+			public void activate() throws Exception {
+				String source = "createLabel(\"New JGoodies label\")";
+				m_javaInfo =
+						JavaInfoUtils.createJavaInfo(
+								m_editor,
+								"javax.swing.JLabel",
+								new DefaultComponentFactoryCreationSupport(source));
+				m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
+			}
 
-      @Override
-      public Object getNewObject() {
-        return m_javaInfo;
-      }
-    };
-    // return tool
-    ensureLibrary();
-    return new CreationTool(factory);
-  }
+			@Override
+			public Object getNewObject() {
+				return m_javaInfo;
+			}
+		};
+		// return tool
+		ensureLibrary();
+		return new CreationTool(factory);
+	}
 }

@@ -28,41 +28,41 @@ import java.util.Map;
  * @coverage XML.model.description
  */
 public abstract class AbstractConfigurableDescription {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parameters
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, Object> m_parameters = Maps.newHashMap();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parameters
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final Map<String, Object> m_parameters = Maps.newHashMap();
 
-  /**
-   * Adds new parameter.
-   */
-  public final void addParameter(String name, String value) {
-    Assert.isTrue(
-        !m_parameters.containsKey(name),
-        MessageFormat.format("Duplicate declaration of parameter ''{0}''.", name));
-    m_parameters.put(name, value);
-  }
+	/**
+	 * Adds new parameter.
+	 */
+	public final void addParameter(String name, String value) {
+		Assert.isTrue(
+				!m_parameters.containsKey(name),
+				MessageFormat.format("Duplicate declaration of parameter ''{0}''.", name));
+		m_parameters.put(name, value);
+	}
 
-  /**
-   * Adds new list parameter.
-   */
-  @SuppressWarnings("unchecked")
-  public final void addListParameter(String name, String value) {
-    List<String> list = (List<String>) m_parameters.get(name);
-    if (list == null) {
-      list = Lists.newArrayList();
-      m_parameters.put(name, list);
-    }
-    list.add(value);
-  }
+	/**
+	 * Adds new list parameter.
+	 */
+	@SuppressWarnings("unchecked")
+	public final void addListParameter(String name, String value) {
+		List<String> list = (List<String>) m_parameters.get(name);
+		if (list == null) {
+			list = Lists.newArrayList();
+			m_parameters.put(name, list);
+		}
+		list.add(value);
+	}
 
-  /**
-   * Configures given {@link IConfigurablePropertyObject} with current parameters.
-   */
-  public final void configure(EditorContext context, IConfigurablePropertyObject configurableObject)
-      throws Exception {
-    configurableObject.configure(context, m_parameters);
-  }
+	/**
+	 * Configures given {@link IConfigurablePropertyObject} with current parameters.
+	 */
+	public final void configure(EditorContext context, IConfigurablePropertyObject configurableObject)
+			throws Exception {
+		configurableObject.configure(context, m_parameters);
+	}
 }

@@ -38,137 +38,137 @@ import org.eclipse.swt.widgets.Label;
  * @coverage core.editor.errors
  */
 public abstract class WarningComposite extends Composite {
-  private Button m_switchButton;
-  private final BrowserComposite m_browser;
-  private final Label m_titleLabel;
-  private int m_sourcePosition;
-  private final boolean wbBasic;
+	private Button m_switchButton;
+	private final BrowserComposite m_browser;
+	private final Label m_titleLabel;
+	private int m_sourcePosition;
+	private final boolean wbBasic;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public WarningComposite(Composite parent, int style) {
-    super(parent, style);
-    wbBasic = InstanceScope.INSTANCE.getNode(
-        IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).getBoolean(
-            IEditorPreferenceConstants.WB_BASIC_UI,
-            true);
-    GridLayoutFactory.create(this);
-    {
-      Composite titleComposite = new Composite(this, SWT.NONE);
-      GridDataFactory.create(titleComposite).alignHL();
-      GridLayoutFactory.create(titleComposite).columns(2).margins(10);
-      {
-        Label label = new Label(titleComposite, SWT.NONE);
-        label.setImage(SwtResourceManager.getImage(SWT.ICON_WARNING));
-      }
-      {
-        m_titleLabel = new Label(titleComposite, SWT.NONE);
-        m_titleLabel.setFont(
-            SwtResourceManager.getFont(getFont().getFontData()[0].getName(), 14, SWT.BOLD));
-      }
-    }
-    {
-      m_browser = new BrowserComposite(this, SWT.NONE);
-      GridDataFactory.create(m_browser).grab().fill();
-    }
-    createButtons();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public WarningComposite(Composite parent, int style) {
+		super(parent, style);
+		wbBasic = InstanceScope.INSTANCE.getNode(
+				IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).getBoolean(
+						IEditorPreferenceConstants.WB_BASIC_UI,
+						true);
+		GridLayoutFactory.create(this);
+		{
+			Composite titleComposite = new Composite(this, SWT.NONE);
+			GridDataFactory.create(titleComposite).alignHL();
+			GridLayoutFactory.create(titleComposite).columns(2).margins(10);
+			{
+				Label label = new Label(titleComposite, SWT.NONE);
+				label.setImage(SwtResourceManager.getImage(SWT.ICON_WARNING));
+			}
+			{
+				m_titleLabel = new Label(titleComposite, SWT.NONE);
+				m_titleLabel.setFont(
+						SwtResourceManager.getFont(getFont().getFontData()[0].getName(), 14, SWT.BOLD));
+			}
+		}
+		{
+			m_browser = new BrowserComposite(this, SWT.NONE);
+			GridDataFactory.create(m_browser).grab().fill();
+		}
+		createButtons();
+	}
 
-  protected void createButtons() {
-    Composite buttonsComposite = new Composite(this, SWT.NONE);
-    GridDataFactory.create(buttonsComposite).alignHR();
-    int numButtons = getNumButtons();
-    GridLayoutFactory.create(buttonsComposite).columns(numButtons).equalColumns().marginsH(0);
-    createButtons(buttonsComposite);
-  }
+	protected void createButtons() {
+		Composite buttonsComposite = new Composite(this, SWT.NONE);
+		GridDataFactory.create(buttonsComposite).alignHR();
+		int numButtons = getNumButtons();
+		GridLayoutFactory.create(buttonsComposite).columns(numButtons).equalColumns().marginsH(0);
+		createButtons(buttonsComposite);
+	}
 
-  protected void createButtons(Composite buttonsComposite) {
-    {
-      Button refreshButton = new Button(buttonsComposite, SWT.NONE);
-      GridDataFactory.create(refreshButton).fillH();
-      refreshButton.setText(Messages.WarningComposite_refreshButton);
-      refreshButton.setImage(
-          EnvironmentUtils.IS_MAC ? null : DesignerPlugin.getImage("actions/errors/refresh32.png"));
-      refreshButton.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          doRefresh();
-        }
-      });
-      refreshButton.setVisible(!wbBasic);
-    }
-    {
-      m_switchButton = new Button(buttonsComposite, SWT.NONE);
-      GridDataFactory.create(m_switchButton).fillH();
-      m_switchButton.setText(Messages.WarningComposite_switchButton);
-      m_switchButton.addSelectionListener(new SelectionAdapter() {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-          doShowSource(m_sourcePosition);
-        }
-      });
-      m_switchButton.setVisible(!wbBasic);
-    }
-  }
+	protected void createButtons(Composite buttonsComposite) {
+		{
+			Button refreshButton = new Button(buttonsComposite, SWT.NONE);
+			GridDataFactory.create(refreshButton).fillH();
+			refreshButton.setText(Messages.WarningComposite_refreshButton);
+			refreshButton.setImage(
+					EnvironmentUtils.IS_MAC ? null : DesignerPlugin.getImage("actions/errors/refresh32.png"));
+			refreshButton.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					doRefresh();
+				}
+			});
+			refreshButton.setVisible(!wbBasic);
+		}
+		{
+			m_switchButton = new Button(buttonsComposite, SWT.NONE);
+			GridDataFactory.create(m_switchButton).fillH();
+			m_switchButton.setText(Messages.WarningComposite_switchButton);
+			m_switchButton.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					doShowSource(m_sourcePosition);
+				}
+			});
+			m_switchButton.setVisible(!wbBasic);
+		}
+	}
 
-  protected int getNumButtons() {
-    return 2;
-  }
+	protected int getNumButtons() {
+		return 2;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Operations
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Handles the 'refresh' action.
-   */
-  protected abstract void doRefresh();
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Operations
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Handles the 'refresh' action.
+	 */
+	protected abstract void doRefresh();
 
-  /**
-   * Handles the 'switch to source' action.
-   *
-   * @param sourcePosition
-   *          the position in the source code to switch to.
-   */
-  protected abstract void doShowSource(int sourcePosition);
+	/**
+	 * Handles the 'switch to source' action.
+	 *
+	 * @param sourcePosition
+	 *          the position in the source code to switch to.
+	 */
+	protected abstract void doShowSource(int sourcePosition);
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the {@link Throwable} to display.
-   */
-  public void setException(Throwable e) {
-    ErrorEntryInfo entry = DesignerExceptionUtils.getErrorEntry(e);
-    m_titleLabel.setText(entry.getTitle());
-    m_browser.setText(DesignerExceptionUtils.getWarningHTML(entry));
-    updateForSourcePosition(e);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Sets the {@link Throwable} to display.
+	 */
+	public void setException(Throwable e) {
+		ErrorEntryInfo entry = DesignerExceptionUtils.getErrorEntry(e);
+		m_titleLabel.setText(entry.getTitle());
+		m_browser.setText(DesignerExceptionUtils.getWarningHTML(entry));
+		updateForSourcePosition(e);
+	}
 
-  private void updateForSourcePosition(Throwable e) {
-    m_sourcePosition = DesignerExceptionUtils.getSourcePosition(e);
-    boolean hasSourcePosition = m_sourcePosition != -1;
-    // text
-    if (hasSourcePosition) {
-      m_switchButton.setText(Messages.WarningComposite_goProblemButton);
-    } else {
-      m_switchButton.setText(Messages.WarningComposite_switchButton);
-    }
-    // image
-    if (!EnvironmentUtils.IS_MAC) {
-      Image image;
-      if (hasSourcePosition) {
-        image = DesignerPlugin.getImage("actions/errors/switch32locate.png");
-      } else {
-        image = DesignerPlugin.getImage("actions/errors/switch32.png");
-      }
-      m_switchButton.setImage(image);
-    }
-  }
+	private void updateForSourcePosition(Throwable e) {
+		m_sourcePosition = DesignerExceptionUtils.getSourcePosition(e);
+		boolean hasSourcePosition = m_sourcePosition != -1;
+		// text
+		if (hasSourcePosition) {
+			m_switchButton.setText(Messages.WarningComposite_goProblemButton);
+		} else {
+			m_switchButton.setText(Messages.WarningComposite_switchButton);
+		}
+		// image
+		if (!EnvironmentUtils.IS_MAC) {
+			Image image;
+			if (hasSourcePosition) {
+				image = DesignerPlugin.getImage("actions/errors/switch32locate.png");
+			} else {
+				image = DesignerPlugin.getImage("actions/errors/switch32.png");
+			}
+			m_switchButton.setImage(image);
+		}
+	}
 }

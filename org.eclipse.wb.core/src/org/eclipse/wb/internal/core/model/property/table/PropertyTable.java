@@ -76,7 +76,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 	private static final Color COLOR_PROPERTY_FG_TITLE = IColorConstants.listForeground;
 	private static final Color COLOR_PROPERTY_FG_VALUE = DrawUtils.isDarkColor(IColorConstants.listBackground)
 			? IColorConstants.lightBlue
-			: IColorConstants.darkBlue;
+					: IColorConstants.darkBlue;
 	private static final Color COLOR_PROPERTY_BG_SELECTED = IColorConstants.listSelection;
 	private static final Color COLOR_PROPERTY_FG_SELECTED = IColorConstants.listSelectionText;
 	private static final Color COLOR_PROPERTY_FG_ADVANCED = IColorConstants.gray;

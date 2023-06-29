@@ -36,183 +36,183 @@ import java.util.List;
  *
  */
 public abstract class AbstractParser implements IModelResolver {
-  protected final AstEditor m_editor;
-  protected final IDatabindingsProvider m_provider;
-  protected final List<ISubParser> m_subParsers = Lists.newArrayList();
-  protected final List<IModelSupport> m_modelSupports = Lists.newArrayList();
+	protected final AstEditor m_editor;
+	protected final IDatabindingsProvider m_provider;
+	protected final List<ISubParser> m_subParsers = Lists.newArrayList();
+	protected final List<IModelSupport> m_modelSupports = Lists.newArrayList();
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractParser(AstEditor editor, IDatabindingsProvider provider) {
-    m_editor = editor;
-    m_provider = provider;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractParser(AstEditor editor, IDatabindingsProvider provider) {
+		m_editor = editor;
+		m_provider = provider;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parser
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final void parseMethod(MethodDeclaration method) {
-    method.accept(new ASTVisitor() {
-      @Override
-      public void endVisit(ClassInstanceCreation creation) {
-        try {
-          // prepare signature
-          String signature = CoreUtils.getCreationSignature(creation);
-          // prepare arguments
-          Expression[] arguments = CoreUtils.getExpressionArray(DomGenerics.arguments(creation));
-          if (failExpressions(arguments)) {
-            return;
-          }
-          // ask each parser, maybe this creation is ASTObjectInfo creation
-          for (ISubParser subParser : m_subParsers) {
-            AstObjectInfo model =
-                subParser.parseExpression(
-                    m_editor,
-                    signature,
-                    creation,
-                    arguments,
-                    AbstractParser.this,
-                    m_provider);
-            //
-            if (model != null) {
-              addModel(model, creation);
-              return;
-            }
-          }
-        } catch (Throwable e) {
-          ReflectionUtils.propagate(e);
-        }
-      }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Parser
+	//
+	////////////////////////////////////////////////////////////////////////////
+	protected final void parseMethod(MethodDeclaration method) {
+		method.accept(new ASTVisitor() {
+			@Override
+			public void endVisit(ClassInstanceCreation creation) {
+				try {
+					// prepare signature
+					String signature = CoreUtils.getCreationSignature(creation);
+					// prepare arguments
+					Expression[] arguments = CoreUtils.getExpressionArray(DomGenerics.arguments(creation));
+					if (failExpressions(arguments)) {
+						return;
+					}
+					// ask each parser, maybe this creation is ASTObjectInfo creation
+					for (ISubParser subParser : m_subParsers) {
+						AstObjectInfo model =
+								subParser.parseExpression(
+										m_editor,
+										signature,
+										creation,
+										arguments,
+										AbstractParser.this,
+										m_provider);
+						//
+						if (model != null) {
+							addModel(model, creation);
+							return;
+						}
+					}
+				} catch (Throwable e) {
+					ReflectionUtils.propagate(e);
+				}
+			}
 
-      @Override
-      public void endVisit(MethodInvocation invocation) {
-        try {
-          // prepare signature
-          String signature = CoreUtils.getMethodSignature(invocation);
-          if (signature == null) {
-            return;
-          }
-          // prepare arguments
-          Expression[] arguments = CoreUtils.getExpressionArray(DomGenerics.arguments(invocation));
-          if (failExpressions(arguments)) {
-            return;
-          }
-          // prepare invocation expression
-          Expression expression = invocation.getExpression();
-          if (expression != null) {
-            AstObjectInfo model = getModel(expression);
-            // ask expression model, maybe this invocation is ASTObjectInfo creation
-            if (model != null) {
-              model =
-                  model.parseExpression(
-                      m_editor,
-                      signature,
-                      invocation,
-                      arguments,
-                      AbstractParser.this,
-                      m_provider);
-              //
-              if (model != null) {
-                addModel(model, invocation);
-                return;
-              }
-            }
-          }
-          // ask each parser, maybe this invocation is ASTObjectInfo creation
-          for (ISubParser subParser : m_subParsers) {
-            AstObjectInfo model =
-                subParser.parseExpression(
-                    m_editor,
-                    signature,
-                    invocation,
-                    arguments,
-                    AbstractParser.this);
-            //
-            if (model != null) {
-              addModel(model, invocation);
-              return;
-            }
-          }
-        } catch (Throwable e) {
-          ReflectionUtils.propagate(e);
-        }
-      }
-    });
-  }
+			@Override
+			public void endVisit(MethodInvocation invocation) {
+				try {
+					// prepare signature
+					String signature = CoreUtils.getMethodSignature(invocation);
+					if (signature == null) {
+						return;
+					}
+					// prepare arguments
+					Expression[] arguments = CoreUtils.getExpressionArray(DomGenerics.arguments(invocation));
+					if (failExpressions(arguments)) {
+						return;
+					}
+					// prepare invocation expression
+					Expression expression = invocation.getExpression();
+					if (expression != null) {
+						AstObjectInfo model = getModel(expression);
+						// ask expression model, maybe this invocation is ASTObjectInfo creation
+						if (model != null) {
+							model =
+									model.parseExpression(
+											m_editor,
+											signature,
+											invocation,
+											arguments,
+											AbstractParser.this,
+											m_provider);
+							//
+							if (model != null) {
+								addModel(model, invocation);
+								return;
+							}
+						}
+					}
+					// ask each parser, maybe this invocation is ASTObjectInfo creation
+					for (ISubParser subParser : m_subParsers) {
+						AstObjectInfo model =
+								subParser.parseExpression(
+										m_editor,
+										signature,
+										invocation,
+										arguments,
+										AbstractParser.this);
+						//
+						if (model != null) {
+							addModel(model, invocation);
+							return;
+						}
+					}
+				} catch (Throwable e) {
+					ReflectionUtils.propagate(e);
+				}
+			}
+		});
+	}
 
-  private boolean failExpressions(Expression[] arguments) throws Exception {
-    for (Expression argument : arguments) {
-      if (AstNodeUtils.getTypeBinding(argument) == null) {
-        addError(m_editor, "Expression with errors: '" + argument + "'", new Throwable());
-        return true;
-      }
-    }
-    return false;
-  }
+	private boolean failExpressions(Expression[] arguments) throws Exception {
+		for (Expression argument : arguments) {
+			if (AstNodeUtils.getTypeBinding(argument) == null) {
+				addError(m_editor, "Expression with errors: '" + argument + "'", new Throwable());
+				return true;
+			}
+		}
+		return false;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // IModelResolver
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void addModel(AstObjectInfo model, Expression creation) throws Exception {
-    addModelSupport(new AstModelSupport(model, creation));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// IModelResolver
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void addModel(AstObjectInfo model, Expression creation) throws Exception {
+		addModelSupport(new AstModelSupport(model, creation));
+	}
 
-  @Override
-  public AstObjectInfo getModel(Expression expression) throws Exception {
-    IModelSupport modelSupport = getModelSupport(expression);
-    return modelSupport == null ? null : modelSupport.getModel();
-  }
+	@Override
+	public AstObjectInfo getModel(Expression expression) throws Exception {
+		IModelSupport modelSupport = getModelSupport(expression);
+		return modelSupport == null ? null : modelSupport.getModel();
+	}
 
-  @Override
-  public AstObjectInfo getModel(Expression expression, IModelResolverFilter filter)
-      throws Exception {
-    for (IModelSupport modelSupport : m_modelSupports) {
-      if (modelSupport.isRepresentedBy(expression) && filter.accept(modelSupport)) {
-        return modelSupport.getModel();
-      }
-    }
-    return null;
-  }
+	@Override
+	public AstObjectInfo getModel(Expression expression, IModelResolverFilter filter)
+			throws Exception {
+		for (IModelSupport modelSupport : m_modelSupports) {
+			if (modelSupport.isRepresentedBy(expression) && filter.accept(modelSupport)) {
+				return modelSupport.getModel();
+			}
+		}
+		return null;
+	}
 
-  @Override
-  public void addModelSupport(IModelSupport modelSupport) {
-    m_modelSupports.add(modelSupport);
-  }
+	@Override
+	public void addModelSupport(IModelSupport modelSupport) {
+		m_modelSupports.add(modelSupport);
+	}
 
-  @Override
-  public IModelSupport getModelSupport(Expression expression) throws Exception {
-    Expression actualExpression = AstNodeUtils.getActualVariableExpression(expression);
-    IModelSupport modelSupport = getModelSupport0(actualExpression);
-    if (modelSupport == null && actualExpression != expression) {
-      modelSupport = getModelSupport0(expression);
-    }
-    return modelSupport;
-  }
+	@Override
+	public IModelSupport getModelSupport(Expression expression) throws Exception {
+		Expression actualExpression = AstNodeUtils.getActualVariableExpression(expression);
+		IModelSupport modelSupport = getModelSupport0(actualExpression);
+		if (modelSupport == null && actualExpression != expression) {
+			modelSupport = getModelSupport0(expression);
+		}
+		return modelSupport;
+	}
 
-  private IModelSupport getModelSupport0(Expression expression) throws Exception {
-    for (IModelSupport modelSupport : m_modelSupports) {
-      if (modelSupport.isRepresentedBy(expression)) {
-        return modelSupport;
-      }
-    }
-    return null;
-  }
+	private IModelSupport getModelSupport0(Expression expression) throws Exception {
+		for (IModelSupport modelSupport : m_modelSupports) {
+			if (modelSupport.isRepresentedBy(expression)) {
+				return modelSupport;
+			}
+		}
+		return null;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Errors
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static void addError(AstEditor editor, String message, Throwable exception) {
-    EditorState state = EditorState.get(editor);
-    state.addWarning(new EditorWarning(message, exception));
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Errors
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public static void addError(AstEditor editor, String message, Throwable exception) {
+		EditorState state = EditorState.get(editor);
+		state.addWarning(new EditorWarning(message, exception));
+	}
 }

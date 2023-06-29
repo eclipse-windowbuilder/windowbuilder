@@ -49,234 +49,234 @@ import java.util.List;
  * @coverage core.gef
  */
 public abstract class AbstractComponentEditPart extends GraphicalEditPart {
-  public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
-      ? new Point(20, 28)
-      : new Point(20, 20);
-  private final AbstractComponentInfo m_component;
+	public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
+			? new Point(20, 28)
+					: new Point(20, 20);
+	private final AbstractComponentInfo m_component;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public AbstractComponentEditPart(AbstractComponentInfo component) {
-    m_component = component;
-    setModel(m_component);
-    listenFor_delayEvents();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Constructor
+	//
+	////////////////////////////////////////////////////////////////////////////
+	public AbstractComponentEditPart(AbstractComponentInfo component) {
+		m_component = component;
+		setModel(m_component);
+		listenFor_delayEvents();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link AbstractComponentInfo} for this {@link AbstractComponentEditPart}.
-   */
-  public final AbstractComponentInfo getComponent() {
-    return m_component;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @return the {@link AbstractComponentInfo} for this {@link AbstractComponentEditPart}.
+	 */
+	public final AbstractComponentInfo getComponent() {
+		return m_component;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Figure
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected Figure createFigure() {
-    return new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        if (m_component.isRoot()) {
-          Image image = m_component.getImage();
-          graphics.drawImage(image, 0, 0);
-        }
-        drawCustomBorder(this, graphics);
-      }
-    };
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Figure
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected Figure createFigure() {
+		return new Figure() {
+			@Override
+			protected void paintClientArea(Graphics graphics) {
+				if (m_component.isRoot()) {
+					Image image = m_component.getImage();
+					graphics.drawImage(image, 0, 0);
+				}
+				drawCustomBorder(this, graphics);
+			}
+		};
+	}
 
-  /**
-   * Draw custom "control specific" graphics objects for given {@link Figure}.
-   */
-  protected void drawCustomBorder(Figure figure, Graphics graphics) {
-  }
+	/**
+	 * Draw custom "control specific" graphics objects for given {@link Figure}.
+	 */
+	protected void drawCustomBorder(Figure figure, Graphics graphics) {
+	}
 
-  @Override
-  protected void refreshVisuals() {
-    Rectangle bounds = m_component.getBounds();
-    if (m_component.isRoot()) {
-      Point rootLocation = getRootLocation();
-      bounds = bounds.getCopy().setLocation(rootLocation);
-    }
-    // make it safe
-    if (bounds == null) {
-      bounds = new Rectangle(0, 0, 0, 0);
-    }
-    // set bounds
-    getFigure().setBounds(bounds);
-  }
+	@Override
+	protected void refreshVisuals() {
+		Rectangle bounds = m_component.getBounds();
+		if (m_component.isRoot()) {
+			Point rootLocation = getRootLocation();
+			bounds = bounds.getCopy().setLocation(rootLocation);
+		}
+		// make it safe
+		if (bounds == null) {
+			bounds = new Rectangle(0, 0, 0, 0);
+		}
+		// set bounds
+		getFigure().setBounds(bounds);
+	}
 
-  /**
-   * @return the location to use, if this {@link AbstractComponentInfo} is root.
-   */
-  protected Point getRootLocation() {
-    return TOP_LOCATION;
-  }
+	/**
+	 * @return the location to use, if this {@link AbstractComponentInfo} is root.
+	 */
+	protected Point getRootLocation() {
+		return TOP_LOCATION;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Policies
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void createEditPolicies() {
-    if (m_component.isRoot()) {
-      installEditPolicy(EditPolicy.SELECTION_ROLE, new TopSelectionEditPolicy(m_component));
-    } else {
-      installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
-    }
-    installEditPolicy(new OpenListenerEditPolicy(m_component));
-    OpenErrorLogEditPolicy.install(this);
-    refreshEditPolicies();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Policies
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected void createEditPolicies() {
+		if (m_component.isRoot()) {
+			installEditPolicy(EditPolicy.SELECTION_ROLE, new TopSelectionEditPolicy(m_component));
+		} else {
+			installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
+		}
+		installEditPolicy(new OpenListenerEditPolicy(m_component));
+		OpenErrorLogEditPolicy.install(this);
+		refreshEditPolicies();
+	}
 
-  /**
-   * Installs {@link EditPolicy}'s after model refresh. For example we should install new
-   * {@link LayoutEditPolicy} if component has now new layout.
-   */
-  protected void refreshEditPolicies() {
-    OpenErrorLogEditPolicy.refresh(this);
-  }
+	/**
+	 * Installs {@link EditPolicy}'s after model refresh. For example we should install new
+	 * {@link LayoutEditPolicy} if component has now new layout.
+	 */
+	protected void refreshEditPolicies() {
+		OpenErrorLogEditPolicy.refresh(this);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Requests/Commands
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public EditPart getTargetEditPart(Request request) {
-    // sometimes we want to redirect selection to parent
-    if (request instanceof SelectionRequest) {
-      if (JavaInfoUtils.hasTrueParameter(m_component, "GEF.clickToParent")) {
-        return getParent().getTargetEditPart(request);
-      }
-    }
-    return super.getTargetEditPart(request);
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Requests/Commands
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		// sometimes we want to redirect selection to parent
+		if (request instanceof SelectionRequest) {
+			if (JavaInfoUtils.hasTrueParameter(m_component, "GEF.clickToParent")) {
+				return getParent().getTargetEditPart(request);
+			}
+		}
+		return super.getTargetEditPart(request);
+	}
 
-  @Override
-  public void performRequest(Request request) {
-    super.performRequest(request);
-    if (request instanceof DragPermissionRequest) {
-      DragPermissionRequest permissionRequest = (DragPermissionRequest) request;
-      permissionRequest.setMove(JavaInfoUtils.canMove(m_component));
-      permissionRequest.setReparent(JavaInfoUtils.canReparent(m_component));
-    }
-  }
+	@Override
+	public void performRequest(Request request) {
+		super.performRequest(request);
+		if (request instanceof DragPermissionRequest) {
+			DragPermissionRequest permissionRequest = (DragPermissionRequest) request;
+			permissionRequest.setMove(JavaInfoUtils.canMove(m_component));
+			permissionRequest.setReparent(JavaInfoUtils.canReparent(m_component));
+		}
+	}
 
-  @Override
-  public CompoundCommand createCompoundCommand() {
-    return new CompoundEditCommand(m_component);
-  }
+	@Override
+	public CompoundCommand createCompoundCommand() {
+		return new CompoundEditCommand(m_component);
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Refresh
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void refresh() {
-    refreshEditPolicies();
-    super.refresh();
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Refresh
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void refresh() {
+		refreshEditPolicies();
+		super.refresh();
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Children
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected List<?> getModelChildren() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
-      @Override
-      public List<?> runObject() throws Exception {
-        return m_component.getPresentation().getChildrenGraphical();
-      }
-    }, Collections.emptyList());
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Children
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	protected List<?> getModelChildren() {
+		return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
+			@Override
+			public List<?> runObject() throws Exception {
+				return m_component.getPresentation().getChildrenGraphical();
+			}
+		}, Collections.emptyList());
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Events
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Delays events that happen during model-driven messages loops.
-   */
-  private void listenFor_delayEvents() {
-    if (m_component.isRoot()) {
-      m_component.addBroadcastListener(new DisplayEventListener() {
-        private int m_level = 0;
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Events
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Delays events that happen during model-driven messages loops.
+	 */
+	private void listenFor_delayEvents() {
+		if (m_component.isRoot()) {
+			m_component.addBroadcastListener(new DisplayEventListener() {
+				private int m_level = 0;
 
-        ////////////////////////////////////////////////////////////////////////////
-        //
-        // DisplayEventListener
-        //
-        ////////////////////////////////////////////////////////////////////////////
-        @Override
-        public void beforeMessagesLoop() {
-          if (isEnabled()) {
-            m_level++;
-            if (m_level == 1) {
-              delayEvents(true);
-            }
-          }
-        }
+				////////////////////////////////////////////////////////////////////////////
+				//
+				// DisplayEventListener
+				//
+				////////////////////////////////////////////////////////////////////////////
+				@Override
+				public void beforeMessagesLoop() {
+					if (isEnabled()) {
+						m_level++;
+						if (m_level == 1) {
+							delayEvents(true);
+						}
+					}
+				}
 
-        @Override
-        public void afterMessagesLoop() {
-          if (isEnabled()) {
-            m_level--;
-            if (m_level == 0) {
-              delayEvents(false);
-              runDelayedEvents();
-            }
-          }
-        }
+				@Override
+				public void afterMessagesLoop() {
+					if (isEnabled()) {
+						m_level--;
+						if (m_level == 0) {
+							delayEvents(false);
+							runDelayedEvents();
+						}
+					}
+				}
 
-        ////////////////////////////////////////////////////////////////////////////
-        //
-        // Utils
-        //
-        ////////////////////////////////////////////////////////////////////////////
-        private boolean isEnabled() {
-          if (!isActive()) {
-            return false;
-          }
-          if (getViewer().getControl().isDisposed()) {
-            return false;
-          }
-          return true;
-        }
+				////////////////////////////////////////////////////////////////////////////
+				//
+				// Utils
+				//
+				////////////////////////////////////////////////////////////////////////////
+				private boolean isEnabled() {
+					if (!isActive()) {
+						return false;
+					}
+					if (getViewer().getControl().isDisposed()) {
+						return false;
+					}
+					return true;
+				}
 
-        private void delayEvents(boolean delay) {
-          Control viewerControl = getViewer().getControl();
-          EventManager.delayEvents(viewerControl, delay);
-        }
+				private void delayEvents(boolean delay) {
+					Control viewerControl = getViewer().getControl();
+					EventManager.delayEvents(viewerControl, delay);
+				}
 
-        private void runDelayedEvents() {
-          ExecutionUtils.runLogLater(new RunnableEx() {
-            @Override
-            public void run() throws Exception {
-              if (isEnabled()) {
-                Control viewerControl = getViewer().getControl();
-                EventManager.runDelayedEvents(viewerControl);
-              }
-            }
-          });
-        }
-      });
-    }
-  }
+				private void runDelayedEvents() {
+					ExecutionUtils.runLogLater(new RunnableEx() {
+						@Override
+						public void run() throws Exception {
+							if (isEnabled()) {
+								Control viewerControl = getViewer().getControl();
+								EventManager.runDelayedEvents(viewerControl);
+							}
+						}
+					});
+				}
+			});
+		}
+	}
 }

@@ -24,41 +24,41 @@ import org.eclipse.swt.graphics.Point;
  * @coverage core.model.property.editor
  */
 public abstract class TextDialogPropertyEditor extends TextDisplayPropertyEditor {
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Presentation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final PropertyEditorPresentation m_presentation = new ButtonPropertyEditorPresentation() {
-    @Override
-    protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
-      openDialog(property);
-    }
-  };
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Presentation
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private final PropertyEditorPresentation m_presentation = new ButtonPropertyEditorPresentation() {
+		@Override
+		protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
+			openDialog(property);
+		}
+	};
 
-  @Override
-  public final PropertyEditorPresentation getPresentation() {
-    return m_presentation;
-  }
+	@Override
+	public final PropertyEditorPresentation getPresentation() {
+		return m_presentation;
+	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public boolean activate(PropertyTable propertyTable, Property property, Point location)
-      throws Exception {
-    // activate using keyboard
-    if (location == null) {
-      openDialog(property);
-    }
-    // don't activate
-    return false;
-  }
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Editing
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public boolean activate(PropertyTable propertyTable, Property property, Point location)
+			throws Exception {
+		// activate using keyboard
+		if (location == null) {
+			openDialog(property);
+		}
+		// don't activate
+		return false;
+	}
 
-  /**
-   * Opens editing dialog.
-   */
-  protected abstract void openDialog(Property property) throws Exception;
+	/**
+	 * Opens editing dialog.
+	 */
+	protected abstract void openDialog(Property property) throws Exception;
 }
