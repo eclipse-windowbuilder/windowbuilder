@@ -33,6 +33,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.FontDescriptor;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
@@ -1089,9 +1090,9 @@ public final class PaletteComposite extends Composite {
 		 * @return the icon of this entry.
 		 */
 		private Image getIcon() {
-			Image icon = m_entry.getIcon();
-			if (icon != null && !icon.isDisposed()) {
-				return icon;
+			ImageDescriptor icon = m_entry.getIcon();
+			if (icon != null) {
+				return m_resourceManager.createImage(icon);
 			}
 			return NO_ICON;
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
@@ -136,14 +137,14 @@ public class PaletteTest implements IColorConstants {
 	/**
 	 * @return the test icon.
 	 */
-	private final Image createIcon(Color color) {
+	private final ImageDescriptor createIcon(Color color) {
 		int size = 16;
 		Image image = new Image(shell.getDisplay(), size, size);
 		GC gc = new GC(image);
 		gc.setBackground(color);
 		gc.fillRectangle(0, 0, size, size);
 		gc.dispose();
-		return image;
+		return ImageDescriptor.createFromImage(image);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -256,7 +257,7 @@ public class PaletteTest implements IColorConstants {
 	////////////////////////////////////////////////////////////////////////////
 	private static final class EntryImpl implements IEntry {
 		private final boolean m_enabled;
-		private final Image m_icon;
+		private final ImageDescriptor m_icon;
 		private final String m_text;
 
 		////////////////////////////////////////////////////////////////////////////
@@ -264,7 +265,7 @@ public class PaletteTest implements IColorConstants {
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public EntryImpl(boolean enabled, Image icon, String text) {
+		public EntryImpl(boolean enabled, ImageDescriptor icon, String text) {
 			m_enabled = enabled;
 			m_icon = icon;
 			m_text = text;
@@ -281,7 +282,7 @@ public class PaletteTest implements IColorConstants {
 		}
 
 		@Override
-		public Image getIcon() {
+		public ImageDescriptor getIcon() {
 			return m_icon;
 		}
 
