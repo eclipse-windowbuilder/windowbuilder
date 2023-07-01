@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Shell;
 
 import java.text.MessageFormat;
@@ -40,7 +40,7 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class ChooseComponentEntryInfo extends ToolEntryInfo {
-	private static final Image ICON = DesignerPlugin.getImage("palette/ChooseComponent.gif");
+	private static final ImageDescriptor ICON = DesignerPlugin.getImageDescriptor("palette/ChooseComponent.gif");
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -58,7 +58,7 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Image getIcon() {
+	public ImageDescriptor getIcon() {
 		return ICON;
 	}
 

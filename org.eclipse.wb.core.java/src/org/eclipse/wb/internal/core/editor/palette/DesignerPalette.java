@@ -278,7 +278,7 @@ public class DesignerPalette {
 
 					@Override
 					public ImageDescriptor getIcon() {
-						return ImageDescriptor.createFromImage(entryInfo.getIcon());
+						return entryInfo.getIcon();
 					}
 
 					@Override

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.xml.editor.palette.model.ToolEntryInfo;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.tests.gef.EmptyEditPartViewer;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * Tests for abstract {@link ToolEntryInfo}.
@@ -40,7 +40,7 @@ public class ToolEntryInfoTest extends AbstractPaletteTest {
 		// prepare ToolEntryInfo
 		ToolEntryInfo toolEntry = new ToolEntryInfo() {
 			@Override
-			public Image getIcon() {
+			public ImageDescriptor getIcon() {
 				return null;
 			}
 
@@ -64,7 +64,7 @@ public class ToolEntryInfoTest extends AbstractPaletteTest {
 		// prepare ToolEntryInfo
 		ToolEntryInfo toolEntry = new ToolEntryInfo() {
 			@Override
-			public Image getIcon() {
+			public ImageDescriptor getIcon() {
 				return null;
 			}
 
@@ -88,7 +88,7 @@ public class ToolEntryInfoTest extends AbstractPaletteTest {
 		// prepare ToolEntryInfo
 		ToolEntryInfo toolEntry = new ToolEntryInfo() {
 			@Override
-			public Image getIcon() {
+			public ImageDescriptor getIcon() {
 				return null;
 			}
 

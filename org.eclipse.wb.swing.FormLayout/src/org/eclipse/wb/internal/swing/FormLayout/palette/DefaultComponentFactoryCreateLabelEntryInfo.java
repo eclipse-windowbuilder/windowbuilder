@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.FormLayout.parser.DefaultComponentFactoryCreationSupport;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -32,8 +32,8 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 public final class DefaultComponentFactoryCreateLabelEntryInfo
 extends
 DefaultComponentFactoryEntryInfo {
-	private static final Image ICON =
-			Activator.getImage("DefaultComponentFactory/createLabel_java.lang.String_.gif");
+	private static final ImageDescriptor ICON = Activator
+			.getImageDescriptor("DefaultComponentFactory/createLabel_java.lang.String_.gif");
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -51,7 +51,7 @@ DefaultComponentFactoryEntryInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Image getIcon() {
+	public ImageDescriptor getIcon() {
 		return ICON;
 	}
 

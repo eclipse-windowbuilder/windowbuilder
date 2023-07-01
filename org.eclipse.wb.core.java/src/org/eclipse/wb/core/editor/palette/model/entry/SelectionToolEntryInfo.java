@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.IDefaultEntryInfo;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * Implementation of {@link EntryInfo} that activates {@link SelectionTool}.
@@ -26,7 +26,7 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.editor.palette
  */
 public class SelectionToolEntryInfo extends ToolEntryInfo implements IDefaultEntryInfo {
-	private static final Image ICON = DesignerPlugin.getImage("palette/SelectionTool.gif");
+	private static final ImageDescriptor ICON = DesignerPlugin.getImageDescriptor("palette/SelectionTool.gif");
 	private final SelectionTool m_selectionTool = new SelectionTool();
 
 	////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ public class SelectionToolEntryInfo extends ToolEntryInfo implements IDefaultEnt
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Image getIcon() {
+	public ImageDescriptor getIcon() {
 		return ICON;
 	}
 

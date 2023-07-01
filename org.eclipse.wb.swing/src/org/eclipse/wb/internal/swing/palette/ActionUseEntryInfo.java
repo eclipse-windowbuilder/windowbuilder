@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.ObjectUtils;
@@ -60,12 +61,14 @@ public final class ActionUseEntryInfo extends ToolEntryInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Image getIcon() {
-		return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-			public Image runObject() throws Exception {
-				return m_action.getPresentation().getIcon();
-			}
-		}, ICON);
+	public ImageDescriptor getIcon() {
+		return ImageDescriptor.createFromImage(ExecutionUtils.runObjectLog(
+			new RunnableObjectEx<Image>() {
+				@Override
+				public Image runObject() throws Exception {
+					return m_action.getPresentation().getIcon();
+				}
+			}, ICON));
 	}
 
 	@Override

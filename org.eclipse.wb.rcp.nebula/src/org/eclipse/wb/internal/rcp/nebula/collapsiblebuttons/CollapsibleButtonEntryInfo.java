@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.rcp.nebula.Activator;
 import org.eclipse.wb.internal.rcp.nebula.Messages;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link EntryInfo} that allows user to drop new {@link CustomButton} on {@link CollapsibleButtons}
@@ -29,8 +29,8 @@ import org.eclipse.swt.graphics.Image;
  * @coverage nebula.palette
  */
 public final class CollapsibleButtonEntryInfo extends ToolEntryInfo {
-	private static final Image ICON =
-			Activator.getImage("wbp-meta/org/eclipse/nebula/widgets/collapsiblebuttons/CustomButton.png");
+	private static final ImageDescriptor ICON = Activator
+			.getImageDescriptor("wbp-meta/org/eclipse/nebula/widgets/collapsiblebuttons/CustomButton.png");
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -48,7 +48,7 @@ public final class CollapsibleButtonEntryInfo extends ToolEntryInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Image getIcon() {
+	public ImageDescriptor getIcon() {
 		return ICON;
 	}
 

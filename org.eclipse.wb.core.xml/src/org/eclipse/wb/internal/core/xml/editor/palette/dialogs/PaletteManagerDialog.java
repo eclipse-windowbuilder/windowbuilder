@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,6 +38,9 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.DoubleClickEvent;
@@ -79,6 +82,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -351,10 +355,20 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
 		// providers
 		m_viewer.setContentProvider(m_contentProvider);
 		m_viewer.setLabelProvider(new LabelProvider() {
+			private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
+			@Override
+			public void dispose() {
+				super.dispose();
+				m_resourceManager.dispose();
+			}
+
 			@Override
 			public Image getImage(Object element) {
 				if (element instanceof EntryInfo) {
-					return ((EntryInfo) element).getIcon();
+					return Optional.ofNullable(((EntryInfo) element).getIcon()) //
+							.map(m_resourceManager::createImage) //
+							.orElse(null);
 				}
 				return IMAGE_CATEGORY;
 			}

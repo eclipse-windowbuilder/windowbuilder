@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,6 +40,7 @@ import org.eclipse.wb.internal.core.xml.model.description.CreationDescription;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 
@@ -58,7 +59,7 @@ import java.util.WeakHashMap;
  */
 public final class ComponentEntryInfo extends ToolEntryInfo {
 	public static final String KEY_SIMULATE_PRESENTATION = "ComponentEntryInfo.simulatePresentation";
-	public static final Image DEFAULT_ICON = DesignerPlugin.getImage("palette/Object.png");
+	public static final ImageDescriptor DEFAULT_ICON = DesignerPlugin.getImageDescriptor("palette/Object.png");
 	private String m_className;
 	private String m_creationId;
 	private String m_enabledScript;
@@ -296,11 +297,11 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 	}
 
 	@Override
-	public Image getIcon() {
+	public ImageDescriptor getIcon() {
 		if (m_icon == null) {
 			return DEFAULT_ICON;
 		}
-		return m_icon;
+		return ImageDescriptor.createFromImage(m_icon);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

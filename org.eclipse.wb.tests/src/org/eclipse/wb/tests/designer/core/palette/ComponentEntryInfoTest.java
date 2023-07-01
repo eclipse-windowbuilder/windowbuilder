@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,6 +42,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
@@ -154,10 +155,10 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		assertEquals("my name", entry.getName());
 		// we have icon in palette entry, so it is not "null"
 		{
-			Image icon = entry.getIcon();
+			ImageDescriptor icon = entry.getIcon();
 			assertNotNull(icon);
-			assertEquals(16, icon.getBounds().width);
-			assertEquals(16, icon.getBounds().height);
+			assertEquals(16, icon.getImageData(100).width);
+			assertEquals(16, icon.getImageData(100).height);
 		}
 		assertFalse(entry.isVisible());
 	}
@@ -232,7 +233,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 					ComponentDescriptionHelper.getDescription(m_lastEditor, JPanel.class);
 			CreationDescription creation = componentDescription.getCreation(null);
 			assertEquals(creation.getDescription(), entry.getDescription());
-			assertTrue("Same icons.", UiUtils.equals(creation.getIcon(), entry.getIcon()));
+			assertTrue("Same icons.", UiUtils.equals(ImageDescriptor.createFromImage(creation.getIcon()), entry.getIcon()));
 		}
 	}
 
