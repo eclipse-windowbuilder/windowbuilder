@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.gef.tools.TabOrderTool;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class TabOrderToolEntryInfo extends ToolEntryInfo {
-	private static final Image ICON = DesignerPlugin.getImage("palette/tab_order.gif");
+	private static final ImageDescriptor ICON = DesignerPlugin.getImageDescriptor("palette/tab_order.gif");
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -58,7 +58,7 @@ public final class TabOrderToolEntryInfo extends ToolEntryInfo {
 	}
 
 	@Override
-	public Image getIcon() {
+	public ImageDescriptor getIcon() {
 		return ICON;
 	}
 }

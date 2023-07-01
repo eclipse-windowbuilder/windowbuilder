@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MenuAdapter;
@@ -544,8 +545,32 @@ public class UiUtils {
 			return false;
 		}
 		// check ImageData's
-		ImageData imageData_1 = image_1.getImageData();
-		ImageData imageData_2 = image_2.getImageData();
+		return equals(image_1.getImageData(), image_2.getImageData());
+	}
+
+	/**
+	 * @return <code>true</code> if two {@link ImageDescriptor}'s are equal.
+	 */
+	public static boolean equals(ImageDescriptor imageDesc_1, ImageDescriptor imageDesc_2) {
+		// try to compare as plain Object's
+		if (ObjectUtils.equals(imageDesc_1, imageDesc_2)) {
+			return true;
+		}
+		// compare bounds
+		if (imageDesc_1.getImageData(100).width != imageDesc_2.getImageData(100).width) {
+			return false;
+		}
+		if (imageDesc_1.getImageData(100).height != imageDesc_2.getImageData(100).height) {
+			return false;
+		}
+		// check ImageData's
+		return equals(imageDesc_1.getImageData(100), imageDesc_2.getImageData(100));
+	}
+
+	/**
+	 * @return <code>true</code> if two {@link ImageData}'s are equal.
+	 */
+	private static boolean equals(ImageData imageData_1, ImageData imageData_2) {
 		if (imageData_1.depth != imageData_2.depth) {
 			return false;
 		}

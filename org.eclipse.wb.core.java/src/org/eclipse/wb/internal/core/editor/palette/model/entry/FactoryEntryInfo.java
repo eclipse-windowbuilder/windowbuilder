@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.StringUtils;
@@ -229,8 +230,8 @@ public abstract class FactoryEntryInfo extends ToolEntryInfo {
 	}
 
 	@Override
-	public final Image getIcon() {
-		return m_icon;
+	public final ImageDescriptor getIcon() {
+		return ImageDescriptor.createFromImage(m_icon);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

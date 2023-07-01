@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.rcp.gef.policy.jface.action.ActionDropTool;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.ActionFactoryCreationSupport;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
@@ -82,8 +83,8 @@ public final class ActionFactoryNewEntryInfo extends ToolEntryInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Image getIcon() {
-		return m_icon;
+	public ImageDescriptor getIcon() {
+		return ImageDescriptor.createFromImage(m_icon);
 	}
 
 	@Override
