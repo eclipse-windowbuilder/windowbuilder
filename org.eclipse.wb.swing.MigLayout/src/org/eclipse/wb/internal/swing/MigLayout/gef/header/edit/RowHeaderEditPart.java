@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.MigLayout.gef.header.edit;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -26,6 +25,8 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.ui.RowEditDialog;
 
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -83,7 +84,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
 				{
 					int index = getIndex();
 					String title = Integer.toString(index);
-					Dimension textExtents = graphics.getTextExtent(title);
+					Dimension textExtents = TextUtilities.INSTANCE.getTextExtents(title, graphics.getFont());
 					if (r.height < textExtents.height) {
 						return;
 					}

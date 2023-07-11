@@ -14,12 +14,12 @@ import org.eclipse.wb.core.gef.policy.selection.LineSelectionEditPolicy;
 import org.eclipse.wb.core.model.IWrapper;
 import org.eclipse.wb.core.model.IWrapperInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Display;

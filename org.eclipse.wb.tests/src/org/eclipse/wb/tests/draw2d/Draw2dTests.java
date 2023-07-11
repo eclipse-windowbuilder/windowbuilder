@@ -26,7 +26,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	LineBorderTest.class,
 	CompoundBorderTest.class,
 	// Figure
-	GraphicsTest.class,
 	FigureTest.class,
 	FigurePaintingTest.class,
 	LabelTest.class,

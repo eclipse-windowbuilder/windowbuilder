@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
@@ -27,7 +27,7 @@ import java.util.Arrays;
  * @author lobas_av
  *
  */
-public class DebugGraphics extends Graphics {
+public class DebugGraphics extends SWTGraphics {
 	private final TestLogger m_logger;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -293,12 +293,6 @@ public class DebugGraphics extends Graphics {
 	public void setLineWidth(int width) {
 		m_logger.log("setLineWidth(" + width + ")");
 		super.setLineWidth(width);
-	}
-
-	@Override
-	protected void setTranslation(int x, int y) {
-		m_logger.log("setTranslation(" + x + ", " + y + ")");
-		super.setTranslation(x, y);
 	}
 
 	@Override

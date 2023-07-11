@@ -11,9 +11,9 @@
 package org.eclipse.wb.core.gef.figure;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 

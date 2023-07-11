@@ -10,10 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.core.branding;
 
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.utils.platform.PluginUtilities;
 
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -77,7 +78,7 @@ public abstract class AbstractBrandingDescription implements IBrandingDescriptio
 	protected final void paintBrandingOnCanvas_grayText(Rectangle clientArea,
 			Graphics graphics,
 			String text) {
-		Dimension extent = graphics.getTextExtent(text);
+		Dimension extent = TextUtilities.INSTANCE.getTextExtents(text, graphics.getFont());
 		graphics.setForegroundColor(IColorConstants.lightGray);
 		int x = clientArea.right() - extent.width - 2;
 		int y = clientArea.bottom() - extent.height - 0;

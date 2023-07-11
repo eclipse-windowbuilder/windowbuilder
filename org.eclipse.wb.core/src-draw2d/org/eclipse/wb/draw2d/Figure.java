@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.events.AncestorEventTable;
 import org.eclipse.wb.internal.draw2d.events.EventTable;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -546,7 +547,7 @@ public class Figure {
 		graphics.pushState();
 		// paint all
 		for (Figure childFigure : children) {
-			if (childFigure.isVisible() && childFigure.intersects(graphics.getClip())) {
+			if (childFigure.isVisible() && childFigure.intersects(graphics.getClip(new Rectangle()))) {
 				Rectangle childBounds = childFigure.getBounds();
 				graphics.clipRect(childBounds);
 				graphics.translate(childBounds.x, childBounds.y);

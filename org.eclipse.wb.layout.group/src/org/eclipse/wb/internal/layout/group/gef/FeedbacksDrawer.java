@@ -14,10 +14,10 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsolutePolicyUtils;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -70,7 +70,7 @@ final class FeedbacksDrawer implements IFeedbacksDrawer {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
 				graphics.setBackgroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
-				graphics.gc.setAntialias(SWT.ON);
+				graphics.setAntialias(SWT.ON);
 				graphics.fillArc(1, 1, width - 1, height - 1, startAngle, arcAngle);
 			}
 		};

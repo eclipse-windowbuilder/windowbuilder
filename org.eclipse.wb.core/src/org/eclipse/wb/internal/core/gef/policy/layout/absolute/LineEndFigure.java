@@ -11,9 +11,9 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IPositionConstants;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -58,16 +58,16 @@ public class LineEndFigure extends Figure {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void paintClientArea(Graphics graphics) {
-		int oldAntialias = graphics.gc.getAntialias();
+		int oldAntialias = graphics.getAntialias();
 		try {
-			graphics.gc.setAntialias(SWT.ON);
+			graphics.setAntialias(SWT.ON);
 			graphics.setForegroundColor(m_color);
 			graphics.setBackgroundColor(m_color);
 			graphics.setLineStyle(SWT.LINE_SOLID);
 			Rectangle clientArea = getClientArea();
 			graphics.fillArc(0, 0, clientArea.width, clientArea.height, m_startAngle, m_lengthAngle);
 		} finally {
-			graphics.gc.setAntialias(oldAntialias);
+			graphics.setAntialias(oldAntialias);
 		}
 	}
 }
