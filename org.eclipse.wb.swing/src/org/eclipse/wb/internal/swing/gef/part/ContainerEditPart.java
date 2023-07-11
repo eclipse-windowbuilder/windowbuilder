@@ -14,7 +14,6 @@ import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 

@@ -13,7 +13,6 @@ package org.eclipse.wb.core.controls.palette;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
@@ -22,10 +21,12 @@ import org.eclipse.wb.draw2d.events.IMouseTrackListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -1243,7 +1244,7 @@ public final class PaletteComposite extends Composite {
 			int width,
 			int height) {
 		int textY = y + (height - graphics.getFontMetrics().getHeight()) / 2;
-		String clipString = DrawUtils.clipString(graphics.gc, text, width);
+		String clipString = DrawUtils.clipString((GC) ReflectionUtils.getFieldObject(graphics, "gc"), text, width);
 		graphics.drawText(clipString, x, textY);
 	}
 

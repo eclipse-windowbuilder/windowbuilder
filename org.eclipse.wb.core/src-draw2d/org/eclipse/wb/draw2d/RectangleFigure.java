@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
+import org.eclipse.draw2d.Graphics;
+
 /**
  * Draws a rectangle whose size is determined by the bounds set to it.
  *

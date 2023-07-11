@@ -11,9 +11,9 @@
 package org.eclipse.wb.internal.core.gef.part.menu;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.graphics.Image;
 
 /**

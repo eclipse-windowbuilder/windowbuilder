@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.core.branding;
 
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.internal.core.editor.DesignComposite;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**

@@ -11,11 +11,12 @@
 package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.internal.draw2d.scroll.HorizontalScrollModel;
 import org.eclipse.wb.internal.draw2d.scroll.ScrollModel;
 import org.eclipse.wb.internal.draw2d.scroll.VerticalScrollModel;
 
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -186,7 +187,7 @@ public class FigureCanvas extends Canvas {
 			bufferedGC.setLineWidth(paintGC.getLineWidth());
 			bufferedGC.setXORMode(paintGC.getXORMode());
 			// draw content
-			Graphics graphics = new Graphics(bufferedGC);
+			Graphics graphics = new SWTGraphics(bufferedGC);
 			graphics.translate(-m_horizontalModel.getSelection(), -m_verticalModel.getSelection());
 			m_rootFigure.paint(graphics);
 		} finally {

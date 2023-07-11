@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.gef.policy.menu;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.Command;
@@ -26,6 +25,8 @@ import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuBarInfo;
 
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -81,7 +82,7 @@ public final class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 					Rectangle bounds = getBounds();
 					graphics.setForegroundColor(IColorConstants.darkGreen);
 					String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_feedbackText;
-					Dimension textExtent = graphics.getTextExtent(menuBarText);
+					Dimension textExtent = TextUtilities.INSTANCE.getTextExtents(menuBarText, graphics.getFont());
 					//
 					int x = bounds.width / 2 - textExtent.width / 2;
 					int y = bounds.height / 2 - textExtent.height / 2;

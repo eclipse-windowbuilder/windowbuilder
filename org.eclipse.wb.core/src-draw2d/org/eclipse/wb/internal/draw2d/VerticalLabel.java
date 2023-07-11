@@ -11,8 +11,9 @@
 package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Graphics;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.SWT;
@@ -77,7 +78,7 @@ public final class VerticalLabel extends Label {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 		}
 		// Determine string's dimensions
-		Point pt = graphics.gc.textExtent(string);
+		Point pt = ((GC) ReflectionUtils.getFieldObject(graphics, "gc")).textExtent(string);
 		// Create an image the same size as the string
 		Image stringImage = new Image(display, pt.x, pt.y);
 		// Create a GC so we can draw the image

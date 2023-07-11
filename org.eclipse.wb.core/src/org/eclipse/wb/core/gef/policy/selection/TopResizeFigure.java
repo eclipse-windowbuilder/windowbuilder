@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.selection;
 
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
 
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -64,7 +65,7 @@ public class TopResizeFigure extends SemiTransparentFigure {
 			Rectangle area = getClientArea();
 			Font font = SwtResourceManager.getFont("Arial", 16, SWT.NONE);
 			graphics.setFont(font);
-			Dimension textExtent = graphics.getTextExtent(m_sizeText);
+			Dimension textExtent = TextUtilities.INSTANCE.getTextExtents(m_sizeText, graphics.getFont());
 			int x = area.x + (area.width - textExtent.width) / 2;
 			int y = area.y + (area.height - textExtent.height) / 2;
 			graphics.drawString(m_sizeText, x, y);

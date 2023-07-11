@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.edit;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -26,6 +25,8 @@ import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutImage
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapRowInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -72,7 +73,7 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
 				int titleBottom;
 				{
 					String title = "" + (1 + m_dimension.getIndex());
-					Dimension textExtents = graphics.getTextExtent(title);
+					Dimension textExtents = TextUtilities.INSTANCE.getTextExtents(title, graphics.getFont());
 					if (r.height < 3 + textExtents.height + 3) {
 						return;
 					}

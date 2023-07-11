@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -25,6 +24,8 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo.Alignment;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ui.RowEditDialog;
 
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -78,7 +79,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
 				int titleBottom;
 				{
 					String title = "" + getIndex();
-					Dimension textExtents = graphics.getTextExtent(title);
+					Dimension textExtents = TextUtilities.INSTANCE.getTextExtents(title, graphics.getFont());
 					if (r.height < textExtents.height) {
 						return;
 					}
