@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -115,7 +115,9 @@ public class FontDialogField extends DialogField {
 	private void updateFontLabel() {
 		if (isOkToUse(m_fontLabel)) {
 			if (m_fontDataArray != null) {
-				m_fontLabel.setFont(new Font(m_group.getDisplay(), m_fontDataArray));
+				Font font = new Font(m_group.getDisplay(), m_fontDataArray);
+				m_fontLabel.setFont(font);
+				m_fontLabel.addDisposeListener(event -> font.dispose());
 				//
 				FontData fontData = m_fontDataArray[0];
 				//
