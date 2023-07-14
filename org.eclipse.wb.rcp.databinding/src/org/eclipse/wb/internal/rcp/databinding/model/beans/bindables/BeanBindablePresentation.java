@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.presentation.ObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.ClassUtils;
@@ -73,11 +74,12 @@ public final class BeanBindablePresentation extends ObservePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Image getInternalImage() throws Exception {
+	protected ImageDescriptor getInternalImage() throws Exception {
 		if (m_beanImage == null && m_javaInfo == null) {
 			return null;
 		}
-		return m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : m_beanImage;
+		Image image = m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : m_beanImage;
+		return image == null ? null : ImageDescriptor.createFromImage(image);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

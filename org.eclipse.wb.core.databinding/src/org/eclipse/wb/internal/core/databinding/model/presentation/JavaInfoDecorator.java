@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 import java.util.Iterator;
@@ -30,7 +31,12 @@ import java.util.Iterator;
  * @coverage bindings.model
  */
 public abstract class JavaInfoDecorator {
+	/**
+	 * @deprecated Use {@link #IMAGE_DESCRIPTOR} instead.
+	 */
+	@Deprecated
 	public static final Image IMAGE = Activator.getImage("decorator.gif");
+	public static final ImageDescriptor IMAGE_DESCRIPTOR = Activator.getImageDescriptor("decorator.gif");
 	private final IDatabindingsProvider m_provider;
 
 	////////////////////////////////////////////////////////////////////////////

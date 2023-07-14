@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.rcp.databinding.emf.model.bindables;
 import org.eclipse.wb.internal.core.databinding.model.presentation.ObservePresentation;
 import org.eclipse.wb.internal.rcp.databinding.emf.Activator;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.ClassUtils;
 
@@ -24,7 +24,7 @@ import org.apache.commons.lang.ClassUtils;
  * @coverage bindings.rcp.emf.model
  */
 public final class EObjectObservePresentation extends ObservePresentation {
-	private static final Image IMAGE = Activator.getImage("EObject.gif");
+	private static final ImageDescriptor IMAGE = Activator.getImageDescriptor("EObject.gif");
 	private final EObjectBindableInfo m_eObject;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@ public final class EObjectObservePresentation extends ObservePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Image getInternalImage() throws Exception {
+	protected ImageDescriptor getInternalImage() throws Exception {
 		return IMAGE;
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.databinding.model.beans;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.presentation.ObservePresentation;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -45,11 +46,12 @@ public final class FieldBeanObservePresentation extends ObservePresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Image getInternalImage() throws Exception {
+	protected ImageDescriptor getInternalImage() throws Exception {
 		if (m_beanImage == null && m_javaInfo == null) {
 			return null;
 		}
-		return m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : m_beanImage;
+		Image image = m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : m_beanImage;
+		return image == null ? null : ImageDescriptor.createFromImage(image);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

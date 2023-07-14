@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,9 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el;
 
 import org.eclipse.wb.internal.swing.databinding.Messages;
 
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.TextAttribute;
@@ -130,18 +133,19 @@ public final class EvalutionLanguageConfiguration extends SourceViewerConfigurat
 	@Override
 	public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
 		final ContentAssistant contentAssistant = new ContentAssistant();
+		final ResourceManager resourceManager = new LocalResourceManager(JFaceResources.getResources());
 		// sets processors
 		contentAssistant.setContentAssistProcessor(
-				new ContentAssistProcessor(m_propertiesSupport, true),
-				IDocument.DEFAULT_CONTENT_TYPE);
-		contentAssistant.setContentAssistProcessor(new ContentAssistProcessor(m_propertiesSupport,
-				false), EXPRESSION_TYPE);
+				new ContentAssistProcessor(m_propertiesSupport, resourceManager, true), IDocument.DEFAULT_CONTENT_TYPE);
+		contentAssistant.setContentAssistProcessor(
+				new ContentAssistProcessor(m_propertiesSupport, resourceManager, false), EXPRESSION_TYPE);
 		// configure
 		contentAssistant.enableAutoActivation(true);
 		contentAssistant.enableAutoInsert(true);
 		contentAssistant.setAutoActivationDelay(200);
 		contentAssistant.setStatusLineVisible(true);
 		contentAssistant.setStatusMessage(Messages.EvalutionLanguageConfiguration_contentAssistMessage);
+		sourceViewer.getTextWidget().addDisposeListener(event -> resourceManager.dispose());
 		// CTRL + SPACE completion
 		sourceViewer.getTextWidget().addKeyListener(new KeyAdapter() {
 			@Override

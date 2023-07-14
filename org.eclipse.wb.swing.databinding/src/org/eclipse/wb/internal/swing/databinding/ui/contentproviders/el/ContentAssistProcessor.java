@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,16 +16,19 @@ import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.beans.BeanSupport;
 import org.eclipse.wb.internal.swing.databinding.model.generic.ClassGenericType;
 
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
+import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * {@link IContentAssistProcessor} for {@code EL} properties.
@@ -37,6 +40,7 @@ public final class ContentAssistProcessor implements IContentAssistProcessor {
 	private static final char[] TOP_LEVEL_AUTO_ACTIVATION_CHARACTERS = {'$', '#'};
 	private static final char[] AUTO_ACTIVATION_CHARACTERS = {'.'};
 	private final IBeanPropertiesSupport m_propertiesSupport;
+	private final ResourceManager m_resourceManager;
 	private final boolean m_topLevel;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -44,8 +48,9 @@ public final class ContentAssistProcessor implements IContentAssistProcessor {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public ContentAssistProcessor(IBeanPropertiesSupport propertiesSupport, boolean topLevel) {
+	public ContentAssistProcessor(IBeanPropertiesSupport propertiesSupport, ResourceManager resourceManager, boolean topLevel) {
 		m_propertiesSupport = propertiesSupport;
+		m_resourceManager = resourceManager;
 		m_topLevel = topLevel;
 	}
 
@@ -134,7 +139,7 @@ public final class ContentAssistProcessor implements IContentAssistProcessor {
 		return null;
 	}
 
-	private static ICompletionProposal[] createProposals(List<ObserveInfo> properties,
+	private ICompletionProposal[] createProposals(List<ObserveInfo> properties,
 			int offset,
 			String begin,
 			String end) throws Exception {
@@ -144,10 +149,13 @@ public final class ContentAssistProcessor implements IContentAssistProcessor {
 			ObserveInfo observe = properties.get(i);
 			String propertyName = observe.getPresentation().getText();
 			String data = begin + propertyName + end;
+			Image image = Optional.ofNullable(observe.getPresentation().getImageDescriptor()) //
+					.map(m_resourceManager::createImage) //
+					.orElse(null);
 			// add proposal
 			proposals[i] =
 					new CompletionProposal(propertyName,
-							observe.getPresentation().getImage(),
+							image,
 							offset,
 							data,
 							offset + data.length());
