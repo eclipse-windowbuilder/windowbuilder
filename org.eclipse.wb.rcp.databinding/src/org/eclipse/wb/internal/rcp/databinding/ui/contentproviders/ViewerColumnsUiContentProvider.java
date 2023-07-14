@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,9 @@ import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.VirtualEditingSupportInfo;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
@@ -245,6 +248,14 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
 	private static class EditingSupportLabelProvider extends LabelProvider
 	implements
 	ITableLabelProvider {
+		private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
+		@Override
+		public void dispose() {
+			super.dispose();
+			m_resourceManager.dispose();
+		}
+
 		////////////////////////////////////////////////////////////////////////////
 		//
 		// ITableLabelProvider
@@ -290,7 +301,7 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
 				return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
 					@Override
 					public Image runObject() throws Exception {
-						return editingSupport.getViewerColumn().getPresentation().getImage();
+						return m_resourceManager.createImage(editingSupport.getViewerColumn().getPresentation().getImageDescriptor());
 					}
 				}, null);
 			}

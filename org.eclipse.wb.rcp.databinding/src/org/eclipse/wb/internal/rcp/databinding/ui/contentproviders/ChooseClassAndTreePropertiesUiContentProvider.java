@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,6 +29,9 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindabl
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.PropertyBindableInfo;
 
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
@@ -386,6 +389,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 	IColorProvider,
 	IFontProvider {
 		private final ObserveDecoratingLabelProvider m_labelProvider;
+		private final ResourceManager m_resourceManager;
 
 		////////////////////////////////////////////////////////////////////////////
 		//
@@ -394,6 +398,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 		////////////////////////////////////////////////////////////////////////////
 		public PropertyAdapterLabelProvider(StructuredViewer viewer) {
 			m_labelProvider = new ObserveDecoratingLabelProvider(viewer);
+			m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -405,6 +410,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 		public void dispose() {
 			super.dispose();
 			m_labelProvider.dispose();
+			m_resourceManager.dispose();
 		}
 
 		@Override
@@ -415,7 +421,7 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 		@Override
 		public Image getImage(Object element) {
 			try {
-				return getAdapterProperty(element).getPresentation().getImage();
+				return m_resourceManager.createImage(getAdapterProperty(element).getPresentation().getImageDescriptor());
 			} catch (Throwable e) {
 			}
 			return super.getImage(element);

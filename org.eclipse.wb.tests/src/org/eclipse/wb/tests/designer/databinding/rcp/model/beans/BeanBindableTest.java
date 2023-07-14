@@ -13,6 +13,7 @@ package org.eclipse.wb.tests.designer.databinding.rcp.model.beans;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenContext;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.BeansObserveTypeContainer;
@@ -76,7 +77,7 @@ public class BeanBindableTest extends AbstractBindingTest {
 				FieldBeanBindableInfo.class,
 				"m_shell - Shell|m_shell|org.eclipse.swt.widgets.Shell",
 				observes.get(0));
-		assertSame(shell.getPresentation().getIcon(), observes.get(0).getPresentation().getImage());
+		assertSame(shell.getPresentation().getIcon(), ReflectionUtils.getFieldObject(observes.get(0).getPresentation().getImageDescriptor(), "originalImage"));
 		//
 		assertBindable(
 				FieldBeanBindableInfo.class,
@@ -337,7 +338,7 @@ public class BeanBindableTest extends AbstractBindingTest {
 				FieldBeanBindableInfo.class,
 				"m_shell - Shell|m_shell|org.eclipse.swt.widgets.Shell",
 				observes.get(0));
-		assertSame(shell.getPresentation().getIcon(), observes.get(0).getPresentation().getImage());
+		assertSame(shell.getPresentation().getIcon(), ReflectionUtils.getFieldObject(observes.get(0).getPresentation().getImageDescriptor(), "originalImage"));
 		//
 		assertBindable(
 				FieldBeanBindableInfo.class,

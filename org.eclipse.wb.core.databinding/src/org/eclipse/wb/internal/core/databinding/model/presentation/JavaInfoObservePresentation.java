@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,8 +14,9 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link IObservePresentation} for presentation {@link JavaInfo}.
@@ -60,7 +61,8 @@ public class JavaInfoObservePresentation implements IObservePresentation {
 	}
 
 	@Override
-	public Image getImage() throws Exception {
-		return ObjectsLabelProvider.INSTANCE.getImage(m_javaInfo);
+	public ImageDescriptor getImageDescriptor() throws Exception {
+		return ExecutionUtils.runObjectLog(
+				() -> ImageDescriptor.createFromImage(ObjectsLabelProvider.INSTANCE.getImage(m_javaInfo)), null);
 	}
 }
