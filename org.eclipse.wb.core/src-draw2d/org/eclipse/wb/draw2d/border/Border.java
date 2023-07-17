@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,8 @@ package org.eclipse.wb.draw2d.border;
 import org.eclipse.wb.draw2d.Figure;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -23,7 +25,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author lobas_av
  * @coverage gef.draw2d
  */
-public abstract class Border {
+public abstract class Border implements org.eclipse.draw2d.Border {
 	private final Insets m_insets;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -46,14 +48,22 @@ public abstract class Border {
 	/**
 	 * Get border insets.
 	 */
-	public Insets getInsets() {
+	public Insets getInsets(IFigure figure) {
 		return m_insets;
+	}
+
+	public Dimension getPreferredSize(IFigure figure) {
+		return figure.getPreferredSize();
+	}
+
+	public boolean isOpaque() {
+		return false;
 	}
 
 	/**
 	 * Paint border for <code>owner</code> {@link Figure}.
 	 */
-	public final void paint(Figure owner, Graphics graphics) {
+	public final void paint(IFigure owner, Graphics graphics, Insets insets) {
 		Rectangle bounds = owner.getBounds();
 		paint(bounds.width, bounds.height, graphics);
 	}

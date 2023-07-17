@@ -338,7 +338,7 @@ public final class PaletteComposite extends Composite {
 		/**
 		 * Lays out {@link CategoryFigure}'s of palette.
 		 */
-		private void layout() {
+		protected void layout() {
 			int width = m_figureCanvas.getClientArea().width;
 			width -= getInsets().getWidth();
 			//
@@ -381,7 +381,7 @@ public final class PaletteComposite extends Composite {
 		public CategoryFigure(ICategory category) {
 			m_category = category;
 			hookEvents();
-			setToolTip(this, null, m_category.getToolTipText());
+			PaletteComposite.setToolTip(this, null, m_category.getToolTipText());
 			onPreferencesUpdate();
 			// add entry figures
 			for (Object element : m_category.getEntries()) {
@@ -730,7 +730,7 @@ public final class PaletteComposite extends Composite {
 			if (m_entry.isEnabled()) {
 				hookEvents();
 			}
-			setToolTip(this, m_entry.getText(), m_entry.getToolTipText());
+			PaletteComposite.setToolTip(this, m_entry.getText(), m_entry.getToolTipText());
 			onPreferencesUpdate();
 		}
 

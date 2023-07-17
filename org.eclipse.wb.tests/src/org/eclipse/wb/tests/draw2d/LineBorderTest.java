@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ public class LineBorderTest extends Draw2dFigureTestCase {
 		// check init state properties for new border
 		assertNull(border.getColor());
 		assertEquals(1, border.getWidth());
-		assertEquals(new Insets(1), border.getInsets());
+		assertEquals(new Insets(1), border.getInsets(null));
 	}
 
 	public void test_constructor_int() throws Exception {
@@ -46,7 +46,7 @@ public class LineBorderTest extends Draw2dFigureTestCase {
 		// check init state properties for border constructor(int)
 		assertNull(border.getColor());
 		assertEquals(3, border.getWidth());
-		assertEquals(new Insets(3), border.getInsets());
+		assertEquals(new Insets(3), border.getInsets(null));
 	}
 
 	public void test_constructor_Color() throws Exception {
@@ -54,7 +54,7 @@ public class LineBorderTest extends Draw2dFigureTestCase {
 		// check init state properties for border constructor(Color)
 		assertSame(red, border.getColor());
 		assertEquals(1, border.getWidth());
-		assertEquals(new Insets(1), border.getInsets());
+		assertEquals(new Insets(1), border.getInsets(null));
 	}
 
 	public void test_constructor_Color_int() throws Exception {
@@ -62,6 +62,6 @@ public class LineBorderTest extends Draw2dFigureTestCase {
 		LineBorder border = new LineBorder(blue, 7);
 		assertSame(blue, border.getColor());
 		assertEquals(7, border.getWidth());
-		assertEquals(new Insets(7), border.getInsets());
+		assertEquals(new Insets(7), border.getInsets(null));
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wb.draw2d.border;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 
 /**
@@ -73,13 +74,13 @@ public class CompoundBorder extends Border {
 	 * Get border insets.
 	 */
 	@Override
-	public Insets getInsets() {
+	public Insets getInsets(IFigure figure) {
 		Insets insets = new Insets();
 		if (m_inner != null) {
-			insets.add(m_inner.getInsets());
+			insets.add(m_inner.getInsets(figure));
 		}
 		if (m_outer != null) {
-			insets.add(m_outer.getInsets());
+			insets.add(m_outer.getInsets(figure));
 		}
 		return insets;
 	}
@@ -95,7 +96,7 @@ public class CompoundBorder extends Border {
 			}
 			// update bounds for inner
 			{
-				Insets insets = m_outer.getInsets();
+				Insets insets = m_outer.getInsets(null);
 				graphics.translate(insets.left, insets.top);
 				ownerWidth -= insets.getWidth();
 				ownerHeight -= insets.getHeight();

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,14 +47,14 @@ public abstract class Handle extends Figure implements IAncestorListener {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void addNotify() {
+	public void addNotify() {
 		super.addNotify();
 		getOwnerFigure().addAncestorListener(this);
 		revalidate();
 	}
 
 	@Override
-	protected void removeNotify() {
+	public void removeNotify() {
 		getOwnerFigure().removeAncestorListener(this);
 		super.removeNotify();
 	}
@@ -74,7 +74,7 @@ public abstract class Handle extends Figure implements IAncestorListener {
 	// Revalidate
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private void revalidate() {
+	public void revalidate() {
 		getLocator().relocate(this);
 	}
 
