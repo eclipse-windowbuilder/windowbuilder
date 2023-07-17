@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ public class CompoundBorderTest extends Draw2dFigureTestCase {
 		// check init state new empty border
 		assertNull(border.getInnerBorder());
 		assertNull(border.getOuterBorder());
-		assertEquals(new Insets(), border.getInsets());
+		assertEquals(new Insets(), border.getInsets(null));
 	}
 
 	public void test_constructor_Border_Border() throws Exception {
@@ -53,24 +53,24 @@ public class CompoundBorderTest extends Draw2dFigureTestCase {
 		//
 		assertSame(lineBorder, border.getOuterBorder());
 		assertSame(marginBorder, border.getInnerBorder());
-		assertEquals(new Insets(8, 9, 10, 11), border.getInsets());
+		assertEquals(new Insets(8, 9, 10, 11), border.getInsets(null));
 		//
 		// check work when out = LineBorder and inner = null
 		border = new CompoundBorder(lineBorder, null);
 		assertSame(lineBorder, border.getOuterBorder());
 		assertNull(border.getInnerBorder());
-		assertEquals(new Insets(7), border.getInsets());
+		assertEquals(new Insets(7), border.getInsets(null));
 		//
 		// check work when out = null and inner = MarginBorder
 		border = new CompoundBorder(null, marginBorder);
 		assertNull(border.getOuterBorder());
 		assertSame(marginBorder, border.getInnerBorder());
-		assertEquals(new Insets(1, 2, 3, 4), border.getInsets());
+		assertEquals(new Insets(1, 2, 3, 4), border.getInsets(null));
 		//
 		// check work when out = null and inner = null
 		border = new CompoundBorder(null, null);
 		assertNull(border.getInnerBorder());
 		assertNull(border.getOuterBorder());
-		assertEquals(new Insets(), border.getInsets());
+		assertEquals(new Insets(), border.getInsets(null));
 	}
 }

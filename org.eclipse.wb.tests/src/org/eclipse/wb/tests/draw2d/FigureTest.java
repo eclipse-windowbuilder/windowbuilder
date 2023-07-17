@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -872,7 +872,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		testFigure.addMouseListener(listener1);
 		//
 		// check add IMouseListener
-		List<IMouseListener> list = testFigure.getListeners(IMouseListener.class);
+		List<IMouseListener> list = Lists.newArrayList(testFigure.getListeners(IMouseListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
@@ -893,7 +893,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		testFigure.addMouseListener(listener2);
 		//
 		// again check add IMouseListener
-		list = testFigure.getListeners(IMouseListener.class);
+		list = Lists.newArrayList(testFigure.getListeners(IMouseListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
@@ -901,14 +901,14 @@ public class FigureTest extends Draw2dFigureTestCase {
 		//
 		// check remove IMouseListener
 		testFigure.removeMouseListener(listener1);
-		list = testFigure.getListeners(IMouseListener.class);
+		list = Lists.newArrayList(testFigure.getListeners(IMouseListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
 		//
 		// again check remove IMouseListener
 		testFigure.removeMouseListener(listener2);
-		list = testFigure.getListeners(IMouseListener.class);
+		list = Lists.newArrayList(testFigure.getListeners(IMouseListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}
@@ -927,7 +927,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		//
 		// check add IMouseMoveListener
 		testFigure.addMouseMoveListener(listener1);
-		List<IMouseMoveListener> list = testFigure.getListeners(IMouseMoveListener.class);
+		List<IMouseMoveListener> list = Lists.newArrayList(testFigure.getListeners(IMouseMoveListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
@@ -940,7 +940,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		//
 		// again check add IMouseMoveListener
 		testFigure.addMouseMoveListener(listener2);
-		list = testFigure.getListeners(IMouseMoveListener.class);
+		list = Lists.newArrayList(testFigure.getListeners(IMouseMoveListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
@@ -948,14 +948,14 @@ public class FigureTest extends Draw2dFigureTestCase {
 		//
 		// check remove IMouseMoveListener
 		testFigure.removeMouseMoveListener(listener1);
-		list = testFigure.getListeners(IMouseMoveListener.class);
+		list = Lists.newArrayList(testFigure.getListeners(IMouseMoveListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
 		//
 		// again check remove IMouseMoveListener
 		testFigure.removeMouseMoveListener(listener2);
-		list = testFigure.getListeners(IMouseMoveListener.class);
+		list = Lists.newArrayList(testFigure.getListeners(IMouseMoveListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}
@@ -978,7 +978,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		testFigure.addFigureListener(listener1);
 		//
 		// check add IFigureListener
-		List<IFigureListener> list = testFigure.getListeners(IFigureListener.class);
+		List<IFigureListener> list = Lists.newArrayList(testFigure.getListeners(IFigureListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
@@ -995,7 +995,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		testFigure.addFigureListener(listener2);
 		//
 		// again check add IFigureListener
-		list = testFigure.getListeners(IFigureListener.class);
+		list = Lists.newArrayList(testFigure.getListeners(IFigureListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
@@ -1003,14 +1003,14 @@ public class FigureTest extends Draw2dFigureTestCase {
 		//
 		// check remove IFigureListener
 		testFigure.removeFigureListener(listener1);
-		list = testFigure.getListeners(IFigureListener.class);
+		list = Lists.newArrayList(testFigure.getListeners(IFigureListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
 		//
 		// again check remove IFigureListener
 		testFigure.removeFigureListener(listener2);
-		list = testFigure.getListeners(IFigureListener.class);
+		list = Lists.newArrayList(testFigure.getListeners(IFigureListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}

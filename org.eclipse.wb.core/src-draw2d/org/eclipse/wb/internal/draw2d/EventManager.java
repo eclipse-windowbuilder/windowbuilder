@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -200,12 +200,10 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 		Figure figure = m_captureFigure == null ? m_cursorFigure : m_captureFigure;
 		//
 		if (figure != null) {
-			List<T> listeners = figure.getListeners(listenerClass);
-			if (listeners != null && !listeners.isEmpty()) {
+			Iterator<T> listeners = figure.getListeners(listenerClass);
+			if (listeners != null && listeners.hasNext()) {
 				MouseEvent event = new MouseEvent(m_canvas, e, figure);
-				for (Iterator<T> I = listeners.iterator(); !event.isConsumed() && I.hasNext();) {
-					invoker.invokeListener(I.next(), event);
-				}
+				listeners.forEachRemaining(listener -> invoker.invokeListener(listener, event));
 				m_eventConsumed = event.isConsumed();
 			}
 		}

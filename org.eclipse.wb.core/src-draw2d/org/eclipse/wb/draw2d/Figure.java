@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.draw2d.events.EventTable;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -36,6 +35,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -45,7 +45,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.draw2d
  */
-public class Figure {
+public class Figure extends org.eclipse.draw2d.Figure {
 	private EventTable m_eventTable;
 	private AncestorEventTable m_ancestorEventTable;
 	private Figure m_parent;
@@ -170,8 +170,8 @@ public class Figure {
 	/**
 	 * Return all registers listeners for given class or <code>null</code>.
 	 */
-	public <T extends Object> List<T> getListeners(Class<T> listenerClass) {
-		return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass);
+	public <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
+		return m_eventTable == null ? null : m_eventTable.getListeners(listenerClass).iterator();
 	}
 
 	/**
@@ -188,12 +188,10 @@ public class Figure {
 	 * Notifies any {@link IFigureListener IFigureListeners} listening to this {@link Figure} that it
 	 * has moved.
 	 */
-	private void fireMoved() {
-		List<IFigureListener> listeners = getListeners(IFigureListener.class);
+	protected void fireMoved() {
+		Iterator<IFigureListener> listeners = getListeners(IFigureListener.class);
 		if (listeners != null) {
-			for (IFigureListener figureListener : listeners) {
-				figureListener.figureMoved(this);
-			}
+			listeners.forEachRemaining(figureListener -> figureListener.figureMoved(this));
 		}
 	}
 
@@ -202,18 +200,16 @@ public class Figure {
 	 * has set new parent.
 	 */
 	private void fireReparent(Figure oldParent, Figure newParent) {
-		List<IFigureListener> listeners = getListeners(IFigureListener.class);
+		Iterator<IFigureListener> listeners = getListeners(IFigureListener.class);
 		if (listeners != null) {
-			for (IFigureListener figureListener : listeners) {
-				figureListener.figureReparent(this, oldParent, newParent);
-			}
+			listeners.forEachRemaining(figureListener -> figureListener.figureReparent(this, oldParent, newParent));
 		}
 	}
 
 	/**
 	 * Called after the receiver's parent has been set and it has been added to its parent.
 	 */
-	protected void addNotify() {
+	public void addNotify() {
 		for (Figure childFigure : getChildren()) {
 			childFigure.addNotify();
 		}
@@ -222,7 +218,7 @@ public class Figure {
 	/**
 	 * Called prior to this figure's removal from its parent.
 	 */
-	protected void removeNotify() {
+	public void removeNotify() {
 		for (Figure childFigure : getChildren()) {
 			childFigure.removeNotify();
 		}
@@ -523,7 +519,7 @@ public class Figure {
 		}
 	}
 
-	private void paintFigure(Graphics graphics) {
+	protected void paintFigure(Graphics graphics) {
 		// fill all figure before any painting clientArea, clilds, and border.
 		if (m_opaque) {
 			Rectangle bounds = getBounds();
@@ -536,7 +532,7 @@ public class Figure {
 		graphics.restoreState();
 	}
 
-	private void paintChildren(Graphics graphics) {
+	protected void paintChildren(Graphics graphics) {
 		List<Figure> children = getChildren();
 		if (children.isEmpty()) {
 			return;
@@ -571,7 +567,7 @@ public class Figure {
 	 */
 	protected void paintBorder(Graphics graphics) {
 		if (m_border != null) {
-			m_border.paint(this, graphics);
+			m_border.paint(this, graphics, NO_INSETS);
 		}
 	}
 
@@ -580,19 +576,6 @@ public class Figure {
 	// Bounds
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the current location.
-	 */
-	public Point getLocation() {
-		return m_bounds.getLocation();
-	}
-
-	/**
-	 * Returns the current size.
-	 */
-	public Dimension getSize() {
-		return m_bounds.getSize();
-	}
 
 	/**
 	 * Returns the smallest rectangle completely enclosing the figure. Returns Reactangle by
@@ -628,13 +611,6 @@ public class Figure {
 	}
 
 	/**
-	 * Sets this Figure's size.
-	 */
-	public void setSize(Dimension size) {
-		setSize(size.width, size.height);
-	}
-
-	/**
 	 * Sets the bounds of this Figure to the Rectangle <i>rect</i>.
 	 */
 	public void setBounds(Rectangle bounds) {
@@ -658,15 +634,7 @@ public class Figure {
 		if (m_border == null) {
 			return IFigure.NO_INSETS;
 		}
-		return m_border.getInsets();
-	}
-
-	/**
-	 * Returns the rectangular area within this Figure's bounds in which children will be placed and
-	 * the painting of children will be clipped.
-	 */
-	public Rectangle getClientArea() {
-		return getClientArea(new Rectangle());
+		return m_border.getInsets(this);
 	}
 
 	/**
@@ -686,14 +654,6 @@ public class Figure {
 	 */
 	public boolean intersects(Rectangle rectangle) {
 		return getBounds().intersects(rectangle);
-	}
-
-	/**
-	 * Returns <code>true</code> if the {@link Point} <code>p</code> is contained within this
-	 * {@link Figure}'s bounds.
-	 */
-	public boolean containsPoint(Point point) {
-		return containsPoint(point.x, point.y);
 	}
 
 	/**
