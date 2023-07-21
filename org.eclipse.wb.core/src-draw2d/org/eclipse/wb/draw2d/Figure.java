@@ -13,14 +13,12 @@ package org.eclipse.wb.draw2d;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.draw2d.border.Border;
-import org.eclipse.wb.draw2d.events.IAncestorListener;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.IMouseMoveListener;
 import org.eclipse.wb.draw2d.events.IMouseTrackListener;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
-import org.eclipse.wb.internal.draw2d.events.AncestorEventTable;
 import org.eclipse.wb.internal.draw2d.events.EventTable;
 
 import org.eclipse.draw2d.FigureListener;
@@ -47,7 +45,6 @@ import java.util.List;
  */
 public class Figure extends org.eclipse.draw2d.Figure {
 	private EventTable m_eventTable;
-	private AncestorEventTable m_ancestorEventTable;
 	private Figure m_parent;
 	private final Rectangle m_bounds = new Rectangle();
 	private List<Figure> m_children;
@@ -109,37 +106,6 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 */
 	public void removeMouseTrackListener(IMouseTrackListener listener) {
 		getEnsureEventTable().removeListener(IMouseTrackListener.class, listener);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Events: ancestor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Registers the given listener as an {@link IAncestorListener} of this {@link Figure}.
-	 */
-	public void addAncestorListener(IAncestorListener listener) {
-		if (m_ancestorEventTable == null) {
-			m_ancestorEventTable = new AncestorEventTable(this);
-		}
-		//
-		m_ancestorEventTable.addAncestorListener(listener);
-	}
-
-	/**
-	 * Unregisters the given listener, so that it will no longer receive notification of ancestor
-	 * events.
-	 */
-	public void removeAncestorListener(IAncestorListener listener) {
-		if (m_ancestorEventTable != null) {
-			m_ancestorEventTable.removeAncestorListener(listener);
-			//
-			if (m_ancestorEventTable.isEmpty()) {
-				m_ancestorEventTable.unhookFigure();
-				m_ancestorEventTable = null;
-			}
-		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////

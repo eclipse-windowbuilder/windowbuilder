@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,11 +14,12 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.events.IAncestorListener;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 
+import org.eclipse.draw2d.AncestorListener;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
@@ -36,7 +37,7 @@ import java.util.List;
 public class LineSelectionEditPolicy extends SelectionEditPolicy {
 	private final Color m_lineColor;
 	private Figure m_selectionFigure;
-	private IAncestorListener m_ancestorListener;
+	private AncestorListener m_ancestorListener;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -72,9 +73,9 @@ public class LineSelectionEditPolicy extends SelectionEditPolicy {
 		m_selectionFigure = new Figure();
 		m_selectionFigure.setBorder(new LineBorder(m_lineColor));
 		updateFeedbackBounds();
-		m_ancestorListener = new IAncestorListener() {
+		m_ancestorListener = new AncestorListener.Stub() {
 			@Override
-			public void ancestorMoved(Figure ancestor) {
+			public void ancestorMoved(IFigure ancestor) {
 				updateFeedbackBounds();
 			}
 		};
