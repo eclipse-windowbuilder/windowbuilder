@@ -17,13 +17,14 @@ import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
 import org.eclipse.wb.draw2d.events.IAncestorListener;
-import org.eclipse.wb.draw2d.events.IFigureListener;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.IMouseMoveListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.FigureListener;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -32,6 +33,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**
@@ -964,38 +967,30 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check init state of listener for new Figure
-		assertNull(testFigure.getListeners(IFigureListener.class));
+		assertNull(testFigure.getListeners(FigureListener.class));
 		//
-		IFigureListener listener1 = new IFigureListener() {
+		FigureListener listener1 = new FigureListener() {
 			@Override
-			public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
-			}
-
-			@Override
-			public void figureMoved(Figure source) {
+			public void figureMoved(IFigure source) {
 			}
 		};
 		testFigure.addFigureListener(listener1);
 		//
 		// check add IFigureListener
-		List<IFigureListener> list = Lists.newArrayList(testFigure.getListeners(IFigureListener.class));
+		List<FigureListener> list = Lists.newArrayList(testFigure.getListeners(FigureListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
 		//
-		IFigureListener listener2 = new IFigureListener() {
+		FigureListener listener2 = new FigureListener() {
 			@Override
-			public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
-			}
-
-			@Override
-			public void figureMoved(Figure source) {
+			public void figureMoved(IFigure source) {
 			}
 		};
 		testFigure.addFigureListener(listener2);
 		//
 		// again check add IFigureListener
-		list = Lists.newArrayList(testFigure.getListeners(IFigureListener.class));
+		list = Lists.newArrayList(testFigure.getListeners(FigureListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
@@ -1003,14 +998,14 @@ public class FigureTest extends Draw2dFigureTestCase {
 		//
 		// check remove IFigureListener
 		testFigure.removeFigureListener(listener1);
-		list = Lists.newArrayList(testFigure.getListeners(IFigureListener.class));
+		list = Lists.newArrayList(testFigure.getListeners(FigureListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
 		//
 		// again check remove IFigureListener
 		testFigure.removeFigureListener(listener2);
-		list = Lists.newArrayList(testFigure.getListeners(IFigureListener.class));
+		list = Lists.newArrayList(testFigure.getListeners(FigureListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}
@@ -1018,14 +1013,9 @@ public class FigureTest extends Draw2dFigureTestCase {
 	public void test_invoke_FigureListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		//
-		IFigureListener listener = new IFigureListener() {
+		FigureListener listener = new FigureListener() {
 			@Override
-			public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
-				actualLogger.log("figureReparent(" + source + ", " + oldParent + ", " + newParent + ")");
-			}
-
-			@Override
-			public void figureMoved(Figure source) {
+			public void figureMoved(IFigure source) {
 				actualLogger.log("figureMoved(" + source + ")");
 			}
 		};
@@ -1038,9 +1028,16 @@ public class FigureTest extends Draw2dFigureTestCase {
 				return "__testFigure_";
 			}
 		};
+		PropertyChangeListener listener1 = new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent event) {
+				actualLogger.log("figureReparent(" + event.getOldValue() + ", " + event.getNewValue() + ")");
+			}
+		};
 		//
 		// check not invoke during addFigureListener()
 		testFigure.addFigureListener(listener);
+		testFigure.addPropertyChangeListener("parent", listener1);
 		//
 		actualLogger.assertEmpty();
 		//
@@ -1076,7 +1073,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		};
 		parent.add(testFigure);
 		//
-		expectedLogger.log("figureReparent(__testFigure_, null, __parent_)");
+		expectedLogger.log("figureReparent(null, __parent_)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		// check independent between bounds and parent bounds
@@ -1085,7 +1082,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		//
 		// check invoke reparent during remove(Figure)
 		parent.remove(testFigure);
-		expectedLogger.log("figureReparent(__testFigure_, __parent_, null)");
+		expectedLogger.log("figureReparent(__parent_, null)");
 		actualLogger.assertEquals(expectedLogger);
 	}
 

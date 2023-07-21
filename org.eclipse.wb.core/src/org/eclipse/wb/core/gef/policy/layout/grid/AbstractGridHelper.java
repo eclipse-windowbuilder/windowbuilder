@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.RectangleFigure;
-import org.eclipse.wb.draw2d.events.IFigureListener;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
@@ -29,6 +28,8 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
+import org.eclipse.draw2d.FigureListener;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -102,21 +103,17 @@ public abstract class AbstractGridHelper {
 	////////////////////////////////////////////////////////////////////////////
 	private Figure m_gridFigure = null;
 
-	private class RootFigureListener implements IFigureListener {
+	private class RootFigureListener implements FigureListener {
 		private Figure m_rootFigure;
 
 		@Override
-		public void figureMoved(Figure source) {
+		public void figureMoved(IFigure source) {
 			if (source == m_rootFigure) {
 				// correct grid figure bounds according host figure
 				prepareHostClientArea();
 				translateModelToFeedback(hostClientArea);
 				m_gridFigure.setBounds(hostClientArea);
 			}
-		}
-
-		@Override
-		public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
 		}
 
 		void install(Figure rootFigure) {

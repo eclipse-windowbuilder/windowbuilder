@@ -14,7 +14,6 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.events.IAncestorListener;
-import org.eclipse.wb.draw2d.events.IFigureListener;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.IMouseMoveListener;
 import org.eclipse.wb.draw2d.events.IMouseTrackListener;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.events.AncestorEventTable;
 import org.eclipse.wb.internal.draw2d.events.EventTable;
 
+import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
@@ -150,16 +150,16 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	/**
 	 * Registers the given listener as a {@link IFigureListener} of this {@link Figure}.
 	 */
-	public void addFigureListener(IFigureListener listener) {
-		getEnsureEventTable().addListener(IFigureListener.class, listener);
+	public void addFigureListener(FigureListener listener) {
+		getEnsureEventTable().addListener(FigureListener.class, listener);
 	}
 
 	/**
 	 * Unregisters the given listener, so that it will no longer receive notification of
 	 * {@link Figure} events.
 	 */
-	public void removeFigureListener(IFigureListener listener) {
-		getEnsureEventTable().removeListener(IFigureListener.class, listener);
+	public void removeFigureListener(FigureListener listener) {
+		getEnsureEventTable().removeListener(FigureListener.class, listener);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -189,20 +189,9 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	 * has moved.
 	 */
 	protected void fireMoved() {
-		Iterator<IFigureListener> listeners = getListeners(IFigureListener.class);
+		Iterator<FigureListener> listeners = getListeners(FigureListener.class);
 		if (listeners != null) {
 			listeners.forEachRemaining(figureListener -> figureListener.figureMoved(this));
-		}
-	}
-
-	/**
-	 * Notifies any {@link IFigureListener IFigureListeners} listening to this {@link Figure} that it
-	 * has set new parent.
-	 */
-	private void fireReparent(Figure oldParent, Figure newParent) {
-		Iterator<IFigureListener> listeners = getListeners(IFigureListener.class);
-		if (listeners != null) {
-			listeners.forEachRemaining(figureListener -> figureListener.figureReparent(this, oldParent, newParent));
 		}
 	}
 
@@ -385,7 +374,7 @@ public class Figure extends org.eclipse.draw2d.Figure {
 		Figure oldParent = m_parent;
 		m_parent = parent;
 		// send reparent event
-		fireReparent(oldParent, m_parent);
+		firePropertyChange("parent", oldParent, parent);//$NON-NLS-1$
 	}
 
 	////////////////////////////////////////////////////////////////////////////
