@@ -16,13 +16,13 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.draw2d.events.IAncestorListener;
 import org.eclipse.wb.draw2d.events.IMouseListener;
 import org.eclipse.wb.draw2d.events.IMouseMoveListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -1089,9 +1089,9 @@ public class FigureTest extends Draw2dFigureTestCase {
 	public void test_invoke_AncestorListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		//
-		IAncestorListener listener = new IAncestorListener() {
+		AncestorListener listener = new AncestorListener.Stub() {
 			@Override
-			public void ancestorMoved(Figure ancestor) {
+			public void ancestorMoved(IFigure ancestor) {
 				actualLogger.log("ancestorMoved(" + ancestor + ")");
 			}
 		};

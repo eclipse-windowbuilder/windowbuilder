@@ -12,9 +12,11 @@ package org.eclipse.wb.gef.graphical.handles;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.ILocator;
-import org.eclipse.wb.draw2d.events.IAncestorListener;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+
+import org.eclipse.draw2d.AncestorListener;
+import org.eclipse.draw2d.IFigure;
 
 /**
  * {@link Handle} will add an {@link IAncestorListener} to the owner's figure, and will
@@ -23,7 +25,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public abstract class Handle extends Figure implements IAncestorListener {
+public abstract class Handle extends Figure implements AncestorListener {
 	private final GraphicalEditPart m_owner;
 	private final ILocator m_locator;
 
@@ -65,8 +67,18 @@ public abstract class Handle extends Figure implements IAncestorListener {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void ancestorMoved(Figure ancestor) {
+	public void ancestorMoved(IFigure ancestor) {
 		revalidate();
+	}
+
+	@Override
+	public void ancestorAdded(IFigure ancestor) {
+		// unsupported
+	}
+
+	@Override
+	public void ancestorRemoved(IFigure ancestor) {
+		// unsupported
 	}
 
 	////////////////////////////////////////////////////////////////////////////
