@@ -24,7 +24,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.events.IFigureListener;
 import org.eclipse.wb.draw2d.events.IMouseMoveListener;
 import org.eclipse.wb.draw2d.events.IMouseTrackListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
@@ -54,7 +53,9 @@ import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -1166,7 +1167,7 @@ SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	private IMouseTrackListener mouseTrackListener;
 	private IMouseMoveListener mouseMoveListener;
-	private IFigureListener figureListener;
+	private FigureListener figureListener;
 	private Figure hoverFigure;
 	private int mouseQuadrant;
 
@@ -1208,13 +1209,9 @@ SelectionEditPolicy {
 				}
 			}
 		};
-		figureListener = new IFigureListener() {
+		figureListener = new FigureListener() {
 			@Override
-			public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
-			}
-
-			@Override
-			public void figureMoved(Figure source) {
+			public void figureMoved(IFigure source) {
 				Rectangle bounds = figure.getBounds();
 				hoverFigure.setBounds(new Rectangle(0, 0, bounds.width, bounds.height));
 			}

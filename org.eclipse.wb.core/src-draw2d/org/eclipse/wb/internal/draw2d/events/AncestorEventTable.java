@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,8 +14,12 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.events.IAncestorListener;
-import org.eclipse.wb.draw2d.events.IFigureListener;
 
+import org.eclipse.draw2d.FigureListener;
+import org.eclipse.draw2d.IFigure;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**
@@ -24,7 +28,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.draw2d
  */
-public class AncestorEventTable implements IFigureListener {
+public class AncestorEventTable implements FigureListener, PropertyChangeListener {
 	private final Figure m_figure;
 	private List<IAncestorListener> m_listeners;
 
@@ -44,19 +48,19 @@ public class AncestorEventTable implements IFigureListener {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void figureMoved(Figure source) {
+	public void figureMoved(IFigure source) {
 		for (IAncestorListener listener : m_listeners) {
-			listener.ancestorMoved(source);
+			listener.ancestorMoved((Figure) source);
 		}
 	}
 
 	@Override
-	public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
-		if (oldParent != null) {
-			unhookFigure(oldParent);
+	public void propertyChange(PropertyChangeEvent event) {
+		if (event.getOldValue() != null) {
+			unhookFigure((Figure) event.getOldValue());
 		}
-		if (newParent != null) {
-			hookFigure(newParent);
+		if (event.getNewValue() != null) {
+			hookFigure((Figure) event.getNewValue());
 		}
 	}
 
@@ -68,12 +72,14 @@ public class AncestorEventTable implements IFigureListener {
 	private void hookFigure(Figure figure) {
 		for (Figure ancestor = figure; ancestor != null; ancestor = ancestor.getParent()) {
 			ancestor.addFigureListener(this);
+			ancestor.addPropertyChangeListener("parent", this);
 		}
 	}
 
 	private void unhookFigure(Figure figure) {
 		for (Figure ancestor = figure; ancestor != null; ancestor = ancestor.getParent()) {
 			ancestor.removeFigureListener(this);
+			ancestor.removePropertyChangeListener(this);
 		}
 	}
 
