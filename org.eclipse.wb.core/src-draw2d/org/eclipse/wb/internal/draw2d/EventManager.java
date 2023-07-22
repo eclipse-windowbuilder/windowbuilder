@@ -11,13 +11,11 @@
 package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.events.IMouseListener;
-import org.eclipse.wb.draw2d.events.IMouseMoveListener;
-import org.eclipse.wb.draw2d.events.IMouseTrackListener;
 import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.gef.core.CancelOperationError;
 
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
@@ -108,10 +106,10 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 
 	private void setFigureUnderCursor(Figure figure, org.eclipse.swt.events.MouseEvent event) {
 		if (m_cursorFigure != figure) {
-			sendEvent(MOUSE_EXIT_INVOKER, IMouseTrackListener.class, event);
+			sendEvent(MOUSE_EXIT_INVOKER, MouseMotionListener.class, event);
 			//
 			m_cursorFigure = figure;
-			sendEvent(MOUSE_ENTER_INVOKER, IMouseTrackListener.class, event);
+			sendEvent(MOUSE_ENTER_INVOKER, MouseMotionListener.class, event);
 			// finish
 			updateCursor();
 			updateFigureToolTipText();
@@ -165,7 +163,7 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_DOUBLE_CLICK_INVOKER, IMouseListener.class, event);
+		handleMouseEvent(MOUSE_DOUBLE_CLICK_INVOKER, org.eclipse.draw2d.MouseListener.class, event);
 	}
 
 	@Override
@@ -173,17 +171,17 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 		if (m_canvas.getToolTipText() != null) {
 			m_canvas.setToolTipText(null);
 		}
-		handleMouseEvent(MOUSE_DOWN_INVOKER, IMouseListener.class, event);
+		handleMouseEvent(MOUSE_DOWN_INVOKER, org.eclipse.draw2d.MouseListener.class, event);
 	}
 
 	@Override
 	public void mouseUp(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_UP_INVOKER, IMouseListener.class, event);
+		handleMouseEvent(MOUSE_UP_INVOKER, org.eclipse.draw2d.MouseListener.class, event);
 	}
 
 	@Override
 	public void mouseMove(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_MOVE_INVOKER, IMouseMoveListener.class, event);
+		handleMouseEvent(MOUSE_MOVE_INVOKER, MouseMotionListener.class, event);
 	}
 
 	private void handleMouseEvent(IListenerInvoker invoker,
@@ -216,17 +214,17 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void mouseEnter(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_ENTER_INVOKER, IMouseTrackListener.class, event);
+		handleMouseEvent(MOUSE_ENTER_INVOKER, MouseMotionListener.class, event);
 	}
 
 	@Override
 	public void mouseExit(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_EXIT_INVOKER, IMouseTrackListener.class, event);
+		handleMouseEvent(MOUSE_EXIT_INVOKER, MouseMotionListener.class, event);
 	}
 
 	@Override
 	public void mouseHover(org.eclipse.swt.events.MouseEvent event) {
-		handleMouseEvent(MOUSE_HOVER_INVOKER, IMouseTrackListener.class, event);
+		handleMouseEvent(MOUSE_HOVER_INVOKER, MouseMotionListener.class, event);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -238,49 +236,49 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
 	 * Invoke <code>mouseDown()</code>.
 	 */
 	private static final IListenerInvoker MOUSE_DOWN_INVOKER = (listener, event) -> {
-		IMouseListener mouseListener = (IMouseListener) listener;
-		mouseListener.mouseDown(event);
+		org.eclipse.draw2d.MouseListener mouseListener = (org.eclipse.draw2d.MouseListener) listener;
+		mouseListener.mousePressed(event);
 	};
 	/**
 	 * Invoke <code>mouseUp()</code>.
 	 */
 	private static final IListenerInvoker MOUSE_UP_INVOKER = (listener, event) -> {
-		IMouseListener mouseListener = (IMouseListener) listener;
-		mouseListener.mouseUp(event);
+		org.eclipse.draw2d.MouseListener mouseListener = (org.eclipse.draw2d.MouseListener) listener;
+		mouseListener.mouseReleased(event);
 	};
 	/**
 	 * Invoke <code>mouseDoubleClick()</code>.
 	 */
 	private static final IListenerInvoker MOUSE_DOUBLE_CLICK_INVOKER = (listener, event) -> {
-		IMouseListener mouseListener = (IMouseListener) listener;
-		mouseListener.mouseDoubleClick(event);
+		org.eclipse.draw2d.MouseListener mouseListener = (org.eclipse.draw2d.MouseListener) listener;
+		mouseListener.mouseDoubleClicked(event);
 	};
 	/**
 	 * Invoke <code>mouseMove()</code>.
 	 */
 	private static final IListenerInvoker MOUSE_MOVE_INVOKER = (listener, event) -> {
-		IMouseMoveListener mouseListener = (IMouseMoveListener) listener;
-		mouseListener.mouseMove(event);
+		MouseMotionListener mouseListener = (MouseMotionListener) listener;
+		mouseListener.mouseMoved(event);
 	};
 	/**
 	 * Invoke <code>mouseEnter()</code>.
 	 */
 	private static final IListenerInvoker MOUSE_ENTER_INVOKER = (listener, event) -> {
-		IMouseTrackListener mouseListener = (IMouseTrackListener) listener;
-		mouseListener.mouseEnter(event);
+		MouseMotionListener mouseListener = (MouseMotionListener) listener;
+		mouseListener.mouseEntered(event);
 	};
 	/**
 	 * Invoke <code>mouseExit()</code>.
 	 */
 	private static final IListenerInvoker MOUSE_EXIT_INVOKER = (listener, event) -> {
-		IMouseTrackListener mouseListener = (IMouseTrackListener) listener;
-		mouseListener.mouseExit(event);
+		MouseMotionListener mouseListener = (MouseMotionListener) listener;
+		mouseListener.mouseExited(event);
 	};
 	/**
 	 * Invoke <code>mouseHover()</code>.
 	 */
 	private static final IListenerInvoker MOUSE_HOVER_INVOKER = (listener, event) -> {
-		IMouseTrackListener mouseListener = (IMouseTrackListener) listener;
+		MouseMotionListener mouseListener = (MouseMotionListener) listener;
 		mouseListener.mouseHover(event);
 	};
 

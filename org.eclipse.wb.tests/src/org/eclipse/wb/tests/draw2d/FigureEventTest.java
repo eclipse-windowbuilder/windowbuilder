@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,13 +12,13 @@ package org.eclipse.wb.tests.draw2d;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.events.IMouseListener;
-import org.eclipse.wb.draw2d.events.IMouseMoveListener;
-import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.tests.gef.EventSender;
 import org.eclipse.wb.tests.gef.TestLogger;
 
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -176,7 +176,7 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		}
 	}
 
-	private static class MouseEventsLogger implements IMouseListener, IMouseMoveListener {
+	private static class MouseEventsLogger implements MouseListener, MouseMotionListener {
 		private final TestLogger m_logger;
 
 		////////////////////////////////////////////////////////////////////////////
@@ -195,7 +195,7 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		////////////////////////////////////////////////////////////////////////////
 		public void addFigure(Figure figure) {
 			figure.addMouseListener(this);
-			figure.addMouseMoveListener(this);
+			figure.addMouseMotionListener(this);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -204,17 +204,17 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		public void mouseDown(MouseEvent event) {
+		public void mousePressed(MouseEvent event) {
 			m_logger.log("mouseDown = " + event);
 		}
 
 		@Override
-		public void mouseUp(MouseEvent event) {
+		public void mouseReleased(MouseEvent event) {
 			m_logger.log("mouseUp = " + event);
 		}
 
 		@Override
-		public void mouseDoubleClick(MouseEvent event) {
+		public void mouseDoubleClicked(MouseEvent event) {
 			m_logger.log("mouseDoubleClick = " + event);
 		}
 
@@ -224,8 +224,28 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		public void mouseMove(MouseEvent event) {
+		public void mouseMoved(MouseEvent event) {
 			m_logger.log("mouseMove = " + event);
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent event) {
+			// ignore
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent event) {
+			// ignore
+		}
+
+		@Override
+		public void mouseExited(MouseEvent event) {
+			// ignore
+		}
+
+		@Override
+		public void mouseHover(MouseEvent event) {
+			// ignore
 		}
 	}
 }
