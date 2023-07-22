@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,9 +24,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.events.IMouseMoveListener;
-import org.eclipse.wb.draw2d.events.IMouseTrackListener;
-import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -56,6 +53,8 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -1165,8 +1164,7 @@ SelectionEditPolicy {
 	// Quadrant feedback
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private IMouseTrackListener mouseTrackListener;
-	private IMouseMoveListener mouseMoveListener;
+	private MouseMotionListener mouseMotionListener;
 	private FigureListener figureListener;
 	private Figure hoverFigure;
 	private int mouseQuadrant;
@@ -1175,24 +1173,15 @@ SelectionEditPolicy {
 		mouseQuadrant = -1;
 		final Figure figure = getHostFigure();
 		// add mouse listener
-		mouseTrackListener = new IMouseTrackListener() {
+		mouseMotionListener = new MouseMotionListener.Stub() {
 			@Override
-			public void mouseHover(MouseEvent event) {
-			}
-
-			@Override
-			public void mouseExit(MouseEvent event) {
+			public void mouseExited(MouseEvent event) {
 				mouseQuadrant = -1;
 				figure.repaint();
 			}
 
 			@Override
-			public void mouseEnter(MouseEvent event) {
-			}
-		};
-		mouseMoveListener = new IMouseMoveListener() {
-			@Override
-			public void mouseMove(MouseEvent event) {
+			public void mouseMoved(MouseEvent event) {
 				int oldQuadrant = mouseQuadrant;
 				Rectangle r = figure.getBounds().getCopy();
 				if (event.x < r.width / 2 && event.y < r.height / 2) {
@@ -1255,8 +1244,7 @@ SelectionEditPolicy {
 		hoverFigure.setOpaque(false);
 		Rectangle figureBounds = figure.getBounds();
 		hoverFigure.setBounds(new Rectangle(0, 0, figureBounds.width, figureBounds.height));
-		hoverFigure.addMouseTrackListener(mouseTrackListener);
-		hoverFigure.addMouseMoveListener(mouseMoveListener);
+		hoverFigure.addMouseMotionListener(mouseMotionListener);
 		figure.add(hoverFigure, 0);
 		figure.addFigureListener(figureListener);
 	}

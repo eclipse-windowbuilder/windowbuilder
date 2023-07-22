@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,10 +11,10 @@
 package org.eclipse.wb.internal.rcp.gef.policy.layout;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.events.IMouseListener;
-import org.eclipse.wb.draw2d.events.MouseEvent;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.graphics.Image;
@@ -42,23 +42,15 @@ public final class StackLayoutNavigationFigure extends Figure {
 	////////////////////////////////////////////////////////////////////////////
 	public StackLayoutNavigationFigure(StackLayoutSelectionEditPolicy<?> policy) {
 		m_policy = policy;
-		addMouseListener(new IMouseListener() {
+		addMouseListener(new MouseListener.Stub() {
 			@Override
-			public void mouseUp(MouseEvent event) {
-			}
-
-			@Override
-			public void mouseDown(MouseEvent event) {
+			public void mousePressed(MouseEvent event) {
 				event.consume();
 				if (event.x < WIDTH) {
 					m_policy.showPrevComponent();
 				} else {
 					m_policy.showNextComponent();
 				}
-			}
-
-			@Override
-			public void mouseDoubleClick(MouseEvent event) {
 			}
 		});
 	}

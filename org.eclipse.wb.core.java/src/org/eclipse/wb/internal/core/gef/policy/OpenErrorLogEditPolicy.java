@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,8 +15,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.ILocator;
-import org.eclipse.wb.draw2d.events.IMouseListener;
-import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -25,6 +23,8 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
@@ -120,18 +120,10 @@ public final class OpenErrorLogEditPolicy extends EditPolicy {
 			}
 		};
 		// open "log" on click
-		m_figure.addMouseListener(new IMouseListener() {
+		m_figure.addMouseListener(new MouseListener.Stub() {
 			@Override
-			public void mouseUp(MouseEvent event) {
-			}
-
-			@Override
-			public void mouseDown(MouseEvent event) {
+			public void mousePressed(MouseEvent event) {
 				scheduleOpenErrorLog();
-			}
-
-			@Override
-			public void mouseDoubleClick(MouseEvent event) {
 			}
 		});
 	}

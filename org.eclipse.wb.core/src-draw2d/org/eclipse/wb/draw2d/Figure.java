@@ -13,9 +13,6 @@ package org.eclipse.wb.draw2d;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.draw2d.border.Border;
-import org.eclipse.wb.draw2d.events.IMouseListener;
-import org.eclipse.wb.draw2d.events.IMouseMoveListener;
-import org.eclipse.wb.draw2d.events.IMouseTrackListener;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
@@ -24,6 +21,8 @@ import org.eclipse.wb.internal.draw2d.events.EventTable;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MouseListener;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -65,47 +64,32 @@ public class Figure extends org.eclipse.draw2d.Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Registers the given listener as a {@link IMouseListener} of this {@link Figure}.
+	 * Registers the given listener as a {@link MouseListener} of this {@link Figure}.
 	 */
-	public void addMouseListener(IMouseListener listener) {
-		getEnsureEventTable().addListener(IMouseListener.class, listener);
+	public void addMouseListener(MouseListener listener) {
+		getEnsureEventTable().addListener(MouseListener.class, listener);
 	}
 
 	/**
 	 * Unregisters the given listener, so that it will no longer receive notification of mouse events.
 	 */
-	public void removeMouseListener(IMouseListener listener) {
-		getEnsureEventTable().removeListener(IMouseListener.class, listener);
+	public void removeMouseListener(MouseListener listener) {
+		getEnsureEventTable().removeListener(MouseListener.class, listener);
 	}
 
 	/**
-	 * Registers the given listener as a {@link IMouseMoveListener} of this {@link Figure}.
+	 * Registers the given listener as a {@link MouseMotionListener} of this {@link Figure}.
 	 */
-	public void addMouseMoveListener(IMouseMoveListener listener) {
-		getEnsureEventTable().addListener(IMouseMoveListener.class, listener);
-	}
-
-	/**
-	 * Unregisters the given listener, so that it will no longer receive notification of mouse move
-	 * events.
-	 */
-	public void removeMouseMoveListener(IMouseMoveListener listener) {
-		getEnsureEventTable().removeListener(IMouseMoveListener.class, listener);
-	}
-
-	/**
-	 * Registers the given listener as a {@link IMouseTrackListener} of this {@link Figure}.
-	 */
-	public void addMouseTrackListener(IMouseTrackListener listener) {
-		getEnsureEventTable().addListener(IMouseTrackListener.class, listener);
+	public void addMouseMotionListener(MouseMotionListener listener) {
+		getEnsureEventTable().addListener(MouseMotionListener.class, listener);
 	}
 
 	/**
 	 * Unregisters the given listener, so that it will no longer receive notification of mouse move
 	 * events.
 	 */
-	public void removeMouseTrackListener(IMouseTrackListener listener) {
-		getEnsureEventTable().removeListener(IMouseTrackListener.class, listener);
+	public void removeMouseMotionListener(MouseMotionListener listener) {
+		getEnsureEventTable().removeListener(MouseMotionListener.class, listener);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

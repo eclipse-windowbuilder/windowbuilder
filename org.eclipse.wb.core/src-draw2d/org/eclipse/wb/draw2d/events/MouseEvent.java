@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,30 +25,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author lobas_av
  * @coverage gef.draw2d
  */
-public final class MouseEvent {
-	/**
-	 * the button that was pressed or released; 1 for the first button, 2 for the second button, and 3
-	 * for the third button, etc.
-	 */
-	public final int button;
-	/**
-	 * the state of the keyboard modifier keys at the time the event was generated
-	 */
-	public final int stateMask;
-	/**
-	 * the widget-relative, x coordinate of the pointer at the time the mouse button was pressed or
-	 * released
-	 */
-	public final int x;
-	/**
-	 * the widget-relative, y coordinate of the pointer at the time the mouse button was pressed or
-	 * released
-	 */
-	public final int y;
-	/**
-	 * the {@link Figure} that issued the event
-	 */
-	public final Figure source;
+public final class MouseEvent extends org.eclipse.draw2d.MouseEvent {
+	private static final long serialVersionUID = 1L;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -56,9 +34,7 @@ public final class MouseEvent {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public MouseEvent(FigureCanvas canvas, org.eclipse.swt.events.MouseEvent event, Figure source) {
-		button = event.button;
-		stateMask = event.stateMask;
-		this.source = source;
+		super(null, source, event);
 		//
 		Rectangle bounds = source.getBounds();
 		Point location = new Point(event.x - bounds.x, event.y - bounds.y);
@@ -68,27 +44,6 @@ public final class MouseEvent {
 		//
 		x = location.x;
 		y = location.y;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Consume
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private boolean m_consumed;
-
-	/**
-	 * Marks this event as consumed so that it doesn't get passed on to other listeners.
-	 */
-	public void consume() {
-		m_consumed = true;
-	}
-
-	/**
-	 * Return whether this event has been consumed.
-	 */
-	public boolean isConsumed() {
-		return m_consumed;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -103,7 +58,7 @@ public final class MouseEvent {
 		buffer.append(" button=");
 		buffer.append(button);
 		buffer.append(" stateMask=");
-		buffer.append(stateMask);
+		buffer.append(getState());
 		buffer.append(" x=");
 		buffer.append(x);
 		buffer.append(" y=");

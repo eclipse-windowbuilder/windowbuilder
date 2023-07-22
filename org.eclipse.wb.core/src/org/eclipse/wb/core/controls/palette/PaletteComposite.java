@@ -16,9 +16,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.draw2d.events.IMouseListener;
-import org.eclipse.wb.draw2d.events.IMouseTrackListener;
-import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -27,6 +24,9 @@ import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -424,13 +424,9 @@ public final class PaletteComposite extends Composite {
 		 * Adds events handlers.
 		 */
 		private void hookEvents() {
-			addMouseListener(new IMouseListener() {
+			addMouseListener(new MouseListener.Stub() {
 				@Override
-				public void mouseDoubleClick(MouseEvent event) {
-				}
-
-				@Override
-				public void mouseDown(MouseEvent event) {
+				public void mousePressed(MouseEvent event) {
 					if (event.button == 1) {
 						if (m_mouseOnTitle) {
 							m_mouseDown = true;
@@ -441,7 +437,7 @@ public final class PaletteComposite extends Composite {
 				}
 
 				@Override
-				public void mouseUp(MouseEvent event) {
+				public void mouseReleased(MouseEvent event) {
 					if (event.button == 1) {
 						m_mouseDown = false;
 						setCapture(false);
@@ -479,19 +475,11 @@ public final class PaletteComposite extends Composite {
 					repaint();
 				}
 			});
-			addMouseTrackListener(new IMouseTrackListener() {
+			addMouseMotionListener(new MouseMotionListener.Stub() {
 				@Override
-				public void mouseEnter(MouseEvent e) {
-				}
-
-				@Override
-				public void mouseExit(MouseEvent e) {
+				public void mouseExited(MouseEvent e) {
 					m_mouseOnTitle = false;
 					repaint();
-				}
-
-				@Override
-				public void mouseHover(MouseEvent e) {
 				}
 			});
 		}
@@ -761,13 +749,9 @@ public final class PaletteComposite extends Composite {
 		 * Adds events handlers.
 		 */
 		private void hookEvents() {
-			addMouseListener(new IMouseListener() {
+			addMouseListener(new MouseListener.Stub() {
 				@Override
-				public void mouseDoubleClick(MouseEvent event) {
-				}
-
-				@Override
-				public void mouseDown(MouseEvent event) {
+				public void mousePressed(MouseEvent event) {
 					if (event.button == 1) {
 						m_mouseDown = true;
 						m_mouseInside = true;
@@ -781,7 +765,7 @@ public final class PaletteComposite extends Composite {
 				}
 
 				@Override
-				public void mouseUp(MouseEvent event) {
+				public void mouseReleased(MouseEvent event) {
 					if (event.button == 1 && m_mouseDown) {
 						m_mouseDown = false;
 						setCapture(false);
@@ -795,7 +779,7 @@ public final class PaletteComposite extends Composite {
 								}
 							}
 						} else if (m_mouseInside) {
-							boolean reload = (event.stateMask & SWT.CTRL) != 0;
+							boolean reload = (event.getState() & SWT.CTRL) != 0;
 							selectEntry(m_entry, reload);
 						}
 					}
@@ -821,21 +805,17 @@ public final class PaletteComposite extends Composite {
 					repaint();
 				}
 			});
-			addMouseTrackListener(new IMouseTrackListener() {
+			addMouseMotionListener(new MouseMotionListener.Stub() {
 				@Override
-				public void mouseEnter(MouseEvent e) {
+				public void mouseEntered(MouseEvent e) {
 					m_mouseInside = true;
 					repaint();
 				}
 
 				@Override
-				public void mouseExit(MouseEvent e) {
+				public void mouseExited(MouseEvent e) {
 					m_mouseInside = false;
 					repaint();
-				}
-
-				@Override
-				public void mouseHover(MouseEvent e) {
 				}
 			});
 		}

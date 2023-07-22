@@ -16,15 +16,14 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.draw2d.events.IMouseListener;
-import org.eclipse.wb.draw2d.events.IMouseMoveListener;
-import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.internal.draw2d.FigureVisitor;
 import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MouseListener;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -857,46 +856,22 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check init state of listener for new Figure
-		assertNull(testFigure.getListeners(IMouseListener.class));
+		assertNull(testFigure.getListeners(MouseListener.class));
 		//
-		IMouseListener listener1 = new IMouseListener() {
-			@Override
-			public void mouseUp(MouseEvent event) {
-			}
-
-			@Override
-			public void mouseDown(MouseEvent event) {
-			}
-
-			@Override
-			public void mouseDoubleClick(MouseEvent event) {
-			}
-		};
+		MouseListener listener1 = new MouseListener.Stub();
 		testFigure.addMouseListener(listener1);
 		//
-		// check add IMouseListener
-		List<IMouseListener> list = Lists.newArrayList(testFigure.getListeners(IMouseListener.class));
+		// check add MouseListener
+		List<MouseListener> list = Lists.newArrayList(testFigure.getListeners(MouseListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
 		//
-		IMouseListener listener2 = new IMouseListener() {
-			@Override
-			public void mouseUp(MouseEvent event) {
-			}
-
-			@Override
-			public void mouseDown(MouseEvent event) {
-			}
-
-			@Override
-			public void mouseDoubleClick(MouseEvent event) {
-			}
-		};
+		MouseListener listener2 = new MouseListener.Stub();
 		testFigure.addMouseListener(listener2);
 		//
 		// again check add IMouseListener
-		list = Lists.newArrayList(testFigure.getListeners(IMouseListener.class));
+		list = Lists.newArrayList(testFigure.getListeners(MouseListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
@@ -904,14 +879,14 @@ public class FigureTest extends Draw2dFigureTestCase {
 		//
 		// check remove IMouseListener
 		testFigure.removeMouseListener(listener1);
-		list = Lists.newArrayList(testFigure.getListeners(IMouseListener.class));
+		list = Lists.newArrayList(testFigure.getListeners(MouseListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
 		//
 		// again check remove IMouseListener
 		testFigure.removeMouseListener(listener2);
-		list = Lists.newArrayList(testFigure.getListeners(IMouseListener.class));
+		list = Lists.newArrayList(testFigure.getListeners(MouseListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}
@@ -920,45 +895,37 @@ public class FigureTest extends Draw2dFigureTestCase {
 		Figure testFigure = new Figure();
 		//
 		// check init state of listener for new Figure
-		assertNull(testFigure.getListeners(IMouseMoveListener.class));
+		assertNull(testFigure.getListeners(MouseMotionListener.class));
 		//
-		IMouseMoveListener listener1 = new IMouseMoveListener() {
-			@Override
-			public void mouseMove(MouseEvent event) {
-			}
-		};
+		MouseMotionListener listener1 = new MouseMotionListener.Stub();
 		//
-		// check add IMouseMoveListener
-		testFigure.addMouseMoveListener(listener1);
-		List<IMouseMoveListener> list = Lists.newArrayList(testFigure.getListeners(IMouseMoveListener.class));
+		// check add MouseMotionListener
+		testFigure.addMouseMotionListener(listener1);
+		List<MouseMotionListener> list = Lists.newArrayList(testFigure.getListeners(MouseMotionListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
 		//
-		IMouseMoveListener listener2 = new IMouseMoveListener() {
-			@Override
-			public void mouseMove(MouseEvent event) {
-			}
-		};
+		MouseMotionListener listener2 = new MouseMotionListener.Stub();
 		//
-		// again check add IMouseMoveListener
-		testFigure.addMouseMoveListener(listener2);
-		list = Lists.newArrayList(testFigure.getListeners(IMouseMoveListener.class));
+		// again check add MouseMotionListener
+		testFigure.addMouseMotionListener(listener2);
+		list = Lists.newArrayList(testFigure.getListeners(MouseMotionListener.class));
 		assertNotNull(list);
 		assertEquals(2, list.size());
 		assertSame(listener1, list.get(0));
 		assertSame(listener2, list.get(1));
 		//
-		// check remove IMouseMoveListener
-		testFigure.removeMouseMoveListener(listener1);
-		list = Lists.newArrayList(testFigure.getListeners(IMouseMoveListener.class));
+		// check remove MouseMotionListener
+		testFigure.removeMouseMotionListener(listener1);
+		list = Lists.newArrayList(testFigure.getListeners(MouseMotionListener.class));
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		assertSame(listener2, list.get(0));
 		//
-		// again check remove IMouseMoveListener
-		testFigure.removeMouseMoveListener(listener2);
-		list = Lists.newArrayList(testFigure.getListeners(IMouseMoveListener.class));
+		// again check remove MouseMotionListener
+		testFigure.removeMouseMotionListener(listener2);
+		list = Lists.newArrayList(testFigure.getListeners(MouseMotionListener.class));
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,12 +13,12 @@ package org.eclipse.wb.core.gef.policy.layout.generic;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
-import org.eclipse.wb.draw2d.events.IMouseListener;
-import org.eclipse.wb.draw2d.events.MouseEvent;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -64,9 +64,9 @@ public abstract class AbstractPopupFigure extends Figure {
 		setForeground(COLOR_FOREGROUND);
 		setCursor(ICursorConstants.HAND);
 		// add mouse listener
-		addMouseListener(new IMouseListener() {
+		addMouseListener(new MouseListener.Stub() {
 			@Override
-			public void mouseDown(MouseEvent event) {
+			public void mousePressed(MouseEvent event) {
 				event.consume();
 				// prepare IMenuManager
 				MenuManager manager = new MenuManager();
@@ -75,14 +75,6 @@ public abstract class AbstractPopupFigure extends Figure {
 				Control control = m_viewer.getControl();
 				Menu menu = manager.createContextMenu(control);
 				menu.setVisible(true);
-			}
-
-			@Override
-			public void mouseUp(MouseEvent event) {
-			}
-
-			@Override
-			public void mouseDoubleClick(MouseEvent event) {
 			}
 		});
 	}
