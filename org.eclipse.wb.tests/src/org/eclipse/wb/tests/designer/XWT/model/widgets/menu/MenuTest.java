@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -221,7 +221,7 @@ public class MenuTest extends XwtModelTest {
 		IMenuInfo menuObject = menuInfo.getAdapter(IMenuInfo.class);
 		assertNotNull(menuObject);
 		assertSame(menuInfo, menuObject.getModel());
-		assertSame(menuInfo.getImage(), menuObject.getImage());
+		assertSame(menuInfo.getImage(), menuObject.getImageDescriptor());
 		assertSame(menuInfo.getBounds(), menuObject.getBounds());
 		assertTrue(menuObject.isHorizontal());
 		{
@@ -249,7 +249,7 @@ public class MenuTest extends XwtModelTest {
 		IMenuInfo menuObject = menuInfo.getAdapter(IMenuInfo.class);
 		assertNotNull(menuObject);
 		assertSame(menuObject, menuObject.getModel());
-		assertSame(menuInfo.getImage(), menuObject.getImage());
+		assertSame(menuInfo.getImage(), menuObject.getImageDescriptor());
 		assertSame(menuInfo.getBounds(), menuObject.getBounds());
 		assertFalse(menuObject.isHorizontal());
 	}
@@ -273,7 +273,7 @@ public class MenuTest extends XwtModelTest {
 		IMenuPopupInfo popupObject = menuInfo.getAdapter(IMenuPopupInfo.class);
 		assertNotNull(popupObject);
 		assertSame(menuInfo, popupObject.getModel());
-		assertSame(menuInfo.getPresentation().getIcon(), popupObject.getImage());
+		assertSame(menuInfo.getPresentation().getIcon(), popupObject.getImageDescriptor());
 		assertEquals(16, popupObject.getBounds().width);
 		assertEquals(16, popupObject.getBounds().height);
 		assertSame(IMenuPolicy.NOOP, popupObject.getPolicy());

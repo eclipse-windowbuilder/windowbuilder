@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,7 +27,8 @@ import org.eclipse.wb.internal.swing.model.component.menu.JMenuItemInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.ImageData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -126,13 +127,13 @@ public class JMenuBarTest extends SwingModelTest {
 		// IMenuInfo
 		IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(barInfo);
 		{
-			Image image = menuObject.getImage();
+			ImageDescriptor image = menuObject.getImageDescriptor();
 			assertNotNull(image);
-			org.eclipse.swt.graphics.Rectangle bounds = image.getBounds();
-			assertThat(bounds.x).isEqualTo(0);
-			assertThat(bounds.y).isEqualTo(0);
-			assertThat(bounds.width).isGreaterThan(40);
-			assertThat(bounds.height).isGreaterThan(20);
+			ImageData imageData = image.getImageData(100);
+			assertThat(imageData.x).isEqualTo(0);
+			assertThat(imageData.y).isEqualTo(0);
+			assertThat(imageData.width).isGreaterThan(40);
+			assertThat(imageData.height).isGreaterThan(20);
 		}
 		{
 			Rectangle bounds = menuObject.getBounds();
@@ -227,7 +228,7 @@ public class JMenuBarTest extends SwingModelTest {
 			// presentation
 			{
 				// no image for "bar"
-				assertNull(menuObject.getImage());
+				assertNull(menuObject.getImageDescriptor());
 				// "bar" has same width as "contentPane"
 				assertEquals(contentPaneInfo.getBounds().width, menuObject.getBounds().width);
 				// items on "bar" are placed horizontally
@@ -322,7 +323,7 @@ public class JMenuBarTest extends SwingModelTest {
 			// model
 			assertSame(newButtonInfo, item.getModel());
 			// presentation
-			assertSame(newButtonInfo.getImage(), item.getImage());
+			assertSame(newButtonInfo.getImage(), item.getImageDescriptor());
 			assertEquals(newButtonInfo.getBounds(), item.getBounds());
 			// no sub-menu
 			assertNull(item.getMenu());

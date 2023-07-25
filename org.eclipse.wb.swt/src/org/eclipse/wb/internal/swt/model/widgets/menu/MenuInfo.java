@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,7 +54,9 @@ import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Display;
@@ -62,6 +64,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Model for SWT menu.
@@ -336,19 +339,15 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		public Image getImage() {
-			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-				@Override
-				public Image runObject() throws Exception {
-					return getPresentation().getIcon();
-				}
-			}, getDescription().getIcon());
+		public ImageDescriptor getImageDescriptor() {
+			Image image = ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), getDescription().getIcon());
+			return image == null ? null : ImageDescriptor.createFromImage(image);
 		}
 
 		@Override
 		public Rectangle getBounds() {
-			Image image = getImage();
-			return new Rectangle(0, 0, image.getBounds().width, image.getBounds().height);
+			ImageData imageData = getImageDescriptor().getImageData(100);
+			return new Rectangle(0, 0, imageData.width, imageData.height);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -398,8 +397,8 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		public Image getImage() {
-			return m_this.getImage();
+		public ImageDescriptor getImageDescriptor() {
+			return Optional.ofNullable(m_this.getImage()).map(ImageDescriptor::createFromImage).orElse(null);
 		}
 
 		@Override

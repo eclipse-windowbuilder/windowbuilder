@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -41,7 +42,9 @@ public class MenuImageFigure extends Figure {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void paintClientArea(Graphics graphics) {
-		Image image = m_menu.getImage();
+		ImageDescriptor imageDescriptor = m_menu.getImageDescriptor();
+		Image image = imageDescriptor.createImage();
 		graphics.drawImage(image, 0, 0);
+		image.dispose();
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,9 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
+
+import java.util.Optional;
 
 /**
  * Implementation of {@link IMenuItemInfo} for any {@link ComponentInfo}.
@@ -52,8 +54,8 @@ public class ComponentMenuItemInfo extends AbstractMenuObject implements IMenuIt
 	// Presentation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public Image getImage() {
-		return m_component.getImage();
+	public ImageDescriptor getImageDescriptor() {
+		return Optional.ofNullable(m_component.getImage()).map(ImageDescriptor::createFromImage).orElse(null);
 	}
 
 	public Rectangle getBounds() {

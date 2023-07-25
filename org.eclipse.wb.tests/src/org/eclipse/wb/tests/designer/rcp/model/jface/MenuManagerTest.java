@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -324,7 +324,7 @@ public class MenuManagerTest extends RcpModelTest {
 			IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(menuInfo);
 			assertSame(menuObject, menuObject.getModel());
 			// presentation
-			assertNull(menuObject.getImage());
+			assertNull(menuObject.getImageDescriptor());
 			assertThat(menuObject.getBounds().width).isGreaterThan(400);
 			assertThat(menuObject.getBounds().height).isGreaterThan(18);
 			// access
@@ -419,7 +419,7 @@ public class MenuManagerTest extends RcpModelTest {
 			IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(menuInfo);
 			assertSame(menuObject, menuObject.getModel());
 			// presentation
-			assertNull(menuObject.getImage());
+			assertNull(menuObject.getImageDescriptor());
 			assertThat(menuObject.getBounds().width).isGreaterThan(400);
 			assertThat(menuObject.getBounds().height).isGreaterThan(18);
 			// access
@@ -433,8 +433,8 @@ public class MenuManagerTest extends RcpModelTest {
 				IMenuItemInfo itemObject = items.get(0);
 				assertSame(itemInfo_1, itemObject.getModel());
 				// presentation
-				assertNull(itemObject.getImage());
-				assertSame(itemInfo_1.getImage(), itemObject.getImage());
+				assertNull(itemObject.getImageDescriptor());
+				assertSame(itemInfo_1.getImage(), itemObject.getImageDescriptor());
 				assertSame(itemInfo_1.getBounds(), itemObject.getBounds());
 				assertThat(itemObject.getBounds().width).isGreaterThan(50);
 				assertThat(itemObject.getBounds().height).isGreaterThan(18);
@@ -448,7 +448,7 @@ public class MenuManagerTest extends RcpModelTest {
 			IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(subMenuInfo);
 			assertSame(subMenuInfo, itemObject.getModel());
 			// presentation
-			assertNull(itemObject.getImage());
+			assertNull(itemObject.getImageDescriptor());
 			assertThat(itemObject.getBounds().width).isGreaterThan(50);
 			assertThat(itemObject.getBounds().height).isGreaterThan(18);
 			// access
@@ -460,7 +460,7 @@ public class MenuManagerTest extends RcpModelTest {
 			IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(subMenuInfo);
 			assertSame(menuObject, menuObject.getModel());
 			// presentation
-			assertNotNull(menuObject.getImage());
+			assertNotNull(menuObject.getImageDescriptor());
 			assertThat(menuObject.getBounds().width).isGreaterThan(50);
 			assertThat(menuObject.getBounds().height).isGreaterThan(18);
 			// access

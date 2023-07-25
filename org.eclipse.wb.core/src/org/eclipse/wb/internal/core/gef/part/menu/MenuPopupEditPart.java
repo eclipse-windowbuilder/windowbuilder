@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -52,9 +53,11 @@ public final class MenuPopupEditPart extends SubmenuAwareEditPart {
 			protected void paintClientArea(Graphics graphics) {
 				// draw image
 				{
-					Image image = m_popup.getImage();
-					if (image != null) {
+					ImageDescriptor imageDescriptor = m_popup.getImageDescriptor();
+					if (imageDescriptor != null) {
+						Image image = imageDescriptor.createImage();
 						graphics.drawImage(image, 0, 0);
+						image.dispose();
 					}
 				}
 				// highlight "item" with displayed "menu"
