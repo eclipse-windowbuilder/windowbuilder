@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VoidInvocationVariableSupport;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuItemInfo;
@@ -102,7 +103,7 @@ public class JPopupMenuTest extends SwingModelTest {
 			IMenuPopupInfo popupObject = MenuObjectInfoUtils.getMenuPopupInfo(popupInfo);
 			assertSame(popupInfo, popupObject.getModel());
 			// presentation
-			assertSame(popupInfo.getDescription().getIcon(), popupObject.getImage());
+			assertSame(popupInfo.getDescription().getIcon(), ReflectionUtils.getFieldObject(popupObject.getImageDescriptor(), "originalImage"));
 			assertEquals(new Rectangle(0, 0, 16, 16), popupObject.getBounds());
 			// no policy
 			assertSame(IMenuPolicy.NOOP, popupObject.getPolicy());
@@ -112,7 +113,7 @@ public class JPopupMenuTest extends SwingModelTest {
 			IMenuInfo menuObject = MenuObjectInfoUtils.getMenuPopupInfo(popupInfo).getMenu();
 			assertSame(menuObject, menuObject.getModel());
 			// presentation
-			assertNotNull(menuObject.getImage());
+			assertNotNull(menuObject.getImageDescriptor());
 			assertThat(menuObject.getBounds().width).isGreaterThan(50);
 			assertThat(menuObject.getBounds().height).isGreaterThanOrEqualTo(40);
 			// items
@@ -188,7 +189,7 @@ public class JPopupMenuTest extends SwingModelTest {
 			IMenuInfo menuObject = popupObject.getMenu();
 			assertSame(menuObject, menuObject.getModel());
 			// presentation
-			assertNotNull(menuObject.getImage());
+			assertNotNull(menuObject.getImageDescriptor());
 			{
 				Rectangle bounds = menuObject.getBounds();
 				assertThat(bounds.width > 50);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -116,7 +116,7 @@ public class ViewPartTest extends RcpModelTest {
 			assertSame(manager, popupObject.getModel());
 			assertSame(manager, popupObject.getToolkitModel());
 			// presentation
-			assertNull(popupObject.getImage());
+			assertNull(popupObject.getImageDescriptor());
 			assertThat(popupObject.getBounds().width).isGreaterThan(10);
 			assertThat(popupObject.getBounds().height).isGreaterThan(10);
 			// menu

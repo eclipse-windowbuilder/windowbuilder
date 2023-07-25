@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
@@ -213,7 +214,7 @@ public class MenuTest extends RcpModelTest {
 		IMenuInfo menuObject = menuInfo.getAdapter(IMenuInfo.class);
 		assertNotNull(menuObject);
 		assertSame(menuInfo, menuObject.getModel());
-		assertSame(menuInfo.getImage(), menuObject.getImage());
+		assertSame(menuInfo.getImage(), menuObject.getImageDescriptor());
 		assertSame(menuInfo.getBounds(), menuObject.getBounds());
 		assertTrue(menuObject.isHorizontal());
 		{
@@ -241,7 +242,7 @@ public class MenuTest extends RcpModelTest {
 		IMenuInfo menuObject = menuInfo.getAdapter(IMenuInfo.class);
 		assertNotNull(menuObject);
 		assertSame(menuObject, menuObject.getModel());
-		assertSame(menuInfo.getImage(), menuObject.getImage());
+		assertSame(menuInfo.getImage(), ReflectionUtils.getFieldObject(menuObject.getImageDescriptor(), "originalImage"));
 		assertSame(menuInfo.getBounds(), menuObject.getBounds());
 		assertFalse(menuObject.isHorizontal());
 	}
@@ -269,7 +270,7 @@ public class MenuTest extends RcpModelTest {
 		IMenuPopupInfo popupObject = menuInfo.getAdapter(IMenuPopupInfo.class);
 		assertNotNull(popupObject);
 		assertSame(menuInfo, popupObject.getModel());
-		assertSame(menuInfo.getPresentation().getIcon(), popupObject.getImage());
+		assertSame(menuInfo.getPresentation().getIcon(), ReflectionUtils.getFieldObject(popupObject.getImageDescriptor(), "originalImage"));
 		assertEquals(16, popupObject.getBounds().width);
 		assertEquals(16, popupObject.getBounds().height);
 		assertSame(menuObject, popupObject.getMenu());

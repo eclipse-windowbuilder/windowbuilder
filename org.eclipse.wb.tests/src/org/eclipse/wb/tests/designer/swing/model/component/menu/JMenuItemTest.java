@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,7 +64,7 @@ public class JMenuItemTest extends SwingModelTest {
 			IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(itemInfo);
 			assertSame(itemInfo, itemObject.getModel());
 			// presentation
-			assertNull(itemObject.getImage());
+			assertNull(itemObject.getImageDescriptor());
 			assertTrue(itemObject.getBounds().width > 40);
 			assertTrue(itemObject.getBounds().height > 15);
 			// in Swing JMenuItem is just item, without sub-menu

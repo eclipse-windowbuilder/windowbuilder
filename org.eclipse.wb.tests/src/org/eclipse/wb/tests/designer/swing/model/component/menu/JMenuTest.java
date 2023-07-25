@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -120,14 +120,13 @@ public class JMenuTest extends SwingModelTest {
 		JMenuInfo menuInfo = getJavaInfoByName("menu");
 		IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(menuInfo);
 		Image asItem = menuInfo.getImage();
-		Image asMenu = menuObject.getImage();
 		// initially images exist
 		assertFalse(asItem.isDisposed());
-		assertFalse(asMenu.isDisposed());
+		assertNotNull(menuObject.getImageDescriptor());
 		// dispose model
 		disposeLastModel();
 		assertTrue(asItem.isDisposed());
-		assertTrue(asMenu.isDisposed());
+		assertNull(menuObject.getImageDescriptor());
 	}
 
 	/**
@@ -223,7 +222,7 @@ public class JMenuTest extends SwingModelTest {
 			itemObject = MenuObjectInfoUtils.getMenuItemInfo(menuInfo);
 			assertSame(menuInfo, itemObject.getModel());
 			// presentation
-			assertNull(itemObject.getImage());
+			assertNull(itemObject.getImageDescriptor());
 			assertEquals(menuInfo.getBounds(), itemObject.getBounds());
 			// menu
 			assertSame(MenuObjectInfoUtils.getMenuInfo(menuInfo), itemObject.getMenu());
@@ -234,7 +233,7 @@ public class JMenuTest extends SwingModelTest {
 			menuObject = MenuObjectInfoUtils.getMenuInfo(menuInfo);
 			assertSame(menuObject, menuObject.getModel());
 			// presentation
-			assertNotNull(menuObject.getImage());
+			assertNotNull(menuObject.getImageDescriptor());
 			assertTrue(menuObject.getBounds().width > 50);
 			assertTrue(menuObject.getBounds().height > 2 * 15);
 			assertFalse(menuObject.isHorizontal());
@@ -285,7 +284,7 @@ public class JMenuTest extends SwingModelTest {
 			menuObject = MenuObjectInfoUtils.getMenuInfo(menuInfo);
 			assertSame(menuObject, menuObject.getModel());
 			// presentation
-			assertNotNull(menuObject.getImage());
+			assertNotNull(menuObject.getImageDescriptor());
 			{
 				Rectangle bounds = menuObject.getBounds();
 				assertThat(bounds.width > 50);
