@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.databinding.model.presentation;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
-import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -52,7 +51,7 @@ public class JavaInfoObservePresentation implements IObservePresentation {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public String getText() throws Exception {
-		return ObjectsLabelProvider.INSTANCE.getText(m_javaInfo);
+		return ObjectInfo.getText(m_javaInfo);
 	}
 
 	@Override
@@ -63,6 +62,6 @@ public class JavaInfoObservePresentation implements IObservePresentation {
 	@Override
 	public ImageDescriptor getImageDescriptor() throws Exception {
 		return ExecutionUtils.runObjectLog(
-				() -> ImageDescriptor.createFromImage(ObjectsLabelProvider.INSTANCE.getImage(m_javaInfo)), null);
+				() -> ImageDescriptor.createFromImage(ObjectInfo.getImage(m_javaInfo)), null);
 	}
 }

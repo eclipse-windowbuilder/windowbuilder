@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,7 +64,7 @@ public final class ObjectPropertyEditor extends TextDialogPropertyEditor {
 	protected String getText(Property property) throws Exception {
 		XmlObjectInfo component = getValueComponent(property);
 		if (component != null) {
-			return ObjectsLabelProvider.INSTANCE.getText(component);
+			return ObjectInfo.getText(component);
 		}
 		// unknown value
 		return null;
@@ -97,7 +97,7 @@ public final class ObjectPropertyEditor extends TextDialogPropertyEditor {
 			ITreeContentProvider contentProvider = createContentProvider(propertyType);
 			// create dialog
 			selectionDialog =
-					new ElementTreeSelectionDialog(DesignerPlugin.getShell(), ObjectsLabelProvider.INSTANCE,
+					new ElementTreeSelectionDialog(DesignerPlugin.getShell(), new ObjectsLabelProvider(),
 							contentProvider) {
 				@Override
 				public void create() {

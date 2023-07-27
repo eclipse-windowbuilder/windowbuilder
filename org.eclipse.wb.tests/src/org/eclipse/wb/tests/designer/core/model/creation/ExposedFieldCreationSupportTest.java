@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.creation;
 
+import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardImplicitCreationSupport;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.creation.ExposedFieldCreationSupport;
-import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.model.variable.ExposedFieldVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -501,10 +501,10 @@ public class ExposedFieldCreationSupportTest extends SwingModelTest {
 		// ...but their icons are different, because (probably) decorator applied
 		assertSame(
 				innerPanel.getPresentation().getIcon(),
-				ObjectsLabelProvider.INSTANCE.getImage(innerPanel));
+				ObjectInfo.getImage(innerPanel));
 		assertNotSame(
 				exposedContainer.getPresentation().getIcon(),
-				ObjectsLabelProvider.INSTANCE.getImage(exposedContainer));
+				ObjectInfo.getImage(exposedContainer));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

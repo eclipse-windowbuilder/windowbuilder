@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -94,7 +94,7 @@ final class ReorderDialog extends ResizableDialog {
 			}
 		});
 		m_viewer.setContentProvider(new ArrayContentProvider());
-		m_viewer.setLabelProvider(ObjectsLabelProvider.INSTANCE);
+		m_viewer.setLabelProvider(new ObjectsLabelProvider());
 		//
 		TableFactory.modify(m_viewer).headerVisible(true).linesVisible(true);
 		GridDataFactory.create(m_viewer.getControl()).fill().grab().hintC(60, 15);

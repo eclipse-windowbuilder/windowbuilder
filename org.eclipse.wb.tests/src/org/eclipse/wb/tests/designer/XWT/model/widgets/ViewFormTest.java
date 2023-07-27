@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.XWT.model.widgets;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
-import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.xwt.model.widgets.AbstractPositionInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
@@ -106,7 +105,7 @@ public class ViewFormTest extends XwtModelTest {
 				"  </ViewForm.content>",
 				"</ViewForm>");
 		ControlInfo button = getObjectByName("button");
-		assertEquals("content - Button", ObjectsLabelProvider.INSTANCE.getText(button));
+		assertEquals("content - Button", ObjectInfo.getText(button));
 	}
 
 	/**
@@ -155,19 +154,19 @@ public class ViewFormTest extends XwtModelTest {
 		// index: 0
 		{
 			AbstractPositionInfo position = (AbstractPositionInfo) children.get(0);
-			assertEquals("topLeft", ObjectsLabelProvider.INSTANCE.getText(position));
+			assertEquals("topLeft", ObjectInfo.getText(position));
 		}
 		// index: 1
 		assertSame(button, children.get(1));
 		// index: 2
 		{
 			AbstractPositionInfo position = (AbstractPositionInfo) children.get(2);
-			assertEquals("topRight", ObjectsLabelProvider.INSTANCE.getText(position));
+			assertEquals("topRight", ObjectInfo.getText(position));
 		}
 		// index: 3
 		{
 			AbstractPositionInfo position = (AbstractPositionInfo) children.get(3);
-			assertEquals("content", ObjectsLabelProvider.INSTANCE.getText(position));
+			assertEquals("content", ObjectInfo.getText(position));
 		}
 	}
 

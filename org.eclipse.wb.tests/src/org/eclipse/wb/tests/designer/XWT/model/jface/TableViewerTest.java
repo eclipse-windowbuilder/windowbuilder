@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.model.jface;
 
+import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
-import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.xwt.model.jface.TableViewerColumnInfo;
 import org.eclipse.wb.internal.xwt.model.jface.TableViewerInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.TableInfo;
@@ -135,7 +135,7 @@ public class TableViewerTest extends XwtModelTest {
 			callExpressionAccessor_getAdapter_withWrongType(property);
 		}
 		// "text" is text property, so included into presentation
-		assertEquals("TableViewerColumn - \"A\"", ObjectsLabelProvider.INSTANCE.getText(column));
+		assertEquals("TableViewerColumn - \"A\"", ObjectInfo.getText(column));
 		// set "text" and "width"
 		{
 			column.getPropertyByTitle("text").setValue("B");

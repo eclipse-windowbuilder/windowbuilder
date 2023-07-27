@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,8 +47,8 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 	public void test_default() throws Exception {
 		TestObjectInfo theObject = new MyObjectInfo();
 		// do checks
-		assertSame(DEF_ICON, ObjectsLabelProvider.INSTANCE.getImage(theObject));
-		assertSame(DEF_TEXT, ObjectsLabelProvider.INSTANCE.getText(theObject));
+		assertSame(DEF_ICON, ObjectInfo.getImage(theObject));
+		assertSame(DEF_TEXT, ObjectInfo.getText(theObject));
 	}
 
 	/**
@@ -70,8 +70,8 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 			}
 		});
 		// do checks
-		assertNotSame(DEF_ICON, ObjectsLabelProvider.INSTANCE.getImage(theObject));
-		assertEquals("A: " + DEF_TEXT + " :B", ObjectsLabelProvider.INSTANCE.getText(theObject));
+		assertNotSame(DEF_ICON, ObjectInfo.getImage(theObject));
+		assertEquals("A: " + DEF_TEXT + " :B", ObjectInfo.getText(theObject));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
