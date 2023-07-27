@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.tree.TreeEditPart;
-import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
@@ -177,8 +176,8 @@ public class ObjectEditPart extends TreeEditPart {
 	}
 
 	private void update0() {
-		Image image = ObjectsLabelProvider.INSTANCE.getImage(m_object);
-		String text = ObjectsLabelProvider.INSTANCE.getText(m_object);
+		Image image = ObjectInfo.getImage(m_object);
+		String text = ObjectInfo.getText(m_object);
 		if (image != null && !image.isDisposed()) {
 			getWidget().setImage(image);
 		}

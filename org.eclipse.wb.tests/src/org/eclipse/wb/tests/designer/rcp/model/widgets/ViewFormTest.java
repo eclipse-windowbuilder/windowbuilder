@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.association.CompoundAssociation;
 import org.eclipse.wb.core.model.association.ConstructorParentAssociation;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
-import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.rcp.model.widgets.AbstractPositionInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo;
@@ -154,7 +153,7 @@ public class ViewFormTest extends RcpModelTest {
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = viewForm.getChildrenControls().get(0);
-		assertEquals("setContent - button", ObjectsLabelProvider.INSTANCE.getText(button));
+		assertEquals("setContent - button", ObjectInfo.getText(button));
 	}
 
 	/**
@@ -213,7 +212,7 @@ public class ViewFormTest extends RcpModelTest {
 			assertEquals(3, GenericsUtils.select(children, AbstractPositionInfo.class).size());
 			// prepare "content" position
 			AbstractPositionInfo positionContent = (AbstractPositionInfo) children.get(3);
-			assertEquals("setContent", ObjectsLabelProvider.INSTANCE.getText(positionContent));
+			assertEquals("setContent", ObjectInfo.getText(positionContent));
 			//
 			ControlInfo button = viewForm.getControl("setTopLeft");
 			positionContent.command_MOVE(button);
@@ -257,19 +256,19 @@ public class ViewFormTest extends RcpModelTest {
 		// index: 0
 		{
 			AbstractPositionInfo position = (AbstractPositionInfo) children.get(0);
-			assertEquals("setTopLeft", ObjectsLabelProvider.INSTANCE.getText(position));
+			assertEquals("setTopLeft", ObjectInfo.getText(position));
 		}
 		// index: 1
 		assertSame(button, children.get(1));
 		// index: 2
 		{
 			AbstractPositionInfo position = (AbstractPositionInfo) children.get(2);
-			assertEquals("setTopRight", ObjectsLabelProvider.INSTANCE.getText(position));
+			assertEquals("setTopRight", ObjectInfo.getText(position));
 		}
 		// index: 3
 		{
 			AbstractPositionInfo position = (AbstractPositionInfo) children.get(3);
-			assertEquals("setContent", ObjectsLabelProvider.INSTANCE.getText(position));
+			assertEquals("setContent", ObjectInfo.getText(position));
 		}
 	}
 

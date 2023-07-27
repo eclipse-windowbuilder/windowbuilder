@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.model;
 
-import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
+import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectRootProcessor;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
@@ -106,7 +106,7 @@ public class XmlObjectRootProcessorTest extends AbstractCoreTest {
 						"<Shell text='Hello!'/>");
 		shell.refresh();
 		//
-		String text = ObjectsLabelProvider.INSTANCE.getText(shell);
+		String text = ObjectInfo.getText(shell);
 		assertEquals("Shell - \"Hello!\"", text);
 	}
 
@@ -121,7 +121,7 @@ public class XmlObjectRootProcessorTest extends AbstractCoreTest {
 						"<Shell/>");
 		shell.refresh();
 		//
-		String text = ObjectsLabelProvider.INSTANCE.getText(shell);
+		String text = ObjectInfo.getText(shell);
 		assertEquals("Shell", text);
 	}
 }

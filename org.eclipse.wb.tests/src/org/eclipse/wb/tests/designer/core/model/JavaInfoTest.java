@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.accessor.FieldAccessor;
 import org.eclipse.wb.internal.core.model.property.accessor.SetterAccessor;
-import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.model.util.TemplateUtils;
 import org.eclipse.wb.internal.core.model.variable.FieldInitializerVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.FieldUniqueVariableSupport;
@@ -1419,8 +1418,8 @@ public class JavaInfoTest extends SwingModelTest {
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// do checks
-		assertEquals("(no variable)", ObjectsLabelProvider.INSTANCE.getText(button_1));
-		assertEquals("(no variable) - \"theText\"", ObjectsLabelProvider.INSTANCE.getText(button_2));
+		assertEquals("(no variable)", ObjectInfo.getText(button_1));
+		assertEquals("(no variable) - \"theText\"", ObjectInfo.getText(button_2));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

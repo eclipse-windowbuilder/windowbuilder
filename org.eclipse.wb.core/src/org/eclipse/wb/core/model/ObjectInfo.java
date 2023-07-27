@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,8 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoAllProperties;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddAfter;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddBefore;
+import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateIcon;
+import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateText;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -26,6 +28,8 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+
+import org.eclipse.swt.graphics.Image;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -670,5 +674,55 @@ public abstract class ObjectInfo implements IObjectInfo {
 			arbitraries = ImmutableMap.of();
 		}
 		return arbitraries;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Static Access
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Static helper method for calculating the decorated image presentation of the
+	 * given {@link ObjectInfo} instance.
+	 *
+	 * @param objectInfo The {@link ObjectInfo} instance.
+	 * @return The decorated image or {@code null} on error.
+	 * @see IObjectPresentation
+	 */
+	public static Image getImage(final ObjectInfo objectInfo) {
+		return ExecutionUtils.runObjectLog(() -> {
+			Image icon = objectInfo.getPresentation().getIcon();
+			// decorate
+			{
+				Image[] decoratedIcon = new Image[] { icon };
+				objectInfo.getBroadcast(ObjectInfoPresentationDecorateIcon.class).invoke(objectInfo, decoratedIcon);
+				icon = decoratedIcon[0];
+			}
+			// final icon
+			return icon;
+		}, null);
+	}
+
+	/**
+	 * Static helper method for calculating the decorated text presentation of the
+	 * given {@link ObjectInfo} instance.
+	 *
+	 * @param objectInfo The {@link ObjectInfo} instance.
+	 * @return The decorated text or {@code <exception, see log>} on error.
+	 * @see IObjectPresentation
+	 */
+	public static String getText(final ObjectInfo objectInfo) {
+		return ExecutionUtils.runObjectLog(() -> {
+			String text = objectInfo.getPresentation().getText();
+			// decorate
+			{
+				String[] decoratedText = new String[] { text };
+				objectInfo.getBroadcast(ObjectInfoPresentationDecorateText.class).invoke(objectInfo, decoratedText);
+				text = decoratedText[0];
+			}
+			// final text
+			return text;
+		}, "<exception, see log>");
 	}
 }

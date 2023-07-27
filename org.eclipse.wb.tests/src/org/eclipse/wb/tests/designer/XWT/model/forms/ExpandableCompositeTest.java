@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.XWT.model.forms;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.xwt.model.forms.ExpandableCompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.AbstractPositionInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
@@ -94,7 +93,7 @@ public class ExpandableCompositeTest extends XwtModelTest {
 				"  </ExpandableComposite.client>",
 				"</ExpandableComposite>");
 		ControlInfo button = getObjectByName("button");
-		assertEquals("client - Button", ObjectsLabelProvider.INSTANCE.getText(button));
+		assertEquals("client - Button", ObjectInfo.getText(button));
 	}
 
 	/**
@@ -111,7 +110,7 @@ public class ExpandableCompositeTest extends XwtModelTest {
 		// no "real" Control's, but in "tree" we have position placeholder children
 		List<ObjectInfo> children = composite.getPresentation().getChildrenTree();
 		assertThat(children).hasSize(2);
-		assertEquals("textClient", ObjectsLabelProvider.INSTANCE.getText(children.get(0)));
-		assertEquals("client", ObjectsLabelProvider.INSTANCE.getText(children.get(1)));
+		assertEquals("textClient", ObjectInfo.getText(children.get(0)));
+		assertEquals("client", ObjectInfo.getText(children.get(1)));
 	}
 }
