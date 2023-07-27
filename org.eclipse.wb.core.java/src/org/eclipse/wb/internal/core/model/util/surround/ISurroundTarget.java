@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public abstract class ISurroundTarget<C extends IAbstractComponentInfo, T extend
 	/**
 	 * @return the icon to display for user.
 	 */
-	public abstract Image getIcon(AstEditor editor) throws Exception;
+	public abstract ImageDescriptor getIcon(AstEditor editor) throws Exception;
 
 	////////////////////////////////////////////////////////////////////////////
 	//

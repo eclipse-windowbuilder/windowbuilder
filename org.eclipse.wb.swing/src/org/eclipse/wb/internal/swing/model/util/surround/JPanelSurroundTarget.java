@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,11 +15,12 @@ import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.util.surround.ISurroundTarget;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import javax.swing.JPanel;
 
@@ -38,8 +39,8 @@ public final class JPanelSurroundTarget extends ISurroundTarget<ContainerInfo, C
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Image getIcon(AstEditor editor) throws Exception {
-		return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
+	public ImageDescriptor getIcon(AstEditor editor) throws Exception {
+		return new ImageImageDescriptor(ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon());
 	}
 
 	@Override
