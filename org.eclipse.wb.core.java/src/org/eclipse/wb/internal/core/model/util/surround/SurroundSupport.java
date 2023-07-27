@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -166,7 +166,7 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
 			m_editor = m_sourceContainer.getEditor();
 			// presentation
 			setText(m_target.getText(m_editor));
-			setIcon(m_target.getIcon(m_editor));
+			setImageDescriptor(m_target.getIcon(m_editor));
 		}
 
 		////////////////////////////////////////////////////////////////////////////
