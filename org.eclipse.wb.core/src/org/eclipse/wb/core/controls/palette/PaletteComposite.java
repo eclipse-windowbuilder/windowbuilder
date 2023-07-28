@@ -459,23 +459,25 @@ public final class PaletteComposite extends Composite {
 					repaint();
 				}
 			});
-			addMouseMoveListener(event -> {
-				if (m_mouseDown) {
-					Point p = new Point(event.x, event.y);
-					// update moving
-					if (!m_moving && m_downPoint.getDistance(p) > 4) {
-						m_moving = true;
-					}
-					// show feedback
-					if (m_moving) {
-						move_showFeedback(p);
-					}
-				} else {
-					m_mouseOnTitle = getTitleRectangle().contains(event.x, event.y);
-					repaint();
-				}
-			});
 			addMouseMotionListener(new MouseMotionListener.Stub() {
+				@Override
+				public void mouseMoved(MouseEvent event) {
+					if (m_mouseDown) {
+						Point p = new Point(event.x, event.y);
+						// update moving
+						if (!m_moving && m_downPoint.getDistance(p) > 4) {
+							m_moving = true;
+						}
+						// show feedback
+						if (m_moving) {
+							move_showFeedback(p);
+						}
+					} else {
+						m_mouseOnTitle = getTitleRectangle().contains(event.x, event.y);
+						repaint();
+					}
+				}
+
 				@Override
 				public void mouseExited(MouseEvent e) {
 					m_mouseOnTitle = false;
