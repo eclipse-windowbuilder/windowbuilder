@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,12 +21,13 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardImplicitCreationSupport;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.DecorationOverlayIcon;
+import org.eclipse.jface.viewers.IDecoration;
 
 import java.lang.reflect.Method;
 
@@ -137,11 +138,10 @@ IExposedCreationSupport {
 		// icon decorator
 		m_javaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
 			@Override
-			public void invoke(ObjectInfo object, Image[] icon) throws Exception {
+			public void invoke(ObjectInfo object, ImageDescriptor[] icon) throws Exception {
 				if (object == m_javaInfo) {
-					Image decorator = DesignerPlugin.getImage("exposed/decorator.gif");
-					icon[0] =
-							SwtResourceManager.decorateImage(icon[0], decorator, SwtResourceManager.BOTTOM_RIGHT);
+					ImageDescriptor decorator = DesignerPlugin.getImageDescriptor("exposed/decorator.gif");
+					icon[0] = new DecorationOverlayIcon(icon[0], decorator, IDecoration.BOTTOM_RIGHT);
 				}
 			}
 		});

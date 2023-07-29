@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,6 +29,10 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -461,6 +465,14 @@ public final class PropertiesComposite extends Composite {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private class PropertiesLabelProvider extends LabelProvider {
+		private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
+		@Override
+		public void dispose() {
+			super.dispose();
+			m_resourceManager.dispose();
+		}
+
 		@Override
 		public String getText(final Object element) {
 			return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
@@ -480,18 +492,19 @@ public final class PropertiesComposite extends Composite {
 
 		@Override
 		public Image getImage(final Object element) {
-			return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+			ImageDescriptor imageDescriptor = ExecutionUtils.runObjectLog(new RunnableObjectEx<ImageDescriptor>() {
 				@Override
-				public Image runObject() throws Exception {
+				public ImageDescriptor runObject() throws Exception {
 					if (element instanceof JavaInfo) {
 						JavaInfo component = (JavaInfo) element;
 						return component.getPresentation().getIcon();
 					} else {
 						Assert.instanceOf(StringPropertyInfo.class, element);
-						return DesignerPlugin.getImage("nls/property.gif");
+						return DesignerPlugin.getImageDescriptor("nls/property.gif");
 					}
 				}
 			}, null);
+			return imageDescriptor == null ? null : m_resourceManager.createImage(imageDescriptor);
 		}
 	}
 }

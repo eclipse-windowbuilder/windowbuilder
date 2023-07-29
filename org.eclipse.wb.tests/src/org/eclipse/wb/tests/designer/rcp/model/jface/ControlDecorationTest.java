@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.rcp.model.jface.ControlDecorationInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -103,7 +105,7 @@ public class ControlDecorationTest extends RcpModelTest {
 		// check presentation
 		{
 			IObjectPresentation presentation = decoration.getPresentation();
-			assertFalse(UiUtils.equals(presentation.getIcon(), decoration.getDescription().getIcon()));
+			assertFalse(UiUtils.equals(presentation.getIcon(), new ImageImageDescriptor(decoration.getDescription().getIcon())));
 		}
 	}
 
@@ -137,7 +139,7 @@ public class ControlDecorationTest extends RcpModelTest {
 		// check presentation
 		{
 			IObjectPresentation presentation = decoration.getPresentation();
-			assertSame(decoration.getDescription().getIcon(), presentation.getIcon());
+			assertSame(decoration.getDescription().getIcon(), ReflectionUtils.getFieldObject(presentation.getIcon(), "m_Image"));
 		}
 	}
 

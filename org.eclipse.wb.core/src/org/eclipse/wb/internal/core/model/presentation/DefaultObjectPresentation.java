@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoChildTree;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildrenGraphical;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildrenTree;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -80,7 +80,7 @@ public abstract class DefaultObjectPresentation implements IObjectPresentation {
 	}
 
 	@Override
-	public Image getIcon() throws Exception {
+	public ImageDescriptor getIcon() throws Exception {
 		return null;
 	}
 

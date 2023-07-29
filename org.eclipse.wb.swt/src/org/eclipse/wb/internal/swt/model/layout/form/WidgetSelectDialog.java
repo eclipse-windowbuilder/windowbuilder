@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,10 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.swt.Activator;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -194,6 +198,14 @@ public class WidgetSelectDialog<C extends IAbstractComponentInfo> extends Resiza
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private class ControlLabelProvider extends LabelProvider implements ITableLabelProvider {
+		private ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
+		@Override
+		public void dispose() {
+			super.dispose();
+			m_resourceManager.dispose();
+		}
+
 		@Override
 		@SuppressWarnings("unchecked")
 		public String getColumnText(Object element, int columnIndex) {
@@ -210,7 +222,8 @@ public class WidgetSelectDialog<C extends IAbstractComponentInfo> extends Resiza
 		public Image getColumnImage(Object element, int columnIndex) {
 			C info = (C) element;
 			try {
-				return info.getPresentation().getIcon();
+				ImageDescriptor imageDescriptor = info.getPresentation().getIcon();
+				return imageDescriptor == null ? null : m_resourceManager.createImage(imageDescriptor);
 			} catch (Throwable e) {
 				throw ReflectionUtils.propagate(e);
 			}

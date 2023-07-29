@@ -17,9 +17,10 @@ import org.eclipse.wb.internal.core.databinding.Activator;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.DecorationOverlayIcon;
+import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.swt.graphics.Image;
 
 import java.util.Iterator;
@@ -48,9 +49,9 @@ public abstract class JavaInfoDecorator {
 		m_provider = provider;
 		objectInfoRoot.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
 			@Override
-			public void invoke(ObjectInfo object, Image[] icon) throws Exception {
+			public void invoke(ObjectInfo object, ImageDescriptor[] icon) throws Exception {
 				if (hasDecorate(object)) {
-					icon[0] = SwtResourceManager.decorateImage(icon[0], IMAGE, SwtResourceManager.TOP_RIGHT);
+					icon[0] = new DecorationOverlayIcon(icon[0], IMAGE_DESCRIPTOR, IDecoration.TOP_RIGHT);
 				}
 			}
 		});

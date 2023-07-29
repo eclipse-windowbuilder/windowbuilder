@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IPageLayout;
 
@@ -288,7 +288,7 @@ IPageLayoutTopLevelInfo {
 	////////////////////////////////////////////////////////////////////////////
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
-		public Image getIcon() throws Exception {
+		public ImageDescriptor getIcon() throws Exception {
 			return getPresentationIcon();
 		}
 
@@ -306,7 +306,7 @@ IPageLayoutTopLevelInfo {
 	/**
 	 * @return the icon to show in component tree.
 	 */
-	protected abstract Image getPresentationIcon() throws Exception;
+	protected abstract ImageDescriptor getPresentationIcon() throws Exception;
 
 	/**
 	 * @return the text to show in component tree.

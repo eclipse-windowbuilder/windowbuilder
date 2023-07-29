@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
@@ -67,9 +68,9 @@ public final class ControlDecorationInfo extends AbstractComponentInfo {
 	private Image m_iconImage;
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
-		public Image getIcon() throws Exception {
+		public ImageDescriptor getIcon() throws Exception {
 			if (m_decorationImage != null && m_iconImage != null) {
-				return m_iconImage;
+				return ImageDescriptor.createFromImage(m_iconImage);
 			}
 			return super.getIcon();
 		}

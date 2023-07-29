@@ -19,7 +19,7 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanInfo;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link EditPart} for <i>non-visual bean</i> model.
@@ -66,8 +66,8 @@ public final class NonVisualBeanEditPart extends GraphicalEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Figure createFigure() {
-		Image image = ObjectInfo.getImage(m_beanInfo.getJavaInfo());
-		return new BeanFigure(image);
+		ImageDescriptor imageDescriptor = ObjectInfo.getImageDescriptor(m_beanInfo.getJavaInfo());
+		return new BeanFigure(imageDescriptor);
 	}
 
 	@Override

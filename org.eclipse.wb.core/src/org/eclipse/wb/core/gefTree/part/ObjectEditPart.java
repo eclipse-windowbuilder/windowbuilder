@@ -27,6 +27,7 @@ import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Event;
@@ -176,9 +177,11 @@ public class ObjectEditPart extends TreeEditPart {
 	}
 
 	private void update0() {
-		Image image = ObjectInfo.getImage(m_object);
+		ImageDescriptor imageDescriptor = ObjectInfo.getImageDescriptor(m_object);
 		String text = ObjectInfo.getText(m_object);
-		if (image != null && !image.isDisposed()) {
+		if (imageDescriptor != null) {
+			Image image = imageDescriptor.createImage();
+			getWidget().addDisposeListener(event -> image.dispose());
 			getWidget().setImage(image);
 		}
 		//Obtain the preference specifying the root object name. If no name is specified then the default is used

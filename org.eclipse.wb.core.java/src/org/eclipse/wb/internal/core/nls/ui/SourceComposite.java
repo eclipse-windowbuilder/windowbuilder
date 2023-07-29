@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,6 +32,10 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -477,13 +481,15 @@ public final class SourceComposite extends Composite {
 							final JavaInfo component = I.next();
 							final CLabel label = new CLabel(composite, SWT.NONE);
 							setColors(label);
-							ExecutionUtils.runLog(new RunnableEx() {
-								@Override
-								public void run() throws Exception {
-									IObjectPresentation presentation = component.getPresentation();
-									label.setImage(presentation.getIcon());
-									label.setText(presentation.getText());
+							ExecutionUtils.runLog(() -> {
+								IObjectPresentation presentation = component.getPresentation();
+								ImageDescriptor imageDescriptor = presentation.getIcon();
+								if (imageDescriptor != null) {
+								  Image image = imageDescriptor.createImage();
+  								label.addDisposeListener(event -> image.dispose());
+  								label.setImage(image);
 								}
+								label.setText(presentation.getText());
 							});
 						}
 						//
@@ -545,6 +551,14 @@ public final class SourceComposite extends Composite {
 	 * Implementation of {@link ITableLabelProvider} using values from {@link IEditableSource}.
 	 */
 	private class StringsLabelProvider extends LabelProvider implements ITableLabelProvider {
+		private ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
+		@Override
+		public void dispose() {
+			super.dispose();
+			m_resourceManager.dispose();
+		}
+
 		@Override
 		public String getColumnText(Object element, int columnIndex) {
 			String key = (String) element;
@@ -564,12 +578,9 @@ public final class SourceComposite extends Composite {
 				Set<JavaInfo> components = m_source.getComponentsByKey(key);
 				if (!components.isEmpty()) {
 					final JavaInfo component = components.iterator().next();
-					return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
-						@Override
-						public Image runObject() throws Exception {
-							return component.getPresentation().getIcon();
-						}
-					}, null);
+					final ImageDescriptor imageDescriptor = ExecutionUtils
+							.runObjectLog(() -> component.getPresentation().getIcon(), null);
+					return imageDescriptor == null ? null : m_resourceManager.createImage(imageDescriptor);
 				}
 			}
 			return null;
@@ -620,12 +631,7 @@ public final class SourceComposite extends Composite {
 			// change key or value
 			if (property.equals("key")) {
 				// key change
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						m_source.renameKey(key, stringValue);
-					}
-				});
+				ExecutionUtils.runLog(() -> m_source.renameKey(key, stringValue));
 			} else {
 				// value change
 				LocaleInfo locale = getLocaleForProperty(property);

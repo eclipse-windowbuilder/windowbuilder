@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model.broadcast;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * Listener for {@link ObjectInfo} events.
@@ -27,7 +27,7 @@ public interface ObjectInfoPresentationDecorateIcon {
 	 * @param object
 	 *          the {@link ObjectInfo} to decorate icon.
 	 * @param icon
-	 *          the array with single {@link Image}, listener can replace this image
+	 *          the array with single {@link ImageDescriptor}, listener can replace this image
 	 */
-	void invoke(ObjectInfo object, Image[] icon) throws Exception;
+	void invoke(ObjectInfo object, ImageDescriptor[] icon) throws Exception;
 }

@@ -12,6 +12,7 @@ package org.eclipse.wb.tests.designer.core.model.creation;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.creation.ExposedPropertyCreationSupport;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
@@ -438,11 +439,11 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 		assertSame(contentPane.getDescription(), container.getDescription());
 		// ...but their icons are different, because (probably) decorator applied
 		assertSame(
-				container.getPresentation().getIcon(),
-				ObjectInfo.getImage(container));
+				ReflectionUtils.getFieldObject(container.getPresentation().getIcon(), "m_Image"),
+				ReflectionUtils.getFieldObject(ObjectInfo.getImageDescriptor(container), "m_Image"));
 		assertNotSame(
 				contentPane.getPresentation().getIcon(),
-				ObjectInfo.getImage(contentPane));
+				ObjectInfo.getImageDescriptor(contentPane));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

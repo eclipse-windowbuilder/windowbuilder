@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.utils.ui.MenuManagerEx;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.ToolkitProvider;
@@ -28,7 +27,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -159,7 +158,7 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
 			boolean isFirst) throws Exception {
 		for (final ActionInfo actionInfo : ActionContainerInfo.getActions(root)) {
 			String text = actionInfo.getPresentation().getText();
-			Image image = actionInfo.getPresentation().getIcon();
+			ImageDescriptor image = actionInfo.getPresentation().getIcon();
 			// add action
 			RunnableEx runnable = new RunnableEx() {
 				public void run() throws Exception {
@@ -171,7 +170,7 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
 			};
 			IAction action =
 					contextMenu_createAction(root, isFirst, text, IAction.AS_RADIO_BUTTON, runnable);
-			action.setImageDescriptor(new ImageImageDescriptor(image));
+			action.setImageDescriptor(image);
 			groupsManager.add(action);
 			// update check state
 			{

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.presentation;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public interface IObjectPresentation {
 	/**
 	 * @return the icon to display for user.
 	 */
-	Image getIcon() throws Exception;
+	ImageDescriptor getIcon() throws Exception;
 
 	/**
 	 * @return the list of {@link ObjectInfo} children to display for user in components tree. This

@@ -123,18 +123,18 @@ public class EventsPropertyTest extends XwtModelTest {
 		// be default decoration enabled
 		assertNotSame(
 				button_1.getPresentation().getIcon(),
-				ObjectInfo.getImage(button_1));
+				ObjectInfo.getImageDescriptor(button_1));
 		assertSame(
 				button_2.getPresentation().getIcon(),
-				ObjectInfo.getImage(button_2));
+				ObjectInfo.getImageDescriptor(button_2));
 		// disable decoration, no decoration expected
 		TOOLKIT.getPreferences().setValue(IPreferenceConstants.P_DECORATE_ICON, false);
 		assertSame(
 				button_1.getPresentation().getIcon(),
-				ObjectInfo.getImage(button_1));
+				ObjectInfo.getImageDescriptor(button_1));
 		assertSame(
 				button_2.getPresentation().getIcon(),
-				ObjectInfo.getImage(button_2));
+				ObjectInfo.getImageDescriptor(button_2));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

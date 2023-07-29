@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,12 +23,13 @@ import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.DecorationOverlayIcon;
+import org.eclipse.jface.viewers.IDecoration;
 
 import java.util.List;
 
@@ -63,13 +64,12 @@ public final class EventsProperty extends AbstractEventProperty {
 	private void installDecoratorListener() {
 		m_javaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
 			@Override
-			public void invoke(ObjectInfo object, Image[] icon) throws Exception {
+			public void invoke(ObjectInfo object, ImageDescriptor[] icon) throws Exception {
 				if (object == m_javaInfo) {
 					IPreferenceStore preferences = m_javaInfo.getDescription().getToolkit().getPreferences();
 					if (preferences.getBoolean(IPreferenceConstants.P_DECORATE_ICON) && isModified()) {
-						Image decorator = DesignerPlugin.getImage("events/decorator.gif");
-						icon[0] =
-								SwtResourceManager.decorateImage(icon[0], decorator, SwtResourceManager.TOP_LEFT);
+						ImageDescriptor decorator = DesignerPlugin.getImageDescriptor("events/decorator.gif");
+						icon[0] = new DecorationOverlayIcon(icon[0], decorator, IDecoration.TOP_LEFT);
 					}
 				}
 			}

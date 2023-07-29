@@ -16,11 +16,12 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateText;
 import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.DecorationOverlayIcon;
+import org.eclipse.jface.viewers.IDecoration;
 
 /**
  * Test for {@link ObjectsLabelProvider}.
@@ -28,10 +29,10 @@ import org.eclipse.swt.graphics.Image;
  * @author scheglov_ke
  */
 public class ObjectsLabelProviderTest extends DesignerTestCase {
-	private static final Image DEF_ICON = SwtResourceManager.getImage(
+	private static final ImageDescriptor DEF_ICON = ImageDescriptor.createFromFile(
 			Object.class,
 			"/javax/swing/plaf/basic/icons/JavaCup16.png");
-	private static final Image DOWN_ICON = SwtResourceManager.getImage(
+	private static final ImageDescriptor DOWN_ICON = ImageDescriptor.createFromFile(
 			Object.class,
 			"/javax/swing/plaf/metal/icons/sortDown.png");
 	private static final String DEF_TEXT = "theObject";
@@ -47,7 +48,7 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 	public void test_default() throws Exception {
 		TestObjectInfo theObject = new MyObjectInfo();
 		// do checks
-		assertSame(DEF_ICON, ObjectInfo.getImage(theObject));
+		assertSame(DEF_ICON, ObjectInfo.getImageDescriptor(theObject));
 		assertSame(DEF_TEXT, ObjectInfo.getText(theObject));
 	}
 
@@ -58,9 +59,8 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 		TestObjectInfo theObject = new MyObjectInfo();
 		theObject.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
 			@Override
-			public void invoke(ObjectInfo object, Image[] icon) throws Exception {
-				icon[0] =
-						SwtResourceManager.decorateImage(icon[0], DOWN_ICON, SwtResourceManager.BOTTOM_RIGHT);
+			public void invoke(ObjectInfo object, ImageDescriptor[] icon) throws Exception {
+				icon[0] = new DecorationOverlayIcon(icon[0], DOWN_ICON, IDecoration.BOTTOM_RIGHT);
 			}
 		});
 		theObject.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
@@ -70,7 +70,7 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 			}
 		});
 		// do checks
-		assertNotSame(DEF_ICON, ObjectInfo.getImage(theObject));
+		assertNotSame(DEF_ICON, ObjectInfo.getImageDescriptor(theObject));
 		assertEquals("A: " + DEF_TEXT + " :B", ObjectInfo.getText(theObject));
 	}
 
@@ -84,7 +84,7 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 		public IObjectPresentation getPresentation() {
 			return new DefaultObjectPresentation(this) {
 				@Override
-				public Image getIcon() throws Exception {
+				public ImageDescriptor getIcon() throws Exception {
 					return DEF_ICON;
 				}
 

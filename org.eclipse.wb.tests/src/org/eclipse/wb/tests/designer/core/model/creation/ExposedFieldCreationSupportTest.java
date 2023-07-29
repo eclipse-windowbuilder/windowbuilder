@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.creation.ExposedFieldCreationSupport;
 import org.eclipse.wb.internal.core.model.variable.ExposedFieldVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
@@ -500,11 +501,11 @@ public class ExposedFieldCreationSupportTest extends SwingModelTest {
 		assertSame(exposedContainer.getDescription(), innerPanel.getDescription());
 		// ...but their icons are different, because (probably) decorator applied
 		assertSame(
-				innerPanel.getPresentation().getIcon(),
-				ObjectInfo.getImage(innerPanel));
+				ReflectionUtils.getFieldObject(innerPanel.getPresentation().getIcon(), "m_Image"),
+				ReflectionUtils.getFieldObject(ObjectInfo.getImageDescriptor(innerPanel), "m_Image"));
 		assertNotSame(
 				exposedContainer.getPresentation().getIcon(),
-				ObjectInfo.getImage(exposedContainer));
+				ObjectInfo.getImageDescriptor(exposedContainer));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

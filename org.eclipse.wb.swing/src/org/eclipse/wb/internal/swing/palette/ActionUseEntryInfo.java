@@ -16,13 +16,11 @@ import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.ObjectUtils;
 
@@ -40,7 +38,7 @@ import javax.swing.JToolBar;
  * @coverage swing.editor.palette
  */
 public final class ActionUseEntryInfo extends ToolEntryInfo {
-	private static final Image ICON = Activator.getImage("info/Action/action.gif");
+	private static final ImageDescriptor ICON = Activator.getImageDescriptor("info/Action/action.gif");
 	private final ActionInfo m_action;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -62,13 +60,7 @@ public final class ActionUseEntryInfo extends ToolEntryInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public ImageDescriptor getIcon() {
-		return ImageDescriptor.createFromImage(ExecutionUtils.runObjectLog(
-			new RunnableObjectEx<Image>() {
-				@Override
-				public Image runObject() throws Exception {
-					return m_action.getPresentation().getIcon();
-				}
-			}, ICON));
+		return ExecutionUtils.runObjectLog(() -> m_action.getPresentation().getIcon(), ICON);
 	}
 
 	@Override
