@@ -270,7 +270,7 @@ public class MenuTest extends RcpModelTest {
 		IMenuPopupInfo popupObject = menuInfo.getAdapter(IMenuPopupInfo.class);
 		assertNotNull(popupObject);
 		assertSame(menuInfo, popupObject.getModel());
-		assertSame(menuInfo.getPresentation().getIcon(), ReflectionUtils.getFieldObject(popupObject.getImageDescriptor(), "originalImage"));
+		assertSame(menuInfo.getPresentation().getIcon(), popupObject.getImageDescriptor());
 		assertEquals(16, popupObject.getBounds().width);
 		assertEquals(16, popupObject.getBounds().height);
 		assertSame(menuObject, popupObject.getMenu());

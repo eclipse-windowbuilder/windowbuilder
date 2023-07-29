@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -79,8 +79,8 @@ public final class InstanceFactoryContainerInfo extends ObjectInfo {
 			}
 
 			@Override
-			public Image getIcon() throws Exception {
-				return DesignerPlugin.getImage("components/factory_container.gif");
+			public ImageDescriptor getIcon() throws Exception {
+				return DesignerPlugin.getImageDescriptor("components/factory_container.gif");
 			}
 		};
 	}

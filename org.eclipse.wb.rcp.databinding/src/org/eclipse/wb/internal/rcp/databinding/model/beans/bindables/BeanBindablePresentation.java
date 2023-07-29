@@ -14,6 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.presentation.ObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
@@ -78,8 +79,7 @@ public final class BeanBindablePresentation extends ObservePresentation {
 		if (m_beanImage == null && m_javaInfo == null) {
 			return null;
 		}
-		Image image = m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : m_beanImage;
-		return image == null ? null : ImageDescriptor.createFromImage(image);
+		return m_beanImage == null ? m_javaInfo.getPresentation().getIcon() : new ImageImageDescriptor(m_beanImage);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

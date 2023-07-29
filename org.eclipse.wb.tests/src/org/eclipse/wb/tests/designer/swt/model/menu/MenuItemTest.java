@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.event.EventsProperty;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
@@ -131,8 +132,8 @@ public class MenuItemTest extends RcpModelTest {
 		MenuItemInfo menuItemSeparator = menuItems.get(4);
 		// test icons
 		assertSame(
-				menuItemDefault.getPresentation().getIcon(),
-				menuItemPush.getPresentation().getIcon());
+				ReflectionUtils.getFieldObject(menuItemDefault.getPresentation().getIcon(), "m_Image"),
+				ReflectionUtils.getFieldObject(menuItemPush.getPresentation().getIcon(), "m_Image"));
 		assertNotSame(
 				menuItemDefault.getPresentation().getIcon(),
 				menuItemCheck.getPresentation().getIcon());

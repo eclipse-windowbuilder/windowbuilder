@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -103,8 +103,8 @@ public abstract class CollectorObjectInfo extends ObjectInfo {
 			}
 
 			@Override
-			public Image getIcon() throws Exception {
-				return DesignerPlugin.getImage("components/non_visual_beans_container.gif");
+			public ImageDescriptor getIcon() throws Exception {
+				return DesignerPlugin.getImageDescriptor("components/non_visual_beans_container.gif");
 			}
 
 			@Override

@@ -61,7 +61,6 @@ public class JavaInfoObservePresentation implements IObservePresentation {
 
 	@Override
 	public ImageDescriptor getImageDescriptor() throws Exception {
-		return ExecutionUtils.runObjectLog(
-				() -> ImageDescriptor.createFromImage(ObjectInfo.getImage(m_javaInfo)), null);
+		return ExecutionUtils.runObjectLog(() -> ObjectInfo.getImageDescriptor(m_javaInfo), null);
 	}
 }

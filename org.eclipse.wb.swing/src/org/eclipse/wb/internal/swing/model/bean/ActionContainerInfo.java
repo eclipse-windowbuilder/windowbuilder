@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.core.model.variable.LazyVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.swing.Activator;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.Collections;
 import java.util.List;
@@ -151,8 +151,8 @@ public final class ActionContainerInfo extends ObjectInfo {
 			}
 
 			@Override
-			public Image getIcon() throws Exception {
-				return Activator.getImage("info/Action/container.gif");
+			public ImageDescriptor getIcon() throws Exception {
+				return Activator.getImageDescriptor("info/Action/container.gif");
 			}
 		};
 	}

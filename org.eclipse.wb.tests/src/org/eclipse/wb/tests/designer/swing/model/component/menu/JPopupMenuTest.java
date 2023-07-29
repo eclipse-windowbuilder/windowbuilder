@@ -103,7 +103,7 @@ public class JPopupMenuTest extends SwingModelTest {
 			IMenuPopupInfo popupObject = MenuObjectInfoUtils.getMenuPopupInfo(popupInfo);
 			assertSame(popupInfo, popupObject.getModel());
 			// presentation
-			assertSame(popupInfo.getDescription().getIcon(), ReflectionUtils.getFieldObject(popupObject.getImageDescriptor(), "originalImage"));
+			assertSame(popupInfo.getDescription().getIcon(), ReflectionUtils.getFieldObject(popupObject.getImageDescriptor(), "m_Image"));
 			assertEquals(new Rectangle(0, 0, 16, 16), popupObject.getBounds());
 			// no policy
 			assertSame(IMenuPolicy.NOOP, popupObject.getPolicy());

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.wb.tests.designer.core.model;
 import org.eclipse.wb.internal.core.model.creation.factory.StaticFactoryCreationSupport;
 import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
@@ -47,7 +48,7 @@ public class DefaultJavaInfoPresentationTest extends SwingModelTest {
 		// check "button" presentation, icon is from ComponentDescription
 		IObjectPresentation presentation = button.getPresentation();
 		assertInstanceOf(DefaultJavaInfoPresentation.class, presentation);
-		assertSame(button.getDescription().getIcon(), presentation.getIcon());
+		assertSame(button.getDescription().getIcon(), ReflectionUtils.getFieldObject(presentation.getIcon(), "m_Image"));
 		assertEquals("button", presentation.getText());
 	}
 
@@ -87,7 +88,7 @@ public class DefaultJavaInfoPresentationTest extends SwingModelTest {
 		StaticFactoryCreationSupport creationSupport =
 				(StaticFactoryCreationSupport) button.getCreationSupport();
 		IObjectPresentation presentation = button.getPresentation();
-		assertSame(creationSupport.getDescription().getIcon(), presentation.getIcon());
+		assertSame(creationSupport.getDescription().getIcon(), ReflectionUtils.getFieldObject(presentation.getIcon(), "m_Image"));
 		assertEquals("button", presentation.getText());
 	}
 
@@ -128,7 +129,7 @@ public class DefaultJavaInfoPresentationTest extends SwingModelTest {
 		}
 		// ...so use from ComponentDescription
 		IObjectPresentation presentation = button.getPresentation();
-		assertSame(button.getDescription().getIcon(), presentation.getIcon());
+		assertSame(button.getDescription().getIcon(), ReflectionUtils.getFieldObject(presentation.getIcon(), "m_Image"));
 		assertEquals("button", presentation.getText());
 	}
 }

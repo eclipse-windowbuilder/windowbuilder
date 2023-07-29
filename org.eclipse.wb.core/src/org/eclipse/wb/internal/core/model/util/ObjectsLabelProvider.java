@@ -12,6 +12,10 @@ package org.eclipse.wb.internal.core.model.util;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
@@ -22,6 +26,13 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.model.util
  */
 public final class ObjectsLabelProvider extends LabelProvider {
+	private ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		m_resourceManager.dispose();
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -30,7 +41,8 @@ public final class ObjectsLabelProvider extends LabelProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Image getImage(final Object element) {
-		return ObjectInfo.getImage((ObjectInfo) element);
+		ImageDescriptor imageDescriptor = ObjectInfo.getImageDescriptor((ObjectInfo) element);
+		return imageDescriptor == null ? null : m_resourceManager.createImage(imageDescriptor);
 	}
 
 	@Override

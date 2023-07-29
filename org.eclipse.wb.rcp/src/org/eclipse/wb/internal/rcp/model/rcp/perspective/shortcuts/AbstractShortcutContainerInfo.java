@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,11 +36,11 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
@@ -108,8 +108,8 @@ public abstract class AbstractShortcutContainerInfo extends ObjectInfo {
 	////////////////////////////////////////////////////////////////////////////
 	private final IObjectPresentation m_presentation = new DefaultObjectPresentation(this) {
 		@Override
-		public Image getIcon() throws Exception {
-			return Activator.getImage("info/perspective/container.gif");
+		public ImageDescriptor getIcon() throws Exception {
+			return Activator.getImageDescriptor("info/perspective/container.gif");
 		}
 
 		@Override

@@ -28,20 +28,19 @@ import org.eclipse.wb.internal.core.model.order.ComponentOrderFirst;
 import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.Optional;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -239,8 +238,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		public ImageDescriptor getImageDescriptor() {
-			Image image = ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), getDescription().getIcon());
-			return image == null ? null : ImageDescriptor.createFromImage(image);
+			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), new ImageImageDescriptor(getDescription().getIcon()));
 		}
 
 		public Rectangle getBounds() {

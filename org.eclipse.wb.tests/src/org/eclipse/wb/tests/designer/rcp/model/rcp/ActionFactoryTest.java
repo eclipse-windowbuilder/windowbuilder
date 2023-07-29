@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.Action;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.actions.ActionFactory;
 
 /**
@@ -163,9 +163,9 @@ public class ActionFactoryTest extends RcpModelTest {
 		// no "imageDescriptor" property for Action, but presentation still has icon
 		assertNull(ReflectionUtils.invokeMethod(action.getObject(), "getImageDescriptor()"));
 		{
-			Image icon = action.getPresentation().getIcon();
+			ImageDescriptor icon = action.getPresentation().getIcon();
 			assertNotNull(icon);
-			assertTrue(UiUtils.equals(Activator.getImage("info/Action/workbench_action.gif"), icon));
+			assertTrue(UiUtils.equals(Activator.getImageDescriptor("info/Action/workbench_action.gif"), icon));
 		}
 	}
 

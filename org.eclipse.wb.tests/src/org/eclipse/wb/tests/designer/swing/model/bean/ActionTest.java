@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -52,7 +52,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.assertj.core.api.Assertions;
 
@@ -1588,8 +1588,8 @@ public class ActionTest extends SwingModelTest {
 		ActionInfo action_1 = ActionContainerInfo.getActions(panel).get(0);
 		ActionInfo action_2 = ActionContainerInfo.getActions(panel).get(1);
 		// action_1 has SMALL_ICON, so has not default icon, as action_2
-		Image icon_1 = action_1.getPresentation().getIcon();
-		Image icon_2 = action_2.getPresentation().getIcon();
+		ImageDescriptor icon_1 = action_1.getPresentation().getIcon();
+		ImageDescriptor icon_2 = action_2.getPresentation().getIcon();
 		assertNotSame(action_1.getDescription().getIcon(), icon_1);
 		assertSame(action_2.getDescription().getIcon(), icon_2);
 	}

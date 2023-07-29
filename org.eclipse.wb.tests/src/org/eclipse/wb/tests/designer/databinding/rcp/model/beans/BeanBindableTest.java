@@ -77,7 +77,7 @@ public class BeanBindableTest extends AbstractBindingTest {
 				FieldBeanBindableInfo.class,
 				"m_shell - Shell|m_shell|org.eclipse.swt.widgets.Shell",
 				observes.get(0));
-		assertSame(shell.getPresentation().getIcon(), ReflectionUtils.getFieldObject(observes.get(0).getPresentation().getImageDescriptor(), "originalImage"));
+		assertSame(ReflectionUtils.getFieldObject(shell.getPresentation().getIcon(), "m_Image"), ReflectionUtils.getFieldObject(observes.get(0).getPresentation().getImageDescriptor(), "m_Image"));
 		//
 		assertBindable(
 				FieldBeanBindableInfo.class,
@@ -338,7 +338,7 @@ public class BeanBindableTest extends AbstractBindingTest {
 				FieldBeanBindableInfo.class,
 				"m_shell - Shell|m_shell|org.eclipse.swt.widgets.Shell",
 				observes.get(0));
-		assertSame(shell.getPresentation().getIcon(), ReflectionUtils.getFieldObject(observes.get(0).getPresentation().getImageDescriptor(), "originalImage"));
+		assertSame(ReflectionUtils.getFieldObject(shell.getPresentation().getIcon(), "m_Image"), ReflectionUtils.getFieldObject(observes.get(0).getPresentation().getImageDescriptor(), "m_Image"));
 		//
 		assertBindable(
 				FieldBeanBindableInfo.class,

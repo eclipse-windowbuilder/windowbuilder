@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,12 +15,10 @@ import com.google.common.collect.Maps;
 import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentation;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
-import org.eclipse.wb.internal.core.utils.ui.ImageDisposer;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Widget;
 
 import org.osgi.framework.Bundle;
@@ -51,10 +49,10 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Image getIcon() throws Exception {
+	public ImageDescriptor getIcon() throws Exception {
 		// try to get by style
 		int style = ControlSupport.getStyle(m_javaInfo.getObject());
-		for (Map.Entry<Integer, Image> entry : getImages().entrySet()) {
+		for (Map.Entry<Integer, ImageDescriptor> entry : getImages().entrySet()) {
 			int keyStyle = entry.getKey();
 			if ((style & keyStyle) == keyStyle) {
 				return entry.getValue();
@@ -74,13 +72,13 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final ClassMap<Map<Integer, Image>> m_images = ClassMap.create();
+	private static final ClassMap<Map<Integer, ImageDescriptor>> m_images = ClassMap.create();
 
 	/**
 	 * @return the "style to image" map corresponding to this {@link StylePresentation}.
 	 */
-	private Map<Integer, Image> getImages() throws Exception {
-		Map<Integer, Image> images = m_images.get(getClass());
+	private Map<Integer, ImageDescriptor> getImages() throws Exception {
+		Map<Integer, ImageDescriptor> images = m_images.get(getClass());
 		if (images == null) {
 			images = Maps.newHashMap();
 			m_images.put(getClass(), images);
@@ -100,7 +98,7 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
 	 */
 	protected final void addImage(int style, String imagePath) throws Exception {
 		// load image
-		Image image;
+		ImageDescriptor image;
 		{
 			Bundle bundle = m_javaInfo.getDescription().getToolkit().getBundle();
 			URL imageURL = bundle.getEntry(imagePath);
@@ -110,10 +108,9 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
 							ModelMessages.StylePresentation_canNotFindImage,
 							imagePath,
 							bundle.getSymbolicName()));
-			image = new Image(Display.getDefault(), imageURL.openStream());
+			image = ImageDescriptor.createFromURL(imageURL);
 		}
 		// remember image
 		getImages().put(style, image);
-		ImageDisposer.add(getClass(), imagePath, image);
 	}
 }

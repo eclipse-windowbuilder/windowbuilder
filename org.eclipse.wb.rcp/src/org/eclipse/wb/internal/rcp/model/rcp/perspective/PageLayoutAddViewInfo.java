@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,10 +19,12 @@ import org.eclipse.wb.internal.core.model.property.editor.BooleanPropertyEditor;
 import org.eclipse.wb.internal.core.model.variable.VoidInvocationVariableSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -216,8 +218,8 @@ public final class PageLayoutAddViewInfo extends AbstractPartInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected Image getPresentationIcon() {
-		return getViewInfo().getIcon();
+	protected ImageDescriptor getPresentationIcon() {
+		return new ImageImageDescriptor(getViewInfo().getIcon());
 	}
 
 	@Override
@@ -242,7 +244,12 @@ public final class PageLayoutAddViewInfo extends AbstractPartInfo {
 		CTabFolder folder = PageLayoutInfo.createPartFolder(m_page.getPartsComposite());
 		// create CTabItem
 		CTabItem item = new CTabItem(folder, SWT.CLOSE);
-		item.setImage(getPresentationIcon());
+		ImageDescriptor imageDescriptor = getPresentationIcon();
+		if (imageDescriptor != null) {
+			Image image = imageDescriptor.createImage();
+			item.addDisposeListener(event -> image.dispose());
+			item.setImage(image);
+		}
 		item.setText(getViewInfo().getName());
 		// return CTabFolder
 		folder.setSelection(item);

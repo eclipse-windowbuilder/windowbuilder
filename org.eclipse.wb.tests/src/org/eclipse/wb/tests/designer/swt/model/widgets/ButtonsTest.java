@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.widgets;
 
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.layout.FillLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ButtonStylePresentation;
@@ -167,7 +168,7 @@ public class ButtonsTest extends RcpModelTest {
 		ButtonInfo buttonCheck = (ButtonInfo) shell.getChildrenControls().get(2);
 		ButtonInfo buttonRadio = (ButtonInfo) shell.getChildrenControls().get(3);
 		// check icons
-		assertSame(buttonDefault.getPresentation().getIcon(), buttonPush.getPresentation().getIcon());
+		assertSame(ReflectionUtils.getFieldObject(buttonDefault.getPresentation().getIcon(), "m_Image"), ReflectionUtils.getFieldObject(buttonPush.getPresentation().getIcon(), "m_Image"));
 		assertNotSame(buttonPush.getPresentation().getIcon(), buttonRadio.getPresentation().getIcon());
 		assertNotSame(buttonPush.getPresentation().getIcon(), buttonCheck.getPresentation().getIcon());
 		assertNotSame(buttonRadio.getPresentation().getIcon(), buttonCheck.getPresentation().getIcon());

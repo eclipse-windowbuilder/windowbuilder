@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,8 +17,8 @@ import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IPageLayout;
@@ -61,8 +61,8 @@ public final class EditorAreaInfo extends ObjectInfo implements IPageLayoutTopLe
 	public IObjectPresentation getPresentation() {
 		return new DefaultObjectPresentation(this) {
 			@Override
-			public Image getIcon() throws Exception {
-				return Activator.getImage("info/perspective/editor.gif");
+			public ImageDescriptor getIcon() throws Exception {
+				return Activator.getImageDescriptor("info/perspective/editor.gif");
 			}
 
 			@Override

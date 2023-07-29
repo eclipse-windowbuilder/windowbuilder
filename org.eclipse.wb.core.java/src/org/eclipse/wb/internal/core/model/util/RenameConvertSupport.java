@@ -36,6 +36,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IContributionManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -367,8 +368,12 @@ public final class RenameConvertSupport {
 				// icon
 				{
 					Label iconLabel = new Label(container, SWT.NONE);
-					Image icon = ObjectInfo.getImage(javaInfo);
-					iconLabel.setImage(icon);
+					ImageDescriptor imageDescriptor = ObjectInfo.getImageDescriptor(javaInfo);
+					if (imageDescriptor != null ) {
+						Image icon = imageDescriptor.createImage();
+						iconLabel.addDisposeListener(event -> icon.dispose());
+						iconLabel.setImage(icon);
+					}
 				}
 				// text
 				{

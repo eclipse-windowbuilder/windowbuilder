@@ -44,6 +44,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
 import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
 import org.eclipse.wb.internal.swt.model.widgets.live.menu.MenuLiveManager;
@@ -55,7 +56,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Decorations;
@@ -340,8 +340,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public ImageDescriptor getImageDescriptor() {
-			Image image = ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), getDescription().getIcon());
-			return image == null ? null : ImageDescriptor.createFromImage(image);
+			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), new ImageImageDescriptor(getDescription().getIcon()));
 		}
 
 		@Override

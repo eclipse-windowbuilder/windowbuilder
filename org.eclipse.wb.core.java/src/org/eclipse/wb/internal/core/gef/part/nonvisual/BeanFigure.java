@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,13 +11,16 @@
 package org.eclipse.wb.internal.core.gef.part.nonvisual;
 
 import org.eclipse.wb.draw2d.Figure;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.draw2d.Label;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 
 /**
  * A figure that can display text and image.
@@ -26,7 +29,7 @@ import org.eclipse.swt.graphics.Image;
  * @coverage core.gef.nonvisual
  */
 public class BeanFigure extends Figure {
-	private final Image m_image;
+	private final ImageDescriptor m_imageDescriptor;
 	private final Label m_label = new Label();
 	private final Point m_imageLocation = new Point();
 	private final Dimension m_imageSize;
@@ -36,9 +39,15 @@ public class BeanFigure extends Figure {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
 	public BeanFigure(Image image) {
-		m_image = image;
-		m_imageSize = new Dimension(m_image);
+		this(new ImageImageDescriptor(image));
+	}
+
+	public BeanFigure(ImageDescriptor imageDescriptor) {
+		final ImageData imageData = imageDescriptor.getImageData(100);
+		m_imageDescriptor = imageDescriptor;
+		m_imageSize = new Dimension(imageData.width, imageData.height);
 		add(m_label);
 	}
 
@@ -73,6 +82,8 @@ public class BeanFigure extends Figure {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void paintClientArea(Graphics graphics) {
-		graphics.drawImage(m_image, m_imageLocation);
+		Image image = m_imageDescriptor.createImage();
+		graphics.drawImage(image, m_imageLocation);
+		image.dispose();
 	}
 }

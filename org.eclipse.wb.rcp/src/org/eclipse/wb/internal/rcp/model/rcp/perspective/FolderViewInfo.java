@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,12 +19,14 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentati
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.variable.VoidInvocationVariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -95,7 +97,7 @@ public final class FolderViewInfo extends AbstractComponentInfo implements IRend
 	////////////////////////////////////////////////////////////////////////////
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
-		public Image getIcon() throws Exception {
+		public ImageDescriptor getIcon() throws Exception {
 			return getPresentationIcon();
 		}
 
@@ -113,8 +115,8 @@ public final class FolderViewInfo extends AbstractComponentInfo implements IRend
 	/**
 	 * @return the icon to show in component tree.
 	 */
-	private Image getPresentationIcon() throws Exception {
-		return getViewInfo().getIcon();
+	private ImageDescriptor getPresentationIcon() throws Exception {
+		return new ImageImageDescriptor(getViewInfo().getIcon());
 	}
 
 	/**

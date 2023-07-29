@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -147,7 +147,7 @@ public class ToolBarTest extends RcpModelTest {
 		ToolItemInfo itemDropDown = toolBar.getItems().get(4);
 		ToolItemInfo itemSeparator = toolBar.getItems().get(5);
 		// check icons
-		assertSame(itemDefault.getPresentation().getIcon(), itemPush.getPresentation().getIcon());
+		assertSame(ReflectionUtils.getFieldObject(itemDefault.getPresentation().getIcon(), "m_Image"), ReflectionUtils.getFieldObject(itemPush.getPresentation().getIcon(), "m_Image"));
 		assertNotSame(itemPush.getPresentation().getIcon(), itemRadio.getPresentation().getIcon());
 		assertNotSame(itemPush.getPresentation().getIcon(), itemCheck.getPresentation().getIcon());
 		assertNotSame(itemRadio.getPresentation().getIcon(), itemCheck.getPresentation().getIcon());

@@ -29,7 +29,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -690,12 +690,12 @@ public abstract class ObjectInfo implements IObjectInfo {
 	 * @return The decorated image or {@code null} on error.
 	 * @see IObjectPresentation
 	 */
-	public static Image getImage(final ObjectInfo objectInfo) {
+	public static ImageDescriptor getImageDescriptor(final ObjectInfo objectInfo) {
 		return ExecutionUtils.runObjectLog(() -> {
-			Image icon = objectInfo.getPresentation().getIcon();
+			ImageDescriptor icon = objectInfo.getPresentation().getIcon();
 			// decorate
 			{
-				Image[] decoratedIcon = new Image[] { icon };
+				ImageDescriptor[] decoratedIcon = new ImageDescriptor[] { icon };
 				objectInfo.getBroadcast(ObjectInfoPresentationDecorateIcon.class).invoke(objectInfo, decoratedIcon);
 				icon = decoratedIcon[0];
 			}

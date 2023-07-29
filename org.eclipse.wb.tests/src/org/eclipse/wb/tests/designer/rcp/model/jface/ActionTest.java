@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -205,7 +205,7 @@ public class ActionTest extends RcpModelTest {
 				ComponentDescriptionHelper.getDescription(
 						m_lastEditor,
 						m_lastLoader.loadClass("org.eclipse.jface.action.Action")).getIcon();
-		assertTrue(UiUtils.equals(genericActionIcon, presentation.getIcon()));
+		assertTrue(UiUtils.equals(ImageDescriptor.createFromImage(genericActionIcon), presentation.getIcon()));
 		// add ResourceManager and set ImageDescriptor
 		{
 			ManagerUtils.ensure_ResourceManager(window);
@@ -213,13 +213,12 @@ public class ActionTest extends RcpModelTest {
 					(ClassInstanceCreation) action.getCreationSupport().getNode();
 			Expression imageDescriptionExpression = (Expression) actionCreation.arguments().get(1);
 			m_lastEditor.replaceExpression(imageDescriptionExpression, ImmutableList.of(
-					"org.eclipse.wb.swt.ResourceManager.getImageDescriptor(",
-					"getClass(),",
-					"\"/icons/full/etool16/delete_edit.gif\")"));
+					"org.eclipse.jface.resource.ImageDescriptor.createFromURL(",
+					"org.eclipse.core.runtime.Platform.getBundle(\"org.eclipse.ui\").getResource(\"/icons/full/etool16/delete_edit.png\"))"));
 		}
 		// now icon is got from ImageDescriptor, well at least not default one
 		window.refresh();
-		assertFalse(UiUtils.equals(genericActionIcon, presentation.getIcon()));
+		assertFalse(UiUtils.equals(ImageDescriptor.createFromImage(genericActionIcon), presentation.getIcon()));
 	}
 
 	/**
@@ -253,7 +252,7 @@ public class ActionTest extends RcpModelTest {
 					ComponentDescriptionHelper.getDescription(
 							m_lastEditor,
 							m_lastLoader.loadClass("org.eclipse.jface.action.Action")).getIcon();
-			assertTrue(UiUtils.equals(genericActionIcon, presentation.getIcon()));
+			assertTrue(UiUtils.equals(ImageDescriptor.createFromImage(genericActionIcon), presentation.getIcon()));
 		}
 		// set CreationSupport with IActionIconProvider
 		final Image expectedImage = DesignerPlugin.getImage("test.png");
@@ -271,7 +270,7 @@ public class ActionTest extends RcpModelTest {
 			action.setCreationSupport(creationSupport);
 		}
 		// now "expectedImage"
-		assertSame(expectedImage, presentation.getIcon());
+		assertSame(expectedImage, ReflectionUtils.getFieldObject(presentation.getIcon(), "m_Image"));
 	}
 
 	/**
@@ -654,7 +653,7 @@ public class ActionTest extends RcpModelTest {
 		{
 			IObjectPresentation actionPresentation = action.getPresentation();
 			IObjectPresentation itemPresentation = contributionItem.getPresentation();
-			assertSame(actionPresentation.getIcon(), itemPresentation.getIcon());
+			assertSame(ReflectionUtils.getFieldObject(actionPresentation.getIcon(), "m_Image"), ReflectionUtils.getFieldObject(itemPresentation.getIcon(), "m_Image"));
 			assertEquals(actionPresentation.getText(), itemPresentation.getText());
 		}
 		// delete "contributionItem"
@@ -793,7 +792,7 @@ public class ActionTest extends RcpModelTest {
 		{
 			IObjectPresentation actionPresentation = action.getPresentation();
 			IObjectPresentation itemPresentation = contributionItem.getPresentation();
-			assertSame(actionPresentation.getIcon(), itemPresentation.getIcon());
+			assertSame(ReflectionUtils.getFieldObject(actionPresentation.getIcon(), "m_Image"), ReflectionUtils.getFieldObject(itemPresentation.getIcon(), "m_Image"));
 			assertEquals("(no variable)", itemPresentation.getText());
 		}
 		// refresh(), check "contributionItem"

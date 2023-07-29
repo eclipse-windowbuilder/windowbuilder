@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlMenuMenuObject;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
@@ -43,7 +44,6 @@ import org.eclipse.wb.internal.xwt.model.widgets.XwtLiveManager;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Menu;
 
@@ -272,8 +272,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		public ImageDescriptor getImageDescriptor() {
-			Image image = ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), getDescription().getIcon());
-			return image == null ? null : ImageDescriptor.createFromImage(image);
+			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), new ImageImageDescriptor(getDescription().getIcon()));
 		}
 
 		public Rectangle getBounds() {

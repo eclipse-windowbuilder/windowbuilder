@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,6 +29,7 @@ import org.eclipse.wb.internal.swt.support.RectangleSupport;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -100,7 +101,7 @@ public abstract class AbstractShortcutInfo extends AbstractComponentInfo impleme
 	////////////////////////////////////////////////////////////////////////////
 	private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
 		@Override
-		public Image getIcon() throws Exception {
+		public ImageDescriptor getIcon() throws Exception {
 			return getPresentationIcon();
 		}
 
@@ -118,7 +119,7 @@ public abstract class AbstractShortcutInfo extends AbstractComponentInfo impleme
 	/**
 	 * @return the icon to show in component tree.
 	 */
-	protected abstract Image getPresentationIcon() throws Exception;
+	protected abstract ImageDescriptor getPresentationIcon() throws Exception;
 
 	/**
 	 * @return the text to show in component tree.
@@ -135,8 +136,13 @@ public abstract class AbstractShortcutInfo extends AbstractComponentInfo impleme
 	@Override
 	public Object render() throws Exception {
 		ToolBar toolBar = m_container.getToolBar();
+		ImageDescriptor imageDescriptor = getPresentationIcon();
 		m_item = new ToolItem(toolBar, SWT.NONE);
-		m_item.setImage(getPresentationIcon());
+		if (imageDescriptor != null) {
+			Image image = imageDescriptor.createImage();
+			m_item.addDisposeListener(event -> image.dispose());
+			m_item.setImage(image);
+		}
 		m_item.setToolTipText(getPresentationText());
 		return m_item;
 	}
