@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentati
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.rcp.palette.ActionUseEntryInfo;
 
 import org.eclipse.jface.action.IAction;
@@ -91,7 +90,7 @@ public final class ActionInfo extends JavaInfo {
 			}
 			if (getCreationSupport() instanceof IActionIconProvider) {
 				IActionIconProvider iconProvider = (IActionIconProvider) getCreationSupport();
-				return new ImageImageDescriptor(iconProvider.getActionIcon());
+				return iconProvider.getActionIcon();
 			}
 			return super.getIcon();
 		}

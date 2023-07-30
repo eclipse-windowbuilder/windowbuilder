@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.ActionFactoryCreationSupport;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
@@ -36,9 +35,9 @@ import java.util.Map;
  * @coverage rcp.editor.palette
  */
 public final class ActionFactoryNewEntryInfo extends ToolEntryInfo {
-	private static final Map<String, Image> m_namedIcons = Maps.newTreeMap();
+	private static final Map<String, ImageDescriptor> m_namedIcons = Maps.newTreeMap();
 	private final String m_name;
-	private final Image m_icon;
+	private final ImageDescriptor m_icon;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -61,10 +60,10 @@ public final class ActionFactoryNewEntryInfo extends ToolEntryInfo {
 			setDescription(action.getDescription());
 			// icon
 			{
-				Image icon = m_namedIcons.get(m_name);
+				ImageDescriptor icon = m_namedIcons.get(m_name);
 				if (icon == null) {
 					if (action.getImageDescriptor() != null) {
-						icon = action.getImageDescriptor().createImage();
+						icon = action.getImageDescriptor();
 					} else {
 						icon = ActionFactoryCreationSupport.DEFAULT_ICON;
 					}
@@ -84,7 +83,7 @@ public final class ActionFactoryNewEntryInfo extends ToolEntryInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public ImageDescriptor getIcon() {
-		return ImageDescriptor.createFromImage(m_icon);
+		return m_icon;
 	}
 
 	@Override
