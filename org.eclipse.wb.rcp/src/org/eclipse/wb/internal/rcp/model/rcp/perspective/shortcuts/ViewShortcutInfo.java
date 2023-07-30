@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts;
 
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
@@ -44,7 +43,7 @@ public final class ViewShortcutInfo extends AbstractShortcutInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected ImageDescriptor getPresentationIcon() throws Exception {
-		return new ImageImageDescriptor(getViewInfo().getIcon());
+		return getViewInfo().getIcon();
 	}
 
 	@Override

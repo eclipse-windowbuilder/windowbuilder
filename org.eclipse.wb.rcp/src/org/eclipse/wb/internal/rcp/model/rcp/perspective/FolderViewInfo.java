@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentati
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.variable.VoidInvocationVariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
@@ -116,7 +115,7 @@ public final class FolderViewInfo extends AbstractComponentInfo implements IRend
 	 * @return the icon to show in component tree.
 	 */
 	private ImageDescriptor getPresentationIcon() throws Exception {
-		return new ImageImageDescriptor(getViewInfo().getIcon());
+		return getViewInfo().getIcon();
 	}
 
 	/**
@@ -145,8 +144,12 @@ public final class FolderViewInfo extends AbstractComponentInfo implements IRend
 		CTabFolder folder = m_container.getFolder();
 		Composite viewsComposite = m_container.getViewsComposite();
 		// prepare presentation
-		Image icon = getViewInfo().getIcon();
+		ImageDescriptor iconDescriptor = getViewInfo().getIcon();
+		Image icon = iconDescriptor == null ? null : iconDescriptor.createImage();
 		String name = getViewInfo().getName();
+		if (icon != null) {
+			folder.addDisposeListener(event -> icon.dispose());
+		}
 		// create item for view
 		{
 			CTabItem item = new CTabItem(folder, SWT.CLOSE);
