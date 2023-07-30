@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,9 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 
 /**
  * {@link EditPart} that displays icon for its component.
@@ -51,20 +53,21 @@ public abstract class ComponentIconEditPart extends GraphicalEditPart {
 		return new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
-				Image image = getIcon();
+				Image image = getIcon().createImage();
 				graphics.drawImage(image, 0, 0);
+				image.dispose();
 			}
 		};
 	}
 
 	@Override
 	protected void refreshVisuals() {
-		org.eclipse.swt.graphics.Rectangle iconBounds = getIcon().getBounds();
+		ImageData iconBounds = getIcon().getImageData(100);
 		Rectangle bounds = getFigureBounds(iconBounds.width, iconBounds.height);
 		getFigure().setBounds(bounds);
 	}
 
-	private Image getIcon() {
+	private ImageDescriptor getIcon() {
 		IComponentDescription description =
 				GlobalState.getDescriptionHelper().getDescription(m_component);
 		return description.getIcon();

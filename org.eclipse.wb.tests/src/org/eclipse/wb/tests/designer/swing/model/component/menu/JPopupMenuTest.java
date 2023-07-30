@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VoidInvocationVariableSupport;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuItemInfo;
@@ -103,7 +102,7 @@ public class JPopupMenuTest extends SwingModelTest {
 			IMenuPopupInfo popupObject = MenuObjectInfoUtils.getMenuPopupInfo(popupInfo);
 			assertSame(popupInfo, popupObject.getModel());
 			// presentation
-			assertSame(popupInfo.getDescription().getIcon(), ReflectionUtils.getFieldObject(popupObject.getImageDescriptor(), "m_Image"));
+			assertSame(popupInfo.getDescription().getIcon(), popupObject.getImageDescriptor());
 			assertEquals(new Rectangle(0, 0, 16, 16), popupObject.getBounds());
 			// no policy
 			assertSame(IMenuPolicy.NOOP, popupObject.getPolicy());

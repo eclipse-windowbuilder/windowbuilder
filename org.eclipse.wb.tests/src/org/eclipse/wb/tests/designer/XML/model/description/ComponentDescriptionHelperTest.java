@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.core.TestBundle;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
@@ -91,10 +91,10 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		// presentation
 		assertThat(description.getDescription()).isNotEmpty();
 		{
-			Image icon = description.getIcon();
+			ImageDescriptor icon = description.getIcon();
 			assertNotNull(icon);
-			assertEquals(16, icon.getBounds().width);
-			assertEquals(16, icon.getBounds().height);
+			assertEquals(16, icon.getImageData(100).width);
+			assertEquals(16, icon.getImageData(100).height);
 		}
 	}
 
@@ -196,8 +196,8 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 		assertEquals("test.MyComponent", description.getDescription());
 		// icon is same as for Composite
 		{
-			Image myIcon = description.getIcon();
-			Image iconOfComposite = getDescription("org.eclipse.swt.widgets.Composite").getIcon();
+			ImageDescriptor myIcon = description.getIcon();
+			ImageDescriptor iconOfComposite = getDescription("org.eclipse.swt.widgets.Composite").getIcon();
 			assertTrue(UiUtils.equals(myIcon, iconOfComposite));
 		}
 	}
@@ -455,9 +455,9 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
 			CreationDescription creation = description.getCreation("my");
 			assertEquals("my", creation.getId());
 			{
-				Image icon = creation.getIcon();
-				assertEquals(5, icon.getBounds().width);
-				assertEquals(10, icon.getBounds().height);
+				ImageDescriptor icon = creation.getIcon();
+				assertEquals(5, icon.getImageData(100).width);
+				assertEquals(10, icon.getImageData(100).height);
 			}
 			assertEquals("My name", creation.getName());
 			assertEquals("My description", creation.getDescription());

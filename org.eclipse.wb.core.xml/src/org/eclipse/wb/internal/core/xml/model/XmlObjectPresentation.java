@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.xml.model;
 
 import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -41,7 +40,7 @@ public class XmlObjectPresentation extends DefaultObjectPresentation {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public ImageDescriptor getIcon() throws Exception {
-		return new ImageImageDescriptor(m_object.getDescription().getIcon());
+		return m_object.getDescription().getIcon();
 	}
 
 	@Override

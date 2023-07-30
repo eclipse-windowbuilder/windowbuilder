@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.EditorPartInfo;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.forms.editor.FormEditor;
@@ -39,6 +40,7 @@ import net.bytebuddy.implementation.InvocationHandlerAdapter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 /**
  * Model for {@link FormPage}.
@@ -129,7 +131,10 @@ public final class FormPageInfo extends EditorPartInfo implements IThisMethodPar
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void configureTabItem(CTabItem tabItem) throws Exception {
-		tabItem.setImage(getDescription().getIcon());
+		Optional.ofNullable(getDescription().getIcon()).map(ImageDescriptor::createImage).ifPresent(image -> {
+			tabItem.setImage(image);
+			tabItem.addDisposeListener(event -> image.dispose());
+		});
 		tabItem.setText("FormPage");
 	}
 

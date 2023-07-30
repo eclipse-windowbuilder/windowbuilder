@@ -48,7 +48,7 @@ public class DefaultJavaInfoPresentationTest extends SwingModelTest {
 		// check "button" presentation, icon is from ComponentDescription
 		IObjectPresentation presentation = button.getPresentation();
 		assertInstanceOf(DefaultJavaInfoPresentation.class, presentation);
-		assertSame(button.getDescription().getIcon(), ReflectionUtils.getFieldObject(presentation.getIcon(), "m_Image"));
+		assertSame(button.getDescription().getIcon(), presentation.getIcon());
 		assertEquals("button", presentation.getText());
 	}
 
@@ -129,7 +129,7 @@ public class DefaultJavaInfoPresentationTest extends SwingModelTest {
 		}
 		// ...so use from ComponentDescription
 		IObjectPresentation presentation = button.getPresentation();
-		assertSame(button.getDescription().getIcon(), ReflectionUtils.getFieldObject(presentation.getIcon(), "m_Image"));
+		assertSame(button.getDescription().getIcon(), presentation.getIcon());
 		assertEquals("button", presentation.getText());
 	}
 }

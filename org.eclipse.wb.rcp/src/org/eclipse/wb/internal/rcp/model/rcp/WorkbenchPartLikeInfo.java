@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
-import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.core.utils.ui.TabFolderDecorator;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
@@ -36,14 +35,17 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.part.WorkbenchPart;
+
+import java.util.Optional;
 
 /**
  * Model for any {@link WorkbenchPart}-like component.
@@ -205,7 +207,7 @@ IJavaInfoRendering {
 		}
 		// icon
 		{
-			Image icon = getDescription().getIcon();
+			ImageDescriptor icon = getDescription().getIcon();
 			// try to get "icon" from extension
 			if (extensionProperty != null) {
 				Property iconProperty = extensionProperty.getProperties()[1];
@@ -215,12 +217,16 @@ IJavaInfoRendering {
 					IFile iconFile = project.getFile(new Path(iconPath));
 					if (iconFile.exists()) {
 						String iconLocation = iconFile.getLocation().toOSString();
-						icon = SwtResourceManager.getImage(iconLocation);
+						ImageData imageData = new ImageData(iconLocation);
+						icon = ImageDescriptor.createFromImageDataProvider((zoom) -> zoom == 100 ? imageData : null);
 					}
 				}
 			}
 			// OK, set icon
-			tabItem.setImage(icon);
+			Optional.ofNullable(icon).map(ImageDescriptor::createImage).ifPresent(image -> {
+				tabItem.setImage(image);
+				tabItem.addDisposeListener(event -> image.dispose());
+			});
 		}
 	}
 

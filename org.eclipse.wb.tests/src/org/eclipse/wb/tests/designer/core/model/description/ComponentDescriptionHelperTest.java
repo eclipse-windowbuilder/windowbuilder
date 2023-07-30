@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
@@ -94,8 +94,7 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 			{
 				ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 						Object.class);
-				Image icon = description.getIcon();
-				assertFalse(icon.isDisposed());
+				assertNotNull(description.getIcon());
 			}
 			// refresh and dispose
 			try {
@@ -113,8 +112,7 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 			{
 				ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 						Object.class);
-				Image icon = description.getIcon();
-				assertFalse(icon.isDisposed());
+				assertNotNull(description.getIcon());
 			}
 			// refresh and dispose
 			try {
@@ -154,31 +152,31 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.IComponent");
-			assertThat(description.getIcon().getBounds().width).isEqualTo(1);
+			assertThat(description.getIcon().getImageData(100).width).isEqualTo(1);
 		}
 		// Component: 2x2 icon
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.Component");
-			assertThat(description.getIcon().getBounds().width).isEqualTo(2);
+			assertThat(description.getIcon().getImageData(100).width).isEqualTo(2);
 		}
 		// Component_2: no special icon, but it implements IComponent, so 1x1 icon
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.Component_2");
-			assertThat(description.getIcon().getBounds().width).isEqualTo(1);
+			assertThat(description.getIcon().getImageData(100).width).isEqualTo(1);
 		}
 		// MyComponent_1: special 3x3 icon
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.MyComponent_1");
-			assertThat(description.getIcon().getBounds().width).isEqualTo(3);
+			assertThat(description.getIcon().getImageData(100).width).isEqualTo(3);
 		}
 		// MyComponent_2: no special icon, so use 2x2 from Component
 		{
 			ComponentDescription description = ComponentDescriptionHelper.getDescription(m_lastEditor,
 					"test.MyComponent_2");
-			assertThat(description.getIcon().getBounds().width).isEqualTo(2);
+			assertThat(description.getIcon().getImageData(100).width).isEqualTo(2);
 		}
 	}
 
@@ -219,9 +217,9 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 		// check ComponentDescription
 		ComponentDescription description = panel.getDescription();
 		Assertions.assertThat(description.getBeanInfo()).isNotNull();
-		Image icon = description.getIcon();
-		assertEquals(10, icon.getBounds().width);
-		assertEquals(15, icon.getBounds().height);
+		ImageDescriptor icon = description.getIcon();
+		assertEquals(10, icon.getImageData(100).width);
+		assertEquals(15, icon.getImageData(100).height);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -361,9 +359,9 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
 		assertEquals("My description", description.getDescription());
 		// check icon
 		{
-			Image icon = description.getIcon();
-			assertThat(icon.getBounds().width).isEqualTo(10);
-			assertThat(icon.getBounds().height).isEqualTo(10);
+			ImageDescriptor icon = description.getIcon();
+			assertThat(icon.getImageData(100).width).isEqualTo(10);
+			assertThat(icon.getImageData(100).height).isEqualTo(10);
 		}
 	}
 

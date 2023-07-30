@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,8 +33,8 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -562,9 +562,9 @@ public class ControlTest extends RcpModelTest {
 		// check ComponentDescription
 		ComponentDescription description = shell.getDescription();
 		Assertions.assertThat(description.getBeanInfo()).isNotNull();
-		Image icon = description.getIcon();
-		assertEquals(10, icon.getBounds().width);
-		assertEquals(15, icon.getBounds().height);
+		ImageDescriptor icon = description.getIcon();
+		assertEquals(10, icon.getImageData(100).width);
+		assertEquals(15, icon.getImageData(100).height);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

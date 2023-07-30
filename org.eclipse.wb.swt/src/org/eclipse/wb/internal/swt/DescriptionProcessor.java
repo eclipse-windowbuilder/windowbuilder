@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 
 import org.eclipse.swt.graphics.Image;
@@ -304,7 +305,7 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
 				java.awt.Image awtIcon = beanInfo.getIcon(BeanInfo.ICON_COLOR_16x16);
 				if (awtIcon != null) {
 					Image icon = ImageUtils.convertToSWT(awtIcon);
-					componentDescription.setIcon(icon);
+					componentDescription.setIcon(new ImageImageDescriptor(icon));
 				}
 			}
 		}

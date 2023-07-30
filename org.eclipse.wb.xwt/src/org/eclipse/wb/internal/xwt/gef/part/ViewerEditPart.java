@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,9 @@ import org.eclipse.wb.internal.xwt.model.jface.ViewerInfo;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Display;
 
 import java.util.Collections;
@@ -80,8 +83,13 @@ public class ViewerEditPart extends GraphicalEditPart {
 		return new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
-				Rectangle iconBounds = getIconBounds();
-				graphics.drawImage(m_viewer.getDescription().getIcon(), iconBounds.x, iconBounds.y);
+				ImageDescriptor imageDescriptor = m_viewer.getDescription().getIcon();
+				if (imageDescriptor != null) {
+					Image image = imageDescriptor.createImage();
+					Rectangle iconBounds = getIconBounds();
+					graphics.drawImage(image, iconBounds.x, iconBounds.y);
+					image.dispose();
+				}
 			}
 		};
 	}
@@ -97,10 +105,9 @@ public class ViewerEditPart extends GraphicalEditPart {
 	}
 
 	private Rectangle getIconBounds() {
-		org.eclipse.swt.graphics.Rectangle imageBounds =
-				m_viewer.getDescription().getIcon().getBounds();
-		int width = imageBounds.width;
-		int height = imageBounds.height;
+		ImageData imageData = m_viewer.getDescription().getIcon().getImageData(100);
+		int width = imageData.width;
+		int height = imageData.height;
 		//
 		Point location = getFigure().getBounds().getBottomRight().getTranslated(-width, -height);;
 		location.performTranslate(-3, -3);

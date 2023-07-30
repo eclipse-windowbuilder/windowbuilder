@@ -236,7 +236,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 	private boolean preparePresentation() {
 		if (m_rootJavaInfo.getArbitraryValue(KEY_SIMULATE_PRESENTATION) != null) {
 			m_presentation =
-					new ComponentPresentation("key", "toolkitId", m_className, m_className, (Image) null);
+					new ComponentPresentation("key", "toolkitId", m_className, m_className, (ImageDescriptor) null);
 			return true;
 		}
 		// check if Class exists (may be optimized by loading only "witness Class")

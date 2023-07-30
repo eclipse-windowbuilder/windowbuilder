@@ -44,7 +44,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
 import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
 import org.eclipse.wb.internal.swt.model.widgets.live.menu.MenuLiveManager;
@@ -340,7 +339,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public ImageDescriptor getImageDescriptor() {
-			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), new ImageImageDescriptor(getDescription().getIcon()));
+			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), getDescription().getIcon());
 		}
 
 		@Override

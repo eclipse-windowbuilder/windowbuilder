@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ import org.eclipse.wb.tests.designer.tests.Activator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -56,8 +56,8 @@ import javax.swing.JButton;
  * @author scheglov_ke
  */
 public class InstanceFactoryCreationSupportTest extends SwingModelTest {
-	private static final Image DEFAULT_FACTORY_ICON =
-			DesignerPlugin.getImage("components/factory.gif");
+	private static final ImageDescriptor DEFAULT_FACTORY_ICON = DesignerPlugin
+			.getImageDescriptor("components/factory.gif");
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -603,8 +603,8 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 		// prepare instance factory model
 		InstanceFactoryInfo factoryInfo = InstanceFactoryInfo.add(panel, factoryClass);
 		// icon should be loaded custom icon
-		Image factoryIcon = factoryInfo.getDescription().getIcon();
-		assertTrue(UiUtils.equals(Activator.getImage("test.png"), factoryIcon));
+		ImageDescriptor factoryIcon = factoryInfo.getDescription().getIcon();
+		assertTrue(UiUtils.equals(Activator.getImageDescriptor("test.png"), factoryIcon));
 		// dispose project with any created resource
 		do_projectDispose();
 	}

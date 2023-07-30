@@ -28,7 +28,6 @@ import org.eclipse.wb.internal.core.model.order.ComponentOrderFirst;
 import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
@@ -238,7 +237,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		public ImageDescriptor getImageDescriptor() {
-			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), new ImageImageDescriptor(getDescription().getIcon()));
+			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), getDescription().getIcon());
 		}
 
 		public Rectangle getBounds() {
