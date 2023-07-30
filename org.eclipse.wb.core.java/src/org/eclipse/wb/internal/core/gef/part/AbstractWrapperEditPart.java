@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,9 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -64,7 +67,12 @@ public class AbstractWrapperEditPart extends GraphicalEditPart {
 		return new Figure() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
-				graphics.drawImage(m_wrapper.getWrapperInfo().getDescription().getIcon(), 0, 0);
+				ImageDescriptor imageDescriptor = m_wrapper.getWrapperInfo().getDescription().getIcon();
+				if (imageDescriptor != null) {
+					Image image = imageDescriptor.createImage();
+					graphics.drawImage(image, 0, 0);
+					image.dispose();
+				}
 			}
 		};
 	}
@@ -84,10 +92,9 @@ public class AbstractWrapperEditPart extends GraphicalEditPart {
 	 * refresh.
 	 */
 	private void refreshVisuals0() {
-		org.eclipse.swt.graphics.Rectangle imageBounds =
-				m_wrapper.getWrapperInfo().getDescription().getIcon().getBounds();
-		int width = imageBounds.width;
-		int height = imageBounds.height;
+		ImageData imageData = m_wrapper.getWrapperInfo().getDescription().getIcon().getImageData(100);
+		int width = imageData.width;
+		int height = imageData.height;
 		Rectangle parentClientArea = ((GraphicalEditPart) getParent()).getFigure().getClientArea();
 		Point location = parentClientArea.getBottomRight().getTranslated(-width, -height);
 		location.performTranslate(-3, -3);

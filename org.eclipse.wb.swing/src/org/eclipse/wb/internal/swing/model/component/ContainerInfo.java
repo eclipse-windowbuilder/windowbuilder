@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -46,7 +46,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
@@ -206,7 +205,7 @@ public class ContainerInfo extends ComponentInfo {
 					}
 				};
 				action.setText(description.getName());
-				action.setImageDescriptor(new ImageImageDescriptor(layoutComponentDescription.getIcon()));
+				action.setImageDescriptor(layoutComponentDescription.getIcon());
 				layoutsManager.add(action);
 			}
 		}

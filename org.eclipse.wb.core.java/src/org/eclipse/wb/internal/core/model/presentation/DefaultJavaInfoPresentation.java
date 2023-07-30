@@ -53,7 +53,7 @@ public class DefaultJavaInfoPresentation extends DefaultObjectPresentation {
 			}
 		}
 		// by default use "component type" specific icon
-		return new ImageImageDescriptor(m_javaInfo.getDescription().getIcon());
+		return m_javaInfo.getDescription().getIcon();
 	}
 
 	@Override

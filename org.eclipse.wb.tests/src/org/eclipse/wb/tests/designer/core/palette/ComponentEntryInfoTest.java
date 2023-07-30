@@ -233,7 +233,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 					ComponentDescriptionHelper.getDescription(m_lastEditor, JPanel.class);
 			CreationDescription creation = componentDescription.getCreation(null);
 			assertEquals(creation.getDescription(), entry.getDescription());
-			assertTrue("Same icons.", UiUtils.equals(ImageDescriptor.createFromImage(creation.getIcon()), entry.getIcon()));
+			assertTrue("Same icons.", UiUtils.equals(creation.getIcon(), entry.getIcon()));
 		}
 	}
 

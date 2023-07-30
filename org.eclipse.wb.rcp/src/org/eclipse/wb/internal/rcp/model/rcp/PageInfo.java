@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.ui.part.Page;
 
@@ -25,6 +26,7 @@ import org.apache.commons.lang.NotImplementedException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Optional;
 
 /**
  * Model for {@link Page}.
@@ -56,7 +58,10 @@ public final class PageInfo extends ViewPartLikeInfo {
 
 	@Override
 	protected void configureTabItem(CTabItem tabItem) throws Exception {
-		tabItem.setImage(getDescription().getIcon());
+		Optional.ofNullable(getDescription().getIcon()).map(ImageDescriptor::createImage).ifPresent(image -> {
+			tabItem.setImage(image);
+			tabItem.addDisposeListener(event -> image.dispose());
+		});
 		tabItem.setText(ModelMessages.PageInfo_title);
 	}
 

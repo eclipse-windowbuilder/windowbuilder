@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.util.surround.ISurroundTarget;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.rcp.model.widgets.SashFormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
@@ -47,7 +46,7 @@ public final class SashFormSurroundTarget extends ISurroundTarget<SashFormInfo, 
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public ImageDescriptor getIcon(AstEditor editor) throws Exception {
-		return new ImageImageDescriptor(ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon());
+		return ComponentDescriptionHelper.getDescription(editor, CLASS_NAME).getIcon();
 	}
 
 	@Override

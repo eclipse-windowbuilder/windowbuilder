@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,9 @@ import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 import java.util.Collections;
@@ -68,8 +70,8 @@ public final class CreationDescription extends AbstractDescription {
 	/**
 	 * @return the icon of this creation for displaying for user.
 	 */
-	public Image getIcon() {
-		return m_icon != null ? m_icon : m_componentDescription.getIcon();
+	public ImageDescriptor getIcon() {
+		return m_icon != null ? new ImageImageDescriptor(m_icon) : m_componentDescription.getIcon();
 	}
 
 	/**

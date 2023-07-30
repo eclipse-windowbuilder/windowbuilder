@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.util.surround.ISurroundTarget;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -53,7 +52,7 @@ ISurroundTarget<CompositeInfo, ControlInfo> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public ImageDescriptor getIcon(AstEditor editor) throws Exception {
-		return new ImageImageDescriptor(ComponentDescriptionHelper.getDescription(editor, m_className).getIcon());
+		return ComponentDescriptionHelper.getDescription(editor, m_className).getIcon();
 	}
 
 	@Override

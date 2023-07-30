@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -237,7 +237,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 					ComponentDescriptionHelper.getDescription(m_lastContext, Button.class);
 			CreationDescription creation = componentDescription.getCreation(null);
 			assertEquals(creation.getDescription(), entry.getDescription());
-			assertTrue("Same icons.", UiUtils.equals(creation.getIcon(), (Image) ReflectionUtils.getFieldObject(entry.getIcon(), "m_icon")));
+			assertTrue("Same icons.", UiUtils.equals(creation.getIcon(), entry.getIcon()));
 		}
 	}
 

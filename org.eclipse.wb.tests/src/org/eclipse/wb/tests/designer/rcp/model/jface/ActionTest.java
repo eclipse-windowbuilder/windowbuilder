@@ -64,7 +64,6 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.ApplicationWindow;
-import org.eclipse.swt.graphics.Image;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.FixedValue;
@@ -201,11 +200,11 @@ public class ActionTest extends RcpModelTest {
 		ActionInfo action = ActionContainerInfo.getActions(window).get(0);
 		IObjectPresentation presentation = action.getPresentation();
 		// initially generic icon of Action
-		Image genericActionIcon =
+		ImageDescriptor genericActionIcon =
 				ComponentDescriptionHelper.getDescription(
 						m_lastEditor,
 						m_lastLoader.loadClass("org.eclipse.jface.action.Action")).getIcon();
-		assertTrue(UiUtils.equals(ImageDescriptor.createFromImage(genericActionIcon), presentation.getIcon()));
+		assertTrue(UiUtils.equals(genericActionIcon, presentation.getIcon()));
 		// add ResourceManager and set ImageDescriptor
 		{
 			ManagerUtils.ensure_ResourceManager(window);
@@ -218,7 +217,7 @@ public class ActionTest extends RcpModelTest {
 		}
 		// now icon is got from ImageDescriptor, well at least not default one
 		window.refresh();
-		assertFalse(UiUtils.equals(ImageDescriptor.createFromImage(genericActionIcon), presentation.getIcon()));
+		assertFalse(UiUtils.equals(genericActionIcon, presentation.getIcon()));
 	}
 
 	/**
@@ -248,11 +247,11 @@ public class ActionTest extends RcpModelTest {
 		IObjectPresentation presentation = action.getPresentation();
 		// initially generic icon of Action
 		{
-			Image genericActionIcon =
+			ImageDescriptor genericActionIcon =
 					ComponentDescriptionHelper.getDescription(
 							m_lastEditor,
 							m_lastLoader.loadClass("org.eclipse.jface.action.Action")).getIcon();
-			assertTrue(UiUtils.equals(ImageDescriptor.createFromImage(genericActionIcon), presentation.getIcon()));
+			assertTrue(UiUtils.equals(genericActionIcon, presentation.getIcon()));
 		}
 		// set CreationSupport with IActionIconProvider
 		final ImageDescriptor expectedImage = DesignerPlugin.getImageDescriptor("test.png");

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.utils.ui.MenuManagerEx;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.ToolkitProvider;
@@ -33,7 +32,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.List;
 
@@ -206,7 +205,7 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			boolean isFirst) {
 		for (final ButtonGroupInfo buttonGroup : ButtonGroupContainerInfo.getButtonGroups(root)) {
 			String text = buttonGroup.getVariableSupport().getName();
-			Image image = buttonGroup.getDescription().getIcon();
+			ImageDescriptor icon = buttonGroup.getDescription().getIcon();
 			// add action
 			RunnableEx runnable = new RunnableEx() {
 				public void run() throws Exception {
@@ -217,7 +216,7 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			};
 			IAction action =
 					contextMenu_createAction(root, isFirst, text, IAction.AS_RADIO_BUTTON, runnable);
-			action.setImageDescriptor(new ImageImageDescriptor(image));
+			action.setImageDescriptor(icon);
 			action.setChecked(buttonGroup.hasButton(button));
 			groupsManager.add(action);
 		}

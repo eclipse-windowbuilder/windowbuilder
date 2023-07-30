@@ -460,13 +460,6 @@ public class UiUtils {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the copy of given {@link Image} or <code>null</code> if <code>image</code> is
-	 *         <code>null</code> .
-	 */
-	public static Image getCopy(Image image) {
-		return image == null ? null : new Image(null, image.getImageData());
-	}
 
 	/**
 	 * Draws {@link Image} on {@link GC} centered in given {@link Rectangle}. If {@link Image} is

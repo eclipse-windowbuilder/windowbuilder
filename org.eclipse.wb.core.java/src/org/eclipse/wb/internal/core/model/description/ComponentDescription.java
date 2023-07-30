@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jdt.core.dom.IMethodBinding;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -767,17 +767,17 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 	// Icon
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Image m_icon;
+	private ImageDescriptor m_icon;
 
 	@Override
-	public Image getIcon() {
+	public ImageDescriptor getIcon() {
 		return m_icon;
 	}
 
 	/**
 	 * Sets the icon for this component.
 	 */
-	public void setIcon(Image icon) {
+	public void setIcon(ImageDescriptor icon) {
 		m_icon = icon;
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc. and others
+ * Copyright (c) 2011, 2023 Google, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,7 +56,6 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.IExceptionConstants;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
@@ -256,7 +255,7 @@ IThisMethodParameterEvaluator {
 					}
 				};
 				action.setText(description.getName());
-				action.setImageDescriptor(new ImageImageDescriptor(layoutComponentDescription.getIcon()));
+				action.setImageDescriptor(layoutComponentDescription.getIcon());
 				layoutsManager.add(action);
 			}
 		}

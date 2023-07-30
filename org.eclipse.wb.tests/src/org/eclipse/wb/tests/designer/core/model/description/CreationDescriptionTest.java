@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.model.description.CreationInvocationDescript
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -110,13 +111,13 @@ public class CreationDescriptionTest extends DesignerTestCase {
 		{
 			component = mock(ComponentDescription.class);
 			when(component.getComponentClass()).thenReturn((Class) JButton.class);
-			when(component.getIcon()).thenReturn(TYPE_ICON);
+			when(component.getIcon()).thenReturn(ImageDescriptor.createFromImage(TYPE_ICON));
 			when(component.getDescription()).thenReturn("type description");
 		}
 		// prepare creation
 		CreationDescription creation = new CreationDescription(component, "myId", "myName");
 		// check icon/description
-		assertSame(TYPE_ICON, creation.getIcon());
+		assertSame(TYPE_ICON, ReflectionUtils.getFieldObject(creation.getIcon(), "originalImage"));
 		assertEquals("type description", creation.getDescription());
 		// check generation
 		assertNull(creation.getSource());
@@ -144,7 +145,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 		CreationDescription creation = new CreationDescription(component, "myId", "myName");
 		// check icon
 		creation.setIcon(CREATION_ICON);
-		assertSame(CREATION_ICON, creation.getIcon());
+		assertSame(CREATION_ICON, ReflectionUtils.getFieldObject(creation.getIcon(), "m_Image"));
 		// check description
 		creation.setDescription("creation description");
 		assertEquals("creation description", creation.getDescription());

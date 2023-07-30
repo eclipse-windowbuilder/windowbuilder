@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlMenuMenuObject;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
@@ -272,7 +271,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		public ImageDescriptor getImageDescriptor() {
-			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), new ImageImageDescriptor(getDescription().getIcon()));
+			return ExecutionUtils.runObjectLog(() -> getPresentation().getIcon(), getDescription().getIcon());
 		}
 
 		public Rectangle getBounds() {

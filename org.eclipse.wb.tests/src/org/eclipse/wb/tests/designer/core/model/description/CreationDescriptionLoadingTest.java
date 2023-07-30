@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
@@ -216,11 +216,11 @@ public class CreationDescriptionLoadingTest extends SwingModelTest {
 			CreationDescription creation = description.getCreation(id);
 			assertEquals(id, creation.getId());
 			// check icon
-			Image creationIcon = creation.getIcon();
+			ImageDescriptor creationIcon = creation.getIcon();
 			assertNotNull(creationIcon);
 			assertSame(description.getIcon(), creationIcon);
-			assertEquals(16, creationIcon.getBounds().width);
-			assertEquals(16, creationIcon.getBounds().height);
+			assertEquals(16, creationIcon.getImageData(100).width);
+			assertEquals(16, creationIcon.getImageData(100).height);
 		}
 		// has "id", and we create icon for this "id", so load it
 		{
@@ -228,11 +228,11 @@ public class CreationDescriptionLoadingTest extends SwingModelTest {
 			CreationDescription creation = description.getCreation(id);
 			assertEquals(id, creation.getId());
 			// check icon
-			Image creationIcon = creation.getIcon();
+			ImageDescriptor creationIcon = creation.getIcon();
 			assertNotNull(creationIcon);
 			assertNotSame(description.getIcon(), creationIcon);
-			assertEquals(10, creationIcon.getBounds().width);
-			assertEquals(10, creationIcon.getBounds().height);
+			assertEquals(10, creationIcon.getImageData(100).width);
+			assertEquals(10, creationIcon.getImageData(100).height);
 		}
 	}
 

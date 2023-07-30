@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -84,6 +84,7 @@ import org.eclipse.wb.internal.core.utils.reflect.IntrospectionHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.ImageDisposer;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
@@ -500,7 +501,7 @@ public final class ComponentDescriptionHelper {
 			if (componentDescription.getIcon() == null) {
 				Image icon = DescriptionHelper.getIconImage(context, currentClass);
 				if (icon != null) {
-					componentDescription.setIcon(icon);
+					componentDescription.setIcon(new ImageImageDescriptor(icon));
 					{
 						String name = componentDescription.getComponentClass().getName();
 						ImageDisposer.add(componentDescription, name, icon);
