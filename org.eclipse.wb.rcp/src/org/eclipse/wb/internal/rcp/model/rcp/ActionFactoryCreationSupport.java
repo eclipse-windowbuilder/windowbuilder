@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,7 +29,6 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
@@ -147,10 +146,10 @@ IActionIconProvider {
 	// IActionIconProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final Image DEFAULT_ICON = Activator.getImage("info/Action/workbench_action.gif");
+	public static final ImageDescriptor DEFAULT_ICON = Activator.getImageDescriptor("info/Action/workbench_action.gif");
 
 	@Override
-	public Image getActionIcon() {
+	public ImageDescriptor getActionIcon() {
 		return DEFAULT_ICON;
 	}
 

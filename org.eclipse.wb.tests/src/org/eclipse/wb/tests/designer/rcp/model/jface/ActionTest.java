@@ -255,7 +255,7 @@ public class ActionTest extends RcpModelTest {
 			assertTrue(UiUtils.equals(ImageDescriptor.createFromImage(genericActionIcon), presentation.getIcon()));
 		}
 		// set CreationSupport with IActionIconProvider
-		final Image expectedImage = DesignerPlugin.getImage("test.png");
+		final ImageDescriptor expectedImage = DesignerPlugin.getImageDescriptor("test.png");
 		{
 			CreationSupport creationSupport = new ByteBuddy() //
 					.subclass(CreationSupport.class) //
@@ -270,7 +270,7 @@ public class ActionTest extends RcpModelTest {
 			action.setCreationSupport(creationSupport);
 		}
 		// now "expectedImage"
-		assertSame(expectedImage, ReflectionUtils.getFieldObject(presentation.getIcon(), "m_Image"));
+		assertSame(expectedImage, presentation.getIcon());
 	}
 
 	/**
