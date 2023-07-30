@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,9 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IElementComparer;
@@ -487,6 +490,14 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private class ViewsLabelProvider extends LabelProvider {
+		private final ResourceManager m_resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
+		@Override
+		public void dispose() {
+			super.dispose();
+			m_resourceManager.dispose();
+		}
+
 		@Override
 		public String getText(Object element) {
 			if (element == OTHER_CATEGORY) {
@@ -513,7 +524,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 				return DesignerPlugin.getImage("folder_open.gif");
 			}
 			if (pluginElement.getName().equals("view")) {
-				return PdeUtils.getElementIcon(pluginElement, "icon", null);
+				return m_resourceManager.createImageWithDefault(PdeUtils.getElementIcon(pluginElement, "icon", null));
 			}
 			return null;
 		}

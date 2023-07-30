@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -776,8 +776,8 @@ public class PdeUtilsTest extends AbstractPdeTest {
 		// icon exists and is not default
 		assertNotNull(viewInfo.getIcon());
 		assertNotSame(Activator.getImage("info/perspective/view.gif"), viewInfo.getIcon());
-		assertEquals(10, viewInfo.getIcon().getBounds().width);
-		assertEquals(20, viewInfo.getIcon().getBounds().height);
+		assertEquals(10, viewInfo.getIcon().getImageData(100).width);
+		assertEquals(20, viewInfo.getIcon().getImageData(100).height);
 		// toString()
 		assertEquals("(id_1, C_1, null, name 1)", viewInfo.toString());
 	}

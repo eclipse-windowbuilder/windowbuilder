@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.model.property.editor.BooleanPropertyEditor;
 import org.eclipse.wb.internal.core.model.variable.VoidInvocationVariableSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
 
@@ -219,7 +218,7 @@ public final class PageLayoutAddViewInfo extends AbstractPartInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected ImageDescriptor getPresentationIcon() {
-		return new ImageImageDescriptor(getViewInfo().getIcon());
+		return getViewInfo().getIcon();
 	}
 
 	@Override

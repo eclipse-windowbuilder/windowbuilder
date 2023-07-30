@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.service.resolver.BundleDescription;
 import org.eclipse.pde.core.IBaseModel;
 import org.eclipse.pde.core.plugin.IExtensionsModelFactory;
@@ -52,13 +53,11 @@ import org.eclipse.pde.internal.ui.util.PDEModelUtility;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.part.EditorPart;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -635,11 +634,11 @@ public final class PdeUtils {
 	/**
 	 * {@link Map} for <code>bundleId + path</code> into loaded {@link Image}.
 	 */
-	private static Map<String, Image> m_bundleIcons = Maps.newTreeMap();
+	private static Map<String, ImageDescriptor> m_bundleIcons = Maps.newTreeMap();
 	/**
 	 * {@link Map} for <code>projectName + path</code> into loaded {@link Image}.
 	 */
-	private static Map<String, Image> m_projectIcons = Maps.newTreeMap();
+	private static Map<String, ImageDescriptor> m_projectIcons = Maps.newTreeMap();
 
 	/**
 	 * Returns icon from {@link IPluginElement}, attribute <code>"icon"</code>.
@@ -649,12 +648,12 @@ public final class PdeUtils {
 	 * @param defaultIconPath
 	 *          the path to the default icon in {@link Activator}.
 	 */
-	public static Image getElementIcon(final IPluginElement element,
+	public static ImageDescriptor getElementIcon(final IPluginElement element,
 			final String attribute,
-			Image defaultIcon) {
-		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Image>() {
+			ImageDescriptor defaultIcon) {
+		return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<ImageDescriptor>() {
 			@Override
-			public Image runObject() throws Exception {
+			public ImageDescriptor runObject() throws Exception {
 				String iconPath = getAttribute(element, attribute);
 				Assert.isNotNull(iconPath, "No attribute 'icon' in %s.", element);
 				IPluginModelBase pluginModel = element.getPluginModel();
@@ -663,13 +662,13 @@ public final class PdeUtils {
 					IProject project = underlyingResource.getProject();
 					String key = project.getName() + "/" + iconPath;
 					// get icon from cache, or fill cache
-					Image icon = m_projectIcons.get(key);
+					ImageDescriptor icon = m_projectIcons.get(key);
 					if (icon == null) {
 						IFile iconFile = project.getFile(new Path(iconPath));
 						Assert.isTrue(iconFile.exists(), "Image " + key + " does not exists.");
-						icon = loadImage(iconFile.getContents());
+						icon = ImageDescriptor.createFromURL(iconFile.getLocationURI().toURL());
 						// remember icon in cache
-						m_bundleIcons.put(key, icon);
+						m_projectIcons.put(key, icon);
 					}
 					// OK, we should have icon
 					return icon;
@@ -677,7 +676,7 @@ public final class PdeUtils {
 					String bundleId = pluginModel.getBundleDescription().getSymbolicName();
 					String key = bundleId + "/" + iconPath;
 					// get icon from cache, or fill cache
-					Image icon = m_bundleIcons.get(key);
+					ImageDescriptor icon = m_bundleIcons.get(key);
 					if (icon == null) {
 						// prepare entry from Bundle
 						URL entry;
@@ -688,25 +687,13 @@ public final class PdeUtils {
 						}
 						// load Image from entry
 						{
-							InputStream is = entry.openStream();
-							icon = loadImage(is);
+							icon = ImageDescriptor.createFromURL(entry);
 						}
 						// remember icon in cache
 						m_bundleIcons.put(key, icon);
 					}
 					// OK, we should have icon
 					return icon;
-				}
-			}
-
-			/**
-			 * Loads {@link Image} from {@link InputStream} and closes stream.
-			 */
-			private Image loadImage(InputStream is) {
-				try {
-					return new Image(null, is);
-				} finally {
-					IOUtils.closeQuietly(is);
 				}
 			}
 		}, defaultIcon);
@@ -835,7 +822,7 @@ public final class PdeUtils {
 	// Read only, for perspectives.
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Image DEFAULT_VIEW_ICON = Activator.getImage("info/perspective/view.gif");
+	private static final ImageDescriptor DEFAULT_VIEW_ICON = Activator.getImageDescriptor("info/perspective/view.gif");
 	/**
 	 * Cache for view ID to {@link ViewInfo}.
 	 */
@@ -849,14 +836,14 @@ public final class PdeUtils {
 		private final String m_className;
 		private final String m_category;
 		private final String m_name;
-		private final Image m_icon;
+		private final ImageDescriptor m_icon;
 
 		////////////////////////////////////////////////////////////////////////////
 		//
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public ViewInfo(String id, String className, String category, String name, Image icon) {
+		public ViewInfo(String id, String className, String category, String name, ImageDescriptor icon) {
 			m_id = id;
 			m_className = className;
 			m_category = category;
@@ -895,7 +882,7 @@ public final class PdeUtils {
 			return m_name;
 		}
 
-		public Image getIcon() {
+		public ImageDescriptor getIcon() {
 			return m_icon;
 		}
 	}
@@ -908,7 +895,7 @@ public final class PdeUtils {
 		String className = getAttribute(element, "class");
 		String category = getAttribute(element, "category");
 		String name = getAttribute(element, "name");
-		Image icon = getElementIcon(element, "icon", DEFAULT_VIEW_ICON);
+		ImageDescriptor icon = getElementIcon(element, "icon", DEFAULT_VIEW_ICON);
 		//
 		return new ViewInfo(id, className, category, name, icon);
 	}
@@ -990,8 +977,8 @@ public final class PdeUtils {
 	// Perspectives access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Image DEFAULT_PERSPECTIVE_ICON =
-			Activator.getImage("info/perspective/perspective.gif");
+	private static final ImageDescriptor DEFAULT_PERSPECTIVE_ICON = Activator
+			.getImageDescriptor("info/perspective/perspective.gif");
 	/**
 	 * Cache for view ID to {@link ViewInfo}.
 	 */
@@ -1004,14 +991,14 @@ public final class PdeUtils {
 		private final String m_id;
 		private final String m_className;
 		private final String m_name;
-		private final Image m_icon;
+		private final ImageDescriptor m_icon;
 
 		////////////////////////////////////////////////////////////////////////////
 		//
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public PerspectiveInfo(String id, String className, String name, Image icon) {
+		public PerspectiveInfo(String id, String className, String name, ImageDescriptor icon) {
 			m_id = id;
 			m_className = className;
 			m_name = name;
@@ -1045,7 +1032,7 @@ public final class PdeUtils {
 			return m_name;
 		}
 
-		public Image getIcon() {
+		public ImageDescriptor getIcon() {
 			return m_icon;
 		}
 	}
@@ -1057,7 +1044,7 @@ public final class PdeUtils {
 		String id = getAttribute(element, "id");
 		String className = getAttribute(element, "class");
 		String name = getAttribute(element, "name");
-		Image icon = getElementIcon(element, "icon", DEFAULT_PERSPECTIVE_ICON);
+		ImageDescriptor icon = getElementIcon(element, "icon", DEFAULT_PERSPECTIVE_ICON);
 		return new PerspectiveInfo(id, className, name, icon);
 	}
 

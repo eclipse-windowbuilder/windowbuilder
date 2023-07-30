@@ -47,7 +47,7 @@ public final class PerspectiveViewDropEntryInfo extends ToolEntryInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public ImageDescriptor getIcon() {
-		return ImageDescriptor.createFromImage(m_view.getIcon());
+		return m_view.getIcon();
 	}
 
 	@Override
