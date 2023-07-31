@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.model.description.ComponentPresentation;
 import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.AbstractMorphingSupport;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
@@ -94,7 +93,7 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
 	protected ImageDescriptor getTargetImageDescriptor(MorphingTargetDescription target)
 			throws Exception {
 		ComponentPresentation presentation = getComponentPresentation(target);
-		return new ImageImageDescriptor(presentation.getIcon());
+		return presentation.getIcon();
 	}
 
 	private ComponentPresentation getComponentPresentation(MorphingTargetDescription target)

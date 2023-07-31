@@ -51,7 +51,6 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.StringUtils;
@@ -75,7 +74,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 	private String m_className;
 	private String m_creationId;
 	private String m_enabledScript;
-	private Image m_icon;
+	private ImageDescriptor m_icon;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -88,7 +87,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 	public ComponentEntryInfo(CategoryInfo categoryInfo, IConfigurationElement element)
 			throws Exception {
 		this(categoryInfo, AttributesProviders.get(element));
-		m_icon = ExternalFactoriesHelper.getImage(element, "icon");
+		m_icon = ExternalFactoriesHelper.getImageDescriptor(element, "icon");
 		addLibraries(element);
 	}
 
@@ -313,7 +312,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 		if (m_icon == null) {
 			return DEFAULT_ICON;
 		}
-		return ImageDescriptor.createFromImage(m_icon);
+		return m_icon;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
