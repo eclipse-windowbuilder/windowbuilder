@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,20 +16,19 @@ import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -132,7 +131,11 @@ public final class BundleResourceProvider {
 	}
 
 	private InputStream getFile0(final String path) {
-		return ExecutionUtils.runObject((RunnableObjectEx<InputStream>) () -> m_bundle.getEntry(path).openStream(), "Unable to open file %s from %s", path, m_id);
+		return ExecutionUtils.runObject((RunnableObjectEx<InputStream>) () -> getFile1(path).openStream(), "Unable to open file %s from %s", path, m_id);
+	}
+
+	private URL getFile1(final String path) {
+		return ExecutionUtils.runObject((RunnableObjectEx<URL>) () -> m_bundle.getEntry(path), "Unable to open file %s from %s", path, m_id);
 	}
 
 	private static String normalizePath(String path) {
@@ -162,13 +165,9 @@ public final class BundleResourceProvider {
 		path = normalizePath(path);
 		Image image = m_pathToImage.get(path);
 		if (image == null) {
-			InputStream is = getFile(path);
-			try {
-				image = new Image(Display.getCurrent(), is);
-				m_pathToImage.put(path, image);
-			} finally {
-				IOUtils.closeQuietly(is);
-			}
+			ImageDescriptor imageDescriptor = getImageDescriptor(path);
+			image = imageDescriptor.createImage();
+			m_pathToImage.put(path, image);
 		}
 		return image;
 	}
@@ -180,8 +179,8 @@ public final class BundleResourceProvider {
 		path = normalizePath(path);
 		ImageDescriptor descriptor = m_pathToImageDescriptor.get(path);
 		if (descriptor == null) {
-			Image image = getImage(path);
-			descriptor = new ImageImageDescriptor(image);
+			URL fileUrl = getFile1(path);
+			descriptor = ImageDescriptor.createFromURL(fileUrl);
 			m_pathToImageDescriptor.put(path, descriptor);
 		}
 		return descriptor;

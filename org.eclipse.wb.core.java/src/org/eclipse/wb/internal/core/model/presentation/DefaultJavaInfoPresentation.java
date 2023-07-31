@@ -12,10 +12,8 @@ package org.eclipse.wb.internal.core.model.presentation;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.creation.factory.AbstractExplicitFactoryCreationSupport;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * Default {@link IObjectPresentation} for {@link JavaInfo}
@@ -47,9 +45,9 @@ public class DefaultJavaInfoPresentation extends DefaultObjectPresentation {
 		if (m_javaInfo.getCreationSupport() instanceof AbstractExplicitFactoryCreationSupport) {
 			AbstractExplicitFactoryCreationSupport factoryCreationSupport =
 					(AbstractExplicitFactoryCreationSupport) m_javaInfo.getCreationSupport();
-			Image icon = factoryCreationSupport.getDescription().getIcon();
+			ImageDescriptor icon = factoryCreationSupport.getDescription().getIcon();
 			if (icon != null) {
-				return new ImageImageDescriptor(icon);
+				return icon;
 			}
 		}
 		// by default use "component type" specific icon

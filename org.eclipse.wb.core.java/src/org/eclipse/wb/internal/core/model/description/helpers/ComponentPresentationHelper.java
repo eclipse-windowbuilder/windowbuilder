@@ -37,7 +37,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.io.IOUtils;
 import org.osgi.framework.Bundle;
@@ -136,7 +135,7 @@ public final class ComponentPresentationHelper {
 			String name = parseHelper.getName(componentClassName, creationId);
 			String key = getKey(componentClassName, creationId);
 			String toolkitId = getToolkitId(state, resource);
-			Image icon = getComponentImage(componentClass, creationId, context);
+			ImageDescriptor icon = getComponentImage(componentClass, creationId, context);
 			ComponentPresentation presentation =
 					new ComponentPresentation(key, toolkitId, name, desc, icon);
 			if (shouldCacheFast(resource.getBundle())) {
@@ -160,10 +159,10 @@ public final class ComponentPresentationHelper {
 		return false;
 	}
 
-	private static Image getComponentImage(Class<?> clazz, String creationId, ILoadingContext context)
+	private static ImageDescriptor getComponentImage(Class<?> clazz, String creationId, ILoadingContext context)
 			throws Exception {
 		String iconPath = getImageName(clazz.getName(), creationId);
-		Image image = DescriptionHelper.getIconImage(context, iconPath);
+		ImageDescriptor image = DescriptionHelper.getIcon(context, iconPath);
 		if (image == null) {
 			// no image for this type, use super type
 			return getComponentImage(clazz.getSuperclass(), null/*use default id*/, context);

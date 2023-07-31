@@ -147,7 +147,7 @@ public class ToolBarTest extends RcpModelTest {
 		ToolItemInfo itemDropDown = toolBar.getItems().get(4);
 		ToolItemInfo itemSeparator = toolBar.getItems().get(5);
 		// check icons
-		assertSame(ReflectionUtils.getFieldObject(itemDefault.getPresentation().getIcon(), "m_Image"), ReflectionUtils.getFieldObject(itemPush.getPresentation().getIcon(), "m_Image"));
+		assertSame(itemDefault.getPresentation().getIcon(), itemPush.getPresentation().getIcon());
 		assertNotSame(itemPush.getPresentation().getIcon(), itemRadio.getPresentation().getIcon());
 		assertNotSame(itemPush.getPresentation().getIcon(), itemCheck.getPresentation().getIcon());
 		assertNotSame(itemRadio.getPresentation().getIcon(), itemCheck.getPresentation().getIcon());

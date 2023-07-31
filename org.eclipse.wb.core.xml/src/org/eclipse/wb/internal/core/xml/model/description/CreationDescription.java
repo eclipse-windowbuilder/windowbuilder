@@ -15,10 +15,8 @@ import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import java.util.Collections;
 import java.util.List;
@@ -65,19 +63,19 @@ public final class CreationDescription extends AbstractDescription {
 	// icon
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Image m_icon;
+	private ImageDescriptor m_icon;
 
 	/**
 	 * @return the icon of this creation for displaying for user.
 	 */
 	public ImageDescriptor getIcon() {
-		return m_icon != null ? new ImageImageDescriptor(m_icon) : m_componentDescription.getIcon();
+		return m_icon != null ? m_icon : m_componentDescription.getIcon();
 	}
 
 	/**
 	 * Sets the icon of this creation for displaying for user.
 	 */
-	public void setIcon(Image icon) {
+	public void setIcon(ImageDescriptor icon) {
 		m_icon = icon;
 	}
 

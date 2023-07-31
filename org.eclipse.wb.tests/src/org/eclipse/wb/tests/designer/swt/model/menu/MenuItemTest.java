@@ -132,8 +132,8 @@ public class MenuItemTest extends RcpModelTest {
 		MenuItemInfo menuItemSeparator = menuItems.get(4);
 		// test icons
 		assertSame(
-				ReflectionUtils.getFieldObject(menuItemDefault.getPresentation().getIcon(), "m_Image"),
-				ReflectionUtils.getFieldObject(menuItemPush.getPresentation().getIcon(), "m_Image"));
+				menuItemDefault.getPresentation().getIcon(),
+				menuItemPush.getPresentation().getIcon());
 		assertNotSame(
 				menuItemDefault.getPresentation().getIcon(),
 				menuItemCheck.getPresentation().getIcon());

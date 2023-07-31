@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,7 +27,7 @@ import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
@@ -120,11 +120,11 @@ public final class DescriptionHelper {
 	public static final String[] ICON_EXTS = new String[]{".png", ".gif"};
 
 	/**
-	 * @return the icon {@link Image} for given component.
+	 * @return the icon {@link ImageDescriptor} for given component.
 	 */
-	public static Image getIconImage(ILoadingContext context, Class<?> componentClass)
+	public static ImageDescriptor getIcon(ILoadingContext context, Class<?> componentClass)
 			throws Exception {
-		return getIconImage(context, componentClass, StringUtils.EMPTY);
+		return getIcon(context, componentClass, StringUtils.EMPTY);
 	}
 
 	/**
@@ -138,12 +138,12 @@ public final class DescriptionHelper {
 	 *          optional suffix, may be empty, but not <code>null</code>. We use it loading
 	 *          creation-specific icons.
 	 *
-	 * @return the icon {@link Image}, or <code>null</code>.
+	 * @return the icon {@link ImageDescriptor}, or <code>null</code>.
 	 */
-	public static Image getIconImage(ILoadingContext context, Class<?> componentClass, String suffix)
+	public static ImageDescriptor getIcon(ILoadingContext context, Class<?> componentClass, String suffix)
 			throws Exception {
 		String iconPath = componentClass.getName().replace('.', '/') + suffix;
-		return getIconImage(context, iconPath);
+		return getIcon(context, iconPath);
 	}
 
 	/**
@@ -154,19 +154,14 @@ public final class DescriptionHelper {
 	 * @param iconPath
 	 *          the path to icon file, without extension.
 	 *
-	 * @return the icon {@link Image}, or <code>null</code>.
+	 * @return the icon {@link ImageDescriptor}, or <code>null</code>.
 	 */
-	public static Image getIconImage(ILoadingContext context, String iconPath) throws Exception {
+	public static ImageDescriptor getIcon(ILoadingContext context, String iconPath) throws Exception {
 		for (String ext : ICON_EXTS) {
 			String iconName = iconPath + ext;
 			ResourceInfo resourceInfo = getResourceInfo0(context, iconName, true);
 			if (resourceInfo != null) {
-				InputStream stream = resourceInfo.getURL().openStream();
-				try {
-					return new Image(null, stream);
-				} finally {
-					stream.close();
-				}
+				return ImageDescriptor.createFromURL(resourceInfo.getURL());
 			}
 		}
 		// not found
