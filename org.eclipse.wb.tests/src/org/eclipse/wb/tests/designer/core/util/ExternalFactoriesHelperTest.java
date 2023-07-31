@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -424,54 +424,6 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 			ExternalFactoriesHelper.getRequiredBundle(id);
 		} catch (IllegalArgumentException e) {
 			assertThat(e.getMessage()).contains(id);
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// getImage()
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Test for {@link ExternalFactoriesHelper#getImage(IConfigurationElement, String)}.
-	 */
-	public void test_getImage_noSuchAttribute() throws Exception {
-		TestBundle testBundle = new TestBundle();
-		try {
-			testBundle.addExtension(POINT_ID, "<testObject/>");
-			testBundle.install();
-			// work with Bundle
-			{
-				IConfigurationElement element =
-						ExternalFactoriesHelper.getElements(POINT_ID, "testObject").get(0);
-				Image image = ExternalFactoriesHelper.getImage(element, "noAttribute");
-				assertNull(image);
-			}
-		} finally {
-			testBundle.dispose();
-		}
-	}
-
-	/**
-	 * Test for {@link ExternalFactoriesHelper#getImage(IConfigurationElement, String)}.
-	 */
-	public void test_getImage_success() throws Exception {
-		TestBundle testBundle = new TestBundle();
-		try {
-			testBundle.addExtension(POINT_ID, "<testObject icon='icons/test.png'/>");
-			testBundle.setFile("icons/test.png", TestUtils.createImagePNG(1, 2));
-			testBundle.install();
-			// work with Bundle
-			{
-				IConfigurationElement element =
-						ExternalFactoriesHelper.getElements(POINT_ID, "testObject").get(0);
-				Image image = ExternalFactoriesHelper.getImage(element, "icon");
-				assertNotNull(image);
-				assertEquals(1, image.getBounds().width);
-				assertEquals(2, image.getBounds().height);
-			}
-		} finally {
-			testBundle.dispose();
 		}
 	}
 

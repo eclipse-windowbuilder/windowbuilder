@@ -1035,10 +1035,10 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 				assertEquals(
 						"test1 test2 <p attr=\"val\">test3</p> test4 test5",
 						presentation.getDescription());
-				Image icon = presentation.getIcon();
+				ImageDescriptor icon = presentation.getIcon();
 				assertNotNull(icon);
-				assertEquals(image.getBounds().width, 11);
-				assertEquals(image.getBounds().height, 29);
+				assertEquals(icon.getImageData(100).width, 11);
+				assertEquals(icon.getImageData(100).height, 29);
 			} finally {
 				testBundle.uninstall();
 			}

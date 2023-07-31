@@ -36,7 +36,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -116,7 +115,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
 	protected ImageDescriptor getTargetImageDescriptor(MorphingTargetDescription target)
 			throws Exception {
 		ComponentPresentation presentation = getComponentPresentation(target);
-		return new ImageImageDescriptor(presentation.getIcon());
+		return presentation.getIcon();
 	}
 
 	private ComponentPresentation getComponentPresentation(MorphingTargetDescription target)

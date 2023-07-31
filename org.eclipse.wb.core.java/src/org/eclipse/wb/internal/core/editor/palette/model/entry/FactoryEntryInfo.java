@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.model.description.helpers.FactoryDescription
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -182,7 +181,7 @@ public abstract class FactoryEntryInfo extends ToolEntryInfo {
 			if (m_methodDescription.getIcon() != null) {
 				m_icon = m_methodDescription.getIcon();
 			} else {
-				m_icon = new ImageImageDescriptor(m_presentation.getIcon());
+				m_icon = m_presentation.getIcon();
 			}
 			// update entry name
 			{

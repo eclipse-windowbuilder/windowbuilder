@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IRegistryChangeListener;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ObjectUtils;
@@ -373,19 +372,6 @@ public class ExternalFactoriesHelper {
 	// Images access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the {@link Image} from extension {@link Bundle} with path in given
-	 *         attribute. May be <code>null</code> if no value for attribute.
-	 */
-	public static Image getImage(IConfigurationElement element, String attribute) {
-		String path = element.getAttribute(attribute);
-		if (path != null) {
-			Bundle bundle = getExtensionBundle(element);
-			BundleResourceProvider resourceProvider = BundleResourceProvider.get(bundle);
-			return resourceProvider.getImage(path);
-		}
-		return null;
-	}
 
 	/**
 	 * @return the {@link getImageDescriptor} from extension {@link Bundle} with

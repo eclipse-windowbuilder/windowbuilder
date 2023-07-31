@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.utils.ui;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
@@ -41,10 +42,26 @@ import javax.imageio.ImageIO;
 public final class ImageUtils {
 	/**
 	 * @return the PNG bytes of SWT {@link Image}.
+	 * @deprecated Use {@link #getBytesPNG(ImageDescriptor)} instead.
 	 */
+	@Deprecated
 	public static byte[] getBytesPNG(Image image) throws IOException {
+		return getBytesPNG(image.getImageData());
+	}
+
+	/**
+	 * @return the PNG bytes of SWT {@link ImageDescriptor}.
+	 */
+	public static byte[] getBytesPNG(ImageDescriptor image) throws IOException {
+		return getBytesPNG(image.getImageData(100));
+	}
+
+	/**
+	 * @return the PNG bytes of SWT {@link ImageData}.
+	 */
+	private static byte[] getBytesPNG(ImageData imageData) throws IOException {
 		ImageLoader imageLoader = new ImageLoader();
-		imageLoader.data = new ImageData[]{image.getImageData()};
+		imageLoader.data = new ImageData[] { imageData };
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		imageLoader.save(baos, SWT.IMAGE_PNG);
 		return baos.toByteArray();
