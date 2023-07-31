@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.widgets;
 
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.layout.FillLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ButtonInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ButtonStylePresentation;
@@ -168,7 +167,7 @@ public class ButtonsTest extends RcpModelTest {
 		ButtonInfo buttonCheck = (ButtonInfo) shell.getChildrenControls().get(2);
 		ButtonInfo buttonRadio = (ButtonInfo) shell.getChildrenControls().get(3);
 		// check icons
-		assertSame(ReflectionUtils.getFieldObject(buttonDefault.getPresentation().getIcon(), "m_Image"), ReflectionUtils.getFieldObject(buttonPush.getPresentation().getIcon(), "m_Image"));
+		assertSame(buttonDefault.getPresentation().getIcon(), buttonPush.getPresentation().getIcon());
 		assertNotSame(buttonPush.getPresentation().getIcon(), buttonRadio.getPresentation().getIcon());
 		assertNotSame(buttonPush.getPresentation().getIcon(), buttonCheck.getPresentation().getIcon());
 		assertNotSame(buttonRadio.getPresentation().getIcon(), buttonCheck.getPresentation().getIcon());

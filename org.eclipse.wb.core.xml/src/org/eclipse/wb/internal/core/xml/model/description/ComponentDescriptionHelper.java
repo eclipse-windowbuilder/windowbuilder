@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
-import org.eclipse.wb.internal.core.utils.ui.ImageDisposer;
 import org.eclipse.wb.internal.core.xml.IExceptionConstants;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.description.internal.AbstractConfigurableDescription;
@@ -42,7 +41,7 @@ import org.eclipse.wb.internal.core.xml.model.description.rules.PropertyDefaultR
 import org.eclipse.wb.internal.core.xml.model.description.rules.PropertyEditorRule;
 import org.eclipse.wb.internal.core.xml.model.description.rules.PropertyTagRule;
 
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.digester3.AbstractObjectCreationFactory;
 import org.apache.commons.digester3.Digester;
@@ -176,13 +175,9 @@ public final class ComponentDescriptionHelper {
 		if (currentClass != null) {
 			// check current Class
 			if (componentDescription.getIcon() == null) {
-				Image icon = DescriptionHelper.getIconImage(context.getLoadingContext(), currentClass);
+				ImageDescriptor icon = DescriptionHelper.getIcon(context.getLoadingContext(), currentClass);
 				if (icon != null) {
 					componentDescription.setIcon(icon);
-					{
-						String name = componentDescription.getComponentClass().getName();
-						ImageDisposer.add(componentDescription, name, icon);
-					}
 					return;
 				}
 			}
@@ -351,7 +346,7 @@ public final class ComponentDescriptionHelper {
 				if (id != null) {
 					Class<?> componentClass = componentDescription.getComponentClass();
 					String suffix = "_" + id;
-					Image icon = getIcon(context, componentClass, suffix);
+					ImageDescriptor icon = getIcon(context, componentClass, suffix);
 					creation.setIcon(icon);
 				}
 				// OK, configured creation
@@ -400,11 +395,11 @@ public final class ComponentDescriptionHelper {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the {@link Image} which is in same place as icon of component, but
+	 * @return the {@link ImageDescriptor} which is in same place as icon of component, but
 	 *         has "suffix" in name.
 	 */
-	public static Image getIcon(EditorContext context, Class<?> componentClass, String suffix) throws Exception {
+	public static ImageDescriptor getIcon(EditorContext context, Class<?> componentClass, String suffix) throws Exception {
 		ILoadingContext loadingContext = context.getLoadingContext();
-		return DescriptionHelper.getIconImage(loadingContext, componentClass, suffix);
+		return DescriptionHelper.getIcon(loadingContext, componentClass, suffix);
 	}
 }

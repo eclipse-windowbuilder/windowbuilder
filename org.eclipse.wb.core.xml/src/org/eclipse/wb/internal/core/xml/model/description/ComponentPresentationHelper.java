@@ -131,7 +131,7 @@ public final class ComponentPresentationHelper {
 			String name = parseHelper.getName(componentClassName, creationId);
 			String key = getKey(componentClassName, creationId);
 			String toolkitId = getToolkitId(context, resource);
-			Image icon = getComponentImage(componentClass, creationId, loadingContext);
+			ImageDescriptor icon = getComponentImage(componentClass, creationId, loadingContext);
 			ComponentPresentation presentation =
 					new ComponentPresentation(key, toolkitId, name, desc, icon);
 			if (shouldCacheFast(resource.getBundle())) {
@@ -155,10 +155,10 @@ public final class ComponentPresentationHelper {
 		return false;
 	}
 
-	private static Image getComponentImage(Class<?> clazz, String creationId, ILoadingContext context)
+	private static ImageDescriptor getComponentImage(Class<?> clazz, String creationId, ILoadingContext context)
 			throws Exception {
 		String iconPath = getImageName(clazz.getName(), creationId);
-		Image image = DescriptionHelper.getIconImage(context, iconPath);
+		ImageDescriptor image = DescriptionHelper.getIcon(context, iconPath);
 		if (image == null) {
 			// no image for this type, use super type
 			return getComponentImage(clazz.getSuperclass(), null/*use default id*/, context);

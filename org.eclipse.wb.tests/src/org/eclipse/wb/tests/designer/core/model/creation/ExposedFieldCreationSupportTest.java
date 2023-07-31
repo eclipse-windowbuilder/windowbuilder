@@ -501,8 +501,8 @@ public class ExposedFieldCreationSupportTest extends SwingModelTest {
 		assertSame(exposedContainer.getDescription(), innerPanel.getDescription());
 		// ...but their icons are different, because (probably) decorator applied
 		assertSame(
-				ReflectionUtils.getFieldObject(innerPanel.getPresentation().getIcon(), "m_Image"),
-				ReflectionUtils.getFieldObject(ObjectInfo.getImageDescriptor(innerPanel), "m_Image"));
+				innerPanel.getPresentation().getIcon(),
+				ObjectInfo.getImageDescriptor(innerPanel));
 		assertNotSame(
 				exposedContainer.getPresentation().getIcon(),
 				ObjectInfo.getImageDescriptor(exposedContainer));

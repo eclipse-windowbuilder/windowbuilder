@@ -26,9 +26,9 @@ import org.eclipse.wb.internal.core.model.description.helpers.FactoryDescription
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
+import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -41,7 +41,7 @@ import org.apache.commons.lang.StringUtils;
 public abstract class FactoryEntryInfo extends ToolEntryInfo {
 	protected String m_factoryClassName;
 	protected String m_methodSignature;
-	private Image m_icon;
+	private ImageDescriptor m_icon;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -182,7 +182,7 @@ public abstract class FactoryEntryInfo extends ToolEntryInfo {
 			if (m_methodDescription.getIcon() != null) {
 				m_icon = m_methodDescription.getIcon();
 			} else {
-				m_icon = m_presentation.getIcon();
+				m_icon = new ImageImageDescriptor(m_presentation.getIcon());
 			}
 			// update entry name
 			{
@@ -231,7 +231,7 @@ public abstract class FactoryEntryInfo extends ToolEntryInfo {
 
 	@Override
 	public final ImageDescriptor getIcon() {
-		return ImageDescriptor.createFromImage(m_icon);
+		return m_icon;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

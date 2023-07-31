@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2023 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,7 +32,6 @@ import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
-import org.eclipse.wb.internal.core.utils.ui.ImageDisposer;
 import org.eclipse.wb.internal.core.utils.xml.parser.QAttribute;
 import org.eclipse.wb.internal.core.utils.xml.parser.QHandlerAdapter;
 import org.eclipse.wb.internal.core.utils.xml.parser.QParser;
@@ -45,7 +44,7 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.digester3.Digester;
 import org.apache.commons.digester3.Rule;
@@ -301,18 +300,13 @@ public class FactoryDescriptionHelper {
 		for (Map.Entry<String, FactoryMethodDescription> entry : signaturesMap.entrySet()) {
 			FactoryMethodDescription description = entry.getValue();
 			// prepare icon
-			Image icon;
+			ImageDescriptor icon;
 			{
 				String signature = entry.getKey();
 				String signatureUnix = StringUtils.replaceChars(signature, "(,)", "___");
 				String iconPath = factoryClassName.replace('.', '/') + "." + signatureUnix;
-				icon = DescriptionHelper.getIconImage(context, iconPath);
+				icon = DescriptionHelper.getIcon(context, iconPath);
 				description.setIcon(icon);
-			}
-			// schedule disposing
-			{
-				String name = description.getDeclaringClass().getName() + "." + description.getSignature();
-				ImageDisposer.add(description, name, icon);
 			}
 		}
 		// remember descriptions in cache

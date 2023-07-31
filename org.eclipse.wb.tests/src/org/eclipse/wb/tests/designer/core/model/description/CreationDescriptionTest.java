@@ -18,7 +18,8 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.PaletteData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
@@ -37,8 +38,10 @@ import javax.swing.JButton;
  * @author scheglov_ke
  */
 public class CreationDescriptionTest extends DesignerTestCase {
-	private static final Image TYPE_ICON = new Image(null, 1, 1);
-	private static final Image CREATION_ICON = new Image(null, 1, 1);
+	private static final ImageDescriptor TYPE_ICON = ImageDescriptor
+			.createFromImageDataProvider(zoom -> new ImageData(1, 1, 32, new PaletteData(0, 0, 0)));
+	private static final ImageDescriptor CREATION_ICON = ImageDescriptor
+			.createFromImageDataProvider(zoom -> new ImageData(1, 1, 32, new PaletteData(0, 0, 0)));
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -111,13 +114,13 @@ public class CreationDescriptionTest extends DesignerTestCase {
 		{
 			component = mock(ComponentDescription.class);
 			when(component.getComponentClass()).thenReturn((Class) JButton.class);
-			when(component.getIcon()).thenReturn(ImageDescriptor.createFromImage(TYPE_ICON));
+			when(component.getIcon()).thenReturn(TYPE_ICON);
 			when(component.getDescription()).thenReturn("type description");
 		}
 		// prepare creation
 		CreationDescription creation = new CreationDescription(component, "myId", "myName");
 		// check icon/description
-		assertSame(TYPE_ICON, ReflectionUtils.getFieldObject(creation.getIcon(), "originalImage"));
+		assertSame(TYPE_ICON, creation.getIcon());
 		assertEquals("type description", creation.getDescription());
 		// check generation
 		assertNull(creation.getSource());
@@ -145,7 +148,7 @@ public class CreationDescriptionTest extends DesignerTestCase {
 		CreationDescription creation = new CreationDescription(component, "myId", "myName");
 		// check icon
 		creation.setIcon(CREATION_ICON);
-		assertSame(CREATION_ICON, ReflectionUtils.getFieldObject(creation.getIcon(), "m_Image"));
+		assertSame(CREATION_ICON, creation.getIcon());
 		// check description
 		creation.setDescription("creation description");
 		assertEquals("creation description", creation.getDescription());

@@ -652,7 +652,7 @@ public class ActionTest extends RcpModelTest {
 		{
 			IObjectPresentation actionPresentation = action.getPresentation();
 			IObjectPresentation itemPresentation = contributionItem.getPresentation();
-			assertSame(ReflectionUtils.getFieldObject(actionPresentation.getIcon(), "m_Image"), ReflectionUtils.getFieldObject(itemPresentation.getIcon(), "m_Image"));
+			assertSame(actionPresentation.getIcon(), itemPresentation.getIcon());
 			assertEquals(actionPresentation.getText(), itemPresentation.getText());
 		}
 		// delete "contributionItem"
@@ -791,7 +791,7 @@ public class ActionTest extends RcpModelTest {
 		{
 			IObjectPresentation actionPresentation = action.getPresentation();
 			IObjectPresentation itemPresentation = contributionItem.getPresentation();
-			assertSame(ReflectionUtils.getFieldObject(actionPresentation.getIcon(), "m_Image"), ReflectionUtils.getFieldObject(itemPresentation.getIcon(), "m_Image"));
+			assertSame(actionPresentation.getIcon(), itemPresentation.getIcon());
 			assertEquals("(no variable)", itemPresentation.getText());
 		}
 		// refresh(), check "contributionItem"

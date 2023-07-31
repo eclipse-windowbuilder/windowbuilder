@@ -83,14 +83,12 @@ import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
 import org.eclipse.wb.internal.core.utils.reflect.IntrospectionHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
-import org.eclipse.wb.internal.core.utils.ui.ImageDisposer;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.digester3.AbstractObjectCreationFactory;
 import org.apache.commons.digester3.Digester;
@@ -499,13 +497,9 @@ public final class ComponentDescriptionHelper {
 		if (currentClass != null) {
 			// check current Class
 			if (componentDescription.getIcon() == null) {
-				Image icon = DescriptionHelper.getIconImage(context, currentClass);
+				ImageDescriptor icon = DescriptionHelper.getIcon(context, currentClass);
 				if (icon != null) {
-					componentDescription.setIcon(new ImageImageDescriptor(icon));
-					{
-						String name = componentDescription.getComponentClass().getName();
-						ImageDisposer.add(componentDescription, name, icon);
-					}
+					componentDescription.setIcon(icon);
 					return;
 				}
 			}
@@ -764,7 +758,7 @@ public final class ComponentDescriptionHelper {
 				if (id != null) {
 					Class<?> componentClass = componentDescription.getComponentClass();
 					String suffix = "_" + id;
-					creation.setIcon(DescriptionHelper.getIconImage(context, componentClass, suffix));
+					creation.setIcon(DescriptionHelper.getIcon(context, componentClass, suffix));
 				}
 				// OK, configured creation
 				return creation;

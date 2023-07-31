@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.core.model;
 import org.eclipse.wb.internal.core.model.creation.factory.StaticFactoryCreationSupport;
 import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
@@ -88,7 +87,7 @@ public class DefaultJavaInfoPresentationTest extends SwingModelTest {
 		StaticFactoryCreationSupport creationSupport =
 				(StaticFactoryCreationSupport) button.getCreationSupport();
 		IObjectPresentation presentation = button.getPresentation();
-		assertSame(creationSupport.getDescription().getIcon(), ReflectionUtils.getFieldObject(presentation.getIcon(), "m_Image"));
+		assertSame(creationSupport.getDescription().getIcon(), presentation.getIcon());
 		assertEquals("button", presentation.getText());
 	}
 

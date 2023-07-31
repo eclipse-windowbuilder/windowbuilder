@@ -2184,16 +2184,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 				button_1.getPresentation().getIcon(),
 				ObjectInfo.getImageDescriptor(button_1));
 		assertSame(
-				ReflectionUtils.getFieldObject(button_2.getPresentation().getIcon(), "m_Image"),
-				ReflectionUtils.getFieldObject(ObjectInfo.getImageDescriptor(button_2), "m_Image"));
+				button_2.getPresentation().getIcon(),
+				ObjectInfo.getImageDescriptor(button_2));
 		// disable decoration, no decoration expected
 		panel.getDescription().getToolkit().getPreferences().setValue(P_DECORATE_ICON, false);
 		assertSame(
-				ReflectionUtils.getFieldObject(button_1.getPresentation().getIcon(), "m_Image"),
-				ReflectionUtils.getFieldObject(ObjectInfo.getImageDescriptor(button_1), "m_Image"));
+				button_1.getPresentation().getIcon(),
+				ObjectInfo.getImageDescriptor(button_1));
 		assertSame(
-				ReflectionUtils.getFieldObject(button_2.getPresentation().getIcon(), "m_Image"),
-				ReflectionUtils.getFieldObject(ObjectInfo.getImageDescriptor(button_2), "m_Image"));
+				button_2.getPresentation().getIcon(),
+				ObjectInfo.getImageDescriptor(button_2));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
