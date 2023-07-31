@@ -13,12 +13,9 @@ package org.eclipse.wb.internal.xwt.model.widgets;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
-import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectPresentation;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Widget;
 
 import org.osgi.framework.Bundle;
@@ -54,10 +51,10 @@ public abstract class StylePresentation extends XmlObjectPresentation {
 	public ImageDescriptor getIcon() throws Exception {
 		// try to get by style
 		int style = m_widget.getStyle();
-		for (Map.Entry<Integer, Image> entry : getImages().entrySet()) {
+		for (Map.Entry<Integer, ImageDescriptor> entry : getImages().entrySet()) {
 			int keyStyle = entry.getKey();
 			if ((style & keyStyle) == keyStyle) {
-				return new ImageImageDescriptor(entry.getValue());
+				return entry.getValue();
 			}
 		}
 		// use default
@@ -74,13 +71,13 @@ public abstract class StylePresentation extends XmlObjectPresentation {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Map<Class<?>, Map<Integer, Image>> m_images = Maps.newHashMap();
+	private static final Map<Class<?>, Map<Integer, ImageDescriptor>> m_images = Maps.newHashMap();
 
 	/**
 	 * @return the "style to image" map corresponding to this {@link StylePresentation}.
 	 */
-	private Map<Integer, Image> getImages() throws Exception {
-		Map<Integer, Image> images = m_images.get(getClass());
+	private Map<Integer, ImageDescriptor> getImages() throws Exception {
+		Map<Integer, ImageDescriptor> images = m_images.get(getClass());
 		if (images == null) {
 			images = Maps.newHashMap();
 			m_images.put(getClass(), images);
@@ -100,14 +97,14 @@ public abstract class StylePresentation extends XmlObjectPresentation {
 	 */
 	protected final void addImage(int style, String imagePath) throws Exception {
 		// load image
-		Image image;
+		ImageDescriptor image;
 		{
 			Bundle bundle = m_widget.getDescription().getToolkit().getBundle();
 			URL imageURL = bundle.getEntry(imagePath);
 			Assert.isNotNull(
 					imageURL,
 					"Can't find image: " + imagePath + " in " + bundle.getSymbolicName());
-			image = new Image(Display.getDefault(), imageURL.openStream());
+			image = ImageDescriptor.createFromURL(imageURL);
 		}
 		// remember image
 		getImages().put(style, image);
