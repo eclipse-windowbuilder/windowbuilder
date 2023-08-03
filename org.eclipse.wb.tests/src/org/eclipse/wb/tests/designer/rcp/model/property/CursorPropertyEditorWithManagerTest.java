@@ -19,6 +19,10 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -33,7 +37,8 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(
 				IPreferenceConstants.P_USE_RESOURCE_MANAGER,
@@ -41,7 +46,8 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		do_projectDispose();
 	}
@@ -60,10 +66,12 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_null() throws Exception {
 		assert_getText_getClipboardSource_forSource("null", null, null);
 	}
 
+	@Test
 	public void test_useConstructor() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"new Cursor(null, SWT.CURSOR_WAIT)",
@@ -71,6 +79,7 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 				"org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT.CURSOR_WAIT)");
 	}
 
+	@Test
 	public void test_useConstructor_notStyle() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"new Cursor(null, 1/*SWT.CURSOR_WAIT*/)",
@@ -78,6 +87,7 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 				null);
 	}
 
+	@Test
 	public void test_useSWTResourceManager() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT.CURSOR_WAIT)",
@@ -85,6 +95,7 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 				"org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT.CURSOR_WAIT)");
 	}
 
+	@Test
 	public void test_combo() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -143,6 +154,7 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 	/**
 	 * We should ensure <code>SWTResourceManager</code> when generate code for <code>Cursor</code>.
 	 */
+	@Test
 	public void test_setValue_ensureManager() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

@@ -11,28 +11,27 @@
 package org.eclipse.wb.tests.designer.core.model.property.accessor;
 
 import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for core {@link ExpressionAccessor}'s.
  *
  * @author scheglov_ke
  */
-public class AccessorsTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.property.accessor");
-		suite.addTest(createSingleSuite(AccessorUtilsTest.class));
-		suite.addTest(createSingleSuite(FieldAccessorTest.class));
-		suite.addTest(createSingleSuite(SetterAccessorTest.class));
-		suite.addTest(createSingleSuite(ConstructorAccessorTest.class));
-		suite.addTest(createSingleSuite(SuperConstructorAccessorTest.class));
-		suite.addTest(createSingleSuite(FactoryAccessorTest.class));
-		suite.addTest(createSingleSuite(InvocationChildAssociationAccessorTest.class));
-		suite.addTest(createSingleSuite(MethodInvocationAccessorTest.class));
-		suite.addTest(createSingleSuite(MethodInvocationArgumentAccessorTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		AccessorUtilsTest.class,
+		FieldAccessorTest.class,
+		SetterAccessorTest.class,
+		ConstructorAccessorTest.class,
+		SuperConstructorAccessorTest.class,
+		FactoryAccessorTest.class,
+		InvocationChildAssociationAccessorTest.class,
+		MethodInvocationAccessorTest.class,
+		MethodInvocationArgumentAccessorTest.class
+})
+public class AccessorsTests {
 }

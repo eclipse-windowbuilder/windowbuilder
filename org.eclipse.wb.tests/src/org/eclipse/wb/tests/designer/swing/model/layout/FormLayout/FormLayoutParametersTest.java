@@ -21,6 +21,9 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import org.junit.After;
+import org.junit.Test;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -37,7 +40,8 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
 		preferences.setToDefault(IPreferenceConstants.P_ENABLE_GRAB);
 		preferences.setToDefault(IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT);
@@ -52,6 +56,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	/**
 	 * {@link JTextField} marked as required horizontal grab/fill.
 	 */
+	@Test
 	public void test_CREATE_Text() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -92,6 +97,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	/**
 	 * Test that horizontal grab/fill for {@link JTextField} can be disabled.
 	 */
+	@Test
 	public void test_CREATE_Text_disabled() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -133,6 +139,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	/**
 	 * For {@link JTable} marked as required horizontal/vertical grab/fill.
 	 */
+	@Test
 	public void test_CREATE_Table() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -174,6 +181,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 * <p>
 	 * However here we drop {@link JTable} on "implicit" layout, so can not change its dimensions.
 	 */
+	@Test
 	public void test_CREATE_Table_onImplicit() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -221,6 +229,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 * {@link JLabel} is marked as "right" aligned and next widget is {@link JTextField}, so when add
 	 * {@link JLabel} before {@link JTextField}, use "right" alignment.
 	 */
+	@Test
 	public void test_CREATE_LabelBeforeText() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -274,6 +283,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 * {@link JLabel} before {@link JTextField}, use "right" alignment.<br>
 	 * Variant with gap between {@link JLabel} and {@link JTextField}.
 	 */
+	@Test
 	public void test_CREATE_LabelBeforeText_gap() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -327,6 +337,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	/**
 	 * Check that automatic "right alignment" feature for {@link JLabel} can be disabled.
 	 */
+	@Test
 	public void test_CREATE_LabelBeforeText_disabled() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -382,6 +393,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 * {@link JLabel} is marked as "right" aligned and next widget is {@link JTextField}, so when add
 	 * {@link JTextField} after {@link JLabel} , use "right" alignment for {@link JLabel}.
 	 */
+	@Test
 	public void test_CREATE_TextAfterLabel() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -437,6 +449,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 * {@link JTextField} after {@link JLabel} , use "right" alignment for {@link JLabel}.<br>
 	 * Variant with gap between {@link JLabel} and {@link JTextField}.
 	 */
+	@Test
 	public void test_CREATE_TextAfterLabel_gap() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(

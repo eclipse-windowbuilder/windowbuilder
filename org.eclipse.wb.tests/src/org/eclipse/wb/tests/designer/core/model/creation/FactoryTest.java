@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for any factory.
  *
@@ -35,6 +37,7 @@ public class FactoryTest extends SwingModelTest {
 	// Parsing
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parseFactory() throws Exception {
 		try {
 			m_waitForAutoBuild = true;

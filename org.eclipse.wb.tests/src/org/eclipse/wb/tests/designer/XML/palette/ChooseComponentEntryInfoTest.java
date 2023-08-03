@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ChooseComponentEntryInfo}.
  *
@@ -40,6 +42,7 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_access() throws Exception {
 		ChooseComponentEntryInfo entry = new ChooseComponentEntryInfo();
 		assertNotNull(entry.getIcon());
@@ -52,6 +55,7 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 	// Parse
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -73,6 +77,7 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 	// Tool
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_createTool_select() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",
@@ -154,6 +159,7 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_createTool_cancel() throws Exception {
 		addPaletteExtension(new String[]{
 				"<category id='category_1' name='category 1'>",

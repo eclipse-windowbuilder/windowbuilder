@@ -21,8 +21,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Test;
 import org.osgi.framework.Bundle;
 
 import java.util.List;
@@ -50,7 +51,8 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		waitEventLoop(0);
 		super.tearDown();
 	}
@@ -60,6 +62,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addRemoveDynamicExtension_element() throws Exception {
 		// add dynamic extension
 		{
@@ -74,7 +77,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		{
 			List<IConfigurationElement> elements =
 					ExternalFactoriesHelper.getElements(POINT_ID, "testObject");
-			assertThat(elements).hasSize(1);
+			Assertions.assertThat(elements).hasSize(1);
 			assertEquals("someId", elements.get(0).getAttribute("id"));
 		}
 		// remove dynamic extension
@@ -82,7 +85,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		{
 			List<IConfigurationElement> elements =
 					ExternalFactoriesHelper.getElements(POINT_ID, "testObject");
-			assertThat(elements).isEmpty();
+			Assertions.assertThat(elements).isEmpty();
 		}
 	}
 
@@ -90,6 +93,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	 * We don't wait for removing extension, however we validate that {@link IConfigurationElement} is
 	 * child of valid (so not removed) {@link IExtension}, and don't return it in other case.
 	 */
+	@Test
 	public void test_addRemoveDynamicExtension_noWait() throws Exception {
 		// add dynamic extension
 		{
@@ -104,7 +108,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		{
 			List<IConfigurationElement> elements =
 					ExternalFactoriesHelper.getElements(POINT_ID, "testObject");
-			assertThat(elements).hasSize(1);
+			Assertions.assertThat(elements).hasSize(1);
 			assertEquals("someId", elements.get(0).getAttribute("id"));
 		}
 		// remove dynamic extension, no wait
@@ -112,12 +116,13 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		{
 			List<IConfigurationElement> elements =
 					ExternalFactoriesHelper.getElements(POINT_ID, "testObject");
-			assertThat(elements).isEmpty();
+			Assertions.assertThat(elements).isEmpty();
 		}
 		// do wait
 		TestUtils.removeDynamicExtension(POINT_ID);
 	}
 
+	@Test
 	public void test_getElements_withPriority() throws Exception {
 		// add dynamic extension
 		{
@@ -132,7 +137,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		try {
 			List<IConfigurationElement> elements =
 					ExternalFactoriesHelper.getElements(POINT_ID, "testObject");
-			assertThat(elements).hasSize(3);
+			Assertions.assertThat(elements).hasSize(3);
 			assertEquals("3", ExternalFactoriesHelper.getRequiredAttribute(elements.get(0), "priority"));
 			assertEquals("2", ExternalFactoriesHelper.getRequiredAttribute(elements.get(1), "priority"));
 			assertEquals("1", ExternalFactoriesHelper.getRequiredAttribute(elements.get(2), "priority"));
@@ -149,6 +154,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#getRequiredAttribute(IConfigurationElement, String)}.
 	 */
+	@Test
 	public void test_getRequiredAttribute() throws Exception {
 		// add dynamic extension
 		{
@@ -180,6 +186,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	 * Test for
 	 * {@link ExternalFactoriesHelper#getRequiredAttributeInteger(IConfigurationElement, String)}.
 	 */
+	@Test
 	public void test_getRequiredAttributeInteger() throws Exception {
 		// add dynamic extension
 		{
@@ -221,6 +228,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#getElementsInstances(Class, String, String)}.
 	 */
+	@Test
 	public void test_getElementsInstances_newElement() throws Exception {
 		// add dynamic extension
 		{
@@ -234,9 +242,9 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		{
 			List<Object> instances =
 					ExternalFactoriesHelper.getElementsInstances(Object.class, POINT_ID, "testObject");
-			assertThat(instances).hasSize(1);
+			Assertions.assertThat(instances).hasSize(1);
 			Object instance = instances.get(0);
-			assertThat(instance).isInstanceOf(TestObject_1.class);
+			Assertions.assertThat(instance).isInstanceOf(TestObject_1.class);
 			assertEquals("1", instance.toString());
 		}
 		// remove dynamic extension
@@ -244,7 +252,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		{
 			List<Object> instances =
 					ExternalFactoriesHelper.getElementsInstances(Object.class, POINT_ID, "testObject");
-			assertThat(instances).isEmpty();
+			Assertions.assertThat(instances).isEmpty();
 		}
 	}
 
@@ -253,6 +261,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	 * <p>
 	 * Singleton.
 	 */
+	@Test
 	public void test_getElementsInstances_INSTANCE() throws Exception {
 		// add dynamic extension
 		{
@@ -266,7 +275,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		try {
 			List<Object> instances =
 					ExternalFactoriesHelper.getElementsInstances(Object.class, POINT_ID, "testObject");
-			assertThat(instances).hasSize(1);
+			Assertions.assertThat(instances).hasSize(1);
 			assertSame(TestObjectSingleton.INSTANCE, instances.get(0));
 		} finally {
 			TestUtils.removeDynamicExtension(POINT_ID);
@@ -276,6 +285,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#getElementsInstances(Class, String, String)}.
 	 */
+	@Test
 	public void test_getElementsInstances_withPriority_D1() throws Exception {
 		// add dynamic extension
 		{
@@ -291,7 +301,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		try {
 			List<Object> instances =
 					ExternalFactoriesHelper.getElementsInstances(Object.class, POINT_ID, "testObject");
-			assertThat(instances).hasSize(2);
+			Assertions.assertThat(instances).hasSize(2);
 			assertEquals("2", instances.get(0).toString());
 			assertEquals("1", instances.get(1).toString());
 		} finally {
@@ -302,6 +312,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#getElementsInstances(Class, String, String)}.
 	 */
+	@Test
 	public void test_getElementsInstances_withPriority_1D() throws Exception {
 		// add dynamic extension
 		{
@@ -317,7 +328,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		try {
 			List<Object> instances =
 					ExternalFactoriesHelper.getElementsInstances(Object.class, POINT_ID, "testObject");
-			assertThat(instances).hasSize(2);
+			Assertions.assertThat(instances).hasSize(2);
 			assertEquals("2", instances.get(0).toString());
 			assertEquals("1", instances.get(1).toString());
 		} finally {
@@ -328,6 +339,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#getElementsInstances(Class, String, String)}.
 	 */
+	@Test
 	public void test_getElementsInstances_withPriority_123() throws Exception {
 		// add dynamic extension
 		{
@@ -345,7 +357,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 		try {
 			List<Object> instances =
 					ExternalFactoriesHelper.getElementsInstances(Object.class, POINT_ID, "testObject");
-			assertThat(instances).hasSize(3);
+			Assertions.assertThat(instances).hasSize(3);
 			assertEquals("3", instances.get(0).toString());
 			assertEquals("2", instances.get(1).toString());
 			assertEquals("1", instances.get(2).toString());
@@ -362,6 +374,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#loadBundleClass(String)}.
 	 */
+	@Test
 	public void test_loadBundleClass() throws Exception {
 		// from this bundle
 		{
@@ -386,6 +399,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	 * <p>
 	 * Add invalid extension, so throw exception during attempt to load.
 	 */
+	@Test
 	public void test_loadBundleClass_whenInvalidExtension() throws Exception {
 		String pointId = "org.eclipse.wb.core.classLoadingContributor";
 		TestUtils.addDynamicExtension(pointId, "<contributor no-namespace='foo'/>");
@@ -394,7 +408,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 				ExternalFactoriesHelper.loadBundleClass("java.util.List");
 				fail();
 			} catch (ClassNotFoundException e) {
-				assertThat(e.getCause()).isInstanceOf(IllegalArgumentException.class);
+				Assertions.assertThat(e.getCause()).isInstanceOf(IllegalArgumentException.class);
 			}
 		} finally {
 			TestUtils.removeDynamicExtension(pointId);
@@ -409,6 +423,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#getRequiredBundle(String)}.
 	 */
+	@Test
 	public void test_getRequiredBundle_good() throws Exception {
 		String id = "org.eclipse.wb.core";
 		Bundle expected = Platform.getBundle(id);
@@ -418,12 +433,13 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#getRequiredBundle(String)}.
 	 */
+	@Test
 	public void test_getRequiredBundle_noSuchBundle() throws Exception {
 		String id = "no.such.bundle";
 		try {
 			ExternalFactoriesHelper.getRequiredBundle(id);
 		} catch (IllegalArgumentException e) {
-			assertThat(e.getMessage()).contains(id);
+			Assertions.assertThat(e.getMessage()).contains(id);
 		}
 	}
 
@@ -435,6 +451,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#getImageDescriptor(IConfigurationElement, String)}.
 	 */
+	@Test
 	public void test_getImageDescriptor_noSuchAttribute() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -456,6 +473,7 @@ public class ExternalFactoriesHelperTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ExternalFactoriesHelper#getImageDescriptor(IConfigurationElement, String)}.
 	 */
+	@Test
 	public void test_getImageDescriptor_success() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {

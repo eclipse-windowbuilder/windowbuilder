@@ -26,7 +26,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.Composite;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link DescriptionProcessor} for SWT.
@@ -52,6 +53,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 * Test that "parent" tag with value "false" disables automatic marking first
 	 * {@link ParameterDescription} as parent.
 	 */
+	@Test
 	public void test_decriptionForCustomComponent_disableParent() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -96,7 +98,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 		// parameter[1] should be style
 		{
 			ParameterDescription styleParameter = constructorDescription.getParameter(1);
-			assertThat(styleParameter.getEditor()).isInstanceOf(StylePropertyEditor.class);
+			Assertions.assertThat(styleParameter.getEditor()).isInstanceOf(StylePropertyEditor.class);
 		}
 		// parameter[2] was marked as parent in description
 		{
@@ -108,6 +110,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	/**
 	 * Constructor with {@link Composite} and "style" parameters.
 	 */
+	@Test
 	public void test_decriptionForCustomComponent_parentStyle() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -137,13 +140,14 @@ public class DescriptionProcessorTest extends RcpModelTest {
 		// parameter[1] should be style
 		{
 			ParameterDescription styleParameter = constructorDescription.getParameter(1);
-			assertThat(styleParameter.getEditor()).isInstanceOf(StylePropertyEditor.class);
+			Assertions.assertThat(styleParameter.getEditor()).isInstanceOf(StylePropertyEditor.class);
 		}
 	}
 
 	/**
 	 * Constructor only with "parent" {@link Composite}.
 	 */
+	@Test
 	public void test_decriptionForCustomComponent_onlyParent() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -176,6 +180,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 * Test that {@link ComponentDescription} for custom component has "parent" flag in constructor,
 	 * and configured editor for "style" property.
 	 */
+	@Test
 	public void test_decriptionForCustomComponent_1() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -212,6 +217,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	/**
 	 * Parameter "style" should inherit default source from superclass.
 	 */
+	@Test
 	public void test_decriptionForCustomComponent_2() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -262,6 +268,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 		assertEquals("org.eclipse.swt.SWT.BORDER", styleParameter.getDefaultSource());
 	}
 
+	@Test
 	public void test_noStyleProperty_whenDisplayExpressionEditor() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -306,6 +313,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 		assertNull(composite.getPropertyByTitle("Style"));
 	}
 
+	@Test
 	public void test_forInterface() throws Exception {
 		setFileContentSrc(
 				"test/MyInterface.java",
@@ -330,30 +338,35 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	// Default CreationDescription
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_defaultCreation_onlyParent() throws Exception {
 		String additionalParameters = "";
 		String source = "new test.MyComposite(%parent%)";
 		check_defaultCreation(additionalParameters, source);
 	}
 
+	@Test
 	public void test_defaultCreation_parentStyle() throws Exception {
 		String additionalParameters = ", int style";
 		String source = "new test.MyComposite(%parent%, org.eclipse.swt.SWT.NONE)";
 		check_defaultCreation(additionalParameters, source);
 	}
 
+	@Test
 	public void test_defaultCreation_secondBoolean() throws Exception {
 		String additionalParameters = ", boolean a";
 		String source = "new test.MyComposite(%parent%, false)";
 		check_defaultCreation(additionalParameters, source);
 	}
 
+	@Test
 	public void test_defaultCreation_secondDouble() throws Exception {
 		String additionalParameters = ", double a";
 		String source = "new test.MyComposite(%parent%, 0.0)";
 		check_defaultCreation(additionalParameters, source);
 	}
 
+	@Test
 	public void test_defaultCreation_secondObject() throws Exception {
 		String additionalParameters = ", Object a";
 		String source = "new test.MyComposite(%parent%, (java.lang.Object) null)";
@@ -392,6 +405,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	/**
 	 * We should support feature from D1: style description in BeanInfo.
 	 */
+	@Test
 	public void test_styleBeanInfo() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -456,6 +470,7 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 * We should automatically enable execution of <code>createX(Composite)</code> methods of super
 	 * class.
 	 */
+	@Test
 	public void test_executeCreateMethods() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",

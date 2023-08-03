@@ -21,6 +21,7 @@ import net.bytebuddy.ByteBuddy;
 import static org.mockito.Mockito.mock;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class AbstractVariableSupportTest extends AbstractVariableTest {
 	 * Create instance of {@link VariableSupport} using ByteBuddy, because {@link VariableSupport} is
 	 * abstract, and check its methods.
 	 */
+	@Test
 	public void test() throws Exception {
 		JavaInfo javaInfo = mock(JavaInfo.class);
 		// create abstract VariableSupport instance

@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.swt.support;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.support.TableSupport;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link TableSupport}.
  *
@@ -57,24 +59,28 @@ public class TableSupportTest extends AbstractSupportTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_classes() throws Exception {
 		assertSame(getTableClass(), TableSupport.getTableClass());
 		assertSame(getTableItemClass(), TableSupport.getTableItemClass());
 		assertSame(getTableColumnClass(), TableSupport.getTableColumnClass());
 	}
 
+	@Test
 	public void test_getHeaderHeight() throws Exception {
 		Object table = getTable();
 		int headerHeight = (Integer) ReflectionUtils.invokeMethod(table, "getHeaderHeight()");
 		assertSame(headerHeight, TableSupport.getHeaderHeight(table));
 	}
 
+	@Test
 	public void test_getItemHeight() throws Exception {
 		Object table = getTable();
 		int itemHeight = (Integer) ReflectionUtils.invokeMethod(table, "getItemHeight()");
 		assertSame(itemHeight, TableSupport.getItemHeight(table));
 	}
 
+	@Test
 	public void test_column() throws Exception {
 		Object[] columns = TableSupport.getColumns(getTable());
 		assertNotNull(columns);
@@ -93,6 +99,7 @@ public class TableSupportTest extends AbstractSupportTest {
 		assertEquals("Column2", ReflectionUtils.invokeMethod(columns[1], "getText()"));
 	}
 
+	@Test
 	public void test_items() throws Exception {
 		Object[] items = TableSupport.getItems(getTable());
 		assertNotNull(items);

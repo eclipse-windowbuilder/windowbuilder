@@ -27,7 +27,10 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Set;
@@ -46,7 +49,8 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// prepare test Shell
 		m_shell = new Shell();
@@ -98,7 +102,8 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		if (m_shell != null) {
 			m_shell.dispose();
@@ -220,6 +225,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Property has no value.
 	 */
+	@Test
 	public void test_utils_noValue() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -230,12 +236,13 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 		assertNull(getField());
 		assertNull(getType());
 		assertNull(getText());
-		assertThat(getFields()).isEmpty();
+		Assertions.assertThat(getFields()).isEmpty();
 	}
 
 	/**
 	 * Property does not use {@link QualifiedName} as expression.
 	 */
+	@Test
 	public void test_utils_notQualifiedName() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel {",
@@ -246,12 +253,13 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 		assertNull(getField());
 		assertNull(getType());
 		assertNull(getText());
-		assertThat(getFields()).isEmpty();
+		Assertions.assertThat(getFields()).isEmpty();
 	}
 
 	/**
 	 * Normal {@link QualifiedName} as value.
 	 */
+	@Test
 	public void test_utils_qualifiedName() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel {",
@@ -271,7 +279,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 		// check possible fields
 		{
 			List<IField> fields = getFields();
-			assertThat(fields).hasSize(2);
+			Assertions.assertThat(fields).hasSize(2);
 			assertEquals("ID_1", fields.get(0).getElementName());
 			assertEquals("ID_4", fields.get(1).getElementName());
 		}
@@ -295,6 +303,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	/**
 	 * {@link SimpleName} as value, from implemented interface.
 	 */
+	@Test
 	public void test_utils_simpleName_interface() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel implements PrefConstants {",
@@ -314,7 +323,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 		// check possible fields
 		{
 			List<IField> fields = getFields();
-			assertThat(fields).hasSize(2);
+			Assertions.assertThat(fields).hasSize(2);
 			assertEquals("ID_1", fields.get(0).getElementName());
 			assertEquals("ID_4", fields.get(1).getElementName());
 		}
@@ -338,6 +347,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Test for {@link #setField(IField)}.
 	 */
+	@Test
 	public void test_setField_local() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel {",
@@ -366,6 +376,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	/**
 	 * {@link SimpleName} as value, from local {@link IField}.
 	 */
+	@Test
 	public void test_utils_simpleName_field() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel {",
@@ -389,7 +400,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 		// only "String" fields should be returned
 		{
 			List<IField> fields = getFields();
-			assertThat(fields).hasSize(2);
+			Assertions.assertThat(fields).hasSize(2);
 			assertEquals("LOCAL_ID", fields.get(0).getElementName());
 			assertEquals("LOCAL_ID2", fields.get(1).getElementName());
 		}
@@ -398,6 +409,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	/**
 	 * {@link SimpleName} as value, from local variable, so BAD case.
 	 */
+	@Test
 	public void test_utils_simpleName_variable() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel {",
@@ -414,6 +426,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Test for {@link ConstantSelectionPropertyEditor#getUsedTypes(JavaInfo)}.
 	 */
+	@Test
 	public void test_getUsedTypes() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel {",
@@ -430,13 +443,14 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 			typeNames.add(type.getFullyQualifiedName());
 		}
 		// validate IType's names
-		assertThat(typeNames).containsOnly("test.PrefConstants", "test.Test");
+		Assertions.assertThat(typeNames).containsOnly("test.PrefConstants", "test.Test");
 	}
 
 	/**
 	 * Test for {@link ConstantSelectionPropertyEditor#getUsedInterfaces(JavaInfo)}.<br>
 	 * This {@link TypeDeclaration} has no constants.
 	 */
+	@Test
 	public void test_getLocalTypes_0() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel implements PrefConstants {",
@@ -450,13 +464,14 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 			typeNames.add(type.getFullyQualifiedName());
 		}
 		// validate IType's names
-		assertThat(typeNames).containsOnly("test.PrefConstants");
+		Assertions.assertThat(typeNames).containsOnly("test.PrefConstants");
 	}
 
 	/**
 	 * Test for {@link ConstantSelectionPropertyEditor#getUsedInterfaces(JavaInfo)}.<br>
 	 * This {@link TypeDeclaration} has constants.
 	 */
+	@Test
 	public void test_getLocalTypes_1() throws Exception {
 		// declare interface without valid (String) constants
 		setFileContentSrc(
@@ -477,7 +492,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 			typeNames.add(type.getFullyQualifiedName());
 		}
 		// validate IType's names
-		assertThat(typeNames).containsOnly("test.PrefConstants", "test.Test");
+		Assertions.assertThat(typeNames).containsOnly("test.PrefConstants", "test.Test");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -488,6 +503,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Check for items.
 	 */
+	@Test
 	public void test_combo_items() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -502,7 +518,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 		// check items
 		{
 			List<String> items = getComboPropertyItems();
-			assertThat(items).containsExactly("ID_1", "ID_4");
+			Assertions.assertThat(items).containsExactly("ID_1", "ID_4");
 		}
 		// select current item
 		{

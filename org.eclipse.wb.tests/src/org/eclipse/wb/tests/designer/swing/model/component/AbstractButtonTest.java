@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 
@@ -34,6 +35,7 @@ public class AbstractButtonTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_horizontal() throws Exception {
 		ContainerInfo panel =
 				(ContainerInfo) parseSource(

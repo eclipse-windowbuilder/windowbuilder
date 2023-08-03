@@ -17,7 +17,8 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -33,11 +34,12 @@ public class ImageUtilsTest extends DesignerTestCase {
 	// getBytesPNG()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getBytesPNG() throws Exception {
 		Image image = new Image(null, 32, 16);
 		try {
 			byte[] bytes = ImageUtils.getBytesPNG(image);
-			assertThat(bytes.length).isGreaterThan(50);
+			Assertions.assertThat(bytes.length).isGreaterThan(50);
 			// try to use these bytes to load Image
 			{
 				Image loadedImage = new Image(null, new ByteArrayInputStream(bytes));
@@ -62,6 +64,7 @@ public class ImageUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ImageUtils#convertToSWT(java.awt.Image)}.
 	 */
+	@Test
 	public void test_convertToSWT_BufferedImage() throws Exception {
 		java.awt.Image awtImage = new BufferedImage(10, 20, BufferedImage.TYPE_INT_ARGB);
 		// do convert
@@ -78,6 +81,7 @@ public class ImageUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ImageUtils#convertToSWT(java.awt.Image)}.
 	 */
+	@Test
 	public void test_convertToSWT_ToolkitImage() throws Exception {
 		java.awt.Image awtImage;
 		{

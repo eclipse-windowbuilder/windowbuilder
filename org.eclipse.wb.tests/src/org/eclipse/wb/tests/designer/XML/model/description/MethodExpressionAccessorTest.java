@@ -17,7 +17,8 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.xml.model.property.accessor.MethodExpressionAccessor;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.lang.reflect.Method;
 
@@ -45,6 +46,7 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getAdapter() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -65,9 +67,10 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
 						tooltipProvider,
 						"getText(org.eclipse.wb.internal.core.model.property.Property)",
 						property);
-		assertThat(tooltip).isEqualTo("My JavaDoc text.");
+		Assertions.assertThat(tooltip).isEqualTo("My JavaDoc text.");
 	}
 
+	@Test
 	public void test_getX_noValue() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -83,6 +86,7 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
 		assertSame(Property.UNKNOWN_VALUE, accessor.getValue(myComponent));
 	}
 
+	@Test
 	public void test_getX_hasValue() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -103,6 +107,7 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
 		assertEquals(5, accessor.getValue(myComponent));
 	}
 
+	@Test
 	public void test_getX_hasDefaultValue_noValue() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -121,6 +126,7 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
 		assertEquals(Property.UNKNOWN_VALUE, accessor.getValue(myComponent));
 	}
 
+	@Test
 	public void test_getX_propertyElement() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -149,6 +155,7 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link MethodExpressionAccessor#setExpression(XmlObjectInfo, String)}.
 	 */
+	@Test
 	public void test_setExpression() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -173,6 +180,7 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
 		assertEquals(123, accessor.getValue(myComponent));
 	}
 
+	@Test
 	public void test_getSetter_getGetter() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",

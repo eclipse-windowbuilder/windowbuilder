@@ -10,12 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.layout.form;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
+import org.eclipse.wb.tests.designer.rcp.model.layout.form.gef.FormLayoutAlignmentTest;
+import org.eclipse.wb.tests.designer.rcp.model.layout.form.gef.FormLayoutMoveTest;
 
 import org.eclipse.swt.layout.FormLayout;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link FormLayout}.
@@ -23,16 +25,15 @@ import junit.framework.TestSuite;
  * @author scheglov_ke
  * @author mitin_aa
  */
-public class FormLayoutTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.layout.FormLayout");
-		suite.addTest(createSingleSuite(FormLayoutMoveSingleResizableTest.class));
-		suite.addTest(createSingleSuite(FormLayoutMoveSingleWithSingleSideTest.class));
-		suite.addTest(createSingleSuite(FormLayoutMoveSingleWithBothSidesTest.class));
-		suite.addTest(createSingleSuite(FormLayoutAlignmentDetectionTest.class));
-		suite.addTest(createSingleSuite(FormLayoutModelsTest.class));
-		/*suite.addTest(createSingleSuite(FormLayoutMoveTest.class));
-    suite.addTest(createSingleSuite(FormLayout_Alignment_Test.class));*/
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		FormLayoutMoveSingleResizableTest.class,
+		FormLayoutMoveSingleWithSingleSideTest.class,
+		FormLayoutMoveSingleWithBothSidesTest.class,
+		FormLayoutAlignmentDetectionTest.class,
+		FormLayoutModelsTest.class,
+		FormLayoutMoveTest.class,
+		FormLayoutAlignmentTest.class
+})
+public class FormLayoutTests {
 }

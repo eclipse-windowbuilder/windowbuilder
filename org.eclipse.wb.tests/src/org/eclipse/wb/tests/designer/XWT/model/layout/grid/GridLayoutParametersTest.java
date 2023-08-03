@@ -22,6 +22,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import org.junit.Test;
+
 /**
  * Test for {@link GridLayoutInfo} and special parameters for grab/alignment.
  *
@@ -45,6 +47,7 @@ public class GridLayoutParametersTest extends XwtModelTest {
 	/**
 	 * {@link Text} widget is marked as required horizontal grab/fill.
 	 */
+	@Test
 	public void test_CREATE_Text() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -75,6 +78,7 @@ public class GridLayoutParametersTest extends XwtModelTest {
 	/**
 	 * Test that horizontal grab/fill {@link Text} can be disabled.
 	 */
+	@Test
 	public void test_CREATE_Text_disabled() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -108,6 +112,7 @@ public class GridLayoutParametersTest extends XwtModelTest {
 	/**
 	 * {@link Table} widget is marked as required horizontal/vertical grab/fill.
 	 */
+	@Test
 	public void test_CREATE_Table() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -140,6 +145,7 @@ public class GridLayoutParametersTest extends XwtModelTest {
 	 * {@link Label} widget is marked as "right" aligned and next widget is {@link Text}, so when add
 	 * {@link Label} before {@link Text}, use {@link GridData#END} alignment.
 	 */
+	@Test
 	public void test_CREATE_LabelBeforeText() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -172,6 +178,7 @@ public class GridLayoutParametersTest extends XwtModelTest {
 	/**
 	 * Check that automatic "right alignment" feature for {@link Label} can be disabled.
 	 */
+	@Test
 	public void test_CREATE_LabelBeforeText_disabled() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -208,6 +215,7 @@ public class GridLayoutParametersTest extends XwtModelTest {
 	 * {@link Label} widget is marked as "right" aligned and next widget is {@link Text}, so when add
 	 * {@link Text} after {@link Label}, use {@link GridData#END} alignment for {@link Label}.
 	 */
+	@Test
 	public void test_CREATE_Text_afterLabel() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -244,6 +252,7 @@ public class GridLayoutParametersTest extends XwtModelTest {
 	/**
 	 * When we add {@link Text} after "filler" {@link Label}, we should not change its alignment.
 	 */
+	@Test
 	public void test_CREATE_Text_afterFiller() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

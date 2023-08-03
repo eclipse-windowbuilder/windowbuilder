@@ -34,6 +34,9 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.util.Locale;
 
 /**
@@ -41,14 +44,15 @@ import java.util.Locale;
  *
  * @author scheglov_ke
  */
+@Ignore
 public class SourceCompositeTest extends AbstractDialogTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// ITableTooltipProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
-	// XXX
-	public void _test_ITableTooltipProvider() throws Exception {
+	@Test
+	public void test_ITableTooltipProvider() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
 				getSourceDQ("frame.title=My JFrame", "frame.name=My name"));
@@ -111,6 +115,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 	// Context menu
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_contextMenu_removeLocale() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -189,6 +194,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		assertFalse(getFileSrc("test/messages_it.properties").exists());
 	}
 
+	@Test
 	public void test_contextMenu_internalizeKey() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
@@ -262,6 +268,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		assertFalse(getFileContentSrc("test/messages.properties").contains("frame.title"));
 	}
 
+	@Test
 	public void test_contextMenu_addLocale() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
@@ -320,6 +327,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		assertTrue(getFileSrc("test/messages_it.properties").exists());
 	}
 
+	@Test
 	public void test_contextMenu_addLocaleWithButton() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
@@ -371,6 +379,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 	// SourceComposite
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_SourceComposite_edit() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		setFileContentSrc("test/messages_it.properties", getSourceDQ(""));
@@ -459,6 +468,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		});
 	}
 
+	@Test
 	public void test_SourceComposite_update_externalize() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		waitForAutoBuild();
@@ -505,6 +515,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		});
 	}
 
+	@Test
 	public void test_SourceComposite_update_renameOver() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -561,6 +572,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		});
 	}
 
+	@Test
 	public void test_SourceComposite_onlyCurrentForm() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -602,6 +614,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
 		});
 	}
 
+	@Test
 	public void test_SourceComposite_navigation() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",

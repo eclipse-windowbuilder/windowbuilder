@@ -16,6 +16,9 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import javax.swing.JTable;
 
 /**
@@ -38,6 +41,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noComponents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -63,6 +67,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 	 * {@link JTable} has zero preferred size, so when we convert it into {@link MigLayoutInfo}, it
 	 * does not fit into any column/row.
 	 */
+	@Test
 	public void test_zeroSizeComponent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -96,6 +101,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 	// Horizontal alignment
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_oneColumn_LEFT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -135,6 +141,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_oneColumn_CENTER() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -174,6 +181,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_oneColumn_RIGHT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -213,6 +221,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_oneColumn_FILL() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -257,6 +266,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 	// Vertical alignment
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_oneRow_top() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -296,6 +306,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_oneRow_center() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -335,6 +346,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_oneRow_bottom() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -374,7 +386,9 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
-	public void DISABLE_test_oneRow_fill() throws Exception {
+	@Ignore
+	@Test
+	public void test_oneRow_fill() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends JPanel implements IConstants {",
@@ -418,6 +432,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 	// Spanning
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_twoRows_spanColumns() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -466,7 +481,9 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
-	public void DISABLE_test_Switching_fromGridBagLayout() throws Exception {
+	@Ignore
+	@Test
+	public void test_Switching_fromGridBagLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends JPanel {",

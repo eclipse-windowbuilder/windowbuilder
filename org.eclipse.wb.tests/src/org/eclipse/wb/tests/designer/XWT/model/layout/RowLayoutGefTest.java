@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link RowLayoutInfo} in GEF.
  *
@@ -37,6 +39,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dropNew_RowLayout() throws Exception {
 		CompositeInfo shell =
 				openEditor(
@@ -62,6 +65,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_noNext() throws Exception {
 		CompositeInfo shell =
 				openEditor(
@@ -83,6 +87,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_tree_CREATE_withNext() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -106,6 +111,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_tree_PASTE() throws Exception {
 		openEditor(
 				"<Shell>",
@@ -128,6 +134,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_tree_MOVE_reorder() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -152,6 +159,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_tree_MOVE_reparent() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -189,6 +197,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_noNext() throws Exception {
 		CompositeInfo shell =
 				openEditor(
@@ -210,6 +219,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_canvas_CREATE_withNext() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -233,6 +243,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_canvas_PASTE() throws Exception {
 		CompositeInfo shell =
 				openEditor(
@@ -256,6 +267,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_canvas_MOVE_reorder() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -281,6 +293,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_canvas_MOVE_reparent() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -319,6 +332,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 	// RESIZE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_RESIZE_width() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -345,6 +359,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_RESIZE_height() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -371,6 +386,7 @@ public class RowLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_RESIZE_both() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",

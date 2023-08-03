@@ -21,6 +21,8 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.Test;
+
 import java.awt.GridBagConstraints;
 import java.util.List;
 
@@ -48,6 +50,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link DimensionInfo#setSize(int)}.<br>
 	 * Assignment to <code>columnWidths</code> exists, so just replace element.
 	 */
+	@Test
 	public void test_setSize_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -95,6 +98,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link DimensionInfo#setSize(int)}.<br>
 	 * Assignment to <code>columnWidths</code> does not exist, so should be added first.
 	 */
+	@Test
 	public void test_setSize_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -155,6 +159,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link DimensionInfo#setWeight(double)}.<br>
 	 * Assignment to <code>columnWeights</code> exists, so just replace element.
 	 */
+	@Test
 	public void test_setWeight_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -202,6 +207,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link DimensionInfo#setWeight(double)}.<br>
 	 * Assignment to <code>columnWeights</code> does not exist, so should be added first.
 	 */
+	@Test
 	public void test_setWeight_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -267,6 +273,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link ColumnInfo#getAlignment()}.<br>
 	 * No components, so unknown alignment.
 	 */
+	@Test
 	public void test_getAlignment_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -287,6 +294,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link ColumnInfo#getAlignment()}.<br>
 	 * Single component with {@link GridBagConstraints#WEST}, so "left" alignment.
 	 */
+	@Test
 	public void test_getAlignment_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -314,6 +322,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link ColumnInfo#getAlignment()}.<br>
 	 * Two components with different alignments, so "unknown" alignment for {@link ColumnInfo}.
 	 */
+	@Test
 	public void test_getAlignment_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -386,6 +395,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Simple test for {@link DimensionOperations#insert(int)}.<br>
 	 * When we append new column, this causes gaps in previously last column.
 	 */
+	@Test
 	public void test_insert() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -448,6 +458,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Delete first column, component in next column moved.
 	 */
+	@Test
 	public void test_DELETE_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -507,6 +518,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * When delete column, width of spanned components may be decreased.<br>
 	 * When delete column, gaps should be fixed.
 	 */
+	@Test
 	public void test_DELETE_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -568,6 +580,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	/**
 	 * We should ignore "columnWidths" if there are not enough elements.
 	 */
+	@Test
 	public void test_DELETE_whenNotEnoughWidthElements() throws Exception {
 		parseContainer(
 				"class Test extends JPanel {",
@@ -622,6 +635,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Move column backward.
 	 */
+	@Test
 	public void test_MOVE_backward() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -717,6 +731,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Move column forward.
 	 */
+	@Test
 	public void test_MOVE_forward() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -813,6 +828,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * There was bug in moving column inside of horizontally spanned component.<br>
 	 * So, we need this test to reproduce and never repeat this problem again.
 	 */
+	@Test
 	public void test_MOVE_inside() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -952,6 +968,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link DimensionOperations#normalizeSpanning()}.<br>
 	 * Single component, so no changes.
 	 */
+	@Test
 	public void test_normalizeSpanning_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -995,6 +1012,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link DimensionOperations#normalizeSpanning()}.<br>
 	 * Button is spanned on 2 columns, and both required, so no changes.
 	 */
+	@Test
 	public void test_normalizeSpanning_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1068,6 +1086,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link DimensionOperations#normalizeSpanning()}.<br>
 	 * Button is spanned on 2 columns, but only one required.
 	 */
+	@Test
 	public void test_normalizeSpanning_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1117,6 +1136,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link DimensionOperations#clear(int)}.<br>
 	 * Clear column "0".
 	 */
+	@Test
 	public void test_clear_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1172,6 +1192,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	 * Clear column "1", "button_1" should be deleted, but not "button_0", even if "button_0" spanned
 	 * on column "1".
 	 */
+	@Test
 	public void test_clear_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1246,6 +1267,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for {@link DimensionOperations#split(int)}.
 	 */
+	@Test
 	public void test_span_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

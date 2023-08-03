@@ -19,7 +19,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.internal.part.NullEditorInput;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link AbstractXmlEditor}.
@@ -41,6 +42,7 @@ public class AbstractXmlEditorTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getAdapter_StructuredTextEditor() throws Exception {
 		openEditor("<Shell/>");
 		// we can access it
@@ -48,6 +50,7 @@ public class AbstractXmlEditorTest extends XwtGefTest {
 		assertSame(m_sourcePage.getXmlEditor(), adapter);
 	}
 
+	@Test
 	public void test_doSaveAs() throws Exception {
 		openEditor("<Shell/>");
 		// disabled
@@ -59,6 +62,7 @@ public class AbstractXmlEditorTest extends XwtGefTest {
 	/**
 	 * Our editor accepts only {@link IFileEditorInput}.
 	 */
+	@Test
 	public void test_init_notFile() throws Exception {
 		AbstractXmlEditor editor = new AbstractXmlEditor() {
 			@Override
@@ -70,7 +74,7 @@ public class AbstractXmlEditorTest extends XwtGefTest {
 			editor.init(null, new NullEditorInput());
 			fail();
 		} catch (PartInitException e) {
-			assertThat(e.getMessage()).contains("IFileEditorInput");
+			Assertions.assertThat(e.getMessage()).contains("IFileEditorInput");
 		}
 	}
 }

@@ -29,6 +29,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.BooleanLiteral;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import org.junit.Test;
+
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -57,6 +59,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link SetterAccessor#getGetter()}.
 	 */
+	@Test
 	public void test_getGetter() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -76,6 +79,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link SetterAccessor#setGetter(Method)}.
 	 */
+	@Test
 	public void test_setGetter() throws Exception {
 		Method setter = ReflectionUtils.getMethodBySignature(JPanel.class, "setEnabled(boolean)");
 		Method getter = ReflectionUtils.getMethodBySignature(JPanel.class, "isEnabled()");
@@ -95,6 +99,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link IAccessibleExpressionAccessor}.
 	 */
+	@Test
 	public void test_IAccessibleExpressionAccessor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -117,6 +122,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link PropertyTooltipProvider} implementation.
 	 */
+	@Test
 	public void test_PropertyTooltipProvider() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -145,6 +151,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * "source" == null, so remove invocation.
 	 */
+	@Test
 	public void test_setExpression_remove() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -170,6 +177,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * "source" is same as existing, so ignore.
 	 */
+	@Test
 	public void test_setExpression_sameSource() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -194,6 +202,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * "source" is different, do replace.
 	 */
+	@Test
 	public void test_setExpression_newSource() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -218,6 +227,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * No invocation yet, add new one.
 	 */
+	@Test
 	public void test_setExpression_newInvocation() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -243,6 +253,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * Test that {@link SetterAccessor} resolved deferred {@link JavaInfo} references.
 	 */
+	@Test
 	public void test_setExpression_replaceComponent() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -303,6 +314,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	/**
 	 * Test for {@link IExposableExpressionAccessor}.
 	 */
+	@Test
 	public void test_exposable() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -340,6 +352,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	 * Default value should be fetched after each creation. Note, that constructor parameter is not
 	 * bound to "text" property, we just get "text" property default value.
 	 */
+	@Test
 	public void test_defaultValue() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -381,6 +394,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	 * Test for {@link ExpressionAccessor#NO_DEFAULT_VALUE_TAG} support in
 	 * {@link GenericPropertyDescription}.
 	 */
+	@Test
 	public void test_noDefaultValue() throws Exception {
 		setFileContentSrc(
 				"test/MyComponent.java",
@@ -430,6 +444,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	 * Test that parameter {@link ExpressionAccessor#NO_DEFAULT_VALUES_THIS_TAG} prevents attempts to
 	 * fetch default values in {@link SetterAccessor}.
 	 */
+	@Test
 	public void test_noDefaultValuesForThis() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -467,6 +482,7 @@ public class SetterAccessorTest extends SwingModelTest {
 	 * Test that parameter {@link ExpressionAccessor#NO_DEFAULT_VALUES_THIS_TAG} prevents attempts to
 	 * fetch default values in {@link SetterAccessor}.
 	 */
+	@Test
 	public void test_exceptionInDefaultValue() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

@@ -29,6 +29,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import org.junit.Test;
+
 /**
  * Test for {@link InnerClassPropertyEditor}.
  *
@@ -52,6 +54,7 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Generate new inner class.
 	 */
+	@Test
 	public void test_generateInner() throws Exception {
 		declareButtonAndProvider();
 		declareProviderProperty_inner();
@@ -103,6 +106,7 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_openExternalClass() throws Exception {
 		declareButtonAndProvider();
 		declareProviderProperty_inner();
@@ -178,6 +182,7 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 	 * We can not generate "new AbstractClass()" instance creation, so should not allow user to choose
 	 * abstract type.
 	 */
+	@Test
 	public void test_openExternalClass_abstract() throws Exception {
 		declareButtonAndProvider();
 		declareProviderProperty_inner();
@@ -253,6 +258,7 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Test for generating class as anonymous instead of inner.
 	 */
+	@Test
 	public void test_generateAnonymous() throws Exception {
 		declareButtonAndProvider();
 		setFileContentSrc(
@@ -312,6 +318,7 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Anonymous class with <code>${parent.firstChild[javax.swing.JLabel].expression}</code> template.
 	 */
+	@Test
 	public void test_templateExpression() throws Exception {
 		declareButtonAndProvider();
 		setFileContentSrc(

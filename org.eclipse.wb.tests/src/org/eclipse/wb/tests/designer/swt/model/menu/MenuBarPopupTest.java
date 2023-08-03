@@ -22,6 +22,9 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for "bar" and "popup" menu, create/move them.
  *
@@ -45,6 +48,7 @@ public class MenuBarPopupTest extends RcpGefTest {
 	/**
 	 * We can drop new "popup".
 	 */
+	@Test
 	public void test_popupCreate() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -84,6 +88,7 @@ public class MenuBarPopupTest extends RcpGefTest {
 	/**
 	 * We can not drop new "popup", if there is already one.
 	 */
+	@Test
 	public void test_popupCreate_alreadyExists() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -107,6 +112,7 @@ public class MenuBarPopupTest extends RcpGefTest {
 	/**
 	 * Test for moving "popup" from one control to another.
 	 */
+	@Test
 	public void test_popupMove_otherControl() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -163,6 +169,7 @@ public class MenuBarPopupTest extends RcpGefTest {
 	/**
 	 * We can not move "popup" inside of same control.
 	 */
+	@Test
 	public void test_popupMove_sameControl() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -192,7 +199,9 @@ public class MenuBarPopupTest extends RcpGefTest {
 	/**
 	 * Test for copy/paste "popup".
 	 */
-	public void DISABLE_test_popupPaste() throws Exception {
+	@Ignore
+	@Test
+	public void test_popupPaste() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
 						"public class Test extends Shell {",
@@ -277,6 +286,7 @@ public class MenuBarPopupTest extends RcpGefTest {
 	/**
 	 * We can drop new "bar".
 	 */
+	@Test
 	public void test_barCreate() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -316,6 +326,7 @@ public class MenuBarPopupTest extends RcpGefTest {
 	/**
 	 * We can not drop new "bar", if there is already one.
 	 */
+	@Test
 	public void test_barCreate_alreadyExists() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(

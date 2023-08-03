@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
+import org.junit.Test;
+
 /**
  * Test for {@link IntegerPropertyEditor}.
  *
@@ -39,6 +41,7 @@ public class IntegerPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	/**
 	 * Test for {@link IntegerPropertyEditor#getText(Property)}.
 	 */
+	@Test
 	public void test_getText() throws Exception {
 		assert_getText(null, IntegerPropertyEditor.INSTANCE, Property.UNKNOWN_VALUE);
 		assert_getText("123", IntegerPropertyEditor.INSTANCE, Integer.valueOf(123));
@@ -47,6 +50,7 @@ public class IntegerPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	/**
 	 * Test for {@link IntegerPropertyEditor#getEditorText(Property)}.
 	 */
+	@Test
 	public void test_getEditorText() throws Exception {
 		assert_getEditorText(null, IntegerPropertyEditor.INSTANCE, Property.UNKNOWN_VALUE);
 		assert_getEditorText("123", IntegerPropertyEditor.INSTANCE, Integer.valueOf(123));
@@ -60,6 +64,7 @@ public class IntegerPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	/**
 	 * Test for {@link IntegerPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_setValue() throws Exception {
 		prepareIntegerPanel();
 		ContainerInfo panel =
@@ -85,6 +90,7 @@ public class IntegerPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	/**
 	 * Test for {@link IntegerPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_removeValue_emptyString() throws Exception {
 		prepareIntegerPanel();
 		ContainerInfo panel =
@@ -110,6 +116,7 @@ public class IntegerPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	/**
 	 * Test for {@link IntegerPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_removeValue_whitespaceString() throws Exception {
 		prepareIntegerPanel();
 		ContainerInfo panel =
@@ -135,6 +142,7 @@ public class IntegerPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	/**
 	 * Test for {@link IntegerPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_invalidValue() throws Exception {
 		prepareIntegerPanel();
 		ContainerInfo panel =

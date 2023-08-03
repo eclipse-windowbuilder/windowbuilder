@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.core;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 /**
  * Test for {@link EnvironmentUtils}.
  *
@@ -22,6 +24,7 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for known state of host and development flag.
 	 */
+	@Test
 	public void test_DEVELOPER_HOST() throws Exception {
 		if ("SCHEGLOV-KE".equals(EnvironmentUtils.HOST_NAME)) {
 			assertTrue(EnvironmentUtils.DEVELOPER_HOST);
@@ -31,6 +34,7 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link EnvironmentUtils#getJavaVersion()}.
 	 */
+	@Test
 	public void test_getJavaVersion() throws Exception {
 		{
 			// specify version 1.8
@@ -46,6 +50,7 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link EnvironmentUtils#isTestingTime()}.
 	 */
+	@Test
 	public void test_isDevelopmentTime() throws Exception {
 		assertTrue(EnvironmentUtils.isTestingTime());
 		{

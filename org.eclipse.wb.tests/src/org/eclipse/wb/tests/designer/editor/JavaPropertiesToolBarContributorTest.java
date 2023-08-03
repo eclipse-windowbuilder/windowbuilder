@@ -19,6 +19,9 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.ToolItem;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link JavaPropertiesToolBarContributor}.
  *
@@ -42,7 +45,9 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 	/**
 	 * Test for "Goto definition" action.
 	 */
-	public void DISABLED_test_gotoDefinition() throws Exception {
+	@Ignore
+	@Test
+	public void test_gotoDefinition() throws Exception {
 		openContainer(
 				"// filler filler filler filler filler",
 				"// filler filler filler filler filler",
@@ -85,7 +90,9 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
 	/**
 	 * Test for "Local to field" action.
 	 */
-	public void DISABLED_test_convertLocalToField() throws Exception {
+	@Ignore
+	@Test
+	public void test_convertLocalToField() throws Exception {
 		openContainer(
 				"// filler filler filler filler filler",
 				"// filler filler filler filler filler",

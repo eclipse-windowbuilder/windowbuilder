@@ -13,6 +13,9 @@ package org.eclipse.wb.tests.designer.core.eval.other;
 import org.eclipse.wb.internal.core.eval.evaluators.ClassEvaluator;
 import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.util.ArrayList;
 
 /**
@@ -26,7 +29,8 @@ public class ClassTest extends AbstractEngineTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void test_setUp() throws Exception {
+	@BeforeClass
+	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}
 
@@ -35,31 +39,25 @@ public class ClassTest extends AbstractEngineTest {
 	// cast's
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_TypeLiteral_Object() throws Exception {
 		assertEquals(ArrayList.class, evaluateExpression("java.util.ArrayList.class", "Class"));
 	}
 
+	@Test
 	public void test_TypeLiteral_primitive() throws Exception {
 		assertEquals(boolean.class, evaluateExpression("boolean.class", "Class"));
 	}
 
+	@Test
 	public void test_getClass() throws Exception {
 		Class<?> actualClass = (Class<?>) evaluateExpression("getClass()", "Class", true);
 		assertEquals("test.Test", actualClass.getName());
 	}
 
+	@Test
 	public void test_getClass_withThisQualifier() throws Exception {
 		Class<?> actualClass = (Class<?>) evaluateExpression("this.getClass()", "Class", true);
 		assertEquals("test.Test", actualClass.getName());
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Project disposing
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void test_tearDown() throws Exception {
-		do_projectDispose();
 	}
 }

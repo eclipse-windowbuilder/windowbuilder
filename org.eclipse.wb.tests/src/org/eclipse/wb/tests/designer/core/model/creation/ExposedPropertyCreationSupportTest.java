@@ -12,10 +12,11 @@ package org.eclipse.wb.tests.designer.core.model.creation;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.creation.ExposedPropertyCreationSupport;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+
+import org.junit.Test;
 
 import javax.swing.JButton;
 
@@ -42,6 +43,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	/**
 	 * Simplest test for parsing {@link ExposedPropertyCreationSupport}.
 	 */
+	@Test
 	public void test_parse_0() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -68,6 +70,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test that we can add components on exposed containers.
 	 */
+	@Test
 	public void test_parse_1() throws Exception {
 		setFileContentSrc(
 				"test/TitlePanel.java",
@@ -128,6 +131,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test that during parsing we restore "logical" parent/child hierarchy.
 	 */
+	@Test
 	public void test_parse_2() throws Exception {
 		setFileContentSrc(
 				"test/PanelExpose.java",
@@ -207,6 +211,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test that we can resolve "logical" exposed children.
 	 */
+	@Test
 	public void test_parse_3() throws Exception {
 		setFileContentSrc(
 				"test/PanelExpose.java",
@@ -255,6 +260,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	 * assigns this method into field and has getter to access some component from this container. We
 	 * handle this getter as exposed component
 	 */
+	@Test
 	public void test_parse_getExposedWhileCreateItsContainer() throws Exception {
 		setFileContentSrc(
 				"test/MyContainer.java",
@@ -320,6 +326,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	 * Components with {@link ExposedPropertyCreationSupport} can be "deleted", but for them this
 	 * means that their delete children and related nodes, but keep themselves in parent.
 	 */
+	@Test
 	public void test_delete() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -353,6 +360,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	 * Test that we can replace component exposed as <code>getX()</code> using method
 	 * <code>setX()</code>, and when we delete replacement, original exposed component is restored.
 	 */
+	@Test
 	public void test_setContentPane_addDirectly() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -396,6 +404,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	 * <p>
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=352568
 	 */
+	@Test
 	public void test_setContentPane_addUsingGetter() throws Exception {
 		parseContainer(
 				"// filler filler filler filler filler",
@@ -423,6 +432,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test that icon of {@link ExposedPropertyCreationSupport} component is decorated.
 	 */
+	@Test
 	public void test_decorateIcon() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -454,6 +464,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test for {@link ExposedPropertyCreationSupport#isDirect()}
 	 */
+	@Test
 	public void test_isDirect_true() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -490,6 +501,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test for {@link ExposedPropertyCreationSupport#isDirect()}
 	 */
+	@Test
 	public void test_isDirect_false() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",

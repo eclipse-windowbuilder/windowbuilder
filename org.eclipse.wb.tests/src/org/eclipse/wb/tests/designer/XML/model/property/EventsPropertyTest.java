@@ -33,7 +33,10 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test for {@link EventsProperty}.
@@ -49,13 +52,15 @@ public class EventsPropertyTest extends XwtModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		setPreferencesDefaults();
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		DesignerPlugin.getActivePage().closeAllEditors(false);
 		super.tearDown();
 	}
@@ -79,6 +84,7 @@ public class EventsPropertyTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_hasKeyDown() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -105,6 +111,7 @@ public class EventsPropertyTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_decorateIcon() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -145,6 +152,7 @@ public class EventsPropertyTest extends XwtModelTest {
 	/**
 	 * No corresponding Java file, i.e. no "x:Class" attribute, so do thing.
 	 */
+	@Test
 	public void test_openListener_noJava() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		Property property = PropertyUtils.getByPath(shell, "Events/KeyDown");
@@ -157,6 +165,7 @@ public class EventsPropertyTest extends XwtModelTest {
 	/**
 	 * Open existing method for existing event.
 	 */
+	@Test
 	public void test_openListener_existingMethod() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -170,7 +179,7 @@ public class EventsPropertyTest extends XwtModelTest {
 		//
 		openListener(property);
 		IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
-		assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
+		Assertions.assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
 		// not changes in Java
 		assertEquals(
 				getJavaSource(
@@ -183,12 +192,13 @@ public class EventsPropertyTest extends XwtModelTest {
 				getJavaFile());
 		// method is under cursor
 		String source = getJavaSource_afterCursor(activeEditor);
-		assertThat(source).startsWith("public void onKeyDown(Event event) {");
+		Assertions.assertThat(source).startsWith("public void onKeyDown(Event event) {");
 	}
 
 	/**
 	 * Open new event and generate new method.
 	 */
+	@Test
 	public void test_openListener_newMethod() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -200,7 +210,7 @@ public class EventsPropertyTest extends XwtModelTest {
 		//
 		openListener(property);
 		IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
-		assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
+		Assertions.assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
 		// "onKeyDown()" method was added
 		assertEquals(
 				getJavaSource(
@@ -214,9 +224,10 @@ public class EventsPropertyTest extends XwtModelTest {
 		assertXML("<Shell x:Class='test.Test' KeyDownEvent='onKeyDown'/>");
 		// method is under cursor
 		String source = getJavaSource_afterCursor(activeEditor);
-		assertThat(source).startsWith("public void onKeyDown(Event event) {");
+		Assertions.assertThat(source).startsWith("public void onKeyDown(Event event) {");
 	}
 
+	@Test
 	public void test_openListener_usingPath() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -241,11 +252,12 @@ public class EventsPropertyTest extends XwtModelTest {
 		assertXML("<Shell x:Class='test.Test' KeyDownEvent='onKeyDown'/>");
 		// method is under cursor
 		IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
-		assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
+		Assertions.assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
 		String source = getJavaSource_afterCursor(activeEditor);
-		assertThat(source).startsWith("public void onKeyDown(Event event) {");
+		Assertions.assertThat(source).startsWith("public void onKeyDown(Event event) {");
 	}
 
+	@Test
 	public void test_openListener_usingDoubleClick() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -268,9 +280,9 @@ public class EventsPropertyTest extends XwtModelTest {
 		assertXML("<Shell x:Class='test.Test' KeyDownEvent='onKeyDown'/>");
 		// method is under cursor
 		IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
-		assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
+		Assertions.assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
 		String source = getJavaSource_afterCursor(activeEditor);
-		assertThat(source).startsWith("public void onKeyDown(Event event) {");
+		Assertions.assertThat(source).startsWith("public void onKeyDown(Event event) {");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -278,6 +290,7 @@ public class EventsPropertyTest extends XwtModelTest {
 	// Context menu
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_contextMenu() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -327,6 +340,7 @@ public class EventsPropertyTest extends XwtModelTest {
 	// Delete
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deleteEvent_noJava() throws Exception {
 		XmlObjectInfo shell = parse("<Shell KeyDownEvent='onKeyDown'/>");
 		Property property = PropertyUtils.getByPath(shell, "Events/KeyDown");
@@ -335,6 +349,7 @@ public class EventsPropertyTest extends XwtModelTest {
 		assertXML("<Shell/>");
 	}
 
+	@Test
 	public void test_deleteEvent_existingMethod() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -357,6 +372,7 @@ public class EventsPropertyTest extends XwtModelTest {
 		assertXML("<Shell x:Class='test.Test'/>");
 	}
 
+	@Test
 	public void test_deleteEvent_noMethod() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",
@@ -377,6 +393,7 @@ public class EventsPropertyTest extends XwtModelTest {
 		assertXML("<Shell x:Class='test.Test'/>");
 	}
 
+	@Test
 	public void test_deleteComponent() throws Exception {
 		createTestClass(
 				"// filler filler filler filler filler",

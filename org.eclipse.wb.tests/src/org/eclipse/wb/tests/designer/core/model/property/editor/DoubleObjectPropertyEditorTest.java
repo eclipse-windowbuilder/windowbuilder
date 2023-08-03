@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
+import org.junit.Test;
+
 /**
  * Test for {@link DoubleObjectPropertyEditor}.
  *
@@ -41,6 +43,7 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link DoubleObjectPropertyEditor#getText(Property)}.
 	 */
+	@Test
 	public void test_getText() throws Exception {
 		assert_getText(null, EDITOR, Property.UNKNOWN_VALUE);
 		assert_getText("null", EDITOR, null);
@@ -50,6 +53,7 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link DoubleObjectPropertyEditor#getEditorText(Property)}.
 	 */
+	@Test
 	public void test_getEditorText() throws Exception {
 		assert_getEditorText(null, EDITOR, Property.UNKNOWN_VALUE);
 		assert_getEditorText("null", EDITOR, null);
@@ -64,6 +68,7 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link DoubleObjectPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_value() throws Exception {
 		prepareDoublePanel();
 		ContainerInfo panel =
@@ -89,6 +94,7 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link DoubleObjectPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_null() throws Exception {
 		prepareDoublePanel();
 		ContainerInfo panel =
@@ -114,6 +120,7 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link DoubleObjectPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_removeValue_emptyString() throws Exception {
 		prepareDoublePanel();
 		ContainerInfo panel =
@@ -139,6 +146,7 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link DoubleObjectPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_removeValue_whitespaceString() throws Exception {
 		prepareDoublePanel();
 		ContainerInfo panel =
@@ -164,6 +172,7 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	/**
 	 * Test for {@link DoubleObjectPropertyEditor#setEditorText(Property, String)}.
 	 */
+	@Test
 	public void test_setEditorText_invalidValue() throws Exception {
 		prepareDoublePanel();
 		ContainerInfo panel =

@@ -20,6 +20,8 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.ITextEditor;
 
+import org.junit.Test;
+
 /**
  * Test for {@link IAction} management in {@link DesignerEditor}.
  *
@@ -45,6 +47,7 @@ public class ActionsTest extends SwingGefTest {
 	 * return to original one. Problem is that we should implement
 	 * {@link ITextEditor#getAction(String)} and return actions from "Source" or "Design" pages.
 	 */
+	@Test
 	public void test_deactiveEditor_thenActivateAgain() throws Exception {
 		IWorkbenchPage page = DesignerPlugin.getActivePage();
 		// open Design

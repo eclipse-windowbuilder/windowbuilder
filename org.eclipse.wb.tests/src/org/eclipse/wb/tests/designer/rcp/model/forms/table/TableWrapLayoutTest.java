@@ -39,6 +39,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -61,6 +63,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_images() throws Exception {
 		assertNotNull(TableWrapLayoutImages.getImage("h/left.gif"));
 		assertNotNull(TableWrapLayoutImages.getImageDescriptor("v/top.gif"));
@@ -74,6 +77,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	/**
 	 * Test for parsing empty {@link TableWrapLayoutInfo}.
 	 */
+	@Test
 	public void test_parseEmpty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -89,6 +93,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	/**
 	 * Fillers should be filtered out from presentation children.
 	 */
+	@Test
 	public void test_excludeFillersFromPresentationChildren() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -131,6 +136,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	/**
 	 * Test for {@link IGridInfo}.
 	 */
+	@Test
 	public void test_gridInfo() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -229,6 +235,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	/**
 	 * Test cells when {@link Shell#setSize(int, int)} is used.
 	 */
+	@Test
 	public void test_gridInfo2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -256,6 +263,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	/**
 	 * Test for {@link IGridInfo} when there are not controls.
 	 */
+	@Test
 	public void test_gridInfo_empty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -285,6 +293,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// setCells()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setCells_horizontalSpan() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -354,6 +363,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_setCells_horizontalSpan2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -406,6 +416,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_setCells_verticalSpan() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -475,6 +486,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_setCells_verticalSpan2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -527,6 +539,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_setCells_move() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -603,6 +616,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	/**
 	 * When we delete {@link ControlInfo}, it should be replaced with filler.
 	 */
+	@Test
 	public void test_delete_replaceWithFillers() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -661,6 +675,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	/**
 	 * When we delete column, we should keep at least one column.
 	 */
+	@Test
 	public void test_delete_keepOneColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -694,6 +709,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_delete_removeEmptyDimensions() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -753,6 +769,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_inEmptyCell() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -809,6 +826,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_insertRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -867,6 +885,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_insertColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -925,6 +944,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_insertColumnRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -986,6 +1006,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_appendRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1030,6 +1051,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_appendColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1075,6 +1097,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_appendColumnRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1121,6 +1144,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_insertColumnHorizontalSpan() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1187,6 +1211,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_insertRowVerticalSpan() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1257,6 +1282,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	 * Test for parsing "not balanced" {@link TableWrapLayoutInfo} and adding into <code>null</code>
 	 * cell.
 	 */
+	@Test
 	public void test_CREATE_notBalanced() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1301,6 +1327,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// CREATE special cases
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_Shell_open() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1342,6 +1369,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_Shell_layout() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1388,6 +1416,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// Dimension operations
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_columnAccess() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1521,6 +1550,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_rowAccess() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1657,6 +1687,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1732,6 +1763,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_deleteColumn_deleteAlsoEmptyRows() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1782,6 +1814,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_deleteRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1858,6 +1891,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_deleteRow_deleteAlsoEmptyColumns() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1913,6 +1947,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// MOVE COLUMN
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_COLUMN_before() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1970,6 +2005,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_MOVE_COLUMN_after() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2032,6 +2068,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// MOVE ROW
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_ROW_before() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2089,6 +2126,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_MOVE_ROW_after() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2151,6 +2189,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// MOVE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2210,6 +2249,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_MOVE_out() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2256,6 +2296,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_MOVE_error_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2299,6 +2340,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_MOVE_error_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2344,6 +2386,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2395,6 +2438,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	// Special cases
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_noReference() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2430,6 +2474,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE_viewer() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2477,6 +2522,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	 * Test that when delete {@link TableWrapLayoutInfo}, fillers are also removed, because there are
 	 * not controls that user wants.
 	 */
+	@Test
 	public void test_DELETE_removeFillers() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2514,6 +2560,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 	 * Test switching layouts from {@link GridLayout} to {@link TableWrapLayout}, and restore
 	 * component positions & alignments.
 	 */
+	@Test
 	public void test_Switching_fromGridLayout() throws Exception {
 		CompositeInfo composite =
 				parseComposite(

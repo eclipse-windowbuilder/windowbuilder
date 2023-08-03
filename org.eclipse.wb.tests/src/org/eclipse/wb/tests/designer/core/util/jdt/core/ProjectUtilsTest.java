@@ -40,8 +40,10 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.osgi.framework.Bundle;
 
 import java.io.File;
@@ -63,7 +65,8 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -87,6 +90,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#hasNature(IProject, String)}.
 	 */
+	@Test
 	public void test_hasNature() throws Exception {
 		assertTrue(ProjectUtils.hasNature(m_project, JavaCore.NATURE_ID));
 		assertFalse(ProjectUtils.hasNature(m_project, "no.such.nature"));
@@ -96,6 +100,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#addNature(IProject, String)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addNature() throws Exception {
 		TestUtils.addDynamicExtension2(
 				"org.eclipse.core.resources.natures",
@@ -119,6 +124,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#removeNature(IProject, String)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_removeNature() throws Exception {
 		assertTrue(m_project.hasNature(JavaCore.NATURE_ID));
 		ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
@@ -169,6 +175,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#isJDK15(IJavaProject)}.
 	 */
+	@Test
 	public void test_isJDK15() throws Exception {
 		// initially has 1.5 compliance
 		assertTrue(ProjectUtils.isJDK15(m_javaProject));
@@ -201,6 +208,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#getOptions(IJavaProject)}.
 	 */
+	@Test
 	public void test_getOptions() throws Exception {
 		Map<String, String> options = ProjectUtils.getOptions(m_testProject.getJavaProject());
 		assertNotNull(options);
@@ -216,6 +224,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#waitForAutoBuild()}.
 	 */
+	@Test
 	public void test_waitForAutoBuild() throws Exception {
 		ProjectClassLoader classLoader =
 				ProjectClassLoader.create(null, m_testProject.getJavaProject());
@@ -244,6 +253,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#ensureResourceType(IJavaProject, Bundle, String)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_ensureResourceType_14() throws Exception {
 		String managerClassName = "pkg.MyManager";
 		// use test Bundle
@@ -279,7 +289,9 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#ensureResourceType(IJavaProject, Bundle, String)}.
 	 */
 	@DisposeProjectAfter
-	public void DISABLE_test_ensureResourceType_15() throws Exception {
+	@Ignore
+	@Test
+	public void test_ensureResourceType_15() throws Exception {
 		String managerClassName = "pkg.MyManager";
 		// IJavaProject has 1.5 compliance
 		assertTrue(ProjectUtils.isJDK15(m_javaProject));
@@ -313,7 +325,9 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#ensureResourceType(IJavaProject, Bundle, String)}.
 	 */
 	@DisposeProjectAfter
-	public void DISABLE_test_ensureResourceType_existsButNotUpToDate() throws Exception {
+	@Ignore
+	@Test
+	public void test_ensureResourceType_existsButNotUpToDate() throws Exception {
 		String managerClassName = "pkg.MyManager";
 		String managerPath = "pkg/MyManager.java";
 		// set some other contents for file
@@ -363,7 +377,9 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * update it in required project; not generate new copy in given {@link IJavaProject}.
 	 */
 	@DisposeProjectAfter
-	public void DISABLE_test_ensureResourceType_existsInDifferentProject_butNotUpToDate()
+	@Ignore
+	@Test
+	public void test_ensureResourceType_existsInDifferentProject_butNotUpToDate()
 			throws Exception {
 		String managerClassName = "pkg.MyManager";
 		String managerPath = "pkg/MyManager.java";
@@ -387,7 +403,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 			IType type = m_javaProject.findType(managerClassName);
 			assertNotNull(type);
 			IPath fullPath = type.getUnderlyingResource().getFullPath();
-			assertThat(fullPath.toPortableString()).contains("/myProject/src/");
+			Assertions.assertThat(fullPath.toPortableString()).contains("/myProject/src/");
 		}
 		// no "manager" in main project
 		assertFalse(getFileSrc(managerPath).exists());
@@ -422,7 +438,9 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * We should ignore {@link IType} if it is declared in binary file.
 	 */
 	@DisposeProjectAfter
-	public void DISABLE_test_ensureResourceType_binary() throws Exception {
+	@Ignore
+	@Test
+	public void test_ensureResourceType_binary() throws Exception {
 		String managerClassName = "pkg.MyManager";
 		String managerPath = "pkg/MyManager.java";
 		String managerSourceOld =
@@ -466,15 +484,15 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 			m_testProject.addExternalJar(managerJar);
 			{
 				IType managerType = m_javaProject.findType(managerClassName);
-				assertThat(managerType).isNotNull();
-				assertThat(managerType.getFields()).isEmpty();
+				Assertions.assertThat(managerType).isNotNull();
+				Assertions.assertThat(managerType.getFields()).isEmpty();
 			}
 			// no changes, because "manager" is in binary
 			ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
 			{
 				IType managerType = m_javaProject.findType(managerClassName);
-				assertThat(managerType).isNotNull();
-				assertThat(managerType.getFields()).isEmpty();
+				Assertions.assertThat(managerType).isNotNull();
+				Assertions.assertThat(managerType.getFields()).isEmpty();
 			}
 		} finally {
 			testBundle.dispose();
@@ -488,7 +506,9 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * We should not try to update {@link IType} if it is in "read-only" unit.
 	 */
 	@DisposeProjectAfter
-	public void DISABLE_test_ensureResourceType_readOnly() throws Exception {
+	@Ignore
+	@Test
+	public void test_ensureResourceType_readOnly() throws Exception {
 		String managerClassName = "pkg.MyManager";
 		String managerPath = "pkg/MyManager.java";
 		// set some other contents for file
@@ -537,6 +557,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#hasType(IJavaProject, String)}.
 	 */
+	@Test
 	public void test_hasType() throws Exception {
 		assertTrue(ProjectUtils.hasType(m_javaProject, "java.lang.String"));
 		// no such type yet
@@ -558,6 +579,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#addJar(IJavaProject, String, String)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addJar_usingPaths() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -587,6 +609,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Add jar and src from {@link Bundle}, from some directory.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addJar_fromBundle() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -617,6 +640,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Add jar from {@link Bundle}, without sources.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addJar_fromBundle_noSrc() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -644,6 +668,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Project is also PDE project, so manifest also should be updated.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addJar_whenPDE() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_project, null);
 		TestBundle testBundle = new TestBundle();
@@ -661,7 +686,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 			// PDE manifest also updated
 			{
 				String manifest = getFileContent("META-INF/MANIFEST.MF");
-				assertThat(manifest).contains("Bundle-ClassPath: .,\n myClasses.jar\n");
+				Assertions.assertThat(manifest).contains("Bundle-ClassPath: .,\n myClasses.jar\n");
 			}
 		} finally {
 			testBundle.dispose();
@@ -672,6 +697,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#addExternalJar(IJavaProject, String, String)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addExternalJar() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -701,6 +727,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#addClasspathEntry(IJavaProject, IClasspathEntry)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addClasspathEntry() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -729,6 +756,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#addPluginLibraries(IJavaProject, String)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addPluginLibraries() throws Exception {
 		// no org.eclipse.jdt.core.IType
 		assertFalse(ProjectUtils.hasType(m_javaProject, "org.eclipse.jdt.core.IType"));
@@ -742,6 +770,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#addSWTLibrary(IJavaProject)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addSWTLibrary() throws Exception {
 		// no org.eclipse.swt.SWT
 		assertFalse(ProjectUtils.hasType(m_javaProject, "org.eclipse.swt.SWT"));
@@ -755,11 +784,12 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Test for {@link ProjectUtils#removeClasspathEntries(IJavaProject, Predicate)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_removeClasspathEntries() throws Exception {
 		// initially has JRE_CONTAINER and "src"
 		{
 			IClasspathEntry[] rawClasspath = m_javaProject.getRawClasspath();
-			assertThat(rawClasspath).hasSize(2);
+			Assertions.assertThat(rawClasspath).hasSize(2);
 			assertEquals(
 					"org.eclipse.jdt.launching.JRE_CONTAINER",
 					rawClasspath[0].getPath().toPortableString());
@@ -776,7 +806,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 		// has only JRE_CONTAINER
 		{
 			IClasspathEntry[] rawClasspath = m_javaProject.getRawClasspath();
-			assertThat(rawClasspath).hasSize(1);
+			Assertions.assertThat(rawClasspath).hasSize(1);
 			assertEquals(
 					"org.eclipse.jdt.launching.JRE_CONTAINER",
 					rawClasspath[0].getPath().toPortableString());
@@ -791,6 +821,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#getOSPath(IPath)}.
 	 */
+	@Test
 	public void test_getOSPath_noSuchPath() throws Exception {
 		IPath workspacePath = new Path("/noSuchProject/andNoFolder");
 		IPath osPath = ProjectUtils.getOSPath(workspacePath);
@@ -800,6 +831,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#getOSPath(IPath)}.
 	 */
+	@Test
 	public void test_getOSPath_forSourceFolder() throws Exception {
 		assert_test_getOSPath("/TestProject/src", "TestProject/src");
 	}
@@ -807,6 +839,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#getOSPath(IPath)}.
 	 */
+	@Test
 	public void test_getOSPath_forOutputFolder() throws Exception {
 		assert_test_getOSPath("/TestProject/bin", "TestProject/bin");
 	}
@@ -814,6 +847,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#getOSPath(IPath)}.
 	 */
+	@Test
 	public void test_getOSPath_forProjectItself() throws Exception {
 		assert_test_getOSPath("/TestProject", "TestProject");
 	}
@@ -835,7 +869,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 			// (System property is 'org.eclipse.tycho.surefire.osgibooter.uitest')
 			pathEnds = Expectations.get("target/work/data/" + expectedLocation, new StrValue[] {});
 		}
-		assertThat(osLocation).endsWith(pathEnds);
+		Assertions.assertThat(osLocation).endsWith(pathEnds);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -846,16 +880,18 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link ProjectUtils#findFiles(IJavaProject, String)}.
 	 */
+	@Test
 	public void test_findFiles_oneProject() throws Exception {
 		IFile file = setFileContent("folder/1.txt", "");
 		List<IFile> files = ProjectUtils.findFiles(m_testProject.getJavaProject(), "folder/1.txt");
-		assertThat(files).containsOnly(file);
+		Assertions.assertThat(files).containsOnly(file);
 	}
 
 	/**
 	 * Test for {@link ProjectUtils#findFiles(IJavaProject, String)}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_findFiles_twoProjects() throws Exception {
 		// create new project "myProject"
 		TestProject myProject = new TestProject("myProject");
@@ -867,7 +903,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 			IFile file_2 = setFileContent(myProject.getProject(), "folder/1.txt", "");
 			// assert files
 			List<IFile> files = ProjectUtils.findFiles(m_testProject.getJavaProject(), "folder/1.txt");
-			assertThat(files).containsOnly(file_1, file_2);
+			Assertions.assertThat(files).containsOnly(file_1, file_2);
 		} finally {
 			myProject.dispose();
 		}
@@ -879,6 +915,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 	 * Reference not existing {@link IProject}.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_findFiles_notExistingProject() throws Exception {
 		// add "myProject"
 		TestProject myProject = new TestProject("myProject");
@@ -888,7 +925,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 		IFile file = setFileContent(m_testProject.getProject(), "folder/1.txt", "");
 		// assert files
 		List<IFile> files = ProjectUtils.findFiles(m_testProject.getJavaProject(), "folder/1.txt");
-		assertThat(files).containsOnly(file);
+		Assertions.assertThat(files).containsOnly(file);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -14,6 +14,8 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.ToolBarInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ToolBarInfo} in GEF.
  *
@@ -34,6 +36,7 @@ public class ToolBarGefTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_item() throws Exception {
 		ToolBarInfo toolBar =
 				openJavaInfo(
@@ -58,6 +61,7 @@ public class ToolBarGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_control_good() throws Exception {
 		openJavaInfo(
 				"public class Test extends ToolBar {",
@@ -92,6 +96,7 @@ public class ToolBarGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_CREATE_control_notSeparator() throws Exception {
 		openJavaInfo(
 				"public class Test extends ToolBar {",
@@ -110,6 +115,7 @@ public class ToolBarGefTest extends RcpGefTest {
 		canvas.assertCommandNull();
 	}
 
+	@Test
 	public void test_canvas_CREATE_control_alreadyHasControl() throws Exception {
 		openJavaInfo(
 				"public class Test extends ToolBar {",
@@ -138,6 +144,7 @@ public class ToolBarGefTest extends RcpGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_item() throws Exception {
 		ToolBarInfo toolBar =
 				openJavaInfo(
@@ -162,6 +169,7 @@ public class ToolBarGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_CREATE_control_good() throws Exception {
 		openJavaInfo(
 				"public class Test extends ToolBar {",
@@ -196,6 +204,7 @@ public class ToolBarGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_CREATE_control_notSeparator() throws Exception {
 		openJavaInfo(
 				"public class Test extends ToolBar {",
@@ -213,6 +222,7 @@ public class ToolBarGefTest extends RcpGefTest {
 		tree.assertCommandNull();
 	}
 
+	@Test
 	public void test_tree_CREATE_control_alreadyHasControl() throws Exception {
 		openJavaInfo(
 				"public class Test extends ToolBar {",

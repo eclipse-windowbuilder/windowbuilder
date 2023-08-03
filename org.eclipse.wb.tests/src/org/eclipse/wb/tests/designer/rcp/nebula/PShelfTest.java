@@ -18,7 +18,8 @@ import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link PShelfInfo}.
@@ -43,6 +44,7 @@ public class PShelfTest extends AbstractNebulaTest {
 	/**
 	 * General test {@link PShelfInfo}.
 	 */
+	@Test
 	public void test_General() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -78,15 +80,15 @@ public class PShelfTest extends AbstractNebulaTest {
 			PShelfItemInfo item = pshelf.getChildren(PShelfItemInfo.class).get(0);
 			// "item" should have some not empty bounds (test for PShelfItem_Info.fixBodyBounds())
 			Rectangle bounds = item.getBounds();
-			assertThat(bounds.width).isEqualTo(pshelfBounds.width);
-			assertThat(bounds.height).isGreaterThan(itemHeight);
+			Assertions.assertThat(bounds.width).isEqualTo(pshelfBounds.width);
+			Assertions.assertThat(bounds.height).isGreaterThan(itemHeight);
 			{
 				// check inner composite
 				CompositeInfo composite = item.getChildren(CompositeInfo.class).get(0);
 				assertTrue(composite.hasLayout());
 				Rectangle compositeBounds = composite.getBounds();
-				assertThat(compositeBounds.width).isEqualTo(bounds.width);
-				assertThat(compositeBounds.height).isEqualTo(bounds.height - itemHeight);
+				Assertions.assertThat(compositeBounds.width).isEqualTo(bounds.width);
+				Assertions.assertThat(compositeBounds.height).isEqualTo(bounds.height - itemHeight);
 			}
 		}
 		// check second item (closed)
@@ -94,8 +96,8 @@ public class PShelfTest extends AbstractNebulaTest {
 			PShelfItemInfo item = pshelf.getChildren(PShelfItemInfo.class).get(1);
 			// "item" should have some not empty bounds (test for PShelfItem_Info.fixBodyBounds())
 			Rectangle bounds = item.getBounds();
-			assertThat(bounds.width).isEqualTo(pshelfBounds.width);
-			assertThat(bounds.height).isEqualTo(itemHeight);
+			Assertions.assertThat(bounds.width).isEqualTo(pshelfBounds.width);
+			Assertions.assertThat(bounds.height).isEqualTo(itemHeight);
 		}
 	}
 }

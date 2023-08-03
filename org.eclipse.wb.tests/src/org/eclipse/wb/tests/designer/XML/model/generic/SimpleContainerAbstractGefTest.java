@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Tests for "simple container" support, such as {@link SimpleContainer} interface.
  *
@@ -35,6 +37,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_filled() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -57,6 +60,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 		canvas.assertCommandNull();
 	}
 
+	@Test
 	public void test_canvas_CREATE_empty() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -92,6 +96,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 		canvas.assertPrimarySelected(newButton);
 	}
 
+	@Test
 	public void test_canvas_PASTE() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -134,6 +139,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 		}
 	}
 
+	@Test
 	public void test_canvas_ADD_1() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -169,6 +175,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 		canvas.assertPrimarySelected(rootButton);
 	}
 
+	@Test
 	public void test_canvas_ADD_2() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -197,6 +204,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_filled_1() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -219,6 +227,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 		tree.assertCommandNull();
 	}
 
+	@Test
 	public void test_tree_CREATE_filled_2() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -241,6 +250,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 		tree.assertCommandNull();
 	}
 
+	@Test
 	public void test_tree_CREATE_empty() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -276,6 +286,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 		tree.assertPrimarySelected(newButton);
 	}
 
+	@Test
 	public void test_tree_PASTE() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -318,6 +329,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 		}
 	}
 
+	@Test
 	public void test_tree_MOVE() throws Exception {
 		prepareSimplePanel();
 		openEditor(
@@ -340,6 +352,7 @@ public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {
 		tree.assertCommandNull();
 	}
 
+	@Test
 	public void test_tree_ADD() throws Exception {
 		prepareSimplePanel();
 		openEditor(

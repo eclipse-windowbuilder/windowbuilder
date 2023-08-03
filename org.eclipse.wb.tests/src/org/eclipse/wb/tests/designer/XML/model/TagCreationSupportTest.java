@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.xml.model.creation.TagCreationSupport;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TagCreationSupport}.
  *
@@ -36,6 +38,7 @@ public class TagCreationSupportTest extends AbstractCoreTest {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toString_hasElement() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -50,11 +53,13 @@ public class TagCreationSupportTest extends AbstractCoreTest {
 		assertEquals(getSourceDQ("<Shell text='My text'>"), creationSupport.toString());
 	}
 
+	@Test
 	public void test_toString_hasTag() throws Exception {
 		CreationSupport creationSupport = new TagCreationSupport("myTag");
 		assertEquals("myTag", creationSupport.toString());
 	}
 
+	@Test
 	public void test_getTitle() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -84,6 +89,7 @@ public class TagCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link TagCreationSupport#delete()}.
 	 */
+	@Test
 	public void test_delete() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -102,6 +108,7 @@ public class TagCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link TagCreationSupport#delete()}.
 	 */
+	@Test
 	public void test_delete_withIntermadiateElements() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -121,6 +128,7 @@ public class TagCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link TagCreationSupport#delete()}.
 	 */
+	@Test
 	public void test_delete_withIntermadiateChildren() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -151,6 +159,7 @@ public class TagCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link TagCreationSupport#addElement(DocumentElement, int)}.
 	 */
+	@Test
 	public void test_addElement() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		DocumentElement shellElement = shell.getCreationSupport().getElement();

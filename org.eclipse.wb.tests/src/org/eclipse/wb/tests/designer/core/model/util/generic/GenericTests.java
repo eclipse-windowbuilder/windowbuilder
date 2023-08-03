@@ -10,23 +10,21 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util.generic;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Test for generic, description driven features.
  *
  * @author scheglov_ke
  */
-public class GenericTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.model.util.generic");
-		suite.addTest(createSingleSuite(CopyPropertyTopChildTest.class));
-		suite.addTest(createSingleSuite(CopyPropertyTopTest.class));
-		suite.addTest(createSingleSuite(ModelMethodPropertyTest.class));
-		suite.addTest(createSingleSuite(ModelMethodPropertyChildTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		CopyPropertyTopChildTest.class,
+		CopyPropertyTopTest.class,
+		ModelMethodPropertyTest.class,
+		ModelMethodPropertyChildTest.class
+})
+public class GenericTests {
 }

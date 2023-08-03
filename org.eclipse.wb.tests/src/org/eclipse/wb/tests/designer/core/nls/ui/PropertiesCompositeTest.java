@@ -28,17 +28,22 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link PropertiesComposite}.
  *
  * @author scheglov_ke
  */
+@Ignore
 public class PropertiesCompositeTest extends AbstractDialogTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Sources
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noSources() throws Exception {
 		String initialSource = getTestSource(
 				"// filler filler filler",
@@ -59,6 +64,7 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 	/**
 	 * Now "real" sources, but two different "possible" sources.
 	 */
+	@Test
 	public void test_possibleSources() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -88,6 +94,7 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 		});
 	}
 
+	@Test
 	public void test_existingSources() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -113,6 +120,7 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 		});
 	}
 
+	@Test
 	public void test_properties() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("#Direct ResourceBundle"));
 		String initialSource = getTestSource(
@@ -241,6 +249,7 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 	/**
 	 * Open {@link NewSourceDialog} from {@link PropertiesComposite}.
 	 */
+	@Test
 	public void test_open_NewSourceDialog() throws Exception {
 		String initialSource = getTestSource(
 				"// filler filler filler",

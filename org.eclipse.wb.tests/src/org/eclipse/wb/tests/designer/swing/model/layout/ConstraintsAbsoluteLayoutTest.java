@@ -21,6 +21,8 @@ import org.eclipse.wb.tests.designer.ResourceUtils;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ConstraintsAbsoluteLayoutInfo}.
  *
@@ -53,6 +55,7 @@ public class ConstraintsAbsoluteLayoutTest extends AbstractLayoutTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -99,6 +102,7 @@ public class ConstraintsAbsoluteLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link ConstraintsAbsoluteLayoutInfo#getConstraints(ComponentInfo)}.
 	 */
+	@Test
 	public void test_getConstraints_existing() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -130,6 +134,7 @@ public class ConstraintsAbsoluteLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link ConstraintsAbsoluteLayoutInfo#getConstraints(ComponentInfo)}.
 	 */
+	@Test
 	public void test_getConstraints_new() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -173,6 +178,7 @@ public class ConstraintsAbsoluteLayoutTest extends AbstractLayoutTest {
 	/**
 	 * {@link ConstraintsAbsoluteLayoutDataInfo} should not be displayed in components tree.
 	 */
+	@Test
 	public void test_Constraints_isNotVisibleInTree() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -200,6 +206,7 @@ public class ConstraintsAbsoluteLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link ConstraintsAbsoluteLayoutInfo#command_CREATE(ComponentInfo, ComponentInfo)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -257,6 +264,7 @@ public class ConstraintsAbsoluteLayoutTest extends AbstractLayoutTest {
 	/**
 	 * When set "width" to preferred size, then <code>0</code> should be used.
 	 */
+	@Test
 	public void test_setWidth_preferred() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -289,6 +297,7 @@ public class ConstraintsAbsoluteLayoutTest extends AbstractLayoutTest {
 	/**
 	 * When set "height" to preferred size, then <code>0</code> should be used.
 	 */
+	@Test
 	public void test_setHeight_preferred() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

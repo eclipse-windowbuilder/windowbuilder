@@ -24,7 +24,8 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Component;
 import java.util.List;
@@ -54,6 +55,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#getImage(String)}.
 	 */
+	@Test
 	public void test_getImage() throws Exception {
 		assertNotNull(SpringLayoutInfo.getImage("h/left.gif"));
 	}
@@ -66,6 +68,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for parsing and model.
 	 */
+	@Test
 	public void test_parse() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -85,13 +88,13 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"{this: javax.swing.JPanel} {this} {/setLayout(new SpringLayout())/ /add(button)/}",
 				"  {new: javax.swing.SpringLayout} {empty} {/setLayout(new SpringLayout())/}",
 				"  {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button)/}");
-		assertThat(panel.getLayout()).isInstanceOf(SpringLayoutInfo.class);
+		Assertions.assertThat(panel.getLayout()).isInstanceOf(SpringLayoutInfo.class);
 		// without constraints "button" is located at (0,0)
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);
 			Rectangle modelBounds = button.getModelBounds();
-			assertThat(modelBounds.x).isEqualTo(0);
-			assertThat(modelBounds.y).isEqualTo(0);
+			Assertions.assertThat(modelBounds.x).isEqualTo(0);
+			Assertions.assertThat(modelBounds.y).isEqualTo(0);
 		}
 	}
 
@@ -99,6 +102,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	 * Test that {@link SpringLayout#putConstraint(String,Component,int,String,Component)} is
 	 * executable.
 	 */
+	@Test
 	public void test_putConstraints() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -120,8 +124,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);
 			Rectangle modelBounds = button.getModelBounds();
-			assertThat(modelBounds.x).isEqualTo(5);
-			assertThat(modelBounds.y).isEqualTo(10);
+			Assertions.assertThat(modelBounds.x).isEqualTo(5);
+			Assertions.assertThat(modelBounds.y).isEqualTo(10);
 		}
 	}
 
@@ -129,6 +133,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	 * Test that {@link SpringLayout#putConstraint(String,Component,int,String,Component)} is
 	 * executable.
 	 */
+	@Test
 	public void test_putConstraints_beforeAdd() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -150,8 +155,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);
 			Rectangle modelBounds = button.getModelBounds();
-			assertThat(modelBounds.x).isEqualTo(5);
-			assertThat(modelBounds.y).isEqualTo(10);
+			Assertions.assertThat(modelBounds.x).isEqualTo(5);
+			Assertions.assertThat(modelBounds.y).isEqualTo(10);
 		}
 	}
 
@@ -163,6 +168,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#getAttachment(AbstractComponentInfo, int)}.
 	 */
+	@Test
 	public void test_getAttachment() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -191,6 +197,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#isAttached(AbstractComponentInfo, int)}.
 	 */
+	@Test
 	public void test_isVirtual() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -219,6 +226,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Tests for {@link SpringLayoutInfo#getAttachedToWidget(AbstractComponentInfo, int)}.
 	 */
+	@Test
 	public void test_getAttachedToWidget() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -263,6 +271,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Tests for {@link SpringLayoutInfo#getComponentAttachmentInfo(AbstractComponentInfo, int)}.
 	 */
+	@Test
 	public void test_getComponentAttachmentInfo_parent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -298,6 +307,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Tests for {@link SpringLayoutInfo#getComponentAttachmentInfo(AbstractComponentInfo, int)}.
 	 */
+	@Test
 	public void test_getComponentAttachmentInfo() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -348,6 +358,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	// "Constraints" property
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_property_constraints() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -369,6 +380,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		assertTrue(property.isModified());
 	}
 
+	@Test
 	public void test_property_attachmentRemove() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -408,6 +420,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Check property values for virtual attachment.
 	 */
+	@Test
 	public void test_property_virtualGet() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -425,21 +438,22 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		//
 		{
 			Property offset = PropertyUtils.getByPath(button, "Constraints/WEST/offset");
-			assertThat(offset.isModified()).isFalse();
-			assertThat(offset.getValue()).isNull();
+			Assertions.assertThat(offset.isModified()).isFalse();
+			Assertions.assertThat(offset.getValue()).isNull();
 		}
 		{
 			Property anchor = PropertyUtils.getByPath(button, "Constraints/WEST/anchor");
-			assertThat(anchor.isModified()).isFalse();
-			assertThat(anchor.getValue()).isNull();
+			Assertions.assertThat(anchor.isModified()).isFalse();
+			Assertions.assertThat(anchor.getValue()).isNull();
 		}
 		{
 			Property side = PropertyUtils.getByPath(button, "Constraints/WEST/side");
-			assertThat(side.isModified()).isFalse();
-			assertThat(side.getValue()).isNull();
+			Assertions.assertThat(side.isModified()).isFalse();
+			Assertions.assertThat(side.getValue()).isNull();
 		}
 	}
 
+	@Test
 	public void test_property_setOffset() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -457,8 +471,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = getJavaInfoByName("button");
 		Property offset = PropertyUtils.getByPath(button, "Constraints/WEST/offset");
 		// initial state
-		assertThat(offset.isModified()).isTrue();
-		assertThat(offset.getValue()).isEqualTo(10);
+		Assertions.assertThat(offset.isModified()).isTrue();
+		Assertions.assertThat(offset.getValue()).isEqualTo(10);
 		// set new
 		offset.setValue(50);
 		assertEditor(
@@ -473,8 +487,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"    }",
 				"  }",
 				"}");
-		assertThat(offset.isModified()).isTrue();
-		assertThat(offset.getValue()).isEqualTo(50);
+		Assertions.assertThat(offset.isModified()).isTrue();
+		Assertions.assertThat(offset.getValue()).isEqualTo(50);
 		// ignore "remove"
 		{
 			String source = m_lastEditor.getSource();
@@ -483,6 +497,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_property_setOffset_virtual() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -514,6 +529,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_property_setAnchorSide() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -531,8 +547,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		Property anchorSide = PropertyUtils.getByPath(button, "Constraints/NORTH/side");
-		assertThat(anchorSide.isModified()).isTrue();
-		assertThat(anchorSide.getValue()).isEqualTo(SpringLayout.NORTH);
+		Assertions.assertThat(anchorSide.isModified()).isTrue();
+		Assertions.assertThat(anchorSide.getValue()).isEqualTo(SpringLayout.NORTH);
 		anchorSide.setValue(SpringLayout.SOUTH);
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -548,6 +564,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_property_setAnchorSide_virtual() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -564,7 +581,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		Property anchorSide = PropertyUtils.getByPath(button, "Constraints/NORTH/side");
-		assertThat(anchorSide.isModified()).isFalse();
+		Assertions.assertThat(anchorSide.isModified()).isFalse();
 		anchorSide.setValue(SpringLayout.SOUTH);
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -580,6 +597,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_property_setAnchor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -601,8 +619,8 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		//
 		Property anchor = PropertyUtils.getByPath(button_2, "Constraints/WEST/anchor");
-		assertThat(anchor.isModified()).isTrue();
-		assertThat(anchor.getValue()).isSameAs(panel);
+		Assertions.assertThat(anchor.isModified()).isTrue();
+		Assertions.assertThat(anchor.getValue()).isSameAs(panel);
 		anchor.setValue(button_1);
 		assertEditor(
 				"public class Test extends JPanel {",
@@ -620,6 +638,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_property_setAnchor_virtual() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -639,7 +658,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		//
 		Property anchor = PropertyUtils.getByPath(button_2, "Constraints/WEST/anchor");
-		assertThat(anchor.isModified()).isFalse();
+		Assertions.assertThat(anchor.isModified()).isFalse();
 		assertEquals(null, getPropertyText(anchor));
 		anchor.setValue(button_1);
 		assertEditor(
@@ -661,6 +680,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test combo {@link PropertyEditor} of "anchor" property.
 	 */
+	@Test
 	public void test_property_setAnchor_combo() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -684,7 +704,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 		// check items
 		{
 			List<String> items = getComboPropertyItems();
-			assertThat(items).containsExactly("(javax.swing.JPanel)", "button_1");
+			Assertions.assertThat(items).containsExactly("(javax.swing.JPanel)", "button_1");
 		}
 		// select current item
 		{
@@ -718,6 +738,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#detach(AbstractComponentInfo, int)}.
 	 */
+	@Test
 	public void test_detach() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -770,6 +791,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_attachAbsolute() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -807,6 +829,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#adjustAttachmentOffset(AbstractComponentInfo, int, int)}.
 	 */
+	@Test
 	public void test_adjustAttachmentOffset() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -850,6 +873,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	 * {@link SpringLayoutInfo#attachWidgetSequientially(AbstractComponentInfo, AbstractComponentInfo, int, int)}
 	 * .
 	 */
+	@Test
 	public void test_attachWidgetSequientially_leadingSide() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -897,6 +921,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	 * {@link SpringLayoutInfo#attachWidgetSequientially(AbstractComponentInfo, AbstractComponentInfo, int, int)}
 	 * .
 	 */
+	@Test
 	public void test_attachWidgetSequientially_trailingSide() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -949,6 +974,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	 * {@link SpringLayoutInfo#attachWidgetParallelly(AbstractComponentInfo, AbstractComponentInfo, int, int)}
 	 * .
 	 */
+	@Test
 	public void test_attachWidgetParallelly_leadingSide() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -996,6 +1022,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	 * {@link SpringLayoutInfo#attachWidgetParallelly(AbstractComponentInfo, AbstractComponentInfo, int, int)}
 	 * .
 	 */
+	@Test
 	public void test_attachWidgetParallelly_trailingSide() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1046,6 +1073,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#setExplicitSize(AbstractComponentInfo, int, int, int)}.
 	 */
+	@Test
 	public void test_setExplicitSize_horizontal_leadingAttached_resizeLeading() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1087,6 +1115,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#setExplicitSize(AbstractComponentInfo, int, int, int)}.
 	 */
+	@Test
 	public void test_setExplicitSize_horizontal_leadingAttached_resizeTrailing() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1128,6 +1157,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#setExplicitSize(AbstractComponentInfo, int, int, int)}.
 	 */
+	@Test
 	public void test_setExplicitSize_horizontal_trailingAttached_resizeTrailing() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1169,6 +1199,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#setExplicitSize(AbstractComponentInfo, int, int, int)}.
 	 */
+	@Test
 	public void test_setExplicitSize_horizontal_trailingAttached_resizeLeading() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1210,6 +1241,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#setExplicitSize(AbstractComponentInfo, int, int, int)}.
 	 */
+	@Test
 	public void test_setExplicitSize_vertical_leadingAttached_resizeLeading() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1251,6 +1283,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#setExplicitSize(AbstractComponentInfo, int, int, int)}.
 	 */
+	@Test
 	public void test_setExplicitSize_vertical_leadingAttached_resizeTrailing() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1292,6 +1325,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#setExplicitSize(AbstractComponentInfo, int, int, int)}.
 	 */
+	@Test
 	public void test_setExplicitSize_vertical_trailingAttached_resizeTrailing() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1333,6 +1367,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#setExplicitSize(AbstractComponentInfo, int, int, int)}.
 	 */
+	@Test
 	public void test_setExplicitSize_vertical_trailingAttached_resizeLeading() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1379,6 +1414,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#command_MOVE(ComponentInfo, ComponentInfo)}.
 	 */
+	@Test
 	public void test_MOVE_absolute() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1429,6 +1465,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#command_MOVE(ComponentInfo, ComponentInfo)}.
 	 */
+	@Test
 	public void test_MOVE_source() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1507,6 +1544,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link SpringLayoutInfo#command_MOVE(ComponentInfo, ComponentInfo)}.
 	 */
+	@Test
 	public void test_MOVE_anchor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1566,6 +1604,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Convert into {@link SpringLayoutInfo}.
 	 */
+	@Test
 	public void test_setLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

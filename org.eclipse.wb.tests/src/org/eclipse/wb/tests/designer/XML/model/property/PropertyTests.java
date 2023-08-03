@@ -11,27 +11,26 @@
 package org.eclipse.wb.tests.designer.XML.model.property;
 
 import org.eclipse.wb.internal.core.model.property.Property;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * XML {@link Property} tests.
  *
  * @author scheglov_ke
  */
-public class PropertyTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.property");
-		suite.addTest(createSingleSuite(XmlPropertyTest.class));
-		suite.addTest(createSingleSuite(EmptyXmlPropertyTest.class));
-		suite.addTest(createSingleSuite(XmlAttributePropertyTest.class));
-		suite.addTest(createSingleSuite(PropertyTest.class));
-		suite.addTest(createSingleSuite(StaticFieldPropertyEditorTest.class));
-		suite.addTest(createSingleSuite(EnumPropertyEditorTest.class));
-		suite.addTest(createSingleSuite(StringArrayPropertyEditorTest.class));
-		suite.addTest(createSingleSuite(EventsPropertyTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		XmlPropertyTest.class,
+		EmptyXmlPropertyTest.class,
+		XmlAttributePropertyTest.class,
+		PropertyTest.class,
+		StaticFieldPropertyEditorTest.class,
+		EnumPropertyEditorTest.class,
+		StringArrayPropertyEditorTest.class,
+		EventsPropertyTest.class,
+})
+public class PropertyTests {
 }

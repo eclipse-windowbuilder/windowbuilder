@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.rcp.model.widgets.CBannerInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CBannerInfo}.
  *
@@ -34,6 +36,7 @@ public class CBannerTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

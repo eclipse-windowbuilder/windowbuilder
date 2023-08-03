@@ -16,12 +16,17 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import junit.framework.TestCase;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Fake {@link TestCase} that just wait long time, so that we have time to get memory snapshot.
  *
  * @author scheglov_ke
  */
+@Ignore
 public class WaitForMemoryProfilerTest extends DesignerTestCase {
+	@Test
 	public void test_waitForProfiler() throws InterruptedException {
 		EditorState.setActiveJavaInfo(null);
 		GlobalState.setActiveObject(null);

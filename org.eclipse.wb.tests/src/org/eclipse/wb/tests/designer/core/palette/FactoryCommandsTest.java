@@ -21,6 +21,8 @@ import org.eclipse.wb.internal.core.editor.palette.model.entry.FactoryEntryInfo;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.InstanceFactoryEntryInfo;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.StaticFactoryEntryInfo;
 
+import org.junit.Test;
+
 /**
  * Tests for palette {@link FactoryEntryInfo} {@link Command}'s.
  *
@@ -32,6 +34,7 @@ public class FactoryCommandsTest extends AbstractPaletteTest {
 	// Add
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_add_static() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -70,6 +73,7 @@ public class FactoryCommandsTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_add_instance() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette
@@ -98,6 +102,7 @@ public class FactoryCommandsTest extends AbstractPaletteTest {
 	// Edit
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_edit() throws Exception {
 		PaletteManager manager = loadManager();
 		// use loaded palette

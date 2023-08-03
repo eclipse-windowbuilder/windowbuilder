@@ -13,10 +13,11 @@ package org.eclipse.wb.tests.designer.core.model.description;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -32,18 +33,15 @@ public class MorphingTargetDescriptionTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
-		// prepare fixture
-		String testName = (String) ReflectionUtils.getFieldObject(this, "fName");
-		if (!"test_tearDown".equals(testName)) {
-			parseContainer(
-					"// filler filler filler",
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"  }",
-					"}");
-		}
+		parseContainer(
+				"// filler filler filler",
+				"public class Test extends JPanel {",
+				"  public Test() {",
+				"  }",
+				"}");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -54,6 +52,7 @@ public class MorphingTargetDescriptionTest extends SwingModelTest {
 	/**
 	 * Test for loading {@link MorphingTargetDescription}'s from "*.wbp-component.xml" files.
 	 */
+	@Test
 	public void test_loadFromDescriptions() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -101,6 +100,7 @@ public class MorphingTargetDescriptionTest extends SwingModelTest {
 	/**
 	 * We should ignore invalid target classes.
 	 */
+	@Test
 	public void test_noTargetClass() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -132,7 +132,7 @@ public class MorphingTargetDescriptionTest extends SwingModelTest {
 			morphingTargets = description.getMorphingTargets();
 		}
 		// check targets
-		assertThat(morphingTargets).hasSize(1);
+		Assertions.assertThat(morphingTargets).hasSize(1);
 		{
 			MorphingTargetDescription morphingTarget = morphingTargets.get(0);
 			assertEquals("javax.swing.JButton", morphingTarget.getComponentClass().getName());
@@ -145,6 +145,7 @@ public class MorphingTargetDescriptionTest extends SwingModelTest {
 	 *
 	 * @throws Exception
 	 */
+	@Test
 	public void test_noInherit() throws Exception {
 		// MyBaseButton
 		{
@@ -212,7 +213,7 @@ public class MorphingTargetDescriptionTest extends SwingModelTest {
 							m_lastEditor,
 							m_lastLoader.loadClass("test.MyButton1"));
 			List<MorphingTargetDescription> morphingTargets = description.getMorphingTargets();
-			assertThat(morphingTargets).hasSize(2);
+			Assertions.assertThat(morphingTargets).hasSize(2);
 			// check targets
 			{
 				MorphingTargetDescription morphingTarget = morphingTargets.get(0);
@@ -233,7 +234,7 @@ public class MorphingTargetDescriptionTest extends SwingModelTest {
 							m_lastLoader.loadClass("test.MyButton2"));
 			List<MorphingTargetDescription> morphingTargets = description.getMorphingTargets();
 			// check targets
-			assertThat(morphingTargets).hasSize(1); // no target JButton
+			Assertions.assertThat(morphingTargets).hasSize(1); // no target JButton
 			{
 				MorphingTargetDescription morphingTarget = morphingTargets.get(0);
 				assertEquals("javax.swing.JLabel", morphingTarget.getComponentClass().getName());

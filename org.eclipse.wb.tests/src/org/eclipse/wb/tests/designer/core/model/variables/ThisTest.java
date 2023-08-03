@@ -22,6 +22,8 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ThisVariableSupport}.
  *
@@ -42,6 +44,7 @@ public class ThisTest extends AbstractVariableTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_support() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -115,6 +118,7 @@ public class ThisTest extends AbstractVariableTest {
 	/**
 	 * Empty constructor.
 	 */
+	@Test
 	public void test_target_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -130,6 +134,7 @@ public class ThisTest extends AbstractVariableTest {
 	/**
 	 * Constructor with {@link Statement}.
 	 */
+	@Test
 	public void test_target_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -145,6 +150,7 @@ public class ThisTest extends AbstractVariableTest {
 	/**
 	 * Constructor with {@link SuperMethodInvocation}.
 	 */
+	@Test
 	public void test_target_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

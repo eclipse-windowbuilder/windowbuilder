@@ -27,6 +27,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TableWrapDataInfo}.
  *
@@ -47,6 +49,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getSmallAlignmentImage() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -103,6 +106,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * Sets horizontal alignment in {@link TableWrapData} constructor.
 	 */
+	@Test
 	public void test_horizontalAlignment_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -181,6 +185,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * Sets horizontal alignment in {@link TableWrapData#align} field.
 	 */
+	@Test
 	public void test_horizontalAlignment_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -272,6 +277,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * Sets horizontal grab in {@link TableWrapData#grabHorizontal} field.
 	 */
+	@Test
 	public void test_horizontalGrab() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -325,6 +331,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 * Action: turn grab to true/false.<br>
 	 * Result: use/not {@link TableWrapData#FILL_GRAB} in constructor.
 	 */
+	@Test
 	public void test_horizontalFillGrab_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -384,6 +391,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 * }.<br>
 	 * Result: use/not {@link TableWrapData#FILL_GRAB} in constructor.
 	 */
+	@Test
 	public void test_horizontalFillGrab_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -456,6 +464,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 * Action: turn grab to <code>true</code>.<br>
 	 * Result: just set grab in field.
 	 */
+	@Test
 	public void test_horizontalFillGrab_3() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -501,6 +510,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * Sets horizontal span in {@link TableWrapData} constructor.
 	 */
+	@Test
 	public void test_horizontalSpan_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -572,6 +582,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * Sets vertical alignment in {@link TableWrapData} constructor.
 	 */
+	@Test
 	public void test_verticalAlignment_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -650,6 +661,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * Sets vertical alignment in {@link TableWrapData#align} field.
 	 */
+	@Test
 	public void test_verticalAlignment_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -741,6 +753,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * Sets vertical alignment in {@link TableWrapData} constructor.
 	 */
+	@Test
 	public void test_verticalAlignment_3() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -787,6 +800,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * Sets vertical grab in {@link TableWrapData#grabVertical} field.
 	 */
+	@Test
 	public void test_verticalGrab() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -840,6 +854,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 * Action: turn grab to true/false.<br>
 	 * Result: use/not {@link TableWrapData#FILL_GRAB} in constructor.
 	 */
+	@Test
 	public void test_verticalFillGrab_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -895,6 +910,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 * {@link TableWrapData#TOP}. <br>
 	 * Result: use/not {@link TableWrapData#FILL_GRAB} in constructor.
 	 */
+	@Test
 	public void test_verticalFillGrab_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -967,6 +983,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 * Action: turn grab to <code>true</code>.<br>
 	 * Result: just set grab in field.
 	 */
+	@Test
 	public void test_verticalFillGrab_3() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1012,6 +1029,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * Sets vertical span in {@link TableWrapData} constructor.
 	 */
+	@Test
 	public void test_verticalSpan_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1083,6 +1101,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	// Context menu
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_contextMenu_horizontal() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1154,6 +1173,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_contextMenu_vertical() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1231,6 +1251,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	// Default
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deleteIfDefault_constructor0() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1257,6 +1278,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor1_yes() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1283,6 +1305,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor1_no() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1310,6 +1333,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor2_yes() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1336,6 +1360,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor2_no() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1363,6 +1388,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor4_yes() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1389,6 +1415,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor4_no() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1424,6 +1451,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	/**
 	 * {@link TableWrapData} can be used only if parent {@link Composite} has {@link TableWrapLayout}.
 	 */
+	@Test
 	public void test_hasParentLayout_notCompatible() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

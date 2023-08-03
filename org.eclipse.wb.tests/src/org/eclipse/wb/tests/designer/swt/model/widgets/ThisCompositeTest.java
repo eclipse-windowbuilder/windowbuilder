@@ -20,6 +20,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.widgets.Shell;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -44,6 +46,7 @@ public class ThisCompositeTest extends RcpModelTest {
 	 * Test for parsing "this" Composite. This tests that implementation of
 	 * {@link IThisMethodParameterEvaluator} for SWT is correct.
 	 */
+	@Test
 	public void test_create() throws Exception {
 		CompositeInfo compositeInfo =
 				parseComposite(
@@ -81,6 +84,7 @@ public class ThisCompositeTest extends RcpModelTest {
 	/**
 	 * Test for using {@link Shell#Shell(org.eclipse.swt.widgets.Display, int)} constructor.
 	 */
+	@Test
 	public void test_Shell_Display() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",

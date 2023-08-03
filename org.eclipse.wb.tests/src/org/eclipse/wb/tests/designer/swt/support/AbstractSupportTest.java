@@ -14,6 +14,9 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.support.AbstractSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.After;
+import org.junit.Before;
+
 /**
  * Abstract test for any {@link AbstractSupport}.
  *
@@ -28,7 +31,8 @@ public abstract class AbstractSupportTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		{
 			String[] lines = getTestSource();
@@ -38,7 +42,8 @@ public abstract class AbstractSupportTest extends RcpModelTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		if (m_shell != null) {
 			m_shell.refresh_dispose();

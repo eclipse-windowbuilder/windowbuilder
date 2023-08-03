@@ -20,6 +20,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import org.junit.Test;
+
 /**
  * Test for {@link GridLayoutFactory}.
  *
@@ -40,6 +42,7 @@ public class GridLayoutFactoryTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_GridLayoutFactory() throws Exception {
 		CompositeInfo composite =
 				parseJavaInfo(
@@ -64,6 +67,7 @@ public class GridLayoutFactoryTest extends RcpModelTest {
 		assertEquals(20, layout.marginHeight);
 	}
 
+	@Test
 	public void test_GridDataFactory() throws Exception {
 		parseJavaInfo(
 				"import org.eclipse.jface.layout.*;",

@@ -34,6 +34,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.PluginRegistry;
 
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link ImagePropertyEditor} with plugin images.
  *
@@ -46,7 +50,8 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject != null) {
 			waitForAutoBuild();
@@ -84,6 +89,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ThisPluginImage_OLD() throws Exception {
 		ensureResourceManagers();
 		// now we have ResourceManager, so use it for image
@@ -93,6 +99,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 				"org.eclipse.wb.swt.ResourceManager.getPluginImage(\"TestProject\", \"icons/1.png\")");
 	}
 
+	@Test
 	public void test_ThisPluginImage_NEW_workspace() throws Exception {
 		ensureResourceManagers();
 		// now we have ResourceManager, so use it for image
@@ -102,6 +109,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 				"org.eclipse.wb.swt.ResourceManager.getPluginImage(\"TestProject\", \"icons/1.png\")");
 	}
 
+	@Test
 	public void test_PluginImage_NEW() throws Exception {
 		ensureResourceManagers();
 		// now we have ResourceManager, so use it for image
@@ -111,6 +119,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 				"org.eclipse.wb.swt.ResourceManager.getPluginImage(\"org.eclipse.jdt.ui\", \"/icons/full/elcl16/ch_cancel.png\")");
 	}
 
+	@Test
 	public void test_ThisPlugin_Value() throws Exception {
 		ensureResourceManagers();
 		Property property =
@@ -125,6 +134,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 		assertEquals("icons/1.png", values[1]);
 	}
 
+	@Test
 	public void test_Plugin_Value() throws Exception {
 		ensureResourceManagers();
 		Property property =
@@ -155,7 +165,9 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 	// PluginImagesRoot
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_PluginImagesRoot() throws Exception {
+	@Ignore
+	@Test
+	public void test_PluginImagesRoot() throws Exception {
 		FilterConfigurer filterConfigurer = new FilterConfigurer(false, false, false, false);
 		PluginImagesRoot pluginImagesRoot =
 				new PluginImagesRoot(m_testProject.getProject(), filterConfigurer);
@@ -221,6 +233,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 		assertPluginElement((IImageElement) bundleData[4], BundleImageResource.class, "close_view.gif");
 	}
 
+	@Test
 	public void test_PluginImagesRoot_RequiredWithNullPluginId() throws Exception {
 		TestProject testProject = null;
 		try {
@@ -278,6 +291,7 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 		}
 	}
 
+	@Test
 	public void test_PluginImagesRoot_NullPluginId() throws Exception {
 		do_projectDispose();
 		do_projectCreate();

@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.model.creation.ICreationSupportPermissions;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.junit.Test;
 
 /**
  * Test for {@link ICreationSupportPermissions}.
@@ -30,6 +31,7 @@ public class ICreationSupportPermissionsTest extends SwingModelTest {
 	/**
 	 * Test for {@link ICreationSupportPermissions#FALSE}.
 	 */
+	@Test
 	public void test_FALSE() throws Exception {
 		JavaInfo javaInfo = null;
 		ICreationSupportPermissions permissions = ICreationSupportPermissions.FALSE;

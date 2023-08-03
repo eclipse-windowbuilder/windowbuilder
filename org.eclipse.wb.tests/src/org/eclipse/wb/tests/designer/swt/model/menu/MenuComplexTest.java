@@ -25,6 +25,10 @@ import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.junit.After;
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for "popup" with several item's, sub-menu's, etc.
  *
@@ -54,7 +58,8 @@ public class MenuComplexTest extends RcpGefTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		menuTester = null;
 		super.tearDown();
 	}
@@ -68,6 +73,7 @@ public class MenuComplexTest extends RcpGefTest {
 	 * When we select "item" in components tree, it shows drop-down and becomes selected in GEF.<br>
 	 * Even if this "item" is deep in menu hierarchy.
 	 */
+	@Test
 	public void test_selectDeepItemInTree() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -124,6 +130,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * When we select "subMenu", its parent "item" should paint thick line around himself.
 	 */
+	@Test
 	public void test_selectSubMenu() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -155,6 +162,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * "Menu" of "item" on "bar" is located directly below "item" (in absolute coordinates).
 	 */
+	@Test
 	public void test_barSubMenuLocation() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -186,6 +194,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * "Menu" of "item" on "popup" is located on the right from "item" (in absolute coordinates).
 	 */
+	@Test
 	public void test_popupSubMenuLocation() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -218,6 +227,7 @@ public class MenuComplexTest extends RcpGefTest {
 	 * Check that when there are two {@link ControlInfo}'s and each has "popup", selecting one "popup"
 	 * causes dropping only this "popup", but not second one.
 	 */
+	@Test
 	public void test_twoPopupMenus() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -273,6 +283,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * When we delete item selection moves on item above.
 	 */
+	@Test
 	public void test_deleteUp() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -318,6 +329,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * When we delete first item selection moves on item below.
 	 */
+	@Test
 	public void test_deleteFirst() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -363,6 +375,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * When we delete sole item selection moves on parent.
 	 */
+	@Test
 	public void test_deleteSole() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -400,6 +413,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Test for deleting "item" with "subMenu"
 	 */
+	@Test
 	public void test_deleteItemWithSubmenu() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -457,6 +471,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Test for deleting "bar" with "item" with "subMenu"
 	 */
+	@Test
 	public void test_deleteBarWithSubmenu() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -494,6 +509,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Add new item deep into popup menu hierarchy.
 	 */
+	@Test
 	public void test_CREATE_popup_newItem_deep() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -559,6 +575,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Add new item before existing "item".
 	 */
+	@Test
 	public void test_CREATE_bar_newItem_before() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -603,6 +620,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Add new item after existing "item".
 	 */
+	@Test
 	public void test_CREATE_bar_newItem_after() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -649,6 +667,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Add new "item" into bar "subMenu"
 	 */
+	@Test
 	public void test_CREATE_bar_submenu() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -726,6 +745,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Menu bar ignore non-menu widgets.
 	 */
+	@Test
 	public void test_CREATE_bar_notItem() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -752,7 +772,9 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Paste copy of "item" on "bar".
 	 */
-	public void DISABLE_test_PASTE_item() throws Exception {
+	@Ignore
+	@Test
+	public void test_PASTE_item() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
 						"public class Test extends Shell {",
@@ -802,6 +824,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Try to paste non-menu widget.
 	 */
+	@Test
 	public void test_PASTE_notItem() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -848,6 +871,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * When we try to paste non-menu widget, "popup" even does not show drop-down.
 	 */
+	@Test
 	public void test_PASTE_notItem2() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -902,6 +926,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Move one item before other.
 	 */
+	@Test
 	public void test_MOVE_item() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -959,6 +984,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Move item into new menu.
 	 */
+	@Test
 	public void test_ADD_item() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -1027,6 +1053,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Move item into its own menu is disabled.
 	 */
+	@Test
 	public void test_ADD_badOnOwnMenu() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -1066,6 +1093,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Movement of non-menu object on menu is disabled.
 	 */
+	@Test
 	public void test_ADD_badNotMenu() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -1095,6 +1123,7 @@ public class MenuComplexTest extends RcpGefTest {
 	/**
 	 * Move "item" from "popup" on drop-down of "bar".
 	 */
+	@Test
 	public void test_ADD_fromPopup_onBar() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(
@@ -1208,6 +1237,7 @@ public class MenuComplexTest extends RcpGefTest {
 	 * drop-down should be closed. So, only one (well, two, including selecting) menu hierarchy can be
 	 * visible at same time.
 	 */
+	@Test
 	public void test_showOnlyOneDropDownOnCanvas() throws Exception {
 		CompositeInfo shellInfo =
 				openComposite(

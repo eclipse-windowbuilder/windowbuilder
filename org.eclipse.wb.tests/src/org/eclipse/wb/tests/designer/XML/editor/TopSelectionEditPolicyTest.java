@@ -17,7 +17,8 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link TopSelectionEditPolicy}.
@@ -39,6 +40,7 @@ public class TopSelectionEditPolicyTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_resizeBoth() throws Exception {
 		CompositeInfo shell = openEditor("<Shell/>");
 		// initial size
@@ -57,6 +59,7 @@ public class TopSelectionEditPolicyTest extends XwtGefTest {
 		}
 	}
 
+	@Test
 	public void test_resizeEast_toNegative() throws Exception {
 		CompositeInfo shell = openEditor("<Shell/>");
 		// initial size
@@ -72,11 +75,12 @@ public class TopSelectionEditPolicyTest extends XwtGefTest {
 		// size is reasonable
 		{
 			Rectangle bounds = shell.getBounds();
-			assertThat(bounds.width).isGreaterThan(10);
-			assertThat(bounds.height).isEqualTo(300);
+			Assertions.assertThat(bounds.width).isGreaterThan(10);
+			Assertions.assertThat(bounds.height).isEqualTo(300);
 		}
 	}
 
+	@Test
 	public void test_resizeSouth_toNegative() throws Exception {
 		CompositeInfo shell = openEditor("<Shell/>");
 		// initial size
@@ -92,8 +96,8 @@ public class TopSelectionEditPolicyTest extends XwtGefTest {
 		// size is reasonable
 		{
 			Rectangle bounds = shell.getBounds();
-			assertThat(bounds.width).isEqualTo(450);
-			assertThat(bounds.height).isGreaterThan(10);
+			Assertions.assertThat(bounds.width).isEqualTo(450);
+			Assertions.assertThat(bounds.height).isGreaterThan(10);
 		}
 	}
 }

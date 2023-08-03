@@ -10,26 +10,24 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XML.model.description;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * XML model tests.
  *
  * @author scheglov_ke
  */
-public class DescriptionTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.description");
-		suite.addTest(createSingleSuite(ExpressionConverterTest.class));
-		suite.addTest(createSingleSuite(EmptyExpressionAccessorTest.class));
-		suite.addTest(createSingleSuite(MethodExpressionAccessorTest.class));
-		suite.addTest(createSingleSuite(FieldExpressionAccessorTest.class));
-		suite.addTest(createSingleSuite(ComponentDescriptionHelperTest.class));
-		suite.addTest(createSingleSuite(GenericPropertyDescriptionTest.class));
-		suite.addTest(createSingleSuite(MorphingTargetDescriptionTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ExpressionConverterTest.class,
+		EmptyExpressionAccessorTest.class,
+		MethodExpressionAccessorTest.class,
+		FieldExpressionAccessorTest.class,
+		ComponentDescriptionHelperTest.class,
+		GenericPropertyDescriptionTest.class,
+		MorphingTargetDescriptionTest.class
+})
+public class DescriptionTests {
 }

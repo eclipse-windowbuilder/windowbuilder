@@ -19,8 +19,8 @@ import org.eclipse.wb.tests.designer.TestUtils;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -47,6 +47,7 @@ public class AttributesProvidersTest extends AbstractPaletteTest {
 	/**
 	 * Test for {@link AttributesProviders#get(IConfigurationElement)}.
 	 */
+	@Test
 	public void test_getIConfigurationElement() throws Exception {
 		String POINT_ID = "org.eclipse.wb.tests.testPoint";
 		try {
@@ -60,7 +61,7 @@ public class AttributesProvidersTest extends AbstractPaletteTest {
 			{
 				List<IConfigurationElement> elements =
 						ExternalFactoriesHelper.getElements(POINT_ID, "testObject");
-				assertThat(elements).hasSize(1);
+				Assertions.assertThat(elements).hasSize(1);
 				configurationElement = elements.get(0);
 			}
 			// test AttributesProvider
@@ -75,6 +76,7 @@ public class AttributesProvidersTest extends AbstractPaletteTest {
 	/**
 	 * Test for {@link AttributesProviders#get(Attributes)}.
 	 */
+	@Test
 	public void test_getXML() throws Exception {
 		SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 		parser.parse(
@@ -93,6 +95,7 @@ public class AttributesProvidersTest extends AbstractPaletteTest {
 	/**
 	 * Test for {@link AttributesProviders#get(Map)}.
 	 */
+	@Test
 	public void test_getMap() throws Exception {
 		Map<String, String> attributes = ImmutableMap.of("attr", "someValue");
 		AttributesProvider provider = AttributesProviders.get(attributes);

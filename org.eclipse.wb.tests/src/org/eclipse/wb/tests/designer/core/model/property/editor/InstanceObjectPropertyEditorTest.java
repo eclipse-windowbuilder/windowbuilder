@@ -27,7 +27,8 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +56,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Test editor parameters validation.
 	 */
+	@Test
 	public void test_configure() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -90,6 +92,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 	/**
 	 * Test creating property & editor with empty value.
 	 */
+	@Test
 	public void test_parse_noValue() throws Exception {
 		configureContents();
 		ContainerInfo container =
@@ -101,18 +104,19 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 						"}");
 		// property
 		Property property = container.getPropertyByTitle("property");
-		assertThat(property).isNotNull();
-		assertThat(getPropertyText(property)).isNull();
-		assertThat(property.getEditor()).isInstanceOf(InstanceObjectPropertyEditor.class);
+		Assertions.assertThat(property).isNotNull();
+		Assertions.assertThat(getPropertyText(property)).isNull();
+		Assertions.assertThat(property.getEditor()).isInstanceOf(InstanceObjectPropertyEditor.class);
 		//editor
 		InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
-		assertThat(editor.getInstanceExpression(property)).isNull();
-		assertThat(editor.getProperties(property)).isEmpty();
+		Assertions.assertThat(editor.getInstanceExpression(property)).isNull();
+		Assertions.assertThat(editor.getProperties(property)).isEmpty();
 	}
 
 	/**
 	 * Test creating property & editor with not empty value.
 	 */
+	@Test
 	public void test_parse_withValue() throws Exception {
 		configureContents();
 		ContainerInfo container =
@@ -123,26 +127,27 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 						"  }",
 						"}");
 		// property instance info
-		assertThat(container.getChildrenComponents()).hasSize(1);
+		Assertions.assertThat(container.getChildrenComponents()).hasSize(1);
 		ComponentInfo childInfo = container.getChildrenComponents().get(0);
 		// property
 		Property property = container.getPropertyByTitle("property");
-		assertThat(property).isNotNull();
-		assertThat(getPropertyText(property)).isEqualTo("javax.swing.JButton");
-		assertThat(property.getEditor()).isInstanceOf(InstanceObjectPropertyEditor.class);
+		Assertions.assertThat(property).isNotNull();
+		Assertions.assertThat(getPropertyText(property)).isEqualTo("javax.swing.JButton");
+		Assertions.assertThat(property.getEditor()).isInstanceOf(InstanceObjectPropertyEditor.class);
 		//editor
 		InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
-		assertThat(editor.getInstanceExpression(property)).isNotNull();
-		assertThat(editor.getProperties(property)).isNotEmpty();
+		Assertions.assertThat(editor.getInstanceExpression(property)).isNotNull();
+		Assertions.assertThat(editor.getProperties(property)).isNotEmpty();
 		// property info
 		JavaInfo propertyInfo = editor.getInstanceInfo(property);
-		assertThat(propertyInfo).isNotNull();
-		assertThat(propertyInfo).isSameAs(childInfo);
+		Assertions.assertThat(propertyInfo).isNotNull();
+		Assertions.assertThat(propertyInfo).isSameAs(childInfo);
 	}
 
 	/**
 	 * Test setting property value using dialog.
 	 */
+	@Test
 	public void test_dialog() throws Exception {
 		configureContents();
 		ContainerInfo container =
@@ -153,7 +158,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 						"  }",
 						"}");
 		// property instance info
-		assertThat(container.getChildrenComponents()).hasSize(0);
+		Assertions.assertThat(container.getChildrenComponents()).hasSize(0);
 		// property
 		final Property property = container.getPropertyByTitle("property");
 		final InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
@@ -197,8 +202,8 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 					"  }",
 					"}");
 			assertEquals("javax.swing.JButton", getPropertyText(property));
-			assertThat(container.getChildrenComponents()).hasSize(1);
-			assertThat(container.getChildrenComponents().get(0)).isSameAs(
+			Assertions.assertThat(container.getChildrenComponents()).hasSize(1);
+			Assertions.assertThat(container.getChildrenComponents().get(0)).isSameAs(
 					editor.getInstanceInfo(property));
 		}
 	}
@@ -207,6 +212,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 	 * Test setting property value using double click and 'source' as template for anonymous class
 	 * instance.
 	 */
+	@Test
 	public void test_doubleClick() throws Exception {
 		configureContents();
 		ContainerInfo container =
@@ -217,7 +223,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 						"  }",
 						"}");
 		// property instance info
-		assertThat(container.getChildrenComponents()).hasSize(0);
+		Assertions.assertThat(container.getChildrenComponents()).hasSize(0);
 		// property
 		Property property = container.getPropertyByTitle("property");
 		//editor
@@ -235,12 +241,13 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 				"  }",
 				"}");
 		assertEquals("<anonymous>", getPropertyText(property));
-		assertThat(container.getChildrenComponents()).isEmpty();
+		Assertions.assertThat(container.getChildrenComponents()).isEmpty();
 	}
 
 	/**
 	 * Test property "Restore default value".
 	 */
+	@Test
 	public void test_restore_default() throws Exception {
 		configureContents();
 		ContainerInfo container =
@@ -252,13 +259,13 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 						"  }",
 						"}");
 		// property instance info
-		assertThat(container.getChildrenComponents()).hasSize(1);
+		Assertions.assertThat(container.getChildrenComponents()).hasSize(1);
 		// property
 		Property property = container.getPropertyByTitle("property");
 		//editor
 		InstanceObjectPropertyEditor editor = (InstanceObjectPropertyEditor) property.getEditor();
 		JavaInfo instanceInfo = editor.getInstanceInfo(property);
-		assertThat(instanceInfo).isSameAs(container.getChildrenComponents().get(0));
+		Assertions.assertThat(instanceInfo).isSameAs(container.getChildrenComponents().get(0));
 		// manual set listener for property
 		InstanceObjectPropertyEditor.installListenerForProperty(instanceInfo);
 		// set to default
@@ -270,12 +277,13 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 				"  public Test() {",
 				"  }",
 				"}");
-		assertThat(container.getChildrenComponents()).isEmpty();
+		Assertions.assertThat(container.getChildrenComponents()).isEmpty();
 	}
 
 	/**
 	 * Test for sub properties
 	 */
+	@Test
 	public void test_sub_properties() throws Exception {
 		configureContents();
 		ContainerInfo container =
@@ -292,7 +300,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		JavaInfo instanceInfo = editor.getInstanceInfo(property);
 		// sub property
 		Property subProperty = getPropertyByTitle(editor.getProperties(property), "text");
-		assertThat(subProperty).isSameAs(instanceInfo.getPropertyByTitle("text"));
+		Assertions.assertThat(subProperty).isSameAs(instanceInfo.getPropertyByTitle("text"));
 		subProperty.setValue("value");
 		// check source
 		assertEditor(

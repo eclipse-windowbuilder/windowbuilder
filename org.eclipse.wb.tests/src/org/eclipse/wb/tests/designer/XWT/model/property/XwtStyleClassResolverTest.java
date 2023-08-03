@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.xwt.model.property.editor.style.IStyleClassResolv
 import org.eclipse.wb.internal.xwt.model.property.editor.style.XwtStyleClassResolver;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link XwtStyleClassResolver}.
  *
@@ -36,6 +38,7 @@ public class XwtStyleClassResolverTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		XmlObjectInfo object = parse("<Shell/>");
 		Property property = object.getPropertyByTitle("enabled");

@@ -18,6 +18,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link AbsoluteLayoutInfo}.
  *
@@ -38,6 +41,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE() throws Exception {
 		prepareComponent();
 		CompositeInfo composite =
@@ -65,7 +69,9 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
-	public void DISABLE_test_canvas_PASTE() throws Exception {
+	@Ignore
+	@Test
+	public void test_canvas_PASTE() throws Exception {
 		prepareComponent();
 		CompositeInfo composite =
 				openComposite(
@@ -117,6 +123,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_MOVE() throws Exception {
 		prepareComponent();
 		CompositeInfo composite =
@@ -147,6 +154,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_RESIZE() throws Exception {
 		prepareComponent();
 		CompositeInfo composite =
@@ -176,6 +184,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_ADD() throws Exception {
 		prepareComponent();
 		CompositeInfo composite =
@@ -220,6 +229,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE() throws Exception {
 		prepareComponent();
 		CompositeInfo composite =
@@ -248,7 +258,9 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 		tree.assertPrimarySelected(newButton);
 	}
 
-	public void DISABLE_test_tree_PASTE() throws Exception {
+	@Ignore
+	@Test
+	public void test_tree_PASTE() throws Exception {
 		prepareComponent();
 		CompositeInfo composite =
 				openComposite(
@@ -300,6 +312,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_MOVE() throws Exception {
 		prepareComponent();
 		CompositeInfo composite =
@@ -341,6 +354,7 @@ public class AbsoluteLayoutGefTest extends RcpGefTest {
 		tree.assertPrimarySelected(buttonB);
 	}
 
+	@Test
 	public void test_tree_ADD() throws Exception {
 		prepareComponent();
 		CompositeInfo composite =

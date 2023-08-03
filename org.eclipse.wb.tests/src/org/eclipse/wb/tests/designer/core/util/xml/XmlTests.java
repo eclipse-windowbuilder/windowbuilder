@@ -10,19 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.xml;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class XmlTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.xml");
-		suite.addTest(createSingleSuite(QParserTest.class));
-		suite.addTest(createSingleSuite(XmlDocumentTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		QParserTest.class,
+		XmlDocumentTest.class
+})
+public class XmlTests {
 }

@@ -69,7 +69,8 @@ import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.matcher.ElementMatchers;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -96,6 +97,7 @@ public class ActionTest extends RcpModelTest {
 	/**
 	 * Test for {@link ActionContainerInfo}.
 	 */
+	@Test
 	public void test_container() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -109,7 +111,7 @@ public class ActionTest extends RcpModelTest {
 		// initially no container
 		assertHierarchy("{this: org.eclipse.jface.window.ApplicationWindow} {this} {}");
 		// ...so, no Action's
-		assertThat(ActionContainerInfo.getActions(window)).isEmpty();
+		Assertions.assertThat(ActionContainerInfo.getActions(window)).isEmpty();
 		// ask container
 		ActionContainerInfo container = ActionContainerInfo.get(window);
 		assertNotNull(container);
@@ -119,7 +121,7 @@ public class ActionTest extends RcpModelTest {
 		// it always will return same container
 		assertSame(container, ActionContainerInfo.get(window));
 		// still no Action's
-		assertThat(ActionContainerInfo.getActions(window)).isEmpty();
+		Assertions.assertThat(ActionContainerInfo.getActions(window)).isEmpty();
 		// check presentation
 		{
 			IObjectPresentation presentation = container.getPresentation();
@@ -136,6 +138,7 @@ public class ActionTest extends RcpModelTest {
 	/**
 	 * Just parsing for some {@link ApplicationWindow}.
 	 */
+	@Test
 	public void test_0() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -177,6 +180,7 @@ public class ActionTest extends RcpModelTest {
 	/**
 	 * Presentation for {@link ActionInfo} should use image from {@link ImageDescriptor}.
 	 */
+	@Test
 	public void test_iconImage_1() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -223,6 +227,7 @@ public class ActionTest extends RcpModelTest {
 	/**
 	 * Presentation for {@link ActionInfo} should also try to use {@link IActionIconProvider}.
 	 */
+	@Test
 	public void test_iconImage_2() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -275,6 +280,7 @@ public class ActionTest extends RcpModelTest {
 	/**
 	 * Parameters of constructor for {@link Action} have bindings on properties.
 	 */
+	@Test
 	public void test_boundProperties() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -330,6 +336,7 @@ public class ActionTest extends RcpModelTest {
 	/**
 	 * No {@link ContributionManagerInfo} - no "Actions" palette category.
 	 */
+	@Test
 	public void test_palette_noManager() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -344,7 +351,7 @@ public class ActionTest extends RcpModelTest {
 		PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
 		List<CategoryInfo> categories = Lists.newArrayList();
 		listener.categories(categories);
-		assertThat(categories).isEmpty();
+		Assertions.assertThat(categories).isEmpty();
 	}
 
 	/**
@@ -352,6 +359,7 @@ public class ActionTest extends RcpModelTest {
 	 * {@link ToolBarManager} entry, because no {@link CoolBarManager}. No {@link MenuManager},
 	 * because no "root" {@link MenuManager}.
 	 */
+	@Test
 	public void test_palette_hasToolBarManager() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -381,27 +389,28 @@ public class ActionTest extends RcpModelTest {
 		PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
 		List<CategoryInfo> categories = Lists.newArrayList();
 		listener.categories(categories);
-		assertThat(categories).hasSize(1);
+		Assertions.assertThat(categories).hasSize(1);
 		// check "Actions" category
 		CategoryInfo category = categories.get(0);
 		List<EntryInfo> entries = category.getEntries();
-		assertThat(entries).hasSize(3);
-		assertThat(entries.get(0)).isInstanceOf(ActionNewEntryInfo.class);
-		assertThat(entries.get(1)).isInstanceOf(ActionExternalEntryInfo.class);
+		Assertions.assertThat(entries).hasSize(3);
+		Assertions.assertThat(entries.get(0)).isInstanceOf(ActionNewEntryInfo.class);
+		Assertions.assertThat(entries.get(1)).isInstanceOf(ActionExternalEntryInfo.class);
 		{
 			ComponentEntryInfo entry = (ComponentEntryInfo) entries.get(2);
 			assertEquals("org.eclipse.jface.action.Separator", entry.getClassName());
 		}
 		// ask for dynamic entries
 		listener.entries(category, entries);
-		assertThat(entries).hasSize(4);
-		assertThat(entries.get(3)).isInstanceOf(ActionUseEntryInfo.class);
+		Assertions.assertThat(entries).hasSize(4);
+		Assertions.assertThat(entries.get(3)).isInstanceOf(ActionUseEntryInfo.class);
 	}
 
 	/**
 	 * Users confused over how to deal with JFace {@link ApplicationWindow} and menus. So, we put
 	 * "JFace Actions" before "Menu" category.
 	 */
+	@Test
 	public void test_palette_actionsCategory_beforeMenu() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -426,7 +435,7 @@ public class ActionTest extends RcpModelTest {
 			// ask for categories
 			PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
 			listener.categories(categories);
-			assertThat(categories).hasSize(2);
+			Assertions.assertThat(categories).hasSize(2);
 		}
 		// "Actions" category should be before "Menu"
 		assertEquals(ActionRootProcessor.ACTIONS_CATEGORY_ID, categories.get(0).getId());
@@ -437,6 +446,7 @@ public class ActionTest extends RcpModelTest {
 	 * {@link ToolBarManager} entry, because of presence of {@link CoolBarManager}. No
 	 * {@link MenuManager}, because no "root" {@link MenuManager}.
 	 */
+	@Test
 	public void test_palette_hasCoolBarManager() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -466,13 +476,13 @@ public class ActionTest extends RcpModelTest {
 		PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
 		List<CategoryInfo> categories = Lists.newArrayList();
 		listener.categories(categories);
-		assertThat(categories).hasSize(1);
+		Assertions.assertThat(categories).hasSize(1);
 		// check "Actions" category
 		CategoryInfo category = categories.get(0);
 		List<EntryInfo> entries = category.getEntries();
-		assertThat(entries).hasSize(4);
-		assertThat(entries.get(0)).isInstanceOf(ActionNewEntryInfo.class);
-		assertThat(entries.get(1)).isInstanceOf(ActionExternalEntryInfo.class);
+		Assertions.assertThat(entries).hasSize(4);
+		Assertions.assertThat(entries.get(0)).isInstanceOf(ActionNewEntryInfo.class);
+		Assertions.assertThat(entries.get(1)).isInstanceOf(ActionExternalEntryInfo.class);
 		{
 			ComponentEntryInfo entry = (ComponentEntryInfo) entries.get(2);
 			assertEquals("org.eclipse.jface.action.Separator", entry.getClassName());
@@ -483,8 +493,8 @@ public class ActionTest extends RcpModelTest {
 		}
 		// ask for dynamic entries
 		listener.entries(category, entries);
-		assertThat(entries).hasSize(5);
-		assertThat(entries.get(4)).isInstanceOf(ActionUseEntryInfo.class);
+		Assertions.assertThat(entries).hasSize(5);
+		Assertions.assertThat(entries.get(4)).isInstanceOf(ActionUseEntryInfo.class);
 	}
 
 	/**
@@ -492,6 +502,7 @@ public class ActionTest extends RcpModelTest {
 	 * {@link ToolBarManager} entry, because no {@link CoolBarManager}. It has {@link MenuManager},
 	 * because of "root" {@link MenuManager} presence.
 	 */
+	@Test
 	public void test_palette_hasMenuBarManager() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -521,13 +532,13 @@ public class ActionTest extends RcpModelTest {
 		PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
 		List<CategoryInfo> categories = Lists.newArrayList();
 		listener.categories(categories);
-		assertThat(categories).hasSize(1);
+		Assertions.assertThat(categories).hasSize(1);
 		// check "Actions" category
 		CategoryInfo category = categories.get(0);
 		List<EntryInfo> entries = category.getEntries();
-		assertThat(entries).hasSize(4);
-		assertThat(entries.get(0)).isInstanceOf(ActionNewEntryInfo.class);
-		assertThat(entries.get(1)).isInstanceOf(ActionExternalEntryInfo.class);
+		Assertions.assertThat(entries).hasSize(4);
+		Assertions.assertThat(entries.get(0)).isInstanceOf(ActionNewEntryInfo.class);
+		Assertions.assertThat(entries.get(1)).isInstanceOf(ActionExternalEntryInfo.class);
 		{
 			ComponentEntryInfo entry = (ComponentEntryInfo) entries.get(2);
 			assertEquals("org.eclipse.jface.action.Separator", entry.getClassName());
@@ -538,13 +549,14 @@ public class ActionTest extends RcpModelTest {
 		}
 		// ask for dynamic entries
 		listener.entries(category, entries);
-		assertThat(entries).hasSize(5);
-		assertThat(entries.get(4)).isInstanceOf(ActionUseEntryInfo.class);
+		Assertions.assertThat(entries).hasSize(5);
+		Assertions.assertThat(entries.get(4)).isInstanceOf(ActionUseEntryInfo.class);
 	}
 
 	/**
 	 * When {@link ActionInfo} has {@link EmptyVariableSupport}, we still should have some name.
 	 */
+	@Test
 	public void test_palette_ActionUse_EntryInfo_EmptyVariable() throws Exception {
 		setFileContentSrc(
 				"test/MyAction.java",
@@ -581,9 +593,9 @@ public class ActionTest extends RcpModelTest {
 			entry = (ActionUseEntryInfo) entries.get(0);
 		}
 		// check properties
-		assertThat(entry.getId()).isNotNull();
-		assertThat(entry.getName()).isNotNull();
-		assertThat(entry.getDescription()).isNotNull();
+		Assertions.assertThat(entry.getId()).isNotNull();
+		Assertions.assertThat(entry.getName()).isNotNull();
+		Assertions.assertThat(entry.getDescription()).isNotNull();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -595,6 +607,7 @@ public class ActionTest extends RcpModelTest {
 	 * When {@link IContributionManager#add(IAction)} is used, it creates internally some
 	 * {@link IContributionItem}.
 	 */
+	@Test
 	public void test_IContributionItem_void() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -640,8 +653,8 @@ public class ActionTest extends RcpModelTest {
 		}
 		// refresh(), check "contributionItem"
 		window.refresh();
-		assertThat(contributionItem.getBounds().width).isGreaterThan(50);
-		assertThat(contributionItem.getBounds().height).isGreaterThan(20);
+		Assertions.assertThat(contributionItem.getBounds().width).isGreaterThan(50);
+		Assertions.assertThat(contributionItem.getBounds().height).isGreaterThan(20);
 		// "contributionItem" should have same properties as "action"
 		{
 			Property[] itemProperties = contributionItem.getProperties();
@@ -688,6 +701,7 @@ public class ActionTest extends RcpModelTest {
 	 * When we delete {@link ActionInfo}, its {@link ActionContributionItemInfo} also should be
 	 * deleted.
 	 */
+	@Test
 	public void test_IContributionItem_deleteAction() throws Exception {
 		parseJavaInfo(
 				"import org.eclipse.jface.action.*;",
@@ -746,6 +760,7 @@ public class ActionTest extends RcpModelTest {
 	 * When {@link IContributionManager#add(IAction)} is used, it creates internally some
 	 * {@link IContributionItem}.
 	 */
+	@Test
 	public void test_IContributionItem_explicit() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -796,12 +811,12 @@ public class ActionTest extends RcpModelTest {
 		}
 		// refresh(), check "contributionItem"
 		window.refresh();
-		assertThat(contributionItem.getBounds().width).isGreaterThan(50);
-		assertThat(contributionItem.getBounds().height).isGreaterThan(20);
+		Assertions.assertThat(contributionItem.getBounds().width).isGreaterThan(50);
+		Assertions.assertThat(contributionItem.getBounds().height).isGreaterThan(20);
 		// "contributionItem" has just a handful of properties
 		{
 			Property[] itemProperties = contributionItem.getProperties();
-			assertThat(itemProperties.length).isLessThan(6);
+			Assertions.assertThat(itemProperties.length).isLessThan(6);
 		}
 	}
 
@@ -809,6 +824,7 @@ public class ActionTest extends RcpModelTest {
 	 * Even if we use same {@link ActionInfo} for two {@link ActionContributionItemInfo}, they should
 	 * have different objects.
 	 */
+	@Test
 	public void test_IContributionItem_sameAction() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -839,13 +855,14 @@ public class ActionTest extends RcpModelTest {
 		ContributionItemInfo item_1 = (ContributionItemInfo) toolBarManager.getItems().get(0);
 		ContributionItemInfo item_2 = (ContributionItemInfo) toolBarManager.getItems().get(1);
 		assertNotSame(item_1.getObject(), item_2.getObject());
-		assertThat(item_1.getBounds()).isNotEqualTo(item_2.getBounds());
+		Assertions.assertThat(item_1.getBounds()).isNotEqualTo(item_2.getBounds());
 	}
 
 	/**
 	 * {@link ContributionManager}'s don't like {@link Separator}'s without other items, so sometimes
 	 * don't create them. However in design mode we still want to see them.
 	 */
+	@Test
 	public void test_IContributionItem_danglingSeparator() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -878,12 +895,13 @@ public class ActionTest extends RcpModelTest {
 		assertNotSame(item_1.getObject(), item_2.getObject());
 		assertNotNull(item_1.getBounds());
 		assertNotNull(item_2.getBounds());
-		assertThat(item_1.getBounds()).isNotEqualTo(item_2.getBounds());
+		Assertions.assertThat(item_1.getBounds()).isNotEqualTo(item_2.getBounds());
 	}
 
 	/**
 	 * {@link GroupMarker}'s are not visible, but we still want to show them at design canvas.
 	 */
+	@Test
 	public void test_GroupMarker() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -909,8 +927,8 @@ public class ActionTest extends RcpModelTest {
 		{
 			Rectangle bounds = groupMarker.getBounds();
 			assertNotNull(bounds);
-			assertThat(bounds.width).isGreaterThan(135);
-			assertThat(bounds.height).isGreaterThan(20);
+			Assertions.assertThat(bounds.width).isGreaterThan(135);
+			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}
 	}
 
@@ -923,6 +941,7 @@ public class ActionTest extends RcpModelTest {
 	 * Test for {@link ContributionManagerInfo#command_CREATE(ActionInfo, ContributionItemInfo)}. <br>
 	 * Add as last/only item.
 	 */
+	@Test
 	public void test_CREATE_1() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -981,6 +1000,7 @@ public class ActionTest extends RcpModelTest {
 	 * Test for {@link ContributionManagerInfo#command_CREATE(ActionInfo, ContributionItemInfo)}. <br>
 	 * Add before existing item.
 	 */
+	@Test
 	public void test_CREATE_2() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -1043,6 +1063,7 @@ public class ActionTest extends RcpModelTest {
 	 * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}. <br>
 	 * Add {@link Separator}.
 	 */
+	@Test
 	public void test_CREATE_3() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -1095,6 +1116,7 @@ public class ActionTest extends RcpModelTest {
 	 * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}. <br>
 	 * Add external {@link ActionInfo}.
 	 */
+	@Test
 	public void test_CREATE_externalAction_1() throws Exception {
 		setFileContentSrc(
 				"test/MyAction.java",
@@ -1161,6 +1183,7 @@ public class ActionTest extends RcpModelTest {
 	 * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}. <br>
 	 * Add new {@link ActionInfo}.
 	 */
+	@Test
 	public void test_CREATE_newAction_1() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -1184,7 +1207,7 @@ public class ActionTest extends RcpModelTest {
 		// prepare components
 		ToolBarManagerInfo toolBarManager = window.getChildren(ToolBarManagerInfo.class).get(0);
 		// initially no Action's
-		assertThat(ActionContainerInfo.getActions(window)).isEmpty();
+		Assertions.assertThat(ActionContainerInfo.getActions(window)).isEmpty();
 		// perform command
 		ActionInfo action = ActionContainerInfo.createNew(window);
 		toolBarManager.command_CREATE(action, null);
@@ -1211,7 +1234,7 @@ public class ActionTest extends RcpModelTest {
 				"  }",
 				"}");
 		// single (new Action) expected
-		assertThat(ActionContainerInfo.getActions(window)).containsOnly(action);
+		Assertions.assertThat(ActionContainerInfo.getActions(window)).containsOnly(action);
 		// refresh, to ensure that action can be rendered
 		window.refresh();
 		assertNoErrors(window);
@@ -1223,6 +1246,7 @@ public class ActionTest extends RcpModelTest {
 	 * Add new {@link ActionInfo}.<br>
 	 * In addition also creates <code>createActions()</code> method.
 	 */
+	@Test
 	public void test_CREATE_newAction_2() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -1281,6 +1305,7 @@ public class ActionTest extends RcpModelTest {
 	 * Test for
 	 * {@link ContributionManagerInfo#command_MOVE(ContributionItemInfo, ContributionItemInfo)}.
 	 */
+	@Test
 	public void test_MOVE_1() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -1344,6 +1369,7 @@ public class ActionTest extends RcpModelTest {
 	 * Test for
 	 * {@link ContributionManagerInfo#command_MOVE(ContributionItemInfo, ContributionItemInfo)}.
 	 */
+	@Test
 	public void test_MOVE_2() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -1409,6 +1435,7 @@ public class ActionTest extends RcpModelTest {
 	 * {@link ContributionManagerInfo#command_MOVE(AbstractComponentInfo,AbstractComponentInfo)}.<br>
 	 * Move {@link ActionContributionItemInfo} from one {@link ToolBarManagerInfo} into other.
 	 */
+	@Test
 	public void test_IMenuInfo_MOVE_2() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(

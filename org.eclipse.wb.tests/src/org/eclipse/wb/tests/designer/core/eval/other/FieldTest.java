@@ -15,6 +15,9 @@ import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Test for {@link FieldAccessEvaluator}.
  *
@@ -27,7 +30,8 @@ public class FieldTest extends AbstractEngineTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -48,6 +52,7 @@ public class FieldTest extends AbstractEngineTest {
 	// Field
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_beanFieldValue() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -56,6 +61,7 @@ public class FieldTest extends AbstractEngineTest {
 		assertEquals(5, evaluateExpression("new TestBean().value", "int"));
 	}
 
+	@Test
 	public void test_localFieldValue_thisQualifier() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -68,6 +74,7 @@ public class FieldTest extends AbstractEngineTest {
 		assertEquals(5, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
 
+	@Test
 	public void test_localFieldValue_defaultValue_false() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -80,6 +87,7 @@ public class FieldTest extends AbstractEngineTest {
 		assertEquals(false, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
 
+	@Test
 	public void test_localFieldValue_defaultValue_zero() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -92,6 +100,7 @@ public class FieldTest extends AbstractEngineTest {
 		assertEquals(0, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
 
+	@Test
 	public void test_localFieldValue_defaultValue_null() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
@@ -104,6 +113,7 @@ public class FieldTest extends AbstractEngineTest {
 		assertEquals(null, evaluateSingleMethod(typeDeclaration, "foo()"));
 	}
 
+	@Test
 	public void test_localFieldValue_noQualifier() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(

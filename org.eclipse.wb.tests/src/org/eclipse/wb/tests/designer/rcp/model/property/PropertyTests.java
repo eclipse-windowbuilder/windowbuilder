@@ -11,22 +11,21 @@
 package org.eclipse.wb.tests.designer.rcp.model.property;
 
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for RCP {@link PropertyEditor}'s.
  *
  * @author scheglov_ke
  */
-public class PropertyTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.property");
-		suite.addTest(createSingleSuite(AcceleratorPropertyEditorTest.class));
-		suite.addTest(createSingleSuite(ImagePropertyEditorTestPlugin.class));
-		suite.addTest(createSingleSuite(CursorPropertyEditorWithManagerTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		AcceleratorPropertyEditorTest.class,
+		ImagePropertyEditorTestPlugin.class,
+		CursorPropertyEditorWithManagerTest.class
+})
+public class PropertyTests {
 }

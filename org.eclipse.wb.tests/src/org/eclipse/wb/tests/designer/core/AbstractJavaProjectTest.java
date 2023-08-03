@@ -36,10 +36,17 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.MultipleFailureException;
+import org.junit.runners.model.Statement;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +55,7 @@ import java.util.List;
  *
  * @author scheglov_ke
  */
-public class AbstractJavaProjectTest extends DesignerTestCase {
+public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	private static final List<IFile> m_createdResources = new ArrayList<>();
 
 	////////////////////////////////////////////////////////////////////////////
@@ -57,7 +64,8 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		// remove resources (with retries)
 		{
 			for (IFile resource : m_createdResources) {
@@ -87,7 +95,8 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 		super.tearDown();
 	}
 
-	public void test_tearDown() throws Exception {
+	@AfterClass
+	public static void tearDownClass() throws Exception {
 		do_projectDispose();
 	}
 
@@ -96,25 +105,35 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 	// Single test
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	protected void runBare_before(Method method) throws Throwable {
-		if (method.getAnnotation(DisposeProjectBefore.class) != null) {
-			do_projectDispose();
-		}
-		super.runBare_before(method);
-	}
 
-	@Override
-	protected void runTest_after(Method method) throws Throwable {
-		if (method.getAnnotation(DisposeProjectAfter.class) != null) {
-			waitEventLoop(0);
-			do_projectDispose();
+	@Rule
+	public TestRule methodRule = new TestRule() {
+		@Override
+		public Statement apply(Statement base, Description description) {
+			return new Statement() {
+				@Override
+				public void evaluate() throws Throwable {
+					List<Throwable> errors = new ArrayList<>();
+					try {
+						if (description.getAnnotation(DisposeProjectBefore.class) != null) {
+							do_projectDispose();
+						}
+						base.evaluate();
+						if (description.getAnnotation(DisposeProjectAfter.class) != null) {
+							waitEventLoop(0);
+							do_projectDispose();
+						}
+						if (description.getAnnotation(WaitForAutoBuildAfter.class) != null) {
+							waitForAutoBuild();
+						}
+					} catch (Throwable t) {
+						errors.add(t);
+					}
+					MultipleFailureException.assertEmpty(errors);
+				}
+			};
 		}
-		if (method.getAnnotation(WaitForAutoBuildAfter.class) != null) {
-			waitForAutoBuild();
-		}
-		super.runTest_after(method);
-	}
+	};
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -125,15 +144,16 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 	protected static IProject m_project;
 	protected static IJavaProject m_javaProject;
 
-	public void do_projectCreate() throws Exception {
+	public static void do_projectCreate() throws Exception {
 		if (m_testProject == null) {
 			m_testProject = new TestProject();
 			m_project = m_testProject.getProject();
+			m_project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			m_javaProject = m_testProject.getJavaProject();
 		}
 	}
 
-	public void do_projectDispose() throws Exception {
+	public static void do_projectDispose() throws Exception {
 		if (m_testProject != null) {
 			// wait for finishing all jobs, such as JDT indexing
 			// XXX too slow!
@@ -170,7 +190,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 	/**
 	 * Dispose project, wait if fails several time.
 	 */
-	private void disposeProjectWithRetry(TestProject testProject) throws Exception {
+	private static void disposeProjectWithRetry(TestProject testProject) throws Exception {
 		Throwable error = null;
 		for (int i = 0; i < 100; i++) {
 			try {

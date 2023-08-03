@@ -25,7 +25,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.wb.tests.designer.swt.model.menu.MenuFeedbackTester;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Test;
 
 /**
  * Test for {@link MenuManagerInfo} in GEF.
@@ -56,7 +58,8 @@ public class MenuManagerGefTest extends RcpGefTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		menuTester = null;
 		super.tearDown();
 	}
@@ -69,6 +72,7 @@ public class MenuManagerGefTest extends RcpGefTest {
 	/**
 	 * Use existing {@link ActionInfo}, place it on {@link MenuManagerInfo}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		ApplicationWindowInfo window =
 				(ApplicationWindowInfo) openJavaInfo(
@@ -107,7 +111,7 @@ public class MenuManagerGefTest extends RcpGefTest {
 		assertNotNull(menuManagerPart);
 		assertNotNull(menuManager_itemPart_1);
 		// initially sub-menu's are not visible
-		assertThat(menuManager_itemPart_1.getChildren()).isEmpty();
+		Assertions.assertThat(menuManager_itemPart_1.getChildren()).isEmpty();
 		canvas.assertNullEditPart(menuManager_MenuObject_1);
 		// load Action_DropTool
 		{
@@ -160,6 +164,7 @@ public class MenuManagerGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE() throws Exception {
 		ApplicationWindowInfo window =
 				(ApplicationWindowInfo) openJavaInfo(
@@ -214,8 +219,8 @@ public class MenuManagerGefTest extends RcpGefTest {
 		assertNotNull(menuManager_itemPart_1);
 		assertNotNull(menuManager_itemPart_2);
 		// initially sub-menu's are not visible
-		assertThat(menuManager_itemPart_1.getChildren()).isEmpty();
-		assertThat(menuManager_itemPart_2.getChildren()).isEmpty();
+		Assertions.assertThat(menuManager_itemPart_1.getChildren()).isEmpty();
+		Assertions.assertThat(menuManager_itemPart_2.getChildren()).isEmpty();
 		canvas.assertNullEditPart(menuManager_MenuObject_1);
 		canvas.assertNullEditPart(menuManager_MenuObject_2);
 		canvas.assertNullEditPart(itemInfo);

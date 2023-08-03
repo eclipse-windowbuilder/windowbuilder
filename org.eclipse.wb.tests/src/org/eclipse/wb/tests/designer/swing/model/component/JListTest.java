@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.models.list.ListModel
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.Test;
 
 import javax.swing.JList;
 import javax.swing.ListModel;
@@ -31,6 +32,7 @@ public class JListTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parsing() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -71,6 +73,7 @@ public class JListTest extends SwingModelTest {
 	/**
 	 * Field "values" exists in model, but we can not evaluate it.
 	 */
+	@Test
 	public void test_nullModelValues() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -102,6 +105,7 @@ public class JListTest extends SwingModelTest {
 	/**
 	 * {@link JList#setSelectedIndex(int)} should be after {@link JList#setModel(ListModel)}.
 	 */
+	@Test
 	public void test_setSelectedIndex() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -142,6 +146,7 @@ public class JListTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_modelEditor() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",

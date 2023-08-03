@@ -18,7 +18,8 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 import org.eclipse.ui.IEditorPart;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link OpenListenerEditPolicy}.
@@ -31,6 +32,7 @@ public class OpenListenerEditPolicyTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		setFileContentSrc(
 				"test/Test.java",
@@ -55,7 +57,7 @@ public class OpenListenerEditPolicyTest extends XwtGefTest {
 		// "Java" editor is opened
 		{
 			IEditorPart activeEditor = DesignerPlugin.getActiveEditor();
-			assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
+			Assertions.assertThat(activeEditor).isInstanceOf(CompilationUnitEditor.class);
 		}
 		// files updated
 		assertEquals(

@@ -19,6 +19,9 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -41,6 +44,7 @@ public class ConstructorChildAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -88,6 +92,7 @@ public class ConstructorChildAssociationTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_delete() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -140,6 +145,7 @@ public class ConstructorChildAssociationTest extends SwingModelTest {
 	/**
 	 * Can not delete because only one constructor in parent, so it can not be created without child.
 	 */
+	@Test
 	public void test_delete_noDelete() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -192,7 +198,9 @@ public class ConstructorChildAssociationTest extends SwingModelTest {
 	/**
 	 * Can not delete because only one constructor in parent, so it can not be created without child.
 	 */
-	public void DISABLE_test_delete_noDelete_withGenerics() throws Exception {
+	@Ignore
+	@Test
+	public void test_delete_noDelete_withGenerics() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
 				getTestSource(

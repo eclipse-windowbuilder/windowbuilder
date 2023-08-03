@@ -19,6 +19,7 @@ import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jdt.core.IJavaProject;
 
+import org.junit.Test;
 import org.osgi.framework.Bundle;
 
 import java.net.URL;
@@ -46,6 +47,7 @@ public class ClassLoadingTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_installNewBundleWithContributions() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -71,6 +73,7 @@ public class ClassLoadingTest extends XwtModelTest {
 	 * Test for using <code>classLoader-bundle</code> to contribute Bundle into toolkit
 	 * {@link ClassLoader}.
 	 */
+	@Test
 	public void test_useClasspathBundle() throws Exception {
 		TestBundle testBundle = new TestBundle("org.eclipse.wb.tests.testBundle-0");
 		try {
@@ -97,6 +100,7 @@ public class ClassLoadingTest extends XwtModelTest {
 	 * <p>
 	 * Namespaces are set so that class is not visible.
 	 */
+	@Test
 	public void test_useClasspathBundle_namespaces() throws Exception {
 		TestBundle testBundle = new TestBundle("org.eclipse.wb.tests.testBundle-0");
 		try {
@@ -125,6 +129,7 @@ public class ClassLoadingTest extends XwtModelTest {
 	 * Test for using <code>classLoader-library</code> to contribute JAR into toolkit
 	 * {@link ClassLoader}.
 	 */
+	@Test
 	public void test_useClasspathLibrary_singleJar() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -149,6 +154,7 @@ public class ClassLoadingTest extends XwtModelTest {
 	 * Test for using <code>classLoader-library</code> to contribute two JAR's into toolkit
 	 * {@link ClassLoader}, where {@link Class} from one JAR references {@link Class} in other JAR.
 	 */
+	@Test
 	public void test_useClassLoaderLibrary_toDependentJars() throws Exception {
 		TestBundle testBundle = new TestBundle("org.eclipse.wb.tests.testBundle-1");
 		try {
@@ -176,6 +182,7 @@ public class ClassLoadingTest extends XwtModelTest {
 	/**
 	 * Test for using <code>classLoader-library</code> to contribute two JAR's wrapped in jar-bundle.
 	 */
+	@Test
 	public void test_useClassLoaderLibrary_twoDependentJars_packedBundle() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -205,6 +212,7 @@ public class ClassLoadingTest extends XwtModelTest {
 	 * returned same resource from {@link IJavaProject} also several times. So, some tweak required
 	 * here.
 	 */
+	@Test
 	public void test_getResources() throws Exception {
 		setFileContentSrc("test/myFile.txt", "");
 		waitForAutoBuild();

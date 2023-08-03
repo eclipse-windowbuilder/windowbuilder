@@ -14,7 +14,8 @@ import org.eclipse.wb.internal.rcp.model.rcp.PropertyPageInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link PropertyPageInfo}.
@@ -27,6 +28,7 @@ public class PropertyPageTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		PropertyPageInfo page =
 				parseJavaInfo(
@@ -51,11 +53,11 @@ public class PropertyPageTest extends RcpModelTest {
 		page.refresh();
 		assertNoErrors(page);
 		// check bounds
-		assertThat(page.getBounds().width).isEqualTo(600);
-		assertThat(page.getBounds().height).isEqualTo(500);
-		assertThat(parentComposite.getBounds().width).isGreaterThan(300);
-		assertThat(parentComposite.getBounds().height).isGreaterThan(30);
-		assertThat(container.getBounds().width).isGreaterThan(300);
-		assertThat(container.getBounds().height).isGreaterThan(230);
+		Assertions.assertThat(page.getBounds().width).isEqualTo(600);
+		Assertions.assertThat(page.getBounds().height).isEqualTo(500);
+		Assertions.assertThat(parentComposite.getBounds().width).isGreaterThan(300);
+		Assertions.assertThat(parentComposite.getBounds().height).isGreaterThan(30);
+		Assertions.assertThat(container.getBounds().width).isGreaterThan(300);
+		Assertions.assertThat(container.getBounds().height).isGreaterThan(230);
 	}
 }

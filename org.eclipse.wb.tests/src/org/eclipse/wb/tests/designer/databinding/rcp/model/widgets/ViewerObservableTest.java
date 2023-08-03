@@ -52,6 +52,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.databinding.rcp.DatabindingTestUtils;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.AbstractBindingTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -64,6 +66,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 	// Viewer
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_observeSingleSelection() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(
@@ -157,6 +160,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 				masterObservable.getBindableProperty());
 	}
 
+	@Test
 	public void test_observeMultiSelection() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -238,6 +242,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 				observable.getBindableProperty());
 	}
 
+	@Test
 	public void test_observeCheckedElements() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -331,6 +336,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 	// Input
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Viewer_Input_OnlyList() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -482,6 +488,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 				contentProvider.getClassName());
 	}
 
+	@Test
 	public void test_Viewer_Input_List() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -629,6 +636,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 				contentProvider.getClassName());
 	}
 
+	@Test
 	public void test_Viewer_Input_List_InputCollection() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -775,6 +783,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 				contentProvider.getClassName());
 	}
 
+	@Test
 	public void test_Viewer_Input_ListDetail() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -935,6 +944,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 				contentProvider.getClassName());
 	}
 
+	@Test
 	public void test_Viewer_Input_OnlySet() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -1089,6 +1099,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 				contentProvider.getClassName());
 	}
 
+	@Test
 	public void test_Viewer_Input_Set() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -1236,6 +1247,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 				contentProvider.getClassName());
 	}
 
+	@Test
 	public void test_Viewer_Input_Set_InputCollection() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -1382,6 +1394,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 				contentProvider.getClassName());
 	}
 
+	@Test
 	public void test_Viewer_Input_SetDetail() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -1547,6 +1560,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 	// Tree Input
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Viewer_TreeInput_List_InputCollection() throws Exception {
 		DataBindingsCodeUtils.ensureDesignerResources(m_testProject.getJavaProject());
 		//
@@ -1724,6 +1738,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 		assertEquals("hasChildren", advisor.getHasChildrenProperty());
 	}
 
+	@Test
 	public void test_Viewer_TreeInput_Set_InputCollection() throws Exception {
 		DataBindingsCodeUtils.ensureDesignerResources(m_testProject.getJavaProject());
 		//
@@ -1902,6 +1917,7 @@ public class ViewerObservableTest extends AbstractBindingTest {
 		assertEquals("hasChildren", advisor.getHasChildrenProperty());
 	}
 
+	@Test
 	public void test_Viewer_TreeInput_List_JFace() throws Exception {
 		DataBindingsCodeUtils.ensureDesignerResources(m_testProject.getJavaProject());
 		//

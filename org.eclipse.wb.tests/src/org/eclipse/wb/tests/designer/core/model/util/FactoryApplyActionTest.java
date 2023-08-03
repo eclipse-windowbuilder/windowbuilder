@@ -25,6 +25,8 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link FactoryApplyAction}.
  *
@@ -51,6 +53,7 @@ public class FactoryApplyActionTest extends SwingModelTest {
 	 * Simplest case - no properties, invocations, etc. Just {@link ConstructorCreationSupport}
 	 * replaced with {@link StaticFactoryCreationSupport}.
 	 */
+	@Test
 	public void test_noParameters() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -87,6 +90,7 @@ public class FactoryApplyActionTest extends SwingModelTest {
 	/**
 	 * Factory with single parameter, but no bound property for parameter.
 	 */
+	@Test
 	public void test_noBoundProperty() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -126,6 +130,7 @@ public class FactoryApplyActionTest extends SwingModelTest {
 	/**
 	 * Factory with single parameter, but bounds property is not set, so default source used.
 	 */
+	@Test
 	public void test_singleBoundProperty_noValue() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -165,6 +170,7 @@ public class FactoryApplyActionTest extends SwingModelTest {
 	/**
 	 * Factory with single parameter, bound to the property <code>text</code>.
 	 */
+	@Test
 	public void test_singleBoundProperty() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -212,6 +218,7 @@ public class FactoryApplyActionTest extends SwingModelTest {
 	/**
 	 * Factory with two parameters, bound to the properties <code>text</code> and <code>icon</code>.
 	 */
+	@Test
 	public void test_twoBoundProperty() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -256,6 +263,7 @@ public class FactoryApplyActionTest extends SwingModelTest {
 	/**
 	 * Factory with single parameter, bound to the argument of old constructor.
 	 */
+	@Test
 	public void test_boundToOldConstuctorArgument() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -295,6 +303,7 @@ public class FactoryApplyActionTest extends SwingModelTest {
 	/**
 	 * Factory with <code>parent</code> parameter.
 	 */
+	@Test
 	public void test_withParent() throws Exception {
 		// component with "parent" in constructor
 		setFileContentSrc(
@@ -362,6 +371,7 @@ public class FactoryApplyActionTest extends SwingModelTest {
 	/**
 	 * Factory parameter is bound to the property, but variable is used.
 	 */
+	@Test
 	public void test_boundPropertyVariable() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",

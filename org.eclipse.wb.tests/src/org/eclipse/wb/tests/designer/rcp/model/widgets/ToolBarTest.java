@@ -25,9 +25,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -54,6 +53,7 @@ public class ToolBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link ToolBarInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -80,6 +80,7 @@ public class ToolBarTest extends RcpModelTest {
 	/**
 	 * {@link ToolBar} with {@link ToolItem}'s.
 	 */
+	@Test
 	public void test_parseItems() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -124,6 +125,7 @@ public class ToolBarTest extends RcpModelTest {
 	/**
 	 * Test that presentation returns different icons for {@link ToolItem}s with different styles.
 	 */
+	@Test
 	public void test_ToolItem_presentation() throws Exception {
 		ToolBarInfo toolBar =
 				parseJavaInfo(
@@ -163,6 +165,7 @@ public class ToolBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link ToolItem#setControl(org.eclipse.swt.widgets.Control)}.
 	 */
+	@Test
 	public void test_setControl_get() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -188,7 +191,7 @@ public class ToolBarTest extends RcpModelTest {
 		// "button" is set using setControl()
 		assertTrue(item.isSeparator());
 		assertSame(button, item.getControl());
-		assertThat(item.getSimpleContainerChildren()).containsExactly(button);
+		Assertions.assertThat(item.getSimpleContainerChildren()).containsExactly(button);
 		// check that "button" is wide
 		{
 			assertTrue(item.getBounds().width == 200);
@@ -196,16 +199,17 @@ public class ToolBarTest extends RcpModelTest {
 		}
 		// check hierarchy: "button" should be in "item", but not in "toolBar"
 		{
-			assertThat(item.getPresentation().getChildrenTree()).containsExactly(button);
-			assertThat(item.getPresentation().getChildrenGraphical()).containsExactly(button);
-			assertThat(toolBar.getPresentation().getChildrenTree()).containsExactly(item);
-			assertThat(toolBar.getPresentation().getChildrenGraphical()).containsExactly(item);
+			Assertions.assertThat(item.getPresentation().getChildrenTree()).containsExactly(button);
+			Assertions.assertThat(item.getPresentation().getChildrenGraphical()).containsExactly(button);
+			Assertions.assertThat(toolBar.getPresentation().getChildrenTree()).containsExactly(item);
+			Assertions.assertThat(toolBar.getPresentation().getChildrenGraphical()).containsExactly(item);
 		}
 	}
 
 	/**
 	 * Test for {@link ToolItemInfo#command_CREATE(ControlInfo)}.
 	 */
+	@Test
 	public void test_setControl_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -225,13 +229,13 @@ public class ToolBarTest extends RcpModelTest {
 		ToolItemInfo item = toolBar.getItems().get(0);
 		// no control initially
 		assertNull(item.getControl());
-		assertThat(item.getSimpleContainerChildren()).isEmpty();
+		Assertions.assertThat(item.getSimpleContainerChildren()).isEmpty();
 		// set Button on "item"
 		ControlInfo button = BTestUtils.createButton();
 		simpleContainer_CREATE(item, button);
 		// check result
 		assertSame(button, item.getControl());
-		assertThat(item.getSimpleContainerChildren()).containsExactly(button);
+		Assertions.assertThat(item.getSimpleContainerChildren()).containsExactly(button);
 		assertEditor(
 				"public class Test extends Shell {",
 				"  public Test() {",
@@ -252,6 +256,7 @@ public class ToolBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link ToolItemInfo#command_ADD(ControlInfo)}.
 	 */
+	@Test
 	public void test_setControl_ADD() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -299,6 +304,7 @@ public class ToolBarTest extends RcpModelTest {
 	/**
 	 * Move {@link ControlInfo} from one {@link ToolItemInfo} to other.
 	 */
+	@Test
 	public void test_setControl_MOVE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -362,6 +368,7 @@ public class ToolBarTest extends RcpModelTest {
 	/**
 	 * When we move {@link ToolItemInfo} with {@link ControlInfo}, they should move together.
 	 */
+	@Test
 	public void test_setControl_MOVEItem() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -425,6 +432,7 @@ public class ToolBarTest extends RcpModelTest {
 	 * When we move {@link ControlInfo} out from {@link ToolItemInfo}, the
 	 * {@link ToolItem#setControl(org.eclipse.swt.widgets.Control)} invocation should be removed.
 	 */
+	@Test
 	public void test_setControl_moveOut() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -475,6 +483,7 @@ public class ToolBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link ToolBarInfo#command_absolute_CREATE(ToolItemInfo, ToolItemInfo)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -542,6 +551,7 @@ public class ToolBarTest extends RcpModelTest {
 	/**
 	 * Test for {@link ToolBarInfo#command_absolute_MOVE(ToolItemInfo, ToolItemInfo)}.
 	 */
+	@Test
 	public void test_MOVE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

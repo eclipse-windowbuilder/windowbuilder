@@ -46,6 +46,8 @@ import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import org.junit.Test;
+
 import java.util.List;
 
 import javax.swing.JButton;
@@ -76,6 +78,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * Parse, check for parameters binding to properties.
 	 */
+	@Test
 	public void test_parse() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -195,6 +198,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * Two instances of {@link InstanceFactoryInfo}.
 	 */
+	@Test
 	public void test_parse2() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -277,6 +281,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	 * We should support creating of {@link InstanceFactoryInfo} using static factory, for example to
 	 * allow users configure it.
 	 */
+	@Test
 	public void test_parse_createInstanceFactory_usingStaticFactory() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -312,6 +317,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	 * Factory method with parent, can be used as {@link MethodInvocation} in
 	 * {@link ExpressionStatement}.
 	 */
+	@Test
 	public void test_factoryMethodWithParent() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -347,6 +353,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * We can not create model for interface, at least in general case.
 	 */
+	@Test
 	public void test_factoryMethod_interface() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -384,6 +391,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test for adding.
 	 */
+	@Test
 	public void test_add() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -486,6 +494,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test for adding factory itself.
 	 */
+	@Test
 	public void test_addFactory() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -576,6 +585,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * If there is custom factory-specific icon, it should be used.
 	 */
+	@Test
 	public void test_icon_withCustom() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -613,6 +623,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	 * If there is no custom factory-specific icon, then default icon for any instance factory should
 	 * be used. Note, that this icon is <em>not</em> just {@link Object} icon.
 	 */
+	@Test
 	public void test_icon_noCustom() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -646,6 +657,7 @@ public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * {@link InstanceFactoryInfo} after parsing should have {@link Association}.
 	 */
+	@Test
 	public void test_nullAssociationProblem() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",

@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.swing.gef.policy.layout.GridLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 /**
  * Test for {@link GridLayoutEditPolicy}.
  *
@@ -34,6 +36,7 @@ public class GridLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	// setLayout
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setLayout() throws Exception {
 		String[] source =
 				new String[]{
@@ -58,6 +61,7 @@ public class GridLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -88,6 +92,7 @@ public class GridLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	// MOVE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -132,6 +137,7 @@ public class GridLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD() throws Exception {
 		ContainerInfo panel =
 				openContainer(

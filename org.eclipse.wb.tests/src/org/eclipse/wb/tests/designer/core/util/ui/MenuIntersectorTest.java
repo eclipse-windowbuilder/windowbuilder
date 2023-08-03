@@ -25,7 +25,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
 	// Test
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test() throws Exception {
 		// create common action
 		Action deleteAction = new Action("Delete") {
@@ -89,6 +91,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
 		assertEquals("clear", ((ActionContributionItem) subItems[0]).getAction().getText());
 	}
 
+	@Test
 	public void test_2() throws Exception {
 		// create common action
 		Action deleteAction = new Action("Delete") {
@@ -130,6 +133,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
 	/**
 	 * Test for running {@link IAction}'s after intersection.
 	 */
+	@Test
 	public void test_runWithEvent_run() throws Exception {
 		// create actions
 		final boolean[] runExecuted_1 = new boolean[1];
@@ -158,7 +162,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
 		IAction wrapperAction;
 		{
 			IContributionItem[] items = main.getItems();
-			assertThat(items).hasSize(1);
+			Assertions.assertThat(items).hasSize(1);
 			wrapperAction = ((ActionContributionItem) items[0]).getAction();
 		}
 		// execute IAction using runWithEvent()
@@ -182,6 +186,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
 	/**
 	 * Test that {@link IAction} with {@link IActionSingleton} executed only for first action.
 	 */
+	@Test
 	public void test_IActionSingleton() throws Exception {
 		class MyAction extends Action implements IActionSingleton {
 			private final boolean[] m_runFlag;
@@ -213,7 +218,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
 		IAction wrapperAction;
 		{
 			IContributionItem[] items = main.getItems();
-			assertThat(items).hasSize(1);
+			Assertions.assertThat(items).hasSize(1);
 			wrapperAction = ((ActionContributionItem) items[0]).getAction();
 		}
 		// execute IAction using run()

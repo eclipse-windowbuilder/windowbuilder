@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.After;
+
 /**
  * Tests for {@link ColorPropertyEditor}.
  *
@@ -29,7 +31,8 @@ public abstract class ColorPropertyEditorTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		ToolkitProvider.DESCRIPTION.getPreferences().setToDefault(
 				IPreferenceConstants.P_USE_RESOURCE_MANAGER);

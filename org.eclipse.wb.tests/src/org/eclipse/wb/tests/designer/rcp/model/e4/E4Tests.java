@@ -10,20 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.e4;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for E4 models.
  *
  * @author scheglov_ke
  */
-public class E4Tests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.rcp");
-		suite.addTest(createSingleSuite(E4PartTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({ E4PartTest.class })
+public class E4Tests {
 }

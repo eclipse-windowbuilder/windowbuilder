@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ImplicitFactoryArgumentAssociation}.
  *
@@ -28,6 +30,7 @@ public class ImplicitFactoryArgumentAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_permissions() throws Exception {
 		ContainerInfo panel = parseTestCase();
 		ContainerInfo bar = (ContainerInfo) panel.getChildrenComponents().get(0);
@@ -52,6 +55,7 @@ public class ImplicitFactoryArgumentAssociationTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_deleteButton() throws Exception {
 		ContainerInfo panel = parseTestCase();
 		ContainerInfo bar = (ContainerInfo) panel.getChildrenComponents().get(0);
@@ -72,6 +76,7 @@ public class ImplicitFactoryArgumentAssociationTest extends SwingModelTest {
 				"  {new: test.MyBar} {local-unique: bar} {/new MyBar()/ /add(bar)/}");
 	}
 
+	@Test
 	public void test_deleteFactoryComponent() throws Exception {
 		ContainerInfo panel = parseTestCase();
 		ContainerInfo bar = (ContainerInfo) panel.getChildrenComponents().get(0);
@@ -91,6 +96,7 @@ public class ImplicitFactoryArgumentAssociationTest extends SwingModelTest {
 				"  {new: test.MyBar} {local-unique: bar} {/new MyBar()/ /add(bar)/}");
 	}
 
+	@Test
 	public void test_reparentButton() throws Exception {
 		ContainerInfo panel = parseTestCase();
 		ContainerInfo bar = (ContainerInfo) panel.getChildrenComponents().get(0);

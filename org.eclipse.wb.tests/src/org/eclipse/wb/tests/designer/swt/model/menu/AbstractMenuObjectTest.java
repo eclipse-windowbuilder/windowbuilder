@@ -26,6 +26,8 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests for {@link AbstractMenuObject}.
@@ -42,7 +44,8 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		m_menuObject = new AbstractMenuObject(null) {
 			@Override
@@ -76,6 +79,7 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
 	/**
 	 * Test that {@link IMenuObjectListener#refresh()} can be send.
 	 */
+	@Test
 	public void test_refreshEvent() throws Exception {
 		// perform operations
 		m_menuObject.addListener(m_listener);
@@ -88,6 +92,7 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
 	/**
 	 * Test that {@link IMenuObjectListener#refresh()} can be send.
 	 */
+	@Test
 	public void test_deleteEvent() throws Exception {
 		Object object = new Object();
 		// perform operations
@@ -101,6 +106,7 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
 	/**
 	 * If {@link IMenuObjectInfo} is not added, it will not receive invocations.
 	 */
+	@Test
 	public void test_noListener_noEvents() throws Exception {
 		// perform operations
 		ReflectionUtils.invokeMethod2(m_menuObject, "fireRefreshListeners");
@@ -111,6 +117,7 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
 	/**
 	 * If {@link IMenuObjectInfo} is not added, it will not receive invocations.
 	 */
+	@Test
 	public void test_removeListener_noEvents() throws Exception {
 		// perform operations
 		m_menuObject.addListener(m_listener);

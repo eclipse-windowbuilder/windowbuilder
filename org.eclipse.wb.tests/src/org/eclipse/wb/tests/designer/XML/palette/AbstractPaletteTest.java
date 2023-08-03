@@ -24,13 +24,14 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.StringUtils;
+import org.junit.After;
 
 /**
  * Abstract superclass for {@link PaletteInfo} tests.
  *
  * @author scheglov_ke
  */
-public class AbstractPaletteTest extends AbstractCoreTest {
+public abstract class AbstractPaletteTest extends AbstractCoreTest {
 	private static final String POINT_ID = "org.eclipse.wb.core.toolkits";
 	protected static final String PALETTE_EXTENSION_ID = "testPaletteId";
 	protected static final String TOOLKIT_ID = "test.toolkit";
@@ -41,7 +42,8 @@ public class AbstractPaletteTest extends AbstractCoreTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		removeToolkitExtension();
 		if (m_lastManager != null) {
 			m_lastManager.commands_clear();

@@ -20,6 +20,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.ui.ide.IDE;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Test for {@link JavaSourceUiDescriber}.
  *
@@ -32,7 +36,8 @@ public class ContentDescriberTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		DesignerPlugin.getPreferences().setValue(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI, true);
 		if (m_testProject == null) {
@@ -41,7 +46,8 @@ public class ContentDescriberTest extends AbstractJavaTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		DesignerPlugin.getPreferences().setToDefault(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI);
 		super.tearDown();
 		do_projectDispose();
@@ -52,6 +58,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_notGUI() throws Exception {
 		IFile file =
 				setFileContentSrc(
@@ -61,6 +68,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
 		assertFalse(isDesignerType(file));
 	}
 
+	@Test
 	public void test_disableRecognition() throws Exception {
 		DesignerPlugin.getPreferences().setValue(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI, false);
 		IFile file =
@@ -76,6 +84,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
 		assertFalse(isDesignerType(file));
 	}
 
+	@Test
 	public void test_useExcludePattern() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -105,6 +114,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
 	// AWT/Swing
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_AWT_Applet() throws Exception {
 		IFile file =
 				setFileContentSrc(
@@ -119,6 +129,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
 		assertTrue(isDesignerType(file));
 	}
 
+	@Test
 	public void test_Swing() throws Exception {
 		IFile file =
 				setFileContentSrc(
@@ -138,6 +149,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
 	// SWT/RCP
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_SWT() throws Exception {
 		IFile file =
 				setFileContentSrc(
@@ -151,6 +163,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
 		assertTrue(isDesignerType(file));
 	}
 
+	@Test
 	public void test_RCP_ActionBarAdvisor() throws Exception {
 		IFile file =
 				setFileContentSrc(
@@ -164,6 +177,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
 		assertTrue(isDesignerType(file));
 	}
 
+	@Test
 	public void test_RCP_IPerspectiveFactory() throws Exception {
 		IFile file =
 				setFileContentSrc(

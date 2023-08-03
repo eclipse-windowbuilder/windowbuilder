@@ -20,6 +20,8 @@ import org.eclipse.wb.tests.gef.EmptyEditPartViewer;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import org.junit.Test;
+
 /**
  * Tests for abstract {@link EntryInfo}.
  *
@@ -31,6 +33,7 @@ public class EntryInfoTest extends AbstractPaletteTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		XmlObjectInfo panel = parseEmptyPanel();
 		IEditPartViewer editPartViewer = new EmptyEditPartViewer();

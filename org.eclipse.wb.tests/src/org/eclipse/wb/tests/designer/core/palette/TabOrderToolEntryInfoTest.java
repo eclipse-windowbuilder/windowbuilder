@@ -26,6 +26,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InOrder;
 
@@ -43,6 +44,7 @@ public class TabOrderToolEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * No selection - no tab order tool.
 	 */
+	@Test
 	public void test_noSelection() throws Exception {
 		JavaInfo panel = parseEmptyPanel();
 		// prepare tool entry
@@ -66,6 +68,7 @@ public class TabOrderToolEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Single {@link EditPart} selected.
 	 */
+	@Test
 	public void test_singleSelection() throws Exception {
 		JavaInfo panel = parseEmptyPanel();
 		// prepare tool entry

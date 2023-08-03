@@ -22,7 +22,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Tests for {@link ContainerSupport}.
@@ -63,6 +65,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#isRTL(Object)}.
 	 */
+	@Test
 	public void test_isRTL_null() throws Exception {
 		assertFalse(ContainerSupport.isRTL(null));
 	}
@@ -70,6 +73,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#isRTL(Object)}.
 	 */
+	@Test
 	public void test_isRTL_false() throws Exception {
 		Object composite = ContainerSupport.createComposite(m_shell.getObject(), SWT.NONE);
 		assertFalse(ContainerSupport.isRTL(composite));
@@ -78,6 +82,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#isRTL(Object)}.
 	 */
+	@Test
 	public void test_isRTL_true() throws Exception {
 		Object composite = ContainerSupport.createComposite(m_shell.getObject(), SWT.RIGHT_TO_LEFT);
 		assertTrue(ContainerSupport.isRTL(composite));
@@ -91,6 +96,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#getShellClass()}.
 	 */
+	@Test
 	public void test_getShellClass() throws Exception {
 		Class<?> classShell = m_lastLoader.loadClass("org.eclipse.swt.widgets.Shell");
 		assertSame(classShell, ContainerSupport.getShellClass());
@@ -99,6 +105,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#isShell(Object)}.
 	 */
+	@Test
 	public void test_isShell_byObject() throws Exception {
 		assertTrue(ContainerSupport.isShell(m_shell.getObject()));
 		assertFalse(ContainerSupport.isShell(this));
@@ -107,6 +114,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#isShell(Class)}.
 	 */
+	@Test
 	public void test_isShell_byClass() throws Exception {
 		assertTrue(ContainerSupport.isShell(ContainerSupport.getShellClass()));
 		assertTrue(ContainerSupport.isShell(m_shell.getObject().getClass()));
@@ -116,6 +124,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#createShell()}.
 	 */
+	@Test
 	public void test_createShell() throws Exception {
 		Object shell = ContainerSupport.createShell();
 		try {
@@ -128,6 +137,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#setShellText(Object, String)}.
 	 */
+	@Test
 	public void test_setShellText() throws Exception {
 		Object shell = ContainerSupport.createShell();
 		try {
@@ -142,6 +152,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#setShellImage(Object, Image)}.
 	 */
+	@Test
 	public void test_setShellImage() throws Exception {
 		Object shell = ContainerSupport.createShell();
 		try {
@@ -175,6 +186,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#getCompositeClass()}.
 	 */
+	@Test
 	public void test_getCompositeClass() throws Exception {
 		Class<?> classComposite = m_lastLoader.loadClass("org.eclipse.swt.widgets.Composite");
 		assertSame(classComposite, ContainerSupport.getCompositeClass());
@@ -183,6 +195,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#isCompositeClass(Class)}.
 	 */
+	@Test
 	public void test_isCompositeClass() throws Exception {
 		assertTrue(ContainerSupport.isCompositeClass(m_shell.getObject().getClass()));
 		{
@@ -203,6 +216,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#isComposite(Object)}.
 	 */
+	@Test
 	public void test_isComposite() throws Exception {
 		assertTrue(ContainerSupport.isComposite(m_shell.getObject()));
 		assertFalse(ContainerSupport.isComposite(this));
@@ -211,6 +225,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#createComposite(Object, int)}.
 	 */
+	@Test
 	public void test_createComposite() throws Exception {
 		Object composite = ContainerSupport.createComposite(m_shell.getObject(), 0);
 		assertTrue(ContainerSupport.isComposite(composite));
@@ -219,15 +234,16 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#getChildren(Object)}.
 	 */
+	@Test
 	public void test_getChildren() throws Exception {
 		Object shellObject = m_shell.getObject();
 		// initially single Button as child
 		Object[] children = ContainerSupport.getChildren(shellObject);
-		assertThat(children).hasSize(1);
+		Assertions.assertThat(children).hasSize(1);
 		assertEquals("org.eclipse.swt.widgets.Button", children[0].getClass().getName());
 		// dispose Button, no more children
 		ControlSupport.dispose(children[0]);
-		assertThat(ContainerSupport.getChildren(shellObject)).isEmpty();
+		Assertions.assertThat(ContainerSupport.getChildren(shellObject)).isEmpty();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -238,6 +254,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#getLayoutClass()}.
 	 */
+	@Test
 	public void test_getLayoutClass() throws Exception {
 		Class<?> classLayout = m_lastLoader.loadClass("org.eclipse.swt.widgets.Layout");
 		assertSame(classLayout, ContainerSupport.getLayoutClass());
@@ -247,6 +264,7 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	 * Test for {@link ContainerSupport#getLayout(Object)},
 	 * {@link ContainerSupport#setLayout(Object, Object)} and {@link ContainerSupport#layout(Object)}.
 	 */
+	@Test
 	public void test_getLayout() throws Exception {
 		Object shellObject = m_shell.getObject();
 		// initially "null" layout
@@ -275,26 +293,28 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#computeTrim(Object, int, int, int, int)}.
 	 */
-	public void DISABLE_test_computeTrim() throws Exception {
+	@Ignore
+	@Test
+	public void test_computeTrim() throws Exception {
 		Object shellObject = m_shell.getObject();
 		Rectangle trim = ContainerSupport.computeTrim(shellObject, 0, 0, 500, 500);
-		assertThat(trim.x).isEqualTo(
+		Assertions.assertThat(trim.x).isEqualTo(
 				Expectations.get(
 						-8,
 						new IntValue[]{new IntValue("flanker-windows", -8), new IntValue("scheglov-win", -8)}));
-		assertThat(trim.y).isEqualTo(
+		Assertions.assertThat(trim.y).isEqualTo(
 				Expectations.get(
 						-30,
 						new IntValue[]{
 								new IntValue("flanker-windows", -30),
 								new IntValue("scheglov-win", -30)}));
-		assertThat(trim.width).isEqualTo(
+		Assertions.assertThat(trim.width).isEqualTo(
 				Expectations.get(
 						500 + 8 + 8,
 						new IntValue[]{
 								new IntValue("flanker-windows", 500 + 8 + 8),
 								new IntValue("scheglov-win", 500 + 8 + 8)}));
-		assertThat(trim.height).isEqualTo(
+		Assertions.assertThat(trim.height).isEqualTo(
 				Expectations.get(
 						500 + 30 + 8,
 						new IntValue[]{
@@ -305,17 +325,19 @@ public class ContainerSupportTest extends AbstractSupportTest {
 	/**
 	 * Test for {@link ContainerSupport#getClientArea(Object)}.
 	 */
-	public void DISABLE_test_getClientArea() throws Exception {
+	@Ignore
+	@Test
+	public void test_getClientArea() throws Exception {
 		Object shellObject = m_shell.getObject();
 		ControlSupport.setSize(shellObject, 500, 500);
 		Rectangle clientArea = ContainerSupport.getClientArea(shellObject);
-		assertThat(clientArea.x).isEqualTo(0);
-		assertThat(clientArea.y).isEqualTo(0);
-		assertThat(clientArea.width).isEqualTo(
+		Assertions.assertThat(clientArea.x).isEqualTo(0);
+		Assertions.assertThat(clientArea.y).isEqualTo(0);
+		Assertions.assertThat(clientArea.width).isEqualTo(
 				Expectations.get(500 - 8 - 8, new IntValue[]{
 						new IntValue("flanker-windows", 500 - 8 - 8),
 						new IntValue("scheglov-win", 500 - 8 - 8)}));
-		assertThat(clientArea.height).isEqualTo(
+		Assertions.assertThat(clientArea.height).isEqualTo(
 				Expectations.get(500 - 30 - 8, new IntValue[]{
 						new IntValue("flanker-windows", 500 - 30 - 8),
 						new IntValue("scheglov-win", 500 - 30 - 8)}));

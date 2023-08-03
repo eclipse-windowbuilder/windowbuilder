@@ -21,6 +21,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.custom.SashForm;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link SashFormInfo}.
  *
@@ -44,6 +47,7 @@ public class SashFormTest extends RcpModelTest {
 	/**
 	 * Test for parsing {@link SashForm} with <code>setLayout()</code> invocation.
 	 */
+	@Test
 	public void test_parseWith_setLayout() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -67,6 +71,7 @@ public class SashFormTest extends RcpModelTest {
 	/**
 	 * Test for parsing {@link SashForm} without <code>setLayout()</code> invocation.
 	 */
+	@Test
 	public void test_parseWithout_setLayout() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -94,6 +99,7 @@ public class SashFormTest extends RcpModelTest {
 	/**
 	 * Test for {@link SashFormInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal_true() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -112,6 +118,7 @@ public class SashFormTest extends RcpModelTest {
 	/**
 	 * Test for {@link SashFormInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal_false() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -136,6 +143,7 @@ public class SashFormTest extends RcpModelTest {
 	 * Test for {@link SashFormInfo#command_CREATE(ControlInfo, ControlInfo)}.<br>
 	 * No existing children yet.
 	 */
+	@Test
 	public void test_CREATE_0() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -169,6 +177,7 @@ public class SashFormTest extends RcpModelTest {
 	 * Test for {@link SashFormInfo#command_CREATE(ControlInfo, ControlInfo)}.<br>
 	 * Two existing children with weights.
 	 */
+	@Test
 	public void test_CREATE_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -215,6 +224,7 @@ public class SashFormTest extends RcpModelTest {
 	 * Test for {@link SashFormInfo#command_MOVE(ControlInfo, ControlInfo)}.<br>
 	 * Two existing children with weights.
 	 */
+	@Test
 	public void test_MOVE_inner() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -259,6 +269,7 @@ public class SashFormTest extends RcpModelTest {
 	 * Test for {@link SashFormInfo#command_MOVE(ControlInfo, ControlInfo)}.<br>
 	 * Move {@link ControlInfo} in.
 	 */
+	@Test
 	public void test_MOVE_in() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -301,6 +312,7 @@ public class SashFormTest extends RcpModelTest {
 	 * Test for {@link SashFormInfo#command_MOVE(ControlInfo, ControlInfo)}.<br>
 	 * Move {@link ControlInfo} out.
 	 */
+	@Test
 	public void test_MOVE_out() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -345,6 +357,7 @@ public class SashFormTest extends RcpModelTest {
 	 * Test for {@link SashFormInfo#command_MOVE(ControlInfo, ControlInfo)}.<br>
 	 * Delete child {@link ControlInfo}.
 	 */
+	@Test
 	public void test_DELETE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -384,7 +397,9 @@ public class SashFormTest extends RcpModelTest {
 	/**
 	 * Test for {@link SashFormInfo#command_RESIZE(ControlInfo, int)}.
 	 */
-	public void DISABLE_test_RESIZE() throws Exception {
+	@Ignore
+	@Test
+	public void test_RESIZE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"public class Test extends Shell {",

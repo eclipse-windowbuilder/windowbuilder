@@ -28,11 +28,14 @@ import org.eclipse.ltk.core.refactoring.participants.RefactoringParticipant;
 import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests for {@link RefactoringUtils}.
@@ -48,7 +51,8 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -73,6 +77,7 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 	 * Test for
 	 * {@link RefactoringUtils#modifyXML(IFile, DocumentModelVisitor, AbstractDocumentEditContext)}.
 	 */
+	@Test
 	public void test_modifyXML_noChanges() throws Exception {
 		IFile file =
 				setFileContentSrc(
@@ -93,6 +98,7 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 	 * Test for
 	 * {@link RefactoringUtils#modifyXML(IFile, DocumentModelVisitor, AbstractDocumentEditContext)}.
 	 */
+	@Test
 	public void test_modifyXML_doChanges() throws Exception {
 		IFile file =
 				setFileContentSrc(
@@ -137,6 +143,7 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link RefactoringUtils#createDeleteTypeChange(IType)}.
 	 */
+	@Test
 	public void test_createDeleteTypeChange() throws Exception {
 		IType type =
 				createModelType(
@@ -162,6 +169,7 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link RefactoringUtils#createRenameTypeChange(IType, String, IProgressMonitor)}.
 	 */
+	@Test
 	public void test_createRenameTypeChange() throws Exception {
 		IType type =
 				createModelType(
@@ -202,6 +210,7 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link RefactoringUtils#mergeTextChanges(Change, Change)}.
 	 */
+	@Test
 	public void test_mergeTextChanges_twoTextFileChanges() throws Exception {
 		IFile file = setFileContent("Test.txt", "abc");
 		// change 1
@@ -233,6 +242,7 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link RefactoringUtils#mergeTextChanges(Change, Change)}.
 	 */
+	@Test
 	public void test_mergeTextChanges_sourceIsCompositeChange() throws Exception {
 		IFile file = setFileContent("Test.txt", "abc");
 		// change 1
@@ -272,6 +282,7 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for {@link RefactoringUtils#mergeTextChange(RefactoringParticipant, Change)}.
 	 */
+	@Test
 	public void test_mergeTextChange() throws Exception {
 		IFile file = setFileContent("Test.txt", "abc");
 		// existing change
@@ -287,7 +298,7 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 			newChange.setEdit(new ReplaceEdit(2, 1, "C"));
 			newChangeComposite.add(newChange);
 		}
-		assertThat(newChangeComposite.getChildren()).hasSize(1);
+		Assertions.assertThat(newChangeComposite.getChildren()).hasSize(1);
 		// expectations
 		RefactoringParticipant participant = mock(RefactoringParticipant.class);
 		when(participant.getTextChange(file)).thenReturn(existingChange);
@@ -300,6 +311,6 @@ public class RefactoringUtilsTest extends AbstractJavaTest {
 		existingChange.perform(PM);
 		assertEquals("AAbC", getFileContent(file));
 		// "new change" was removed from "composite"
-		assertThat(newChangeComposite.getChildren()).hasSize(0);
+		Assertions.assertThat(newChangeComposite.getChildren()).hasSize(0);
 	}
 }

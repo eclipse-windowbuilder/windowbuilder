@@ -29,6 +29,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.Control;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  * @author scheglov_ke
@@ -52,6 +54,7 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	 * Test that when exposed {@link ControlInfo} has existing {@link LayoutDataInfo}, it handled as
 	 * "implicit".
 	 */
+	@Test
 	public void test_implicitData() throws Exception {
 		prepareGridComposite_forImplicit();
 		CompositeInfo composite =
@@ -120,6 +123,7 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	/**
 	 * Test for advanced "implicit" materialize/inline tricks.
 	 */
+	@Test
 	public void test_implicitData_advanced() throws Exception {
 		prepareGridComposite_forImplicit();
 		// extend GridComposite
@@ -230,6 +234,7 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	/**
 	 * Test that we can replace implicit {@link LayoutDataInfo} with explicit one.
 	 */
+	@Test
 	public void test_implicitReplace_withExplicitData() throws Exception {
 		createASTCompilationUnit(
 				"test",
@@ -277,6 +282,7 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	 * Test that when we delete "implicit" {@link LayoutDataInfo}, instance of {@link LayoutDataInfo}
 	 * is not removed or recreated, so is same as before delete.
 	 */
+	@Test
 	public void test_delete_shouldKeepSameInstance() throws Exception {
 		createASTCompilationUnit(
 				"test",
@@ -341,6 +347,7 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	 * nodes, restores {@link ImplicitLayoutDataVariableSupport}, but keeps same
 	 * {@link LayoutDataInfo} instance.
 	 */
+	@Test
 	public void test_delete_removeMaterialized() throws Exception {
 		createASTCompilationUnit(
 				"test",
@@ -417,6 +424,7 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	 * There was problem that {@link ControlInfo} was initialized before creating implicit
 	 * {@link LayoutDataInfo}, so it was not able to get "data" object from {@link Control}.
 	 */
+	@Test
 	public void test_addNewComposite_withExposedControl_andImplicitLayoutData() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",

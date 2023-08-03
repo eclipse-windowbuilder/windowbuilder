@@ -14,19 +14,20 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Tests for {@link Assert}.
  *
  * @author scheglov_ke
  */
-public class AssertTest extends TestCase {
+public class AssertTest extends org.junit.Assert {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// isLegal
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_isLegal() {
 		Assert.isLegal(true);
 		Assert.isLegal(true, "message");
@@ -51,6 +52,7 @@ public class AssertTest extends TestCase {
 	// isNull/isNotNull
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_isNull() {
 		Assert.isNull(null);
 		Assert.isNull(null, "message");
@@ -73,6 +75,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#isNull(Object, String, Object...)}.
 	 */
+	@Test
 	public void test_isNull_1() {
 		Assert.isNull(null, "errorFormat %d %d", 1, 2);
 		//
@@ -87,6 +90,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#isNull2(Object, String, Object...)}.
 	 */
+	@Test
 	public void test_isNull_2() {
 		Assert.isNull2(null, "errorFormat {0} {1}", 1, 2);
 		//
@@ -101,6 +105,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#isNotNull(Object)}.
 	 */
+	@Test
 	public void test_isNotNull_1() {
 		Assert.isNotNull(this);
 		//
@@ -115,6 +120,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#isNotNull(Object, String)}.
 	 */
+	@Test
 	public void test_isNotNull_2() {
 		Assert.isNotNull(this, "message");
 		//
@@ -129,6 +135,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#isNotNull(Object, String, Object...)}.
 	 */
+	@Test
 	public void test_isNotNull_3() {
 		Assert.isNotNull(this, "errorFormat %d %d", 1, 2);
 		//
@@ -145,6 +152,7 @@ public class AssertTest extends TestCase {
 	// isNotNull2
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_isNotNull2() throws Exception {
 		Assert.isNotNull2(this, "errorFormat {0} {1}", 1, 2);
 		//
@@ -161,6 +169,7 @@ public class AssertTest extends TestCase {
 	// fail
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_fail() throws Exception {
 		String message = "My fail message";
 		try {
@@ -174,6 +183,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#fail(String, Object...)}.
 	 */
+	@Test
 	public void test_fail_withParameters() throws Exception {
 		try {
 			Assert.fail("My {1} message {0}.", "second", "first");
@@ -191,6 +201,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#isTrue(boolean)}.
 	 */
+	@Test
 	public void test_isTrue_1() {
 		Assert.isTrue(true);
 		//
@@ -205,6 +216,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#isTrue(boolean, String)}.
 	 */
+	@Test
 	public void test_isTrue_2() {
 		Assert.isTrue(true, "message");
 		//
@@ -219,6 +231,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#isTrue(boolean, String, Object...)}.
 	 */
+	@Test
 	public void test_isTrue_3() {
 		Assert.isTrue(true, "errorFormat %d %d", 1, 2);
 		//
@@ -233,6 +246,7 @@ public class AssertTest extends TestCase {
 	/**
 	 * Test for {@link Assert#isTrue2(boolean, String, Object...)}.
 	 */
+	@Test
 	public void test_isTrue2() {
 		Assert.isTrue2(true, "errorFormat {0} {1}", "ABC", 2);
 		//
@@ -249,6 +263,7 @@ public class AssertTest extends TestCase {
 	// equals - int
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_equals_int() throws Exception {
 		Assert.equals(0, 0);
 		//
@@ -272,6 +287,7 @@ public class AssertTest extends TestCase {
 	// instanceOf
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_instanceOf() throws Exception {
 		try {
 			Assert.instanceOf(String.class, null);
@@ -293,11 +309,13 @@ public class AssertTest extends TestCase {
 	// DesignerException
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_isTrueException_success() throws Exception {
 		int exceptionCode = -1;
 		Assert.isTrueException(true, exceptionCode);
 	}
 
+	@Test
 	public void test_isTrueException_String() throws Exception {
 		int exceptionCode = -1;
 		String message = "message";
@@ -313,6 +331,7 @@ public class AssertTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void test_isTrueException_Object() throws Exception {
 		int exceptionCode = -1;
 		Object parameter = Integer.valueOf(10);
@@ -328,6 +347,7 @@ public class AssertTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void test_isTrueException_null() throws Exception {
 		int exceptionCode = -1;
 		Object parameter = null;

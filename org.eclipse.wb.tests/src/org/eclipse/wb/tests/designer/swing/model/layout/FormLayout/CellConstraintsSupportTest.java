@@ -26,6 +26,9 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
 
 import org.apache.commons.lang.StringUtils;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test for {@link CellConstraintsSupport}.
@@ -44,7 +47,8 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		//
 		if (m_testProject != null) {
@@ -78,7 +82,8 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		if (m_panel != null) {
 			m_panel.refresh_dispose();
 			m_panel = null;
@@ -96,6 +101,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	// CellConstraintsSupport
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CellConstraintsSupport_span() throws Exception {
 		CellConstraintsSupport support = FormLayoutInfo.getConstraints(m_button);
 		// check for caching CellConstraintsSupport
@@ -114,6 +120,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	// setAlign*
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setAlignH() throws Exception {
 		CellConstraintsSupport support = FormLayoutInfo.getConstraints(m_button);
 		//
@@ -124,6 +131,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		assertEditor(expectedSource, m_lastEditor);
 	}
 
+	@Test
 	public void test_setAlignV() throws Exception {
 		CellConstraintsSupport support = FormLayoutInfo.getConstraints(m_button);
 		//
@@ -139,6 +147,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_property_x() throws Exception {
 		Property property = m_subProperties[0];
 		assertEquals("grid x", property.getTitle());
@@ -161,6 +170,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		property.setValue(1);
 	}
 
+	@Test
 	public void test_property_y() throws Exception {
 		Property property = m_subProperties[1];
 		assertEquals("grid y", property.getTitle());
@@ -176,6 +186,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		property.setValue(2);
 	}
 
+	@Test
 	public void test_property_w() throws Exception {
 		Property property = m_subProperties[2];
 		assertEquals("grid width", property.getTitle());
@@ -195,6 +206,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_property_h() throws Exception {
 		Property property = m_subProperties[3];
 		assertEquals("grid height", property.getTitle());
@@ -214,6 +226,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_property_align_h() throws Exception {
 		Property property = m_subProperties[4];
 		assertEquals("h alignment", property.getTitle());
@@ -235,6 +248,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_property_align_v() throws Exception {
 		Property property = m_subProperties[5];
 		assertEquals("v alignment", property.getTitle());
@@ -261,6 +275,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	// getSmallAlignmentImage
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getSmallAlignmentImage() throws Exception {
 		check_getSmallAlignmentImage(CellConstraints.DEFAULT, true, false);
 		check_getSmallAlignmentImage(CellConstraints.LEFT, true, true);
@@ -299,6 +314,7 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 	// Context menu
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_contextMenu() throws Exception {
 		// prepare context menu
 		IMenuManager manager;

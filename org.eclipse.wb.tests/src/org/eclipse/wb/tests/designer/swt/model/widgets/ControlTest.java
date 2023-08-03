@@ -40,7 +40,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
@@ -64,6 +65,7 @@ public class ControlTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MethodMain() throws Exception {
 		CompositeInfo shellInfo =
 				parseComposite(
@@ -124,6 +126,7 @@ public class ControlTest extends RcpModelTest {
 	 * Test that we can parse "SWT Application" pattern.<br>
 	 * This checks that we can follow "app.open()" local method invocation.
 	 */
+	@Test
 	public void test_application() throws Exception {
 		m_waitForAutoBuild = true;
 		parseComposite(
@@ -157,6 +160,7 @@ public class ControlTest extends RcpModelTest {
 	 * For eSWT we use same {@link Display} for all applications, so we should ignore creation of new
 	 * {@link Display}'s by custom applications.
 	 */
+	@Test
 	public void test_newDisplay() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -171,6 +175,7 @@ public class ControlTest extends RcpModelTest {
 				shell.getDescription().getComponentClass().getName());
 	}
 
+	@Test
 	public void test_classLoader_1() throws Exception {
 		test_classLoader(new String[]{
 				"class Test {",
@@ -180,6 +185,7 @@ public class ControlTest extends RcpModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_classLoader_2() throws Exception {
 		test_classLoader(new String[]{
 				"class Test extends Composite {",
@@ -213,6 +219,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Test that descriptions for SWT are shared, when needed.
 	 */
+	@Test
 	public void test_sharingDescriptions() throws Exception {
 		CompositeInfo shell_1 =
 				(CompositeInfo) parseSource(
@@ -248,6 +255,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Creation of inner non-static class should be ignored.
 	 */
+	@Test
 	public void test_nonStaticInnerClass() throws Exception {
 		m_waitForAutoBuild = true;
 		parseSource(
@@ -274,6 +282,7 @@ public class ControlTest extends RcpModelTest {
 	 * test checks that after shot we have sizes for controls/layouts that represent required sizes,
 	 * not minimal ones.
 	 */
+	@Test
 	public void test_preferredBounds_usualBounds() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -300,6 +309,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Test that {@link Control}-s are disposed.
 	 */
+	@Test
 	public void test_disposeHierarchy() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -329,6 +339,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Test for {@link ColorDefaultConverter}.
 	 */
+	@Test
 	public void test_ColorConverter() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -352,6 +363,7 @@ public class ControlTest extends RcpModelTest {
 	// getAbsoluteBounds()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getAbsoluteBounds() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -393,6 +405,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Test that control's without variable still can be created.
 	 */
+	@Test
 	public void test_executeNoVariable() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -413,6 +426,7 @@ public class ControlTest extends RcpModelTest {
 	// "expose" action
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_exposeAction() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -446,19 +460,19 @@ public class ControlTest extends RcpModelTest {
 		ControlInfo badComponent = shell.getChildrenControls().get(0);
 		Object badComponentObject = badComponent.getObject();
 		// "MyButton" has placeholder object - Composite
-		assertThat(badComponentObject.getClass().getName()).isEqualTo(
+		Assertions.assertThat(badComponentObject.getClass().getName()).isEqualTo(
 				"org.eclipse.swt.widgets.Composite");
 		assertTrue(badComponent.isPlaceholder());
 		// "shell" has only one Control child (we should remove partially create MyButton instance)
 		{
 			Object[] children = ContainerSupport.getChildren(shell.getObject());
-			assertThat(children).hasSize(1).containsOnly(badComponentObject);
+			Assertions.assertThat(children).hasSize(1).containsOnly(badComponentObject);
 		}
 	}
 
 	private void check_constructorEvaluation_actualOnlyException(String exceptionNodeSource) {
 		List<BadNodeInformation> badNodes = m_lastState.getBadRefreshNodes().nodes();
-		assertThat(badNodes).hasSize(1);
+		Assertions.assertThat(badNodes).hasSize(1);
 		{
 			BadNodeInformation badNode = badNodes.get(0);
 			check_constructorEvaluation_badNode(badNode, exceptionNodeSource, "actual");
@@ -475,16 +489,17 @@ public class ControlTest extends RcpModelTest {
 		// check exception
 		{
 			Throwable e = DesignerExceptionUtils.getRootCause(nodeException);
-			assertThat(e).isExactlyInstanceOf(IllegalStateException.class);
-			assertThat(e.getMessage()).isEqualTo(exceptionMessage);
+			Assertions.assertThat(e).isExactlyInstanceOf(IllegalStateException.class);
+			Assertions.assertThat(e.getMessage()).isEqualTo(exceptionMessage);
 		}
 		// exception should be associated with node
-		assertThat(PlaceholderUtils.getExceptions(node)).contains(nodeException);
+		Assertions.assertThat(PlaceholderUtils.getExceptions(node)).contains(nodeException);
 	}
 
 	/**
 	 * Actual (is default) constructor throws exception. So, create placeholder.
 	 */
+	@Test
 	public void test_constructorEvaluation_exceptionActual_sameDefault() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -518,6 +533,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Actual constructor throws exception. No default constructor. So, create placeholder.
 	 */
+	@Test
 	public void test_constructorEvaluation_exceptionActual_noDefault() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -552,6 +568,7 @@ public class ControlTest extends RcpModelTest {
 	 * Actual constructor throws exception. Default constructor throws exception. So, create
 	 * placeholder.
 	 */
+	@Test
 	public void test_constructorEvaluation_exceptionActual_exceptionDefault() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -587,7 +604,7 @@ public class ControlTest extends RcpModelTest {
 		{
 			String exceptionNodeSource = "new MyButton(this, SWT.NONE, 0)";
 			List<BadNodeInformation> badNodes = m_lastState.getBadRefreshNodes().nodes();
-			assertThat(badNodes).hasSize(2);
+			Assertions.assertThat(badNodes).hasSize(2);
 			{
 				BadNodeInformation badNode = badNodes.get(0);
 				check_constructorEvaluation_badNode(badNode, exceptionNodeSource, "actual");
@@ -602,6 +619,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Exception in actual constructor. So, default constructor is used, successfully.
 	 */
+	@Test
 	public void test_constructorEvaluation_exceptionActual_goodDefault() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -642,7 +660,7 @@ public class ControlTest extends RcpModelTest {
 		// only one (good) instance of MyButton should be on Shell
 		{
 			Object[] children = ContainerSupport.getChildren(shell.getObject());
-			assertThat(children).hasSize(1).containsOnly(buttonObject);
+			Assertions.assertThat(children).hasSize(1).containsOnly(buttonObject);
 		}
 		// check logged exceptions
 		check_constructorEvaluation_actualOnlyException("new MyButton(this, SWT.NONE, 0)");
@@ -651,6 +669,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * If placeholder used instead of real object, we can not access its exposed components.
 	 */
+	@Test
 	public void test_constructorEvaluation_placeholder_ignoreExposed() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -684,6 +703,7 @@ public class ControlTest extends RcpModelTest {
 	 * If instance of anonymous {@link Control} subclass is created, create instead nearest
 	 * non-abstract {@link Control} super class.
 	 */
+	@Test
 	public void test_newAnonymousControl() throws Exception {
 		setFileContentSrc(
 				"test/MyAbstractButton.java",
@@ -717,6 +737,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * If some method invoked two times, visit it only first time.
 	 */
+	@Test
 	public void test_duplicateMethodInvocation() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -742,6 +763,7 @@ public class ControlTest extends RcpModelTest {
 	 * Sometimes (because of unsupported code patterns) "parent" argument becomes <code>null</code>.
 	 * New should check for this and show specific error message.
 	 */
+	@Test
 	public void test_nullAsParent() throws Exception {
 		try {
 			parseComposite(
@@ -764,6 +786,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * If unknown {@link Composite} passed into method, this should be handled correctly.
 	 */
+	@Test
 	public void test_unknownCompositeParameter() throws Exception {
 		parseComposite(
 				"public class Test {",
@@ -784,6 +807,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * It seems that sometimes users may dispose our shared {@link Shell}. Try to avoid this.
 	 */
+	@Test
 	public void test_disposeSharedShell() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -803,6 +827,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * Some users try to put some other parameter before standard "parent" and "style".
 	 */
+	@Test
 	public void test_parentNotAsFirstParameter() throws Exception {
 		useStrictEvaluationMode(false);
 		CompositeInfo composite =
@@ -817,7 +842,7 @@ public class ControlTest extends RcpModelTest {
 		Composite compositeObject = (Composite) composite.getObject();
 		assertNotNull(compositeObject.getParent());
 		// On Linux, the DOUBLE_BUFFERED flag is also set
-		assertThat(SWT.LEFT_TO_RIGHT & compositeObject.getStyle()).isGreaterThan(0);
+		Assertions.assertThat(SWT.LEFT_TO_RIGHT & compositeObject.getStyle()).isGreaterThan(0);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -829,6 +854,7 @@ public class ControlTest extends RcpModelTest {
 	 * We should not intercept {@link Control#computeSize(int, int, boolean)} and return
 	 * <code>null</code>.
 	 */
+	@Test
 	public void test_dontIntercept_computeSize_1() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -849,6 +875,7 @@ public class ControlTest extends RcpModelTest {
 	/**
 	 * We should not intercept {@link Control#computeSize(int, int)} and return <code>null</code>.
 	 */
+	@Test
 	public void test_dontIntercept_computeSize_2() throws Exception {
 		CompositeInfo composite =
 				parseComposite(

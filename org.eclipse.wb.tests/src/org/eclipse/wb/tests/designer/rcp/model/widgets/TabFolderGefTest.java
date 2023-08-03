@@ -19,6 +19,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.eclipse.swt.widgets.TabItem;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TabFolderInfo} in GEF.
  *
@@ -42,6 +44,7 @@ public class TabFolderGefTest extends RcpGefTest {
 	/**
 	 * We should be able to select {@link TabItem} using double click.
 	 */
+	@Test
 	public void test_canvas_selectItem() throws Exception {
 		TabFolderInfo folder =
 				openJavaInfo(
@@ -72,6 +75,7 @@ public class TabFolderGefTest extends RcpGefTest {
 	// CREATE: control
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_control_canvas_CREATE_whenNoItems() throws Exception {
 		TabFolderInfo folder =
 				(TabFolderInfo) openJavaInfo(
@@ -101,6 +105,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_control_canvas_CREATE_beforeItem() throws Exception {
 		AbstractTabFolderInfo folder =
 				(AbstractTabFolderInfo) openJavaInfo(
@@ -139,6 +144,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_control_canvas_CREATE_onItem() throws Exception {
 		AbstractTabFolderInfo folder =
 				(AbstractTabFolderInfo) openJavaInfo(
@@ -178,6 +184,7 @@ public class TabFolderGefTest extends RcpGefTest {
 	// CREATE tree: control
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_control_tree_CREATE_whenNoItems() throws Exception {
 		TabFolderInfo folder =
 				(TabFolderInfo) openJavaInfo(
@@ -207,6 +214,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_control_tree_CREATE_beforeItem() throws Exception {
 		AbstractTabFolderInfo folder =
 				(AbstractTabFolderInfo) openJavaInfo(
@@ -245,6 +253,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_control_tree_CREATE_onItem() throws Exception {
 		AbstractTabFolderInfo folder =
 				(AbstractTabFolderInfo) openJavaInfo(
@@ -284,6 +293,7 @@ public class TabFolderGefTest extends RcpGefTest {
 	// CREATE canvas: item
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_item_canvas_CREATE_whenNoItems() throws Exception {
 		TabFolderInfo folder =
 				(TabFolderInfo) openJavaInfo(
@@ -309,6 +319,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_item_canvas_CREATE_beforeItem() throws Exception {
 		AbstractTabFolderInfo folder =
 				(AbstractTabFolderInfo) openJavaInfo(
@@ -348,6 +359,7 @@ public class TabFolderGefTest extends RcpGefTest {
 	// CREATE tree: item
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_item_tree_CREATE_whenNoItems() throws Exception {
 		TabFolderInfo folder =
 				(TabFolderInfo) openJavaInfo(
@@ -373,6 +385,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_item_tree_CREATE_beforeItem() throws Exception {
 		AbstractTabFolderInfo folder =
 				(AbstractTabFolderInfo) openJavaInfo(
@@ -412,6 +425,7 @@ public class TabFolderGefTest extends RcpGefTest {
 	// MOVE: item
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_item_canvas_MOVE() throws Exception {
 		openJavaInfo(
 				"public class Test extends TabFolder {",
@@ -448,6 +462,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_item_tree_MOVE() throws Exception {
 		openJavaInfo(
 				"public class Test extends TabFolder {",
@@ -489,6 +504,7 @@ public class TabFolderGefTest extends RcpGefTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD_control_canvas_onItem() throws Exception {
 		openJavaInfo(
 				"public class Test extends Shell {",
@@ -532,6 +548,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_ADD_control_tree_onItem() throws Exception {
 		openJavaInfo(
 				"public class Test extends Shell {",
@@ -575,6 +592,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_ADD_control_canvas_beforeItem() throws Exception {
 		openJavaInfo(
 				"public class Test extends Shell {",
@@ -623,6 +641,7 @@ public class TabFolderGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_ADD_control_tree_beforeItem() throws Exception {
 		openJavaInfo(
 				"public class Test extends Shell {",

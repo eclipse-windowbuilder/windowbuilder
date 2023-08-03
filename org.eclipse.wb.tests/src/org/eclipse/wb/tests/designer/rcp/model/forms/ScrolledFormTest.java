@@ -14,7 +14,8 @@ import org.eclipse.wb.internal.rcp.model.forms.ScrolledFormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class ScrolledFormTest extends AbstractFormsTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -54,9 +56,9 @@ public class ScrolledFormTest extends AbstractFormsTest {
 		// we have single child CompositeInfo for getBody()
 		{
 			List<ControlInfo> controls = form.getChildrenControls();
-			assertThat(controls).hasSize(1);
+			Assertions.assertThat(controls).hasSize(1);
 			CompositeInfo body = (CompositeInfo) controls.get(0);
-			assertThat(body.toString()).contains("getBody()");
+			Assertions.assertThat(body.toString()).contains("getBody()");
 		}
 	}
 }

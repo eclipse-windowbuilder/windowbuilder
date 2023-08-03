@@ -14,34 +14,33 @@ import org.eclipse.wb.tests.designer.XML.model.association.AssociationTests;
 import org.eclipse.wb.tests.designer.XML.model.description.DescriptionTests;
 import org.eclipse.wb.tests.designer.XML.model.generic.GenericTests;
 import org.eclipse.wb.tests.designer.XML.model.property.PropertyTests;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * XML model tests.
  *
  * @author scheglov_ke
  */
-public class ModelTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model");
-		suite.addTest(DescriptionTests.suite());
-		suite.addTest(createSingleSuite(EditorWarningTest.class));
-		suite.addTest(createSingleSuite(XmlObjectTest.class));
-		suite.addTest(createSingleSuite(NamespacesHelperTest.class));
-		suite.addTest(createSingleSuite(XmlObjectUtilsTest.class));
-		suite.addTest(createSingleSuite(ElementCreationSupportTest.class));
-		suite.addTest(createSingleSuite(TagCreationSupportTest.class));
-		suite.addTest(AssociationTests.suite());
-		suite.addTest(PropertyTests.suite());
-		suite.addTest(createSingleSuite(XmlObjectRootProcessorTest.class));
-		suite.addTest(createSingleSuite(TopBoundsSupportTest.class));
-		suite.addTest(createSingleSuite(ClipboardTest.class));
-		suite.addTest(createSingleSuite(AbstractComponentTest.class));
-		suite.addTest(GenericTests.suite());
-		suite.addTest(createSingleSuite(MorphingSupportTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		DescriptionTests.class,
+		EditorWarningTest.class,
+		XmlObjectTest.class,
+		NamespacesHelperTest.class,
+		XmlObjectUtilsTest.class,
+		ElementCreationSupportTest.class,
+		TagCreationSupportTest.class,
+		AssociationTests.class,
+		PropertyTests.class,
+		XmlObjectRootProcessorTest.class,
+		TopBoundsSupportTest.class,
+		ClipboardTest.class,
+		AbstractComponentTest.class,
+		GenericTests.class,
+		MorphingSupportTest.class
+})
+public class ModelTests {
 }

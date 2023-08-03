@@ -20,6 +20,7 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 
+import org.junit.Before;
 import org.osgi.framework.Bundle;
 
 /**
@@ -27,7 +28,7 @@ import org.osgi.framework.Bundle;
  *
  * @author scheglov_ke
  */
-public class AbstractMigLayoutTest extends AbstractLayoutTest {
+public abstract class AbstractMigLayoutTest extends AbstractLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
@@ -46,7 +47,8 @@ public class AbstractMigLayoutTest extends AbstractLayoutTest {
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// create IConstants with C_* constants
 		setFileContentSrc(

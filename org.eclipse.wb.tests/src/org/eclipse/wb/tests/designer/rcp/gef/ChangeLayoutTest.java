@@ -16,7 +16,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for changing layout and GEF.
@@ -38,6 +39,7 @@ public class ChangeLayoutTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_removeSelectionPolicy_whenDropFillLayout() throws Exception {
 		CompositeInfo composite =
 				openComposite(
@@ -55,8 +57,8 @@ public class ChangeLayoutTest extends RcpGefTest {
 		// initially Button has "absolute" selection policy
 		{
 			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
-			assertThat(policy).isNotNull();
-			assertThat(policy.toString()).contains("AbsoluteLayoutSelectionEditPolicy");
+			Assertions.assertThat(policy).isNotNull();
+			Assertions.assertThat(policy.toString()).contains("AbsoluteLayoutSelectionEditPolicy");
 		}
 		// drop FillLayout
 		loadCreationTool("org.eclipse.swt.layout.FillLayout");
@@ -76,8 +78,8 @@ public class ChangeLayoutTest extends RcpGefTest {
 		// FillLayout uses "non-resizable" selection policy
 		{
 			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
-			assertThat(policy).isNotNull();
-			assertThat(policy.toString()).contains("NonResizableSelectionEditPolicy");
+			Assertions.assertThat(policy).isNotNull();
+			Assertions.assertThat(policy.toString()).contains("NonResizableSelectionEditPolicy");
 		}
 	}
 }

@@ -31,6 +31,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -58,6 +61,7 @@ public class TableTest extends RcpModelTest {
 	/**
 	 * Test for parsing {@link TableItem} and bounds of {@link TableItemInfo}.
 	 */
+	@Test
 	public void test_TableItem() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -106,6 +110,7 @@ public class TableTest extends RcpModelTest {
 	/**
 	 * If no {@link TableColumn}, then {@link TabItem} should have width of {@link Table}.
 	 */
+	@Test
 	public void test_TableItem_whenNoColumns() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -137,6 +142,7 @@ public class TableTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_add_TableItem() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -180,7 +186,9 @@ public class TableTest extends RcpModelTest {
 	 * area, hence why we have to adjust them for the tests.
 	 */
 	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	public void DISABLE_test_TableColumn() throws Exception {
+	@Ignore
+	@Test
+	public void test_TableColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"class Test extends Shell {",
@@ -240,6 +248,7 @@ public class TableTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_TableColumn_setWidth() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -273,6 +282,7 @@ public class TableTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_add_TableColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -304,6 +314,7 @@ public class TableTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_TableColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -347,6 +358,7 @@ public class TableTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_reparent_TableColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -402,7 +414,9 @@ public class TableTest extends RcpModelTest {
 				"}");
 	}
 
-	public void DISABLE_test_clipboard() throws Exception {
+	@Ignore
+	@Test
+	public void test_clipboard() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"class Test extends Shell {",
@@ -465,6 +479,7 @@ public class TableTest extends RcpModelTest {
 	// Exposed
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_column_exposed() throws Exception {
 		setFileContentSrc(
 				"test/ExposedComposite.java",
@@ -512,6 +527,7 @@ public class TableTest extends RcpModelTest {
 		assertInstanceOf(ExposedPropertyVariableSupport.class, exposedColumn.getVariableSupport());
 	}
 
+	@Test
 	public void test_item_exposed() throws Exception {
 		setFileContentSrc(
 				"test/ExposedComposite.java",

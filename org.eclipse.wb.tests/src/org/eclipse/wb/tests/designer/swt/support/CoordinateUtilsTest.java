@@ -24,7 +24,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Tests for SWT {@link CoordinateUtils}.
@@ -47,7 +49,9 @@ public class CoordinateUtilsTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	// Disabled because of https://github.com/eclipse-windowbuilder/windowbuilder/issues/389
-	public void DISABLE_test_1() throws Exception {
+	@Ignore
+	@Test
+	public void test_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"public class Test extends Shell {",
@@ -73,8 +77,8 @@ public class CoordinateUtilsTest extends RcpModelTest {
 		// Shell client area insets
 		Insets shellInsets = CoordinateUtils.getClientAreaInsets(shell.getObject());
 		assertTrue(shellInsets.left == shellInsets.right);
-		assertThat(shellInsets.left).isGreaterThanOrEqualTo(0);
-		assertThat(shellInsets.top).isGreaterThanOrEqualTo(15);
+		Assertions.assertThat(shellInsets.left).isGreaterThanOrEqualTo(0);
+		Assertions.assertThat(shellInsets.top).isGreaterThanOrEqualTo(15);
 		// Button location
 		{
 			Point buttonLocation = CoordinateUtils.getDisplayLocation(button.getObject());
@@ -94,7 +98,9 @@ public class CoordinateUtilsTest extends RcpModelTest {
 	/**
 	 * Test for {@link CoordinateUtils#getClientAreaInsets2(Object)} for {@link Group}.
 	 */
-	public void DISABLE_test_withGroup() throws Exception {
+	@Ignore
+	@Test
+	public void test_withGroup() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"public class Test extends Shell {",

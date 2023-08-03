@@ -25,11 +25,12 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.mockito.InOrder;
 
 import java.util.List;
@@ -40,6 +41,7 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class CompoundAssociationTest extends SwingModelTest {
+	@Test
 	public void test_morph() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -72,7 +74,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 				m_lastEditor.getSource(compoundAssociation.getStatement()));
 		// check sub-associations
 		List<Association> associations = compoundAssociation.getAssociations();
-		assertThat(associations).hasSize(2);
+		Assertions.assertThat(associations).hasSize(2);
 		{
 			ConstructorParentAssociation association = (ConstructorParentAssociation) associations.get(0);
 			assertSame(myButton, association.getJavaInfo());
@@ -96,6 +98,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -141,6 +144,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_create() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -174,7 +178,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 			CompoundAssociation compoundAssociation = (CompoundAssociation) myButton.getAssociation();
 			// check sub-associations
 			List<Association> associations = compoundAssociation.getAssociations();
-			assertThat(associations).hasSize(2);
+			Assertions.assertThat(associations).hasSize(2);
 			{
 				ConstructorParentAssociation association =
 						(ConstructorParentAssociation) associations.get(0);
@@ -199,6 +203,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 	 * Test that if one of the {@link Association}'s in {@link CompoundAssociation} can not be
 	 * deleted, then {@link CompoundAssociation} also can not be deleted.
 	 */
+	@Test
 	public void test_canNotDelete() throws Exception {
 		// prepare mocks
 		Association association_1 = mock(Association.class);
@@ -219,6 +224,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 	 * Test that if all {@link Association}'s in {@link CompoundAssociation} can be deleted, then
 	 * {@link CompoundAssociation} also can be deleted.
 	 */
+	@Test
 	public void test_canDelete() throws Exception {
 		// prepare mocks
 		Association association_1 = mock(Association.class);
@@ -236,6 +242,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 		inOrder.verifyNoMoreInteractions();
 	}
 
+	@Test
 	public void test_delete() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -267,6 +274,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 	 * When all sub-associations are removed during {@link Association#remove()},
 	 * {@link CompoundAssociation} also removed.
 	 */
+	@Test
 	public void test_removeAll() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -293,6 +301,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 		inOrder.verifyNoMoreInteractions();
 	}
 
+	@Test
 	public void test_moveInner() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -341,6 +350,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_moveReparent() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -406,6 +416,7 @@ public class CompoundAssociationTest extends SwingModelTest {
 	 * {@link CompoundAssociation}, we should morph this single {@link Association} into
 	 * {@link CompoundAssociation}.
 	 */
+	@Test
 	public void test_moveReparentFromNormalContainer() throws Exception {
 		configureProject();
 		ContainerInfo panel =

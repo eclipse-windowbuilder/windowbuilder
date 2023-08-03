@@ -23,6 +23,8 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 
+import org.junit.Test;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -50,6 +52,7 @@ public class SimpleParserTest extends SwingModelTest {
 	/**
 	 * Empty "this" {@link JPanel}.
 	 */
+	@Test
 	public void test_thisPanel_empty() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -65,6 +68,7 @@ public class SimpleParserTest extends SwingModelTest {
 	/**
 	 * "This" {@link JPanel} with single local {@link JButton}.
 	 */
+	@Test
 	public void test_thisPanel_withButton() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -85,6 +89,7 @@ public class SimpleParserTest extends SwingModelTest {
 	/**
 	 * "This" {@link JPanel} with single local {@link JButton}.
 	 */
+	@Test
 	public void test_thisPanel_withButton_casted() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -105,6 +110,7 @@ public class SimpleParserTest extends SwingModelTest {
 	/**
 	 * Test for parsing materialized implicit layout with {@link CastExpression}.
 	 */
+	@Test
 	public void test_thisPanel_implicitLayout_casted() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -126,6 +132,7 @@ public class SimpleParserTest extends SwingModelTest {
 	/**
 	 * Empty "this" {@link JFrame}.
 	 */
+	@Test
 	public void test_thisFrame_empty() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -142,6 +149,7 @@ public class SimpleParserTest extends SwingModelTest {
 	/**
 	 * "This" {@link JFrame} with single local {@link JButton}.
 	 */
+	@Test
 	public void test_thisFrame_withButton() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -165,6 +173,7 @@ public class SimpleParserTest extends SwingModelTest {
 	// Lazy
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_lazy() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -193,6 +202,7 @@ public class SimpleParserTest extends SwingModelTest {
 	/**
 	 * Test that we can access exposed component, using {@link SimpleName}.
 	 */
+	@Test
 	public void test_exposedField_reference_SimpleName() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -225,6 +235,7 @@ public class SimpleParserTest extends SwingModelTest {
 	/**
 	 * Test that we can access exposed component, using {@link QualifiedName}.
 	 */
+	@Test
 	public void test_exposedField_reference_QualifiedName() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -261,6 +272,7 @@ public class SimpleParserTest extends SwingModelTest {
 	/**
 	 * Test for {@link ParseFactoryNoModel}.
 	 */
+	@Test
 	public void test_noModel() throws Exception {
 		// contribute special {@link HierarchyProvider}
 		TestUtils.addDynamicExtension(PARSE_FACTORIES_POINT_ID, //

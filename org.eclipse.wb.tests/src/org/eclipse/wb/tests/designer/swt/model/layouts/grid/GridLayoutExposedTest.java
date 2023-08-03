@@ -22,6 +22,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link GridLayoutInfo}.
  *
@@ -45,6 +47,7 @@ public class GridLayoutExposedTest extends RcpModelTest {
 	/**
 	 * Test for simple exposed "Button" without explicit {@link LayoutDataInfo} set.
 	 */
+	@Test
 	public void test_deleteExposedComponent_noExplicitData() throws Exception {
 		configureForDelete();
 		// parse
@@ -89,6 +92,7 @@ public class GridLayoutExposedTest extends RcpModelTest {
 	/**
 	 * Test for simple exposed "Button" with explicit {@link LayoutDataInfo} set.
 	 */
+	@Test
 	public void test_deleteExposedComponent_withExplicitData() throws Exception {
 		configureForDelete();
 		// parse
@@ -134,6 +138,7 @@ public class GridLayoutExposedTest extends RcpModelTest {
 	/**
 	 * Test when delete first of two exposed components.
 	 */
+	@Test
 	public void test_deleteWhenTwoExposed() throws Exception {
 		createASTCompilationUnit(
 				"test",

@@ -20,7 +20,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.JLayeredPaneInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Container;
 import java.util.List;
@@ -42,6 +43,7 @@ public class JLayeredPaneTest extends SwingModelTest {
 	 * Test for "Layer" property.<br>
 	 * Value is in constraints of {@link Container#add(java.awt.Component, Object)} method.
 	 */
+	@Test
 	public void test_layer_Constraints() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -86,6 +88,7 @@ public class JLayeredPaneTest extends SwingModelTest {
 	 * Test for "Layer" property.<br>
 	 * Constraints of {@link Container#add(java.awt.Component, Object)} has no layer.
 	 */
+	@Test
 	public void test_layer_noConstraints() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -130,6 +133,7 @@ public class JLayeredPaneTest extends SwingModelTest {
 	 * Test for "Layer" property.<br>
 	 * Value is in {@link JLayeredPane#setLayer(java.awt.Component, int)}.
 	 */
+	@Test
 	public void test_layer_setLayer_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -175,6 +179,7 @@ public class JLayeredPaneTest extends SwingModelTest {
 	 * Test for "Layer" property.<br>
 	 * Value is in {@link JLayeredPane#setLayer(java.awt.Component, int, int)}.
 	 */
+	@Test
 	public void test_layer_setLayer_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -220,6 +225,7 @@ public class JLayeredPaneTest extends SwingModelTest {
 	 * Test for "Layer" property.<br>
 	 * Value is in {@link JLayeredPane#setLayer(java.awt.Component, int)}.
 	 */
+	@Test
 	public void test_layer_setLayer_remove() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -263,6 +269,7 @@ public class JLayeredPaneTest extends SwingModelTest {
 	/**
 	 * Graphical children should be sorted according to layer.
 	 */
+	@Test
 	public void test_getGraphicalChildren() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -295,6 +302,6 @@ public class JLayeredPaneTest extends SwingModelTest {
 		//
 		IObjectPresentation presentation = pane.getPresentation();
 		List<ObjectInfo> graphical = presentation.getChildrenGraphical();
-		assertThat(graphical).isEqualTo(ImmutableList.of(button_2, button_3, button_1));
+		Assertions.assertThat(graphical).isEqualTo(ImmutableList.of(button_2, button_3, button_1));
 	}
 }

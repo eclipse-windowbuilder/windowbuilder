@@ -25,6 +25,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -33,9 +34,10 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.io.FileUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
@@ -62,12 +64,27 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
+	// Life cycle
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		if (m_project != null) {
+			m_project.refreshLocal(IResource.DEPTH_INFINITE, null);
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Test that {@link ProjectClassLoader} defines packages.
 	 */
+	@Test
 	public void test_getPackage() throws Exception {
 		setFileContentSrc(
 				"test/SuperPanel.java",
@@ -93,6 +110,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	/**
 	 * Test that we can inherit from abstract classes with declared abstract method.
 	 */
+	@Test
 	public void test_inheritanceWithAbstractMethod_noInvocation() throws Exception {
 		setFileContentSrc(
 				"test/AbstractPanel.java",
@@ -113,6 +131,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	/**
 	 * If abstract method is invoked from binary, but not implemented in AST, return default value.
 	 */
+	@Test
 	public void test_inheritanceWithAbstractMethod_withInvocation() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -143,6 +162,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	 * Now we switch to AST interpretation it this case, if method is implemented in parsed
 	 * {@link CompilationUnit}.
 	 */
+	@Test
 	public void test_inheritanceWithAbstractMethod_voidInvocation() throws Exception {
 		setFileContentSrc(
 				"test/AbstractPanel.java",
@@ -166,6 +186,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	/**
 	 * Test that we can inherit from abstract classes with declared, but not implemented interfaces.
 	 */
+	@Test
 	public void test_inheritanceWithInterfaces() throws Exception {
 		setFileContentSrc(
 				"test/ValueProvider2.java",
@@ -193,6 +214,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	/**
 	 * Test for case when we call re-implemented abstract method.
 	 */
+	@Test
 	public void test_inheritanceImplementCall() throws Exception {
 		setFileContentSrc(
 				"test/ValueProvider.java",
@@ -243,6 +265,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	 * Note: right now only directly imported packages.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_importPackage() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_project, null);
 		// create plugin with needed Class
@@ -289,6 +312,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	 * Fragments should be included into {@link ClassLoader} of main plugin.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_fragments() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null);
 		// create fragment
@@ -322,6 +346,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	 * Fragments should be included into {@link ClassLoader} of main plugin.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_fragments_cycle() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null);
 		// create fragment
@@ -358,6 +383,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	 * project.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_fragments_notJavaFragment() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null);
 		// create fragment
@@ -392,6 +418,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	 * Fragments should be included into {@link ClassLoader} of main plugin and required plugins.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_fragments_ofRequiredProject() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null);
 		// create projects
@@ -430,36 +457,41 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	// addSourceLocations()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addSourceLocations_normalProject() throws Exception {
 		List<String> locations = getSourceLocations();
-		assertThat(locations).containsExactly(workspaceLocation + "/TestProject/src");
+		Assertions.assertThat(locations).containsExactly(workspaceLocation + "/TestProject/src");
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_addSourceLocations_noSuchProject() throws Exception {
 		m_project.delete(true, null);
 		// check locations
 		List<String> locations = getSourceLocations();
-		assertThat(locations).isEmpty();
+		Assertions.assertThat(locations).isEmpty();
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_addSourceLocations_notJavaProject() throws Exception {
 		ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
 		// check locations
 		List<String> locations = getSourceLocations();
-		assertThat(locations).isEmpty();
+		Assertions.assertThat(locations).isEmpty();
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_addSourceLocations_projectNotInWorkspace() throws Exception {
 		String newProjectLocation = moveProjectIntoWorkspaceSubFolder();
 		// check locations
 		List<String> locations = getSourceLocations();
-		assertThat(locations).containsExactly(newProjectLocation + "/src");
+		Assertions.assertThat(locations).containsExactly(newProjectLocation + "/src");
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_addSourceLocations_recursion() throws Exception {
 		// create new project "myProject"
 		TestProject myProject = new TestProject("myProject");
@@ -471,7 +503,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 			ProjectUtils.requireProject(myJavaProject, m_javaProject);
 			// check locations
 			List<String> locations = getSourceLocations();
-			assertThat(locations).containsExactly(
+			Assertions.assertThat(locations).containsExactly(
 					workspaceLocation + "/TestProject/src",
 					workspaceLocation + "/myProject/src");
 		} finally {
@@ -485,6 +517,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	 * https://groups.google.com/forum/#!topic/google-web-toolkit/r0Klxfkd7qA
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_addSourceLocations_oldProjectStyle() throws Exception {
 		setFileContent(
 				".classpath",
@@ -496,7 +529,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 						"</classpath>"));
 		// check locations
 		List<String> locations = getSourceLocations();
-		assertThat(locations).containsExactly(workspaceLocation + "/TestProject");
+		Assertions.assertThat(locations).containsExactly(workspaceLocation + "/TestProject");
 	}
 
 	/**
@@ -541,36 +574,41 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 	// addOutputLocations()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addOutputLocations_normalProject() throws Exception {
 		List<String> locations = getOutputLocations();
-		assertThat(locations).containsExactly(workspaceLocation + "/TestProject/bin");
+		Assertions.assertThat(locations).containsExactly(workspaceLocation + "/TestProject/bin");
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_addOutputLocations_noSuchProject() throws Exception {
 		m_project.delete(true, null);
 		// check locations
 		List<String> locations = getOutputLocations();
-		assertThat(locations).isEmpty();
+		Assertions.assertThat(locations).isEmpty();
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_addOutputLocations_notJavaProject() throws Exception {
 		ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
 		// check locations
 		List<String> locations = getOutputLocations();
-		assertThat(locations).isEmpty();
+		Assertions.assertThat(locations).isEmpty();
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_addOutputLocations_projectNotInWorkspace() throws Exception {
 		String newProjectLocation = moveProjectIntoWorkspaceSubFolder();
 		// check locations
 		List<String> locations = getOutputLocations();
-		assertThat(locations).containsExactly(newProjectLocation + "/bin");
+		Assertions.assertThat(locations).containsExactly(newProjectLocation + "/bin");
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_addOutputLocations_recursion() throws Exception {
 		// create new project "myProject"
 		TestProject myProject = new TestProject("myProject");
@@ -582,7 +620,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 			ProjectUtils.requireProject(myJavaProject, m_javaProject);
 			// check locations
 			List<String> locations = getOutputLocations();
-			assertThat(locations).containsExactly(
+			Assertions.assertThat(locations).containsExactly(
 					workspaceLocation + "/TestProject/bin",
 					workspaceLocation + "/myProject/bin");
 		} finally {

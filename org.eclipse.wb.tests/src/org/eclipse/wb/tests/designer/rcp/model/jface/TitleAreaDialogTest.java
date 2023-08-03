@@ -19,6 +19,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.widgets.Composite;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TitleAreaDialogInfo}.
  *
@@ -43,6 +45,7 @@ public class TitleAreaDialogTest extends RcpModelTest {
 	 * {@link TitleAreaDialog} with {@link TitleAreaDialog#createDialogArea(Composite)} method.<br>
 	 * Parameter "parent" in <code>createDialogArea()</code> should not have layout.
 	 */
+	@Test
 	public void test_0() throws Exception {
 		parseJavaInfo(
 				"import org.eclipse.jface.dialogs.*;",
@@ -71,6 +74,7 @@ public class TitleAreaDialogTest extends RcpModelTest {
 	 * already created. Bad news is that {@link ThisVariableSupport} thinks that constructor is good
 	 * place for any "this" properties.
 	 */
+	@Test
 	public void test_titleAreaProperties() throws Exception {
 		TitleAreaDialogInfo dialog =
 				parseJavaInfo(

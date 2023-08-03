@@ -52,9 +52,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link ViewerInfo}.
@@ -76,6 +76,7 @@ public class ViewerTest extends RcpModelTest {
 	// Expression
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_normalNoControl_hasExpression() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -96,6 +97,7 @@ public class ViewerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_normalNoControl_getReferenceExpression_viewerAsTarget() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -120,6 +122,7 @@ public class ViewerTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_normalNoControl_getReferenceExpression_blockAsTarget() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -144,6 +147,7 @@ public class ViewerTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_normalNoControl_getAccessExpression_blockAsTarget() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -171,6 +175,7 @@ public class ViewerTest extends RcpModelTest {
 	/**
 	 * We should be able to create {@link Viewer} even if it was subclassed anonymously.
 	 */
+	@Test
 	public void test_parseAnonymous_standalone() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -187,6 +192,7 @@ public class ViewerTest extends RcpModelTest {
 	/**
 	 * We should be able to create {@link Viewer} even if it was subclassed anonymously.
 	 */
+	@Test
 	public void test_parseAnonymous_wrapper() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -204,6 +210,7 @@ public class ViewerTest extends RcpModelTest {
 	/**
 	 * Test that {@link Viewer} has "Expose viewer..." action.
 	 */
+	@Test
 	public void test_exposeViewer() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -240,6 +247,7 @@ public class ViewerTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_exposedViewer() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -278,6 +286,7 @@ public class ViewerTest extends RcpModelTest {
 	// "normal" viewer, that creates its control
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parseNormalNoControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -339,6 +348,7 @@ public class ViewerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_normalNoControl_materialize() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -370,6 +380,7 @@ public class ViewerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_normalNoControl_move() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -394,6 +405,7 @@ public class ViewerTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_normalNoControl_reparent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -426,6 +438,7 @@ public class ViewerTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_normalWithControl_reparent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -460,6 +473,7 @@ public class ViewerTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_materialized_move() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -495,6 +509,7 @@ public class ViewerTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_newCreated_move() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -547,6 +562,7 @@ public class ViewerTest extends RcpModelTest {
 	// Viewer around Table
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parseAroundTable() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -579,6 +595,7 @@ public class ViewerTest extends RcpModelTest {
 	// Properties
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_property_useHashlookup() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -614,6 +631,7 @@ public class ViewerTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_property_style() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -630,6 +648,7 @@ public class ViewerTest extends RcpModelTest {
 		assertEquals(SWT.BORDER, property.getValue());
 	}
 
+	@Test
 	public void test_contentProvider() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -726,6 +745,7 @@ public class ViewerTest extends RcpModelTest {
 	 * This code fails in any case, because {@link ViewerInfo} can not be root, and "parent" parameter
 	 * is not considered as model.
 	 */
+	@Test
 	public void test_noRootComposite() throws Exception {
 		try {
 			parseComposite(
@@ -737,7 +757,7 @@ public class ViewerTest extends RcpModelTest {
 			fail();
 		} catch (Throwable e) {
 			Throwable rootCause = DesignerExceptionUtils.getRootCause(e);
-			assertThat(rootCause).isExactlyInstanceOf(NoEntryPointError.class);
+			Assertions.assertThat(rootCause).isExactlyInstanceOf(NoEntryPointError.class);
 		}
 	}
 
@@ -746,6 +766,7 @@ public class ViewerTest extends RcpModelTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_liveImage() throws Exception {
 		parseComposite(
 				"// filler filler filler",
@@ -765,6 +786,7 @@ public class ViewerTest extends RcpModelTest {
 	 * Test for custom viewers, such as Nebula Viewers (GridTableViewer, RichTextViewer,
 	 * GridTreeViewer).
 	 */
+	@Test
 	public void test_CREATE_liveImage_forcedSize() throws Exception {
 		setFileContentSrc(
 				"test/MyTable.java",
@@ -835,6 +857,7 @@ public class ViewerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -918,6 +941,7 @@ public class ViewerTest extends RcpModelTest {
 	/**
 	 * Viewers should use code generation settings.
 	 */
+	@Test
 	public void test_CREATE_useFieldVariable() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

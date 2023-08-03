@@ -22,6 +22,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Layout;
 
+import org.junit.Test;
+
 /**
  * Test that <code>LayoutData</code> corresponds to {@link Layout}.
  *
@@ -45,6 +47,7 @@ public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {
 	/**
 	 * OK, {@link GridLayout} requires {@link GridData} and it is used.
 	 */
+	@Test
 	public void test_compatible() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -70,6 +73,7 @@ public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {
 	/**
 	 * OK, for {@link FillLayout} we can/should not set any <code>LayoutData</code>.
 	 */
+	@Test
 	public void test_noData() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -93,6 +97,7 @@ public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {
 	/**
 	 * {@link GridLayout} requires {@link GridData}, but {@link RowData} used.
 	 */
+	@Test
 	public void test_notCompatible() throws Exception {
 		try {
 			parseComposite(
@@ -116,6 +121,7 @@ public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {
 	 * {@link FillLayout} has no <code>LayoutData</code> (for user), but still assigns
 	 * <code>FillData</code>.
 	 */
+	@Test
 	public void test_FillLayout_generatedFillData() throws Exception {
 		setFileContentSrc(
 				"test/MyShell.java",

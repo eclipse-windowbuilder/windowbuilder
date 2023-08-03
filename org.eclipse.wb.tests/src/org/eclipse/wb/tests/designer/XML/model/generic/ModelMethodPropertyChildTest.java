@@ -24,9 +24,9 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.ArrayUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
@@ -78,6 +78,7 @@ public class ModelMethodPropertyChildTest extends AbstractCoreTest {
 		"  </parameters>"});
 	}
 
+	@Test
 	public void test_valueProperty() throws Exception {
 		prepareMyPanel("getter=getValue setter=setValue title=value category=normal type=java.lang.String"
 				+ " child="
@@ -129,31 +130,34 @@ public class ModelMethodPropertyChildTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_noRequiredParameters() throws Exception {
 		prepareMyPanel("");
 		parse("<t:MyComponent/>");
 		// check warnings
 		List<EditorWarning> warnings = m_lastContext.getWarnings();
-		assertThat(warnings).hasSize(1);
-		assertThat(warnings.get(0).getMessage()).contains("'getter'").contains("'setter'").contains(
+		Assertions.assertThat(warnings).hasSize(1);
+		Assertions.assertThat(warnings.get(0).getMessage()).contains("'getter'").contains("'setter'").contains(
 				"'title'");
 	}
 
+	@Test
 	public void test_noParameter_getter() throws Exception {
 		prepareMyPanel("getter=noSuchMethod setter=foo title=bar type=java.lang.String");
 		parse("<t:MyComponent/>");
 		// check warnings
 		List<EditorWarning> warnings = m_lastContext.getWarnings();
-		assertThat(warnings).hasSize(1);
-		assertThat(warnings.get(0).getMessage()).contains("Invalid").contains("getter");
+		Assertions.assertThat(warnings).hasSize(1);
+		Assertions.assertThat(warnings.get(0).getMessage()).contains("Invalid").contains("getter");
 	}
 
+	@Test
 	public void test_noParameter_setter() throws Exception {
 		prepareMyPanel("getter=getValue setter=noSuchMethod title=bar type=java.lang.String");
 		parse("<t:MyComponent/>");
 		// check warnings
 		List<EditorWarning> warnings = m_lastContext.getWarnings();
-		assertThat(warnings).hasSize(1);
-		assertThat(warnings.get(0).getMessage()).contains("Invalid").contains("setter");
+		Assertions.assertThat(warnings).hasSize(1);
+		Assertions.assertThat(warnings.get(0).getMessage()).contains("Invalid").contains("setter");
 	}
 }

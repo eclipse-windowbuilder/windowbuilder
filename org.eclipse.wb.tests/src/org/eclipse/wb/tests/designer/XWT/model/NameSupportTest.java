@@ -20,7 +20,8 @@ import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.xwt.model.util.NameSupport;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class NameSupportTest extends XwtModelTest {
 	 * <p>
 	 * No namespace, and no name.
 	 */
+	@Test
 	public void test_getName_noNamespace() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -62,7 +64,7 @@ public class NameSupportTest extends XwtModelTest {
 		// remove namespace declaration
 		shell.setAttribute("xmlns:x", null);
 		// validate
-		assertThat(NameSupport.getName(button)).isNull();
+		Assertions.assertThat(NameSupport.getName(button)).isNull();
 	}
 
 	/**
@@ -70,6 +72,7 @@ public class NameSupportTest extends XwtModelTest {
 	 * <p>
 	 * Name exists.
 	 */
+	@Test
 	public void test_getName_hasName() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -82,7 +85,7 @@ public class NameSupportTest extends XwtModelTest {
 		// has name
 		{
 			String name = NameSupport.getName(button);
-			assertThat(name).isEqualTo("button");
+			Assertions.assertThat(name).isEqualTo("button");
 		}
 		// ...and it is included into presentation text
 		{
@@ -96,6 +99,7 @@ public class NameSupportTest extends XwtModelTest {
 	 * <p>
 	 * Name exists, but not "x:" namespace name is used.
 	 */
+	@Test
 	public void test_getName_hasName_nonStandardNamespace() throws Exception {
 		XmlObjectInfo root =
 				parse(
@@ -115,7 +119,7 @@ public class NameSupportTest extends XwtModelTest {
 		}
 		// validate
 		String name = NameSupport.getName(button);
-		assertThat(name).isEqualTo("btn");
+		Assertions.assertThat(name).isEqualTo("btn");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -126,6 +130,7 @@ public class NameSupportTest extends XwtModelTest {
 	/**
 	 * Test for {@link NameSupport#setName(XmlObjectInfo, String)}.
 	 */
+	@Test
 	public void test_setName_hasName() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -153,6 +158,7 @@ public class NameSupportTest extends XwtModelTest {
 	/**
 	 * Test for single component with no name set.
 	 */
+	@Test
 	public void test_ensureName_generateName() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -165,7 +171,7 @@ public class NameSupportTest extends XwtModelTest {
 		//
 		{
 			String name = NameSupport.ensureName(button);
-			assertThat(name).isEqualTo("button");
+			Assertions.assertThat(name).isEqualTo("button");
 		}
 		assertXML(
 				"// filler filler filler filler filler",
@@ -178,6 +184,7 @@ public class NameSupportTest extends XwtModelTest {
 	/**
 	 * Test for single component with no name set.
 	 */
+	@Test
 	public void test_ensureName_generateName_nonStandardNamespace() throws Exception {
 		XmlObjectInfo root =
 				parse(
@@ -195,13 +202,14 @@ public class NameSupportTest extends XwtModelTest {
 		}
 		// generate and validate
 		String name = NameSupport.ensureName(button);
-		assertThat(name).isEqualTo("button");
-		assertThat(m_lastContext.getContent()).contains("y:Name=\"button\"");
+		Assertions.assertThat(name).isEqualTo("button");
+		Assertions.assertThat(m_lastContext.getContent()).contains("y:Name=\"button\"");
 	}
 
 	/**
 	 * Test for multiple components one of which already has default name set.
 	 */
+	@Test
 	public void test_ensureName_generateUnique() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -214,7 +222,7 @@ public class NameSupportTest extends XwtModelTest {
 		ControlInfo button = getObjectByName("button");
 		//
 		String name = NameSupport.ensureName(button);
-		assertThat(name).isEqualTo("button_1");
+		Assertions.assertThat(name).isEqualTo("button_1");
 		assertXML(
 				"// filler filler filler filler filler",
 				"// filler filler filler filler filler",
@@ -227,6 +235,7 @@ public class NameSupportTest extends XwtModelTest {
 	/**
 	 * Test for component name to be specifically defined in component description.
 	 */
+	@Test
 	public void test_ensureName_defaultNameInXML() throws Exception {
 		prepareMyComponent(new String[]{}, new String[]{
 				"// filler filler filler filler filler",
@@ -243,7 +252,7 @@ public class NameSupportTest extends XwtModelTest {
 		ControlInfo component = getObjectByName("myComponent");
 		//
 		String name = NameSupport.ensureName(component);
-		assertThat(name).isEqualTo("testName");
+		Assertions.assertThat(name).isEqualTo("testName");
 		assertXML(
 				"// filler filler filler filler filler",
 				"// filler filler filler filler filler",
@@ -255,6 +264,7 @@ public class NameSupportTest extends XwtModelTest {
 	/**
 	 * Generate new name, using {@link ComponentNameDescription}.
 	 */
+	@Test
 	public void test_ensureName_defaultNameInPreferences() throws Exception {
 		// set descriptions
 		{
@@ -275,7 +285,7 @@ public class NameSupportTest extends XwtModelTest {
 		ControlInfo button = getObjectByName("button");
 		//
 		String name = NameSupport.ensureName(button);
-		assertThat(name).isEqualTo("myButton");
+		Assertions.assertThat(name).isEqualTo("myButton");
 		assertXML(
 				"// filler filler filler filler filler",
 				"// filler filler filler filler filler",
@@ -288,6 +298,7 @@ public class NameSupportTest extends XwtModelTest {
 	 * When we check for existing "x:Name" attributes, we should not try to ask "element" of virtual
 	 * {@link XmlObjectInfo}, to prevent its materialization.
 	 */
+	@Test
 	public void test_ensureName_ignoreVirtualElements() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -301,7 +312,7 @@ public class NameSupportTest extends XwtModelTest {
 		ControlInfo button = getObjectByName("button");
 		//
 		String name = NameSupport.ensureName(button);
-		assertThat(name).isEqualTo("button");
+		Assertions.assertThat(name).isEqualTo("button");
 		assertXML(
 				"// filler filler filler filler filler",
 				"<Shell>",

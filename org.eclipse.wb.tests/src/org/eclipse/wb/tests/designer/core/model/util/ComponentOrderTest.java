@@ -21,7 +21,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link ComponentOrder}.
@@ -43,6 +44,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	// Parsing
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parseBad() throws Exception {
 		try {
 			ComponentOrder.parse("noSuchComponentOrder");
@@ -59,6 +61,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentOrderDefault}.
 	 */
+	@Test
 	public void test_default() throws Exception {
 		ComponentOrder order = ComponentOrder.parse("default");
 		String[] lines =
@@ -87,6 +90,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentOrderFirst}.
 	 */
+	@Test
 	public void test_first() throws Exception {
 		String[] lines =
 			{
@@ -120,6 +124,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentOrderFirst}.
 	 */
+	@Test
 	public void test_first_add() throws Exception {
 		String[] lines =
 			{
@@ -157,6 +162,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentOrderFirst}.
 	 */
+	@Test
 	public void test_first_add_allImplicit() throws Exception {
 		String[] lines =
 			{
@@ -220,6 +226,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentOrderLast}.
 	 */
+	@Test
 	public void test_last() throws Exception {
 		String[] lines =
 			{
@@ -245,6 +252,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentOrderLast}.
 	 */
+	@Test
 	public void test_last_addIt() throws Exception {
 		String[] lines =
 			{
@@ -284,6 +292,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	 * <p>
 	 * New sibling should be added before "last", even if we don't give "next".
 	 */
+	@Test
 	public void test_last_addOther() throws Exception {
 		prepare_lastComponent();
 		String[] lines =
@@ -325,6 +334,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	 * <p>
 	 * New sibling should be added before "last", even if we don't give "next".
 	 */
+	@Test
 	public void test_last_reparentOther() throws Exception {
 		prepare_lastComponent();
 		String[] lines =
@@ -413,6 +423,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentOrderBeforeSibling}.
 	 */
+	@Test
 	public void test_beforeSibling() throws Exception {
 		String[] lines =
 			{
@@ -446,6 +457,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentOrderBeforeSibling}.
 	 */
+	@Test
 	public void test_beforeSibling_noComponentForBefore() throws Exception {
 		String[] lines =
 			{
@@ -469,6 +481,7 @@ public class ComponentOrderTest extends SwingModelTest {
 	/**
 	 * Test for {@link ComponentOrderBeforeSibling}.
 	 */
+	@Test
 	public void test_beforeSibling_add_it() throws Exception {
 		String[] lines =
 			{
@@ -526,7 +539,7 @@ public class ComponentOrderTest extends SwingModelTest {
 		waitForAutoBuild();
 		//
 		ComponentInfo component = createComponent("test.MyButton");
-		assertThat(component.getDescription().getOrder()).isInstanceOf(
+		Assertions.assertThat(component.getDescription().getOrder()).isInstanceOf(
 				ComponentOrderBeforeSibling.class);
 		return component;
 	}

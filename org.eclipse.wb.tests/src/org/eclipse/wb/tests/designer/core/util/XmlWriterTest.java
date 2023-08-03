@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.core.util;
 import org.eclipse.wb.internal.core.utils.XmlWriter;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 import java.io.DataOutputStream;
 import java.io.StringWriter;
 
@@ -32,6 +34,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	/**
 	 * Testing just create empty XML.
 	 */
+	@Test
 	public void test_constructor() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);
@@ -42,6 +45,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	/**
 	 * Create XML, open and close tag.
 	 */
+	@Test
 	public void test_open_tag() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);
@@ -63,6 +67,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	/**
 	 * Open tag for adding attribute, close tag.
 	 */
+	@Test
 	public void test_open_tag_for_attribute() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);
@@ -78,6 +83,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	/**
 	 * Adding several tags with attributes (without tag value).
 	 */
+	@Test
 	public void test_write_several_tags_with_attributes() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);
@@ -105,6 +111,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	/**
 	 * Open tag for adding attribute, add attribute, close tag.
 	 */
+	@Test
 	public void test_open_tag_write_attribute() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);
@@ -122,6 +129,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	 * Use {@link XmlWriter#writeAttribute(String, String)} when attribute value has non-Latin
 	 * characters.
 	 */
+	@Test
 	public void test_writeAttribute_withSpecialCharacters() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);
@@ -138,6 +146,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	/**
 	 * Open tag for adding attribute, add attribute, end tag, close tag.
 	 */
+	@Test
 	public void test_open_tag_write_attribute_endTag() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);
@@ -155,6 +164,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	/**
 	 * Testing convenience method which adds tag, writes its value and closes tag.
 	 */
+	@Test
 	public void test_open_close_tag_with_value() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);
@@ -169,6 +179,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	/**
 	 * Testing writing nested tags.
 	 */
+	@Test
 	public void test_write_nested_tags() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);
@@ -196,6 +207,7 @@ public class XmlWriterTest extends DesignerTestCase {
 	/**
 	 * Testing writing CDATA.
 	 */
+	@Test
 	public void test_write_cdata() throws Exception {
 		StringWriter stringWriter = new StringWriter();
 		XmlWriter writer = new XmlWriter(stringWriter);

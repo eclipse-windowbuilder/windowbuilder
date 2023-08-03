@@ -17,6 +17,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.TrayItem;
 
+import org.junit.Test;
+
 /**
  * Test {@link TrayItemInfo}.
  *
@@ -37,6 +39,7 @@ public class TrayItemTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_disposeWithHierarchy() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -64,6 +67,7 @@ public class TrayItemTest extends RcpModelTest {
 		assertTrue(itemObject.isDisposed());
 	}
 
+	@Test
 	public void test_targetForProperty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

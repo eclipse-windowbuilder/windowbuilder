@@ -27,7 +27,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorPart;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link InnerClassPropertyEditor}.
@@ -49,6 +50,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 	// getText()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getText_noValue() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -66,6 +68,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 		assertEquals("<double click>", getPropertyText(property));
 	}
 
+	@Test
 	public void test_getText_hasValue() throws Exception {
 		prepareMyLabelProvider();
 		parse(
@@ -94,6 +97,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@DisposeProjectAfter
+	@Test
 	public void test_generateInner() throws Exception {
 		// create existing class, to generate other name
 		setFileContentSrc(
@@ -149,6 +153,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 	 * "contentProvider" uses "private static" modifier in template.
 	 */
 	@DisposeProjectAfter
+	@Test
 	public void test_generateInner_contentProvider() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -184,7 +189,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 		{
 			IType type = m_javaProject.findType("test.ContentProvider_1");
 			assertNotNull(type);
-			assertThat(type.getSource()).contains("public class");
+			Assertions.assertThat(type.getSource()).contains("public class");
 		}
 		// ...and opened
 		{
@@ -195,6 +200,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_generateAnonymous() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -235,7 +241,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 		{
 			IType type = m_javaProject.findType("test.ViewerColumnCellLabelProvider_1");
 			assertNotNull(type);
-			assertThat(type.getSource()).contains("public class");
+			Assertions.assertThat(type.getSource()).contains("public class");
 		}
 		// ...and opened
 		{
@@ -246,6 +252,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 	}
 
 	@DisposeProjectAfter
+	@Test
 	public void test_generateAnonymous_disabled() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -279,6 +286,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 		assertFalse(property.isModified());
 	}
 
+	@Test
 	public void test_openOnDoubleClick() throws Exception {
 		prepareMyLabelProvider();
 		parse(
@@ -306,6 +314,7 @@ public class InnerClassPropertyEditorTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_selectExisting() throws Exception {
 		prepareMyLabelProvider();
 		parse(

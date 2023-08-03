@@ -17,6 +17,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.core.resources.IFile;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +36,8 @@ public class BundleInfoTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		setFileContentSrc("test/messages_it.properties", getSourceDQ("frame.title=My JFrame IT"));
@@ -53,6 +57,7 @@ public class BundleInfoTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_createBundle() throws Exception {
 		LocaleInfo localeInfo = new LocaleInfo(new Locale("it"));
 		IFile[] files =
@@ -72,6 +77,7 @@ public class BundleInfoTest extends SwingModelTest {
 		assertFalse(bundle.isExternallyChanged());
 	}
 
+	@Test
 	public void test_createBundle_no() throws Exception {
 		LocaleInfo localeInfo = new LocaleInfo(new Locale("fr"));
 		IFile[] files =
@@ -87,6 +93,7 @@ public class BundleInfoTest extends SwingModelTest {
 		assertNull(bundle);
 	}
 
+	@Test
 	public void test_getLocale_bad() throws Exception {
 		IFile badFile = setFileContentSrc("test/messagesbad.properties", "");
 		try {
@@ -96,18 +103,21 @@ public class BundleInfoTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_getLocale_new() throws Exception {
 		IFile badFile = setFileContentSrc("test/messages_new.properties", "");
 		LocaleInfo locale = BundleInfo.getLocale("test.messages", badFile);
 		assertEquals("new", locale.toString());
 	}
 
+	@Test
 	public void test_getLocale_languageCountry() throws Exception {
 		IFile badFile = setFileContentSrc("test/messages_bo_AM.properties", "");
 		LocaleInfo locale = BundleInfo.getLocale("test.messages", badFile);
 		assertEquals("bo_AM", locale.toString());
 	}
 
+	@Test
 	public void test_getMap_setMap_save() throws Exception {
 		IFile[] files = new IFile[]{getFileSrc("test", "messages.properties")};
 		BundleInfo bundle =
@@ -142,6 +152,7 @@ public class BundleInfoTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_values_keys() throws Exception {
 		IFile[] files = new IFile[]{getFileSrc("test", "messages.properties")};
 		BundleInfo bundle =
@@ -211,6 +222,7 @@ public class BundleInfoTest extends SwingModelTest {
 	/**
 	 * Special support for "UTF-8".
 	 */
+	@Test
 	public void test_UTF8() throws Exception {
 		IFile file = getFileSrc("test/messages.properties");
 		// prepare file in UTF-8 with Russian characters

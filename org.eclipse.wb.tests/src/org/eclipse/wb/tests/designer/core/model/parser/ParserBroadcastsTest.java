@@ -23,6 +23,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 import javax.swing.JTextField;
 
 /**
@@ -48,6 +50,7 @@ public class ParserBroadcastsTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noExternalListener() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -66,6 +69,7 @@ public class ParserBroadcastsTest extends SwingModelTest {
 	 * Test that any extra {@link IJavaInfoInitializationParticipator} for non-hierarchy components
 	 * are evicted.
 	 */
+	@Test
 	public void test_extraListenersEvicted() throws Exception {
 		addParticipatorExtension(MyParticipator.class.getName());
 		try {

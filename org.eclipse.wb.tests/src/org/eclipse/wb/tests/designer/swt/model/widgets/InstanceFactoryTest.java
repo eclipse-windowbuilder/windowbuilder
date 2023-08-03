@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -39,6 +41,7 @@ public class InstanceFactoryTest extends RcpModelTest {
 	// parse
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",

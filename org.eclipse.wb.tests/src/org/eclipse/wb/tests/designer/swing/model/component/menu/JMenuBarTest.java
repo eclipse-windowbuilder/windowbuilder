@@ -30,7 +30,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.ImageData;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -63,6 +65,7 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * Test that we can parse {@link JMenuBar} with {@link JMenu} and two {@link JMenuItem}'s.
 	 */
+	@Test
 	public void test_parse() throws Exception {
 		ContainerInfo frameInfo =
 				parseContainer(
@@ -95,6 +98,7 @@ public class JMenuBarTest extends SwingModelTest {
 	 * When {@link JMenuBar} has no items, its height is zero, so we should add some text to make it
 	 * taller.
 	 */
+	@Test
 	public void test_renderEmpty() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -113,6 +117,7 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * Test for parsing {@link JMenuBar} as "this" component.
 	 */
+	@Test
 	public void test_standaloneJMenuBar() throws Exception {
 		JMenuBarInfo barInfo =
 				(JMenuBarInfo) parseContainer(getDoubleQuotes(new String[]{
@@ -123,24 +128,24 @@ public class JMenuBarTest extends SwingModelTest {
 						"  }",
 				"}"}));
 		barInfo.refresh();
-		assertThat(barInfo.getAssociation()).isInstanceOf(RootAssociation.class);
+		Assertions.assertThat(barInfo.getAssociation()).isInstanceOf(RootAssociation.class);
 		// IMenuInfo
 		IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(barInfo);
 		{
 			ImageDescriptor image = menuObject.getImageDescriptor();
 			assertNotNull(image);
 			ImageData imageData = image.getImageData(100);
-			assertThat(imageData.x).isEqualTo(0);
-			assertThat(imageData.y).isEqualTo(0);
-			assertThat(imageData.width).isGreaterThan(40);
-			assertThat(imageData.height).isGreaterThan(20);
+			Assertions.assertThat(imageData.x).isEqualTo(0);
+			Assertions.assertThat(imageData.y).isEqualTo(0);
+			Assertions.assertThat(imageData.width).isGreaterThan(40);
+			Assertions.assertThat(imageData.height).isGreaterThan(20);
 		}
 		{
 			Rectangle bounds = menuObject.getBounds();
-			assertThat(bounds.x).isEqualTo(0);
-			assertThat(bounds.y).isEqualTo(0);
-			assertThat(bounds.width).isGreaterThan(40);
-			assertThat(bounds.height).isGreaterThan(20);
+			Assertions.assertThat(bounds.x).isEqualTo(0);
+			Assertions.assertThat(bounds.y).isEqualTo(0);
+			Assertions.assertThat(bounds.width).isGreaterThan(40);
+			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}
 	}
 
@@ -150,6 +155,7 @@ public class JMenuBarTest extends SwingModelTest {
 	 * There was problem that when {@link JMenuBar} has two empty {@link JMenu}, both of them don't
 	 * have <code>"(Add items here)"</code> message.
 	 */
+	@Test
 	public void test_standaloneJMenuBar_2() throws Exception {
 		JMenuBarInfo barInfo =
 				(JMenuBarInfo) parseContainer(getDoubleQuotes(new String[]{
@@ -168,26 +174,27 @@ public class JMenuBarTest extends SwingModelTest {
 		barInfo.refresh();
 		IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(barInfo);
 		List<IMenuItemInfo> items = menuObject.getItems();
-		assertThat(items).hasSize(2);
+		Assertions.assertThat(items).hasSize(2);
 		// JMenu "A"
 		{
 			IMenuInfo menu = items.get(0).getMenu();
 			Rectangle bounds = menu.getBounds();
-			assertThat(bounds.width).isGreaterThan(100);
-			assertThat(bounds.height).isGreaterThan(20);
+			Assertions.assertThat(bounds.width).isGreaterThan(100);
+			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}
 		// JMenu "B"
 		{
 			IMenuInfo menu = items.get(1).getMenu();
 			Rectangle bounds = menu.getBounds();
-			assertThat(bounds.width).isGreaterThan(100);
-			assertThat(bounds.height).isGreaterThan(20);
+			Assertions.assertThat(bounds.width).isGreaterThan(100);
+			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}
 	}
 
 	/**
 	 * Test for {@link JMenuBarInfo} and its {@link IMenuInfo}.
 	 */
+	@Test
 	public void test_IMenuInfo_access() throws Exception {
 		ContainerInfo frameInfo =
 				parseContainer(
@@ -245,6 +252,7 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * We can drop new {@link JMenuInfo}.
 	 */
+	@Test
 	public void test_IMenuInfo_CREATE() throws Exception {
 		ContainerInfo frameInfo =
 				parseContainer(
@@ -285,6 +293,7 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * We can drop any new {@link ComponentInfo}, such as {@link JButton}.
 	 */
+	@Test
 	public void test_IMenuInfo_CREATE_JButton() throws Exception {
 		ContainerInfo frameInfo =
 				parseContainer(
@@ -336,6 +345,7 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * We can move {@link JMenuInfo}'s.
 	 */
+	@Test
 	public void test_IMenuInfo_MOVE() throws Exception {
 		ContainerInfo frameInfo =
 				parseContainer(
@@ -383,7 +393,9 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * We can paste {@link JMenuInfo}'s.
 	 */
-	public void DISABLE_test_IMenuInfo_PASTE() throws Exception {
+	@Ignore
+	@Test
+	public void test_IMenuInfo_PASTE() throws Exception {
 		ContainerInfo frameInfo =
 				parseContainer(
 						"public class Test extends JFrame {",
@@ -461,6 +473,7 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * Adding {@link JMenuBarInfo} on {@link JFrame}.
 	 */
+	@Test
 	public void test_CREATE_noChildren() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -488,6 +501,7 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * Adding {@link JMenuBarInfo} on {@link JFrame}.
 	 */
+	@Test
 	public void test_CREATE_withStatement() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -515,6 +529,7 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * Adding {@link JMenuBarInfo} on {@link JFrame}.
 	 */
+	@Test
 	public void test_CREATE_withChildren() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -548,6 +563,7 @@ public class JMenuBarTest extends SwingModelTest {
 	/**
 	 * We can not add new {@link JMenuItem} before exposed {@link JMenuItem}.
 	 */
+	@Test
 	public void test_CREATE_exposedItem_badReference() throws Exception {
 		String[] lines =
 			{

@@ -21,6 +21,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Menu;
 
+import org.junit.Test;
+
 /**
  * Test for {@link DesignContextMenuProvider}.
  *
@@ -44,6 +46,7 @@ public class DesignContextMenuProviderTest extends XwtGefTest {
 	/**
 	 * Test that context menu exists for "tree" and "canvas".
 	 */
+	@Test
 	public void test_hasMenu() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -53,6 +56,7 @@ public class DesignContextMenuProviderTest extends XwtGefTest {
 		assertHasContextMenu(m_viewerCanvas);
 	}
 
+	@Test
 	public void test_noSelection() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -63,6 +67,7 @@ public class DesignContextMenuProviderTest extends XwtGefTest {
 		assertNull(action);
 	}
 
+	@Test
 	public void test_refreshAction() throws Exception {
 		XmlObjectInfo shell =
 				openEditor(
@@ -79,6 +84,7 @@ public class DesignContextMenuProviderTest extends XwtGefTest {
 		assertNotSame(shell, m_lastObject);
 	}
 
+	@Test
 	public void test_testAction() throws Exception {
 		XmlObjectInfo shell =
 				openEditor(
@@ -91,6 +97,7 @@ public class DesignContextMenuProviderTest extends XwtGefTest {
 		assertNotNull(action);
 	}
 
+	@Test
 	public void test_deleteAction() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -124,6 +131,7 @@ public class DesignContextMenuProviderTest extends XwtGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_contentMenuInTree() throws Exception {
 		XmlObjectInfo shell =
 				openEditor(

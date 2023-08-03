@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.rcp.model.rcp;
 import org.eclipse.wb.internal.rcp.model.jface.DialogInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for <code>FilteredItemsSelectionDialog</code>.
  *
@@ -36,6 +38,7 @@ public class FilteredItemsSelectionDialogTest extends RcpModelTest {
 	/**
 	 * Test for parsing.
 	 */
+	@Test
 	public void test_parse() throws Exception {
 		DialogInfo dialog =
 				parseJavaInfo(

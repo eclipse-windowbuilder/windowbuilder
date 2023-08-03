@@ -18,7 +18,8 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jface.viewers.StructuredSelection;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link FormsCompositeWizard}.
@@ -41,6 +42,7 @@ public class FormsCompositeWizardTest extends XwtWizardTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@DisposeProjectAfter
+	@Test
 	public void test_onlyForXWT() throws Exception {
 		new UiContext().executeAndCheck(new UIRunnable() {
 			@Override
@@ -59,17 +61,17 @@ public class FormsCompositeWizardTest extends XwtWizardTest {
 		// Java
 		{
 			String content = getFileContentSrc("test/MyComposite.java");
-			assertThat(content).contains("public class MyComposite extends Composite {");
-			assertThat(content).contains("XWTForms.loadWithOptions(");
+			Assertions.assertThat(content).contains("public class MyComposite extends Composite {");
+			Assertions.assertThat(content).contains("XWTForms.loadWithOptions(");
 		}
 		// XWT
 		{
 			String content = getFileContentSrc("test/MyComposite.xwt");
-			assertThat(content).contains("<Composite ");
-			assertThat(content).contains("x:Class=\"test.MyComposite\"");
-			assertThat(content).contains("<RowLayout/>");
-			assertThat(content).contains("<Button text=");
-			assertThat(content).contains("<!-- Forms API -->");
+			Assertions.assertThat(content).contains("<Composite ");
+			Assertions.assertThat(content).contains("x:Class=\"test.MyComposite\"");
+			Assertions.assertThat(content).contains("<RowLayout/>");
+			Assertions.assertThat(content).contains("<Button text=");
+			Assertions.assertThat(content).contains("<!-- Forms API -->");
 		}
 	}
 }

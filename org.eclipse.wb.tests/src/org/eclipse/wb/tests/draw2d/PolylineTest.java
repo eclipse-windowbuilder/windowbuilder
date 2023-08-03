@@ -18,6 +18,9 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
@@ -30,20 +33,12 @@ public class PolylineTest extends Draw2dFigureTestCase {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public PolylineTest() {
-		super(Polyline.class);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// SetUp
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// configure
 		m_actualLogger = new TestLogger();
@@ -59,6 +54,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 	// Add/Remove/Get test
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addPoint_getPoints() throws Exception {
 		// check reset state during addPoint()
 		m_polyline.addPoint(new Point(10, 20));
@@ -95,6 +91,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(new Point(120, -70), list.getPoint(2));
 	}
 
+	@Test
 	public void test_insertPoint() throws Exception {
 		// check insert point with wrong index and not reset state
 		try {
@@ -145,6 +142,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		}
 	}
 
+	@Test
 	public void test_removePoint() throws Exception {
 		m_polyline.addPoint(new Point(10, -20));
 		m_polyline.addPoint(new Point(-90, 0));
@@ -198,6 +196,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		}
 	}
 
+	@Test
 	public void test_removeAllPoints() throws Exception {
 		// check work removeAllPoints() when not children
 		m_polyline.removeAllPoints();
@@ -232,6 +231,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(0, list.size());
 	}
 
+	@Test
 	public void test_getStart() throws Exception {
 		Polyline polyline = new Polyline();
 		//
@@ -245,6 +245,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(new Point(10, -20), polyline.getStart());
 	}
 
+	@Test
 	public void test_getEnd() throws Exception {
 		Polyline polyline = new Polyline();
 		//
@@ -261,6 +262,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(new Point(120, 120), polyline.getEnd());
 	}
 
+	@Test
 	public void test_setPoint_Point_int() throws Exception {
 		m_polyline.addPoint(new Point(10, -20));
 		m_polyline.addPoint(new Point(40, 40));
@@ -313,6 +315,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(point, m_polyline.getPoints().getPoint(0));
 	}
 
+	@Test
 	public void test_set_Start() throws Exception {
 		assertEquals(0, m_polyline.getPoints().size());
 		//
@@ -335,6 +338,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(new Point(120, -110), m_polyline.getStart());
 	}
 
+	@Test
 	public void test_set_End() throws Exception {
 		assertEquals(0, m_polyline.getPoints().size());
 		//
@@ -374,6 +378,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(new Point(120, -110), m_polyline.getEnd());
 	}
 
+	@Test
 	public void test_set_Endpoints() throws Exception {
 		m_polyline.addPoint(new Point());
 		m_polyline.addPoint(new Point());
@@ -404,6 +409,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(new Point(10, 10), m_polyline.getEnd());
 	}
 
+	@Test
 	public void test_setPoints() throws Exception {
 		m_polyline.addPoint(new Point(1, 2));
 		m_polyline.addPoint(new Point(3, 4));
@@ -426,6 +432,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 	// Bounds tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_bounds() throws Exception {
 		// check bounds for new empty polyline
 		assertEquals(new Rectangle(), m_polyline.getBounds());
@@ -459,6 +466,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertSame(boundsNew, m_polyline.getBounds());
 	}
 
+	@Test
 	public void test_containsPoint() throws Exception {
 		Polyline polyline = new Polyline();
 		polyline.addPoint(new Point(10, 10));
@@ -482,6 +490,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 	// Property tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_opaque() throws Exception {
 		// check opaque for new empty polyline
 		assertFalse(m_polyline.isOpaque());
@@ -507,6 +516,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertFalse(m_polyline.isOpaque());
 	}
 
+	@Test
 	public void test_lineStyle() throws Exception {
 		// check lineStyle for new empty polyline
 		assertEquals(SWT.LINE_SOLID, m_polyline.getLineStyle());
@@ -525,6 +535,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(SWT.LINE_DOT, m_polyline.getLineStyle());
 	}
 
+	@Test
 	public void test_lineWidth() throws Exception {
 		// check lineWidth for new empty polyline
 		assertEquals(1, m_polyline.getLineWidth());
@@ -543,6 +554,7 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(3, m_polyline.getLineWidth());
 	}
 
+	@Test
 	public void test_XorMode() throws Exception {
 		// check xor mode for new empty polyline
 		assertFalse(m_polyline.isXorMode());

@@ -10,31 +10,31 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author lobas_av
  *
  */
-public class GefTests extends TestCase {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.gef");
-		suite.addTestSuite(RequestsTest.class);
-		suite.addTestSuite(CommandsTest.class);
-		suite.addTestSuite(EditPartTest.class);
-		suite.addTestSuite(EditPolicyTest.class);
-		suite.addTestSuite(ResizeTrackerTest.class);
-		suite.addTestSuite(SelectAndDragEditPartTrackerTest.class);
-		suite.addTestSuite(MarqueeSelectionToolTest.class);
-		suite.addTestSuite(CreationToolTest.class);
-		suite.addTestSuite(PasteToolTest.class);
-		suite.addTestSuite(SelectionToolTest.class);
-		suite.addTestSuite(GraphicalViewerTest.class);
-		suite.addTestSuite(TreeCreateToolTest.class);
-		suite.addTestSuite(TreeDragToolTest.class);
-		suite.addTest(CursorTests.suite());
-		return suite;
-	}
+
+@RunWith(Suite.class)
+@SuiteClasses({
+		RequestsTest.class,
+		CommandsTest.class,
+		EditPartTest.class,
+		EditPolicyTest.class,
+		ResizeTrackerTest.class,
+		SelectAndDragEditPartTrackerTest.class,
+		MarqueeSelectionToolTest.class,
+		CreationToolTest.class,
+		PasteToolTest.class,
+		SelectionToolTest.class,
+		GraphicalViewerTest.class,
+		TreeCreateToolTest.class,
+		TreeDragToolTest.class,
+		CursorTests.class
+})
+public class GefTests {
 }

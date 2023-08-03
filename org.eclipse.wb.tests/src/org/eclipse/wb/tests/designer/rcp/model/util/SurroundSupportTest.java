@@ -42,6 +42,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Group;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -67,6 +70,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Empty selection, so no "surround" menu.
 	 */
+	@Test
 	public void test_emptySelection() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -83,6 +87,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Try to give {@link LayoutInfo} instead of {@link ControlInfo}, so no "surround" menu.
 	 */
+	@Test
 	public void test_notControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -100,6 +105,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Components that have different parents, so none of these parents contribute "surround" menu.
 	 */
+	@Test
 	public void test_notSameParent() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -125,6 +131,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Single {@link ControlInfo} on {@link FillLayoutInfo}.
 	 */
+	@Test
 	public void test_flow_singleControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -158,6 +165,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Two adjacent controls, good case.
 	 */
+	@Test
 	public void test_flow_twoControls() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -204,6 +212,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Not an adjacent controls, so can not surround.
 	 */
+	@Test
 	public void test_flow_notAdjacentControls() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -236,6 +245,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Single {@link ControlInfo} on {@link AbsoluteLayoutInfo}.
 	 */
+	@Test
 	public void test_absolute_singleControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -269,7 +279,9 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Single {@link ControlInfo} on {@link Group} with {@link AbsoluteLayoutInfo}.
 	 */
-	public void DISABLE_test_absolute_singleControl_onGroup() throws Exception {
+	@Ignore
+	@Test
+	public void test_absolute_singleControl_onGroup() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"public class Test extends Shell {",
@@ -310,6 +322,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Two {@link ControlInfo}'s on {@link AbsoluteLayoutInfo}.
 	 */
+	@Test
 	public void test_absolute_twoControls() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -365,6 +378,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link SashFormSurroundTarget}.
 	 */
+	@Test
 	public void test_SashForm_twoControls() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -410,6 +424,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link TabFolderSurroundTarget}.
 	 */
+	@Test
 	public void test_TabFolder_twoControls() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -459,6 +474,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link CTabFolderSurroundTarget}.
 	 */
+	@Test
 	public void test_CTabFolder_twoControls() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -514,6 +530,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link ScrolledCompositeSurroundTarget}.
 	 */
+	@Test
 	public void test_ScrolledComposite_oneComposite() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -551,6 +568,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link ScrolledCompositeSurroundTarget}.
 	 */
+	@Test
 	public void test_ScrolledComposite_twoControls() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -613,6 +631,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * We can not surround exposed control.
 	 */
+	@Test
 	public void test_GridLayout_disableWhenExposed() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -649,6 +668,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Bad: two controls on diagonal, and other control in same rectangle.
 	 */
+	@Test
 	public void test_GridLayout_0() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -678,6 +698,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Good: two controls in single row, no other controls.
 	 */
+	@Test
 	public void test_GridLayout_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -720,6 +741,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Good: two controls on diagonal, no other controls.
 	 */
+	@Test
 	public void test_GridLayout_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -766,6 +788,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Good: three controls, one spanned horizontally.
 	 */
+	@Test
 	public void test_GridLayout_3() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -817,6 +840,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Good: two controls on diagonal, other controls on sides.
 	 */
+	@Test
 	public void test_GridLayout_4() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -907,6 +931,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	 * Initially with {@link GridLayout}, but then switch to absolute layout. So, no
 	 * {@link GridLayout} surround expected.
 	 */
+	@Test
 	public void test_GridLayout_5() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -959,6 +984,7 @@ public class SurroundSupportTest extends RcpModelTest {
 	/**
 	 * Test for case when super class has already controls.
 	 */
+	@Test
 	public void test_GridLayout_leadingImplicitControls() throws Exception {
 		setFileContentSrc(
 				"test/MyShell.java",

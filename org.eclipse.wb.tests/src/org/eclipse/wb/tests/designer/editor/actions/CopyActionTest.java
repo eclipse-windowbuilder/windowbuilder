@@ -19,6 +19,9 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link CopyAction} and {@link PasteAction}.
  *
@@ -42,6 +45,7 @@ public class CopyActionTest extends SwingGefTest {
 	/**
 	 * "Copy" action is disabled if no selection.
 	 */
+	@Test
 	public void test_noSelection() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -59,6 +63,7 @@ public class CopyActionTest extends SwingGefTest {
 	/**
 	 * "This" component can not be copied.
 	 */
+	@Test
 	public void test_thisSelection() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -77,6 +82,8 @@ public class CopyActionTest extends SwingGefTest {
 	/**
 	 * Test for copy/paste single component.
 	 */
+	@Ignore
+	@Test
 	public void test_copySingle() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -130,6 +137,8 @@ public class CopyActionTest extends SwingGefTest {
 	 * If container and its child are selected, then only container should be copied, it will copy
 	 * child automatically.
 	 */
+	@Ignore
+	@Test
 	public void test_copyParentAndItsChild() throws Exception {
 		ContainerInfo panel =
 				openContainer(

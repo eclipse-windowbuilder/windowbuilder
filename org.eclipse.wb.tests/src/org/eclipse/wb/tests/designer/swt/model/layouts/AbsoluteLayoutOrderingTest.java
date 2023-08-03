@@ -19,7 +19,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.Collections;
 
@@ -46,6 +47,7 @@ public class AbsoluteLayoutOrderingTest extends RcpModelTest {
 	/**
 	 * Test that "ordering" actions are present and have expected enablement state.
 	 */
+	@Test
 	public void test_enablement() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -89,6 +91,7 @@ public class AbsoluteLayoutOrderingTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_bringToFront() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -115,9 +118,10 @@ public class AbsoluteLayoutOrderingTest extends RcpModelTest {
 				"      Text text = new Text(this, SWT.NONE);",
 				"  }",
 				"}");
-		assertThat(shell.getChildrenControls()).containsExactly(table, button, text);
+		Assertions.assertThat(shell.getChildrenControls()).containsExactly(table, button, text);
 	}
 
+	@Test
 	public void test_bringForward() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -144,9 +148,10 @@ public class AbsoluteLayoutOrderingTest extends RcpModelTest {
 				"      Text text = new Text(this, SWT.NONE);",
 				"  }",
 				"}");
-		assertThat(shell.getChildrenControls()).containsExactly(button, table, text);
+		Assertions.assertThat(shell.getChildrenControls()).containsExactly(button, table, text);
 	}
 
+	@Test
 	public void test_sendToBack() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -173,9 +178,10 @@ public class AbsoluteLayoutOrderingTest extends RcpModelTest {
 				"      Button button = new Button(this, SWT.NONE);",
 				"  }",
 				"}");
-		assertThat(shell.getChildrenControls()).containsExactly(text, table, button);
+		Assertions.assertThat(shell.getChildrenControls()).containsExactly(text, table, button);
 	}
 
+	@Test
 	public void test_sendBackward() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -202,7 +208,7 @@ public class AbsoluteLayoutOrderingTest extends RcpModelTest {
 				"      Table table = new Table(this, SWT.NONE);",
 				"  }",
 				"}");
-		assertThat(shell.getChildrenControls()).containsExactly(text, button, table);
+		Assertions.assertThat(shell.getChildrenControls()).containsExactly(text, button, table);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

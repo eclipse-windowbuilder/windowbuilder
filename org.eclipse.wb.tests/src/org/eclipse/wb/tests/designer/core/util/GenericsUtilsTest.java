@@ -25,7 +25,8 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -53,6 +54,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	// ISelection
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_first() throws Exception {
 		Object firstObject = "123";
 		// prepare objects
@@ -68,6 +70,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		assertSame(firstObject, GenericsUtils.<String>first(selection));
 	}
 
+	@Test
 	public void test_iterable() throws Exception {
 		// prepare objects
 		List<Object> objects;
@@ -102,6 +105,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_iterableSelection() throws Exception {
 		// prepare objects
 		List<Object> objects;
@@ -158,6 +162,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#get(Class, Object...)}.
 	 */
+	@Test
 	public void test_get() throws Exception {
 		Object[] objects = {"0", 1, 2.2};
 		assertEquals("0", GenericsUtils.get(String.class, objects));
@@ -169,6 +174,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#get(Class, Object...)}.
 	 */
+	@Test
 	public void test_get_fromList() throws Exception {
 		List<?> objects = ImmutableList.<Object>of("0", 1, 2.2);
 		assertEquals("0", GenericsUtils.get(String.class, objects));
@@ -182,6 +188,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	// Collections
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_select() throws Exception {
 		// prepare objects
 		List<Object> objects;
@@ -208,6 +215,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_cast() throws Exception {
 		// prepare objects
 		List<Object> objects;
@@ -219,7 +227,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		// get String
 		{
 			List<String> stringList = GenericsUtils.<String>cast(objects);
-			assertThat(stringList).containsExactly("111", "222");
+			Assertions.assertThat(stringList).containsExactly("111", "222");
 		}
 	}
 
@@ -227,6 +235,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 * Test for {@link GenericsUtils#asList(Object[], Object)}.<br>
 	 * With not-<code>null</code> elements.
 	 */
+	@Test
 	public void test_asList_1() throws Exception {
 		List<String> list = GenericsUtils.asList(new String[]{"111", "222"}, "333");
 		assertEquals(3, list.size());
@@ -239,6 +248,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	 * Test for {@link GenericsUtils#asList(Object[], Object)}.<br>
 	 * With <code>null</code> elements.
 	 */
+	@Test
 	public void test_asList_2() throws Exception {
 		List<String> list = GenericsUtils.asList(null, "111");
 		assertEquals(1, list.size());
@@ -253,16 +263,18 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#singletonList(Object)}.
 	 */
+	@Test
 	public void test_singletonList_1() throws Exception {
-		assertThat(GenericsUtils.singletonList(null)).isEmpty();
+		Assertions.assertThat(GenericsUtils.singletonList(null)).isEmpty();
 	}
 
 	/**
 	 * Test for {@link GenericsUtils#singletonList(Object)}.
 	 */
+	@Test
 	public void test_singletonList_2() throws Exception {
 		String element = "theElement";
-		assertThat(GenericsUtils.singletonList(element)).containsExactly(element);
+		Assertions.assertThat(GenericsUtils.singletonList(element)).containsExactly(element);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -273,6 +285,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getPrevOrNull(List, int)}.
 	 */
+	@Test
 	public void test_getPrevOrNull_index() throws Exception {
 		List<String> elements = ImmutableList.of("000", "111", "222");
 		assertSame(null, GenericsUtils.getPrevOrNull(elements, 0));
@@ -283,6 +296,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getPrevOrNull(List, Object)}.
 	 */
+	@Test
 	public void test_getPrevOrNull_element() throws Exception {
 		List<String> elements = ImmutableList.of("000", "111", "222");
 		// use element
@@ -295,6 +309,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getPrevOrLast(List, Object)}.
 	 */
+	@Test
 	public void test_getPrevOrLast_element() throws Exception {
 		List<String> elements = ImmutableList.of("000", "111", "222");
 		// no elements
@@ -314,6 +329,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getNextOrNull(List, int)}.
 	 */
+	@Test
 	public void test_getNextOrNull_index() throws Exception {
 		List<String> elements = ImmutableList.of("000", "111", "222");
 		// use index
@@ -325,6 +341,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getNextOrNull(List, Object)}.
 	 */
+	@Test
 	public void test_getNextOrNull_element() throws Exception {
 		List<String> elements = ImmutableList.of("000", "111", "222");
 		// use element
@@ -337,6 +354,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getNextOrFirst(List, Object)}.
 	 */
+	@Test
 	public void test_getNextOrFirst_element() throws Exception {
 		List<String> elements = ImmutableList.of("000", "111", "222");
 		// no elements
@@ -351,6 +369,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getFirstOrNull(List)}.
 	 */
+	@Test
 	public void test_getFirstOrNull() throws Exception {
 		assertNull(GenericsUtils.getFirstOrNull(ImmutableList.of()));
 		assertSame("000", GenericsUtils.getFirstOrNull(ImmutableList.of("000", "111", "222")));
@@ -359,6 +378,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getLastOrNull(List)}.
 	 */
+	@Test
 	public void test_getLastOrNull() throws Exception {
 		assertNull(GenericsUtils.getLastOrNull(ImmutableList.of()));
 		assertSame("222", GenericsUtils.getLastOrNull(ImmutableList.of("000", "111", "222")));
@@ -367,6 +387,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getLast(List)}.
 	 */
+	@Test
 	public void test_getLast() throws Exception {
 		try {
 			assertNull(GenericsUtils.getLast(ImmutableList.of()));
@@ -384,6 +405,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#areAdjacent(List, List)}.
 	 */
+	@Test
 	public void test_areAdjacent() throws Exception {
 		assertTrue(GenericsUtils.areAdjacent(ImmutableList.of(), ImmutableList.of()));
 		assertTrue(GenericsUtils.areAdjacent(ImmutableList.of("a"), ImmutableList.of("a")));
@@ -411,13 +433,15 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getEnumStrings(Enum...)}.
 	 */
+	@Test
 	public void test_getEnumStrings() throws Exception {
-		assertThat(GenericsUtils.getEnumStrings(MyEnum.A, MyEnum.B)).isEqualTo(new String[]{"A", "B"});
+		Assertions.assertThat(GenericsUtils.getEnumStrings(MyEnum.A, MyEnum.B)).isEqualTo(new String[]{"A", "B"});
 	}
 
 	/**
 	 * Test for {@link GenericsUtils#getEnumValue(String, Enum...)}.
 	 */
+	@Test
 	public void test_getEnumValue() throws Exception {
 		assertSame(MyEnum.B, GenericsUtils.getEnumValue("B", MyEnum.A, MyEnum.B, MyEnum.C));
 		assertSame(null, GenericsUtils.getEnumValue("B", MyEnum.A));
@@ -426,12 +450,13 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getEnumValues(Class, String...)}.
 	 */
+	@Test
 	public void test_getEnumValues_byString() throws Exception {
 		// good
 		{
 			MyEnum[] expectedValues = new MyEnum[]{MyEnum.A, MyEnum.B};
 			MyEnum[] actualValues = GenericsUtils.getEnumValues(MyEnum.class, "A", "B");
-			assertThat(actualValues).isEqualTo(expectedValues);
+			Assertions.assertThat(actualValues).isEqualTo(expectedValues);
 		}
 		// bad
 		try {
@@ -444,6 +469,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link GenericsUtils#getEnumValues(Class, Predicate)}.
 	 */
+	@Test
 	public void test_getEnumValues_filter() throws Exception {
 		MyEnum[] expectedValues = new MyEnum[]{MyEnum.B, MyEnum.C};
 		MyEnum[] actualValues = GenericsUtils.getEnumValues(MyEnum.class, new Predicate<MyEnum>() {
@@ -452,7 +478,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 				return t == MyEnum.B || t == MyEnum.C;
 			}
 		});
-		assertThat(actualValues).isEqualTo(expectedValues);
+		Assertions.assertThat(actualValues).isEqualTo(expectedValues);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -460,6 +486,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	// Generics and names
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getTypeName_badTypeToResolve() throws Exception {
 		try {
 			GenericsUtils.getTypeName(GenericTypeResolver.EMPTY, null);
@@ -468,6 +495,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_getTypeName_noSuchTypeVariable() throws Exception {
 		class Foo<A> {
 		}
@@ -479,6 +507,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_getTypeName_fixed_hasVariable() throws Exception {
 		class Foo<A> {
 		}
@@ -488,6 +517,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		assertEquals("java.lang.String", actualParameterType);
 	}
 
+	@Test
 	public void test_getTypeName_fixed_noSuchVariable() throws Exception {
 		class Foo<B> {
 		}
@@ -500,17 +530,20 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_getTypeName_Class() throws Exception {
 		String actualParameterType = GenericsUtils.getTypeName(GenericTypeResolver.EMPTY, String.class);
 		assertEquals("java.lang.String", actualParameterType);
 	}
 
+	@Test
 	public void test_getTypeName_innerClass() throws Exception {
 		String actualParameterType =
 				GenericsUtils.getTypeName(GenericTypeResolver.EMPTY, java.util.Map.Entry.class);
 		assertEquals("java.util.Map.Entry", actualParameterType);
 	}
 
+	@Test
 	public void test_getTypeName_TypeVariable() throws Exception {
 		@SuppressWarnings("unused")
 		class Listener<E> {
@@ -543,6 +576,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		assertEquals("java.lang.String", actualParameterType);
 	}
 
+	@Test
 	public void test_getTypeName_TypeVariable_deepResolving() throws Exception {
 		@SuppressWarnings("unused")
 		class Event<E1, E2> {
@@ -585,6 +619,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Value of type variable specified in one of the superclasses.
 	 */
+	@Test
 	public void test_getTypeName_TypeVariable_actualInSuperclass() throws Exception {
 		class Event<T> {
 		}
@@ -627,6 +662,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		assertEquals(Event.class.getName() + "<java.lang.String>", actualParameterType);
 	}
 
+	@Test
 	public void test_getTypeName_TypeVariable_askParent() throws Exception {
 		class Event<E> {
 		}
@@ -668,6 +704,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Generic type used in Inter and declared as type argument in using Super.
 	 */
+	@Test
 	public void test_getTypeName_resolveFromSuperInterface() throws Exception {
 		abstract class Super<T> implements Inter<T> {
 		}
@@ -691,6 +728,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 	/**
 	 * Generic type used in Super and declared as type argument in using Super.
 	 */
+	@Test
 	public void test_getTypeName_resolveFromSuperClass() throws Exception {
 		@SuppressWarnings("unused")
 		class Super<T> {
@@ -714,6 +752,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		assertEquals("java.lang.String", actualParameterType);
 	}
 
+	@Test
 	public void test_getTypeName_TypeVariable_WildcardType() throws Exception {
 		@SuppressWarnings("unused")
 		class Listener<E> {
@@ -745,6 +784,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		assertEquals("java.lang.String", actualParameterType);
 	}
 
+	@Test
 	public void test_getTypeName_TypeVariable_withEnclosingTypeArguments() throws Exception {
 		@SuppressWarnings("unused")
 		class Listener<E> {
@@ -784,6 +824,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_getTypeName_TypeVariable_withEnclosingTypeArguments2() throws Exception {
 		@SuppressWarnings("unused")
 		class Listener<E> {

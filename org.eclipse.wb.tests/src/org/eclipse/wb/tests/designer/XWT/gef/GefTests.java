@@ -10,21 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.XWT.gef;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * XWT GEF tests.
  *
  * @author scheglov_ke
  */
-public class GefTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.gef");
-		suite.addTest(createSingleSuite(XwtPairResourceProviderTest.class));
-		suite.addTest(createSingleSuite(XwtJavaParseValidatorTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		XwtPairResourceProviderTest.class,
+		XwtJavaParseValidatorTest.class
+})
+public class GefTests {
 }

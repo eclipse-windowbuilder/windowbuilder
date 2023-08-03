@@ -10,23 +10,21 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.jsr296;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Test for "Swing Application Framework", JSR-296.
  *
  * @author scheglov_ke
  */
-public class ApplicationFrameworkTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.jsr296");
-		suite.addTest(createSingleSuite(ActivatorTest.class));
-		//suite.addTest(createSingleSuite(LoadResourcesTest.class));
-		//suite.addTest(createSingleSuite(FrameViewTest.class));
-		//suite.addTest(createSingleSuite(FrameViewGefTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ActivatorTest.class,
+		LoadResourcesTest.class,
+		FrameViewTest.class,
+		FrameViewGefTest.class
+})
+public class ApplicationFrameworkTests {
 }

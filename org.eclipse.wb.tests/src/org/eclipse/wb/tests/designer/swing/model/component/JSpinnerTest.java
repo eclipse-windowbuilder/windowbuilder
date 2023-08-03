@@ -21,6 +21,9 @@ import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
@@ -41,6 +44,7 @@ public class JSpinnerTest extends SwingModelTest {
 	/**
 	 * There was bug that parser handled <code>Type.Inner</code> incorrectly.
 	 */
+	@Test
 	public void test_setEditor() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -60,6 +64,7 @@ public class JSpinnerTest extends SwingModelTest {
 	// SpinnerNumberModel
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_numberModel_Integer() throws Exception {
 		String source = "new SpinnerNumberModel(15, 10, 20, 1)";
 		String expectedText = "Integer, 15, 10, 20, 1";
@@ -67,6 +72,7 @@ public class JSpinnerTest extends SwingModelTest {
 		assertEditorTextTooltip(source, expectedText, expectedTooltip);
 	}
 
+	@Test
 	public void test_numberModel_Double() throws Exception {
 		String source = "new SpinnerNumberModel(15.0, 10.2, 20.0, 1.2)";
 		String expectedText = "Double, 15.0, 10.2, 20.0, 1.2";
@@ -74,6 +80,7 @@ public class JSpinnerTest extends SwingModelTest {
 		assertEditorTextTooltip(source, expectedText, expectedTooltip);
 	}
 
+	@Test
 	public void test_numberModel_null() throws Exception {
 		String source = "new SpinnerNumberModel(15, 0, null, 1)";
 		String expectedText = "Integer, 15, 0, null, 1";
@@ -86,6 +93,7 @@ public class JSpinnerTest extends SwingModelTest {
 	// SpinnerListModel
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_listModel() throws Exception {
 		String source = "new SpinnerListModel(new Object[]{\"aaa\", \"bbb\", \"ccc\"})";
 		String expectedText = "aaa, bbb, ccc";
@@ -98,6 +106,7 @@ public class JSpinnerTest extends SwingModelTest {
 	// SpinnerDateModel
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_dateModel_getDateStep() throws Exception {
 		Field[] declaredFields = Calendar.class.getDeclaredFields();
 		for (Field field : declaredFields) {
@@ -131,7 +140,9 @@ public class JSpinnerTest extends SwingModelTest {
 				0xDEADBEEF));
 	}
 
-	public void DISABLE_test_dateModel() throws Exception {
+	@Ignore
+	@Test
+	public void test_dateModel() throws Exception {
 		String source =
 				"new SpinnerDateModel(new java.util.Date(0), null, null, java.util.Calendar.SECOND)";
 		String expectedText =

@@ -25,9 +25,9 @@ import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.implementation.SuperMethodCall;
 import net.bytebuddy.matcher.ElementMatchers;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.SystemUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Component;
 import java.beans.BeanInfo;
@@ -73,6 +73,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getClassLoader(Class)}.
 	 */
+	@Test
 	public void test_getClassLoader() throws Exception {
 		// "normal" class
 		{
@@ -92,66 +93,82 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getFullyQualifiedName
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getFullyQualifiedName_primitive_void() throws Exception {
 		check_getFullyQualifiedName("void", "void", void.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_primitive_boolean() throws Exception {
 		check_getFullyQualifiedName("boolean", "boolean", boolean.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_primitive_byte() throws Exception {
 		check_getFullyQualifiedName("byte", "byte", byte.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_primitive_char() throws Exception {
 		check_getFullyQualifiedName("char", "char", char.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_primitive_short() throws Exception {
 		check_getFullyQualifiedName("short", "short", short.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_primitive_int() throws Exception {
 		check_getFullyQualifiedName("int", "int", int.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_primitive_long() throws Exception {
 		check_getFullyQualifiedName("long", "long", long.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_primitive_float() throws Exception {
 		check_getFullyQualifiedName("float", "float", float.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_primitive_double() throws Exception {
 		check_getFullyQualifiedName("double", "double", double.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_String() throws Exception {
 		check_getFullyQualifiedName("java.lang.String", "java.lang.String", String.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_inner() throws Exception {
 		check_getFullyQualifiedName("java.util.Map.Entry", "java.util.Map$Entry", Map.Entry.class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_array_primitive() throws Exception {
 		check_getFullyQualifiedName("int[]", "int[]", int[].class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_array_primitive2() throws Exception {
 		check_getFullyQualifiedName("int[][]", "int[][]", int[][].class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_array_String() throws Exception {
 		check_getFullyQualifiedName("java.lang.String[]", "java.lang.String[]", String[].class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_array_String2() throws Exception {
 		check_getFullyQualifiedName("java.lang.String[][]", "java.lang.String[][]", String[][].class);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_TypeVariable() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -163,6 +180,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		check_getFullyQualifiedName(expected, expected, method.getGenericParameterTypes()[0]);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_GenericArrayType() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -174,6 +192,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		check_getFullyQualifiedName(expected, expected, method.getGenericParameterTypes()[0]);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_ParameterizedType() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -185,6 +204,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		check_getFullyQualifiedName(expected, expected, method.getGenericParameterTypes()[0]);
 	}
 
+	@Test
 	public void test_getFullyQualifiedName_WildcardType() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -210,6 +230,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getCanonicalName(Class)}.
 	 */
+	@Test
 	public void test_getCanonicalName() throws Exception {
 		assertEquals("java.lang.String", ReflectionUtils.getCanonicalName(String.class));
 		assertEquals("java.util.Map.Entry", ReflectionUtils.getCanonicalName(Map.Entry.class));
@@ -224,6 +245,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getShortName(Class)}.
 	 */
+	@Test
 	public void test_getShortName() throws Exception {
 		assertEquals("int", ReflectionUtils.getShortName(int.class));
 		assertEquals("String", ReflectionUtils.getShortName(String.class));
@@ -236,6 +258,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// Modifiers
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_isX_Constructor() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -310,6 +333,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_isX_Method() throws Exception {
 		@SuppressWarnings("unused")
 		abstract class Foo {
@@ -372,6 +396,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_isX_Field() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -423,6 +448,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	class Class_packagePrivate {
 	}
 
+	@Test
 	public void test_isX_Class() throws Exception {
 		// public
 		{
@@ -461,6 +487,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isAbstract(Class)}.
 	 */
+	@Test
 	public void test_isAbstract_Class() throws Exception {
 		assertFalse(ReflectionUtils.isAbstract(Object.class));
 		assertTrue(ReflectionUtils.isAbstract(JComponent.class));
@@ -469,6 +496,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isStatic(Field)}.
 	 */
+	@Test
 	public void test_isStatic_Field() throws Exception {
 		// static
 		{
@@ -490,6 +518,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getMethods(Class)}.
 	 */
+	@Test
 	public void test_getMethods() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -511,7 +540,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 			}
 		}
 		Map<String, Method> methods = ReflectionUtils.getMethods(Bar.class);
-		assertThat(methods.values()).contains(
+		Assertions.assertThat(methods.values()).contains(
 				Foo.class.getDeclaredMethod("a"),
 				Foo.class.getDeclaredMethod("b"),
 				Foo.class.getDeclaredMethod("c"),
@@ -524,11 +553,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * <p>
 	 * Only last implementation of each method should be returned.
 	 */
+	@Test
 	public void test_getMethods_forInterface() throws Exception {
 		abstract class Foo implements Collection<Object> {
 		}
 		Map<String, Method> methods = ReflectionUtils.getMethods(Foo.class);
-		assertThat(methods.values()).contains(Collection.class.getDeclaredMethod("size"));
+		Assertions.assertThat(methods.values()).contains(Collection.class.getDeclaredMethod("size"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -536,6 +566,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getMethodByName
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getMethodByName_public() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -550,6 +581,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_getMethodByName_private() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -563,6 +595,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_getMethodByName_useOneOfThem() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -585,14 +618,17 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getMethodBySignature
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getMethodBySignature_public() throws Exception {
 		assertNotNull(ReflectionUtils.getMethodBySignature(Object.class, "hashCode()"));
 	}
 
+	@Test
 	public void test_getMethodBySignature_notFound() throws Exception {
 		assertNull(ReflectionUtils.getMethodBySignature(Object.class, "hashCode2()"));
 	}
 
+	@Test
 	public void test_getMethodBySignature_private_direct() throws Exception {
 		assertNotNull(
 				ReflectionUtils.getMethodBySignature(
@@ -600,10 +636,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 						"fastRemove(java.lang.Object[],int)"));
 	}
 
+	@Test
 	public void test_getMethodBySignature_private_super() throws Exception {
 		assertNotNull(ReflectionUtils.getMethodBySignature(ArrayList.class, "removeRange(int,int)"));
 	}
 
+	@Test
 	public void test_getMethodBySignature_private_super2() throws Exception {
 		assertNotNull(ReflectionUtils.getMethodBySignature(LineNumberReader.class, "fill()"));
 	}
@@ -611,6 +649,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	interface MyCollection extends Collection<Object> {
 	}
 
+	@Test
 	public void test_getMethodBySignature_superInterface() throws Exception {
 		assertNotNull(ReflectionUtils.getMethodBySignature(MyCollection.class, "size()"));
 	}
@@ -620,10 +659,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getMethodByGenericSignature()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getMethodByGenericSignature_notFound() throws Exception {
 		assertNull(ReflectionUtils.getMethodByGenericSignature(Arrays.class, "noSuchMethod()"));
 	}
 
+	@Test
 	public void test_getMethodByGenericSignature_array() throws Exception {
 		assertNotNull(ReflectionUtils.getMethodByGenericSignature(Arrays.class, "asList(T[])"));
 	}
@@ -633,10 +674,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getMethod() - by types
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getMethod_public() throws Exception {
 		assertNotNull(ReflectionUtils.getMethod(Object.class, "hashCode"));
 	}
 
+	@Test
 	public void test_getMethod_private_direct() throws Exception {
 		assertNotNull(
 				ReflectionUtils.getMethod(
@@ -654,6 +697,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isMoreSpecific(Class, Class)}.
 	 */
+	@Test
 	public void test_isMoreSpecific_Class() throws Exception {
 		assertTrue(ReflectionUtils.isMoreSpecific(List.class, ArrayList.class));
 		assertFalse(ReflectionUtils.isMoreSpecific(ArrayList.class, List.class));
@@ -663,6 +707,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isMoreSpecific(Class[], Class[])}.
 	 */
+	@Test
 	public void test_isMoreSpecific_ClassArray() throws Exception {
 		{
 			Class<?>[] base = new Class<?>[]{List.class};
@@ -699,6 +744,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isMoreSpecific(Method, Method)}.
 	 */
+	@Test
 	public void test_isMoreSpecific() throws Exception {
 		@SuppressWarnings("unused")
 		class A {
@@ -734,6 +780,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getMostSpecific(List)}.
 	 */
+	@Test
 	public void test_getMostSpecific() throws Exception {
 		@SuppressWarnings("unused")
 		class A {
@@ -765,6 +812,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isAlreadyDeclaredIn(Method, String)}.
 	 */
+	@Test
 	public void test_isAlreadyDeclaredIn() throws Exception {
 		class Foo {
 		}
@@ -794,6 +842,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getNormalClass(Class)}.
 	 */
+	@Test
 	public void test_getNormalClass() throws Exception {
 		assertSame(ArrayList.class, ReflectionUtils.getNormalClass(ArrayList.class));
 		{
@@ -802,7 +851,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 					.make() //
 					.load(getClass().getClassLoader()) //
 					.getLoaded();
-			assertThat(clazz.getName()).contains("$");
+			Assertions.assertThat(clazz.getName()).contains("$");
 			assertSame(ArrayList.class, ReflectionUtils.getNormalClass(clazz));
 		}
 	}
@@ -810,6 +859,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#toString(java.lang.reflect.Method)}.
 	 */
+	@Test
 	public void test_toString_forMethod() throws Exception {
 		// "normal" Class
 		{
@@ -833,14 +883,14 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 			// method "size()" was done by ByteBuddy, but exists in ArrayList, so method from ArrayList returned
 			{
 				Method method = ReflectionUtils.getMethodBySignature(clazz, "size()");
-				assertThat(method.toString()).contains("$");
+				Assertions.assertThat(method.toString()).contains("$");
 				assertEquals("public int java.util.ArrayList.size()", ReflectionUtils.toString(method));
 			}
 			// method "__foo__" was generated only in ByteBuddy, so no other method to return
 			{
 				Method method = ReflectionUtils.getMethodBySignature(clazz, "__foo__()");
 				String usualToString = method.toString();
-				assertThat(usualToString).contains("$");
+				Assertions.assertThat(usualToString).contains("$");
 				assertEquals(usualToString, ReflectionUtils.toString(method));
 			}
 		}
@@ -849,6 +899,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getShortConstructorString(Constructor)}.
 	 */
+	@Test
 	public void test_getShortConstructorString() throws Exception {
 		{
 			Constructor<?> constructor = null;
@@ -871,6 +922,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// invokeMethod2
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_invokeMethod2() throws Exception {
 		Object myObject = new Object() {
 			{
@@ -938,16 +990,19 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// invokeMethod
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_invokeMethod() throws Exception {
 		assertEquals(0, ReflectionUtils.invokeMethod(Lists.newArrayList(), "size()"));
 	}
 
+	@Test
 	public void test_invokeMethod_static() throws Exception {
 		assertSame(
 				Collections.EMPTY_LIST,
 				ReflectionUtils.invokeMethod(Collections.class, "emptyList()"));
 	}
 
+	@Test
 	public void test_invokeMethod_notFound() throws Exception {
 		try {
 			assertEquals(0, ReflectionUtils.invokeMethod(Lists.newArrayList(), "size2()"));
@@ -959,6 +1014,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test that we extract real {@link Exception} from wrapper {@link InvocationTargetException}.
 	 */
+	@Test
 	public void test_invokeMethod_throw_InvocationTargetException() throws Exception {
 		try {
 			ReflectionUtils.invokeMethod(Collections.EMPTY_LIST, "add(java.lang.Object)", this);
@@ -971,6 +1027,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test that {@link RuntimeException} is extracted from wrapper {@link InvocationTargetException}
 	 * and then thrown as is.
 	 */
+	@Test
 	public void test_invokeMethod_throwErrorAsIs() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -985,6 +1042,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_invokeMethodEx_noException() {
 		assertEquals(0, ReflectionUtils.invokeMethodEx(Lists.newArrayList(), "size()"));
 	}
@@ -993,6 +1051,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test that @link Exception} is extracted from wrapper {@link InvocationTargetException} and then
 	 * thrown as is.
 	 */
+	@Test
 	public void test_invokeMethodEx_throwExceptionAsIs() {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -1004,7 +1063,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 			ReflectionUtils.invokeMethodEx(new Foo(), "throwException()");
 			fail();
 		} catch (Exception e) {
-			assertThat(e).isExactlyInstanceOf(Exception.class);
+			Assertions.assertThat(e).isExactlyInstanceOf(Exception.class);
 			assertEquals("Bar", e.getMessage());
 		}
 	}
@@ -1014,14 +1073,17 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getConstructorBySignature()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getConstructorBySignature_1() throws Exception {
 		assertNotNull(ReflectionUtils.getConstructorBySignature(ArrayList.class, "<init>()"));
 	}
 
+	@Test
 	public void test_getConstructorBySignature_2() throws Exception {
 		assertNotNull(ReflectionUtils.getConstructorBySignature(ArrayList.class, "<init>(int)"));
 	}
 
+	@Test
 	public void test_getConstructorBySignature_notFound() throws Exception {
 		assertNull(ReflectionUtils.getConstructorBySignature(ArrayList.class, "<init>(long)"));
 	}
@@ -1031,6 +1093,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getConstructorByGenericSignature()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getConstructorByGenericSignature() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo<E> {
@@ -1051,6 +1114,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_getConstructorByGenericSignature_array() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo<E> {
@@ -1072,14 +1136,17 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getConstructor() - by types
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getConstructor_byTypes_noParameters() throws Exception {
 		assertNotNull(ReflectionUtils.getConstructor(ArrayList.class));
 	}
 
+	@Test
 	public void test_getConstructor_byTypes_withParameters() throws Exception {
 		assertNotNull(ReflectionUtils.getConstructor(ArrayList.class, int.class));
 	}
 
+	@Test
 	public void test_getConstructor_byTypes_notFound() throws Exception {
 		assertNull(ReflectionUtils.getConstructor(ArrayList.class, long.class));
 	}
@@ -1101,6 +1168,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getConstructorForArguments(Class, Object...)}.
 	 */
+	@Test
 	public void test_getConstructorForArguments() throws Exception {
 		// wrong number of arguments
 		{
@@ -1138,12 +1206,14 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// equals(Constructor, Constructor)
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_equalsConstructor_sameConstructor() throws Exception {
 		Constructor<?> constructor = ReflectionUtils.getConstructor(ArrayList.class, int.class);
 		assertSame(constructor, constructor);
 		assertTrue(ReflectionUtils.equals(constructor, constructor));
 	}
 
+	@Test
 	public void test_equalsConstructor_sameClass_sameSignature() throws Exception {
 		Constructor<?> constructor_1 = ReflectionUtils.getConstructor(ArrayList.class, int.class);
 		Constructor<?> constructor_2 = ReflectionUtils.getConstructor(ArrayList.class, int.class);
@@ -1151,12 +1221,14 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		assertTrue(ReflectionUtils.equals(constructor_1, constructor_2));
 	}
 
+	@Test
 	public void test_equalsConstructor_differentClass_sameSignature() throws Exception {
 		Constructor<?> constructor_1 = ReflectionUtils.getConstructor(Vector.class, int.class);
 		Constructor<?> constructor_2 = ReflectionUtils.getConstructor(ArrayList.class, int.class);
 		assertFalse(ReflectionUtils.equals(constructor_1, constructor_2));
 	}
 
+	@Test
 	public void test_equalsConstructor_sameClass_differentSignature() throws Exception {
 		Constructor<?> constructor_1 = ReflectionUtils.getConstructor(ArrayList.class);
 		Constructor<?> constructor_2 = ReflectionUtils.getConstructor(ArrayList.class, int.class);
@@ -1182,18 +1254,19 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getShortestConstructor(Class)}.
 	 */
+	@Test
 	public void test_getShortestConstructor() throws Exception {
 		Class<Class_getShortestConstructor> clazz = Class_getShortestConstructor.class;
 		// check that longer constructor is before shorter
 		{
 			Constructor<?>[] constructors = clazz.getDeclaredConstructors();
-			assertThat(constructors[0].getParameterTypes()).hasSize(2);
-			assertThat(constructors[1].getParameterTypes()).hasSize(1);
+			Assertions.assertThat(constructors[0].getParameterTypes()).hasSize(2);
+			Assertions.assertThat(constructors[1].getParameterTypes()).hasSize(1);
 		}
 		// do test
 		{
 			Constructor<?> constructor = ReflectionUtils.getShortestConstructor(clazz);
-			assertThat(constructor.getParameterTypes()).hasSize(1);
+			Assertions.assertThat(constructor.getParameterTypes()).hasSize(1);
 		}
 	}
 
@@ -1205,6 +1278,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getFields(Class)}.
 	 */
+	@Test
 	public void test_getFields() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -1218,7 +1292,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 			public int e;
 		}
 		List<Field> fields = ReflectionUtils.getFields(Bar.class);
-		assertThat(fields).contains(
+		Assertions.assertThat(fields).contains(
 				Foo.class.getDeclaredField("a"),
 				Foo.class.getDeclaredField("b"),
 				Foo.class.getDeclaredField("c"),
@@ -1231,18 +1305,22 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getFieldByName
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getFieldByName_public_static() throws Exception {
 		assertNotNull(ReflectionUtils.getFieldByName(Collections.class, "EMPTY_LIST"));
 	}
 
+	@Test
 	public void test_getFieldByName_private_super() throws Exception {
 		assertNotNull(ReflectionUtils.getFieldByName(ArrayList.class, "modCount"));
 	}
 
+	@Test
 	public void test_getFieldByName_fromInterface() throws Exception {
 		assertNotNull(ReflectionUtils.getFieldByName(JFrame.class, "HIDE_ON_CLOSE"));
 	}
 
+	@Test
 	public void test_getFieldByName_notFound() throws Exception {
 		assertNull(ReflectionUtils.getFieldByName(Collections.class, "EMPTY_LIST_NO"));
 	}
@@ -1252,16 +1330,19 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getFieldObject
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getFieldObject() throws Exception {
 		assertEquals(0, ReflectionUtils.getFieldObject(Lists.newArrayList(), "size"));
 	}
 
+	@Test
 	public void test_getFieldObject_static() throws Exception {
 		assertSame(
 				Collections.EMPTY_LIST,
 				ReflectionUtils.getFieldObject(Collections.class, "EMPTY_LIST"));
 	}
 
+	@Test
 	public void test_getFieldObject_notFound() throws Exception {
 		try {
 			ReflectionUtils.getFieldObject(Object.class, "no-such-field");
@@ -1271,6 +1352,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_getFieldString() throws Exception {
 		class Foo {
 			String m_value;
@@ -1284,6 +1366,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		assertEquals("some value", fieldString);
 	}
 
+	@Test
 	public void test_getFieldShort() throws Exception {
 		class A {
 			short m_value = (short) 123;
@@ -1292,10 +1375,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		assertEquals(foo.m_value, ReflectionUtils.getFieldShort(foo, "m_value"));
 	}
 
+	@Test
 	public void test_getFieldInt() throws Exception {
 		assertEquals(0, ReflectionUtils.getFieldInt(Lists.newArrayList(), "size"));
 	}
 
+	@Test
 	public void test_getFieldLong() throws Exception {
 		class A {
 			long field = 555;
@@ -1304,6 +1389,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		assertEquals(a.field, ReflectionUtils.getFieldLong(a, "field"));
 	}
 
+	@Test
 	public void test_getFieldFloat() throws Exception {
 		assertEquals(
 				Component.LEFT_ALIGNMENT,
@@ -1311,10 +1397,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 				0.001);
 	}
 
+	@Test
 	public void test_getFieldBoolean() throws Exception {
 		assertTrue(ReflectionUtils.getFieldBoolean(new JButton(), "paintBorder"));
 	}
 
+	@Test
 	public void test_setField() throws Exception {
 		class Foo {
 			String field;
@@ -1328,6 +1416,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		assertSame(s, foo.field);
 	}
 
+	@Test
 	public void test_setField_exception() throws Exception {
 		@SuppressWarnings("unused")
 		class Foo {
@@ -1351,6 +1440,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#propagate(Throwable)}.
 	 */
+	@Test
 	public void test_propagate() throws Exception {
 		// when we throw Exception, it is thrown as is
 		{
@@ -1411,6 +1501,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getExceptionToThrow(Throwable)}.
 	 */
+	@Test
 	public void test_getExceptionToThrow() throws Exception {
 		{
 			Throwable e = new Exception();
@@ -1430,6 +1521,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getClassByName
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getClassByName() throws Exception {
 		ClassLoader classLoader = getClass().getClassLoader();
 		// check primitive classes
@@ -1459,6 +1551,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 				ReflectionUtils.getClassByName(classLoader, "java.lang.Double[][][]"));
 	}
 
+	@Test
 	public void test_hasClass() throws Exception {
 		Class<?> thisClass = getClass();
 		ClassLoader classLoader = thisClass.getClassLoader();
@@ -1473,6 +1566,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	// getDefaultValue()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getDefaultValue() throws Exception {
 		assertNull(ReflectionUtils.getDefaultValue((String) null));
 		assertNull(ReflectionUtils.getDefaultValue(""));
@@ -1491,6 +1585,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getDefaultValue(Class)}.
 	 */
+	@Test
 	public void test_getDefaultValue_byClass() throws Exception {
 		// primitives
 		assertEquals(false, ReflectionUtils.getDefaultValue(boolean.class));
@@ -1506,15 +1601,15 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		// collections
 		{
 			List<?> o = (List<?>) ReflectionUtils.getDefaultValue(java.util.ArrayList.class);
-			assertThat(o).isEmpty();
+			Assertions.assertThat(o).isEmpty();
 		}
 		{
 			Set<?> o = (Set<?>) ReflectionUtils.getDefaultValue(java.util.HashSet.class);
-			assertThat(o).isEmpty();
+			Assertions.assertThat(o).isEmpty();
 		}
 		{
 			Map<?, ?> o = (Map<?, ?>) ReflectionUtils.getDefaultValue(java.util.HashMap.class);
-			assertThat(o).isEmpty();
+			Assertions.assertThat(o).isEmpty();
 		}
 		// arbitrary Object
 		assertEquals(null, ReflectionUtils.getDefaultValue(System.class));
@@ -1529,6 +1624,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * For standard Swing component - {@link JButton}.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_standardSwing() throws Exception {
 		assertHasProperties(JButton.class, "enabled", "text");
 	}
@@ -1537,6 +1633,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * For non-standard Swing component.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_nonStandardSwing() throws Exception {
 		class MyButton extends JButton {
 			private static final long serialVersionUID = 0L;
@@ -1555,6 +1652,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * For interfaces.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_forInterface() throws Exception {
 		assertHasProperties(I_tmp_Button.class, "enabled", "text");
 	}
@@ -1563,6 +1661,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * Different types for getter and setter.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_differentTypesGetterSetter() throws Exception {
 		@SuppressWarnings("unused")
 		class MyButton extends JButton {
@@ -1579,15 +1678,16 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		Map<String, PropertyDescriptor> propertiesMap = getPropertyDescriptorNames(MyButton.class);
 		Set<String> names = propertiesMap.keySet();
 		// setFoo() and getFoo() have different types, so different properties
-		assertThat(names).contains("foo(boolean)", "foo(int)");
+		Assertions.assertThat(names).contains("foo(boolean)", "foo(int)");
 		// but usual JButton properties exist
-		assertThat(names).contains("enabled", "text");
+		Assertions.assertThat(names).contains("enabled", "text");
 	}
 
 	/**
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * Two setters with same method name, but different parameter types.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_twoSettersWithSameName() throws Exception {
 		@SuppressWarnings("unused")
 		class MyButton extends JPanel {
@@ -1607,6 +1707,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * Two setters with same method name, but different parameter types.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_twoSettersWithCommonNamePrefix() throws Exception {
 		@SuppressWarnings("unused")
 		class MyButton extends JPanel {
@@ -1626,6 +1727,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * Public getter and protected setter.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_publicGetterProtectedSetter() throws Exception {
 		@SuppressWarnings("unused")
 		class MyButton extends JPanel {
@@ -1641,8 +1743,8 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		// check properties
 		{
 			Set<String> names = getPropertyDescriptorNames(MyButton.class).keySet();
-			assertThat(names).contains("title");
-			assertThat(names).doesNotContain("title(java.lang.String)");
+			Assertions.assertThat(names).contains("title");
+			Assertions.assertThat(names).doesNotContain("title(java.lang.String)");
 		}
 		// both getter and setter should be accessible
 		{
@@ -1657,6 +1759,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * Protected getter and public setter.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_protectedGetterPublicSetter() throws Exception {
 		@SuppressWarnings("unused")
 		class MyButton extends JPanel {
@@ -1672,8 +1775,8 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		// check properties
 		{
 			Set<String> names = getPropertyDescriptorNames(MyButton.class).keySet();
-			assertThat(names).contains("title");
-			assertThat(names).doesNotContain("title(java.lang.String)");
+			Assertions.assertThat(names).contains("title");
+			Assertions.assertThat(names).doesNotContain("title(java.lang.String)");
 		}
 		// both getter and setter should be accessible
 		{
@@ -1688,6 +1791,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * Protected methods and IBM (not really) Java.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_protectedMethodsWithIBM() throws Exception {
 		@SuppressWarnings("unused")
 		class MyButton extends JPanel {
@@ -1703,7 +1807,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		// check properties, not IBM
 		{
 			Set<String> names = getPropertyDescriptorNames(MyButton.class).keySet();
-			assertThat(names).contains("enabled", "a");
+			Assertions.assertThat(names).contains("enabled", "a");
 		}
 		// check properties, as if in IBM
 		{
@@ -1711,7 +1815,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 			ReflectionUtils.flushPropertyDescriptorsCache(MyButton.class);
 			try {
 				Set<String> names = getPropertyDescriptorNames(MyButton.class).keySet();
-				assertThat(names).contains("enabled").doesNotContain("a");
+				Assertions.assertThat(names).contains("enabled").doesNotContain("a");
 			} finally {
 				EnvironmentUtils.setForcedIBM(false);
 			}
@@ -1722,6 +1826,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * Method with name <code>"get"</code>, without any following property name. Should be ignored.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_pureGetName() throws Exception {
 		@SuppressWarnings("unused")
 		class MyButton extends JButton {
@@ -1735,15 +1840,16 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		Map<String, PropertyDescriptor> propertiesMap = getPropertyDescriptorNames(MyButton.class);
 		Set<String> names = propertiesMap.keySet();
 		// no property for "get()"
-		assertThat(names).doesNotContain("");
+		Assertions.assertThat(names).doesNotContain("");
 		// but usual JButton properties exist
-		assertThat(names).contains("enabled", "text");
+		Assertions.assertThat(names).contains("enabled", "text");
 	}
 
 	/**
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * Getter method that returns <code>void</code>.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_voidGetter() throws Exception {
 		@SuppressWarnings("unused")
 		class MyButton extends JButton {
@@ -1756,9 +1862,9 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		Map<String, PropertyDescriptor> propertiesMap = getPropertyDescriptorNames(MyButton.class);
 		Set<String> names = propertiesMap.keySet();
 		// no property for "getFoo()"
-		assertThat(names).doesNotContain("foo");
+		Assertions.assertThat(names).doesNotContain("foo");
 		// but usual JButton properties exist
-		assertThat(names).contains("enabled", "text");
+		Assertions.assertThat(names).contains("enabled", "text");
 	}
 
 	// XXX
@@ -1768,6 +1874,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * When we try to use "bridge" method during {@link PropertyDescriptor} creation, this causes
 	 * exception under OpenJDK 6 and 7.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_whenBridgeMethod() throws Exception {
 		@SuppressWarnings({"unused"})
 		class GenericClass<T> {
@@ -1807,15 +1914,16 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	 * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.<br>
 	 * Ignore static "set" methods.
 	 */
+	@Test
 	public void test_getPropertyDescriptors_ignoreStaticSetters() throws Exception {
 		// check properties
 		Map<String, PropertyDescriptor> propertiesMap =
 				getPropertyDescriptorNames(MyButton_getPropertyDescriptors_ignoreStaticSetters.class);
 		Set<String> names = propertiesMap.keySet();
 		// no property for "setFoo()"
-		assertThat(names).doesNotContain("foo");
+		Assertions.assertThat(names).doesNotContain("foo");
 		// but usual JButton properties exist
-		assertThat(names).contains("enabled", "text");
+		Assertions.assertThat(names).contains("enabled", "text");
 	}
 
 	/**
@@ -1833,10 +1941,10 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 			}
 		}
 		// no duplicates, please
-		assertThat(propertyNames).doesNotHaveDuplicates();
-		assertThat(propertySetters).doesNotHaveDuplicates();
+		Assertions.assertThat(propertyNames).doesNotHaveDuplicates();
+		Assertions.assertThat(propertySetters).doesNotHaveDuplicates();
 		// assert expected names
-		assertThat(propertyNames).contains(expectedNames);
+		Assertions.assertThat(propertyNames).contains(expectedNames);
 	}
 
 	/**
@@ -1873,6 +1981,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isSuccessorOf(Class, String)}.
 	 */
+	@Test
 	public void test_isSuccessorOf() throws Exception {
 		assertTrue(ReflectionUtils.isSuccessorOf(List.class, "java.util.List"));
 		assertTrue(ReflectionUtils.isSuccessorOf(List.class, "java.util.Collection"));
@@ -1884,6 +1993,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isAssignableFrom(Class, Object)}.
 	 */
+	@Test
 	public void test_isAssignableFrom() throws Exception {
 		assertTrue(ReflectionUtils.isAssignableFrom(Object.class, new Object()));
 		assertTrue(ReflectionUtils.isAssignableFrom(Object.class, "string"));
@@ -1908,6 +2018,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isSuccessorOf(Object, String)}.
 	 */
+	@Test
 	public void test_isSuccessorOf_Object_String() throws Exception {
 		assertFalse(ReflectionUtils.isSuccessorOf((Object) null, "java.lang.Object"));
 		// primitives: true
@@ -1933,6 +2044,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#isMemberClass(Class)}.
 	 */
+	@Test
 	public void test_isMemberClass() throws Exception {
 		assertFalse(ReflectionUtils.isMemberClass(Map.class));
 		assertTrue(ReflectionUtils.isMemberClass(Map.Entry.class));
@@ -1942,6 +2054,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 	/**
 	 * Test for {@link ReflectionUtils#getSuperHierarchy(Class)}.
 	 */
+	@Test
 	public void test_getAllSupertypes() throws Exception {
 		abstract class A implements List<String> {
 		}
@@ -1950,17 +2063,17 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 		// Object
 		{
 			List<Class<?>> types = ReflectionUtils.getSuperHierarchy(Object.class);
-			assertThat(types).containsExactly(Object.class);
+			Assertions.assertThat(types).containsExactly(Object.class);
 		}
 		// A
 		{
 			List<Class<?>> types = ReflectionUtils.getSuperHierarchy(A.class);
-			assertThat(types).containsExactly(A.class, List.class, Object.class);
+			Assertions.assertThat(types).containsExactly(A.class, List.class, Object.class);
 		}
 		// B
 		{
 			List<Class<?>> types = ReflectionUtils.getSuperHierarchy(B.class);
-			assertThat(types).containsExactly(
+			Assertions.assertThat(types).containsExactly(
 					B.class,
 					Comparable.class,
 					A.class,

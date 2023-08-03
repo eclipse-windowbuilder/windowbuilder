@@ -10,30 +10,28 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
 import org.eclipse.swt.widgets.Menu;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link Menu}.
  *
  * @author mitin_aa
  */
-public class MenuTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swt.model.menu");
-		suite.addTest(createSingleSuite(AbstractMenuObjectTest.class));
-		suite.addTest(createSingleSuite(MenuSupportTest.class));
-		suite.addTest(createSingleSuite(MenuItemTest.class));
-		suite.addTest(createSingleSuite(MenuTest.class));
-		suite.addTest(createSingleSuite(MenuObjectInfoUtilsTest.class));
-		suite.addTest(createSingleSuite(MenuPopupSimpleTest.class));
-		suite.addTest(createSingleSuite(MenuComplexTest.class));
-		suite.addTest(createSingleSuite(MenuBarPopupTest.class));
-		suite.addTest(createSingleSuite(MenuProblemsTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		AbstractMenuObjectTest.class,
+		MenuSupportTest.class,
+		MenuItemTest.class,
+		MenuTest.class,
+		MenuObjectInfoUtilsTest.class,
+		MenuPopupSimpleTest.class,
+		MenuComplexTest.class,
+		MenuBarPopupTest.class,
+		MenuProblemsTest.class
+})
+public class MenuTests {
 }

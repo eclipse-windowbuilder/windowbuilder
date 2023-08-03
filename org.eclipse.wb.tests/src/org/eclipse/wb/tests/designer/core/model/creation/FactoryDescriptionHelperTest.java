@@ -33,7 +33,9 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
@@ -63,6 +65,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Test for {@link FactoryDescriptionHelper#isFactoryMethod(MethodDeclaration)}.
 	 */
+	@Test
 	public void test_isFactoryMethod() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration(
@@ -93,6 +96,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check that only "public static" methods with "@wbp.factory" tag are included.
 	 */
+	@Test
 	public void test_descriptions_javaDoc() throws Exception {
 		// prepare factory with one good and several bad methods
 		setFileContentSrc(
@@ -132,7 +136,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// check static factory descriptions
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap("test.StaticFactory_", true);
-		assertThat(descriptionsMap).hasSize(1);
+		Assertions.assertThat(descriptionsMap).hasSize(1);
 		assertTrue(descriptionsMap.containsKey("create_static_withFactory(java.lang.String)"));
 		// check for parameter name
 		FactoryMethodDescription description = descriptionsMap.values().iterator().next();
@@ -142,6 +146,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check for "@wbp.factory.parameter.source" tag.
 	 */
+	@Test
 	public void test_descriptions_javaDoc_defaultSource() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -168,7 +173,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// check static factory descriptions
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap("test.StaticFactory", true);
-		assertThat(descriptionsMap).hasSize(2);
+		Assertions.assertThat(descriptionsMap).hasSize(2);
 		// create_1
 		{
 			FactoryMethodDescription description = descriptionsMap.get("create_1(java.lang.String)");
@@ -186,6 +191,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check that parameter with name "parent" automatically marked as parent.
 	 */
+	@Test
 	public void test_descriptions_javaDoc_parent() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -218,6 +224,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check that "Factory" suffix in class name makes all "public static" methods a factory methods.
 	 */
+	@Test
 	public void test_descriptions_suffixFactory() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -241,7 +248,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// check static factory descriptions
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap("test.StaticFactory", true);
-		assertThat(descriptionsMap).hasSize(2);
+		Assertions.assertThat(descriptionsMap).hasSize(2);
 		assertTrue(descriptionsMap.containsKey("create_1(java.lang.String)"));
 		assertTrue(descriptionsMap.containsKey("create_2(java.lang.String)"));
 	}
@@ -250,6 +257,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	 * Check that single "@wbp.factory" tag for class makes all "public static" methods a factory
 	 * methods.
 	 */
+	@Test
 	public void test_descriptions_javaDoc_forClass() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -277,7 +285,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// check static factory descriptions
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap("test.StaticFactory_", true);
-		assertThat(descriptionsMap).hasSize(2);
+		Assertions.assertThat(descriptionsMap).hasSize(2);
 		assertTrue(descriptionsMap.containsKey("create_1(java.lang.String)"));
 		assertTrue(descriptionsMap.containsKey("create_2(java.lang.String)"));
 	}
@@ -285,6 +293,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check that "void" methods are ignored.
 	 */
+	@Test
 	public void test_descriptions_javaDoc_forClass_withSetters() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -307,12 +316,13 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// check static factory descriptions
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap("test.StaticFactory", true);
-		assertThat(descriptionsMap).isEmpty();
+		Assertions.assertThat(descriptionsMap).isEmpty();
 	}
 
 	/**
 	 * Check that parameters are automatically bound to the properties by name/title.
 	 */
+	@Test
 	public void test_descriptions_javaDoc_autoBinding() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -345,6 +355,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check that with "@wbp.factory.parameters.noBinding" no parameters auto-binding done.
 	 */
+	@Test
 	public void test_descriptions_javaDoc_noBinding() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -375,6 +386,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check for factory methods described in XML.
 	 */
+	@Test
 	public void test_descriptions_XML() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -408,7 +420,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// check static factory descriptions
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap("test.StaticFactory_", true);
-		assertThat(descriptionsMap).hasSize(1);
+		Assertions.assertThat(descriptionsMap).hasSize(1);
 		assertTrue(descriptionsMap.containsKey("create_xml(java.lang.String)"));
 		// check for parameter name
 		FactoryMethodDescription description = descriptionsMap.values().iterator().next();
@@ -418,6 +430,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Factory has instance methods, described in XML, but we ask static methods, so empty map.
 	 */
+	@Test
 	public void test_descriptions_XML_instanceMethods_askStatic() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -446,12 +459,13 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// check static factory descriptions, no entries expected
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap("test.InstanceFactory", true);
-		assertThat(descriptionsMap).isEmpty();
+		Assertions.assertThat(descriptionsMap).isEmpty();
 	}
 
 	/**
 	 * Factory has static methods, described in XML, but we ask instance methods, so empty map.
 	 */
+	@Test
 	public void test_descriptions_XML_staticMethods_askInstance() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -480,12 +494,13 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// check instance factory descriptions, no entries expected
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap("test.StaticFactory", false);
-		assertThat(descriptionsMap).isEmpty();
+		Assertions.assertThat(descriptionsMap).isEmpty();
 	}
 
 	/**
 	 * If method is described in as factory in some class, it is also factory in sub-classes.
 	 */
+	@Test
 	public void test_descriptions_XML_instanceFactory_inheritance() throws Exception {
 		setFileContentSrc(
 				"test/SuperToolkit.java",
@@ -522,14 +537,15 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			Map<String, FactoryMethodDescription> descriptionsMap =
 					getDescriptionsMap("test.SubToolkit", false);
-			assertThat(descriptionsMap).hasSize(1);
-			assertThat(descriptionsMap.keySet()).contains("createButton()");
+			Assertions.assertThat(descriptionsMap).hasSize(1);
+			Assertions.assertThat(descriptionsMap.keySet()).contains("createButton()");
 		}
 	}
 
 	/**
 	 * Check for factory methods described in XML, with plain text "description" for method.
 	 */
+	@Test
 	public void test_descriptions_XML_textualDescription_plainText() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -566,6 +582,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check for factory methods described in XML, with HTML "description" for method.
 	 */
+	@Test
 	public void test_descriptions_XML_textualDescription_HTML_1() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -602,6 +619,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check for factory methods described in XML, with HTML "description" for method.
 	 */
+	@Test
 	public void test_descriptions_XML_textualDescription_HTML_2() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -640,6 +658,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	 * <p>
 	 * We should support "entities", in decimal and hexadecimal forms.
 	 */
+	@Test
 	public void test_descriptions_XML_textualDescription_HTML_3() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -676,6 +695,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check for factory methods described in XML, with text "name" for method.
 	 */
+	@Test
 	public void test_descriptions_XML_presentationName() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -712,6 +732,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check for factory methods described in XML, with text "parameter" tags for method.
 	 */
+	@Test
 	public void test_descriptions_XML_parameters() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -751,6 +772,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check for cached descriptions.
 	 */
+	@Test
 	public void test_descriptions_cached() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -770,7 +792,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 						"    add(StaticFactory.createButton('button 2'));",
 						"  }",
 						"}");
-		assertThat(panel.getChildrenComponents()).hasSize(2);
+		Assertions.assertThat(panel.getChildrenComponents()).hasSize(2);
 		// check that descriptions are same, i.e. cached
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
@@ -784,7 +806,9 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * We don't support member classes as factories.
 	 */
-	public void DISABLE_test_descriptions_memberClass() throws Exception {
+	@Ignore
+	@Test
+	public void test_descriptions_memberClass() throws Exception {
 		setFileContentSrc(
 				"test/SomeObject.java",
 				getTestSource(
@@ -804,13 +828,14 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// get factories
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap("test.SomeObject$StaticFactory", true);
-		assertThat(descriptionsMap).isEmpty();
+		Assertions.assertThat(descriptionsMap).isEmpty();
 	}
 
 	/**
 	 * If something, in this case {@link ClassNotFoundException}, causes exception during loading
 	 * factory, we should just ignore it.
 	 */
+	@Test
 	public void test_descriptions_exceptionInJavaInternals() throws Exception {
 		// create MyFactory that references not existing class
 		setFileContentSrc(
@@ -833,21 +858,22 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		// get factories, causes exception, so no descriptions
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap0("test.MyFactory", true);
-		assertThat(descriptionsMap).isEmpty();
+		Assertions.assertThat(descriptionsMap).isEmpty();
 		// exception logged as warning
 		{
 			List<EditorWarning> warnings = m_lastState.getWarnings();
-			assertThat(warnings).hasSize(1);
+			Assertions.assertThat(warnings).hasSize(1);
 			EditorWarning warning = warnings.get(0);
 			Throwable exception = warning.getException();
 			Throwable rootException = DesignerExceptionUtils.getRootCause(exception);
-			assertThat(rootException).isExactlyInstanceOf(ClassNotFoundException.class);
+			Assertions.assertThat(rootException).isExactlyInstanceOf(ClassNotFoundException.class);
 		}
 	}
 
 	/**
 	 * Check for parameters binding using index.
 	 */
+	@Test
 	public void test_descriptions_bindByIndex() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -870,7 +896,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 						"    add(StaticFactory.createButton(null));",
 						"  }",
 						"}");
-		assertThat(panel.getChildrenComponents()).hasSize(1);
+		Assertions.assertThat(panel.getChildrenComponents()).hasSize(1);
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check for property binding
 		FactoryMethodDescription description =
@@ -881,6 +907,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check for parameters binding using index, but with invalid value.
 	 */
+	@Test
 	public void test_descriptions_bindByIndex_invalid() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -909,6 +936,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Check for parameters binding using name, but with invalid value.
 	 */
+	@Test
 	public void test_descriptions_bindByName_invalid() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -939,7 +967,9 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	 * <p>
 	 * Kosta.20080407: I consider this not correct anymore, so disable this test.
 	 */
-	public void _test_descriptionsInstanceStatic() throws Exception {
+	@Test
+	@Ignore
+	public void test_descriptionsInstanceStatic() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
 				getTestSource(
@@ -963,7 +993,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		String factoryClassName = "test.InstanceFactory";
 		Map<String, FactoryMethodDescription> descriptionsMap =
 				getDescriptionsMap(factoryClassName, false);
-		assertThat(descriptionsMap).hasSize(2);
+		Assertions.assertThat(descriptionsMap).hasSize(2);
 		assertTrue(descriptionsMap.containsKey("create_static(java.lang.String)"));
 		assertTrue(descriptionsMap.containsKey("create_instance(java.lang.String)"));
 		// check that instance factory not considered as static
@@ -977,6 +1007,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Test icons in {@link FactoryMethodDescription}.
 	 */
+	@Test
 	public void test_descriptions_icon() throws Exception {
 		// prepare factory
 		{
@@ -1035,6 +1066,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Test for {@link FactoryMethodDescription#getInvocations()}.
 	 */
+	@Test
 	public void test_descriptions_getInvocations() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -1067,7 +1099,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 				getDescription("test.StaticFactory", "createButton()", true);
 		{
 			List<CreationInvocationDescription> invocations = factoryDescription.getInvocations();
-			assertThat(invocations).hasSize(1);
+			Assertions.assertThat(invocations).hasSize(1);
 			CreationInvocationDescription invocationDescription = invocations.get(0);
 			assertEquals("setText(java.lang.String)", invocationDescription.getSignature());
 			assertEquals("\"Static Button\"", invocationDescription.getArguments());
@@ -1102,6 +1134,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * No factory units.
 	 */
+	@Test
 	public void test_getFactoryUnits_noUnits() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -1118,6 +1151,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	 * Test for case when {@link ICompilationUnit#findPrimaryType()} return <code>null</code> when no
 	 * primary type, i.e. type with name of unit.
 	 */
+	@Test
 	public void test_getFactoryUnits_noPrimaryType() throws Exception {
 		setFileContentSrc("test/NoPrimaryType.java", getSourceDQ("package test;", "class Foo {", "}"));
 		waitForAutoBuild();
@@ -1128,12 +1162,13 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 				"  public Test() {",
 				"  }",
 				"}");
-		assertThat(getFactoryUnits()).isEmpty();
+		Assertions.assertThat(getFactoryUnits()).isEmpty();
 	}
 
 	/**
 	 * We have factory class, however it is not marked with tag or <code>*.wbp-factory.xml</code>.
 	 */
+	@Test
 	public void test_getFactoryUnits_noTagOrDescription_notFactorySuffix() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory_.java",
@@ -1160,6 +1195,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	 * We have factory class, that is not marked with tag or <code>*.wbp-factory.xml</code>. However
 	 * if has suffix "Factory" , so considered as factory.
 	 */
+	@Test
 	public void test_getFactoryUnits_noTagOrDescription_hasFactorySuffix() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -1187,6 +1223,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Test for factory with <code>@wbp.factory</code> in source.
 	 */
+	@Test
 	public void test_getFactoryUnits_tag() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -1217,6 +1254,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Test for factory with <code>@wbp.factory</code> in source, but not active.
 	 */
+	@Test
 	public void test_getFactoryUnits_tagInComment() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory_.java",
@@ -1243,6 +1281,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * We have factory class and <code>*.wbp-factory.xml</code>.
 	 */
+	@Test
 	public void test_getFactoryUnits_description() throws Exception {
 		ICompilationUnit factoryUnit =
 				createModelCompilationUnit(
@@ -1279,6 +1318,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * We have factory class and <code>*.wbp-factory.xml</code>, but not factory methods.
 	 */
+	@Test
 	public void test_getFactoryUnits_descriptionNoMethods() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory_.java",
@@ -1312,6 +1352,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Test for {@link FactoryDescriptionHelper#isFactoryInvocation(AstEditor, MethodInvocation)}.
 	 */
+	@Test
 	public void test_isFactoryInvocation_static() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -1347,6 +1388,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Test for {@link FactoryDescriptionHelper#isFactoryInvocation(AstEditor, MethodInvocation)}.
 	 */
+	@Test
 	public void test_isFactoryInvocation_instance() throws Exception {
 		setFileContentSrc(
 				"test/InstanceFactory.java",
@@ -1388,6 +1430,7 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 	/**
 	 * Description by default.
 	 */
+	@Test
 	public void test_isFactory_descriptions_default_1() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -1416,28 +1459,29 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 				"  }",
 				"}");
 		// check descriptions
-		assertThat(getDescriptionsMap("test.TestFactory", true).size()).isEqualTo(1);
-		assertThat(getDescriptionsMap("test.TestFactory", false).size()).isEqualTo(2);
+		Assertions.assertThat(getDescriptionsMap("test.TestFactory", true).size()).isEqualTo(1);
+		Assertions.assertThat(getDescriptionsMap("test.TestFactory", false).size()).isEqualTo(2);
 		// for 'create()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "create()", true);
-			assertThat(factoryDescription.isFactory()).isTrue();
+			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createButton()", false);
-			assertThat(factoryDescription.isFactory()).isTrue();
+			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
 		}
 		// for 'setProperty()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createNo(java.lang.Object)", false);
-			assertThat(factoryDescription.isFactory()).isTrue();
+			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
 		}
 	}
 
+	@Test
 	public void test_isFactory_descriptions_default_2() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -1469,25 +1513,26 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory_", "create()", true);
-			assertThat(factoryDescription).isNull();
+			Assertions.assertThat(factoryDescription).isNull();
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory_", "createButton()", false);
-			assertThat(factoryDescription).isNull();
+			Assertions.assertThat(factoryDescription).isNull();
 		}
 		// for 'setProperty()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory_", "createNo(java.lang.Object)", false);
-			assertThat(factoryDescription).isNull();
+			Assertions.assertThat(factoryDescription).isNull();
 		}
 	}
 
 	/**
 	 * Description with use 'factory=false'.
 	 */
+	@Test
 	public void test_isFactory_descriptions_1() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -1525,25 +1570,26 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "create()", true);
-			assertThat(factoryDescription.isFactory()).isTrue();
+			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createButton()", false);
-			assertThat(factoryDescription.isFactory()).isTrue();
+			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
 		}
 		// for 'setProperty()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createNo(java.lang.Object)", false);
-			assertThat(factoryDescription).isNull();
+			Assertions.assertThat(factoryDescription).isNull();
 		}
 	}
 
 	/**
 	 * Description with use 'allMethodsAreFactories'.
 	 */
+	@Test
 	public void test_isFactory_descriptions_2() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -1579,25 +1625,26 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "create()", true);
-			assertThat(factoryDescription).isNull();
+			Assertions.assertThat(factoryDescription).isNull();
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createButton()", false);
-			assertThat(factoryDescription).isNull();
+			Assertions.assertThat(factoryDescription).isNull();
 		}
 		// for 'setProperty()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createNo(java.lang.Object)", false);
-			assertThat(factoryDescription).isNull();
+			Assertions.assertThat(factoryDescription).isNull();
 		}
 	}
 
 	/**
 	 * Description with various options.
 	 */
+	@Test
 	public void test_isFactory_descriptions_mixed() throws Exception {
 		// prepare factory
 		setFileContentSrc(
@@ -1637,19 +1684,19 @@ public class FactoryDescriptionHelperTest extends SwingModelTest {
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "create()", true);
-			assertThat(factoryDescription.isFactory()).isTrue();
+			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
 		}
 		// for 'createButton()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createButton()", false);
-			assertThat(factoryDescription.isFactory()).isTrue();
+			Assertions.assertThat(factoryDescription.isFactory()).isTrue();
 		}
 		// for 'setProperty()'
 		{
 			FactoryMethodDescription factoryDescription =
 					getDescription("test.TestFactory", "createNo(java.lang.Object)", false);
-			assertThat(factoryDescription).isNull();
+			Assertions.assertThat(factoryDescription).isNull();
 		}
 	}
 

@@ -28,6 +28,8 @@ import org.eclipse.jdt.core.dom.CastExpression;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Statement;
 
+import org.junit.Test;
+
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 
@@ -56,6 +58,7 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for implicit {@link FlowLayout} for {@link JPanel}.
 	 */
+	@Test
 	public void test_1_implicitLayout_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -135,6 +138,7 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for materializing implicit {@link FlowLayout}.
 	 */
+	@Test
 	public void test_1_implicitLayout_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -169,6 +173,7 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for parsing materialized implicit layout (with {@link CastExpression}).
 	 */
+	@Test
 	public void test_1_implicitLayout_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

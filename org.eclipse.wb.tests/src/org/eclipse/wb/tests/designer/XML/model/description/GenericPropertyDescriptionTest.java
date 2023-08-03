@@ -29,7 +29,8 @@ import org.eclipse.wb.internal.core.xml.model.property.editor.EnumPropertyEditor
 import org.eclipse.wb.internal.core.xml.model.property.editor.StaticFieldPropertyEditor;
 import org.eclipse.wb.tests.designer.XML.NoopConfigurablePropertyEditor;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link GenericPropertyDescription} loading.
@@ -54,6 +55,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * We should ignore case when description tries to reference not existing property.
 	 */
+	@Test
 	public void test_ignoreNoSuchProperty() throws Exception {
 		prepareMyComponent(new String[]{}, new String[]{
 				"<property id='setNoSuchProperty(boolean)'>",
@@ -71,6 +73,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	// Types
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_boolean() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -95,6 +98,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_int() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -119,6 +123,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_String() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -143,6 +148,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_Enum() throws Exception {
 		setFileContentSrc(
 				"test/MyEnum.java",
@@ -178,6 +184,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * If "setter" has capitalized name, then first letter should be "uncapitalized".
 	 */
+	@Test
 	public void test_attribute_setHTML() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -197,6 +204,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * In XML we see only public methods.
 	 */
+	@Test
 	public void test_method_protected() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -217,6 +225,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	// Field
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_field() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -243,6 +252,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * No editor for type {@link Object} and no configurable property editor set. So, no property.
 	 */
+	@Test
 	public void test_field_no_editor() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -260,6 +270,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * Configurable property editor set. The property should exist.
 	 */
+	@Test
 	public void test_field_has_configurableEditor() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -285,6 +296,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * In XML we see only public fields.
 	 */
+	@Test
 	public void test_field_protected() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -307,6 +319,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * No editor for type {@link Object} and no configurable property editor set. So, no property.
 	 */
+	@Test
 	public void test_setter_no_editor() throws Exception {
 		prepareMyComponent(
 				"// filler filler filler filler filler",
@@ -325,6 +338,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * Configurable property editor set. The property should exist.
 	 */
+	@Test
 	public void test_setter_has_configurableEditor() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -353,6 +367,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	// Category
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_category_usingNames_preferred() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -368,6 +383,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_category_usingNames_normal() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -385,6 +401,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_category_usingNames_advanced() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -400,6 +417,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_category_usingNames_hidden() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -420,6 +438,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	// Selection by ID
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_selectionByID_useMethodSignature() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -442,6 +461,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_selectionByID_useFieldName() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -456,6 +476,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_selectionByID_forceMethod() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -478,6 +499,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_selectionByID_forceField() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -505,6 +527,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	// Flags
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tag() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -528,6 +551,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link GenericPropertyDescription#getTitle()} and "title" property tag.
 	 */
+	@Test
 	public void test_tag_title() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -553,6 +577,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_tag_noDefaultValue_noTag() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -568,6 +593,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_tag_noDefaultValue_hasTag() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -588,6 +614,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	// Configure property
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_configureProperty_category() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -607,6 +634,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 		}
 	}
 
+	@Test
 	public void test_configureProperty_defaultValue() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -634,6 +662,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * Attempt to reference ID for which no configurable editor, causes loading failure.
 	 */
+	@Test
 	public void test_configureProperty_editorWithID_noSuchID() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -654,6 +683,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * Test for configurable editor, use "parameter" tag.
 	 */
+	@Test
 	public void test_configureProperty_editorWithID_parameter() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -678,6 +708,7 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	/**
 	 * Test for configurable editor, use "parameter-list" tag.
 	 */
+	@Test
 	public void test_configureProperty_editorWithID_parameterList() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -704,6 +735,6 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 	private static void assertStaticFieldEditor_fields(StaticFieldPropertyEditor editor,
 			String... expected) {
 		String[] actual = (String[]) ReflectionUtils.getFieldObject(editor, "m_names");
-		assertThat(actual).isEqualTo(expected);
+		Assertions.assertThat(actual).isEqualTo(expected);
 	}
 }

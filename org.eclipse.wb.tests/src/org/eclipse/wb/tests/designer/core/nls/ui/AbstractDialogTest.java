@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.TableItem;
  *
  * @author scheglov_ke
  */
-public class AbstractDialogTest extends AbstractNlsUiTest {
+public abstract class AbstractDialogTest extends AbstractNlsUiTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Utils

@@ -22,9 +22,9 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.ArrayUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.Map;
 
@@ -52,6 +52,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	 * Test for {@link XmlObjectUtils#getParameter(XmlObjectInfo, String)} and
 	 * {@link XmlObjectUtils#setParameter(XmlObjectInfo, String, String)}.
 	 */
+	@Test
 	public void test_getSetParameter() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		String name = "testParameter";
@@ -70,6 +71,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#hasTrueParameter(XmlObjectInfo, String)}.
 	 */
+	@Test
 	public void test_hasTrueParameter() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		String name = "testParameter";
@@ -86,6 +88,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 		assertTrue(XmlObjectUtils.hasTrueParameter(shell, name));
 	}
 
+	@Test
 	public void test_getParameters() throws Exception {
 		prepareMyComponent(ArrayUtils.EMPTY_STRING_ARRAY, new String[]{
 				"  <parameters>",
@@ -96,16 +99,16 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 		XmlObjectInfo panel = parse("<t:MyComponent/>");
 		// check single parameters
 		{
-			assertThat(XmlObjectUtils.getParameter(panel, "test.parameter.1")).isEqualTo("value_1");
-			assertThat(XmlObjectUtils.getParameter(panel, "test.parameter.2")).isEqualTo("1000");
-			assertThat(XmlObjectUtils.getParameter(panel, "test.parameter.3")).isNull();
+			Assertions.assertThat(XmlObjectUtils.getParameter(panel, "test.parameter.1")).isEqualTo("value_1");
+			Assertions.assertThat(XmlObjectUtils.getParameter(panel, "test.parameter.2")).isEqualTo("1000");
+			Assertions.assertThat(XmlObjectUtils.getParameter(panel, "test.parameter.3")).isNull();
 		}
 		// check parameters map
 		{
 			Map<String, String> parameters = XmlObjectUtils.getParameters(panel);
-			assertThat(parameters.get("test.parameter.1")).isEqualTo("value_1");
-			assertThat(parameters.get("test.parameter.2")).isEqualTo("1000");
-			assertThat(parameters.get("test.parameter.3")).isNull();
+			Assertions.assertThat(parameters.get("test.parameter.1")).isEqualTo("value_1");
+			Assertions.assertThat(parameters.get("test.parameter.2")).isEqualTo("1000");
+			Assertions.assertThat(parameters.get("test.parameter.3")).isNull();
 		}
 		// set new parameter
 		XmlObjectUtils.setParameter(panel, "test.parameter.3", "true");
@@ -113,9 +116,9 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 		{
 			// check mapped values
 			Map<String, String> parameters = XmlObjectUtils.getParameters(panel);
-			assertThat(parameters.get("test.parameter.1")).isEqualTo("value_1");
-			assertThat(parameters.get("test.parameter.2")).isEqualTo("1000");
-			assertThat(parameters.get("test.parameter.3")).isEqualTo("true");
+			Assertions.assertThat(parameters.get("test.parameter.1")).isEqualTo("value_1");
+			Assertions.assertThat(parameters.get("test.parameter.2")).isEqualTo("1000");
+			Assertions.assertThat(parameters.get("test.parameter.3")).isEqualTo("true");
 		}
 	}
 
@@ -127,6 +130,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#executeScriptParameter(XmlObjectInfo, String)}.
 	 */
+	@Test
 	public void test_executeScriptParameter() throws Exception {
 		prepareMyComponent(new String[]{}, new String[]{
 				"// filler filler filler filler filler",
@@ -149,6 +153,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#executeScript(XmlObjectInfo, String)}.
 	 */
+	@Test
 	public void test_executeScript() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -176,6 +181,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#createObject(EditorContext, String, CreationSupport)}.
 	 */
+	@Test
 	public void test_createObject_stringClass() throws Exception {
 		parse("<Shell/>");
 		// create SWT Button
@@ -199,6 +205,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#add(XmlObjectInfo, Association, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_add_noNext() throws Exception {
 		XmlObjectInfo container = parse("<Shell/>");
 		// add
@@ -220,6 +227,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#add(XmlObjectInfo, Association, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_add_hasNext() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -249,6 +257,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#addFirst(XmlObjectInfo, Association, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_addFirst() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -282,6 +291,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#move(XmlObjectInfo, Association, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_move_noNext() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -313,6 +323,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#move(XmlObjectInfo, Association, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_move_hasNext() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -347,6 +358,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	 * <p>
 	 * Test for using without {@link Association}, allowed during reorder.
 	 */
+	@Test
 	public void test_move_noAssociation() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -379,6 +391,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#move(XmlObjectInfo, Association, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_move_reparent() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -413,6 +426,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	 * When we move out some {@link DocumentElement} we should remove intermediate elements between
 	 * moved {@link DocumentElement} and parent {@link DocumentElement}.
 	 */
+	@Test
 	public void test_move_whenInSubElement_ofOldParent_() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -453,6 +467,7 @@ public class XmlObjectUtilsTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectUtils#getTagForClass(XmlObjectInfo, Class)}.
 	 */
+	@Test
 	public void test_getTagForClass() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		// no namespace

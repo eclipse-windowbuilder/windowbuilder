@@ -21,6 +21,8 @@ import org.eclipse.wb.tests.designer.Expectations.KeyValue;
 import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.Test;
+
 import java.awt.EventQueue;
 import java.awt.SystemColor;
 
@@ -33,12 +35,14 @@ import javax.swing.UIManager;
  * @author lobas_av
  */
 public class ConvertersTest extends DesignerTestCase {
+	@Test
 	public void test_PointConverter() throws Exception {
 		ExpressionConverter converter = PointConverter.INSTANCE;
 		assertEquals("new java.awt.Point(1, 2)", converter.toJavaSource(null, new java.awt.Point(1, 2)));
 		assertEquals("(java.awt.Point) null", converter.toJavaSource(null, null));
 	}
 
+	@Test
 	public void test_DimensionConverter() throws Exception {
 		ExpressionConverter converter = DimensionConverter.INSTANCE;
 		assertEquals(
@@ -47,6 +51,7 @@ public class ConvertersTest extends DesignerTestCase {
 		assertEquals("(java.awt.Dimension) null", converter.toJavaSource(null, null));
 	}
 
+	@Test
 	public void test_InsetsConverter() throws Exception {
 		ExpressionConverter converter = InsetsConverter.INSTANCE;
 		assertEquals(
@@ -55,6 +60,7 @@ public class ConvertersTest extends DesignerTestCase {
 		assertEquals("(java.awt.Insets) null", converter.toJavaSource(null, null));
 	}
 
+	@Test
 	public void test_RectangleConverter() throws Exception {
 		ExpressionConverter converter = RectangleConverter.INSTANCE;
 		assertEquals(
@@ -63,6 +69,7 @@ public class ConvertersTest extends DesignerTestCase {
 		assertEquals("(java.awt.Rectangle) null", converter.toJavaSource(null, null));
 	}
 
+	@Test
 	public void test_ColorConverter() throws Exception {
 		ExpressionConverter converter = ColorConverter.INSTANCE;
 		assertEquals("(java.awt.Color) null", converter.toJavaSource(null, null));

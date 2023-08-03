@@ -30,6 +30,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.jdt.core.dom.Statement;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link InvocationChildAssociation}.
  *
@@ -50,6 +52,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_invalid_noParentAccess() throws Exception {
 		try {
 			new InvocationChildAssociation("invalidSource");
@@ -58,6 +61,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_parse() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -84,6 +88,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	/**
 	 * Test for support of "associateOnlyFirstTime" parameter tag.
 	 */
+	@Test
 	public void test_parse_associateOnlyFirstTime() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -140,6 +145,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	/**
 	 * Method has parameter with unknown editor.
 	 */
+	@Test
 	public void test_addProperties_noProperty() throws Exception {
 		setFileContentSrc(
 				"test/MyContainer.java",
@@ -179,6 +185,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	/**
 	 * Parameter with name in description.
 	 */
+	@Test
 	public void test_addProperties_hasProperty_1() throws Exception {
 		setFileContentSrc(
 				"test/MyContainer.java",
@@ -253,6 +260,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	/**
 	 * Parameter without name, name of parameter from source should be used.
 	 */
+	@Test
 	public void test_addProperties_hasProperty_2() throws Exception {
 		setFileContentSrc(
 				"test/MyContainer.java",
@@ -293,6 +301,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	/**
 	 * Parameter with special editor, configured in description.
 	 */
+	@Test
 	public void test_addProperties_hasProperty_3() throws Exception {
 		setFileContentSrc(
 				"test/MyEnum.java",
@@ -352,6 +361,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	// remove()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_remove() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -379,6 +389,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	 * When we delete child and parent is created directly in association {@link Statement}, we should
 	 * materialize parent to prevent its removing with association.
 	 */
+	@Test
 	public void test_remove_whenNoParentVariable() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -415,6 +426,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	// morph()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_morph() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -441,6 +453,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	// add()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_add() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -474,6 +487,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 		assertEquals("add(button)", association.getSource());
 	}
 
+	@Test
 	public void test_add_emptyVariable() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -505,6 +519,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	// move()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_moveInner() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -543,6 +558,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 		assertEquals("add(button)", association.getSource());
 	}
 
+	@Test
 	public void test_moveInner_lazy() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -591,6 +607,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 		assertEquals("add(getButton())", association.getSource());
 	}
 
+	@Test
 	public void test_moveInner_lazy_withConstraints() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -643,6 +660,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 		assertEquals("add(getButton(), constraints)", association.getSource());
 	}
 
+	@Test
 	public void test_moveReparent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

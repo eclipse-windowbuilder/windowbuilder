@@ -17,6 +17,8 @@ import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link SashFormInfo}.
  *
@@ -40,6 +42,7 @@ public class SashFormTest extends XwtModelTest {
 	/**
 	 * Test for {@link SashFormInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal_true() throws Exception {
 		parse(
 				"<Shell>",
@@ -56,6 +59,7 @@ public class SashFormTest extends XwtModelTest {
 	/**
 	 * Test for {@link SashFormInfo#isHorizontal()}.
 	 */
+	@Test
 	public void test_isHorizontal_false() throws Exception {
 		parse(
 				"<Shell>",
@@ -79,6 +83,7 @@ public class SashFormTest extends XwtModelTest {
 	 * <p>
 	 * No existing children yet.
 	 */
+	@Test
 	public void test_CREATE_0() throws Exception {
 		parse(
 				"<Shell>",
@@ -108,6 +113,7 @@ public class SashFormTest extends XwtModelTest {
 	 * <p>
 	 * Two existing children with weights.
 	 */
+	@Test
 	public void test_CREATE_2() throws Exception {
 		parse(
 				"<Shell>",
@@ -143,6 +149,7 @@ public class SashFormTest extends XwtModelTest {
 	 * <p>
 	 * Two existing children with weights.
 	 */
+	@Test
 	public void test_MOVE_inner() throws Exception {
 		parse(
 				"<Shell>",
@@ -177,6 +184,7 @@ public class SashFormTest extends XwtModelTest {
 	 * <p>
 	 * Move {@link ControlInfo} in.
 	 */
+	@Test
 	public void test_MOVE_in() throws Exception {
 		parse(
 				"<Shell>",
@@ -210,6 +218,7 @@ public class SashFormTest extends XwtModelTest {
 	 * <p>
 	 * Move {@link ControlInfo} out.
 	 */
+	@Test
 	public void test_MOVE_out() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -241,6 +250,7 @@ public class SashFormTest extends XwtModelTest {
 	/**
 	 * Delete child {@link ControlInfo}.
 	 */
+	@Test
 	public void test_DELETE() throws Exception {
 		parse(
 				"<Shell>",
@@ -270,6 +280,7 @@ public class SashFormTest extends XwtModelTest {
 	/**
 	 * Test for {@link SashFormInfo#command_RESIZE(ControlInfo, int)}.
 	 */
+	@Test
 	public void test_RESIZE() throws Exception {
 		parse(
 				"<Shell>",

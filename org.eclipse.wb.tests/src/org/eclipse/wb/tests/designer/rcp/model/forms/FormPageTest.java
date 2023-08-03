@@ -16,7 +16,8 @@ import org.eclipse.wb.internal.rcp.model.forms.ScrolledFormInfo;
 
 import org.eclipse.ui.forms.editor.FormEditor;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link FormPageInfo}.
@@ -38,6 +39,7 @@ public class FormPageTest extends AbstractFormsTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		FormPageInfo page =
 				parseJavaInfo(
@@ -70,12 +72,13 @@ public class FormPageTest extends AbstractFormsTest {
 		ScrolledFormInfo scrolledForm = (ScrolledFormInfo) managedForm.getChildrenJava().get(0);
 		// refresh
 		page.refresh();
-		assertThat(page.getBounds().width).isEqualTo(600);
-		assertThat(page.getBounds().height).isEqualTo(500);
-		assertThat(scrolledForm.getBounds().width).isGreaterThanOrEqualTo(590);
-		assertThat(scrolledForm.getBounds().height).isGreaterThanOrEqualTo(450);
+		Assertions.assertThat(page.getBounds().width).isEqualTo(600);
+		Assertions.assertThat(page.getBounds().height).isEqualTo(500);
+		Assertions.assertThat(scrolledForm.getBounds().width).isGreaterThanOrEqualTo(590);
+		Assertions.assertThat(scrolledForm.getBounds().height).isGreaterThanOrEqualTo(450);
 	}
 
+	@Test
 	public void test_severalConstructors() throws Exception {
 		useStrictEvaluationMode(false);
 		FormPageInfo page =
@@ -99,6 +102,7 @@ public class FormPageTest extends AbstractFormsTest {
 	/**
 	 * We should try to support {@link FormEditor} subclass.
 	 */
+	@Test
 	public void test_subclassFormEditor() throws Exception {
 		setFileContentSrc(
 				"test/MyFormEditor.java",

@@ -35,7 +35,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -56,6 +57,7 @@ public class JToolBarTest extends SwingModelTest {
 	/**
 	 * Test for association.
 	 */
+	@Test
 	public void test_association_Component() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -81,6 +83,7 @@ public class JToolBarTest extends SwingModelTest {
 	/**
 	 * Test for horizontal orientation.
 	 */
+	@Test
 	public void test_orientation_horizontal() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -102,6 +105,7 @@ public class JToolBarTest extends SwingModelTest {
 	/**
 	 * Test for {@link SwingConstants#VERTICAL} orientation.
 	 */
+	@Test
 	public void test_orientation_vertical() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -121,6 +125,7 @@ public class JToolBarTest extends SwingModelTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -155,6 +160,7 @@ public class JToolBarTest extends SwingModelTest {
 	// Move
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_OUT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -197,6 +203,7 @@ public class JToolBarTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -242,6 +249,7 @@ public class JToolBarTest extends SwingModelTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -290,6 +298,7 @@ public class JToolBarTest extends SwingModelTest {
 	 * Test for {@link JToolBar#addSeparator()} parsing, {@link CreationSupport} and
 	 * {@link VariableSupport}.
 	 */
+	@Test
 	public void test_separator_Supports() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -383,6 +392,7 @@ public class JToolBarTest extends SwingModelTest {
 	 * {@link VoidInvocationCreationSupport} does not return value, so has only factory properties, no
 	 * method/field based ones.
 	 */
+	@Test
 	public void test_addSeparator_noBeanProperties() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -397,7 +407,7 @@ public class JToolBarTest extends SwingModelTest {
 		ComponentInfo separator = bar.getChildrenComponents().get(0);
 		//
 		Property[] properties = separator.getProperties();
-		assertThat(properties).hasSize(1);
+		Assertions.assertThat(properties).hasSize(1);
 		assertNotNull(PropertyUtils.getByPath(properties, "Factory"));
 		assertNotNull(PropertyUtils.getByPath(properties, "Factory/size"));
 	}
@@ -405,6 +415,7 @@ public class JToolBarTest extends SwingModelTest {
 	/**
 	 * Test for adding {@link JToolBarSeparatorInfo}.
 	 */
+	@Test
 	public void test_separator_create() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -445,6 +456,7 @@ public class JToolBarTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_separator_move() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -478,6 +490,7 @@ public class JToolBarTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_separator_delete() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -529,6 +542,7 @@ public class JToolBarTest extends SwingModelTest {
 	 * Invocation of {@link JToolBar#add(Action)} creates {@link JButton}, so we also should create
 	 * {@link ComponentInfo} for such invocation.
 	 */
+	@Test
 	public void test_addAction_parse() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -563,6 +577,7 @@ public class JToolBarTest extends SwingModelTest {
 	 * Use {@link ImplicitFactoryCreationSupport} with {@link JToolBar#add(Action)} to create
 	 * {@link JButton}.
 	 */
+	@Test
 	public void test_addAction_generate() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =

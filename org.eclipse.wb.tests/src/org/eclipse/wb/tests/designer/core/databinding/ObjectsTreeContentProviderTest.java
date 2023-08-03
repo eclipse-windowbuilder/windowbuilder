@@ -18,6 +18,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.List;
  * @author lobas_av
  */
 public class ObjectsTreeContentProviderTest extends DesignerTestCase {
+	@Test
 	public void test_input() throws Exception {
 		ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
 		//
@@ -51,6 +53,7 @@ public class ObjectsTreeContentProviderTest extends DesignerTestCase {
 		provider.dispose();
 	}
 
+	@Test
 	public void test_getParent() throws Exception {
 		ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
 		//
@@ -65,6 +68,7 @@ public class ObjectsTreeContentProviderTest extends DesignerTestCase {
 		assertSame(testObject, provider.getParent(childObject));
 	}
 
+	@Test
 	public void test_hasChildren() throws Exception {
 		ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
 		//
@@ -101,6 +105,7 @@ public class ObjectsTreeContentProviderTest extends DesignerTestCase {
 		assertFalse(provider.hasChildren(testObjectPresentation));
 	}
 
+	@Test
 	public void test_getChildren() throws Exception {
 		ObjectsTreeContentProvider provider = new ObjectsTreeContentProvider();
 		//

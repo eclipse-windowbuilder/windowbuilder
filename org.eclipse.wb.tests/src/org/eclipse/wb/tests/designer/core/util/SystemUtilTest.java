@@ -1,13 +1,12 @@
 package org.eclipse.wb.tests.designer.core.util;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang.SystemUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
 
-public class SystemUtilTest extends TestCase {
+public class SystemUtilTest extends Assert {
 	@Test
 	public void testCanParseModernJavaVersion() throws Exception {
 		assertEquals(1.8111f, checkCanParseJavaVersion("1.8.111"), 0.000001);

@@ -10,47 +10,45 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for RCP JFace models.
  *
  * @author scheglov_ke
  */
-public class JFaceTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.jface");
-		suite.addTest(createSingleSuite(TableViewerTest.class));
-		suite.addTest(createSingleSuite(TableViewerColumnTest.class));
-		suite.addTest(createSingleSuite(TreeViewerColumnTest.class));
-		suite.addTest(createSingleSuite(ComboViewerTest.class));
-		suite.addTest(createSingleSuite(AbstractColumnLayoutTest.class));
-		suite.addTest(createSingleSuite(WindowTopBoundsSupportTest.class));
-		suite.addTest(createSingleSuite(DialogTest.class));
-		suite.addTest(createSingleSuite(TitleAreaDialogTest.class));
-		suite.addTest(createSingleSuite(PopupDialogTest.class));
-		suite.addTest(createSingleSuite(DialogPageTest.class));
-		suite.addTest(createSingleSuite(ApplicationWindowTest.class));
-		suite.addTest(createSingleSuite(ApplicationWindowGefTest.class));
-		suite.addTest(createSingleSuite(ActionTest.class));
-		suite.addTest(createSingleSuite(MenuManagerTest.class));
-		suite.addTest(createSingleSuite(MenuManagerGefTest.class));
-		suite.addTest(createSingleSuite(CoolBarManagerTest.class));
-		suite.addTest(createSingleSuite(WizardPageTest.class));
-		suite.addTest(createSingleSuite(WizardTest.class));
-		suite.addTest(createSingleSuite(PreferencePageTest.class));
-		suite.addTest(createSingleSuite(FieldEditorPreferencePageTest.class));
-		suite.addTest(createSingleSuite(FieldEditorLabelsConstantsPropertyEditorTest.class));
-		suite.addTest(createSingleSuite(DoubleFieldEditorEntryInfoTest.class));
-		suite.addTest(createSingleSuite(FieldLayoutPreferencePageTest.class));
-		suite.addTest(createSingleSuite(ControlDecorationTest.class));
-		suite.addTest(createSingleSuite(FieldEditorPreferencePageGefTest.class));
-		suite.addTest(createSingleSuite(CellEditorTest.class));
-		suite.addTest(createSingleSuite(NoJFaceInClasspathTest.class));
-		suite.addTest(createSingleSuite(GridLayoutFactoryTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		TableViewerTest.class,
+		TableViewerColumnTest.class,
+		TreeViewerColumnTest.class,
+		ComboViewerTest.class,
+		AbstractColumnLayoutTest.class,
+		WindowTopBoundsSupportTest.class,
+		DialogTest.class,
+		TitleAreaDialogTest.class,
+		PopupDialogTest.class,
+		DialogPageTest.class,
+		ApplicationWindowTest.class,
+		ApplicationWindowGefTest.class,
+		ActionTest.class,
+		MenuManagerTest.class,
+		MenuManagerGefTest.class,
+		CoolBarManagerTest.class,
+		WizardPageTest.class,
+		WizardTest.class,
+		PreferencePageTest.class,
+		FieldEditorPreferencePageTest.class,
+		FieldEditorLabelsConstantsPropertyEditorTest.class,
+		DoubleFieldEditorEntryInfoTest.class,
+		FieldLayoutPreferencePageTest.class,
+		ControlDecorationTest.class,
+		FieldEditorPreferencePageGefTest.class,
+		CellEditorTest.class,
+		NoJFaceInClasspathTest.class,
+		GridLayoutFactoryTest.class
+})
+public class JFaceTests {
 }

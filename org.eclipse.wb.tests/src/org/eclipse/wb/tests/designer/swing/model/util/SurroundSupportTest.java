@@ -32,6 +32,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
+import org.junit.Ignore;
+import org.junit.Test;
 import org.osgi.framework.Bundle;
 
 import java.util.List;
@@ -66,6 +68,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Empty selection, so no "surround" menu.
 	 */
+	@Test
 	public void test_emptySelection() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -82,6 +85,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Try to give {@link LayoutInfo} instead of {@link ComponentInfo}, so no "surround" menu.
 	 */
+	@Test
 	public void test_notComponent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -99,6 +103,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Components that have different parents, so none of these parents contribute "surround" menu.
 	 */
+	@Test
 	public void test_notSameParent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -125,6 +130,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Single {@link ComponentInfo} on {@link FlowLayoutInfo}.
 	 */
+	@Test
 	public void test_flow_singleComponent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -158,6 +164,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Single {@link ComponentInfo} on {@link FlowLayoutInfo}.
 	 */
+	@Test
 	public void test_flow_singleComponent_onTitledJPanel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -192,6 +199,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Two adjacent components, good case.
 	 */
+	@Test
 	public void test_flow_twoComponents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -242,6 +250,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Not an adjacent components, so can not surround.
 	 */
+	@Test
 	public void test_flow_notAdjacentComponents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -276,6 +285,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Single {@link ComponentInfo} on {@link AbsoluteLayoutInfo}.
 	 */
+	@Test
 	public void test_absolute_singleControl() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -319,7 +329,9 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Single {@link ComponentInfo} on {@link AbsoluteLayoutInfo}.
 	 */
-	public void DISABLE_test_absolute_singleControl_onTitledJPanel() throws Exception {
+	@Ignore
+	@Test
+	public void test_absolute_singleControl_onTitledJPanel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends JPanel {",
@@ -367,6 +379,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Two {@link ComponentInfo}'s on {@link AbsoluteLayoutInfo}.
 	 */
+	@Test
 	public void test_absolute_twoControls() throws Exception {
 		ContainerInfo shell =
 				parseContainer(
@@ -433,6 +446,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	 * {@link JSplitPane} as target container.<br>
 	 * Good: one component, placed as "left".
 	 */
+	@Test
 	public void test_JSplitPane_oneComponent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -467,6 +481,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	 * {@link JSplitPane} as target container.<br>
 	 * Good: exactly two components.
 	 */
+	@Test
 	public void test_JSplitPane_twoComponents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -510,6 +525,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	 * {@link JSplitPane} as target container.<br>
 	 * Bad: at max two components can be placed on {@link JSplitPane}.
 	 */
+	@Test
 	public void test_JSplitPane_threeComponents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -546,6 +562,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	 * {@link JScrollPane} as target container.<br>
 	 * One component, placed as "viewportView".
 	 */
+	@Test
 	public void test_JScrollPane_oneComponent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -580,6 +597,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	 * {@link JScrollPane} as target container.<br>
 	 * Two components, placed on {@link JPanel}.
 	 */
+	@Test
 	public void test_JScrollPane_twoComponents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -632,6 +650,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	 * {@link JTabbedPane} as target container.<br>
 	 * Two components, placed on {@link JPanel}.
 	 */
+	@Test
 	public void test_JTabbedPane_twoComponents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -679,6 +698,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Bad: two components on diagonal, and other component in same rectangle.
 	 */
+	@Test
 	public void test_FormLayout_0() throws Exception {
 		ContainerInfo panel =
 				parseTestSourceJGFL(new String[]{
@@ -718,6 +738,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Wrap {@link JTable} with {@link JScrollPane}.
 	 */
+	@Test
 	public void test_FormLayout_1() throws Exception {
 		ContainerInfo panel =
 				parseTestSourceJGFL(new String[]{
@@ -761,6 +782,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Good: two components in single row, no other components.
 	 */
+	@Test
 	public void test_FormLayout_2() throws Exception {
 		ContainerInfo panel =
 				parseTestSourceJGFL(new String[]{
@@ -825,6 +847,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Good: two components on diagonal, no other components.
 	 */
+	@Test
 	public void test_FormLayout_3() throws Exception {
 		ContainerInfo panel =
 				parseTestSourceJGFL(new String[]{
@@ -893,6 +916,7 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Good: three components, one spanned horizontally.
 	 */
+	@Test
 	public void test_FormLayout_4() throws Exception {
 		ContainerInfo panel =
 				parseTestSourceJGFL(new String[]{

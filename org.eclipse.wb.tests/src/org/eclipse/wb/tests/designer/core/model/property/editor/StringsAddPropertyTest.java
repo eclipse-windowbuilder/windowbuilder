@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.Test;
 
 /**
  * Tests for {@link StringsAddPropertyFactory} and {@link StringsAddPropertyEditor}.
@@ -29,6 +30,7 @@ public class StringsAddPropertyTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		createMyPanel();
 		setFileContentSrc(
@@ -82,6 +84,7 @@ public class StringsAddPropertyTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_removeMethods() throws Exception {
 		createMyPanel();
 		setFileContentSrc(

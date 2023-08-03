@@ -25,7 +25,8 @@ import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -93,6 +94,7 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 		waitForAutoBuild();
 	}
 
+	@Test
 	public void test_valueProperty() throws Exception {
 		prepareMyPanel("getter=getValue setter=setValue title=value category=normal");
 		ContainerInfo panel =
@@ -119,6 +121,7 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 		assertSame(property, panel.getPropertyByTitle("value"));
 	}
 
+	@Test
 	public void test_primitiveType() throws Exception {
 		prepareMyPanel0("getter=getValue setter=setValue title=value type=int");
 		ContainerInfo panel =
@@ -137,6 +140,7 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 		assertSame(int.class, ((ITypedProperty) property).getType());
 	}
 
+	@Test
 	public void test_propertyEditor_StringList() throws Exception {
 		prepareMyPanel("getter=getValue setter=setValue title=value editor=strings(A,B,C)");
 		ContainerInfo panel =
@@ -156,7 +160,7 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 			PropertyEditor propertyEditor = property.getEditor();
 			assertInstanceOf(StringListPropertyEditor.class, propertyEditor);
 			String[] strings = (String[]) ReflectionUtils.getFieldObject(propertyEditor, "m_strings");
-			assertThat(strings).isEqualTo(new String[]{"A", "B", "C"});
+			Assertions.assertThat(strings).isEqualTo(new String[]{"A", "B", "C"});
 		}
 	}
 
@@ -165,6 +169,7 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 	// No required parameter
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noRequiredParameters_getter() throws Exception {
 		prepareMyPanel("_getter=getValue setter=setValue title=value");
 		parseContainer(
@@ -175,10 +180,11 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 				"}");
 		// check warnings
 		List<EditorWarning> warnings = m_lastState.getWarnings();
-		assertThat(warnings).hasSize(1);
-		assertThat(warnings.get(0).getMessage()).contains("'getter'");
+		Assertions.assertThat(warnings).hasSize(1);
+		Assertions.assertThat(warnings.get(0).getMessage()).contains("'getter'");
 	}
 
+	@Test
 	public void test_noRequiredParameters_setter() throws Exception {
 		prepareMyPanel("getter=getValue _setter=setValue title=value");
 		parseContainer(
@@ -189,10 +195,11 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 				"}");
 		// check warnings
 		List<EditorWarning> warnings = m_lastState.getWarnings();
-		assertThat(warnings).hasSize(1);
-		assertThat(warnings.get(0).getMessage()).contains("'setter'");
+		Assertions.assertThat(warnings).hasSize(1);
+		Assertions.assertThat(warnings.get(0).getMessage()).contains("'setter'");
 	}
 
+	@Test
 	public void test_noRequiredParameters_title() throws Exception {
 		prepareMyPanel("getter=getValue setter=setValue _title=value");
 		parseContainer(
@@ -203,8 +210,8 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 				"}");
 		// check warnings
 		List<EditorWarning> warnings = m_lastState.getWarnings();
-		assertThat(warnings).hasSize(1);
-		assertThat(warnings.get(0).getMessage()).contains("'title'");
+		Assertions.assertThat(warnings).hasSize(1);
+		Assertions.assertThat(warnings.get(0).getMessage()).contains("'title'");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -212,6 +219,7 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 	// Invalid value for parameter
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_invalidParameter_getter() throws Exception {
 		prepareMyPanel("getter=noSuchMethod setter=foo title=bar");
 		parseContainer(
@@ -222,10 +230,11 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 				"}");
 		// check warnings
 		List<EditorWarning> warnings = m_lastState.getWarnings();
-		assertThat(warnings).hasSize(1);
-		assertThat(warnings.get(0).getMessage()).contains("Invalid").contains("getter");
+		Assertions.assertThat(warnings).hasSize(1);
+		Assertions.assertThat(warnings.get(0).getMessage()).contains("Invalid").contains("getter");
 	}
 
+	@Test
 	public void test_invalidParameter_setter() throws Exception {
 		prepareMyPanel("getter=getValue setter=noSuchMethod title=bar");
 		parseContainer(
@@ -236,7 +245,7 @@ public class ModelMethodPropertyTest extends SwingModelTest {
 				"}");
 		// check warnings
 		List<EditorWarning> warnings = m_lastState.getWarnings();
-		assertThat(warnings).hasSize(1);
-		assertThat(warnings.get(0).getMessage()).contains("Invalid").contains("setter");
+		Assertions.assertThat(warnings).hasSize(1);
+		Assertions.assertThat(warnings.get(0).getMessage()).contains("Invalid").contains("setter");
 	}
 }

@@ -11,25 +11,24 @@
 package org.eclipse.wb.tests.designer.XWT.model.forms.table;
 
 import org.eclipse.wb.internal.xwt.model.forms.layout.table.TableWrapLayoutInfo;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link TableWrapLayoutInfo}.
  *
  * @author scheglov_ke
  */
-public class TableWrapLayoutTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.model.forms.TableWrapLayout");
-		suite.addTest(createSingleSuite(TableWrapDataTest.class));
-		suite.addTest(createSingleSuite(TableWrapLayoutSelectionActionsTest.class));
-		suite.addTest(createSingleSuite(TableWrapLayoutTest.class));
-		suite.addTest(createSingleSuite(TabelWrapLayoutParametersTest.class));
-		suite.addTest(createSingleSuite(TableWrapLayoutConverterTest.class));
-		suite.addTest(createSingleSuite(TableWrapLayoutGefTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		TableWrapDataTest.class,
+		TableWrapLayoutSelectionActionsTest.class,
+		TableWrapLayoutTest.class,
+		TabelWrapLayoutParametersTest.class,
+		TableWrapLayoutConverterTest.class,
+		TableWrapLayoutGefTest.class
+})
+public class TableWrapLayoutTests {
 }

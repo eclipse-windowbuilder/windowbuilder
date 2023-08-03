@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 /**
  * Test for {@link FormRowInfo}.
  *
@@ -25,6 +27,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 	// Insert
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_insert_onRow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -70,6 +73,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_insert_onGap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -115,6 +119,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_insert_lastWithGap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -149,6 +154,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_insert_lastWithoutGap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -187,6 +193,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 	// Delete
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deleteRow_nextGap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -232,6 +239,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteRow_span() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -282,6 +290,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteRow_prevGap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -329,6 +338,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteGap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -384,6 +394,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 	// Delete contents
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deleteContents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -424,6 +435,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 	// Split
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_split() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -480,6 +492,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 	// MOVE row
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_move_noOp() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -507,6 +520,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_move_backward_gap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -550,6 +564,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_forward_gap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -593,6 +608,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_noGaps() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -651,6 +667,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_move_backward_Last2Inner() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -716,6 +733,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_backward_Last2First() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -769,6 +787,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_backward_2FirstNoGap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -804,6 +823,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_spanned_backwardExpand_forwardCollapse() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -898,6 +918,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_move_spanned_backwardCollapse_forwardExpand() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1001,6 +1022,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Backward inner move.
 	 */
+	@Test
 	public void test_move_forward_firstGapPrev2Last() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1066,6 +1088,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_forward_firstGapNext2Inner() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1103,6 +1126,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_forward_first2Last() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1140,6 +1164,7 @@ public class FormRowInfoTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_forward_firstNextGap2BeforeGap() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

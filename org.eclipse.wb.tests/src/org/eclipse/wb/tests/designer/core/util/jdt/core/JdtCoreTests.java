@@ -10,26 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.jdt.core;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class JdtCoreTests extends DesignerSuiteTests {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Suite
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.jdt.core");
-		suite.addTest(createSingleSuite(CodeUtilsTest.class));
-		suite.addTest(createSingleSuite(JavaDocUtilsTest.class));
-		suite.addTest(createSingleSuite(SubtypesScopeTest.class));
-		suite.addTest(createSingleSuite(ProjectUtilsTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		CodeUtilsTest.class,
+		JavaDocUtilsTest.class,
+		SubtypesScopeTest.class,
+		ProjectUtilsTest.class
+})
+public class JdtCoreTests {
 }

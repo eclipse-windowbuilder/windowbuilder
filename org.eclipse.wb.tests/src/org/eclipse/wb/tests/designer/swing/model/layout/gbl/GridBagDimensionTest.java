@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 
+import org.junit.Test;
+
 import java.awt.GridBagLayout;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class GridBagDimensionTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for {@link GridBagLayoutInfo#getColumns()} and {@link GridBagLayoutInfo#getRows()}.
 	 */
+	@Test
 	public void test_dimensions_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -109,6 +112,7 @@ public class GridBagDimensionTest extends AbstractGridBagLayoutTest {
 	 * When {@link GridBagLayout#columnWidths} or {@link GridBagLayout#rowHeights} have more elements
 	 * than number of columns/rows used by components, total number of columns/rows is also more.
 	 */
+	@Test
 	public void test_dimensions_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

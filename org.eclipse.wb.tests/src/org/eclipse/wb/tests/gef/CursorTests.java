@@ -10,19 +10,18 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author lobas_av
  */
-public class CursorTests extends TestCase {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.gef.cursors");
-		suite.addTestSuite(CreationToolCursorTest.class);
-		suite.addTestSuite(SelectionToolCursorTest.class);
-		suite.addTestSuite(MarqueeSelectionToolCursorTest.class);
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		CreationToolCursorTest.class,
+		SelectionToolCursorTest.class,
+		MarqueeSelectionToolCursorTest.class
+})
+public class CursorTests {
 }

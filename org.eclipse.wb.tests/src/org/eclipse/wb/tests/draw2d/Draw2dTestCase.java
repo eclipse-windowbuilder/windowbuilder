@@ -16,21 +16,15 @@ import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+
+
 
 /**
  * @author lobas_av
  *
  */
-public abstract class Draw2dTestCase extends TestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public Draw2dTestCase(Class<?> _class) {
-		super(_class.getName());
-	}
+public abstract class Draw2dTestCase extends Assert {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -39,7 +33,7 @@ public abstract class Draw2dTestCase extends TestCase {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Asserts that two objects are equal. Expected object <code>(width, height)</code>. Actual object
-	 * <code>{@link Dimension}</code>. If they are not an AssertionFailedError is thrown.
+	 * <code>{@link Dimension}</code>. If they are not an AssertionError is thrown.
 	 */
 	public static final void assertEquals(int width, int height, Dimension dimension)
 			throws Exception {
@@ -49,7 +43,7 @@ public abstract class Draw2dTestCase extends TestCase {
 
 	/**
 	 * Asserts that two objects are equal. Expected object <code>(top, left, bottom, right)</code>.
-	 * Actual object <code>{@link Insets}</code>. If they are not an AssertionFailedError is thrown.
+	 * Actual object <code>{@link Insets}</code>. If they are not an AssertionError is thrown.
 	 */
 	public static final void assertEquals(int top, int left, int bottom, int right, Insets insets)
 			throws Exception {
@@ -61,7 +55,7 @@ public abstract class Draw2dTestCase extends TestCase {
 
 	/**
 	 * Asserts that two objects are equal. Expected object <code>(x, y)</code>. Actual object
-	 * <code>{@link Point}</code>. If they are not an AssertionFailedError is thrown.
+	 * <code>{@link Point}</code>. If they are not an AssertionError is thrown.
 	 */
 	public static final void assertEquals(int x, int y, Point point) throws Exception {
 		assertEquals(x, point.x);
@@ -70,7 +64,7 @@ public abstract class Draw2dTestCase extends TestCase {
 
 	/**
 	 * Asserts that two objects are equal. Expected object <code>(begin, length)</code>. Actual object
-	 * <code>{@link Interval}</code>. If they are not an AssertionFailedError is thrown.
+	 * <code>{@link Interval}</code>. If they are not an AssertionError is thrown.
 	 */
 	public static final void assertEquals(int begin, int length, Interval interval) throws Exception {
 		assertEquals(begin, interval.begin());
@@ -79,7 +73,7 @@ public abstract class Draw2dTestCase extends TestCase {
 
 	/**
 	 * Asserts that two objects are equal. Expected object <code>(x, y, width, height)</code>. Actual
-	 * object <code>{@link Rectangle}</code>. If they are not an AssertionFailedError is thrown.
+	 * object <code>{@link Rectangle}</code>. If they are not an AssertionError is thrown.
 	 */
 	public static final void assertEquals(int x, int y, int width, int height, Rectangle rectangle)
 			throws Exception {

@@ -18,5 +18,5 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
  *
  * @author scheglov_ke
  */
-public class AbstractVariableTest extends SwingModelTest {
+public abstract class AbstractVariableTest extends SwingModelTest {
 }

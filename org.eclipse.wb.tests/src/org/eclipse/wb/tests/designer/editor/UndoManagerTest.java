@@ -46,6 +46,9 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.After;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -67,7 +70,8 @@ public class UndoManagerTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		{
 			IPreferenceStore preferences = DesignerPlugin.getPreferences();
@@ -83,6 +87,7 @@ public class UndoManagerTest extends SwingGefTest {
 	/**
 	 * Test that selection is restored after undo/redo.
 	 */
+	@Test
 	public void test_undoRedo() throws Exception {
 		openContainer(
 				"// filler filler filler",
@@ -157,6 +162,7 @@ public class UndoManagerTest extends SwingGefTest {
 	 * Test for case when we modify only logic of application, but not its GUI, so can keep old
 	 * selection.
 	 */
+	@Test
 	public void test_modifyLogicAndSwitchDesign() throws Exception {
 		openContainer(
 				"// filler filler filler",
@@ -201,6 +207,7 @@ public class UndoManagerTest extends SwingGefTest {
 	 * opened), then we should not parse. But when WBP editor is activated later, then we should
 	 * parse.
 	 */
+	@Test
 	public void test_modifyInParallelJavaEditor() throws Exception {
 		IWorkbenchPage activePage = DesignerPlugin.getActivePage();
 		ContainerInfo originalContainer =
@@ -241,6 +248,7 @@ public class UndoManagerTest extends SwingGefTest {
 	/**
 	 * Test that when we select component, its parent become expanded.
 	 */
+	@Test
 	public void test_expandOnSelection() throws Exception {
 		ContainerInfo frame =
 				openContainer(
@@ -266,7 +274,9 @@ public class UndoManagerTest extends SwingGefTest {
 	/**
 	 * Sometimes expansion paths are remembered for wrong dump, so this causes later exception.
 	 */
-	public void DISABLED_test_expandRemembered_bug_0() throws Exception {
+	@Ignore
+	@Test
+	public void test_expandRemembered_bug_0() throws Exception {
 		ContainerInfo frame =
 				openContainer(
 						"public class Test extends JFrame {",
@@ -324,6 +334,7 @@ public class UndoManagerTest extends SwingGefTest {
 	 * When we open editor, it automatically expands components from root, until there is one element.<br>
 	 * Here we have {@link JFrame} with empty "contentPane", so {@link JFrame} should be expanded.
 	 */
+	@Test
 	public void test_expandOnOpen_1() throws Exception {
 		ContainerInfo frame =
 				openContainer(
@@ -341,6 +352,7 @@ public class UndoManagerTest extends SwingGefTest {
 	 * Here we have {@link JFrame} with "contentPane" as its single child, so {@link JFrame} and
 	 * "contentPane" should be expanded.
 	 */
+	@Test
 	public void test_expandOnOpen_2() throws Exception {
 		ContainerInfo frame =
 				openContainer(
@@ -361,6 +373,7 @@ public class UndoManagerTest extends SwingGefTest {
 	 * "contentPane" should be expanded. But {@link JPanel} on "content" pane is not only child of
 	 * "contentPane", so should be not expanded.
 	 */
+	@Test
 	public void test_expandOnOpen_3() throws Exception {
 		ContainerInfo frame =
 				openContainer(
@@ -397,6 +410,7 @@ public class UndoManagerTest extends SwingGefTest {
 	/**
 	 * Test that we restore selection after reparse.
 	 */
+	@Test
 	public void test_restoreSelection_good() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -426,6 +440,7 @@ public class UndoManagerTest extends SwingGefTest {
 	/**
 	 * Test that if we can not restore selection, we just ignore this, without exceptions.
 	 */
+	@Test
 	public void test_restoreSelection_whenComponentDisappears() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -481,6 +496,7 @@ public class UndoManagerTest extends SwingGefTest {
 	/**
 	 * Test edit read-only file.
 	 */
+	@Test
 	public void test_readOnly_Yes() throws Exception {
 		String[] expectedSource =
 				new String[]{
@@ -497,6 +513,7 @@ public class UndoManagerTest extends SwingGefTest {
 	/**
 	 * Test edit read-only file.
 	 */
+	@Test
 	public void test_readOnly_No() throws Exception {
 		test_readOnly(IDialogConstants.NO_LABEL, true, new String[]{
 				"// filler filler filler",
@@ -563,6 +580,7 @@ public class UndoManagerTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@DisposeProjectAfter
+	@Test
 	public void test_showDesign_switchToSource_rename_showDesign() throws Exception {
 		openContainer(
 				"// filler filler filler",
@@ -585,7 +603,9 @@ public class UndoManagerTest extends SwingGefTest {
 	 * exceptions.
 	 */
 	@DisposeProjectAfter
-	public void DISABLED_test_showDesign_rename() throws Exception {
+	@Ignore
+	@Test
+	public void test_showDesign_rename() throws Exception {
 		openContainer(
 				"public class Test extends JFrame {",
 				"  public static void main2(String[] args) {",

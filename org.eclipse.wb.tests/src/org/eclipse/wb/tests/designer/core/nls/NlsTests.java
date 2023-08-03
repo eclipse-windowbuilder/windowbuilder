@@ -10,27 +10,27 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
+import org.eclipse.wb.tests.designer.core.nls.ui.NlsUiTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class NlsTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.nls");
-		suite.addTest(createSingleSuite(LocaleInfoTest.class));
-		suite.addTest(createSingleSuite(BundleInfoTest.class));
-		suite.addTest(createSingleSuite(NlsSupportTest.class));
-		suite.addTest(createSingleSuite(EditableSupportTest.class));
-		suite.addTest(createSingleSuite(SourceEclipseOldTest.class));
-		suite.addTest(createSingleSuite(SourceEclipseModernTest.class));
-		suite.addTest(createSingleSuite(SourceDirectTest.class));
-		suite.addTest(createSingleSuite(SourceFieldTest.class));
-		suite.addTest(createSingleSuite(SourceAbstractSpecialTest.class));
-		//suite.addTest(NLSUITests.suite());
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		LocaleInfoTest.class,
+		BundleInfoTest.class,
+		NlsSupportTest.class,
+		EditableSupportTest.class,
+		SourceEclipseOldTest.class,
+		SourceEclipseModernTest.class,
+		SourceDirectTest.class,
+		SourceFieldTest.class,
+		SourceAbstractSpecialTest.class,
+		NlsUiTests.class
+})
+public class NlsTests {
 }

@@ -32,6 +32,8 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  */
@@ -54,6 +56,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 * Check that {@link ControlInfo} has "virtual" {@link LayoutDataInfo} when there are no "real"
 	 * one.
 	 */
+	@Test
 	public void test_virtual_initial() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -103,6 +106,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 * Test that when we delete "real" {@link LayoutDataInfo}, "virtual" {@link LayoutDataInfo} will
 	 * be created.
 	 */
+	@Test
 	public void test_virtual_whenDeleteReal() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -155,6 +159,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 * Check that when we try to set value of {@link Property}, "virtual" {@link LayoutDataInfo}
 	 * becomes "real" one.
 	 */
+	@Test
 	public void test_virtual_materialize() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -206,6 +211,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 * Test that when we add new {@link ControlInfo}, "virtual" {@link LayoutDataInfo} for it can be
 	 * asked.
 	 */
+	@Test
 	public void test_virtual_whenAdd() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -244,6 +250,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 * Test that when we move {@link ControlInfo} on some {@link LayoutInfo}, it will have "virtual"
 	 * {@link LayoutDataInfo}.
 	 */
+	@Test
 	public void test_virtual_whenMove() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -299,6 +306,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 * Test that when we move {@link ControlInfo} from one {@link LayoutInfo} on {@link LayoutInfo}
 	 * that does not support {@link LayoutDataInfo}, "virtual" {@link LayoutDataInfo} is removed.
 	 */
+	@Test
 	public void test_virtual_removeWhenMoveFrom() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -356,6 +364,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	/**
 	 * Test that when we set new {@link LayoutInfo}, "virtual" {@link LayoutDataInfo} is removed.
 	 */
+	@Test
 	public void test_virtual_whenNewLayout() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -397,6 +406,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	/**
 	 * Test that when we set new {@link LayoutInfo}, "real" {@link LayoutDataInfo} is removed.
 	 */
+	@Test
 	public void test_real_whenNewLayout() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -443,6 +453,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 * Test that when we set new {@link LayoutInfo}, that requires different {@link LayoutDataInfo},
 	 * old "virtual" {@link LayoutDataInfo} replaced with new "virtual" {@link LayoutDataInfo}.
 	 */
+	@Test
 	public void test_virtual_whenNewLayout2() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -503,6 +514,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	/**
 	 * Check that "implicit" {@link LayoutInfo} can set/restore "virtual" {@link LayoutDataInfo}.
 	 */
+	@Test
 	public void test_implicitLayout_1() throws Exception {
 		// create GridComposite with GridLayout
 		setFileContentSrc(
@@ -587,6 +599,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	/**
 	 * Check that "implicit" {@link LayoutInfo} can set/restore "virtual" {@link LayoutDataInfo}.
 	 */
+	@Test
 	public void test_implicitLayout_2() throws Exception {
 		// create GridComposite with GridLayout
 		setFileContentSrc(
@@ -664,6 +677,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	/**
 	 * Test for exposed "Button" with explicit {@link LayoutDataInfo} set.
 	 */
+	@Test
 	public void test_whenExposedControl_deleteExplicitData_restoreVirtual() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -729,6 +743,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 * Test that when we delete "virtual" {@link LayoutDataInfo}, instance of {@link LayoutDataInfo}
 	 * is not removed or recreated, so is same as before delete.
 	 */
+	@Test
 	public void test_delete_shouldKeepSameInstance() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

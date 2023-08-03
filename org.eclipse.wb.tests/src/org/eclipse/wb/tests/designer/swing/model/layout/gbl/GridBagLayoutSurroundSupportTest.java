@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagConstraintsInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.util.SurroundSupportTest;
 
+import org.junit.Test;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -44,6 +46,7 @@ public class GridBagLayoutSurroundSupportTest extends AbstractGridBagLayoutTest 
 	/**
 	 * Bad: two components on diagonal, and other component in same rectangle.
 	 */
+	@Test
 	public void test_GridBagLayout_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -84,6 +87,7 @@ public class GridBagLayoutSurroundSupportTest extends AbstractGridBagLayoutTest 
 	/**
 	 * Wrap {@link JTable} with {@link JScrollPane}.
 	 */
+	@Test
 	public void test_GridBagLayout_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -128,6 +132,7 @@ public class GridBagLayoutSurroundSupportTest extends AbstractGridBagLayoutTest 
 	/**
 	 * Good: two components in single row, no other components.
 	 */
+	@Test
 	public void test_GridBagLayout_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -197,6 +202,7 @@ public class GridBagLayoutSurroundSupportTest extends AbstractGridBagLayoutTest 
 	/**
 	 * Good: two components on diagonal, other components on sides.
 	 */
+	@Test
 	public void test_GridBagLayout_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

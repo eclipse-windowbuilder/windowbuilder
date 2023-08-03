@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoTest;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.Before;
 
 import javax.swing.JButton;
 
@@ -36,7 +37,8 @@ public abstract class SwingModelTest extends AbstractJavaInfoTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();

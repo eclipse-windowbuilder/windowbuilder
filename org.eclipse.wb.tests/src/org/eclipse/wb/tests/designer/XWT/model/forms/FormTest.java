@@ -21,7 +21,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link FormInfo}.
@@ -43,6 +44,7 @@ public class FormTest extends XwtModelTest {
 	// Body
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noBodyElement() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -71,6 +73,7 @@ public class FormTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_hasBodyElement() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -102,6 +105,7 @@ public class FormTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_generateBodyElement() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -131,6 +135,7 @@ public class FormTest extends XwtModelTest {
 	/**
 	 * Test that property values are intercepted and displayed.
 	 */
+	@Test
 	public void test_body_propertyValue() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -160,6 +165,7 @@ public class FormTest extends XwtModelTest {
 	 * <p>
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=310239
 	 */
+	@Test
 	public void test_background() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -181,6 +187,7 @@ public class FormTest extends XwtModelTest {
 	 * <p>
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=310238
 	 */
+	@Test
 	public void test_headClient() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -198,8 +205,8 @@ public class FormTest extends XwtModelTest {
 		ControlInfo button = getObjectByName("button");
 		{
 			Rectangle bounds = button.getBounds();
-			assertThat(bounds.width).isGreaterThan(400);
-			assertThat(bounds.height).isGreaterThan(20);
+			Assertions.assertThat(bounds.width).isGreaterThan(400);
+			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}
 	}
 }

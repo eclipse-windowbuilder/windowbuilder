@@ -26,7 +26,8 @@ import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.graphics.Image;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Component;
 
@@ -53,6 +54,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	/**
 	 * Using {@link SwingLiveManager} should not change {@link GlobalState}.
 	 */
+	@Test
 	public void test_GlobalState() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -77,6 +79,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	/**
 	 * Test for "live" component during create.
 	 */
+	@Test
 	public void test_create() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -100,6 +103,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	 * Test for using <code>liveComponent.forcedSize.width</code> and
 	 * <code>liveComponent.forcedSize.height</code> parameters.
 	 */
+	@Test
 	public void test_liveImage_forcedSize() throws Exception {
 		setFileContentSrc(
 				"test/MyCanvas.java",
@@ -137,8 +141,8 @@ public class SwingLiveManagerTest extends SwingModelTest {
 		{
 			Image image = newComponent.getImage();
 			assertNotNull(image);
-			assertThat(image.getBounds().width).isEqualTo(100);
-			assertThat(image.getBounds().height).isEqualTo(50);
+			Assertions.assertThat(image.getBounds().width).isEqualTo(100);
+			Assertions.assertThat(image.getBounds().height).isEqualTo(50);
 		}
 	}
 
@@ -146,6 +150,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	 * If exception happens during live image creation, we still should return some image (not
 	 * <code>null</code>) to prevent problems on other levels.
 	 */
+	@Test
 	public void test_whenException() throws Exception {
 		setFileContentSrc(
 				"test/MyCanvas.java",
@@ -174,7 +179,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
 				public void logging(IStatus status, String plugin) {
 					assertEquals(IStatus.ERROR, status.getSeverity());
 					Throwable exception = status.getException();
-					assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
+					Assertions.assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
 					assertEquals("Problem in constructor", exception.getMessage());
 				}
 			};
@@ -192,8 +197,8 @@ public class SwingLiveManagerTest extends SwingModelTest {
 				{
 					Image image = newComponent.getImage();
 					assertNotNull(image);
-					assertThat(image.getBounds().width).isEqualTo(200);
-					assertThat(image.getBounds().height).isEqualTo(50);
+					Assertions.assertThat(image.getBounds().width).isEqualTo(200);
+					Assertions.assertThat(image.getBounds().height).isEqualTo(50);
 				}
 				// no changes in editor
 				assertEditor(originalSource, m_lastEditor);
@@ -225,8 +230,8 @@ public class SwingLiveManagerTest extends SwingModelTest {
 				{
 					Image image = newComponent.getImage();
 					assertNotNull(image);
-					assertThat(image.getBounds().width).isEqualTo(200);
-					assertThat(image.getBounds().height).isEqualTo(50);
+					Assertions.assertThat(image.getBounds().width).isEqualTo(200);
+					Assertions.assertThat(image.getBounds().height).isEqualTo(50);
 				}
 			} finally {
 				log.removeLogListener(logListener);
@@ -243,6 +248,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	/**
 	 * Test for "live" baseline.
 	 */
+	@Test
 	public void test_liveBaseline() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -256,7 +262,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
 		ComponentInfo newButton = createJavaInfo("javax.swing.JButton");
 		// prepare "live" baseline
 		int liveBaseline = newButton.getBaseline();
-		assertThat(liveBaseline).isNotEqualTo(IBaselineSupport.NO_BASELINE).isPositive();
+		Assertions.assertThat(liveBaseline).isNotEqualTo(IBaselineSupport.NO_BASELINE).isPositive();
 		// drop JButton
 		((FlowLayoutInfo) panel.getLayout()).add(newButton, null);
 		assertEditor(
@@ -271,6 +277,6 @@ public class SwingLiveManagerTest extends SwingModelTest {
 				"}");
 		// same baseline as "live"
 		int baseline = newButton.getBaseline();
-		assertThat(baseline).isEqualTo(liveBaseline);
+		Assertions.assertThat(baseline).isEqualTo(liveBaseline);
 	}
 }

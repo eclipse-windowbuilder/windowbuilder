@@ -21,7 +21,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.BorderLayout;
 
@@ -49,6 +50,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 	 * {@link BorderLayout#NORTH} has {@link String} type, but we don't expect that
 	 * {@link NLSStringEvaluator} will return any value here, so no parse error expected.
 	 */
+	@Test
 	public void test_parseErrors() throws Exception {
 		parseContainer(
 				"public class Test extends JFrame {",
@@ -64,6 +66,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 	// replace_toStringLiteral
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_replace_toStringLiteral() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -111,6 +114,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 	// replace_externalizedSourceKey
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_replace_externalizedSourceKey_1() throws Exception {
 		String properties = getSource("frame.title=My JFrame", "frame.name=My name");
 		setFileContentSrc("test/messages.properties", properties);
@@ -151,6 +155,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 		assertEquals(properties, getFileContentSrc("test/messages.properties"));
 	}
 
+	@Test
 	public void test_replace_externalizedSourceKey_2() throws Exception {
 		String properties = getSource("frame.title=My JFrame", "frame.name=My name");
 		setFileContentSrc("test/messages.properties", properties);
@@ -194,6 +199,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 	/**
 	 * Replace {@link StringLiteral}.
 	 */
+	@Test
 	public void test_replace_externalizedSourceKey_3() throws Exception {
 		String properties = getSource("frame.title=My JFrame", "frame.name=My name");
 		setFileContentSrc("test/messages.properties", properties);
@@ -236,6 +242,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 	/**
 	 * Replace when {@link GenericProperty} is not modified, i.e. no {@link Expression}.
 	 */
+	@Test
 	public void test_replace_externalizedSourceKey_4() throws Exception {
 		String properties = getSource("frame.title=My JFrame", "frame.name=My name");
 		setFileContentSrc("test/messages.properties", properties);
@@ -277,6 +284,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 	/**
 	 * Different key in same {@link AbstractSource}.
 	 */
+	@Test
 	public void test_replace_externalizedSourceKey_5() throws Exception {
 		String properties = getSource("frame.title=My JFrame", "frame.name=My name");
 		setFileContentSrc("test/messages.properties", properties);
@@ -320,6 +328,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 	 * Test for {@link AbstractSource#replace_externalizedSourceKey(GenericProperty, String, String)}.
 	 * We should not add new keys into source.
 	 */
+	@Test
 	public void test_replace_externalizedSourceKey_6() throws Exception {
 		m_testProject.addPlugin("org.eclipse.osgi");
 		NlsTestUtils.create_EclipseModern_AccessorAndProperties();
@@ -362,6 +371,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 	/**
 	 * Test for {@link AbstractSource#useKey(GenericProperty, String)}.
 	 */
+	@Test
 	public void test_useKey() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -382,7 +392,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 		FieldSource fieldSource;
 		{
 			AbstractSource[] sources = support.getSources();
-			assertThat(sources).hasSize(1);
+			Assertions.assertThat(sources).hasSize(1);
 			fieldSource = (FieldSource) sources[0];
 		}
 		// do replace source/key
@@ -408,6 +418,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 	/**
 	 * Test for {@link AbstractSource#useKey(GenericProperty, String)}.
 	 */
+	@Test
 	public void test_useKey_alreadyExternalized() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -428,7 +439,7 @@ public class SourceAbstractSpecialTest extends AbstractNlsTest {
 		FieldSource fieldSource;
 		{
 			AbstractSource[] sources = support.getSources();
-			assertThat(sources).hasSize(1);
+			Assertions.assertThat(sources).hasSize(1);
 			fieldSource = (FieldSource) sources[0];
 		}
 		// do replace source/key

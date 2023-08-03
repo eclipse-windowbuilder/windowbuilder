@@ -19,6 +19,8 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 import org.eclipse.swt.graphics.Image;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ViewerInfo}.
  *
@@ -39,6 +41,7 @@ public class ViewerTest extends XwtModelTest {
 	// Parse
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse_noControlElement() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -65,6 +68,7 @@ public class ViewerTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_parse_hasControlElement() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -95,6 +99,7 @@ public class ViewerTest extends XwtModelTest {
 	/**
 	 * There was problem that we tried to find exactly "table" element, and ignored "Table".
 	 */
+	@Test
 	public void test_parse_hasControlElementInUpperCase() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -129,6 +134,7 @@ public class ViewerTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_parse_hasControlElement_hasRowData() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -156,6 +162,7 @@ public class ViewerTest extends XwtModelTest {
 		refresh();
 	}
 
+	@Test
 	public void test_parse_hasControlElement_andItsAttributes() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -196,6 +203,7 @@ public class ViewerTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_styleProperty() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -222,6 +230,7 @@ public class ViewerTest extends XwtModelTest {
 	// Operations
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -263,6 +272,7 @@ public class ViewerTest extends XwtModelTest {
 				"    <TableViewer x:Style='BORDER | FULL_SELECTION'>");
 	}
 
+	@Test
 	public void test_CREATE_liveImage() throws Exception {
 		parse("<Shell/>");
 		// prepare viewer and table
@@ -273,6 +283,7 @@ public class ViewerTest extends XwtModelTest {
 		assertNotNull(image);
 	}
 
+	@Test
 	public void test_DELETE_control() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -313,6 +324,7 @@ public class ViewerTest extends XwtModelTest {
 				"  <FillLayout>");
 	}
 
+	@Test
 	public void test_MOVE_reorder() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -349,6 +361,7 @@ public class ViewerTest extends XwtModelTest {
 				"    <TableViewer wbp:name='viewer'>");
 	}
 
+	@Test
 	public void test_DELETE_viewer() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

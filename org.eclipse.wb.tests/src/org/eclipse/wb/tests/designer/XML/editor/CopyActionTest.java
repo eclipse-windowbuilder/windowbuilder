@@ -22,6 +22,8 @@ import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CopyAction} and {@link PasteAction}.
  *
@@ -45,6 +47,7 @@ public class CopyActionTest extends XwtGefTest {
 	/**
 	 * "Copy" action is disabled if no selection.
 	 */
+	@Test
 	public void test_noSelection() throws Exception {
 		openEditor("<Shell/>");
 		// prepare "Copy" action
@@ -57,6 +60,7 @@ public class CopyActionTest extends XwtGefTest {
 	/**
 	 * "Copy" action is disabled if no selection.
 	 */
+	@Test
 	public void test_notXMLObject_EditPart() throws Exception {
 		XmlObjectInfo shell = openEditor("<Shell/>");
 		// add artificial EditPart
@@ -83,6 +87,7 @@ public class CopyActionTest extends XwtGefTest {
 	/**
 	 * "This" component can not be copied.
 	 */
+	@Test
 	public void test_thisSelection() throws Exception {
 		XmlObjectInfo shell = openEditor("<Shell/>");
 		// prepare "Copy" action
@@ -95,6 +100,7 @@ public class CopyActionTest extends XwtGefTest {
 	/**
 	 * Test for copy/paste single component.
 	 */
+	@Test
 	public void test_copySingle() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -141,6 +147,7 @@ public class CopyActionTest extends XwtGefTest {
 	 * If container and its child are selected, then only container should be copied, it will copy
 	 * child automatically.
 	 */
+	@Test
 	public void test_copyParentAndItsChild() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",

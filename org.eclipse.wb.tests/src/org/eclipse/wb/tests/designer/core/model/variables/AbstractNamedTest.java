@@ -32,6 +32,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import org.junit.Test;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -55,6 +57,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_accessName() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -79,6 +82,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	 * {@link VariableSupport#hasName()}, but right now there are no {@link ASTNode} with variable
 	 * yet.
 	 */
+	@Test
 	public void test_getName_whenNoVariable() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -98,6 +102,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	 * {@link AbstractNamedVariableSupport#getReferenceExpression(NodeTarget)} and appends
 	 * <code>"."</code>.
 	 */
+	@Test
 	public void test_getAccessExpression() throws Exception {
 		AbstractNamedVariableSupport variable = mock(AbstractNamedVariableSupport.class);
 		NodeTarget target = null;
@@ -120,6 +125,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	/**
 	 * One variable, set same name as current.
 	 */
+	@Test
 	public void test_setNameBase_sameName() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -146,6 +152,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	 * Two variables, potential shadow conflict.<br>
 	 * No test for visible conflict, we use {@link AstEditor} that already supports both cases.
 	 */
+	@Test
 	public void test_setNameBase_shadowConflict() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -177,6 +184,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	// Variable property
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_variableProperty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -273,6 +281,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	/**
 	 * Test for single variable.
 	 */
+	@Test
 	public void test_validateVariables_singleVariable() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -301,6 +310,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	/**
 	 * Tests for renaming two variables with/without visible/shadow conflicts.
 	 */
+	@Test
 	public void test_validateVariables_twoVariables_plain() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -360,6 +370,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 	// validateName()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_validateName_local() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -429,6 +440,7 @@ public class AbstractNamedTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_validateName_field() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

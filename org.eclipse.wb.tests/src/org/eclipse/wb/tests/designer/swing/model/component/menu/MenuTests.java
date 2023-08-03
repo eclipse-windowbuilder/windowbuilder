@@ -10,24 +10,22 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.component.menu;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for Swing menu.
  *
  * @author scheglov_ke
  */
-public class MenuTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.model.component.menu");
-		suite.addTest(createSingleSuite(JMenuBarTest.class));
-		suite.addTest(createSingleSuite(JPopupMenuTest.class));
-		suite.addTest(createSingleSuite(JMenuTest.class));
-		suite.addTest(createSingleSuite(JMenuItemTest.class));
-		suite.addTest(createSingleSuite(JMenuGefTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		JMenuBarTest.class,
+		JPopupMenuTest.class,
+		JMenuTest.class,
+		JMenuItemTest.class,
+		JMenuGefTest.class
+})
+public class MenuTests {
 }

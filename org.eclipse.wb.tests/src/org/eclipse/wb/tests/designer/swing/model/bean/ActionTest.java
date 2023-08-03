@@ -55,6 +55,8 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -84,6 +86,7 @@ public class ActionTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noDesign_forActions() throws Exception {
 		try {
 			parseJavaInfo(
@@ -104,6 +107,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * No {@link AbstractAction}'s - no {@link ActionContainerInfo} and {@link ActionInfo}'s.
 	 */
+	@Test
 	public void test_noActions() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -147,6 +151,7 @@ public class ActionTest extends SwingModelTest {
 	 * Test for external {@link Action}'s, in separate top-level class.<br>
 	 * Test that we can parse {@link Action} creation.
 	 */
+	@Test
 	public void test_external_parse() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -202,6 +207,7 @@ public class ActionTest extends SwingModelTest {
 	 * Test that when we set property for Action, it is set in beginning of method, not mixed with
 	 * {@link JButton}.
 	 */
+	@Test
 	public void test_external_setProperty() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -242,6 +248,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * We should support "lazy" code generation.
 	 */
+	@Test
 	public void test_external_new_lazy() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -291,6 +298,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for new instance of external {@link ActionInfo}.
 	 */
+	@Test
 	public void test_external_new() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -328,6 +336,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Add new {@link ActionInfo} using {@link JToolBar#add(Action)}.
 	 */
+	@Test
 	public void test_external_addOnJToolBar() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -369,6 +378,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Set new {@link ActionInfo} on {@link JButton}.
 	 */
+	@Test
 	public void test_external_setOnJButton() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -408,6 +418,7 @@ public class ActionTest extends SwingModelTest {
 	 * Test for external {@link Action}'s not attached to any {@link AbstractButton}, in "lazy"
 	 * pattern.
 	 */
+	@Test
 	public void test_notAttached_lazy() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -436,6 +447,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for external {@link Action}'s attached to {@link JButton}, in "lazy" pattern.
 	 */
+	@Test
 	public void test_attached_lazy() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -482,6 +494,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for external {@link Action}'s not attached to any {@link AbstractButton}.
 	 */
+	@Test
 	public void test_notAttached_fieldInitializer() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -510,6 +523,7 @@ public class ActionTest extends SwingModelTest {
 	 * {@link ActionInfo} contributes itself to <code>org.eclipse.wb.internal.swing.actions</code>
 	 * {@link CategoryInfo}.
 	 */
+	@Test
 	public void test_contributeToPalette() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -536,6 +550,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for {@link ActionInfo#setAction(ComponentInfo, ActionInfo)}.
 	 */
+	@Test
 	public void test_setAction() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -607,6 +622,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for creating {@link Action} using static factory.
 	 */
+	@Test
 	public void test_factory() throws Exception {
 		prepare_ActionFactory();
 		ContainerInfo panel =
@@ -649,6 +665,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test that we can parse inner-class {@link AbstractAction}.
 	 */
+	@Test
 	public void test_inner_parse() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -711,6 +728,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * {@link StringLiteral} as key in {@link Action#putValue(String, Object)} invocation.
 	 */
+	@Test
 	public void test_inner_parse2() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -743,6 +761,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * {@link QualifiedName} as key in {@link Action#putValue(String, Object)} invocation.
 	 */
+	@Test
 	public void test_inner_parse3() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -781,6 +800,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * No constructor, so no properties to apply.
 	 */
+	@Test
 	public void test_inner_parse_noConstructor() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -804,6 +824,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for new instance of inner {@link ActionInfo}.
 	 */
+	@Test
 	public void test_inner_new() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -878,6 +899,7 @@ public class ActionTest extends SwingModelTest {
 	 * Test for new instance of inner {@link ActionInfo}.<br>
 	 * There is already other inner {@link Action}, so new one should be added after existing.
 	 */
+	@Test
 	public void test_inner_new2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -927,6 +949,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test that we can delete inner-class {@link AbstractAction}.
 	 */
+	@Test
 	public void test_inner_delete() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -978,6 +1001,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for {@link ActionExpressionAccessor}.
 	 */
+	@Test
 	public void test_inner_ActionExpressionAccessor_1() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -1096,6 +1120,7 @@ public class ActionTest extends SwingModelTest {
 	 * Test for {@link ActionExpressionAccessor}.<br>
 	 * Expression in {@link SuperConstructorInvocation}.
 	 */
+	@Test
 	public void test_inner_ActionExpressionAccessor_2() throws Exception {
 		m_waitForAutoBuild = true;
 		final ContainerInfo panel =
@@ -1222,6 +1247,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * Property that is set using {@link Action#putValue(String, Object)}.
 	 */
+	@Test
 	public void test_inner_properties_putValue() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -1264,6 +1290,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * Property that is set using {@link Action#putValue(String, Object)} in {@link Initializer}.
 	 */
+	@Test
 	public void test_inner_properties_putValue_inInitializer() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -1313,6 +1340,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * Property that is set using {@link Action#putValue(String, Object)}.
 	 */
+	@Test
 	public void test_inner_properties_superConstructor() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -1375,6 +1403,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test that we can parse inner-class {@link AbstractAction}.
 	 */
+	@Test
 	public void test_inner_inGeneric() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -1416,6 +1445,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=362706
 	 */
+	@Test
 	public void test_external() throws Exception {
 		setFileContentSrc(
 				"test/ExternalActions.java",
@@ -1455,6 +1485,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * We should be able to parse anonymous instance of {@link AbstractAction}.
 	 */
+	@Test
 	public void test_anonymous_parse() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -1477,6 +1508,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * Property that is set using {@link Action#putValue(String, Object)} in {@link Initializer}.
 	 */
+	@Test
 	public void test_anonymous_properties_inInitializer() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -1521,6 +1553,7 @@ public class ActionTest extends SwingModelTest {
 	 * <p>
 	 * Property that is set using {@link Action#putValue(String, Object)} in {@link Initializer}.
 	 */
+	@Test
 	public void test_anonymous_properties_inConstructorArgument() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
@@ -1560,7 +1593,9 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Test for {@link ActionInfo#getPresentation()}.
 	 */
-	public void DISABLE_test_presentation() throws Exception {
+	@Ignore
+	@Test
+	public void test_presentation() throws Exception {
 		m_waitForAutoBuild = true;
 		ContainerInfo panel =
 				parseContainer(
@@ -1603,6 +1638,7 @@ public class ActionTest extends SwingModelTest {
 	 * If selected {@link ComponentInfo} is not {@link AbstractButton}, then no
 	 * <code>"Set Action"</code> menu.
 	 */
+	@Test
 	public void test_contextMenu_notButton() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1622,6 +1658,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Set {@link Action} for single {@link ComponentInfo}.
 	 */
+	@Test
 	public void test_contextMenu_setAction_single() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -1666,6 +1703,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Set {@link Action} for multiple {@link ComponentInfo}.
 	 */
+	@Test
 	public void test_contextMenu_setAction_multiple() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -1738,6 +1776,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Remove {@link Action} from {@link AbstractButton}.
 	 */
+	@Test
 	public void test_contextMenu_noAction() throws Exception {
 		createExternalAction();
 		ContainerInfo panel =
@@ -1779,6 +1818,7 @@ public class ActionTest extends SwingModelTest {
 	/**
 	 * Set new {@link Action} for single {@link AbstractButton}.
 	 */
+	@Test
 	public void test_contextMenu_newGroup() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

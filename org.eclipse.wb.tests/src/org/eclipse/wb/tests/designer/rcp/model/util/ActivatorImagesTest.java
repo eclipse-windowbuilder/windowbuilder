@@ -18,6 +18,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.core.resources.IFile;
 
+import org.junit.Test;
+
 /**
  * Test for {@link Activator_getImages_ByteCodeProcessor}.
  *
@@ -84,34 +86,42 @@ public class ActivatorImagesTest extends RcpModelTest {
 	// Tests: Image
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getImage_icons() throws Exception {
 		test_getImage("icons/1.png");
 	}
 
+	@Test
 	public void test_getImage_win_icons() throws Exception {
 		test_getImage("icons\\\\1.png");
 	}
 
+	@Test
 	public void test_getImage_icons_slash() throws Exception {
 		test_getImage("/icons/1.png");
 	}
 
+	@Test
 	public void test_getImage_win_icons_slash() throws Exception {
 		test_getImage("\\\\icons\\\\1.png");
 	}
 
+	@Test
 	public void test_getImage_images() throws Exception {
 		test_getImage("images/2.png");
 	}
 
+	@Test
 	public void test_getImage_win_images() throws Exception {
 		test_getImage("images\\\\2.png");
 	}
 
+	@Test
 	public void test_getImage_images_slash() throws Exception {
 		test_getImage("/images/2.png");
 	}
 
+	@Test
 	public void test_getImage_win_images_slash() throws Exception {
 		test_getImage("\\\\images\\\\2.png");
 	}
@@ -130,6 +140,7 @@ public class ActivatorImagesTest extends RcpModelTest {
 		assertFalse((Boolean) ReflectionUtils.invokeMethod(image, "isDisposed()"));
 	}
 
+	@Test
 	public void test_getImage_wrongPath() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -147,38 +158,47 @@ public class ActivatorImagesTest extends RcpModelTest {
 	// Test: ImageDescriptor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getImageDescriptor_icons() throws Exception {
 		test_getImageDescriptor("icons/1.png", true);
 	}
 
+	@Test
 	public void test_getImageDescriptor_win_icons() throws Exception {
 		test_getImageDescriptor("icons\\\\1.png", true);
 	}
 
+	@Test
 	public void test_getImageDescriptor_icons_slash() throws Exception {
 		test_getImageDescriptor("/icons/1.png", true);
 	}
 
+	@Test
 	public void test_getImageDescriptor_win_icons_slash() throws Exception {
 		test_getImageDescriptor("\\\\icons\\\\1.png", true);
 	}
 
+	@Test
 	public void test_getImageDescriptor_images() throws Exception {
 		test_getImageDescriptor("images/2.png", true);
 	}
 
+	@Test
 	public void test_getImageDescriptor_win_images() throws Exception {
 		test_getImageDescriptor("images\\\\2.png", true);
 	}
 
+	@Test
 	public void test_getImageDescriptor_images_slash() throws Exception {
 		test_getImageDescriptor("/images/2.png", true);
 	}
 
+	@Test
 	public void test_getImageDescriptor_win_images_slash() throws Exception {
 		test_getImageDescriptor("\\\\images\\\\2.png", true);
 	}
 
+	@Test
 	public void test_getImageDescriptor_wrongPath() throws Exception {
 		test_getImageDescriptor("icons/3.png", false);
 	}

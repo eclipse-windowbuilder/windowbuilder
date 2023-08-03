@@ -13,7 +13,9 @@ package org.eclipse.wb.tests.designer.rcp.model.e4;
 import org.eclipse.wb.internal.rcp.model.e4.E4PartInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Test for {@link E4PartInfo}.
@@ -35,7 +37,9 @@ public class E4PartTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_0() throws Exception {
+	@Ignore
+	@Test
+	public void test_0() throws Exception {
 		E4PartInfo part =
 				parseJavaInfo(
 						"import javax.annotation.PostConstruct;",
@@ -57,7 +61,7 @@ public class E4PartTest extends RcpModelTest {
 		part.refresh();
 		assertNoErrors(part);
 		// check bounds
-		assertThat(part.getBounds().width).isEqualTo(450);
-		assertThat(part.getBounds().height).isEqualTo(300);
+		Assertions.assertThat(part.getBounds().width).isEqualTo(450);
+		Assertions.assertThat(part.getBounds().height).isEqualTo(300);
 	}
 }

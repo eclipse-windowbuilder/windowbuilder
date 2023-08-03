@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.XML.model;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link EditorWarning}.
  *
@@ -33,6 +35,7 @@ public class EditorWarningTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_onlyMessage() throws Exception {
 		String message = "my message";
 		EditorWarning warning = new EditorWarning(message);
@@ -40,6 +43,7 @@ public class EditorWarningTest extends AbstractCoreTest {
 		assertSame(null, warning.getException());
 	}
 
+	@Test
 	public void test_messageAndException() throws Exception {
 		String message = "my message";
 		Throwable exception = new Exception();

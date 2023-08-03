@@ -21,7 +21,8 @@ import org.eclipse.wb.tests.designer.rcp.model.forms.AbstractFormsTest;
 
 import org.eclipse.jface.action.IAction;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		assertEquals(checked, action.isChecked());
 	}
 
+	@Test
 	public void test_selectionActions_emptySelection() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -75,9 +77,10 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
+	@Test
 	public void test_selectionActions_invalidSelection() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -102,9 +105,10 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 			shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		}
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
+	@Test
 	public void test_selectionActions_state() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -161,6 +165,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_grabAction() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -249,6 +254,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 		}
 	}
 
+	@Test
 	public void test_alignmentAction() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

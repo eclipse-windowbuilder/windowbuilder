@@ -36,7 +36,10 @@ import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -60,7 +63,8 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		{
 			IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
 			preferences.setToDefault(IPreferenceConstants.P_CHANGE_INSETS_FOR_GAPS);
@@ -84,6 +88,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_images() throws Exception {
 		assertNotNull(AbstractGridBagLayoutInfo.getImage("headers/h/menu/left.gif"));
 		assertNotNull(AbstractGridBagLayoutInfo.getImageDescriptor("headers/h/menu/left.gif"));
@@ -98,6 +103,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Simple test with {@link GridBagLayoutInfo} and single component with
 	 * {@link GridBagConstraintsInfo}.
 	 */
+	@Test
 	public void test_fieldAssignment() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -135,6 +141,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for support of "parent2/child2" flags for {@link ParameterDescription}.
 	 */
+	@Test
 	public void test_extraParentChild() throws Exception {
 		setFileContentSrc(
 				"test/AFrame.java",
@@ -207,6 +214,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * So, we should set some reasonable size for {@link Container} and hope that it will be enough to
 	 * prevent zero size for components.
 	 */
+	@Test
 	public void test_ComboBox_andBaseline() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -231,6 +239,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Same as {@link #test_ComboBox_andBaseline()} but test also that size of {@link JPanel} is same
 	 * as set using source.
 	 */
+	@Test
 	public void test_keepSize() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -254,6 +263,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for {@link IGridInfo} implementation.
 	 */
+	@Test
 	public void test_grid() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -362,6 +372,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for {@link IGridInfo} when container has no components, so no intervals.
 	 */
+	@Test
 	public void test_grid_noComponents() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -384,6 +395,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Test for case when one of the components is spanned to the filler column. This was not expected
 	 * before, but seems legitimate and some users do this.
 	 */
+	@Test
 	public void test_grid_spannedColumn_includeFiller() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -412,14 +424,15 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		Rectangle cells = gridInfo.getComponentCells(button);
 		Rectangle cellsRectangle = gridInfo.getCellsRectangle(cells);
 		assertEquals(new Rectangle(0, 0, 2, 1), cells);
-		assertThat(cellsRectangle.x).isEqualTo(0);
-		assertThat(cellsRectangle.width).isGreaterThan(400);
+		Assertions.assertThat(cellsRectangle.x).isEqualTo(0);
+		Assertions.assertThat(cellsRectangle.width).isGreaterThan(400);
 	}
 
 	/**
 	 * Test for case when one of the components is spanned to the filler row. This was not expected
 	 * before, but seems legitimate and some users do this.
 	 */
+	@Test
 	public void test_grid_spannedRow_includeFiller() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -448,8 +461,8 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		Rectangle cells = gridInfo.getComponentCells(button);
 		Rectangle cellsRectangle = gridInfo.getCellsRectangle(cells);
 		assertEquals(new Rectangle(0, 0, 1, 2), cells);
-		assertThat(cellsRectangle.y).isEqualTo(0);
-		assertThat(cellsRectangle.height).isGreaterThan(250);
+		Assertions.assertThat(cellsRectangle.y).isEqualTo(0);
+		Assertions.assertThat(cellsRectangle.height).isGreaterThan(250);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -461,6 +474,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link IGridInfo} when one column has no components.<br>
 	 * However it should still have not zero size, so that we could drop component into it.
 	 */
+	@Test
 	public void test_grid_emptyColumn() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -485,6 +499,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * However it should still have not zero size, so that we could drop component into it.<br>
 	 * Here we test that it works for "contentPane" on {@link JFrame}.
 	 */
+	@Test
 	public void test_grid_emptyColumn_JFrame() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -510,6 +525,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * However it should still have not zero size, so that we could drop component into it.<br>
 	 * Here we have "columnWidths" field not <code>null</code>, but with not enough elements.
 	 */
+	@Test
 	public void test_grid_emptyColumn2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -535,6 +551,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * However it should still have not zero size, so that we could drop component into it.<br>
 	 * Here we have "columnWeights" with last surrogate column.
 	 */
+	@Test
 	public void test_grid_emptyColumn3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -562,6 +579,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * <p>
 	 * Column "0" has component, but it is snapped on two columns, so "0" is too small.
 	 */
+	@Test
 	public void test_grid_emptyColumn_spanned() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -606,6 +624,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Here we have "columnWidths" that is big enough, so no need to drop it to smaller (but bigger
 	 * than zero) value.
 	 */
+	@Test
 	public void test_grid_emptyColumn4() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -635,6 +654,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link IGridInfo} when one row has no components.<br>
 	 * However it should still have not zero size, so that we could drop component into it.
 	 */
+	@Test
 	public void test_grid_emptyRow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -660,7 +680,9 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * <p>
 	 * Row "0" has component, but it is spanned two rows, so "0" has zero size.
 	 */
-	public void DISABLE_test_grid_emptyRow_spanned() throws Exception {
+	@Ignore
+	@Test
+	public void test_grid_emptyRow_spanned() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"class Test extends JPanel {",
@@ -701,6 +723,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for case when columnWeights/rowWeights have less elements than required by dimensions.
 	 */
+	@Test
 	public void test_grid_lessWeightThanDimensions() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -727,11 +750,11 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		IGridInfo gridInfo = layout.getGridInfo();
 		{
 			Interval[] intervals = gridInfo.getColumnIntervals();
-			assertThat(intervals).hasSize(2);
+			Assertions.assertThat(intervals).hasSize(2);
 		}
 		{
 			Interval[] intervals = gridInfo.getRowIntervals();
-			assertThat(intervals).hasSize(2);
+			Assertions.assertThat(intervals).hasSize(2);
 		}
 	}
 
@@ -739,6 +762,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * We should ensure that empty row has some reasonable size. However this may conflict with
 	 * "topBounds.path" feature.
 	 */
+	@Test
 	public void test_grid_emptyRow_whenPack() throws Exception {
 		setFileContentSrc(
 				"test/MyFrame.java",
@@ -783,10 +807,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		// "button" should be fully visible
 		Rectangle frameBounds = frame.getAbsoluteBounds();
 		Rectangle buttonBounds = button.getAbsoluteBounds();
-		assertThat(frameBounds.getTopLeft().x).isLessThanOrEqualTo(buttonBounds.getTopLeft().x);
-		assertThat(frameBounds.getTopLeft().y).isLessThanOrEqualTo(buttonBounds.getTopLeft().y);
-		assertThat(frameBounds.getBottomRight().x).isGreaterThanOrEqualTo(buttonBounds.getBottomRight().x);
-		assertThat(frameBounds.getBottomRight().y).isGreaterThanOrEqualTo(buttonBounds.getBottomRight().y);
+		Assertions.assertThat(frameBounds.getTopLeft().x).isLessThanOrEqualTo(buttonBounds.getTopLeft().x);
+		Assertions.assertThat(frameBounds.getTopLeft().y).isLessThanOrEqualTo(buttonBounds.getTopLeft().y);
+		Assertions.assertThat(frameBounds.getBottomRight().x).isGreaterThanOrEqualTo(buttonBounds.getBottomRight().x);
+		Assertions.assertThat(frameBounds.getBottomRight().y).isGreaterThanOrEqualTo(buttonBounds.getBottomRight().y);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -798,6 +822,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Test that replacing {@link GridBagLayoutInfo} with different layout manager does not cause any
 	 * problem.
 	 */
+	@Test
 	public void test_replaceGBL() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -843,6 +868,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Test that replacing {@link GridBagLayoutInfo} with different layout manager does not cause any
 	 * problem.
 	 */
+	@Test
 	public void test_replaceGBL_whenVirtualConstraints() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -885,6 +911,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * When we set {@link GridBagLayoutInfo}, it should be created in "normal grid" mode, i.e. with
 	 * "end-of-grid" fillers.
 	 */
+	@Test
 	public void test_setLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -918,6 +945,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Add component into empty {@link GridBagLayoutInfo}.
 	 */
+	@Test
 	public void test_CREATE_empty_0() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -954,6 +982,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Add component into empty {@link GridBagLayoutInfo} (but with end-of-grid fillers), with
 	 * column/row size/weight.
 	 */
+	@Test
 	public void test_CREATE_empty_1() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1000,6 +1029,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Add component into empty {@link GridBagLayoutInfo}, with column/row size/weight.<br>
 	 * New columns/rows should be appended.
 	 */
+	@Test
 	public void test_CREATE_empty_2() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1046,6 +1076,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Insert new component into new column/row.<br>
 	 * Existing component should be moved.
 	 */
+	@Test
 	public void test_CREATE_insertColumn_insertRow() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1108,6 +1139,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Append new component into new column/row.
 	 */
+	@Test
 	public void test_CREATE_appendColumn_appendRow() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1170,6 +1202,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Append new component into new column.
 	 */
+	@Test
 	public void test_CREATE_appendColumn() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1225,6 +1258,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Insert new component into new column/row.<br>
 	 * Existing component (spanned on two columns) should be expanded.
 	 */
+	@Test
 	public void test_CREATE_insertColumn_appendRow_expandSpanColumn() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1283,6 +1317,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Insert new component into new column/row.<br>
 	 * Existing component (spanned on two rows) should be expanded.
 	 */
+	@Test
 	public void test_CREATE_appendColumn_insertRow_expandSpanRow() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1340,6 +1375,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test that column gap can be configured.
 	 */
+	@Test
 	public void test_CREATE_appendColumn_differentGap() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1398,6 +1434,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test that row gap can be configured.
 	 */
+	@Test
 	public void test_CREATE_appendRow_differentGap() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1456,6 +1493,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test that we can disable changing "insets" for generating gaps.
 	 */
+	@Test
 	public void test_CREATE_appendRow_dontChangeInsets_soNoGap() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1518,6 +1556,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for {@link GridBagLayoutInfo#command_CREATE_last(ComponentInfo)}.
 	 */
+	@Test
 	public void test_CREATE_last_hasEmptyCell() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1585,6 +1624,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for {@link GridBagLayoutInfo#command_CREATE_last(ComponentInfo)}.
 	 */
+	@Test
 	public void test_CREATE_last_noEmptyCell() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1637,6 +1677,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * We should handle correctly case when "rowHeights" has not enough elements.
 	 */
+	@Test
 	public void test_CREATE_tooLittleElements_rowHeight() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1699,6 +1740,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * When we move, we update insets.
 	 */
+	@Test
 	public void test_MOVE_0() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1769,6 +1811,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * When we move we may reorder components.
 	 */
+	@Test
 	public void test_MOVE_1() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1840,6 +1883,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for moving from inner {@link JPanel} to {@link GridBagLayout}, two times.
 	 */
+	@Test
 	public void test_MOVE_2() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1970,6 +2014,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Test for moving and "virtual" constraints.<br>
 	 * Move component below.
 	 */
+	@Test
 	public void test_MOVE_4() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -2028,6 +2073,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Test for moving and "virtual" constraints.<br>
 	 * Move component above.
 	 */
+	@Test
 	public void test_MOVE_5() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -2092,6 +2138,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * There are no minimum size arrays for columns/rows, so when we delete component, last empty
 	 * columns/rows are also deleted.
 	 */
+	@Test
 	public void test_DELETE_1() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -2129,6 +2176,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * There is minimum size arrays for columns/rows, so we keep column/row even when they become
 	 * empty.
 	 */
+	@Test
 	public void test_DELETE_2() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -2174,6 +2222,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * When we delete empty last columns/rows we should also cut "weight" arrays.
 	 */
+	@Test
 	public void test_DELETE_3() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -2221,6 +2270,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link GridBagLayoutInfo#command_setCells(ComponentInfo, Rectangle)}.<br>
 	 * Span single component.
 	 */
+	@Test
 	public void test_setCells_0() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -2282,6 +2332,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * Test for {@link GridBagLayoutInfo#command_setCells(ComponentInfo, Rectangle)}.<br>
 	 * Span component that causes move.
 	 */
+	@Test
 	public void test_setCells_1() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -2365,7 +2416,9 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * Test for copy/paste {@link JPanel} with {@link GridBagLayout} and children.
 	 */
-	public void DISABLE_test_clipboard() throws Exception {
+	@Ignore
+	@Test
+	public void test_clipboard() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"class Test extends JPanel {",
@@ -2444,7 +2497,9 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * We should not change alignments when paste existing panel.
 	 */
-	public void DISABLE_test_clipboard_disableAutoAlignment() throws Exception {
+	@Ignore
+	@Test
+	public void test_clipboard_disableAutoAlignment() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"class Test extends JPanel {",
@@ -2541,6 +2596,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * <p>
 	 * 40334: NPE by relocation of the component in GridBagLayout
 	 */
+	@Test
 	public void test_autoRename_lazyVariable() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -2640,6 +2696,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		});
 	}
 
+	@Test
 	public void test_useJPanelWithGBL() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -2690,6 +2747,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * layout for container of "this" {@link ContainerInfo}, because both have same "null" parent. We
 	 * should use better check.
 	 */
+	@Test
 	public void test_danglingGBL() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -2706,6 +2764,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * If will column/row has component, then consider it as normal column/row, not as artificial, so
 	 * don't remove it.
 	 */
+	@Test
 	public void test_componentInFiller() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2735,8 +2794,8 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 			assertEquals(2, gridInfo.getRowCount());
 		}
 		// dimensions
-		assertThat(layout.getColumns()).hasSize(2);
-		assertThat(layout.getRows()).hasSize(2);
+		Assertions.assertThat(layout.getColumns()).hasSize(2);
+		Assertions.assertThat(layout.getRows()).hasSize(2);
 	}
 
 	/**
@@ -2744,6 +2803,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	 * it also before {@link GridBagConstraintsInfo}, so in lazy mode - in "parent" block, not in
 	 * container "accessor" method.
 	 */
+	@Test
 	public void test_setLayout_whenContainerOnGBL() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2804,6 +2864,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * {@link JPopupMenuInfo} is not managed by {@link LayoutInfo}.
 	 */
+	@Test
 	public void test_JPopupMenu() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -2831,6 +2892,6 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		ComponentInfo button = getJavaInfoByName("button");
 		//
-		assertThat(layout.getComponents()).containsExactly(button);
+		Assertions.assertThat(layout.getComponents()).containsExactly(button);
 	}
 }

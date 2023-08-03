@@ -10,21 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.databinding.swing;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author sablin_aa
  *
  */
-public class BindingTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.databinding");
-		suite.addTest(createSingleSuite(SwingDatabindingsFactoryTest.class));
-		suite.addTest(createSingleSuite(GenericUtilsTest.class));
-		suite.addTest(createSingleSuite(BindValueTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		SwingDatabindingsFactoryTest.class,
+		GenericUtilsTest.class,
+		BindValueTest.class
+})
+public class BindingTests {
 }

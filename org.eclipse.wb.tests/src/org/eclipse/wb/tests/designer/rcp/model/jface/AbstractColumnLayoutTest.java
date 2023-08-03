@@ -48,6 +48,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Tree;
 
+import org.junit.Test;
+
 /**
  * Test for {@link AbstractColumnLayoutInfo}.
  *
@@ -68,6 +70,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse_TableColumnLayout() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -144,6 +147,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_parse_TreeColumnLayout() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -222,6 +226,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	 * Users often try to drop {@link TableColumnLayout} on {@link Composite} and see exception. We
 	 * should prevent this.
 	 */
+	@Test
 	public void test_parse_TableColumnLayout_noTable() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -239,6 +244,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Test for CREATE new {@link Table} on {@link TableColumnLayout}.
 	 */
+	@Test
 	public void test_parse_TableColumnLayout_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -274,6 +280,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Test for ADD existing {@link Table} on {@link TableColumnLayout}.
 	 */
+	@Test
 	public void test_parse_TableColumnLayout_ADD() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -323,6 +330,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	 * Users often try to drop {@link TreeColumnLayout} on {@link Composite} and see exception. We
 	 * should prevent this.
 	 */
+	@Test
 	public void test_parse_TreeColumnLayout_noTree() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -339,6 +347,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Test for CREATE new {@link Tree} on {@link TreeColumnLayout}.
 	 */
+	@Test
 	public void test_parse_TreeColumnLayout_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -370,6 +379,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Test for ADD existing {@link Tree} on {@link TreeColumnLayout}.
 	 */
+	@Test
 	public void test_parse_TreeColumnLayout_ADD() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -415,6 +425,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	// Delete manager Table/Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deleteComposite_whenDeleteTable() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -448,6 +459,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Intercept setting property "column.width" and set "width" property of {@link ColumnPixelData}.
 	 */
+	@Test
 	public void test_setWidth_PIXEL() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -487,6 +499,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	 * Intercept setting property "column.width" and set "minimumWidth" property of
 	 * {@link ColumnWeightData}.
 	 */
+	@Test
 	public void test_setWidth_WEIGHT() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -531,6 +544,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	 * Test for {@link AbstractColumnLayoutInfo#setLayoutData(ItemInfo, ColumnLayoutDataInfo)}.<br>
 	 * Sets {@link ColumnPixelDataInfo}.
 	 */
+	@Test
 	public void test_setLayoutData_PIXEL() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -578,6 +592,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	 * Test for {@link AbstractColumnLayoutInfo#setLayoutData(ItemInfo, ColumnLayoutDataInfo)}.<br>
 	 * Sets {@link ColumnWeightDataInfo}.
 	 */
+	@Test
 	public void test_setLayoutData_WEIGHT() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -630,6 +645,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	 * Test for changing type of {@link ColumnLayoutDataInfo} using property.<br>
 	 * Sets {@link ColumnPixelDataInfo}.
 	 */
+	@Test
 	public void test_LayoutDataType_Property_PIXEL() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -670,6 +686,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	 * Test for changing type of {@link ColumnLayoutDataInfo} using property.<br>
 	 * Sets {@link ColumnWeightDataInfo}.
 	 */
+	@Test
 	public void test_LayoutDataType_Property_WEIGHT() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -714,6 +731,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Test that {@link ColumnLayoutDataInfo} is automatically created during column create.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -751,6 +769,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	 * Test that {@link ColumnLayoutDataInfo} is automatically removed during moving column out from
 	 * controlled table.
 	 */
+	@Test
 	public void test_MOVE_out() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -806,6 +825,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	 * Test that {@link ColumnLayoutDataInfo} is automatically added during moving column to
 	 * controlled table.
 	 */
+	@Test
 	public void test_MOVE_in() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -866,6 +886,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link TableCompositeEntryInfo}.
 	 */
+	@Test
 	public void test_palette_TableComposite() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -916,6 +937,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link TableViewerCompositeEntryInfo}.
 	 */
+	@Test
 	public void test_palette_TableViewerComposite() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -972,6 +994,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link TreeCompositeEntryInfo}.
 	 */
+	@Test
 	public void test_palette_TreeComposite() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1022,6 +1045,7 @@ public class AbstractColumnLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link TreeViewerCompositeEntryInfo}.
 	 */
+	@Test
 	public void test_palette_TreeViewerComposite() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

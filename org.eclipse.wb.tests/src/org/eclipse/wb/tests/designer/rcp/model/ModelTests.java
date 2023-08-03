@@ -14,10 +14,10 @@ import org.eclipse.wb.tests.designer.rcp.model.e4.E4Tests;
 import org.eclipse.wb.tests.designer.rcp.model.forms.FormsTests;
 import org.eclipse.wb.tests.designer.rcp.model.jface.JFaceTests;
 import org.eclipse.wb.tests.designer.rcp.model.layout.LayoutTests;
+import org.eclipse.wb.tests.designer.rcp.model.property.PropertyTests;
 import org.eclipse.wb.tests.designer.rcp.model.rcp.TheRcpTests;
 import org.eclipse.wb.tests.designer.rcp.model.util.UtilTests;
 import org.eclipse.wb.tests.designer.rcp.model.widgets.WidgetTests;
-import org.eclipse.wb.tests.designer.rcp.resource.ResourceTests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -31,14 +31,14 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	WidgetTests.class,
-	UtilTests.class,
-	ResourceTests.class,
-	LayoutTests.class,
-	JFaceTests.class,
-	FormsTests.class, 
-	TheRcpTests.class, 
-	E4Tests.class,
+		WidgetTests.class,
+		UtilTests.class,
+		LayoutTests.class,
+		JFaceTests.class,
+		FormsTests.class, 
+		TheRcpTests.class, 
+		E4Tests.class,
+		PropertyTests.class
 
 })
 public class ModelTests {

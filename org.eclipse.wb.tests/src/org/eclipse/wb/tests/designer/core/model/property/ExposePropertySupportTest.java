@@ -30,7 +30,8 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link ExposePropertySupport}.
@@ -52,6 +53,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_validOrInvalidProperty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -77,6 +79,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	// Validate
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_validate() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -118,6 +121,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	/**
 	 * Property with primitive type.
 	 */
+	@Test
 	public void test_getPreviewSource_primitive() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -144,6 +148,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	/**
 	 * Test case when parameter of setter conflicts with existing {@link VariableDeclaration}.
 	 */
+	@Test
 	public void test_getPreviewSource_parameter() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -171,6 +176,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	/**
 	 * Property with qualified type name.
 	 */
+	@Test
 	public void test_getPreviewSource_qualified() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -197,6 +203,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	/**
 	 * Property with array of objects type name.
 	 */
+	@Test
 	public void test_getPreviewSource_qualifiedArray() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -235,6 +242,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	/**
 	 * <code>protected</code> modifier for exposed.
 	 */
+	@Test
 	public void test_getPreviewSource_protected() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -295,6 +303,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	/**
 	 * Expose <code>String</code> property.
 	 */
+	@Test
 	public void test_expose_String() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -325,6 +334,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	/**
 	 * Expose <code>String[]</code> property.
 	 */
+	@Test
 	public void test_expose_StringArray() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -379,6 +389,7 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	// Dialog UI
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_animateDialog() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -408,19 +419,19 @@ public class ExposePropertySupportTest extends SwingModelTest {
 				// initial state
 				{
 					assertEquals("buttonText", textWidget.getText());
-					assertThat(previewWidget.getText()).contains("getButtonText()");
+					Assertions.assertThat(previewWidget.getText()).contains("getButtonText()");
 					assertTrue(okButton.isEnabled());
 				}
 				// set wrong property name
 				{
 					textWidget.setText("wrong name");
-					assertThat(previewWidget.getText()).isEqualTo("No preview");
+					Assertions.assertThat(previewWidget.getText()).isEqualTo("No preview");
 					assertFalse(okButton.isEnabled());
 				}
 				// set good name again
 				{
 					textWidget.setText("myText");
-					assertThat(previewWidget.getText()).contains("getMyText()");
+					Assertions.assertThat(previewWidget.getText()).contains("getMyText()");
 					assertTrue(okButton.isEnabled());
 				}
 				// OK

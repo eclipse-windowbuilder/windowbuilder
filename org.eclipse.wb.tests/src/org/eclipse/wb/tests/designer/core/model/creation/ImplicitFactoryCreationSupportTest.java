@@ -25,7 +25,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Component;
 import java.io.ByteArrayOutputStream;
@@ -55,6 +56,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * Factory method that accepts {@link String} as argument.
 	 */
+	@Test
 	public void test_String_parse() throws Exception {
 		ContainerInfo panel = prepare_String_parse();
 		// check hierarchy
@@ -92,6 +94,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * Factory method that accepts {@link String} as argument.
 	 */
+	@Test
 	public void test_String_clipboard() throws Exception {
 		ContainerInfo panel = prepare_String_parse();
 		ContainerInfo bar = (ContainerInfo) panel.getChildrenComponents().get(0);
@@ -181,6 +184,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 	 * returned component object is parent of argument component object), see
 	 * {@link HierarchyProvider}.
 	 */
+	@Test
 	public void test_Component_parse() throws Exception {
 		setFileContentSrc(
 				"test/MyBar.java",
@@ -235,10 +239,11 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 			Property contentProperty = PropertyUtils.getByPath(component, "Factory/content");
 			assertNotNull(contentProperty);
 			Property[] contentProperties = getSubProperties(contentProperty);
-			assertThat(contentProperties).isEqualTo(button.getProperties());
+			Assertions.assertThat(contentProperties).isEqualTo(button.getProperties());
 		}
 	}
 
+	@Test
 	public void test_sameMethodAndParent_CREATE() throws Exception {
 		setFileContentSrc(
 				"test/MyBar.java",
@@ -315,7 +320,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 		// ...and check properties
 		{
 			Property[] properties = newButton.getProperties();
-			assertThat(properties.length).isGreaterThan(10);
+			Assertions.assertThat(properties.length).isGreaterThan(10);
 		}
 	}
 
@@ -328,6 +333,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 	 * {@link JavaInfo} which method is implicit factory is not always parent, in JFace Dialog parent
 	 * is passed separately.
 	 */
+	@Test
 	public void test_separateMethodAndParent_parse() throws Exception {
 		prepare_separateMethodAndParent();
 		ContainerInfo panel =
@@ -365,6 +371,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * We should be able to add new components with such separate declaration/parent.
 	 */
+	@Test
 	public void test_separateMethodAndParent_CREATE() throws Exception {
 		prepare_separateMethodAndParent();
 		ContainerInfo panel =
@@ -416,7 +423,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 		// ...and check properties
 		{
 			Property[] properties = newButton.getProperties();
-			assertThat(properties.length).isGreaterThan(10);
+			Assertions.assertThat(properties.length).isGreaterThan(10);
 		}
 	}
 
@@ -458,6 +465,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 	 * Factory method can have arguments that are bound to some {@link Property} of created
 	 * {@link JavaInfo}.
 	 */
+	@Test
 	public void test_argumentToProperty() throws Exception {
 		setFileContentSrc(
 				"test/MyBar.java",
@@ -524,6 +532,7 @@ public class ImplicitFactoryCreationSupportTest extends SwingModelTest {
 	/**
 	 * Materialize variable when set property.
 	 */
+	@Test
 	public void test_materializeVariable() throws Exception {
 		setFileContentSrc(
 				"test/MyBar.java",

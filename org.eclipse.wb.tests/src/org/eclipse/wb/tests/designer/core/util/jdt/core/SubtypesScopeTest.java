@@ -18,6 +18,11 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link SubtypesScope}.
  *
@@ -36,7 +41,8 @@ public class SubtypesScopeTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject != null) {
 			javaProject = m_testProject.getJavaProject();
@@ -68,7 +74,8 @@ public class SubtypesScopeTest extends AbstractJavaTest {
 	// Project creation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void test_setUp() throws Exception {
+	@BeforeClass
+	public static void setUpClass() throws Exception {
 		do_projectCreate();
 	}
 
@@ -77,6 +84,7 @@ public class SubtypesScopeTest extends AbstractJavaTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_enclosesType() throws Exception {
 		// try not a IType
 		assertFalse(scope.encloses(cType.getCompilationUnit()));
@@ -92,18 +100,21 @@ public class SubtypesScopeTest extends AbstractJavaTest {
 		assertFalse(scope.encloses(javaProject.findType("java.lang.Object")));
 	}
 
+	@Test
 	public void test_enclosesResource() throws Exception {
 		assertTrue(scope.encloses("/TestProject/src/test/C.java"));
 		assertFalse(scope.encloses("/TestProject/src/test/A.java"));
 		assertFalse(scope.encloses("/TestProject/src/test/B.java"));
 	}
 
+	@Test
 	public void test_enclosingProjectsAndJars() throws Exception {
 		IPath[] paths = scope.enclosingProjectsAndJars();
 		// at least JRE and project expected
 		assertTrue(paths.length >= 2);
 	}
 
+	@Test
 	public void test_deprecated() throws Exception {
 		scope.setIncludesBinaries(true);
 		scope.setIncludesClasspaths(true);
@@ -111,7 +122,9 @@ public class SubtypesScopeTest extends AbstractJavaTest {
 		assertTrue(scope.includesClasspaths());
 	}
 
-	public void DISABLE_test_otherScope() throws Exception {
+	@Ignore
+	@Test
+	public void test_otherScope() throws Exception {
 		SubtypesScope scope2 = new SubtypesScope(javaProject.findType("java.util.List"));
 		assertTrue(scope2.encloses(javaProject.findType("java.util.ArrayList")));
 		assertTrue(scope2.encloses("C:/some/path/rt.jar|java/util/ArrayList.class"));

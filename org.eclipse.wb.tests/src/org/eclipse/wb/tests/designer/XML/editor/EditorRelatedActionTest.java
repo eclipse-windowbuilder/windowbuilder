@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.XML.editor;
 import org.eclipse.wb.internal.core.xml.editor.actions.EditorRelatedAction;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link EditorRelatedAction}.
  *
@@ -24,6 +26,7 @@ public class EditorRelatedActionTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_run() throws Exception {
 		// no editor
 		assertSame(null, EditorRelatedAction.getActiveEditor());

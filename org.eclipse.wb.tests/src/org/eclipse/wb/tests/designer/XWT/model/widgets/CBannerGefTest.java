@@ -14,6 +14,8 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.xwt.model.widgets.CBannerInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CBannerInfo} in GEF.
  *
@@ -46,6 +48,7 @@ public class CBannerGefTest extends XwtGefTest {
 	// Canvas, CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_left() throws Exception {
 		prepare_canvas_CREATE();
 		// use canvas
@@ -61,6 +64,7 @@ public class CBannerGefTest extends XwtGefTest {
 				"</CBanner>");
 	}
 
+	@Test
 	public void test_canvas_CREATE_right() throws Exception {
 		prepare_canvas_CREATE();
 		// use canvas
@@ -76,6 +80,7 @@ public class CBannerGefTest extends XwtGefTest {
 				"</CBanner>");
 	}
 
+	@Test
 	public void test_canvas_CREATE_bottom() throws Exception {
 		prepare_canvas_CREATE();
 		// use canvas
@@ -114,6 +119,7 @@ public class CBannerGefTest extends XwtGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_left() throws Exception {
 		prepare_canvas_CREATE();
 		// use tree

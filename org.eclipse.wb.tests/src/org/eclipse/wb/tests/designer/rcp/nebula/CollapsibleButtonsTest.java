@@ -18,7 +18,8 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link CollapsibleButtonsInfo}.
@@ -43,6 +44,7 @@ public class CollapsibleButtonsTest extends AbstractNebulaTest {
 	/**
 	 * General test {@link CollapsibleButtonsInfo}.
 	 */
+	@Test
 	public void test_General() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -75,8 +77,8 @@ public class CollapsibleButtonsTest extends AbstractNebulaTest {
 			// "button" should have some not empty bounds (test for CollapsibleButtons_Info.makeAddedButtonsVisible())
 			{
 				Rectangle bounds = button.getBounds();
-				assertThat(bounds.width).isGreaterThan(100);
-				assertThat(bounds.height).isGreaterThan(20);
+				Assertions.assertThat(bounds.width).isGreaterThan(100);
+				Assertions.assertThat(bounds.height).isGreaterThan(20);
 			}
 		}
 	}
@@ -84,6 +86,7 @@ public class CollapsibleButtonsTest extends AbstractNebulaTest {
 	/**
 	 * Test adding button on {@link CollapsibleButtonsInfo}.
 	 */
+	@Test
 	public void test_createButton() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -131,6 +134,7 @@ public class CollapsibleButtonsTest extends AbstractNebulaTest {
 	/**
 	 * Test moving button on {@link CollapsibleButtonsInfo}.
 	 */
+	@Test
 	public void test_moveButton() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

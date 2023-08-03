@@ -77,14 +77,7 @@
 					<useUIThread>true</useUIThread>
 					<application>org.eclipse.ui.ide.workbench</application>
           			<includes>
-						<include>**/org.eclipse.wb.tests.draw2d.Draw2dTests.java</include>
-						<include>**/org.eclipse.wb.tests.gef.GefTests.java</include>
-						<include>**/org.eclipse.wb.tests.designer.swt.SwtTests.java</include>
-						<include>**/org.eclipse.wb.tests.utils.CommonTests.java</include>
-						<include>**/org.eclipse.wb.tests.designer.core.CoreTests.java</include>
-						<include>**/org.eclipse.wb.tests.designer.editor.EditorTests.java</include>
-						<include>**/org.eclipse.wb.tests.designer.swing.SwingTests.java</include>
-						<include>**/org.eclipse.wb.tests.designer.rcp.RcpTests.java</include>
+						<include>**/org.eclipse.wb.tests.designer.WindowBuilderTests.java</include>
           			</includes>
 					<dependencies>
 					   <!-- required for PlatformAdmin to work-->

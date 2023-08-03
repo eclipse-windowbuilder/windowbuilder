@@ -35,7 +35,8 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link SwtLiveManager}, style access.
@@ -61,6 +62,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 * Check that after "live image" source is not changed, and even {@link ICompilationUnit} is not
 	 * touched by {@link AstEditor#commitChanges()}.
 	 */
+	@Test
 	public void test_liveImage_noSourceChange() throws Exception {
 		parseSource(
 				"test",
@@ -92,6 +94,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveImage_onShell() throws Exception {
 		parseComposite(
 				"// filler filler filler",
@@ -123,6 +126,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 * during refresh. Right now this means that if we cache live images, we should use keep in
 	 * {@link AbstractComponentInfo} copy of cached image.
 	 */
+	@Test
 	public void test_liveImage_noDispose() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -153,6 +157,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveImage_onComposite() throws Exception {
 		parseComposite(
 				"public class Test extends Composite {",
@@ -169,6 +174,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 * Test that live images work when there is visible variable with name "shell", because there was
 	 * problem in {@link LiveImagesManager} that it used also name "shell".
 	 */
+	@Test
 	public void test_liveImage_withShell() throws Exception {
 		parseComposite(
 				"class Test {",
@@ -186,6 +192,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 * Sometimes component has zero or just too small size by default, so we need some way to force
 	 * its "live" size.
 	 */
+	@Test
 	public void test_liveImage_forcedSize() throws Exception {
 		setFileContentSrc(
 				"test/MyCanvas.java",
@@ -222,6 +229,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 * If exception happens during live image creation, we still should return some image (not
 	 * <code>null</code>) to prevent problems on other levels.
 	 */
+	@Test
 	public void test_liveImage_whenException() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -249,7 +257,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 			public void logging(IStatus status, String plugin) {
 				assertEquals(IStatus.ERROR, status.getSeverity());
 				Throwable exception = status.getException();
-				assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
+				Assertions.assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
 				assertEquals("Problem in getClientArea()", exception.getMessage());
 			}
 		};
@@ -263,8 +271,8 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 			{
 				Image image = newComponent.getImage();
 				assertNotNull(image);
-				assertThat(image.getBounds().width).isEqualTo(200);
-				assertThat(image.getBounds().height).isEqualTo(50);
+				Assertions.assertThat(image.getBounds().width).isEqualTo(200);
+				Assertions.assertThat(image.getBounds().height).isEqualTo(50);
 			}
 		} finally {
 			log.removeLogListener(logListener);
@@ -272,6 +280,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveImage_copyPaste() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -293,8 +302,8 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		// get "live" image, from memento
 		{
 			Image image = pasteButton.getImage();
-			assertThat(image.getBounds().width).isEqualTo(200);
-			assertThat(image.getBounds().height).isEqualTo(100);
+			Assertions.assertThat(image.getBounds().width).isEqualTo(200);
+			Assertions.assertThat(image.getBounds().height).isEqualTo(100);
 		}
 	}
 
@@ -303,6 +312,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	// Style
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_liveStyle_standardControl() throws Exception {
 		parseComposite(
 				"// filler filler filler",
@@ -344,6 +354,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveStyle_customControl() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -372,6 +383,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 				+ " found.", (actualStyle & SWT.NO_RADIO_GROUP) == SWT.NO_RADIO_GROUP);
 	}
 
+	@Test
 	public void test_liveStyle_forMenu() throws Exception {
 		parseComposite(
 				"// filler filler filler",
@@ -397,6 +409,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveStyle_forMenuItem() throws Exception {
 		parseComposite(
 				"// filler filler filler",
@@ -441,6 +454,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveStyle_forStaticFactory() throws Exception {
 		setFileContentSrc(
 				"test/MenuStaticFactory.java",
@@ -478,6 +492,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 				(actualStyle & SWT.PUSH) == SWT.PUSH);
 	}
 
+	@Test
 	public void test_liveStyle_copyPaste() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -527,6 +542,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	// Baseline
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_liveBaseline() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -539,7 +555,7 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		ControlInfo newButton = BTestUtils.createButton();
 		// get baseline
 		int liveBaseline = newButton.getBaseline();
-		assertThat(liveBaseline).isNotEqualTo(IBaselineSupport.NO_BASELINE).isPositive();
+		Assertions.assertThat(liveBaseline).isNotEqualTo(IBaselineSupport.NO_BASELINE).isPositive();
 		// drop Button
 		((RowLayoutInfo) shell.getLayout()).command_CREATE(newButton, null);
 		assertEditor(
@@ -553,6 +569,6 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 				"}");
 		// same baseline as "live"
 		int baseline = newButton.getBaseline();
-		assertThat(baseline).isEqualTo(liveBaseline);
+		Assertions.assertThat(baseline).isEqualTo(liveBaseline);
 	}
 }

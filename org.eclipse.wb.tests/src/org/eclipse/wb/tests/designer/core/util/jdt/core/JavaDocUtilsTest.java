@@ -21,6 +21,10 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link JavaDocUtils}.
  *
@@ -33,7 +37,8 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject == null) {
 			do_projectCreate();
@@ -54,7 +59,9 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	// getTooltip
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_getTooltip_basic() throws Exception {
+	@Ignore
+	@Test
+	public void test_getTooltip_basic() throws Exception {
 		TypeDeclaration typeDeclaration =
 				createTypeDeclaration_Test(
 						"class Test {",
@@ -88,6 +95,7 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	 * Test for {@link JavaDocUtils#getTooltip(IMember)}. It should use short names of types, because
 	 * long names often don't fit into small tooltip window.
 	 */
+	@Test
 	public void test_getTooltip_shortenTypeReferences() throws Exception {
 		IType type =
 				createModelType(
@@ -113,6 +121,7 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	/**
 	 * Test for inherited comment.
 	 */
+	@Test
 	public void test_getTooltip_useInherited() throws Exception {
 		createModelCompilationUnit(
 				"test",
@@ -142,6 +151,7 @@ public class JavaDocUtilsTest extends AbstractJavaTest {
 	// Test for private getTooltip_useShortTypeNames()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getTooltip_useShortTypeNames() throws Exception {
 		// empty string
 		{

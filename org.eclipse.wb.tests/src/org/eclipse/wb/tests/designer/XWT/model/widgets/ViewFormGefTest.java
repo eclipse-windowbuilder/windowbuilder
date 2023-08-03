@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ViewFormInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ViewFormInfo} in GEF.
  *
@@ -47,6 +49,7 @@ public class ViewFormGefTest extends XwtGefTest {
 	// Canvas, CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_topLeft() throws Exception {
 		prepare_canvas_CREATE();
 		// use canvas
@@ -62,6 +65,7 @@ public class ViewFormGefTest extends XwtGefTest {
 				"</ViewForm>");
 	}
 
+	@Test
 	public void test_canvas_CREATE_topCenter() throws Exception {
 		prepare_canvas_CREATE();
 		// use canvas
@@ -77,6 +81,7 @@ public class ViewFormGefTest extends XwtGefTest {
 				"</ViewForm>");
 	}
 
+	@Test
 	public void test_canvas_CREATE_topRight() throws Exception {
 		prepare_canvas_CREATE();
 		// use canvas
@@ -92,6 +97,7 @@ public class ViewFormGefTest extends XwtGefTest {
 				"</ViewForm>");
 	}
 
+	@Test
 	public void test_canvas_CREATE_content() throws Exception {
 		prepare_canvas_CREATE();
 		// use canvas
@@ -130,6 +136,7 @@ public class ViewFormGefTest extends XwtGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_PASTE() throws Exception {
 		viewForm =
 				openEditor(
@@ -159,6 +166,7 @@ public class ViewFormGefTest extends XwtGefTest {
 				"</ViewForm>");
 	}
 
+	@Test
 	public void test_canvas_MOVE() throws Exception {
 		viewForm =
 				openEditor(
@@ -196,6 +204,7 @@ public class ViewFormGefTest extends XwtGefTest {
 				"</ViewForm>");
 	}
 
+	@Test
 	public void test_canvas_ADD() throws Exception {
 		openEditor(
 				"<Shell>",
@@ -229,6 +238,7 @@ public class ViewFormGefTest extends XwtGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_topLeft() throws Exception {
 		prepare_canvas_CREATE();
 		// use tree
@@ -245,6 +255,7 @@ public class ViewFormGefTest extends XwtGefTest {
 				"</ViewForm>");
 	}
 
+	@Test
 	public void test_tree_MOVE() throws Exception {
 		viewForm =
 				openEditor(
@@ -270,6 +281,7 @@ public class ViewFormGefTest extends XwtGefTest {
 				"</ViewForm>");
 	}
 
+	@Test
 	public void test_tree_ADD() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -300,6 +312,7 @@ public class ViewFormGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_tree_ADD2() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",

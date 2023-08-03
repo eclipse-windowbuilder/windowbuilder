@@ -17,6 +17,11 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -38,7 +43,8 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		CompositeInfo shell =
 				parseComposite(
@@ -57,7 +63,8 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		if (m_testProject != null && SWTManagerClass != null) {
 			ReflectionUtils.invokeMethod(SWTManagerClass, "dispose()");
 		}
@@ -83,6 +90,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	// Color
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_systemColor() throws Exception {
 		// prepare color over Display
 		Object expectedColor =
@@ -94,6 +102,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		assertEquals(expectedColor, actualColor);
 	}
 
+	@Test
 	public void test_getColor_ints() throws Exception {
 		// create color over SWTResourceManager
 		Object color = ReflectionUtils.invokeMethod(SWTManagerClass, "getColor(int,int,int)", 1, 2, 3);
@@ -110,6 +119,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 				ReflectionUtils.invokeMethod(SWTManagerClass, "getColor(int,int,int)", 1, 2, 3));
 	}
 
+	@Test
 	public void test_getColor_RGB() throws Exception {
 		// prepare RGB class
 		Class<?> RGBClass = m_lastLoader.loadClass("org.eclipse.swt.graphics.RGB");
@@ -138,6 +148,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 				ReflectionUtils.invokeMethod(SWTManagerClass, "getColor(int,int,int)", 1, 2, 3));
 	}
 
+	@Test
 	public void test_disposeColors() throws Exception {
 		// create color over SWTResourceManager
 		Object color = ReflectionUtils.invokeMethod(SWTManagerClass, "getColor(int,int,int)", 1, 2, 3);
@@ -165,6 +176,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	// Image
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getImage_absolute() throws Exception {
 		// create temp image into filesystem
 		File imageFile = ImagePropertyEditorTest.createTempImage();
@@ -199,7 +211,9 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		}
 	}
 
-	public void DISABLE_test_getImage_classpath() throws Exception {
+	@Ignore
+	@Test
+	public void test_getImage_classpath() throws Exception {
 		// create image over SWTResourceManager
 		Object image =
 				ReflectionUtils.invokeMethod(
@@ -246,6 +260,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		assertNotSame(image, image1);
 	}
 
+	@Test
 	public void test_getImage_getMissingImage() throws Exception {
 		// load first image with bad location
 		Object image =
@@ -274,6 +289,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		assertEqualsImage(image, image1);
 	}
 
+	@Test
 	public void test_disposeImages() throws Exception {
 		// create image over SWTResourceManager
 		Object image =
@@ -327,6 +343,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	// Decorate Image
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_decorateImage_wrongCorner() throws Exception {
 		// check out of range corner values to left
 		try {
@@ -354,6 +371,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_decorateImage() throws Exception {
 		// prepare default corner for decorateImage()
 		int corner = ReflectionUtils.getFieldInt(SWTManagerClass, "BOTTOM_RIGHT");
@@ -387,6 +405,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_decorateImage2() throws Exception {
 		// prepare tested corner's
 		int corner = ReflectionUtils.getFieldInt(SWTManagerClass, "BOTTOM_RIGHT");
@@ -438,21 +457,25 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_decorateImage_TOP_LEFT() throws Exception {
 		int corner = ReflectionUtils.getFieldInt(SWTManagerClass, "TOP_LEFT");
 		test_decorateImage(corner);
 	}
 
+	@Test
 	public void test_decorateImage_TOP_RIGHT() throws Exception {
 		int corner = ReflectionUtils.getFieldInt(SWTManagerClass, "TOP_RIGHT");
 		test_decorateImage(corner);
 	}
 
+	@Test
 	public void test_decorateImage_BOTTOM_LEFT() throws Exception {
 		int corner = ReflectionUtils.getFieldInt(SWTManagerClass, "BOTTOM_LEFT");
 		test_decorateImage(corner);
 	}
 
+	@Test
 	public void test_decorateImage_BOTTOM_RIGHT() throws Exception {
 		int corner = ReflectionUtils.getFieldInt(SWTManagerClass, "BOTTOM_RIGHT");
 		test_decorateImage(corner);
@@ -587,6 +610,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	// Font
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getFont() throws Exception {
 		// create font over SWTResouceManager
 		Object font =
@@ -630,6 +654,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 				SWT.NORMAL));
 	}
 
+	@Test
 	public void test_getBoldFont() throws Exception {
 		// prepare any font
 		Object font = ReflectionUtils.invokeMethod(m_defaultDisplay, "getSystemFont()");
@@ -656,6 +681,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
 				font));
 	}
 
+	@Test
 	public void test_disposeFonts() throws Exception {
 		// create font over SWTResouceManager
 		Object font =

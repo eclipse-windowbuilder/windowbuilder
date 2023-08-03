@@ -10,21 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.ams;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * All AMS tests.
  *
  * @author scheglov_ke
  */
-public class AmsTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.AMS");
-		suite.addTest(createSingleSuite(PropertyTweaksTest.class));
-		suite.addTest(createSingleSuite(VarmenuLayoutTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		PropertyTweaksTest.class,
+		VarmenuLayoutTest.class
+})
+public class AmsTests {
 }

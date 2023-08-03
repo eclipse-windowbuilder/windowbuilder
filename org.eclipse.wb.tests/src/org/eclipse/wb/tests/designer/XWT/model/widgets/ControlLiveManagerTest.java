@@ -29,7 +29,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link XwtLiveManager}.
@@ -57,6 +58,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 	/**
 	 * {@link Control_LiveManager} should not change {@link GlobalState}.
 	 */
+	@Test
 	public void test_GlobalState() throws Exception {
 		ControlInfo shell = parse("<Shell/>");
 		refresh();
@@ -75,6 +77,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 	/**
 	 * Check that after "live image" source is not changed.
 	 */
+	@Test
 	public void test_liveImage_noSourceChange() throws Exception {
 		parse("<Shell/>");
 		String originalSource = m_lastContext.getContent();
@@ -94,6 +97,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveImage_onShell() throws Exception {
 		parse("<Shell/>");
 		// prepare buttons
@@ -123,6 +127,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_buttonWithText() throws Exception {
 		parse("<Shell/>");
 		ControlInfo button = createButtonWithText();
@@ -135,6 +140,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 	 * Test that live image is not disposed during refresh. Right now this means that if we cache live
 	 * images, we should use keep copy of cached image.
 	 */
+	@Test
 	public void test_liveImage_noDispose() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -166,6 +172,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveImage_onComposite() throws Exception {
 		parse("<Composite/>");
 		//
@@ -177,6 +184,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 	 * Sometimes component has zero or just too small size by default, so we need some way to force
 	 * its "live" size.
 	 */
+	@Test
 	public void test_liveImage_forcedSize() throws Exception {
 		setFileContentSrc(
 				"test/MyCanvas.java",
@@ -208,6 +216,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 	 * If exception happens during live image creation, we still should return some image (not
 	 * <code>null</code>) to prevent problems on other levels.
 	 */
+	@Test
 	public void test_liveImage_whenException() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -230,7 +239,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 			public void logging(IStatus status, String plugin) {
 				assertEquals(IStatus.ERROR, status.getSeverity());
 				Throwable exception = status.getException();
-				assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
+				Assertions.assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
 				assertEquals("Problem in getClientArea()", exception.getMessage());
 			}
 		};
@@ -244,8 +253,8 @@ public class ControlLiveManagerTest extends XwtModelTest {
 			{
 				Image image = newComponent.getImage();
 				assertNotNull(image);
-				assertThat(image.getBounds().width).isEqualTo(200);
-				assertThat(image.getBounds().height).isEqualTo(50);
+				Assertions.assertThat(image.getBounds().width).isEqualTo(200);
+				Assertions.assertThat(image.getBounds().height).isEqualTo(50);
 			}
 		} finally {
 			log.removeLogListener(logListener);
@@ -253,6 +262,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveImage_copyPaste() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -272,8 +282,8 @@ public class ControlLiveManagerTest extends XwtModelTest {
 		// get "live" image, from memento
 		{
 			Image image = pasteButton.getImage();
-			assertThat(image.getBounds().width).isEqualTo(200);
-			assertThat(image.getBounds().height).isEqualTo(100);
+			Assertions.assertThat(image.getBounds().width).isEqualTo(200);
+			Assertions.assertThat(image.getBounds().height).isEqualTo(100);
 		}
 		// check style
 		{
@@ -289,6 +299,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 	// Style
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_liveStyle_standardControl() throws Exception {
 		parse("<Shell/>");
 		// PUSH
@@ -325,6 +336,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_liveStyle_customControl() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -353,6 +365,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 	// Baseline
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_liveBaseline() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -367,7 +380,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
 		ControlInfo newButton = createButton();
 		// get baseline
 		int liveBaseline = newButton.getBaseline();
-		assertThat(liveBaseline).isNotEqualTo(IBaselineSupport.NO_BASELINE).isPositive();
+		Assertions.assertThat(liveBaseline).isNotEqualTo(IBaselineSupport.NO_BASELINE).isPositive();
 		// drop Button
 		((RowLayoutInfo) shell.getLayout()).command_CREATE(newButton, null);
 		assertXML(
@@ -381,6 +394,6 @@ public class ControlLiveManagerTest extends XwtModelTest {
 				"</Shell>");
 		// same baseline as "live"
 		int baseline = newButton.getBaseline();
-		assertThat(baseline).isEqualTo(liveBaseline);
+		Assertions.assertThat(baseline).isEqualTo(liveBaseline);
 	}
 }

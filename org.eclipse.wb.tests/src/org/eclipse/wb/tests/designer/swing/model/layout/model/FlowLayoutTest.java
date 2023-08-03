@@ -16,6 +16,9 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
@@ -43,6 +46,7 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for installing.
 	 */
+	@Test
 	public void test_setLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -64,6 +68,7 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for installing, remove other layout constraints.
 	 */
+	@Test
 	public void test_setLayout2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -92,6 +97,7 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for adding new component: as last.
 	 */
+	@Test
 	public void test_add_last() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -122,6 +128,7 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for adding new component: before existing.
 	 */
+	@Test
 	public void test_add_before() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -167,6 +174,7 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for moving: before.
 	 */
+	@Test
 	public void test_move_before() throws Exception {
 		String[] lines =
 				new String[]{
@@ -203,6 +211,7 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for moving {@link JPanel} with children.
 	 */
+	@Test
 	public void test_moveComplex() throws Exception {
 		String[] lines =
 				new String[]{
@@ -247,6 +256,7 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for moving: before, lazy.
 	 */
+	@Test
 	public void test_move_before_lazy() throws Exception {
 		String[] lines =
 				new String[]{
@@ -316,6 +326,7 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for move last.
 	 */
+	@Test
 	public void test_move_last() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -362,6 +373,7 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for reparenting, normal variable.
 	 */
+	@Test
 	public void test_reparentingVariable() throws Exception {
 		String[] lines =
 				new String[]{
@@ -418,7 +430,9 @@ public class FlowLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for copy/paste.
 	 */
-	public void DISABLE_test_clipboard() throws Exception {
+	@Ignore
+	@Test
+	public void test_clipboard() throws Exception {
 		String[] lines1 =
 			{
 					"public class Test extends JPanel {",

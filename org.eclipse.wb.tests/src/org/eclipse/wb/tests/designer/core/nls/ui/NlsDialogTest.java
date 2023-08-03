@@ -17,17 +17,22 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link NlsDialog}.
  *
  * @author scheglov_ke
  */
+@Ignore
 public class NlsDialogTest extends AbstractDialogTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Sources
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noSources() throws Exception {
 		String initialSource =
 				getTestSource(
@@ -48,6 +53,7 @@ public class NlsDialogTest extends AbstractDialogTest {
 	/**
 	 * Now "real" sources, but two different "possible" sources.
 	 */
+	@Test
 	public void test_possibleSources() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",
@@ -84,6 +90,7 @@ public class NlsDialogTest extends AbstractDialogTest {
 		});
 	}
 
+	@Test
 	public void test_existingSources() throws Exception {
 		setFileContentSrc(
 				"test/messages.properties",

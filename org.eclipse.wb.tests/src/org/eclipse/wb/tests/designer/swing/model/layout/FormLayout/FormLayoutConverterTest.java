@@ -16,6 +16,9 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import com.jgoodies.forms.layout.FormLayout;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link FormLayoutConverter}.
  *
@@ -27,6 +30,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_empty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -54,7 +58,9 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
-	public void DISABLE_test_oneRow() throws Exception {
+	@Ignore
+	@Test
+	public void test_oneRow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends JPanel {",
@@ -110,7 +116,9 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 		}
 	}
 
-	public void DISABLE_test_twoRows_spanColumns() throws Exception {
+	@Ignore
+	@Test
+	public void test_twoRows_spanColumns() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends JPanel {",
@@ -171,7 +179,9 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 				"}");
 	}
 
-	public void DISABLE_test_Switching_fromGridBagLayout() throws Exception {
+	@Ignore
+	@Test
+	public void test_Switching_fromGridBagLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
 						"public class Test extends JPanel {",

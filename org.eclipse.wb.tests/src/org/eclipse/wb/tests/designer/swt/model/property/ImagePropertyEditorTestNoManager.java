@@ -17,6 +17,9 @@ import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
 import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 
 import org.apache.commons.io.FilenameUtils;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.File;
 
@@ -32,7 +35,8 @@ public class ImagePropertyEditorTestNoManager extends ImagePropertyEditorTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(
 				IPreferenceConstants.P_USE_RESOURCE_MANAGER,
@@ -56,6 +60,7 @@ public class ImagePropertyEditorTestNoManager extends ImagePropertyEditorTest {
 	/**
 	 * No value for property.
 	 */
+	@Test
 	public void test_textSource_noValue() throws Exception {
 		Property property = new GenericPropertyNoValue(null, null, ImagePropertyEditor.INSTANCE);
 		assertNull(PropertyEditorTestUtils.getText(property));
@@ -65,6 +70,7 @@ public class ImagePropertyEditorTestNoManager extends ImagePropertyEditorTest {
 	/**
 	 * "null" value for property.
 	 */
+	@Test
 	public void test_textSource_nullValue() throws Exception {
 		assert_getText_getClipboardSource_forSource("null", "(null)", "null");
 	}
@@ -72,6 +78,7 @@ public class ImagePropertyEditorTestNoManager extends ImagePropertyEditorTest {
 	/**
 	 * Image creation using constructor with absolute file path.
 	 */
+	@Test
 	public void test_textSource_absolutePath() throws Exception {
 		File file = createTempImage();
 		try {
@@ -86,7 +93,9 @@ public class ImagePropertyEditorTestNoManager extends ImagePropertyEditorTest {
 	/**
 	 * Image creation using constructor with input stream (over class resource).
 	 */
-	public void DISABLED_test_textSource_image_over_classpath() throws Exception {
+	@Ignore
+	@Test
+	public void test_textSource_image_over_classpath() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"new Image(null, getClass().getResourceAsStream(\"/javax/swing/plaf/basic/icons/JavaCup16.png\"))",
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
@@ -96,7 +105,9 @@ public class ImagePropertyEditorTestNoManager extends ImagePropertyEditorTest {
 	/**
 	 * Image creation using constructor with input stream (over class resource).
 	 */
-	public void DISABLED_test_textSource_image_over_classpath_OtherClass() throws Exception {
+	@Ignore
+	@Test
+	public void test_textSource_image_over_classpath_OtherClass() throws Exception {
 		assert_getText_getClipboardSource_forSource(
 				"new Image(null, java.lang.String.class.getResourceAsStream(\"/javax/swing/plaf/basic/icons/JavaCup16.png\"))",
 				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",

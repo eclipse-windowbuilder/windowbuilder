@@ -18,6 +18,10 @@ import org.eclipse.wb.internal.swt.support.PointSupport;
 import org.eclipse.wb.internal.swt.support.RectangleSupport;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Tests for SWT converters.
  *
@@ -32,7 +36,8 @@ public class ConvertersTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		shell =
 				parseComposite(
@@ -44,7 +49,8 @@ public class ConvertersTest extends RcpModelTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		shell = null;
 		super.tearDown();
 	}
@@ -54,6 +60,7 @@ public class ConvertersTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_RectangleConverter() throws Exception {
 		ExpressionConverter converter = RectangleConverter.INSTANCE;
 		assertEquals("(org.eclipse.swt.graphics.Rectangle) null", converter.toJavaSource(shell, null));
@@ -62,6 +69,7 @@ public class ConvertersTest extends RcpModelTest {
 				converter.toJavaSource(shell, RectangleSupport.newRectangle(1, 2, 3, 4)));
 	}
 
+	@Test
 	public void test_PointConverter() throws Exception {
 		ExpressionConverter converter = PointConverter.INSTANCE;
 		assertEquals("(org.eclipse.swt.graphics.Point) null", converter.toJavaSource(shell, null));

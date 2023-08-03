@@ -23,6 +23,8 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link NewSourceDialog}.
  *
@@ -37,6 +39,7 @@ public class NewSourceDialogTest extends SwingModelTest {
 	/**
 	 * Open {@link NewSourceDialog} from {@link PropertiesComposite}.
 	 */
+	@Test
 	public void test_openDialog() throws Exception {
 		ContainerInfo frame =
 				parseContainer(
@@ -68,6 +71,7 @@ public class NewSourceDialogTest extends SwingModelTest {
 	/**
 	 * Test for {@link DirectSourceNewComposite}.
 	 */
+	@Test
 	public void test_DirectSource() throws Exception {
 		ContainerInfo frame =
 				parseContainer(

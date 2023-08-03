@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.xwt.model.util.XwtStaticFieldSupport;
 
 import org.eclipse.swt.SWT;
 
+import org.junit.Test;
+
 import javax.swing.SwingConstants;
 
 /**
@@ -40,6 +42,7 @@ public class XwtStaticFieldSupportTest extends XwtModelTest {
 	/**
 	 * No class for field from {@link SWT}.
 	 */
+	@Test
 	public void test_SWT() throws Exception {
 		parse("<Shell/>");
 		//
@@ -55,6 +58,7 @@ public class XwtStaticFieldSupportTest extends XwtModelTest {
 	/**
 	 * Not {@link SWT}, so use fully qualified class name.
 	 */
+	@Test
 	public void test_customStyle() throws Exception {
 		parse("<Shell/>");
 		//

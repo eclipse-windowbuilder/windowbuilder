@@ -22,19 +22,22 @@ import org.eclipse.wb.tests.designer.editor.DesignerEditorTestCase;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.swt.widgets.Button;
 
+import org.junit.Before;
+
 /**
  * Abstract test for RCP in editor.
  *
  * @author scheglov_ke
  */
-public class RcpGefTest extends DesignerEditorTestCase {
+public abstract class RcpGefTest extends DesignerEditorTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		configureDefaults(org.eclipse.wb.internal.rcp.ToolkitProvider.DESCRIPTION);
 		if (m_testProject == null) {

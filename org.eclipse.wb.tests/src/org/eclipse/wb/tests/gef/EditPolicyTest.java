@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.gef;
 import org.eclipse.wb.gef.core.events.IEditPolicyListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -20,20 +22,13 @@ import java.util.List;
  *
  */
 public class EditPolicyTest extends GefTestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public EditPolicyTest() {
-		super(EditPolicy.class);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Event tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Add_Remove_EditPolicyListener() throws Exception {
 		EditPolicy testPolicy = new EditPolicy() {
 		};
@@ -85,6 +80,7 @@ public class EditPolicyTest extends GefTestCase {
 		assertTrue(list.isEmpty());
 	}
 
+	@Test
 	public void test_Invoke_EditPolicyListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		TestLogger expectedLogger = new TestLogger();

@@ -18,25 +18,20 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
  */
 public class LayerTest extends Draw2dFigureTestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public LayerTest() {
-		super(Layer.class);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Test's
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_name() throws Exception {
 		// check name for new Layer
 		assertNull(new Layer(null).getName());
@@ -48,6 +43,7 @@ public class LayerTest extends Draw2dFigureTestCase {
 		assertEquals("Feedback", new Layer("Feedback").getName());
 	}
 
+	@Test
 	public void test_bounds() throws Exception {
 		TestLogger actualLogger = new TestLogger();
 		//
@@ -83,6 +79,7 @@ public class LayerTest extends Draw2dFigureTestCase {
 		assertEquals(new Rectangle(7, 8, 2, 1), layer.getBounds());
 	}
 
+	@Test
 	public void test_opaque() throws Exception {
 		TestLogger actualLogger = new TestLogger();
 		//
@@ -105,6 +102,7 @@ public class LayerTest extends Draw2dFigureTestCase {
 		assertFalse(layer.isOpaque());
 	}
 
+	@Test
 	public void test_containsPoint() throws Exception {
 		Layer layer = new Layer("test");
 		Figure figure = new Figure();

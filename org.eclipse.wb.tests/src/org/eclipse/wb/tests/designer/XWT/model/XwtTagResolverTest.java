@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectResolveTag;
 import org.eclipse.wb.internal.xwt.model.util.XwtTagResolver;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.Test;
 
 /**
  * Test for {@link XwtTagResolver}.
@@ -36,6 +37,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_standardControl() throws Exception {
 		parse("<Shell/>");
 		String componentClassName = "org.eclipse.swt.widgets.Button";
@@ -45,6 +47,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 		assertNamespaceTag(componentClassName, expectedNamespace, expectedTag, expectedLines);
 	}
 
+	@Test
 	public void test_standardLayout() throws Exception {
 		parse("<Shell/>");
 		String componentClassName = "org.eclipse.swt.layout.RowLayout";
@@ -54,6 +57,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 		assertNamespaceTag(componentClassName, expectedNamespace, expectedTag, expectedLines);
 	}
 
+	@Test
 	public void test_customControl() throws Exception {
 		parse("<Shell/>");
 		String componentClassName = "org.eclipse.swt.custom.CLabel";
@@ -68,6 +72,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 	 * <p>
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=305992
 	 */
+	@Test
 	public void test_customControl_notImportedYet() throws Exception {
 		parse("<Shell/>");
 		String expectedNamespace = "";
@@ -98,6 +103,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_standardViewer() throws Exception {
 		parse("<Shell/>");
 		String componentClassName = "org.eclipse.jface.viewers.TableViewer";
@@ -107,6 +113,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 		assertNamespaceTag(componentClassName, expectedNamespace, expectedTag, expectedLines);
 	}
 
+	@Test
 	public void test_forms_noFormsComment() throws Exception {
 		parse("<Shell/>");
 		{
@@ -118,6 +125,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_forms_hasFormsComment() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -145,6 +153,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 	 * <p>
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=310241
 	 */
+	@Test
 	public void test_forms_notImportedYet() throws Exception {
 		parse("<Shell/>");
 		String expectedNamespace = "p1";
@@ -166,6 +175,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 	/**
 	 * No default namespace for XWT, but it is used by default, so don't import it.
 	 */
+	@Test
 	public void test_standardControl_noDefaultNamespace() throws Exception {
 		m_getSource_includeStandardNamespaces = false;
 		parse("<Shell/>");
@@ -180,6 +190,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 	/**
 	 * Default namespace is declared, but it is not standard XWT.
 	 */
+	@Test
 	public void test_standardControl_overrideDefaultNamespace() throws Exception {
 		m_getSource_includeStandardNamespaces = false;
 		String source = "<xwt:Shell xmlns:xwt='http://www.eclipse.org/xwt/presentation'/>";
@@ -192,6 +203,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 		assertNamespaceTag(componentClassName, expectedNamespace, expectedTag, expectedLines);
 	}
 
+	@Test
 	public void test_customControl_hasPackageNamespace() throws Exception {
 		m_getSource_includeStandardNamespaces = false;
 		prepareMyComponent(ArrayUtils.EMPTY_STRING_ARRAY);
@@ -204,6 +216,7 @@ public class XwtTagResolverTest extends XwtModelTest {
 		assertNamespaceTag(componentClassName, expectedNamespace, expectedTag, expectedLines);
 	}
 
+	@Test
 	public void test_customControl_noPackageNamespace() throws Exception {
 		m_getSource_includeStandardNamespaces = false;
 		prepareMyComponent(ArrayUtils.EMPTY_STRING_ARRAY);

@@ -23,7 +23,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.widgets.Composite;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.awt.Component;
 
@@ -58,7 +60,9 @@ public class SwtAwtTest extends RcpModelTest {
 	// Parse
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_parse() throws Exception {
+	@Ignore
+	@Test
+	public void test_parse() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"import java.awt.Frame;",
@@ -86,10 +90,10 @@ public class SwtAwtTest extends RcpModelTest {
 		{
 			Rectangle frameBounds = frame.getBounds();
 			Rectangle compositeBounds = composite.getBounds();
-			assertThat(frameBounds.x).isEqualTo(0);
-			assertThat(frameBounds.y).isEqualTo(0);
-			assertThat(frameBounds.width).isEqualTo(compositeBounds.width);
-			assertThat(frameBounds.height).isEqualTo(compositeBounds.height);
+			Assertions.assertThat(frameBounds.x).isEqualTo(0);
+			Assertions.assertThat(frameBounds.y).isEqualTo(0);
+			Assertions.assertThat(frameBounds.width).isEqualTo(compositeBounds.width);
+			Assertions.assertThat(frameBounds.height).isEqualTo(compositeBounds.height);
 		}
 		// "frame" is visible
 		{
@@ -98,7 +102,9 @@ public class SwtAwtTest extends RcpModelTest {
 		}
 	}
 
-	public void DISABLE_test_parseWithBorder() throws Exception {
+	@Ignore
+	@Test
+	public void test_parseWithBorder() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"import java.awt.Frame;",
@@ -117,10 +123,10 @@ public class SwtAwtTest extends RcpModelTest {
 		assertNotNull(frame.getImage());
 		{
 			Rectangle frameBounds = frame.getBounds();
-			assertThat(frameBounds.x).isEqualTo(2);
-			assertThat(frameBounds.y).isEqualTo(2);
-			assertThat(frameBounds.width).isEqualTo(composite.getBounds().width - 2 - 2);
-			assertThat(frameBounds.height).isEqualTo(composite.getBounds().height - 2 - 2);
+			Assertions.assertThat(frameBounds.x).isEqualTo(2);
+			Assertions.assertThat(frameBounds.y).isEqualTo(2);
+			Assertions.assertThat(frameBounds.width).isEqualTo(composite.getBounds().width - 2 - 2);
+			Assertions.assertThat(frameBounds.height).isEqualTo(composite.getBounds().height - 2 - 2);
 		}
 	}
 
@@ -129,7 +135,9 @@ public class SwtAwtTest extends RcpModelTest {
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=355351
 	 */
 	// Test gets stuck during the Linux build...
-	public void DISABLE_test_parseWhenZeroSize() throws Exception {
+	@Ignore
+	@Test
+	public void test_parseWhenZeroSize() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"import java.awt.Frame;",
@@ -148,8 +156,8 @@ public class SwtAwtTest extends RcpModelTest {
 		assertNotNull(frame.getImage());
 		{
 			Rectangle frameBounds = frame.getBounds();
-			assertThat(frameBounds.x).isEqualTo(0);
-			assertThat(frameBounds.y).isEqualTo(0);
+			Assertions.assertThat(frameBounds.x).isEqualTo(0);
+			Assertions.assertThat(frameBounds.y).isEqualTo(0);
 		}
 	}
 
@@ -161,6 +169,7 @@ public class SwtAwtTest extends RcpModelTest {
 	/**
 	 * Test for {@link SwingCompositeEntryInfo}.
 	 */
+	@Test
 	public void test_SwingComposite() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

@@ -23,6 +23,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CompositeTopBoundsSupport}.
  *
@@ -43,6 +45,7 @@ public class CompositeTopBoundsSupportTest extends XwtModelTest {
 	// show()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setSize() throws Exception {
 		ControlInfo shell = parse("<Shell/>");
 		shell.refresh();
@@ -59,6 +62,7 @@ public class CompositeTopBoundsSupportTest extends XwtModelTest {
 	// show()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_show_closeUsingESC() throws Exception {
 		final ControlInfo shell = parse("<Shell text='My Shell'/>");
 		shell.refresh();
@@ -84,6 +88,7 @@ public class CompositeTopBoundsSupportTest extends XwtModelTest {
 	/**
 	 * Generic {@link Composite} should be wrapped into {@link Shell} to show it.
 	 */
+	@Test
 	public void test_show_notShell() throws Exception {
 		final CompositeInfo composite = parse("<Composite/>");
 		composite.refresh();

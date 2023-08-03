@@ -21,6 +21,8 @@ import org.eclipse.wb.internal.swing.model.property.editor.alignment.AlignmentXP
 import org.eclipse.wb.internal.swing.model.property.editor.alignment.AlignmentYPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
+import org.junit.Test;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 
@@ -47,6 +49,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for installing.
 	 */
+	@Test
 	public void test_setLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -70,6 +73,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 * {@link BoxLayoutInfo} should add compound system "Alignment" property for each child
 	 * {@link ComponentInfo}.
 	 */
+	@Test
 	public void test_propertyAlignment() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -103,6 +107,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 * We should not create property for "Constructor/target", because it causes infinite recursion
 	 * during displaying {@link ContainerInfo} properties.
 	 */
+	@Test
 	public void test_noConstructor_targetProperty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -125,6 +130,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BoxLayoutInfo#isHorizontal()}, and {@link BoxLayout#X_AXIS} style.
 	 */
+	@Test
 	public void test_isHorizontal_X_AXIS() throws Exception {
 		check_isHorizontal("BoxLayout.X_AXIS", true);
 	}
@@ -132,6 +138,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BoxLayoutInfo#isHorizontal()}, and {@link BoxLayout#LINE_AXIS} style.
 	 */
+	@Test
 	public void test_isHorizontal_LINE_AXIS() throws Exception {
 		check_isHorizontal("BoxLayout.LINE_AXIS", true);
 	}
@@ -139,6 +146,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BoxLayoutInfo#isHorizontal()}, and {@link BoxLayout#Y_AXIS} style.
 	 */
+	@Test
 	public void test_isHorizontal_Y_AXIS() throws Exception {
 		check_isHorizontal("BoxLayout.Y_AXIS", false);
 	}
@@ -146,6 +154,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BoxLayoutInfo#isHorizontal()}, and {@link BoxLayout#PAGE_AXIS} style.
 	 */
+	@Test
 	public void test_isHorizontal_PAGE_AXIS() throws Exception {
 		check_isHorizontal("BoxLayout.PAGE_AXIS", false);
 	}
@@ -175,6 +184,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 * Test that {@link Box#createHorizontalBox()} returns {@link ContainerInfo} with
 	 * {@link BoxLayoutInfo}.
 	 */
+	@Test
 	public void test_Box_createHorizontalBox() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -199,6 +209,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	 * Test that {@link Box#createVerticalBox()} returns {@link ContainerInfo} with
 	 * {@link BoxLayoutInfo}.
 	 */
+	@Test
 	public void test_Box_createVerticalBox() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -227,6 +238,7 @@ public class BoxLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BoxSupport#setStrutSize(ComponentInfo, String)};
 	 */
+	@Test
 	public void test_BoxSupport_setStrutSize() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

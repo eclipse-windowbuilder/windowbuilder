@@ -41,6 +41,9 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -68,6 +71,7 @@ public class MenuTest extends RcpModelTest {
 	 * Test that {@link MenuStylePresentation} returns different icons for menus with different
 	 * styles.
 	 */
+	@Test
 	public void test_MenuStylePresentation() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -111,6 +115,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test that "bar" {@link MenuInfo} has reasonable bounds.
 	 */
+	@Test
 	public void test_boundsBar() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -134,6 +139,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuInfo#isBar()}.
 	 */
+	@Test
 	public void test_isBar() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -152,6 +158,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuInfo#isPopup()}.
 	 */
+	@Test
 	public void test_isPopup() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -177,6 +184,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for asking unsupported adapter.
 	 */
+	@Test
 	public void test_impl_IMenuInfo_no() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -194,6 +202,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for {@link IMenuInfo} of "bar" {@link MenuInfo}.
 	 */
+	@Test
 	public void test_impl_IMenuInfo_bar() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -227,6 +236,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for {@link IMenuInfo} of "popup" {@link MenuInfo}.
 	 */
+	@Test
 	public void test_impl_IMenuInfo_popup() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -250,6 +260,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for {@link IMenuPopupInfo} of "popup" {@link MenuInfo}.
 	 */
+	@Test
 	public void test_impl_IMenuPopupInfo_popup() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -285,6 +296,7 @@ public class MenuTest extends RcpModelTest {
 	 * Tests for {@link IMenuInfo#validateCreate(Object)} and
 	 * {@link IMenuInfo#commandCreate(Object, IMenuItemInfo)}.
 	 */
+	@Test
 	public void test_IMenuInfo_create_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -324,6 +336,7 @@ public class MenuTest extends RcpModelTest {
 	 * Tests for {@link IMenuInfo#commandCreate(Object, IMenuItemInfo)} with reference
 	 * {@link IMenuItemInfo}.
 	 */
+	@Test
 	public void test_IMenuInfo_create_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -367,6 +380,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for adding {@link MenuItemInfo} with <code>CASCADE</code>.
 	 */
+	@Test
 	public void test_IMenuInfo_create_3() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -410,7 +424,9 @@ public class MenuTest extends RcpModelTest {
 	 * Tests for {@link IMenuInfo#validatePaste(Object)} and
 	 * {@link IMenuInfo#commandPaste(Object, IMenuItemInfo)}.
 	 */
-	public void DISABLE_test_IMenuInfo_paste_1() throws Exception {
+	@Ignore
+	@Test
+	public void test_IMenuInfo_paste_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"public class Test extends Shell {",
@@ -453,6 +469,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Don't allow "paste" for non-menu components.
 	 */
+	@Test
 	public void test_IMenuInfo_paste_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -485,6 +502,7 @@ public class MenuTest extends RcpModelTest {
 	 * Tests for {@link IMenuInfo#validateMove(Object)} and
 	 * {@link IMenuInfo#commandMove(Object, IMenuItemInfo)}.
 	 */
+	@Test
 	public void test_IMenuInfo_move_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -532,6 +550,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Don't allow moving non-menu component on {@link IMenuInfo}.
 	 */
+	@Test
 	public void test_IMenuInfo_move_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -562,6 +581,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Add "bar" menu.
 	 */
+	@Test
 	public void test_commandCreate_bar() throws Exception {
 		// create shell
 		final CompositeInfo shell =
@@ -617,6 +637,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Add "popup" menu.
 	 */
+	@Test
 	public void test_commandCreate_popup() throws Exception {
 		// create shell
 		final CompositeInfo shell =
@@ -677,7 +698,9 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for copy/paste {@link MenuInfo} with {@link MenuItemInfo} and sub-menu.
 	 */
-	public void DISABLE_test_commandPaste() throws Exception {
+	@Ignore
+	@Test
+	public void test_commandPaste() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"public class Test extends Shell {",
@@ -762,6 +785,7 @@ public class MenuTest extends RcpModelTest {
 	// MenuInfo.MOVE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_commandMove_fromItem_toItem() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -812,6 +836,7 @@ public class MenuTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_commandMove_fromItem_toControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -862,6 +887,7 @@ public class MenuTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_commandMove_fromControl_toItem() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -912,6 +938,7 @@ public class MenuTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_commandMove_fromControl_toControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -979,6 +1006,7 @@ public class MenuTest extends RcpModelTest {
 	 * also calls Menu.isVisible(). So, when we call any of these methods, we have infinite recursion.
 	 * To fix this we disable default value fetching for "visible" property of Menu.
 	 */
+	@Test
 	public void test_setVisible_default() throws Exception {
 		MenuInfo menu = parseMenuBar();
 		assertEquals(false, menu.getPropertyByTitle("visible").getValue());
@@ -987,6 +1015,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuInfo#getAdapter(Class)}.
 	 */
+	@Test
 	public void test_getAdapter() throws Exception {
 		MenuInfo menu = parseMenuBar();
 		assertNull(menu.getAdapter(Integer.class));
@@ -995,6 +1024,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test for adding a placeholder to menu without items.
 	 */
+	@Test
 	public void test_placeHolder() throws Exception {
 		MenuInfo menuInfo = parseMenuBar();
 		// no "item" models
@@ -1008,6 +1038,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test fetching menu bar bounds and items bounds.
 	 */
+	@Test
 	public void test_fetchVisualDataBar() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1047,6 +1078,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * Test fetching cascaded/popup menu bounds/image and items bounds.
 	 */
+	@Test
 	public void test_fetchVisualDataCascaded() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1095,6 +1127,7 @@ public class MenuTest extends RcpModelTest {
 	 * We should be able to constructor {@link Menu} with {@link Decorations} in parameter, and use
 	 * {@link MenuItem#setMenu(Menu)} to establish association.
 	 */
+	@Test
 	public void test_parse_DecorationsInConstructor() throws Exception {
 		parseComposite(
 				"public class Test extends Shell {",
@@ -1118,6 +1151,7 @@ public class MenuTest extends RcpModelTest {
 				"      {new: org.eclipse.swt.widgets.Menu} {local-unique: dropDown} {/new Menu(this, SWT.DROP_DOWN)/ /item.setMenu(dropDown)/}");
 	}
 
+	@Test
 	public void test_separatorItem_hasNoVariable() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1150,6 +1184,7 @@ public class MenuTest extends RcpModelTest {
 	/**
 	 * It is valid to set same {@link Menu} for multiple {@link Control}s.
 	 */
+	@Test
 	public void test_parse_sharedContextMenu() throws Exception {
 		parseComposite(
 				"public class Test extends Shell {",

@@ -27,6 +27,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link LayoutDataInfo}.
  *
@@ -50,6 +52,7 @@ public class LayoutDataTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deleteLayoutData() throws Exception {
 		CompositeInfo shellInfo =
 				parseComposite(
@@ -87,6 +90,7 @@ public class LayoutDataTest extends RcpModelTest {
 	/**
 	 * Test for excluding some unneeded layout data properties, ex. "Constructor" property.
 	 */
+	@Test
 	public void test_excludeProperties() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -114,6 +118,7 @@ public class LayoutDataTest extends RcpModelTest {
 	// Code generation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_codeGeneration_Block() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -170,6 +175,7 @@ public class LayoutDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_codeGeneration_Flat() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -231,6 +237,7 @@ public class LayoutDataTest extends RcpModelTest {
 	/**
 	 * There was problem that we tried to inline when {@link LayoutDataInfo} was already deleted.
 	 */
+	@Test
 	public void test_codeGeneration_ignoreIfDelete() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -267,6 +274,7 @@ public class LayoutDataTest extends RcpModelTest {
 	/**
 	 * Template "${defaultName}" means that name should be based on name of type.
 	 */
+	@Test
 	public void test_nameTemplate_useDefaultName() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -304,6 +312,7 @@ public class LayoutDataTest extends RcpModelTest {
 	/**
 	 * Generate name using "${dataAcronym}${controlName-cap}" template.
 	 */
+	@Test
 	public void test_nameTemplate_alternativeTemplate_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -341,6 +350,7 @@ public class LayoutDataTest extends RcpModelTest {
 	/**
 	 * Generate name using "${controlName}${dataClassName}" template.
 	 */
+	@Test
 	public void test_nameTemplate_alternativeTemplate_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -378,6 +388,7 @@ public class LayoutDataTest extends RcpModelTest {
 	/**
 	 * {@link LayoutDataInfo} should be renamed when its parent {@link ControlInfo} is renamed.
 	 */
+	@Test
 	public void test_nameTemplate_renameWithControl() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -419,6 +430,7 @@ public class LayoutDataTest extends RcpModelTest {
 	// Delete if default
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_deleteIfDefault() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -445,6 +457,7 @@ public class LayoutDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_negativeValue() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -471,6 +484,7 @@ public class LayoutDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_notLiterals() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -500,6 +514,7 @@ public class LayoutDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_hasVariable() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -529,6 +544,7 @@ public class LayoutDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_hasMethodInvocation() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -564,6 +580,7 @@ public class LayoutDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_hasFieldAssignment() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -607,6 +624,7 @@ public class LayoutDataTest extends RcpModelTest {
 	/**
 	 * {@link LayoutDataInfo} may be dangling, not attached to any {@link ControlInfo}.
 	 */
+	@Test
 	public void test_noParentControl() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -627,6 +645,7 @@ public class LayoutDataTest extends RcpModelTest {
 	 * <code>LayoutData</code> may be set for "this" {@link Composite}, that has no parent, so no
 	 * enclosing {@link Layout}. This should not cause problems.
 	 */
+	@Test
 	public void test_noParentComposite_noLayout() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -647,6 +666,7 @@ public class LayoutDataTest extends RcpModelTest {
 	/**
 	 * We should ignore <code>LayoutData</code> if it is not compatible with layout of "parent".
 	 */
+	@Test
 	public void test_hasParentLayout_notCompatible() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -669,6 +689,7 @@ public class LayoutDataTest extends RcpModelTest {
 	 * <code>LayoutData</code> was set twice, so first {@link LayoutDataInfo} was already removed. But
 	 * it was also incompatible, so we tried to remove it second time.
 	 */
+	@Test
 	public void test_hasParentLayout_notCompatible_alreadyRemoved() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -697,6 +718,7 @@ public class LayoutDataTest extends RcpModelTest {
 	 * {@link CompositeInfo} that has no {@link LayoutInfo}. We should remove such invalid
 	 * {@link LayoutDataInfo}.
 	 */
+	@Test
 	public void test_hasParentComposite_noLayout() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",

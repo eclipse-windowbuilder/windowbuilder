@@ -35,7 +35,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_images() throws Exception {
 		assertNotNull(GridImages.getImage("h/left.gif"));
 		assertNotNull(GridImages.getImageDescriptor("v/top.gif"));
@@ -72,6 +74,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test for parsing empty {@link GridLayoutInfo}.
 	 */
+	@Test
 	public void test_parseEmpty() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -88,6 +91,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Fillers should be filtered out from presentation children.
 	 */
+	@Test
 	public void test_excludeFillersFromPresentationChildren_1() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -106,17 +110,18 @@ public class GridLayoutTest extends XwtModelTest {
 		IObjectPresentation presentation = shell.getPresentation();
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenTree();
-			assertThat(presentationChildren).contains(button).doesNotContain(filler);
+			Assertions.assertThat(presentationChildren).contains(button).doesNotContain(filler);
 		}
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenGraphical();
-			assertThat(presentationChildren).contains(button).doesNotContain(filler);
+			Assertions.assertThat(presentationChildren).contains(button).doesNotContain(filler);
 		}
 	}
 
 	/**
 	 * <code>Label</code> with <code>setText()</code> is not filler, it is normal control.
 	 */
+	@Test
 	public void test_fillersWith_setText() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -133,11 +138,11 @@ public class GridLayoutTest extends XwtModelTest {
 		IObjectPresentation presentation = shell.getPresentation();
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenTree();
-			assertThat(presentationChildren).contains(label);
+			Assertions.assertThat(presentationChildren).contains(label);
 		}
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenGraphical();
-			assertThat(presentationChildren).contains(label);
+			Assertions.assertThat(presentationChildren).contains(label);
 		}
 	}
 
@@ -149,6 +154,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * No controls, no changes expected.
 	 */
+	@Test
 	public void test_fixGrid_noControls() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -174,6 +180,7 @@ public class GridLayoutTest extends XwtModelTest {
 	 * It is possible that there are existing {@link Control}-s created in superclass. We should not
 	 * try to "fix" this by adding fillers.
 	 */
+	@Test
 	public void test_fixGrid_leadingImplicitControls() throws Exception {
 		setFileContentSrc(
 				"test/MyShell.java",
@@ -215,6 +222,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link IGridInfo}.
 	 */
+	@Test
 	public void test_gridInfo() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -299,6 +307,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test cells when {@link Shell#setSize(int, int)} is used.
 	 */
+	@Test
 	public void test_gridInfo2() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -322,6 +331,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link IGridInfo} when there are no controls.
 	 */
+	@Test
 	public void test_gridInfo_empty() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -339,6 +349,7 @@ public class GridLayoutTest extends XwtModelTest {
 		assertEquals(0, gridInfo.getColumnIntervals().length);
 	}
 
+	@Test
 	public void test_gridInfo_tooBigHorizontalSpan() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -367,6 +378,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Implicit controls also occupy cells.
 	 */
+	@Test
 	public void test_gridInfo_implicitControls() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell =
@@ -398,6 +410,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#canChangeDimensions()}.
 	 */
+	@Test
 	public void test_canChangeDimensions_explicit() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -417,6 +430,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#canChangeDimensions()}.
 	 */
+	@Test
 	public void test_canChangeDimensions_implicit() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell = parse("<t:MyShell/>");
@@ -432,6 +446,7 @@ public class GridLayoutTest extends XwtModelTest {
 	 * {@link GridLayout} is implicit, but there are no implicit {@link Control}s, so it is safe to
 	 * change number of columns.
 	 */
+	@Test
 	public void test_canChangeDimensions_implicit_withoutControls() throws Exception {
 		prepareShell_withImplicitEmpty();
 		CompositeInfo shell = parse("<t:MyShell/>");
@@ -446,6 +461,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// setCells()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setCells_horizontalSpan() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -494,6 +510,7 @@ public class GridLayoutTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_setCells_horizontalSpan2() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -527,6 +544,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_setCells_verticalSpan() throws Exception {
 		parse(
 				"<Shell>",
@@ -573,6 +591,7 @@ public class GridLayoutTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_setCells_verticalSpan2() throws Exception {
 		parse(
 				"<Shell>",
@@ -604,6 +623,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_setCells_move() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -651,6 +671,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#command_setSizeHint(ControlInfo, boolean, Dimension)}.
 	 */
+	@Test
 	public void test_setSizeHint_width() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -682,6 +703,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#command_setSizeHint(ControlInfo, boolean, Dimension)}.
 	 */
+	@Test
 	public void test_setSizeHint_height() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -718,6 +740,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * When we delete {@link ControlInfo}, it should be replaced with filler.
 	 */
+	@Test
 	public void test_delete_replaceWithFillers() throws Exception {
 		parse(
 				"<Shell>",
@@ -748,6 +771,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * When we delete column, we should keep at least one column.
 	 */
+	@Test
 	public void test_delete_keepOneColumn() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -770,6 +794,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_delete_removeEmptyDimensions() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -809,6 +834,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_inEmptyCell() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -839,6 +865,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_CREATE_insertRow() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -871,6 +898,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_CREATE_insertColumn() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -903,6 +931,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_CREATE_insertColumnRow() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -940,6 +969,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_CREATE_appendRow() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -966,6 +996,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_CREATE_appendColumn() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -992,6 +1023,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_CREATE_appendColumnRow() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1019,6 +1051,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_CREATE_insertColumnHorizontalSpan() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1056,6 +1089,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_CREATE_insertRowVerticalSpan() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1096,6 +1130,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test for parsing "not balanced" {@link GridLayoutInfo} and adding into <code>null</code> cell.
 	 */
+	@Test
 	public void test_CREATE_notBalanced() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1133,6 +1168,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#isExplicitRow(int)}.
 	 */
+	@Test
 	public void test_implicitLayout_isExplicitRow() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell =
@@ -1153,6 +1189,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * We should not break existing {@link GridLayout} based design by changing number of columns.
 	 */
+	@Test
 	public void test_implicitLayout_CREATE_hasInheritedControls() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell = parse("<t:MyShell/>");
@@ -1177,6 +1214,7 @@ public class GridLayoutTest extends XwtModelTest {
 	 * In XWT, if {@link GridLayout} is implicit and there are no inherited {@link Control}s, we
 	 * should be able to add new columns and rows.
 	 */
+	@Test
 	public void test_implicitLayout_CREATE_noInheritedControls() throws Exception {
 		prepareShell_withImplicitEmpty();
 		CompositeInfo shell = parse("<t:MyShell/>");
@@ -1203,6 +1241,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * Using implicit {@link GridLayout} should not cause problems during moving {@link Control}.
 	 */
+	@Test
 	public void test_implicitLayout_MOVE() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell =
@@ -1267,6 +1306,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// Dimension operations
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_columnAccess() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1363,6 +1403,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_rowAccess() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1453,6 +1494,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_deleteColumn() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1494,6 +1536,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_deleteColumn_deleteAlsoEmptyRows() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1529,6 +1572,7 @@ public class GridLayoutTest extends XwtModelTest {
 	 * When grid has empty cells (at the ends of columns/rows), this caused
 	 * {@link NullPointerException}.
 	 */
+	@Test
 	public void test_delete_missingFillers() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1556,6 +1600,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_deleteRow() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1597,6 +1642,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_deleteRow_deleteAlsoEmptyColumns() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1633,6 +1679,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// MOVE COLUMN
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_COLUMN_before() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1667,6 +1714,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_MOVE_COLUMN_after() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1706,6 +1754,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// MOVE ROW
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_ROW_before() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1740,6 +1789,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_MOVE_ROW_after() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1783,6 +1833,7 @@ public class GridLayoutTest extends XwtModelTest {
 	 * Test for {@link GridLayoutInfo#command_normalizeSpanning()}.<br>
 	 * Single control spanned on two columns.
 	 */
+	@Test
 	public void test_normalizeSpanning_1() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1814,6 +1865,7 @@ public class GridLayoutTest extends XwtModelTest {
 	 * Test for {@link GridLayoutInfo#command_normalizeSpanning()}.<br>
 	 * Single control spanned on two rows.
 	 */
+	@Test
 	public void test_normalizeSpanning_2() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1845,6 +1897,7 @@ public class GridLayoutTest extends XwtModelTest {
 	 * Test for {@link GridLayoutInfo#command_normalizeSpanning()}.<br>
 	 * No normalize: each column/row has control.
 	 */
+	@Test
 	public void test_normalizeSpanning_3() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1884,6 +1937,7 @@ public class GridLayoutTest extends XwtModelTest {
 	 * Test for {@link GridLayoutInfo#command_normalizeSpanning()}.<br>
 	 * Do normalize: no control for second column.
 	 */
+	@Test
 	public void test_normalizeSpanning_4() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1919,6 +1973,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// MOVE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1949,6 +2004,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_MOVE_out() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -1983,6 +2039,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_MOVE_error_1() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -2015,6 +2072,7 @@ public class GridLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_MOVE_error_2() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -2049,6 +2107,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -2088,6 +2147,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// Special cases
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_noReference() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -2120,6 +2180,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * There were problems when we increase/decrease number of columns using "numColumns" property.
 	 */
+	@Test
 	public void test_numColumns_inc() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -2155,6 +2216,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * There were problems when we increase/decrease number of columns using "numColumns" property.
 	 */
+	@Test
 	public void test_numColumns_dec() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -2195,6 +2257,7 @@ public class GridLayoutTest extends XwtModelTest {
 	/**
 	 * When we mark {@link Control} as excluded, this should not cause problems.
 	 */
+	@Test
 	public void test_excludeFlag() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -2208,10 +2271,10 @@ public class GridLayoutTest extends XwtModelTest {
 		GridLayoutInfo layout = getObjectByName("layout");
 		ControlInfo button = getObjectByName("button");
 		// initially "button" is managed
-		assertThat(layout.getControls()).containsOnly(button);
+		Assertions.assertThat(layout.getControls()).containsOnly(button);
 		// exclude "button"
 		GridLayoutInfo.getGridData(button).getPropertyByTitle("exclude").setValue(true);
-		assertThat(layout.getControls()).isEmpty();
+		Assertions.assertThat(layout.getControls()).isEmpty();
 		assertXML(
 				"// filler filler filler filler filler",
 				"<Shell>",
@@ -2235,6 +2298,7 @@ public class GridLayoutTest extends XwtModelTest {
 	 * Test that when delete {@link GridLayoutInfo}, fillers are also removed, because there are not
 	 * controls that user wants.
 	 */
+	@Test
 	public void test_DELETE_removeFillers() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -2249,10 +2313,10 @@ public class GridLayoutTest extends XwtModelTest {
 		refresh();
 		GridLayoutInfo layout = getObjectByName("layout");
 		// initially 2 controls - filler and Button
-		assertThat(shell.getChildrenControls()).hasSize(2);
+		Assertions.assertThat(shell.getChildrenControls()).hasSize(2);
 		// after delete - only Button
 		layout.delete();
-		assertThat(shell.getChildrenControls()).hasSize(1);
+		Assertions.assertThat(shell.getChildrenControls()).hasSize(1);
 		assertXML(
 				"// filler filler filler filler filler",
 				"// filler filler filler filler filler",
@@ -2267,6 +2331,7 @@ public class GridLayoutTest extends XwtModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_clipboard() throws Exception {
 		final CompositeInfo shell =
 				parse(

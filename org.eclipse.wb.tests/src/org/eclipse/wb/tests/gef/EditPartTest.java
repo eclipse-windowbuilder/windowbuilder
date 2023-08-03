@@ -22,6 +22,8 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -32,18 +34,10 @@ public class EditPartTest extends GefTestCase {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public EditPartTest() {
-		super(EditPart.class);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_init() throws Exception {
 		TestEditPart templatePart = new TestEditPart();
 		//
@@ -57,6 +51,7 @@ public class EditPartTest extends GefTestCase {
 		assertEquals(EditPart.SELECTED_NONE, templatePart.getSelected());
 	}
 
+	@Test
 	public void test_Model() throws Exception {
 		TestEditPart testEditPart = new TestEditPart();
 		//
@@ -78,6 +73,7 @@ public class EditPartTest extends GefTestCase {
 		assertTrue(testEditPart.test_access_getModelChildren().isEmpty());
 	}
 
+	@Test
 	public void test_Figure() throws Exception {
 		final Figure figure = new Figure();
 		GraphicalEditPart testEditPart = new GraphicalEditPart() {
@@ -97,6 +93,7 @@ public class EditPartTest extends GefTestCase {
 	// Parent/Children tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_addChild() throws Exception {
 		TestEditPart templatePart = new TestEditPart();
 		assertTrue(templatePart.getChildren().isEmpty());
@@ -165,6 +162,7 @@ public class EditPartTest extends GefTestCase {
 		assertTrue(testPart1.isActive());
 	}
 
+	@Test
 	public void test_removeChild() throws Exception {
 		TestEditPart templatePart = new TestEditPart();
 		TestEditPart testPart1 = new TestEditPart();
@@ -195,6 +193,7 @@ public class EditPartTest extends GefTestCase {
 	// EditPolicy tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_installEditPolicy() throws Exception {
 		TestEditPart testEditPart = new TestEditPart();
 		//
@@ -251,6 +250,7 @@ public class EditPartTest extends GefTestCase {
 		assertFalse(policy2.isActive());
 	}
 
+	@Test
 	public void test_RouteRequests() throws Exception {
 		//
 		// check route Request's
@@ -388,6 +388,7 @@ public class EditPartTest extends GefTestCase {
 	// add\removeNotyfy/Activate\Deactivate tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_commonAdd() throws Exception {
 		TestEditPart parent = new TestEditPart();
 		//
@@ -417,6 +418,7 @@ public class EditPartTest extends GefTestCase {
 		assertTrue(((TestEditPolicy) child.getEditPolicy("")).isActive());
 	}
 
+	@Test
 	public void test_commonAdd_activate() throws Exception {
 		TestEditPart parent = new TestEditPart();
 		parent.activate();
@@ -440,6 +442,7 @@ public class EditPartTest extends GefTestCase {
 		assertSame(child, child.getEditPolicy("").getHost());
 	}
 
+	@Test
 	public void test_commonRemove() throws Exception {
 		TestEditPart parent = new TestEditPart();
 		parent.activate();
@@ -468,6 +471,7 @@ public class EditPartTest extends GefTestCase {
 		assertSame(child, child.getEditPolicy("").getHost());
 	}
 
+	@Test
 	public void test_refreshChildren_1() throws Exception {
 		TestEditPart child1 = new TestEditPart();
 		child1.setModel("_child1_Model");
@@ -515,6 +519,7 @@ public class EditPartTest extends GefTestCase {
 		assertFalse(child2.isActive());
 	}
 
+	@Test
 	public void test_refreshChildren_2() throws Exception {
 		TestEditPart parent = new TestEditPart() {
 			@Override
@@ -548,6 +553,7 @@ public class EditPartTest extends GefTestCase {
 		assertEquals("_child7_Model", children.get(3).getModel());
 	}
 
+	@Test
 	public void test_refreshChildren_3() throws Exception {
 		TestEditPart child1 = new TestEditPart();
 		child1.setModel("_child1_Model");
@@ -609,6 +615,7 @@ public class EditPartTest extends GefTestCase {
 	// Listener tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Add_Remove_SelectionListener() throws Exception {
 		TestEditPart testEditPart = new TestEditPart();
 		//
@@ -659,6 +666,7 @@ public class EditPartTest extends GefTestCase {
 		assertEquals(0, list.size());
 	}
 
+	@Test
 	public void test_Selection() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		IEditPartSelectionListener listener = new IEditPartSelectionListener() {
@@ -705,6 +713,7 @@ public class EditPartTest extends GefTestCase {
 		actualLogger.assertEmpty();
 	}
 
+	@Test
 	public void test_Add_Remove_EditPartListener() throws Exception {
 		TestEditPart testEditPart = new TestEditPart();
 		//
@@ -762,6 +771,7 @@ public class EditPartTest extends GefTestCase {
 		assertEquals(0, list.size());
 	}
 
+	@Test
 	public void test_Invoke_EditPartListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		IEditPartListener listener = new IEditPartListener() {
@@ -821,10 +831,12 @@ public class EditPartTest extends GefTestCase {
 		// Test Access
 		//
 		////////////////////////////////////////////////////////////////////////////
+		@Test
 		public void test_access_addChild(EditPart childPart, int index) {
 			addChild(childPart, index);
 		}
 
+		@Test
 		public void test_access_removeChild(EditPart childPart) {
 			removeChild(childPart);
 		}

@@ -21,6 +21,8 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link TableWrapLayout} in GEF.
  *
@@ -62,6 +64,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 	 * ancestor resize event, so tries to update {@link Handle} location. However at this time
 	 * component may be already deleted, so we can not ask for its cell/bounds.
 	 */
+	@Test
 	public void test_deleteChildAndAncestorResize() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -106,6 +109,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 	 * When user externally (not using design canvas) changes "numColumns", we should recalculate
 	 * positions of controls, in other case we will have incorrect count of column/row headers.
 	 */
+	@Test
 	public void test_change_numColumns() throws Exception {
 		CompositeInfo shell =
 				openEditor(
@@ -145,6 +149,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 	// Size hint
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setSizeHint_height() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -177,6 +182,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_filled() throws Exception {
 		CompositeInfo composite =
 				openEditor(
@@ -193,6 +199,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 		canvas.assertCommandNull();
 	}
 
+	@Test
 	public void test_CREATE_virtual_0x0() throws Exception {
 		CompositeInfo composite =
 				openEditor(
@@ -216,6 +223,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_CREATE_virtual_0x1() throws Exception {
 		CompositeInfo composite =
 				openEditor(
@@ -240,6 +248,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_CREATE_appendToColumn_1x0() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -265,6 +274,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_CREATE_appendToRow_0x1() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -290,6 +300,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_CREATE_beforeFirstRow() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -315,6 +326,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_CREATE_beforeFirstColumn() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -340,6 +352,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_CREATE_insertColumn() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -367,6 +380,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_CREATE_insertRow() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -399,6 +413,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_PASTE_virtual_1x0() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -429,6 +444,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 	// MOVE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_virtual_1x0() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -454,6 +470,7 @@ public class TableWrapLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_ADD_virtual_0x0() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",

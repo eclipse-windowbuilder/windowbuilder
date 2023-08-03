@@ -22,7 +22,7 @@ import org.osgi.framework.Bundle;
  *
  * @author scheglov_ke
  */
-public class AbstractSwing2SwtTest extends RcpModelTest {
+public abstract class AbstractSwing2SwtTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle

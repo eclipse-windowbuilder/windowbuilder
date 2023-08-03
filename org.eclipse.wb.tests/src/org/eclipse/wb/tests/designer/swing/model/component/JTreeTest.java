@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.models.tree.TreeModel
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -36,6 +37,7 @@ public class JTreeTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_JTree_parsing() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -126,6 +128,7 @@ public class JTreeTest extends SwingModelTest {
 	/**
 	 * Test when there are no model.
 	 */
+	@Test
 	public void test_emptyModel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -165,6 +168,7 @@ public class JTreeTest extends SwingModelTest {
 	/**
 	 * Test for {@link TreeModelPropertyEditor}, setting new items.
 	 */
+	@Test
 	public void test_setItems() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

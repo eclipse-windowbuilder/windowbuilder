@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.swing.model.component;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 import javax.swing.JComboBox;
 
 /**
@@ -29,6 +31,7 @@ public class JComboBoxTest extends SwingModelTest {
 	/**
 	 * Test that {@link JComboBox#addItem(Object)} is executable.
 	 */
+	@Test
 	public void test_addItem() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

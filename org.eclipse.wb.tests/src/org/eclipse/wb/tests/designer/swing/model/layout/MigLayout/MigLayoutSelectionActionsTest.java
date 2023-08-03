@@ -20,7 +20,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.jface.action.IAction;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_selectionActions_ALL() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -72,6 +74,7 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 		assertNotNull(findAction(actions, "Baseline"));
 	}
 
+	@Test
 	public void test_selectionActions_noSelection() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -85,9 +88,10 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 		List<Object> actions = Lists.newArrayList();
 		panel.getBroadcastObject().addSelectionActions(ImmutableList.<ObjectInfo>of(), actions);
 		// no selection, so no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
+	@Test
 	public void test_selectionActions_invalidSelection() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -102,9 +106,10 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 		List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(panel.getLayout());
 		panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
 		// not Component on MigLayout selected, so no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
+	@Test
 	public void test_horizontalAlignment() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -139,6 +144,7 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_verticalAlignment() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

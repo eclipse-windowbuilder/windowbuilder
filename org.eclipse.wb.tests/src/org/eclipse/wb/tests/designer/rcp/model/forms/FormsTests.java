@@ -10,33 +10,32 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.forms;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.rcp.model.forms.table.TableWrapLayoutTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for "Forms API" widgets.
  *
  * @author scheglov_ke
  */
-public class FormsTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.forms");
-		suite.addTest(createSingleSuite(FormToolkitTest.class));
-		suite.addTest(createSingleSuite(FormTextTest.class));
-		suite.addTest(createSingleSuite(ExpandableCompositeTest.class));
-		suite.addTest(createSingleSuite(SectionTest.class));
-		suite.addTest(createSingleSuite(FormTest.class));
-		suite.addTest(createSingleSuite(ScrolledFormTest.class));
-		suite.addTest(createSingleSuite(FormPageTest.class));
-		suite.addTest(createSingleSuite(SectionPartTest.class));
-		suite.addTest(createSingleSuite(FormToolkitAccessTest.class));
-		suite.addTest(createSingleSuite(DetailsPageTest.class));
-		suite.addTest(createSingleSuite(MasterDetailsBlockTest.class));
-		suite.addTest(createSingleSuite(ColumnLayoutTest.class));
-		suite.addTest(TableWrapLayoutTests.suite());
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		FormToolkitTest.class,
+		FormTextTest.class,
+		ExpandableCompositeTest.class,
+		SectionTest.class,
+		FormTest.class,
+		ScrolledFormTest.class,
+		FormPageTest.class,
+		SectionPartTest.class,
+		FormToolkitAccessTest.class,
+		DetailsPageTest.class,
+		MasterDetailsBlockTest.class,
+		ColumnLayoutTest.class,
+		TableWrapLayoutTests.class
+})
+public class FormsTests {
 }

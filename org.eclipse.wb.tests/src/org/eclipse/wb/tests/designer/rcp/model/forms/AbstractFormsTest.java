@@ -21,7 +21,7 @@ import junit.framework.TestCase;
  *
  * @author scheglov_ke
  */
-public class AbstractFormsTest extends RcpModelTest {
+public abstract class AbstractFormsTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Utils

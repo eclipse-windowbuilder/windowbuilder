@@ -20,8 +20,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.osgi.framework.Bundle;
 
 import java.io.InputStream;
@@ -39,6 +39,7 @@ public class BundleResourceProviderTest extends DesignerTestCase {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_noSuchBundle() throws Exception {
 		try {
 			BundleResourceProvider.get("no.such.bundle");
@@ -47,6 +48,7 @@ public class BundleResourceProviderTest extends DesignerTestCase {
 		}
 	}
 
+	@Test
 	public void test_instanceBundle() throws Exception {
 		Bundle bundle = Platform.getBundle(BUNDLE_ID);
 		BundleResourceProvider.get(bundle);
@@ -60,13 +62,14 @@ public class BundleResourceProviderTest extends DesignerTestCase {
 	/**
 	 * Test for {@link BundleResourceProvider#getFile(String)}.
 	 */
+	@Test
 	public void test_getFile() throws Exception {
 		BundleResourceProvider provider = BundleResourceProvider.get(BUNDLE_ID);
 		// no such file
 		try {
 			provider.getFile("noSuchFile.txt");
 		} catch (Throwable e) {
-			assertThat(e.getMessage()).contains(BUNDLE_ID).contains("noSuchFile.txt");
+			Assertions.assertThat(e.getMessage()).contains(BUNDLE_ID).contains("noSuchFile.txt");
 		}
 		// good file
 		assertGoodFile(provider, "plugin.xml");
@@ -80,18 +83,19 @@ public class BundleResourceProviderTest extends DesignerTestCase {
 	/**
 	 * Test for {@link BundleResourceProvider#getFileString(String)}.
 	 */
+	@Test
 	public void test_getFileString() throws Exception {
 		BundleResourceProvider provider = BundleResourceProvider.get(BUNDLE_ID);
 		// no such file
 		try {
 			provider.getFile("noSuchFile.txt");
 		} catch (Throwable e) {
-			assertThat(e.getMessage()).contains(BUNDLE_ID).contains("noSuchFile.txt");
+			Assertions.assertThat(e.getMessage()).contains(BUNDLE_ID).contains("noSuchFile.txt");
 		}
 		// good file
 		{
 			String content = provider.getFileString("plugin.xml");
-			assertThat(content).contains("<!-- Extension points -->");
+			Assertions.assertThat(content).contains("<!-- Extension points -->");
 		}
 	}
 
@@ -109,13 +113,14 @@ public class BundleResourceProviderTest extends DesignerTestCase {
 	/**
 	 * Test for {@link BundleResourceProvider#getImage(String)}.
 	 */
+	@Test
 	public void test_getImage() throws Exception {
 		BundleResourceProvider provider = BundleResourceProvider.get(BUNDLE_ID);
 		// no such file
 		try {
 			provider.getImage("noSuchImage.png");
 		} catch (Throwable e) {
-			assertThat(e.getMessage()).contains(BUNDLE_ID).contains("noSuchImage.png");
+			Assertions.assertThat(e.getMessage()).contains(BUNDLE_ID).contains("noSuchImage.png");
 		}
 		// get image
 		Image image = provider.getImage("icons/test.png");
@@ -129,6 +134,7 @@ public class BundleResourceProviderTest extends DesignerTestCase {
 	/**
 	 * Test for {@link BundleResourceProvider#getImage(String)}.
 	 */
+	@Test
 	public void test_getImage_disposeWhenUninstall() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		Image image;
@@ -155,13 +161,14 @@ public class BundleResourceProviderTest extends DesignerTestCase {
 	/**
 	 * Test for {@link BundleResourceProvider#getImageDescriptor(String)}.
 	 */
+	@Test
 	public void test_getImageDescriptor() throws Exception {
 		BundleResourceProvider provider = BundleResourceProvider.get(BUNDLE_ID);
 		// no such file
 		try {
 			provider.getImageDescriptor("noSuchImage.png");
 		} catch (Throwable e) {
-			assertThat(e.getMessage()).contains(BUNDLE_ID).contains("noSuchImage.png");
+			Assertions.assertThat(e.getMessage()).contains(BUNDLE_ID).contains("noSuchImage.png");
 		}
 		// get image
 		ImageDescriptor descriptor = provider.getImageDescriptor("icons/test.png");

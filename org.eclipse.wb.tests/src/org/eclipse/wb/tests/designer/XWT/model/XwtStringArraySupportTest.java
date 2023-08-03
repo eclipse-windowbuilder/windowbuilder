@@ -16,7 +16,8 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.xwt.model.util.XwtStringArraySupport;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link XwtStringArraySupport}.
@@ -41,6 +42,7 @@ public class XwtStringArraySupportTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setNew() throws Exception {
 		prepareMyComponent();
 		prepareProperty(
@@ -70,14 +72,15 @@ public class XwtStringArraySupportTest extends XwtModelTest {
 		{
 			Object[] actual =
 					(Object[]) ReflectionUtils.getFieldObject(myComponent.getObject(), "m_items");
-			assertThat(actual).isEqualTo(value);
+			Assertions.assertThat(actual).isEqualTo(value);
 		}
 		{
 			Object[] actual = (Object[]) property.getValue();
-			assertThat(actual).isEqualTo(value);
+			Assertions.assertThat(actual).isEqualTo(value);
 		}
 	}
 
+	@Test
 	public void test_updateExisting() throws Exception {
 		prepareMyComponent();
 		prepareProperty(
@@ -112,14 +115,15 @@ public class XwtStringArraySupportTest extends XwtModelTest {
 		{
 			Object[] actual =
 					(Object[]) ReflectionUtils.getFieldObject(myComponent.getObject(), "m_items");
-			assertThat(actual).isEqualTo(value);
+			Assertions.assertThat(actual).isEqualTo(value);
 		}
 		{
 			Object[] actual = (Object[]) property.getValue();
-			assertThat(actual).isEqualTo(value);
+			Assertions.assertThat(actual).isEqualTo(value);
 		}
 	}
 
+	@Test
 	public void test_removeExisting() throws Exception {
 		prepareMyComponent();
 		prepareProperty(
@@ -146,11 +150,11 @@ public class XwtStringArraySupportTest extends XwtModelTest {
 		assertFalse(property.isModified());
 		{
 			Object actual = ReflectionUtils.getFieldObject(myComponent.getObject(), "m_items");
-			assertThat(actual).isNull();
+			Assertions.assertThat(actual).isNull();
 		}
 		{
 			Object actual = property.getValue();
-			assertThat(actual).isSameAs(Property.UNKNOWN_VALUE);
+			Assertions.assertThat(actual).isSameAs(Property.UNKNOWN_VALUE);
 		}
 	}
 

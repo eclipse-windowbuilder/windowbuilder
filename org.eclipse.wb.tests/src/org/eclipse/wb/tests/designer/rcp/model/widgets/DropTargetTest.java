@@ -14,7 +14,8 @@ import org.eclipse.wb.internal.rcp.model.widgets.DropTargetInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link DropTargetInfo}.
@@ -36,6 +37,7 @@ public class DropTargetTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -50,6 +52,6 @@ public class DropTargetTest extends RcpModelTest {
 				"{this: org.eclipse.swt.widgets.Shell} {this} {/new DropTarget(this, DND.DROP_MOVE)/}",
 				"  {implicit-layout: absolute} {implicit-layout} {}",
 				"  {new: org.eclipse.swt.dnd.DropTarget} {empty} {/new DropTarget(this, DND.DROP_MOVE)/}");
-		assertThat(shell.getChildren(DropTargetInfo.class)).hasSize(1);
+		Assertions.assertThat(shell.getChildren(DropTargetInfo.class)).hasSize(1);
 	}
 }

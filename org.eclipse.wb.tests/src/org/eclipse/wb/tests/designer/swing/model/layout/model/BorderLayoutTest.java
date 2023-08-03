@@ -22,6 +22,8 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
 
+import org.junit.Test;
+
 import java.awt.BorderLayout;
 
 /**
@@ -47,6 +49,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for installing.
 	 */
+	@Test
 	public void test_setLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -68,6 +71,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#getComponent(String)}.
 	 */
+	@Test
 	public void test_getComponent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -105,6 +109,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#command_CREATE(ComponentInfo, String)}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		String[] lines =
 			{
@@ -135,6 +140,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#command_CREATE(ComponentInfo, String)}.
 	 */
+	@Test
 	public void test_CREATE_nullRegion() throws Exception {
 		String[] lines =
 			{
@@ -165,6 +171,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#command_CREATE(ComponentInfo, String, ComponentInfo)}.
 	 */
+	@Test
 	public void test_CREATE_withTarget() throws Exception {
 		String[] lines =
 			{
@@ -201,6 +208,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for moving to other direction.
 	 */
+	@Test
 	public void test_MOVE() throws Exception {
 		check_MOVE(new String[]{
 				"public class Test extends JPanel {",
@@ -217,6 +225,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for moving to other direction with {@link LazyVariableSupport}.
 	 */
+	@Test
 	public void test_MOVE_lazy() throws Exception {
 		String[] source =
 				new String[]{
@@ -240,6 +249,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for moving to other direction with implicit {@link BorderLayout#CENTER}.
 	 */
+	@Test
 	public void test_MOVE_implicitCenter() throws Exception {
 		check_MOVE(new String[]{
 				"public class Test extends JPanel {",
@@ -293,6 +303,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#command_REGION(ComponentInfo, String)}.
 	 */
+	@Test
 	public void test_REGION() throws Exception {
 		String[] lines =
 			{
@@ -324,6 +335,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for reparenting, normal variable.
 	 */
+	@Test
 	public void test_reparentingVariable() throws Exception {
 		String[] lines =
 				new String[]{
@@ -363,6 +375,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for reparenting, lazy variable.
 	 */
+	@Test
 	public void test_reparentingLazy() throws Exception {
 		String[] lines =
 				new String[]{
@@ -440,6 +453,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	// "Constraints" property
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_constraintsProperty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -476,6 +490,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_constraintsProperty_unsupportedRegion() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -503,6 +518,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#getEmptyRegion()}.
 	 */
+	@Test
 	public void test_getEmptyRegion_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -521,6 +537,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#getEmptyRegion()}.
 	 */
+	@Test
 	public void test_getEmptyRegion_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -539,6 +556,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#getEmptyRegion()}.
 	 */
+	@Test
 	public void test_getEmptyRegion_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -558,6 +576,7 @@ public class BorderLayoutTest extends AbstractLayoutTest {
 	/**
 	 * Test for {@link BorderLayoutInfo#getEmptyRegion()}.
 	 */
+	@Test
 	public void test_getEmptyRegion_4() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

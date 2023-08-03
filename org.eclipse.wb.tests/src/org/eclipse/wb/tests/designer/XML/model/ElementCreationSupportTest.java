@@ -25,6 +25,7 @@ import static org.mockito.Mockito.mock;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
+import org.junit.Test;
 
 /**
  * Test for {@link ElementCreationSupport}.
@@ -49,6 +50,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for abstract {@link CreationSupport}.
 	 */
+	@Test
 	public void test_CreationSupport() throws Exception {
 		CreationSupport creationSupport = mock(CreationSupport.class);
 		// no getTitle()
@@ -85,6 +87,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for applying {@link CreationDescription} parameters into {@link XmlObjectInfo}.
 	 */
+	@Test
 	public void test_CreationDescription_withParameters() throws Exception {
 		prepareMyComponent(ArrayUtils.EMPTY_STRING_ARRAY, new String[]{
 				"  <creation id='withParameters'>",
@@ -104,6 +107,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link ILiveCreationSupport} implementation.
 	 */
+	@Test
 	public void test_ILiveCreationSupport() throws Exception {
 		parse("<Shell/>");
 		// create CreationSupport
@@ -120,6 +124,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toString() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -131,6 +136,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 		assertEquals(getSourceDQ("<Shell text='My text'>"), shell.getCreationSupport().toString());
 	}
 
+	@Test
 	public void test_getTitle() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -152,6 +158,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link ElementCreationSupport#delete()}.
 	 */
+	@Test
 	public void test_delete() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -169,6 +176,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link ElementCreationSupport#delete()}.
 	 */
+	@Test
 	public void test_delete_withIntermadiateElements() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -187,6 +195,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link ElementCreationSupport#delete()}.
 	 */
+	@Test
 	public void test_delete_withIntermadiateChildren() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -216,6 +225,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link ElementCreationSupport#addElement(DocumentElement, int)}.
 	 */
+	@Test
 	public void test_addElement_standardSWT() throws Exception {
 		XmlObjectInfo container = parse("<Shell/>");
 		DocumentElement containerElement = container.getCreationSupport().getElement();
@@ -235,6 +245,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	 * <p>
 	 * Using {@link ElementCreationSupport#ElementCreationSupport()} constructor.
 	 */
+	@Test
 	public void test_addElement_constructorWithoutId() throws Exception {
 		XmlObjectInfo container = parse("<Shell/>");
 		// add
@@ -256,6 +267,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link ElementCreationSupport#addElement(DocumentElement, int)}.
 	 */
+	@Test
 	public void test_addElement_noSuchCreationID() throws Exception {
 		XmlObjectInfo container = parse("<Shell/>");
 		DocumentElement containerElement = container.getCreationSupport().getElement();
@@ -273,6 +285,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	 * <p>
 	 * Package has no namespace yet.
 	 */
+	@Test
 	public void test_addElement_inCustomPackage() throws Exception {
 		m_getSource_includeStandardNamespaces = false;
 		prepareMyComponent(ArrayUtils.EMPTY_STRING_ARRAY);
@@ -299,6 +312,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	 * <p>
 	 * Attribute without namespace, just add as is.
 	 */
+	@Test
 	public void test_addElement_attributes_noNamespace() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -327,6 +341,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	 * <p>
 	 * Attribute with namespace, declare and use it.
 	 */
+	@Test
 	public void test_addElement_attributes_newNamespace() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -355,6 +370,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	 * <p>
 	 * Attribute with namespace, which is already declared, so just use it.
 	 */
+	@Test
 	public void test_addElement_attributes_existingNamespace() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",
@@ -383,6 +399,7 @@ public class ElementCreationSupportTest extends AbstractCoreTest {
 	 * <p>
 	 * Using "x-content" element.
 	 */
+	@Test
 	public void test_addElement_content() throws Exception {
 		prepareMyComponent(new String[]{
 				"// filler filler filler filler filler",

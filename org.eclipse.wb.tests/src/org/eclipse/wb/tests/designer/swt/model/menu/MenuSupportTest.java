@@ -17,6 +17,10 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.lang.reflect.Constructor;
 
 /**
@@ -42,7 +46,8 @@ public class MenuSupportTest extends RcpModelTest {
 	private Object m_shellObject;
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// parse for context
 		CompositeInfo shellInfo =
@@ -57,7 +62,8 @@ public class MenuSupportTest extends RcpModelTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		m_shellObject = null;
 		super.tearDown();
 	}
@@ -70,6 +76,7 @@ public class MenuSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuSupport#getMenuClass()}.
 	 */
+	@Test
 	public void test_getMenuClass() throws Exception {
 		Class<?> menuClass = MenuSupport.getMenuClass();
 		assertNotNull(menuClass);
@@ -79,6 +86,7 @@ public class MenuSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuSupport#isMenuClass(Class)}.
 	 */
+	@Test
 	public void test_isMenuClass() throws Exception {
 		assertFalse(MenuSupport.isMenuClass(Object.class));
 		assertTrue(MenuSupport.isMenuClass(MenuSupport.getMenuClass()));
@@ -87,6 +95,7 @@ public class MenuSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuSupport#getMenuItemClass()}.
 	 */
+	@Test
 	public void test_getMenuItemClass() throws Exception {
 		Class<?> menuItemClass = MenuSupport.getMenuItemClass();
 		assertNotNull(menuItemClass);
@@ -101,6 +110,7 @@ public class MenuSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuSupport#isMenu(Object)}.
 	 */
+	@Test
 	public void test_isMenu() throws Exception {
 		assertFalse(MenuSupport.isMenu(this));
 		// real Menu
@@ -114,6 +124,7 @@ public class MenuSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuSupport#getMenu(Object)}.
 	 */
+	@Test
 	public void test_getMenu() throws Exception {
 		Object menuBar =
 				ReflectionUtils.getConstructorBySignature(
@@ -143,6 +154,7 @@ public class MenuSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuSupport#getItems(Object)}.
 	 */
+	@Test
 	public void test_getItems() throws Exception {
 		Object menuBar =
 				ReflectionUtils.getConstructorBySignature(
@@ -166,6 +178,7 @@ public class MenuSupportTest extends RcpModelTest {
 	/**
 	 * Test for {@link MenuSupport#addPlaceholder(Object)}.
 	 */
+	@Test
 	public void test_addPlaceHolder() throws Exception {
 		Object menuBar =
 				ReflectionUtils.getConstructorBySignature(

@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.swt.support.FillLayoutSupport;
 
 import org.eclipse.swt.SWT;
 
+import org.junit.Test;
+
 /**
  * Test for {@link FillLayoutSupport}.
  *
@@ -35,6 +37,7 @@ public class FillLayoutSupportTest extends AbstractSupportTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getType() throws Exception {
 		Object layout = getLayoutClass().newInstance();
 		assertEquals(SWT.HORIZONTAL, FillLayoutSupport.getType(layout));
@@ -42,6 +45,7 @@ public class FillLayoutSupportTest extends AbstractSupportTest {
 		assertEquals(SWT.VERTICAL, FillLayoutSupport.getType(layout));
 	}
 
+	@Test
 	public void test_isHorizontal() throws Exception {
 		Object layout = getLayoutClass().newInstance();
 		assertTrue(FillLayoutSupport.isHorizontal(layout));
@@ -49,6 +53,7 @@ public class FillLayoutSupportTest extends AbstractSupportTest {
 		assertFalse(FillLayoutSupport.isHorizontal(layout));
 	}
 
+	@Test
 	public void test_newInstance() throws Exception {
 		Object layout = FillLayoutSupport.newInstance();
 		assertNotNull(layout);

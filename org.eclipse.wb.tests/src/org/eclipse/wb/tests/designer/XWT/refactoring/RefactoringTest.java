@@ -16,6 +16,8 @@ import org.eclipse.wb.tests.designer.core.RefactoringTestUtils;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 
+import org.junit.Test;
+
 /**
  * Test for XWT refactoring participants.
  *
@@ -36,6 +38,7 @@ public class RefactoringTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_renameEventListenerMethod() throws Exception {
 		setFileContentSrc(
 				"test/Test.java",

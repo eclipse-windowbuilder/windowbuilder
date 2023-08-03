@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.core.xml.editor.palette.model.ComponentEntryInfo;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.EntryInfo;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.PaletteInfo;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link CategoryInfo}.
  *
@@ -26,6 +28,7 @@ public class CategoryInfoTest extends AbstractPaletteTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toString() throws Exception {
 		CategoryInfo category = new CategoryInfo();
 		category.setId("1");
@@ -45,6 +48,7 @@ public class CategoryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Test for "open" property.
 	 */
+	@Test
 	public void test_open() throws Exception {
 		CategoryInfo category = new CategoryInfo();
 		assertFalse(category.isOpen());
@@ -55,6 +59,7 @@ public class CategoryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Test for "entries" operations.
 	 */
+	@Test
 	public void test_entries() throws Exception {
 		CategoryInfo category = new CategoryInfo();
 		assertTrue(category.getEntries().isEmpty());
@@ -95,6 +100,7 @@ public class CategoryInfoTest extends AbstractPaletteTest {
 		}
 	}
 
+	@Test
 	public void test_parse() throws Exception {
 		addPaletteExtension(new String[]{"<category id='id_1' name='name 1' description='description 1'/>"});
 		PaletteInfo palette = loadPalette();
@@ -108,6 +114,7 @@ public class CategoryInfoTest extends AbstractPaletteTest {
 		assertFalse(category.isOptional());
 	}
 
+	@Test
 	public void test_parse_notDefault() throws Exception {
 		addPaletteExtension(new String[]{"<category id='id_1'"
 				+ " name='name 1'"

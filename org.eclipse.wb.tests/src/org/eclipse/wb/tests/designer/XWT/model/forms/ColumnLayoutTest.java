@@ -18,7 +18,8 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 import org.eclipse.jface.action.IAction;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class ColumnLayoutTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_isHorizontal() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -67,6 +69,7 @@ public class ColumnLayoutTest extends XwtModelTest {
 		assertTrue(layout.isHorizontal());
 	}
 
+	@Test
 	public void test_LayoutData_implicit() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -102,6 +105,7 @@ public class ColumnLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_copyPaste() throws Exception {
 		final CompositeInfo shell =
 				parse(
@@ -159,6 +163,7 @@ public class ColumnLayoutTest extends XwtModelTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_selectionActions_1() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -173,7 +178,7 @@ public class ColumnLayoutTest extends XwtModelTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions(button);
 		// check actions
-		assertThat(actions).hasSize(5); // separator, 4 action's
+		Assertions.assertThat(actions).hasSize(5); // separator, 4 action's
 		assertNotNull(findAction(actions, "Left"));
 		assertNotNull(findAction(actions, "Center"));
 		assertNotNull(findAction(actions, "Right"));
@@ -205,6 +210,7 @@ public class ColumnLayoutTest extends XwtModelTest {
 	/**
 	 * No selection.
 	 */
+	@Test
 	public void test_selectionActions_2() throws Exception {
 		parse(
 				"<!-- Forms API -->",
@@ -217,12 +223,13 @@ public class ColumnLayoutTest extends XwtModelTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions();
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
 	/**
 	 * Invalid selection.
 	 */
+	@Test
 	public void test_selectionActions_3() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -238,6 +245,6 @@ public class ColumnLayoutTest extends XwtModelTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions(shell, button);
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 }

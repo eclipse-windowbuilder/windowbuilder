@@ -22,6 +22,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for {@link TableWrapLayout} in GEF.
  *
@@ -52,6 +55,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 	 * ancestor resize event, so tries to update {@link Handle} location. However at this time
 	 * component may be already deleted, so we can not ask for its cell/bounds.
 	 */
+	@Test
 	public void test_deleteChildAndAncestorResize() throws Exception {
 		CompositeInfo shell =
 				openComposite(
@@ -103,6 +107,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 	 * There was problem that after replacing {@link TableWrapLayout} with "absolute", column/row
 	 * headers throw exception.
 	 */
+	@Test
 	public void test_replaceGridLayout_withAbsolute() throws Exception {
 		prepareComponent();
 		CompositeInfo shell =
@@ -156,6 +161,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 	 * When user externally (not using design canvas) changes "numColumns", we should recalculate
 	 * positions of controls, in other case we will have incorrect count of column/row headers.
 	 */
+	@Test
 	public void test_change_numColumns() throws Exception {
 		CompositeInfo shell =
 				openComposite(
@@ -200,6 +206,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 	// Size hint
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setSizeHint_height() throws Exception {
 		CompositeInfo shell =
 				openComposite(
@@ -239,6 +246,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_filled() throws Exception {
 		CompositeInfo composite =
 				openComposite(
@@ -258,6 +266,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 		canvas.assertCommandNull();
 	}
 
+	@Test
 	public void test_CREATE_virtual_0x0() throws Exception {
 		CompositeInfo composite =
 				openComposite(
@@ -284,6 +293,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_virtual_0x1() throws Exception {
 		CompositeInfo composite =
 				openComposite(
@@ -318,6 +328,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_appendToColumn_1x0() throws Exception {
 		openComposite(
 				"public class Test extends Composite {",
@@ -352,6 +363,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_appendToRow_0x1() throws Exception {
 		openComposite(
 				"public class Test extends Composite {",
@@ -393,6 +405,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_beforeFirstRow() throws Exception {
 		openComposite(
 				"public class Test extends Composite {",
@@ -427,6 +440,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_beforeFirstColumn() throws Exception {
 		openComposite(
 				"public class Test extends Composite {",
@@ -468,6 +482,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertColumn() throws Exception {
 		openComposite(
 				"public class Test extends Composite {",
@@ -518,6 +533,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertRow() throws Exception {
 		openComposite(
 				"public class Test extends Composite {",
@@ -565,7 +581,9 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 	// PASTE
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_PASTE_virtual_1x0() throws Exception {
+	@Ignore
+	@Test
+	public void test_PASTE_virtual_1x0() throws Exception {
 		openComposite(
 				"public class Test extends Composite {",
 				"  public Test(Composite parent, int style) {",
@@ -604,6 +622,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 	// MOVE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_virtual_1x0() throws Exception {
 		openComposite(
 				"public class Test extends Composite {",
@@ -635,6 +654,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_ADD_virtual_0x0() throws Exception {
 		openComposite(
 				"public class Test extends Composite {",

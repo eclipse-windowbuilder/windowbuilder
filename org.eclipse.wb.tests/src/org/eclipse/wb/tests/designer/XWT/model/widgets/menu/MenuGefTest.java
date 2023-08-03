@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.xwt.model.widgets.ShellInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link MenuInfo} in GEF.
  *
@@ -35,6 +37,7 @@ public class MenuGefTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_notMenu() throws Exception {
 		ShellInfo shell = openEditor("<Shell/>");
 		//
@@ -54,6 +57,7 @@ public class MenuGefTest extends XwtGefTest {
 	// BAR
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_bar_CREATE_canvas() throws Exception {
 		ShellInfo shell = openEditor("<Shell/>");
 		//
@@ -71,6 +75,7 @@ public class MenuGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_bar_CREATE_tree() throws Exception {
 		ShellInfo shell = openEditor("<Shell/>");
 		//
@@ -88,6 +93,7 @@ public class MenuGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_bar_CREATE_hasBar() throws Exception {
 		ShellInfo shell =
 				openEditor(
@@ -115,6 +121,7 @@ public class MenuGefTest extends XwtGefTest {
 	// POP_UP
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_popup_CREATE_canvas() throws Exception {
 		ShellInfo shell = openEditor("<Shell/>");
 		//
@@ -133,6 +140,7 @@ public class MenuGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_popup_CREATE_tree() throws Exception {
 		ShellInfo shell = openEditor("<Shell/>");
 		//
@@ -150,6 +158,7 @@ public class MenuGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_popup_CREATE_hasPopup() throws Exception {
 		ShellInfo shell =
 				openEditor(
@@ -178,6 +187,7 @@ public class MenuGefTest extends XwtGefTest {
 	// MenuItem
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_barItem_CREATE_canvas() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -209,6 +219,7 @@ public class MenuGefTest extends XwtGefTest {
 		canvas.assertPrimarySelected(newItem);
 	}
 
+	@Test
 	public void test_barItem_CREATE_tree() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",

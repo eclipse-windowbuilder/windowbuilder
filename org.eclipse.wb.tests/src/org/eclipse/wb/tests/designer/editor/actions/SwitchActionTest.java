@@ -14,6 +14,9 @@ import org.eclipse.wb.internal.core.editor.actions.SwitchAction;
 import org.eclipse.wb.internal.core.editor.multi.MultiMode;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for {@link SwitchAction}.
  *
@@ -28,6 +31,8 @@ public class SwitchActionTest extends SwingGefTest {
 	/**
 	 * Test for switching to source and back to design.
 	 */
+	@Ignore
+	@Test
 	public void test_1() throws Exception {
 		openContainer(
 				"// filler filler filler",

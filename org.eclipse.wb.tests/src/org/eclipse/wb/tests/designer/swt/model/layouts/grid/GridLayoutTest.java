@@ -42,7 +42,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -66,6 +67,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_images() throws Exception {
 		assertNotNull(GridImages.getImage("h/left.gif"));
 		assertNotNull(GridImages.getImageDescriptor("v/top.gif"));
@@ -79,6 +81,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test for parsing empty {@link GridLayoutInfo}.
 	 */
+	@Test
 	public void test_parseEmpty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -95,6 +98,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * time only {@link GridData} from {@link Control#getLayoutData()}. We should also check if it was
 	 * not already replaced with <code>GridData2</code>.
 	 */
+	@Test
 	public void test_doubleConvertTo_GridData2() throws Exception {
 		parseComposite(
 				"class Test extends Composite {",
@@ -114,6 +118,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Fillers should be filtered out from presentation children.
 	 */
+	@Test
 	public void test_excludeFillersFromPresentationChildren_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -133,17 +138,18 @@ public class GridLayoutTest extends RcpModelTest {
 		IObjectPresentation presentation = shell.getPresentation();
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenTree();
-			assertThat(presentationChildren).contains(button).doesNotContain(filler);
+			Assertions.assertThat(presentationChildren).contains(button).doesNotContain(filler);
 		}
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenGraphical();
-			assertThat(presentationChildren).contains(button).doesNotContain(filler);
+			Assertions.assertThat(presentationChildren).contains(button).doesNotContain(filler);
 		}
 	}
 
 	/**
 	 * When we create {@link Label} using instance factory, it is not filler.
 	 */
+	@Test
 	public void test_excludeFillersFromPresentationChildren_2() throws Exception {
 		setFileContentSrc(
 				"test/MyFactory.java",
@@ -177,13 +183,14 @@ public class GridLayoutTest extends RcpModelTest {
 		IObjectPresentation presentation = shell.getPresentation();
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenTree();
-			assertThat(presentationChildren).contains(label);
+			Assertions.assertThat(presentationChildren).contains(label);
 		}
 	}
 
 	/**
 	 * <code>Label</code> with <code>setText()</code> is not filler, it is normal control.
 	 */
+	@Test
 	public void test_fillersWith_setText() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -199,14 +206,15 @@ public class GridLayoutTest extends RcpModelTest {
 		IObjectPresentation presentation = shell.getPresentation();
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenTree();
-			assertThat(presentationChildren).contains(label);
+			Assertions.assertThat(presentationChildren).contains(label);
 		}
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenGraphical();
-			assertThat(presentationChildren).contains(label);
+			Assertions.assertThat(presentationChildren).contains(label);
 		}
 	}
 
+	@Test
 	public void test_fillersWithout_setText() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -222,17 +230,18 @@ public class GridLayoutTest extends RcpModelTest {
 		IObjectPresentation presentation = shell.getPresentation();
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenTree();
-			assertThat(presentationChildren).doesNotContain(label);
+			Assertions.assertThat(presentationChildren).doesNotContain(label);
 		}
 		{
 			List<ObjectInfo> presentationChildren = presentation.getChildrenGraphical();
-			assertThat(presentationChildren).doesNotContain(label);
+			Assertions.assertThat(presentationChildren).doesNotContain(label);
 		}
 	}
 
 	/**
 	 * No controls, no changes expected.
 	 */
+	@Test
 	public void test_fixGrid_noControls() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -257,6 +266,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * It is possible that there are existing {@link Control}-s created in superclass. We should not
 	 * try to "fix" this by adding fillers.
 	 */
+	@Test
 	public void test_fixGrid_leadingImplicitControls() throws Exception {
 		setFileContentSrc(
 				"test/MyShell.java",
@@ -297,6 +307,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link IGridInfo}.
 	 */
+	@Test
 	public void test_gridInfo() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -391,6 +402,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test cells when {@link Shell#setSize(int, int)} is used.
 	 */
+	@Test
 	public void test_gridInfo2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -415,6 +427,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link IGridInfo} when there are not controls.
 	 */
+	@Test
 	public void test_gridInfo_empty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -431,6 +444,7 @@ public class GridLayoutTest extends RcpModelTest {
 		assertEquals(0, gridInfo.getColumnIntervals().length);
 	}
 
+	@Test
 	public void test_gridInfo_tooBigHorizontalSpan() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -462,6 +476,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Implicit controls also occupy cells.
 	 */
+	@Test
 	public void test_gridInfo_implicitControls() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell =
@@ -497,6 +512,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#canChangeDimensions()}.
 	 */
+	@Test
 	public void test_canChangeDimensions_explicit() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -516,6 +532,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#canChangeDimensions()}.
 	 */
+	@Test
 	public void test_canChangeDimensions_implicit() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell =
@@ -538,6 +555,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * {@link GridLayout} is implicit, but there are no implicit {@link Control}s, so it is safe to
 	 * change number of columns.
 	 */
+	@Test
 	public void test_canChangeDimensions_implicit_withoutControls() throws Exception {
 		prepareShell_withImplicitEmpty();
 		CompositeInfo shell =
@@ -559,6 +577,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// setCells()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setCells_horizontalSpan_inc() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -615,6 +634,7 @@ public class GridLayoutTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_setCells_horizontalSpan_dec() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -665,6 +685,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * {@link Control}s and we consider that {@link GridLayout} has less columns than it really has.
 	 * So, when we later build "control grid" we try to access array item which is out of bounds.
 	 */
+	@Test
 	public void test_setCells_horizontalSpan_incToEmptyColumns() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -734,6 +755,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_setCells_verticalSpan_inc() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -790,6 +812,7 @@ public class GridLayoutTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_setCells_verticalSpan_dec() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -835,6 +858,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_setCells_move() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -881,6 +905,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#command_setSizeHint(ControlInfo, boolean, Dimension)}.
 	 */
+	@Test
 	public void test_setSizeHint_width() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -916,6 +941,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#command_setSizeHint(ControlInfo, boolean, Dimension)}.
 	 */
+	@Test
 	public void test_setSizeHint_height() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -956,6 +982,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * When we delete {@link ControlInfo}, it should be replaced with filler.
 	 */
+	@Test
 	public void test_delete_replaceWithFillers() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -987,6 +1014,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * When we delete column, we should keep at least one column.
 	 */
+	@Test
 	public void test_delete_keepOneColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1010,6 +1038,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_delete_removeEmptyDimensions() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1057,6 +1086,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_inEmptyCell() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1100,6 +1130,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1145,6 +1176,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1190,6 +1222,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertColumnRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1236,6 +1269,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_appendRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1269,6 +1303,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_appendColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1302,6 +1337,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_appendColumnRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1336,6 +1372,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertColumnHorizontalSpan() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1394,6 +1431,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_insertRowVerticalSpan() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1455,6 +1493,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test for parsing "not balanced" {@link GridLayoutInfo} and adding into <code>null</code> cell.
 	 */
+	@Test
 	public void test_CREATE_notBalanced() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1490,6 +1529,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// CREATE special cases
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_Shell_open() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1519,6 +1559,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_Shell_layout() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1556,6 +1597,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridLayoutInfo#isExplicitRow(int)}.
 	 */
+	@Test
 	public void test_implicitLayout_isExplicitRow() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell =
@@ -1578,6 +1620,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * We should not break existing {@link GridLayout} based design by changing number of columns.
 	 */
+	@Test
 	public void test_implicitLayout_CREATE() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell =
@@ -1612,6 +1655,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * Using implicit {@link GridLayout} should not cause problems during moving {@link Control}.
 	 */
+	@Test
 	public void test_implicitLayout_MOVE() throws Exception {
 		prepareShell_withImplicit();
 		CompositeInfo shell =
@@ -1679,6 +1723,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// Dimension operations
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_columnAccess() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1790,6 +1835,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_rowAccess() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1896,6 +1942,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1959,6 +2006,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteColumn_deleteAlsoEmptyRows() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2002,6 +2050,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * When grid has empty cells (at the ends of columns/rows), this caused
 	 * {@link NullPointerException}.
 	 */
+	@Test
 	public void test_delete_missingFillers() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2027,7 +2076,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 		// prepare all Control's
 		List<ControlInfo> controls = shell.getChildrenControls();
-		assertThat(controls).hasSize(4);
+		Assertions.assertThat(controls).hasSize(4);
 		// delete "button_01"
 		ControlInfo button_01 = controls.get(2);
 		button_01.delete();
@@ -2042,6 +2091,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteRow() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2106,6 +2156,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteRow_deleteAlsoEmptyColumns() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2150,6 +2201,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// MOVE COLUMN
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_COLUMN_before() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2195,6 +2247,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_COLUMN_after() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2245,6 +2298,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// MOVE ROW
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE_ROW_before() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2290,6 +2344,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_ROW_after() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2344,6 +2399,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * Test for {@link GridLayoutInfo#command_normalizeSpanning()}.<br>
 	 * Single control spanned on two columns.
 	 */
+	@Test
 	public void test_normalizeSpanning_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2379,6 +2435,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * Test for {@link GridLayoutInfo#command_normalizeSpanning()}.<br>
 	 * Single control spanned on two rows.
 	 */
+	@Test
 	public void test_normalizeSpanning_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2414,6 +2471,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * Test for {@link GridLayoutInfo#command_normalizeSpanning()}.<br>
 	 * No normalize: each column/row has control.
 	 */
+	@Test
 	public void test_normalizeSpanning_3() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2462,6 +2520,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * Test for {@link GridLayoutInfo#command_normalizeSpanning()}.<br>
 	 * Do normalize: no control for second column.
 	 */
+	@Test
 	public void test_normalizeSpanning_4() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2505,6 +2564,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// MOVE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_MOVE() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2552,6 +2612,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_out() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2588,6 +2649,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_error_1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2619,6 +2681,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE_error_2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2653,6 +2716,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2694,6 +2758,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// Special cases
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE_noReference() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2718,6 +2783,7 @@ public class GridLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_CREATE_viewer() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2754,6 +2820,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * There were problems when we increase/decrease number of columns using "numColumns" property.
 	 */
+	@Test
 	public void test_numColumns_inc() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2802,6 +2869,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * There were problems when we increase/decrease number of columns using "numColumns" property.
 	 */
+	@Test
 	public void test_numColumns_dec() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2842,6 +2910,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * When we mark {@link Control} as excluded, this should not cause problems.
 	 */
+	@Test
 	public void test_excludeFlag() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2857,10 +2926,10 @@ public class GridLayoutTest extends RcpModelTest {
 		GridLayoutInfo layout = (GridLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// initially "button" is managed
-		assertThat(layout.getControls()).containsOnly(button);
+		Assertions.assertThat(layout.getControls()).containsOnly(button);
 		// exclude "button"
 		GridLayoutInfo.getGridData(button).getPropertyByTitle("exclude").setValue(true);
-		assertThat(layout.getControls()).isEmpty();
+		Assertions.assertThat(layout.getControls()).isEmpty();
 		assertEditor(
 				"class Test extends Shell {",
 				"  Test() {",
@@ -2880,6 +2949,7 @@ public class GridLayoutTest extends RcpModelTest {
 	/**
 	 * When we mark {@link Control} as excluded, this should not cause problems.
 	 */
+	@Test
 	public void test_excludeFlag_forImplicit() throws Exception {
 		setFileContentSrc(
 				"test/MyComposite.java",
@@ -2922,6 +2992,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * Test that when delete {@link GridLayoutInfo}, fillers are also removed, because there are not
 	 * controls that user wants.
 	 */
+	@Test
 	public void test_DELETE_removeFillers() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -2952,6 +3023,7 @@ public class GridLayoutTest extends RcpModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_clipboard() throws Exception {
 		final CompositeInfo shell =
 				parseJavaInfo(

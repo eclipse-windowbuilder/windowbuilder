@@ -18,6 +18,9 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.jface.action.IAction;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Tests for "simple container" support, such as {@link SimpleContainer} interface.
  *
@@ -38,6 +41,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_filled() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
@@ -64,6 +68,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		canvas.assertCommandNull();
 	}
 
+	@Test
 	public void test_canvas_CREATE_empty() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
@@ -104,7 +109,9 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		canvas.assertPrimarySelected(newButton);
 	}
 
-	public void DISABLE_test_canvas_PASTE() throws Exception {
+	@Ignore
+	@Test
+	public void test_canvas_PASTE() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
 				openContainer(
@@ -170,6 +177,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		}
 	}
 
+	@Test
 	public void test_canvas_ADD_1() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
@@ -213,6 +221,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		canvas.assertPrimarySelected(rootButton);
 	}
 
+	@Test
 	public void test_canvas_ADD_2() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
@@ -249,6 +258,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_filled_1() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
@@ -276,6 +286,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		tree.assertCommandNull();
 	}
 
+	@Test
 	public void test_tree_CREATE_filled_2() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
@@ -302,6 +313,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		tree.assertCommandNull();
 	}
 
+	@Test
 	public void test_tree_CREATE_empty() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
@@ -342,7 +354,9 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		tree.assertPrimarySelected(newButton);
 	}
 
-	public void DISABLE_test_tree_PASTE() throws Exception {
+	@Ignore
+	@Test
+	public void test_tree_PASTE() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
 				openContainer(
@@ -408,6 +422,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		}
 	}
 
+	@Test
 	public void test_tree_MOVE() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =
@@ -434,6 +449,7 @@ public abstract class SimpleContainerAbstractGefTest extends SwingGefTest {
 		tree.assertCommandNull();
 	}
 
+	@Test
 	public void test_tree_ADD() throws Exception {
 		prepareSimplePanel();
 		ContainerInfo mainPanel =

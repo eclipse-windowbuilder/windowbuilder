@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.rcp.databinding.JFaceDatabindingsFactory;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  */
@@ -33,6 +35,7 @@ public class JFaceDatabindingsFactoryTestRcp extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_createProvider() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -67,6 +70,7 @@ public class JFaceDatabindingsFactoryTestRcp extends RcpModelTest {
 	 * Test for {@link ParseFactoryNoModelDatabindings} restricting model creation in
 	 * "initDataBindings" method.
 	 */
+	@Test
 	public void test_noModel() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -98,15 +102,5 @@ public class JFaceDatabindingsFactoryTestRcp extends RcpModelTest {
 		shell.refresh();
 		//
 		assertTrue(shell.getChildrenControls().isEmpty());
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Project disposing
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public void test_tearDown() throws Exception {
-		do_projectDispose();
 	}
 }

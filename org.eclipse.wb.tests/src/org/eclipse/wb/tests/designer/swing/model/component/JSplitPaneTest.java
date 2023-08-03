@@ -20,6 +20,9 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import javax.swing.JSplitPane;
 
 /**
@@ -45,6 +48,7 @@ public class JSplitPaneTest extends SwingModelTest {
 	/**
 	 * Test for association using setLeftComponent/setRightComponent.
 	 */
+	@Test
 	public void test_association_setLeftRight() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -88,6 +92,7 @@ public class JSplitPaneTest extends SwingModelTest {
 	/**
 	 * Test for empty positions.
 	 */
+	@Test
 	public void test_association_empty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -107,6 +112,7 @@ public class JSplitPaneTest extends SwingModelTest {
 	/**
 	 * {@link JSplitPane#setDividerLocation(double)} should be added after all children.
 	 */
+	@Test
 	public void test_association_setDividerLocation() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -154,6 +160,7 @@ public class JSplitPaneTest extends SwingModelTest {
 	/**
 	 * Test for existing left/right components.
 	 */
+	@Test
 	public void test_getPositionRectangle_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -191,6 +198,7 @@ public class JSplitPaneTest extends SwingModelTest {
 	/**
 	 * Test for empty component.
 	 */
+	@Test
 	public void test_getPositionRectangle_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -212,6 +220,7 @@ public class JSplitPaneTest extends SwingModelTest {
 	// CREATE
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_CREATE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -247,6 +256,7 @@ public class JSplitPaneTest extends SwingModelTest {
 	// Move
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_OUT() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -289,6 +299,7 @@ public class JSplitPaneTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_MOVE() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -325,6 +336,7 @@ public class JSplitPaneTest extends SwingModelTest {
 	// ADD
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_ADD() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -369,7 +381,9 @@ public class JSplitPaneTest extends SwingModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_clipboard() throws Exception {
+	@Ignore
+	@Test
+	public void test_clipboard() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
 						"class Test extends JPanel {",

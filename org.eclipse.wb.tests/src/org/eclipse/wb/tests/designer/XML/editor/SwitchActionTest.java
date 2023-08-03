@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.XML.editor;
 import org.eclipse.wb.internal.core.xml.editor.actions.SwitchAction;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link SwitchAction}.
  *
@@ -27,6 +29,7 @@ public class SwitchActionTest extends XwtGefTest {
 	/**
 	 * Test for switching to "Source" and back to "Design".
 	 */
+	@Test
 	public void test_run() throws Exception {
 		openEditor("<Shell/>");
 		// prepare action
@@ -51,6 +54,7 @@ public class SwitchActionTest extends XwtGefTest {
 	/**
 	 * Test for {@link SwitchAction#showSource()}.
 	 */
+	@Test
 	public void test_showSource() throws Exception {
 		openEditor("<Shell/>");
 		// "Design" is active
@@ -64,6 +68,7 @@ public class SwitchActionTest extends XwtGefTest {
 	/**
 	 * Test for {@link SwitchAction#showSource(int)}.
 	 */
+	@Test
 	public void test_showSource_withOffset() throws Exception {
 		openEditor("<Shell/>");
 		// "Design" is active

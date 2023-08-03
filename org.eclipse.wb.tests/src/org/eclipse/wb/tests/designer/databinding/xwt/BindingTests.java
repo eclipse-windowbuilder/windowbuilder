@@ -10,19 +10,15 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.databinding.xwt;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author sablin_aa
  *
  */
-public class BindingTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xwt.databinding");
-		suite.addTest(createSingleSuite(DatabindingsProviderTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({ DatabindingsProviderTest.class })
+public class BindingTests {
 }

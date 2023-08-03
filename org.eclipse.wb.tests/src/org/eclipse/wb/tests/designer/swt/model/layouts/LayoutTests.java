@@ -10,31 +10,30 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.layouts;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.swt.model.layouts.grid.GridLayoutTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for SWT layouts models.
  *
  * @author lobas_av
  */
-public class LayoutTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swt.model.layout");
-		suite.addTest(createSingleSuite(LayoutTest.class));
-		suite.addTest(createSingleSuite(LayoutDataTest.class));
-		suite.addTest(createSingleSuite(VirtualLayoutDataTest.class));
-		suite.addTest(createSingleSuite(ImplicitLayoutDataTest.class));
-		suite.addTest(createSingleSuite(AbsoluteLayoutTest.class));
-		suite.addTest(createSingleSuite(AbsoluteLayoutSelectionActionsTest.class));
-		suite.addTest(createSingleSuite(AbsoluteLayoutOrderingTest.class));
-		suite.addTest(createSingleSuite(FillLayoutTest.class));
-		suite.addTest(createSingleSuite(RowLayoutTest.class));
-		suite.addTest(createSingleSuite(LayoutLayoutDataCompatibilityTest.class));
-		suite.addTest(GridLayoutTests.suite());
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		LayoutTest.class,
+		LayoutDataTest.class,
+		VirtualLayoutDataTest.class,
+		ImplicitLayoutDataTest.class,
+		AbsoluteLayoutTest.class,
+		AbsoluteLayoutSelectionActionsTest.class,
+		AbsoluteLayoutOrderingTest.class,
+		FillLayoutTest.class,
+		RowLayoutTest.class,
+		LayoutLayoutDataCompatibilityTest.class,
+		GridLayoutTests.class
+})
+public class LayoutTests {
 }

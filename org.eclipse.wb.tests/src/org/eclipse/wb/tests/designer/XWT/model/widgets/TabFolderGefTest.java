@@ -16,6 +16,8 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 import org.eclipse.swt.widgets.TabItem;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TabFolderInfo} in GEF.
  *
@@ -39,6 +41,7 @@ public class TabFolderGefTest extends XwtGefTest {
 	/**
 	 * We should be able to select {@link TabItem} using double click.
 	 */
+	@Test
 	public void test_canvas_selectItem() throws Exception {
 		TabFolderInfo folder =
 				openEditor(

@@ -13,6 +13,9 @@ package org.eclipse.wb.tests.designer.rcp.model.layout;
 import org.eclipse.wb.internal.swt.model.layout.form.ControlSelectionPropertyEditor;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Tests for {@link ControlSelectionPropertyEditor}.
  *
@@ -25,7 +28,8 @@ public class ControlSelectionPropertyEditorTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// prepare testing object
 		setFileContentSrc(
@@ -65,6 +69,7 @@ public class ControlSelectionPropertyEditorTest extends RcpModelTest {
 	/**
 	 * Test for <code>getText()</code>.
 	 */
+	@Test
 	public void test_getText_0() throws Exception {
 		// TODO
 		/*CompositeInfo shell =

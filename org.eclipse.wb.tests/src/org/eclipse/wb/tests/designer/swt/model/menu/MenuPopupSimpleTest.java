@@ -28,6 +28,10 @@ import org.eclipse.wb.tests.gef.GraphicalRobot;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -49,7 +53,8 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// open editor
 		shellInfo =
@@ -80,7 +85,8 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		// clean models
 		shellInfo = null;
 		popupInfo = null;
@@ -112,6 +118,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * Popup looks as 16x16 icon and shows drop-down when clicked.
 	 */
+	@Test
 	public void test_clickOnIconToOpen() throws Exception {
 		// figure for "popup" is icon 16x16
 		{
@@ -138,6 +145,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * Test that selection of "popup" on design canvas selects it in components tree.
 	 */
+	@Test
 	public void test_clickOnCanvas_selectInTree() throws Exception {
 		// initially no selection
 		assertSelectionModels();
@@ -152,6 +160,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * Drop-down is located directly below "popup" (in absolute coordinates).
 	 */
+	@Test
 	public void test_dropDownBounds() throws Exception {
 		// click on "popup": drop-down appears
 		canvas.click(popupPart);
@@ -164,6 +173,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * When we select "popup" in components tree, it shows drop-down.
 	 */
+	@Test
 	public void test_selectPopupInTreeToOpen() throws Exception {
 		// initially no drop-down EditPart for "popup"
 		assertTrue(popupPart.getChildren().isEmpty());
@@ -186,6 +196,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	 * When we select "popup" in components tree, it shows drop-down.<br>
 	 * If we then click on "shell" on canvas, "popup" should be closed.
 	 */
+	@Test
 	public void test_selectPopupInTreeToOpen_deselectOnCanvas() throws Exception {
 		// initially no drop-down EditPart for "popup"
 		assertTrue(popupPart.getChildren().isEmpty());
@@ -207,6 +218,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * When we select "item" in components tree, it shows drop-down and becomes selected in GEF.
 	 */
+	@Test
 	public void test_selectItemInTreeToOpen() throws Exception {
 		// initially no drop-down EditPart for "popup" and no EditPart for "item"
 		assertTrue(popupPart.getChildren().isEmpty());
@@ -247,6 +259,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * When we delete "popup" it, and its drop-down {@link EditPart}'s are removed.
 	 */
+	@Test
 	public void test_selectThenDelete() throws Exception {
 		// initially no drop-down EditPart for "popup" and no EditPart for "item"
 		assertTrue(popupPart.getChildren().isEmpty());
@@ -263,6 +276,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	 * Test that "popup" uses {@link MenuSelectionEditPolicy}.
 	 */
 	@SuppressWarnings("unchecked")
+	@Test
 	public void test_selectionPolicy() throws Exception {
 		MenuSelectionEditPolicy selectionPolicy =
 				(MenuSelectionEditPolicy) popupPart.getEditPolicy(EditPolicy.SELECTION_ROLE);
@@ -293,6 +307,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * When we try to drop not menu related object, "popup" ignores it.
 	 */
+	@Test
 	public void test_dropNotMenu() throws Exception {
 		// initially no drop-down EditPart for "popup"
 		assertTrue(popupPart.getChildren().isEmpty());
@@ -307,6 +322,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	 * When we move {@link CreationTool} over "popup" icon, it shows drop-down, so we can drop into
 	 * it.
 	 */
+	@Test
 	public void test_dropNewItem_1() throws Exception {
 		// initially no drop-down EditPart for "popup"
 		assertTrue(popupPart.getChildren().isEmpty());
@@ -334,6 +350,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * Add new item before existing "item".
 	 */
+	@Test
 	public void test_dropNewItem_2() throws Exception {
 		// initially no drop-down EditPart for "popup"
 		assertTrue(popupPart.getChildren().isEmpty());
@@ -379,6 +396,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * Add new item after existing "item".
 	 */
+	@Test
 	public void test_dropNewItem_3() throws Exception {
 		// initially no drop-down EditPart for "popup"
 		assertTrue(popupPart.getChildren().isEmpty());
@@ -424,6 +442,7 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	/**
 	 * Begin adding new item, but reconsider and unload {@link CreationTool}.
 	 */
+	@Test
 	public void test_dropNewItem_4() throws Exception {
 		// initially no drop-down EditPart for "popup"
 		assertTrue(popupPart.getChildren().isEmpty());

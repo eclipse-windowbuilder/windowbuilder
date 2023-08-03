@@ -11,25 +11,24 @@
 package org.eclipse.wb.tests.designer.editor.validator;
 
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link ILayoutRequestValidator}.
  *
  * @author scheglov_ke
  */
-public class LayoutRequestValidatorTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.editor.validator");
-		suite.addTest(createSingleSuite(ModelClassLayoutRequestValidatorTest.class));
-		suite.addTest(createSingleSuite(ComponentClassLayoutRequestValidatorTest.class));
-		suite.addTest(createSingleSuite(CompatibleLayoutRequestValidatorTest.class));
-		suite.addTest(createSingleSuite(BorderOfChildLayoutRequestValidatorTest.class));
-		suite.addTest(createSingleSuite(BorderTransparentLayoutRequestValidatorTest.class));
-		suite.addTest(createSingleSuite(LayoutRequestValidatorsTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		ModelClassLayoutRequestValidatorTest.class,
+		ComponentClassLayoutRequestValidatorTest.class,
+		CompatibleLayoutRequestValidatorTest.class,
+		BorderOfChildLayoutRequestValidatorTest.class,
+		BorderTransparentLayoutRequestValidatorTest.class,
+		LayoutRequestValidatorsTest.class
+})
+public class LayoutRequestValidatorTests {
 }

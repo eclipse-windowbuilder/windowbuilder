@@ -26,6 +26,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Button;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.junit.After;
+import org.junit.Before;
 
 /**
  * Abstract super class for XWT GEF tests.
@@ -39,13 +41,15 @@ public abstract class XwtGefTest extends AbstractXmlGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		configureForTestPreferences(Activator.getToolkit().getPreferences());
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		configureDefaultPreferences(Activator.getToolkit().getPreferences());
 		super.tearDown();
 	}

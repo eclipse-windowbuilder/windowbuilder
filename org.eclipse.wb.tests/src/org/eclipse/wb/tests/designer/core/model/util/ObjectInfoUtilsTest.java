@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 public class ObjectInfoUtilsTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -25,6 +27,7 @@ public class ObjectInfoUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link ObjectInfoUtils#getId(ObjectInfo)}.
 	 */
+	@Test
 	public void test_getId() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -39,6 +42,7 @@ public class ObjectInfoUtilsTest extends SwingModelTest {
 	/**
 	 * Test for {@link ObjectInfoUtils#getById(String)}.
 	 */
+	@Test
 	public void test_getById() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

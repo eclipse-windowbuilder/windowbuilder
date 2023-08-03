@@ -30,6 +30,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
+import org.junit.Test;
+
 /**
  * Test for {@link GridDataInfo}.
  *
@@ -50,6 +52,7 @@ public class GridDataTest extends RcpModelTest {
 	// Modern alignment constants
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_modernHorizontalAlignment() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -83,6 +86,7 @@ public class GridDataTest extends RcpModelTest {
 		check_modernHorizontalAlignment(shell, GridData.FILL, SWT.FILL, "SWT.FILL");
 	}
 
+	@Test
 	public void test_modernVerticalAlignment() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -177,6 +181,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridDataInfo#setHorizontalAlignment(int)}.
 	 */
+	@Test
 	public void test_setHorizontalAlignment() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -207,6 +212,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridDataInfo#setVerticalAlignment(int)}.
 	 */
+	@Test
 	public void test_setVerticalAlignment() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -239,6 +245,7 @@ public class GridDataTest extends RcpModelTest {
 	// Images
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getSmallAlignmentImage() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -289,6 +296,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * Set invalid alignment and ask image.
 	 */
+	@Test
 	public void test_getSmallAlignmentImage_invalid() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -317,6 +325,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridDataInfo#getWidthHint()} and {@link GridDataInfo#setWidthHint(int)}.
 	 */
+	@Test
 	public void test_sizeHint_width() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -367,6 +376,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridDataInfo#getHeightHint()} and {@link GridDataInfo#setHeightHint(int)}.
 	 */
+	@Test
 	public void test_sizeHint_height() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -419,6 +429,7 @@ public class GridDataTest extends RcpModelTest {
 	// Grab
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_grabHorizontal() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -459,6 +470,7 @@ public class GridDataTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_grabVertical() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -503,6 +515,7 @@ public class GridDataTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_grab_usingProperty() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -551,6 +564,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridDataInfo#setHorizontalSpan(int)}.
 	 */
+	@Test
 	public void test_setHorizontalSpan() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -588,6 +602,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * Test for using "horizontalSpan" property.
 	 */
+	@Test
 	public void test_setProperty_horizontalSpan() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -637,6 +652,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * Test for {@link GridDataInfo#setVerticalSpan(int)}.
 	 */
+	@Test
 	public void test_setVerticalSpan() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -687,6 +703,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * Test for using "verticalSpan" property.
 	 */
+	@Test
 	public void test_setProperty_verticalSpan() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -751,6 +768,7 @@ public class GridDataTest extends RcpModelTest {
 	// Context menu
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_contextMenu_horizontal() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -822,6 +840,7 @@ public class GridDataTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_contextMenu_vertical() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -890,6 +909,7 @@ public class GridDataTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_contextMenu_horizontalHint() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -932,6 +952,7 @@ public class GridDataTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_contextMenu_verticalHint() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -991,6 +1012,7 @@ public class GridDataTest extends RcpModelTest {
 	 * {@link GridData#BEGINNING}, not {@link SWT#LEFT} as we would like. So, we need to check and fix
 	 * this.
 	 */
+	@Test
 	public void test_defaultValues() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1022,6 +1044,7 @@ public class GridDataTest extends RcpModelTest {
 	 * {@link Expression} for it. So, we should get default value, i.e. value assigned to field in
 	 * constructor.
 	 */
+	@Test
 	public void test_separateValuesFor_GridData_FILL_BOTH() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1049,6 +1072,7 @@ public class GridDataTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_deleteIfDefault_emptyConstructor() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1075,6 +1099,7 @@ public class GridDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor4_yes() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1101,6 +1126,7 @@ public class GridDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor4_no1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1128,6 +1154,7 @@ public class GridDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor4_no2() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1155,6 +1182,7 @@ public class GridDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor6_yes() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1181,6 +1209,7 @@ public class GridDataTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_deleteIfDefault_constructor6_no1() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -1216,6 +1245,7 @@ public class GridDataTest extends RcpModelTest {
 	/**
 	 * {@link GridData} can be used only if parent {@link Composite} has {@link GridLayout}.
 	 */
+	@Test
 	public void test_hasParentLayout_notCompatible() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

@@ -23,6 +23,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
 import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
 
 import javax.swing.JButton;
 
@@ -41,6 +42,7 @@ public class AddTest extends SwingModelTest {
 	 * Test that we don't leave block with <b>local</b> panel, because in other case it will become
 	 * invisible.
 	 */
+	@Test
 	public void test_localInnerPanel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -91,6 +93,7 @@ public class AddTest extends SwingModelTest {
 	 * Test that we don't leave block with <b>field</b> panel, even if field mean that panel will stay
 	 * visible.
 	 */
+	@Test
 	public void test_fieldInnerPanel() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -142,6 +145,7 @@ public class AddTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaEventListener#associationTemplate(JavaInfo, String[])}.
 	 */
+	@Test
 	public void test_associationTemplateListener() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",

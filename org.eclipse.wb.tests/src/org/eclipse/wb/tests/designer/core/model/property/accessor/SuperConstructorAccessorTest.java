@@ -20,6 +20,9 @@ import org.eclipse.jdt.core.dom.BooleanLiteral;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Tests for {@link SuperConstructorAccessor}.
  *
@@ -32,7 +35,8 @@ public class SuperConstructorAccessorTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -50,6 +54,7 @@ public class SuperConstructorAccessorTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -69,6 +74,7 @@ public class SuperConstructorAccessorTest extends SwingModelTest {
 	// setExpression
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setExpression_newValue() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -91,6 +97,7 @@ public class SuperConstructorAccessorTest extends SwingModelTest {
 	/**
 	 * Use <code>null</code> to clear value.
 	 */
+	@Test
 	public void test_setExpression_nullValue_noDefault() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -113,6 +120,7 @@ public class SuperConstructorAccessorTest extends SwingModelTest {
 	/**
 	 * Use <code>null</code> to clear value.
 	 */
+	@Test
 	public void test_setExpression_nullValue_withDefault() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

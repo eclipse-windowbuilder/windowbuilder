@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.core.xml.model.utils.ElementTarget;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link DirectAssociation}.
  *
@@ -38,6 +40,7 @@ public class DirectAssociationTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toString() throws Exception {
 		Association association = Associations.direct();
 		assertEquals("direct", association.toString());
@@ -51,6 +54,7 @@ public class DirectAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#add(XmlObjectInfo, ElementTarget)}.
 	 */
+	@Test
 	public void test_add_noNext() throws Exception {
 		XmlObjectInfo container = parse("<Shell/>");
 		// add
@@ -74,6 +78,7 @@ public class DirectAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#add(XmlObjectInfo, ElementTarget)}.
 	 */
+	@Test
 	public void test_add_hasNext() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -112,6 +117,7 @@ public class DirectAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#move(XmlObjectInfo, ElementTarget, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_move_noNext() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -144,6 +150,7 @@ public class DirectAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#move(XmlObjectInfo, ElementTarget, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_move_hasNext() throws Exception {
 		XmlObjectInfo container =
 				parse(
@@ -177,6 +184,7 @@ public class DirectAssociationTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link Association#move(XmlObjectInfo, ElementTarget, XmlObjectInfo, XmlObjectInfo)}.
 	 */
+	@Test
 	public void test_move_reparent() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

@@ -16,6 +16,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link FieldEditorPreferencePage} in GEF.
  *
@@ -36,6 +38,7 @@ public class FieldEditorPreferencePageGefTest extends RcpGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas() throws Exception {
 		FieldEditorPreferencePageInfo page =
 				(FieldEditorPreferencePageInfo) openJavaInfo(
@@ -126,6 +129,7 @@ public class FieldEditorPreferencePageGefTest extends RcpGefTest {
 		}
 	}
 
+	@Test
 	public void test_tree() throws Exception {
 		FieldEditorPreferencePageInfo page =
 				(FieldEditorPreferencePageInfo) openJavaInfo(

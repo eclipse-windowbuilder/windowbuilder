@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.core.xml.model.property.XmlAttributeProperty;
 import org.eclipse.wb.internal.core.xml.model.property.XmlProperty;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link XmlAttributeProperty}.
  *
@@ -38,6 +40,7 @@ public class XmlAttributePropertyTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		// create XMLProperty

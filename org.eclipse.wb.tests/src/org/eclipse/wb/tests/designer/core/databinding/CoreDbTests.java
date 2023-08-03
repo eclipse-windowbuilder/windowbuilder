@@ -10,19 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.databinding;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author lobas_av
  */
-public class CoreDbTests extends TestCase {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.databinding");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(ObjectsTreeContentProviderTest.class);
-		//$JUnit-END$
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({ ObjectsTreeContentProviderTest.class })
+public class CoreDbTests {
 }

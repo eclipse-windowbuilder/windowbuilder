@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
  *
  * @author scheglov_ke
  */
-public class AbstractLayoutRequestValidatorTest extends SwingModelTest {
+public abstract class AbstractLayoutRequestValidatorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Utils

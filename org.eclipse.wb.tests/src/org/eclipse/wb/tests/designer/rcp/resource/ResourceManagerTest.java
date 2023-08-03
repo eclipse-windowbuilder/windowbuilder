@@ -23,6 +23,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.graphics.Image;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -65,6 +67,7 @@ public class ResourceManagerTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -84,6 +87,7 @@ public class ResourceManagerTest extends RcpModelTest {
 	 * We should be able not only parse this method, but also able to render image when we _use_
 	 * composite that executes this method.
 	 */
+	@Test
 	public void test_getPluginImage_StringString() throws Exception {
 		ensureFolderExists("icons");
 		TestUtils.createImagePNG(m_testProject, "icons/1.png", 10, 20);
@@ -129,6 +133,7 @@ public class ResourceManagerTest extends RcpModelTest {
 	 * <p>
 	 * This is old method, but we still should be able to parse it and show image.
 	 */
+	@Test
 	public void test_getPluginImage_ObjectString() throws Exception {
 		ensureFolderExists("icons");
 		TestUtils.createImagePNG(m_testProject, "icons/2.png", 10, 20);

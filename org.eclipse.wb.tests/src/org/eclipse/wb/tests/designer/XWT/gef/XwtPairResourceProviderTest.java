@@ -15,6 +15,8 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 import org.eclipse.core.resources.IFile;
 
+import org.junit.Test;
+
 /**
  * Test for {@link XwtPairResourceProvider}.
  *
@@ -35,6 +37,7 @@ public class XwtPairResourceProviderTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_unknownExtension() throws Exception {
 		IFile file = setFileContentSrc("test/Test.foo", "");
 		assertEquals(null, getPair(file));
@@ -45,6 +48,7 @@ public class XwtPairResourceProviderTest extends XwtModelTest {
 	// XWT -> Java
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toJava_javaClassAttribute() throws Exception {
 		IFile javaFile = setFileContentSrc("foo/Bar.java", "");
 		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell x:Class='foo.Bar'/>"));
@@ -52,6 +56,7 @@ public class XwtPairResourceProviderTest extends XwtModelTest {
 		assertEquals(javaFile, getPair(xwtFile));
 	}
 
+	@Test
 	public void test_toJava_sameName() throws Exception {
 		IFile javaFile = setFileContentSrc("test/Test.java", "");
 		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell/>"));
@@ -59,6 +64,7 @@ public class XwtPairResourceProviderTest extends XwtModelTest {
 		assertEquals(javaFile, getPair(xwtFile));
 	}
 
+	@Test
 	public void test_toJava_no() throws Exception {
 		setFileContentSrc("foo/Test.java", "");
 		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell/>"));
@@ -71,6 +77,7 @@ public class XwtPairResourceProviderTest extends XwtModelTest {
 	// Java -> XWT
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toXWT_javaClassAttribute_samePackage() throws Exception {
 		IFile javaFile = setFileContentSrc("test/Bar.java", "");
 		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell x:Class='test.Bar'/>"));
@@ -78,6 +85,7 @@ public class XwtPairResourceProviderTest extends XwtModelTest {
 		assertEquals(xwtFile, getPair(javaFile));
 	}
 
+	@Test
 	public void test_toXWT_sameName() throws Exception {
 		IFile javaFile = setFileContentSrc("test/Test.java", "");
 		IFile xwtFile = setFileContentSrc("test/Test.xwt", getSource("<Shell/>"));
@@ -85,6 +93,7 @@ public class XwtPairResourceProviderTest extends XwtModelTest {
 		assertEquals(xwtFile, getPair(javaFile));
 	}
 
+	@Test
 	public void test_toXWT_no() throws Exception {
 		IFile javaFile = setFileContentSrc("test/Test.java", "");
 		setFileContentSrc("foo/Test.xwt", getSource("<Shell/>"));

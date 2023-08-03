@@ -10,24 +10,22 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls.ui;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class NlsUiTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.nls.ui");
-		suite.addTest(createSingleSuite(FlagRepositoryTest.class));
-		suite.addTest(createSingleSuite(LocaleUtilsTest.class));
-		suite.addTest(createSingleSuite(ContributionItemTest.class));
-		suite.addTest(createSingleSuite(NlsDialogTest.class));
-		suite.addTest(createSingleSuite(SourceCompositeTest.class));
-		suite.addTest(createSingleSuite(PropertiesCompositeTest.class));
-		suite.addTest(createSingleSuite(NewSourceDialogTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		FlagRepositoryTest.class,
+		LocaleUtilsTest.class,
+		ContributionItemTest.class,
+		NlsDialogTest.class,
+		SourceCompositeTest.class,
+		PropertiesCompositeTest.class,
+		NewSourceDialogTest.class
+})
+public class NlsUiTests {
 }

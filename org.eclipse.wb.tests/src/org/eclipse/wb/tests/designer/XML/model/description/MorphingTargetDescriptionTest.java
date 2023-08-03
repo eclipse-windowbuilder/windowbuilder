@@ -13,9 +13,9 @@ package org.eclipse.wb.tests.designer.XML.model.description;
 import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.ArrayUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -35,6 +35,7 @@ public class MorphingTargetDescriptionTest extends AbstractCoreTest {
 	/**
 	 * Test for loading {@link MorphingTargetDescription}'s from "*.wbp-component.xml" files.
 	 */
+	@Test
 	public void test_loadFromDescriptions() throws Exception {
 		prepareMyComponent(ESA, new String[]{
 				"  <morphTargets>",
@@ -60,6 +61,7 @@ public class MorphingTargetDescriptionTest extends AbstractCoreTest {
 	/**
 	 * We should ignore invalid target classes.
 	 */
+	@Test
 	public void test_noTargetClass() throws Exception {
 		prepareMyComponent(ESA, new String[]{
 				"  <morphTargets>",
@@ -69,7 +71,7 @@ public class MorphingTargetDescriptionTest extends AbstractCoreTest {
 		ComponentDescription description = getMyDescription();
 		List<MorphingTargetDescription> morphingTargets = description.getMorphingTargets();
 		// check targets
-		assertThat(morphingTargets).hasSize(1);
+		Assertions.assertThat(morphingTargets).hasSize(1);
 		{
 			MorphingTargetDescription morphingTarget = morphingTargets.get(0);
 			assertEquals("org.eclipse.swt.widgets.Label", morphingTarget.getComponentClass().getName());
@@ -82,6 +84,7 @@ public class MorphingTargetDescriptionTest extends AbstractCoreTest {
 	 *
 	 * @throws Exception
 	 */
+	@Test
 	public void test_noInherit() throws Exception {
 		// MyBaseButton
 		{
@@ -158,7 +161,7 @@ public class MorphingTargetDescriptionTest extends AbstractCoreTest {
 		{
 			ComponentDescription description = getDescription("test.MyComposite1");
 			List<MorphingTargetDescription> morphingTargets = description.getMorphingTargets();
-			assertThat(morphingTargets).hasSize(2);
+			Assertions.assertThat(morphingTargets).hasSize(2);
 			// check targets
 			{
 				MorphingTargetDescription morphingTarget = morphingTargets.get(0);
@@ -176,7 +179,7 @@ public class MorphingTargetDescriptionTest extends AbstractCoreTest {
 			ComponentDescription description = getDescription("test.MyComposite2");
 			List<MorphingTargetDescription> morphingTargets = description.getMorphingTargets();
 			// check targets
-			assertThat(morphingTargets).hasSize(1); // no target JButton
+			Assertions.assertThat(morphingTargets).hasSize(1); // no target JButton
 			{
 				MorphingTargetDescription morphingTarget = morphingTargets.get(0);
 				assertEquals("org.eclipse.swt.widgets.Text", morphingTarget.getComponentClass().getName());

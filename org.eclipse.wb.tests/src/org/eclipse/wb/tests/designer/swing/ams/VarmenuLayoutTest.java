@@ -16,6 +16,10 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * Test for <code>VarmenuLayout</code> support.
  *
@@ -28,7 +32,8 @@ public class VarmenuLayoutTest extends SwingGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		setFileContentSrc(
 				"ams/zpointcs/components/VarmenuConstraints.java",
@@ -53,7 +58,9 @@ public class VarmenuLayoutTest extends SwingGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLE_test_CREATE() throws Exception {
+	@Ignore
+	@Test
+	public void test_CREATE() throws Exception {
 		ContainerInfo panel =
 				openContainer(
 						"import ams.zpointcs.components.*;",
@@ -81,7 +88,9 @@ public class VarmenuLayoutTest extends SwingGefTest {
 				"}");
 	}
 
-	public void DISABLE_test_RESIZE_width() throws Exception {
+	@Ignore
+	@Test
+	public void test_RESIZE_width() throws Exception {
 		ContainerInfo panel =
 				openContainer(
 						"import ams.zpointcs.components.*;",
@@ -124,7 +133,9 @@ public class VarmenuLayoutTest extends SwingGefTest {
 				"}");
 	}
 
-	public void DISABLE_test_RESIZE_height() throws Exception {
+	@Ignore
+	@Test
+	public void test_RESIZE_height() throws Exception {
 		ContainerInfo panel =
 				openContainer(
 						"import ams.zpointcs.components.*;",

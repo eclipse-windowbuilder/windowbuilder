@@ -15,6 +15,8 @@ import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.rcp.model.widgets.TreeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link TreeInfo} in GEF.
  *
@@ -35,6 +37,7 @@ public class TreeGefTest extends RcpGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canvas_CREATE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Tree {",
@@ -73,6 +76,7 @@ public class TreeGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_MOVE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Tree {",
@@ -115,6 +119,7 @@ public class TreeGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_canvas_RESIZE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Tree {",
@@ -151,6 +156,7 @@ public class TreeGefTest extends RcpGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Tree {",
@@ -187,6 +193,7 @@ public class TreeGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_MOVE_column() throws Exception {
 		openJavaInfo(
 				"public class Test extends Tree {",
@@ -228,6 +235,7 @@ public class TreeGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_CREATE_item() throws Exception {
 		openJavaInfo(
 				"public class Test extends Tree {",
@@ -261,6 +269,7 @@ public class TreeGefTest extends RcpGefTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_MOVE_item() throws Exception {
 		openJavaInfo(
 				"public class Test extends Tree {",

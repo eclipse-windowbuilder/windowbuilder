@@ -17,7 +17,8 @@ import org.eclipse.wb.internal.xwt.model.widgets.CBannerInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class CBannerTest extends XwtModelTest {
 	/**
 	 * No any children {@link ControlInfo}'s, so for all positions <code>null</code>.
 	 */
+	@Test
 	public void test_childrenNo() throws Exception {
 		CBannerInfo banner =
 				parse(
@@ -70,6 +72,7 @@ public class CBannerTest extends XwtModelTest {
 	/**
 	 * Test for {@link CBannerInfo#getControl(String)}.
 	 */
+	@Test
 	public void test_children() throws Exception {
 		CBannerInfo banner =
 				parse(
@@ -92,6 +95,7 @@ public class CBannerTest extends XwtModelTest {
 	/**
 	 * Each {@link ControlInfo} text is decorated with its position method.
 	 */
+	@Test
 	public void test_presentation_decorateText() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -109,12 +113,13 @@ public class CBannerTest extends XwtModelTest {
 	 * Even when no "real" {@link ControlInfo} children, tree still has {@link AbstractPositionInfo}
 	 * placeholders.
 	 */
+	@Test
 	public void test_getChildrenTree_placeholders() throws Exception {
 		CBannerInfo banner = parse("<CBanner/>");
 		// no "real" Control's, but in "tree" we have position placeholder children
 		List<ObjectInfo> children = banner.getPresentation().getChildrenTree();
-		assertThat(children).hasSize(3);
-		assertThat(GenericsUtils.select(children, AbstractPositionInfo.class)).hasSize(3);
+		Assertions.assertThat(children).hasSize(3);
+		Assertions.assertThat(GenericsUtils.select(children, AbstractPositionInfo.class)).hasSize(3);
 		assertEquals("left", ObjectInfo.getText(children.get(0)));
 		assertEquals("right", ObjectInfo.getText(children.get(1)));
 		assertEquals("bottom", ObjectInfo.getText(children.get(2)));

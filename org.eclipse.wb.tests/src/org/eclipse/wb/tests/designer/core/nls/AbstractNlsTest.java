@@ -12,19 +12,22 @@ package org.eclipse.wb.tests.designer.core.nls;
 
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.After;
+
 /**
  * Abstract test for NLS.
  *
  * @author scheglov_ke
  */
-public class AbstractNlsTest extends SwingModelTest {
+public abstract class AbstractNlsTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		// process UI messages (without this we have exception from Java UI)
 		waitEventLoop(1);
 		//

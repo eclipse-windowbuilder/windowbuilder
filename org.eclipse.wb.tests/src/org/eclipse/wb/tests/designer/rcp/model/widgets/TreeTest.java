@@ -22,7 +22,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -51,7 +53,9 @@ public class TreeTest extends RcpModelTest {
 	/**
 	 * Test for parsing {@link TreeColumn} and bounds of {@link TreeColumnInfo}.
 	 */
-	public void DISABLE_test_TreeColumn() throws Exception {
+	@Ignore
+	@Test
+	public void test_TreeColumn() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"class Test extends Shell {",
@@ -73,7 +77,7 @@ public class TreeTest extends RcpModelTest {
 		TreeInfo tree = (TreeInfo) shell.getChildrenControls().get(0);
 		// prepare columns
 		List<TreeColumnInfo> columns = tree.getColumns();
-		assertThat(columns).hasSize(2);
+		Assertions.assertThat(columns).hasSize(2);
 		TreeColumnInfo column_1 = columns.get(0);
 		TreeColumnInfo column_2 = columns.get(1);
 		// check bounds
@@ -84,7 +88,7 @@ public class TreeTest extends RcpModelTest {
 			assertEquals(BORDER_WIDTH, modelBounds.x);
 			assertEquals(BORDER_WIDTH, modelBounds.y);
 			assertEquals(50, modelBounds.width);
-			assertThat(modelBounds.height).isGreaterThan(15).isLessThan(25);
+			Assertions.assertThat(modelBounds.height).isGreaterThan(15).isLessThan(25);
 			// "shot" bounds
 			Rectangle bounds = column_1.getBounds();
 			assertEquals(BORDER_WIDTH, bounds.x);
@@ -104,7 +108,9 @@ public class TreeTest extends RcpModelTest {
 	/**
 	 * Test for copy/paste {@link TreeColumn}.
 	 */
-	public void DISABLE_test_TreeColumn_copyPaste() throws Exception {
+	@Ignore
+	@Test
+	public void test_TreeColumn_copyPaste() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
 						"class Test extends Shell {",
@@ -170,6 +176,7 @@ public class TreeTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_TreeColumn_setWidth() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -203,6 +210,7 @@ public class TreeTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_add_TreeColumn() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -218,7 +226,7 @@ public class TreeTest extends RcpModelTest {
 		flowContainer_CREATE(tree, newColumn, null);
 		// check result
 		List<TreeColumnInfo> columns = tree.getColumns();
-		assertThat(columns).hasSize(1);
+		Assertions.assertThat(columns).hasSize(1);
 		assertTrue(columns.contains(newColumn));
 		assertEditor(
 				"class Test extends Shell {",
@@ -233,6 +241,7 @@ public class TreeTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_move_TreeColumn() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -251,7 +260,7 @@ public class TreeTest extends RcpModelTest {
 		TreeInfo tree = getJavaInfoByName("tree");
 		// prepare columns
 		List<TreeColumnInfo> columns = tree.getColumns();
-		assertThat(columns).hasSize(2);
+		Assertions.assertThat(columns).hasSize(2);
 		TreeColumnInfo column_1 = columns.get(0);
 		TreeColumnInfo column_2 = columns.get(1);
 		// move column
@@ -275,6 +284,7 @@ public class TreeTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_reparent_TreeColumn() throws Exception {
 		parseComposite(
 				"class Test extends Shell {",
@@ -305,7 +315,7 @@ public class TreeTest extends RcpModelTest {
 		// check result
 		{
 			List<TreeColumnInfo> columns = tree_2.getColumns();
-			assertThat(columns).hasSize(2);
+			Assertions.assertThat(columns).hasSize(2);
 			assertSame(column_1, columns.get(0));
 			assertSame(column_2, columns.get(1));
 		}
@@ -329,6 +339,7 @@ public class TreeTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_column_exposed() throws Exception {
 		setFileContentSrc(
 				"test/ExposedComposite.java",
@@ -373,6 +384,7 @@ public class TreeTest extends RcpModelTest {
 				"      {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
 	}
 
+	@Test
 	public void test_item_exposed() throws Exception {
 		setFileContentSrc(
 				"test/ExposedComposite.java",

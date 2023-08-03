@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer;
 
+import org.eclipse.wb.tests.designer.XML.XmlTests;
+import org.eclipse.wb.tests.designer.XWT.XwtTests;
 import org.eclipse.wb.tests.designer.core.CoreTests;
 import org.eclipse.wb.tests.designer.editor.EditorTests;
 import org.eclipse.wb.tests.designer.rcp.RcpTests;
@@ -38,10 +40,10 @@ import org.junit.runners.Suite.SuiteClasses;
 	CoreTests.class,
 	EditorTests.class,
 	SwingTests.class,
-	RcpTests.class
+	RcpTests.class,
 	// not yet ready to run, need work to run successfully
-	// XmlTests.class,
-	// XwtTests.class
+	XmlTests.class,
+	XwtTests.class
 
 })
 

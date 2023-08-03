@@ -27,8 +27,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jdt.core.IJavaProject;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.osgi.framework.Bundle;
 
 import java.awt.Component;
@@ -55,10 +55,11 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 	/**
 	 * Test for {@link EmptyDescriptionVersionsProvider}.
 	 */
+	@Test
 	public void test_providerEmpty() throws Exception {
 		IDescriptionVersionsProvider provider = EmptyDescriptionVersionsProvider.INSTANCE;
-		assertThat(provider.getVersions(Object.class)).isEmpty();
-		assertThat(provider.getVersions(Component.class)).isEmpty();
+		Assertions.assertThat(provider.getVersions(Object.class)).isEmpty();
+		Assertions.assertThat(provider.getVersions(Component.class)).isEmpty();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -66,6 +67,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 	// DescriptionVersionsProvider_FromList
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_providerFromList_noCurrentInList() throws Exception {
 		try {
 			new FromListDescriptionVersionsProvider(ImmutableList.of("1.0", "2.0", "3.0"), "2.1") {
@@ -82,6 +84,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 	/**
 	 * Middle version - check this version all other before it.
 	 */
+	@Test
 	public void test_providerFromList_getVersions_middleVersion() throws Exception {
 		List<String> allVersions = ImmutableList.of("1.0", "2.0", "3.0");
 		String currentVersion = "2.0";
@@ -95,18 +98,19 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 		// invalid Class, so no versions
 		{
 			List<String> versions = provider.getVersions(Object.class);
-			assertThat(versions).isEmpty();
+			Assertions.assertThat(versions).isEmpty();
 		}
 		// valid Class, "1.0" and "2.0" expected
 		{
 			List<String> versions = provider.getVersions(JButton.class);
-			assertThat(versions).isEqualTo(ImmutableList.of("2.0", "1.0"));
+			Assertions.assertThat(versions).isEqualTo(ImmutableList.of("2.0", "1.0"));
 		}
 	}
 
 	/**
 	 * Latest version - same as for middle, check this version all other before it.
 	 */
+	@Test
 	public void test_providerFromList_getVersions_latestVersion() throws Exception {
 		List<String> allVersions = ImmutableList.of("1.0", "2.0", "3.0");
 		String currentVersion = "3.0";
@@ -119,7 +123,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 		};
 		//
 		List<String> versions = provider.getVersions(JButton.class);
-		assertThat(versions).isEqualTo(ImmutableList.of("3.0", "2.0", "1.0"));
+		Assertions.assertThat(versions).isEqualTo(ImmutableList.of("3.0", "2.0", "1.0"));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -130,6 +134,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 	/**
 	 * Test for using {@link IDescriptionVersionsProvider}'s in {@link ComponentDescriptionHelper}.
 	 */
+	@Test
 	public void test_componentResourceVersions_20() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -188,6 +193,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 	/**
 	 * Test for using {@link IDescriptionVersionsProvider}'s in {@link ComponentDescriptionHelper}.
 	 */
+	@Test
 	public void test_componentResourceVersions_default() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -245,6 +251,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 	/**
 	 * Test for using {@link IDescriptionVersionsProvider}'s in {@link FactoryDescriptionHelper}.
 	 */
+	@Test
 	public void test_factoryResourceVersions_20() throws Exception {
 		TestBundle testBundle = new TestBundle();
 		try {
@@ -298,7 +305,7 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
 								m_lastEditor,
 								m_lastLoader.loadClass(factoryClassName),
 								true);
-				assertThat(descriptions).hasSize(1);
+				Assertions.assertThat(descriptions).hasSize(1);
 			} finally {
 				testBundle.uninstall();
 				waitEventLoop(10);

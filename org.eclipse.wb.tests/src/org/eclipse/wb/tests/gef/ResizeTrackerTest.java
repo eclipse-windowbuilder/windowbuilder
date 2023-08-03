@@ -18,6 +18,9 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
@@ -30,20 +33,12 @@ public class ResizeTrackerTest extends RequestTestCase {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public ResizeTrackerTest() {
-		super(ResizeTracker.class);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// SetUp
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// configure
 		m_actualLogger = new RequestsLogger();
@@ -93,6 +88,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		m_actualLogger.assertEmpty();
 	}
 
+	@Test
 	public void test_Request_from_NORTH() throws Exception {
 		setUp(IPositionConstants.NORTH, "__Resize_N_");
 		//
@@ -162,6 +158,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		commonEndTest();
 	}
 
+	@Test
 	public void test_Request_from_SOUTH() throws Exception {
 		setUp(IPositionConstants.SOUTH, "__Resize_S_");
 		//
@@ -227,6 +224,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		commonEndTest();
 	}
 
+	@Test
 	public void test_Request_from_WEST() throws Exception {
 		setUp(IPositionConstants.WEST, "__Resize_E_");
 		//
@@ -296,6 +294,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		commonEndTest();
 	}
 
+	@Test
 	public void test_Request_from_EAST() throws Exception {
 		setUp(IPositionConstants.EAST, "__Resize_E_");
 		//
@@ -361,6 +360,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		commonEndTest();
 	}
 
+	@Test
 	public void test_Request_from_NORTH_EAST() throws Exception {
 		setUp(IPositionConstants.NORTH_EAST, "__Resize_NE_");
 		//
@@ -404,6 +404,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		commonEndTest();
 	}
 
+	@Test
 	public void test_Request_from_NORTH_WEST() throws Exception {
 		setUp(IPositionConstants.NORTH_WEST, "__Resize_NW_");
 		//
@@ -447,6 +448,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		commonEndTest();
 	}
 
+	@Test
 	public void test_Request_from_SOUTH_EAST() throws Exception {
 		setUp(IPositionConstants.SOUTH_EAST, "__Resize_SE_");
 		//
@@ -488,6 +490,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		commonEndTest();
 	}
 
+	@Test
 	public void test_Request_from_SOUTH_WEST() throws Exception {
 		setUp(IPositionConstants.SOUTH_WEST, "__Resize_SW_");
 		//
@@ -531,6 +534,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		commonEndTest();
 	}
 
+	@Test
 	public void test_not_Request() throws Exception {
 		setUp(IPositionConstants.NORTH, "__Resize_N_");
 		// start drag process use invalid button
@@ -550,6 +554,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		m_actualLogger.assertEmpty();
 	}
 
+	@Test
 	public void test_break_Request() throws Exception {
 		setUp(IPositionConstants.NORTH, "__Resize_N_");
 		//

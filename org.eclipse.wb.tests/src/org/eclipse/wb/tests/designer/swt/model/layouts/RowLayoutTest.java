@@ -25,6 +25,8 @@ import org.eclipse.wb.internal.swt.support.SwtSupport;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link RowLayoutInfo}.
  *
@@ -45,6 +47,7 @@ public class RowLayoutTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_typeField() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -81,6 +84,7 @@ public class RowLayoutTest extends RcpModelTest {
 		}
 	}
 
+	@Test
 	public void test_isHorizontal_1() throws Exception {
 		test_isHorizontal(new String[]{
 				"class Test {",
@@ -91,6 +95,7 @@ public class RowLayoutTest extends RcpModelTest {
 		"}"});
 	}
 
+	@Test
 	public void test_isHorizontal_2() throws Exception {
 		test_isHorizontal(new String[]{
 				"class Test {",
@@ -118,6 +123,7 @@ public class RowLayoutTest extends RcpModelTest {
 		assertFalse(layoutInfo.isHorizontal());
 	}
 
+	@Test
 	public void test_AddControls() throws Exception {
 		CompositeInfo shellInfo =
 				parseComposite(
@@ -173,6 +179,7 @@ public class RowLayoutTest extends RcpModelTest {
 		assertInstanceOf(RowDataInfo.class, LayoutInfo.getLayoutData(labelInfo));
 	}
 
+	@Test
 	public void test_MoveControls() throws Exception {
 		CompositeInfo shellInfo =
 				parseComposite(
@@ -252,6 +259,7 @@ public class RowLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_ReparentControls() throws Exception {
 		CompositeInfo shellInfo =
 				parseComposite(
@@ -352,6 +360,7 @@ public class RowLayoutTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_changeRowData() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -400,6 +409,7 @@ public class RowLayoutTest extends RcpModelTest {
 	 * Test that when we add new <code>Button</code> before existing <code>Button</code> in flat
 	 * style, non-conflicting name is generated.
 	 */
+	@Test
 	public void test_addBefore_nameConflict() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

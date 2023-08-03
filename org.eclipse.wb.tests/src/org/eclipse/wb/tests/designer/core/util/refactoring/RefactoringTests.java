@@ -11,27 +11,19 @@
 package org.eclipse.wb.tests.designer.core.util.refactoring;
 
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
 import org.eclipse.ltk.core.refactoring.Change;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Tests for {@link ReflectionUtils} and its {@link Change}s.
  *
  * @author scheglov_ke
  */
-public class RefactoringTests extends DesignerSuiteTests {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Suite
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils.refactoring");
-		suite.addTest(createSingleSuite(RefactoringUtilsTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({ RefactoringUtilsTest.class })
+public class RefactoringTests {
 }

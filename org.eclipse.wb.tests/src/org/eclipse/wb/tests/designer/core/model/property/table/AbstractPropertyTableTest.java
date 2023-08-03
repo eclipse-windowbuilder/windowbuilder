@@ -22,7 +22,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 
-public class AbstractPropertyTableTest extends DesignerTestCase {
+import org.junit.After;
+import org.junit.Before;
+
+public abstract class AbstractPropertyTableTest extends DesignerTestCase {
 	protected Shell m_shell;
 	protected PropertyTable m_propertyTable;
 	protected EventSender m_sender;
@@ -33,7 +36,8 @@ public class AbstractPropertyTableTest extends DesignerTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// create GUI
 		{
@@ -51,7 +55,8 @@ public class AbstractPropertyTableTest extends DesignerTestCase {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		m_shell.dispose();
 		super.tearDown();
 	}

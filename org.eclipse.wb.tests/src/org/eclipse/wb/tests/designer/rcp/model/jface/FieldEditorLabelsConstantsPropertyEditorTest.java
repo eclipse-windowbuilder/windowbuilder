@@ -23,9 +23,11 @@ import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.ArrayInitializer;
 import org.eclipse.swt.widgets.Text;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -41,7 +43,8 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// prepare JDT elements
 		setFileContentSrc(
@@ -73,7 +76,8 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		// clean-up fields
 		m_property = null;
@@ -157,6 +161,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	/**
 	 * No expression.
 	 */
+	@Test
 	public void test_getTextForEditing_0() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -170,6 +175,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	/**
 	 * Expression with both {@link ArrayInitializer} and {@link ArrayCreation} as elements.
 	 */
+	@Test
 	public void test_getTextForEditing_1() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel {",
@@ -186,6 +192,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	/**
 	 * Ignore element with not {@link IField}.
 	 */
+	@Test
 	public void test_getTextForEditing_2() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel {",
@@ -202,6 +209,7 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	// prepareLabelsFields
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_prepareLabelsFields() throws Exception {
 		parseContainer(
 				"public class Test extends MyPanel {",
@@ -212,27 +220,27 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 		// all valid, but empty
 		{
 			String errorMessage = prepareLabelsFields("");
-			assertThat(errorMessage).isNull();
-			assertThat(m_resultLabels).isEmpty();
-			assertThat(m_resultFields).isEmpty();
+			Assertions.assertThat(errorMessage).isNull();
+			Assertions.assertThat(m_resultLabels).isEmpty();
+			Assertions.assertThat(m_resultFields).isEmpty();
 		}
 		// invalid: no field name
 		{
 			String errorMessage = prepareLabelsFields("one_word");
-			assertThat(errorMessage).contains("label").contains("field");
+			Assertions.assertThat(errorMessage).contains("label").contains("field");
 		}
 		// invalid: no field with such name
 		{
 			String errorMessage = prepareLabelsFields("label no.such.field");
-			assertThat(errorMessage).contains("Invalid field");
+			Assertions.assertThat(errorMessage).contains("Invalid field");
 		}
 		// use local field
 		{
 			String errorMessage = prepareLabelsFields(getSourceDQ("some label LOCAL_ID"));
-			assertThat(errorMessage).isNull();
-			assertThat(m_resultLabels).containsOnly("some label");
+			Assertions.assertThat(errorMessage).isNull();
+			Assertions.assertThat(m_resultLabels).containsOnly("some label");
 			{
-				assertThat(m_resultFields).hasSize(1);
+				Assertions.assertThat(m_resultFields).hasSize(1);
 				assertEquals("LOCAL_ID", m_resultFields.get(0).getElementName());
 			}
 		}
@@ -242,10 +250,10 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 					prepareLabelsFields(getSourceDQ(
 							"first label test.PrefConstants.ID_1",
 							"second label test.PrefConstants.ID_2"));
-			assertThat(errorMessage).isNull();
-			assertThat(m_resultLabels).containsOnly("first label", "second label");
+			Assertions.assertThat(errorMessage).isNull();
+			Assertions.assertThat(m_resultLabels).containsOnly("first label", "second label");
 			{
-				assertThat(m_resultFields).hasSize(2);
+				Assertions.assertThat(m_resultFields).hasSize(2);
 				assertEquals("ID_1", m_resultFields.get(0).getElementName());
 				assertEquals("ID_2", m_resultFields.get(1).getElementName());
 			}

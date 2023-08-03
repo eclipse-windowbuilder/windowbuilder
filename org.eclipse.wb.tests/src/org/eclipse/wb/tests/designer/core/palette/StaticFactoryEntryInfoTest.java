@@ -26,7 +26,8 @@ import org.eclipse.wb.tests.designer.tests.Activator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link StaticFactoryEntryInfo}.
@@ -39,6 +40,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_access() throws Exception {
 		StaticFactoryEntryInfo entry = new StaticFactoryEntryInfo();
 		// factoryClassName
@@ -64,6 +66,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	 * Only absolutely required values are specified in XML, all other values should be derived from
 	 * them.
 	 */
+	@Test
 	public void test_parse_defaults() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -98,6 +101,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * All explicit values are specified.
 	 */
+	@Test
 	public void test_parse_values() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -136,6 +140,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * If "name" attribute is empty, then name from {@link FactoryMethodDescription} should be used.
 	 */
+	@Test
 	public void test_parse_presentationName_no() throws Exception {
 		assertPresentationName_fromFactoryDescription(null);
 	}
@@ -143,6 +148,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * If "name" attribute is empty, then name from {@link FactoryMethodDescription} should be used.
 	 */
+	@Test
 	public void test_parse_presentationName_emptyString() throws Exception {
 		assertPresentationName_fromFactoryDescription("");
 	}
@@ -151,6 +157,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	 * If "name" attribute is "default", i.e. signature, then name from
 	 * {@link FactoryMethodDescription} should be used.
 	 */
+	@Test
 	public void test_parse_presentationName_signature() throws Exception {
 		assertPresentationName_fromFactoryDescription("createButton()");
 	}
@@ -199,6 +206,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	 * If "description" text is empty, then description from {@link FactoryMethodDescription} should
 	 * be used.
 	 */
+	@Test
 	public void test_parse_descriptionText_emptyString() throws Exception {
 		assertDescriptionText_fromFactoryDescription("");
 	}
@@ -207,6 +215,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	 * If "description" text is empty, then description from {@link FactoryMethodDescription} should
 	 * be used.
 	 */
+	@Test
 	public void test_parse_descriptionText_spacesString() throws Exception {
 		assertDescriptionText_fromFactoryDescription(" \t");
 	}
@@ -215,6 +224,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	 * If "description" text is exactly name of class (we generate such description when user adds
 	 * component using UI), then description from {@link FactoryMethodDescription} should be used.
 	 */
+	@Test
 	public void test_parse_descriptionText_classAndSignature() throws Exception {
 		assertDescriptionText_fromFactoryDescription("Class: test.MyFactory Method: createButton()");
 	}
@@ -264,6 +274,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * When no factory class, we should ignore and don't add warning.
 	 */
+	@Test
 	public void test_initialize_noFactoryClass() throws Exception {
 		waitForAutoBuild();
 		JavaInfo panel = parseEmptyPanel();
@@ -275,12 +286,13 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 		assertEquals(0, m_lastState.getWarnings().size());
 		assertFalse(entry.initialize(null, panel));
 		// no warnings
-		assertThat(m_lastState.getWarnings()).isEmpty();
+		Assertions.assertThat(m_lastState.getWarnings()).isEmpty();
 	}
 
 	/**
 	 * When no factory method, we should add warning.
 	 */
+	@Test
 	public void test_initialize_noFactoryMethod() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -300,12 +312,13 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 		assertEquals(0, m_lastState.getWarnings().size());
 		assertFalse(entry.initialize(null, panel));
 		// no warnings
-		assertThat(m_lastState.getWarnings()).isEmpty();
+		Assertions.assertThat(m_lastState.getWarnings()).isEmpty();
 	}
 
 	/**
 	 * Good situation - existing factory class, and existing method signature.
 	 */
+	@Test
 	public void test_initialize() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -338,6 +351,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	 * {@link FactoryMethodDescription#getIcon()} and
 	 * {@link FactoryMethodDescription#getDescription()}.
 	 */
+	@Test
 	public void test_initialize_iconAndDescription() throws Exception {
 		// prepare factory
 		{
@@ -386,6 +400,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	// Tool
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_createTool() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",
@@ -423,6 +438,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Users want factory-specific tweaks for properties.
 	 */
+	@Test
 	public void test_createTool_factoryMethodSpecific_ComponentDescription() throws Exception {
 		setFileContentSrc(
 				"test/StaticFactory.java",

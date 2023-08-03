@@ -13,7 +13,8 @@ package org.eclipse.wb.tests.designer.core.util;
 import org.eclipse.wb.internal.core.utils.Version;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test for {@link Version}.
@@ -29,6 +30,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#getStringMajorMinor()}.
 	 */
+	@Test
 	public void test_getStringMajorMinor() {
 		// no micro
 		{
@@ -45,6 +47,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#getStringMajorMinorMicro()}.
 	 */
+	@Test
 	public void test_getStringMajorMinorMicro() {
 		// no micro
 		{
@@ -61,6 +64,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#toString()}.
 	 */
+	@Test
 	public void test_toString() {
 		// no micro
 		{
@@ -82,6 +86,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#equals(Object)}.
 	 */
+	@Test
 	public void test_equals() {
 		final Version version = new Version(3, 5);
 		assertTrue(version.equals(version));
@@ -93,12 +98,13 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#hashCode()}.
 	 */
+	@Test
 	public void test_hashCode() {
 		final Version version_1 = new Version(3, 5);
 		final Version version_2 = new Version(3, 5);
 		final Version version_3 = new Version(3, 6);
-		assertThat(version_1.hashCode()).isEqualTo(version_2.hashCode());
-		assertThat(version_1.hashCode()).isNotEqualTo(version_3.hashCode());
+		Assertions.assertThat(version_1.hashCode()).isEqualTo(version_2.hashCode());
+		Assertions.assertThat(version_1.hashCode()).isNotEqualTo(version_3.hashCode());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -109,6 +115,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#getMajor()}.
 	 */
+	@Test
 	public void test_getMajor() {
 		{
 			final Version version = new Version(3, 5);
@@ -123,6 +130,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#getMinor()}.
 	 */
+	@Test
 	public void test_getMinor() {
 		{
 			final Version version = new Version(3, 5);
@@ -137,6 +145,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#getMicro()}.
 	 */
+	@Test
 	public void test_getMicro() {
 		{
 			final Version version = new Version(3, 5);
@@ -156,6 +165,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#isSame(Version)}.
 	 */
+	@Test
 	public void test_isSame() {
 		final Version version = new Version(3, 5, 1);
 		assertTrue(version.isSame(new Version(3, 5, 1)));
@@ -166,6 +176,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#isHigher(Version)}.
 	 */
+	@Test
 	public void test_isHigher() {
 		final Version version = new Version(3, 5, 2);
 		assertTrue(version.isHigher(new Version(2, 7, 15)));
@@ -180,6 +191,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#isHigherOrSame(Version)}.
 	 */
+	@Test
 	public void test_isHigherOrSame() {
 		final Version version = new Version(3, 5, 2);
 		assertTrue(version.isHigherOrSame(new Version(2, 7, 15)));
@@ -194,6 +206,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#isLower(Version)}.
 	 */
+	@Test
 	public void test_isLower() {
 		final Version version = new Version(3, 5, 2);
 		assertFalse(version.isLower(new Version(2, 7, 15)));
@@ -210,6 +223,7 @@ public class VersionTest extends DesignerTestCase {
 	/**
 	 * Test for {@link Version#isLowerOrSame(Version)}.
 	 */
+	@Test
 	public void test_isLowerOrSame() {
 		final Version version = new Version(3, 5, 2);
 		assertFalse(version.isLowerOrSame(new Version(2, 7, 15)));

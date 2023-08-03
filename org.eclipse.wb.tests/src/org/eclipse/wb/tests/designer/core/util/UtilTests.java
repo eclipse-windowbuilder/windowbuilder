@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.core.util.ast.AstTests;
 import org.eclipse.wb.tests.designer.core.util.base64.Base64UtilsTest;
 import org.eclipse.wb.tests.designer.core.util.check.AssertTest;
@@ -24,37 +23,37 @@ import org.eclipse.wb.tests.designer.core.util.ui.ImageUtilsTest;
 import org.eclipse.wb.tests.designer.core.util.ui.MenuIntersectorTest;
 import org.eclipse.wb.tests.designer.core.util.xml.XmlTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class UtilTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.core.utils");
-		suite.addTestSuite(SystemUtilTest.class);
-		suite.addTestSuite(AssertTest.class);
-		suite.addTestSuite(Base64UtilsTest.class);
-		suite.addTestSuite(XmlWriterTest.class);
-		suite.addTestSuite(BrandingUtilsTest.class);
-		suite.addTestSuite(DesignerExceptionTest.class);
-		suite.addTestSuite(DesignerExceptionUtilsTest.class);
-		suite.addTestSuite(CoreExceptionRewriterTest.class);
-		suite.addTestSuite(GenericsUtilsTest.class);
-		suite.addTestSuite(PairTest.class);
-		suite.addTest(createSingleSuite(ExecutionUtilsTest.class));
-		suite.addTest(createSingleSuite(NoOpProgressMonitorTest.class));
-		suite.addTest(XmlTests.suite());
-		suite.addTestSuite(ExternalFactoriesHelperTest.class);
-		suite.addTestSuite(EditorWarningTest.class);
-		suite.addTestSuite(ReflectionUtilsTest.class);
-		suite.addTestSuite(IntrospectionHelperTest.class);
-		suite.addTestSuite(MenuIntersectorTest.class);
-		suite.addTestSuite(ImageUtilsTest.class);
-		suite.addTest(AstTests.suite());
-		suite.addTest(JdtCoreTests.suite());
-		suite.addTest(RefactoringTests.suite());
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		SystemUtilTest.class,
+		AssertTest.class,
+		Base64UtilsTest.class,
+		XmlWriterTest.class,
+		BrandingUtilsTest.class,
+		DesignerExceptionTest.class,
+		DesignerExceptionUtilsTest.class,
+		CoreExceptionRewriterTest.class,
+		GenericsUtilsTest.class,
+		PairTest.class,
+		ExecutionUtilsTest.class,
+		NoOpProgressMonitorTest.class,
+		XmlTests.class,
+		ExternalFactoriesHelperTest.class,
+		EditorWarningTest.class,
+		ReflectionUtilsTest.class,
+		IntrospectionHelperTest.class,
+		MenuIntersectorTest.class,
+		ImageUtilsTest.class,
+		AstTests.class,
+		JdtCoreTests.class,
+		RefactoringTests.class
+})
+public class UtilTests {
 }

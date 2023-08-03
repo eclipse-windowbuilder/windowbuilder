@@ -39,6 +39,8 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.databinding.rcp.DatabindingTestUtils;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.AbstractBindingTest;
 
+import org.junit.Test;
+
 import java.util.List;
 
 /**
@@ -51,6 +53,7 @@ public class BeanObservableTest extends AbstractBindingTest {
 	// Direct tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_direct() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -294,6 +297,7 @@ public class BeanObservableTest extends AbstractBindingTest {
 		assertEquals(0, mapProperties.size());
 	}
 
+	@Test
 	public void test_directObservable_1() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -395,6 +399,7 @@ public class BeanObservableTest extends AbstractBindingTest {
 				properties.get(7));
 	}
 
+	@Test
 	public void test_directObservable_2() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -453,6 +458,7 @@ public class BeanObservableTest extends AbstractBindingTest {
 				binding.getModelObservable().getBindableProperty());
 	}
 
+	@Test
 	public void test_directObservable_detail() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(
@@ -531,6 +537,7 @@ public class BeanObservableTest extends AbstractBindingTest {
 		assertEquals("java.lang.String", modelObservable.getDetailPropertyType().getName());
 	}
 
+	@Test
 	public void test_directObservableProperties_1() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(this, new String[]{
@@ -636,6 +643,7 @@ public class BeanObservableTest extends AbstractBindingTest {
 		assertNotNull(properties.get(6).getObservableFactory());
 	}
 
+	@Test
 	public void test_directObservableProperties_2() throws Exception {
 		CompositeInfo shell =
 				DatabindingTestUtils.parseTestSource(
@@ -703,12 +711,14 @@ public class BeanObservableTest extends AbstractBindingTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_observeValue_1() throws Exception {
 		observeValue(
 				"    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
 				"    IObservableValue observeValue1 = BeanProperties.value(\"value\").observe(getBean1());");
 	}
 
+	@Test
 	public void test_observeValue_2() throws Exception {
 		observeValue(
 				"    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(Realm.getDefault(), m_bean0);",
@@ -815,12 +825,14 @@ public class BeanObservableTest extends AbstractBindingTest {
 				modelObservable.getBindableProperty());
 	}
 
+	@Test
 	public void test_observeList_1() throws Exception {
 		observeList(
 				"    IObservableList observeList0 = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean0);",
 				"    IObservableList observeList1 = BeanProperties.list(\"names\").observe(Realm.getDefault(), getBean1());");
 	}
 
+	@Test
 	public void test_observeList_2() throws Exception {
 		observeList(
 				"    IObservableList observeList0 = BeanProperties.list(\"names\", java.lang.String.class).observe(Realm.getDefault(),m_bean0);",
@@ -925,12 +937,14 @@ public class BeanObservableTest extends AbstractBindingTest {
 				modelObservable.getBindableProperty());
 	}
 
+	@Test
 	public void test_observeSet_1() throws Exception {
 		observeSet(
 				"    IObservableSet observeSet0 = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean0);",
 				"    IObservableSet observeSet1 = BeanProperties.set(\"names\").observe(Realm.getDefault(), getBean1());");
 	}
 
+	@Test
 	public void test_observeSet_2() throws Exception {
 		observeSet(
 				"    IObservableSet observeSet0 = BeanProperties.set(\"names\", java.lang.String.class).observe(Realm.getDefault(), m_bean0);",
@@ -1034,10 +1048,12 @@ public class BeanObservableTest extends AbstractBindingTest {
 				modelObservable.getBindableProperty());
 	}
 
+	@Test
 	public void test_observeDetailValue_1() throws Exception {
 		observeDetailValue("    IObservableValue observeDetailsValue = BeanProperties.value(\"empty\", boolean.class).observeDetail(observeValue0);");
 	}
 
+	@Test
 	public void test_observeDetailValue_2() throws Exception {
 		observeDetailValue("    IObservableValue observeDetailsValue = BeanProperties.value(String.class, \"empty\", boolean.class).observeDetail(observeValue0);");
 	}
@@ -1143,6 +1159,7 @@ public class BeanObservableTest extends AbstractBindingTest {
 				targetObservable.getPresentationText());
 	}
 
+	@Test
 	public void test_observeDetailList() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -1258,6 +1275,7 @@ public class BeanObservableTest extends AbstractBindingTest {
 				targetObservable.getPresentationText());
 	}
 
+	@Test
 	public void test_observeDetailSet() throws Exception {
 		setFileContentSrc(
 				"test/TestBean.java",
@@ -1359,10 +1377,12 @@ public class BeanObservableTest extends AbstractBindingTest {
 				targetObservable.getPresentationText());
 	}
 
+	@Test
 	public void test_WritableList_1() throws Exception {
 		test_WritableList("    WritableList writableList = new WritableList(m_list, String.class);");
 	}
 
+	@Test
 	public void test_WritableList_2() throws Exception {
 		test_WritableList("    WritableList writableList = new WritableList(Realm.getDefault(), m_list, String.class);");
 	}
@@ -1473,10 +1493,12 @@ public class BeanObservableTest extends AbstractBindingTest {
 		assertEquals("WritableList(m_list, ?????.class)", modelObservable.getPresentationText());
 	}
 
+	@Test
 	public void test_WritableSet_1() throws Exception {
 		test_WritableSet("    WritableSet writableSet = new WritableSet(m_set, String.class);");
 	}
 
+	@Test
 	public void test_WritableSet_2() throws Exception {
 		test_WritableSet("    WritableSet writableSet = new WritableSet(Realm.getDefault(), m_set, String.class);");
 	}

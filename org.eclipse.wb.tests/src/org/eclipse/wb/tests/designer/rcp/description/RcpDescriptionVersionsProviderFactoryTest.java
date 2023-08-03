@@ -16,8 +16,11 @@ import org.eclipse.wb.internal.rcp.RcpDescriptionVersionsProviderFactory;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
+
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -42,6 +45,7 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@DisposeProjectAfter
+	@Test
 	public void test_notRCP() throws Exception {
 		do_projectDispose();
 		do_projectCreate();
@@ -62,10 +66,12 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
 		// not RCP project, so RCP factory returns no provider
 		assertNull(provider);
 		// also no versions
-		assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).isEmpty();
+		Assertions.assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).isEmpty();
 	}
 
-	public void DISABLE_test_37() throws Exception {
+	@Ignore
+	@Test
+	public void test_37() throws Exception {
 		parseComposite(
 				"// filler filler filler",
 				"public class Test extends Shell {",
@@ -81,22 +87,22 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
 		{
 			Class<?> componentClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Button");
 			List<String> versions = provider.getVersions(componentClass);
-			assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
+			Assertions.assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
 		}
 		// RCP class: TableViewer
 		{
 			Class<?> componentClass = m_lastLoader.loadClass("org.eclipse.jface.viewers.TableViewer");
 			List<String> versions = provider.getVersions(componentClass);
-			assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
+			Assertions.assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
 		}
 		// not RCP class
 		{
 			List<String> versions = provider.getVersions(Object.class);
-			assertThat(versions).isEmpty();
+			Assertions.assertThat(versions).isEmpty();
 		}
 		// check versions
-		assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).contains(
+		Assertions.assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).contains(
 				entry("rcp_version", "3.7"));
-		assertThat(m_lastState.getVersions()).contains(entry("rcp_version", "3.7"));
+		Assertions.assertThat(m_lastState.getVersions()).contains(entry("rcp_version", "3.7"));
 	}
 }

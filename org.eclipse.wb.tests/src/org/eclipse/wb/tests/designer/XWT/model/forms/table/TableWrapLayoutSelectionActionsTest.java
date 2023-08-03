@@ -17,7 +17,8 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 import org.eclipse.jface.action.IAction;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -62,6 +63,7 @@ public class TableWrapLayoutSelectionActionsTest extends XwtModelTest {
 		assertEquals(checked, action.isChecked());
 	}
 
+	@Test
 	public void test_selectionActions_emptySelection() throws Exception {
 		parse(
 				"<Shell>",
@@ -74,9 +76,10 @@ public class TableWrapLayoutSelectionActionsTest extends XwtModelTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions();
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
+	@Test
 	public void test_selectionActions_invalidSelection() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -91,9 +94,10 @@ public class TableWrapLayoutSelectionActionsTest extends XwtModelTest {
 		// prepare actions
 		List<Object> actions = getSelectionActions(button, shell);
 		// no actions
-		assertThat(actions).isEmpty();
+		Assertions.assertThat(actions).isEmpty();
 	}
 
+	@Test
 	public void test_selectionActions_state() throws Exception {
 		parse(
 				"<Shell>",
@@ -135,6 +139,7 @@ public class TableWrapLayoutSelectionActionsTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_grabAction() throws Exception {
 		parse(
 				"<Shell>",
@@ -189,6 +194,7 @@ public class TableWrapLayoutSelectionActionsTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_alignmentAction() throws Exception {
 		parse(
 				"<Shell>",

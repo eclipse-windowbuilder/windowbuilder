@@ -14,6 +14,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutConverter;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 
+import org.junit.Test;
+
 import java.awt.GridBagLayout;
 
 /**
@@ -36,6 +38,7 @@ public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_empty() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -62,6 +65,7 @@ public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_oneColumn() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -120,6 +124,7 @@ public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_oneColumn_left() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -179,6 +184,7 @@ public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_oneRow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -237,6 +243,7 @@ public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_oneRow_top() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -296,6 +303,7 @@ public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_oneRow_bottom() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -355,6 +363,7 @@ public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_oneRow_reorder() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -413,6 +422,7 @@ public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {
 		}
 	}
 
+	@Test
 	public void test_Switching_fromGridLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -504,6 +514,7 @@ public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {
 				"}");
 	}
 
+	@Test
 	public void test_reorderOnConvert_lazy() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

@@ -10,19 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.gef;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author scheglov_ke
  */
-public class GefLayoutTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.layout.gef");
-		suite.addTest(createSingleSuite(BorderLayoutPolicyTest.class));
-		suite.addTest(createSingleSuite(GridLayoutPolicyTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		BorderLayoutPolicyTest.class,
+		GridLayoutPolicyTest.class
+})
+public class GefLayoutTests {
 }

@@ -10,20 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.swingx;
 
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * All SwingX tests.
  *
  * @author sablin_aa
  */
-public class SwingXTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.swing.swingx");
-		//suite.addTest(createSingleSuite(JXTaskPaneTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({ JXTaskPaneTest.class })
+public class SwingXTests {
 }

@@ -16,6 +16,8 @@ import org.eclipse.wb.internal.swt.support.ColorSupport;
 
 import org.eclipse.swt.graphics.Color;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ColorSupport}.
  *
@@ -36,6 +38,7 @@ public class ColorSupportTest extends AbstractSupportTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getCopy() throws Exception {
 		Object color = createColor(1, 2, 3);
 		Object copyColor = ColorSupport.getCopy(color);
@@ -57,6 +60,7 @@ public class ColorSupportTest extends AbstractSupportTest {
 		}
 	}
 
+	@Test
 	public void test_getColor() throws Exception {
 		Object eSWTColor = createColor(1, 2, 3);
 		Color SWTColor = ColorSupport.getColor(eSWTColor);
@@ -75,6 +79,7 @@ public class ColorSupportTest extends AbstractSupportTest {
 		}
 	}
 
+	@Test
 	public void test_toString() throws Exception {
 		Object color = createColor(1, 2, 3);
 		try {
@@ -84,6 +89,7 @@ public class ColorSupportTest extends AbstractSupportTest {
 		}
 	}
 
+	@Test
 	public void test_isDisposed() throws Exception {
 		Object color = createColor(1, 2, 3);
 		// initial state
@@ -93,6 +99,7 @@ public class ColorSupportTest extends AbstractSupportTest {
 		assertTrue(ColorSupport.isDisposed(color));
 	}
 
+	@Test
 	public void test_dispose() throws Exception {
 		Object color = createColor(1, 2, 3);
 		// check state
@@ -108,6 +115,7 @@ public class ColorSupportTest extends AbstractSupportTest {
 	// ColorInfo
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_createInfo_color() throws Exception {
 		Object color = createColor(1, 2, 3);
 		try {
@@ -128,6 +136,7 @@ public class ColorSupportTest extends AbstractSupportTest {
 		}
 	}
 
+	@Test
 	public void test_createInfo_field() throws Exception {
 		Class<?> SWTClass = m_lastLoader.loadClass("org.eclipse.swt.SWT");
 		ColorInfo info = ColorSupport.createInfo(ReflectionUtils.getFieldByName(SWTClass, "COLOR_RED"));

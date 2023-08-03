@@ -21,6 +21,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
+import org.junit.Test;
+
 /**
  * Basic tests for {@link CompositeTopBoundsSupport}.
  *
@@ -36,6 +38,7 @@ public class CompositeTopBoundsTest extends RcpGefTest {
 	/**
 	 * Size in properties of {@link IResource}.
 	 */
+	@Test
 	public void test_resize_properties() throws Exception {
 		Dimension oldSize = new Dimension(450, 300);
 		Dimension newSize = new Dimension(400, 350);
@@ -52,6 +55,7 @@ public class CompositeTopBoundsTest extends RcpGefTest {
 	/**
 	 * Size in properties of {@link IResource} during set <code>pack()</code>.
 	 */
+	@Test
 	public void test_resize_pack() throws Exception {
 		Dimension packSize = new Dimension(150, 50);
 		Dimension newSize = new Dimension(400, 350);
@@ -83,6 +87,7 @@ public class CompositeTopBoundsTest extends RcpGefTest {
 	/**
 	 * Size in <code>setSize(int,int)</code>
 	 */
+	@Test
 	public void test_resize_setSize_ints() throws Exception {
 		Dimension oldSize = new Dimension(300, 200);
 		Dimension newSize = new Dimension(400, 300);
@@ -92,6 +97,7 @@ public class CompositeTopBoundsTest extends RcpGefTest {
 	/**
 	 * Size in <code>setSize(Point)</code>
 	 */
+	@Test
 	public void test_resize_setSize_Point() throws Exception {
 		Dimension oldSize = new Dimension(300, 200);
 		Dimension newSize = new Dimension(400, 300);

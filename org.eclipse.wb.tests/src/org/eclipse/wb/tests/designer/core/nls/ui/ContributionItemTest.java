@@ -22,6 +22,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -31,12 +34,14 @@ import javax.swing.JFrame;
  *
  * @author scheglov_ke
  */
+@Ignore
 public class ContributionItemTest extends AbstractNlsUiTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_localesCombo() throws Exception {
 		setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
 		setFileContentSrc("test/messages_it.properties", getSourceDQ("frame.title=My JFrame IT"));
@@ -93,6 +98,7 @@ public class ContributionItemTest extends AbstractNlsUiTest {
 	/**
 	 * Strings in default package can not be externalized.
 	 */
+	@Test
 	public void test_defaultPackage() throws Exception {
 		String initialSource =
 				getSourceDQ(

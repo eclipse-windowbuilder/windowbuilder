@@ -20,6 +20,10 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.Display;
 
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import java.lang.reflect.Array;
 import java.util.List;
 
@@ -40,7 +44,8 @@ public class ResourceRegistryTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		m_initialDisplayRunnables = getDisplayRunnablesCount();
 	}
@@ -66,7 +71,9 @@ public class ResourceRegistryTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void DISABLED_test_info() throws Exception {
+	@Ignore
+	@Test
+	public void test_info() throws Exception {
 		setFileContentSrc(
 				"test/IRegistry.java",
 				getTestSource(

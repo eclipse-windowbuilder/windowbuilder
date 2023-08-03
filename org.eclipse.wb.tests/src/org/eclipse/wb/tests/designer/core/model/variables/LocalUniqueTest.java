@@ -48,6 +48,8 @@ import org.eclipse.jdt.core.dom.ParenthesizedExpression;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import org.junit.Test;
+
 import java.util.List;
 import java.util.Map;
 
@@ -76,6 +78,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link LocalUniqueVariableSupport} as object.
 	 */
+	@Test
 	public void test_object() throws Exception {
 		ContainerInfo panel = parseCase_1();
 		// check child: 0
@@ -113,6 +116,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link VariableSupport#setName(String)}.
 	 */
+	@Test
 	public void test_setName() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -143,6 +147,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	// toField
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toField() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -168,6 +173,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	 * Root method is static, and variable is in <em>static</em> method, so field should be declared
 	 * as <em>static</em>.
 	 */
+	@Test
 	public void test_toFieldStatic() throws Exception {
 		ComponentInfo button =
 				parseContainer(
@@ -190,6 +196,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	 * Root method is static, but variable is in <em>instance</em> method, so field should be declared
 	 * as <em>instance</em>.
 	 */
+	@Test
 	public void test_toFieldStatic2() throws Exception {
 		m_waitForAutoBuild = true;
 		ComponentInfo button =
@@ -217,6 +224,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 				"}");
 	}
 
+	@Test
 	public void test_toField_withPrefixes() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -251,6 +259,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_toField_assignment() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -273,6 +282,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 						"}"));
 	}
 
+	@Test
 	public void test_toField_numberPrefix() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -294,6 +304,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 						"}"));
 	}
 
+	@Test
 	public void test_toField_afterExistingField() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -354,6 +365,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
   	// invalid node
   	assertFalse(variableSupport.isJavaInfo(null));
   }
+	@Test
   public void test_isJavaInfo_declaration() throws Exception {
   	ContainerInfo panel =
   			parseTestSource(new String[]{
@@ -377,6 +389,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	// hasExpression()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_hasExpression() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -405,6 +418,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	// getReferenceExpression
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getReferenceExpression_local_declarationWithInitializer() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -423,6 +437,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 		assertTrue(button.getVariableSupport() instanceof LocalUniqueVariableSupport);
 	}
 
+	@Test
 	public void test_getReferenceExpression_local_assignAfterDeclaration() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -442,6 +457,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 		assertTrue(button.getVariableSupport() instanceof LocalUniqueVariableSupport);
 	}
 
+	@Test
 	public void test_getReferenceExpression_local_beginOfBlock() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -467,6 +483,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_getReferenceExpression_local_endOfBlock() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -500,6 +517,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_getReferenceExpression_remote_afterBlock() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -529,6 +547,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 				"}");
 	}
 
+	@Test
 	public void test_getReferenceExpression_remote_afterBlock_asBeforeStatement() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -563,6 +582,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
 	 */
+	@Test
 	public void test_getReferenceExpression_remote_otherMethodOfExecutionFlow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -597,6 +617,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
 	 */
+	@Test
 	public void test_getReferenceExpression_remote_invokedMethod() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -631,6 +652,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
 	 */
+	@Test
 	public void test_getReferenceExpression_remote_methodBodyNotOfExecutionFlow() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -664,6 +686,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
 	 */
+	@Test
 	public void test_getReferenceExpression_remote_afterMethodDeclaration() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -693,6 +716,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
 	 */
+	@Test
 	public void test_getReferenceExpression_remote_endOfTypeDeclaration() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -724,6 +748,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	// Target
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_target() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -742,6 +767,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	// isVisibleAt
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_isVisibleAt() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -793,6 +819,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component.
 	 */
+	@Test
 	public void test_ADD_normal() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -829,6 +856,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component, with "final".
 	 */
+	@Test
 	public void test_ADD_final() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -868,6 +896,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component, {@link JTextField}, forced field.
 	 */
+	@Test
 	public void test_ADD_forcedField() throws Exception {
 		ToolkitDescription toolkit = ToolkitProvider.DESCRIPTION;
 		// set type specific
@@ -916,6 +945,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Special case when one of the methods has {@link MethodOrderBeforeAssociation}.
 	 */
+	@Test
 	public void test_ADD_beforeAssociation() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -964,6 +994,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Support for "%variable-name%" in creation source.
 	 */
+	@Test
 	public void test_ADD_variableName_inCreationSource() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -1009,6 +1040,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Support for generic components and type arguments.
 	 */
+	@Test
 	public void test_ADD_typeArguments() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -1063,6 +1095,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Variable declaration deleted with {@link Statement}.
 	 */
+	@Test
 	public void test_delete_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1090,6 +1123,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Variable declaration in separate {@link Statement}.
 	 */
+	@Test
 	public void test_delete_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1116,6 +1150,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Component is root, so its variable should not be removed.
 	 */
+	@Test
 	public void test_delete_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1142,6 +1177,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Variable declaration in same {@link Statement}.
 	 */
+	@Test
 	public void test_delete_4() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -1204,6 +1240,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	// setType()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1234,6 +1271,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link LocalUniqueVariableSupport#canInline()}.
 	 */
+	@Test
 	public void test_inline_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1254,6 +1292,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link LocalUniqueVariableSupport#inline()}.
 	 */
+	@Test
 	public void test_inline_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1295,6 +1334,7 @@ public class LocalUniqueTest extends AbstractVariableTest {
 	 * Case when inlined {@link Expression} should be wrapped with {@link ParenthesizedExpression}
 	 * because of execution precedence.
 	 */
+	@Test
 	public void test_inline_3() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",

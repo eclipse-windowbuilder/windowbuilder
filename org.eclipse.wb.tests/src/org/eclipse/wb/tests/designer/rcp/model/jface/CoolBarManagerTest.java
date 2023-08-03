@@ -25,7 +25,9 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Test for {@link CoolBarManagerInfo}.
@@ -50,6 +52,7 @@ public class CoolBarManagerTest extends RcpModelTest {
 	/**
 	 * Empty {@link CoolBarManager}.
 	 */
+	@Test
 	public void test_0_emptyCoolBarManager() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -81,13 +84,14 @@ public class CoolBarManagerTest extends RcpModelTest {
 				coolBarManager.getComponentObject().getClass().getName());
 		assertNotNull(coolBarManager.getImage());
 		assertNotNull(coolBarManager.getBounds());
-		assertThat(coolBarManager.getBounds().width).isGreaterThan(400);
-		assertThat(coolBarManager.getBounds().height).isGreaterThan(20);
+		Assertions.assertThat(coolBarManager.getBounds().width).isGreaterThan(400);
+		Assertions.assertThat(coolBarManager.getBounds().height).isGreaterThan(20);
 	}
 
 	/**
 	 * Test for using {@link ICoolBarManager#add(IToolBarManager)}, empty {@link ToolBarManager}.
 	 */
+	@Test
 	public void test_addToolBarManager_empty() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -118,8 +122,8 @@ public class CoolBarManagerTest extends RcpModelTest {
 				(ToolBarManagerInfo) coolBarManager.getChildrenJava().get(0);
 		// refresh(), check "toolBarManager"
 		window.refresh();
-		assertThat(toolBarManager.getBounds().width).isGreaterThan(50);
-		assertThat(toolBarManager.getBounds().height).isGreaterThan(20);
+		Assertions.assertThat(toolBarManager.getBounds().width).isGreaterThan(50);
+		Assertions.assertThat(toolBarManager.getBounds().height).isGreaterThan(20);
 		// delete "toolBarManager"
 		assertTrue(toolBarManager.canDelete());
 		toolBarManager.delete();
@@ -141,6 +145,7 @@ public class CoolBarManagerTest extends RcpModelTest {
 	/**
 	 * Test for using {@link ICoolBarManager#add(IToolBarManager)}, not empty {@link ToolBarManager}.
 	 */
+	@Test
 	public void test_addToolBarManager_notEmpty() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
@@ -185,24 +190,26 @@ public class CoolBarManagerTest extends RcpModelTest {
 		window.refresh();
 		// check "toolBarManager"
 		{
-			assertThat(toolBarManager.getBounds().width).isGreaterThan(50);
-			assertThat(toolBarManager.getBounds().height).isGreaterThan(20);
+			Assertions.assertThat(toolBarManager.getBounds().width).isGreaterThan(50);
+			Assertions.assertThat(toolBarManager.getBounds().height).isGreaterThan(20);
 		}
 		// refresh(), check "contributionItem"
 		{
 			Rectangle bounds = contributionItem.getBounds();
-			assertThat(bounds.width).isGreaterThan(50);
-			assertThat(bounds.height).isGreaterThan(20);
-			assertThat(bounds.x).isGreaterThan(0);
-			assertThat(bounds.y).isGreaterThanOrEqualTo(0); // platform-specific tolerance
-			assertThat(bounds.y).isLessThanOrEqualTo(5);
+			Assertions.assertThat(bounds.width).isGreaterThan(50);
+			Assertions.assertThat(bounds.height).isGreaterThan(20);
+			Assertions.assertThat(bounds.x).isGreaterThan(0);
+			Assertions.assertThat(bounds.y).isGreaterThanOrEqualTo(0); // platform-specific tolerance
+			Assertions.assertThat(bounds.y).isLessThanOrEqualTo(5);
 		}
 	}
 
 	/**
 	 * Test for using {@link ToolBarContributionItem}.
 	 */
-	public void DISABLE_test_addToolBarManager_usingToolBarContributionItem() throws Exception {
+	@Ignore
+	@Test
+	public void test_addToolBarManager_usingToolBarContributionItem() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(
 						"import org.eclipse.jface.action.*;",
@@ -237,17 +244,17 @@ public class CoolBarManagerTest extends RcpModelTest {
 		// check bounds
 		{
 			Rectangle bounds = contributionItem.getBounds();
-			assertThat(bounds.x).isGreaterThan(5);
-			assertThat(bounds.y).isEqualTo(0);
-			assertThat(bounds.width).isGreaterThan(400);
-			assertThat(bounds.height).isGreaterThan(20);
+			Assertions.assertThat(bounds.x).isGreaterThan(5);
+			Assertions.assertThat(bounds.y).isEqualTo(0);
+			Assertions.assertThat(bounds.width).isGreaterThan(400);
+			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}
 		{
 			Rectangle bounds = toolBarManager.getBounds();
-			assertThat(bounds.x).isEqualTo(0);
-			assertThat(bounds.y).isEqualTo(0);
-			assertThat(bounds.width).isGreaterThan(400);
-			assertThat(bounds.height).isGreaterThan(20);
+			Assertions.assertThat(bounds.x).isEqualTo(0);
+			Assertions.assertThat(bounds.y).isEqualTo(0);
+			Assertions.assertThat(bounds.width).isGreaterThan(400);
+			Assertions.assertThat(bounds.height).isGreaterThan(20);
 		}
 		// "toolBarManager" can not be deleted
 		{
@@ -282,6 +289,7 @@ public class CoolBarManagerTest extends RcpModelTest {
 	/**
 	 * Drop {@link ToolBarManager} on {@link CoolBarManager}.
 	 */
+	@Test
 	public void test_CREATE() throws Exception {
 		ApplicationWindowInfo window =
 				parseJavaInfo(

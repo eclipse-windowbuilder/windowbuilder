@@ -28,6 +28,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link GenerationSettings}.
  *
@@ -51,6 +53,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_compatibleStatements() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -87,6 +90,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	 * {@link GenerationSettings#getPreview(VariableSupportDescription, StatementGeneratorDescription)}
 	 * for Swing and SWT.
 	 */
+	@Test
 	public void test_getPreview() throws Exception {
 		// test several Swing preview's
 		assertInstanceOf(
@@ -109,6 +113,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * Test variable/statement defaults.
 	 */
+	@Test
 	public void test_defaults() throws Exception {
 		// variable default/current
 		assertSame(LocalUniqueVariableDescription.INSTANCE, SWING_SETTINGS.getDefaultVariable());
@@ -140,6 +145,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	 * Test that "variable.validateID" script can be used to change ID of
 	 * {@link VariableSupportDescription} to use for given {@link JavaInfo}.
 	 */
+	@Test
 	public void test_getVariable_useScript() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -169,6 +175,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * No deduce because no components.
 	 */
+	@Test
 	public void test_noDeduce_noComponents() throws Exception {
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
 		//
@@ -185,6 +192,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * No deduce because not enough components.
 	 */
+	@Test
 	public void test_noDeduce_notEnoughComponents() throws Exception {
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
 		//
@@ -208,6 +216,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * No deduce because disabled.
 	 */
+	@Test
 	public void test_noDeduce_disabled() throws Exception {
 		SWING_SETTINGS.setVariable(LazyVariableDescription.INSTANCE);
 		SWING_SETTINGS.setStatement(LazyStatementGeneratorDescription.INSTANCE);
@@ -239,6 +248,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * Deduce as {@link LocalUniqueVariableDescription}.
 	 */
+	@Test
 	public void test_deduce_localUnique() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
@@ -267,6 +277,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * Deduce as {@link LocalUniqueVariableDescription}, fix statement.
 	 */
+	@Test
 	public void test_deduce_localUnique_block() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(LazyVariableDescription.INSTANCE);
@@ -297,6 +308,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * More blocks with single component than with multiple, so "block" wins.
 	 */
+	@Test
 	public void test_deduce_mixedBlockFlat_blockWins() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setStatement(LazyStatementGeneratorDescription.INSTANCE);
@@ -331,6 +343,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * More blocks with single component than with multiple, so "flat" wins.
 	 */
+	@Test
 	public void test_deduce_mixedBlockFlat_flatWins() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setStatement(LazyStatementGeneratorDescription.INSTANCE);
@@ -366,6 +379,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 		assertSame(FlatStatementGeneratorDescription.INSTANCE, SWING_SETTINGS.getStatement(panel));
 	}
 
+	@Test
 	public void test_deduce_localUnique_flat() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(LazyVariableDescription.INSTANCE);
@@ -392,6 +406,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * Deduce as {@link LocalUniqueVariableDescription}, one component is field.
 	 */
+	@Test
 	public void test_deduce_localUnique2() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
@@ -421,6 +436,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * Deduce as {@link FieldInitializerVariableDescription}, one component is local.
 	 */
+	@Test
 	public void test_deduce_fieldWithInitializer() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
@@ -453,6 +469,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	/**
 	 * Deduce as {@link LazyVariableDescription} and {@link LazyStatementGeneratorDescription}.
 	 */
+	@Test
 	public void test_deduce_lazy() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(LocalUniqueVariableDescription.INSTANCE);
@@ -497,6 +514,7 @@ public class GenerationSettingsTest extends SwingModelTest {
 	 * If some {@link JavaInfo} has no component class in {@link ComponentDescription}, this caused
 	 * {@link NullPointerException} during deducing settings.
 	 */
+	@Test
 	public void test_deduce_nullComponentClass() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(LocalUniqueVariableDescription.INSTANCE);

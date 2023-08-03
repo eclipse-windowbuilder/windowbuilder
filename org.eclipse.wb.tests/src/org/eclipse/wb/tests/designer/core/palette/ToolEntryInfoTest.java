@@ -20,6 +20,8 @@ import org.eclipse.wb.tests.gef.EmptyEditPartViewer;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import org.junit.Test;
+
 /**
  * Tests for abstract {@link ToolEntryInfo}.
  *
@@ -34,6 +36,7 @@ public class ToolEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Activate without tool.
 	 */
+	@Test
 	public void test_activateNoTool() throws Exception {
 		JavaInfo panel = parseEmptyPanel();
 		IEditPartViewer editPartViewer = new EmptyEditPartViewer();
@@ -58,6 +61,7 @@ public class ToolEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Activate with good tool.
 	 */
+	@Test
 	public void test_activateTool() throws Exception {
 		JavaInfo panel = parseEmptyPanel();
 		IEditPartViewer editPartViewer = new EmptyEditPartViewer();
@@ -82,6 +86,7 @@ public class ToolEntryInfoTest extends AbstractPaletteTest {
 	/**
 	 * Activate, but throw exception when create tool.
 	 */
+	@Test
 	public void test_activateException() throws Exception {
 		JavaInfo panel = parseEmptyPanel();
 		IEditPartViewer editPartViewer = new EmptyEditPartViewer();

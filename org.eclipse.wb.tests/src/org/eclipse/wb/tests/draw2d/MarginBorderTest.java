@@ -14,25 +14,20 @@ import org.eclipse.wb.draw2d.border.MarginBorder;
 
 import org.eclipse.draw2d.geometry.Insets;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
  */
 public class MarginBorderTest extends Draw2dFigureTestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public MarginBorderTest() {
-		super(MarginBorder.class);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Test's
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_constructor() throws Exception {
 		// check work constructor (int, int, int, int)
 		assertEquals(new Insets(1, 2, 3, 4), new MarginBorder(new Insets(1, 2, 3, 4)).getInsets(null));

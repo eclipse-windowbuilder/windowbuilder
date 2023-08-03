@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.rcp.IExceptionConstants;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for <code>MultiPageEditorPart</code> support (rather not support).
  *
@@ -35,6 +37,7 @@ public class MultiPageEditorPartTest extends RcpModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parsingException() throws Exception {
 		try {
 			parseJavaInfo(

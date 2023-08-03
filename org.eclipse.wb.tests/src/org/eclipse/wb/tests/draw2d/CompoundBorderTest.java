@@ -16,25 +16,20 @@ import org.eclipse.wb.draw2d.border.MarginBorder;
 
 import org.eclipse.draw2d.geometry.Insets;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
  */
 public class CompoundBorderTest extends Draw2dFigureTestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public CompoundBorderTest() {
-		super(CompoundBorder.class);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Test's
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_constructor() throws Exception {
 		CompoundBorder border = new CompoundBorder();
 		//
@@ -44,6 +39,7 @@ public class CompoundBorderTest extends Draw2dFigureTestCase {
 		assertEquals(new Insets(), border.getInsets(null));
 	}
 
+	@Test
 	public void test_constructor_Border_Border() throws Exception {
 		//
 		// check work when out = LineBorder and inner = MarginBorder

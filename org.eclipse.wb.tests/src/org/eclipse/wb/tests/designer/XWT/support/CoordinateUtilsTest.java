@@ -22,6 +22,8 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Group;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link CoordinateUtils}.
  *
@@ -42,6 +44,7 @@ public class CoordinateUtilsTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_1() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -75,6 +78,7 @@ public class CoordinateUtilsTest extends XwtModelTest {
 	/**
 	 * Test for {@link CoordinateUtils#getClientAreaInsets2(Object)} for {@link Group}.
 	 */
+	@Test
 	public void test_withGroup() throws Exception {
 		CompositeInfo group = parse("<Group/>");
 		refresh();

@@ -28,6 +28,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import org.junit.Test;
+
 import javax.swing.JButton;
 
 /**
@@ -41,6 +43,7 @@ public class OpaqueCreationSupportTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -66,6 +69,7 @@ public class OpaqueCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test for {@link OpaqueCreationSupport#add_getSource(NodeTarget)}.
 	 */
+	@Test
 	public void test_add() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -103,6 +107,7 @@ public class OpaqueCreationSupportTest extends SwingModelTest {
 	/**
 	 * Test for using {@link ICreationSupportPermissions} by {@link OpaqueCreationSupport}.
 	 */
+	@Test
 	public void test_permissions() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

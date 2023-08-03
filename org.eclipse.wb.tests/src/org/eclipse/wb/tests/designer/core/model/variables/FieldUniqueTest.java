@@ -34,6 +34,8 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 
+import org.junit.Test;
+
 import java.util.Map;
 
 /**
@@ -56,6 +58,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_object() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -104,6 +107,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_componentName() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -139,6 +143,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for {@link FieldVariableSupport#isValidStatementForChild(Statement)}.
 	 */
+	@Test
 	public void test_isValidStatementForChild() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -168,6 +173,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for case when field referenced from two methods, so can not be converted to local.
 	 */
+	@Test
 	public void test_noLocal() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -187,6 +193,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 		assertFalse(variableSupport.canConvertFieldToLocal());
 	}
 
+	@Test
 	public void test_setName() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -217,6 +224,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 				m_lastEditor.getSource());
 	}
 
+	@Test
 	public void test_setName_withApplicationStyleReference() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -288,6 +296,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	// toLocal
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_toLocal_1_simple() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -315,6 +324,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 				m_lastEditor.getSource());
 	}
 
+	@Test
 	public void test_toLocal_2_withPrefixes() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -355,6 +365,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 				m_lastEditor.getSource());
 	}
 
+	@Test
 	public void test_converts() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -425,6 +436,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test for parsing source with "this" prefix.
 	 */
+	@Test
 	public void test_thisQualifier_parse() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -472,6 +484,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test {@link VariableSupport#getReferenceExpression(NodeTarget)} with "this." prefix.
 	 */
+	@Test
 	public void test_thisQualifier_getReferenceExpression() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -500,6 +513,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	// Target
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getTarget() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -522,6 +536,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component, with "private" method modifier.
 	 */
+	@Test
 	public void test_ADD_private() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -559,6 +574,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component, with "protected" method modifier.
 	 */
+	@Test
 	public void test_ADD_public() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -596,6 +612,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component, static context.
 	 */
+	@Test
 	public void test_ADD_static() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -628,6 +645,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component, static context.
 	 */
+	@Test
 	public void test_ADD_static_withNonStaticAnonymous() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -668,6 +686,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component, with "this." prefix.
 	 */
+	@Test
 	public void test_ADD_thisPrefix() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -710,6 +729,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Test adding new component, with "m_" prefix.
 	 */
+	@Test
 	public void test_ADD_configuredPrefix() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -743,6 +763,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Support for "%variable-name%" in creation source.
 	 */
+	@Test
 	public void test_ADD_variableName_inCreationSource() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -792,6 +813,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Support for generic components and type arguments.
 	 */
+	@Test
 	public void test_ADD_typeArguments() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -850,6 +872,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * {@link FieldDeclaration} should be removed.
 	 */
+	@Test
 	public void test_delete_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -876,6 +899,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * {@link FieldDeclaration} should be removed.
 	 */
+	@Test
 	public void test_delete_2() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -907,6 +931,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * Component is root, so its variable should not be removed.
 	 */
+	@Test
 	public void test_delete_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -935,6 +960,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	/**
 	 * {@link VariableDeclaration} should be removed by one.
 	 */
+	@Test
 	public void test_delete_4() throws Exception {
 		parseContainer(
 				"// filler filler filler",
@@ -1003,6 +1029,7 @@ public class FieldUniqueTest extends AbstractVariableTest {
 	// setType()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setType() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

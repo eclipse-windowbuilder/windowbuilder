@@ -26,9 +26,9 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 import org.eclipse.swt.widgets.Shell;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.ArrayUtils;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -52,6 +52,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getX() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		// no XML parent
@@ -89,6 +90,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#setCreationSupport(CreationSupport)}
 	 */
+	@Test
 	public void test_getCreationSupport() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -108,6 +110,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#getChildByObject(Object)}
 	 */
+	@Test
 	public void test_getChildByObject() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -134,6 +137,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#getElement()}.
 	 */
+	@Test
 	public void test_getElement() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		assertSame(shell.getCreationSupport().getElement(), shell.getElement());
@@ -142,6 +146,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#getAttribute(String)}.
 	 */
+	@Test
 	public void test_getAttribute() throws Exception {
 		XmlObjectInfo shell = parse("<Shell foo='bar'/>");
 		assertEquals("bar", shell.getAttribute("foo"));
@@ -151,6 +156,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#setAttribute(String, String)}.
 	 */
+	@Test
 	public void test_setAttribute() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		shell.setAttribute("foo", "bar");
@@ -160,6 +166,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#removeAttribute(String)}.
 	 */
+	@Test
 	public void test_removeAttribute() throws Exception {
 		XmlObjectInfo shell = parse("<Shell foo='bar'/>");
 		shell.removeAttribute("foo");
@@ -174,6 +181,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#getParentXML()}
 	 */
+	@Test
 	public void test_getParentXML() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -195,6 +203,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#getRootXML()}
 	 */
+	@Test
 	public void test_getRootXML() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -216,6 +225,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#getChildrenXML()}
 	 */
+	@Test
 	public void test_getChildrenXML() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -233,17 +243,17 @@ public class XmlObjectTest extends AbstractCoreTest {
 		// implicit layout + "composite"
 		{
 			List<XmlObjectInfo> children = shell.getChildrenXML();
-			assertThat(children).hasSize(1 + 1).contains(composite);
+			Assertions.assertThat(children).hasSize(1 + 1).contains(composite);
 		}
 		// implicit layout + "button_1" + "button_2"
 		{
 			List<XmlObjectInfo> children = composite.getChildrenXML();
-			assertThat(children).hasSize(1 + 2).contains(button_1, button_2);
+			Assertions.assertThat(children).hasSize(1 + 2).contains(button_1, button_2);
 		}
 		// no children for "button_1"
 		{
 			List<XmlObjectInfo> children = button_1.getChildrenXML();
-			assertThat(children).isEmpty();
+			Assertions.assertThat(children).isEmpty();
 		}
 	}
 
@@ -255,16 +265,18 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#getProperties()}.
 	 */
+	@Test
 	public void test_getProperties() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		Property[] properties = shell.getProperties();
 		String[] titles = PropertyUtils.getTitles(properties);
-		assertThat(titles).contains("text", "enabled");
+		Assertions.assertThat(titles).contains("text", "enabled");
 	}
 
 	/**
 	 * Test for {@link XmlObjectInfo#getPropertyByTitle(String)}.
 	 */
+	@Test
 	public void test_getPropertyByTitle() throws Exception {
 		XmlObjectInfo shell = parse("<Shell/>");
 		// "text"
@@ -283,6 +295,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test that value of property is applied into XML.
 	 */
+	@Test
 	public void test_setPropertyValue() throws Exception {
 		XmlObjectInfo shell = parse("<Shell text='first'/>");
 		shell.refresh();
@@ -301,6 +314,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	 * Test that attribute value applied into {@link XmlObjectInfo} and can be accessed using
 	 * {@link XmlObjectInfo#getAttributeValue(String)}.
 	 */
+	@Test
 	public void test_getAttributeValue() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -321,6 +335,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#toString()}.
 	 */
+	@Test
 	public void test_toString() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -341,6 +356,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test for {@link XmlObjectInfo#getPresentation()}.
 	 */
+	@Test
 	public void test_presentation() throws Exception {
 		XmlObjectInfo shell = parse("<Shell text='My Shell'/>");
 		shell.refresh();
@@ -351,8 +367,8 @@ public class XmlObjectTest extends AbstractCoreTest {
 			assertSame(shell.getDescription().getIcon(), presentation.getIcon());
 		}
 		assertEquals("Shell", presentation.getText());
-		assertThat(presentation.getChildrenTree()).isEmpty();
-		assertThat(presentation.getChildrenGraphical()).isEmpty();
+		Assertions.assertThat(presentation.getChildrenTree()).isEmpty();
+		Assertions.assertThat(presentation.getChildrenGraphical()).isEmpty();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -365,6 +381,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	 * <p>
 	 * Delete single {@link XmlObjectInfo}.
 	 */
+	@Test
 	public void test_delete_normalComponent() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -398,6 +415,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	 * <p>
 	 * Delete root {@link XmlObjectInfo}, clear it instead.
 	 */
+	@Test
 	public void test_delete_rootComponent() throws Exception {
 		XmlObjectInfo shell =
 				parse(
@@ -420,6 +438,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	 * <p>
 	 * Delete {@link XmlObjectInfo} and its children.
 	 */
+	@Test
 	public void test_delete_withChildren() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -456,6 +475,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	 * <p>
 	 * Test for {@link XMLObject_delete} broadcast.
 	 */
+	@Test
 	public void test_delete_withBroadcast() throws Exception {
 		final XmlObjectInfo shell =
 				parse(
@@ -500,6 +520,7 @@ public class XmlObjectTest extends AbstractCoreTest {
 	/**
 	 * Test that during "refresh" the script "refresh_afterCreate" is executed.
 	 */
+	@Test
 	public void test_refresh_afterCreate_script() throws Exception {
 		prepareMyComponent(ArrayUtils.EMPTY_STRING_ARRAY, new String[]{
 				"  <parameters>",

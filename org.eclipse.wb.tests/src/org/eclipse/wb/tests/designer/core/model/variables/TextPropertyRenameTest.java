@@ -29,6 +29,8 @@ import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
+import org.junit.Test;
+
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -55,6 +57,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 	// Auto rename
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getNameForText() throws Exception {
 		// parse to have context for loading ComponentDescription
 		parseContainer(
@@ -108,6 +111,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_textPropertyRename_never() throws Exception {
 		String[] lines =
 				new String[]{
@@ -133,6 +137,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 				IPreferenceConstants.V_VARIABLE_TEXT_MODE_NEVER);
 	}
 
+	@Test
 	public void test_textPropertyRename_alwaysBad_controlCharacters() throws Exception {
 		String[] lines =
 				new String[]{
@@ -158,6 +163,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 				IPreferenceConstants.V_VARIABLE_TEXT_MODE_ALWAYS);
 	}
 
+	@Test
 	public void test_textPropertyRename_alwaysBad_nonLatinCharacters() throws Exception {
 		String[] lines =
 				new String[]{
@@ -183,6 +189,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 				IPreferenceConstants.V_VARIABLE_TEXT_MODE_ALWAYS);
 	}
 
+	@Test
 	public void test_textPropertyRename_alwaysGood() throws Exception {
 		String[] lines =
 				new String[]{
@@ -208,6 +215,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 				IPreferenceConstants.V_VARIABLE_TEXT_MODE_ALWAYS);
 	}
 
+	@Test
 	public void test_textPropertyRename_defaultFalse() throws Exception {
 		String[] lines =
 				new String[]{
@@ -233,6 +241,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 				IPreferenceConstants.V_VARIABLE_TEXT_MODE_DEFAULT);
 	}
 
+	@Test
 	public void test_textPropertyRename_defaultTrue() throws Exception {
 		String[] lines =
 				new String[]{
@@ -258,6 +267,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 				IPreferenceConstants.V_VARIABLE_TEXT_MODE_DEFAULT);
 	}
 
+	@Test
 	public void test_textPropertyRename_field() throws Exception {
 		IJavaProject javaProject = m_testProject.getJavaProject();
 		String[] lines =
@@ -297,6 +307,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 		}
 	}
 
+	@Test
 	public void test_textPropertyRename_duplicate() throws Exception {
 		String[] lines =
 				new String[]{
@@ -359,6 +370,7 @@ public class TextPropertyRenameTest extends AbstractVariableTest {
 	/**
 	 * Test that rename happens for newly added component.
 	 */
+	@Test
 	public void test_renameNewComponent() throws Exception {
 		ContainerInfo panel =
 				parseContainer(

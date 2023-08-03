@@ -40,9 +40,8 @@ import org.eclipse.swt.widgets.Text;
 
 import junit.framework.Assert;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.ObjectUtils;
+import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 
 import java.util.HashSet;
@@ -254,7 +253,7 @@ public final class GraphicalRobot {
 		m_viewer.select(editPart);
 		// find Handle
 		Point location = findSideHandle(bounds, predicate);
-		assertThat(location).describedAs("Side Handle for " + predicate).isNotNull();
+		Assertions.assertThat(location).describedAs("Side Handle for " + predicate).isNotNull();
 		mouseX = location.x;
 		mouseY = location.y;
 		mouseInSourceX = mouseX - bounds.x;
@@ -714,7 +713,7 @@ public final class GraphicalRobot {
 	public void animateDirectEdit(String text) {
 		// prepare Text widget
 		Text textWidget = UiContext.findFirstWidget(m_viewer.getControl(), Text.class);
-		assertThat(textWidget).describedAs("No Text widget.").isNotNull();
+		Assertions.assertThat(textWidget).describedAs("No Text widget.").isNotNull();
 		// use Text widget
 		textWidget.setText(text);
 		endDirectEdit(textWidget);
@@ -741,7 +740,7 @@ public final class GraphicalRobot {
 	////////////////////////////////////////////////////////////////////////////
 	public GraphicalEditPart getEditPart(final Object object) {
 		GraphicalEditPart editPart = getEditPartNull(object);
-		assertThat(editPart).as(new Description() {
+		Assertions.assertThat(editPart).as(new Description() {
 			@Override
 			public String value() {
 				return "No EditPart for " + object;
@@ -903,11 +902,11 @@ public final class GraphicalRobot {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public void assertNullEditPart(Object object) {
-		assertThat(getEditPartNull(object)).isNull();
+		Assertions.assertThat(getEditPartNull(object)).isNull();
 	}
 
 	public void assertNotNullEditPart(Object object) {
-		assertThat(getEditPartNull(object)).isNotNull();
+		Assertions.assertThat(getEditPartNull(object)).isNotNull();
 	}
 
 	/**
@@ -915,13 +914,13 @@ public final class GraphicalRobot {
 	 */
 	public GraphicalRobot assertSelectedEmpty() {
 		List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
-		assertThat(selectedEditParts).isEmpty();
+		Assertions.assertThat(selectedEditParts).isEmpty();
 		return this;
 	}
 
 	public void assertPrimarySelected(Object object) {
 		EditPart editPart = getEditPart(object);
-		assertThat(editPart.getSelected()).isEqualTo(EditPart.SELECTED_PRIMARY);
+		Assertions.assertThat(editPart.getSelected()).isEqualTo(EditPart.SELECTED_PRIMARY);
 	}
 
 	/**
@@ -930,12 +929,12 @@ public final class GraphicalRobot {
 	public void assertSelection(Object... objects) {
 		List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
 		GraphicalEditPart[] editParts = getEditParts(objects);
-		assertThat(selectedEditParts).containsExactly(editParts);
+		Assertions.assertThat(selectedEditParts).containsExactly(editParts);
 	}
 
 	public void assertChildrenCount(Object object, int count) {
 		EditPart editPart = getEditPart(object);
-		assertThat(editPart.getChildren()).hasSize(count);
+		Assertions.assertThat(editPart.getChildren()).hasSize(count);
 	}
 
 	/**
@@ -955,14 +954,14 @@ public final class GraphicalRobot {
 		{
 			Layer feedbackLayer = m_viewer.getLayer(layerName);
 			feedbacks = feedbackLayer.getChildren();
-			assertThat(feedbacks.size()).describedAs("Wrong count of feedbacks.").isEqualTo(
+			Assertions.assertThat(feedbacks.size()).describedAs("Wrong count of feedbacks.").isEqualTo(
 					predicates.length);
 		}
 		// check all feedback's
 		for (int i = 0; i < predicates.length; i++) {
 			Predicate<Figure> predicate = predicates[i];
 			Figure feedback = feedbacks.get(i);
-			assertThat(predicate.apply(feedback)).describedAs("Predicate [" + i + "] failed.").isTrue();
+			Assertions.assertThat(predicate.apply(feedback)).describedAs("Predicate [" + i + "] failed.").isTrue();
 		}
 	}
 
@@ -1018,7 +1017,7 @@ public final class GraphicalRobot {
 				}
 			}
 			// figure should be found
-			assertThat(figureFound).describedAs("No figure found for " + description).isTrue();
+			Assertions.assertThat(figureFound).describedAs("No figure found for " + description).isTrue();
 		}
 		// all figure should be matched
 		if (!feedbackFigures.isEmpty()) {
@@ -1032,7 +1031,7 @@ public final class GraphicalRobot {
 								+ " "
 								+ figure.toString();
 			}
-			assertThat(true).describedAs(message).isFalse();
+			Assertions.assertThat(true).describedAs(message).isFalse();
 		}
 	}
 
@@ -1040,14 +1039,14 @@ public final class GraphicalRobot {
 	 * Asserts that there are no {@link Figure}'s on feedback {@link Layer}.
 	 */
 	public void assertNoFeedbackFigures() {
-		assertThat(getFeedbackFigures().isEmpty()).describedAs("Feedback layer should be empty.").isTrue();
+		Assertions.assertThat(getFeedbackFigures().isEmpty()).describedAs("Feedback layer should be empty.").isTrue();
 	}
 
 	/**
 	 * Asserts that there are exactly given count of {@link Figure}'s on feedback {@link Layer}.
 	 */
 	public void assertFeedbackFigures(int count) {
-		assertThat(getFeedbackFigures()).hasSize(count);
+		Assertions.assertThat(getFeedbackFigures()).hasSize(count);
 	}
 
 	/**
@@ -1055,7 +1054,7 @@ public final class GraphicalRobot {
 	 */
 	public GraphicalRobot assertCommandNull() throws Exception {
 		final Command command = getCommand();
-		assertThat(command).describedAs(new Description() {
+		Assertions.assertThat(command).describedAs(new Description() {
 			@Override
 			public String value() {
 				return "Unexpected command " + command;
@@ -1069,7 +1068,7 @@ public final class GraphicalRobot {
 	 */
 	public GraphicalRobot assertCommandNotNull() throws Exception {
 		Command command = getCommand();
-		assertThat(command).describedAs("No command.").isNotNull();
+		Assertions.assertThat(command).describedAs("No command.").isNotNull();
 		return this;
 	}
 

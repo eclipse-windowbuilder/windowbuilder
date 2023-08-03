@@ -11,23 +11,22 @@
 package org.eclipse.wb.tests.designer.XML.model.association;
 
 import org.eclipse.wb.internal.core.xml.model.association.Association;
-import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * XML {@link Association} tests.
  *
  * @author scheglov_ke
  */
-public class AssociationTests extends DesignerSuiteTests {
-	public static Test suite() {
-		TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.association");
-		suite.addTest(createSingleSuite(DirectAssociationTest.class));
-		suite.addTest(createSingleSuite(OrderAssociationTest.class));
-		suite.addTest(createSingleSuite(PropertyAssociationTest.class));
-		suite.addTest(createSingleSuite(IntermediateAssociationTest.class));
-		return suite;
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+		DirectAssociationTest.class,
+		OrderAssociationTest.class,
+		PropertyAssociationTest.class,
+		IntermediateAssociationTest.class
+})
+public class AssociationTests {
 }

@@ -17,6 +17,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import org.junit.Test;
+
 /**
  * Test for {@link FormText}.
  *
@@ -42,6 +44,7 @@ public class FormTextTest extends AbstractFormsTest {
 	 * <p>
 	 * Problem is that it requires "com.ibm.icu" plugin, that is not included into list.
 	 */
+	@Test
 	public void test_create() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -59,6 +62,7 @@ public class FormTextTest extends AbstractFormsTest {
 	/**
 	 * {@link FormText} creates {@link Image} with its size, so throws exception when it is zero.
 	 */
+	@Test
 	public void test_zeroSize() throws Exception {
 		CompositeInfo shell =
 				parseComposite(

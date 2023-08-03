@@ -15,6 +15,8 @@ import org.eclipse.wb.internal.swing.gef.policy.layout.BorderLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.junit.Test;
+
 /**
  * Test for {@link BorderLayoutEditPolicy}.
  *
@@ -38,6 +40,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Test for setting layout.
 	 */
+	@Test
 	public void test_canvas_setLayout() throws Exception {
 		String[] source =
 				new String[]{
@@ -65,6 +68,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Test for dropping new component.
 	 */
+	@Test
 	public void test_canvas_CREATE() throws Exception {
 		openContainer(
 				"public class Test extends JPanel {",
@@ -102,6 +106,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Test for moving component with "normal" variable.
 	 */
+	@Test
 	public void test_canvas_MOVE_1() throws Exception {
 		check_MOVE(
 				"public class Test extends JPanel {",
@@ -118,6 +123,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Test for moving with "lazy" variable.
 	 */
+	@Test
 	public void test_canvas_MOVE_2() throws Exception {
 		check_MOVE(
 				"public class Test extends JPanel {",
@@ -138,6 +144,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Test: when no constraints (i.e. implicit CENTER), we should add argument, not just replace it.
 	 */
+	@Test
 	public void test_canvas_MOVE_3() throws Exception {
 		String[] source =
 				new String[]{
@@ -191,6 +198,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Test for ADD (reparenting) for "normal" variable.
 	 */
+	@Test
 	public void test_canvas_ADD_1() throws Exception {
 		String[] source =
 				new String[]{
@@ -240,6 +248,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	/**
 	 * Test for ADD (reparenting) for "lazy" variable.
 	 */
+	@Test
 	public void test_canvas_ADD_2() throws Exception {
 		String[] source =
 				new String[]{
@@ -337,6 +346,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE_hasEmptyRegion() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -363,6 +373,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_CREATE_noEmptyRegion() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -383,6 +394,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 		tree.assertCommandNull();
 	}
 
+	@Test
 	public void test_tree_MOVE() throws Exception {
 		ContainerInfo panel =
 				openContainer(
@@ -421,6 +433,7 @@ public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {
 				"}");
 	}
 
+	@Test
 	public void test_tree_ADD() throws Exception {
 		ContainerInfo panel =
 				openContainer(

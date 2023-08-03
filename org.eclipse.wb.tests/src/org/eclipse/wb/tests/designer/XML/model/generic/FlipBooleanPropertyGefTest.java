@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.XML.model.generic;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Test;
+
 /**
  * Tests for <code>double-click.flipBooleanProperty</code> support.
  *
@@ -33,6 +35,7 @@ public class FlipBooleanPropertyGefTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_doFlip() throws Exception {
 		prepareMyPanel(
 				"  <parameters>",
@@ -52,6 +55,7 @@ public class FlipBooleanPropertyGefTest extends XwtGefTest {
 	/**
 	 * If no specified property, then ignore.
 	 */
+	@Test
 	public void test_noSuchProperty() throws Exception {
 		prepareMyPanel(
 				"  <parameters>",
@@ -67,6 +71,7 @@ public class FlipBooleanPropertyGefTest extends XwtGefTest {
 	/**
 	 * If specified property is not boolean, then ignore.
 	 */
+	@Test
 	public void test_notBooleanProperty() throws Exception {
 		prepareMyPanel(
 				"  <parameters>",
@@ -79,6 +84,7 @@ public class FlipBooleanPropertyGefTest extends XwtGefTest {
 		assertXML("<t:MyComponent/>");
 	}
 
+	@Test
 	public void test_noFlipParameter() throws Exception {
 		prepareMyPanel(
 				"  <parameters>",

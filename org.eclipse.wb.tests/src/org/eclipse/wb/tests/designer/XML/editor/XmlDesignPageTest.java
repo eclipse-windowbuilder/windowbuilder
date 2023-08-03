@@ -40,6 +40,9 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchPage;
 
+import org.junit.After;
+import org.junit.Test;
+
 /**
  * Test for {@link XmlDesignPage} with {@link XmlExceptionComposite} and {@link XmlWarningComposite}
  * .
@@ -53,7 +56,8 @@ public class XmlDesignPageTest extends XwtGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		DesignerExceptionUtils.flushErrorEntriesCache();
 		DesignerPlugin.setDisplayExceptionOnConsole(true);
 		EnvironmentUtils.setTestingTime(true);
@@ -74,6 +78,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getUndoManager() throws Exception {
 		openEditor("<Shell/>");
 		// we can access it
@@ -88,6 +93,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	/**
 	 * Test that palette can be extracted into separate view.
 	 */
+	@Test
 	public void test_extractPalette() throws Exception {
 		openEditor("<Shell/>");
 		// make editor not maximized, or palette will not be extracted
@@ -129,6 +135,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	/**
 	 * Test for correctness of {@link DesignerState} changing.
 	 */
+	@Test
 	public void test_DesignerState() throws Exception {
 		{
 			IFile file =
@@ -175,6 +182,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	/**
 	 * Test for {@link DesignerState#Error} state.
 	 */
+	@Test
 	public void test_DesignerState_Error() throws Exception {
 		removeExceptionsListener();
 		DesignerPlugin.setDisplayExceptionOnConsole(false);
@@ -192,6 +200,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	/**
 	 * Test that {@link IDesignPageSite} is installed by {@link XmlDesignPage} and works.
 	 */
+	@Test
 	public void test_DesignPageSite() throws Exception {
 		openEditor("<Shell/>");
 		IDesignPageSite site = IDesignPageSite.Helper.getSite(m_lastObject);
@@ -238,6 +247,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	 * <p>
 	 * Use "Switch to code" button.
 	 */
+	@Test
 	public void test_ExceptionCompositeXML_switchToCode() throws Exception {
 		removeExceptionsListener();
 		DesignerPlugin.setDisplayExceptionOnConsole(false);
@@ -258,6 +268,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	 * <p>
 	 * Use "Reparse" button.
 	 */
+	@Test
 	public void test_ExceptionCompositeXML_reparse() throws Exception {
 		removeExceptionsListener();
 		DesignerPlugin.setDisplayExceptionOnConsole(false);
@@ -285,6 +296,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	 * <p>
 	 * Use "Contact Support..." button.
 	 */
+	@Test
 	public void test_ExceptionCompositeXML_contactSupport() throws Exception {
 		removeExceptionsListener();
 		DesignerPlugin.setDisplayExceptionOnConsole(false);
@@ -316,6 +328,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	 * Cause exception during editing operation, so {@link XmlExceptionComposite} should be displayed,
 	 * with "post-mortem" screenshot.
 	 */
+	@Test
 	public void test_ExceptionCompositeXML_withScreenshot() throws Exception {
 		removeExceptionsListener();
 		DesignerPlugin.setDisplayExceptionOnConsole(false);
@@ -351,6 +364,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	 * Cause exception with position during editing operation, so {@link XmlExceptionComposite} should
 	 * be displayed, with "Go to problem" button.
 	 */
+	@Test
 	public void test_ExceptionCompositeXML_withPosition() throws Exception {
 		removeExceptionsListener();
 		DesignerPlugin.setDisplayExceptionOnConsole(false);
@@ -382,6 +396,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	 * <p>
 	 * Cause exception in GEF {@link Command}, so {@link XmlExceptionComposite} should be displayed.
 	 */
+	@Test
 	public void test_ExceptionCompositeXML_exceptionInCommand() throws Exception {
 		removeExceptionsListener();
 		DesignerPlugin.setDisplayExceptionOnConsole(false);
@@ -415,6 +430,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	 * <p>
 	 * Use "Switch to code" button.
 	 */
+	@Test
 	public void test_WarningCompositeXML_switchToCode() throws Exception {
 		// ensure WarningCompositeXML opened
 		generateWarning();
@@ -433,6 +449,7 @@ public class XmlDesignPageTest extends XwtGefTest {
 	 * <p>
 	 * Use "Reparse" button.
 	 */
+	@Test
 	public void test_WarningCompositeXML_reparse() throws Exception {
 		// ensure WarningCompositeXML opened
 		generateWarning();

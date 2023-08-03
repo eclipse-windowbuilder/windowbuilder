@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
  *
  * @author sablin_aa
  */
-public class AbstractNebulaTest extends RcpModelTest {
+public abstract class AbstractNebulaTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle

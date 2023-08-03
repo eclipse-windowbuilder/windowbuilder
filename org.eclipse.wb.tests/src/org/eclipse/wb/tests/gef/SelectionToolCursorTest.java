@@ -22,6 +22,11 @@ import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
@@ -34,20 +39,12 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public SelectionToolCursorTest() {
-		super(SelectionTool.class);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// SetUp
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		// configure
 		m_tool = new SelectionTool();
@@ -60,7 +57,8 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		super.tearDown();
 		m_tool = null;
 		m_shellEditPart = null;
@@ -73,6 +71,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Move() throws Exception {
 		// first update cursor after mouse enter into viewer
 		{
@@ -118,6 +117,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 	}
 
+	@Test
 	public void test_ResizeTracker() throws Exception {
 		// first update cursor after mouse enter into viewer
 		{
@@ -227,7 +227,9 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 	}
 
-	public void DISABLE_test_ResizeTracker_Resize() throws Exception {
+	@Ignore
+	@Test
+	public void test_ResizeTracker_Resize() throws Exception {
 		ResizeCommand command = new ResizeCommand();
 		GraphicalEditPart editPart = createEditPart(m_shellEditPart, 10, 10, 50, 60, null, command);
 		command.setPart(editPart);
@@ -269,6 +271,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 	}
 
+	@Test
 	public void test_ResizeTracker_NoResize() throws Exception {
 		EditPart editPart = createEditPart(m_shellEditPart, 10, 10, 50, 60, null, Command.EMPTY);
 		m_viewer.select(editPart);
@@ -310,6 +313,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 	}
 
+	@Test
 	public void test_DragEditPartTracker_Click_NoMove() throws Exception {
 		CursorLogger expectedLogger = new CursorLogger();
 		// first update cursor after mouse enter into viewer
@@ -362,6 +366,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 	}
 
+	@Test
 	public void test_DragEditPartTracker_Move() throws Exception {
 		final GraphicalEditPart editPart = createEditPart(m_shellEditPart, 20, 20, 50, 50, null, null);
 		m_shellEditPart.installEditPolicy(EditPolicy.LAYOUT_ROLE, new LayoutEditPolicy() {
@@ -415,6 +420,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 	}
 
+	@Test
 	public void test_MarqueeDragTracker() throws Exception {
 		// first update cursor after mouse enter into viewer
 		{

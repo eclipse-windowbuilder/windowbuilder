@@ -16,7 +16,8 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.rcp.model.rcp.ExtensionElementProperty;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Tests for {@link ExtensionElementProperty}.
@@ -29,6 +30,7 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_existingProperty() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -87,6 +89,7 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 		"</plugin>"});
 	}
 
+	@Test
 	public void test_noValue_setNew() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -108,9 +111,10 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 		property.setValue(Property.UNKNOWN_VALUE);
 		assertFalse(property.isModified());
 		assertEquals("defaultValue", property.getValue());
-		assertThat(getPluginXML()).contains("id=\"id_1\"").contains("class=\"C_1\"").doesNotContain("value=");
+		Assertions.assertThat(getPluginXML()).contains("id=\"id_1\"").contains("class=\"C_1\"").doesNotContain("value=");
 	}
 
+	@Test
 	public void test_remoteAttribute_whenSetDefaultValue() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",
@@ -128,7 +132,7 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 		property.setValue("defaultValue");
 		assertFalse(property.isModified());
 		assertEquals("defaultValue", property.getValue());
-		assertThat(getPluginXML()).contains("id=\"id_1\"").contains("class=\"C_1\"").doesNotContain("value=");
+		Assertions.assertThat(getPluginXML()).contains("id=\"id_1\"").contains("class=\"C_1\"").doesNotContain("value=");
 	}
 
 	private ExtensionElementProperty<String> createPropertyWithDefaults() {
@@ -145,6 +149,7 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 				"defaultValue");
 	}
 
+	@Test
 	public void test_booleanValue() throws Exception {
 		createPluginXML(new String[]{
 				"<plugin>",

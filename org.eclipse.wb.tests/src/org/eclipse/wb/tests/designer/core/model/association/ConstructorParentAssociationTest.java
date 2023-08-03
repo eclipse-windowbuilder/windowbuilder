@@ -20,6 +20,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ConstructorParentAssociation}.
  *
@@ -31,6 +33,7 @@ public class ConstructorParentAssociationTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -50,6 +53,7 @@ public class ConstructorParentAssociationTest extends SwingModelTest {
 		assertEquals("new MyButton(this);", m_lastEditor.getSource(association.getStatement()));
 	}
 
+	@Test
 	public void test_delete() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -73,6 +77,7 @@ public class ConstructorParentAssociationTest extends SwingModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_morph() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -92,6 +97,7 @@ public class ConstructorParentAssociationTest extends SwingModelTest {
 		}
 	}
 
+	@Test
 	public void test_add() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -126,6 +132,7 @@ public class ConstructorParentAssociationTest extends SwingModelTest {
 		assertEquals("new MyButton(this)", association.getSource());
 	}
 
+	@Test
 	public void test_moveInner() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -164,6 +171,7 @@ public class ConstructorParentAssociationTest extends SwingModelTest {
 		assertEquals("new MyButton(this)", association.getSource());
 	}
 
+	@Test
 	public void test_moveReparent() throws Exception {
 		configureProject();
 		ContainerInfo panel =
@@ -209,6 +217,7 @@ public class ConstructorParentAssociationTest extends SwingModelTest {
 	/**
 	 * Test for reparenting that causes using different constructor.
 	 */
+	@Test
 	public void test_moveReparent_differentConstructor() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",

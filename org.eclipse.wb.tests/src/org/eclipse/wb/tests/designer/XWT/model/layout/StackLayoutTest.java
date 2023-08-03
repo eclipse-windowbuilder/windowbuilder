@@ -18,7 +18,8 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 import org.eclipse.swt.custom.StackLayout;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class StackLayoutTest extends XwtModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -59,6 +61,7 @@ public class StackLayoutTest extends XwtModelTest {
 				"  <Button wbp:name='button'>");
 	}
 
+	@Test
 	public void test_parseEmpty() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -74,6 +77,7 @@ public class StackLayoutTest extends XwtModelTest {
 	/**
 	 * During setting {@link StackLayout} there is time when we don't have yet container.
 	 */
+	@Test
 	public void test_setLayout_wasGridLayout() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -102,6 +106,7 @@ public class StackLayoutTest extends XwtModelTest {
 	/**
 	 * Only "topControl" should be visible on design canvas.
 	 */
+	@Test
 	public void test_visibilityGraphical() throws Exception {
 		CompositeInfo shell =
 				parse(
@@ -122,7 +127,7 @@ public class StackLayoutTest extends XwtModelTest {
 		// only "button_1" is in "graphical children"
 		{
 			List<ObjectInfo> children = shell.getPresentation().getChildrenGraphical();
-			assertThat(children).containsExactly(button_1);
+			Assertions.assertThat(children).containsExactly(button_1);
 		}
 	}
 
@@ -131,6 +136,7 @@ public class StackLayoutTest extends XwtModelTest {
 	// Flow container
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_flowContainer_CREATE_asFirst() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -156,6 +162,7 @@ public class StackLayoutTest extends XwtModelTest {
 		assertActiveControl(layout, newButton);
 	}
 
+	@Test
 	public void test_flowContainer_CREATE_andActivate() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -185,6 +192,7 @@ public class StackLayoutTest extends XwtModelTest {
 		assertActiveControl(layout, newButton);
 	}
 
+	@Test
 	public void test_flowContainer_MOVE() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -214,6 +222,7 @@ public class StackLayoutTest extends XwtModelTest {
 		assertActiveControl(layout, button_1);
 	}
 
+	@Test
 	public void test_flowContainer_ADD() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -254,6 +263,7 @@ public class StackLayoutTest extends XwtModelTest {
 	// Clipboard
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_clipboard() throws Exception {
 		final CompositeInfo shell =
 				parse(
@@ -309,6 +319,7 @@ public class StackLayoutTest extends XwtModelTest {
 	// activeControl
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_activeControl() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -340,6 +351,7 @@ public class StackLayoutTest extends XwtModelTest {
 		}
 	}
 
+	@Test
 	public void test_activeControl_whenDelete() throws Exception {
 		parse(
 				"// filler filler filler filler filler",
@@ -373,6 +385,7 @@ public class StackLayoutTest extends XwtModelTest {
 	 * Test for {@link StackLayoutInfo#getPrevControl()}, {@link StackLayoutInfo#getNextControl()} and
 	 * {@link StackLayoutInfo#show(ControlInfo)}.
 	 */
+	@Test
 	public void test_activeControl_showPrevNext() throws Exception {
 		parse(
 				"// filler filler filler filler filler",

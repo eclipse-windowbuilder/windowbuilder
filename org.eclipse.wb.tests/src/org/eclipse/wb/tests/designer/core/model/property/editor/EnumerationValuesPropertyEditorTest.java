@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.junit.Test;
+
 /**
  * Test for {@link EnumerationValuesPropertyEditor}.
  *
@@ -39,36 +41,43 @@ public class EnumerationValuesPropertyEditorTest extends SwingModelTest {
 	// Bad
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_bad_notArray() throws Exception {
 		prepareMyPanel("'notArrayValue'");
 		check_bad();
 	}
 
+	@Test
 	public void test_bad_notObjectArray() throws Exception {
 		prepareMyPanel("new int[0]");
 		check_bad();
 	}
 
+	@Test
 	public void test_bad_isArray_notArrayValue() throws Exception {
 		prepareMyPanel("new Object[]{'a', 'b'}");
 		check_bad();
 	}
 
+	@Test
 	public void test_bad_isArray_notMultiple3() throws Exception {
 		prepareMyPanel("new Object[]{'a', null, '0', 'b'}");
 		check_bad();
 	}
 
+	@Test
 	public void test_bad_isArray_notStringObjectString_1() throws Exception {
 		prepareMyPanel("new Object[]{null, null, '0'}");
 		check_bad();
 	}
 
+	@Test
 	public void test_bad_isArray_notStringObjectString_2() throws Exception {
 		prepareMyPanel("new Object[]{'a', null, null}");
 		check_bad();
 	}
 
+	@Test
 	public void test_bad_isArray_notStringObjectString_3() throws Exception {
 		prepareMyPanel("new Object[]{'a', null, '0', 'b', null, null}");
 		check_bad();
@@ -88,6 +97,7 @@ public class EnumerationValuesPropertyEditorTest extends SwingModelTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_0() throws Exception {
 		prepareMyPanel("new Object[]{'a', 1, '1', 'b', 2, '2'}");
 		GenericProperty property = getValueProperty();

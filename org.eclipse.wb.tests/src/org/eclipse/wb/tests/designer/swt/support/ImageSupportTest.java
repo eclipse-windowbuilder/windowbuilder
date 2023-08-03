@@ -12,6 +12,8 @@ package org.eclipse.wb.tests.designer.swt.support;
 
 import org.eclipse.wb.internal.swt.support.ImageSupport;
 
+import org.junit.Test;
+
 /**
  * Test for {@link ImageSupport}.
  *
@@ -32,6 +34,7 @@ public class ImageSupportTest extends AbstractSupportTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_createImage() throws Exception {
 		Object image =
 				ImageSupport.createImage(getClass().getResourceAsStream(
@@ -41,6 +44,7 @@ public class ImageSupportTest extends AbstractSupportTest {
 		ImageSupport.dispose(image);
 	}
 
+	@Test
 	public void test_getImageClass() throws Exception {
 		assertSame(
 				m_lastLoader.loadClass("org.eclipse.swt.graphics.Image"),

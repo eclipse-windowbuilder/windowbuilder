@@ -23,25 +23,20 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
+import org.junit.Test;
+
 /**
  * @author lobas_av
  *
  */
 public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public SelectAndDragEditPartTrackerTest() {
-		super(DragEditPartTracker.class);
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// SelectEditPartTracker
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Selection() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -160,6 +155,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 	// DragEditPartTracker
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_Drag_1() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -287,6 +283,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		}
 	}
 
+	@Test
 	public void test_Drag_2() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -366,6 +363,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		}
 	}
 
+	@Test
 	public void test_Drag_InvalidInput() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -437,6 +435,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		}
 	}
 
+	@Test
 	public void test_Drag_AncestorSelection() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -503,6 +502,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		}
 	}
 
+	@Test
 	public void test_Drag_WrongSelection() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
@@ -540,6 +540,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		}
 	}
 
+	@Test
 	public void test_Drag_MultiSelection() throws Exception {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//

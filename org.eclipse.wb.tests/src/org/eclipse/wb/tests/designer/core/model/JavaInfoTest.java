@@ -54,7 +54,8 @@ import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 import java.awt.Component;
 import java.util.List;
@@ -85,6 +86,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Simple {@link JPanel} without any related nodes.
 	 */
+	@Test
 	public void test_toString_0() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -99,6 +101,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * {@link JPanel} with related nodes.
 	 */
+	@Test
 	public void test_toString_1() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -116,6 +119,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * {@link JPanel} with child.
 	 */
+	@Test
 	public void test_toString_2() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -135,6 +139,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Component created as {@link AnonymousClassDeclaration}.
 	 */
+	@Test
 	public void test_toString_3() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -159,6 +164,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for {@link JavaInfo#isRepresentedBy(ASTNode)}.<br>
 	 * Request that should be handled by {@link CreationSupport}.
 	 */
+	@Test
 	public void test_isRepresentedBy_CreationSupport() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -178,6 +184,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for {@link JavaInfo#isRepresentedBy(ASTNode)}.<br>
 	 * Request using local unique variable, assigned in {@link VariableDeclarationFragment}.
 	 */
+	@Test
 	public void test_isRepresentedBy_localUniqueVariableDeclaration() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -198,6 +205,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for {@link JavaInfo#isRepresentedBy(ASTNode)}.<br>
 	 * Request using local unique variable, assigned using {@link Assignment}.
 	 */
+	@Test
 	public void test_isRepresentedBy_localUniqueVariableAssignment() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -222,6 +230,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for {@link JavaInfo#isRepresentedBy(ASTNode)}.<br>
 	 * Request using {@link FieldInitializerVariableSupport}.
 	 */
+	@Test
 	public void test_isRepresentedBy_fieldInitializer() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -243,6 +252,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for {@link JavaInfo#isRepresentedBy(ASTNode)}.<br>
 	 * Request using {@link FieldUniqueVariableSupport}, assigned using {@link Assignment}.
 	 */
+	@Test
 	public void test_isRepresentedBy_fieldUnique() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -268,6 +278,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * {@link JavaInfo#isRepresentedBy(org.eclipse.jdt.core.dom.ASTNode)} with
 	 * {@link SingleVariableDeclaration} in {@link CatchClause}.
 	 */
+	@Test
 	public void test_isRepresentedBy_referenceInTryStatement() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -297,6 +308,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for {@link JavaInfo#isRepresentedBy(ASTNode)}.<br>
 	 * Use {@link ParenthesizedExpression}.
 	 */
+	@Test
 	public void test_isRepresentedBy_ParenthesizedExpression() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -316,6 +328,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for {@link JavaInfo#isRepresentedBy(ASTNode)}.<br>
 	 * Use {@link CastExpression}.
 	 */
+	@Test
 	public void test_isRepresentedBy_CastExpression() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -336,6 +349,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * <p>
 	 * {@link FieldDeclaration} without assignment.
 	 */
+	@Test
 	public void test_isRepresentedBy_emptyField() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -355,6 +369,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * <p>
 	 * {@link FieldDeclaration} with {@link NullLiteral} initializer.
 	 */
+	@Test
 	public void test_isRepresentedBy_nullField() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -374,6 +389,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * <p>
 	 * {@link SingleVariableDeclaration} parameter and {@link ThisExpression}.
 	 */
+	@Test
 	public void test_isRepresentedBy_SingleVariableDeclaration() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -402,6 +418,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * <p>
 	 * {@link SingleVariableDeclaration} parameter.
 	 */
+	@Test
 	public void test_isRepresentedBy_SingleVariableDeclaration_moreThanOneInvocation()
 			throws Exception {
 		ContainerInfo panel =
@@ -425,6 +442,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#isRepresentedBy(ASTNode)}.
 	 */
+	@Test
 	public void test_isRepresentedBy_ConstructorInvocation_argument() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -459,6 +477,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * <p>
 	 * Attempt to ask using {@link ASTNode} from recursive method.
 	 */
+	@Test
 	public void test_isRepresentedBy_recursion() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -485,6 +504,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test that {@link JavaInfo#setVariableSupport(VariableSupport)} sends
 	 * {@link JavaInfoSetVariable} broadcast.
 	 */
+	@Test
 	public void test_setVariableBroadcast() throws Exception {
 		parseContainer(
 				"public class Test extends JPanel {",
@@ -524,6 +544,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#addExpressionStatement(String)}.
 	 */
+	@Test
 	public void test_addExpressionStatement_1_local() throws Exception {
 		JavaInfo panel =
 				parseContainer(
@@ -569,6 +590,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#addExpressionStatement(String, Map)}.
 	 */
+	@Test
 	public void test_addExpressionStatement_template() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -597,6 +619,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#replaceExpression(Expression, String)}.
 	 */
+	@Test
 	public void test_replaceExpression() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -642,6 +665,7 @@ public class JavaInfoTest extends SwingModelTest {
 	// MethodInvocation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_getMethodInvocations() throws Exception {
 		JavaInfo panel =
 				parseContainer(
@@ -676,6 +700,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for {@link JavaInfo#getMethodInvocations()}. For code like
 	 * <code>new Component().setFoo()</code> invocation <code>setFoo()</code> also should be added.
 	 */
+	@Test
 	public void test_getMethodInvocations_all_emptyInvocation() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -709,9 +734,10 @@ public class JavaInfoTest extends SwingModelTest {
 						"}");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		List<MethodInvocation> invocations = button.getMethodInvocations();
-		assertThat(invocations).isNotEmpty();
+		Assertions.assertThat(invocations).isNotEmpty();
 	}
 
+	@Test
 	public void test_removeMethodInvocations() throws Exception {
 		JavaInfo panel =
 				parseContainer(
@@ -734,6 +760,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#addMethodInvocation(String, String, String[])}.
 	 */
+	@Test
 	public void test_addMethodInvocation() throws Exception {
 		JavaInfo panel =
 				parseContainer(
@@ -758,6 +785,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#addMethodInvocation(StatementTarget, String, String)}.
 	 */
+	@Test
 	public void test_addMethodInvocation_withTarget() throws Exception {
 		JavaInfo panel =
 				parseContainer(
@@ -793,6 +821,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#addMethodInvocation(String, String, String[])}.
 	 */
+	@Test
 	public void test_addMethodInvocation_this() throws Exception {
 		JavaInfo panel =
 				parseContainer(
@@ -822,6 +851,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#getFieldAssignments()}.
 	 */
+	@Test
 	public void test_getAllFieldAssignments() throws Exception {
 		createTypeDeclaration(
 				"test",
@@ -846,7 +876,7 @@ public class JavaInfoTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// all assignments
 		List<Assignment> assignments = button.getFieldAssignments();
-		assertThat(assignments).hasSize(2);
+		Assertions.assertThat(assignments).hasSize(2);
 		assertEquals("button.m_value1 = 1", m_lastEditor.getSource(assignments.get(0)));
 		assertEquals("button.m_value2 = 2", m_lastEditor.getSource(assignments.get(1)));
 	}
@@ -854,6 +884,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#getFieldAssignments(String)}.
 	 */
+	@Test
 	public void test_getFieldAssignments() throws Exception {
 		createTypeDeclaration(
 				"test",
@@ -878,11 +909,11 @@ public class JavaInfoTest extends SwingModelTest {
 						"}");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// no such field
-		assertThat(button.getFieldAssignments("noSuchField")).isEmpty();
+		Assertions.assertThat(button.getFieldAssignments("noSuchField")).isEmpty();
 		// existing assignments
 		{
 			List<Assignment> assignments = button.getFieldAssignments("m_value");
-			assertThat(assignments).hasSize(2);
+			Assertions.assertThat(assignments).hasSize(2);
 			assertEquals("button.m_value = 1", m_lastEditor.getSource(assignments.get(0)));
 			assertEquals("button.m_value = 2", m_lastEditor.getSource(assignments.get(1)));
 		}
@@ -891,6 +922,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#getFieldAssignments(String)}, using {@link FieldAccess}.
 	 */
+	@Test
 	public void test_getFieldAssignments_FieldAccess() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -923,11 +955,11 @@ public class JavaInfoTest extends SwingModelTest {
 						"}");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// no such field
-		assertThat(button.getFieldAssignments("noSuchField")).isEmpty();
+		Assertions.assertThat(button.getFieldAssignments("noSuchField")).isEmpty();
 		// existing assignment
 		{
 			List<Assignment> assignments = button.getFieldAssignments("m_value");
-			assertThat(assignments).hasSize(1);
+			Assertions.assertThat(assignments).hasSize(1);
 			assertEquals("new MyButton(this).m_value = 1", m_lastEditor.getSource(assignments.get(0)));
 		}
 	}
@@ -935,6 +967,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#getFieldAssignment(String)}.
 	 */
+	@Test
 	public void test_getFieldAssignment() throws Exception {
 		createTypeDeclaration(
 				"test",
@@ -970,6 +1003,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for {@link JavaInfo#getFieldAssignment(String)}.<br>
 	 * Use {@link ParenthesizedExpression} as left hand side.
 	 */
+	@Test
 	public void test_getFieldAssignment_ParenthesizedExpression() throws Exception {
 		createTypeDeclaration(
 				"test",
@@ -1003,6 +1037,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#addFieldAssignment(String, String)}.
 	 */
+	@Test
 	public void test_addFieldAssignment() throws Exception {
 		createTypeDeclaration(
 				"test",
@@ -1040,6 +1075,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#removeFieldAssignments(String)}.
 	 */
+	@Test
 	public void test_removeFieldAssignments_normal() throws Exception {
 		createTypeDeclaration(
 				"test",
@@ -1077,6 +1113,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#removeFieldAssignments(String)}.
 	 */
+	@Test
 	public void test_removeFieldAssignments_withDangling() throws Exception {
 		createTypeDeclaration(
 				"test",
@@ -1115,6 +1152,7 @@ public class JavaInfoTest extends SwingModelTest {
 	// Delete
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_delete_1() throws Exception {
 		String[] lines =
 			{
@@ -1175,6 +1213,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * When we delete child and parent is created directly in association {@link Statement}, we should
 	 * materialize parent to prevent its removing with association.
 	 */
+	@Test
 	public void test_delete_whenNoParentVariable() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1209,6 +1248,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test that "false" from "canDelete" script disables delete.
 	 */
+	@Test
 	public void test_canDelete_script_false() throws Exception {
 		check_canDelete_script("false", false);
 	}
@@ -1216,6 +1256,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test that "true" from "canDelete" script enables delete.
 	 */
+	@Test
 	public void test_canDelete_script_true() throws Exception {
 		check_canDelete_script("true", true);
 	}
@@ -1223,6 +1264,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test that not boolean value from "canDelete" script disables delete.
 	 */
+	@Test
 	public void test_canDelete_script_notBoolean() throws Exception {
 		check_canDelete_script("42", false);
 	}
@@ -1268,6 +1310,7 @@ public class JavaInfoTest extends SwingModelTest {
 	// canBeRoot
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_canBeRoot() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1286,6 +1329,7 @@ public class JavaInfoTest extends SwingModelTest {
 	// this.fieldName
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_this_fieldName() throws Exception {
 		parseContainer(
 				"class Test extends JPanel {",
@@ -1309,6 +1353,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * When we use component, we can not see its <code>protected</code> properties.
 	 */
+	@Test
 	public void test_protectedProperty_use() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -1329,12 +1374,13 @@ public class JavaInfoTest extends SwingModelTest {
 						"  }",
 						"}");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
-		assertThat(button.getPropertyByTitle("foo")).isNull();
+		Assertions.assertThat(button.getPropertyByTitle("foo")).isNull();
 	}
 
 	/**
 	 * When we inherit from component, we can see its <code>protected</code> properties.
 	 */
+	@Test
 	public void test_protectedProperty_this() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -1354,12 +1400,13 @@ public class JavaInfoTest extends SwingModelTest {
 						"  public Test() {",
 						"  }",
 						"}");
-		assertThat(panel.getPropertyByTitle("foo")).isNotNull();
+		Assertions.assertThat(panel.getPropertyByTitle("foo")).isNotNull();
 	}
 
 	/**
 	 * Test for {@link JavaInfo#getPropertyByTitle(String)}.
 	 */
+	@Test
 	public void test_getPropertyByTitle() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1377,6 +1424,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * {@link ObjectInfo#getProperties()} should use broadcast
 	 * {@link ObjectInfoAllProperties#invoke(ObjectInfo, List)}.
 	 */
+	@Test
 	public void test_getProperties_allProperties() throws Exception {
 		final ContainerInfo panel =
 				parseContainer(
@@ -1386,7 +1434,7 @@ public class JavaInfoTest extends SwingModelTest {
 						"  }",
 						"}");
 		// initially "panel" has properties
-		assertThat(panel.getProperties()).isNotEmpty();
+		Assertions.assertThat(panel.getProperties()).isNotEmpty();
 		// add allProperties() listener
 		panel.addBroadcastListener(new ObjectInfoAllProperties() {
 			@Override
@@ -1396,7 +1444,7 @@ public class JavaInfoTest extends SwingModelTest {
 				}
 			}
 		});
-		assertThat(panel.getProperties()).isEmpty();
+		Assertions.assertThat(panel.getProperties()).isEmpty();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1404,6 +1452,7 @@ public class JavaInfoTest extends SwingModelTest {
 	// "Text" property as title decorator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_textInComponentTitle() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1431,6 +1480,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test for using <code>"visible"</code>, <code>"visible.inTree"</code>,
 	 * <code>"visible.inGraphical"</code>.
 	 */
+	@Test
 	public void test_visibility() throws Exception {
 		// create fixture
 		createModelType(
@@ -1520,9 +1570,9 @@ public class JavaInfoTest extends SwingModelTest {
 		ComponentInfo buttonC = childrenComponents.get(2);
 		ComponentInfo buttonD = childrenComponents.get(3);
 		// check visibility
-		assertThat(childrenComponents).contains(buttonA, buttonB, buttonC, buttonD);
-		assertThat(panel.getPresentation().getChildrenTree()).containsOnly(buttonA, buttonC);
-		assertThat(panel.getPresentation().getChildrenGraphical()).containsOnly(buttonA, buttonB);
+		Assertions.assertThat(childrenComponents).contains(buttonA, buttonB, buttonC, buttonD);
+		Assertions.assertThat(panel.getPresentation().getChildrenTree()).containsOnly(buttonA, buttonC);
+		Assertions.assertThat(panel.getPresentation().getChildrenGraphical()).containsOnly(buttonA, buttonB);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1534,6 +1584,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test that {@link JavaInfo#setObject(Object)} sends notification that is used by
 	 * {@link FieldAccessor} to fetch default value, but only first time during refresh().
 	 */
+	@Test
 	public void test_setObject_FieldAccessor_notification() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -1570,6 +1621,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * Test that {@link JavaInfo#setObject(Object)} sends notification that is used by
 	 * {@link SetterAccessor} to fetch default value, but only first time during refresh().
 	 */
+	@Test
 	public void test_setObject_SetterAccessor_notification() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -1611,6 +1663,7 @@ public class JavaInfoTest extends SwingModelTest {
 	 * <p>
 	 * In this case we allow when there is at least two components on our {@link JPanel}.
 	 */
+	@Test
 	public void test_setObject_objectReadyValidator() throws Exception {
 		setFileContentSrc(
 				"test/MyPanel.java",
@@ -1665,6 +1718,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#getChildByObject(Object)}.
 	 */
+	@Test
 	public void test_getChildByObject() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1685,6 +1739,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test for {@link JavaInfo#getChildByObject(Object)}.
 	 */
+	@Test
 	public void test_getChildByObject_absoluteLayout() throws Exception {
 		ContainerInfo panel =
 				parseContainer(
@@ -1707,6 +1762,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test that during "refresh" the script "refresh_afterCreate" is executed.
 	 */
+	@Test
 	public void test_refresh_afterCreate_script() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",
@@ -1747,6 +1803,7 @@ public class JavaInfoTest extends SwingModelTest {
 	/**
 	 * Test that for placeholder the script "refresh_afterCreate" is not executed.
 	 */
+	@Test
 	public void test_refresh_afterCreate_script_placeholder() throws Exception {
 		setFileContentSrc(
 				"test/MyButton.java",

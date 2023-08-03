@@ -16,6 +16,8 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Dimension;
 
+import org.junit.Test;
+
 /**
  * Test for {@link CompositeTopBoundsSupport}.
  *
@@ -36,6 +38,7 @@ public class CompositeTopBoundsSupportTest extends RcpModelTest {
 	// setSize()
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_setSize_Composite_noSizeInvocations() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -59,6 +62,7 @@ public class CompositeTopBoundsSupportTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_setSize_Composite_setSize_Point() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -84,6 +88,7 @@ public class CompositeTopBoundsSupportTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_setSize_Composite_setSize_ints() throws Exception {
 		CompositeInfo composite =
 				parseComposite(
@@ -109,6 +114,7 @@ public class CompositeTopBoundsSupportTest extends RcpModelTest {
 				"}");
 	}
 
+	@Test
 	public void test_setSize_Shell_noSizeInvocations() throws Exception {
 		CompositeInfo composite =
 				parseComposite(

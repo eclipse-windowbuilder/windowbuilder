@@ -14,7 +14,8 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainerFactory;
 import org.eclipse.wb.internal.rcp.swing2swt.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
  * Test {@link FlowLayoutInfo}.
@@ -36,6 +37,7 @@ public class FlowLayoutTest extends AbstractSwing2SwtTest {
 	// Tests
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_parse() throws Exception {
 		CompositeInfo shell =
 				parseComposite(
@@ -51,7 +53,7 @@ public class FlowLayoutTest extends AbstractSwing2SwtTest {
 				"  {new: swing2swt.layout.FlowLayout} {empty} {/setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5))/}");
 		FlowLayoutInfo layout = (FlowLayoutInfo) shell.getLayout();
 		// FlowLayout is "flow container"
-		assertThat(new FlowContainerFactory(layout, true).get()).isNotEmpty();
-		assertThat(new FlowContainerFactory(layout, false).get()).isNotEmpty();
+		Assertions.assertThat(new FlowContainerFactory(layout, true).get()).isNotEmpty();
+		Assertions.assertThat(new FlowContainerFactory(layout, false).get()).isNotEmpty();
 	}
 }

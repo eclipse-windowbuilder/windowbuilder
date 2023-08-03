@@ -16,6 +16,9 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Tests for {@link FormLayoutInfo} in GEF.
  *
@@ -28,7 +31,8 @@ public class FormLayoutGefTest extends XwtGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		prepareBox();
 	}
@@ -47,6 +51,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 	// Canvas
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_set() throws Exception {
 		CompositeInfo composite =
 				openEditor(
@@ -66,6 +71,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_canvas_CREATE() throws Exception {
 		CompositeInfo composite =
 				openEditor(
@@ -102,6 +108,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_canvas_PASTE() throws Exception {
 		CompositeInfo composite =
 				openEditor(
@@ -163,6 +170,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_canvas_MOVE() throws Exception {
 		CompositeInfo composite =
 				openEditor(
@@ -208,6 +216,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_canvas_RESIZE() throws Exception {
 		openEditor(
 				"<Composite>",
@@ -257,6 +266,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_canvas_ADD() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -308,6 +318,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 				"</Shell>");
 	}
 
+	@Test
 	public void test_delete() throws Exception {
 		openEditor(
 				"<Composite>",
@@ -344,6 +355,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 	// Tree
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Test
 	public void test_tree_CREATE() throws Exception {
 		CompositeInfo composite =
 				openEditor(
@@ -371,6 +383,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 		tree.assertPrimarySelected(newBox);
 	}
 
+	@Test
 	public void test_tree_PASTE() throws Exception {
 		CompositeInfo composite =
 				openEditor(
@@ -422,6 +435,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_tree_MOVE() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
@@ -451,6 +465,7 @@ public class FormLayoutGefTest extends XwtGefTest {
 				"</Composite>");
 	}
 
+	@Test
 	public void test_tree_ADD() throws Exception {
 		openEditor(
 				"// filler filler filler filler filler",
